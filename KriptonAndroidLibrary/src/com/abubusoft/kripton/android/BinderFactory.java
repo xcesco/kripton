@@ -2,9 +2,6 @@ package com.abubusoft.kripton.android;
 
 import com.abubusoft.kripton.android.json.JsonReader;
 import com.abubusoft.kripton.android.json.JsonWriter;
-import com.abubusoft.kripton.android.sql.DatabaseAdapter;
-import com.abubusoft.kripton.android.sql.DatabaseAdapterOptions;
-import com.abubusoft.kripton.android.sql.SQLiteFormat;
 import com.abubusoft.kripton.android.xml.XmlDOMReader;
 import com.abubusoft.kripton.android.xml.XmlPullWriter;
 import com.abubusoft.kripton.android.xml.XmlSAXReader;
@@ -120,16 +117,5 @@ public class BinderFactory {
 	public enum ReaderType {
 		SAX,
 		DOM;
-	}
-	
-	public static BinderSQLite getSQLiteReader(SQLiteFormat format)
-	{
-		return new BinderSQLite();
-	}
-
-	public static DatabaseAdapter getDatabaseAdapter(DatabaseAdapterOptions options) {
-		DatabaseAdapter adapter=options.type.adapter;
-		
-		return adapter;
 	}
 }
