@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.abubusoft.kripton"
+    android:versionCode="100"
+    android:versionName="1.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="21" />
+
+    <application>
+    </application>
+
+</manifest>

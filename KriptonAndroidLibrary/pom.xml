@@ -1,0 +1,158 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>Kripton Library</name>
+
+	<groupId>org.abubu</groupId>
+	<artifactId>kripton-lib</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<packaging>${packaging.type}</packaging>
+
+	<properties>
+		<!-- use UTF-8 for everything -->
+		<sourceEncoding>UTF-8</sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<description>Bind library to convert java POJO to XML, to JSON and viceversa .</description>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+							<!-- <failOnError>false</failOnError> -->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>android</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<properties>
+				<packaging.type>aar</packaging.type>
+
+				<android.version>5.0.1_r2</android.version>
+				<support-v4.version>21.0.3</support-v4.version>
+				<android-maven-plugin.version>4.1.0</android-maven-plugin.version>
+			</properties>
+
+			<dependencies>
+				<dependency>
+					<groupId>android</groupId>
+					<artifactId>android</artifactId>
+					<type>jar</type>
+					<version>${android.version}</version>
+					<scope>provided</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>com.android.support</groupId>
+					<artifactId>support-v4</artifactId>
+					<version>${support-v4.version}</version>
+					<type>aar</type>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+
+				<plugins>
+
+					<plugin>
+						<groupId>com.simpligility.maven.plugins</groupId>
+						<artifactId>android-maven-plugin</artifactId>
+						<version>${android-maven-plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<androidManifestFile>AndroidManifest.xml</androidManifestFile>
+							<resourceDirectory>res</resourceDirectory>
+							<assetsDirectory>assets</assetsDirectory>
+							<nativeLibrariesDirectory>libs</nativeLibrariesDirectory>
+							<includeLibsJarsFromAar>false</includeLibsJarsFromAar>
+							<attachSources>true</attachSources>
+						</configuration>
+					</plugin>
+
+				</plugins>
+				<pluginManagement>
+					<plugins>
+						<!--This plugin's configuration is used to store Eclipse m2e settings 
+							only. It has no influence on the Maven build itself. -->
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<version>1.0.0</version>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+												<artifactId>android-maven-plugin</artifactId>
+												<versionRange>[3.8.2,)</versionRange>
+												<goals>
+													<goal>consume-aar</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore></ignore>
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
+
+
+</project>
