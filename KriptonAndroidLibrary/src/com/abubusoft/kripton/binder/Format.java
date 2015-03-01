@@ -4,6 +4,7 @@ package com.abubusoft.kripton.binder;
  * Format controls XML format like encoding and indent.
  * 
  * @author bulldog
+ * @author xcesco
  *
  */
 public class Format {
@@ -25,6 +26,11 @@ public class Format {
 	 */
 	public Format() {
 		this(true);
+	}
+	
+	public static Format build()
+	{
+		return new Format();
 	}
 
 	
@@ -70,4 +76,25 @@ public class Format {
 	public String getEncoding() {
 		return this.encoding;
 	}
+	
+	/**
+	 * Indicates if serialized xml should be indented or not.
+	 * 
+	 * @return
+	 */
+	public Format indent(boolean value) {
+		this.indent=value;
+		return this;
+	}
+	
+	/**
+	 * Indicates if serialized xml should be indented or not.
+	 * 
+	 * @return
+	 */
+	public Format encoding(String value) {
+		this.encoding=value;
+		return this;
+	}
+
 }
