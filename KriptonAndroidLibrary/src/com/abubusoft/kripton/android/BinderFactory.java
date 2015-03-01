@@ -14,6 +14,7 @@ import com.abubusoft.kripton.binder.Format;
  * main entry of the Nano framework.
  * 
  * @author bulldog
+ * @author xcesco
  *
  */
 public class BinderFactory {

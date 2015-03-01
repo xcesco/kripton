@@ -25,12 +25,13 @@ import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.util.StringUtil;
 
 /**
- * BinderWriter implementation using org.json library,
+ * <p>BinderWriter implementation using org.json library,</p>
  * 
- * JsonWriter serializes POJO into JSON string, the serialization is guided by
- * mapping schema defined in the POJO using Nano annotations.
+ * <p>JsonWriter serializes POJO into JSON string, the serialization is guided by
+ * mapping schema defined in the POJO using Nano annotations.</p>
  * 
  * @author bulldog
+ * @author xcesco
  * 
  */
 public class JsonWriter implements BinderWriter {
