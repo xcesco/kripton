@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.reflect;
+package com.abubusoft.kripton.common;
 
 import java.util.List;
 import java.lang.reflect.Constructor;

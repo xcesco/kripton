@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.reflect;
+package com.abubusoft.kripton.common;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

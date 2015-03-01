@@ -19,7 +19,7 @@ import com.abubusoft.kripton.binder.Format;
 import com.abubusoft.kripton.binder.exception.MappingException;
 import com.abubusoft.kripton.binder.exception.ReaderException;
 import com.abubusoft.kripton.binder.transform.Transformer;
-import com.abubusoft.kripton.reflect.TypeReflector;
+import com.abubusoft.kripton.common.TypeReflector;
 
 
 /**

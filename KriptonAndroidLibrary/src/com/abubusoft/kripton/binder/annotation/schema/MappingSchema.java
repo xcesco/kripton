@@ -17,10 +17,10 @@ import com.abubusoft.kripton.binder.annotation.BindRoot;
 import com.abubusoft.kripton.binder.annotation.BindValue;
 import com.abubusoft.kripton.binder.exception.MappingException;
 import com.abubusoft.kripton.binder.transform.Transformer;
+import com.abubusoft.kripton.common.GenericClass;
 import com.abubusoft.kripton.common.LRUCache;
 import com.abubusoft.kripton.common.StringUtil;
-import com.abubusoft.kripton.reflect.GenericClass;
-import com.abubusoft.kripton.reflect.TypeReflector;
+import com.abubusoft.kripton.common.TypeReflector;
 
 /**
  * Factory class for OX mapping schema
