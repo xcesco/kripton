@@ -19,9 +19,9 @@ import com.abubusoft.kripton.binder.annotation.schema.ValueSchema;
 import com.abubusoft.kripton.binder.exception.MappingException;
 import com.abubusoft.kripton.binder.exception.WriterException;
 import com.abubusoft.kripton.binder.transform.Transformer;
+import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.json.internal.JSONArray;
 import com.abubusoft.kripton.json.internal.JSONObject;
-import com.abubusoft.kripton.util.StringUtil;
 
 
 /**

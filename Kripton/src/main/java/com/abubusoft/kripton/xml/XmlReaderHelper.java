@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.xml;
 
 import com.abubusoft.kripton.binder.annotation.schema.SchemaArray;
-import com.abubusoft.kripton.util.FastStack;
+import com.abubusoft.kripton.common.FastStack;
 
 /**
  * Helper class for XmlReader

@@ -10,7 +10,7 @@ import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.binder.BinderReader;
 import com.abubusoft.kripton.binder.BinderWriter;
 import com.abubusoft.kripton.binder.Format;
-import com.abubusoft.kripton.util.Base64;
+import com.abubusoft.kripton.common.Base64;
 
 public class BinderTest {
 

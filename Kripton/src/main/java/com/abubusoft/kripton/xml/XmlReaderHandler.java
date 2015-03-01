@@ -19,8 +19,8 @@ import com.abubusoft.kripton.binder.annotation.schema.SchemaArray;
 import com.abubusoft.kripton.binder.annotation.schema.ValueSchema;
 import com.abubusoft.kripton.binder.exception.ReaderException;
 import com.abubusoft.kripton.binder.transform.Transformer;
+import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.reflect.TypeReflector;
-import com.abubusoft.kripton.util.StringUtil;
 
 /**
  * SAX handler implementation for XmlSaxReader
