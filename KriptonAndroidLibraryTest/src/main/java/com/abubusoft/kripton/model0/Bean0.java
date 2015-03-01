@@ -12,6 +12,7 @@ import java.util.TimeZone;
 import com.abubusoft.kripton.binder.annotation.BindElement;
 
 /**
+ * Bean for test
  * @author xcesco
  *
  */
