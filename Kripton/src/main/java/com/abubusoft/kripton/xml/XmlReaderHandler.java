@@ -1,0 +1,278 @@
+package com.abubusoft.kripton.xml;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import com.abubusoft.kripton.binder.annotation.schema.AttributeSchema;
+import com.abubusoft.kripton.binder.annotation.schema.ElementSchema;
+import com.abubusoft.kripton.binder.annotation.schema.MappingSchema;
+import com.abubusoft.kripton.binder.annotation.schema.RootElementSchema;
+import com.abubusoft.kripton.binder.annotation.schema.SchemaArray;
+import com.abubusoft.kripton.binder.annotation.schema.ValueSchema;
+import com.abubusoft.kripton.binder.exception.ReaderException;
+import com.abubusoft.kripton.binder.transform.Transformer;
+import com.abubusoft.kripton.reflect.TypeReflector;
+import com.abubusoft.kripton.util.StringUtil;
+
+/**
+ * SAX handler implementation for XmlSaxReader
+ * 
+ * @author bulldog
+ * 
+ */
+class XmlReaderHandler extends DefaultHandler {
+
+	private XmlReaderHelper helper;
+
+	@Override
+	public void endDocument() throws SAXException {
+	}
+
+	public XmlReaderHandler(XmlReaderHelper helper) {
+		this.helper = helper;
+	}
+
+	private void populateAttributes(Object obj, Attributes attrs, MappingSchema ms) throws Exception {
+		Map<String, AttributeSchema> xml2AttributeSchemaMapping = ms.getXml2AttributeSchemaMapping();
+		for (int index = 0; index < attrs.getLength(); index++) {
+			String attrName = attrs.getLocalName(index);
+
+			AttributeSchema as = xml2AttributeSchemaMapping.get(attrName);
+			if (as == null)
+				continue;
+
+			String attrValue = attrs.getValue(index);
+			Field field = as.getField();
+			Object value = Transformer.read(attrValue, field.getType());
+			field.set(obj, value);
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void startElement(String uri, String localName, String name, Attributes attrs) throws SAXException {
+		try {
+			Object obj = helper.valueStack.peek();
+			MappingSchema ms = MappingSchema.fromObject(obj);
+
+			Map<String, Object> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
+			if (xmlWrapper2SchemaMapping.containsKey(localName)) {
+				// SchemaArray value = new SchemaArray((AbstractSchema)
+				// xmlWrapper2SchemaMapping.get(localName), new ArrayList());
+				// helper.arrayStack.add(value);
+				return;
+			}
+
+			helper.depth++;
+			// clear the textBuilder
+			helper.clearTextBuffer();
+
+			if (helper.depth > helper.valueStack.size() + 1) {
+				// unexpected xml element, just ignore
+				return;
+			}
+
+			if (helper.isRoot()) { // first time root element mapping
+				RootElementSchema res = ms.getRootElementSchema();
+				String xmlName = res.getName();
+				// String namespace = res.getNamespace();
+				// validation only for root element
+				// String srcXmlFullname = StringUtil.isEmpty(uri)?localName:"{"
+				// + uri + "}#" + localName;
+				// String targetXmlFullname =
+				// StringUtil.isEmpty(namespace)?xmlName:"{" + namespace + "}#"
+				// + xmlName;
+				// if (!srcXmlFullname.equals(targetXmlFullname)) {
+				// throw new ReaderException("Root element name mismatch, " +
+				// targetXmlFullname + " != " + srcXmlFullname);
+				// }
+
+				// simple validation only for root element
+				if (!xmlName.equalsIgnoreCase(localName)) {
+					throw new ReaderException("Root element name mismatch, " + localName + " != " + xmlName);
+				}
+
+				if (attrs != null && attrs.getLength() > 0) {
+					this.populateAttributes(obj, attrs, ms);
+				}
+			} else { // sub element mapping
+				Map<String, Object> xml2SchemaMapping = ms.getXml2SchemaMapping();
+
+				Object schema = xml2SchemaMapping.get(localName);
+				if (schema != null && schema instanceof ElementSchema) {
+					ElementSchema es = (ElementSchema) schema;
+
+					Field field = es.getField();
+
+					// detect type
+					Class<?> type = field.getType();
+					if (es.isList()) {
+						type = es.getParameterizedType();
+					} else if (es.isArray()) {
+						type = type.getComponentType();
+					}
+
+					if (!Transformer.isPrimitive(type)) {
+
+						MappingSchema newMs = MappingSchema.fromClass(type);
+						Constructor con = null;
+						try {
+							con = TypeReflector.getConstructor(type);
+						} catch (NoSuchMethodException nsme) {
+							throw new ReaderException("No-arg constructor is missing, type = " + type.getName());
+						}
+						Object newObj = con.newInstance();
+						if (attrs != null && attrs.getLength() > 0) {
+							this.populateAttributes(newObj, attrs, newMs);
+						}
+
+						helper.valueStack.push(newObj);
+					}
+
+				}
+			}
+
+		} catch (Exception ex) {
+			throw new SAXException("Reading exception in startElement, " + ex.getMessage(), ex);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void endElement(String uri, String localName, String name) throws SAXException {
+		try {
+			{
+				Object obj = helper.valueStack.peek();
+				MappingSchema ms = MappingSchema.fromObject(obj);
+
+				Map<String, Object> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
+				if (xmlWrapper2SchemaMapping.containsKey(localName)) {
+					// ArrayList array = helper.listStack.pop();
+					return;
+				}
+
+				SchemaArray lastArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
+				if (lastArray != null) {
+					if (lastArray.value0.getField().getDeclaringClass() == obj.getClass() && !lastArray.value0.getName().equals(localName)) {
+						Object schema = lastArray.value0;
+						if (schema != null && schema instanceof ElementSchema) {
+							ElementSchema es = (ElementSchema) schema;
+							Field field = es.getField();
+
+							Object value = lastArray.value1.toArray((Object[]) Array.newInstance(es.getParameterizedType(), lastArray.value1.size()));
+							if (!field.isAccessible()) {
+								field.setAccessible(true);
+							}
+							field.set(obj, value);
+							helper.arrayStack.pop();
+						}
+
+					}
+				}
+
+			}
+
+			if (helper.depth > helper.valueStack.size() + 1) {
+				// unexpected xml element, just ignore
+				helper.depth--;
+				return;
+			} else if (helper.depth == helper.valueStack.size() + 1) {
+				// handle primitive field
+				// Object obj = helper.valueStack.peek();
+				Object obj = helper.valueStack.peek();
+				MappingSchema ms = MappingSchema.fromObject(obj);
+
+				Map<String, Object> xml2SchemaMapping = ms.getXml2SchemaMapping();
+				Object schema = xml2SchemaMapping.get(localName);
+				if (schema != null && schema instanceof ElementSchema) {
+					ElementSchema es = (ElementSchema) schema;
+					Field field = es.getField();
+					String xmlData = helper.textBuilder.toString();
+					if (!StringUtil.isEmpty(xmlData)) {
+						if (es.isList()) {
+							Class<?> paramizedType = es.getParameterizedType();
+							Object value = Transformer.read(xmlData, paramizedType);
+							List list = (List) field.get(obj);
+							if (list == null) {
+								list = new ArrayList();
+								field.set(obj, list);
+							}
+							list.add(value);
+						} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
+							SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
+
+							if (schemaArray == null || schemaArray.value0 != es) {
+								schemaArray = new SchemaArray(es, new ArrayList());
+								helper.arrayStack.add(schemaArray);
+							}
+							Class<?> paramizedType = es.getParameterizedType();
+							Object value = Transformer.read(xmlData, paramizedType);
+
+							schemaArray.value1.add(value);
+
+						} else {
+							Object value = Transformer.read(xmlData, field.getType());
+							field.set(obj, value);
+						}
+					}
+				}
+			} else if (helper.depth == helper.valueStack.size()) {
+				// handle object field
+				Object obj = helper.valueStack.pop();
+				MappingSchema ms = MappingSchema.fromObject(obj);
+
+				if (helper.valueStack.size() == 0) { // the end
+					helper.valueStack.push(obj);
+					helper.depth--;
+					return;
+				}
+
+				ValueSchema vs = ms.getValueSchema();
+				if (vs != null) {
+					Field field = vs.getField();
+					String xmlData = helper.textBuilder.toString();
+					if (!StringUtil.isEmpty(xmlData)) {
+						Object value = Transformer.read(xmlData, field.getType());
+						field.set(obj, value);
+					}
+				}
+
+				Object parentObj = helper.valueStack.peek();
+				MappingSchema parentMs = MappingSchema.fromObject(parentObj);
+				Map<String, Object> parentXml2SchemaMapping = parentMs.getXml2SchemaMapping();
+
+				Object schema = parentXml2SchemaMapping.get(localName);
+				if (schema != null && schema instanceof ElementSchema) {
+					ElementSchema es = (ElementSchema) schema;
+					Field field = es.getField();
+					if (es.isList() || (es.isArray() && es.getParameterizedType() != Byte.TYPE)) {
+						List list = (List) field.get(parentObj);
+						if (list == null) {
+							list = new ArrayList();
+							field.set(parentObj, list);
+						}
+						list.add(obj);
+					} else {
+						field.set(parentObj, obj);
+					}
+				}
+
+			}
+
+			helper.depth--;
+		} catch (Exception ex) {
+			throw new SAXException("Reading Exception in endElement, " + ex.getMessage(), ex);
+		}
+	}
+
+	public void characters(char[] ch, int start, int length) throws SAXException {
+		String text = new String(ch, start, length);
+		helper.textBuilder.append(text);
+	}
+}
