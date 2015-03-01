@@ -2,7 +2,7 @@ package com.abubusoft.kripton.binder.transform;
 
 import javax.xml.namespace.QName;
 
-import com.abubusoft.kripton.util.StringUtil;
+import com.abubusoft.kripton.common.StringUtil;
 
 
 public class QNameTransform implements Transformable<QName> {

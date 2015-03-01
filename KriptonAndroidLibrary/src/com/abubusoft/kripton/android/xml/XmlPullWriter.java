@@ -28,7 +28,7 @@ import com.abubusoft.kripton.binder.annotation.schema.ValueSchema;
 import com.abubusoft.kripton.binder.exception.MappingException;
 import com.abubusoft.kripton.binder.exception.WriterException;
 import com.abubusoft.kripton.binder.transform.Transformer;
-import com.abubusoft.kripton.util.StringUtil;
+import com.abubusoft.kripton.common.StringUtil;
 
 /**
  * BinderWriter implementation using kxml pull parser.

@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.binder.transform;
 
-import com.abubusoft.kripton.util.Base64;
+import com.abubusoft.kripton.common.Base64;
 
 /**
  * Transformer between a base64 encoded string and a byte[]

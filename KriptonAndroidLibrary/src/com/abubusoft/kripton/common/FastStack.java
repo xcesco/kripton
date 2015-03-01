@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.util;
+package com.abubusoft.kripton.common;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
