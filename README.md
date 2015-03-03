@@ -93,4 +93,4 @@ To convert xml string to java pojo:
     BinderReader xmlReader=BinderFactory.getXMLReader();
     SimpleBean beanResult = xmlReader.read(SimpleBean.class, xmlBuffer);
 
-Quite simple isn't?
+Quite simple, isn't it?
