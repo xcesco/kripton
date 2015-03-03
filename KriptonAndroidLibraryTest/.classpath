@@ -23,10 +23,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/MyProgramFiles/Eclipse/eclipse-jee-luna-SR1a/plugins/org.junit_4.11.0.v201303080030/junit.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://junit-team.github.io/junit/javadoc/latest/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
