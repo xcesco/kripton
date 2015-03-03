@@ -91,3 +91,5 @@ To convert xml string to java pojo:
     SimpleBean beanResult = xmlReader.read(SimpleBean.class, xmlBuffer);
 
 Quite simple, isn't it?
+
+For documentation, please visit https://github.com/xcesco/Kripton/wiki
