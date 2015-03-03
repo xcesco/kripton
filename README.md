@@ -2,14 +2,14 @@
 A simple Java-XML-JSON binder for Android and Java platforms environment
 
 Introduction
-============
+--------------
 
-Kritpon is a small library for simple persistance of java POJO in XML and JSON. The rules needed is expressed throw annotation. I know there are many other framework and library do this for me, but i want:
+Kritpon is a small library made for translate java POJO in XML and JSON and viceversa. The rules needed are expressed through annotations. I know there are many other framework and library do this for me, but my goals are:
 
- - have a library as small as possible written for android.
- - have an equivalent library for generic java environment.
+- build the smallest library to do the translation written for android.
+- have an equivalent library for generic java environment.
 
-I found fantastic libraries that i partially reuse in kripton
+I found some fantastic libraries that i partially reused in kripton
 
  - https://github.com/bulldog2011/nano
  - https://github.com/google/guava
