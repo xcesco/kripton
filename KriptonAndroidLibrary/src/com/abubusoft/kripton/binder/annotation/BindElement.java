@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
  * This annotation maps a POJO field to an XML/JSON element
  * 
  * @author bulldog
+ * @author xcesco
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)

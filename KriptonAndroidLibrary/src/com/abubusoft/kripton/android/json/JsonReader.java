@@ -39,6 +39,9 @@ import com.abubusoft.kripton.common.TypeReflector;
  */
 public class JsonReader implements BinderReader {
 
+	/**
+	 * format of json reader
+	 */
 	private Format format;
 
 	public JsonReader() {

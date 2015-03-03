@@ -26,6 +26,7 @@ import com.abubusoft.kripton.common.TypeReflector;
  * SAX handler implementation for XmlSaxReader
  * 
  * @author bulldog
+ * @author xcesco
  * 
  */
 class XmlReaderHandler extends DefaultHandler {

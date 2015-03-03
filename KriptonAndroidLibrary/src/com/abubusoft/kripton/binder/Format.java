@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.binder;
 
 /**
- * Format controls XML format like encoding and indent.
+ * XML/JSON format like encoding and indent.
  * 
  * @author bulldog
  * @author xcesco
@@ -11,10 +11,14 @@ public class Format {
 	
 	private static final String DEFAULT_ENCODING = "utf-8";
 	
-	// Encoding for the xml
+	/**
+	 * Encoding for the xml
+	 */
 	private String encoding;
 	
-	// Indicates if serialized xml should be indented or not 
+	/**
+	 * Indicates if serialized xml should be indented or not 
+	 */
 	private boolean indent;
 
 	/**
@@ -28,6 +32,10 @@ public class Format {
 		this(true);
 	}
 	
+	/**
+	 * Builder for format class
+	 * @return
+	 */
 	public static Format build()
 	{
 		return new Format();
