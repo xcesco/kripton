@@ -15,9 +15,20 @@
 		<sourceEncoding>UTF-8</sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<android-maven-plugin.version>4.1.0</android-maven-plugin.version>
 	</properties>
 
 	<description>Bind library to convert java POJO to XML, to JSON and viceversa .</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.robolectric</groupId>
+			<artifactId>android-all</artifactId>
+			<version>5.0.0_r2-robolectric-0</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -32,46 +43,51 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
 	<profiles>
 		<profile>
-			<id>android</id>
-
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-
-			<properties>
-				<android.version>5.0.1_r2</android.version>
-				<support-v4.version>21.0.3</support-v4.version>
-				<android-maven-plugin.version>4.1.0</android-maven-plugin.version>
-			</properties>
-
-			<dependencies>
-				<dependency>
-					<groupId>android</groupId>
-					<artifactId>android</artifactId>
-					<type>jar</type>
-					<version>${android.version}</version>
-					<scope>provided</scope>
-				</dependency>
-
-				<dependency>
-					<groupId>com.android.support</groupId>
-					<artifactId>support-v4</artifactId>
-					<version>${support-v4.version}</version>
-					<type>aar</type>
-					<scope>provided</scope>
-				</dependency>
-			</dependencies>
+			<id>deploy</id>
 
 			<build>
-
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 
+			<!-- distribution manager -->
+			<distributionManagement>
+				<snapshotRepository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+				<repository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
+
+		</profile>
+
+		<profile>
+			<id>release</id>
+
+			<build>
+				<plugins>
 					<plugin>
 						<groupId>com.simpligility.maven.plugins</groupId>
 						<artifactId>android-maven-plugin</artifactId>
@@ -87,62 +103,6 @@
 						</configuration>
 					</plugin>
 
-				</plugins>
-				<pluginManagement>
-					<plugins>
-						<!--This plugin's configuration is used to store Eclipse m2e settings 
-							only. It has no influence on the Maven build itself. -->
-						<plugin>
-							<groupId>org.eclipse.m2e</groupId>
-							<artifactId>lifecycle-mapping</artifactId>
-							<version>1.0.0</version>
-							<configuration>
-								<lifecycleMappingMetadata>
-									<pluginExecutions>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-												<artifactId>android-maven-plugin</artifactId>
-												<versionRange>[3.8.2,)</versionRange>
-												<goals>
-													<goal>consume-aar</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore></ignore>
-											</action>
-										</pluginExecution>
-									</pluginExecutions>
-								</lifecycleMappingMetadata>
-							</configuration>
-						</plugin>
-					</plugins>
-				</pluginManagement>
-			</build>
-		</profile>
-		
-		<profile>
-			<id>deploy</id>
-			
-			<!-- distribution manager -->
-			<distributionManagement>
-				<snapshotRepository>
-					<id>ossrh</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-				</snapshotRepository>
-				<repository>
-					<id>ossrh</id>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-				</repository>
-			</distributionManagement>
-			
-		</profile>
-
-		<profile>
-			<id>release</id>
-
-			<build>
-				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
@@ -175,21 +135,38 @@
 						</executions>
 					</plugin>
 
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
 				</plugins>
+
+				<pluginManagement>
+					<plugins>
+						<!--This plugin's configuration is used to store Eclipse m2e settings 
+							only. It has no influence on the Maven build itself. -->
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<version>1.0.0</version>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+												<artifactId>android-maven-plugin</artifactId>
+												<versionRange>[3.8.2,)</versionRange>
+												<goals>
+													<goal>consume-aar</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore></ignore>
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
 			</build>
 		</profile>
 	</profiles>
