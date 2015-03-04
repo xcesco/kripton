@@ -27,6 +27,7 @@ import com.abubusoft.kripton.common.TypeReflector;
  * 
  * 
  * @author bulldog
+ * @author xcesco
  * 
  */
 public class MappingSchema {
@@ -125,7 +126,7 @@ public class MappingSchema {
 				ElementSchema es = (ElementSchema) schemaObj;
 				xml2SchemaMapping.put(es.getName(), es);
 
-				// se esiste un wrapper lo mettiamo nell'apposita mappa
+				// if exist a wrapper, put it in map
 				if (es.hasWrapperName()) {
 					xmlWrapper2SchemaMapping.put(es.getWrapperName(), es);
 				}

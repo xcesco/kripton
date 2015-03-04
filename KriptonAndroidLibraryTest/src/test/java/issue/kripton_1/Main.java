@@ -1,13 +1,15 @@
 /**
  * 
  */
-package com.abubusoft.kripton.sample01;
+package issue.kripton_1;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import com.abubusoft.kripton.BinderFactory;
+import org.junit.Test;
+
+import com.abubusoft.kripton.android.BinderFactory;
 import com.abubusoft.kripton.binder.BinderReader;
 import com.abubusoft.kripton.binder.BinderWriter;
 import com.abubusoft.kripton.binder.exception.MappingException;
@@ -20,13 +22,8 @@ import com.abubusoft.kripton.binder.exception.WriterException;
  */
 public class Main {
 
-	/**
-	 * @param args
-	 * @throws MappingException 
-	 * @throws WriterException 
-	 * @throws ReaderException 
-	 */
-	public static void main(String[] args) throws WriterException, MappingException, ReaderException {
+	@Test
+	public void test() throws WriterException, MappingException, ReaderException {
 		Employee bean=new Employee();
 		
 		bean.setName("Tonj");

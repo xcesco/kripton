@@ -5,7 +5,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -150,8 +152,9 @@ public class JsonWriter implements BinderWriter {
 	}
 
 	private void writeElementArray(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {
-		Object[] list = (Object[]) source;
-		if (list.length > 0) {
+		int size=Array.getLength(source);
+		
+		if (size > 0) {			
 			//TODO wrapper
 			//String key = es.getName();
 			String key = es.getWrapperName();
@@ -159,7 +162,10 @@ public class JsonWriter implements BinderWriter {
 			
 			JSONArray jsonArray = new JSONArray();
 			jsonObject.put(key, jsonArray);
-			for (Object value : list) {
+			Object value;
+			
+			for (int i=0; i<size;i++) {
+				value=Array.get(source, i);
 				if (value == null)
 					continue;
 

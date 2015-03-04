@@ -205,7 +205,7 @@ public class JsonReader implements BinderReader {
 								readList(instance, type, field, jsonArray);
 							}
 						}
-					} else if (es.isArray() && es.getParameterizedType()!=Byte.TYPE) {
+					} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
 						// Array
 						Class<?> type = es.getParameterizedType();
 						if (jsonValue instanceof JSONArray) {
@@ -271,29 +271,25 @@ public class JsonReader implements BinderReader {
 
 	@SuppressWarnings({ "rawtypes" })
 	private void readArray(Object instance, Class<?> type, Field field, JSONArray jsonArray) throws Exception {
-		if (Transformer.isPrimitive(type)) {
-			Object[] array = (Object[]) Array.newInstance(type, jsonArray.length());
-			field.set(instance, array);
+		Object array = Array.newInstance(type, jsonArray.length());
+		field.set(instance, array);
 
-			for (int i = 0; i < jsonArray.length(); i++) {
-				Object jsonValue = jsonArray.get(i);
-				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
-					Object value = Transformer.read(String.valueOf(jsonValue), type);
-					array[i] = value;
-				}
-			}
-		} else { // Object
-			Object[] array = (Object[]) Array.newInstance(type, jsonArray.length());
-			field.set(instance, array);
+		Object subObj;
+		Object jsonValue;
+		for (int i = 0; i < jsonArray.length(); i++) {
+			jsonValue = jsonArray.get(i);
+			if (jsonValue instanceof JSONObject) {
+				Constructor con = TypeReflector.getConstructor(type);
+				subObj = con.newInstance();
+				Array.set(array, i, subObj);
+				this.readObject(subObj, (JSONObject) jsonValue);
+			} else if (jsonValue instanceof JSONArray) {
+				//TODO to implement
+			} else {
+				// (!(jsonValue instanceof JSONObject) && !()) {
+				subObj = Transformer.read(String.valueOf(jsonValue), type);
+				Array.set(array, i, subObj);
 
-			for (int i = 0; i < jsonArray.length(); i++) {
-				Object jsonValue = jsonArray.get(i);
-				if (jsonValue instanceof JSONObject) {
-					Constructor con = TypeReflector.getConstructor(type);
-					Object subObj = con.newInstance();
-					array[i] = subObj;
-					this.readObject(subObj, (JSONObject) jsonValue);
-				}
 			}
 		}
 	}

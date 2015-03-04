@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.abubusoft.kripton.sample01;
+package issue.kripton_1;
 
 import java.util.Date;
 import java.util.List;
