@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.abubusoft.kripton.binder.annotation.schema;
+package com.abubusoft.kripton.binder.schema;
 
 import java.util.ArrayList;
 
-import com.abubusoft.kripton.binder.annotation.schema.AbstractSchema;
+import com.abubusoft.kripton.binder.schema.AbstractSchema;
 import com.abubusoft.kripton.common.Pair;
 
 /**

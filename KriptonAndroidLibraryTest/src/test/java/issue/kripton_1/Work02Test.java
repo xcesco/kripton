@@ -8,10 +8,10 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.abubusoft.kripton.BinderReader;
+import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.android.BinderFactory;
 import com.abubusoft.kripton.android.BinderFactory.ReaderType;
-import com.abubusoft.kripton.binder.BinderReader;
-import com.abubusoft.kripton.binder.BinderWriter;
 import com.abubusoft.kripton.binder.exception.MappingException;
 import com.abubusoft.kripton.binder.exception.ReaderException;
 import com.abubusoft.kripton.binder.exception.WriterException;

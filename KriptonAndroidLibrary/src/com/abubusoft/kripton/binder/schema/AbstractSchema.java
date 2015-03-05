@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.binder.annotation.schema;
+package com.abubusoft.kripton.binder.schema;
 
 import java.lang.reflect.Field;
 

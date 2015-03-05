@@ -1,10 +1,10 @@
-package com.abubusoft.kripton.binder;
+package com.abubusoft.kripton;
 
 import java.io.InputStream;
 import java.io.Reader;
 
-import com.abubusoft.kripton.binder.exception.MappingException;
-import com.abubusoft.kripton.binder.exception.ReaderException;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.ReaderException;
 
 
 /**

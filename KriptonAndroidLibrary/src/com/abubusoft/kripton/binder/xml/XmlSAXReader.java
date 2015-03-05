@@ -14,10 +14,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.abubusoft.kripton.binder.BinderReader;
-import com.abubusoft.kripton.binder.Format;
-import com.abubusoft.kripton.binder.exception.MappingException;
-import com.abubusoft.kripton.binder.exception.ReaderException;
+import com.abubusoft.kripton.BinderReader;
+import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.common.TypeReflector;
 

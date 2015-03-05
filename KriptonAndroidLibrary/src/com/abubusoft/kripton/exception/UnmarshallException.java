@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.binder.exception;
+package com.abubusoft.kripton.exception;
 
 public class UnmarshallException extends Exception {
 	

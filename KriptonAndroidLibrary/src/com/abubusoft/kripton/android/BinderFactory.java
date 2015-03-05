@@ -1,9 +1,9 @@
 package com.abubusoft.kripton.android;
 
+import com.abubusoft.kripton.BinderReader;
+import com.abubusoft.kripton.BinderWriter;
+import com.abubusoft.kripton.Format;
 import com.abubusoft.kripton.android.xml.XmlPullWriter;
-import com.abubusoft.kripton.binder.BinderReader;
-import com.abubusoft.kripton.binder.BinderWriter;
-import com.abubusoft.kripton.binder.Format;
 import com.abubusoft.kripton.binder.json.JsonReader;
 import com.abubusoft.kripton.binder.json.JsonWriter;
 import com.abubusoft.kripton.binder.xml.XmlDOMReader;

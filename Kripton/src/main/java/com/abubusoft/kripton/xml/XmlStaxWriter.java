@@ -17,16 +17,16 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.abubusoft.kripton.binder.BinderWriter;
-import com.abubusoft.kripton.binder.Format;
-import com.abubusoft.kripton.binder.annotation.schema.AnyElementSchema;
-import com.abubusoft.kripton.binder.annotation.schema.AttributeSchema;
-import com.abubusoft.kripton.binder.annotation.schema.ElementSchema;
-import com.abubusoft.kripton.binder.annotation.schema.MappingSchema;
-import com.abubusoft.kripton.binder.annotation.schema.RootElementSchema;
-import com.abubusoft.kripton.binder.annotation.schema.ValueSchema;
-import com.abubusoft.kripton.binder.exception.MappingException;
-import com.abubusoft.kripton.binder.exception.WriterException;
+import com.abubusoft.kripton.BinderWriter;
+import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.WriterException;
+import com.abubusoft.kripton.binder.schema.AnyElementSchema;
+import com.abubusoft.kripton.binder.schema.AttributeSchema;
+import com.abubusoft.kripton.binder.schema.ElementSchema;
+import com.abubusoft.kripton.binder.schema.MappingSchema;
+import com.abubusoft.kripton.binder.schema.RootElementSchema;
+import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.common.StringUtil;
 

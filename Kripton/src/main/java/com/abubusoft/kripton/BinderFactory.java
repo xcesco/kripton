@@ -1,8 +1,5 @@
 package com.abubusoft.kripton;
 
-import com.abubusoft.kripton.binder.BinderReader;
-import com.abubusoft.kripton.binder.BinderWriter;
-import com.abubusoft.kripton.binder.Format;
 import com.abubusoft.kripton.binder.xml.XmlDOMReader;
 import com.abubusoft.kripton.binder.xml.XmlSAXReader;
 import com.abubusoft.kripton.binder.json.JsonReader;
@@ -10,6 +7,8 @@ import com.abubusoft.kripton.binder.json.JsonWriter;
 import com.abubusoft.kripton.xml.XmlStaxWriter;
 
 /**
+ * Java generic version
+ * 
  * Factory class to get BinderReader/BinderWriter instance,
  * main entry of the Nano framework.
  * 

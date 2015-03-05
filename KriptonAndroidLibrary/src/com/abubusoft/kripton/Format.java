@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.binder;
+package com.abubusoft.kripton;
 
 /**
  * XML/JSON format like encoding and indent.

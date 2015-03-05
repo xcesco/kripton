@@ -4,8 +4,8 @@ package org.abubu.kripton.test;
  * 
  */
 
-import com.abubusoft.kripton.binder.annotation.BindDatabase;
-import com.abubusoft.kripton.binder.annotation.BindElement;
+import com.abubusoft.kripton.annotation.BindDatabase;
+import com.abubusoft.kripton.annotation.BindElement;
 
 
 /**

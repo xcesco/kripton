@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.binder.exception;
+package com.abubusoft.kripton.exception;
 
 public class MarshallException extends Exception {
 	private static final long serialVersionUID = -8672371609981939024L;

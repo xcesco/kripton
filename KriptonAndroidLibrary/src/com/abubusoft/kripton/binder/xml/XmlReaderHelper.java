@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.binder.xml;
 
-import com.abubusoft.kripton.binder.annotation.schema.SchemaArray;
+import com.abubusoft.kripton.binder.schema.SchemaArray;
 import com.abubusoft.kripton.common.FastStack;
 
 /**

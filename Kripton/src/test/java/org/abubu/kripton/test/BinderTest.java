@@ -5,8 +5,8 @@ import java.io.File;
 import org.junit.Test;
 
 import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.binder.BinderWriter;
-import com.abubusoft.kripton.binder.Format;
+import com.abubusoft.kripton.BinderWriter;
+import com.abubusoft.kripton.Format;
 
 public class BinderTest {
 

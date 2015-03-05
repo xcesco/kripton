@@ -6,8 +6,8 @@ package org.abubu.kripton.test;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.binder.annotation.BindElement;
-import com.abubusoft.kripton.binder.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindElement;
+import com.abubusoft.kripton.annotation.BindRoot;
 
 
 /**

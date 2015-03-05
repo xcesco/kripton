@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.binder.exception;
+package com.abubusoft.kripton.exception;
 
 /**
  * This exception indicates there is mapping error event the mapping schema is scanned.

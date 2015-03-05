@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.binder.annotation.schema;
+package com.abubusoft.kripton.binder.schema;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -7,15 +7,15 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.abubusoft.kripton.binder.annotation.BindAnyElement;
-import com.abubusoft.kripton.binder.annotation.BindAttribute;
-import com.abubusoft.kripton.binder.annotation.BindDatabase;
-import com.abubusoft.kripton.binder.annotation.BindDefault;
-import com.abubusoft.kripton.binder.annotation.BindElement;
-import com.abubusoft.kripton.binder.annotation.BindOrder;
-import com.abubusoft.kripton.binder.annotation.BindRoot;
-import com.abubusoft.kripton.binder.annotation.BindValue;
-import com.abubusoft.kripton.binder.exception.MappingException;
+import com.abubusoft.kripton.annotation.BindAnyElement;
+import com.abubusoft.kripton.annotation.BindAttribute;
+import com.abubusoft.kripton.annotation.BindDatabase;
+import com.abubusoft.kripton.annotation.BindDefault;
+import com.abubusoft.kripton.annotation.BindElement;
+import com.abubusoft.kripton.annotation.BindOrder;
+import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindValue;
+import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.common.GenericClass;
 import com.abubusoft.kripton.common.LRUCache;
