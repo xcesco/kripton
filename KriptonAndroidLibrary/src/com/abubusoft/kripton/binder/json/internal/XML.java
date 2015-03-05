@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.json.internal;
+package com.abubusoft.kripton.binder.json.internal;
 
 /*
 Copyright (c) 2002 JSON.org
@@ -25,6 +25,7 @@ SOFTWARE.
 */
 
 import java.util.Iterator;
+
 
 /**
  * This provides static methods to convert an XML text into a JSONObject,

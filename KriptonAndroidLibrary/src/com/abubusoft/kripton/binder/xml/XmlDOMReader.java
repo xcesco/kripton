@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.xml;
+package com.abubusoft.kripton.binder.xml;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -200,10 +200,25 @@ public class XmlDOMReader implements BinderReader {
 		Map<String, Object> xml2SchemaMapping = ms.getXml2SchemaMapping();
 		Map<String, Object> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
 		NodeList nodeList = element.getChildNodes();
+
+		int n = nodeList.getLength();
+
 		
-		int n=nodeList.getLength();
-		
+
 		if (n > 0) {
+			// find effective ELEMENT_NODE
+			int index=0;
+			int effectiveSize = 0;
+
+			{
+				for (int i = 0; i < n; i++) {
+					Node node = nodeList.item(i);
+					if (node.getNodeType() == Node.ELEMENT_NODE) {
+						effectiveSize++;
+					}
+				}
+			}
+			
 			for (int i = 0; i < n; i++) {
 				Node node = nodeList.item(i);
 
@@ -219,7 +234,7 @@ public class XmlDOMReader implements BinderReader {
 
 					Object schemaObj = xml2SchemaMapping.get(localName);
 
-					if (schemaObj != null && schemaObj instanceof ElementSchema) { 
+					if (schemaObj != null && schemaObj instanceof ElementSchema) {
 						// found match element
 						ElementSchema es = (ElementSchema) schemaObj;
 						Field field = es.getField();
@@ -250,13 +265,15 @@ public class XmlDOMReader implements BinderReader {
 								list.add(newObj);
 							}
 
-						} else if (es.isArray()  && es.getParameterizedType()!=Byte.TYPE) {
-							// se è un array, deve essere assolutamente wrappato.
-							// se è wrappato, l'elenco dei nodi a questo livello è il numero di
+						} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
+							// se è un array, deve essere assolutamente
+							// wrappato.
+							// se è wrappato, l'elenco dei nodi a questo livello
+							// è il numero di
 							// elementi dell'array
-							Object[] array = (Object[]) field.get(obj);
+							Object array = field.get(obj);
 							if (array == null) {
-								array = (Object[]) Array.newInstance(es.getParameterizedType(), n);
+								array = Array.newInstance(es.getParameterizedType(), effectiveSize);
 								field.set(obj, array);
 							}
 
@@ -268,16 +285,16 @@ public class XmlDOMReader implements BinderReader {
 								if (!StringUtil.isEmpty(xmlValue)) {
 									Object fieldValue = Transformer.read(xmlValue, parameterizedType);
 									if (fieldValue != null) {
-										array[i]=fieldValue;
+										Array.set(array, index++, fieldValue);
 									}
 								}
 							} else {
 								Object newObj = this.buildObjectFromType(parameterizedType);
 								this.read(newObj, childElement);
-								array[i]=newObj;								
+								Array.set(array, index++, newObj);
 							}
 
-						} else { 
+						} else {
 							// single field value
 							// primitive
 							if (Transformer.isPrimitive(fieldType)) {

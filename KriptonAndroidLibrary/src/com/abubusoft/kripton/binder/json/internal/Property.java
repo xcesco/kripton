@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.json.internal;
+package com.abubusoft.kripton.binder.json.internal;
 
 /*
 Copyright (c) 2002 JSON.org
@@ -27,6 +27,7 @@ SOFTWARE.
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Properties;
+
 
 /**
  * Converts a Property file data into JSONObject and back.

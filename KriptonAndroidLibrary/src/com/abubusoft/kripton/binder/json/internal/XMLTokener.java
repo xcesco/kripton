@@ -1,4 +1,5 @@
-package com.abubusoft.kripton.json.internal;
+package com.abubusoft.kripton.binder.json.internal;
+
 
 /*
 Copyright (c) 2002 JSON.org

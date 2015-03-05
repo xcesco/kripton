@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.json;
+package com.abubusoft.kripton.binder.json;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -1,16 +1,12 @@
 package org.abubu.kripton.test;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 import org.junit.Test;
 
 import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.binder.BinderReader;
 import com.abubusoft.kripton.binder.BinderWriter;
 import com.abubusoft.kripton.binder.Format;
-import com.abubusoft.kripton.common.Base64;
 
 public class BinderTest {
 

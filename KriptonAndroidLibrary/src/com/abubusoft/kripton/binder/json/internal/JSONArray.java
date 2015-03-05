@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.json.internal;
+package com.abubusoft.kripton.binder.json.internal;
 
 /*
  Copyright (c) 2002 JSON.org
@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+
 
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a

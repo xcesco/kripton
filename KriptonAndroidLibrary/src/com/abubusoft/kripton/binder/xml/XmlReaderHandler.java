@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.xml;
+package com.abubusoft.kripton.binder.xml;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -166,15 +166,15 @@ class XmlReaderHandler extends DefaultHandler {
 							ElementSchema es = (ElementSchema) schema;
 							Field field = es.getField();
 
-							int n=lastArray.value1.size();
-							Object value=Array.newInstance(es.getParameterizedType(), lastArray.value1.size());
-							//lastArray.value1.toArray();
-							//System.arraycopy(lastArray.value1.toArray(), 0, value, 0, n);
-							for (int i=0; i<n;i++)
-							{
-								Array.set(value, i, lastArray.value1.get(i) );
+							int n = lastArray.value1.size();
+							Object value = Array.newInstance(es.getParameterizedType(), lastArray.value1.size());
+							// lastArray.value1.toArray();
+							// System.arraycopy(lastArray.value1.toArray(), 0,
+							// value, 0, n);
+							for (int i = 0; i < n; i++) {
+								Array.set(value, i, lastArray.value1.get(i));
 							}
-							
+
 							if (!field.isAccessible()) {
 								field.setAccessible(true);
 							}
@@ -221,7 +221,16 @@ class XmlReaderHandler extends DefaultHandler {
 								helper.arrayStack.add(schemaArray);
 							}
 							Class<?> paramizedType = es.getParameterizedType();
-							Object value = Transformer.read(xmlData, paramizedType);
+							// Object value = Transformer.read(xmlData,
+							// paramizedType);
+							Object value;
+							// --------
+							if (Transformer.isPrimitive(paramizedType)) {
+								value = Transformer.read(xmlData, paramizedType);
+							} else {
+								value = obj;
+							}
+							// --------
 
 							schemaArray.value1.add(value);
 
@@ -260,13 +269,37 @@ class XmlReaderHandler extends DefaultHandler {
 				if (schema != null && schema instanceof ElementSchema) {
 					ElementSchema es = (ElementSchema) schema;
 					Field field = es.getField();
-					if (es.isList() || (es.isArray() && es.getParameterizedType() != Byte.TYPE)) {
+					if (es.isList()) {
 						List list = (List) field.get(parentObj);
 						if (list == null) {
 							list = new ArrayList();
+							if (!field.isAccessible()) {
+								field.setAccessible(true);
+							}
 							field.set(parentObj, list);
 						}
 						list.add(obj);
+					} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
+						SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
+
+						if (schemaArray == null || schemaArray.value0 != es) {
+							schemaArray = new SchemaArray(es, new ArrayList());
+							helper.arrayStack.add(schemaArray);
+						}
+						Class<?> paramizedType = es.getParameterizedType();
+						// Object value = Transformer.read(xmlData,
+						// paramizedType);
+						Object value = null;
+						// --------
+						if (Transformer.isPrimitive(paramizedType)) {
+							// value = Transformer.read(xmlData, paramizedType);
+							// not here
+						} else {
+							value = obj;
+						}
+						// --------
+
+						schemaArray.value1.add(value);
 					} else {
 						field.set(parentObj, obj);
 					}
@@ -283,5 +316,15 @@ class XmlReaderHandler extends DefaultHandler {
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		String text = new String(ch, start, length);
 		helper.textBuilder.append(text);
+	}
+
+	protected Object buildObjectFromType(Class<?> type) throws Exception {
+		try {
+			Constructor<?> con = TypeReflector.getConstructor(type);
+			Object obj = con.newInstance();
+			return obj;
+		} catch (NoSuchMethodException nsme) {
+			throw new ReaderException("No-arg contructor is missing, type = " + type.getName());
+		}
 	}
 }

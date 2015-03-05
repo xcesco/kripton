@@ -3,9 +3,7 @@
  */
 package issue.kripton_1;
 
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,14 +20,14 @@ import com.abubusoft.kripton.binder.exception.WriterException;
  * @author xcesco
  *
  */
-public class Main {
+public class Work02Test {
 
-	private Employee bean;
+	private Bean02 bean;
 
 	@Before
 	public void setup()
 	{
-		bean=new Employee();
+		bean=new Bean02();
 		
 		bean.setName("Tonj");
 		bean.setSurname("Manero");
@@ -37,7 +35,7 @@ public class Main {
 		Calendar calendar=Calendar.getInstance();
 		calendar.set(1965, 6, 12);
 		bean.setBirthday(calendar.getTime());
-		int[] array= {1, 2, 4};
+		Integer[] array= {1, 2, 4};
 		
 		bean.setTickets(array);
 	}
@@ -49,7 +47,7 @@ public class Main {
 		System.out.println(buffer);
 		
 		BinderReader reader=BinderFactory.getJSONReader();
-		Employee bean2=reader.read(Employee.class, buffer);
+		Bean02 bean2=reader.read(Bean02.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}
@@ -61,8 +59,9 @@ public class Main {
 		String buffer=writer.write(bean);
 		System.out.println(buffer);
 		
+		BinderFactory.readerType=ReaderType.SAX;
 		BinderReader reader=BinderFactory.getXMLReader();
-		Employee bean2=reader.read(Employee.class, buffer);
+		Bean02 bean2=reader.read(Bean02.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}
@@ -76,7 +75,7 @@ public class Main {
 		
 		BinderFactory.readerType=ReaderType.DOM;
 		BinderReader reader=BinderFactory.getXMLReader();
-		Employee bean2=reader.read(Employee.class, buffer);
+		Bean02 bean2=reader.read(Bean02.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}

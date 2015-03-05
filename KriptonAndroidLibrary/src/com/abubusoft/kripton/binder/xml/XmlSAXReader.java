@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.xml;
+package com.abubusoft.kripton.binder.xml;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

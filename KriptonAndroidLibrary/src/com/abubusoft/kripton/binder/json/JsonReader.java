@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.json;
+package com.abubusoft.kripton.binder.json;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.abubusoft.kripton.binder.json.internal.JSONArray;
+import com.abubusoft.kripton.binder.json.internal.JSONObject;
 
 import com.abubusoft.kripton.binder.BinderReader;
 import com.abubusoft.kripton.binder.Format;

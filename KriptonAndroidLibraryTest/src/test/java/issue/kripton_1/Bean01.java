@@ -4,7 +4,6 @@
 package issue.kripton_1;
 
 import java.util.Date;
-import java.util.List;
 
 import com.abubusoft.kripton.binder.annotation.BindElement;
 import com.abubusoft.kripton.binder.annotation.BindRoot;
@@ -16,7 +15,7 @@ import com.abubusoft.kripton.binder.annotation.BindRoot;
  *
  */
 @BindRoot
-public class Employee {
+public class Bean01 {
 
 	@BindElement
 	private Date birthday;

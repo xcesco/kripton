@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.json.internal;
+package com.abubusoft.kripton.binder.json.internal;
 
 /*
  Copyright (c) 2002 JSON.org
@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
+
 
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its external

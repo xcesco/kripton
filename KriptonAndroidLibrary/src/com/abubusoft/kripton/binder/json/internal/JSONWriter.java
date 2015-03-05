@@ -1,7 +1,8 @@
-package com.abubusoft.kripton.json.internal;
+package com.abubusoft.kripton.binder.json.internal;
 
 import java.io.IOException;
 import java.io.Writer;
+
 
 /*
 Copyright (c) 2006 JSON.org

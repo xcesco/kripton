@@ -1,13 +1,13 @@
 package com.abubusoft.kripton.android;
 
-import com.abubusoft.kripton.android.json.JsonReader;
-import com.abubusoft.kripton.android.json.JsonWriter;
-import com.abubusoft.kripton.android.xml.XmlDOMReader;
 import com.abubusoft.kripton.android.xml.XmlPullWriter;
-import com.abubusoft.kripton.android.xml.XmlSAXReader;
 import com.abubusoft.kripton.binder.BinderReader;
 import com.abubusoft.kripton.binder.BinderWriter;
 import com.abubusoft.kripton.binder.Format;
+import com.abubusoft.kripton.binder.json.JsonReader;
+import com.abubusoft.kripton.binder.json.JsonWriter;
+import com.abubusoft.kripton.binder.xml.XmlDOMReader;
+import com.abubusoft.kripton.binder.xml.XmlSAXReader;
 
 /**
  * Factory class to get BinderReader/BinderWriter instance,
@@ -22,7 +22,7 @@ public class BinderFactory {
 	/**
 	 * Reader type setting, current supports DOM(BinderDefault) and SAX.
 	 */
-	public static ReaderType readerType = ReaderType.DOM;
+	public static ReaderType readerType = ReaderType.SAX;
 	
 	/**
 	 * Get BinderReader instance with default format(encoding is utf-8),

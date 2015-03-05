@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.json.internal;
+package com.abubusoft.kripton.binder.json.internal;
 
 /*
 Copyright (c) 2008 JSON.org
@@ -25,6 +25,7 @@ SOFTWARE.
 */
 
 import java.util.Iterator;
+
 
 
 /**

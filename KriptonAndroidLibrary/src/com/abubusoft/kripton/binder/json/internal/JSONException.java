@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.json.internal;
+package com.abubusoft.kripton.binder.json.internal;
 
 /**
  * The JSONException is thrown by the JSON.org classes when things are amiss.

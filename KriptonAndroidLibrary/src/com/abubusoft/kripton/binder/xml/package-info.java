@@ -5,4 +5,4 @@
  * @author xcesco
  *
  */
-package com.abubusoft.kripton.json.internal;
+package com.abubusoft.kripton.binder.xml;
