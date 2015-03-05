@@ -10,8 +10,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.abubusoft.kripton.binder.json.internal.JSONArray;
+import com.abubusoft.kripton.binder.json.internal.JSONObject;
 
 import com.abubusoft.kripton.binder.BinderWriter;
 import com.abubusoft.kripton.binder.Format;
