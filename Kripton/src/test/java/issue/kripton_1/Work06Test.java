@@ -3,15 +3,18 @@
  */
 package issue.kripton_1;
 
+import issue.kripton_1.Bean06.SubBean06;
+
 import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.android.BinderFactory;
-import com.abubusoft.kripton.android.BinderFactory.ReaderType;
+import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.BinderFactory.ReaderType;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -20,14 +23,14 @@ import com.abubusoft.kripton.exception.WriterException;
  * @author xcesco
  *
  */
-public class Work02Test {
+public class Work06Test {
 
-	private Bean02 bean;
+	private Bean06 bean;
 
 	@Before
 	public void setup()
 	{
-		bean=new Bean02();
+		bean=new Bean06();
 		
 		bean.setName("Tonj");
 		bean.setSurname("Manero");
@@ -35,7 +38,10 @@ public class Work02Test {
 		Calendar calendar=Calendar.getInstance();
 		calendar.set(1965, 6, 12);
 		bean.setBirthday(calendar.getTime());
-		Integer[] array= {1, 2, 4};
+		SubBean06[] array= new SubBean06[3];
+		array[0]=new SubBean06(new Date(), "ticket01");
+		array[1]=new SubBean06(new Date(), "ticket02");
+		array[2]=new SubBean06(new Date(), "ticket03");		
 		
 		bean.setTickets(array);
 	}
@@ -47,7 +53,7 @@ public class Work02Test {
 		System.out.println(buffer);
 		
 		BinderReader reader=BinderFactory.getJSONReader();
-		Bean02 bean2=reader.read(Bean02.class, buffer);
+		Bean06 bean2=reader.read(Bean06.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}
@@ -61,7 +67,7 @@ public class Work02Test {
 		
 		BinderFactory.readerType=ReaderType.SAX;
 		BinderReader reader=BinderFactory.getXMLReader();
-		Bean02 bean2=reader.read(Bean02.class, buffer);
+		Bean06 bean2=reader.read(Bean06.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}
@@ -75,7 +81,7 @@ public class Work02Test {
 		
 		BinderFactory.readerType=ReaderType.DOM;
 		BinderReader reader=BinderFactory.getXMLReader();
-		Bean02 bean2=reader.read(Bean02.class, buffer);
+		Bean06 bean2=reader.read(Bean06.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}

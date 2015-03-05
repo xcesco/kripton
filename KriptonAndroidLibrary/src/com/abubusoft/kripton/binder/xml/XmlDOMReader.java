@@ -202,23 +202,10 @@ public class XmlDOMReader implements BinderReader {
 		NodeList nodeList = element.getChildNodes();
 
 		int n = nodeList.getLength();
-
-		
+		int index=0;
 
 		if (n > 0) {
-			// find effective ELEMENT_NODE
-			int index=0;
-			int effectiveSize = 0;
-
-			{
-				for (int i = 0; i < n; i++) {
-					Node node = nodeList.item(i);
-					if (node.getNodeType() == Node.ELEMENT_NODE) {
-						effectiveSize++;
-					}
-				}
-			}
-			
+				
 			for (int i = 0; i < n; i++) {
 				Node node = nodeList.item(i);
 
@@ -265,14 +252,28 @@ public class XmlDOMReader implements BinderReader {
 								list.add(newObj);
 							}
 
-						} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
-							// se è un array, deve essere assolutamente
-							// wrappato.
-							// se è wrappato, l'elenco dei nodi a questo livello
-							// è il numero di
-							// elementi dell'array
+						} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {														
+							
 							Object array = field.get(obj);
 							if (array == null) {
+								// if array, we first count how many element of this type there are, 
+								// then, set field
+								// find effective ELEMENT_NODE
+								
+								// reset index
+								index=0;
+								int effectiveSize = 0;
+								{
+									Node nodeTemp;
+									for (int j = 0; j < n; j++) {
+										nodeTemp = nodeList.item(j);
+										// increment counter only if it has same tag name
+										if (nodeTemp.getNodeType() == Node.ELEMENT_NODE && es.getName().equals(nodeTemp.getLocalName())) {
+											effectiveSize++;
+										}
+									}
+								}		
+								
 								array = Array.newInstance(es.getParameterizedType(), effectiveSize);
 								field.set(obj, array);
 							}

@@ -20,14 +20,14 @@ import com.abubusoft.kripton.exception.WriterException;
  * @author xcesco
  *
  */
-public class Work02Test {
+public class Work05Test {
 
-	private Bean02 bean;
+	private Bean05 bean;
 
 	@Before
 	public void setup()
 	{
-		bean=new Bean02();
+		bean=new Bean05();
 		
 		bean.setName("Tonj");
 		bean.setSurname("Manero");
@@ -47,7 +47,7 @@ public class Work02Test {
 		System.out.println(buffer);
 		
 		BinderReader reader=BinderFactory.getJSONReader();
-		Bean02 bean2=reader.read(Bean02.class, buffer);
+		Bean05 bean2=reader.read(Bean05.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}
@@ -61,7 +61,7 @@ public class Work02Test {
 		
 		BinderFactory.readerType=ReaderType.SAX;
 		BinderReader reader=BinderFactory.getXMLReader();
-		Bean02 bean2=reader.read(Bean02.class, buffer);
+		Bean05 bean2=reader.read(Bean05.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}
@@ -75,7 +75,7 @@ public class Work02Test {
 		
 		BinderFactory.readerType=ReaderType.DOM;
 		BinderReader reader=BinderFactory.getXMLReader();
-		Bean02 bean2=reader.read(Bean02.class, buffer);
+		Bean05 bean2=reader.read(Bean05.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}

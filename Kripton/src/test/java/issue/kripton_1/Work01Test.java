@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.android.BinderFactory;
-import com.abubusoft.kripton.android.BinderFactory.ReaderType;
+import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.BinderFactory.ReaderType;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -20,14 +20,14 @@ import com.abubusoft.kripton.exception.WriterException;
  * @author xcesco
  *
  */
-public class Work02Test {
+public class Work01Test {
 
-	private Bean02 bean;
+	private Bean01 bean;
 
 	@Before
 	public void setup()
 	{
-		bean=new Bean02();
+		bean=new Bean01();
 		
 		bean.setName("Tonj");
 		bean.setSurname("Manero");
@@ -35,7 +35,7 @@ public class Work02Test {
 		Calendar calendar=Calendar.getInstance();
 		calendar.set(1965, 6, 12);
 		bean.setBirthday(calendar.getTime());
-		Integer[] array= {1, 2, 4};
+		int[] array= {1, 2, 4};
 		
 		bean.setTickets(array);
 	}
@@ -47,7 +47,7 @@ public class Work02Test {
 		System.out.println(buffer);
 		
 		BinderReader reader=BinderFactory.getJSONReader();
-		Bean02 bean2=reader.read(Bean02.class, buffer);
+		Bean01 bean2=reader.read(Bean01.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}
@@ -61,7 +61,7 @@ public class Work02Test {
 		
 		BinderFactory.readerType=ReaderType.SAX;
 		BinderReader reader=BinderFactory.getXMLReader();
-		Bean02 bean2=reader.read(Bean02.class, buffer);
+		Bean01 bean2=reader.read(Bean01.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}
@@ -75,7 +75,7 @@ public class Work02Test {
 		
 		BinderFactory.readerType=ReaderType.DOM;
 		BinderReader reader=BinderFactory.getXMLReader();
-		Bean02 bean2=reader.read(Bean02.class, buffer);
+		Bean01 bean2=reader.read(Bean01.class, buffer);
 		String buffer2=writer.write(bean2);
 		System.out.println(buffer2);
 	}

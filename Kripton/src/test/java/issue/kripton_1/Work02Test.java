@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.android.BinderFactory;
-import com.abubusoft.kripton.android.BinderFactory.ReaderType;
+import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.BinderFactory.ReaderType;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;

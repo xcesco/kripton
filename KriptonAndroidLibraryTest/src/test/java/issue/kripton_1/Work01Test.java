@@ -14,9 +14,9 @@ import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.android.BinderFactory;
 import com.abubusoft.kripton.android.BinderFactory.ReaderType;
-import com.abubusoft.kripton.binder.exception.MappingException;
-import com.abubusoft.kripton.binder.exception.ReaderException;
-import com.abubusoft.kripton.binder.exception.WriterException;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.ReaderException;
+import com.abubusoft.kripton.exception.WriterException;
 
 /**
  * @author xcesco

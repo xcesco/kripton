@@ -5,7 +5,6 @@ package issue.kripton_1;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindAttribute;
 import com.abubusoft.kripton.annotation.BindElement;
 import com.abubusoft.kripton.annotation.BindRoot;
 
@@ -16,7 +15,7 @@ import com.abubusoft.kripton.annotation.BindRoot;
  *
  */
 @BindRoot
-public class Bean04 {
+public class Bean05 {
 
 	@BindElement
 	private Date birthday;
@@ -28,13 +27,14 @@ public class Bean04 {
 	private String surname;
 	
 	@BindElement
-	private int[] tickets;
+	private Integer[] tickets;
 
-	public int[] getTickets() {
+
+	public Integer[] getTickets() {
 		return tickets;
 	}
 
-	public void setTickets(int[] tickets) {
+	public void setTickets(Integer[] tickets) {
 		this.tickets = tickets;
 	}
 

@@ -19,9 +19,9 @@ import org.robolectric.annotation.Config;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.Format;
-import com.abubusoft.kripton.binder.exception.MappingException;
-import com.abubusoft.kripton.binder.exception.ReaderException;
-import com.abubusoft.kripton.binder.exception.WriterException;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.ReaderException;
+import com.abubusoft.kripton.exception.WriterException;
 import com.abubusoft.kripton.model0.Bean1;
 
 @RunWith(RobolectricTestRunner.class)

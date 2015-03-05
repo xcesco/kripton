@@ -9,7 +9,7 @@ import java.sql.Time;
 import java.util.Currency;
 import java.util.TimeZone;
 
-import com.abubusoft.kripton.binder.annotation.BindDefault;
+import com.abubusoft.kripton.annotation.BindDefault;
 
 /**
  * Bean for test
