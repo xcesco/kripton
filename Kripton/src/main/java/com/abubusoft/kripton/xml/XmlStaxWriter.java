@@ -5,6 +5,7 @@ import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +32,9 @@ import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.common.StringUtil;
 
 public class XmlStaxWriter implements BinderWriter {
-	
+
 	protected static final String IDENT_PROPERTY = "http://xml.apache.org/xslt#indent-amount";
 	protected static final String PROPERTY_SERIALIZER_INDENTATION = "http://xmlpull.org/v1/doc/properties.html#serializer-indentation";
-
 
 	protected Format format;
 
@@ -47,33 +47,21 @@ public class XmlStaxWriter implements BinderWriter {
 	public XmlStaxWriter(Format format) {
 		this.format = format;
 
-			factory = XMLOutputFactory.newFactory();
+		factory = XMLOutputFactory.newFactory();
 	}
 
 	public void write(Object source, Writer out) throws WriterException, MappingException {
 		try {
 			// entry validation
 			validate(source, out);
-			XMLStreamWriter serializer=null;
-			if (format.isIndent())
-			{
-				serializer= factory.createXMLStreamWriter(out);
+			XMLStreamWriter serializer = null;
+			if (format.isIndent()) {
+				serializer = new IndentingXMLStreamWriter(factory.createXMLStreamWriter(out));
 			} else {
-				serializer= factory.createXMLStreamWriter(out);
+				serializer = factory.createXMLStreamWriter(out);
 			}
 
-			//XmlSerializer serializer = factory. newSerializer();
-			/*if (format.isIndent()) {
-				try {
-					serializer.setFeature(IDENT_PROPERTY, true);
-				} catch (IllegalStateException ise) {
-					serializer.setProperty(PROPERTY_SERIALIZER_INDENTATION, "    ");
-				}
-			}*/
-			
-			
-			
-			//serializer.setOutput(out);
+			// serializer.setOutput(out);
 			serializer.writeStartDocument(format.getEncoding(), null);
 
 			MappingSchema ms = MappingSchema.fromObject(source);
@@ -81,11 +69,11 @@ public class XmlStaxWriter implements BinderWriter {
 			String namespace = res.getNamespace();
 			String xmlName = res.getName();
 
-			if (!StringUtil.isEmpty(namespace)) { // bind to default namespace
+			if (!StringUtil.isEmpty(namespace)) {
+				// bind to default namespace
 				serializer.setPrefix("", namespace);
-			} 
+			}
 
-			//serializer.writeStartElement(namespace ,xmlName);
 			serializer.writeStartElement(xmlName);
 			this.writeObject(serializer, source, namespace);
 			serializer.writeEndElement();
@@ -255,9 +243,10 @@ public class XmlStaxWriter implements BinderWriter {
 				Object value = field.get(source);
 				if (value != null) {
 					if (es.isList()) {
-						//this.writeElementList(serializer, value, es, namespace);
+						// this.writeElementList(serializer, value, es,
+						// namespace);
 						this.writeElementList(serializer, value, es, namespace);
-					} else if (es.isArray() && es.getParameterizedType()!=Byte.TYPE) {
+					} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
 						this.writeElementArray(serializer, value, es, namespace);
 					} else {
 						this.writeElement(serializer, value, es, namespace);
@@ -270,7 +259,7 @@ public class XmlStaxWriter implements BinderWriter {
 	private void writeElementList(XMLStreamWriter serializer, Object source, ElementSchema es, String namespace) throws Exception {
 		// String xmlName = es.getXmlName()+"list";
 		if (es.hasWrapperName()) {
-			//serializer.writeStartElement(namespace, es.getWrapperName());
+			// serializer.writeStartElement(namespace, es.getWrapperName());
 			serializer.writeStartElement(es.getWrapperName());
 		}
 
@@ -288,11 +277,12 @@ public class XmlStaxWriter implements BinderWriter {
 	private void writeElementArray(XMLStreamWriter serializer, Object source, ElementSchema es, String namespace) throws Exception {
 		// String xmlName = es.getXmlName()+"list";
 		if (es.hasWrapperName()) {
-			serializer.writeStartElement(namespace, es.getWrapperName());
+			serializer.writeStartElement(es.getWrapperName());
 		}
 
-		for (Object value : (Object[]) source) {
-			this.writeElement(serializer, value, es, namespace);
+		int n = Array.getLength(source);
+		for (int i = 0; i < n; i++) {
+			this.writeElement(serializer, Array.get(source, i), es, namespace);
 		}
 
 		if (es.hasWrapperName()) {
@@ -304,7 +294,7 @@ public class XmlStaxWriter implements BinderWriter {
 
 	private void writeElement(XMLStreamWriter serializer, Object source, ElementSchema es, String namespace) throws Exception {
 		Class<?> type = null;
-		if (es.isList() || (es.isArray()&& es.getParameterizedType()!=Byte.TYPE)) {
+		if (es.isList() || (es.isArray() && es.getParameterizedType() != Byte.TYPE)) {
 			type = es.getParameterizedType();
 		} else {
 			type = es.getField().getType();
@@ -321,9 +311,9 @@ public class XmlStaxWriter implements BinderWriter {
 			if (StringUtil.isEmpty(value))
 				return;
 
-			//serializer.writeStartElement(namespace, xmlName);
+			// serializer.writeStartElement(namespace, xmlName);
 			serializer.writeStartElement(xmlName);
-			
+
 			if (es.isData()) {
 				serializer.writeCData(value);
 			} else {
@@ -335,9 +325,9 @@ public class XmlStaxWriter implements BinderWriter {
 		}
 
 		// object
-		//serializer.writeStartElement(namespace, xmlName);
-		serializer.writeStartElement( xmlName);
-		
+		// serializer.writeStartElement(namespace, xmlName);
+		serializer.writeStartElement(xmlName);
+
 		this.writeObject(serializer, source, namespace);
 		serializer.writeEndElement();
 	}
