@@ -34,7 +34,7 @@ public class BinderFactory {
 		if (readerType == ReaderType.SAX) {
 			return new XmlSAXReader();
 		} else {
-			return new XmlSAXReader();
+			return new XmlDOMReader();
 		}
 	}
 	

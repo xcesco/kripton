@@ -3,6 +3,9 @@ package com.abubusoft.kripton.examples;
 import java.util.logging.Logger;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.junit.runners.Suite.SuiteClasses;
 
 import com.abubusoft.kripton.android.BinderFactory;
 import com.abubusoft.kripton.binder.BinderReader;
@@ -16,7 +19,7 @@ import com.abubusoft.kripton.binder.exception.WriterException;
  * @author xcesco
  *
  */
-public class Example01 {
+public class Example01Test {
 
 	Logger logger=Logger.getAnonymousLogger();
 	
@@ -47,6 +50,5 @@ public class Example01 {
 		// create xml reader binder
 		BinderReader xmlReader=BinderFactory.getXMLReader();
 		beanResult = xmlReader.read(SimpleBean.class, xmlBuffer);
-
 	}
 }

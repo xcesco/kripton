@@ -15,8 +15,10 @@
 		<sourceEncoding>UTF-8</sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<android-maven-plugin.version>4.1.0</android-maven-plugin.version>
+
+		<android.version>5.0.1_r2</android.version>
+		<support-v4.version>21.0.3</support-v4.version>
 	</properties>
 
 	<description>Bind library to convert java POJO to XML, to JSON and viceversa .</description>
@@ -26,8 +28,25 @@
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>5.0.0_r2-robolectric-0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<type>jar</type>
+			<version>${android.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
+
+		<dependency>
+			<groupId>com.android.support</groupId>
+			<artifactId>support-v4</artifactId>
+			<version>${support-v4.version}</version>
+			<type>aar</type>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -166,7 +166,15 @@ class XmlReaderHandler extends DefaultHandler {
 							ElementSchema es = (ElementSchema) schema;
 							Field field = es.getField();
 
-							Object value = lastArray.value1.toArray((Object[]) Array.newInstance(es.getParameterizedType(), lastArray.value1.size()));
+							int n=lastArray.value1.size();
+							Object value=Array.newInstance(es.getParameterizedType(), lastArray.value1.size());
+							//lastArray.value1.toArray();
+							//System.arraycopy(lastArray.value1.toArray(), 0, value, 0, n);
+							for (int i=0; i<n;i++)
+							{
+								Array.set(value, i, lastArray.value1.get(i) );
+							}
+							
 							if (!field.isAccessible()) {
 								field.setAccessible(true);
 							}

@@ -41,7 +41,7 @@ public class JSONTest0 extends BaseTest {
 
 	@Test(expected = WriterException.class)
 	public void testNull() throws WriterException, MappingException, ReaderException {
-		writer0.write(null);
+		writer0.write(null);		
 	}
 
 	@Test

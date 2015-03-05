@@ -15,6 +15,10 @@
 		<sourceEncoding>UTF-8</sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<android.version>5.0.1_r2</android.version>
+		<support-v4.version>21.0.3</support-v4.version>
+		<roboletric.version>4.4_r1-robolectric-0</roboletric.version>
 	</properties>
 
 	<description>Test project for Kripton Androi Library</description>
@@ -29,16 +33,14 @@
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
-			<version>5.0.0_r2-robolectric-0</version>
+			<version>${roboletric.version}</version>
 		</dependency>
-		
-		<dependency>
-	<groupId>org.hamcrest</groupId>
-	<artifactId>hamcrest-all</artifactId>
-	<version>1.3</version>
-</dependency>
-		
 
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+		</dependency>
 
 	</dependencies>
 
@@ -54,28 +56,9 @@
 				</configuration>
 			</plugin>
 			
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.9.1</version>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>../KriptonAndroidLibrary/src/</source>
-							</sources>							
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
-		
-				<pluginManagement>
+
+		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
