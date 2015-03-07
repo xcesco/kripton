@@ -19,8 +19,16 @@
 
 	<description>Bind library to convert java POJO to XML, JSON and viceversa . Generic Java version</description>
 
-	<build>
+	<dependencies>
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-core</artifactId>
+			<version>3.4.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>

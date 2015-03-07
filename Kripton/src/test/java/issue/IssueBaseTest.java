@@ -4,15 +4,13 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 
 import java.util.logging.Logger;
 
-import issue.kripton_1.Bean02;
-
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.BinderFactory.ReaderType;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.android.BinderFactory;
-import com.abubusoft.kripton.android.BinderFactory.ReaderType;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;

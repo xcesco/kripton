@@ -1,9 +1,10 @@
 /**
  * 
  */
-package issue.kripton_1;
+package issue.kripton_7;
 
 import java.util.Date;
+import java.util.List;
 
 import com.abubusoft.kripton.annotation.BindElement;
 import com.abubusoft.kripton.annotation.BindRoot;
@@ -15,8 +16,45 @@ import com.abubusoft.kripton.annotation.BindRoot;
  *
  */
 @BindRoot
-public class Bean04 {
+public class Bean3 extends Bean0 {
 
+	@BindRoot
+	public static class SubBean03
+	{
+		@BindElement
+		private Date date;
+		
+		// Needed for serialization
+		public SubBean03()
+		{
+			
+		}
+		
+		public SubBean03(Date date, String title) {
+			this.date=date;
+			this.name=title;
+		}
+
+		public Date getDate() {
+			return date;
+		}
+
+		public void setDate(Date date) {
+			this.date = date;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		@BindElement
+		private String name;
+	}
+	
 	@BindElement
 	private Date birthday;
 	
@@ -26,16 +64,10 @@ public class Bean04 {
 	@BindElement
 	private String surname;
 	
-	@BindElement
-	private int[] tickets;
+	@BindElement(elementName="ticket") List<SubBean03> tickets;
+	
 
-	public int[] getTickets() {
-		return tickets;
-	}
-
-	public void setTickets(int[] tickets) {
-		this.tickets = tickets;
-	}
+	
 
 	public Date getBirthday() {
 		return birthday;
