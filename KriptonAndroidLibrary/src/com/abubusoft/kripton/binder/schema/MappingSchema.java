@@ -1,6 +1,7 @@
 package com.abubusoft.kripton.binder.schema;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -175,10 +176,18 @@ public class MappingSchema {
 		int valueSchemaCount = 0;
 		int anyElementSchemaCount = 0;
 		int elementSchemaCount = 0;
+		
+		int modifier;
 
 		for (Field field : fields) {
 			if (!field.isAccessible()) {
 				field.setAccessible(true);
+			}
+
+			// exclude transient fields and final fields
+			modifier = field.getModifiers();
+			if (Modifier.isTransient(modifier) || Modifier.isFinal(modifier)) {
+				continue;
 			}
 
 			if (field.isAnnotationPresent(BindElement.class)) {
@@ -194,14 +203,14 @@ public class MappingSchema {
 					elementSchema.setName(xmlElement.name());
 				}
 
-				// se esiste un nome per gli elementi di una lista/array, il nome dell'elemento
+				// se esiste un nome per gli elementi di una lista/array, il
+				// nome dell'elemento
 				// diventa il nome del wrapper
-				if (!StringUtil.isEmpty(xmlElement.elementName()))
-				{
+				if (!StringUtil.isEmpty(xmlElement.elementName())) {
 					// invertiamo i nomi
 					elementSchema.setWrapperName(xmlElement.elementName());
-					
-					String temp=elementSchema.getName();
+
+					String temp = elementSchema.getName();
 					elementSchema.setName(elementSchema.getWrapperName());
 					elementSchema.setWrapperName(temp);
 				}
@@ -305,11 +314,6 @@ public class MappingSchema {
 				}
 
 			} else if (isDefault) { // default to Node
-
-				// if serialId, continue
-				if (field.getName().equals("serialVersionUID"))
-					continue;
-
 				elementSchemaCount++;
 
 				ElementSchema elementSchema = new ElementSchema();
@@ -355,12 +359,11 @@ public class MappingSchema {
 		if (field.getType().isArray()) {
 			Class<?> type = field.getType().getComponentType();
 
-			if (!elementSchema.hasWrapperName())
-			{
-				//elementSchema.setWrapperName(elementSchema.getName());
-				//elementSchema.setName(elementSchema.getName()+"Element");
+			if (!elementSchema.hasWrapperName()) {
+				// elementSchema.setWrapperName(elementSchema.getName());
+				// elementSchema.setName(elementSchema.getName()+"Element");
 			}
-			
+
 			elementSchema.setArray(true);
 			elementSchema.setParameterizedType(type);
 		}

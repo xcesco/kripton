@@ -205,7 +205,8 @@ public abstract class Converter<A, B> implements Function<A, B> {
 
   private static final class ReverseConverter<A, B>
       extends Converter<B, A> implements Serializable {
-    final Converter<A, B> original;
+	private static final long serialVersionUID = 5073708032168078367L;
+	final Converter<A, B> original;
 
     ReverseConverter(Converter<A, B> original) {
       this.original = original;
@@ -262,7 +263,6 @@ public abstract class Converter<A, B> implements Function<A, B> {
       return original + ".reverse()";
     }
 
-    private static final long serialVersionUID = 0L;
   }
 
   /**
@@ -447,7 +447,8 @@ public abstract class Converter<A, B> implements Function<A, B> {
    * "pass-through type".
    */
   private static final class IdentityConverter<T> extends Converter<T, T> implements Serializable {
-    @SuppressWarnings("rawtypes")
+	private static final long serialVersionUID = -163613376588335881L;
+	@SuppressWarnings("rawtypes")
 	static final IdentityConverter INSTANCE = new IdentityConverter();
 
     @Override
@@ -484,6 +485,5 @@ public abstract class Converter<A, B> implements Function<A, B> {
       return INSTANCE;
     }
 
-    private static final long serialVersionUID = 0L;
   }
 }
