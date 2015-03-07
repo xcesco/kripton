@@ -22,7 +22,6 @@ import com.abubusoft.kripton.Format;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
-import com.abubusoft.kripton.model0.Bean0;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.DEFAULT)
