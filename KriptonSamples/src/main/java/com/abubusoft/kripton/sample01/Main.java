@@ -6,11 +6,11 @@ package com.abubusoft.kripton.sample01;
 import java.util.Calendar;
 
 import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.binder.BinderReader;
-import com.abubusoft.kripton.binder.BinderWriter;
-import com.abubusoft.kripton.binder.exception.MappingException;
-import com.abubusoft.kripton.binder.exception.ReaderException;
-import com.abubusoft.kripton.binder.exception.WriterException;
+import com.abubusoft.kripton.BinderReader;
+import com.abubusoft.kripton.BinderWriter;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.ReaderException;
+import com.abubusoft.kripton.exception.WriterException;
 
 /**
  * @author xcesco

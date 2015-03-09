@@ -6,14 +6,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * NOT USED IN THIS RELEASE.
  * Use with {@link BindElement}. This annotation specify information about database binding
  * 
  * @author xcesco
  *
+ * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface BindDatabase {
+@interface BindDatabase {
 	
 	/**
 	 * If true set this field as primary key

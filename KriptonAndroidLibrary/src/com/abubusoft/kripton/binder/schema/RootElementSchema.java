@@ -2,22 +2,29 @@ package com.abubusoft.kripton.binder.schema;
 
 /**
  * 
- * This bean stores XML root element information
+ * This bean stores XML/JSON root element information
  * 
  * @author bulldog
+ * @author xcesco
  *
  */
 public class RootElementSchema {
 	
+	/**
+	 * name of element
+	 */
 	private String name;
 
+	/**
+	 * namespace
+	 */
 	private String namespace;
 	
 	/**
-	 * bisogna considerare solo i figli.
+	 * consider only children
 	 */
 	private boolean onlyChildren;
-	
+
 	public boolean isOnlyChildren() {
 		return onlyChildren;
 	}
@@ -61,4 +68,5 @@ public class RootElementSchema {
 	public void setNamespace(String namespace) {
 		this.namespace = namespace;
 	}
+
 }

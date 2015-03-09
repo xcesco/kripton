@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.abubusoft.kripton.sample01;
+package issue.kripton_10;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindElement;
+import com.abubusoft.kripton.annotation.BindAttribute;
 import com.abubusoft.kripton.annotation.BindRoot;
 
 
@@ -15,18 +15,18 @@ import com.abubusoft.kripton.annotation.BindRoot;
  *
  */
 @BindRoot
-public class Employee {
+public class Bean02 {
 
-	@BindElement
+	@BindAttribute
 	private Date birthday;
 	
-	@BindElement
+	@BindAttribute
 	private String name;
 
-	@BindElement
+	@BindAttribute
 	private String surname;
 	
-	@BindElement(elementName="ticket")
+	@BindAttribute
 	private int[] tickets;
 
 	public int[] getTickets() {

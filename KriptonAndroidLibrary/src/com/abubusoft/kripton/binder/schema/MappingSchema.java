@@ -8,9 +8,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.abubusoft.kripton.annotation.BindAnyElement;
 import com.abubusoft.kripton.annotation.BindAttribute;
-import com.abubusoft.kripton.annotation.BindDatabase;
 import com.abubusoft.kripton.annotation.BindDefault;
 import com.abubusoft.kripton.annotation.BindElement;
 import com.abubusoft.kripton.annotation.BindOrder;
@@ -39,9 +37,6 @@ public class MappingSchema {
 		public int anyElementSchemaCount;
 		public int elementSchemaCount;
 
-		public void reset() {
-
-		}
 	}
 
 	private RootElementSchema rootElementSchema;
@@ -99,7 +94,8 @@ public class MappingSchema {
 			String namespace = StringUtil.isEmpty(xre.namespace()) ? null : xre.namespace();
 			rootElementSchema.setNamespace(namespace);
 			rootElementSchema.setOnlyChildren(xre.onlyChildren());
-		} else { // if no BinderRoot, use class name instead
+		} else { 
+			// if no BinderRoot, use class name instead
 			rootElementSchema.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
 			rootElementSchema.setNamespace(null);
 			rootElementSchema.setOnlyChildren(false);
@@ -201,7 +197,6 @@ public class MappingSchema {
 
 		// sort fields according to order annotaions
 		Arrays.sort(fields, new Comparator<Field>() {
-
 			@Override
 			public int compare(Field field1, Field field2) {
 				BindOrder order1 = field1.getAnnotation(BindOrder.class);
@@ -272,13 +267,14 @@ public class MappingSchema {
 
 				fieldsMap.put(field.getName(), elementSchema);
 
+				/* TODO to implements in next releases
 				// database section
 				if (field.isAnnotationPresent(BindDatabase.class)) {
 					BindDatabase databaseAnnotation = field.getAnnotation(BindDatabase.class);
 					elementSchema.setPrimaryKey(databaseAnnotation.primaryKey());
 					elementSchema.setNullable(databaseAnnotation.nullable());
 					elementSchema.setUnique(databaseAnnotation.unique());
-				}
+				}*/
 			} else if (field.isAnnotationPresent(BindAttribute.class)) {
 				// validation
 				if (!Transformer.isTransformable(field.getType())) {
@@ -299,13 +295,14 @@ public class MappingSchema {
 
 				fieldsMap.put(field.getName(), attributeSchema);
 
+				/* TODO to implements in next releases
 				// database section
 				if (field.isAnnotationPresent(BindDatabase.class)) {
 					BindDatabase databaseAnnotation = field.getAnnotation(BindDatabase.class);
 					attributeSchema.setPrimaryKey(databaseAnnotation.primaryKey());
 					attributeSchema.setNullable(databaseAnnotation.nullable());
 					attributeSchema.setUnique(databaseAnnotation.unique());
-				}
+				}*/
 			} else if (field.isAnnotationPresent(BindValue.class)) {
 				counters.valueSchemaCount++;
 
@@ -325,15 +322,16 @@ public class MappingSchema {
 				// set the name
 				valueSchema.setName(field.getName());
 
+				/* TODO to implements in next releases
 				// database section
 				if (field.isAnnotationPresent(BindDatabase.class)) {
 					BindDatabase databaseAnnotation = field.getAnnotation(BindDatabase.class);
 					valueSchema.setPrimaryKey(databaseAnnotation.primaryKey());
 					valueSchema.setNullable(databaseAnnotation.nullable());
 					valueSchema.setUnique(databaseAnnotation.unique());
-				}
+				}*/
 
-			} else if (field.isAnnotationPresent(BindAnyElement.class)) {
+			/*}  else if (field.isAnnotationPresent(BindAnyElement.class)) {
 				counters.anyElementSchemaCount++;
 
 				if (!TypeReflector.collectionAssignable(field.getType())) {
@@ -360,7 +358,7 @@ public class MappingSchema {
 					anyElementSchema.setNullable(databaseAnnotation.nullable());
 					anyElementSchema.setUnique(databaseAnnotation.unique());
 				}
-
+			*/
 			} else if (isDefault) { // default to Node
 				counters.elementSchemaCount++;
 
@@ -376,13 +374,14 @@ public class MappingSchema {
 
 				fieldsMap.put(field.getName(), elementSchema);
 
+				/* TODO to implements in next releases
 				// database section
 				if (field.isAnnotationPresent(BindDatabase.class)) {
 					BindDatabase databaseAnnotation = field.getAnnotation(BindDatabase.class);
 					elementSchema.setPrimaryKey(databaseAnnotation.primaryKey());
 					elementSchema.setNullable(databaseAnnotation.nullable());
 					elementSchema.setUnique(databaseAnnotation.unique());
-				}
+				}*/
 			}
 		}
 

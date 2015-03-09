@@ -1,10 +1,11 @@
 /**
  * 
  */
-package issue.kripton_3;
+package issue.kripton_10;
 
 import java.util.Date;
 
+import com.abubusoft.kripton.annotation.BindAttribute;
 import com.abubusoft.kripton.annotation.BindElement;
 import com.abubusoft.kripton.annotation.BindRoot;
 
@@ -15,21 +16,21 @@ import com.abubusoft.kripton.annotation.BindRoot;
  *
  */
 @BindRoot
-public class Bean0 {
+public class Bean03 {
 
 	@BindRoot
-	public static class SubBean01
+	public static class SubBean03
 	{
 		@BindElement
 		private Date date;
 		
 		// Needed for serialization
-		public SubBean01()
+		public SubBean03()
 		{
 			
 		}
 		
-		public SubBean01(Date date, String title) {
+		public SubBean03(Date date, String title) {
 			this.date=date;
 			this.name=title;
 		}
@@ -54,27 +55,27 @@ public class Bean0 {
 		private String name;
 	}
 	
-	@BindElement
+	@BindAttribute
+	private char car='a';
+	
+	@BindAttribute
 	private Date birthday;
 	
-	@BindElement(data=true)
+	@BindAttribute
 	private String name;
 
-	@BindElement
+	@BindAttribute
 	private String surname;
 	
-	@BindElement
-	private byte[] buffer={1, 2,3, 4};
-	
-	@BindElement
-	private SubBean01[] tickets;
+	@BindAttribute
+	private SubBean03[] tickets;
 	
 
-	public SubBean01[] getTickets() {
+	public SubBean03[] getTickets() {
 		return tickets;
 	}
 
-	public void setTickets(SubBean01[] tickets) {
+	public void setTickets(SubBean03[] tickets) {
 		this.tickets = tickets;
 	}
 

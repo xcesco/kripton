@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
  * indicates a root XML element
  * 
  * @author bulldog
+ * @author xcesco
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -17,26 +18,33 @@ import java.lang.annotation.Target;
 public @interface BindRoot {
 
 	/**
-	 * The name of the root XML element
+	 * Name of the root XML element
 	 * 
 	 * @return name
 	 */
     public String name() default "";
     
     /**
-     * The namespace of the root XML element
+     * Namespace of the root XML element
      * 
      * @return namespace
      */
     public String namespace() default "";
     
     /**
-     * <p><b>JSON</b>: ignora l'elemento in fase di lettura/scrittura di un file json</p>
-     * <p><b>XML</b>: questo attributo non viene utilizzato</p>
+     * <p><b>JSON</b>: ignore element and read only fields</p>
+     * <p><b>XML</b>: not used</p>
      * 
      * @return
-     * 		di default è true
+     * 		true for default
      */
     public boolean onlyChildren() default true;
+    
+    
+    /**
+     * Use natural order to sort fields. If true, {@link BindOrder} of fields are ignored.
+     * @return
+     */
+    public boolean useNaturalOrder() default false;
 	
 }
