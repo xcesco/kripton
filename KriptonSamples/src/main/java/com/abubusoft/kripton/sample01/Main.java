@@ -3,9 +3,7 @@
  */
 package com.abubusoft.kripton.sample01;
 
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.binder.BinderReader;
