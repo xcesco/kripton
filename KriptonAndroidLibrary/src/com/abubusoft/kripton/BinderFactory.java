@@ -1,12 +1,9 @@
-package com.abubusoft.kripton.android;
+package com.abubusoft.kripton;
 
-import com.abubusoft.kripton.BinderReader;
-import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Format;
-import com.abubusoft.kripton.android.xml.XmlPullWriter;
 import com.abubusoft.kripton.binder.json.JsonReader;
 import com.abubusoft.kripton.binder.json.JsonWriter;
 import com.abubusoft.kripton.binder.xml.XmlDOMReader;
+import com.abubusoft.kripton.binder.xml.XmlPullWriter;
 import com.abubusoft.kripton.binder.xml.XmlSAXReader;
 
 /**
@@ -45,7 +42,7 @@ public class BinderFactory {
 	 * @param format info about encoding and indent
 	 * @return an instance of BinderReader implementation
 	 */
-	public static BinderReader getXMLReader(Format format) {
+	public static BinderReader getXMLReader(Options format) {
 		if (readerType == ReaderType.SAX) {
 			return new XmlSAXReader(format);
 		} else {
@@ -70,7 +67,7 @@ public class BinderFactory {
 	 * @param format info about encoding
 	 * @return an instance of BinderReader implementation.
 	 */
-	public static BinderReader getJSONReader(Format format) {
+	public static BinderReader getJSONReader(Options format) {
 		return new JsonReader(format);
 	}
 	
@@ -88,11 +85,11 @@ public class BinderFactory {
 	 * Get BinderWriter instance with default specific format,
 	 * the BinderWriter instance can be used to write Java POJO into XML.
 	 * 
-	 * @param format info about encoding and indent
+	 * @param options info about encoding and indent
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderWriter getXMLWriter(Format format) {
-		return new XmlPullWriter(format);
+	public static BinderWriter getXMLWriter(Options options) {
+		return new XmlPullWriter(options);
 	}
 	
 	/**
@@ -111,8 +108,8 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderWriter getJSONWriter(Format format) {
-		return new JsonWriter(format);
+	public static BinderWriter getJSONWriter(Options options) {
+		return new JsonWriter(options);
 	}
 	
 	public enum ReaderType {

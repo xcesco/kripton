@@ -22,7 +22,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.abubusoft.kripton.BinderReader;
-import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.binder.schema.AnyElementSchema;
 import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
@@ -39,13 +39,14 @@ import com.abubusoft.kripton.common.TypeReflector;
  * BinderReader implementation using DOM xml parser.
  * 
  * @author bulldog
+ * @author xcesco
  *
  */
 public class XmlDOMReader implements BinderReader {
 
-	protected Format format;
+	protected Options format;
 
-	protected static final ThreadLocal<DocumentBuilder> builderLocal = new ThreadLocal<DocumentBuilder>() {
+	protected static final ThreadLocal<DocumentBuilder> localBuilder = new ThreadLocal<DocumentBuilder>() {
 		@Override
 		protected DocumentBuilder initialValue() {
 			try {
@@ -61,10 +62,10 @@ public class XmlDOMReader implements BinderReader {
 	};
 
 	public XmlDOMReader() {
-		this(new Format());
+		this(new Options());
 	}
 
-	public XmlDOMReader(Format format) {
+	public XmlDOMReader(Options format) {
 		this.format = format;
 	}
 
@@ -75,7 +76,7 @@ public class XmlDOMReader implements BinderReader {
 		this.validate(type, source);
 
 		try {
-			DocumentBuilder db = builderLocal.get();
+			DocumentBuilder db = localBuilder.get();
 			Document doc = db.parse(source);
 
 			Element rootElement = doc.getDocumentElement();

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.binder.json.internal.JSONArray;
 import com.abubusoft.kripton.binder.json.internal.JSONObject;
 import com.abubusoft.kripton.exception.MappingException;
@@ -40,13 +40,13 @@ public class JsonWriter implements BinderWriter {
 
 	static final int DEFAULT_INDENTATION = 4;
 
-	private Format format;
+	private Options format;
 
 	public JsonWriter() {
-		this(new Format());
+		this(new Options());
 	}
 
-	public JsonWriter(Format format) {
+	public JsonWriter(Options format) {
 		this.format = format;
 	}
 

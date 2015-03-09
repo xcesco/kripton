@@ -245,11 +245,6 @@ class XmlReaderHandler extends DefaultHandler {
 				Object obj = helper.valueStack.pop();
 				MappingSchema ms = MappingSchema.fromObject(obj);
 
-				if (helper.valueStack.size() == 0) { // the end
-					helper.valueStack.push(obj);
-					helper.depth--;
-					return;
-				}
 
 				ValueSchema vs = ms.getValueSchema();
 				if (vs != null) {
@@ -260,6 +255,13 @@ class XmlReaderHandler extends DefaultHandler {
 						field.set(obj, value);
 					}
 				}
+				
+				if (helper.valueStack.size() == 0) { // the end
+					helper.valueStack.push(obj);
+					helper.depth--;
+					return;
+				}
+
 
 				Object parentObj = helper.valueStack.peek();
 				MappingSchema parentMs = MappingSchema.fromObject(parentObj);

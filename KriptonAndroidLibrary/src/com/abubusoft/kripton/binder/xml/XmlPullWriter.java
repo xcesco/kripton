@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.xml;
+package com.abubusoft.kripton.binder.xml;
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -14,12 +14,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-import org.xmlpull.v1.XmlSerializer;
 
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 import com.abubusoft.kripton.binder.schema.AnyElementSchema;
@@ -29,6 +26,9 @@ import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.schema.RootElementSchema;
 import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
+import com.abubusoft.kripton.binder.xml.internal.MXSerializer;
+import com.abubusoft.kripton.binder.xml.internal.XmlSerializer;
+import com.abubusoft.kripton.binder.xml.internal.XmlSerializerFactor;
 import com.abubusoft.kripton.common.StringUtil;
 
 /**
@@ -39,40 +39,42 @@ import com.abubusoft.kripton.common.StringUtil;
  */
 public class XmlPullWriter implements BinderWriter {
 
-	protected static final String IDENT_PROPERTY = "http://xmlpull.org/v1/doc/features.html#indent-output";
-	protected static final String PROPERTY_SERIALIZER_INDENTATION = "http://xmlpull.org/v1/doc/properties.html#serializer-indentation";
-
-	protected Format format;
-
-	protected XmlPullParserFactory factory;
+	protected Options format;
 
 	public XmlPullWriter() {
-		this(new Format());
+		this(Options.build());
 	}
 
-	public XmlPullWriter(Format format) {
+	public XmlPullWriter(Options format) {
 		this.format = format;
-
-		try {
-			factory = XmlPullParserFactory.newInstance(System.getProperty(XmlPullParserFactory.PROPERTY_NAME), null);
-		} catch (XmlPullParserException e) {
-			throw new RuntimeException("Failed to create XmlPullParserFactory!", e);
-		}
 	}
+	
+	/**
+	 * one thread, one serializer
+	 */
+	protected static final ThreadLocal<XmlSerializer> localSerialzer=new ThreadLocal<XmlSerializer>(){
+
+		@Override
+		protected XmlSerializer initialValue() {
+			return XmlSerializerFactor.createXmlSerializer();
+		}
+		
+	};
 
 	public void write(Object source, Writer out) throws WriterException, MappingException {
 		try {
 			// entry validation
 			validate(source, out);
 
-			XmlSerializer serializer = factory.newSerializer();
+			XmlSerializer serializer = localSerialzer.get();
 			if (format.isIndent()) {
-				try {
-					serializer.setFeature(IDENT_PROPERTY, true);
-				} catch (IllegalStateException ise) {
-					serializer.setProperty(PROPERTY_SERIALIZER_INDENTATION, "    ");
-				}
+				serializer.setProperty(MXSerializer.PROPERTY_SERIALIZER_INDENTATION, "    ");
+				serializer.setProperty(MXSerializer.PROPERTY_SERIALIZER_LINE_SEPARATOR, "\n");
+			} else {
+				serializer.setProperty(MXSerializer.PROPERTY_SERIALIZER_INDENTATION, "");
+				serializer.setProperty(MXSerializer.PROPERTY_SERIALIZER_LINE_SEPARATOR, "");
 			}
+			
 			serializer.setOutput(out);
 			serializer.startDocument(format.getEncoding(), null);
 
@@ -254,7 +256,7 @@ public class XmlPullWriter implements BinderWriter {
 				if (value != null) {
 					if (es.isList()) {
 						this.writeElementList(serializer, value, es, namespace);
-					} else if (es.isArray() && es.getParameterizedType()!=Byte.TYPE) {
+					} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
 						this.writeElementArray(serializer, value, es, namespace);
 					} else {
 						this.writeElement(serializer, value, es, namespace);
@@ -287,15 +289,14 @@ public class XmlPullWriter implements BinderWriter {
 			serializer.startTag(namespace, es.getWrapperName());
 		}
 
-		int n=Array.getLength(source);
+		int n = Array.getLength(source);
 		Object value;
-		
-		for (int i=0; i<n;i++)
-		{
-			value=Array.get(source, i);
+
+		for (int i = 0; i < n; i++) {
+			value = Array.get(source, i);
 			this.writeElement(serializer, value, es, namespace);
 		}
-		
+
 		if (es.hasWrapperName()) {
 			serializer.endTag(namespace, es.getWrapperName());
 		}
@@ -305,7 +306,7 @@ public class XmlPullWriter implements BinderWriter {
 
 	private void writeElement(XmlSerializer serializer, Object source, ElementSchema es, String namespace) throws Exception {
 		Class<?> type = null;
-		if (es.isList() || (es.isArray()&& es.getParameterizedType()!=Byte.TYPE)) {
+		if (es.isList() || (es.isArray() && es.getParameterizedType() != Byte.TYPE)) {
 			type = es.getParameterizedType();
 		} else {
 			type = es.getField().getType();
@@ -328,7 +329,7 @@ public class XmlPullWriter implements BinderWriter {
 			} else {
 				serializer.text(value);
 			}
-			
+
 			serializer.endTag(namespace, xmlName);
 
 			return;

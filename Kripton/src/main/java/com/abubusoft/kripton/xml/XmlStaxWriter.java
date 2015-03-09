@@ -19,7 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 import com.abubusoft.kripton.binder.schema.AnyElementSchema;
@@ -36,15 +36,15 @@ public class XmlStaxWriter implements BinderWriter {
 	protected static final String IDENT_PROPERTY = "http://xml.apache.org/xslt#indent-amount";
 	protected static final String PROPERTY_SERIALIZER_INDENTATION = "http://xmlpull.org/v1/doc/properties.html#serializer-indentation";
 
-	protected Format format;
+	protected Options format;
 
 	protected XMLOutputFactory factory;
 
 	public XmlStaxWriter() {
-		this(new Format());
+		this(new Options());
 	}
 
-	public XmlStaxWriter(Format format) {
+	public XmlStaxWriter(Options format) {
 		this.format = format;
 
 		factory = XMLOutputFactory.newFactory();

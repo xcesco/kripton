@@ -43,7 +43,7 @@ public class BinderFactory {
 	 * @param format info about encoding and indent
 	 * @return an instance of BinderReader implementation
 	 */
-	public static BinderReader getXMLReader(Format format) {
+	public static BinderReader getXMLReader(Options format) {
 		if (readerType == ReaderType.SAX) {
 			return new XmlSAXReader(format);
 		} else {
@@ -68,7 +68,7 @@ public class BinderFactory {
 	 * @param format info about encoding
 	 * @return an instance of BinderReader implementation.
 	 */
-	public static BinderReader getJSONReader(Format format) {
+	public static BinderReader getJSONReader(Options format) {
 		return new JsonReader(format);
 	}
 	
@@ -89,7 +89,7 @@ public class BinderFactory {
 	 * @param format info about encoding and indent
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderWriter getXMLWriter(Format format) {
+	public static BinderWriter getXMLWriter(Options format) {
 		return new XmlStaxWriter(format);
 	}
 	
@@ -109,7 +109,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderWriter getJSONWriter(Format format) {
+	public static BinderWriter getJSONWriter(Options format) {
 		return new XmlStaxWriter(format);
 	}
 	

@@ -16,9 +16,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -33,8 +34,8 @@ public class XMLTest0 extends BaseTest {
 
 	@Before
 	public void createBinder() {
-		writer0 = BinderFactory.getXMLWriter(Format.build().indent(false));
-		writer1 = BinderFactory.getXMLWriter(Format.build());
+		writer0 = BinderFactory.getXMLWriter(Options.build().indent(false));
+		writer1 = BinderFactory.getXMLWriter(Options.build());
 		reader = BinderFactory.getXMLReader();
 	}
 
@@ -45,7 +46,7 @@ public class XMLTest0 extends BaseTest {
 
 	@Test
 	public void testNoPropertis() throws WriterException, MappingException, ReaderException {
-		String expected = "<?xml version='1.0' encoding='utf-8' ?><bean0 />";
+		String expected = "<?xml version=\"1.0\" encoding=\"utf-8\"?><bean0 />";
 		Bean0 bean = new Bean0();
 
 		String buffer0 = writer0.write(bean);

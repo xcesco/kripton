@@ -3,8 +3,6 @@
  */
 package issue.kripton_7;
 
-import issue.kripton_7.Bean3.SubBean03;
-
 import java.util.Date;
 import java.util.List;
 

@@ -33,6 +33,17 @@ import com.abubusoft.kripton.common.TypeReflector;
  */
 public class MappingSchema {
 
+	static class Counters {
+
+		public int valueSchemaCount;
+		public int anyElementSchemaCount;
+		public int elementSchemaCount;
+
+		public void reset() {
+
+		}
+	}
+
 	private RootElementSchema rootElementSchema;
 	private Map<String, Object> field2SchemaMapping;
 	private Map<String, Object> xml2SchemaMapping;
@@ -96,13 +107,42 @@ public class MappingSchema {
 
 	}
 
+	/**
+	 * Map fields to field2SchemaMapping
+	 * 
+	 * @throws MappingException
+	 */
 	private void buildField2SchemaMapping() throws MappingException {
-		field2SchemaMapping = this.scanFieldSchema(type);
+		Counters currentCounters = new Counters();
+		Counters parentCounters = new Counters();
+
+		field2SchemaMapping = scanFieldSchema(type, currentCounters);
 
 		Class<?> superType = type.getSuperclass();
 		// scan super class fields
 		while (superType != Object.class && superType != null) {
-			Map<String, Object> parentField2SchemaMapping = this.scanFieldSchema(superType);
+			Map<String, Object> parentField2SchemaMapping = scanFieldSchema(superType, parentCounters);
+
+			currentCounters.anyElementSchemaCount += parentCounters.anyElementSchemaCount;
+			currentCounters.elementSchemaCount += parentCounters.elementSchemaCount;
+			currentCounters.valueSchemaCount += parentCounters.valueSchemaCount;
+
+			// more validation
+			if (currentCounters.valueSchemaCount > 1) {
+				throw new MappingException("BinderValue annotation can't annotate more than one fields in the classes of " + " type = " + type.getName()
+						+ " and parentType = " + superType.getName());
+			}
+
+			if (currentCounters.anyElementSchemaCount > 1) {
+				throw new MappingException("BinderAnyElement annotation can't annotate more than one fields in the classes of " + " type = " + type.getName()
+						+ " and parentType = " + superType.getName());
+			}
+
+			if (currentCounters.valueSchemaCount == 1 && currentCounters.elementSchemaCount >= 1) {
+				throw new MappingException("BinderValue and BinderElement annotations can't coexist in the classes of " + " type = " + type.getName()
+						+ " and parentType = " + superType.getName());
+			}
+
 			// redefined fields in sub-class will overwrite corresponding fields
 			// in super-class.
 			parentField2SchemaMapping.putAll(field2SchemaMapping);
@@ -146,7 +186,15 @@ public class MappingSchema {
 		}
 	}
 
-	private Map<String, Object> scanFieldSchema(Class<?> type) throws MappingException {
+	/**
+	 * Scans declared field of class passed like parameter
+	 * 
+	 * @param type
+	 *            class to scan
+	 * @return
+	 * @throws MappingException
+	 */
+	private Map<String, Object> scanFieldSchema(Class<?> type, Counters counters) throws MappingException {
 		// usiamo la linkedhashmap per tenere traccia dell'ordine
 		Map<String, Object> fieldsMap = new LinkedHashMap<String, Object>();
 		Field[] fields = type.getDeclaredFields();
@@ -173,10 +221,10 @@ public class MappingSchema {
 		});
 
 		// used for validation
-		int valueSchemaCount = 0;
-		int anyElementSchemaCount = 0;
-		int elementSchemaCount = 0;
-		
+		counters.valueSchemaCount = 0;
+		counters.anyElementSchemaCount = 0;
+		counters.elementSchemaCount = 0;
+
 		int modifier;
 
 		for (Field field : fields) {
@@ -192,7 +240,7 @@ public class MappingSchema {
 
 			if (field.isAnnotationPresent(BindElement.class)) {
 
-				elementSchemaCount++;
+				counters.elementSchemaCount++;
 
 				BindElement xmlElement = field.getAnnotation(BindElement.class);
 				ElementSchema elementSchema = new ElementSchema();
@@ -259,7 +307,7 @@ public class MappingSchema {
 					attributeSchema.setUnique(databaseAnnotation.unique());
 				}
 			} else if (field.isAnnotationPresent(BindValue.class)) {
-				valueSchemaCount++;
+				counters.valueSchemaCount++;
 
 				// validation
 				if (!Transformer.isTransformable(field.getType())) {
@@ -286,7 +334,7 @@ public class MappingSchema {
 				}
 
 			} else if (field.isAnnotationPresent(BindAnyElement.class)) {
-				anyElementSchemaCount++;
+				counters.anyElementSchemaCount++;
 
 				if (!TypeReflector.collectionAssignable(field.getType())) {
 					throw new MappingException("Current nano framework only supports java.util.List<T> as container of any type, " + "field = "
@@ -314,7 +362,7 @@ public class MappingSchema {
 				}
 
 			} else if (isDefault) { // default to Node
-				elementSchemaCount++;
+				counters.elementSchemaCount++;
 
 				ElementSchema elementSchema = new ElementSchema();
 
@@ -339,16 +387,16 @@ public class MappingSchema {
 		}
 
 		// more validation
-		if (valueSchemaCount > 1) {
+		if (counters.valueSchemaCount > 1) {
 			throw new MappingException("BinderValue annotation can't annotate more than one fields in same class," + " type = " + type.getName());
 		}
 
-		if (anyElementSchemaCount > 1) {
+		if (counters.anyElementSchemaCount > 1) {
 			throw new MappingException("BinderAnyElement annotation can't annotate more than one fields in same class," + " type = " + type.getName());
 		}
 
-		if (valueSchemaCount == 1 && elementSchemaCount >= 1) {
-			throw new MappingException("BinderValue and Node annotations can't coexist in same class," + " type = " + type.getName());
+		if (counters.valueSchemaCount == 1 && counters.elementSchemaCount >= 1) {
+			throw new MappingException("BinderValue and BinderElement annotations can't coexist in same class," + " type = " + type.getName());
 		}
 
 		return fieldsMap;

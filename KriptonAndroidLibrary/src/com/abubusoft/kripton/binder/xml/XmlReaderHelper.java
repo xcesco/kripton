@@ -40,4 +40,12 @@ class XmlReaderHelper {
 		int length = textBuilder.length();
 		this.textBuilder.delete(0, length);
 	}
+
+	public void reset() {
+		arrayStack.clear();
+		depth=0;
+		clearTextBuffer();
+		valueStack.clear();
+		
+	}
 }

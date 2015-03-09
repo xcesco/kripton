@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.abubusoft.kripton.BinderReader;
-import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.binder.json.internal.JSONArray;
 import com.abubusoft.kripton.binder.json.internal.JSONObject;
 import com.abubusoft.kripton.binder.schema.AttributeSchema;
@@ -41,13 +41,13 @@ public class JsonReader implements BinderReader {
 	/**
 	 * format of json reader
 	 */
-	private Format format;
+	private Options format;
 
 	public JsonReader() {
-		this(new Format());
+		this(new Options());
 	}
 
-	public JsonReader(Format format) {
+	public JsonReader(Options format) {
 		this.format = format;
 	}
 

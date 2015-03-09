@@ -16,9 +16,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -31,8 +32,8 @@ public class XMLTest1 extends IssueBaseTest {
 
 	@Before
 	public void createBinder() {
-		writer0 = BinderFactory.getXMLWriter(Format.build().indent(false));
-		writer1 = BinderFactory.getXMLWriter(Format.build());
+		writer0 = BinderFactory.getXMLWriter(Options.build().indent(false));
+		writer1 = BinderFactory.getXMLWriter(Options.build());
 		reader = BinderFactory.getXMLReader();
 	}
 

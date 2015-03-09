@@ -7,9 +7,18 @@ package com.abubusoft.kripton;
  * @author xcesco
  *
  */
-public class Format {
+public class Options {
 	
 	private static final String DEFAULT_ENCODING = "utf-8";
+	
+	/**
+	 * Builder for format class
+	 * @return
+	 */
+	public static Options build()
+	{
+		return new Options();
+	}
 	
 	/**
 	 * Encoding for the xml
@@ -22,48 +31,34 @@ public class Format {
 	private boolean indent;
 
 	/**
+	 * reader/writer need only one instance, thus they are used in single thread.
+	 */
+	private boolean singleThread;
+
+	/**
 	 * Constructor,
 	 * 
 	 * encoding defaults to utf-8,
 	 * indent defaults to true.
 	 * 
 	 */
-	public Format() {
-		this(true);
-	}
-	
-	/**
-	 * Builder for format class
-	 * @return
-	 */
-	public static Format build()
-	{
-		return new Format();
-	}
-
-	
-	/**
-	 * Constructor,
-	 * 
-	 * encoding defaults to utf-8.
-	 * 
-	 * @param indent indicates if serialized xml should be indented or not.
-	 */
-	public Format(boolean indent) {
-		this(indent, DEFAULT_ENCODING);
+	public Options() {
+		this(false, false, DEFAULT_ENCODING);
 	}
 	
 	/**
 	 * Constructor.
 	 * 
 	 * @param indent indicates if serialized xml should be indented or not.
+	 * @param singleThread 
 	 * @param encoding xml or json encoding.
 	 */
-	public Format(boolean indent, String encoding) {
+	public Options(boolean indent, boolean singleThread, String encoding) {
 		this.encoding = encoding;
 		if (encoding == null) {
 			this.encoding = DEFAULT_ENCODING;
 		}
+		this.singleThread=singleThread;
 		this.indent = indent;
 	}
 	
@@ -72,8 +67,9 @@ public class Format {
 	 * 
 	 * @return
 	 */
-	public boolean isIndent() {
-		return this.indent;
+	public Options encoding(String value) {
+		this.encoding=value;
+		return this;
 	}
 	
 	/**
@@ -90,7 +86,7 @@ public class Format {
 	 * 
 	 * @return
 	 */
-	public Format indent(boolean value) {
+	public Options indent(boolean value) {
 		this.indent=value;
 		return this;
 	}
@@ -100,8 +96,21 @@ public class Format {
 	 * 
 	 * @return
 	 */
-	public Format encoding(String value) {
-		this.encoding=value;
+	public boolean isIndent() {
+		return this.indent;
+	}
+	
+	public boolean isSingleThread() {
+		return singleThread;
+	}
+	
+	/**
+	 * reader/writer need only one instance, thus they are used in single thread.
+	 * 
+	 * @return
+	 */
+	public Options singleThread(boolean value) {
+		this.singleThread=value;
 		return this;
 	}
 

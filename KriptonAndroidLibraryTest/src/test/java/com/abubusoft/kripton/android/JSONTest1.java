@@ -16,9 +16,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Format;
+import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -33,8 +34,8 @@ public class JSONTest1 extends BaseTest {
 
 	@Before
 	public void createBinder() {
-		writer0 = BinderFactory.getJSONWriter(Format.build().indent(false));
-		writer1 = BinderFactory.getJSONWriter(Format.build());
+		writer0 = BinderFactory.getJSONWriter(Options.build().indent(false));
+		writer1 = BinderFactory.getJSONWriter(Options.build());
 		reader = BinderFactory.getJSONReader();
 	}
 
