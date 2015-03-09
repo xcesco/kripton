@@ -4,7 +4,6 @@
 package issue.kripton_7;
 
 import issue.IssueBaseTest;
-import issue.kripton_7.Bean3.SubBean03;
 import issue.kripton_7.Bean6.SubBean06;
 
 import java.util.ArrayList;
