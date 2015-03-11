@@ -9,8 +9,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.w3c.dom.Text;
-
 import com.abubusoft.kripton.annotation.BindAttribute;
 import com.abubusoft.kripton.annotation.BindDefault;
 import com.abubusoft.kripton.annotation.BindElement;
@@ -263,7 +261,7 @@ public class MappingSchema {
 
 				BindElement xmlElement = field.getAnnotation(BindElement.class);
 				ElementSchema elementSchema = new ElementSchema();
- 
+
 				if (StringUtil.isEmpty(xmlElement.name())) {
 					elementSchema.setName(field.getName());
 				} else {
@@ -287,13 +285,15 @@ public class MappingSchema {
 				// put in set of used names
 				checkAlreadyUsed(elementSchema.getName(), usedNames, "BinderElement");
 				checkAlreadyUsed(elementSchema.getWrapperName(), usedNames, "BinderElement");
-				
+
 				fieldsMap.put(field.getName(), elementSchema);
 
 				// List validation
 				if (handleList(field, elementSchema))
 					continue;
 				if (handleArray(field, elementSchema))
+					continue;
+				if (handleSet(field, elementSchema))
 					continue;
 
 				// put after list and array evaluation
@@ -333,7 +333,7 @@ public class MappingSchema {
 				attributeSchema.setFieldType(fieldType);
 
 				// put in set of used names
-				checkAlreadyUsed(attributeSchema.getName(), usedNames, "BinderAttribute");				
+				checkAlreadyUsed(attributeSchema.getName(), usedNames, "BinderAttribute");
 				fieldsMap.put(field.getName(), attributeSchema);
 
 				/*
@@ -366,9 +366,9 @@ public class MappingSchema {
 				valueSchema.setData(xmlValue.data());
 				valueSchema.setField(field);
 				valueSchema.setFieldType(fieldType);
-				
+
 				// put in set of used names
-				checkAlreadyUsed(valueSchema.getName(), usedNames, "BinderValue");				
+				checkAlreadyUsed(valueSchema.getName(), usedNames, "BinderValue");
 
 				/*
 				 * TODO to implements in next releases // database section if
@@ -425,15 +425,18 @@ public class MappingSchema {
 
 				// put in set of used names
 				checkAlreadyUsed(elementSchema.getName(), usedNames, "BinderElement");
-				//perhaps this is never used
-				//checkAlreadyUsed(elementSchema.getWrapperName(), usedNames, "BinderElement");
-				
+				// perhaps this is never used
+				// checkAlreadyUsed(elementSchema.getWrapperName(), usedNames,
+				// "BinderElement");
+
 				fieldsMap.put(field.getName(), elementSchema);
 
 				// List validation
 				if (handleList(field, elementSchema))
 					continue;
 				if (handleArray(field, elementSchema))
+					continue;
+				if (handleSet(field, elementSchema))
 					continue;
 
 				/*
@@ -474,8 +477,9 @@ public class MappingSchema {
 	 * @throws MappingException
 	 */
 	private boolean handleArray(Field field, ElementSchema elementSchema) throws MappingException {
-		if (field.getType().isArray() && field.getType().getComponentType() != byte.class) {
-			Class<?> type = field.getType().getComponentType();
+		Class<?> type = field.getType();
+		if (type.isArray() && type.getComponentType() != byte.class) {
+			type = field.getType().getComponentType();
 
 			if (!elementSchema.hasWrapperName()) {
 				// elementSchema.setWrapperName(elementSchema.getName());
@@ -499,23 +503,44 @@ public class MappingSchema {
 	 * @return
 	 * @throws MappingException
 	 */
-	private boolean handleList(Field field, ElementSchema elementSchema) throws MappingException {
-		if (TypeReflector.collectionAssignable(field.getType())) {
-			Class<?> type = field.getType();
-
-			if (TypeReflector.isList(type) || TypeReflector.isArrayList(type)) {
-				elementSchema.setList(true);
-				Class<?> paramizedType = TypeReflector.getParameterizedType(field, genericsResolver);
-				if (paramizedType == null) {
-					throw new MappingException("Can't get parameterized type of a List field, "
-							+ "Framework only supports collection field of List<T> type, and T must be a Nano bindable type, " + "field = " + field.getName()
-							+ ", type = " + type.getName());
-				} else {
-					elementSchema.setFieldType(paramizedType);
-				}
-			} else {
-				throw new MappingException("Current framework only supports java.util.List<T> as collection type, " + "field = " + field.getName()
+	private boolean handleSet(Field field, ElementSchema elementSchema) throws MappingException {
+		Class<?> type = field.getType();
+		if (TypeReflector.collectionAssignable(field.getType()) && TypeReflector.isSet(type)) {
+			elementSchema.setSet(true);
+			Class<?> paramizedType = TypeReflector.getParameterizedType(field, genericsResolver);
+			if (paramizedType == null) {
+				throw new MappingException("Can't get parameterized type of a Set field, "
+						+ "Framework only supports collection field of Set<T> type, and T must be a bindable type, " + "field = " + field.getName()
 						+ ", type = " + type.getName());
+			} else {
+				elementSchema.setFieldType(paramizedType);
+			}
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Set type of elementSchema if field is a collection
+	 * 
+	 * @param field
+	 * @param elementSchema
+	 * @return
+	 * @throws MappingException
+	 */
+	private boolean handleList(Field field, ElementSchema elementSchema) throws MappingException {
+		Class<?> type = field.getType();
+		if (TypeReflector.collectionAssignable(type) && TypeReflector.isList(type)) {
+
+			elementSchema.setList(true);
+			Class<?> paramizedType = TypeReflector.getParameterizedType(field, genericsResolver);
+			if (paramizedType == null) {
+				throw new MappingException("Can't get parameterized type of a List field, "
+						+ "Framework only supports collection field of List<T> type, and T must be a bindable type, " + "field = " + field.getName()
+						+ ", type = " + type.getName());
+			} else {
+				elementSchema.setFieldType(paramizedType);
 			}
 
 			return true;

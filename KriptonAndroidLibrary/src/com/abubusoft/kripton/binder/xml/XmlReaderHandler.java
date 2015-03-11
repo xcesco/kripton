@@ -4,8 +4,10 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -48,7 +50,7 @@ class XmlReaderHandler extends DefaultHandler {
 
 			AttributeSchema as = xml2AttributeSchemaMapping.get(attrName);
 			if (as == null)
-				continue;
+				continue; 
 
 			String attrValue = attrs.getValue(index);
 			
@@ -112,15 +114,8 @@ class XmlReaderHandler extends DefaultHandler {
 				if (schema != null && schema instanceof ElementSchema) {
 					ElementSchema es = (ElementSchema) schema;
 
-					//Field field = es.getField();
-
 					// detect type
 					Class<?> type = es.getFieldType();
-					/*if (es.isList()) {
-						type = es.getParameterizedType();
-					} else if (es.isArray()) {
-						type = type.getComponentType();
-					}*/
 
 					if (!Transformer.isPrimitive(type)) {
 
@@ -215,6 +210,15 @@ class XmlReaderHandler extends DefaultHandler {
 								field.set(obj, list);
 							}
 							list.add(value);
+						} else if (es.isSet()) {
+							Class<?> paramizedType = es.getFieldType();
+							Object value = Transformer.read(xmlData, paramizedType);
+							Set set = (Set) field.get(obj);
+							if (set == null) {
+								set = new LinkedHashSet();
+								field.set(obj, set);
+							}
+							set.add(value);
 						} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
 							SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
 
@@ -283,6 +287,16 @@ class XmlReaderHandler extends DefaultHandler {
 							field.set(parentObj, list);
 						}
 						list.add(obj);
+					} else if (es.isSet()) {
+						Set set = (Set) field.get(parentObj);
+						if (set == null) {
+							set = new LinkedHashSet();
+							if (!field.isAccessible()) {
+								field.setAccessible(true);
+							}
+							field.set(parentObj, set);
+						}
+						set.add(obj);
 					} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
 						SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
 

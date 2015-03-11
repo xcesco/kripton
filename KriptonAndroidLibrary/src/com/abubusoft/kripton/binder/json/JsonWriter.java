@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.Options;
@@ -41,7 +42,7 @@ public class JsonWriter implements BinderWriter {
 	static final int DEFAULT_INDENTATION = 4; 
 
 	protected Options options;
-
+ 
 	public JsonWriter() {
 		this(Options.build());
 	}
@@ -139,6 +140,8 @@ public class JsonWriter implements BinderWriter {
 				if (value != null) {
 					if (es.isList()) {
 						this.writeElementList(jsonObject, value, es);
+					} else if (es.isSet()) {
+						this.writeElementSet(jsonObject, value, es);
 					} else if (es.isArray() && es.getFieldType()!=Byte.TYPE) {
 						this.writeElementArray(jsonObject, value, es);
 					} else {
@@ -147,6 +150,41 @@ public class JsonWriter implements BinderWriter {
 				}
 			}
 		}
+	}
+
+	private void writeElementSet(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {
+		Set<?> set = (Set<?>) source;
+		if (set.size() > 0) {
+			//TODO wrapper
+			//String key = es.getName();
+			String key = es.getWrapperName();
+			key=key==null? es.getName(): key;
+			
+			JSONArray jsonArray = new JSONArray();
+			jsonObject.put(key, jsonArray);
+			for (Object value : set) {
+				if (value == null)
+					continue;
+
+				Class<?> type = es.getFieldType();
+
+				// primitives
+				if (Transformer.isPrimitive(type)) {
+					Object jsonValue = getJSONValue(value, type);
+
+					jsonArray.put(jsonValue);
+
+					continue;
+				}
+
+				// object
+				JSONObject childJsonObject = new JSONObject();
+				this.writeObject(childJsonObject, value);
+
+				jsonArray.put(childJsonObject);
+			}
+		}
+		
 	}
 
 	private void writeElementArray(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {

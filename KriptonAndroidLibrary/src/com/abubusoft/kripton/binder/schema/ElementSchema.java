@@ -24,7 +24,13 @@ public class ElementSchema extends AbstractSchema {
 	private boolean list = false;
 	
 	private boolean array=false;
+
+	private boolean set=false;
 	
+	public boolean isSet() {
+		return set;
+	}
+
 	public boolean isArray() {
 		return array;
 	}
@@ -76,5 +82,14 @@ public class ElementSchema extends AbstractSchema {
 	 */
 	public void setData(boolean data) {
 		this.data = data;
+	}
+
+	/**
+	 * Set if field is a set.
+	 * 
+	 * @param value
+	 */
+	public void setSet(boolean value) {
+		set=value;
 	}
 }

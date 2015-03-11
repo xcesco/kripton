@@ -9,8 +9,10 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -177,7 +179,7 @@ public class XmlDOMReader implements BinderReader {
 		MappingSchema ms = MappingSchema.fromObject(obj);
 
 		// read xml value if any
-		ValueSchema vs = ms.getValueSchema(); 
+		ValueSchema vs = ms.getValueSchema();
 		if (vs != null) {
 			Field field = vs.getField();
 			String text = element.getTextContent();
@@ -203,10 +205,10 @@ public class XmlDOMReader implements BinderReader {
 		NodeList nodeList = element.getChildNodes();
 
 		int n = nodeList.getLength();
-		int index=0;
+		int index = 0;
 
 		if (n > 0) {
-				
+
 			for (int i = 0; i < n; i++) {
 				Node node = nodeList.item(i);
 
@@ -252,29 +254,55 @@ public class XmlDOMReader implements BinderReader {
 								this.read(newObj, childElement);
 								list.add(newObj);
 							}
+						} else if (es.isSet()) { // set
+							@SuppressWarnings("unchecked")
+							Set<Object> list = (Set<Object>) field.get(obj);
+							if (list == null) {
+								list = new LinkedHashSet<Object>();
+								field.set(obj, list);
+							}
 
-						} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {														
-							
+							Class<?> parameterizedType = es.getFieldType();
+
+							// primitive
+							if (Transformer.isPrimitive(parameterizedType)) {
+								String xmlValue = childElement.getTextContent();
+								if (!StringUtil.isEmpty(xmlValue)) {
+									Object fieldValue = Transformer.read(xmlValue, parameterizedType);
+									if (fieldValue != null) {
+										list.add(fieldValue);
+									}
+								}
+							} else {
+								Object newObj = this.buildObjectFromType(parameterizedType);
+								this.read(newObj, childElement);
+								list.add(newObj);
+							}
+
+						} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
+
 							Object array = field.get(obj);
 							if (array == null) {
-								// if array, we first count how many element of this type there are, 
+								// if array, we first count how many element of
+								// this type there are,
 								// then, set field
 								// find effective ELEMENT_NODE
-								
+
 								// reset index
-								index=0;
+								index = 0;
 								int effectiveSize = 0;
 								{
 									Node nodeTemp;
 									for (int j = 0; j < n; j++) {
 										nodeTemp = nodeList.item(j);
-										// increment counter only if it has same tag name
+										// increment counter only if it has same
+										// tag name
 										if (nodeTemp.getNodeType() == Node.ELEMENT_NODE && es.getName().equals(nodeTemp.getLocalName())) {
 											effectiveSize++;
 										}
 									}
-								}		
-								
+								}
+
 								array = Array.newInstance(es.getFieldType(), effectiveSize);
 								field.set(obj, array);
 							}

@@ -9,6 +9,7 @@ import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -115,6 +116,17 @@ public class TypeReflector {
 	 */
 	public static boolean collectionAssignable(Class<?> type) {
 		return Collection.class.isAssignableFrom(type);
+	}
+
+	/**
+	 * check if a type is <code>java.util.Set</code> type.
+	 * 
+	 * @param type
+	 * 		a type to be checked.
+	 * @return true or false.
+	 */
+	public static boolean isSet(Class<?> type) {
+		return Set.class==type;
 	}
 
 }

@@ -9,8 +9,10 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.Options;
@@ -36,7 +38,7 @@ import com.abubusoft.kripton.common.TypeReflector;
  * @author bulldog
  * 
  */
-public class JsonReader implements BinderReader {
+public class JsonReader implements BinderReader { 
 
 	/**
 	 * format of json reader
@@ -204,6 +206,15 @@ public class JsonReader implements BinderReader {
 								readList(instance, type, field, jsonArray);
 							}
 						}
+					} else if (es.isSet()) {
+						// Set
+						Class<?> type = es.getFieldType();
+						if (jsonValue instanceof JSONArray) {
+							JSONArray jsonArray = (JSONArray) jsonValue;
+							if (jsonArray.length() > 0) {
+								readSet(instance, type, field, jsonArray);
+							}
+						}
 					} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
 						// Array
 						Class<?> type = es.getFieldType();
@@ -233,6 +244,40 @@ public class JsonReader implements BinderReader {
 				}
 			}
 		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void readSet(Object instance, Class<?> type, Field field, JSONArray jsonArray) throws Exception {
+		if (Transformer.isPrimitive(type)) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				Object jsonValue = jsonArray.get(i);
+				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
+					Object value = Transformer.read(String.valueOf(jsonValue), type);
+					Set set = (Set) field.get(instance);
+					if (set == null) {
+						set = new LinkedHashSet();
+						field.set(instance, set);
+					}
+					set.add(value);
+				}
+			}
+		} else { // Object
+			for (int i = 0; i < jsonArray.length(); i++) {
+				Object jsonValue = jsonArray.get(i);
+				if (jsonValue instanceof JSONObject) {
+					Constructor con = TypeReflector.getConstructor(type);
+					Object subObj = con.newInstance();
+					Set set = (Set) field.get(instance);
+					if (set == null) {
+						set = new LinkedHashSet();
+						field.set(instance, set);
+					}
+					set.add(subObj);
+					this.readObject(subObj, (JSONObject) jsonValue);
+				}
+			}
+		}
+		
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

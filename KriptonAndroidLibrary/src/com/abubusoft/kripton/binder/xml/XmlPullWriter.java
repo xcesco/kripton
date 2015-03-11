@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -260,6 +261,8 @@ public class XmlPullWriter implements BinderWriter {
 				if (value != null) {
 					if (es.isList()) {
 						this.writeElementList(serializer, value, es, namespace);
+					} else if (es.isSet()) {
+						this.writeElementSet(serializer, value, es, namespace);
 					} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
 						this.writeElementArray(serializer, value, es, namespace); 
 					} else {
@@ -268,6 +271,23 @@ public class XmlPullWriter implements BinderWriter {
 				}
 			}
 		}
+	}
+	
+	private void writeElementSet(XmlSerializer serializer, Object source, ElementSchema es, String namespace) throws Exception {
+		// String xmlName = es.getXmlName()+"list";
+		if (es.hasWrapperName()) {
+			serializer.startTag(namespace, es.getWrapperName());
+		}
+
+		for (Object value : (Set<?>) source) {
+			this.writeElement(serializer, value, es, namespace);
+		}
+
+		if (es.hasWrapperName()) {
+			serializer.endTag(namespace, es.getWrapperName());
+		}
+
+		// serializer.endTag(namespace, xmlName);
 	}
 
 	private void writeElementList(XmlSerializer serializer, Object source, ElementSchema es, String namespace) throws Exception {
