@@ -159,7 +159,7 @@ public class JsonReader implements BinderReader {
 				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
 					AttributeSchema as = xml2AttributeSchemaMapping.get(xmlName);
 					Field field = as.getField();
-					Object value = Transformer.read(String.valueOf(jsonValue), field.getType());
+					Object value = Transformer.read(String.valueOf(jsonValue), as.getFieldType());
 					field.set(instance, value);
 				}
 			}
@@ -173,7 +173,7 @@ public class JsonReader implements BinderReader {
 			if (jsonValue != null) {
 				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
 					Field field = vs.getField();
-					Object value = Transformer.read(String.valueOf(jsonValue), field.getType());
+					Object value = Transformer.read(String.valueOf(jsonValue), vs.getFieldType());
 					field.set(instance, value);
 				}
 			}
@@ -197,30 +197,30 @@ public class JsonReader implements BinderReader {
 					Field field = es.getField();
 					if (es.isList()) {
 						// List
-						Class<?> type = es.getParameterizedType();
+						Class<?> type = es.getFieldType();
 						if (jsonValue instanceof JSONArray) {
 							JSONArray jsonArray = (JSONArray) jsonValue;
 							if (jsonArray.length() > 0) {
 								readList(instance, type, field, jsonArray);
 							}
 						}
-					} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
+					} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
 						// Array
-						Class<?> type = es.getParameterizedType();
+						Class<?> type = es.getFieldType();
 						if (jsonValue instanceof JSONArray) {
 							JSONArray jsonArray = (JSONArray) jsonValue;
 							if (jsonArray.length() > 0) {
 								readArray(instance, type, field, jsonArray);
 							}
-						}
+						} 
 					} else {
 						if (jsonValue instanceof JSONArray) {
 							jsonValue = ((JSONArray) jsonValue).get(0);
 						}
-						Class<?> type = field.getType();
+						Class<?> type = es.getFieldType();
 						if (Transformer.isPrimitive(type)) {
 							if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
-								Object value = Transformer.read(String.valueOf(jsonValue), field.getType());
+								Object value = Transformer.read(String.valueOf(jsonValue), type);
 								field.set(instance, value);
 							}
 						} else if (jsonValue instanceof JSONObject) {

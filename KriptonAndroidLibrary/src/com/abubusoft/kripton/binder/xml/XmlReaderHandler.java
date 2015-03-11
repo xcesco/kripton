@@ -51,8 +51,10 @@ class XmlReaderHandler extends DefaultHandler {
 				continue;
 
 			String attrValue = attrs.getValue(index);
+			
+			Object value = Transformer.read(attrValue, as.getFieldType());
+			
 			Field field = as.getField();
-			Object value = Transformer.read(attrValue, field.getType());
 			field.set(obj, value);
 		}
 	}
@@ -110,15 +112,15 @@ class XmlReaderHandler extends DefaultHandler {
 				if (schema != null && schema instanceof ElementSchema) {
 					ElementSchema es = (ElementSchema) schema;
 
-					Field field = es.getField();
+					//Field field = es.getField();
 
 					// detect type
-					Class<?> type = field.getType();
-					if (es.isList()) {
+					Class<?> type = es.getFieldType();
+					/*if (es.isList()) {
 						type = es.getParameterizedType();
 					} else if (es.isArray()) {
 						type = type.getComponentType();
-					}
+					}*/
 
 					if (!Transformer.isPrimitive(type)) {
 
@@ -167,7 +169,7 @@ class XmlReaderHandler extends DefaultHandler {
 							Field field = es.getField();
 
 							int n = lastArray.value1.size();
-							Object value = Array.newInstance(es.getParameterizedType(), lastArray.value1.size());
+							Object value = Array.newInstance(es.getFieldType(), lastArray.value1.size());
 							// lastArray.value1.toArray();
 							// System.arraycopy(lastArray.value1.toArray(), 0,
 							// value, 0, n);
@@ -205,7 +207,7 @@ class XmlReaderHandler extends DefaultHandler {
 					String xmlData = helper.textBuilder.toString();
 					if (!StringUtil.isEmpty(xmlData)) {
 						if (es.isList()) {
-							Class<?> paramizedType = es.getParameterizedType();
+							Class<?> paramizedType = es.getFieldType();
 							Object value = Transformer.read(xmlData, paramizedType);
 							List list = (List) field.get(obj);
 							if (list == null) {
@@ -213,14 +215,14 @@ class XmlReaderHandler extends DefaultHandler {
 								field.set(obj, list);
 							}
 							list.add(value);
-						} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
+						} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
 							SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
 
 							if (schemaArray == null || schemaArray.value0 != es) {
 								schemaArray = new SchemaArray(es, new ArrayList());
 								helper.arrayStack.add(schemaArray);
 							}
-							Class<?> paramizedType = es.getParameterizedType();
+							Class<?> paramizedType = es.getFieldType();
 							// Object value = Transformer.read(xmlData,
 							// paramizedType);
 							Object value;
@@ -251,7 +253,7 @@ class XmlReaderHandler extends DefaultHandler {
 					Field field = vs.getField();
 					String xmlData = helper.textBuilder.toString();
 					if (!StringUtil.isEmpty(xmlData)) {
-						Object value = Transformer.read(xmlData, field.getType());
+						Object value = Transformer.read(xmlData, vs.getFieldType());
 						field.set(obj, value);
 					}
 				}
@@ -281,14 +283,14 @@ class XmlReaderHandler extends DefaultHandler {
 							field.set(parentObj, list);
 						}
 						list.add(obj);
-					} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
+					} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
 						SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
 
 						if (schemaArray == null || schemaArray.value0 != es) {
 							schemaArray = new SchemaArray(es, new ArrayList());
 							helper.arrayStack.add(schemaArray);
 						}
-						Class<?> paramizedType = es.getParameterizedType();
+						Class<?> paramizedType = es.getFieldType();
 						// Object value = Transformer.read(xmlData,
 						// paramizedType);
 						Object value = null;

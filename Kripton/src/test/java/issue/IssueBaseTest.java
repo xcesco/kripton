@@ -22,7 +22,7 @@ import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
 
-public class IssueBaseTest<E> {
+public abstract class IssueBaseTest<E> {
 
 	protected Logger logger = Logger.getAnonymousLogger();
 
@@ -65,7 +65,7 @@ public class IssueBaseTest<E> {
 	 */
 	@Test
 	public void testJSON_Packed() throws WriterException, MappingException, ReaderException, IOException {
-		Options format=Options.build().indent(false);
+		Options format=Options.build().indent(false).useApostrophe(true);
 		BinderWriter writer = BinderFactory.getJSONWriter(format);
 		BinderReader reader = BinderFactory.getJSONReader();
 
@@ -82,7 +82,7 @@ public class IssueBaseTest<E> {
 	 */
 	@Test
 	public void testJSON_Formatted() throws WriterException, MappingException, ReaderException, IOException {
-		Options format=Options.build().indent(true);
+		Options format=Options.build().indent(true).useApostrophe(true);
 		BinderWriter writer = BinderFactory.getJSONWriter(format);
 		BinderReader reader = BinderFactory.getJSONReader();
 
@@ -98,7 +98,7 @@ public class IssueBaseTest<E> {
 	 */
 	@Test
 	public void testXML_PackedDOM() throws WriterException, MappingException, ReaderException, IOException {
-		Options format=Options.build().indent(false);
+		Options format=Options.build().indent(false).useApostrophe(true);
 		BinderWriter writer = BinderFactory.getXMLWriter(format);
 		BinderFactory.readerType = ReaderType.DOM;
 		BinderReader reader = BinderFactory.getXMLReader(Options.build().indent(false));
@@ -115,7 +115,7 @@ public class IssueBaseTest<E> {
 	 */
 	@Test
 	public void testXML_FormattedDOM() throws WriterException, MappingException, ReaderException, IOException {
-		Options format=Options.build().indent(true);
+		Options format=Options.build().indent(true).useApostrophe(true);
 		BinderWriter writer = BinderFactory.getXMLWriter(format);
 		BinderFactory.readerType = ReaderType.DOM;
 		BinderReader reader = BinderFactory.getXMLReader(Options.build().indent(false));

@@ -27,7 +27,7 @@ public class MXSerializer implements XmlSerializer {
     private static final boolean TRACE_SIZING = false;
     private static final boolean TRACE_ESCAPING = false;
     
-    protected final String FEATURE_SERIALIZER_ATTVALUE_USE_APOSTROPHE =
+    public static final String FEATURE_SERIALIZER_ATTVALUE_USE_APOSTROPHE =
         "http://xmlpull.org/v1/doc/features.html#serializer-attvalue-use-apostrophe";
     protected final String FEATURE_NAMES_INTERNED =
         "http://xmlpull.org/v1/doc/features.html#names-interned";

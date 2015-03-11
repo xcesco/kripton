@@ -21,8 +21,6 @@ import org.junit.Before;
  */
 public class Issue3Test1 extends IssueBaseTest<Bean1> {
 
-	private Bean1 bean;
-
 	@Before
 	public void setup()
 	{

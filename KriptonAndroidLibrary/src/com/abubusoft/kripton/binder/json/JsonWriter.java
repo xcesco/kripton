@@ -38,16 +38,16 @@ public class JsonWriter implements BinderWriter {
 
 	static final String VALUE_KEY = "__value__";
 
-	static final int DEFAULT_INDENTATION = 4;
+	static final int DEFAULT_INDENTATION = 4; 
 
-	private Options format;
+	protected Options options;
 
 	public JsonWriter() {
-		this(new Options());
+		this(Options.build());
 	}
 
-	public JsonWriter(Options format) {
-		this.format = format;
+	public JsonWriter(Options options) {
+		this.options = options;
 	}
 
 	public void write(Object source, Writer out) throws WriterException, MappingException {
@@ -71,7 +71,7 @@ public class JsonWriter implements BinderWriter {
 		}
 
 		try {
-			this.write(source, new OutputStreamWriter(os, format.getEncoding()));
+			this.write(source, new OutputStreamWriter(os, options.getEncoding()));
 		} catch (UnsupportedEncodingException e) {
 			throw new WriterException("Error to serialize object", e);
 		}
@@ -109,7 +109,7 @@ public class JsonWriter implements BinderWriter {
 			Object value = field.get(source);
 			if (value != null) {
 				String key = "@" + as.getName();
-				Object jsonValue = this.getJSONValue(value, field.getType());
+				Object jsonValue = this.getJSONValue(value, as.getFieldType());
 				jsonObject.put(key, jsonValue);
 			}
 		}
@@ -123,7 +123,7 @@ public class JsonWriter implements BinderWriter {
 		Field field = vs.getField();
 		Object value = field.get(source);
 		if (value != null) {
-			Object jsonValue = getJSONValue(value, field.getType());
+			Object jsonValue = getJSONValue(value, vs.getFieldType());
 			jsonObject.put(VALUE_KEY, jsonValue);
 		}
 	}
@@ -139,7 +139,7 @@ public class JsonWriter implements BinderWriter {
 				if (value != null) {
 					if (es.isList()) {
 						this.writeElementList(jsonObject, value, es);
-					} else if (es.isArray() && es.getParameterizedType()!=Byte.TYPE) {
+					} else if (es.isArray() && es.getFieldType()!=Byte.TYPE) {
 						this.writeElementArray(jsonObject, value, es);
 					} else {
 						this.writeElement(jsonObject, value, es);
@@ -167,7 +167,7 @@ public class JsonWriter implements BinderWriter {
 				if (value == null)
 					continue;
 
-				Class<?> type = es.getParameterizedType();
+				Class<?> type = es.getFieldType();
 				
 				// primitives
 				if (Transformer.isPrimitive(type)) {
@@ -200,7 +200,7 @@ public class JsonWriter implements BinderWriter {
 				if (value == null)
 					continue;
 
-				Class<?> type = es.getParameterizedType();
+				Class<?> type = es.getFieldType();
 
 				// primitives
 				if (Transformer.isPrimitive(type)) {
@@ -221,7 +221,7 @@ public class JsonWriter implements BinderWriter {
 	}
 
 	private void writeElement(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {
-		Class<?> type = es.getField().getType();
+		Class<?> type = es.getFieldType();
 
 		// primitives
 		if (Transformer.isPrimitive(type)) {
@@ -267,19 +267,19 @@ public class JsonWriter implements BinderWriter {
 
 			JSONObject childJsonObject = new JSONObject();
 			jsonObject.put(res.getName(), childJsonObject);
-
-			this.writeObject(childJsonObject, source);
+ 
+			writeObject(childJsonObject, source);
 
 			if (res.isOnlyChildren()) {
 				// dobbiamo ignorare il root
-				if (this.format.isIndent()) {
+				if (this.options.isIndent()) {
 					return childJsonObject.toString(DEFAULT_INDENTATION);
 				} else {
 					return childJsonObject.toString();
 				}
 			} else {
 				// dobbiamo scrivere tutto
-				if (this.format.isIndent()) {
+				if (this.options.isIndent()) {
 					return jsonObject.toString(DEFAULT_INDENTATION);
 				} else {
 					return jsonObject.toString();

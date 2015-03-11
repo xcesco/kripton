@@ -33,6 +33,12 @@ public class XmlSAXReader implements BinderReader {
 	private static SAXParserFactory spf;
 	private Options format;
 
+	/**
+	 * holder for thread.
+	 * 
+	 * @author xcesco
+	 *
+	 */
 	static class Holder {
 		XmlReaderHelper helper;
 		XmlReaderHandler saxHandler;
@@ -91,8 +97,8 @@ public class XmlSAXReader implements BinderReader {
 		validate(type, source);
 
 		try {
-			
-			Holder holder=localBuilder.get();
+
+			Holder holder = localBuilder.get();
 			holder.helper.reset();
 
 			Constructor con = null;
@@ -107,10 +113,12 @@ public class XmlSAXReader implements BinderReader {
 			holder.xmlReader.setContentHandler(holder.saxHandler);
 			holder.xmlReader.parse(new InputSource(source));
 
-			if (holder.helper.valueStack.size() == 1) { // has one and only one object
-													// left on the stack
-				return (T) holder.helper.valueStack.pop(); // read is successful, just
-													// return the object
+			if (holder.helper.valueStack.size() == 1) { // has one and only one
+														// object
+				// left on the stack
+				return (T) holder.helper.valueStack.pop(); // read is
+															// successful, just
+				// return the object
 			} else {
 				throw new ReaderException("Error to read/descrialize object, no result to return");
 			}

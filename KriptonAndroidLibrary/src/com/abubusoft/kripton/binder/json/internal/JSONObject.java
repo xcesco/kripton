@@ -34,6 +34,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -95,6 +96,7 @@ import java.util.Set;
  * @version 2014-05-03
  */
 public class JSONObject {
+	
     /**
      * JSONObject.NULL is equivalent to the value that JavaScript calls null,
      * whilst Java's null is equivalent to the value that JavaScript calls
@@ -139,7 +141,7 @@ public class JSONObject {
     /**
      * The map where the JSONObject's properties are kept.
      */
-    private final Map<String, Object> map;
+    private final LinkedHashMap<String, Object> map;
 
     /**
      * It is sometimes more convenient and less ambiguous to have a
@@ -153,7 +155,7 @@ public class JSONObject {
      * Construct an empty JSONObject.
      */
     public JSONObject() {
-        this.map = new HashMap<String, Object>();
+        this.map = new LinkedHashMap<String, Object>();
     }
 
     /**
@@ -244,7 +246,7 @@ public class JSONObject {
      * @throws JSONException
      */
     public JSONObject(Map<String, Object> map) {
-        this.map = new HashMap<String, Object>();
+        this.map = new LinkedHashMap<String, Object>();
         if (map != null) {
             Iterator<Entry<String, Object>> i = map.entrySet().iterator();
             while (i.hasNext()) {
@@ -299,7 +301,7 @@ public class JSONObject {
      */
     public JSONObject(Object object, String names[]) {
         this();
-        Class c = object.getClass();
+        Class<?> c = object.getClass();
         for (int i = 0; i < names.length; i += 1) {
             String name = names[i];
             try {
@@ -632,7 +634,7 @@ public class JSONObject {
         if (object == null) {
             return null;
         }
-        Class klass = object.getClass();
+        Class<?> klass = object.getClass();
         Field[] fields = klass.getFields();
         int length = fields.length;
         if (length == 0) {
@@ -982,7 +984,7 @@ public class JSONObject {
     }
 
     private void populateMap(Object bean) {
-        Class klass = bean.getClass();
+        Class<?> klass = bean.getClass();
 
 // If klass is a System class then set includeSuperClass to false.
 
@@ -1071,7 +1073,7 @@ public class JSONObject {
      *             If the key is null or if the number is invalid.
      */
     public JSONObject put(String key, double value) throws JSONException {
-        this.put(key, new Double(value));
+        this.put(key, Double.valueOf(value));
         return this;
     }
 
@@ -1087,7 +1089,7 @@ public class JSONObject {
      *             If the key is null.
      */
     public JSONObject put(String key, int value) throws JSONException {
-        this.put(key, new Integer(value));
+        this.put(key, Integer.valueOf(value));
         return this;
     }
 
@@ -1103,7 +1105,7 @@ public class JSONObject {
      *             If the key is null.
      */
     public JSONObject put(String key, long value) throws JSONException {
-        this.put(key, new Long(value));
+        this.put(key, Long.valueOf(value));
         return this;
     }
 
@@ -1118,7 +1120,7 @@ public class JSONObject {
      * @return this.
      * @throws JSONException
      */
-    public JSONObject put(String key, Map<String, Object> value) throws JSONException {
+    public JSONObject put(String key, LinkedHashMap<String, Object> value) throws JSONException {
         this.put(key, new JSONObject(value));
         return this;
     }
@@ -1489,7 +1491,8 @@ public class JSONObject {
      * @throws JSONException
      *             If the value is or contains an invalid number.
      */
-    public static String valueToString(Object value) throws JSONException {
+    @SuppressWarnings({ "unchecked" })
+	public static String valueToString(Object value) throws JSONException {
         if (value == null || value.equals(null)) {
             return "null";
         }
@@ -1671,7 +1674,7 @@ public class JSONObject {
                     commanate = true;
                 }
                 if (indentFactor > 0) {
-                    writer.write('\n');
+                    writer.write('\n'); 
                 }
                 indent(writer, indent);
             }

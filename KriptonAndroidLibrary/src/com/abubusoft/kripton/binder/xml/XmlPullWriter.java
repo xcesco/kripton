@@ -39,14 +39,14 @@ import com.abubusoft.kripton.common.StringUtil;
  */
 public class XmlPullWriter implements BinderWriter {
 
-	protected Options format;
+	protected Options options;
 
 	public XmlPullWriter() {
-		this(Options.build());
+		this(Options.build()); 
 	}
 
-	public XmlPullWriter(Options format) {
-		this.format = format;
+	public XmlPullWriter(Options options) {
+		this.options = options;
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class XmlPullWriter implements BinderWriter {
 			validate(source, out);
 
 			XmlSerializer serializer = localSerialzer.get();
-			if (format.isIndent()) {
+			if (options.isIndent()) {
 				serializer.setProperty(MXSerializer.PROPERTY_SERIALIZER_INDENTATION, "    ");
 				serializer.setProperty(MXSerializer.PROPERTY_SERIALIZER_LINE_SEPARATOR, "\n");
 			} else {
@@ -75,8 +75,11 @@ public class XmlPullWriter implements BinderWriter {
 				serializer.setProperty(MXSerializer.PROPERTY_SERIALIZER_LINE_SEPARATOR, "");
 			}
 			
+			// use ' or " to delimit string
+			serializer.setFeature(MXSerializer.FEATURE_SERIALIZER_ATTVALUE_USE_APOSTROPHE, options.isUseApostrophe());
+			
 			serializer.setOutput(out);
-			serializer.startDocument(format.getEncoding(), null);
+			serializer.startDocument(options.getEncoding(), null);
 
 			MappingSchema ms = MappingSchema.fromObject(source);
 			RootElementSchema res = ms.getRootElementSchema();
@@ -117,7 +120,7 @@ public class XmlPullWriter implements BinderWriter {
 
 	public void write(Object source, OutputStream os) throws WriterException, MappingException {
 		try {
-			this.write(source, new OutputStreamWriter(os, format.getEncoding()));
+			this.write(source, new OutputStreamWriter(os, options.getEncoding()));
 		} catch (UnsupportedEncodingException e) {
 			throw new WriterException("Error to write/serialize object", e);
 		}
@@ -218,7 +221,8 @@ public class XmlPullWriter implements BinderWriter {
 			Field field = as.getField();
 			Object value = field.get(source);
 			if (value != null) {
-				String attValue = Transformer.write(value, field.getType());
+				//String attValue = Transformer.write(value, field.getType());
+				String attValue = Transformer.write(value, as.getFieldType());
 				if (!StringUtil.isEmpty(attValue)) {
 					serializer.attribute(null, as.getName(), attValue);
 				}
@@ -234,7 +238,7 @@ public class XmlPullWriter implements BinderWriter {
 		Field field = vs.getField();
 		Object value = field.get(source);
 		if (value != null) {
-			String text = Transformer.write(value, field.getType());
+			String text = Transformer.write(value, vs.getFieldType());			
 			if (!StringUtil.isEmpty(text)) {
 				if (vs.isData()) {
 					serializer.cdsect(text);
@@ -256,8 +260,8 @@ public class XmlPullWriter implements BinderWriter {
 				if (value != null) {
 					if (es.isList()) {
 						this.writeElementList(serializer, value, es, namespace);
-					} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {
-						this.writeElementArray(serializer, value, es, namespace);
+					} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
+						this.writeElementArray(serializer, value, es, namespace); 
 					} else {
 						this.writeElement(serializer, value, es, namespace);
 					}
@@ -284,7 +288,6 @@ public class XmlPullWriter implements BinderWriter {
 	}
 
 	private void writeElementArray(XmlSerializer serializer, Object source, ElementSchema es, String namespace) throws Exception {
-		// String xmlName = es.getXmlName()+"list";
 		if (es.hasWrapperName()) {
 			serializer.startTag(namespace, es.getWrapperName());
 		}
@@ -300,17 +303,16 @@ public class XmlPullWriter implements BinderWriter {
 		if (es.hasWrapperName()) {
 			serializer.endTag(namespace, es.getWrapperName());
 		}
-
-		// serializer.endTag(namespace, xmlName);
 	}
 
 	private void writeElement(XmlSerializer serializer, Object source, ElementSchema es, String namespace) throws Exception {
 		Class<?> type = null;
-		if (es.isList() || (es.isArray() && es.getParameterizedType() != Byte.TYPE)) {
+		/*if (es.isList() || (es.isArray() && es.getParameterizedType() != Byte.TYPE)) {
 			type = es.getParameterizedType();
 		} else {
-			type = es.getField().getType();
-		}
+			type = es.getFieldType();
+		}*/ 
+		type = es.getFieldType();
 
 		if (source == null)
 			return; // do nothing
@@ -318,8 +320,8 @@ public class XmlPullWriter implements BinderWriter {
 		String xmlName = es.getName();
 
 		// primitives
-		if (Transformer.isPrimitive(type)) {
-			String value = Transformer.write(source, type);
+		if (Transformer.isPrimitive(type)) { 
+			String value = Transformer.write(source, type); 
 			if (StringUtil.isEmpty(value))
 				return;
 

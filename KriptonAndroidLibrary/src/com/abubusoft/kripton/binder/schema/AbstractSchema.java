@@ -9,19 +9,26 @@ import java.lang.reflect.Field;
  *
  */
 public class AbstractSchema {
-	
+
 	protected Field field;
-	
-	protected boolean indexed=false;
+
+	/**
+	 * resolved field type
+	 */
+	protected Class<?> fieldType;
 
 	protected String name;
-
-	protected boolean nullable=true;
-
-	protected boolean primaryKey=false;
-
-	protected boolean unique=false;
 	
+	// TODO to use in database binding
+	 
+//	protected boolean indexed = false;
+//
+//	protected boolean nullable = true;
+//
+//	protected boolean primaryKey = false;
+//
+//	protected boolean unique = false;
+
 	/**
 	 * Get POJO field
 	 * 
@@ -30,26 +37,19 @@ public class AbstractSchema {
 	public Field getField() {
 		return field;
 	}
-	
+
+	/**
+	 * resolved field type
+	 */
+	public Class<?> getFieldType() {
+		return fieldType;
+	}
+
 	public String getName() {
 		return name;
 	}
 
-	public boolean isIndexed() {
-		return indexed;
-	}
 
-	public boolean isNullable() {
-		return nullable;
-	}
-
-	public boolean isPrimaryKey() {
-		return primaryKey;
-	}
-
-	public boolean isUnique() {
-		return unique;
-	}
 
 	/**
 	 * Set POJO field
@@ -60,23 +60,17 @@ public class AbstractSchema {
 		this.field = field;
 	}
 
-	public void setIndexed(boolean indexed) {
-		this.indexed = indexed;
+	/**
+	 * resolved field type
+	 */
+	public void setFieldType(Class<?> fieldType) {
+		this.fieldType = fieldType;
 	}
+
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setNullable(boolean nullable) {
-		this.nullable = nullable;
-	}
-	
-	public void setPrimaryKey(boolean primaryKey) {
-		this.primaryKey = primaryKey;
-	}
-	
-	public void setUnique(boolean unique) {
-		this.unique = unique;
-	}
+
 }

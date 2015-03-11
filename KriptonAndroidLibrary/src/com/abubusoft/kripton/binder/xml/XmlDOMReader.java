@@ -65,8 +65,8 @@ public class XmlDOMReader implements BinderReader {
 		this(new Options());
 	}
 
-	public XmlDOMReader(Options format) {
-		this.format = format;
+	public XmlDOMReader(Options options) {
+		this.format = options;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -164,7 +164,7 @@ public class XmlDOMReader implements BinderReader {
 				String attrValue = element.getAttributeNS(null, attrXmlName);
 				if (!StringUtil.isEmpty(attrValue)) {
 					Field field = as.getField();
-					Object filedValue = Transformer.read(attrValue, field.getType());
+					Object filedValue = Transformer.read(attrValue, as.getFieldType());
 					if (filedValue != null) {
 						field.set(obj, filedValue);
 					}
@@ -177,12 +177,12 @@ public class XmlDOMReader implements BinderReader {
 		MappingSchema ms = MappingSchema.fromObject(obj);
 
 		// read xml value if any
-		ValueSchema vs = ms.getValueSchema();
+		ValueSchema vs = ms.getValueSchema(); 
 		if (vs != null) {
 			Field field = vs.getField();
 			String text = element.getTextContent();
 			if (!StringUtil.isEmpty(text)) {
-				Object fieldValue = Transformer.read(text, field.getType());
+				Object fieldValue = Transformer.read(text, vs.getFieldType());
 				if (fieldValue != null) {
 					field.set(obj, fieldValue);
 				}
@@ -226,7 +226,7 @@ public class XmlDOMReader implements BinderReader {
 						// found match element
 						ElementSchema es = (ElementSchema) schemaObj;
 						Field field = es.getField();
-						Class<?> fieldType = field.getType();
+						Class<?> fieldType = es.getFieldType();
 
 						if (es.isList()) { // collection
 							@SuppressWarnings("unchecked")
@@ -236,7 +236,7 @@ public class XmlDOMReader implements BinderReader {
 								field.set(obj, list);
 							}
 
-							Class<?> parameterizedType = es.getParameterizedType();
+							Class<?> parameterizedType = es.getFieldType();
 
 							// primitive
 							if (Transformer.isPrimitive(parameterizedType)) {
@@ -253,7 +253,7 @@ public class XmlDOMReader implements BinderReader {
 								list.add(newObj);
 							}
 
-						} else if (es.isArray() && es.getParameterizedType() != Byte.TYPE) {														
+						} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {														
 							
 							Object array = field.get(obj);
 							if (array == null) {
@@ -275,11 +275,11 @@ public class XmlDOMReader implements BinderReader {
 									}
 								}		
 								
-								array = Array.newInstance(es.getParameterizedType(), effectiveSize);
+								array = Array.newInstance(es.getFieldType(), effectiveSize);
 								field.set(obj, array);
 							}
 
-							Class<?> parameterizedType = es.getParameterizedType();
+							Class<?> parameterizedType = es.getFieldType();
 
 							// primitive
 							if (Transformer.isPrimitive(parameterizedType)) {

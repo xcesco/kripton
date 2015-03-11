@@ -94,7 +94,7 @@ public class MappingSchema {
 			String namespace = StringUtil.isEmpty(xre.namespace()) ? null : xre.namespace();
 			rootElementSchema.setNamespace(namespace);
 			rootElementSchema.setOnlyChildren(xre.onlyChildren());
-		} else { 
+		} else {
 			// if no BinderRoot, use class name instead
 			rootElementSchema.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
 			rootElementSchema.setNamespace(null);
@@ -196,7 +196,7 @@ public class MappingSchema {
 		Field[] fields = type.getDeclaredFields();
 
 		// sort fields according to order annotaions
-		Arrays.sort(fields, new Comparator<Field>() {
+		Arrays.sort(fields, new Comparator<Field>() { 
 			@Override
 			public int compare(Field field1, Field field2) {
 				BindOrder order1 = field1.getAnnotation(BindOrder.class);
@@ -226,7 +226,7 @@ public class MappingSchema {
 			if (!field.isAccessible()) {
 				field.setAccessible(true);
 			}
-
+ 
 			// exclude transient fields and final fields
 			modifier = field.getModifiers();
 			if (Modifier.isTransient(modifier) || Modifier.isFinal(modifier)) {
@@ -234,7 +234,6 @@ public class MappingSchema {
 			}
 
 			if (field.isAnnotationPresent(BindElement.class)) {
-
 				counters.elementSchemaCount++;
 
 				BindElement xmlElement = field.getAnnotation(BindElement.class);
@@ -257,27 +256,35 @@ public class MappingSchema {
 					elementSchema.setName(elementSchema.getWrapperName());
 					elementSchema.setWrapperName(temp);
 				}
-
-				// List validation
-				handleList(field, elementSchema);
-				handleArray(field, elementSchema);
-
+				
 				elementSchema.setData(xmlElement.data());
 				elementSchema.setField(field);
-
+				// put in maps
 				fieldsMap.put(field.getName(), elementSchema);
 
-				/* TODO to implements in next releases
-				// database section
-				if (field.isAnnotationPresent(BindDatabase.class)) {
-					BindDatabase databaseAnnotation = field.getAnnotation(BindDatabase.class);
-					elementSchema.setPrimaryKey(databaseAnnotation.primaryKey());
-					elementSchema.setNullable(databaseAnnotation.nullable());
-					elementSchema.setUnique(databaseAnnotation.unique());
-				}*/
+				// List validation
+				if (handleList(field, elementSchema)) continue;
+				if (handleArray(field, elementSchema)) continue;
+				
+				Class<?> fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
+				fieldType = fieldType == null ? field.getType() : fieldType;
+				elementSchema.setFieldType(fieldType);
+
+				/*
+				 * TODO to implements in next releases // database section if
+				 * (field.isAnnotationPresent(BindDatabase.class)) {
+				 * BindDatabase databaseAnnotation =
+				 * field.getAnnotation(BindDatabase.class);
+				 * elementSchema.setPrimaryKey(databaseAnnotation.primaryKey());
+				 * elementSchema.setNullable(databaseAnnotation.nullable());
+				 * elementSchema.setUnique(databaseAnnotation.unique()); }
+				 */
 			} else if (field.isAnnotationPresent(BindAttribute.class)) {
+				Class<?> fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
+				fieldType = fieldType == null ? field.getType() : fieldType;
+
 				// validation
-				if (!Transformer.isTransformable(field.getType())) {
+				if (!Transformer.isTransformable(fieldType)) {
 					throw new MappingException("BinderAttribute annotation can't annotate complex type field, "
 							+ "only primivte type or frequently used java type or enum type field is allowed, " + "field = " + field.getName() + ", type = "
 							+ type.getName());
@@ -292,22 +299,28 @@ public class MappingSchema {
 					attributeSchema.setName(xmlAttribute.name());
 				}
 				attributeSchema.setField(field);
+				attributeSchema.setFieldType(fieldType);
 
 				fieldsMap.put(field.getName(), attributeSchema);
 
-				/* TODO to implements in next releases
-				// database section
-				if (field.isAnnotationPresent(BindDatabase.class)) {
-					BindDatabase databaseAnnotation = field.getAnnotation(BindDatabase.class);
-					attributeSchema.setPrimaryKey(databaseAnnotation.primaryKey());
-					attributeSchema.setNullable(databaseAnnotation.nullable());
-					attributeSchema.setUnique(databaseAnnotation.unique());
-				}*/
+				/*
+				 * TODO to implements in next releases // database section if
+				 * (field.isAnnotationPresent(BindDatabase.class)) {
+				 * BindDatabase databaseAnnotation =
+				 * field.getAnnotation(BindDatabase.class);
+				 * attributeSchema.setPrimaryKey
+				 * (databaseAnnotation.primaryKey());
+				 * attributeSchema.setNullable(databaseAnnotation.nullable());
+				 * attributeSchema.setUnique(databaseAnnotation.unique()); }
+				 */
 			} else if (field.isAnnotationPresent(BindValue.class)) {
 				counters.valueSchemaCount++;
 
+				Class<?> fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
+				fieldType = fieldType == null ? field.getType() : fieldType;
+
 				// validation
-				if (!Transformer.isTransformable(field.getType())) {
+				if (!Transformer.isTransformable(fieldType)) {
 					throw new MappingException("BinderValue annotation can't annotate complex type field, "
 							+ "only primivte type or frequently used java type or enum type field is allowed, " + "field = " + field.getName() + ", type = "
 							+ type.getName());
@@ -316,55 +329,62 @@ public class MappingSchema {
 				BindValue xmlValue = field.getAnnotation(BindValue.class);
 
 				valueSchema = new ValueSchema();
+				valueSchema.setName(field.getName());
 				valueSchema.setData(xmlValue.data());
 				valueSchema.setField(field);
+				valueSchema.setFieldType(fieldType);
 
-				// set the name
-				valueSchema.setName(field.getName());
+				/*
+				 * TODO to implements in next releases // database section if
+				 * (field.isAnnotationPresent(BindDatabase.class)) {
+				 * BindDatabase databaseAnnotation =
+				 * field.getAnnotation(BindDatabase.class);
+				 * valueSchema.setPrimaryKey(databaseAnnotation.primaryKey());
+				 * valueSchema.setNullable(databaseAnnotation.nullable());
+				 * valueSchema.setUnique(databaseAnnotation.unique()); }
+				 */
 
-				/* TODO to implements in next releases
-				// database section
-				if (field.isAnnotationPresent(BindDatabase.class)) {
-					BindDatabase databaseAnnotation = field.getAnnotation(BindDatabase.class);
-					valueSchema.setPrimaryKey(databaseAnnotation.primaryKey());
-					valueSchema.setNullable(databaseAnnotation.nullable());
-					valueSchema.setUnique(databaseAnnotation.unique());
-				}*/
-
-			/*}  else if (field.isAnnotationPresent(BindAnyElement.class)) {
-				counters.anyElementSchemaCount++;
-
-				if (!TypeReflector.collectionAssignable(field.getType())) {
-					throw new MappingException("Current nano framework only supports java.util.List<T> as container of any type, " + "field = "
-							+ field.getName() + ", type = " + type.getName());
-				}
-
-				Class<?> fieldType = field.getType();
-				if (!TypeReflector.isList(fieldType)) {
-					throw new MappingException("Current nano framework only supports java.util.List<T> as collection type, " + "field = " + field.getName()
-							+ ", type = " + type.getName());
-				}
-
-				anyElementSchema = new AnyElementSchema();
-				anyElementSchema.setField(field);
-
-				// set the name
-				anyElementSchema.setName(field.getName());
-
-				// database section
-				if (field.isAnnotationPresent(BindDatabase.class)) {
-					BindDatabase databaseAnnotation = field.getAnnotation(BindDatabase.class);
-					anyElementSchema.setPrimaryKey(databaseAnnotation.primaryKey());
-					anyElementSchema.setNullable(databaseAnnotation.nullable());
-					anyElementSchema.setUnique(databaseAnnotation.unique());
-				}
-			*/
+				/*
+				 * } else if (field.isAnnotationPresent(BindAnyElement.class)) {
+				 * counters.anyElementSchemaCount++;
+				 * 
+				 * if (!TypeReflector.collectionAssignable(field.getType())) {
+				 * throw new MappingException(
+				 * "Current nano framework only supports java.util.List<T> as container of any type, "
+				 * + "field = " + field.getName() + ", type = " +
+				 * type.getName()); }
+				 * 
+				 * Class<?> fieldType = field.getType(); if
+				 * (!TypeReflector.isList(fieldType)) { throw new
+				 * MappingException(
+				 * "Current nano framework only supports java.util.List<T> as collection type, "
+				 * + "field = " + field.getName() + ", type = " +
+				 * type.getName()); }
+				 * 
+				 * anyElementSchema = new AnyElementSchema();
+				 * anyElementSchema.setField(field);
+				 * 
+				 * // set the name anyElementSchema.setName(field.getName());
+				 * 
+				 * // database section if
+				 * (field.isAnnotationPresent(BindDatabase.class)) {
+				 * BindDatabase databaseAnnotation =
+				 * field.getAnnotation(BindDatabase.class);
+				 * anyElementSchema.setPrimaryKey
+				 * (databaseAnnotation.primaryKey());
+				 * anyElementSchema.setNullable(databaseAnnotation.nullable());
+				 * anyElementSchema.setUnique(databaseAnnotation.unique()); }
+				 */
 			} else if (isDefault) { // default to Node
 				counters.elementSchemaCount++;
+
+				Class<?> fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
+				fieldType = fieldType == null ? field.getType() : fieldType;
 
 				ElementSchema elementSchema = new ElementSchema();
 
 				elementSchema.setName(field.getName());
+				elementSchema.setFieldType(fieldType);
 
 				// List validation
 				handleList(field, elementSchema);
@@ -374,14 +394,15 @@ public class MappingSchema {
 
 				fieldsMap.put(field.getName(), elementSchema);
 
-				/* TODO to implements in next releases
-				// database section
-				if (field.isAnnotationPresent(BindDatabase.class)) {
-					BindDatabase databaseAnnotation = field.getAnnotation(BindDatabase.class);
-					elementSchema.setPrimaryKey(databaseAnnotation.primaryKey());
-					elementSchema.setNullable(databaseAnnotation.nullable());
-					elementSchema.setUnique(databaseAnnotation.unique());
-				}*/
+				/*
+				 * TODO to implements in next releases // database section if
+				 * (field.isAnnotationPresent(BindDatabase.class)) {
+				 * BindDatabase databaseAnnotation =
+				 * field.getAnnotation(BindDatabase.class);
+				 * elementSchema.setPrimaryKey(databaseAnnotation.primaryKey());
+				 * elementSchema.setNullable(databaseAnnotation.nullable());
+				 * elementSchema.setUnique(databaseAnnotation.unique()); }
+				 */
 			}
 		}
 
@@ -402,8 +423,8 @@ public class MappingSchema {
 
 	}
 
-	private void handleArray(Field field, ElementSchema elementSchema) throws MappingException {
-		if (field.getType().isArray()) {
+	private boolean handleArray(Field field, ElementSchema elementSchema) throws MappingException {
+		if (field.getType().isArray() && field.getType().getComponentType()!=byte.class) {
 			Class<?> type = field.getType().getComponentType();
 
 			if (!elementSchema.hasWrapperName()) {
@@ -412,11 +433,15 @@ public class MappingSchema {
 			}
 
 			elementSchema.setArray(true);
-			elementSchema.setParameterizedType(type);
+			elementSchema.setFieldType(type);
+			
+			return true;
 		}
+		
+		return false;
 	}
 
-	private void handleList(Field field, ElementSchema elementSchema) throws MappingException {
+	private boolean handleList(Field field, ElementSchema elementSchema) throws MappingException {
 		if (TypeReflector.collectionAssignable(field.getType())) {
 			Class<?> type = field.getType();
 
@@ -428,13 +453,17 @@ public class MappingSchema {
 							+ "Framework only supports collection field of List<T> type, and T must be a Nano bindable type, " + "field = " + field.getName()
 							+ ", type = " + type.getName());
 				} else {
-					elementSchema.setParameterizedType(paramizedType);
+					elementSchema.setFieldType(paramizedType);
 				}
 			} else {
 				throw new MappingException("Current framework only supports java.util.List<T> as collection type, " + "field = " + field.getName()
 						+ ", type = " + type.getName());
 			}
+			
+			return true;
 		}
+		
+		return false;
 	}
 
 	public Class<?> getType() {

@@ -12,6 +12,8 @@ import issue.kripton_1.Issue1Test5;
 import issue.kripton_10.Issue10Test1;
 import issue.kripton_10.Issue10Test2;
 import issue.kripton_10.Issue10Test3;
+import issue.kripton_11.Issue11Test1;
+import issue.kripton_12.Issue12Test1;
 import issue.kripton_3.Issue3Test0;
 import issue.kripton_4.Issue4Test0;
 import issue.kripton_4.Issue4Test1;
@@ -40,13 +42,16 @@ import org.junit.runners.Suite.SuiteClasses;
 //@formatter:off
 @RunWith(Suite.class)
 @SuiteClasses({
+	BinderFactoryTest.class,
 	Issue1Test0.class, Issue1Test1.class , Issue1Test2.class, Issue1Test3.class, Issue1Test4.class, Issue1Test5.class,
 	Issue3Test0.class,
 	Issue4Test0.class,Issue4Test1.class,Issue4Test2.class,
 	Issue6Test0.class,
 	Issue7Test0.class, Issue7Test1.class , Issue7Test2.class, Issue7Test3.class, Issue7Test4.class, Issue7Test5.class,
 	                   Issue8Test1.class , Issue8Test2.class, Issue8Test3.class, Issue8Test4.class,
-	                   Issue10Test1.class , Issue10Test2.class, Issue10Test3.class
+	                   Issue10Test1.class , Issue10Test2.class, Issue10Test3.class,
+	                   Issue11Test1.class,
+	                   Issue12Test1.class 
 	})
 //@formatter:on
 public class AllIssueTest {

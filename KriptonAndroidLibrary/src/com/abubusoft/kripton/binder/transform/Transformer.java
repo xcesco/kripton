@@ -12,7 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.namespace.QName;
 
-
 /**
  * Transformer for java primitive types and frequently used java types
  * 
@@ -20,16 +19,15 @@ import javax.xml.namespace.QName;
  *
  */
 public class Transformer {
-	
+
 	// Transformable cache
 	private static final Map<Class<?>, Transformable<?>> cache = new ConcurrentHashMap<Class<?>, Transformable<?>>();
-	
+
 	public static Object read(String value, Class<?> type) throws Exception {
 		Transformable<?> transfrom = lookup(type);
 
 		if (transfrom == null) {
-			throw new IllegalArgumentException("Transform of " + type
-					+ " not supported");
+			throw new IllegalArgumentException("Transform of " + type + " not supported");
 		}
 		return transfrom.read(value);
 	}
@@ -40,25 +38,28 @@ public class Transformer {
 		Transformable transfrom = lookup(type);
 
 		if (transfrom == null) {
-			throw new IllegalArgumentException("Transform of " + type
-					+ " not supported");
+			throw new IllegalArgumentException("Transform of " + type + " not supported");
 		}
 		return transfrom.write(value);
 	}
-	
-	public static boolean isTransformable(Class<?> type){
+
+	public static boolean isTransformable(Class<?> type) {
 		return lookup(type) != null;
 	}
-	
+
 	public static boolean isPrimitive(Class<?> type) {
 		return isTransformable(type);
 	}
-	
+
 	/**
-	 * Register custom transformable for a Java primitive type or a frequently used Java type. 
+	 * Register custom transformable for a Java primitive type or a frequently
+	 * used Java type.
 	 * 
-	 * @param type a Java primitive type or a frequently used Java type.
-	 * @param transform a class implementing @see org.abubu.elio.binder.transform.Transformable interface.
+	 * @param type
+	 *            a Java primitive type or a frequently used Java type.
+	 * @param transform
+	 *            a class implementing @see
+	 *            org.abubu.elio.binder.transform.Transformable interface.
 	 */
 	public static void register(Class<?> type, Transformable<?> transform) {
 		cache.put(type, transform);
@@ -78,17 +79,15 @@ public class Transformer {
 
 		return transform;
 	}
-	
+
 	private static Transformable<?> getTransform(Class<?> type) {
 
 		if (type.isPrimitive()) {
 			return getPrimitiveTransform(type);
 		}
-		
-		if (type.isArray()) {
-			if (type == byte[].class) {
-				return new Base64Transform();
-			}
+
+		if (type.isArray() && type == byte[].class) {
+			return new Base64Transform();
 		}
 
 		if (type.isEnum()) {
@@ -119,7 +118,6 @@ public class Transformer {
 		return null;
 	}
 
-	
 	// Get Java primitive type Transformable
 	private static Transformable<?> getPrimitiveTransform(Class<?> type) {
 		if (type == int.class) {
@@ -148,7 +146,7 @@ public class Transformer {
 		}
 		return null;
 	}
-	
+
 	// Get Java primitive wrapping type Transformable
 	private static Transformable<?> getLanguageTransform(Class<?> type) {
 		if (type == Boolean.class) {
@@ -180,7 +178,7 @@ public class Transformer {
 		}
 		return null;
 	}
-	
+
 	// Get java.math type Transformable
 	private static Transformable<?> getMathTransform(Class<?> type) {
 		if (type == BigDecimal.class) {
@@ -191,7 +189,7 @@ public class Transformer {
 		}
 		return null;
 	}
-	
+
 	// Get java.util type Transformable
 	private static Transformable<?> getUtilTransform(Class<?> type) {
 		if (type == Date.class) {

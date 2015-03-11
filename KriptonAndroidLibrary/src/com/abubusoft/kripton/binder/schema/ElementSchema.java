@@ -25,16 +25,6 @@ public class ElementSchema extends AbstractSchema {
 	
 	private boolean array=false;
 	
-	private int arraySize;
-
-	public int getArraySize() {
-		return arraySize;
-	}
-
-	public void setArraySize(int arraySize) {
-		this.arraySize = arraySize;
-	}
-
 	public boolean isArray() {
 		return array;
 	}
@@ -42,8 +32,6 @@ public class ElementSchema extends AbstractSchema {
 	public void setArray(boolean array) {
 		this.array = array;
 	}
-
-	private Class<?> parameterizedType;
 
 	/**
 	 * Check if this is a java.util.List filed, such as List<T>
@@ -61,24 +49,6 @@ public class ElementSchema extends AbstractSchema {
 	 */
 	public void setList(boolean list) {
 		this.list = list;
-	}
-
-	/**
-	 * Get parameterized type for a java.util.List field.
-	 * 
-	 * @return parameterized type.
-	 */
-	public Class<?> getParameterizedType() {
-		return this.parameterizedType;
-	}
-
-	/**
-	 * Set parameterized type for a java.util.List field
-	 * 
-	 * @param type
-	 */
-	public void setParameterizedType(Class<?> type) {
-		this.parameterizedType = type;
 	}
 
 	/**

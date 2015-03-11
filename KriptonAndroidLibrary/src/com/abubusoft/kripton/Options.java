@@ -9,7 +9,9 @@ package com.abubusoft.kripton;
  */
 public class Options {
 
-	private static final String DEFAULT_ENCODING = "utf-8";
+	public static final String DEFAULT_ENCODING = "utf-8";
+	
+	public static final String ENCODING_UTF_8 = DEFAULT_ENCODING;
 
 	/**
 	 * Builder for format class
@@ -29,6 +31,28 @@ public class Options {
 	 * Indicates if serialized xml should be indented or not
 	 */
 	private boolean indent;
+	
+	/**
+	 * if true use apostrophe to delimit strings. Used only for xml format.
+	 */
+	private boolean useApostrophe;
+
+	/**
+	 * if true use apostrophe to delimit strings. Used only for xml format.
+	 * @return
+	 */
+	public boolean isUseApostrophe() {
+		return useApostrophe;
+	}
+
+	/**
+	 * if true use apostrophe to delimit strings. Used only for xml format.
+	 */
+	public Options useApostrophe(boolean useApostrophe) {
+		this.useApostrophe = useApostrophe;
+		
+		return this;
+	}
 
 	/**
 	 * Constructor,
@@ -42,7 +66,7 @@ public class Options {
 	}
 
 	/**
-	 * Indicates if serialized xml should be indented or not.
+	 * Get the file encoding setting.
 	 * 
 	 * @return
 	 */
@@ -52,9 +76,9 @@ public class Options {
 	}
 
 	/**
-	 * Get the xml encoding setting
+	 * Get the file encoding setting
 	 * 
-	 * @return xml encoding setting
+	 * @return file encoding setting
 	 */
 	public String getEncoding() {
 		return this.encoding;

@@ -30,12 +30,14 @@ public class TypeReflector {
 	 * @return parameterized Class type
 	 */
 	public static Class<?> getParameterizedType(Field field, GenericClass generics) {
-		/*GenericClass paramClass2 = GenericClass.forField(field);
-		return paramClass2.getBaseClass();*/		
-		
-		
-		Class<?> paramClass = null;		
+		Class<?> paramClass = null;
 		Type genericType = field.getGenericType();
+
+		if (genericType instanceof TypeVariable<?>) {
+			TypeVariable<?> myType = (TypeVariable<?>)genericType;
+			paramClass = generics.getActualClass(field.getDeclaringClass().getName()+"--"+myType.getName());
+		}
+
 		if (genericType instanceof ParameterizedType) {
 			ParameterizedType type = (ParameterizedType) genericType;
 			if (type.getActualTypeArguments().length == 1) {
@@ -43,23 +45,21 @@ public class TypeReflector {
 					paramClass = (Class<?>) type.getActualTypeArguments()[0];
 				} else if (type.getActualTypeArguments()[0] instanceof TypeVariable) {
 					@SuppressWarnings("rawtypes")
-					TypeVariable temp=(TypeVariable) type.getActualTypeArguments()[0];
-					
-					if (temp.getBounds()!=null)
-					{
-						Class<?> a=(Class<?>) temp.getGenericDeclaration();					
-						String resolved=a.getName()+"--"+temp.getName();
-						
-						paramClass=generics.getActualClass(resolved);
-						if (paramClass==null)
-							paramClass=(Class<?>) temp.getBounds()[0];
+					TypeVariable temp = (TypeVariable) type.getActualTypeArguments()[0];
+
+					if (temp.getBounds() != null) {
+						Class<?> a = (Class<?>) temp.getGenericDeclaration();
+						String resolved = a.getName() + "--" + temp.getName();
+
+						paramClass = generics.getActualClass(resolved);
+						if (paramClass == null)
+							paramClass = (Class<?>) temp.getBounds()[0];
 					} else {
 					}
-					
-					
+
 				}
 			}
-		}		
+		}
 		return paramClass;
 	}
 
