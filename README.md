@@ -19,6 +19,7 @@ package com.abubusoft.kripton.examples;
 
 import com.abubusoft.kripton.binder.annotation.BindDefault;
 
+@BindRoot
 @BindDefault
 public class SimpleBean {
 
