@@ -5,8 +5,11 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.w3c.dom.Text;
 
 import com.abubusoft.kripton.annotation.BindAttribute;
 import com.abubusoft.kripton.annotation.BindDefault;
@@ -111,13 +114,14 @@ public class MappingSchema {
 	private void buildField2SchemaMapping() throws MappingException {
 		Counters currentCounters = new Counters();
 		Counters parentCounters = new Counters();
+		HashSet<String> usedNames = new HashSet<>();
 
-		field2SchemaMapping = scanFieldSchema(type, currentCounters);
+		field2SchemaMapping = scanFieldSchema(type, usedNames, currentCounters);
 
 		Class<?> superType = type.getSuperclass();
 		// scan super class fields
 		while (superType != Object.class && superType != null) {
-			Map<String, Object> parentField2SchemaMapping = scanFieldSchema(superType, parentCounters);
+			Map<String, Object> parentField2SchemaMapping = scanFieldSchema(superType, usedNames, parentCounters);
 
 			currentCounters.anyElementSchemaCount += parentCounters.anyElementSchemaCount;
 			currentCounters.elementSchemaCount += parentCounters.elementSchemaCount;
@@ -183,20 +187,41 @@ public class MappingSchema {
 	}
 
 	/**
+	 * Check if string if present
+	 * 
+	 * @param key
+	 * @param usedStrings
+	 * @param message
+	 * @throws MappingException
+	 */
+	private void checkAlreadyUsed(String key, HashSet<String> usedStrings, String message) throws MappingException {
+		if (!StringUtil.hasText(key))
+			return;
+		// put in set of used names
+		if (usedStrings.contains(key)) {
+			throw new MappingException(message + " annotation can't annotate more than one fields in same class with name " + key);
+		} else {
+			usedStrings.add(key);
+		}
+	}
+
+	/**
 	 * Scans declared field of class passed like parameter
 	 * 
 	 * @param type
 	 *            class to scan
+	 * @param usedName
+	 *            set of used name
 	 * @return
 	 * @throws MappingException
 	 */
-	private Map<String, Object> scanFieldSchema(Class<?> type, Counters counters) throws MappingException {
+	private Map<String, Object> scanFieldSchema(Class<?> type, HashSet<String> usedNames, Counters counters) throws MappingException {
 		// usiamo la linkedhashmap per tenere traccia dell'ordine
 		Map<String, Object> fieldsMap = new LinkedHashMap<String, Object>();
 		Field[] fields = type.getDeclaredFields();
 
 		// sort fields according to order annotaions
-		Arrays.sort(fields, new Comparator<Field>() { 
+		Arrays.sort(fields, new Comparator<Field>() {
 			@Override
 			public int compare(Field field1, Field field2) {
 				BindOrder order1 = field1.getAnnotation(BindOrder.class);
@@ -226,7 +251,7 @@ public class MappingSchema {
 			if (!field.isAccessible()) {
 				field.setAccessible(true);
 			}
- 
+
 			// exclude transient fields and final fields
 			modifier = field.getModifiers();
 			if (Modifier.isTransient(modifier) || Modifier.isFinal(modifier)) {
@@ -238,7 +263,7 @@ public class MappingSchema {
 
 				BindElement xmlElement = field.getAnnotation(BindElement.class);
 				ElementSchema elementSchema = new ElementSchema();
-
+ 
 				if (StringUtil.isEmpty(xmlElement.name())) {
 					elementSchema.setName(field.getName());
 				} else {
@@ -256,16 +281,22 @@ public class MappingSchema {
 					elementSchema.setName(elementSchema.getWrapperName());
 					elementSchema.setWrapperName(temp);
 				}
-				
+
 				elementSchema.setData(xmlElement.data());
 				elementSchema.setField(field);
-				// put in maps
+				// put in set of used names
+				checkAlreadyUsed(elementSchema.getName(), usedNames, "BinderElement");
+				checkAlreadyUsed(elementSchema.getWrapperName(), usedNames, "BinderElement");
+				
 				fieldsMap.put(field.getName(), elementSchema);
 
 				// List validation
-				if (handleList(field, elementSchema)) continue;
-				if (handleArray(field, elementSchema)) continue;
-				
+				if (handleList(field, elementSchema))
+					continue;
+				if (handleArray(field, elementSchema))
+					continue;
+
+				// put after list and array evaluation
 				Class<?> fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
 				fieldType = fieldType == null ? field.getType() : fieldType;
 				elementSchema.setFieldType(fieldType);
@@ -301,6 +332,8 @@ public class MappingSchema {
 				attributeSchema.setField(field);
 				attributeSchema.setFieldType(fieldType);
 
+				// put in set of used names
+				checkAlreadyUsed(attributeSchema.getName(), usedNames, "BinderAttribute");				
 				fieldsMap.put(field.getName(), attributeSchema);
 
 				/*
@@ -333,6 +366,9 @@ public class MappingSchema {
 				valueSchema.setData(xmlValue.data());
 				valueSchema.setField(field);
 				valueSchema.setFieldType(fieldType);
+				
+				// put in set of used names
+				checkAlreadyUsed(valueSchema.getName(), usedNames, "BinderValue");				
 
 				/*
 				 * TODO to implements in next releases // database section if
@@ -385,14 +421,20 @@ public class MappingSchema {
 
 				elementSchema.setName(field.getName());
 				elementSchema.setFieldType(fieldType);
-
-				// List validation
-				handleList(field, elementSchema);
-				handleArray(field, elementSchema);
-
 				elementSchema.setField(field);
 
+				// put in set of used names
+				checkAlreadyUsed(elementSchema.getName(), usedNames, "BinderElement");
+				//perhaps this is never used
+				//checkAlreadyUsed(elementSchema.getWrapperName(), usedNames, "BinderElement");
+				
 				fieldsMap.put(field.getName(), elementSchema);
+
+				// List validation
+				if (handleList(field, elementSchema))
+					continue;
+				if (handleArray(field, elementSchema))
+					continue;
 
 				/*
 				 * TODO to implements in next releases // database section if
@@ -423,8 +465,16 @@ public class MappingSchema {
 
 	}
 
+	/**
+	 * Set field type if field is an array.
+	 * 
+	 * @param field
+	 * @param elementSchema
+	 * @return
+	 * @throws MappingException
+	 */
 	private boolean handleArray(Field field, ElementSchema elementSchema) throws MappingException {
-		if (field.getType().isArray() && field.getType().getComponentType()!=byte.class) {
+		if (field.getType().isArray() && field.getType().getComponentType() != byte.class) {
 			Class<?> type = field.getType().getComponentType();
 
 			if (!elementSchema.hasWrapperName()) {
@@ -434,13 +484,21 @@ public class MappingSchema {
 
 			elementSchema.setArray(true);
 			elementSchema.setFieldType(type);
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
 
+	/**
+	 * Set type of elementSchema if field is a collection
+	 * 
+	 * @param field
+	 * @param elementSchema
+	 * @return
+	 * @throws MappingException
+	 */
 	private boolean handleList(Field field, ElementSchema elementSchema) throws MappingException {
 		if (TypeReflector.collectionAssignable(field.getType())) {
 			Class<?> type = field.getType();
@@ -459,10 +517,10 @@ public class MappingSchema {
 				throw new MappingException("Current framework only supports java.util.List<T> as collection type, " + "field = " + field.getName()
 						+ ", type = " + type.getName());
 			}
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
 
