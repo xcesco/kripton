@@ -22,20 +22,20 @@ public class Issue12Test1 extends IssueBaseTest<Bean1> {
 	@Before
 	public void setup()
 	{
-		bean=new Bean1();
+		beanInput=new Bean1();
 		
-		bean.setName("Hello 'Tonj'");
-		bean.setSurname("Hello \"Manero\"");
+		beanInput.setName("Hello 'Tonj'");
+		beanInput.setSurname("Hello \"Manero\"");
 		
-		bean.genericElement =new BeanGeneric("title0", 25);		
-		bean.genericAttribute =125;
-		bean.genericListAttribute=new ArrayList<Integer>();
-		bean.genericListAttribute.add(12);
-		bean.genericListAttribute.add(123);
+		beanInput.genericElement =new BeanGeneric("title0", 25);		
+		beanInput.genericAttribute =125;
+		beanInput.genericListAttribute=new ArrayList<Integer>();
+		beanInput.genericListAttribute.add(12);
+		beanInput.genericListAttribute.add(123);
 		
 		Calendar calendar=Calendar.getInstance();
 		calendar.set(1965, 6, 12);
-		bean.setBirthday(calendar.getTime());
+		beanInput.setBirthday(calendar.getTime());
 		
 	}
 }

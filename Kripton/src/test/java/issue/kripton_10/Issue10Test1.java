@@ -19,17 +19,17 @@ public class Issue10Test1 extends IssueBaseTest<Bean01> {
 	@Before
 	public void setup()
 	{
-		bean=new Bean01();
+		beanInput=new Bean01();
 		
-		bean.setName("Tonj");
-		bean.setSurname("Manero");
+		beanInput.setName("Tonj");
+		beanInput.setSurname("Manero");
 		
 		Calendar calendar=Calendar.getInstance();
 		calendar.set(1965, 6, 12);
-		bean.setBirthday(calendar.getTime());
+		beanInput.setBirthday(calendar.getTime());
 		int[] array= {1, 2, 4};
 		
-		bean.setTickets(array);
+		beanInput.setTickets(array);
 	}
 	
 

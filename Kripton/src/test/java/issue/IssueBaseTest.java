@@ -26,7 +26,9 @@ public abstract class IssueBaseTest<E> {
 
 	protected Logger logger = Logger.getAnonymousLogger();
 
-	protected E bean;
+	protected E beanInput;
+	
+	protected E beanOutput;
 
 	public void check(E input, BinderWriter writer, BinderReader reader) throws WriterException, MappingException, ReaderException, IOException {
 
@@ -50,9 +52,9 @@ public abstract class IssueBaseTest<E> {
 		FOS.close();
 
 		FileInputStream FIS = new FileInputStream(file);
-		E beanWrited = (E) reader.read(bean.getClass(), FIS);
+		beanOutput = (E) reader.read(beanInput.getClass(), FIS);
 		FIS.close();
-		assertReflectionEquals(input, beanWrited);
+		assertReflectionEquals(input, beanOutput);
 	}
 
 	/**
@@ -69,7 +71,7 @@ public abstract class IssueBaseTest<E> {
 		BinderWriter writer = BinderFactory.getJSONWriter(format);
 		BinderReader reader = BinderFactory.getJSONReader();
 
-		check(bean, writer, reader);
+		check(beanInput, writer, reader);
 	}
 	
 	/**
@@ -86,7 +88,7 @@ public abstract class IssueBaseTest<E> {
 		BinderWriter writer = BinderFactory.getJSONWriter(format);
 		BinderReader reader = BinderFactory.getJSONReader();
 
-		check(bean, writer, reader);
+		check(beanInput, writer, reader);
 	}
 
 	/**
@@ -103,7 +105,7 @@ public abstract class IssueBaseTest<E> {
 		BinderFactory.readerType = ReaderType.DOM;
 		BinderReader reader = BinderFactory.getXMLReader(Options.build().indent(false));
 
-		check(bean, writer, reader);
+		check(beanInput, writer, reader);
 	}
 	
 	/**
@@ -120,7 +122,7 @@ public abstract class IssueBaseTest<E> {
 		BinderFactory.readerType = ReaderType.DOM;
 		BinderReader reader = BinderFactory.getXMLReader(Options.build().indent(false));
 
-		check(bean, writer, reader);
+		check(beanInput, writer, reader);
 	}
 
 	/**
@@ -137,7 +139,7 @@ public abstract class IssueBaseTest<E> {
 		BinderFactory.readerType = ReaderType.SAX;
 		BinderReader reader = BinderFactory.getXMLReader();
 
-		check(bean, writer, reader);
+		check(beanInput, writer, reader);
 	}
 	
 	/**
@@ -154,6 +156,6 @@ public abstract class IssueBaseTest<E> {
 		BinderFactory.readerType = ReaderType.SAX;
 		BinderReader reader = BinderFactory.getXMLReader();
 
-		check(bean, writer, reader);
+		check(beanInput, writer, reader);
 	}
 }

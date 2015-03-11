@@ -22,19 +22,19 @@ public class Issue7Test5 extends IssueBaseTest<Bean6> {
 	@Before
 	public void setup()
 	{
-		bean=new Bean6();
+		beanInput=new Bean6();
 		
-		bean.setName("Tonj");
-		bean.setSurname("Manero");
+		beanInput.setName("Tonj");
+		beanInput.setSurname("Manero");
 		
 		Calendar calendar=Calendar.getInstance();
 		calendar.set(1965, 6, 12);
-		bean.setBirthday(calendar.getTime());
+		beanInput.setBirthday(calendar.getTime());
 		List<SubBean06> array=new ArrayList<SubBean06>();
 		array.add(new SubBean06(new Date(), "ticket01"));
 		array.add(new SubBean06(new Date(), "ticket02"));
 		array.add(new SubBean06(new Date(), "ticket03"));
-		bean.tickets=array;
+		beanInput.tickets=array;
 	}
 	
 

@@ -19,8 +19,8 @@ public class Issue8Test3 extends IssueBaseTest<Bean3> {
 	@Before
 	public void setup() throws MalformedURLException
 	{
-		bean=new Bean3();
-		bean.fieldEnum=BeanType.TEST_2;
+		beanInput=new Bean3();
+		beanInput.fieldEnum=BeanType.TEST_2;
 		/*bean.fieldLocale=Locale.CANADA;
 		bean.fieldQName=QName.valueOf("wow");
 		bean.fieldCalendar=Calendar.getInstance();

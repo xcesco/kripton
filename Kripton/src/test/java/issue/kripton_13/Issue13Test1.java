@@ -1,13 +1,14 @@
 /**
  * 
  */
-package issue.kripton_10;
+package issue.kripton_13;
 
 import issue.IssueBaseTest;
 
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.LinkedList;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,63 +18,71 @@ import com.abubusoft.kripton.exception.WriterException;
 
 
 /**
+ * Test array of objects
+ * 
  * @author xcesco
  *
  */
-public class Issue10Test2 extends IssueBaseTest<Bean02> {
+public class Issue13Test1 extends IssueBaseTest<Bean1> {
 
 	@Before
 	public void setup()
 	{
-		beanInput=new Bean02();
+		beanInput=new Bean1();
 		
-		beanInput.setName("Tonj");
-		beanInput.setSurname("Manero");
+		beanInput.list.add(new Bean0("helo", 244));
+		beanInput.list.add(new Bean0("helo", 244));
 		
-		Calendar calendar=Calendar.getInstance();
-		calendar.set(1965, 6, 12);
-		beanInput.setBirthday(calendar.getTime());
-		int[] array= {1, 2, 4};
-		
-		beanInput.setTickets(array);
 	}
 
 	@Override
-	@Test(expected=MappingException.class)
+	@Test
 	public void testJSON_Packed() throws WriterException, MappingException, ReaderException, IOException {
 		super.testJSON_Packed();
+		
+		Assert.assertTrue(beanOutput.list.getClass()==LinkedList.class);
 	}
 
 	@Override
-	@Test(expected=MappingException.class)
+	@Test
 	public void testJSON_Formatted() throws WriterException, MappingException, ReaderException, IOException {
 		super.testJSON_Formatted();
+		
+		Assert.assertTrue(beanOutput.list.getClass()==LinkedList.class);
 	}
 
 	@Override
-	@Test(expected=MappingException.class)
+	@Test
 	public void testXML_PackedDOM() throws WriterException, MappingException, ReaderException, IOException {
 		super.testXML_PackedDOM();
+		
+		Assert.assertTrue(beanOutput.list.getClass()==LinkedList.class);
 	}
 
 	@Override
-	@Test(expected=MappingException.class)
+	@Test
 	public void testXML_FormattedDOM() throws WriterException, MappingException, ReaderException, IOException {
 		super.testXML_FormattedDOM();
+		
+		Assert.assertTrue(beanOutput.list.getClass()==LinkedList.class);
 	}
 
 	@Override
-	@Test(expected=MappingException.class)
+	@Test
 	public void testXML_PackedSAXS() throws WriterException, MappingException, ReaderException, IOException {
 		super.testXML_PackedSAXS();
+		
+		Assert.assertTrue(beanOutput.list.getClass()==LinkedList.class);
+		
 	}
 
 	@Override
-	@Test(expected=MappingException.class)
+	@Test
 	public void testXML_FormattedSAXS() throws WriterException, MappingException, ReaderException, IOException {
 		super.testXML_FormattedSAXS();
+		
+		Assert.assertTrue(beanOutput.list.getClass()==LinkedList.class);
+		
 	}
-
-
 
 }

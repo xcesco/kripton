@@ -21,7 +21,7 @@ public class Issue4Test2 extends IssueBaseTest<Bean2> {
 	@Before
 	public void setup() throws MalformedURLException
 	{
-		bean=new Bean2();
+		beanInput=new Bean2();
 		
 		Bean0.fieldStatic="vaaa";
 	}

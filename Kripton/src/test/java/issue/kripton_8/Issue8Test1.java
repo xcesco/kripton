@@ -37,27 +37,27 @@ public class Issue8Test1 extends IssueBaseTest<Bean1> {
 	@Before
 	public void setup() throws MalformedURLException
 	{
-		bean=new Bean1();
-		bean.fieldEnum=BeanType.TEST_2;
-		bean.fieldLocale=Locale.CANADA;
-		bean.fieldQName=QName.valueOf("wow");
-		bean.fieldCalendar=Calendar.getInstance();
-		bean.fieldChar='t';
-		bean.fieldDate=new Date();		
-		bean.fieldBigDecimal=BigDecimal.valueOf(34.0);
-		bean.fieldBigInteger=BigInteger.valueOf(34);		
-		bean.fieldUrl=new URL("http://www.google.it");		
-		bean.fieldBoolean=true;
-		bean.fieldByte=25;
-		bean.fieldCurrency=Currency.getInstance(Locale.CHINA);
-		bean.fieldDouble=45.0;
-		bean.fieldFloat=34f;
-		bean.fieldLong=64L;
-		bean.fieldShort=2;
-		bean.fieldTime=Time.valueOf(LocalTime.now());
-		bean.fieldTimeZone=TimeZone.getDefault();
-		bean.fieldInteger=56;
-		bean.fieldString="hello!";
+		beanInput=new Bean1();
+		beanInput.fieldEnum=BeanType.TEST_2;
+		beanInput.fieldLocale=Locale.CANADA;
+		beanInput.fieldQName=QName.valueOf("wow");
+		beanInput.fieldCalendar=Calendar.getInstance();
+		beanInput.fieldChar='t';
+		beanInput.fieldDate=new Date();		
+		beanInput.fieldBigDecimal=BigDecimal.valueOf(34.0);
+		beanInput.fieldBigInteger=BigInteger.valueOf(34);		
+		beanInput.fieldUrl=new URL("http://www.google.it");		
+		beanInput.fieldBoolean=true;
+		beanInput.fieldByte=25;
+		beanInput.fieldCurrency=Currency.getInstance(Locale.CHINA);
+		beanInput.fieldDouble=45.0;
+		beanInput.fieldFloat=34f;
+		beanInput.fieldLong=64L;
+		beanInput.fieldShort=2;
+		beanInput.fieldTime=Time.valueOf(LocalTime.now());
+		beanInput.fieldTimeZone=TimeZone.getDefault();
+		beanInput.fieldInteger=56;
+		beanInput.fieldString="hello!";
 				
 	}
 
@@ -69,7 +69,7 @@ public class Issue8Test1 extends IssueBaseTest<Bean1> {
 
 	@Override
 	@Test(expected=MappingException.class)
-	public void testJSON_Formatted() throws WriterException, MappingException, ReaderException, IOException {
+	public void  testJSON_Formatted() throws WriterException, MappingException, ReaderException, IOException {
 		super.testJSON_Formatted();
 	}
 
@@ -97,4 +97,5 @@ public class Issue8Test1 extends IssueBaseTest<Bean1> {
 		super.testXML_FormattedSAXS();
 	}
 
+	
 }
