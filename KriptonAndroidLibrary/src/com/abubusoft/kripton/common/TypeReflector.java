@@ -30,13 +30,51 @@ public class TypeReflector {
 	 *            a java.lang.reflect.Field object
 	 * @return parameterized Class type
 	 */
+	public static Class<?>[] getParameterizedTypeArray(Field field, GenericClass generics) {
+		Class<?> paramClass[] = null;
+		Type genericType = field.getGenericType();
+
+		if (genericType instanceof ParameterizedType) {
+			ParameterizedType type = (ParameterizedType) genericType;
+
+			paramClass = new Class<?>[type.getActualTypeArguments().length];
+
+			for (int i = 0; i < paramClass.length; i++) {
+
+				if (type.getActualTypeArguments()[i] instanceof Class) {
+					paramClass[i] = (Class<?>) type.getActualTypeArguments()[i];
+				} else if (type.getActualTypeArguments()[i] instanceof TypeVariable) {
+					@SuppressWarnings("rawtypes")
+					TypeVariable temp = (TypeVariable) type.getActualTypeArguments()[i];
+
+					if (temp.getBounds() != null) {
+						Class<?> a = (Class<?>) temp.getGenericDeclaration();
+						String resolved = a.getName() + "--" + temp.getName();
+
+						paramClass[i] = generics.getActualClass(resolved);
+						if (paramClass[i] == null)
+							paramClass[i] = (Class<?>) temp.getBounds()[i];
+					}
+				}
+			}
+		}
+		return paramClass;
+	}
+
+	/**
+	 * Get parameterized type of a java.util.List field, T of List<T>.
+	 * 
+	 * @param field
+	 *            a java.lang.reflect.Field object
+	 * @return parameterized Class type
+	 */
 	public static Class<?> getParameterizedType(Field field, GenericClass generics) {
 		Class<?> paramClass = null;
 		Type genericType = field.getGenericType();
 
 		if (genericType instanceof TypeVariable<?>) {
-			TypeVariable<?> myType = (TypeVariable<?>)genericType;
-			paramClass = generics.getActualClass(field.getDeclaringClass().getName()+"--"+myType.getName());
+			TypeVariable<?> myType = (TypeVariable<?>) genericType;
+			paramClass = generics.getActualClass(field.getDeclaringClass().getName() + "--" + myType.getName());
 		}
 
 		if (genericType instanceof ParameterizedType) {
@@ -112,7 +150,7 @@ public class TypeReflector {
 	 * 
 	 * @param type
 	 *            a type to be checked
-	 * @return true or false
+	 * @return true if it's a collection
 	 */
 	public static boolean collectionAssignable(Class<?> type) {
 		return Collection.class.isAssignableFrom(type);
@@ -122,11 +160,22 @@ public class TypeReflector {
 	 * check if a type is <code>java.util.Set</code> type.
 	 * 
 	 * @param type
-	 * 		a type to be checked.
-	 * @return true or false.
+	 *            a type to be checked.
+	 * @return true if it's a set
 	 */
 	public static boolean isSet(Class<?> type) {
-		return Set.class==type;
+		return Set.class == type;
+	}
+
+	/**
+	 * check if a type is <code>java.util.Map</code> type.
+	 * 
+	 * @param type
+	 *            a type to be checked
+	 * @return true if it's a map
+	 */
+	public static boolean isMap(Class<?> type) {
+		return Map.class == type;
 	}
 
 }

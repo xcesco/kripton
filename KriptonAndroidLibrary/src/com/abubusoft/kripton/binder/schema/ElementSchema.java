@@ -1,6 +1,5 @@
 package com.abubusoft.kripton.binder.schema;
 
-
 /**
  * This bean stores mapping between an XML/JSON/DB element and a POJO field
  * 
@@ -19,25 +18,40 @@ public class ElementSchema extends AbstractSchema {
 		this.wrapperName = xmlWrapperName;
 	}
 
-	private boolean data;
+	private ElementSchemaType type = ElementSchemaType.DEFAULT;
 
-	private boolean list = false;
-	
-	private boolean array=false;
-
-	private boolean set=false;
-	
 	public boolean isSet() {
-		return set;
+		return type == ElementSchemaType.SET;
 	}
 
 	public boolean isArray() {
-		return array;
+		return type == ElementSchemaType.ARRAY;
 	}
 
-	public void setArray(boolean array) {
-		this.array = array;
+	public void setArray() {
+		type = ElementSchemaType.ARRAY;
 	}
+
+	public ElementSchemaType getType() {
+		return type;
+	}
+	
+	public static class MapInfo
+	{
+		public Class<?> keyClazz;
+		public Class<?> valueClazz;
+		public MapEntryPolicyType entryPolicy;
+	}
+	
+
+	
+	private MapInfo mapInfo;
+	
+
+	public MapInfo getMapInfo() {
+		return mapInfo;
+	}
+
 
 	/**
 	 * Check if this is a java.util.List filed, such as List<T>
@@ -45,7 +59,7 @@ public class ElementSchema extends AbstractSchema {
 	 * @return true or false
 	 */
 	public boolean isList() {
-		return list;
+		return type == ElementSchemaType.LIST;
 	}
 
 	/**
@@ -53,8 +67,8 @@ public class ElementSchema extends AbstractSchema {
 	 * 
 	 * @param collection
 	 */
-	public void setList(boolean list) {
-		this.list = list;
+	public void setList() {
+		type = ElementSchemaType.LIST;
 	}
 
 	/**
@@ -67,21 +81,23 @@ public class ElementSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Indicates if the string content of the field should be put in a CDATA container on serialization
+	 * Indicates if the string content of the field should be put in a CDATA
+	 * container on serialization
 	 * 
 	 * @return true or false
 	 */
 	public boolean isData() {
-		return data;
+		return type == ElementSchemaType.CDATA;
 	}
 
 	/**
-	 * Set if the string content of the field should be put in a CDATA container on serialization
+	 * Set if the string content of the field should be put in a CDATA container
+	 * on serialization
 	 * 
 	 * @param data
 	 */
-	public void setData(boolean data) {
-		this.data = data;
+	public void setData(boolean value) {
+		type = value ? ElementSchemaType.CDATA : ElementSchemaType.DEFAULT;
 	}
 
 	/**
@@ -89,7 +105,29 @@ public class ElementSchema extends AbstractSchema {
 	 * 
 	 * @param value
 	 */
-	public void setSet(boolean value) {
-		set=value;
+	public void setSet() {
+		type = ElementSchemaType.SET;
+	}
+
+	/**
+	 * Set if field is a map
+	 * 
+	 * @param value
+	 */
+	public void setMap(Class<?> keyType, Class<?> valueType, MapEntryPolicyType policy) {
+		type = ElementSchemaType.MAP;
+		mapInfo=new MapInfo();
+		mapInfo.keyClazz=keyType;
+		mapInfo.valueClazz=valueType;
+		mapInfo.entryPolicy=policy;
+	}
+
+	/**
+	 * True if field is a map
+	 * 
+	 * @return
+	 */
+	public boolean isMap() {
+		return type == ElementSchemaType.MAP;
 	}
 }

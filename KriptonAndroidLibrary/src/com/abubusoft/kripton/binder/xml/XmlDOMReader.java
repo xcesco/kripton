@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -230,7 +231,8 @@ public class XmlDOMReader implements BinderReader {
 						Field field = es.getField();
 						Class<?> fieldType = es.getFieldType();
 
-						if (es.isList()) { // collection
+						switch (es.getType()) {
+						case LIST:
 							@SuppressWarnings("unchecked")
 							List<Object> list = (List<Object>) field.get(obj);
 							if (list == null) {
@@ -254,39 +256,48 @@ public class XmlDOMReader implements BinderReader {
 								this.read(newObj, childElement);
 								list.add(newObj);
 							}
-						} else if (es.isSet()) { // set
+							break;
+						case SET:
 							@SuppressWarnings("unchecked")
-							Set<Object> list = (Set<Object>) field.get(obj);
-							if (list == null) {
-								list = new LinkedHashSet<Object>();
-								field.set(obj, list);
+							Set<Object> set = (Set<Object>) field.get(obj);
+							if (set == null) {
+								set = new LinkedHashSet<Object>();
+								field.set(obj, set);
 							}
 
-							Class<?> parameterizedType = es.getFieldType();
+							Class<?> setParameterizedType = es.getFieldType();
 
 							// primitive
-							if (Transformer.isPrimitive(parameterizedType)) {
+							if (Transformer.isPrimitive(setParameterizedType)) {
 								String xmlValue = childElement.getTextContent();
 								if (!StringUtil.isEmpty(xmlValue)) {
-									Object fieldValue = Transformer.read(xmlValue, parameterizedType);
+									Object fieldValue = Transformer.read(xmlValue, setParameterizedType);
 									if (fieldValue != null) {
-										list.add(fieldValue);
+										set.add(fieldValue);
 									}
 								}
 							} else {
-								Object newObj = this.buildObjectFromType(parameterizedType);
+								Object newObj = this.buildObjectFromType(setParameterizedType);
 								this.read(newObj, childElement);
-								list.add(newObj);
+								set.add(newObj);
 							}
-
-						} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
-
+							break;
+						case MAP:
+							// TODO map reading
+							@SuppressWarnings("unchecked")
+							Map<Object, Object> map = (Map<Object, Object>) field.get(obj);
+							if (map == null) {
+								map = new LinkedHashMap<Object, Object>();
+								field.set(obj, map);
+							}
+							
+							break;
+						case ARRAY:
 							Object array = field.get(obj);
 							if (array == null) {
 								// if array, we first count how many element of
-								// this type there are,
-								// then, set field
-								// find effective ELEMENT_NODE
+								// this type there are, then, set field find
+								// effective ELEMENT_NODE
 
 								// reset index
 								index = 0;
@@ -307,24 +318,25 @@ public class XmlDOMReader implements BinderReader {
 								field.set(obj, array);
 							}
 
-							Class<?> parameterizedType = es.getFieldType();
+							Class<?> arrayParameterizedType = es.getFieldType();
 
 							// primitive
-							if (Transformer.isPrimitive(parameterizedType)) {
+							if (Transformer.isPrimitive(arrayParameterizedType)) {
 								String xmlValue = childElement.getTextContent();
 								if (!StringUtil.isEmpty(xmlValue)) {
-									Object fieldValue = Transformer.read(xmlValue, parameterizedType);
+									Object fieldValue = Transformer.read(xmlValue, arrayParameterizedType);
 									if (fieldValue != null) {
 										Array.set(array, index++, fieldValue);
 									}
 								}
 							} else {
-								Object newObj = this.buildObjectFromType(parameterizedType);
+								Object newObj = this.buildObjectFromType(arrayParameterizedType);
 								this.read(newObj, childElement);
 								Array.set(array, index++, newObj);
 							}
-
-						} else {
+							break;
+						case CDATA:
+						case DEFAULT:
 							// single field value
 							// primitive
 							if (Transformer.isPrimitive(fieldType)) {
@@ -340,6 +352,7 @@ public class XmlDOMReader implements BinderReader {
 								this.read(newObj, childElement);
 								field.set(obj, newObj);
 							}
+							break;
 						}
 					} else if (anyChildElements != null) {
 						anyChildElements.add(childElement);

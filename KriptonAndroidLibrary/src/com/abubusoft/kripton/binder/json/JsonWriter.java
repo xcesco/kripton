@@ -26,10 +26,14 @@ import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.common.StringUtil;
 
 /**
- * <p>BinderWriter implementation using org.json library,</p>
+ * <p>
+ * BinderWriter implementation using org.json library,
+ * </p>
  * 
- * <p>JsonWriter serializes POJO into JSON string, the serialization is guided by
- * mapping schema defined in the POJO using Nano annotations.</p>
+ * <p>
+ * JsonWriter serializes POJO into JSON string, the serialization is guided by
+ * mapping schema defined in the POJO using Nano annotations.
+ * </p>
  * 
  * @author bulldog
  * @author xcesco
@@ -39,10 +43,10 @@ public class JsonWriter implements BinderWriter {
 
 	static final String VALUE_KEY = "__value__";
 
-	static final int DEFAULT_INDENTATION = 4; 
+	static final int DEFAULT_INDENTATION = 4;
 
 	protected Options options;
- 
+
 	public JsonWriter() {
 		this(Options.build());
 	}
@@ -138,14 +142,23 @@ public class JsonWriter implements BinderWriter {
 				Field field = es.getField();
 				Object value = field.get(source);
 				if (value != null) {
-					if (es.isList()) {
+					switch (es.getType()) {
+					case LIST:
 						this.writeElementList(jsonObject, value, es);
-					} else if (es.isSet()) {
+						break;
+					case SET:
 						this.writeElementSet(jsonObject, value, es);
-					} else if (es.isArray() && es.getFieldType()!=Byte.TYPE) {
+						break;
+					case ARRAY:
 						this.writeElementArray(jsonObject, value, es);
-					} else {
+						break;
+					case MAP:
+						// TODO
+						break;
+					case DEFAULT:
+					case CDATA:
 						this.writeElement(jsonObject, value, es);
+						break;
 					}
 				}
 			}
@@ -155,11 +168,11 @@ public class JsonWriter implements BinderWriter {
 	private void writeElementSet(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {
 		Set<?> set = (Set<?>) source;
 		if (set.size() > 0) {
-			//TODO wrapper
-			//String key = es.getName();
+			// TODO wrapper
+			// String key = es.getName();
 			String key = es.getWrapperName();
-			key=key==null? es.getName(): key;
-			
+			key = key == null ? es.getName() : key;
+
 			JSONArray jsonArray = new JSONArray();
 			jsonObject.put(key, jsonArray);
 			for (Object value : set) {
@@ -184,29 +197,29 @@ public class JsonWriter implements BinderWriter {
 				jsonArray.put(childJsonObject);
 			}
 		}
-		
+
 	}
 
 	private void writeElementArray(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {
-		int size=Array.getLength(source);
-		
-		if (size > 0) {			
-			//TODO wrapper
-			//String key = es.getName();
+		int size = Array.getLength(source);
+
+		if (size > 0) {
+			// TODO wrapper
+			// String key = es.getName();
 			String key = es.getWrapperName();
-			key=key==null? es.getName(): key;
-			
+			key = key == null ? es.getName() : key;
+
 			JSONArray jsonArray = new JSONArray();
 			jsonObject.put(key, jsonArray);
 			Object value;
-			
-			for (int i=0; i<size;i++) {
-				value=Array.get(source, i);
+
+			for (int i = 0; i < size; i++) {
+				value = Array.get(source, i);
 				if (value == null)
 					continue;
 
 				Class<?> type = es.getFieldType();
-				
+
 				// primitives
 				if (Transformer.isPrimitive(type)) {
 					Object jsonValue = getJSONValue(value, type);
@@ -227,11 +240,11 @@ public class JsonWriter implements BinderWriter {
 	private void writeElementList(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {
 		List<?> list = (List<?>) source;
 		if (list.size() > 0) {
-			//TODO wrapper
-			//String key = es.getName();
+			// TODO wrapper
+			// String key = es.getName();
 			String key = es.getWrapperName();
-			key=key==null? es.getName(): key;
-			
+			key = key == null ? es.getName() : key;
+
 			JSONArray jsonArray = new JSONArray();
 			jsonObject.put(key, jsonArray);
 			for (Object value : list) {
@@ -305,7 +318,7 @@ public class JsonWriter implements BinderWriter {
 
 			JSONObject childJsonObject = new JSONObject();
 			jsonObject.put(res.getName(), childJsonObject);
- 
+
 			writeObject(childJsonObject, source);
 
 			if (res.isOnlyChildren()) {

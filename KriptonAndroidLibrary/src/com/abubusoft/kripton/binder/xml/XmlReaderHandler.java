@@ -50,12 +50,12 @@ class XmlReaderHandler extends DefaultHandler {
 
 			AttributeSchema as = xml2AttributeSchemaMapping.get(attrName);
 			if (as == null)
-				continue; 
+				continue;
 
 			String attrValue = attrs.getValue(index);
-			
+
 			Object value = Transformer.read(attrValue, as.getFieldType());
-			
+
 			Field field = as.getField();
 			field.set(obj, value);
 		}
@@ -201,8 +201,11 @@ class XmlReaderHandler extends DefaultHandler {
 					Field field = es.getField();
 					String xmlData = helper.textBuilder.toString();
 					if (!StringUtil.isEmpty(xmlData)) {
-						if (es.isList()) {
-							Class<?> paramizedType = es.getFieldType();
+						Class<?> paramizedType;
+
+						switch (es.getType()) {
+						case LIST:
+							paramizedType = es.getFieldType();
 							Object value = Transformer.read(xmlData, paramizedType);
 							List list = (List) field.get(obj);
 							if (list == null) {
@@ -210,26 +213,31 @@ class XmlReaderHandler extends DefaultHandler {
 								field.set(obj, list);
 							}
 							list.add(value);
-						} else if (es.isSet()) {
-							Class<?> paramizedType = es.getFieldType();
-							Object value = Transformer.read(xmlData, paramizedType);
+							break;
+						case MAP:
+							// TODO
+							break;
+						case SET:
+							paramizedType = es.getFieldType();
+							value = Transformer.read(xmlData, paramizedType);
 							Set set = (Set) field.get(obj);
 							if (set == null) {
 								set = new LinkedHashSet();
 								field.set(obj, set);
 							}
 							set.add(value);
-						} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
+							break;
+						case ARRAY:
 							SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
 
 							if (schemaArray == null || schemaArray.value0 != es) {
 								schemaArray = new SchemaArray(es, new ArrayList());
 								helper.arrayStack.add(schemaArray);
 							}
-							Class<?> paramizedType = es.getFieldType();
+							paramizedType = es.getFieldType();
 							// Object value = Transformer.read(xmlData,
 							// paramizedType);
-							Object value;
+
 							// --------
 							if (Transformer.isPrimitive(paramizedType)) {
 								value = Transformer.read(xmlData, paramizedType);
@@ -240,17 +248,20 @@ class XmlReaderHandler extends DefaultHandler {
 
 							schemaArray.value1.add(value);
 
-						} else {
-							Object value = Transformer.read(xmlData, field.getType());
+							break;
+						case CDATA:
+						case DEFAULT:
+							value = Transformer.read(xmlData, field.getType());
 							field.set(obj, value);
+							break;
 						}
+
 					}
 				}
 			} else if (helper.depth == helper.valueStack.size()) {
 				// handle object field
 				Object obj = helper.valueStack.pop();
 				MappingSchema ms = MappingSchema.fromObject(obj);
-
 
 				ValueSchema vs = ms.getValueSchema();
 				if (vs != null) {
@@ -261,13 +272,12 @@ class XmlReaderHandler extends DefaultHandler {
 						field.set(obj, value);
 					}
 				}
-				
+
 				if (helper.valueStack.size() == 0) { // the end
 					helper.valueStack.push(obj);
 					helper.depth--;
 					return;
 				}
-
 
 				Object parentObj = helper.valueStack.peek();
 				MappingSchema parentMs = MappingSchema.fromObject(parentObj);
@@ -277,7 +287,9 @@ class XmlReaderHandler extends DefaultHandler {
 				if (schema != null && schema instanceof ElementSchema) {
 					ElementSchema es = (ElementSchema) schema;
 					Field field = es.getField();
-					if (es.isList()) {
+
+					switch (es.getType()) {
+					case LIST:
 						List list = (List) field.get(parentObj);
 						if (list == null) {
 							list = new ArrayList();
@@ -287,7 +299,8 @@ class XmlReaderHandler extends DefaultHandler {
 							field.set(parentObj, list);
 						}
 						list.add(obj);
-					} else if (es.isSet()) {
+						break;
+					case SET:
 						Set set = (Set) field.get(parentObj);
 						if (set == null) {
 							set = new LinkedHashSet();
@@ -297,7 +310,8 @@ class XmlReaderHandler extends DefaultHandler {
 							field.set(parentObj, set);
 						}
 						set.add(obj);
-					} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
+						break;
+					case ARRAY:
 						SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
 
 						if (schemaArray == null || schemaArray.value0 != es) {
@@ -318,8 +332,14 @@ class XmlReaderHandler extends DefaultHandler {
 						// --------
 
 						schemaArray.value1.add(value);
-					} else {
+						break;
+					case MAP:
+						// TODO
+						break;
+					case CDATA:
+					case DEFAULT:
 						field.set(parentObj, obj);
+						break;
 					}
 				}
 

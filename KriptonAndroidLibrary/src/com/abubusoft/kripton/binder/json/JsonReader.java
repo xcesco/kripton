@@ -38,7 +38,7 @@ import com.abubusoft.kripton.common.TypeReflector;
  * @author bulldog
  * 
  */
-public class JsonReader implements BinderReader { 
+public class JsonReader implements BinderReader {
 
 	/**
 	 * format of json reader
@@ -190,6 +190,7 @@ public class JsonReader implements BinderReader {
 	}
 
 	private void readElementInternal(Object instance, JSONObject jsonObj, Map<String, Object> map) throws Exception {
+		Class<?> type;
 		for (String xmlName : map.keySet()) {
 			Object jsonValue = jsonObj.opt(xmlName);
 			if (jsonValue != null) {
@@ -197,38 +198,45 @@ public class JsonReader implements BinderReader {
 				if (schema instanceof ElementSchema) {
 					ElementSchema es = (ElementSchema) schema;
 					Field field = es.getField();
-					if (es.isList()) {
+					type = es.getFieldType();
+					
+					switch (es.getType()) {
+					case LIST:
 						// List
-						Class<?> type = es.getFieldType();
 						if (jsonValue instanceof JSONArray) {
 							JSONArray jsonArray = (JSONArray) jsonValue;
 							if (jsonArray.length() > 0) {
 								readList(instance, type, field, jsonArray);
 							}
 						}
-					} else if (es.isSet()) {
+						break;
+					case SET:
 						// Set
-						Class<?> type = es.getFieldType();
 						if (jsonValue instanceof JSONArray) {
 							JSONArray jsonArray = (JSONArray) jsonValue;
 							if (jsonArray.length() > 0) {
 								readSet(instance, type, field, jsonArray);
 							}
 						}
-					} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
+
+						break;
+					case ARRAY:
 						// Array
-						Class<?> type = es.getFieldType();
 						if (jsonValue instanceof JSONArray) {
 							JSONArray jsonArray = (JSONArray) jsonValue;
 							if (jsonArray.length() > 0) {
 								readArray(instance, type, field, jsonArray);
 							}
-						} 
-					} else {
+						}
+						break;
+					case MAP:
+						// TODO
+						break;
+					case CDATA:
+					case DEFAULT:
 						if (jsonValue instanceof JSONArray) {
 							jsonValue = ((JSONArray) jsonValue).get(0);
 						}
-						Class<?> type = es.getFieldType();
 						if (Transformer.isPrimitive(type)) {
 							if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
 								Object value = Transformer.read(String.valueOf(jsonValue), type);
@@ -240,6 +248,7 @@ public class JsonReader implements BinderReader {
 							field.set(instance, subObj);
 							this.readObject(subObj, (JSONObject) jsonValue);
 						}
+						break;
 					}
 				}
 			}
@@ -277,7 +286,7 @@ public class JsonReader implements BinderReader {
 				}
 			}
 		}
-		
+
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -328,7 +337,7 @@ public class JsonReader implements BinderReader {
 				Array.set(array, i, subObj);
 				this.readObject(subObj, (JSONObject) jsonValue);
 			} else if (jsonValue instanceof JSONArray) {
-				//TODO to implement
+				// TODO to implement
 			} else {
 				// (!(jsonValue instanceof JSONObject) && !()) {
 				subObj = Transformer.read(String.valueOf(jsonValue), type);

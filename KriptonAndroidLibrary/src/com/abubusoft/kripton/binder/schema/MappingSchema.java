@@ -295,6 +295,8 @@ public class MappingSchema {
 					continue;
 				if (handleSet(field, elementSchema))
 					continue;
+				if (handleMap(field, elementSchema, xmlElement.mapEntryPolicy()))
+					continue;
 
 				// put after list and array evaluation
 				Class<?> fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
@@ -438,6 +440,8 @@ public class MappingSchema {
 					continue;
 				if (handleSet(field, elementSchema))
 					continue;
+				if (handleMap(field, elementSchema, MapEntryPolicyType.ELEMENTS))
+					continue;
 
 				/*
 				 * TODO to implements in next releases // database section if
@@ -486,7 +490,7 @@ public class MappingSchema {
 				// elementSchema.setName(elementSchema.getName()+"Element");
 			}
 
-			elementSchema.setArray(true);
+			elementSchema.setArray();
 			elementSchema.setFieldType(type);
 
 			return true;
@@ -505,8 +509,8 @@ public class MappingSchema {
 	 */
 	private boolean handleSet(Field field, ElementSchema elementSchema) throws MappingException {
 		Class<?> type = field.getType();
-		if (TypeReflector.collectionAssignable(field.getType()) && TypeReflector.isSet(type)) {
-			elementSchema.setSet(true);
+		if (TypeReflector.isSet(type)) {
+			elementSchema.setSet();
 			Class<?> paramizedType = TypeReflector.getParameterizedType(field, genericsResolver);
 			if (paramizedType == null) {
 				throw new MappingException("Can't get parameterized type of a Set field, "
@@ -514,6 +518,27 @@ public class MappingSchema {
 						+ ", type = " + type.getName());
 			} else {
 				elementSchema.setFieldType(paramizedType);
+			}
+			return true;
+		}
+
+		return false;
+	}
+
+	@SuppressWarnings("unused")
+	private boolean handleMap(Field field, ElementSchema elementSchema, MapEntryPolicyType mapEntryPolicy ) throws MappingException {
+		Class<?> type = field.getType();
+		if (TypeReflector.isMap(type)) {
+			Class<?>[] paramizedType = TypeReflector.getParameterizedTypeArray(field, genericsResolver);
+
+			elementSchema.setMap(paramizedType[0], paramizedType[1], mapEntryPolicy);
+
+			if (paramizedType == null) {
+				throw new MappingException("Can't get parameterized type of a Map field, "
+						+ "Framework only supports collection field of Map<K,V> type, and K,V must be bindable types, " + "field = " + field.getName()
+						+ ", type = " + type.getName());
+			} else {
+				elementSchema.setFieldType(Map.class);
 			}
 			return true;
 		}
@@ -531,9 +556,9 @@ public class MappingSchema {
 	 */
 	private boolean handleList(Field field, ElementSchema elementSchema) throws MappingException {
 		Class<?> type = field.getType();
-		if (TypeReflector.collectionAssignable(type) && TypeReflector.isList(type)) {
+		if (TypeReflector.isList(type)) {
 
-			elementSchema.setList(true);
+			elementSchema.setList();
 			Class<?> paramizedType = TypeReflector.getParameterizedType(field, genericsResolver);
 			if (paramizedType == null) {
 				throw new MappingException("Can't get parameterized type of a List field, "

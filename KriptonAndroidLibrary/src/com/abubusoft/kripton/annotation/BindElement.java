@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.binder.schema.MapEntryPolicyType;
+
 /**
  * 
  * This annotation maps a POJO field to an XML/JSON element
@@ -16,6 +18,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BindElement {
+
+	/**
+	 * Kind of mapping of element of a map. Valid only for maps
+	 * @return
+	 */
+	public MapEntryPolicyType mapEntryPolicy() default MapEntryPolicyType.ELEMENTS ;
 
 	/**
 	 * The name of the XML/JSON element
