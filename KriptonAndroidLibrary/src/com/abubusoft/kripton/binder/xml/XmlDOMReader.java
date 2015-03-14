@@ -29,6 +29,7 @@ import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.binder.schema.AnyElementSchema;
 import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
+import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.schema.RootElementSchema;
 import com.abubusoft.kripton.binder.schema.ValueSchema;
@@ -146,7 +147,8 @@ public class XmlDOMReader implements BinderReader {
 
 		boolean hasText = this.readText(obj, element);
 		if (hasText) {
-			return; // no further read if xml text presents
+			// no further read if xml text presents
+			return;
 		}
 
 		List<Element> anyElements = new ArrayList<Element>();
@@ -290,7 +292,40 @@ public class XmlDOMReader implements BinderReader {
 								map = new LinkedHashMap<Object, Object>();
 								field.set(obj, map);
 							}
-							
+
+							MapInfo mapInfo = es.getMapInfo();
+
+							Object keyValue=null;
+							Object valueValue=null;
+
+							switch (mapInfo.entryStrategy) {
+							case ATTRIBUTES:
+								String key = childElement.getAttributeNS(null, "key");
+								String value = childElement.getAttributeNS(null, "value");
+								
+								keyValue = Transformer.read(key, es.getMapInfo().keyClazz);
+								valueValue = Transformer.read(value, es.getMapInfo().valueClazz);
+								break;
+							case ELEMENTS:
+								int a=0;
+								for (int j=0; j<childElement.getChildNodes().getLength();j++)
+								{
+									if (childElement.getChildNodes().item(j).getNodeType()==Node.ELEMENT_NODE)
+									{
+										if (a==0)
+										{	
+											keyValue = readSubElement((Element) childElement.getChildNodes().item(j), es.getMapInfo().keyClazz);
+											a++;
+										} else {
+											valueValue = readSubElement((Element) childElement.getChildNodes().item(j), es.getMapInfo().valueClazz);
+											break;
+										}
+									}
+								}
+								break;
+							}
+							map.put(keyValue, valueValue);
+
 							break;
 						case ARRAY:
 							Object array = field.get(obj);
@@ -361,6 +396,22 @@ public class XmlDOMReader implements BinderReader {
 				}
 			}
 		}
+	}
+
+	protected Object readSubElement(Element element, Class<?> type) throws Exception {
+		// primitive
+		if (Transformer.isPrimitive(type)) {
+			String xmlValue = element.getTextContent();
+			if (!StringUtil.isEmpty(xmlValue)) {
+				Object fieldValue = Transformer.read(xmlValue, type);
+
+				return fieldValue;
+			}
+		}
+		Object newObj = this.buildObjectFromType(type);
+		this.read(newObj, element);
+
+		return newObj;
 	}
 
 	protected void readAnyElement(Object obj, List<Element> anyElements) throws Exception {

@@ -365,7 +365,7 @@ public class XmlPullWriter implements BinderWriter {
 		String keyName = "key";
 		String valueName = "value";
 		
-		switch (es.getMapInfo().entryPolicy) {
+		switch (es.getMapInfo().entryStrategy) {
 		case ELEMENTS:
 			// key
 			if (Transformer.isPrimitive(type.keyClazz)) {

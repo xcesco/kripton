@@ -8,7 +8,7 @@ package com.abubusoft.kripton.binder.schema;
  * @author xcesco
  *
  */
-public enum MapEntryPolicyType {
+public enum MapEntryStrategyType {
 	ELEMENTS,
 	ATTRIBUTES
 }

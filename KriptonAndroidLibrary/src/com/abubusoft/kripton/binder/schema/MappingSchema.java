@@ -440,7 +440,7 @@ public class MappingSchema {
 					continue;
 				if (handleSet(field, elementSchema))
 					continue;
-				if (handleMap(field, elementSchema, MapEntryPolicyType.ELEMENTS))
+				if (handleMap(field, elementSchema, MapEntryStrategyType.ELEMENTS))
 					continue;
 
 				/*
@@ -526,7 +526,7 @@ public class MappingSchema {
 	}
 
 	@SuppressWarnings("unused")
-	private boolean handleMap(Field field, ElementSchema elementSchema, MapEntryPolicyType mapEntryPolicy ) throws MappingException {
+	private boolean handleMap(Field field, ElementSchema elementSchema, MapEntryStrategyType mapEntryPolicy ) throws MappingException {
 		Class<?> type = field.getType();
 		if (TypeReflector.isMap(type)) {
 			Class<?>[] paramizedType = TypeReflector.getParameterizedTypeArray(field, genericsResolver);
