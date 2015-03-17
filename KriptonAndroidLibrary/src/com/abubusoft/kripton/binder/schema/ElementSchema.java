@@ -112,7 +112,7 @@ public class ElementSchema extends AbstractSchema {
 	 * 
 	 * @param value
 	 */
-	public void setMap(Class<?> keyType, Class<?> valueType, MapEntryStrategyType policy) {
+	public void setMapInfo(Class<?> keyType, Class<?> valueType, MapEntryStrategyType policy) {
 		type = ElementSchemaType.MAP;
 		mapInfo=new MapInfo();
 		mapInfo.keyClazz=keyType;

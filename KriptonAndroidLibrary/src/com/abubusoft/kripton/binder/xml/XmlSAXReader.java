@@ -109,7 +109,9 @@ public class XmlSAXReader implements BinderReader {
 			}
 			Object obj = con.newInstance();
 
+			// put root object
 			holder.helper.valueStack.push(obj);
+			
 			holder.xmlReader.setContentHandler(holder.saxHandler);
 			holder.xmlReader.parse(new InputSource(source));
 

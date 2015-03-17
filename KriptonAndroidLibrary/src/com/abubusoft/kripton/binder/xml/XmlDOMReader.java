@@ -295,29 +295,29 @@ public class XmlDOMReader implements BinderReader {
 
 							MapInfo mapInfo = es.getMapInfo();
 
-							Object keyValue=null;
-							Object valueValue=null;
+							Object keyValue = null;
+							Object valueValue = null;
 
 							switch (mapInfo.entryStrategy) {
 							case ATTRIBUTES:
 								String key = childElement.getAttributeNS(null, "key");
 								String value = childElement.getAttributeNS(null, "value");
-								
+
 								keyValue = Transformer.read(key, es.getMapInfo().keyClazz);
 								valueValue = Transformer.read(value, es.getMapInfo().valueClazz);
 								break;
 							case ELEMENTS:
-								int a=0;
-								for (int j=0; j<childElement.getChildNodes().getLength();j++)
-								{
-									if (childElement.getChildNodes().item(j).getNodeType()==Node.ELEMENT_NODE)
-									{
-										if (a==0)
-										{	
+								int a = 0;
+								for (int j = 0; j < childElement.getChildNodes().getLength(); j++) {
+									if (childElement.getChildNodes().item(j).getNodeType() == Node.ELEMENT_NODE) {
+										if ("key".equals(childElement.getChildNodes().item(j).getNodeName())) {
 											keyValue = readSubElement((Element) childElement.getChildNodes().item(j), es.getMapInfo().keyClazz);
 											a++;
-										} else {
+										} else if ("value".equals(childElement.getChildNodes().item(j).getNodeName())) {
 											valueValue = readSubElement((Element) childElement.getChildNodes().item(j), es.getMapInfo().valueClazz);
+											a++;
+										}
+										if (a > 1) {
 											break;
 										}
 									}

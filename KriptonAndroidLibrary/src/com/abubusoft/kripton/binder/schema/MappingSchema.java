@@ -32,6 +32,10 @@ import com.abubusoft.kripton.common.TypeReflector;
  */
 public class MappingSchema {
 
+	/**
+	 * @author xcesco
+	 *
+	 */
 	static class Counters {
 
 		public int valueSchemaCount;
@@ -218,7 +222,7 @@ public class MappingSchema {
 		Map<String, Object> fieldsMap = new LinkedHashMap<String, Object>();
 		Field[] fields = type.getDeclaredFields();
 
-		// sort fields according to order annotaions
+		// sort fields according to order annotations, or to name order
 		Arrays.sort(fields, new Comparator<Field>() {
 			@Override
 			public int compare(Field field1, Field field2) {
@@ -531,7 +535,7 @@ public class MappingSchema {
 		if (TypeReflector.isMap(type)) {
 			Class<?>[] paramizedType = TypeReflector.getParameterizedTypeArray(field, genericsResolver);
 
-			elementSchema.setMap(paramizedType[0], paramizedType[1], mapEntryPolicy);
+			elementSchema.setMapInfo(paramizedType[0], paramizedType[1], mapEntryPolicy);
 
 			if (paramizedType == null) {
 				throw new MappingException("Can't get parameterized type of a Map field, "

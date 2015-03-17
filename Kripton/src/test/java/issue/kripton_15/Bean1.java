@@ -28,7 +28,7 @@ public class Bean1 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 	
-	@BindElement(mapEntryPolicy=MapEntryStrategyType.ATTRIBUTES)
+	@BindElement(mapEntryPolicy=MapEntryStrategyType.ELEMENTS)
 	Map<String, String> map;
 
 }
