@@ -130,18 +130,7 @@ public class TypeReflector {
 	 * @return true or false
 	 */
 	public static boolean isList(Class<?> type) {
-		return List.class == type;
-	}
-
-	/**
-	 * check if a type is <code>java.util.ArrayList</code> type.
-	 * 
-	 * @param type
-	 *            a type to be checked
-	 * @return true or false
-	 */
-	public static boolean isArrayList(Class<?> type) {
-		return ArrayList.class == type;
+		return List.class.isAssignableFrom(type);
 	}
 
 	/**
@@ -163,7 +152,7 @@ public class TypeReflector {
 	 * @return true if it's a set
 	 */
 	public static boolean isSet(Class<?> type) {
-		return Set.class == type;
+		return Set.class.isAssignableFrom(type);
 	}
 
 	/**
@@ -174,7 +163,7 @@ public class TypeReflector {
 	 * @return true if it's a map
 	 */
 	public static boolean isMap(Class<?> type) {
-		return Map.class == type;
+		return Map.class.isAssignableFrom(type);
 	}
 
 }

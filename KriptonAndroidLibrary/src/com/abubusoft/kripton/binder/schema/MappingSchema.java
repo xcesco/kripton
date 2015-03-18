@@ -253,7 +253,7 @@ public class MappingSchema {
 		// used for validation
 		counters.valueSchemaCount = 0;
 		counters.anyElementSchemaCount = 0;
-		counters.elementSchemaCount = 0;
+		counters.elementSchemaCount = 0; 
 
 		int modifier;
 

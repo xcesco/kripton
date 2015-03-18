@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import com.abubusoft.kripton.binder.json.internal.JSONArray;
 import com.abubusoft.kripton.binder.json.internal.JSONObject;
 import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
+import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.schema.RootElementSchema;
 import com.abubusoft.kripton.binder.schema.ValueSchema;
@@ -199,7 +201,7 @@ public class JsonReader implements BinderReader {
 					ElementSchema es = (ElementSchema) schema;
 					Field field = es.getField();
 					type = es.getFieldType();
-					
+
 					switch (es.getType()) {
 					case LIST:
 						// List
@@ -230,7 +232,13 @@ public class JsonReader implements BinderReader {
 						}
 						break;
 					case MAP:
-						// TODO
+						// Array
+						if (jsonValue instanceof JSONArray) {
+							JSONArray jsonArray = (JSONArray) jsonValue;
+							if (jsonArray.length() > 0) {
+								readMap(instance, type, field, jsonArray, es.getMapInfo());
+							}
+						}
 						break;
 					case CDATA:
 					case DEFAULT:
@@ -253,6 +261,63 @@ public class JsonReader implements BinderReader {
 				}
 			}
 		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void readMap(Object instance, Class<?> type, Field field, JSONArray jsonArray, MapInfo mapInfo) throws Exception {
+		Map map = (Map) field.get(instance);
+		if (map == null) {
+			map = new LinkedHashMap();
+			field.set(instance, map);
+		}
+		Object objectValue;
+		Object objectKey;
+		Object value;
+		Object key;
+		Object entry;
+		JSONObject jsonEntry;
+		MappingSchema msKey;
+		MappingSchema msValue;
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			entry = jsonArray.get(i);
+			if (entry instanceof JSONObject) {
+				jsonEntry = (JSONObject) entry;
+				key = jsonEntry.get("key");
+
+				if (Transformer.isPrimitive(key.getClass())) {
+					// simple type
+					objectKey = Transformer.read(String.valueOf(key), mapInfo.keyClazz);
+				} else {
+					objectKey=mapInfo.keyClazz.newInstance();
+					msKey = MappingSchema.fromClass(mapInfo.keyClazz);
+					readElementInternal(objectKey, (JSONObject)key, msKey.getField2SchemaMapping()); 
+				}
+
+				value = jsonEntry.opt("value");
+				if (value == null) {
+					objectValue=null;
+				} else if (Transformer.isPrimitive(value.getClass())) {
+					// simple type
+					objectValue = Transformer.read(String.valueOf(value), mapInfo.valueClazz);
+				} else {
+					objectValue=mapInfo.valueClazz.newInstance();
+					msValue = MappingSchema.fromClass(mapInfo.valueClazz);
+					readElementInternal(objectValue, (JSONObject)value, msValue.getField2SchemaMapping()); 
+					// key=read(instance, )
+				}
+
+				map.put(objectKey, objectValue);
+				/*
+				 * Constructor con = TypeReflector.getConstructor(type); subObj
+				 * = con.newInstance(); Array.set(array, i, subObj);
+				 * this.readObject(subObj, (JSONObject) jsonValue);
+				 */
+			} else {
+				throw new MappingException("Badformat for map field " + field.getName() + " of class " + instance.getClass().getName());
+			}
+		}
+
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

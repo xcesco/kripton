@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.abubusoft.kripton.BinderWriter;
@@ -153,7 +154,7 @@ public class JsonWriter implements BinderWriter {
 						this.writeElementArray(jsonObject, value, es);
 						break;
 					case MAP:
-						// TODO
+						this.writeElementMap(jsonObject, value, es);
 						break;
 					case DEFAULT:
 					case CDATA:
@@ -163,6 +164,55 @@ public class JsonWriter implements BinderWriter {
 				}
 			}
 		}
+	}
+
+	private void writeElementMap(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {
+		@SuppressWarnings("rawtypes")
+		Map<?, ?> map = (Map) source;
+		if (map.size() > 0) {
+
+			JSONArray jsonEntryArray = new JSONArray();
+			JSONObject jsonEntry;
+			Object jsonKey=null;
+			Object jsonValue=null;
+			Object key;
+			Object value;
+
+			for (@SuppressWarnings("rawtypes") Entry item : map.entrySet()) {
+				jsonEntry = new JSONObject();
+
+				key = item.getKey();
+				value = item.getValue();
+
+				// key
+				if (Transformer.isPrimitive(key.getClass())) {
+					jsonKey = getJSONValue(key, key.getClass());
+				} else {
+					MappingSchema msKey = MappingSchema.fromClass(key.getClass());
+					jsonKey = new JSONObject();
+					writeElements((JSONObject) jsonKey, key, msKey);
+				}
+
+				// value
+				if (Transformer.isPrimitive(value.getClass())) {
+					jsonValue = getJSONValue(value, value.getClass());
+				} else {
+					MappingSchema msValue = MappingSchema.fromClass(value.getClass());
+					jsonValue = new JSONObject();
+					writeElements((JSONObject) jsonValue, value, msValue);
+				}
+
+				jsonEntry.put("key", jsonKey);
+				jsonEntry.put("value", jsonValue);
+
+				jsonEntryArray.put(jsonEntry);
+			}
+
+			String mapKey = es.getWrapperName();
+			mapKey = mapKey == null ? es.getName() : mapKey;
+			jsonObject.put(mapKey, jsonEntryArray);
+		}
+
 	}
 
 	private void writeElementSet(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {

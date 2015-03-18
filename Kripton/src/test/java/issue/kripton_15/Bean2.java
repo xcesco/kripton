@@ -4,7 +4,7 @@
 package issue.kripton_15;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.abubusoft.kripton.annotation.BindElement;
@@ -22,7 +22,7 @@ public class Bean2 implements Serializable {
 
 	public Bean2()
 	{
-		map=new HashMap<Integer, String>();
+		map=new LinkedHashMap<Integer, String>();
 	}
 
 

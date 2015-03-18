@@ -4,11 +4,14 @@
 package issue.kripton_15;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
+
+import com.abubusoft.kripton.annotation.BindElement;
 import com.abubusoft.kripton.annotation.BindRoot;
-import com.abubusoft.kripton.annotation.BindValue;
 
 
 
@@ -21,13 +24,13 @@ public class Bean3 implements Serializable {
 
 	public Bean3()
 	{
-		set=new HashSet<Bean0>();
+		map=new LinkedHashMap<>();
 	}
 
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@BindValue
-	Set<Bean0> set;
+	@BindElement
+	Map<Bean0, Bean0> map;
 
 }

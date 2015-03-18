@@ -21,8 +21,10 @@ public class Issue15Test3 extends IssueBaseTest<Bean3> {
 	{
 		beanInput=new Bean3();
 		
-		beanInput.set.add(new Bean0("helo", 244));
-		beanInput.set.add(new Bean0("helo", 244));
+		beanInput.map.put(new Bean0("key1", 12), new Bean0("value1", 23));
+		beanInput.map.put(new Bean0("key2", 23), new Bean0("value2", 34));
+		beanInput.map.put(new Bean0("key3", 34), new Bean0("value3", 45));
+		
 		
 	}
 

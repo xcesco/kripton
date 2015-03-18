@@ -372,6 +372,9 @@ public class XmlDOMReader implements BinderReader {
 							break;
 						case CDATA:
 						case DEFAULT:
+							if (!field.isAccessible()) {
+								field.setAccessible(true);
+							}
 							// single field value
 							// primitive
 							if (Transformer.isPrimitive(fieldType)) {
@@ -382,7 +385,7 @@ public class XmlDOMReader implements BinderReader {
 										field.set(obj, fieldValue);
 									}
 								}
-							} else {
+							} else { 
 								Object newObj = this.buildObjectFromType(fieldType);
 								this.read(newObj, childElement);
 								field.set(obj, newObj);

@@ -262,7 +262,7 @@ public class XmlPullWriter implements BinderWriter {
 				Object value = field.get(source);
 				if (value != null) {
 
-					switch (es.getType()) {
+					switch (es.getType()) { 
 					case LIST:
 						this.writeElementList(serializer, value, es, namespace);
 						break;
