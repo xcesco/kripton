@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
+import com.abubusoft.kripton.binder.schema.MapElement;
+import com.abubusoft.kripton.binder.schema.MapStrategy;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.schema.RootElementSchema;
 import com.abubusoft.kripton.binder.schema.SchemaArray;
@@ -44,24 +47,25 @@ class XmlReaderHandler extends DefaultHandler {
 	}
 
 	private void populateAttributes(Object obj, Attributes attrs, MappingSchema ms) throws Exception {
-		Map<String, AttributeSchema> xml2AttributeSchemaMapping = ms.getXml2AttributeSchemaMapping();
+		Map<String, AttributeSchema> attributeSchemaMapping = ms.getXml2AttributeSchemaMapping();
+
 		for (int index = 0; index < attrs.getLength(); index++) {
 			String attrName = attrs.getLocalName(index);
 
-			AttributeSchema as = xml2AttributeSchemaMapping.get(attrName);
+			AttributeSchema as = attributeSchemaMapping.get(attrName);
 			if (as == null)
-				continue; 
+				continue;
 
 			String attrValue = attrs.getValue(index);
-			
+
 			Object value = Transformer.read(attrValue, as.getFieldType());
-			
+
 			Field field = as.getField();
 			field.set(obj, value);
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void startElement(String uri, String localName, String name, Attributes attrs) throws SAXException {
 		try {
 			Object obj = helper.valueStack.peek();
@@ -116,19 +120,67 @@ class XmlReaderHandler extends DefaultHandler {
 
 					// detect type
 					Class<?> type = es.getFieldType();
+					if (ms.isMapStrategy()) {
+						MapStrategy mapStrategy = (MapStrategy) obj;
+
+						if (mapStrategy.isKey(localName)) {
+							type = mapStrategy.getKeyType();
+						} else if (mapStrategy.isValue(localName)) {
+							type = mapStrategy.getValueType();
+						}
+					}
 
 					if (!Transformer.isPrimitive(type)) {
+						Object newObj = null;
+						if (es.isMap()) {
+							Map map = (Map) es.getField().get(obj);
+							if (map == null) {
+								map = new LinkedHashMap();
+								es.getField().set(obj, map);
+							}
 
-						MappingSchema newMs = MappingSchema.fromClass(type);
-						Constructor con = null;
-						try {
-							con = TypeReflector.getConstructor(type);
-						} catch (NoSuchMethodException nsme) {
-							throw new ReaderException("No-arg constructor is missing, type = " + type.getName());
-						}
-						Object newObj = con.newInstance();
-						if (attrs != null && attrs.getLength() > 0) {
-							this.populateAttributes(newObj, attrs, newMs);
+							switch (es.getMapInfo().entryStrategy) {
+							case ATTRIBUTES: {
+								MapElement mapPolicy = new MapElement();
+								mapPolicy.setMap(map);
+								mapPolicy.keyClazz = es.getMapInfo().keyClazz;
+								mapPolicy.valueClazz = es.getMapInfo().valueClazz;
+															
+								if (attrs != null && attrs.getLength() > 0) {
+									this.populateAttributesForMap(mapPolicy, attrs);
+								}
+								
+								if (mapPolicy.isEntryReady())
+								{
+									map.put(mapPolicy.getEntryKey(),mapPolicy.getEntryValue());
+									mapPolicy.clear();
+								}
+							}
+								// exit, DO NOT PUSH OBJECT!
+								return;
+							case ELEMENTS: {
+								MapElement mapPolicy = new MapElement();
+								mapPolicy.keyClazz = es.getMapInfo().keyClazz;
+								mapPolicy.valueClazz = es.getMapInfo().valueClazz;
+								mapPolicy.setMap(map);
+
+								newObj = mapPolicy;
+							}
+								break;
+							}
+
+						} else {
+							MappingSchema newMs = MappingSchema.fromClass(type);
+							Constructor con = null;
+							try {
+								con = TypeReflector.getConstructor(type);
+							} catch (NoSuchMethodException nsme) {
+								throw new ReaderException("No-arg constructor is missing, type = " + type.getName());
+							}
+							newObj = con.newInstance();
+							if (attrs != null && attrs.getLength() > 0) {
+								this.populateAttributes(newObj, attrs, newMs);
+							}
 						}
 
 						helper.valueStack.push(newObj);
@@ -139,6 +191,21 @@ class XmlReaderHandler extends DefaultHandler {
 
 		} catch (Exception ex) {
 			throw new SAXException("Reading exception in startElement, " + ex.getMessage(), ex);
+		}
+	}
+
+	private void populateAttributesForMap(MapElement mapPolicy, Attributes attrs) throws Exception {
+		for (int index = 0; index < attrs.getLength(); index++) {
+			String attrName = attrs.getLocalName(index);
+			String attrValue = attrs.getValue(index);
+
+			if ("value".equals(attrName)) {
+				Object value = Transformer.read(attrValue, mapPolicy.valueClazz);
+				mapPolicy.setEntryValue(value);
+			} else if ("key".equals(attrName)) {
+				Object value = Transformer.read(attrValue, mapPolicy.keyClazz);
+				mapPolicy.setEntryKey(value);
+			}
 		}
 	}
 
@@ -196,53 +263,77 @@ class XmlReaderHandler extends DefaultHandler {
 
 				Map<String, Object> xml2SchemaMapping = ms.getXml2SchemaMapping();
 				Object schema = xml2SchemaMapping.get(localName);
+
 				if (schema != null && schema instanceof ElementSchema) {
 					ElementSchema es = (ElementSchema) schema;
 					Field field = es.getField();
 					String xmlData = helper.textBuilder.toString();
 					if (!StringUtil.isEmpty(xmlData)) {
-						if (es.isList()) {
-							Class<?> paramizedType = es.getFieldType();
-							Object value = Transformer.read(xmlData, paramizedType);
-							List list = (List) field.get(obj);
-							if (list == null) {
-								list = new ArrayList();
-								field.set(obj, list);
-							}
-							list.add(value);
-						} else if (es.isSet()) {
-							Class<?> paramizedType = es.getFieldType();
-							Object value = Transformer.read(xmlData, paramizedType);
-							Set set = (Set) field.get(obj);
-							if (set == null) {
-								set = new LinkedHashSet();
-								field.set(obj, set);
-							}
-							set.add(value);
-						} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
-							SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
+						if (ms.isMapStrategy()) {
+							MapStrategy mapStrategy = (MapStrategy) obj;
+							Class<?> type = null;
+							Object value = null;
 
-							if (schemaArray == null || schemaArray.value0 != es) {
-								schemaArray = new SchemaArray(es, new ArrayList());
-								helper.arrayStack.add(schemaArray);
+							if (mapStrategy.isKey(localName)) {
+								type = mapStrategy.getKeyType();
+								value = Transformer.read(xmlData, type);
+								mapStrategy.setEntryKey(value);
+							} else if (mapStrategy.isValue(localName)) {
+								type = mapStrategy.getValueType();
+								value = Transformer.read(xmlData, type);
+								mapStrategy.setEntryValue(value);
 							}
-							Class<?> paramizedType = es.getFieldType();
-							// Object value = Transformer.read(xmlData,
-							// paramizedType);
-							Object value;
-							// --------
-							if (Transformer.isPrimitive(paramizedType)) {
-								value = Transformer.read(xmlData, paramizedType);
-							} else {
-								value = obj;
-							}
-							// --------
 
-							schemaArray.value1.add(value);
+							if (mapStrategy.isEntryReady()) {
+								mapStrategy.getMap().put(mapStrategy.getEntryKey(), mapStrategy.getEntryValue());
+								mapStrategy.clear();
+							}
 
 						} else {
-							Object value = Transformer.read(xmlData, field.getType());
-							field.set(obj, value);
+
+							if (es.isList()) {
+								Class<?> paramizedType = es.getFieldType();
+								Object value = Transformer.read(xmlData, paramizedType);
+								List list = (List) field.get(obj);
+								if (list == null) {
+									list = new ArrayList();
+									field.set(obj, list);
+								}
+								list.add(value);
+							} else if (es.isSet()) {
+								Class<?> paramizedType = es.getFieldType();
+								Object value = Transformer.read(xmlData, paramizedType);
+								Set set = (Set) field.get(obj);
+								if (set == null) {
+									set = new LinkedHashSet();
+									field.set(obj, set);
+								}
+								set.add(value);
+							} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
+								SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
+
+								if (schemaArray == null || schemaArray.value0 != es) {
+									schemaArray = new SchemaArray(es, new ArrayList());
+									helper.arrayStack.add(schemaArray);
+								}
+								Class<?> paramizedType = es.getFieldType();
+								// Object value = Transformer.read(xmlData,
+								// paramizedType);
+								Object value;
+								// --------
+								if (Transformer.isPrimitive(paramizedType)) {
+									value = Transformer.read(xmlData, paramizedType);
+								} else {
+									value = obj;
+								}
+								// --------
+
+								schemaArray.value1.add(value);
+
+							} else {
+								Object value = Transformer.read(xmlData, field.getType());
+								field.set(obj, value);
+							}
 						}
 					}
 				}
@@ -250,7 +341,6 @@ class XmlReaderHandler extends DefaultHandler {
 				// handle object field
 				Object obj = helper.valueStack.pop();
 				MappingSchema ms = MappingSchema.fromObject(obj);
-
 
 				ValueSchema vs = ms.getValueSchema();
 				if (vs != null) {
@@ -261,14 +351,14 @@ class XmlReaderHandler extends DefaultHandler {
 						field.set(obj, value);
 					}
 				}
-				
+
 				if (helper.valueStack.size() == 0) { // the end
 					helper.valueStack.push(obj);
 					helper.depth--;
 					return;
 				}
 
-
+				// retrieve parent object
 				Object parentObj = helper.valueStack.peek();
 				MappingSchema parentMs = MappingSchema.fromObject(parentObj);
 				Map<String, Object> parentXml2SchemaMapping = parentMs.getXml2SchemaMapping();
@@ -277,7 +367,25 @@ class XmlReaderHandler extends DefaultHandler {
 				if (schema != null && schema instanceof ElementSchema) {
 					ElementSchema es = (ElementSchema) schema;
 					Field field = es.getField();
-					if (es.isList()) {
+					if (ms.isMapStrategy()) {
+						// do nothing... all is done!
+					} else if (parentMs.isMapStrategy()) {
+						MapStrategy mapStrategy = (MapStrategy) parentObj;
+						Object value = null;
+
+						if (mapStrategy.isKey(localName)) {
+							value = obj;
+							mapStrategy.setEntryKey(value);
+						} else if (mapStrategy.isValue(localName)) {
+							value = obj;
+							mapStrategy.setEntryValue(value);
+						}
+
+						if (mapStrategy.isEntryReady()) {
+							mapStrategy.getMap().put(mapStrategy.getEntryKey(), mapStrategy.getEntryValue());
+							mapStrategy.clear();
+						}
+					} else if (es.isList()) {
 						List list = (List) field.get(parentObj);
 						if (list == null) {
 							list = new ArrayList();

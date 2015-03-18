@@ -39,8 +39,7 @@ public class TypeReflector {
 
 			paramClass = new Class<?>[type.getActualTypeArguments().length];
 
-			for (int i = 0; i < paramClass.length; i++) {
-
+			for (int i = 0; i < paramClass.length; i++) {				
 				if (type.getActualTypeArguments()[i] instanceof Class) {
 					paramClass[i] = (Class<?>) type.getActualTypeArguments()[i];
 				} else if (type.getActualTypeArguments()[i] instanceof TypeVariable) {

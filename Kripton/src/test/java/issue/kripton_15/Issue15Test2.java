@@ -4,7 +4,6 @@
 package issue.kripton_15;
 
 import issue.IssueBaseTest;
-import issue.kripton_15.KriptonMap.KriptonEntry;
 
 import org.junit.Before;
 
@@ -15,15 +14,15 @@ import org.junit.Before;
  * @author xcesco
  *
  */
-public class Issue15Test2 extends IssueBaseTest<KriptonMap> {
+public class Issue15Test2 extends IssueBaseTest<Bean2> {
 
 	@Before
 	public void setup()
 	{
-		beanInput=new KriptonMap();
+		beanInput=new Bean2();
 		
-		beanInput.list.add(new KriptonEntry("hello1", "content1"));
-		beanInput.list.add(new KriptonEntry("hello2", "content2"));
+		beanInput.map.put(1, "content1");
+		beanInput.map.put(2, "content2");
 		
 	}
 

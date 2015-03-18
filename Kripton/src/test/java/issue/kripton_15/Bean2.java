@@ -4,11 +4,12 @@
 package issue.kripton_15;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.abubusoft.kripton.annotation.BindDefault;
+import com.abubusoft.kripton.annotation.BindElement;
 import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.binder.schema.MapEntryStrategyType;
 
 
 
@@ -17,17 +18,17 @@ import com.abubusoft.kripton.annotation.BindRoot;
  *
  */
 @BindRoot
-@BindDefault
 public class Bean2 implements Serializable {
 
 	public Bean2()
 	{
-		set=new HashSet<Bean0>();
+		map=new HashMap<Integer, String>();
 	}
 
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	Set<Bean0> set;
+	@BindElement(mapEntryPolicy=MapEntryStrategyType.ATTRIBUTES)
+	Map<Integer, String> map;
 
 }

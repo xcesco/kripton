@@ -37,11 +37,9 @@ public class MappingSchema {
 	 *
 	 */
 	static class Counters {
-
-		public int valueSchemaCount;
-		public int anyElementSchemaCount;
-		public int elementSchemaCount;
-
+		int valueSchemaCount;
+		int anyElementSchemaCount;
+		int elementSchemaCount;
 	}
 
 	private RootElementSchema rootElementSchema;
@@ -60,6 +58,7 @@ public class MappingSchema {
 	 * elenco dei wrapper di lista di questo schema
 	 */
 	private Map<String, Object> xmlWrapper2SchemaMapping;
+	private boolean mapStrategy;
 
 	public Map<String, Object> getXmlWrapper2SchemaMapping() {
 		return xmlWrapper2SchemaMapping;
@@ -75,6 +74,11 @@ public class MappingSchema {
 		genericsResolver = GenericClass.forClass(type);
 
 		isDefault = type.isAnnotationPresent(BindDefault.class);
+		
+		if (MapStrategy.class.isAssignableFrom(type))
+		{
+			mapStrategy=true;
+		}
 
 		// step 1
 		this.buildRootElementSchema();
@@ -84,6 +88,10 @@ public class MappingSchema {
 		this.buildXml2SchemaMapping();
 		// step 4
 		this.buildField2AttributeSchemaMapping();
+	}
+
+	public boolean isMapStrategy() {
+		return mapStrategy;
 	}
 
 	private void buildRootElementSchema() {
@@ -417,7 +425,8 @@ public class MappingSchema {
 				 * anyElementSchema.setNullable(databaseAnnotation.nullable());
 				 * anyElementSchema.setUnique(databaseAnnotation.unique()); }
 				 */
-			} else if (isDefault) { // default to Node
+			} else if (isDefault) { 
+				// default to Node
 				counters.elementSchemaCount++;
 
 				Class<?> fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
@@ -530,12 +539,12 @@ public class MappingSchema {
 	}
 
 	@SuppressWarnings("unused")
-	private boolean handleMap(Field field, ElementSchema elementSchema, MapEntryStrategyType mapEntryPolicy ) throws MappingException {
+	private boolean handleMap(Field field, ElementSchema elementSchema, MapEntryStrategyType mapEntryPolicy) throws MappingException {
 		Class<?> type = field.getType();
 		if (TypeReflector.isMap(type)) {
 			Class<?>[] paramizedType = TypeReflector.getParameterizedTypeArray(field, genericsResolver);
 
-			elementSchema.setMapInfo(paramizedType[0], paramizedType[1], mapEntryPolicy);
+			elementSchema.setMapInfo(type, paramizedType[0], paramizedType[1], mapEntryPolicy);
 
 			if (paramizedType == null) {
 				throw new MappingException("Can't get parameterized type of a Map field, "

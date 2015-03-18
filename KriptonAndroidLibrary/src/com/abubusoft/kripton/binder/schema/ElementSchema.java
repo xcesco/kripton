@@ -41,6 +41,10 @@ public class ElementSchema extends AbstractSchema {
 		public Class<?> keyClazz;
 		public Class<?> valueClazz;
 		public MapEntryStrategyType entryStrategy;
+		public Class<?> mapClazz;
+		public Class<?> getMapClazz() {
+			return mapClazz;
+		}
 	}
 	
 	private MapInfo mapInfo;
@@ -109,12 +113,14 @@ public class ElementSchema extends AbstractSchema {
 
 	/**
 	 * Set if field is a map
+	 * @param paramizedType 
 	 * 
 	 * @param value
 	 */
-	public void setMapInfo(Class<?> keyType, Class<?> valueType, MapEntryStrategyType policy) {
+	public void setMapInfo(Class<?> mapType, Class<?> keyType, Class<?> valueType, MapEntryStrategyType policy) {
 		type = ElementSchemaType.MAP;
 		mapInfo=new MapInfo();
+		mapInfo.mapClazz=mapType;
 		mapInfo.keyClazz=keyType;
 		mapInfo.valueClazz=valueType;
 		mapInfo.entryStrategy=policy;
