@@ -1,8 +1,8 @@
 package issue.kripton_12;
 
-import com.abubusoft.kripton.annotation.BindDefault;
+import com.abubusoft.kripton.annotation.BindAllFields;
 
-@BindDefault
+@BindAllFields
 public class BeanGeneric {
 
 	public BeanGeneric()

@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Currency;
 import java.util.Locale;
 
-import com.abubusoft.kripton.annotation.BindDefault;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindAllFields;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindRoot
-@BindDefault
+@BindType
+@BindAllFields
 public class Level2 implements Serializable {
 
 	/**

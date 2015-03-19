@@ -4,8 +4,8 @@
 package issue.kripton_15;
 
 
-import com.abubusoft.kripton.annotation.BindDefault;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindAllFields;
+import com.abubusoft.kripton.annotation.BindType;
 
 
 
@@ -13,8 +13,8 @@ import com.abubusoft.kripton.annotation.BindRoot;
  * @author xcesco
  *
  */
-@BindRoot
-@BindDefault
+@BindType
+@BindAllFields
 public class Bean0 {
 
 	public Bean0(String string, int i) {

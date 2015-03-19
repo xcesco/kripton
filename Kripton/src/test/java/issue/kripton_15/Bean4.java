@@ -12,8 +12,8 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
 
 
@@ -21,19 +21,19 @@ import com.abubusoft.kripton.annotation.BindRoot;
  * @author xcesco
  *
  */
-@BindRoot
+@BindType
 public class Bean4 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
 	public Date data;
 	
-	@BindElement ArrayList<Level1> list;
+	@Bind ArrayList<Level1> list;
 
-	@BindElement
+	@Bind
 	Map<String, Level1> map;
 	
-	@BindElement Set<Level1> set;
+	@Bind Set<Level1> set;
 
 	public String value;
 

@@ -5,8 +5,8 @@ package issue.kripton_11;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
 
 
@@ -14,13 +14,13 @@ import com.abubusoft.kripton.annotation.BindRoot;
  * @author xcesco
  *
  */
-@BindRoot
+@BindType
 public class Bean0 {
 
-	@BindRoot
+	@BindType
 	public static class SubBean01
 	{
-		@BindElement
+		@Bind
 		private Date date;
 		
 		// Needed for serialization
@@ -50,23 +50,23 @@ public class Bean0 {
 			this.name = name;
 		}
 
-		@BindElement
+		@Bind
 		private String name;
 	}
 	
-	@BindElement
+	@Bind
 	private Date birthday;
 	
-	@BindElement(data=true)
+	@Bind(data=true)
 	private String name;
 
-	@BindElement
+	@Bind
 	private String surname;
 	
-	@BindElement
+	@Bind
 	private byte[] buffer={1, 2,3, 4};
 	
-	@BindElement
+	@Bind
 	private SubBean01[] tickets;
 	
 

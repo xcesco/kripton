@@ -3,16 +3,16 @@ package issue.kripton_12;
 import java.util.List;
 
 import com.abubusoft.kripton.annotation.BindAttribute;
-import com.abubusoft.kripton.annotation.BindElement;
+import com.abubusoft.kripton.annotation.Bind;
 
 public class Bean0<T, E> {
 
-	@BindElement
+	@Bind
 	protected T genericElement;
 	
 	@BindAttribute
 	protected E genericAttribute;
 	
-	@BindElement(elementName="item")
+	@Bind(elementName="item")
 	protected List<E> genericListAttribute;
 }

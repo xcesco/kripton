@@ -10,8 +10,8 @@ import java.util.Map;
 
 import org.apache.commons.collections.map.HashedMap;
 
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
 
 
@@ -19,7 +19,7 @@ import com.abubusoft.kripton.annotation.BindRoot;
  * @author xcesco
  *
  */
-@BindRoot
+@BindType
 public class Bean3 implements Serializable {
 
 	public Bean3()
@@ -30,7 +30,7 @@ public class Bean3 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@BindElement
+	@Bind
 	Map<Bean0, Bean0> map;
 
 }

@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.abubusoft.kripton.annotation.BindAttribute;
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
 
 
@@ -16,12 +16,12 @@ import com.abubusoft.kripton.annotation.BindRoot;
  * @author xcesco
  *
  */
-@BindRoot
+@BindType
 public class Bean1 extends Bean0<BeanGeneric, Integer> implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@BindElement
+	@Bind
 	private Date birthday;
 	
 	@BindAttribute

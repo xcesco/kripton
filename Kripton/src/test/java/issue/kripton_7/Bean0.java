@@ -1,11 +1,11 @@
 package issue.kripton_7;
 
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindRoot
+@BindType
 public class Bean0 {
 
-	@BindElement
+	@Bind
 	String bla="Bean0";
 }

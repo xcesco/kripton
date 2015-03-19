@@ -12,10 +12,10 @@ import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindValue;
 
-@BindRoot
+@BindType
 public class Bean1 extends Bean0 {
 
 	public enum BeanType 

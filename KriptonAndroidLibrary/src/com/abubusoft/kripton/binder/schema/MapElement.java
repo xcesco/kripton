@@ -5,24 +5,24 @@ package com.abubusoft.kripton.binder.schema;
 
 import java.util.Map;
 
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
 /**
  * @author xcesco
  *
  */
-@BindRoot
+@BindType
 public class MapElement implements MapStrategy {
 
-	@BindElement
+	@Bind
 	public Object key;
 	
 	public Class<?> keyClazz;
 
 	public Map<?,?> map;
 
-	@BindElement
+	@Bind
 	public Object value;
 
 	public Class<?> valueClazz;

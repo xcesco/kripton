@@ -21,7 +21,6 @@ import com.abubusoft.kripton.exception.WriterException;
 import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
-import com.abubusoft.kripton.binder.schema.RootElementSchema;
 import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.common.StringUtil;
@@ -82,16 +81,6 @@ public class JsonWriter implements BinderWriter {
 			throw new WriterException("Error to serialize object", e);
 		}
 	}
-
-	// private void string2Writer(String source, Writer out) throws IOException
-	// {
-	//
-	// char[] buffer = source.toCharArray();
-	// for(int i = 0; i < buffer.length; i++) {
-	// out.append(buffer[i]);
-	// }
-	// out.flush();
-	// }
 
 	private void writeObject(JSONObject jsonObject, Object source) throws Exception {
 		MappingSchema ms = MappingSchema.fromObject(source);
@@ -173,12 +162,13 @@ public class JsonWriter implements BinderWriter {
 
 			JSONArray jsonEntryArray = new JSONArray();
 			JSONObject jsonEntry;
-			Object jsonKey=null;
-			Object jsonValue=null;
+			Object jsonKey = null;
+			Object jsonValue = null;
 			Object key;
 			Object value;
 
-			for (@SuppressWarnings("rawtypes") Entry item : map.entrySet()) {
+			for (@SuppressWarnings("rawtypes")
+			Entry item : map.entrySet()) {
 				jsonEntry = new JSONObject();
 
 				key = item.getKey();
@@ -361,30 +351,12 @@ public class JsonWriter implements BinderWriter {
 				throw new IllegalArgumentException("Can not write primitive or enum type object, " + "only Nano bindable complex type object can be accepted!");
 			}
 
-			JSONObject jsonObject = new JSONObject();
-
-			MappingSchema ms = MappingSchema.fromObject(source);
-			RootElementSchema res = ms.getRootElementSchema();
-
 			JSONObject childJsonObject = new JSONObject();
-			jsonObject.put(res.getName(), childJsonObject);
-
 			writeObject(childJsonObject, source);
-
-			if (res.isOnlyChildren()) {
-				// dobbiamo ignorare il root
-				if (this.options.isIndent()) {
-					return childJsonObject.toString(DEFAULT_INDENTATION);
-				} else {
-					return childJsonObject.toString();
-				}
+			if (this.options.isIndent()) {
+				return childJsonObject.toString(DEFAULT_INDENTATION);
 			} else {
-				// dobbiamo scrivere tutto
-				if (this.options.isIndent()) {
-					return jsonObject.toString(DEFAULT_INDENTATION);
-				} else {
-					return jsonObject.toString();
-				}
+				return childJsonObject.toString();
 			}
 
 		} catch (MappingException me) {

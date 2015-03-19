@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface BindRoot {
+public @interface BindTypeXml {
 
 	/**
 	 * Name of the root XML/JSON element
@@ -30,14 +30,5 @@ public @interface BindRoot {
      * @return namespace
      */
     public String namespace() default "";
-    
-    /**
-     * <p>In JSON, if true ignore element and read only fields.</p>
-     * <p>In XML it is not used.</p>
-     * 
-     * @return
-     * 		true for default
-     */
-    public boolean onlyChildren() default true;
     
 }

@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * NOT USED IN THIS RELEASE.
- * Use with {@link BindElement}. This annotation specify information about database binding
+ * Use with {@link Bind}. This annotation specify information about database binding
  * 
  * @author xcesco
  *

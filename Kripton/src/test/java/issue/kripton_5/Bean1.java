@@ -16,13 +16,13 @@ import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
-import com.abubusoft.kripton.annotation.BindDefault;
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindAllFields;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindValue;
 
-@BindRoot
-@BindDefault
+@BindType
+@BindAllFields
 public class Bean1 {
 
 	public enum BeanType 
@@ -67,7 +67,7 @@ public class Bean1 {
 	
 	TimeZone fieldTimeZone;
 	
-	@BindElement(name="fieldString")
+	@Bind(name="fieldString")
 	Integer fieldInteger;
 	
 	String fieldString;

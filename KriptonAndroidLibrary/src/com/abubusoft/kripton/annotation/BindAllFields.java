@@ -7,13 +7,14 @@ import java.lang.annotation.Target;
 
 /**
  * This annotation, if presents on a POJO, 
- * indicates all fields of the type should map to xml/json element unless explicitly specified.
+ * indicates all fields of the type should map to xml/json element.
  * 
  * @author bulldog
+ * @author xcesco
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface BindDefault {
+public @interface BindAllFields {
 
 }

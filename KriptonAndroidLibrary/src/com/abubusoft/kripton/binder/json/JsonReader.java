@@ -23,7 +23,6 @@ import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
-import com.abubusoft.kripton.binder.schema.RootElementSchema;
 import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
@@ -75,24 +74,8 @@ public class JsonReader implements BinderReader {
 
 			JSONObject jsonObj = new JSONObject(source);
 
-			MappingSchema ms = MappingSchema.fromObject(instance);
-			RootElementSchema res = ms.getRootElementSchema();
-			String rootName = res.getName();
-
-			Object jsonValue = jsonObj.opt(rootName);
-
-			// se dobbiamo considerare solo i figli dell'elemento root, andiamo
-			// avanti.
-			if (res.isOnlyChildren()) {
-				if (jsonValue == null) {
-					jsonValue = jsonObj;
-				}
-			} else {
-				if (jsonValue == null) {
-					throw new ReaderException("Root name mismatch, can not find root name : " + rootName + " in the json string!");
-				}
-			}
-
+			Object jsonValue = jsonObj;
+			
 			if (jsonValue instanceof JSONArray) {
 				jsonValue = ((JSONArray) jsonValue).get(0);
 			}

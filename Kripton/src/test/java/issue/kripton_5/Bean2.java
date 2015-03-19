@@ -16,11 +16,11 @@ import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
-import com.abubusoft.kripton.annotation.BindDefault;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindAllFields;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindRoot
-@BindDefault
+@BindType
+@BindAllFields
 public class Bean2 extends Bean2Super {
 
 	public enum BeanType 

@@ -87,7 +87,7 @@ public class XmlDOMReader implements BinderReader {
 			MappingSchema ms = MappingSchema.fromClass(type);
 			RootElementSchema res = ms.getRootElementSchema();
 
-			String xmlName = res.getName();
+			String xmlName = res.xmlInfo.getName();
 
 			// simple validation only for root element
 			if (!xmlName.equalsIgnoreCase(rootElement.getLocalName())) {

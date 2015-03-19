@@ -4,9 +4,9 @@
 package issue.kripton_4;
 
 import com.abubusoft.kripton.annotation.BindAttribute;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindRoot
+@BindType
 public class Bean2 {
 
 	

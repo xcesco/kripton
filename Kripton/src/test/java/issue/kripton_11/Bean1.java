@@ -7,9 +7,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.abubusoft.kripton.annotation.BindAttribute;
-import com.abubusoft.kripton.annotation.BindDefault;
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindAllFields;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindTypeXml;
 
 
 
@@ -17,18 +18,20 @@ import com.abubusoft.kripton.annotation.BindRoot;
  * @author xcesco
  *
  */
-@BindRoot(name="name1", onlyChildren=false, namespace="hello")
+
+@BindType
+@BindTypeXml(name="name1", namespace="hello")
 public class Bean1 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@BindRoot
+	@BindType
 	public static class SubBean01
 	{
-		@BindElement(name="f2")
+		@Bind(name="f2")
 		public SubBean02 bean2;
 		
-		@BindDefault
+		@BindAllFields
 		public static class SubBean02
 		{
 			String fieldString;
@@ -36,7 +39,7 @@ public class Bean1 implements Serializable {
 			Long fieldLong;
 		}
 		
-		@BindElement
+		@Bind
 		private Date date;
 		
 		// Needed for serialization
@@ -66,11 +69,11 @@ public class Bean1 implements Serializable {
 			this.name = name;
 		}
 
-		@BindElement
+		@Bind
 		private String name;
 	}
 	
-	@BindElement
+	@Bind
 	private Date birthday;
 	
 	@BindAttribute
@@ -79,7 +82,7 @@ public class Bean1 implements Serializable {
 	@BindAttribute
 	private String surname;
 	
-	@BindElement(name="f1")
+	@Bind(name="f1")
 	public SubBean01 bean1;
 	
 

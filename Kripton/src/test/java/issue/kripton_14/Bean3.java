@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindValue;
 
 
@@ -16,7 +16,7 @@ import com.abubusoft.kripton.annotation.BindValue;
  * @author xcesco
  *
  */
-@BindRoot
+@BindType
 public class Bean3 implements Serializable {
 
 	public Bean3()

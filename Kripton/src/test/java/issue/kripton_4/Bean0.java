@@ -3,11 +3,11 @@
  */
 package issue.kripton_4;
 
-import com.abubusoft.kripton.annotation.BindDefault;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindAllFields;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindRoot
-@BindDefault
+@BindType
+@BindAllFields
 public class Bean0 {
 
 	public final String fieldFinal="12";

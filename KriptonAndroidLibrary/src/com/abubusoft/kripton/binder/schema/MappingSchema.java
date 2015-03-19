@@ -10,10 +10,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.abubusoft.kripton.annotation.BindAttribute;
-import com.abubusoft.kripton.annotation.BindDefault;
-import com.abubusoft.kripton.annotation.BindElement;
+import com.abubusoft.kripton.annotation.BindAllFields;
+import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindOrder;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindTypeXml;
 import com.abubusoft.kripton.annotation.BindValue;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.binder.transform.Transformer;
@@ -73,7 +74,7 @@ public class MappingSchema {
 
 		genericsResolver = GenericClass.forClass(type);
 
-		isDefault = type.isAnnotationPresent(BindDefault.class);
+		isDefault = type.isAnnotationPresent(BindAllFields.class);
 		
 		if (MapStrategy.class.isAssignableFrom(type))
 		{
@@ -94,24 +95,30 @@ public class MappingSchema {
 		return mapStrategy;
 	}
 
-	private void buildRootElementSchema() {
+	private void buildRootElementSchema() throws MappingException {
 		rootElementSchema = new RootElementSchema();
-
-		if (type.isAnnotationPresent(BindRoot.class)) {
-			BindRoot xre = type.getAnnotation(BindRoot.class);
+		
+		// BindType
+		
+		// BindTypeJson
+		
+		// BindTypeXml
+		if (type.isAnnotationPresent(BindTypeXml.class)) {
+			// ASSERT: BindTypeXml need BindType
+			if (!type.isAnnotationPresent(BindType.class)) throw(new MappingException("The annotation @BindTypeXml annotation can not be used without @BinType in class definition "+type.getName()));
+			
+			BindTypeXml xre = type.getAnnotation(BindTypeXml.class);
 			if (StringUtil.isEmpty(xre.name())) {
-				rootElementSchema.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
+				rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
 			} else {
-				rootElementSchema.setName(xre.name());
+				rootElementSchema.xmlInfo.setName(xre.name());
 			}
 			String namespace = StringUtil.isEmpty(xre.namespace()) ? null : xre.namespace();
-			rootElementSchema.setNamespace(namespace);
-			rootElementSchema.setOnlyChildren(xre.onlyChildren());
+			rootElementSchema.xmlInfo.setNamespace(namespace);
 		} else {
-			// if no BinderRoot, use class name instead
-			rootElementSchema.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
-			rootElementSchema.setNamespace(null);
-			rootElementSchema.setOnlyChildren(false);
+			// if no BindTypeXml, use class name instead
+			rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
+			rootElementSchema.xmlInfo.setNamespace(null);
 		}
 
 	}
@@ -268,10 +275,10 @@ public class MappingSchema {
 				continue;
 			}
 
-			if (field.isAnnotationPresent(BindElement.class)) {
+			if (field.isAnnotationPresent(Bind.class)) {
 				counters.elementSchemaCount++;
 
-				BindElement xmlElement = field.getAnnotation(BindElement.class);
+				Bind xmlElement = field.getAnnotation(Bind.class);
 				ElementSchema elementSchema = new ElementSchema();
 
 				if (StringUtil.isEmpty(xmlElement.name())) {

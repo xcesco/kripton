@@ -90,7 +90,7 @@ class XmlReaderHandler extends DefaultHandler {
 
 			if (helper.isRoot()) { // first time root element mapping
 				RootElementSchema res = ms.getRootElementSchema();
-				String xmlName = res.getName();
+				String xmlName = res.xmlInfo.getName();
 				// String namespace = res.getNamespace();
 				// validation only for root element
 				// String srcXmlFullname = StringUtil.isEmpty(uri)?localName:"{"

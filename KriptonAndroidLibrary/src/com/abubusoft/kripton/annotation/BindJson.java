@@ -9,15 +9,14 @@ import com.abubusoft.kripton.binder.schema.MapEntryStrategyType;
 
 /**
  * 
- * This annotation maps a POJO field to an XML/JSON element
+ * This annotation specify information to bind with json format
  * 
- * @author bulldog
  * @author xcesco
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface BindElement {
+public @interface BindJson {
 
 	/**
 	 * Kind of mapping of element of a map. Valid only for maps

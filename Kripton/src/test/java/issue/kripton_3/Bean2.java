@@ -6,9 +6,9 @@ package issue.kripton_3;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindDefault;
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.BindAllFields;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
 
 
@@ -16,18 +16,18 @@ import com.abubusoft.kripton.annotation.BindRoot;
  * @author xcesco
  *
  */
-@BindDefault
+@BindAllFields
 public class Bean2 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@BindRoot
+	@BindType
 	public static class SubBean01
 	{
-		@BindElement
+		@Bind
 		public SubBean02 sbean2;
 		
-		@BindDefault
+		@BindAllFields
 		public static class SubBean02
 		{
 			String fieldString;
@@ -35,7 +35,7 @@ public class Bean2 implements Serializable {
 			Long fieldLong;
 		}
 		
-		@BindElement
+		@Bind
 		private Date date;
 		
 		// Needed for serialization
@@ -65,7 +65,7 @@ public class Bean2 implements Serializable {
 			this.name = name;
 		}
 
-		@BindElement
+		@Bind
 		private String name;
 	}
 	

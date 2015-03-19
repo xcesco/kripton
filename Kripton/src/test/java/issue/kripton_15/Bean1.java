@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.binder.schema.MapEntryStrategyType;
 
 
@@ -17,7 +17,7 @@ import com.abubusoft.kripton.binder.schema.MapEntryStrategyType;
  * @author xcesco
  *
  */
-@BindRoot
+@BindType
 public class Bean1 implements Serializable {
 
 	public Bean1()
@@ -28,7 +28,7 @@ public class Bean1 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 	
-	@BindElement(mapEntryPolicy=MapEntryStrategyType.ELEMENTS)
+	@Bind(mapEntryPolicy=MapEntryStrategyType.ELEMENTS)
 	Map<String, String> map;
 
 }

@@ -86,8 +86,8 @@ public class XmlPullWriter implements BinderWriter {
 
 			MappingSchema ms = MappingSchema.fromObject(source);
 			RootElementSchema res = ms.getRootElementSchema();
-			String namespace = res.getNamespace();
-			String xmlName = res.getName();
+			String namespace = res.xmlInfo.getNamespace();
+			String xmlName = res.xmlInfo.getName();
 
 			if (!StringUtil.isEmpty(namespace)) { // bind to default namespace
 				serializer.setPrefix("", namespace);
@@ -209,8 +209,8 @@ public class XmlPullWriter implements BinderWriter {
 
 		MappingSchema ms = MappingSchema.fromObject(source);
 		RootElementSchema res = ms.getRootElementSchema();
-		String namespace = res.getNamespace();
-		String xmlName = res.getName();
+		String namespace = res.xmlInfo.getNamespace();
+		String xmlName = res.xmlInfo.getName();
 
 		serializer.startTag(namespace, xmlName);
 		this.writeObject(serializer, source, namespace);

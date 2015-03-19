@@ -6,8 +6,8 @@ package issue.kripton_7;
 import java.util.Date;
 import java.util.List;
 
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
 
 
@@ -15,19 +15,19 @@ import com.abubusoft.kripton.annotation.BindRoot;
  * @author xcesco
  *
  */
-@BindRoot
+@BindType
 public class Bean4 extends Bean0 {
 
-	@BindElement
+	@Bind
 	private Date birthday;
 	
-	@BindElement
+	@Bind
 	private String name;
 
-	@BindElement
+	@Bind
 	private String surname;
 	
-	@BindElement List<Integer> tickets;
+	@Bind List<Integer> tickets;
 
 	public Date getBirthday() {
 		return birthday;

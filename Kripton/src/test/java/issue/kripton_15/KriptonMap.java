@@ -5,15 +5,15 @@ package issue.kripton_15;
 
 import java.util.ArrayList;
 
-import com.abubusoft.kripton.annotation.BindElement;
-import com.abubusoft.kripton.annotation.BindRoot;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindValue;
 
 /**
  * @author xcesco
  *
  */
-@BindRoot
+@BindType
 public class KriptonMap {
 	
 	public KriptonMap()
@@ -21,12 +21,12 @@ public class KriptonMap {
 		list=new ArrayList<KriptonMap.KriptonEntry>();
 	}
 
-	@BindRoot
+	@BindType
 	public static class KriptonEntry {
-		@BindElement
+		@Bind
 		public Object key;
 		
-		@BindElement
+		@Bind
 		public Object value;
 		
 		public KriptonEntry()
@@ -41,6 +41,6 @@ public class KriptonMap {
 		}
 	}
 	
-	@BindElement
+	@Bind
 	public ArrayList<KriptonEntry> list;
 }
