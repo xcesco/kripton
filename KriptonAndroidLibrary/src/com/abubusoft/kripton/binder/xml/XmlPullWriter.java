@@ -26,7 +26,7 @@ import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
-import com.abubusoft.kripton.binder.schema.RootElementSchema;
+import com.abubusoft.kripton.binder.schema.TypeElementSchema;
 import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.internal.MXSerializer;
@@ -85,7 +85,7 @@ public class XmlPullWriter implements BinderWriter {
 			serializer.startDocument(options.getEncoding(), null);
 
 			MappingSchema ms = MappingSchema.fromObject(source);
-			RootElementSchema res = ms.getRootElementSchema();
+			TypeElementSchema res = ms.getRootElementSchema();
 			String namespace = res.xmlInfo.getNamespace();
 			String xmlName = res.xmlInfo.getName();
 
@@ -208,7 +208,7 @@ public class XmlPullWriter implements BinderWriter {
 			return; // be cautious
 
 		MappingSchema ms = MappingSchema.fromObject(source);
-		RootElementSchema res = ms.getRootElementSchema();
+		TypeElementSchema res = ms.getRootElementSchema();
 		String namespace = res.xmlInfo.getNamespace();
 		String xmlName = res.xmlInfo.getName();
 

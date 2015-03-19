@@ -2,13 +2,13 @@ package com.abubusoft.kripton.binder.schema;
 
 /**
  * 
- * This bean stores XML/JSON root element information
+ * Mapping schema for type (class)
  * 
  * @author bulldog
  * @author xcesco
  *
  */
-public class RootElementSchema {
+public class TypeElementSchema {
 
 	/**
 	 * metadtaa about xml format

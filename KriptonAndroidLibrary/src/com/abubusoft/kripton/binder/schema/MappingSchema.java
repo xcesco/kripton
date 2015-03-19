@@ -24,8 +24,7 @@ import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.common.TypeReflector;
 
 /**
- * Factory class for OX mapping schema
- * 
+ *	Mapping schema for a class 
  * 
  * @author bulldog
  * @author xcesco
@@ -43,7 +42,7 @@ public class MappingSchema {
 		int elementSchemaCount;
 	}
 
-	private RootElementSchema rootElementSchema;
+	private TypeElementSchema rootElementSchema;
 	private Map<String, Object> field2SchemaMapping;
 	private Map<String, Object> xml2SchemaMapping;
 
@@ -53,7 +52,12 @@ public class MappingSchema {
 	private AnyElementSchema anyElementSchema;
 
 	private Class<?> type;
-	private boolean isDefault;
+
+	/**
+	 * if true each field is mapped.
+	 */
+	private boolean bindAllFields;
+
 	private GenericClass genericsResolver;
 	/**
 	 * elenco dei wrapper di lista di questo schema
@@ -74,15 +78,16 @@ public class MappingSchema {
 
 		genericsResolver = GenericClass.forClass(type);
 
-		isDefault = type.isAnnotationPresent(BindAllFields.class);
-		
-		if (MapStrategy.class.isAssignableFrom(type))
-		{
-			mapStrategy=true;
+		// if present @BindAllFields, each field is mapped, except transient,
+		// static and final fields
+		bindAllFields = type.isAnnotationPresent(BindAllFields.class);
+
+		if (MapStrategy.class.isAssignableFrom(type)) {
+			mapStrategy = true;
 		}
 
 		// step 1
-		this.buildRootElementSchema();
+		this.buildTypeElementSchema();
 		// step 2
 		this.buildField2SchemaMapping();
 		// step 3
@@ -95,18 +100,23 @@ public class MappingSchema {
 		return mapStrategy;
 	}
 
-	private void buildRootElementSchema() throws MappingException {
-		rootElementSchema = new RootElementSchema();
-		
+	/**
+	 * Build element schema for type
+	 * 
+	 * @throws MappingException
+	 */
+	private void buildTypeElementSchema() throws MappingException {
+		rootElementSchema = new TypeElementSchema();
+
 		// BindType
-		
 		// BindTypeJson
-		
+
 		// BindTypeXml
 		if (type.isAnnotationPresent(BindTypeXml.class)) {
 			// ASSERT: BindTypeXml need BindType
-			if (!type.isAnnotationPresent(BindType.class)) throw(new MappingException("The annotation @BindTypeXml annotation can not be used without @BinType in class definition "+type.getName()));
-			
+			if (!type.isAnnotationPresent(BindType.class))
+				throw (new MappingException("The annotation @BindTypeXml annotation can not be used without @BinType in class definition " + type.getName()));
+
 			BindTypeXml xre = type.getAnnotation(BindTypeXml.class);
 			if (StringUtil.isEmpty(xre.name())) {
 				rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
@@ -131,6 +141,8 @@ public class MappingSchema {
 	private void buildField2SchemaMapping() throws MappingException {
 		Counters currentCounters = new Counters();
 		Counters parentCounters = new Counters();
+		
+		// set of used names
 		HashSet<String> usedNames = new HashSet<>();
 
 		field2SchemaMapping = scanFieldSchema(type, usedNames, currentCounters);
@@ -233,11 +245,12 @@ public class MappingSchema {
 	 * @throws MappingException
 	 */
 	private Map<String, Object> scanFieldSchema(Class<?> type, HashSet<String> usedNames, Counters counters) throws MappingException {
-		// usiamo la linkedhashmap per tenere traccia dell'ordine
 		Map<String, Object> fieldsMap = new LinkedHashMap<String, Object>();
+		
+		// get declared fields
 		Field[] fields = type.getDeclaredFields();
 
-		// sort fields according to order annotations, or to name order
+		// sort fields by order annotations, or name order
 		Arrays.sort(fields, new Comparator<Field>() {
 			@Override
 			public int compare(Field field1, Field field2) {
@@ -260,12 +273,14 @@ public class MappingSchema {
 		// used for validation
 		counters.valueSchemaCount = 0;
 		counters.anyElementSchemaCount = 0;
-		counters.elementSchemaCount = 0; 
+		counters.elementSchemaCount = 0;
 
 		int modifier;
 
 		for (Field field : fields) {
+			
 			if (!field.isAccessible()) {
+				// unlock field
 				field.setAccessible(true);
 			}
 
@@ -432,7 +447,7 @@ public class MappingSchema {
 				 * anyElementSchema.setNullable(databaseAnnotation.nullable());
 				 * anyElementSchema.setUnique(databaseAnnotation.unique()); }
 				 */
-			} else if (isDefault) { 
+			} else if (bindAllFields) {
 				// default to Node
 				counters.elementSchemaCount++;
 
@@ -594,6 +609,12 @@ public class MappingSchema {
 		return false;
 	}
 
+	/**
+	 * getter of type covered in this mapping schema.
+	 * 
+	 * @return
+	 * 		managed type
+	 */
 	public Class<?> getType() {
 		return this.type;
 	}
@@ -634,7 +655,7 @@ public class MappingSchema {
 		return xml2SchemaMapping;
 	}
 
-	public RootElementSchema getRootElementSchema() {
+	public TypeElementSchema getRootElementSchema() {
 		return rootElementSchema;
 	}
 

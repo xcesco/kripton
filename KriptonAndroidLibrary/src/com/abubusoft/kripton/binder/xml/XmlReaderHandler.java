@@ -20,7 +20,7 @@ import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.MapElement;
 import com.abubusoft.kripton.binder.schema.MapStrategy;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
-import com.abubusoft.kripton.binder.schema.RootElementSchema;
+import com.abubusoft.kripton.binder.schema.TypeElementSchema;
 import com.abubusoft.kripton.binder.schema.SchemaArray;
 import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
@@ -89,7 +89,7 @@ class XmlReaderHandler extends DefaultHandler {
 			}
 
 			if (helper.isRoot()) { // first time root element mapping
-				RootElementSchema res = ms.getRootElementSchema();
+				TypeElementSchema res = ms.getRootElementSchema();
 				String xmlName = res.xmlInfo.getName();
 				// String namespace = res.getNamespace();
 				// validation only for root element
