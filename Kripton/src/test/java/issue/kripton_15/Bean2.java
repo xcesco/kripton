@@ -9,7 +9,7 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.binder.schema.MapEntryStrategyType;
+import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 
 
 
@@ -28,7 +28,7 @@ public class Bean2 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@Bind(mapEntryPolicy=MapEntryStrategyType.ATTRIBUTES)
+	@Bind(mapEntryPolicy=MapEntryType.ATTRIBUTES)
 	Map<Integer, String> map;
 
 }
