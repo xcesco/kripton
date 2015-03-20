@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.binder.schema;
 
+import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
+
 /**
  * This bean stores mapping between an XML/JSON/DB element and a POJO field
  * 
@@ -40,7 +42,7 @@ public class ElementSchema extends AbstractSchema {
 	{
 		public Class<?> keyClazz;
 		public Class<?> valueClazz;
-		public MapEntryStrategyType entryStrategy;
+		public MapEntryType entryStrategy;
 		public Class<?> mapClazz;
 		public Class<?> getMapClazz() {
 			return mapClazz;
@@ -117,7 +119,7 @@ public class ElementSchema extends AbstractSchema {
 	 * 
 	 * @param value
 	 */
-	public void setMapInfo(Class<?> mapType, Class<?> keyType, Class<?> valueType, MapEntryStrategyType policy) {
+	public void setMapInfo(Class<?> mapType, Class<?> keyType, Class<?> valueType, MapEntryType policy) {
 		type = ElementSchemaType.MAP;
 		mapInfo=new MapInfo();
 		mapInfo.mapClazz=mapType;

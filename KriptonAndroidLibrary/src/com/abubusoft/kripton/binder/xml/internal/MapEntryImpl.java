@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.abubusoft.kripton.binder.schema;
+package com.abubusoft.kripton.binder.xml.internal;
 
 import java.util.Map;
 
@@ -9,11 +9,12 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
 /**
+ * Map entry. It's a usefull implementation for xml
  * @author xcesco
  *
  */
 @BindType
-public class MapElement implements MapStrategy {
+public class MapEntryImpl implements MapEntry {
 
 	@Bind
 	public Object key;

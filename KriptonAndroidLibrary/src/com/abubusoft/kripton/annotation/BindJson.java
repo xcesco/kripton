@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.binder.schema.MapEntryStrategyType;
-
 /**
  * 
  * This annotation specify information to bind with json format
@@ -17,12 +15,6 @@ import com.abubusoft.kripton.binder.schema.MapEntryStrategyType;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BindJson {
-
-	/**
-	 * Kind of mapping of element of a map. Valid only for maps
-	 * @return
-	 */
-	public MapEntryStrategyType mapEntryPolicy() default MapEntryStrategyType.ELEMENTS ;
 
 	/**
 	 * The name of the XML/JSON element

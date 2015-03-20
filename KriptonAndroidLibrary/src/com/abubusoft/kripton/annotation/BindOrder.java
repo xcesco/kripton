@@ -6,9 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation specifies the order of pojo fields during mapping
+ * This annotation specifies the order of pojo fields during mapping. Order is
+ * specified for class.
  * 
  * @author bulldog
+ * @author xcesco
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

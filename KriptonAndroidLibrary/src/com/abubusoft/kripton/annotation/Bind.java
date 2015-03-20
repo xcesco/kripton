@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.binder.schema.MapEntryStrategyType;
+import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 
 /**
  * 
@@ -23,7 +23,7 @@ public @interface Bind {
 	 * Kind of mapping of element of a map. Valid only for maps
 	 * @return
 	 */
-	public MapEntryStrategyType mapEntryPolicy() default MapEntryStrategyType.ELEMENTS ;
+	public MapEntryType mapEntryPolicy() default MapEntryType.ELEMENTS ;
 
 	/**
 	 * The name of the XML/JSON element

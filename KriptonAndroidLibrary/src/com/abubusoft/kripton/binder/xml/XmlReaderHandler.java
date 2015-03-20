@@ -17,13 +17,13 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
-import com.abubusoft.kripton.binder.schema.MapElement;
-import com.abubusoft.kripton.binder.schema.MapStrategy;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.schema.TypeElementSchema;
 import com.abubusoft.kripton.binder.schema.SchemaArray;
 import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
+import com.abubusoft.kripton.binder.xml.internal.MapEntry;
+import com.abubusoft.kripton.binder.xml.internal.MapEntryImpl;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.common.TypeReflector;
 
@@ -120,8 +120,8 @@ class XmlReaderHandler extends DefaultHandler {
 
 					// detect type
 					Class<?> type = es.getFieldType();
-					if (ms.isMapStrategy()) {
-						MapStrategy mapStrategy = (MapStrategy) obj;
+					if (ms.xmlInfo.isMapEntryStub()) {
+						MapEntry mapStrategy = (MapEntry) obj;
 
 						if (mapStrategy.isKey(localName)) {
 							type = mapStrategy.getKeyType();
@@ -141,7 +141,7 @@ class XmlReaderHandler extends DefaultHandler {
 
 							switch (es.getMapInfo().entryStrategy) {
 							case ATTRIBUTES: {
-								MapElement mapPolicy = new MapElement();
+								MapEntryImpl mapPolicy = new MapEntryImpl();
 								mapPolicy.setMap(map);
 								mapPolicy.keyClazz = es.getMapInfo().keyClazz;
 								mapPolicy.valueClazz = es.getMapInfo().valueClazz;
@@ -159,7 +159,7 @@ class XmlReaderHandler extends DefaultHandler {
 								// exit, DO NOT PUSH OBJECT!
 								return;
 							case ELEMENTS: {
-								MapElement mapPolicy = new MapElement();
+								MapEntryImpl mapPolicy = new MapEntryImpl();
 								mapPolicy.keyClazz = es.getMapInfo().keyClazz;
 								mapPolicy.valueClazz = es.getMapInfo().valueClazz;
 								mapPolicy.setMap(map);
@@ -194,7 +194,7 @@ class XmlReaderHandler extends DefaultHandler {
 		}
 	}
 
-	private void populateAttributesForMap(MapElement mapPolicy, Attributes attrs) throws Exception {
+	private void populateAttributesForMap(MapEntryImpl mapPolicy, Attributes attrs) throws Exception {
 		for (int index = 0; index < attrs.getLength(); index++) {
 			String attrName = attrs.getLocalName(index);
 			String attrValue = attrs.getValue(index);
@@ -269,8 +269,8 @@ class XmlReaderHandler extends DefaultHandler {
 					Field field = es.getField();
 					String xmlData = helper.textBuilder.toString();
 					if (!StringUtil.isEmpty(xmlData)) {
-						if (ms.isMapStrategy()) {
-							MapStrategy mapStrategy = (MapStrategy) obj;
+						if (ms.xmlInfo.isMapEntryStub()) {
+							MapEntry mapStrategy = (MapEntry) obj;
 							Class<?> type = null;
 							Object value = null;
 
@@ -367,10 +367,10 @@ class XmlReaderHandler extends DefaultHandler {
 				if (schema != null && schema instanceof ElementSchema) {
 					ElementSchema es = (ElementSchema) schema;
 					Field field = es.getField();
-					if (ms.isMapStrategy()) {
+					if (ms.xmlInfo.isMapEntryStub()) {
 						// do nothing... all is done!
-					} else if (parentMs.isMapStrategy()) {
-						MapStrategy mapStrategy = (MapStrategy) parentObj;
+					} else if (parentMs.xmlInfo.isMapEntryStub()) {
+						MapEntry mapStrategy = (MapEntry) parentObj;
 						Object value = null;
 
 						if (mapStrategy.isKey(localName)) {
