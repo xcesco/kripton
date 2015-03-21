@@ -6,7 +6,6 @@ package issue.kripton_10;
 import java.util.Date;
 
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindOrder;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.annotation.XmlType;
@@ -25,7 +24,6 @@ public class Bean01 {
 	private Date birthday;
 	
 	@Bind
-	@BindOrder(value=0)
 	@BindXml(type=XmlType.ATTRIBUTE)
 	private char car='a';
 	

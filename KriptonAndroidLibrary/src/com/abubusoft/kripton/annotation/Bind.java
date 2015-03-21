@@ -29,13 +29,13 @@ public @interface Bind {
 
 	/**
 	 * Used with collections. It's the name of elements contained in the
-	 * collection or array, except byte array. Thus, name specified in annotation {@link Bind} will be used
-	 * for container.
+	 * collection or array, except byte array. Thus, name specified in
+	 * annotation {@link Bind} will be used for container.
 	 * 
 	 * @return name of elements of collection. default is ""
 	 */
 	public String elementName() default "";
-	
+
 	/**
 	 * name of element rapresents key of a map. <b>Used only by map type.</b>
 	 * 
@@ -49,5 +49,12 @@ public @interface Bind {
 	 * @return
 	 */
 	public String mapValueName() default MAP_VALUE_DEFAULT;
-	
+
+	/**
+	 * specifies the order of pojo fields during mapping. Order is specified entire schema.
+	 * 
+	 * @return
+	 */
+	public int order() default 0;
+
 }

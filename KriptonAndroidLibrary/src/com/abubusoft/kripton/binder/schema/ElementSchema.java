@@ -42,21 +42,21 @@ public class ElementSchema extends AbstractSchema {
 		 */
 		public String valueName;
 	}
-	
+
 	/**
 	 * Xml info of element schema
 	 */
 	public static class XmlInfo {
-		
+
 		public XmlType type;
-		
+
 	}
-	
+
 	/**
 	 * Json info of element schema
 	 */
 	public static class JsonInfo {
-		
+
 	}
 
 	private MapInfo mapInfo;
@@ -69,6 +69,11 @@ public class ElementSchema extends AbstractSchema {
 	 * info about xml rapresentation
 	 */
 	protected XmlInfo xmlInfo;
+
+	/**
+	 * order of element schema.
+	 */
+	Integer order;
 
 	public MapInfo getMapInfo() {
 		return mapInfo;
@@ -143,23 +148,21 @@ public class ElementSchema extends AbstractSchema {
 		mapInfo = new MapInfo();
 		mapInfo.mapClazz = mapType;
 		mapInfo.entryStrategy = policy;
-		
+
 		mapInfo.keyClazz = keyType;
-		mapInfo.keyName = bindAnnotation!=null ? bindAnnotation.mapKeyName() : Bind.MAP_KEY_DEFAULT;
-		
+		mapInfo.keyName = bindAnnotation != null ? bindAnnotation.mapKeyName() : Bind.MAP_KEY_DEFAULT;
+
 		mapInfo.valueClazz = valueType;
-		mapInfo.valueName =  bindAnnotation!=null ? bindAnnotation.mapValueName() : Bind.MAP_VALUE_DEFAULT;
+		mapInfo.valueName = bindAnnotation != null ? bindAnnotation.mapValueName() : Bind.MAP_VALUE_DEFAULT;
 	}
-	
-	void buildXmlInfo(BindXml bindXmlAnnotation)
-	{
-		xmlInfo=new XmlInfo();
-		
-		if (bindXmlAnnotation!=null)
-		{
-			xmlInfo.type=bindXmlAnnotation.type();
+
+	void buildXmlInfo(BindXml bindXmlAnnotation) {
+		xmlInfo = new XmlInfo();
+
+		if (bindXmlAnnotation != null) {
+			xmlInfo.type = bindXmlAnnotation.type();
 		} else {
-			xmlInfo.type=XmlType.TAG;	
+			xmlInfo.type = XmlType.TAG;
 		}
 	}
 

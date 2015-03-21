@@ -2,7 +2,7 @@ package com.abubusoft.kripton.binder.schema;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -11,7 +11,6 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindOrder;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindTypeXml;
 import com.abubusoft.kripton.annotation.BindXml;
@@ -184,13 +183,14 @@ public class MappingSchema {
 
 		// set of used names
 		HashSet<String> usedNames = new HashSet<>();
+		ArrayList<ElementSchema> listSchema = new ArrayList<>();
 
-		field2SchemaMapping = scanFieldSchema(type, usedNames, currentCounters);
+		listSchema = scanFieldSchema(type, usedNames, currentCounters);
 
 		Class<?> superType = type.getSuperclass();
 		// scan super class fields
 		while (superType != Object.class && superType != null) {
-			Map<String, ElementSchema> parentField2SchemaMapping = scanFieldSchema(superType, usedNames, parentCounters);
+			ArrayList<ElementSchema> parentField2SchemaMapping = scanFieldSchema(superType, usedNames, parentCounters);
 
 			currentCounters.anyElementSchemaCount += parentCounters.anyElementSchemaCount;
 			currentCounters.elementSchemaCount += parentCounters.elementSchemaCount;
@@ -214,10 +214,45 @@ public class MappingSchema {
 
 			// redefined fields in sub-class will overwrite corresponding fields
 			// in super-class.
-			parentField2SchemaMapping.putAll(field2SchemaMapping);
-			field2SchemaMapping = parentField2SchemaMapping;
+			parentField2SchemaMapping.addAll(listSchema);
+			listSchema = parentField2SchemaMapping;
 			superType = superType.getSuperclass();
 		}
+
+		// sort fields by order annotations, or name order
+		Collections.sort(listSchema, new Comparator<ElementSchema>() {
+			@Override
+			public int compare(ElementSchema schema1, ElementSchema schema2) {
+				Integer order1 = schema1.order;
+				Integer order2 = schema2.order;
+
+				if (order1 != null || order2 != null) {
+					if (order1 != null && order2 != null) {
+						if (order1 == order2) {
+							return schema1.getName().compareTo(schema2.getName());
+						}
+						return order1 - order2;
+					}
+					if (order1 != null && order2 == null) {
+						return -1;
+					}
+					if (order1 == null && order2 != null) {
+						return 1;
+					}
+				}
+
+				// both order are null
+				return schema1.getName().compareTo(schema2.getName());
+			}
+		});
+
+		field2SchemaMapping = new LinkedHashMap<String, ElementSchema>();
+		ElementSchema item;
+		for (int i = 0; i < listSchema.size(); i++) {
+			item = listSchema.get(i);
+			field2SchemaMapping.put(item.getName(), item);
+		}
+
 	}
 
 	private void buildXml2SchemaMapping() {
@@ -245,7 +280,7 @@ public class MappingSchema {
 			case VALUE_CDATA:
 				xml2SchemaMapping.put(schema.getName(), schema);
 				// build xml2AttributeSchemaMapping at the same time.
-				valueSchema=schema;
+				valueSchema = schema;
 				break;
 			default:
 				break;
@@ -297,31 +332,11 @@ public class MappingSchema {
 	 * @return
 	 * @throws MappingException
 	 */
-	private Map<String, ElementSchema> scanFieldSchema(Class<?> type, HashSet<String> usedNames, Counters counters) throws MappingException {
-		Map<String, ElementSchema> fieldsMap = new LinkedHashMap<String, ElementSchema>();
+	private ArrayList<ElementSchema> scanFieldSchema(Class<?> type, HashSet<String> usedNames, Counters counters) throws MappingException {
+		ArrayList<ElementSchema> fieldsMap = new ArrayList<ElementSchema>();
 
 		// get declared fields
 		Field[] fields = type.getDeclaredFields();
-
-		// sort fields by order annotations, or name order
-		Arrays.sort(fields, new Comparator<Field>() {
-			@Override
-			public int compare(Field field1, Field field2) {
-				BindOrder order1 = field1.getAnnotation(BindOrder.class);
-				BindOrder order2 = field2.getAnnotation(BindOrder.class);
-				if (order1 != null && order2 != null) {
-					return order1.value() - order2.value();
-				}
-				if (order1 != null && order2 == null) {
-					return -1;
-				}
-				if (order1 == null && order2 != null) {
-					return 1;
-				}
-				return field1.getName().compareTo(field2.getName());
-			}
-
-		});
 
 		// used for validation
 		counters.valueSchemaCount = 0;
@@ -331,8 +346,9 @@ public class MappingSchema {
 		int modifier;
 		String nameFromAnnotation;
 		String elementNameFromAnnotation;
-		Class<?> fieldType=null;
-		
+		Class<?> fieldType = null;
+		int order;
+
 		for (Field field : fields) {
 
 			if (!field.isAccessible()) {
@@ -348,26 +364,27 @@ public class MappingSchema {
 
 			Bind bindAnnotation = field.getAnnotation(Bind.class);
 			BindXml bindXmlAnnotation = field.getAnnotation(BindXml.class);			
-			
-			if (!bindAllFields && bindAnnotation==null && (bindXmlAnnotation!=null))
-			{
-				throw new MappingException("Can not use @BindXml without @Bind for field "+field.getName()+" in class "+type.getCanonicalName());
+
+			if (!bindAllFields && bindAnnotation == null && (bindXmlAnnotation != null)) {
+				throw new MappingException("Can not use @BindXml without @Bind for field " + field.getName() + " in class " + type.getCanonicalName());
 			}
 
 			if (bindAllFields || bindAnnotation != null) {
-				fieldType=null;
-				
-				nameFromAnnotation=null;
-				elementNameFromAnnotation=null;
-				if (bindAnnotation!=null)
-				{
-					nameFromAnnotation=bindAnnotation.name();
-					elementNameFromAnnotation=bindAnnotation.elementName();
+				fieldType = null;
+
+				nameFromAnnotation = null;
+				elementNameFromAnnotation = null;
+				if (bindAnnotation != null) {
+					nameFromAnnotation = bindAnnotation.name();
+					elementNameFromAnnotation = bindAnnotation.elementName();
+					order=bindAnnotation.order();
+				} else {
+					order=0;
 				}
 				counters.elementSchemaCount++;
 
 				ElementSchema elementSchema = new ElementSchema();
-
+				
 				if (StringUtil.isEmpty(nameFromAnnotation)) {
 					elementSchema.setName(field.getName());
 				} else {
@@ -392,25 +409,25 @@ public class MappingSchema {
 				checkAlreadyUsed(elementSchema.getWrapperName(), usedNames, "Bind");
 
 				// manage collections
-				boolean collection=false;
-				collection=collection || handleList(field, elementSchema);
-				collection=collection ||handleArray(field, elementSchema);
-				collection=collection ||handleSet(field, elementSchema);
-				collection=collection ||handleMap(field, elementSchema, bindAnnotation, bindXmlAnnotation != null ? bindXmlAnnotation.mapEntryStrategy() : MapEntryType.ELEMENTS);
+				boolean collection = false;
+				collection = collection || handleList(field, elementSchema);
+				collection = collection || handleArray(field, elementSchema);
+				collection = collection || handleSet(field, elementSchema);
+				collection = collection
+						|| handleMap(field, elementSchema, bindAnnotation, bindXmlAnnotation != null ? bindXmlAnnotation.mapEntryStrategy()
+								: MapEntryType.ELEMENTS);
 
-				if (!collection)
-				{
+				if (!collection) {
 					fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
 					fieldType = fieldType == null ? field.getType() : fieldType;
 					elementSchema.setFieldType(fieldType);
-					
+
 					if (StringUtil.hasText(elementNameFromAnnotation)) {
 						// this is not a collection
 						throw new MappingException("Attribute elementName is useless in @Bind for field '" + field.getName() + "' of class '" + type.getName()
 								+ "' is not a collection");
 					}
 				}
-				
 
 				switch (elementSchema.xmlInfo.type) {
 				case ATTRIBUTE:
@@ -418,14 +435,15 @@ public class MappingSchema {
 					if (collection) {
 						throw new MappingException("@BindXml annotation can't annotate like ATTRIBUTE a collection, " + "field = " + field.getName()
 								+ ", type = " + type.getName());
-					}		
-					
+					}
+
 					if (!Transformer.isTransformable(elementSchema.getFieldType())) {
 						throw new MappingException("@BindXml annotation can't annotate like ATTRIBUTE a complex type field, "
 								+ "only primivte type or frequently used java type or enum type field is allowed, " + "field = " + field.getName()
 								+ ", type = " + type.getName());
-					}					
-					// don't increment counters.elementSchemaCount, it's an attribute
+					}
+					// don't increment counters.elementSchemaCount, it's an
+					// attribute
 					counters.elementSchemaCount--;
 					break;
 				case TAG:
@@ -439,24 +457,15 @@ public class MappingSchema {
 								+ "only primivte type or frequently used java type or enum type field is allowed, " + "field = " + field.getName()
 								+ ", type = " + type.getName());
 					}
-					// if considered like value, we have to remove it from elementSchemaCount
+					// if considered like value, we have to remove it from
+					// elementSchemaCount
 					counters.valueSchemaCount++;
 					counters.elementSchemaCount--;
-					valueSchema=elementSchema;
+					valueSchema = elementSchema;
 					break;
 				}
 
-				/*
-				 * TODO to implements in next releases // database section if
-				 * (field.isAnnotationPresent(BindDatabase.class)) {
-				 * BindDatabase databaseAnnotation =
-				 * field.getAnnotation(BindDatabase.class);
-				 * elementSchema.setPrimaryKey(databaseAnnotation.primaryKey());
-				 * elementSchema.setNullable(databaseAnnotation.nullable());
-				 * elementSchema.setUnique(databaseAnnotation.unique()); }
-				 */
-
-				fieldsMap.put(field.getName(), elementSchema);
+				fieldsMap.add(elementSchema);
 			}
 		}
 
