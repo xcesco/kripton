@@ -2,6 +2,8 @@ package com.abubusoft.kripton.binder.xml.internal;
 
 import java.util.Map;
 
+import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
+
 /**
  * Rapresent a map entry for xml reader/writer. Contain key/value value pair and
  * clazz too.
@@ -10,20 +12,12 @@ import java.util.Map;
  *
  */
 public interface MapEntry {
-
+	
 	/**
-	 * getter of key type
-	 * 
+	 * getter of map info
 	 * @return
 	 */
-	Class<?> getKeyType();
-
-	/**
-	 * getter of value type
-	 * 
-	 * @return
-	 */
-	Class<?> getValueType();
+	public MapInfo getMapInfo();
 
 	/**
 	 * given a attribute/tag name, return true if it is the name of
@@ -83,7 +77,7 @@ public interface MapEntry {
 	 * @param map
 	 */
 	@SuppressWarnings("rawtypes")
-	public void setMap(Map map);
+	public void set(Map map, MapInfo mapInfo);
 
 	/**
 	 * getter of associated map

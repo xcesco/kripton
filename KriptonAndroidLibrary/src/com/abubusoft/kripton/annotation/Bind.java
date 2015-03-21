@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
-
 /**
  * 
  * This annotation maps a POJO field to an XML/JSON element
@@ -19,11 +17,8 @@ import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 @Target(ElementType.FIELD)
 public @interface Bind {
 
-	/**
-	 * Kind of mapping of element of a map. Valid only for maps
-	 * @return
-	 */
-	public MapEntryType mapEntryPolicy() default MapEntryType.ELEMENTS ;
+	public static final String MAP_VALUE_DEFAULT = "value";
+	public static final String MAP_KEY_DEFAULT = "key";
 
 	/**
 	 * The name of the XML/JSON element
@@ -40,18 +35,19 @@ public @interface Bind {
 	 * @return name of elements of collection. default is ""
 	 */
 	public String elementName() default "";
+	
+	/**
+	 * name of element rapresents key of a map. <b>Used only by map type.</b>
+	 * 
+	 * @return
+	 */
+	public String mapKeyName() default MAP_KEY_DEFAULT;
 
 	/**
-	 * <dl>
-	 * <dt>JSON</dt>
-	 * <dd>non viene utilizzato</dd>
-	 * <dt>XML</dt>
-	 * <dd>Indicates if the string content of the field should be put in a CDATA
-	 * container or not.</dd>
-	 * </dl>
+	 * name of element rapresents value of a map. <b>Used only by map type.</b>
 	 * 
-	 * @return true or false
+	 * @return
 	 */
-	public boolean data() default false;
+	public String mapValueName() default MAP_VALUE_DEFAULT;
 	
 }

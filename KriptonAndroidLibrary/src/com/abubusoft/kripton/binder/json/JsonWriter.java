@@ -86,45 +86,46 @@ public class JsonWriter implements BinderWriter {
 		MappingSchema ms = MappingSchema.fromObject(source);
 
 		// write attributes first
-		writeAttributes(jsonObject, source, ms);
+		//writeAttributes(jsonObject, source, ms);
 
 		// write value if any
-		writeValue(jsonObject, source, ms);
+		//writeValue(jsonObject, source, ms);
 
 		// write elements last
 		writeElements(jsonObject, source, ms);
 
 	}
 
-	private void writeAttributes(JSONObject jsonObject, Object source, MappingSchema ms) throws Exception {
-		Map<String, AttributeSchema> field2AttributeSchemaMapping = ms.getField2AttributeSchemaMapping();
-		for (String fieldName : field2AttributeSchemaMapping.keySet()) {
-			AttributeSchema as = field2AttributeSchemaMapping.get(fieldName);
-			Field field = as.getField();
-			Object value = field.get(source);
-			if (value != null) {
-				String key = "@" + as.getName();
-				Object jsonValue = this.getJSONValue(value, as.getFieldType());
-				jsonObject.put(key, jsonValue);
-			}
-		}
-	}
+	
+//	private void writeAttributes(JSONObject jsonObject, Object source, MappingSchema ms) throws Exception {
+//		Map<String, AttributeSchema> field2AttributeSchemaMapping = ms.getField2AttributeSchemaMapping();
+//		for (String fieldName : field2AttributeSchemaMapping.keySet()) {
+//			AttributeSchema as = field2AttributeSchemaMapping.get(fieldName);
+//			Field field = as.getField();
+//			Object value = field.get(source);
+//			if (value != null) {
+//				String key = "@" + as.getName();
+//				Object jsonValue = this.getJSONValue(value, as.getFieldType());
+//				jsonObject.put(key, jsonValue);
+//			}
+//		}
+//	}
 
-	private void writeValue(JSONObject jsonObject, Object source, MappingSchema ms) throws Exception {
-		ValueSchema vs = ms.getValueSchema();
-		if (vs == null)
-			return; // no ValueSchema, do nothing
-
-		Field field = vs.getField();
-		Object value = field.get(source);
-		if (value != null) {
-			Object jsonValue = getJSONValue(value, vs.getFieldType());
-			jsonObject.put(VALUE_KEY, jsonValue);
-		}
-	}
+//	private void writeValue(JSONObject jsonObject, Object source, MappingSchema ms) throws Exception {
+//		ValueSchema vs = ms.getValueSchema();
+//		if (vs == null)
+//			return; // no ValueSchema, do nothing
+//
+//		Field field = vs.getField();
+//		Object value = field.get(source);
+//		if (value != null) {
+//			Object jsonValue = getJSONValue(value, vs.getFieldType());
+//			jsonObject.put(VALUE_KEY, jsonValue);
+//		}
+//	}
 
 	private void writeElements(JSONObject jsonObject, Object source, MappingSchema ms) throws Exception {
-		Map<String, Object> field2SchemaMapping = ms.getField2SchemaMapping();
+		Map<String, ElementSchema> field2SchemaMapping = ms.getField2SchemaMapping();
 		for (String fieldName : field2SchemaMapping.keySet()) {
 			Object schemaObj = field2SchemaMapping.get(fieldName);
 			if (schemaObj instanceof ElementSchema) {
@@ -145,8 +146,7 @@ public class JsonWriter implements BinderWriter {
 					case MAP:
 						this.writeElementMap(jsonObject, value, es);
 						break;
-					case DEFAULT:
-					case CDATA:
+					case ELEMENT:
 						this.writeElement(jsonObject, value, es);
 						break;
 					}
@@ -192,8 +192,8 @@ public class JsonWriter implements BinderWriter {
 					writeElements((JSONObject) jsonValue, value, msValue);
 				}
 
-				jsonEntry.put("key", jsonKey);
-				jsonEntry.put("value", jsonValue);
+				jsonEntry.put(es.getMapInfo().keyName, jsonKey);
+				jsonEntry.put(es.getMapInfo().valueName, jsonValue);
 
 				jsonEntryArray.put(jsonEntry);
 			}

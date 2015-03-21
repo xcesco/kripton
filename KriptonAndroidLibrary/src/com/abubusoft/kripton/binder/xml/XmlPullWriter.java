@@ -21,6 +21,7 @@ import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
+import com.abubusoft.kripton.annotation.XmlType;
 import com.abubusoft.kripton.binder.schema.AnyElementSchema;
 import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
@@ -217,10 +218,18 @@ public class XmlPullWriter implements BinderWriter {
 		serializer.endTag(namespace, xmlName);
 	}
 
+	/**
+	 * Write attributes
+	 * 
+	 * @param serializer
+	 * @param source
+	 * @param ms
+	 * @throws Exception
+	 */
 	private void writeAttributes(XmlSerializer serializer, Object source, MappingSchema ms) throws Exception {
-		Map<String, AttributeSchema> field2AttributeSchemaMapping = ms.getField2AttributeSchemaMapping();
+		Map<String, ElementSchema> field2AttributeSchemaMapping = ms.getField2AttributeSchemaMapping();
 		for (String fieldName : field2AttributeSchemaMapping.keySet()) {
-			AttributeSchema as = field2AttributeSchemaMapping.get(fieldName);
+			ElementSchema as = field2AttributeSchemaMapping.get(fieldName);
 			Field field = as.getField();
 			Object value = field.get(source);
 			if (value != null) {
@@ -234,7 +243,7 @@ public class XmlPullWriter implements BinderWriter {
 	}
 
 	private void writeValue(XmlSerializer serializer, Object source, MappingSchema ms) throws Exception {
-		ValueSchema vs = ms.getValueSchema();
+		ElementSchema vs = ms.getValueSchema();
 		if (vs == null)
 			return; // no ValueSchema, do nothing
 
@@ -243,7 +252,7 @@ public class XmlPullWriter implements BinderWriter {
 		if (value != null) {
 			String text = Transformer.write(value, vs.getFieldType());
 			if (!StringUtil.isEmpty(text)) {
-				if (vs.isData()) {
+				if (vs.getXmlInfo().type == XmlType.VALUE_CDATA) {
 					serializer.cdsect(text);
 				} else {
 					serializer.text(text);
@@ -253,33 +262,35 @@ public class XmlPullWriter implements BinderWriter {
 	}
 
 	private void writeElements(XmlSerializer serializer, Object source, MappingSchema ms, String namespace) throws Exception {
-		Map<String, Object> field2SchemaMapping = ms.getField2SchemaMapping();
+		Map<String, ElementSchema> field2SchemaMapping = ms.getField2SchemaMapping();
 		for (String fieldName : field2SchemaMapping.keySet()) {
-			Object schemaObj = field2SchemaMapping.get(fieldName);
-			if (schemaObj instanceof ElementSchema) {
-				ElementSchema es = (ElementSchema) schemaObj;
-				Field field = es.getField();
-				Object value = field.get(source);
-				if (value != null) {
+			ElementSchema schemaObj = field2SchemaMapping.get(fieldName);
+			ElementSchema es = (ElementSchema) schemaObj;
 
-					switch (es.getType()) { 
-					case LIST:
-						this.writeElementList(serializer, value, es, namespace);
-						break;
-					case SET:
-						this.writeElementSet(serializer, value, es, namespace);
-						break;
-					case MAP:
-						this.writeElementMap(serializer, value, es, namespace);
-						break;
-					case ARRAY:
-						this.writeElementArray(serializer, value, es, namespace);
-						break;
-					case CDATA:
-					case DEFAULT:
-						this.writeElement(serializer, value, es, namespace);
-						break;
-					}
+			// if not a tag skip, we cover it in another place
+			if (es.getXmlInfo().type != XmlType.TAG)
+				continue;
+
+			Field field = es.getField();
+			Object value = field.get(source);
+			if (value != null) {
+
+				switch (es.getType()) {
+				case LIST:
+					this.writeElementList(serializer, value, es, namespace);
+					break;
+				case SET:
+					this.writeElementSet(serializer, value, es, namespace);
+					break;
+				case MAP:
+					this.writeElementMap(serializer, value, es, namespace);
+					break;
+				case ARRAY:
+					this.writeElementArray(serializer, value, es, namespace);
+					break;
+				case ELEMENT:
+					this.writeElement(serializer, value, es, namespace);
+					break;
 				}
 			}
 		}
@@ -362,24 +373,27 @@ public class XmlPullWriter implements BinderWriter {
 
 		serializer.startTag(namespace, xmlName);
 
-		String keyName = "key";
-		String valueName = "value";
-		
+		String keyName = es.getMapInfo().keyName;
+		String valueName = es.getMapInfo().valueName;
+
 		switch (es.getMapInfo().entryStrategy) {
 		case ELEMENTS:
 			// key
 			if (Transformer.isPrimitive(type.keyClazz)) {
 				String value = Transformer.write(source.getKey(), type.keyClazz);
-				if (StringUtil.isEmpty(value))
-				{
-					//TODO Exception
-				}					
 
 				serializer.startTag(namespace, keyName);
-				if (es.isData()) {
-					serializer.cdsect(value);
-				} else {
+
+				switch (es.getXmlInfo().type) {
+				case TAG:
+				case VALUE:
 					serializer.text(value);
+					break;
+				case VALUE_CDATA:
+					serializer.cdsect(value);
+					break;
+				default:
+					throw new MappingException(es.getXmlInfo().type + " is not supported for xml rapresentation of " + es.getName());
 				}
 
 				serializer.endTag(namespace, keyName);
@@ -393,16 +407,21 @@ public class XmlPullWriter implements BinderWriter {
 			// value
 			if (Transformer.isPrimitive(type.valueClazz)) {
 				String value = Transformer.write(source.getValue(), type.valueClazz);
-				if (StringUtil.isEmpty(value))
-				{
-					//TODO Exception
-				}					
+				if (StringUtil.isEmpty(value)) {
+					// TODO Exception
+				}
 
 				serializer.startTag(namespace, valueName);
-				if (es.isData()) {
-					serializer.cdsect(value);
-				} else {
+				switch (es.getXmlInfo().type) {
+				case TAG:
+				case VALUE:
 					serializer.text(value);
+					break;
+				case VALUE_CDATA:
+					serializer.cdsect(value);
+					break;
+				default:
+					throw new MappingException(es.getXmlInfo().type + " is not supported for xml rapresentation of " + es.getName());
 				}
 
 				serializer.endTag(namespace, valueName);
@@ -417,28 +436,26 @@ public class XmlPullWriter implements BinderWriter {
 			// key
 			if (Transformer.isPrimitive(type.keyClazz)) {
 				String value = Transformer.write(source.getKey(), type.keyClazz);
-				if (StringUtil.isEmpty(value))
-				{
-					//TODO Exception
+				if (StringUtil.isEmpty(value)) {
+					// TODO Exception
 				}
 				serializer.attribute(namespace, keyName, value);
 			} else {
 				// object
-				//TODO exception
+				// TODO exception
 			}
 
 			// value
 			if (Transformer.isPrimitive(type.valueClazz)) {
 				String value = Transformer.write(source.getValue(), type.valueClazz);
-				if (StringUtil.isEmpty(value))
-				{
-					//TODO Exception
-				}					
+				if (StringUtil.isEmpty(value)) {
+					// TODO Exception
+				}
 
 				serializer.attribute(namespace, valueName, value);
 			} else {
 				// object
-				//TODO exception
+				// TODO exception
 			}
 			break;
 		}
@@ -462,21 +479,24 @@ public class XmlPullWriter implements BinderWriter {
 				return;
 
 			serializer.startTag(namespace, xmlName);
-			if (es.isData()) {
+			switch (es.getXmlInfo().type) {
+			case VALUE_CDATA:
 				serializer.cdsect(value);
-			} else {
+				break;
+			default:
 				serializer.text(value);
+				break;
 			}
-
 			serializer.endTag(namespace, xmlName);
 
 			return;
+		} else {
+			// object
+			serializer.startTag(namespace, xmlName);
+			this.writeObject(serializer, source, namespace);
+			serializer.endTag(namespace, xmlName);
 		}
 
-		// object
-		serializer.startTag(namespace, xmlName);
-		this.writeObject(serializer, source, namespace);
-		serializer.endTag(namespace, xmlName);
 	}
 
 	@Override

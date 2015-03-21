@@ -6,7 +6,7 @@ package com.abubusoft.kripton.annotation;
  * @author xcesco
  *
  */
-public enum BindXmlType { 
+public enum XmlType { 
 	/**
 	 * by an attribute
 	 */

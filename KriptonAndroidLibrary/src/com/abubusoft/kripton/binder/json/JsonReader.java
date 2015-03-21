@@ -19,11 +19,9 @@ import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.binder.json.internal.JSONArray;
 import com.abubusoft.kripton.binder.json.internal.JSONObject;
-import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
-import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.binder.transform.Transformer;
@@ -75,7 +73,7 @@ public class JsonReader implements BinderReader {
 			JSONObject jsonObj = new JSONObject(source);
 
 			Object jsonValue = jsonObj;
-			
+
 			if (jsonValue instanceof JSONArray) {
 				jsonValue = ((JSONArray) jsonValue).get(0);
 			}
@@ -133,114 +131,110 @@ public class JsonReader implements BinderReader {
 	private void readObject(Object instance, JSONObject jsonObj) throws Exception {
 		MappingSchema ms = MappingSchema.fromObject(instance);
 
-		this.readAttribute(instance, jsonObj, ms);
-		this.readValue(instance, jsonObj, ms);
+		//this.readAttribute(instance, jsonObj, ms);
+		//this.readValue(instance, jsonObj, ms);
 		this.readElement(instance, jsonObj, ms);
 	}
 
-	private void readAttribute(Object instance, JSONObject jsonObj, MappingSchema ms) throws Exception {
-		Map<String, AttributeSchema> xml2AttributeSchemaMapping = ms.getXml2AttributeSchemaMapping();
-		for (String xmlName : xml2AttributeSchemaMapping.keySet()) {
-			Object jsonValue = jsonObj.opt("@" + xmlName);
-			if (jsonValue != null) {
-				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
-					AttributeSchema as = xml2AttributeSchemaMapping.get(xmlName);
-					Field field = as.getField();
-					Object value = Transformer.read(String.valueOf(jsonValue), as.getFieldType());
-					field.set(instance, value);
-				}
-			}
-		}
-	}
+//	private void readAttribute(Object instance, JSONObject jsonObj, MappingSchema ms) throws Exception {
+//		Map<String, ElementSchema> xml2AttributeSchemaMapping = ms.getXml2AttributeSchemaMapping();
+//		for (String xmlName : xml2AttributeSchemaMapping.keySet()) {
+//			Object jsonValue = jsonObj.opt("@" + xmlName);
+//			if (jsonValue != null) {
+//				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
+//					AttributeSchema as = xml2AttributeSchemaMapping.get(xmlName);
+//					Field field = as.getField();
+//					Object value = Transformer.read(String.valueOf(jsonValue), as.getFieldType());
+//					field.set(instance, value);
+//				}
+//			}
+//		}
+//	}
 
-	private void readValue(Object instance, JSONObject jsonObj, MappingSchema ms) throws Exception {
-		ValueSchema vs = ms.getValueSchema();
-		if (vs != null) {
-			Object jsonValue = jsonObj.opt(JsonWriter.VALUE_KEY);
-			if (jsonValue != null) {
-				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
-					Field field = vs.getField();
-					Object value = Transformer.read(String.valueOf(jsonValue), vs.getFieldType());
-					field.set(instance, value);
-				}
-			}
-		}
-	}
+//	private void readValue(Object instance, JSONObject jsonObj, MappingSchema ms) throws Exception {
+//		ValueSchema vs = ms.getValueSchema();
+//		if (vs != null) {
+//			Object jsonValue = jsonObj.opt(JsonWriter.VALUE_KEY);
+//			if (jsonValue != null) {
+//				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
+//					Field field = vs.getField();
+//					Object value = Transformer.read(String.valueOf(jsonValue), vs.getFieldType());
+//					field.set(instance, value);
+//				}
+//			}
+//		}
+//	}
 
 	private void readElement(Object instance, JSONObject jsonObj, MappingSchema ms) throws Exception {
-		Map<String, Object> xml2SchemaMapping = ms.getXml2SchemaMapping();
+		Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
 		readElementInternal(instance, jsonObj, xml2SchemaMapping);
-		Map<String, Object> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
+		Map<String, ElementSchema> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
 		readElementInternal(instance, jsonObj, xmlWrapper2SchemaMapping);
 	}
 
-	private void readElementInternal(Object instance, JSONObject jsonObj, Map<String, Object> map) throws Exception {
+	private void readElementInternal(Object instance, JSONObject jsonObj, Map<String, ElementSchema> map) throws Exception {
 		Class<?> type;
 		for (String xmlName : map.keySet()) {
 			Object jsonValue = jsonObj.opt(xmlName);
 			if (jsonValue != null) {
-				Object schema = map.get(xmlName);
-				if (schema instanceof ElementSchema) {
-					ElementSchema es = (ElementSchema) schema;
-					Field field = es.getField();
-					type = es.getFieldType();
+				ElementSchema es = map.get(xmlName);
+				Field field = es.getField();
+				type = es.getFieldType();
 
-					switch (es.getType()) {
-					case LIST:
-						// List
-						if (jsonValue instanceof JSONArray) {
-							JSONArray jsonArray = (JSONArray) jsonValue;
-							if (jsonArray.length() > 0) {
-								readList(instance, type, field, jsonArray);
-							}
+				switch (es.getType()) {
+				case LIST:
+					// List
+					if (jsonValue instanceof JSONArray) {
+						JSONArray jsonArray = (JSONArray) jsonValue;
+						if (jsonArray.length() > 0) {
+							readList(instance, type, field, jsonArray);
 						}
-						break;
-					case SET:
-						// Set
-						if (jsonValue instanceof JSONArray) {
-							JSONArray jsonArray = (JSONArray) jsonValue;
-							if (jsonArray.length() > 0) {
-								readSet(instance, type, field, jsonArray);
-							}
-						}
-
-						break;
-					case ARRAY:
-						// Array
-						if (jsonValue instanceof JSONArray) {
-							JSONArray jsonArray = (JSONArray) jsonValue;
-							if (jsonArray.length() > 0) {
-								readArray(instance, type, field, jsonArray);
-							}
-						}
-						break;
-					case MAP:
-						// Array
-						if (jsonValue instanceof JSONArray) {
-							JSONArray jsonArray = (JSONArray) jsonValue;
-							if (jsonArray.length() > 0) {
-								readMap(instance, type, field, jsonArray, es.getMapInfo());
-							}
-						}
-						break;
-					case CDATA:
-					case DEFAULT:
-						if (jsonValue instanceof JSONArray) {
-							jsonValue = ((JSONArray) jsonValue).get(0);
-						}
-						if (Transformer.isPrimitive(type)) {
-							if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
-								Object value = Transformer.read(String.valueOf(jsonValue), type);
-								field.set(instance, value);
-							}
-						} else if (jsonValue instanceof JSONObject) {
-							Constructor<?> con = TypeReflector.getConstructor(type);
-							Object subObj = con.newInstance();
-							field.set(instance, subObj);
-							this.readObject(subObj, (JSONObject) jsonValue);
-						}
-						break;
 					}
+					break;
+				case SET:
+					// Set
+					if (jsonValue instanceof JSONArray) {
+						JSONArray jsonArray = (JSONArray) jsonValue;
+						if (jsonArray.length() > 0) {
+							readSet(instance, type, field, jsonArray);
+						}
+					}
+
+					break;
+				case ARRAY:
+					// Array
+					if (jsonValue instanceof JSONArray) {
+						JSONArray jsonArray = (JSONArray) jsonValue;
+						if (jsonArray.length() > 0) {
+							readArray(instance, type, field, jsonArray);
+						}
+					}
+					break;
+				case MAP:
+					// Array
+					if (jsonValue instanceof JSONArray) {
+						JSONArray jsonArray = (JSONArray) jsonValue;
+						if (jsonArray.length() > 0) {
+							readMap(instance, type, field, jsonArray, es.getMapInfo());
+						}
+					}
+					break;
+				case ELEMENT:
+					if (jsonValue instanceof JSONArray) {
+						jsonValue = ((JSONArray) jsonValue).get(0);
+					}
+					if (Transformer.isPrimitive(type)) {
+						if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
+							Object value = Transformer.read(String.valueOf(jsonValue), type);
+							field.set(instance, value);
+						}
+					} else if (jsonValue instanceof JSONObject) {
+						Constructor<?> con = TypeReflector.getConstructor(type);
+						Object subObj = con.newInstance();
+						field.set(instance, subObj);
+						this.readObject(subObj, (JSONObject) jsonValue);
+					}
+					break;
 				}
 			}
 		}
@@ -266,27 +260,27 @@ public class JsonReader implements BinderReader {
 			entry = jsonArray.get(i);
 			if (entry instanceof JSONObject) {
 				jsonEntry = (JSONObject) entry;
-				key = jsonEntry.get("key");
+				key = jsonEntry.get(mapInfo.keyName);
 
 				if (Transformer.isPrimitive(key.getClass())) {
 					// simple type
 					objectKey = Transformer.read(String.valueOf(key), mapInfo.keyClazz);
 				} else {
-					objectKey=mapInfo.keyClazz.newInstance();
+					objectKey = mapInfo.keyClazz.newInstance();
 					msKey = MappingSchema.fromClass(mapInfo.keyClazz);
-					readElementInternal(objectKey, (JSONObject)key, msKey.getField2SchemaMapping()); 
+					readElementInternal(objectKey, (JSONObject) key, msKey.getField2SchemaMapping());
 				}
 
-				value = jsonEntry.opt("value");
+				value = jsonEntry.opt(mapInfo.valueName);
 				if (value == null) {
-					objectValue=null;
+					objectValue = null;
 				} else if (Transformer.isPrimitive(value.getClass())) {
 					// simple type
 					objectValue = Transformer.read(String.valueOf(value), mapInfo.valueClazz);
 				} else {
-					objectValue=mapInfo.valueClazz.newInstance();
+					objectValue = mapInfo.valueClazz.newInstance();
 					msValue = MappingSchema.fromClass(mapInfo.valueClazz);
-					readElementInternal(objectValue, (JSONObject)value, msValue.getField2SchemaMapping()); 
+					readElementInternal(objectValue, (JSONObject) value, msValue.getField2SchemaMapping());
 					// key=read(instance, )
 				}
 

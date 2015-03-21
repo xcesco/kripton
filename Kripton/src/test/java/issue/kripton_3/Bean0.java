@@ -57,7 +57,7 @@ public class Bean0 {
 	@Bind
 	private Date birthday;
 	
-	@Bind(data=true)
+	@Bind	
 	private String name;
 
 	@Bind

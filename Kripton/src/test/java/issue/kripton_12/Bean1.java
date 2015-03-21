@@ -6,9 +6,10 @@ package issue.kripton_12;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindAttribute;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.XmlType;
 
 
 
@@ -24,10 +25,12 @@ public class Bean1 extends Bean0<BeanGeneric, Integer> implements Serializable {
 	@Bind
 	private Date birthday;
 	
-	@BindAttribute
+	@Bind
+	@BindXml(type=XmlType.ATTRIBUTE)
 	private String name;
 
-	@BindAttribute
+	@Bind
+	@BindXml(type=XmlType.ATTRIBUTE)
 	private String surname;
 	
 	public Date getBirthday() {

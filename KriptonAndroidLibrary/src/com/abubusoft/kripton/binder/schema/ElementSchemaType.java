@@ -7,5 +7,5 @@ package com.abubusoft.kripton.binder.schema;
  *
  */
 public enum ElementSchemaType {
-	ARRAY, CDATA, DEFAULT, LIST, MAP, SET;
+	ARRAY, ELEMENT, LIST, MAP, SET;
 }

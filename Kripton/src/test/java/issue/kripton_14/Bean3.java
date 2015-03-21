@@ -8,7 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindValue;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.XmlType;
 
 
 
@@ -27,7 +28,7 @@ public class Bean3 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@BindValue
+	@BindXml(type=XmlType.ATTRIBUTE)
 	Set<Bean0> set;
 
 }

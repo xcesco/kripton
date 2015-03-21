@@ -7,6 +7,8 @@ import java.util.Date;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.XmlType;
 
 
 
@@ -57,7 +59,8 @@ public class Bean0 {
 	@Bind
 	private Date birthday;
 	
-	@Bind(data=true)
+	@Bind
+	@BindXml(type=XmlType.VALUE_CDATA)
 	private String name;
 
 	@Bind

@@ -5,8 +5,10 @@ package issue.kripton_10;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindAttribute;
+import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.XmlType;
 
 
 
@@ -17,16 +19,20 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindType
 public class Bean02 {
 
-	@BindAttribute
+	@Bind
+	@BindXml(type=XmlType.ATTRIBUTE)
 	private Date birthday;
 	
-	@BindAttribute
+	@Bind
+	@BindXml(type=XmlType.ATTRIBUTE)
 	private String name;
 
-	@BindAttribute
+	@Bind
+	@BindXml(type=XmlType.ATTRIBUTE)
 	private String surname;
 	
-	@BindAttribute
+	@Bind
+	@BindXml(type=XmlType.ATTRIBUTE)
 	private int[] tickets;
 
 	public int[] getTickets() {

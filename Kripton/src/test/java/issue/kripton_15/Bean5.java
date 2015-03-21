@@ -9,6 +9,8 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 
 
 
@@ -17,17 +19,18 @@ import com.abubusoft.kripton.annotation.BindType;
  *
  */
 @BindType
-public class Bean3 implements Serializable {
+public class Bean5 implements Serializable {
 
-	public Bean3()
+	public Bean5()
 	{
-		map=new LinkedHashMap<>();
+		map=new LinkedHashMap<Integer, Level1>();
 	}
 
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@Bind
-	Map<Bean0, Bean0> map;
+	@Bind(mapKeyName="k", mapValueName="v")
+	@BindXml(mapEntryStrategy=MapEntryType.ATTRIBUTES)
+	Map<Integer, Level1> map;
 
 }

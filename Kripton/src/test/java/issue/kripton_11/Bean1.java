@@ -6,11 +6,12 @@ package issue.kripton_11;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindAttribute;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindTypeXml;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.XmlType;
 
 
 
@@ -76,10 +77,12 @@ public class Bean1 implements Serializable {
 	@Bind
 	private Date birthday;
 	
-	@BindAttribute
+	@Bind
+	@BindXml(type=XmlType.ATTRIBUTE)
 	private String name;
 
-	@BindAttribute
+	@Bind
+	@BindXml(type=XmlType.ATTRIBUTE)
 	private String surname;
 	
 	@Bind(name="f1")

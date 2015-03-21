@@ -26,13 +26,12 @@ import org.w3c.dom.NodeList;
 
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.Options;
+import com.abubusoft.kripton.annotation.XmlType;
 import com.abubusoft.kripton.binder.schema.AnyElementSchema;
-import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.schema.TypeElementSchema;
-import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.binder.transform.Transformer;
@@ -162,10 +161,10 @@ public class XmlDOMReader implements BinderReader {
 		MappingSchema ms = MappingSchema.fromObject(obj);
 
 		// read xml attributes
-		Map<String, AttributeSchema> asm = ms.getXml2AttributeSchemaMapping();
+		Map<String, ElementSchema> asm = ms.getXml2AttributeSchemaMapping();
 		if (!asm.isEmpty() && element.hasAttributes()) {
 			for (String attrXmlName : asm.keySet()) {
-				AttributeSchema as = asm.get(attrXmlName);
+				ElementSchema as = asm.get(attrXmlName);
 				String attrValue = element.getAttributeNS(null, attrXmlName);
 				if (!StringUtil.isEmpty(attrValue)) {
 					Field field = as.getField();
@@ -182,7 +181,7 @@ public class XmlDOMReader implements BinderReader {
 		MappingSchema ms = MappingSchema.fromObject(obj);
 
 		// read xml value if any
-		ValueSchema vs = ms.getValueSchema();
+		ElementSchema vs = ms.getValueSchema();
 		if (vs != null) {
 			Field field = vs.getField();
 			String text = element.getTextContent();
@@ -203,8 +202,8 @@ public class XmlDOMReader implements BinderReader {
 		MappingSchema ms = MappingSchema.fromObject(obj);
 
 		// read xml element
-		Map<String, Object> xml2SchemaMapping = ms.getXml2SchemaMapping();
-		Map<String, Object> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
+		Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
+		Map<String, ElementSchema> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
 		NodeList nodeList = element.getChildNodes();
 
 		int n = nodeList.getLength();
@@ -225,9 +224,9 @@ public class XmlDOMReader implements BinderReader {
 						continue;
 					}
 
-					Object schemaObj = xml2SchemaMapping.get(localName);
+					ElementSchema schemaObj = xml2SchemaMapping.get(localName);
 
-					if (schemaObj != null && schemaObj instanceof ElementSchema) {
+					if (schemaObj.getXmlInfo().type==XmlType.TAG) {
 						// found match element
 						ElementSchema es = (ElementSchema) schemaObj;
 						Field field = es.getField();
@@ -300,8 +299,8 @@ public class XmlDOMReader implements BinderReader {
 
 							switch (mapInfo.entryStrategy) {
 							case ATTRIBUTES:
-								String key = childElement.getAttributeNS(null, "key");
-								String value = childElement.getAttributeNS(null, "value");
+								String key = childElement.getAttributeNS(null,  es.getMapInfo().keyName);
+								String value = childElement.getAttributeNS(null,  es.getMapInfo().valueName);
 
 								keyValue = Transformer.read(key, es.getMapInfo().keyClazz);
 								valueValue = Transformer.read(value, es.getMapInfo().valueClazz);
@@ -310,10 +309,10 @@ public class XmlDOMReader implements BinderReader {
 								int a = 0;
 								for (int j = 0; j < childElement.getChildNodes().getLength(); j++) {
 									if (childElement.getChildNodes().item(j).getNodeType() == Node.ELEMENT_NODE) {
-										if ("key".equals(childElement.getChildNodes().item(j).getNodeName())) {
+										if (es.getMapInfo().keyName.equals(childElement.getChildNodes().item(j).getNodeName())) {
 											keyValue = readSubElement((Element) childElement.getChildNodes().item(j), es.getMapInfo().keyClazz);
 											a++;
-										} else if ("value".equals(childElement.getChildNodes().item(j).getNodeName())) {
+										} else if (es.getMapInfo().valueName.equals(childElement.getChildNodes().item(j).getNodeName())) {
 											valueValue = readSubElement((Element) childElement.getChildNodes().item(j), es.getMapInfo().valueClazz);
 											a++;
 										}
@@ -370,8 +369,7 @@ public class XmlDOMReader implements BinderReader {
 								Array.set(array, index++, newObj);
 							}
 							break;
-						case CDATA:
-						case DEFAULT:
+						case ELEMENT:
 							if (!field.isAccessible()) {
 								field.setAccessible(true);
 							}

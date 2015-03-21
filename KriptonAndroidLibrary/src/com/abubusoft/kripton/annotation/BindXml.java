@@ -19,11 +19,11 @@ import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 public @interface BindXml {
 
 	/**
-	 * Type of binding. Default is by TAG. See {@link BindXmlType}
+	 * Type of binding. Default is by TAG. See {@link XmlType}
 	 * 
 	 * @return Type of binding. Default is by TAG.
 	 */
-	public BindXmlType type() default BindXmlType.TAG;
+	public XmlType type() default XmlType.TAG;
 
 	/**
 	 * Type of mapping of element of a map. <strong>Valid only for

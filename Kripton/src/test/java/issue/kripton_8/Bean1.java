@@ -13,7 +13,8 @@ import java.util.TimeZone;
 import javax.xml.namespace.QName;
 
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindValue;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.XmlType;
 
 @BindType
 public class Bean1 extends Bean0 {
@@ -24,63 +25,63 @@ public class Bean1 extends Bean0 {
 		TEST_2;
 	}
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	BeanType fieldEnum;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Locale fieldLocale;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	QName fieldQName;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Calendar fieldCalendar;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Character fieldChar;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Date fieldDate;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	BigDecimal fieldBigDecimal;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	URL fieldUrl;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Boolean fieldBoolean;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Byte fieldByte;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Currency fieldCurrency;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Double fieldDouble;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Float fieldFloat;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Long fieldLong;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Short fieldShort;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Time fieldTime;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	TimeZone fieldTimeZone;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	Integer fieldInteger;
 	
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	String fieldString;
 
-	@BindValue
+	@BindXml(type=XmlType.VALUE)
 	public BigInteger fieldBigInteger;
 }

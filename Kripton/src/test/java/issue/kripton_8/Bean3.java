@@ -12,8 +12,10 @@ import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
+import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindValue;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.XmlType;
 
 @BindType
 public class Bean3 extends Bean0 {
@@ -26,7 +28,8 @@ public class Bean3 extends Bean0 {
 		TEST_2;
 	}
 	
-	@BindValue
+	@Bind
+	@BindXml(type=XmlType.VALUE)
 	BeanType fieldEnum;
 	
 	Locale fieldLocale;

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 
 /**
  * Map entry. It's a usefull implementation for xml
@@ -19,9 +20,9 @@ public class MapEntryImpl implements MapEntry {
 	@Bind
 	public Object key;
 	
-	public Class<?> keyClazz;
-
 	public Map<?,?> map;
+	
+	protected MapInfo mapInfo;
 
 	@Bind
 	public Object value;
@@ -32,7 +33,7 @@ public class MapEntryImpl implements MapEntry {
 	public void clear() {
 		key = null;
 		value = null;
-		keyClazz=null;
+		mapInfo=null;
 		valueClazz=null;
 		map=null;
 	}
@@ -47,20 +48,10 @@ public class MapEntryImpl implements MapEntry {
 		return value;
 	}
 
-	@Override
-	public Class<?> getKeyType() {
-		return keyClazz;
-	}
-
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Map getMap() {
 		return map;
-	}
-
-	@Override
-	public Class<?> getValueType() {
-		return valueClazz;
 	}
 
 	@Override
@@ -70,12 +61,12 @@ public class MapEntryImpl implements MapEntry {
 
 	@Override
 	public boolean isKey(String name) {
-		return "key".equals(name);
+		return mapInfo.keyName.equals(name);
 	}
 
 	@Override
 	public boolean isValue(String name) {
-		return "value".equals(name);
+		return mapInfo.valueName.equals(name);
 	}
 
 	@Override
@@ -91,8 +82,16 @@ public class MapEntryImpl implements MapEntry {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void setMap(Map map) {
+	public void set(Map map, MapInfo mapInfo) {
 		this.map=map;
+		this.mapInfo=mapInfo;
 	}
+
+	@Override
+	public MapInfo getMapInfo() {
+		return mapInfo;
+	}
+
+
 	
 }

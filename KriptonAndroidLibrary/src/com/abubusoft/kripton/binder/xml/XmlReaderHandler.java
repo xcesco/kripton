@@ -32,7 +32,7 @@ import com.abubusoft.kripton.common.TypeReflector;
  * 
  * @author bulldog
  * @author xcesco
- * 
+ *  
  */
 class XmlReaderHandler extends DefaultHandler {
 
@@ -47,12 +47,12 @@ class XmlReaderHandler extends DefaultHandler {
 	}
 
 	private void populateAttributes(Object obj, Attributes attrs, MappingSchema ms) throws Exception {
-		Map<String, AttributeSchema> attributeSchemaMapping = ms.getXml2AttributeSchemaMapping();
+		Map<String, ElementSchema> attributeSchemaMapping = ms.getXml2AttributeSchemaMapping();
 
 		for (int index = 0; index < attrs.getLength(); index++) {
 			String attrName = attrs.getLocalName(index);
 
-			AttributeSchema as = attributeSchemaMapping.get(attrName);
+			ElementSchema as = attributeSchemaMapping.get(attrName);
 			if (as == null)
 				continue;
 
@@ -71,7 +71,7 @@ class XmlReaderHandler extends DefaultHandler {
 			Object obj = helper.valueStack.peek();
 			MappingSchema ms = MappingSchema.fromObject(obj);
 
-			Map<String, Object> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
+			Map<String, ElementSchema> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
 			if (xmlWrapper2SchemaMapping.containsKey(localName)) {
 				// SchemaArray value = new SchemaArray((AbstractSchema)
 				// xmlWrapper2SchemaMapping.get(localName), new ArrayList());
@@ -112,7 +112,7 @@ class XmlReaderHandler extends DefaultHandler {
 					this.populateAttributes(obj, attrs, ms);
 				}
 			} else { // sub element mapping
-				Map<String, Object> xml2SchemaMapping = ms.getXml2SchemaMapping();
+				Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
 
 				Object schema = xml2SchemaMapping.get(localName);
 				if (schema != null && schema instanceof ElementSchema) {
@@ -124,9 +124,9 @@ class XmlReaderHandler extends DefaultHandler {
 						MapEntry mapStrategy = (MapEntry) obj;
 
 						if (mapStrategy.isKey(localName)) {
-							type = mapStrategy.getKeyType();
+							type = mapStrategy.getMapInfo().keyClazz;
 						} else if (mapStrategy.isValue(localName)) {
-							type = mapStrategy.getValueType();
+							type = mapStrategy.getMapInfo().valueClazz;
 						}
 					}
 
@@ -142,9 +142,7 @@ class XmlReaderHandler extends DefaultHandler {
 							switch (es.getMapInfo().entryStrategy) {
 							case ATTRIBUTES: {
 								MapEntryImpl mapPolicy = new MapEntryImpl();
-								mapPolicy.setMap(map);
-								mapPolicy.keyClazz = es.getMapInfo().keyClazz;
-								mapPolicy.valueClazz = es.getMapInfo().valueClazz;
+								mapPolicy.set(map, es.getMapInfo());
 															
 								if (attrs != null && attrs.getLength() > 0) {
 									this.populateAttributesForMap(mapPolicy, attrs);
@@ -160,9 +158,7 @@ class XmlReaderHandler extends DefaultHandler {
 								return;
 							case ELEMENTS: {
 								MapEntryImpl mapPolicy = new MapEntryImpl();
-								mapPolicy.keyClazz = es.getMapInfo().keyClazz;
-								mapPolicy.valueClazz = es.getMapInfo().valueClazz;
-								mapPolicy.setMap(map);
+								mapPolicy.set(map, es.getMapInfo());
 
 								newObj = mapPolicy;
 							}
@@ -199,11 +195,11 @@ class XmlReaderHandler extends DefaultHandler {
 			String attrName = attrs.getLocalName(index);
 			String attrValue = attrs.getValue(index);
 
-			if ("value".equals(attrName)) {
-				Object value = Transformer.read(attrValue, mapPolicy.valueClazz);
+			if (mapPolicy.isValue(attrName)) {
+				Object value = Transformer.read(attrValue, mapPolicy.getMapInfo().valueClazz);
 				mapPolicy.setEntryValue(value);
-			} else if ("key".equals(attrName)) {
-				Object value = Transformer.read(attrValue, mapPolicy.keyClazz);
+			} else if (mapPolicy.isKey(attrName)) {
+				Object value = Transformer.read(attrValue, mapPolicy.getMapInfo().keyClazz);
 				mapPolicy.setEntryKey(value);
 			}
 		}
@@ -216,7 +212,7 @@ class XmlReaderHandler extends DefaultHandler {
 				Object obj = helper.valueStack.peek();
 				MappingSchema ms = MappingSchema.fromObject(obj);
 
-				Map<String, Object> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
+				Map<String, ElementSchema> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
 				if (xmlWrapper2SchemaMapping.containsKey(localName)) {
 					// ArrayList array = helper.listStack.pop();
 					return;
@@ -261,7 +257,7 @@ class XmlReaderHandler extends DefaultHandler {
 				Object obj = helper.valueStack.peek();
 				MappingSchema ms = MappingSchema.fromObject(obj);
 
-				Map<String, Object> xml2SchemaMapping = ms.getXml2SchemaMapping();
+				Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
 				Object schema = xml2SchemaMapping.get(localName);
 
 				if (schema != null && schema instanceof ElementSchema) {
@@ -275,11 +271,11 @@ class XmlReaderHandler extends DefaultHandler {
 							Object value = null;
 
 							if (mapStrategy.isKey(localName)) {
-								type = mapStrategy.getKeyType();
+								type = mapStrategy.getMapInfo().keyClazz;
 								value = Transformer.read(xmlData, type);
 								mapStrategy.setEntryKey(value);
 							} else if (mapStrategy.isValue(localName)) {
-								type = mapStrategy.getValueType();
+								type = mapStrategy.getMapInfo().valueClazz;
 								value = Transformer.read(xmlData, type);
 								mapStrategy.setEntryValue(value);
 							}
@@ -342,7 +338,7 @@ class XmlReaderHandler extends DefaultHandler {
 				Object obj = helper.valueStack.pop();
 				MappingSchema ms = MappingSchema.fromObject(obj);
 
-				ValueSchema vs = ms.getValueSchema();
+				ElementSchema vs = ms.getValueSchema();
 				if (vs != null) {
 					Field field = vs.getField();
 					String xmlData = helper.textBuilder.toString();
@@ -361,7 +357,7 @@ class XmlReaderHandler extends DefaultHandler {
 				// retrieve parent object
 				Object parentObj = helper.valueStack.peek();
 				MappingSchema parentMs = MappingSchema.fromObject(parentObj);
-				Map<String, Object> parentXml2SchemaMapping = parentMs.getXml2SchemaMapping();
+				Map<String, ElementSchema> parentXml2SchemaMapping = parentMs.getXml2SchemaMapping();
 
 				Object schema = parentXml2SchemaMapping.get(localName);
 				if (schema != null && schema instanceof ElementSchema) {
