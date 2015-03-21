@@ -92,7 +92,6 @@ public class MappingSchema {
 	private Map<String, ElementSchema> field2AttributeSchemaMapping;
 	private ElementSchema valueSchema;
 	private Map<String, ElementSchema> xml2AttributeSchemaMapping;
-	private AnyElementSchema anyElementSchema;
 
 	/**
 	 * type connected to the mapping schema
@@ -643,10 +642,6 @@ public class MappingSchema {
 
 	public ElementSchema getValueSchema() {
 		return valueSchema;
-	}
-
-	public AnyElementSchema getAnyElementSchema() {
-		return anyElementSchema;
 	}
 
 	public Map<String, ElementSchema> getXml2AttributeSchemaMapping() {

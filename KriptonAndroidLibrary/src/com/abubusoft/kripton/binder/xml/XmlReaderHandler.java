@@ -15,12 +15,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.abubusoft.kripton.exception.ReaderException;
-import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.schema.TypeElementSchema;
 import com.abubusoft.kripton.binder.schema.SchemaArray;
-import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.internal.MapEntry;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryImpl;

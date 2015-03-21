@@ -27,7 +27,6 @@ import org.w3c.dom.NodeList;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.annotation.XmlType;
-import com.abubusoft.kripton.binder.schema.AnyElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
@@ -153,8 +152,6 @@ public class XmlDOMReader implements BinderReader {
 		List<Element> anyElements = new ArrayList<Element>();
 
 		this.readElement(obj, element, anyElements);
-
-		this.readAnyElement(obj, anyElements);
 	}
 
 	private void readAttribute(Object obj, Element element) throws Exception {
@@ -413,16 +410,6 @@ public class XmlDOMReader implements BinderReader {
 		this.read(newObj, element);
 
 		return newObj;
-	}
-
-	protected void readAnyElement(Object obj, List<Element> anyElements) throws Exception {
-		MappingSchema ms = MappingSchema.fromObject(obj);
-
-		AnyElementSchema aes = ms.getAnyElementSchema();
-		if (aes != null && anyElements != null && anyElements.size() > 0) {
-			Field field = aes.getField();
-			field.set(obj, anyElements);
-		}
 	}
 
 	protected Object buildObjectFromType(Class<?> type) throws Exception {

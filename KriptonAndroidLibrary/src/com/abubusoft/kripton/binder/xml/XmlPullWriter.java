@@ -12,23 +12,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 import com.abubusoft.kripton.annotation.XmlType;
-import com.abubusoft.kripton.binder.schema.AnyElementSchema;
-import com.abubusoft.kripton.binder.schema.AttributeSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.schema.TypeElementSchema;
-import com.abubusoft.kripton.binder.schema.ValueSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.internal.MXSerializer;
 import com.abubusoft.kripton.binder.xml.internal.XmlSerializer;
@@ -142,80 +134,6 @@ public class XmlPullWriter implements BinderWriter {
 		// write xml elements
 		writeElements(serializer, source, ms, namespace);
 
-		// write any elements if has
-		writeAnyElements(serializer, source, ms);
-	}
-
-	private void writeAnyElements(XmlSerializer serializer, Object source, MappingSchema ms) throws Exception {
-		AnyElementSchema anyElementSchema = ms.getAnyElementSchema();
-		if (anyElementSchema != null) {
-			Field field = anyElementSchema.getField();
-			List<?> list = (List<?>) field.get(source);
-			if (list != null) {
-				for (Object entry : list) {
-					if (entry != null) {
-						if (entry instanceof Element) {
-							this.writeDomElement(serializer, (Element) entry);
-						} else {
-							this.writeAnyObject(serializer, entry);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	private void writeDomElement(XmlSerializer serializer, Element element) throws Exception {
-		if (element == null)
-			return; // be cautious
-
-		if (!StringUtil.isEmpty(element.getLocalName())) {
-			String namespace = element.getNamespaceURI();
-
-			serializer.startTag(namespace, element.getLocalName());
-
-			NamedNodeMap nmap = element.getAttributes(); // write attributes
-			for (int i = 0; i < nmap.getLength(); i++) {
-				if (nmap.item(i).getNodeType() == Node.ATTRIBUTE_NODE) {
-					String name = nmap.item(i).getNodeName();
-					String value = nmap.item(i).getNodeValue();
-					serializer.attribute(null, name, value);
-				}
-			}
-
-			if (element.hasChildNodes()) { // write children elements
-				NodeList children = element.getChildNodes();
-				for (int i = 0; i < children.getLength(); i++) {
-					Node child = children.item(i);
-					if (child.getNodeType() == Node.ELEMENT_NODE) {
-						writeDomElement(serializer, (Element) child);
-					} else if (child.getNodeType() == Node.TEXT_NODE) { // write
-																		// element
-																		// text
-						String value = child.getNodeValue();
-						if (!StringUtil.isEmpty(value)) {
-							serializer.text(value);
-						}
-					}
-				}
-			}
-
-			serializer.endTag(namespace, element.getLocalName());
-		}
-	}
-
-	private void writeAnyObject(XmlSerializer serializer, Object source) throws Exception {
-		if (source == null)
-			return; // be cautious
-
-		MappingSchema ms = MappingSchema.fromObject(source);
-		TypeElementSchema res = ms.getRootElementSchema();
-		String namespace = res.xmlInfo.getNamespace();
-		String xmlName = res.xmlInfo.getName();
-
-		serializer.startTag(namespace, xmlName);
-		this.writeObject(serializer, source, namespace);
-		serializer.endTag(namespace, xmlName);
 	}
 
 	/**
