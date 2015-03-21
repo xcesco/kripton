@@ -53,15 +53,6 @@ public class MappingSchema {
 		public boolean isMapEntryStub() {
 			return mapEntryStub;
 		}
-
-		/**
-		 * setter of map entry stub.
-		 * 
-		 * @param mapEntry
-		 */
-		public void setMapEntryStub(boolean mapEntry) {
-			this.mapEntryStub = mapEntry;
-		}
 	}
 
 	/**
