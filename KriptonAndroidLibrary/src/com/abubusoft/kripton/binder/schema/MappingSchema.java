@@ -140,9 +140,15 @@ public class MappingSchema {
 
 		// BindType
 		// BindTypeJson
+		BindType bindType=type.getAnnotation(BindType.class);
+		BindTypeXml bindTypeXml=type.getAnnotation(BindTypeXml.class);
 
+		if (bindType==null && bindTypeXml!=null)
+		{
+			throw new MappingException("Class "+type.getName()+" need @BindType annotation, because it uses @BindTypeXml");
+		}
 		// BindTypeXml
-		if (type.isAnnotationPresent(BindTypeXml.class)) {
+		if (bindTypeXml!=null) {
 			// ASSERT: BindTypeXml need BindType
 			if (!type.isAnnotationPresent(BindType.class))
 				throw (new MappingException("The annotation @BindTypeXml annotation can not be used without @BinType in class definition " + type.getName()));
@@ -339,7 +345,7 @@ public class MappingSchema {
 		String elementNameFromAnnotation;
 		Class<?> fieldType = null;
 		int order;
-
+		
 		for (Field field : fields) {
 
 			if (!field.isAccessible()) {
@@ -435,7 +441,7 @@ public class MappingSchema {
 					}
 					// don't increment counters.elementSchemaCount, it's an
 					// attribute
-					counters.elementSchemaCount--;
+					counters.elementSchemaCount--; 
 					break;
 				case TAG:
 					counters.elementSchemaCount++;
@@ -446,7 +452,7 @@ public class MappingSchema {
 					if (!Transformer.isTransformable(elementSchema.getFieldType())) {
 						throw new MappingException("BinderValue annotation can't annotate like VALUE and VALUE_CDATA a complex type field, "
 								+ "only primivte type or frequently used java type or enum type field is allowed, " + "field = " + field.getName()
-								+ ", type = " + type.getName());
+								+ ", type = " + type.getName()); 
 					}
 					// if considered like value, we have to remove it from
 					// elementSchemaCount
