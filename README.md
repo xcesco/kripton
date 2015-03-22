@@ -17,10 +17,11 @@ As example we take a simple java class:
 ```java
 package com.abubusoft.kripton.examples;
 
-import com.abubusoft.kripton.binder.annotation.BindDefault;
+import com.abubusoft.kripton.binder.annotation.BindType;
+import com.abubusoft.kripton.binder.annotation.BindAllFields;
 
-@BindRoot
-@BindDefault
+@BindType
+@BindAllFields
 public class SimpleBean {
 
     private long age;
@@ -45,7 +46,7 @@ public class SimpleBean {
 }
 ```
 
-With the annotation **@BindDefault** we persist every field in the pojo.  To convert in xml and json format we can use the following code:
+With the annotation **@BindAllFields** we persist every field in the pojo.  To convert in xml and json format we can use the following code:
 
 ```java
 ...
