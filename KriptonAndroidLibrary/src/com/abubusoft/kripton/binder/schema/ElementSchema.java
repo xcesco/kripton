@@ -9,6 +9,7 @@ import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
  * This bean stores mapping between an XML/JSON/DB element and a POJO field
  * 
  * @author bulldog
+ * @author xcesco
  * 
  */
 public class ElementSchema extends AbstractSchema {

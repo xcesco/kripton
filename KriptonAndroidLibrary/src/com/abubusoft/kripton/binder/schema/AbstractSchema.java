@@ -18,16 +18,6 @@ public class AbstractSchema {
 	protected Class<?> fieldType;
 
 	protected String name;
-	
-	// TODO to use in database binding
-	 
-//	protected boolean indexed = false;
-//
-//	protected boolean nullable = true;
-//
-//	protected boolean primaryKey = false;
-//
-//	protected boolean unique = false;
 
 	/**
 	 * Get POJO field
@@ -48,8 +38,6 @@ public class AbstractSchema {
 	public String getName() {
 		return name;
 	}
-
-
 
 	/**
 	 * Set POJO field

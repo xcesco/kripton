@@ -31,6 +31,7 @@ import com.abubusoft.kripton.common.StringUtil;
  * BinderWriter implementation using kxml pull parser.
  * 
  * @author bulldog
+ * @author xcesco
  *
  */
 public class XmlPullWriter implements BinderWriter {

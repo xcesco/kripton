@@ -344,11 +344,12 @@ public class MappingSchema {
 		String nameFromAnnotation;
 		String elementNameFromAnnotation;
 		Class<?> fieldType = null;
+		@SuppressWarnings("unused")
 		int order;
 		
 		for (Field field : fields) {
 
-			if (!field.isAccessible()) {
+			if (!field.isAccessible()) { 
 				// unlock field
 				field.setAccessible(true);
 			}
@@ -365,6 +366,8 @@ public class MappingSchema {
 			if (!bindAllFields && bindAnnotation == null && (bindXmlAnnotation != null)) {
 				throw new MappingException("Can not use @BindXml without @Bind for field " + field.getName() + " in class " + type.getCanonicalName());
 			}
+			
+			order=0;
 
 			if (bindAllFields || bindAnnotation != null) {
 				fieldType = null;
@@ -375,9 +378,7 @@ public class MappingSchema {
 					nameFromAnnotation = bindAnnotation.name();
 					elementNameFromAnnotation = bindAnnotation.elementName();
 					order=bindAnnotation.order();
-				} else {
-					order=0;
-				}
+				} 
 				counters.elementSchemaCount++;
 
 				ElementSchema elementSchema = new ElementSchema();

@@ -370,7 +370,8 @@ public class MXSerializer implements XmlSerializer {
     
     public void startDocument (String encoding, Boolean standalone) throws IOException
     {
-        char apos = attributeUseApostrophe ? '\'' : '"';
+        @SuppressWarnings("unused")
+		char apos = attributeUseApostrophe ? '\'' : '"';
         if(attributeUseApostrophe) {
             out.write("<?xml version='1.0'");
         } else {
@@ -413,7 +414,8 @@ public class MXSerializer implements XmlSerializer {
         out.flush();
     }
     
-    public void setPrefix(String prefix, String namespace) throws IOException
+    @SuppressWarnings("unused")
+	public void setPrefix(String prefix, String namespace) throws IOException
     {
         if(startTagIncomplete) closeStartTag();
         //assert prefix != null;
@@ -1086,7 +1088,8 @@ public class MXSerializer implements XmlSerializer {
         if(s == null) return "null";
         StringBuffer retval = new StringBuffer(s.length() + 16);
         retval.append("'");
-        char ch;
+        @SuppressWarnings("unused")
+		char ch;
         for (int i = 0; i < s.length(); i++) {
             addPrintable(retval, s.charAt(i));
         }

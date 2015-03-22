@@ -1,4 +1,6 @@
 /**
+ * Implementation of writer/reader binder for xml format
+ * 
  * @author xcesco
  *
  */

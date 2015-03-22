@@ -26,6 +26,7 @@ import com.abubusoft.kripton.common.TypeReflector;
  * BinderReader implementation using Java SAX parser
  * 
  * @author bulldog
+ * @author xcesco
  *
  */
 public class XmlSAXReader implements BinderReader {

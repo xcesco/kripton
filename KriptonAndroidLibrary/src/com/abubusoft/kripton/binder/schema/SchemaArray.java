@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import com.abubusoft.kripton.common.Pair;
 
 /**
+ * Schema for array types.
+ * 
  * @author xcesco
  *
  */
