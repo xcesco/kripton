@@ -6,6 +6,7 @@ package com.abubusoft.kripton.sample01;
 import java.util.Date;
 
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 
 
@@ -14,19 +15,15 @@ import com.abubusoft.kripton.annotation.BindType;
  * @author xcesco
  *
  */
-@BindType
+@BindAllFields
 public class Employee {
 
-	@Bind
 	private Date birthday;
 	
-	@Bind
 	private String name;
 
-	@Bind
 	private String surname;
 	
-	@Bind(elementName="ticket")
 	private int[] tickets;
 
 	public int[] getTickets() {
