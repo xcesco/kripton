@@ -22,7 +22,7 @@ public @interface BindTypeXml {
 	 * 
 	 * @return name
 	 */
-    public String name() default "";
+    public String value() default "";
     
     /**
      * Default namespace of the root XML element. Not used in JSON

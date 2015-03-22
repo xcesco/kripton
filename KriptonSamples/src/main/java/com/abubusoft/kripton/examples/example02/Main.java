@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.abubusoft.kripton.sample01;
+package com.abubusoft.kripton.examples.example02;
 
 import java.util.Calendar;
 
@@ -20,30 +20,31 @@ public class Main {
 
 	/**
 	 * @param args
-	 * @throws MappingException 
-	 * @throws WriterException 
-	 * @throws ReaderException 
+	 * @throws MappingException
+	 * @throws WriterException
+	 * @throws ReaderException
 	 */
 	public static void main(String[] args) throws WriterException, MappingException, ReaderException {
-		Employee bean=new Employee();
-		
+		Employee bean = new Employee();
+
 		bean.setName("Tonj");
 		bean.setSurname("Manero");
-		
-		Calendar calendar=Calendar.getInstance();
+
+		Calendar calendar = Calendar.getInstance();
 		calendar.set(1965, 6, 12);
 		bean.setBirthday(calendar.getTime());
-		int[] array= {1, 2, 4};
-		
-		bean.setTickets(array);
-		
-		BinderWriter writer=BinderFactory.getJSONWriter();
-		String buffer=writer.write(bean);
+
+		writeRead(bean, BinderFactory.getJSONReader(), BinderFactory.getJSONWriter());
+		writeRead(bean, BinderFactory.getXMLReader(), BinderFactory.getXMLWriter());
+
+	}
+
+	private static void writeRead(Object bean, BinderReader reader, BinderWriter writer) throws WriterException, MappingException, ReaderException {
+		String buffer = writer.write(bean);
 		System.out.println(buffer);
-		
-		BinderReader reader=BinderFactory.getJSONReader();
-		Employee bean2=reader.read(Employee.class, buffer);
-		String buffer2=writer.write(bean2);
+
+		Object bean2 = reader.read(bean.getClass(), buffer);
+		String buffer2 = writer.write(bean2);
 		System.out.println(buffer2);
 
 	}

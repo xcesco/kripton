@@ -1,13 +1,15 @@
 /**
  * 
  */
-package com.abubusoft.kripton.sample01;
+package com.abubusoft.kripton.examples.example02;
 
 import java.util.Date;
 
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindTypeXml;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.XmlType;
 
 
 
@@ -15,25 +17,22 @@ import com.abubusoft.kripton.annotation.BindType;
  * @author xcesco
  *
  */
-@BindAllFields
+@BindType
+@BindTypeXml
 public class Employee {
 
+	@Bind
+	@BindXml(XmlType.ATTRIBUTE)
 	private Date birthday;
 	
+	@Bind
+	@BindXml(XmlType.ATTRIBUTE)
 	private String name;
 
+	@Bind
+	@BindXml(XmlType.VALUE_CDATA)
 	private String surname;
 	
-	private int[] tickets;
-
-	public int[] getTickets() {
-		return tickets;
-	}
-
-	public void setTickets(int[] tickets) {
-		this.tickets = tickets;
-	}
-
 	public Date getBirthday() {
 		return birthday;
 	}

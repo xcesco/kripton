@@ -1,14 +1,11 @@
 /**
  * 
  */
-package issue.kripton_10;
+package com.abubusoft.kripton.examples.example01;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.annotation.XmlType;
+import com.abubusoft.kripton.annotation.BindAllFields;
 
 
 
@@ -16,26 +13,15 @@ import com.abubusoft.kripton.annotation.XmlType;
  * @author xcesco
  *
  */
-@BindType
-public class Bean01 {
+@BindAllFields
+public class Employee {
 
-	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
 	private Date birthday;
 	
-	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
-	private char car='a';
-	
-	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
 	private String name;
 
-	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
 	private String surname;
 	
-	@Bind(elementName="ticket")
 	private int[] tickets;
 
 	public int[] getTickets() {

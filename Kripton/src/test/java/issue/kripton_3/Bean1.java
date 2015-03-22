@@ -24,7 +24,7 @@ public class Bean1 implements Serializable {
 	@BindType
 	public static class SubBean01
 	{
-		@Bind(name="f2")
+		@Bind(value="f2")
 		public SubBean02 bean2;
 		
 		@BindAllFields
@@ -78,7 +78,7 @@ public class Bean1 implements Serializable {
 	@Bind
 	private String surname;
 	
-	@Bind(name="f1")
+	@Bind(value="f1")
 	public SubBean01 bean1;
 	
 

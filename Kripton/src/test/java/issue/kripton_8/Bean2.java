@@ -9,7 +9,7 @@ import com.abubusoft.kripton.annotation.XmlType;
 public class Bean2 extends Bean0 {
 
 	@Bind
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	String bla="Bean0";
 	
 

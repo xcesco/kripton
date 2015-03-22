@@ -23,7 +23,7 @@ public @interface BindXml {
 	 * 
 	 * @return Type of binding. Default is by TAG.
 	 */
-	public XmlType type() default XmlType.TAG;
+	public XmlType value() default XmlType.TAG;
 
 	/**
 	 * Type of mapping of element of a map. <strong>Valid only for

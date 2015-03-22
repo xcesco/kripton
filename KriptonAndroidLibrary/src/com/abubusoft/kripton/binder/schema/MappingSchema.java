@@ -154,10 +154,10 @@ public class MappingSchema {
 				throw (new MappingException("The annotation @BindTypeXml annotation can not be used without @BinType in class definition " + type.getName()));
 
 			BindTypeXml xre = type.getAnnotation(BindTypeXml.class);
-			if (StringUtil.isEmpty(xre.name())) {
+			if (StringUtil.isEmpty(xre.value())) {
 				rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
 			} else {
-				rootElementSchema.xmlInfo.setName(xre.name());
+				rootElementSchema.xmlInfo.setName(xre.value());
 			}
 			String namespace = StringUtil.isEmpty(xre.namespace()) ? null : xre.namespace();
 			rootElementSchema.xmlInfo.setNamespace(namespace);
@@ -375,7 +375,7 @@ public class MappingSchema {
 				nameFromAnnotation = null;
 				elementNameFromAnnotation = null;
 				if (bindAnnotation != null) {
-					nameFromAnnotation = bindAnnotation.name();
+					nameFromAnnotation = bindAnnotation.value();
 					elementNameFromAnnotation = bindAnnotation.elementName();
 					order=bindAnnotation.order();
 				} 

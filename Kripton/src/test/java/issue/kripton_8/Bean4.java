@@ -28,11 +28,11 @@ public class Bean4 extends Bean0 {
 	}
 	
 	@Bind
-	@BindXml(type=XmlType.VALUE_CDATA)
+	@BindXml(value=XmlType.VALUE_CDATA)
 	BeanType fieldEnum;
 	
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	BeanType fieldEnum2;
 	
 	Locale fieldLocale;

@@ -26,11 +26,11 @@ public class Bean1 extends Bean0<BeanGeneric, Integer> implements Serializable {
 	private Date birthday;
 	
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private String name;
 
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private String surname;
 	
 	public Date getBirthday() {

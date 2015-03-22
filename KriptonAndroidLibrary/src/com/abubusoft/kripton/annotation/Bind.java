@@ -17,7 +17,13 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface Bind {
 
+	/**
+	 * default name of map value entry
+	 */
 	public static final String MAP_VALUE_DEFAULT = "value";
+	/**
+	 * default name of map key entry
+	 */
 	public static final String MAP_KEY_DEFAULT = "key";
 
 	/**
@@ -25,7 +31,7 @@ public @interface Bind {
 	 * 
 	 * @return name
 	 */
-	public String name() default "";
+	public String value() default "";
 
 	/**
 	 * Used with collections. It's the name of elements contained in the

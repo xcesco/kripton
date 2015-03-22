@@ -13,7 +13,7 @@ public class Bean2 {
 	
 	public final String fieldFinal="12";
 	
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	public static String fieldStatic="111111";
 	
 

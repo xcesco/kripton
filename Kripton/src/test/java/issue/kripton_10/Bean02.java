@@ -20,19 +20,19 @@ import com.abubusoft.kripton.annotation.XmlType;
 public class Bean02 {
 
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private Date birthday;
 	
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private String name;
 
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private String surname;
 	
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private int[] tickets;
 
 	public int[] getTickets() {

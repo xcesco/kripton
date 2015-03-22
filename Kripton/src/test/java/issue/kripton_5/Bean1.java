@@ -66,7 +66,7 @@ public class Bean1 {
 	
 	TimeZone fieldTimeZone;
 	
-	@Bind(name="fieldString")
+	@Bind(value="fieldString")
 	Integer fieldInteger;
 	
 	String fieldString;

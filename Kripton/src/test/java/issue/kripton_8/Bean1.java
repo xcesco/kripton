@@ -25,63 +25,63 @@ public class Bean1 extends Bean0 {
 		TEST_2;
 	}
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	BeanType fieldEnum;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Locale fieldLocale;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	QName fieldQName;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Calendar fieldCalendar;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Character fieldChar;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Date fieldDate;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	BigDecimal fieldBigDecimal;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	URL fieldUrl;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Boolean fieldBoolean;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Byte fieldByte;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Currency fieldCurrency;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Double fieldDouble;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Float fieldFloat;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Long fieldLong;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Short fieldShort;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Time fieldTime;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	TimeZone fieldTimeZone;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	Integer fieldInteger;
 	
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	String fieldString;
 
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	public BigInteger fieldBigInteger;
 }

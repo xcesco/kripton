@@ -29,7 +29,7 @@ public class Bean3 extends Bean0 {
 	}
 	
 	@Bind
-	@BindXml(type=XmlType.VALUE)
+	@BindXml(value=XmlType.VALUE)
 	BeanType fieldEnum;
 	
 	Locale fieldLocale;

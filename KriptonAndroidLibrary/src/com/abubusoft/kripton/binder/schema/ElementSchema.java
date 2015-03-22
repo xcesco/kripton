@@ -161,7 +161,7 @@ public class ElementSchema extends AbstractSchema {
 		xmlInfo = new XmlInfo();
 
 		if (bindXmlAnnotation != null) {
-			xmlInfo.type = bindXmlAnnotation.type();
+			xmlInfo.type = bindXmlAnnotation.value();
 		} else {
 			xmlInfo.type = XmlType.TAG;
 		}

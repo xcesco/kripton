@@ -57,23 +57,23 @@ public class Bean03 {
 	}
 	
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private char car='a';
 	
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private Date birthday;
 	
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private String name;
 
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private String surname;
 	
 	@Bind
-	@BindXml(type=XmlType.ATTRIBUTE)
+	@BindXml(value=XmlType.ATTRIBUTE)
 	private SubBean03[] tickets;
 	
 
