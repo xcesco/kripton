@@ -17,10 +17,8 @@ As example we take a simple java class:
 ```java
 package com.abubusoft.kripton.examples;
 
-import com.abubusoft.kripton.binder.annotation.BindType;
 import com.abubusoft.kripton.binder.annotation.BindAllFields;
 
-@BindType
 @BindAllFields
 public class SimpleBean {
 
