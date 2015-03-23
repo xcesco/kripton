@@ -9,6 +9,7 @@
 	<version>1.0.0</version>
 
 	<packaging>aar</packaging>
+	<url>https://github.com/xcesco/kripton</url>
 
 	<properties>
 		<!-- use UTF-8 for everything -->
@@ -17,11 +18,43 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<android-maven-plugin.version>4.1.0</android-maven-plugin.version>
 
-<!-- 		<android.version>5.0.1_r2</android.version> -->
-<!-- 		<support-v4.version>21.0.3</support-v4.version> -->
+		<!-- <android.version>5.0.1_r2</android.version> -->
+		<!-- <support-v4.version>21.0.3</support-v4.version> -->
 	</properties>
 
 	<description>Bind library to convert java POJO to XML, to JSON and viceversa .</description>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/xcesco/kripton/issues</url>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:git:https://github.com/xcesco/kripton.git</connection>
+		<developerConnection>scm:git:git@github.com:xcesco/kripton.git</developerConnection>
+		<url>https://github.com/xcesco/kripton</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>xcesco</id>
+			<name>Francesco Benincasa</name>
+			<email>abubusoft@gmail.com</email>
+			<roles>
+				<role>owner</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
 
 	<dependencies>
 		<dependency>
@@ -36,7 +69,7 @@
 			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
@@ -44,13 +77,13 @@
 			<scope>provided</scope>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.android.support</groupId> -->
-<!-- 			<artifactId>support-v4</artifactId> -->
-<!-- 			<version>${support-v4.version}</version> -->
-<!-- 			<type>aar</type> -->
-<!-- 			<scope>provided</scope> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.android.support</groupId> -->
+		<!-- <artifactId>support-v4</artifactId> -->
+		<!-- <version>${support-v4.version}</version> -->
+		<!-- <type>aar</type> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
 
 	</dependencies>
 
@@ -158,7 +191,7 @@
 							</execution>
 						</executions>
 					</plugin>
-					
+
 					<!-- deploy on sonatype -->
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
