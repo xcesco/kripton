@@ -36,7 +36,7 @@ public @interface Bind {
 	/**
 	 * Used with collections. It's the name of elements contained in the
 	 * collection or array, except byte array. Thus, name specified in
-	 * annotation {@link Bind} will be used for container.
+	 * attribute value will be used for container.
 	 * 
 	 * @return name of elements of collection. default is ""
 	 */
