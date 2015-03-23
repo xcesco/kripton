@@ -31,21 +31,26 @@
 		</dependency>
 
 		<dependency>
-			<groupId>android</groupId>
+			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<type>jar</type>
-			<version>${android.version}</version>
+			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
-
-
+		
 		<dependency>
-			<groupId>com.android.support</groupId>
+			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
-			<version>${support-v4.version}</version>
-			<type>aar</type>
+			<version>r7</version>
 			<scope>provided</scope>
 		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.android.support</groupId> -->
+<!-- 			<artifactId>support-v4</artifactId> -->
+<!-- 			<version>${support-v4.version}</version> -->
+<!-- 			<type>aar</type> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
 
 	</dependencies>
 
