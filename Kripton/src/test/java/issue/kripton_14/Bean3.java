@@ -9,7 +9,7 @@ import java.util.Set;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.annotation.XmlType;
+import com.abubusoft.kripton.binder.xml.XmlType;
 
 
 

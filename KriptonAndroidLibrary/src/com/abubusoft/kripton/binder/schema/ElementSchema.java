@@ -1,8 +1,10 @@
 package com.abubusoft.kripton.binder.schema;
 
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.annotation.XmlType;
+import com.abubusoft.kripton.binder.database.ColumnType;
+import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 
 /**
@@ -13,6 +15,22 @@ import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
  * 
  */
 public class ElementSchema extends AbstractSchema {
+
+	/**
+	 * column info
+	 *
+	 */
+	public static class ColumnInfo {
+		public String name;
+		public ColumnType type;
+	}
+
+	/**
+	 * Json info of element schema
+	 */
+	public static class JsonInfo {
+
+	}
 
 	/**
 	 * Map info. Used for schema linked to field who implements Map interfaces.
@@ -53,14 +71,14 @@ public class ElementSchema extends AbstractSchema {
 
 	}
 
-	/**
-	 * Json info of element schema
-	 */
-	public static class JsonInfo {
-
-	}
+	private ColumnInfo columnInfo;
 
 	private MapInfo mapInfo;
+
+	/**
+	 * order of element schema.
+	 */
+	int order;
 
 	private ElementSchemaType type = ElementSchemaType.ELEMENT;
 
@@ -72,9 +90,59 @@ public class ElementSchema extends AbstractSchema {
 	protected XmlInfo xmlInfo;
 
 	/**
-	 * order of element schema.
+	 * Build column info
+	 * 
+	 * @param bindColumnAnnotation
 	 */
-	Integer order;
+	void buildColumnInfo(BindColumn bindColumnAnnotation) {
+		columnInfo = new ColumnInfo();
+
+		columnInfo.name = getName();
+		columnInfo.type=ColumnType.STANDARD;		
+		if (bindColumnAnnotation != null) {
+			columnInfo.type = bindColumnAnnotation.value();
+			columnInfo.name = this.getName();
+			if (!"".equals(bindColumnAnnotation.name())) {
+				columnInfo.name = bindColumnAnnotation.name();
+			}
+		}
+
+	}
+
+	/**
+	 * Build map info.
+	 * 
+	 * @param bindMapAnnotation
+	 * @param paramizedType
+	 * 
+	 * @param value
+	 */
+	void buildMapInfo(Class<?> mapType, Class<?> keyType, Class<?> valueType, Bind bindAnnotation, MapEntryType policy) {
+		type = ElementSchemaType.MAP;
+		mapInfo = new MapInfo();
+		mapInfo.mapClazz = mapType;
+		mapInfo.entryStrategy = policy;
+
+		mapInfo.keyClazz = keyType;
+		mapInfo.keyName = bindAnnotation != null ? bindAnnotation.mapKeyName() : Bind.MAP_KEY_DEFAULT;
+
+		mapInfo.valueClazz = valueType;
+		mapInfo.valueName = bindAnnotation != null ? bindAnnotation.mapValueName() : Bind.MAP_VALUE_DEFAULT;
+	}
+
+	void buildXmlInfo(BindXml bindXmlAnnotation) {
+		xmlInfo = new XmlInfo();
+
+		if (bindXmlAnnotation != null) {
+			xmlInfo.type = bindXmlAnnotation.value();
+		} else {
+			xmlInfo.type = XmlType.TAG;
+		}
+	}
+
+	public ColumnInfo getColumnInfo() {
+		return columnInfo;
+	}
 
 	public MapInfo getMapInfo() {
 		return mapInfo;
@@ -86,6 +154,10 @@ public class ElementSchema extends AbstractSchema {
 
 	public String getWrapperName() {
 		return wrapperName;
+	}
+
+	public XmlInfo getXmlInfo() {
+		return xmlInfo;
 	}
 
 	/**
@@ -137,37 +209,6 @@ public class ElementSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Build map info.
-	 * 
-	 * @param bindMapAnnotation
-	 * @param paramizedType
-	 * 
-	 * @param value
-	 */
-	void buildMapInfo(Class<?> mapType, Class<?> keyType, Class<?> valueType, Bind bindAnnotation, MapEntryType policy) {
-		type = ElementSchemaType.MAP;
-		mapInfo = new MapInfo();
-		mapInfo.mapClazz = mapType;
-		mapInfo.entryStrategy = policy;
-
-		mapInfo.keyClazz = keyType;
-		mapInfo.keyName = bindAnnotation != null ? bindAnnotation.mapKeyName() : Bind.MAP_KEY_DEFAULT;
-
-		mapInfo.valueClazz = valueType;
-		mapInfo.valueName = bindAnnotation != null ? bindAnnotation.mapValueName() : Bind.MAP_VALUE_DEFAULT;
-	}
-
-	void buildXmlInfo(BindXml bindXmlAnnotation) {
-		xmlInfo = new XmlInfo();
-
-		if (bindXmlAnnotation != null) {
-			xmlInfo.type = bindXmlAnnotation.value();
-		} else {
-			xmlInfo.type = XmlType.TAG;
-		}
-	}
-
-	/**
 	 * Set if field is a set.
 	 * 
 	 * @param value
@@ -178,9 +219,5 @@ public class ElementSchema extends AbstractSchema {
 
 	public void setWrapperName(String xmlWrapperName) {
 		this.wrapperName = xmlWrapperName;
-	}
-
-	public XmlInfo getXmlInfo() {
-		return xmlInfo;
 	}
 }

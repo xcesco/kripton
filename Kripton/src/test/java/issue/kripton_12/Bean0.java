@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.annotation.XmlType;
+import com.abubusoft.kripton.binder.xml.XmlType;
 
 public class Bean0<T, E> {
 

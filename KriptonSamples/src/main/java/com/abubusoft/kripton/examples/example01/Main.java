@@ -8,6 +8,7 @@ import java.util.Calendar;
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
+import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -37,14 +38,15 @@ public class Main {
 		
 		bean.setTickets(array);
 		
-		BinderWriter writer=BinderFactory.getJSONWriter();
+		//BinderWriter writer=BinderFactory.getJSONWriter(Options.build().indent(true));
+		BinderWriter writer=BinderFactory.getXMLWriter(Options.build().indent(true));
 		String buffer=writer.write(bean);
 		System.out.println(buffer);
 		
-		BinderReader reader=BinderFactory.getJSONReader();
-		Employee bean2=reader.read(Employee.class, buffer);
-		String buffer2=writer.write(bean2);
-		System.out.println(buffer2);
+		//BinderReader reader=BinderFactory.getJSONReader();
+		//Employee bean2=reader.read(Employee.class, buffer);
+		//String buffer2=writer.write(bean2);
+		//System.out.println(buffer2);
 
 	}
 

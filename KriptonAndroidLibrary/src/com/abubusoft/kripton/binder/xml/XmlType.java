@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.annotation;
+package com.abubusoft.kripton.binder.xml;
 
 /**
  * Specify type of xml binding.

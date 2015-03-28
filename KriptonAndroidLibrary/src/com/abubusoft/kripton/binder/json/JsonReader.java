@@ -72,13 +72,7 @@ public class JsonReader implements BinderReader {
 
 			JSONObject jsonObj = new JSONObject(source);
 
-			Object jsonValue = jsonObj;
-
-			if (jsonValue instanceof JSONArray) {
-				jsonValue = ((JSONArray) jsonValue).get(0);
-			}
-
-			this.readObject(instance, (JSONObject) jsonValue);
+			this.readObject(instance, jsonObj);
 
 			return (T) instance;
 		} catch (ReaderException re) {

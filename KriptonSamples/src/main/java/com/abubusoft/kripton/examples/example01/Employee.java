@@ -9,10 +9,6 @@ import com.abubusoft.kripton.annotation.BindAllFields;
 
 
 
-/**
- * @author xcesco
- *
- */
 @BindAllFields
 public class Employee {
 

@@ -6,8 +6,9 @@ package com.abubusoft.kripton.exception;
  * @author bulldog
  *
  */
-@SuppressWarnings("serial")
-public class MappingException extends Exception {
+public class MappingException extends RuntimeException {
+
+	private static final long serialVersionUID = 7993865639459660322L;
 
 	public MappingException() {
 	}

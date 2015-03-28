@@ -11,12 +11,14 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindColumn;
+import com.abubusoft.kripton.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindTypeXml;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.annotation.XmlType;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.binder.transform.Transformer;
+import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntry;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.common.GenericClass;
@@ -56,9 +58,23 @@ public class MappingSchema {
 	}
 
 	/**
+	 * Generic database info
+	 *
+	 */
+	public static class TableInfo {
+
+		public String name;
+	}
+
+	/**
 	 * info for xml rapresentation
 	 */
 	public XmlInfo xmlInfo = new XmlInfo();
+
+	/**
+	 * info for database rapresentation
+	 */
+	public TableInfo tableInfo = new TableInfo();
 
 	/**
 	 * Counters
@@ -104,30 +120,30 @@ public class MappingSchema {
 	}
 
 	private static final int CACHE_SIZE = 100;
+
 	// use LRU cache to limit memory consumption.
 	private static Map<Class<?>, MappingSchema> schemaCache = Collections.synchronizedMap(new LRUCache<Class<?>, MappingSchema>(CACHE_SIZE));
 
 	private MappingSchema(Class<?> type) throws MappingException {
 		this.type = type;
-
-		genericsResolver = GenericClass.forClass(type);
+		this.genericsResolver = GenericClass.forClass(type);
 
 		// if present @BindAllFields, each field is mapped, except transient,
 		// static and final fields
-		bindAllFields = type.isAnnotationPresent(BindAllFields.class);
+		this.bindAllFields = type.isAnnotationPresent(BindAllFields.class);
 
 		if (MapEntry.class.isAssignableFrom(type)) {
 			xmlInfo.mapEntryStub = true;
 		}
 
 		// step 1
-		this.buildTypeElementSchema();
+		buildTypeElementSchema();
 		// step 2
-		this.buildField2SchemaMapping();
+		buildField2SchemaMapping();
 		// step 3
-		this.buildXml2SchemaMapping();
+		buildXml2SchemaMapping();
 		// step 4
-		this.buildField2AttributeSchemaMapping();
+		buildField2AttributeSchemaMapping();
 	}
 
 	/**
@@ -140,16 +156,15 @@ public class MappingSchema {
 
 		// BindType
 		// BindTypeJson
-		BindType bindType=type.getAnnotation(BindType.class);
-		BindTypeXml bindTypeXml=type.getAnnotation(BindTypeXml.class);
+		BindType bindType = type.getAnnotation(BindType.class);
+		BindTypeXml bindTypeXml = type.getAnnotation(BindTypeXml.class);
+		BindTable bindTable = type.getAnnotation(BindTable.class);
 
-		if (bindType==null && bindTypeXml!=null)
-		{
-			throw new MappingException("Class "+type.getName()+" need @BindType annotation, because it uses @BindTypeXml");
+		if (bindType == null && (bindTypeXml != null || bindTable != null)) {
+			throw new MappingException("Class " + type.getName() + " need @BindType annotation, because it uses @BindTypeXml or @BindTable");
 		}
 		// BindTypeXml
-		if (bindTypeXml!=null) {
-			// ASSERT: BindTypeXml need BindType
+		if (bindTypeXml != null) {
 			if (!type.isAnnotationPresent(BindType.class))
 				throw (new MappingException("The annotation @BindTypeXml annotation can not be used without @BinType in class definition " + type.getName()));
 
@@ -165,6 +180,14 @@ public class MappingSchema {
 			// if no BindTypeXml, use class name instead
 			rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
 			rootElementSchema.xmlInfo.setNamespace(null);
+		}
+
+		//
+		tableInfo.name = type.getSimpleName();
+		if (bindTable != null) {
+			if (!"".equals(bindTable.name())) {
+				tableInfo.name = bindTable.name();
+			}
 		}
 
 	}
@@ -220,22 +243,8 @@ public class MappingSchema {
 		Collections.sort(listSchema, new Comparator<ElementSchema>() {
 			@Override
 			public int compare(ElementSchema schema1, ElementSchema schema2) {
-				Integer order1 = schema1.order;
-				Integer order2 = schema2.order;
-
-				if (order1 != null || order2 != null) {
-					if (order1 != null && order2 != null) {
-						if (order1 == order2) {
-							return schema1.getName().compareTo(schema2.getName());
-						}
-						return order1 - order2;
-					}
-					if (order1 != null && order2 == null) {
-						return -1;
-					}
-					if (order1 == null && order2 != null) {
-						return 1;
-					}
+				if (schema1.order != schema2.order) {
+					return schema1.order - schema2.order;
 				}
 
 				// both order are null
@@ -344,12 +353,11 @@ public class MappingSchema {
 		String nameFromAnnotation;
 		String elementNameFromAnnotation;
 		Class<?> fieldType = null;
-		@SuppressWarnings("unused")
 		int order;
-		
+
 		for (Field field : fields) {
 
-			if (!field.isAccessible()) { 
+			if (!field.isAccessible()) {
 				// unlock field
 				field.setAccessible(true);
 			}
@@ -361,13 +369,15 @@ public class MappingSchema {
 			}
 
 			Bind bindAnnotation = field.getAnnotation(Bind.class);
-			BindXml bindXmlAnnotation = field.getAnnotation(BindXml.class);			
+			BindXml bindXmlAnnotation = field.getAnnotation(BindXml.class);
+			BindColumn bindColumnAnnotation = field.getAnnotation(BindColumn.class);
 
-			if (!bindAllFields && bindAnnotation == null && (bindXmlAnnotation != null)) {
-				throw new MappingException("Can not use @BindXml without @Bind for field " + field.getName() + " in class " + type.getCanonicalName());
+			if (!bindAllFields && bindAnnotation == null && (bindXmlAnnotation != null || bindColumnAnnotation != null)) {
+				throw new MappingException("Can not use @BindXml,@BindColumn without @Bind for field " + field.getName() + " in class "
+						+ type.getCanonicalName());
 			}
-			
-			order=0;
+
+			order = 0;
 
 			if (bindAllFields || bindAnnotation != null) {
 				fieldType = null;
@@ -377,12 +387,13 @@ public class MappingSchema {
 				if (bindAnnotation != null) {
 					nameFromAnnotation = bindAnnotation.value();
 					elementNameFromAnnotation = bindAnnotation.elementName();
-					order=bindAnnotation.order();
-				} 
+					order = bindAnnotation.order();
+				}
 				counters.elementSchemaCount++;
 
 				ElementSchema elementSchema = new ElementSchema();
-				
+				elementSchema.order = order;
+
 				if (StringUtil.isEmpty(nameFromAnnotation)) {
 					elementSchema.setName(field.getName());
 				} else {
@@ -401,6 +412,8 @@ public class MappingSchema {
 				}
 
 				elementSchema.buildXmlInfo(bindXmlAnnotation);
+				elementSchema.buildColumnInfo(bindColumnAnnotation);
+
 				elementSchema.setField(field);
 				// put in set of used names
 				checkAlreadyUsed(elementSchema.getName(), usedNames, "Bind");
@@ -442,7 +455,7 @@ public class MappingSchema {
 					}
 					// don't increment counters.elementSchemaCount, it's an
 					// attribute
-					counters.elementSchemaCount--; 
+					counters.elementSchemaCount--;
 					break;
 				case TAG:
 					counters.elementSchemaCount++;
@@ -453,7 +466,7 @@ public class MappingSchema {
 					if (!Transformer.isTransformable(elementSchema.getFieldType())) {
 						throw new MappingException("BinderValue annotation can't annotate like VALUE and VALUE_CDATA a complex type field, "
 								+ "only primivte type or frequently used java type or enum type field is allowed, " + "field = " + field.getName()
-								+ ", type = " + type.getName()); 
+								+ ", type = " + type.getName());
 					}
 					// if considered like value, we have to remove it from
 					// elementSchemaCount
@@ -545,21 +558,18 @@ public class MappingSchema {
 	 * @return
 	 * @throws MappingException
 	 */
-	@SuppressWarnings("unused")
 	private boolean handleMap(Field field, ElementSchema elementSchema, Bind bindAnnotation, MapEntryType mapEntryPolicy) throws MappingException {
 		Class<?> type = field.getType();
 		if (TypeReflector.isMap(type)) {
 			Class<?>[] paramizedType = TypeReflector.getParameterizedTypeArray(field, genericsResolver);
 
-			elementSchema.buildMapInfo(type, paramizedType[0], paramizedType[1], bindAnnotation, mapEntryPolicy);
-
-			if (paramizedType == null) {
+			if (paramizedType == null || paramizedType.length != 2) {
 				throw new MappingException("Can't get parameterized type of a Map field, "
 						+ "Framework only supports collection field of Map<K,V> type, and K,V must be bindable types, " + "field = " + field.getName()
 						+ ", type = " + type.getName());
-			} else {
-				elementSchema.setFieldType(Map.class);
 			}
+			elementSchema.buildMapInfo(type, paramizedType[0], paramizedType[1], bindAnnotation, mapEntryPolicy);
+			elementSchema.setFieldType(Map.class);
 			return true;
 		}
 

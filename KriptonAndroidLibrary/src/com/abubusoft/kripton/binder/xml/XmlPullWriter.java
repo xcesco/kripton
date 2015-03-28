@@ -16,7 +16,6 @@ import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
-import com.abubusoft.kripton.annotation.XmlType;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;

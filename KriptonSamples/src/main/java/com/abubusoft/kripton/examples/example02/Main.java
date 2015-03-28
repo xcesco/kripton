@@ -8,6 +8,8 @@ import java.util.Calendar;
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
+import com.abubusoft.kripton.Options;
+import com.abubusoft.kripton.BinderFactory.ReaderType;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -27,15 +29,16 @@ public class Main {
 	public static void main(String[] args) throws WriterException, MappingException, ReaderException {
 		Employee bean = new Employee();
 
-		bean.setName("Tonj");
+		bean.setName("Tonaaaaaaaaaaj");
 		bean.setSurname("Manero");
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1965, 6, 12);
 		bean.setBirthday(calendar.getTime());
 
-		writeRead(bean, BinderFactory.getJSONReader(), BinderFactory.getJSONWriter());
-		writeRead(bean, BinderFactory.getXMLReader(), BinderFactory.getXMLWriter());
+		//writeRead(bean, BinderFactory.getJSONReader(), BinderFactory.getJSONWriter(Options.build().indent(true)));
+		//BinderFactory.readerType=ReaderType.SAX;
+		writeRead(bean, BinderFactory.getXMLReader(), BinderFactory.getXMLWriter(Options.build().indent(true)));
 
 	}
 

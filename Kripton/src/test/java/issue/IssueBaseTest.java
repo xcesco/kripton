@@ -22,9 +22,7 @@ import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
 
-public abstract class IssueBaseTest<E> {
-
-	protected Logger logger = Logger.getAnonymousLogger();
+public abstract class IssueBaseTest<E> extends BaseTest {
 
 	protected E beanInput;
 	

@@ -30,7 +30,7 @@ import com.abubusoft.kripton.common.TypeReflector;
  * 
  * @author bulldog
  * @author xcesco
- *  
+ * 
  */
 class XmlReaderHandler extends DefaultHandler {
 
@@ -141,14 +141,13 @@ class XmlReaderHandler extends DefaultHandler {
 							case ATTRIBUTES: {
 								MapEntryImpl mapPolicy = new MapEntryImpl();
 								mapPolicy.set(map, es.getMapInfo());
-															
+
 								if (attrs != null && attrs.getLength() > 0) {
 									this.populateAttributesForMap(mapPolicy, attrs);
 								}
-								
-								if (mapPolicy.isEntryReady())
-								{
-									map.put(mapPolicy.getEntryKey(),mapPolicy.getEntryValue());
+
+								if (mapPolicy.isEntryReady()) {
+									map.put(mapPolicy.getEntryKey(), mapPolicy.getEntryValue());
 									mapPolicy.clear();
 								}
 							}
@@ -217,30 +216,24 @@ class XmlReaderHandler extends DefaultHandler {
 				}
 
 				SchemaArray lastArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
-				if (lastArray != null) {
-					if (lastArray.value0.getField().getDeclaringClass() == obj.getClass() && !lastArray.value0.getName().equals(localName)) {
-						Object schema = lastArray.value0;
-						if (schema != null && schema instanceof ElementSchema) {
-							ElementSchema es = (ElementSchema) schema;
-							Field field = es.getField();
+				if (lastArray != null && lastArray.value0.getField().getDeclaringClass() == obj.getClass() && !lastArray.value0.getName().equals(localName)) {
+					ElementSchema es = lastArray.value0;
+					Field field = es.getField();
 
-							int n = lastArray.value1.size();
-							Object value = Array.newInstance(es.getFieldType(), lastArray.value1.size());
-							// lastArray.value1.toArray();
-							// System.arraycopy(lastArray.value1.toArray(), 0,
-							// value, 0, n);
-							for (int i = 0; i < n; i++) {
-								Array.set(value, i, lastArray.value1.get(i));
-							}
-
-							if (!field.isAccessible()) {
-								field.setAccessible(true);
-							}
-							field.set(obj, value);
-							helper.arrayStack.pop();
-						}
-
+					int n = lastArray.value1.size();
+					Object value = Array.newInstance(es.getFieldType(), lastArray.value1.size());
+					// lastArray.value1.toArray();
+					// System.arraycopy(lastArray.value1.toArray(), 0,
+					// value, 0, n);
+					for (int i = 0; i < n; i++) {
+						Array.set(value, i, lastArray.value1.get(i));
 					}
+
+					if (!field.isAccessible()) {
+						field.setAccessible(true);
+					}
+					field.set(obj, value);
+					helper.arrayStack.pop();
 				}
 
 			}

@@ -26,7 +26,6 @@ import org.w3c.dom.NodeList;
 
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.Options;
-import com.abubusoft.kripton.annotation.XmlType;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;

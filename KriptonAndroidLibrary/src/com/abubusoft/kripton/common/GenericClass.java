@@ -31,6 +31,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.abubusoft.kripton.exception.MappingException;
+
 /**
  * A wrapper around reflection to resolve generics.
  * 
@@ -42,7 +44,9 @@ public class GenericClass {
 	private Class<?> myclass = null;
 
 	/**
-	 * <p>Risolvi la classe attuale.</p>
+	 * <p>
+	 * Risolvi la classe attuale.
+	 * </p>
 	 * 
 	 * @param key
 	 * @return
@@ -78,14 +82,16 @@ public class GenericClass {
 			return new GenericClass((ParameterizedType) type);
 		} else {
 			return forClass(Object.class);
-			// throw new MagmaException("Dont know how to build a GenericClass out of
+			// throw new MagmaException("Dont know how to build a GenericClass
+			// out of
 			// {0}", type.getClass());
 		}
 	}
 
 	private GenericClass(Class<?> concrete) {
-		//TypeVariable<?>[] parameters = concrete.getTypeParameters();
-		// if (parameters.length > 0) throw new MagmaException("Cannot parse {0}, it
+		// TypeVariable<?>[] parameters = concrete.getTypeParameters();
+		// if (parameters.length > 0) throw new MagmaException("Cannot parse
+		// {0}, it
 		// is a generic class, use a concrete class instead", concrete);
 		myclass = concrete;
 		recurse(concrete);
@@ -109,7 +115,8 @@ public class GenericClass {
 				if (clazz == null)
 					continue;
 				if (genericMap.containsKey(target))
-					throw new RuntimeException("Impossible situation, it's a bug : {0} generic is both {1} and bound to {2}" + target + genericMap.get(target) + search);
+					throw new RuntimeException("Impossible situation, it's a bug : {0} generic is both {1} and bound to {2}" + target + genericMap.get(target)
+							+ search);
 				genericMap.put(target, clazz);
 				iterator.remove();
 			}
@@ -124,7 +131,8 @@ public class GenericClass {
 				if (clazz == null)
 					clazz = Object.class;
 				if (genericMap.containsKey(target))
-					throw new RuntimeException("Impossible situation, it's a bug : {0} generic is both {1} and bound to {2}" + target + genericMap.get(target) + search);
+					throw new RuntimeException("Impossible situation, it's a bug : {0} generic is both {1} and bound to {2}" + target + genericMap.get(target)
+							+ search);
 				genericMap.put(target, clazz);
 			}
 		}
@@ -142,7 +150,8 @@ public class GenericClass {
 			if (typeArguments[i] instanceof Class) {
 				genericMap.put(simplesup.getName() + "--" + parameters[i].getName(), (Class<?>) typeArguments[i]);
 			} else if (typeArguments[i] instanceof TypeVariable) {
-				reverseIntermediate.put(clazz.getName() + "--" + ((TypeVariable<?>) typeArguments[i]).getName(), simplesup.getName() + "--" + parameters[i].getName());
+				reverseIntermediate.put(clazz.getName() + "--" + ((TypeVariable<?>) typeArguments[i]).getName(),
+						simplesup.getName() + "--" + parameters[i].getName());
 			}
 		}
 
@@ -162,7 +171,8 @@ public class GenericClass {
 	}
 
 	/**
-	 * Return real, "generics dereferenced", parameter types for the given method.
+	 * Return real, "generics dereferenced", parameter types for the given
+	 * method.
 	 * 
 	 * @param method
 	 *            The method to analyze
@@ -191,7 +201,7 @@ public class GenericClass {
 		return ret;
 	}
 
-	public GenericClass resolveType(Type type) {
+	public GenericClass resolveType(Type type) throws MappingException {
 		if (type instanceof Class) {
 			return forClass((Class<?>) type);
 		} else if (type instanceof TypeVariable) {
@@ -204,8 +214,18 @@ public class GenericClass {
 			} else if (gd instanceof Constructor) {
 				acclass = ((Constructor<?>) gd).getDeclaringClass();
 			}
+			if (acclass == null) {
+				throw (new MappingException("Error during generic class resolving"));
+			}
+
 			String name = ((TypeVariable<?>) type).getName();
-			return forClass(genericMap.get(acclass.getName() + "--" + name));
+			Class<?> clazz = genericMap.get(acclass.getName() + "--" + name);
+
+			if (clazz == null) {
+				throw (new MappingException("Class " + acclass.getName() + "--" + name + " is not defined."));
+			}
+
+			return forClass(clazz);
 		} else {
 			return forGenericType(type);
 		}
@@ -214,18 +234,22 @@ public class GenericClass {
 	/**
 	 * Search for all occurrencies of a specific method.
 	 * <p>
-	 * The type parameters passed in may be Class or null. If they are null, that means that we don't know which class they should be, if they are a class, that means we are
-	 * searching for that class, and the comparison is made on dereferenced generics.
+	 * The type parameters passed in may be Class or null. If they are null,
+	 * that means that we don't know which class they should be, if they are a
+	 * class, that means we are searching for that class, and the comparison is
+	 * made on dereferenced generics.
 	 * </p>
 	 * <p>
-	 * Specifying no parameter types explicitly means "a method without parameters".
+	 * Specifying no parameter types explicitly means
+	 * "a method without parameters".
 	 * </p>
 	 * 
 	 * @param name
 	 *            The name of the method
 	 * @param parameterTypes
 	 *            The types of the parameters
-	 * @return A list of {@link MethodDef}, ordered with methods from current class first, then method from superclass and so on.
+	 * @return A list of {@link MethodDef}, ordered with methods from current
+	 *         class first, then method from superclass and so on.
 	 */
 	public List<MethodDef> findMethods(String name, Class<?>... parameterTypes) {
 		List<MethodDef> founds = new ArrayList<MethodDef>();
@@ -269,11 +293,13 @@ public class GenericClass {
 	}
 
 	/**
-	 * Search for all methods having that name, no matter which parameter they take.
+	 * Search for all methods having that name, no matter which parameter they
+	 * take.
 	 * 
 	 * @param name
 	 *            The name of the methods
-	 * @return A list of {@link MethodDef}, ordered with methods from current class first, then method from superclass and so on.
+	 * @return A list of {@link MethodDef}, ordered with methods from current
+	 *         class first, then method from superclass and so on.
 	 */
 	public List<MethodDef> findAllMethods(String name) {
 		List<MethodDef> founds = new ArrayList<MethodDef>();
@@ -309,6 +335,26 @@ public class GenericClass {
 		return founds;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((genericMap == null) ? 0 : genericMap.hashCode());
+		result = prime * result + ((myclass == null) ? 0 : myclass.hashCode());
+		result = prime * result + ((reverseIntermediate == null) ? 0 : reverseIntermediate.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof GenericClass))
@@ -331,6 +377,34 @@ public class GenericClass {
 			this.params = params;
 		}
 
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Object#hashCode()
+		 */
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + ((method == null) ? 0 : method.hashCode());
+			result = prime * result + Arrays.hashCode(params);
+			return result;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
+		@Override
+		public boolean equals(Object obj) {
+			if (!(obj instanceof MethodDef))
+				return false;
+			MethodDef oth = (MethodDef) obj;
+			return (method.getName().equals(oth.method.getName())) && (Arrays.equals(getParameterTypes(), oth.getParameterTypes()));
+		}
+
 		public String getName() {
 			return this.method.getName();
 		}
@@ -350,16 +424,12 @@ public class GenericClass {
 			return resolveType(method.getGenericReturnType());
 		}
 
-		@Override
-		public boolean equals(Object other) {
-			if (!(other instanceof MethodDef))
-				return false;
-			MethodDef oth = (MethodDef) other;
-			return (method.getName().equals(oth.method.getName())) && (Arrays.equals(getParameterTypes(), oth.getParameterTypes()));
-		}
-
 		public Class<?> getDeclaringClass() {
 			return this.method.getDeclaringClass();
+		}
+
+		private GenericClass getOuterType() {
+			return GenericClass.this;
 		}
 	}
 

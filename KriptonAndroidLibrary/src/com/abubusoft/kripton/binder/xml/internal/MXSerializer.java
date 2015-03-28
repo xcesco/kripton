@@ -399,7 +399,7 @@ public class MXSerializer implements XmlSerializer {
             //              out.write(" standalone='no'");
             //          }
         }
-        out.write("?>");
+        out.write("?>");                
     }
     
     public void endDocument() throws IOException
@@ -612,7 +612,7 @@ public class MXSerializer implements XmlSerializer {
             } else {
                 // make sure that default namespace can be declared
                 for (int i = namespaceEnd - 1; i >= 0 ; --i) {
-                    if(namespacePrefix[ i ] == "") {
+                    if("".equals(namespacePrefix[ i ])) {
                         final String uri = namespaceUri[ i ];
                         if(uri == null) {
                             // declare default namespace
@@ -708,7 +708,7 @@ public class MXSerializer implements XmlSerializer {
                 writeIndent();
                 out.write(" ");
             }
-            if(namespacePrefix[ i ] != "") {
+            if("".equals(namespacePrefix[ i ])) {
                 out.write(" xmlns:");
                 out.write(namespacePrefix[ i ]);
                 out.write('=');
@@ -753,8 +753,7 @@ public class MXSerializer implements XmlSerializer {
             checkInterning(name);
         }
         String startTagName = elName[ depth ];
-        if((!namesInterned && !name.equals(startTagName))
-               || (namesInterned && name !=  startTagName ))
+        if((!name.equals(startTagName)))
         {
             throw new IllegalArgumentException(
                 "expected element name "+printable(elName[ depth ])+" and not "+printable(name)+getLocation());

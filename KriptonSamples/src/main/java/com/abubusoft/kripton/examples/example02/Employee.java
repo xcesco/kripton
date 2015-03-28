@@ -23,15 +23,15 @@ public class Employee {
 
 	@Bind
 	@BindXml(XmlType.ATTRIBUTE)
-	private Date birthday;
+	public Date birthday;
 	
 	@Bind
 	@BindXml(XmlType.ATTRIBUTE)
-	private String name;
+	public String name;
 
 	@Bind
 	@BindXml(XmlType.VALUE_CDATA)
-	private String surname;
+	public String surname;
 	
 	public Date getBirthday() {
 		return birthday;
