@@ -32,17 +32,11 @@ public class DatabaseSchemaOptions {
 		return mappingSchemaSet;
 	}
 
-	public String getDatabaseName() {
-		return databaseName;
-	}
-
 	protected NameConverterType nameConverter = NameConverterType.UPPER_UNDERSCORE;
 
 	protected boolean compiled;
 
 	protected HashSet<MappingSchema> mappingSchemaSet=new HashSet<MappingSchema>();
-
-	public String databaseName;
 
 	public static DatabaseSchemaOptions build() {
 		DatabaseSchemaOptions value = new DatabaseSchemaOptions();
@@ -63,11 +57,6 @@ public class DatabaseSchemaOptions {
 
 	public DatabaseSchemaOptions nameConverter(NameConverterType value) {
 		nameConverter = value;
-		return this;
-	}
-
-	public DatabaseSchemaOptions databaseName(String value) {
-		databaseName = value;
 		return this;
 	}
 

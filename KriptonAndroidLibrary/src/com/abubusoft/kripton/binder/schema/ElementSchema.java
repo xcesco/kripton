@@ -22,7 +22,7 @@ public class ElementSchema extends AbstractSchema {
 	 */
 	public static class ColumnInfo {
 		public String name;
-		public ColumnType type;
+		public ColumnType feature;
 	}
 
 	/**
@@ -98,9 +98,9 @@ public class ElementSchema extends AbstractSchema {
 		columnInfo = new ColumnInfo();
 
 		columnInfo.name = getName();
-		columnInfo.type=ColumnType.STANDARD;		
+		columnInfo.feature=ColumnType.STANDARD;		
 		if (bindColumnAnnotation != null) {
-			columnInfo.type = bindColumnAnnotation.value();
+			columnInfo.feature = bindColumnAnnotation.value();
 			columnInfo.name = this.getName();
 			if (!"".equals(bindColumnAnnotation.name())) {
 				columnInfo.name = bindColumnAnnotation.name();

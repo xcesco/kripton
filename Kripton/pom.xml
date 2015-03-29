@@ -75,9 +75,9 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>../KriptonAndroidLibrary/src/</source>
+								<source>../KriptonAndroidLibrary/src/</source>								
 							</sources>
-							<excludes>
+							<excludes> 
 								<exclude>**/android/**</exclude>
 							</excludes>
 						</configuration>
