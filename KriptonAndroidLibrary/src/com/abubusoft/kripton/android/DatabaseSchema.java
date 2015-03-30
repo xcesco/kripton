@@ -1,9 +1,12 @@
-package com.abubusoft.kripton.binder.database;
+package com.abubusoft.kripton.android;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.abubusoft.kripton.binder.database.DatabaseColumn;
+import com.abubusoft.kripton.binder.database.DatabaseHandler;
+import com.abubusoft.kripton.binder.database.DatabaseTable;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.common.LRUCache;
@@ -25,6 +28,8 @@ public class DatabaseSchema {
 	public LinkedHashMap<String, MappingSchema> schemas = new LinkedHashMap<String, MappingSchema>();
 
 	private DatabaseHandler handler;
+
+	private LinkedHashMap<MappingSchema, DatabaseTable> schema2Table=new LinkedHashMap<>();
 
 
 	protected DatabaseSchema(DatabaseType type,DatabaseSchemaOptions options) {
@@ -54,10 +59,19 @@ public class DatabaseSchema {
 				column.type=handler.getColumnType(element.getFieldType());
 				
 				table.columns.add(column);
+				table.field2column.put(element.getName(), column);
 			}
 			
 			tables.put(key, table);
+			schema2Table.put(item, table);
 		}
+	}
+	
+	public void queryFields(Class<?> clazz, String values)
+	{
+		MappingSchema schema=MappingSchema.fromClass(clazz);
+			
+		handler.createColumnSet(schema2Table.get(schema), values);
 	}
 	
 	public String[] createTablesSQL()

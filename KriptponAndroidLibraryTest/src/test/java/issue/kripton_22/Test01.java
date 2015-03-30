@@ -5,11 +5,12 @@ import org.junit.Test;
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.Options;
+import com.abubusoft.kripton.android.DatabaseColumnSet;
+import com.abubusoft.kripton.android.DatabaseSchema;
+import com.abubusoft.kripton.android.DatabaseSchemaOptions;
+import com.abubusoft.kripton.android.DatabaseType;
 import com.abubusoft.kripton.binder.database.DatabaseColumn;
-import com.abubusoft.kripton.binder.database.DatabaseSchema;
-import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
 import com.abubusoft.kripton.binder.database.DatabaseTable;
-import com.abubusoft.kripton.binder.database.DatabaseType;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -34,6 +35,9 @@ public class Test01 extends BaseTest {
 		options.add(Bean01.class);
 
 		DatabaseSchema databaseSchema = DatabaseSchema.build("prova", DatabaseType.SQLITE, options);
+		
+		databaseSchema.queryFields(Bean01.class, "name");
+		databaseSchema.queryFields(Bean01.class, "name");
 
 		for (DatabaseTable table : databaseSchema.tables.values()) {
 			logger.info("table " + table.name + " java-name: " + table.schema.tableInfo.name);
@@ -41,6 +45,10 @@ public class Test01 extends BaseTest {
 			for (DatabaseColumn column : table.columns) {
 				logger.info("\tcolumn-name " + column.name + " feature: " + column.feature + " field-name: " + column.schema.getName() + " java-type: "
 						+ column.schema.getFieldType() + " db-type: " + column.type);
+			}
+			
+			for (DatabaseColumnSet item : table.columnsSet.values()) {
+				logger.info("\tset-name "+ item.name + " set : " + item.columns.toString());
 			}
 
 		}
@@ -58,6 +66,8 @@ public class Test01 extends BaseTest {
 				logger.info(createSql[i]);
 			}
 		}
+		
+		
 
 	}
 }

@@ -23,5 +23,5 @@ public @interface BindColumn {
 	
 	public ColumnType value() default ColumnType.STANDARD;
 	
-	public boolean nullable() default true;
+	public boolean nullable() default false;
 }

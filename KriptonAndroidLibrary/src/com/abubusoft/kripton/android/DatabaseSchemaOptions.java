@@ -1,10 +1,11 @@
 /**
  * 
  */
-package com.abubusoft.kripton.binder.database;
+package com.abubusoft.kripton.android;
 
 import java.util.HashSet;
 
+import com.abubusoft.kripton.binder.database.NameConverterType;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.exception.MappingException;
 

@@ -13,7 +13,7 @@ public class Bean01 {
 	
 	public long id;
 	
-	@BindColumn(name="hello", value=ColumnType.PRIMARY_KEY)
+	@BindColumn(name="hello", value=ColumnType.PRIMARY_KEY, nullable=true)
 	public String name;
 	
 	public double value;

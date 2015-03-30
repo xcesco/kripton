@@ -23,6 +23,7 @@ public class ElementSchema extends AbstractSchema {
 	public static class ColumnInfo {
 		public String name;
 		public ColumnType feature;
+		public boolean nullable;
 	}
 
 	/**
@@ -105,6 +106,7 @@ public class ElementSchema extends AbstractSchema {
 			if (!"".equals(bindColumnAnnotation.name())) {
 				columnInfo.name = bindColumnAnnotation.name();
 			}
+			columnInfo.nullable=bindColumnAnnotation.nullable();
 		}
 
 	}

@@ -58,6 +58,7 @@
 			<version>3.4.2</version>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -75,9 +76,9 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>../KriptonAndroidLibrary/src/</source>								
+								<source>../KriptonAndroidLibrary/src/</source>
 							</sources>
-							<excludes> 
+							<excludes>
 								<exclude>**/android/**</exclude>
 							</excludes>
 						</configuration>
@@ -97,7 +98,7 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<exclude>**/android/**</exclude>
+								<exclude>**\android\**</exclude>
 							</excludes>
 						</configuration>
 					</execution>
@@ -112,7 +113,7 @@
 					<source>1.7</source>
 					<target>1.7</target>
 					<excludes>
-						<exclude>**/android/**</exclude>
+						<exclude>**\android\**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

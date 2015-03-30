@@ -15,6 +15,14 @@ public class DatabaseColumn {
 	
 	public ColumnType feature;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "DatabaseColumn [name=" + name + ", type=" + type + "]";
+	}
+
 	public ElementSchema schema;
 
 	public String type;

@@ -1,6 +1,7 @@
-package com.abubusoft.kripton.binder.database;
+package com.abubusoft.kripton.android;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteHandler;
+import com.abubusoft.kripton.binder.database.DatabaseHandler;
 import com.abubusoft.kripton.exception.MappingException;
 
 public enum DatabaseType {
