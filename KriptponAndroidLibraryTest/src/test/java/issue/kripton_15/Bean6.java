@@ -19,18 +19,20 @@ import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
  *
  */
 @BindType
-public class Bean5 implements Serializable {
+public class Bean6 implements Serializable {
 
-	public Bean5()
+	public Bean6()
 	{
 		map=new LinkedHashMap<Integer, Level1>();
 	}
-
+	
+	@Bind	
+	public String StringField; 
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
 	@Bind(mapKeyName="k", mapValueName="v")
-	@BindXml(mapEntryStrategy=MapEntryType.ATTRIBUTES)
+	@BindXml(mapEntryStrategy=MapEntryType.ELEMENTS)
 	Map<Integer, Level1> map;
 
 }

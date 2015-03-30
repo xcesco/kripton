@@ -4,8 +4,10 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.database.ColumnType;
+import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
+import com.abubusoft.kripton.exception.MappingException;
 
 /**
  * This bean stores mapping between an XML/JSON/DB element and a POJO field
@@ -119,11 +121,17 @@ public class ElementSchema extends AbstractSchema {
 	 * 
 	 * @param value
 	 */
-	void buildMapInfo(Class<?> mapType, Class<?> keyType, Class<?> valueType, Bind bindAnnotation, MapEntryType policy) {
+	void buildMapInfo(String fieldName, Class<?> mapType, Class<?> keyType, Class<?> valueType, Bind bindAnnotation, MapEntryType policy) {
 		type = ElementSchemaType.MAP;
 		mapInfo = new MapInfo();
 		mapInfo.mapClazz = mapType;
 		mapInfo.entryStrategy = policy;
+		
+		if (policy==MapEntryType.ATTRIBUTES)
+		{
+			if (!Transformer.isPrimitive(keyType)) throw new MappingException("Can not use type "+keyType.getSimpleName()+" as key of map field "+fieldName); 
+			if (!Transformer.isPrimitive(valueType)) throw new MappingException("Can not use type "+valueType.getSimpleName()+" as value of map field "+fieldName);
+		}
 
 		mapInfo.keyClazz = keyType;
 		mapInfo.keyName = bindAnnotation != null ? bindAnnotation.mapKeyName() : Bind.MAP_KEY_DEFAULT;
@@ -222,4 +230,6 @@ public class ElementSchema extends AbstractSchema {
 	public void setWrapperName(String xmlWrapperName) {
 		this.wrapperName = xmlWrapperName;
 	}
+
+
 }

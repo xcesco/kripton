@@ -1,4 +1,4 @@
-package issue.kripton_22;
+package android.kripton_22;
 
 import org.junit.Test;
 

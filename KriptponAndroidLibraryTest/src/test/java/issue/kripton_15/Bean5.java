@@ -26,6 +26,8 @@ public class Bean5 implements Serializable {
 		map=new LinkedHashMap<Integer, Level1>();
 	}
 
+	@Bind	
+	public String StringField; 
 
 	private static final long serialVersionUID = 3113613163524431347L;
 

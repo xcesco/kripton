@@ -116,11 +116,11 @@ public class XmlSAXReader implements BinderReader {
 			holder.xmlReader.setContentHandler(holder.saxHandler);
 			holder.xmlReader.parse(new InputSource(source));
 
-			if (holder.helper.valueStack.size() == 1) { // has one and only one
-														// object
+			if (holder.helper.valueStack.size() == 1) { 
+				// has one and only one object
 				// left on the stack
-				return (T) holder.helper.valueStack.pop(); // read is
-															// successful, just
+				return (T) holder.helper.valueStack.pop(); 
+				// read is successful, just
 				// return the object
 			} else {
 				throw new ReaderException("Error to read/descrialize object, no result to return");

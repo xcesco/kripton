@@ -568,7 +568,7 @@ public class MappingSchema {
 						+ "Framework only supports collection field of Map<K,V> type, and K,V must be bindable types, " + "field = " + field.getName()
 						+ ", type = " + type.getName());
 			}
-			elementSchema.buildMapInfo(type, paramizedType[0], paramizedType[1], bindAnnotation, mapEntryPolicy);
+			elementSchema.buildMapInfo(field.getName(), type, paramizedType[0], paramizedType[1], bindAnnotation, mapEntryPolicy);
 			elementSchema.setFieldType(Map.class);
 			return true;
 		}

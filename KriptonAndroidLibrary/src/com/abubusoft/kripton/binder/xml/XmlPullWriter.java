@@ -325,55 +325,44 @@ public class XmlPullWriter implements BinderWriter {
 			// value
 			if (Transformer.isPrimitive(type.valueClazz)) {
 				String value = Transformer.write(source.getValue(), type.valueClazz);
-				if (StringUtil.isEmpty(value)) {
-					// TODO Exception
+				if (!StringUtil.isEmpty(value)) {
+					serializer.startTag(namespace, valueName);
+					switch (es.getXmlInfo().type) {
+					case TAG:
+					case VALUE:
+						serializer.text(value);
+						break;
+					case VALUE_CDATA:
+						serializer.cdsect(value);
+						break;
+					default:
+						throw new MappingException(es.getXmlInfo().type + " is not supported for xml rapresentation of " + es.getName());
+					}
+					serializer.endTag(namespace, valueName);
 				}
-
-				serializer.startTag(namespace, valueName);
-				switch (es.getXmlInfo().type) {
-				case TAG:
-				case VALUE:
-					serializer.text(value);
-					break;
-				case VALUE_CDATA:
-					serializer.cdsect(value);
-					break;
-				default:
-					throw new MappingException(es.getXmlInfo().type + " is not supported for xml rapresentation of " + es.getName());
-				}
-
-				serializer.endTag(namespace, valueName);
 			} else {
-				// object
-				serializer.startTag(namespace, valueName);
-				this.writeObject(serializer, source.getValue(), namespace);
-				serializer.endTag(namespace, valueName);
+				// object				
+				if (source.getValue() != null) {
+					serializer.startTag(namespace, valueName);
+					this.writeObject(serializer, source.getValue(), namespace);
+					serializer.endTag(namespace, valueName);
+				}
+				
 			}
 			break;
 		case ATTRIBUTES:
-			// key
-			if (Transformer.isPrimitive(type.keyClazz)) {
-				String value = Transformer.write(source.getKey(), type.keyClazz);
-				if (StringUtil.isEmpty(value)) {
-					// TODO Exception
-				}
-				serializer.attribute(namespace, keyName, value);
-			} else {
-				// object
-				// TODO exception
-			}
+		// key
+		{
+			String value = Transformer.write(source.getKey(), type.keyClazz);
+			serializer.attribute(namespace, keyName, value);
+		}
 
 			// value
-			if (Transformer.isPrimitive(type.valueClazz)) {
+			{
 				String value = Transformer.write(source.getValue(), type.valueClazz);
-				if (StringUtil.isEmpty(value)) {
-					// TODO Exception
+				if (!StringUtil.isEmpty(value)) {
+					serializer.attribute(namespace, valueName, value);
 				}
-
-				serializer.attribute(namespace, valueName, value);
-			} else {
-				// object
-				// TODO exception
 			}
 			break;
 		}

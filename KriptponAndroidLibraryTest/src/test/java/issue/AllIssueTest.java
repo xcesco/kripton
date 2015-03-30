@@ -21,6 +21,8 @@ import issue.kripton_15.Issue15Test1;
 import issue.kripton_15.Issue15Test2;
 import issue.kripton_15.Issue15Test3;
 import issue.kripton_15.Issue15Test4;
+import issue.kripton_15.Issue15Test5;
+import issue.kripton_15.Issue15Test6;
 import issue.kripton_20.IssueTest20_1;
 import issue.kripton_3.Issue3Test0;
 import issue.kripton_4.Issue4Test0;
@@ -64,8 +66,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	                   Issue11Test1.class,
 	                   Issue12Test1.class,
 	                   Issue13Test1.class,
-	                   Issue14Test1.class,Issue14Test2.class,
-	                   Issue15Test1.class,Issue15Test2.class, Issue15Test3.class, Issue15Test4.class,
+	                   Issue14Test1.class,Issue14Test2.class,	                   
+	                   Issue15Test1.class,Issue15Test2.class, Issue15Test3.class, Issue15Test4.class,Issue15Test5.class, Issue15Test6.class,
 	                   IssueTest20_1.class
 	})
 //@formatter:on

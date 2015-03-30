@@ -56,6 +56,14 @@
 						<goals>
 							<goal>add-source</goal>
 						</goals>
+						<configuration>
+							<sources>
+								<source>../KriptonAndroidLibrary/src/</source>
+							</sources>
+							<excludes>
+								<exclude>**/android/**</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

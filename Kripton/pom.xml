@@ -6,7 +6,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<url>https://github.com/xcesco/kripton</url>
 
 	<packaging>jar</packaging>
@@ -82,7 +82,24 @@
 								<exclude>**/android/**</exclude>
 							</excludes>
 						</configuration>
+					</execution> 
+					
+					<execution>
+						<id>add-test-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>../KriptonAndroidLibraryTest/src/test/java</source>
+							</sources>
+							<excludes>
+								<exclude>**/android/**</exclude>
+							</excludes>
+						</configuration>
 					</execution>
+					
 				</executions>
 			</plugin>
 
@@ -144,9 +161,8 @@
 											[1.9.1,)
 										</versionRange>
 										<goals>
-											<goal>
-												add-source
-											</goal>
+											<goal>add-source</goal>
+											<goal>add-test-source</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>

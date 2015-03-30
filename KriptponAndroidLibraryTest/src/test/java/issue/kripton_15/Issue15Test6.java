@@ -17,12 +17,12 @@ import org.junit.Before;
  * @author xcesco
  *
  */
-public class Issue15Test4 extends IssueBaseTest<Bean4> {
+public class Issue15Test6 extends IssueBaseTest<Bean6> {
 
 	@Before
 	public void setup()
 	{
-		beanInput=new Bean4();
+		beanInput=new Bean6();
 		
 		Level1 level1_1=new Level1();
 		level1_1.name="index0";
@@ -42,15 +42,10 @@ public class Issue15Test4 extends IssueBaseTest<Bean4> {
 		level1_3.info.local=null;
 		level1_3.info.currency=null;
 		
-		beanInput.map.put("key0", level1_1);
-		beanInput.map.put("key1", level1_2);
-		beanInput.map.put("key3", level1_3);
-		
-		beanInput.list.add(level1_1);
-		beanInput.list.add(level1_3);
-		
-		beanInput.set.add(level1_1);
-		beanInput.set.add(level1_3);
+		beanInput.map.put(0, level1_1);
+		beanInput.map.put(1, level1_2);
+		beanInput.map.put(2, null);
+		beanInput.map.put(3, level1_3);
 		
 		
 	}
