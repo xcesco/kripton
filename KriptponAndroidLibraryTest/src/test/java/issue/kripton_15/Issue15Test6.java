@@ -42,10 +42,10 @@ public class Issue15Test6 extends IssueBaseTest<Bean6> {
 		level1_3.info.local=null;
 		level1_3.info.currency=null;
 		
-		beanInput.map.put(0, level1_1);
-		beanInput.map.put(1, level1_2);
+	//	beanInput.map.put(0, level1_1);
+//		beanInput.map.put(1, level1_2);
 		beanInput.map.put(2, null);
-		beanInput.map.put(3, level1_3);
+		//beanInput.map.put(3, level1_3);
 		
 		
 	}

@@ -109,38 +109,44 @@ class XmlReaderHandler extends DefaultHandler {
 				if (attrs != null && attrs.getLength() > 0) {
 					this.populateAttributes(obj, attrs, ms);
 				}
-			} else { // sub element mapping
-				Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
+			} else {
+				// sub element mapping
+				Class<?> type = null;
+				if (ms.xmlInfo.isMapEntryStub()) {
+					MapEntry mapStrategy = (MapEntry) obj;
 
-				Object schema = xml2SchemaMapping.get(localName);
-				if (schema != null && schema instanceof ElementSchema) {
-					ElementSchema es = (ElementSchema) schema;
+					if (mapStrategy.isKey(localName)) {
+						type = mapStrategy.getMapInfo().keyClazz;
+					} else if (mapStrategy.isValue(localName)) {
+						type = mapStrategy.getMapInfo().valueClazz;
+					}
+					
+					if (!Transformer.isPrimitive(type))
+					{
+						Object newObj = type.newInstance();
+						helper.valueStack.push(newObj);
+						
+					}
+				} else {
+					Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
+					ElementSchema schema = xml2SchemaMapping.get(localName);
 
 					// detect type
-					Class<?> type = es.getFieldType();
-					if (ms.xmlInfo.isMapEntryStub()) {
-						MapEntry mapStrategy = (MapEntry) obj;
-
-						if (mapStrategy.isKey(localName)) {
-							type = mapStrategy.getMapInfo().keyClazz;
-						} else if (mapStrategy.isValue(localName)) {
-							type = mapStrategy.getMapInfo().valueClazz;
-						}
-					}
+					type = schema.getFieldType();
 
 					if (!Transformer.isPrimitive(type)) {
 						Object newObj = null;
-						if (es.isMap()) {
-							Map map = (Map) es.getField().get(obj);
+						if (schema.isMap()) {
+							Map map = (Map) schema.getField().get(obj);
 							if (map == null) {
 								map = new LinkedHashMap();
-								es.getField().set(obj, map);
+								schema.getField().set(obj, map);
 							}
 
-							switch (es.getMapInfo().entryStrategy) {
+							switch (schema.getMapInfo().entryStrategy) {
 							case ATTRIBUTES: {
 								MapEntryImpl mapPolicy = new MapEntryImpl();
-								mapPolicy.set(map, es.getMapInfo());
+								mapPolicy.set(map, schema.getMapInfo());
 
 								if (attrs != null && attrs.getLength() > 0) {
 									this.populateAttributesForMap(mapPolicy, attrs);
@@ -155,7 +161,7 @@ class XmlReaderHandler extends DefaultHandler {
 								return;
 							case ELEMENTS: {
 								MapEntryImpl mapPolicy = new MapEntryImpl();
-								mapPolicy.set(map, es.getMapInfo());
+								mapPolicy.set(map, schema.getMapInfo());
 
 								newObj = mapPolicy;
 							}
@@ -180,6 +186,11 @@ class XmlReaderHandler extends DefaultHandler {
 					}
 
 				}
+
+				// if (schema != null && schema instanceof ElementSchema) {
+				// ElementSchema es = (ElementSchema) schema;
+
+				// }
 			}
 
 		} catch (Exception ex) {
@@ -249,11 +260,37 @@ class XmlReaderHandler extends DefaultHandler {
 				MappingSchema ms = MappingSchema.fromObject(obj);
 
 				Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
-				Object schema = xml2SchemaMapping.get(localName);
+				ElementSchema schema = xml2SchemaMapping.get(localName);
 
-				if (schema != null && schema instanceof ElementSchema) {
-					ElementSchema es = (ElementSchema) schema;
-					Field field = es.getField();
+				if (ms.xmlInfo.isMapEntryStub()) {
+					MapEntry mapStrategy = (MapEntry) obj;
+
+					String xmlData = helper.textBuilder.toString();
+					if (!StringUtil.isEmpty(xmlData)) {
+						Class<?> type;
+						Object value;
+
+						if (mapStrategy.isKey(localName)) {
+							type = mapStrategy.getMapInfo().keyClazz;
+							if (Transformer.isPrimitive(type)) {
+								value = Transformer.read(xmlData, type);
+								mapStrategy.setEntryKey(value);
+							}
+
+						} else if (mapStrategy.isValue(localName)) {
+							type = mapStrategy.getMapInfo().valueClazz;
+							if (Transformer.isPrimitive(type)) {
+								value = Transformer.read(xmlData, type);
+								mapStrategy.setEntryValue(value);
+							}
+						}
+					}
+					// skip depht decrement
+					helper.depth--;
+					return;
+				} else {
+
+					Field field = schema.getField();
 					String xmlData = helper.textBuilder.toString();
 					if (!StringUtil.isEmpty(xmlData)) {
 						if (ms.xmlInfo.isMapEntryStub()) {
@@ -278,8 +315,8 @@ class XmlReaderHandler extends DefaultHandler {
 
 						} else {
 
-							if (es.isList()) {
-								Class<?> paramizedType = es.getFieldType();
+							if (schema.isList()) {
+								Class<?> paramizedType = schema.getFieldType();
 								Object value = Transformer.read(xmlData, paramizedType);
 								List list = (List) field.get(obj);
 								if (list == null) {
@@ -287,8 +324,8 @@ class XmlReaderHandler extends DefaultHandler {
 									field.set(obj, list);
 								}
 								list.add(value);
-							} else if (es.isSet()) {
-								Class<?> paramizedType = es.getFieldType();
+							} else if (schema.isSet()) {
+								Class<?> paramizedType = schema.getFieldType();
 								Object value = Transformer.read(xmlData, paramizedType);
 								Set set = (Set) field.get(obj);
 								if (set == null) {
@@ -296,14 +333,14 @@ class XmlReaderHandler extends DefaultHandler {
 									field.set(obj, set);
 								}
 								set.add(value);
-							} else if (es.isArray() && es.getFieldType() != Byte.TYPE) {
+							} else if (schema.isArray() && schema.getFieldType() != Byte.TYPE) {
 								SchemaArray schemaArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
 
-								if (schemaArray == null || schemaArray.value0 != es) {
-									schemaArray = new SchemaArray(es, new ArrayList());
+								if (schemaArray == null || schemaArray.value0 != schema) {
+									schemaArray = new SchemaArray(schema, new ArrayList());
 									helper.arrayStack.add(schemaArray);
 								}
-								Class<?> paramizedType = es.getFieldType();
+								Class<?> paramizedType = schema.getFieldType();
 								// Object value = Transformer.read(xmlData,
 								// paramizedType);
 								Object value;
@@ -356,6 +393,11 @@ class XmlReaderHandler extends DefaultHandler {
 					Field field = es.getField();
 					if (ms.xmlInfo.isMapEntryStub()) {
 						// do nothing... all is done!
+						MapEntry mapObj = (MapEntry) obj;
+						if (mapObj.isKeyPresent())
+						{
+							mapObj.getMap().put(mapObj.getEntryKey(), mapObj.getEntryValue());
+						}
 					} else if (parentMs.xmlInfo.isMapEntryStub()) {
 						MapEntry mapStrategy = (MapEntry) parentObj;
 						Object value = null;
@@ -431,13 +473,4 @@ class XmlReaderHandler extends DefaultHandler {
 		helper.textBuilder.append(text);
 	}
 
-	protected Object buildObjectFromType(Class<?> type) throws Exception {
-		try {
-			Constructor<?> con = TypeReflector.getConstructor(type);
-			Object obj = con.newInstance();
-			return obj;
-		} catch (NoSuchMethodException nsme) {
-			throw new ReaderException("No-arg contructor is missing, type = " + type.getName());
-		}
-	}
 }

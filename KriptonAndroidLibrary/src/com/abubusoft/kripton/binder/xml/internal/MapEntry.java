@@ -91,4 +91,6 @@ public interface MapEntry {
 	 */
 	void clear();
 
+	public boolean isKeyPresent();
+
 }

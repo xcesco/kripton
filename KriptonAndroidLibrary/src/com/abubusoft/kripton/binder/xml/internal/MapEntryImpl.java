@@ -92,6 +92,11 @@ public class MapEntryImpl implements MapEntry {
 		return mapInfo;
 	}
 
+	@Override
+	public boolean isKeyPresent() {
+		return key != null;
+	}
+
 
 	
 }
