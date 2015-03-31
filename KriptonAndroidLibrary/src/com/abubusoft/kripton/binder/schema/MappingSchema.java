@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.binder.schema;
+package com.abubusoft.kripton.binder.schema; 
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -480,7 +480,7 @@ public class MappingSchema {
 			}
 		}
 
-		// more validation
+		// more validation 
 		if (counters.valueSchemaCount > 1) {
 			throw new MappingException("BinderValue annotation can't annotate more than one fields in same class," + " type = " + type.getName());
 		}

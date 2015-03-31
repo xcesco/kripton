@@ -6,11 +6,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.abubusoft.kripton.exception.MappingException;
 
 /**
  * Type reflection utils.
@@ -30,8 +31,9 @@ public class TypeReflector {
 	 *            a java.lang.reflect.Field object
 	 * @return parameterized Class type
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Class<?>[] getParameterizedTypeArray(Field field, GenericClass generics) {
-		Class<?> paramClass[] = null;
+		Class<?> paramClass[] = null; 
 		Type genericType = field.getGenericType();
 
 		if (genericType instanceof ParameterizedType) {
@@ -43,8 +45,7 @@ public class TypeReflector {
 				if (type.getActualTypeArguments()[i] instanceof Class) {
 					paramClass[i] = (Class<?>) type.getActualTypeArguments()[i];
 				} else if (type.getActualTypeArguments()[i] instanceof TypeVariable) {
-					@SuppressWarnings("rawtypes")
-					TypeVariable temp = (TypeVariable) type.getActualTypeArguments()[i];
+					TypeVariable temp = (TypeVariable) type.getActualTypeArguments()[i]; 
 
 					if (temp.getBounds() != null) {
 						Class<?> a = (Class<?>) temp.getGenericDeclaration();
@@ -54,6 +55,14 @@ public class TypeReflector {
 						if (paramClass[i] == null)
 							paramClass[i] = (Class<?>) temp.getBounds()[i];
 					}
+				} else if (type.getActualTypeArguments()[i] instanceof ParameterizedType) {
+					// could not include directly
+					throw new MappingException("Can't use type " + type.getActualTypeArguments()[i] + " directly as " + " element of map " + field.getName()+". Use a wrapper class.");
+				}
+				
+				if (paramClass[i]==Object.class)
+				{
+					throw new MappingException("Can't use type " + type.getActualTypeArguments()[i] + " directly as " + " element of map " + field.getName()+". Use a wrapper class.");
 				}
 			}
 		}
@@ -85,7 +94,7 @@ public class TypeReflector {
 					@SuppressWarnings("rawtypes")
 					TypeVariable temp = (TypeVariable) type.getActualTypeArguments()[0];
 
-					if (temp.getBounds() != null) {
+					if (temp.getBounds() != null) { 
 						Class<?> a = (Class<?>) temp.getGenericDeclaration();
 						String resolved = a.getName() + "--" + temp.getName();
 
@@ -95,7 +104,12 @@ public class TypeReflector {
 					} else {
 					}
 
+				} else if (type.getActualTypeArguments()[0] instanceof ParameterizedType) {
+					// could not include directly
+					throw new MappingException("Can't use type " + type.getActualTypeArguments()[0] + " directly as " + " element of map " + field.getName()+". Use a wrapper class.");
 				}
+			} else {
+				throw new MappingException("Type of field "+ field.getName()+" is too complex for Kritpon.");
 			}
 		}
 		return paramClass;

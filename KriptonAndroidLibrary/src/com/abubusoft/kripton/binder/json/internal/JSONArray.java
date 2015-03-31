@@ -103,7 +103,7 @@ public class JSONArray {
      */
     public JSONArray(JSONTokener x) throws JSONException {
         this();
-        if (x.nextClean() != '[') {
+        if (x.nextClean() != '[') { 
             throw x.syntaxError("A JSONArray text must start with '['");
         }
         if (x.nextClean() != ']') {

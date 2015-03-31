@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
  * @author xcesco
  *
  */
-public class AbstractSchema {
+public class AbstractSchema { 
 
 	protected Field field;
 

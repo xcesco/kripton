@@ -322,7 +322,7 @@ public class XmlPullWriter implements BinderWriter {
 				serializer.endTag(namespace, keyName);
 			}
 
-			// value
+			// value 
 			if (Transformer.isPrimitive(type.valueClazz)) {
 				String value = Transformer.write(source.getValue(), type.valueClazz);
 				if (!StringUtil.isEmpty(value)) {

@@ -14,7 +14,7 @@ import com.abubusoft.kripton.binder.database.DatabaseTable;
 
 public class SQLiteHandler implements DatabaseHandler {
 
-	public static HashMap<Class<?>, String> mapToType;
+	public HashMap<Class<?>, String> mapToType;
 
 	protected ThreadLocal<ContentValues> values = new ThreadLocal<ContentValues>();
 
