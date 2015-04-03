@@ -11,9 +11,10 @@ import com.abubusoft.kripton.binder.database.ColumnType;
 @BindAllFields
 public class Bean01 {
 	
+	@BindColumn(value=ColumnType.PRIMARY_KEY)
 	public long id;
 	
-	@BindColumn(name="hello", value=ColumnType.PRIMARY_KEY, nullable=true)
+	@BindColumn(name="hello")
 	public String name;
 	
 	public double value;

@@ -1,6 +1,5 @@
 package com.abubusoft.kripton.binder.database;
 
-import com.abubusoft.kripton.android.DatabaseColumnSet;
 
 public interface DatabaseHandler {
 
@@ -12,6 +11,6 @@ public interface DatabaseHandler {
 
 	String dropTableSQL(DatabaseTable table);
 	
-	DatabaseColumnSet createColumnSet(DatabaseTable table, String fields);
+	DatabaseColumnSet createColumnSet(DatabaseTable table, String fieldsPart, String wherePart, String orderPart);
 
 }

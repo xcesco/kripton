@@ -1,18 +1,18 @@
-package com.abubusoft.kripton.android.sqlite;
+package com.abubusoft.kripton.android;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import android.content.ContentValues;
 
-import com.abubusoft.kripton.android.DatabaseColumnSet;
+import com.abubusoft.kripton.binder.database.AbstractDatabaseHandler;
+import com.abubusoft.kripton.binder.database.ColumnType;
 import com.abubusoft.kripton.binder.database.DatabaseColumn;
-import com.abubusoft.kripton.binder.database.DatabaseHandler;
 import com.abubusoft.kripton.binder.database.DatabaseTable;
 
-public class SQLiteHandler implements DatabaseHandler {
+public class SQLiteHandler extends AbstractDatabaseHandler {
+
+	private static final long serialVersionUID = -8926461587267041987L;
 
 	public HashMap<Class<?>, String> mapToType;
 
@@ -51,7 +51,7 @@ public class SQLiteHandler implements DatabaseHandler {
 				Class<?> classes[] = { float.class, Float.class, double.class, Double.class, BigDecimal.class };
 
 				for (int i = 0; i < classes.length; i++) {
-					mapToType.put(classes[i], "INTEGER");
+					mapToType.put(classes[i], "REAL");
 				}
 			}
 		}
@@ -89,7 +89,7 @@ public class SQLiteHandler implements DatabaseHandler {
 			}
 
 			// nullable
-			if (!column.schema.getColumnInfo().nullable) {
+			if (column.feature!=ColumnType.PRIMARY_KEY && !column.schema.getColumnInfo().nullable) {
 				sb.append(" not null");
 			}
 
@@ -106,39 +106,5 @@ public class SQLiteHandler implements DatabaseHandler {
 		return sb.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.binder.database.DatabaseHandler#createColumnSet(com.abubusoft.kripton.binder.database.DatabaseTable, java.lang.String)
-	 */
-	@Override
-	public DatabaseColumnSet createColumnSet(DatabaseTable table, String fields) {
-		String normalizedFields = fields.replace(" ", "");
-		DatabaseColumnSet set = table.columnsSet.get(normalizedFields);
-
-		if (set == null) {
-			set = new DatabaseColumnSet();
-			set.name = normalizedFields;
-
-			table.columnsSet.put(normalizedFields, set);
-		} else {
-			return set;
-		}
-
-		if ("*".equals(normalizedFields)) {
-			ArrayList<DatabaseColumn> columns = table.columns;
-			for (DatabaseColumn item : columns) {
-				set.columns.add(item);
-			}
-		} else {
-			String[] fieldsArray = normalizedFields.split(",");
-
-			Map<String, DatabaseColumn> map = table.field2column;
-			for (String item : fieldsArray) {
-				DatabaseColumn column = map.get(item);
-				set.columns.add(column);
-			}
-		}
-
-		return set;
-	}
 
 }

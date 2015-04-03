@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.binder.schema; 
+package com.abubusoft.kripton.binder.schema;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -86,6 +86,16 @@ public class MappingSchema {
 		int valueSchemaCount;
 		int anyElementSchemaCount;
 		int elementSchemaCount;
+
+		int primaryKeyCount;
+
+		public void reset() {
+			valueSchemaCount = 0;
+			anyElementSchemaCount = 0;
+			elementSchemaCount = 0;
+
+			primaryKeyCount = 0;
+		}
 	}
 
 	/**
@@ -216,7 +226,7 @@ public class MappingSchema {
 			currentCounters.elementSchemaCount += parentCounters.elementSchemaCount;
 			currentCounters.valueSchemaCount += parentCounters.valueSchemaCount;
 
-			// more validation
+			// xml validation
 			if (currentCounters.valueSchemaCount > 1) {
 				throw new MappingException("BinderValue annotation can't annotate more than one fields in the classes of " + " type = " + type.getName()
 						+ " and parentType = " + superType.getName());
@@ -237,6 +247,12 @@ public class MappingSchema {
 			parentField2SchemaMapping.addAll(listSchema);
 			listSchema = parentField2SchemaMapping;
 			superType = superType.getSuperclass();
+		}
+
+		// database validation
+		if (currentCounters.primaryKeyCount > 1) {
+			throw new MappingException("There are more than one primary key in the classes of " + " type = " + type.getName() + " and parentType = "
+					+ superType.getName());
 		}
 
 		// sort fields by order annotations, or name order
@@ -345,9 +361,7 @@ public class MappingSchema {
 		Field[] fields = type.getDeclaredFields();
 
 		// used for validation
-		counters.valueSchemaCount = 0;
-		counters.anyElementSchemaCount = 0;
-		counters.elementSchemaCount = 0;
+		counters.reset();
 
 		int modifier;
 		String nameFromAnnotation;
@@ -357,8 +371,8 @@ public class MappingSchema {
 
 		for (Field field : fields) {
 
+			// unlock field if needed
 			if (!field.isAccessible()) {
-				// unlock field
 				field.setAccessible(true);
 			}
 
@@ -440,6 +454,7 @@ public class MappingSchema {
 					}
 				}
 
+				// xml section
 				switch (elementSchema.xmlInfo.type) {
 				case ATTRIBUTE:
 					// validation for attribute
@@ -476,11 +491,31 @@ public class MappingSchema {
 					break;
 				}
 
+				// database section
+				switch (elementSchema.getColumnInfo().feature) {
+				case STANDARD:
+					break;
+				case PRIMARY_KEY:
+					if (elementSchema.getColumnInfo().nullable) {
+						throw new MappingException("BindColumn can not hold a primary key nullable for field = " + field.getName() + ", type = "
+								+ type.getName());
+					}
+
+					counters.primaryKeyCount++;
+					break;
+				case FOREIGN_KEY:
+				case INDEX:
+				case MAP_KEY:
+				case MAP_VALUE:
+				case UNIQUE_KEY:
+					break;
+				}
+
 				fieldsMap.add(elementSchema);
 			}
 		}
 
-		// more validation 
+		// xml validation
 		if (counters.valueSchemaCount > 1) {
 			throw new MappingException("BinderValue annotation can't annotate more than one fields in same class," + " type = " + type.getName());
 		}

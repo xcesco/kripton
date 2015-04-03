@@ -1,15 +1,17 @@
 /**
  * 
  */
-package com.abubusoft.kripton.android;
+package com.abubusoft.kripton.binder.database;
 
 import java.util.HashSet;
 
-import com.abubusoft.kripton.binder.database.NameConverterType;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.exception.MappingException;
 
 /**
+ * 
+ * Options for database creation.
+ * 
  * @author xcesco
  *
  */

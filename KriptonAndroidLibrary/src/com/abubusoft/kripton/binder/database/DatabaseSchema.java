@@ -1,12 +1,10 @@
-package com.abubusoft.kripton.android;
+package com.abubusoft.kripton.binder.database;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.abubusoft.kripton.binder.database.DatabaseColumn;
-import com.abubusoft.kripton.binder.database.DatabaseHandler;
-import com.abubusoft.kripton.binder.database.DatabaseTable;
+import com.abubusoft.kripton.android.DatabaseType;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.common.LRUCache;
@@ -53,6 +51,12 @@ public class DatabaseSchema {
 			for (ElementSchema element: item.getField2SchemaMapping().values())
 			{
 				column=new DatabaseColumn();
+				
+				if (element.getColumnInfo().feature==ColumnType.PRIMARY_KEY)
+				{
+					element.getColumnInfo().name="_id";
+				}
+				
 				column.name=options.nameConverter.convertName(element.getColumnInfo().name);
 				column.feature=element.getColumnInfo().feature;
 				column.schema=element;
@@ -67,11 +71,16 @@ public class DatabaseSchema {
 		}
 	}
 	
-	public void queryFields(Class<?> clazz, String values)
+	public DatabaseColumnSet queryFields(Class<?> clazz, String values)
+	{
+		return queryFields(clazz, values, null, null);
+	}
+	
+	public DatabaseColumnSet queryFields(Class<?> clazz, String values, String where, String orderBy)
 	{
 		MappingSchema schema=MappingSchema.fromClass(clazz);
 			
-		handler.createColumnSet(schema2Table.get(schema), values);
+		return handler.createColumnSet(schema2Table.get(schema), values, where, orderBy);
 	}
 	
 	public String[] createTablesSQL()
