@@ -59,12 +59,13 @@ public abstract class AbstractDatabaseHandler implements Serializable, DatabaseH
 	 * (com.abubusoft.kripton.binder.database.DatabaseTable, java.lang.String)
 	 */
 	@Override
-	public DatabaseColumnSet createColumnSet(DatabaseTable table, String fieldsPart, String wherePart, String orderPart) {
+	public Query createColumnSet(DatabaseTable table, String fieldsPart, String wherePart, String orderPart) {
 		String normalizedFields = fieldsPart.replaceAll("\\s", "");
-		DatabaseColumnSet set = table.columnsSet.get(normalizedFields);
+		Query set = table.columnsSet.get(normalizedFields);
+		ArrayList<DatabaseColumn> columns=new ArrayList<DatabaseColumn>();
 
 		if (set == null) {
-			set = new DatabaseColumnSet();
+			set = new Query();
 			set.name = normalizedFields;
 
 			table.columnsSet.put(normalizedFields, set);
@@ -73,10 +74,9 @@ public abstract class AbstractDatabaseHandler implements Serializable, DatabaseH
 		}
 
 		// fieldsPart
-		if ("*".equals(normalizedFields)) {
-			ArrayList<DatabaseColumn> columns = table.columns;
+		if ("*".equals(normalizedFields)) {			
 			for (DatabaseColumn item : columns) {
-				set.columns.add(item);
+				columns.add(item);
 			}
 		} else {
 			String[] fieldsArray = normalizedFields.split(",");
@@ -84,9 +84,16 @@ public abstract class AbstractDatabaseHandler implements Serializable, DatabaseH
 			Map<String, DatabaseColumn> map = table.field2column;
 			for (String item : fieldsArray) {
 				DatabaseColumn column = map.get(item);
-				set.columns.add(column);
+				columns.add(column);
 			}
 		}
+		
+		set.columns=new DatabaseColumn[columns.size()];
+		if (set.columns.length>0)
+		{
+			columns.toArray(set.columns);
+		}
+		
 
 		// wherePart
 		set.where=splitParams(wherePart);

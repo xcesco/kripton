@@ -12,7 +12,7 @@ import com.abubusoft.kripton.binder.schema.MappingSchema;
  */
 public class DatabaseTable {
 	 
-	public LinkedHashMap<String, DatabaseColumnSet> columnsSet=new LinkedHashMap<String, DatabaseColumnSet>();
+	public LinkedHashMap<String, Query> columnsSet=new LinkedHashMap<String, Query>();
 	
 	public ArrayList<DatabaseColumn> columns = new ArrayList<DatabaseColumn>();
 	

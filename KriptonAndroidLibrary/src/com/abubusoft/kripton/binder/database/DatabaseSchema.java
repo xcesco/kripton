@@ -71,12 +71,12 @@ public class DatabaseSchema {
 		}
 	}
 	
-	public DatabaseColumnSet queryFields(Class<?> clazz, String values)
+	public Query queryFields(Class<?> clazz, String values)
 	{
 		return queryFields(clazz, values, null, null);
 	}
 	
-	public DatabaseColumnSet queryFields(Class<?> clazz, String values, String where, String orderBy)
+	public Query queryFields(Class<?> clazz, String values, String where, String orderBy)
 	{
 		MappingSchema schema=MappingSchema.fromClass(clazz);
 			

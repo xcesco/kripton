@@ -10,7 +10,7 @@ import com.abubusoft.kripton.Options;
 import com.abubusoft.kripton.android.DatabaseType;
 import com.abubusoft.kripton.android.SQLiteHandler;
 import com.abubusoft.kripton.binder.database.DatabaseColumn;
-import com.abubusoft.kripton.binder.database.DatabaseColumnSet;
+import com.abubusoft.kripton.binder.database.Query;
 import com.abubusoft.kripton.binder.database.DatabaseSchema;
 import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
 import com.abubusoft.kripton.binder.database.DatabaseTable;
@@ -68,7 +68,7 @@ public class Test01 extends BaseTest {
 						+ column.schema.getFieldType() + " db-type: " + column.type);
 			}
 
-			for (DatabaseColumnSet item : table.columnsSet.values()) {
+			for (Query item : table.columnsSet.values()) {
 				logger.info("\tset-name " + item.name + " set : " + item.columns.toString());
 			}
 

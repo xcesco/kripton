@@ -3,17 +3,15 @@
  */
 package com.abubusoft.kripton.binder.database;
 
-import java.util.ArrayList;
-
 /**
  * @author xcesco
  *
  */
-public class DatabaseColumnSet {
+public class Query {
 	
 	public String name;
 
-	public ArrayList<DatabaseColumn> columns=new ArrayList<DatabaseColumn>();
+	public DatabaseColumn[] columns;
 
 	public ParametrizedString where;
 	
