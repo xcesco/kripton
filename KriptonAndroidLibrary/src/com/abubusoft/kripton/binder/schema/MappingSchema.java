@@ -658,6 +658,17 @@ public class MappingSchema {
 	public static MappingSchema fromObject(Object object) throws MappingException {
 		return fromClass(object.getClass());
 	}
+	
+	/**
+	 * True if class is contained in maps.
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public static boolean contains(Class<?> type)
+	{
+		return schemaCache.containsKey(type);
+	}
 
 	/**
 	 * Factory method.

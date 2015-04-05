@@ -3,7 +3,7 @@ package com.abubusoft.kripton.binder.schema;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder.database.ColumnType;
+import com.abubusoft.kripton.database.ColumnType;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;

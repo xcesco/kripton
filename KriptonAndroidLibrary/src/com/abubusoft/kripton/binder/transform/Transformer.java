@@ -65,7 +65,13 @@ public class Transformer {
 		cache.put(type, transform);
 	}
 
-	private static Transformable<?> lookup(Class<?> type) {
+	/**
+	 * Get transformer for type
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public static Transformable<?> lookup(Class<?> type) {
 		Transformable<?> transform = cache.get(type);
 
 		if (transform != null) {

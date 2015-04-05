@@ -3,12 +3,12 @@ package com.abubusoft.kripton.android;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-import android.content.ContentValues;
+import com.abubusoft.kripton.database.AbstractDatabaseHandler;
+import com.abubusoft.kripton.database.ColumnType;
+import com.abubusoft.kripton.database.DatabaseColumn;
+import com.abubusoft.kripton.database.DatabaseTable;
 
-import com.abubusoft.kripton.binder.database.AbstractDatabaseHandler;
-import com.abubusoft.kripton.binder.database.ColumnType;
-import com.abubusoft.kripton.binder.database.DatabaseColumn;
-import com.abubusoft.kripton.binder.database.DatabaseTable;
+import android.content.ContentValues;
 
 public class SQLiteHandler extends AbstractDatabaseHandler {
 
