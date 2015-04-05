@@ -6,7 +6,10 @@ package android.kripton_22;
 import java.util.Date;
 
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindColumn;
+import com.abubusoft.kripton.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.database.ColumnType;
 
 /**
  * <p>
@@ -17,9 +20,11 @@ import com.abubusoft.kripton.annotation.BindType;
  * 
  */
 @BindType
+@BindTable(name="message")
 public class ChatMessage {
 
-	@Bind
+	@Bind(order=0)
+	@BindColumn(ColumnType.PRIMARY_KEY)
 	public long id;
 	
 	@Bind

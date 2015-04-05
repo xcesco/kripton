@@ -11,7 +11,7 @@ import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderFactory.ReaderType;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Options;
+import com.abubusoft.kripton.BinderOptions;
 
 /**
  * @author xcesco
@@ -23,28 +23,28 @@ public class BinderFactoryTest {
 	public void test() {
 		{
 			BinderWriter writer1 = BinderFactory.getJSONWriter();
-			BinderWriter writer2 = BinderFactory.getJSONWriter(Options.build());
+			BinderWriter writer2 = BinderFactory.getJSONWriter(BinderOptions.build());
 
 			assertReflectionEquals(writer1, writer2);
 		}
 
 		{
 			BinderWriter writer1 = BinderFactory.getXMLWriter();
-			BinderWriter writer2 = BinderFactory.getXMLWriter(Options.build());
+			BinderWriter writer2 = BinderFactory.getXMLWriter(BinderOptions.build());
 
 			assertReflectionEquals(writer1, writer2);
 		}
 		
 		{
 			BinderReader reader1 = BinderFactory.getJSONReader();
-			BinderReader reader2 = BinderFactory.getJSONReader(Options.build().encoding(Options.ENCODING_UTF_8));
+			BinderReader reader2 = BinderFactory.getJSONReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 
 			assertReflectionEquals(reader1, reader2);
 		}
 
 		{
 			BinderReader reader1 = BinderFactory.getXMLReader();
-			BinderReader reader2 = BinderFactory.getXMLReader(Options.build());
+			BinderReader reader2 = BinderFactory.getXMLReader(BinderOptions.build());
 
 			assertReflectionEquals(reader1, reader2);
 		}
@@ -52,7 +52,7 @@ public class BinderFactoryTest {
 		{
 			BinderFactory.readerType=ReaderType.DOM;
 			BinderReader reader1 = BinderFactory.getXMLReader();
-			BinderReader reader2 = BinderFactory.getXMLReader(Options.build());
+			BinderReader reader2 = BinderFactory.getXMLReader(BinderOptions.build());
 
 			assertReflectionEquals(reader1, reader2);
 		}
@@ -60,7 +60,7 @@ public class BinderFactoryTest {
 		{
 			BinderFactory.readerType=ReaderType.SAX;
 			BinderReader reader1 = BinderFactory.getXMLReader();
-			BinderReader reader2 = BinderFactory.getXMLReader(Options.build().encoding(Options.ENCODING_UTF_8));
+			BinderReader reader2 = BinderFactory.getXMLReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 
 			assertReflectionEquals(reader1, reader2);
 		}

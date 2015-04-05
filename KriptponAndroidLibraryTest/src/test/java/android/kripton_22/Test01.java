@@ -8,18 +8,20 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Options;
-import com.abubusoft.kripton.android.DatabaseType;
+import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.android.SQLiteHandler;
+import com.abubusoft.kripton.android.SQLiteQuery;
+import com.abubusoft.kripton.android.SQLiteSchema;
 import com.abubusoft.kripton.annotation.BindQueryParams;
-import com.abubusoft.kripton.binder.database.DatabaseColumn;
-import com.abubusoft.kripton.binder.database.Query;
-import com.abubusoft.kripton.binder.database.DatabaseSchema;
-import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
-import com.abubusoft.kripton.binder.database.DatabaseTable;
-import com.abubusoft.kripton.binder.database.ParametrizedString;
-import com.abubusoft.kripton.binder.database.QueryOptions;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
+import com.abubusoft.kripton.database.DatabaseColumn;
+import com.abubusoft.kripton.database.DatabaseSchemaOptions;
+import com.abubusoft.kripton.database.DatabaseTable;
+import com.abubusoft.kripton.database.Insert;
+import com.abubusoft.kripton.database.InsertOptions;
+import com.abubusoft.kripton.database.ParametrizedString;
+import com.abubusoft.kripton.database.QueryOptions;
+import com.abubusoft.kripton.database.SQLStatement;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 
@@ -42,9 +44,7 @@ public class Test01 extends BaseTest {
 		String input = " id = #{id	}, name=#{  name} and love=#{name};";
 		logger.info("input  " + input);
 		
-		SQLiteHandler handler=new SQLiteHandler();
-		
-		ParametrizedString result = handler.splitParams(input);
+		ParametrizedString result = SQLiteHandler.splitParams(input);
 		logger.info("output " + result.value);
 		
 		int i=0;
@@ -59,7 +59,7 @@ public class Test01 extends BaseTest {
 	public void test01() throws MappingException, WriterException {
 		Bean01 bean = new Bean01();
 
-		BinderWriter writer = BinderFactory.getXMLWriter(Options.build().indent(true));
+		BinderWriter writer = BinderFactory.getXMLWriter(BinderOptions.build().indent(true));
 
 		MappingSchema mappingSchema = MappingSchema.fromClass(Bean01.class);
 
@@ -69,7 +69,7 @@ public class Test01 extends BaseTest {
 		options.tablePrefix("TD_");
 		options.add(Bean01.class);
 
-		DatabaseSchema databaseSchema = DatabaseSchema.build("prova", DatabaseType.SQLITE, options);
+		SQLiteSchema databaseSchema = SQLiteSchema.build("prova", options);
 
 		databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name,\n id"));
 		databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{name} and love=#{name}"));
@@ -82,7 +82,7 @@ public class Test01 extends BaseTest {
 						+ column.schema.getFieldType() + " db-type: " + column.type);
 			}
 
-			for (Query item : table.queries.values()) {
+			for (SQLStatement item : table.queries.values()) {
 				logger.info("\tset-name " + item.name + " set : " + item.columns.toString());
 			}
 
@@ -101,8 +101,10 @@ public class Test01 extends BaseTest {
 				logger.info(createSql[i]);
 			}
 		}
+		
+		SQLStatement query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{name} and love=#{name}").paramsClass(Params.class));
 
-		SQLiteDatabase db = SQLiteDatabase.openDatabase("", null, 0);
+		//SQLiteDatabase db = SQLiteDatabase.openDatabase("", null, 0);
 		// db.ra
 
 	}
@@ -111,19 +113,13 @@ public class Test01 extends BaseTest {
 	public void test03() throws MappingException, WriterException {
 		Bean01 bean = new Bean01();
 
-		BinderWriter writer = BinderFactory.getXMLWriter(Options.build().indent(true));
-
-		MappingSchema mappingSchema = MappingSchema.fromClass(Bean01.class);
-
-		logger.info("\n" + writer.write(mappingSchema));
-
 		DatabaseSchemaOptions options = DatabaseSchemaOptions.build();
 		options.tablePrefix("TD_");
 		options.add(Bean01.class);
 
-		DatabaseSchema databaseSchema = DatabaseSchema.build("prova", DatabaseType.SQLITE, options);
+		SQLiteSchema databaseSchema = SQLiteSchema.build("prova", options);
 		
-		Query query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{name} and love=#{name}").paramsClass(Params.class));
+		SQLStatement query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{name} and love=#{name}").paramsClass(Params.class));		
 		
 		logger.info(""+query.columns.length);
 	}
@@ -131,18 +127,75 @@ public class Test01 extends BaseTest {
 	@BindQueryParams
 	public static class P{
 		String uid;
+		
+		float latitude;
 	}
 	
 	@Test
-	public void test04() throws MappingException, WriterException {
+	public void testSelect() throws MappingException, WriterException {
 		DatabaseSchemaOptions options = DatabaseSchemaOptions.build();
 		options.tablePrefix("TD_");
 		options.add(ChatMessage.class);
 
-		DatabaseSchema databaseSchema = DatabaseSchema.build("prova", DatabaseType.SQLITE, options);
+		SQLiteSchema databaseSchema = SQLiteSchema.build("prova", options);
+		SQLiteQuery query = databaseSchema.createQuery(ChatMessage.class, QueryOptions.build().where("uid=#{uid} and latitude=#{latitude} and latitude=#{latitude}").paramsClass(P.class));
+		logger.info(""+query.getSQL());
+		P params=new P();
+		params.uid="xxx";
+		params.latitude=12.0f;
 		
-		Query query = databaseSchema.createQuery(ChatMessage.class, QueryOptions.build().where("uid=#{uid}").paramsClass(P.class));
+		String[] p = query.getParams(params);
+		for (String item: p)
+		{
+			logger.info("parameter: "+item);
+		}
 		
-		logger.info(""+query.columns.length);
+		{
+			String[] createSql = databaseSchema.createTablesSQL();
+			for (int i = 0; i < createSql.length; i++) {
+				logger.info(createSql[i]);
+			}
+		}
+
+		{
+			String[] createSql = databaseSchema.dropTablesSQL();
+			for (int i = 0; i < createSql.length; i++) {
+				logger.info(createSql[i]);
+			}
+		}				
+	}
+	
+	@Test
+	public void testInsert() throws MappingException, WriterException {
+		DatabaseSchemaOptions options = DatabaseSchemaOptions.build();
+		options.tablePrefix("TD_");
+		options.add(ChatMessage.class);
+
+		SQLiteSchema databaseSchema = SQLiteSchema.build("prova", options);
+		Insert query = databaseSchema.createInsert(ChatMessage.class, InsertOptions.build());
+		logger.info(""+query.getSQL());
+//		P params=new P();
+//		params.uid="xxx";
+//		params.latitude=12.0f;
+//		
+//		String[] p = query.getParams(params);
+//		for (String item: p)
+//		{
+//			logger.info("parameter: "+item);
+//		}
+//		
+//		{
+//			String[] createSql = databaseSchema.createTablesSQL();
+//			for (int i = 0; i < createSql.length; i++) {
+//				logger.info(createSql[i]);
+//			}
+//		}
+//
+//		{
+//			String[] createSql = databaseSchema.dropTablesSQL();
+//			for (int i = 0; i < createSql.length; i++) {
+//				logger.info(createSql[i]);
+//			}
+//		}				
 	}
 }
