@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import com.abubusoft.kripton.BinderReader;
-import com.abubusoft.kripton.Options;
+import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.binder.transform.Transformer;
@@ -32,7 +32,7 @@ import com.abubusoft.kripton.common.TypeReflector;
 public class XmlSAXReader implements BinderReader {
 
 	private static SAXParserFactory spf;
-	private Options format;
+	private BinderOptions format;
 
 	/**
 	 * holder for thread.
@@ -71,10 +71,10 @@ public class XmlSAXReader implements BinderReader {
 	};
 
 	public XmlSAXReader() {
-		this(new Options());
+		this(new BinderOptions());
 	}
 
-	public XmlSAXReader(Options format) {
+	public XmlSAXReader(BinderOptions format) {
 		this.format = format;
 		spf = SAXParserFactory.newInstance();
 		spf.setNamespaceAware(true);

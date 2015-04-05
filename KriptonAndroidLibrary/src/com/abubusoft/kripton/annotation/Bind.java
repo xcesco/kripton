@@ -61,6 +61,6 @@ public @interface Bind {
 	 * 
 	 * @return
 	 */
-	public int order() default 0;
+	public int order() default 1000;
 
 }

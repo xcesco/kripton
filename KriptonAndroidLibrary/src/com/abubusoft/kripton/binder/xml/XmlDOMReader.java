@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.abubusoft.kripton.BinderReader;
-import com.abubusoft.kripton.Options;
+import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
@@ -45,7 +45,7 @@ import com.abubusoft.kripton.common.TypeReflector;
  */
 public class XmlDOMReader implements BinderReader {
 
-	protected Options format;
+	protected BinderOptions format;
 
 	protected static final ThreadLocal<DocumentBuilder> localBuilder = new ThreadLocal<DocumentBuilder>() {
 		@Override
@@ -63,10 +63,10 @@ public class XmlDOMReader implements BinderReader {
 	};
 
 	public XmlDOMReader() {
-		this(new Options());
+		this(new BinderOptions());
 	}
 
-	public XmlDOMReader(Options options) {
+	public XmlDOMReader(BinderOptions options) {
 		this.format = options;
 	}
 

@@ -1,6 +1,7 @@
 package com.abubusoft.kripton.database;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 import com.abubusoft.kripton.annotation.BindQueryParams;
 import com.abubusoft.kripton.binder.transform.Transformer;
@@ -46,6 +47,11 @@ public class DatabaseHelper {
 		QueryParam param;
 
 		for (Field item : clazz.getDeclaredFields()) {
+			//
+			if (Modifier.isStatic(item.getModifiers())) continue;
+			
+			if (!item.isAccessible()) item.setAccessible(true);
+			
 			if (!Transformer.isTransformable(item.getType())) {
 				throw new MappingException("Can not use class " + item.getType() + " like params for query because field " + item.getName()
 						+ " has not a string convertion.");

@@ -22,4 +22,6 @@ public class DatabaseTable {
 	
 	public MappingSchema schema;
 
+	public LinkedHashMap<String, Insert> inserts=new LinkedHashMap<String, Insert>();
+
 }

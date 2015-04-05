@@ -4,29 +4,27 @@
 package com.abubusoft.kripton.android;
 
 import com.abubusoft.kripton.database.DatabaseHandler;
-import com.abubusoft.kripton.database.DatabaseSchema;
+import com.abubusoft.kripton.database.AbstractDatabaseSchema;
 import com.abubusoft.kripton.database.DatabaseSchemaOptions;
 
 /**
  * @author xcesco
  *
  */
-public class SQLiteSchema extends DatabaseSchema {
-
-	protected SQLiteSchema(DatabaseHandler handler, DatabaseSchemaOptions options) {
+public class SQLiteSchema extends AbstractDatabaseSchema<SQLiteQuery> {
+	
+	public SQLiteSchema(DatabaseHandler<SQLiteQuery> handler, DatabaseSchemaOptions options) {
 		super(handler, options);
 	}
-	
-	public static DatabaseSchema build(String name, DatabaseSchemaOptions options) {
+
+	public static SQLiteSchema build(String name, DatabaseSchemaOptions options) {
 		if (schemaCache.containsKey(name)) {
-			return schemaCache.get(name);
+			return (SQLiteSchema) schemaCache.get(name);
 		} else {
-			DatabaseSchema dbSchema = new SQLiteSchema(new SQLiteHandler(), options);
+			SQLiteSchema dbSchema = new SQLiteSchema(new SQLiteHandler(), options);
 			schemaCache.put(name, dbSchema);
 			return dbSchema;
 		}
 	}
-	
-	
 
 }

@@ -7,7 +7,7 @@ package com.abubusoft.kripton;
  * @author xcesco
  *
  */
-public class Options {
+public class BinderOptions {
 
 	public static final String DEFAULT_ENCODING = "utf-8";
 	
@@ -18,8 +18,8 @@ public class Options {
 	 * 
 	 * @return
 	 */
-	public static Options build() {
-		return new Options();
+	public static BinderOptions build() {
+		return new BinderOptions();
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class Options {
 	/**
 	 * if true use apostrophe to delimit strings. Used only for xml format.
 	 */
-	public Options useApostrophe(boolean useApostrophe) {
+	public BinderOptions useApostrophe(boolean useApostrophe) {
 		this.useApostrophe = useApostrophe;
 		
 		return this;
@@ -60,7 +60,7 @@ public class Options {
 	 * encoding defaults to utf-8, indent defaults to false.
 	 * 
 	 */
-	public Options() {
+	public BinderOptions() {
 		encoding = DEFAULT_ENCODING;
 		indent = false;
 	}
@@ -70,7 +70,7 @@ public class Options {
 	 * 
 	 * @return
 	 */
-	public Options encoding(String value) {
+	public BinderOptions encoding(String value) {
 		this.encoding = value;
 		return this;
 	}
@@ -89,7 +89,7 @@ public class Options {
 	 * 
 	 * @return
 	 */
-	public Options indent(boolean value) {
+	public BinderOptions indent(boolean value) {
 		this.indent = value;
 		return this;
 	}

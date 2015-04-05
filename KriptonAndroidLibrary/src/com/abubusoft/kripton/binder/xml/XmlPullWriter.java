@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.Options;
+import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
@@ -35,13 +35,13 @@ import com.abubusoft.kripton.common.StringUtil;
  */
 public class XmlPullWriter implements BinderWriter {
 
-	protected Options options;
+	protected BinderOptions options;
 
 	public XmlPullWriter() {
-		this(Options.build());
+		this(BinderOptions.build());
 	}
 
-	public XmlPullWriter(Options options) {
+	public XmlPullWriter(BinderOptions options) {
 		this.options = options;
 	}
 

@@ -10,11 +10,9 @@ import com.abubusoft.kripton.database.DatabaseTable;
 
 import android.content.ContentValues;
 
-public class SQLiteHandler extends AbstractDatabaseHandler {
+public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery> {
 
 	private static final long serialVersionUID = -8926461587267041987L;
-
-	public HashMap<Class<?>, String> mapToType;
 
 	protected ThreadLocal<ContentValues> values = new ThreadLocal<ContentValues>();
 
@@ -22,7 +20,7 @@ public class SQLiteHandler extends AbstractDatabaseHandler {
 		values.set(new ContentValues());
 	}
 
-	public void init() {
+	public void init() { 
 		if (mapToType == null) {
 			mapToType = new HashMap<>();
 
@@ -54,14 +52,17 @@ public class SQLiteHandler extends AbstractDatabaseHandler {
 					mapToType.put(classes[i], "REAL");
 				}
 			}
+			
+			// BLOB
+			{
+				Class<?> classes[] = { (new byte[0]).getClass() };
+
+				for (int i = 0; i < classes.length; i++) {
+					mapToType.put(classes[i], "BLOB");
+				}
+			}
 		}
 	}
-
-	@Override
-	public String getColumnType(Class<?> fieldType) {
-		return mapToType.get(fieldType);
-	}
-
 
 	public String createTableSQL(DatabaseTable table) {
 		DatabaseColumn column;
@@ -106,5 +107,14 @@ public class SQLiteHandler extends AbstractDatabaseHandler {
 		return sb.toString();
 	}
 
+	@Override
+	protected SQLiteQuery createNewQuery() {
+		return new SQLiteQuery();
+	}
+
+	@Override
+	public String getColumnType(Class<?> fieldType) {
+		return mapToType.get(fieldType);
+	}
 
 }

@@ -16,7 +16,8 @@ public class QueryParam {
 
 	public String name;
 	
-	public Transformable<?> trans;
+	@SuppressWarnings("rawtypes")
+	public Transformable trans;
 	
 	public Type type;
 
