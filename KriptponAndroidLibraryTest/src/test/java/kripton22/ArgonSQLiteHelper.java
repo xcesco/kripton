@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 	
-	Logger logger=Logger.getGlobal();
 	SQLiteSchema databaseSchema;
 
 	public ArgonSQLiteHelper(Context context, String databaseName, int version) {
@@ -20,6 +19,7 @@ public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 		DatabaseSchemaOptions options = DatabaseSchemaOptions.build();
 		options.tablePrefix("TD_");
 		options.add(Bean01.class);
+		options.add(ChatMessage.class);
 
 		databaseSchema = SQLiteSchema.build(databaseName, options);
 	}
@@ -37,13 +37,9 @@ public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		logger.warning("Upgrading database from version " + oldVersion + " to " + newVersion
-				+ ", which will destroy all old data");
-		//db.execSQL("DROP TABLE IF EXISTS " + ChatMessageTable.TABLE_NAME);
 		String[] sql=databaseSchema.dropTablesSQL();
 		for (int i=0;i <sql.length;i++)
 		{
-			logger.info(sql[i]);
 			db.execSQL(sql[i]);	
 		}
 		

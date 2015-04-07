@@ -45,8 +45,6 @@ public class SQLTest extends RoboBaseTest  {
 
 	
 
-	// This path is relative to ${project_root}/src/test/resources
-	// This path is used in building the absolute path for the database
 	private static final String DB_PATH = "src/test/resources/database/" +"test.db";
 	private SQLiteDatabase database;
 	
