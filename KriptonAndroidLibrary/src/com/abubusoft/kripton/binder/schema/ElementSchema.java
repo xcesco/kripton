@@ -231,5 +231,14 @@ public class ElementSchema extends AbstractSchema {
 		this.wrapperName = xmlWrapperName;
 	}
 
+	public Object getFieldValue(Object bean) throws IllegalAccessException, IllegalArgumentException {
+		return field.get(bean);
+	}
+
+	public void setFieldValue(Object bean, long id) throws IllegalAccessException, IllegalArgumentException {
+		field.set(bean, id);
+		
+	}
+
 
 }

@@ -11,6 +11,10 @@ import java.util.logging.Logger;
  */
 public class BaseTest {
 
-
+	public BaseTest()
+	{
+		
+	}
+	
 	protected Logger logger = Logger.getAnonymousLogger();
 }

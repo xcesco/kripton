@@ -12,7 +12,6 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Time;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -39,7 +38,7 @@ public class Issue5Test1 extends IssueBaseTest<Bean1> {
 
 	@Before
 	public void setup() throws MalformedURLException
-	{
+	{ 
 		beanInput=new Bean1();
 		
 		beanInput.fieldEnum=BeanType.TEST_2;
@@ -58,7 +57,7 @@ public class Issue5Test1 extends IssueBaseTest<Bean1> {
 		beanInput.fieldFloat=34f;
 		beanInput.fieldLong=64L;
 		beanInput.fieldShort=2;
-		beanInput.fieldTime=Time.valueOf(LocalTime.now());
+		beanInput.fieldTime=new Time(new Date().getTime());
 		beanInput.fieldTimeZone=TimeZone.getDefault();
 		beanInput.fieldInteger=56;
 		beanInput.fieldString="hello!";

@@ -20,7 +20,7 @@ public class DatabaseHelper {
 	 * 
 	 * @param paramsClass
 	 */
-	public static void validateParams(QueryParams params, Class<?> paramsClass) {
+	public static void validateParams(SQLStatementParams params, Class<?> paramsClass) {
 		BindQueryParams annotation = paramsClass.getAnnotation(BindQueryParams.class);
 
 		if (annotation != null) {
@@ -43,8 +43,8 @@ public class DatabaseHelper {
 	 * @param params
 	 * @param clazz
 	 */
-	private static void scanFields(QueryParams params, Class<?> clazz) {
-		QueryParam param;
+	private static void scanFields(SQLStatementParams params, Class<?> clazz) {
+		SQLStatementParam param;
 
 		for (Field item : clazz.getDeclaredFields()) {
 			//
@@ -56,11 +56,10 @@ public class DatabaseHelper {
 				throw new MappingException("Can not use class " + item.getType() + " like params for query because field " + item.getName()
 						+ " has not a string convertion.");
 			}
-			param = new QueryParam();
-			param.name = item.getName();
+			param = new SQLStatementParam();
 			param.field = item;
 			param.trans = Transformer.lookup(item.getType());
-			param.type = item.getType();
+			// not valid			
 
 			params.addParam(param);
 		}

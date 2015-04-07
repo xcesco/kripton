@@ -18,5 +18,10 @@ public class SQLStatement {
 	 * name of table
 	 */
 	public String tableName;
+	
+	/**
+	 * params of query
+	 */
+	public SQLStatementParams params = new SQLStatementParams();
 
 }

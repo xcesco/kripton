@@ -1,7 +1,7 @@
 /**
  * 
  */
-package android.kripton_22;
+package kripton22;
 
 import java.util.Date;
 

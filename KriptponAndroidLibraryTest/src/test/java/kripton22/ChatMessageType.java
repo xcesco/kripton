@@ -1,4 +1,4 @@
-package android.kripton_22;
+package kripton22;
 
 public enum ChatMessageType {
 	LOGIN(true),

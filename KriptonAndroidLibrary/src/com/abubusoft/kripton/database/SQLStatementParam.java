@@ -4,22 +4,22 @@
 package com.abubusoft.kripton.database;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 
+import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.transform.Transformable;
 
 /**
  * @author xcesco
  *
  */
-public class QueryParam {
+public class SQLStatementParam {
 
-	public String name;
-	
 	@SuppressWarnings("rawtypes")
 	public Transformable trans;
-	
-	public Type type;
+
+	public DatabaseColumn column;
+
+	public ElementSchema schema;
 
 	public Field field;
 	

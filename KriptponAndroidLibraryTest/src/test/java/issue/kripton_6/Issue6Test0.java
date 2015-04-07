@@ -11,8 +11,6 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Time;
-import java.time.LocalTime;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -53,7 +51,7 @@ public class Issue6Test0 extends IssueBaseTest<Bean0> {
 		beanInput.fieldFloat=34f;
 		beanInput.fieldLong=64L;
 		beanInput.fieldShort=2;
-		beanInput.fieldTime=Time.valueOf(LocalTime.now());
+		beanInput.fieldTime=new Time(3,3,3);
 		beanInput.fieldTimeZone=TimeZone.getDefault();
 		beanInput.fieldInteger=56;
 		beanInput.fieldString="hello!";

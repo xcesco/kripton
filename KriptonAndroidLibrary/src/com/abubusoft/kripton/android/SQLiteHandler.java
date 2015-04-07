@@ -10,7 +10,7 @@ import com.abubusoft.kripton.database.DatabaseTable;
 
 import android.content.ContentValues;
 
-public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery> {
+public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteInsert> {
 
 	private static final long serialVersionUID = -8926461587267041987L;
 
@@ -80,7 +80,7 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery> {
 			// index options
 			switch (column.feature) {
 			case PRIMARY_KEY:
-				sb.append(" primary_key autoincrement");
+				sb.append(" primary key autoincrement");
 				break;
 			case UNIQUE_KEY:
 				sb.append(" unique");
@@ -117,4 +117,8 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery> {
 		return mapToType.get(fieldType);
 	}
 
+	@Override
+	protected SQLiteInsert createNewInsert() {
+		return new SQLiteInsert();
+	}
 }

@@ -9,34 +9,38 @@ import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.common.LRUCache;
 import com.abubusoft.kripton.exception.MappingException;
 
-public class AbstractDatabaseSchema<Q extends Query> {
+public class AbstractDatabaseSchema<Q extends Query, I extends Insert> {
 
 	interface TableTask {
 		String onTable(DatabaseTable item);
 	}
 
-	private static final int CACHE_SIZE = 100;
+	protected static final int CACHE_SIZE = 100;
 
 	// use LRU cache to limit memory consumption.
-	protected static Map<String, AbstractDatabaseSchema<?>> schemaCache = Collections.synchronizedMap(new LRUCache<String, AbstractDatabaseSchema<?>>(
+	protected static Map<String, AbstractDatabaseSchema<?, ?>> schemaCache = Collections.synchronizedMap(new LRUCache<String, AbstractDatabaseSchema<?, ?>>(
 			CACHE_SIZE));
 
 	// use LRU cache to limit memory consumption.
-	public LinkedHashMap<String, DatabaseTable> tables = new LinkedHashMap<>();
+	protected LinkedHashMap<String, DatabaseTable> tables = new LinkedHashMap<>();
 
-	public LinkedHashMap<String, MappingSchema> schemas = new LinkedHashMap<>();
+	public LinkedHashMap<String, DatabaseTable> getTables() {
+		return tables;
+	}
 
-	private DatabaseHandler<Q> handler;
+	protected LinkedHashMap<String, MappingSchema> schemas = new LinkedHashMap<>();
 
-	private LinkedHashMap<MappingSchema, DatabaseTable> schema2Table = new LinkedHashMap<>();
+	protected DatabaseHandler<Q, I> handler;
 
-	protected AbstractDatabaseSchema(DatabaseHandler<Q> handler, DatabaseSchemaOptions options) {
+	protected LinkedHashMap<Class<?>, DatabaseTable> class2Table = new LinkedHashMap<>();
+
+	protected AbstractDatabaseSchema(DatabaseHandler<Q, I> handler, DatabaseSchemaOptions options) {
 		this.handler = handler;
 		handler.init();
 		buildTables(handler, options);
 	}
 
-	protected void buildTables(DatabaseHandler<Q> handler, DatabaseSchemaOptions options) {
+	protected void buildTables(DatabaseHandler<Q, I> handler, DatabaseSchemaOptions options) {
 		MappingSchema[] array = new MappingSchema[options.mappingSchemaSet.size()];
 		array = options.mappingSchemaSet.toArray(array);
 		DatabaseTable table;
@@ -65,27 +69,36 @@ public class AbstractDatabaseSchema<Q extends Query> {
 			}
 
 			tables.put(key, table);
-			schema2Table.put(item, table);
+			class2Table.put(item.getType(), table);
+
+			// create default insert, update and select
+			createInsert(item.getType(), InsertOptions.build());
+			createQuery(item.getType(), QueryOptions.build());
 		}
 	}
 
 	public Q createQuery(Class<?> clazz, QueryOptions options) {
-		MappingSchema schema = MappingSchema.fromClass(clazz);
-		DatabaseTable table = schema2Table.get(schema);
+		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
 			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
 		return handler.createQuery(table, options);
 	}
-	
-	public Insert createInsert(Class<?> clazz, InsertOptions options) {
-		MappingSchema schema = MappingSchema.fromClass(clazz);
-		DatabaseTable table = schema2Table.get(schema);
+
+	public I createInsert(Class<?> clazz, InsertOptions options) {
+		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
 			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
-		return handler.insert(table, options);
-		
+		return handler.createInsert(table, options);
+	}
+
+	public I getInsert(Class<?> clazz, String name) {
+		DatabaseTable table = this.class2Table.get(clazz);
+
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+		return (I) table.inserts.get(name);
 	}
 
 	protected TableTask iteratorCreateTableSQL = new TableTask() {
@@ -94,7 +107,7 @@ public class AbstractDatabaseSchema<Q extends Query> {
 			return handler.createTableSQL(item);
 		}
 	};
-	
+
 	protected TableTask iteratorDropTableSQL = new TableTask() {
 		@Override
 		public String onTable(DatabaseTable item) {
@@ -123,13 +136,14 @@ public class AbstractDatabaseSchema<Q extends Query> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <Q extends Query> AbstractDatabaseSchema<Q> build(String name, DatabaseHandler<Q> handler, DatabaseSchemaOptions options) {
+	public static <Q extends Query, I extends Insert> AbstractDatabaseSchema<Q, I> build(String name, DatabaseHandler<Q, I> handler,
+			DatabaseSchemaOptions options) {
 		if (schemaCache.containsKey(name)) {
-			return (AbstractDatabaseSchema<Q>) schemaCache.get(name);
+			return (AbstractDatabaseSchema<Q, I>) schemaCache.get(name);
 		} else {
-			AbstractDatabaseSchema<Q> dbSchema = new AbstractDatabaseSchema<Q>(handler, options);
+			AbstractDatabaseSchema<Q, I> dbSchema = new AbstractDatabaseSchema<Q, I>(handler, options);
 			schemaCache.put(name, dbSchema);
-			return (AbstractDatabaseSchema<Q>) dbSchema;
+			return (AbstractDatabaseSchema<Q, I>) dbSchema;
 		}
 	}
 }

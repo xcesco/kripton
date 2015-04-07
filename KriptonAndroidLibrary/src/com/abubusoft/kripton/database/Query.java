@@ -18,17 +18,13 @@ public class Query extends SQLStatement {
 	public String orderStatement;
 
 	/**
-	 * params of query
-	 */
-	protected QueryParams params = new QueryParams();
-
-	/**
 	 * class of parameters
 	 */
 	protected Class<?> paramsClass;
 
 	public ParametrizedString whereStatement;
 
+	@SuppressWarnings("unchecked")
 	public String[] getParams(Object parameters) {
 		if (parameters.getClass() != paramsClass) {
 			throw (new MappingException("Wrong class for query parameters: aspected " + paramsClass + ", but used " + params.getClass()));
@@ -41,11 +37,11 @@ public class Query extends SQLStatement {
 		}
 
 		int i = 0;
-		QueryParam p;
+		SQLStatementParam p;
 		try {
 			for (String item : whereStatement.params) {
 				p = params.get(item);
-				values[i++] = p.trans.write(p.field.get(parameters));
+				values[i++] = p.trans.write(p.schema.getFieldValue(parameters));
 			}
 		} catch (Exception e) {
 			throw new MappingException("Unable to get parameter " + e.getMessage());

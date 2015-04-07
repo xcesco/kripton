@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.sql.Time;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -46,7 +45,7 @@ public class Bean1 {
 	
 	URL fieldUrl;
 	
-	Base64 fieldBase64;
+	//Base64 fieldBase64;
 	
 	Boolean fieldBoolean;
 	

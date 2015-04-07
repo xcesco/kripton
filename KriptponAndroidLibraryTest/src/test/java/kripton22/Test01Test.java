@@ -1,15 +1,15 @@
-package android.kripton_22;
+package kripton22;
 
 import java.util.Date;
 
 import org.junit.Test;
 
-import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.android.SQLiteHandler;
+import com.abubusoft.kripton.android.SQLiteInsert;
 import com.abubusoft.kripton.android.SQLiteQuery;
 import com.abubusoft.kripton.android.SQLiteSchema;
 import com.abubusoft.kripton.annotation.BindQueryParams;
@@ -17,7 +17,6 @@ import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.database.DatabaseColumn;
 import com.abubusoft.kripton.database.DatabaseSchemaOptions;
 import com.abubusoft.kripton.database.DatabaseTable;
-import com.abubusoft.kripton.database.Insert;
 import com.abubusoft.kripton.database.InsertOptions;
 import com.abubusoft.kripton.database.ParametrizedString;
 import com.abubusoft.kripton.database.QueryOptions;
@@ -27,7 +26,7 @@ import com.abubusoft.kripton.exception.WriterException;
 
 import issue.BaseTest;
 
-public class Test01 extends BaseTest {
+public class Test01Test extends BaseTest {
 
 	
 	@BindQueryParams
@@ -37,7 +36,7 @@ public class Test01 extends BaseTest {
 		public Date value2;
 		
 		public String value3;
-	}
+	} 
 	
 	@Test
 	public void test02() {
@@ -74,7 +73,7 @@ public class Test01 extends BaseTest {
 		databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name,\n id"));
 		databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{name} and love=#{name}"));
 
-		for (DatabaseTable table : databaseSchema.tables.values()) {
+		for (DatabaseTable table : databaseSchema.getTables().values()) {
 			logger.info("table " + table.name + " java-name: " + table.schema.tableInfo.name);
 
 			for (DatabaseColumn column : table.columns) {
@@ -119,7 +118,7 @@ public class Test01 extends BaseTest {
 
 		SQLiteSchema databaseSchema = SQLiteSchema.build("prova", options);
 		
-		SQLStatement query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{name} and love=#{name}").paramsClass(Params.class));		
+		SQLiteQuery query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{name} and love=#{name}").paramsClass(Params.class));		
 		
 		logger.info(""+query.columns.length);
 	}
@@ -138,7 +137,7 @@ public class Test01 extends BaseTest {
 		options.add(ChatMessage.class);
 
 		SQLiteSchema databaseSchema = SQLiteSchema.build("prova", options);
-		SQLiteQuery query = databaseSchema.createQuery(ChatMessage.class, QueryOptions.build().where("uid=#{uid} and latitude=#{latitude} and latitude=#{latitude}").paramsClass(P.class));
+		SQLiteQuery query = databaseSchema.createQuery(ChatMessage.class, QueryOptions.build().name("prova").where("uid=#{uid} and latitude=#{latitude} and latitude=#{latitude}").paramsClass(P.class));
 		logger.info(""+query.getSQL());
 		P params=new P();
 		params.uid="xxx";
@@ -162,7 +161,9 @@ public class Test01 extends BaseTest {
 			for (int i = 0; i < createSql.length; i++) {
 				logger.info(createSql[i]);
 			}
-		}				
+		}	
+		
+		databaseSchema.select(null, ChatMessage.class,"prova", p);
 	}
 	
 	@Test
@@ -172,8 +173,16 @@ public class Test01 extends BaseTest {
 		options.add(ChatMessage.class);
 
 		SQLiteSchema databaseSchema = SQLiteSchema.build("prova", options);
-		Insert query = databaseSchema.createInsert(ChatMessage.class, InsertOptions.build());
-		logger.info(""+query.getSQL());
+		SQLiteInsert insert = databaseSchema.createInsert(ChatMessage.class, InsertOptions.build());
+		logger.info(""+insert.getSQL());
+		
+		ChatMessage bean=new ChatMessage();
+		
+		bean.creationTimestamp=(new Date()).getTime();
+		bean.value="cuiao balelo";
+		databaseSchema.insert(null, bean);
+		
+		
 //		P params=new P();
 //		params.uid="xxx";
 //		params.latitude=12.0f;

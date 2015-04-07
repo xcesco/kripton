@@ -16,29 +16,30 @@
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.unitils</groupId>
 			<artifactId>unitils-core</artifactId>
 			<version>3.4.2</version>
-			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-	
+
+
+		<dependency>
+			<groupId>org.robolectric</groupId>
+			<artifactId>robolectric</artifactId>
+			<version>3.0-rc2</version>			
+		</dependency>
+
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>5.0.0_r2-robolectric-0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>android</artifactId>
-			<version>4.1.1.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>support-v4</artifactId>
-			<version>r7</version>
 		</dependency>
 
 	</dependencies>

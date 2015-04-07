@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.database;
 
 
-public interface DatabaseHandler<Q extends Query> {
+public interface DatabaseHandler<Q extends Query, I extends Insert> {
 
 	void init();
 
@@ -13,6 +13,6 @@ public interface DatabaseHandler<Q extends Query> {
 	
 	Q createQuery(DatabaseTable table, QueryOptions options);
 
-	Insert insert(DatabaseTable table, InsertOptions options);
+	I createInsert(DatabaseTable table, InsertOptions options);
 
 }
