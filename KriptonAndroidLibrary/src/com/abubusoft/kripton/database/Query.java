@@ -3,54 +3,19 @@
  */
 package com.abubusoft.kripton.database;
 
-import com.abubusoft.kripton.exception.MappingException;
-
 /**
  * @author xcesco
  *
  */
-/**
- * @author xcesco
- *
- */
-public class Query extends SQLStatement {
+public abstract class Query extends SQLFilterStatement {
+	
+	public String order;
 
-	public String orderStatement;
-
-	/**
-	 * class of parameters
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.database.SQLStatement#buildSQL()
 	 */
-	protected Class<?> paramsClass;
-
-	public ParametrizedString whereStatement;
-
-	@SuppressWarnings("unchecked")
-	public String[] getParams(Object parameters) {
-		if (parameters.getClass() != paramsClass) {
-			throw (new MappingException("Wrong class for query parameters: aspected " + paramsClass + ", but used " + params.getClass()));
-		}
-
-		String[] values = whereStatement.paramValues.get();
-		if (values == null) {
-			values = new String[whereStatement.params.length];
-			whereStatement.paramValues.set(values);
-		}
-
-		int i = 0;
-		SQLStatementParam p;
-		try {
-			for (String item : whereStatement.params) {
-				p = params.get(item);
-				values[i++] = p.trans.write(p.schema.getFieldValue(parameters));
-			}
-		} catch (Exception e) {
-			throw new MappingException("Unable to get parameter " + e.getMessage());
-		}
-		
-		return values;
-	}
-
-	public String getSQL() {
+	@Override
+	protected String buildSQL() {
 		StringBuilder sb = new StringBuilder();
 		String separator = "";
 
@@ -60,17 +25,16 @@ public class Query extends SQLStatement {
 
 			separator = ", ";
 		}
-		sb.append(" from " + tableName);
+		sb.append(" from " + table.name);
 
-		if (whereStatement.value.length() > 0) {
-			sb.append(" where " + whereStatement.value);
+		if (filter.sql!=null && filter.sql.length() > 0) {
+			sb.append(" where " + filter.sql);
 		}
 
-		if (orderStatement.length() > 0) {
-			sb.append(" order by " + orderStatement);
+		if (order!=null && order.length() > 0) {
+			sb.append(" order by " + order);
 		}
 
-		return sb.toString();
+		return sb.toString();		
 	}
-
 }

@@ -35,7 +35,7 @@ public class DatabaseSchemaOptions {
 		return mappingSchemaSet;
 	}
 
-	protected NameConverterType nameConverter = NameConverterType.UPPER_UNDERSCORE;
+	public NameConverterType nameConverter = NameConverterType.UPPER_UNDERSCORE;
 
 	protected boolean compiled;
 

@@ -3,9 +3,6 @@ package com.abubusoft.kripton.database;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import android.content.ContentValues;
-
-import com.abubusoft.kripton.android.SQLiteInsert;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 
 /**
@@ -15,21 +12,25 @@ import com.abubusoft.kripton.binder.schema.MappingSchema;
  *
  */
 public class DatabaseTable {
+	
+	public Class<?> clazz;
 
-	public LinkedHashMap<String, Query> queries = new LinkedHashMap<String, Query>();
+	public ArrayList<DatabaseColumn> columns = new ArrayList<>();
 
-	public ArrayList<DatabaseColumn> columns = new ArrayList<DatabaseColumn>();
+	public LinkedHashMap<String, DatabaseColumn> field2column = new LinkedHashMap<>();
 
-	public LinkedHashMap<String, DatabaseColumn> field2column = new LinkedHashMap<String, DatabaseColumn>();
+	public LinkedHashMap<String, Insert> inserts = new LinkedHashMap<>();
 
 	public String name;
 
+	public LinkedHashMap<String, Query> queries = new LinkedHashMap<>();
+
 	public MappingSchema schema;
 
-	public LinkedHashMap<String, Insert> inserts = new LinkedHashMap<String, Insert>();
+	public LinkedHashMap<String, Update> updates = new LinkedHashMap<>();
 
-	void toContentValue(SQLiteInsert insert, Object bean, ContentValues value) {
-		// TODO Auto-generated method stub
-		
-	}
+	public DatabaseColumn primaryKey;
+
+	public LinkedHashMap<String, Delete> deletes = new LinkedHashMap<>();
+
 }

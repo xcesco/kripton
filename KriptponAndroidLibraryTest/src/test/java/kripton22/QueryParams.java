@@ -2,9 +2,6 @@ package kripton22;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindQueryParams;
-
-@BindQueryParams
 public class QueryParams {
 
 	public long id;

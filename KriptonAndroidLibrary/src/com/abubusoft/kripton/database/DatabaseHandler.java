@@ -1,10 +1,10 @@
 package com.abubusoft.kripton.database;
 
 
-public interface DatabaseHandler<Q extends Query, I extends Insert> {
+public interface DatabaseHandler<Q extends Query, I extends Insert, U extends Update, D extends Delete> {
 
 	void init();
-
+	
 	String getColumnType(Class<?> fieldType);
 
 	String createTableSQL(DatabaseTable table);
@@ -12,7 +12,19 @@ public interface DatabaseHandler<Q extends Query, I extends Insert> {
 	String dropTableSQL(DatabaseTable table);
 	
 	Q createQuery(DatabaseTable table, QueryOptions options);
+	
+	Q getQuery(DatabaseTable table, String name);
 
 	I createInsert(DatabaseTable table, InsertOptions options);
+	
+	I getInsert(DatabaseTable table, String name);
+	
+	U createUpdate(DatabaseTable table, UpdateOptions options);
+	
+	U getUpdate(DatabaseTable table, String name);
+	
+	D createDelete(DatabaseTable table, DeleteOptions options);
+	
+	D getDelete(DatabaseTable table, String name);
 
 }

@@ -19,9 +19,13 @@ import com.abubusoft.kripton.database.ColumnType;
 @Target(ElementType.FIELD)
 public @interface BindColumn {
 	
+	public final static boolean NULLABLE_DEFAULT = true;
+		
 	public String name() default "";
 	
 	public ColumnType value() default ColumnType.STANDARD;
 	
-	public boolean nullable() default false;
+	public boolean nullable() default NULLABLE_DEFAULT;
+	
+
 }

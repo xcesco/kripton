@@ -1,12 +1,17 @@
 package com.abubusoft.kripton.database;
 
 public class Insert extends SQLStatement {
-	public String getSQL() {
+	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.database.SQLStatement#buildSQL()
+	 */
+	@Override
+	protected String buildSQL() {
 		StringBuilder sb = new StringBuilder();
 		String separator = "";
 
 		sb.append("insert into ");
-		sb.append(tableName);
+		sb.append(table.name);
 		sb.append(" (");
 		for (DatabaseColumn item : columns) {
 			sb.append(separator + item.name);
@@ -21,7 +26,8 @@ public class Insert extends SQLStatement {
 			separator = ", ";
 		}
 		sb.append(")");
-
+		
 		return sb.toString();
 	}
+	
 }

@@ -1,25 +1,16 @@
 package com.abubusoft.kripton.database;
 
-import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
-import com.abubusoft.kripton.common.LRUCache;
 import com.abubusoft.kripton.exception.MappingException;
 
-public class AbstractDatabaseSchema<Q extends Query, I extends Insert> {
+public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, U extends Update, D extends Delete> {
 
 	interface TableTask {
 		String onTable(DatabaseTable item);
 	}
-
-	protected static final int CACHE_SIZE = 100;
-
-	// use LRU cache to limit memory consumption.
-	protected static Map<String, AbstractDatabaseSchema<?, ?>> schemaCache = Collections.synchronizedMap(new LRUCache<String, AbstractDatabaseSchema<?, ?>>(
-			CACHE_SIZE));
 
 	// use LRU cache to limit memory consumption.
 	protected LinkedHashMap<String, DatabaseTable> tables = new LinkedHashMap<>();
@@ -28,19 +19,18 @@ public class AbstractDatabaseSchema<Q extends Query, I extends Insert> {
 		return tables;
 	}
 
-	protected LinkedHashMap<String, MappingSchema> schemas = new LinkedHashMap<>();
-
-	protected DatabaseHandler<Q, I> handler;
+	protected DatabaseHandler<Q, I, U, D> handler;
 
 	protected LinkedHashMap<Class<?>, DatabaseTable> class2Table = new LinkedHashMap<>();
 
-	protected AbstractDatabaseSchema(DatabaseHandler<Q, I> handler, DatabaseSchemaOptions options) {
-		this.handler = handler;
+	public void build(DatabaseSchemaOptions options) {
+		handler = createHandler(options) ;
 		handler.init();
 		buildTables(handler, options);
 	}
 
-	protected void buildTables(DatabaseHandler<Q, I> handler, DatabaseSchemaOptions options) {
+	@SuppressWarnings("rawtypes")
+	protected void buildTables(DatabaseHandler handler, DatabaseSchemaOptions options) {
 		MappingSchema[] array = new MappingSchema[options.mappingSchemaSet.size()];
 		array = options.mappingSchemaSet.toArray(array);
 		DatabaseTable table;
@@ -52,29 +42,45 @@ public class AbstractDatabaseSchema<Q extends Query, I extends Insert> {
 			table = new DatabaseTable();
 			table.name = key;
 			table.schema = item;
+			table.clazz=item.getType();
+			
 			for (ElementSchema element : item.getField2SchemaMapping().values()) {
-				column = new DatabaseColumn();
-
-				if (element.getColumnInfo().feature == ColumnType.PRIMARY_KEY) {
-					element.getColumnInfo().name = "_id";
-				}
-
-				column.name = options.nameConverter.convertName(element.getColumnInfo().name);
-				column.feature = element.getColumnInfo().feature;
-				column.schema = element;
-				column.type = handler.getColumnType(element.getFieldType());
-
+				column=createColumn(element, options);				
+				
 				table.columns.add(column);
 				table.field2column.put(element.getName(), column);
+				
+				// look for pk
+				if (column.feature==ColumnType.PRIMARY_KEY)
+				{
+					table.primaryKey=column;
+				}
 			}
 
 			tables.put(key, table);
 			class2Table.put(item.getType(), table);
+			
 
 			// create default insert, update and select
 			createInsert(item.getType(), InsertOptions.build());
 			createQuery(item.getType(), QueryOptions.build());
+			
+			// only for table with primary key
+			if (table.primaryKey!=null)
+			{
+				createUpdate(item.getType(), UpdateOptions.build().where(table.primaryKey.schema.getName()+"=#{"+table.primaryKey.schema.getName()+"}"));
+				//createUpdate(item.getType(), UpdateOptions.build().where());	
+			}
 		}
+	}
+
+	protected abstract DatabaseColumn createColumn(ElementSchema element, DatabaseSchemaOptions options);
+	
+	protected abstract DatabaseHandler<Q, I, U, D> createHandler(DatabaseSchemaOptions options);
+
+	public DatabaseTable getTableFromClass(Class<?> clazz)
+	{
+		return class2Table.get(clazz);
 	}
 
 	public Q createQuery(Class<?> clazz, QueryOptions options) {
@@ -92,7 +98,30 @@ public class AbstractDatabaseSchema<Q extends Query, I extends Insert> {
 			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
 		return handler.createInsert(table, options);
 	}
+	
+	public U createUpdate(Class<?> clazz, UpdateOptions options) {
+		DatabaseTable table = this.class2Table.get(clazz);
 
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+		return handler.createUpdate(table, options);
+	}
+	
+	public D createDelete(Class<?> clazz, DeleteOptions options) {
+		DatabaseTable table = this.class2Table.get(clazz);
+
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+		return handler.createDelete(table, options);
+	}
+
+	/**
+	 * Retrieve an insert already defined. 
+	 * @param clazz
+	 * @param name
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
 	public I getInsert(Class<?> clazz, String name) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
@@ -101,25 +130,34 @@ public class AbstractDatabaseSchema<Q extends Query, I extends Insert> {
 		return (I) table.inserts.get(name);
 	}
 
-	protected TableTask iteratorCreateTableSQL = new TableTask() {
-		@Override
-		public String onTable(DatabaseTable item) {
-			return handler.createTableSQL(item);
-		}
-	};
+	@SuppressWarnings("unchecked")
+	public U getUpdate(Class<?> clazz, String name) {
+		DatabaseTable table = this.class2Table.get(clazz);
 
-	protected TableTask iteratorDropTableSQL = new TableTask() {
-		@Override
-		public String onTable(DatabaseTable item) {
-			return handler.dropTableSQL(item);
-		}
-	};
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+		return (U) table.updates.get(name);
+	}
 
 	public String[] createTablesSQL() {
+		TableTask iteratorCreateTableSQL = new TableTask() {
+			@Override
+			public String onTable(DatabaseTable item) {
+				return handler.createTableSQL(item);
+			}
+		};
+		
 		return forEachTable(iteratorCreateTableSQL);
 	}
 
 	public String[] dropTablesSQL() {
+		TableTask iteratorDropTableSQL = new TableTask() {
+			@Override
+			public String onTable(DatabaseTable item) {
+				return handler.dropTableSQL(item);
+			}
+		};
+		
 		return forEachTable(iteratorDropTableSQL);
 	}
 
@@ -135,15 +173,4 @@ public class AbstractDatabaseSchema<Q extends Query, I extends Insert> {
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <Q extends Query, I extends Insert> AbstractDatabaseSchema<Q, I> build(String name, DatabaseHandler<Q, I> handler,
-			DatabaseSchemaOptions options) {
-		if (schemaCache.containsKey(name)) {
-			return (AbstractDatabaseSchema<Q, I>) schemaCache.get(name);
-		} else {
-			AbstractDatabaseSchema<Q, I> dbSchema = new AbstractDatabaseSchema<Q, I>(handler, options);
-			schemaCache.put(name, dbSchema);
-			return (AbstractDatabaseSchema<Q, I>) dbSchema;
-		}
-	}
 }

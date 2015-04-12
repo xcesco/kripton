@@ -24,6 +24,6 @@ public class DatabaseColumn {
 	}
 
 	public ElementSchema schema;
-
+	
 	public String type;
 }

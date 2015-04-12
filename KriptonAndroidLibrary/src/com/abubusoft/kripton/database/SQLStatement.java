@@ -7,21 +7,45 @@ package com.abubusoft.kripton.database;
  * @author xcesco
  *
  */
-public class SQLStatement {
+public abstract class SQLStatement {
 
-	public DatabaseColumn[] columns;
 	/**
 	 * name of the query
 	 */
 	public String name;
+
 	/**
-	 * name of table
+	 * cache for string sql
 	 */
-	public String tableName;
-	
+	protected String cachedSql;
+
 	/**
-	 * params of query
+	 * columns affected by the statement.
 	 */
-	public SQLStatementParams params = new SQLStatementParams();
+	public DatabaseColumn[] columns;
+
+	/**
+	 * table associated to statement
+	 */
+	public DatabaseTable table;
+
+	/**
+	 * Get SQL string
+	 * @return
+	 */
+	public String getSQL() {
+		if (cachedSql == null) {
+			cachedSql = buildSQL();
+		}
+
+		return cachedSql;
+	}
+
+	/**
+	 * Build SQL Statement
+	 * 
+	 * @return
+	 */
+	protected abstract String buildSQL();
 
 }

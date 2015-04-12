@@ -398,6 +398,8 @@ public class MappingSchema {
 
 				nameFromAnnotation = null;
 				elementNameFromAnnotation = null;
+				order=Bind.DEFAULT_ORDER;
+				
 				if (bindAnnotation != null) {
 					nameFromAnnotation = bindAnnotation.value();
 					elementNameFromAnnotation = bindAnnotation.elementName();
@@ -496,11 +498,8 @@ public class MappingSchema {
 				case STANDARD:
 					break;
 				case PRIMARY_KEY:
-					if (elementSchema.getColumnInfo().nullable) {
-						throw new MappingException("BindColumn can not hold a primary key nullable for field = " + field.getName() + ", type = "
-								+ type.getName());
-					}
-
+					// primary key can not be null.
+					elementSchema.getColumnInfo().nullable=false;
 					counters.primaryKeyCount++;
 					break;
 				case FOREIGN_KEY:

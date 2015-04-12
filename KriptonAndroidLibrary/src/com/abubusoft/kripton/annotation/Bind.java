@@ -16,6 +16,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Bind {
+	
+	public static final int DEFAULT_ORDER=1000;
 
 	/**
 	 * default name of map value entry
@@ -61,6 +63,6 @@ public @interface Bind {
 	 * 
 	 * @return
 	 */
-	public int order() default 1000;
+	public int order() default DEFAULT_ORDER;
 
 }

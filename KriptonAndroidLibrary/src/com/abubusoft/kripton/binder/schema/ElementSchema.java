@@ -102,6 +102,7 @@ public class ElementSchema extends AbstractSchema {
 
 		columnInfo.name = getName();
 		columnInfo.feature=ColumnType.STANDARD;		
+		columnInfo.nullable=BindColumn.NULLABLE_DEFAULT;
 		if (bindColumnAnnotation != null) {
 			columnInfo.feature = bindColumnAnnotation.value();
 			columnInfo.name = this.getName();
@@ -119,7 +120,7 @@ public class ElementSchema extends AbstractSchema {
 	 * @param bindMapAnnotation
 	 * @param paramizedType
 	 * 
-	 * @param value
+	 * @param sql
 	 */
 	void buildMapInfo(String fieldName, Class<?> mapType, Class<?> keyType, Class<?> valueType, Bind bindAnnotation, MapEntryType policy) {
 		type = ElementSchemaType.MAP;
@@ -221,7 +222,7 @@ public class ElementSchema extends AbstractSchema {
 	/**
 	 * Set if field is a set.
 	 * 
-	 * @param value
+	 * @param sql
 	 */
 	public void setSet() {
 		type = ElementSchemaType.SET;
@@ -235,8 +236,8 @@ public class ElementSchema extends AbstractSchema {
 		return field.get(bean);
 	}
 
-	public void setFieldValue(Object bean, long id) throws IllegalAccessException, IllegalArgumentException {
-		field.set(bean, id);
+	public void setFieldValue(Object bean, Object value) throws IllegalAccessException, IllegalArgumentException {
+		field.set(bean, value);
 		
 	}
 

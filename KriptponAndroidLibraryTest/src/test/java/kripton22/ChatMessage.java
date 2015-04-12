@@ -6,6 +6,7 @@ package kripton22;
 import java.util.Date;
 
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
@@ -20,74 +21,54 @@ import com.abubusoft.kripton.database.ColumnType;
  * 
  */
 @BindType
-@BindTable(name="message")
+@BindTable
+@BindAllFields
 public class ChatMessage {
 
-	@Bind(order=0)
+	@Bind(order=0) 
 	@BindColumn(ColumnType.PRIMARY_KEY)
 	public long id;
 	
-	@Bind
 	public long creationTimestamp;
 
-	@Bind
 	public String deviceId;
 
-	@Bind
 	public String groupUid;
 
-	@Bind
 	public double latitude;
 
-	@Bind
 	public double longitude;
 
-	@Bind
 	public long mediaDuration;
 
-	@Bind
 	public String mediaHash;
 
-	@Bind
 	public String mediaInternalType;
 
-	@Bind
 	public String mediaMimeType;
 
-	@Bind
 	public String mediaName;
 
-	@Bind
 	public int mediaSize;
 
-	@Bind
 	public String mediaUrl;
 	
-	@Bind
 	public long origin;
 	
-	@Bind
 	public byte[] rawValue;
 	
-	@Bind
 	public long receivedTimestamp;
 	
-	@Bind
 	public String senderUid;
-	
-	@Bind
+
 	public long sentTimestamp;
 	
-	@Bind
 	public ChatMessageStatusType status;
 	
-	@Bind
 	public ChatMessageType type;
 
-	@Bind
 	public String uid;
 	
-	@Bind
 	public String value;
 
 	public ChatMessage() {
@@ -100,6 +81,24 @@ public class ChatMessage {
 		this.creationTimestamp=new Date().getTime();				
 		this.status = ChatMessageStatusType.CREATED;
 		type = value;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		final int maxLen = 2;
+		return "ChatMessage [id=" + id + ", creationTimestamp=" + creationTimestamp + ", " + (deviceId != null ? "deviceId=" + deviceId + ", " : "")
+				+ (groupUid != null ? "groupUid=" + groupUid + ", " : "") + "latitude=" + latitude + ", longitude=" + longitude + ", mediaDuration="
+				+ mediaDuration + ", " + (mediaHash != null ? "mediaHash=" + mediaHash + ", " : "")
+				+ (mediaInternalType != null ? "mediaInternalType=" + mediaInternalType + ", " : "")
+				+ (mediaMimeType != null ? "mediaMimeType=" + mediaMimeType + ", " : "") + (mediaName != null ? "mediaName=" + mediaName + ", " : "")
+				+ "mediaSize=" + mediaSize + ", " + (mediaUrl != null ? "mediaUrl=" + mediaUrl + ", " : "") + "origin=" + origin + ", "
+				+ (rawValue != null ? "rawValue=" + (new String(rawValue)) + ", " : "")
+				+ "receivedTimestamp=" + receivedTimestamp + ", " + (senderUid != null ? "senderUid=" + senderUid + ", " : "") + "sentTimestamp="
+				+ sentTimestamp + ", " + (status != null ? "status=" + status + ", " : "") + (type != null ? "type=" + type + ", " : "")
+				+ (uid != null ? "uid=" + uid + ", " : "") + (value != null ? "value=" + value : "") + "]";
 	}
 
 	public long getCreationTimestamp() {

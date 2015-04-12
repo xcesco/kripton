@@ -27,20 +27,25 @@
 					<groupId>junit</groupId>
 				</exclusion>
 			</exclusions>
+			<scope>test</scope>
 		</dependency>
 
 
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>robolectric</artifactId>
-			<version>3.0-rc2</version>			
+			<version>3.0-rc2</version>
+			<scope>test</scope>			
 		</dependency>
-
+		
+		
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>5.0.0_r2-robolectric-0</version>
+			<scope>test</scope>
 		</dependency>
+
 
 	</dependencies>
 

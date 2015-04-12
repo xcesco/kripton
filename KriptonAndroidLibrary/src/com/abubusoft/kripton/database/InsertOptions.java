@@ -9,11 +9,19 @@ package com.abubusoft.kripton.database;
  */
 public class InsertOptions {
 	
+	public String name;
+	
 	public String fields="*";
 
 	 public InsertOptions select(String value)
 	 {
 		 fields=value;
+		 return this;
+	 }
+	 
+	 public InsertOptions name(String value)
+	 {
+		 name=value;
 		 return this;
 	 }
 	 
