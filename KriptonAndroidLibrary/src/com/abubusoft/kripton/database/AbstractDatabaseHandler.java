@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.abubusoft.kripton.binder.transform.Transformable;
+import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.exception.MappingException;
 
 /**
@@ -138,7 +139,13 @@ public abstract class AbstractDatabaseHandler<Q extends Query, I extends Insert,
 		I insert = newInsert();
 		buildAffectedColumns(table, insert, options.name, options.fields);
 
+		if (table.inserts.containsKey(insert.name))
+		{
+			throw new MappingException("Table "+table.name+" already contains an insert named " + insert.name + ".");
+		}
 		table.inserts.put(insert.name, insert);
+		table.lastInsert=insert;
+		
 		return insert;
 	}
 
@@ -175,7 +182,13 @@ public abstract class AbstractDatabaseHandler<Q extends Query, I extends Insert,
 		// create filter part
 		buildFilter(table, update, options.where, options.paramsClass);
 
+		if (table.updates.containsKey(update.name))
+		{
+			throw new MappingException("Table "+table.name+" already contains an update named " + update.name + ".");
+		}
 		table.updates.put(update.name, update);
+		table.lastUpdate=update;
+		
 		return update;
 	}
 
@@ -245,7 +258,13 @@ public abstract class AbstractDatabaseHandler<Q extends Query, I extends Insert,
 		query.order = tempOrder.sql;
 		query.order = createSql(query.order, null, field2ColumnMap);
 
+		if (table.queries.containsKey(query.name))
+		{
+			throw new MappingException("Table "+table.name+" already contains a query named " + query.name + ".");
+		}
 		table.queries.put(query.name, query);
+		table.lastQuery=query;
+		
 		return query;
 	}
 
@@ -265,9 +284,18 @@ public abstract class AbstractDatabaseHandler<Q extends Query, I extends Insert,
 		filter.sql = createSql(filter.sql, filter, field2ColumnMap);
 		filter.inputClazz = paramsClazz;
 
-		filter.origin = FilterOriginType.BEAN;
-		if (filter.fieldNames.length > 0) {
-			// there are parameters
+		if (filter.fieldNames.length==0)
+		{
+			filter.origin=FilterOriginType.NONE;
+		}
+		else if (filter.fieldNames.length==1 && paramsClazz!=null && Transformer.isPrimitive(paramsClazz))
+		{
+			// assert: one parameter, type is transformable
+			filter.origin=FilterOriginType.ONE_PARAM;
+			
+			DatabaseHelper.scanSingleParam(statement.name, filter, paramsClazz);
+		} else if (filter.fieldNames.length > 0) {
+			// there are many parameters
 			if (paramsClazz == null) {
 				filter.origin = FilterOriginType.BEAN;
 				DatabaseHelper.scanSchema(statement.name, filter, table);
@@ -293,7 +321,7 @@ public abstract class AbstractDatabaseHandler<Q extends Query, I extends Insert,
 					}
 				}
 			}
-		}
+		} 
 
 	}
 
@@ -350,7 +378,13 @@ public abstract class AbstractDatabaseHandler<Q extends Query, I extends Insert,
 		// create filter part
 		buildFilter(table, delete, options.where, options.paramsClass);
 
+		if (table.deletes.containsKey(delete.name))
+		{
+			throw new MappingException("Table "+table.name+" already contains a delete named " + delete.name + ".");
+		}
 		table.deletes.put(delete.name, delete);
+		table.lastDelete=delete;
+		
 		return delete;
 	}
 

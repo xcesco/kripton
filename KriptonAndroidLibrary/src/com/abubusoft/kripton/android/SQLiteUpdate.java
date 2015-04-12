@@ -23,46 +23,35 @@ public class SQLiteUpdate extends Update {
 	@SuppressWarnings("rawtypes")
 	ArrayList<SqliteAdapter> columnAdapter = new ArrayList<>();
 
-	@SuppressWarnings("unchecked")
-	public boolean execute(SQLiteDatabase database, Object bean, Object paramValues) {
+	public int execute(SQLiteDatabase database, Object bean, Object paramValues) {
 		// check for supported bean clazz
 		if (!bean.getClass().isAssignableFrom(table.clazz)) {
-			throw (new MappingException("Query '" + this.name + "' is for class " + table.clazz.getName() + ". It can not be used for " + bean.getClass().getName()));
+			throw (new MappingException("Query '" + this.name + "' is for class " + table.clazz.getName() + ". It can not be used for "
+					+ bean.getClass().getName()));
 		}
 
-		ContentValues value = schema.values.get();
-		if (value == null) {
-			value = new ContentValues();
-			schema.values.set(value);
-		} 
-
-		value.clear();
-		Object v;
-		
-		String[] filterValues = null;				
-		if (filter.origin==FilterOriginType.PARAMS) {
-			filterValues = getFilterValues(paramValues, filter.inputClazz);
-		} else {
-			filterValues = getFilterValues(bean, table.clazz);
-		}
-
-		
 		try {
-			int i = 0;
-			for (i=0; i<columns.length;i++)
-			{						
-				v = columns[i].schema.getFieldValue(bean);
-				columnAdapter.get(i).writeValue(v, value, columns[i].name);
-			}	
-			
-			
-			long id = database.update(table.name, value, filter.sql, filterValues);
+			ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, schema.values, bean);
 
-			if (id == SQLiteSchema.INVALID_ID) {
-				throw (new MappingException("Can not insert row in table " + table.name));
-			}
+			String[] filterValues = null;
+			switch(filter.origin)
+			{
+			case PARAMS:
+				filterValues = getFilterValuesFromParams(paramValues, filter.inputClazz);
+				break;
+			case BEAN:
+				filterValues = getFilterValuesFromParams(bean, table.clazz);
+				break;
+			case NONE:
+				break;
+			case ONE_PARAM:
+				filterValues=getFilterValuesFromOneParam(paramValues, filter.inputClazz);
+				break;
+			}			
 
-			return true;
+			int affectedRows = database.update(table.name, value, filter.sql, filterValues);
+
+			return affectedRows;
 		} catch (Exception e) {
 			throw (new MappingException(e.getMessage()));
 

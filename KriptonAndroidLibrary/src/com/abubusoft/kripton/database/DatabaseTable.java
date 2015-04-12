@@ -32,5 +32,13 @@ public class DatabaseTable {
 	public DatabaseColumn primaryKey;
 
 	public LinkedHashMap<String, Delete> deletes = new LinkedHashMap<>();
+	
+	public Query lastQuery;
+	
+	public Insert lastInsert;
+	
+	public Update lastUpdate;
+	
+	public Delete lastDelete;
 
 }

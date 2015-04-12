@@ -24,7 +24,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 	protected LinkedHashMap<Class<?>, DatabaseTable> class2Table = new LinkedHashMap<>();
 
 	public void build(DatabaseSchemaOptions options) {
-		handler = createHandler(options) ;
+		handler = createHandler(options);
 		handler.init();
 		buildTables(handler, options);
 	}
@@ -42,44 +42,43 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 			table = new DatabaseTable();
 			table.name = key;
 			table.schema = item;
-			table.clazz=item.getType();
-			
+			table.clazz = item.getType();
+
 			for (ElementSchema element : item.getField2SchemaMapping().values()) {
-				column=createColumn(element, options);				
-				
+				column = createColumn(element, options);
+
 				table.columns.add(column);
 				table.field2column.put(element.getName(), column);
-				
+
 				// look for pk
-				if (column.feature==ColumnType.PRIMARY_KEY)
-				{
-					table.primaryKey=column;
+				if (column.feature == ColumnType.PRIMARY_KEY) {
+					table.primaryKey = column;
 				}
 			}
 
 			tables.put(key, table);
 			class2Table.put(item.getType(), table);
-			
 
 			// create default insert, update and select
-			createInsert(item.getType(), InsertOptions.build());
-			createQuery(item.getType(), QueryOptions.build());
-			
+			createInsert(item.getType(), InsertOptions.build().name("defaultById"));
+			createQuery(item.getType(), QueryOptions.build().name("defaultAll"));
+
 			// only for table with primary key
-			if (table.primaryKey!=null)
-			{
-				createUpdate(item.getType(), UpdateOptions.build().where(table.primaryKey.schema.getName()+"=#{"+table.primaryKey.schema.getName()+"}"));
-				//createUpdate(item.getType(), UpdateOptions.build().where());	
+			if (table.primaryKey != null) {
+				String whereById = table.primaryKey.schema.getName() + "=#{" + table.primaryKey.schema.getName() + "}";
+
+				createQuery(item.getType(), QueryOptions.build().name("defaultById").where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
+				createUpdate(item.getType(), UpdateOptions.build().name("defaultById").where(whereById));
+				createDelete(item.getType(), DeleteOptions.build().name("defaultById").where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
 			}
 		}
 	}
 
 	protected abstract DatabaseColumn createColumn(ElementSchema element, DatabaseSchemaOptions options);
-	
+
 	protected abstract DatabaseHandler<Q, I, U, D> createHandler(DatabaseSchemaOptions options);
 
-	public DatabaseTable getTableFromClass(Class<?> clazz)
-	{
+	public DatabaseTable getTableFromClass(Class<?> clazz) {
 		return class2Table.get(clazz);
 	}
 
@@ -98,7 +97,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
 		return handler.createInsert(table, options);
 	}
-	
+
 	public U createUpdate(Class<?> clazz, UpdateOptions options) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
@@ -106,7 +105,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
 		return handler.createUpdate(table, options);
 	}
-	
+
 	public D createDelete(Class<?> clazz, DeleteOptions options) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
@@ -116,7 +115,8 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 	}
 
 	/**
-	 * Retrieve an insert already defined. 
+	 * Retrieve an insert already defined.
+	 * 
 	 * @param clazz
 	 * @param name
 	 * @return
@@ -131,12 +131,96 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 	}
 
 	@SuppressWarnings("unchecked")
+	public I getInsert(Class<?> clazz) {
+		DatabaseTable table = this.class2Table.get(clazz);
+
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+
+		if (table.inserts.size() != 1) {
+			throw new MappingException("Table for class " + clazz.getName() + " does not have one insert. Check insert definitions.");
+		}
+		return (I) table.lastInsert;
+	}
+
+	/**
+	 * Retrieve a query already defined.
+	 * 
+	 * @param clazz
+	 * @param name
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public Q getQuery(Class<?> clazz, String name) {
+		DatabaseTable table = this.class2Table.get(clazz);
+
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+		return (Q) table.queries.get(name);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Q getQuery(Class<?> clazz) {
+		DatabaseTable table = this.class2Table.get(clazz);
+
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+
+		if (table.queries.size() != 1) {
+			throw new MappingException("Table for class " + clazz.getName() + " does not have one query. Check query definitions.");
+		}
+		return (Q) table.lastQuery;
+	}
+
+	/**
+	 * Retrieve a query already defined.
+	 * 
+	 * @param clazz
+	 * @param name
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public D getDelete(Class<?> clazz, String name) {
+		DatabaseTable table = this.class2Table.get(clazz);
+
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+		return (D) table.deletes.get(name);
+	}
+
+	@SuppressWarnings("unchecked")
+	public D getDelete(Class<?> clazz) {
+		DatabaseTable table = this.class2Table.get(clazz);
+
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+
+		if (table.deletes.size() != 1) {
+			throw new MappingException("Table for class " + clazz.getName() + " does not have one delete. Check delete definitions.");
+		}
+		return (D) table.lastDelete;
+	}
+
+	@SuppressWarnings("unchecked")
 	public U getUpdate(Class<?> clazz, String name) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
 			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
 		return (U) table.updates.get(name);
+	}
+
+	@SuppressWarnings("unchecked")
+	public U getUpdate(Class<?> clazz) {
+		DatabaseTable table = this.class2Table.get(clazz);
+
+		if (table == null)
+			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
+
+		if (table.updates.size() != 1) {
+			throw new MappingException("Table for class " + clazz.getName() + " does not have one update. Check update definitions.");
+		}
+		return (U) table.lastUpdate;
 	}
 
 	public String[] createTablesSQL() {
@@ -146,7 +230,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 				return handler.createTableSQL(item);
 			}
 		};
-		
+
 		return forEachTable(iteratorCreateTableSQL);
 	}
 
@@ -157,7 +241,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 				return handler.dropTableSQL(item);
 			}
 		};
-		
+
 		return forEachTable(iteratorDropTableSQL);
 	}
 

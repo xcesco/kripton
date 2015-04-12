@@ -91,6 +91,20 @@ public class DatabaseHelper {
 			
 			i++;
 		}
-
+	}
+	
+	/**
+	 * Param class contains only one parameters
+	 * 
+	 * @param name
+	 * @param filter
+	 * @param paramsClass
+	 */
+	public static void scanSingleParam(String name, Filter filter, Class<?> paramsClass) {
+		if (paramsClass==null) return;
+		
+		filter.field[0]=null;
+		filter.fieldTransform[0]=Transformer.lookup(paramsClass);
+		
 	}
 }

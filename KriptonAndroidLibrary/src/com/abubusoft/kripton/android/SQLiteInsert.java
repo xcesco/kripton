@@ -29,9 +29,10 @@ public class SQLiteInsert extends Insert {
 					+ bean.getClass().getName()));
 		}
 
-		ContentValues value = bean2Values(bean);
+		ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, schema.values, bean);
 		
-		value.remove(table.primaryKey.name);
+		if (table.primaryKey!=null)
+			value.remove(table.primaryKey.name);
 		
 		long id = database.insert(table.name, null, value);
 
@@ -51,34 +52,4 @@ public class SQLiteInsert extends Insert {
 
 	}
 
-	@SuppressWarnings("unchecked")
-	private ContentValues bean2Values(Object bean) {
-		ContentValues value = schema.values.get();
-		if (value == null) {
-			value = new ContentValues();
-			schema.values.set(value);
-		}
-
-		value.clear();
-		Object v;
-
-		@SuppressWarnings("rawtypes")
-		SqliteAdapter adapter = null;
-		try {
-			int n = columns.length;
-			for (int i = 0; i < n; i++) {
-
-				v = columns[i].schema.getFieldValue(bean);
-				adapter = columnAdapter.get(i);
-
-				if (v != null) {
-					adapter.writeValue(v, value, columns[i].name);
-				}
-			}
-
-			return value;
-		} catch (Exception e) {
-			throw new MappingException(e.getMessage());
-		}
-	}
 }

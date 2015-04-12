@@ -30,15 +30,20 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteIn
 		values.set(new ContentValues());
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.database.AbstractDatabaseHandler#createDelete(com.abubusoft.kripton.database.DatabaseTable, com.abubusoft.kripton.database.DeleteOptions)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.abubusoft.kripton.database.AbstractDatabaseHandler#createDelete(com
+	 * .abubusoft.kripton.database.DatabaseTable,
+	 * com.abubusoft.kripton.database.DeleteOptions)
 	 */
 	@Override
-	public SQLiteDelete createDelete(DatabaseTable table, DeleteOptions options) {		
+	public SQLiteDelete createDelete(DatabaseTable table, DeleteOptions options) {
 		SQLiteDelete delete = super.createDelete(table, options);
-		
-		buildColumnAdapters(delete, delete.columnAdapter);
-		buildWhereAdapters(delete.filter, delete.filterAdapter);
+
+		findColumnAdapters(delete, delete.columnAdapter);
+		findFilterAdapters(delete.filter, delete.filterAdapter);
 
 		return delete;
 	}
@@ -141,12 +146,12 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteIn
 	@Override
 	public SQLiteInsert createInsert(DatabaseTable table, InsertOptions options) {
 		SQLiteInsert insert = super.createInsert(table, options);
-		buildColumnAdapters(insert, insert.columnAdapter);
-		
+		findColumnAdapters(insert, insert.columnAdapter);
+
 		return insert;
 	}
 
-	private void buildColumnAdapters(SQLStatement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter) {
+	private void findColumnAdapters(SQLStatement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter) {
 		DatabaseColumn col;
 
 		for (int i = 0; i < statement.columns.length; i++) {
@@ -166,20 +171,32 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteIn
 	@Override
 	public SQLiteQuery createQuery(DatabaseTable table, QueryOptions options) {
 		SQLiteQuery query = super.createQuery(table, options);
-		
-		buildColumnAdapters(query, query.columnAdapter);
-		buildWhereAdapters(query.filter, query.filterAdapter);
+
+		findColumnAdapters(query, query.columnAdapter);
+		findFilterAdapters(query.filter, query.filterAdapter);
 
 		return query;
 	}
 
 	@SuppressWarnings("rawtypes")
-	private void buildWhereAdapters(Filter filter, ArrayList<SqliteAdapter> filterAdapter) {
+	private void findFilterAdapters(Filter filter, ArrayList<SqliteAdapter> filterAdapter) {
 		Field field;
-		for (int i = 0; i < filter.fieldNames.length; i++) {
-			field = filter.field[i];
-			filterAdapter.add(Adapter.lookup(field.getType()));
+
+		switch (filter.origin) {
+		case BEAN:
+		case PARAMS:
+			for (int i = 0; i < filter.fieldNames.length; i++) {
+				field = filter.field[i];
+				filterAdapter.add(Adapter.lookup(field.getType()));
+			}
+			break;
+		case NONE:
+			break;
+		case ONE_PARAM:
+			filterAdapter.add(Adapter.lookup(filter.inputClazz));
+			break;
 		}
+
 	}
 
 	@Override
@@ -206,8 +223,8 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteIn
 	@Override
 	public SQLiteUpdate createUpdate(DatabaseTable table, UpdateOptions options) {
 		SQLiteUpdate update = super.createUpdate(table, options);
-		buildColumnAdapters(update, update.columnAdapter);
-		
+		findColumnAdapters(update, update.columnAdapter);
+
 		return update;
 	}
 

@@ -96,4 +96,5 @@ public class SQLiteSchema extends AbstractDatabaseSchema<SQLiteQuery, SQLiteInse
 		return new SQLiteHandler();
 	}
 
+
 }
