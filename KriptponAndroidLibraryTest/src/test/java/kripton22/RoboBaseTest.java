@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.Before;
-import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowContentResolver;
 

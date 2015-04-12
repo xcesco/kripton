@@ -6,6 +6,10 @@ import org.junit.Test;
 
 
 
+
+
+import all.BaseTest;
+
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.BinderOptions;
@@ -25,15 +29,16 @@ import com.abubusoft.kripton.database.SQLStatement;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 
-import issue.BaseTest;
-
 public class Test01Test extends BaseTest {
 
 	
 	public static class Params {
-		public int uid;
+		public String name;
 		
 		public long id;
+		
+		public long uid;
+		
 	} 
 	
 	@Test
@@ -68,8 +73,8 @@ public class Test01Test extends BaseTest {
 
 		SQLiteSchema databaseSchema = DatabaseSchemaFactory.create("prova", SQLiteSchema.class, options);
 
-		databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name,\n id"));
-		databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{name} and love=#{name}"));
+		databaseSchema.createQuery(Bean01.class, QueryOptions.build().name("1").select("name,\n id"));
+		databaseSchema.createQuery(Bean01.class, QueryOptions.build().name("2").select("name").where("name=#{name} and love=#{name}"));
 
 		for (DatabaseTable table : databaseSchema.getTables().values()) {
 			logger.info("table " + table.name + " java-name: " + table.schema.tableInfo.name);
@@ -99,7 +104,7 @@ public class Test01Test extends BaseTest {
 			}
 		}
 		
-		SQLStatement query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{name} and love=#{name}").paramsClass(Params.class));
+		SQLStatement query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().name("3").select("name").where("name=#{name} and love=#{name}").paramsClass(Params.class));
 
 		//SQLiteDatabase db = SQLiteDatabase.openDatabase("", null, 0);
 		// db.ra
@@ -140,7 +145,7 @@ public class Test01Test extends BaseTest {
 		params.uid="xxx";
 		params.latitude=12.0f;
 		
-		String[] p = query.getFilterValues(params, P.class);
+		String[] p = query.getFilterValuesFromParams(params, P.class);
 		for (String item: p)
 		{
 			logger.info("parameter: "+item);
@@ -160,7 +165,6 @@ public class Test01Test extends BaseTest {
 			}
 		}	
 		
-		//databaseSchema.select(null, ChatMessage.class,"prova", params);
 	}
 	
 	@Test
@@ -177,31 +181,6 @@ public class Test01Test extends BaseTest {
 		
 		bean.creationTimestamp=(new Date()).getTime();
 		bean.value="cuiao balelo";
-		//databaseSchema.insert(null, bean);
-		
-		
-//		P params=new P();
-//		params.uid="xxx";
-//		params.latitude=12.0f;
-//		
-//		String[] p = query.getParams(params);
-//		for (String item: p)
-//		{
-//			logger.info("parameter: "+item);
-//		}
-//		
-//		{
-//			String[] createSql = databaseSchema.createTablesSQL();
-//			for (int i = 0; i < createSql.length; i++) {
-//				logger.info(createSql[i]);
-//			}
-//		}
-//
-//		{
-//			String[] createSql = databaseSchema.dropTablesSQL();
-//			for (int i = 0; i < createSql.length; i++) {
-//				logger.info(createSql[i]);
-//			}
-//		}				
+				
 	}
 }
