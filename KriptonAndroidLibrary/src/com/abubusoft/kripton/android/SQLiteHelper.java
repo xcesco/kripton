@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import android.content.ContentValues;
 
 import com.abubusoft.kripton.android.adapter.SqliteAdapter;
+import com.abubusoft.kripton.binder.database.DatabaseColumn;
+import com.abubusoft.kripton.binder.database.DatabaseTable;
+import com.abubusoft.kripton.binder.database.Filter;
+import com.abubusoft.kripton.binder.database.Statement;
 import com.abubusoft.kripton.binder.transform.Transformable;
-import com.abubusoft.kripton.database.DatabaseColumn;
-import com.abubusoft.kripton.database.DatabaseTable;
-import com.abubusoft.kripton.database.Filter;
-import com.abubusoft.kripton.database.Statement;
 import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteHelper {
@@ -81,9 +81,13 @@ public class SQLiteHelper {
 			values = new String[filter.fieldNames.length];
 			filterValues.set(values);
 		}
+		
+		if (parameters==null)
+		{
+			throw new MappingException("Parameter is null, but parameter of type "+filter.inputClazz+" is needed");
+		}
 
 		try {
-
 			Transformable t = filter.fieldTransform[0];
 			values[0] = t.write(parameters);
 

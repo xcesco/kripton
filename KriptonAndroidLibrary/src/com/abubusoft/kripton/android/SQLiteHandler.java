@@ -9,16 +9,16 @@ import android.content.ContentValues;
 
 import com.abubusoft.kripton.android.adapter.Adapter;
 import com.abubusoft.kripton.android.adapter.SqliteAdapter;
-import com.abubusoft.kripton.database.AbstractDatabaseHandler;
-import com.abubusoft.kripton.database.ColumnType;
-import com.abubusoft.kripton.database.DatabaseColumn;
-import com.abubusoft.kripton.database.DatabaseTable;
-import com.abubusoft.kripton.database.DeleteOptions;
-import com.abubusoft.kripton.database.Filter;
-import com.abubusoft.kripton.database.InsertOptions;
-import com.abubusoft.kripton.database.QueryOptions;
-import com.abubusoft.kripton.database.Statement;
-import com.abubusoft.kripton.database.UpdateOptions;
+import com.abubusoft.kripton.binder.database.AbstractDatabaseHandler;
+import com.abubusoft.kripton.binder.database.ColumnType;
+import com.abubusoft.kripton.binder.database.DatabaseColumn;
+import com.abubusoft.kripton.binder.database.DatabaseTable;
+import com.abubusoft.kripton.binder.database.DeleteOptions;
+import com.abubusoft.kripton.binder.database.Filter;
+import com.abubusoft.kripton.binder.database.InsertOptions;
+import com.abubusoft.kripton.binder.database.QueryOptions;
+import com.abubusoft.kripton.binder.database.Statement;
+import com.abubusoft.kripton.binder.database.UpdateOptions;
 
 public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteInsert, SQLiteQuery, SQLiteUpdate, SQLiteDelete> {
 

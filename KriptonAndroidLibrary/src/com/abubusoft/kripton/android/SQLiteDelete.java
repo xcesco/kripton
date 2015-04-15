@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.adapter.SqliteAdapter;
-import com.abubusoft.kripton.database.Delete;
+import com.abubusoft.kripton.binder.database.Delete;
 import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteDelete extends Delete {

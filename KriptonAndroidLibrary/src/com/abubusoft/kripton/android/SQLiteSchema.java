@@ -3,15 +3,15 @@
  */
 package com.abubusoft.kripton.android;
 
+import com.abubusoft.kripton.binder.database.AbstractDatabaseSchema;
+import com.abubusoft.kripton.binder.database.ColumnType;
+import com.abubusoft.kripton.binder.database.DatabaseColumn;
+import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
+import com.abubusoft.kripton.binder.database.DeleteOptions;
+import com.abubusoft.kripton.binder.database.InsertOptions;
+import com.abubusoft.kripton.binder.database.QueryOptions;
+import com.abubusoft.kripton.binder.database.UpdateOptions;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
-import com.abubusoft.kripton.database.AbstractDatabaseSchema;
-import com.abubusoft.kripton.database.ColumnType;
-import com.abubusoft.kripton.database.DatabaseColumn;
-import com.abubusoft.kripton.database.DatabaseSchemaOptions;
-import com.abubusoft.kripton.database.DeleteOptions;
-import com.abubusoft.kripton.database.InsertOptions;
-import com.abubusoft.kripton.database.QueryOptions;
-import com.abubusoft.kripton.database.UpdateOptions;
 
 /**
  * @author xcesco

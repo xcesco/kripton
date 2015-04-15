@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.adapter.SqliteAdapter;
-import com.abubusoft.kripton.database.Query;
-import com.abubusoft.kripton.database.DatabaseColumn;
-import com.abubusoft.kripton.database.QueryListener;
+import com.abubusoft.kripton.binder.database.DatabaseColumn;
+import com.abubusoft.kripton.binder.database.Query;
+import com.abubusoft.kripton.binder.database.QueryListener;
 import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteQuery extends Query {
