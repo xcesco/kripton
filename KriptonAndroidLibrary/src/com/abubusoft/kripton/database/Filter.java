@@ -29,7 +29,7 @@ public class Filter {
 	/**
 	 * values to apply to filter
 	 */
-	public ThreadLocal<String[]> values = new ThreadLocal<String[]>();
+	//public ThreadLocal<String[]> values = new ThreadLocal<String[]>();
 
 	/**
 	 * class which contains input for filter

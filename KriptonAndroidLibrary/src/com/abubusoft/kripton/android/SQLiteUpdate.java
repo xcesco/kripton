@@ -6,16 +6,17 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.adapter.SqliteAdapter;
-import com.abubusoft.kripton.database.FilterOriginType;
 import com.abubusoft.kripton.database.Update;
 import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteUpdate extends Update {
+ 
+	SQLiteHandler handler;
+	
+	@SuppressWarnings("rawtypes")
+	ArrayList<SqliteAdapter> filterAdapter = new ArrayList<>();
 
-	/**
-	 * schema adapter
-	 */
-	SQLiteSchema schema;
+	ThreadLocal<String[]> filterValues=new ThreadLocal<String[]>();
 
 	/**
 	 * list of adapters
@@ -31,25 +32,25 @@ public class SQLiteUpdate extends Update {
 		}
 
 		try {
-			ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, schema.values, bean);
+			ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, handler.contentValues, bean);
 
-			String[] filterValues = null;
+			String[] filterValuesArray = null;
 			switch(filter.origin)
 			{
 			case PARAMS:
-				filterValues = getFilterValuesFromParams(paramValues, filter.inputClazz);
+				filterValuesArray = SQLiteHelper.getFilterValuesFromParams(filter, filterValues, paramValues, filter.inputClazz);
 				break;
 			case BEAN:
-				filterValues = getFilterValuesFromParams(bean, table.clazz);
+				filterValuesArray = SQLiteHelper.getFilterValuesFromParams(filter, filterValues,bean, table.clazz);
 				break;
 			case NONE:
 				break;
 			case ONE_PARAM:
-				filterValues=getFilterValuesFromOneParam(paramValues, filter.inputClazz);
+				filterValuesArray=SQLiteHelper.getFilterValuesFromOneParam(filter, filterValues,paramValues, filter.inputClazz);
 				break;
 			}			
 
-			int affectedRows = database.update(table.name, value, filter.sql, filterValues);
+			int affectedRows = database.update(table.name, value, filter.sql, filterValuesArray);
 
 			return affectedRows;
 		} catch (Exception e) {

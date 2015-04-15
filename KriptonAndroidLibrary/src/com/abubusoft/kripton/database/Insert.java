@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.database;
 
-public class Insert extends SQLStatement {
+public class Insert extends Statement {
 	
 	/* (non-Javadoc)
 	 * @see com.abubusoft.kripton.database.SQLStatement#buildSQL()

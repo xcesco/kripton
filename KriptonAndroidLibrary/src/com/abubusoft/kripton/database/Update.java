@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.database;
 
-public class Update extends SQLFilterStatement {
+public class Update extends FilteredStatement {
 
 	@Override
 	protected String buildSQL() {
@@ -16,7 +16,14 @@ public class Update extends SQLFilterStatement {
 
 			separator = ", ";
 		}
-		sb.append(filter.sql);
+		sb.append(") ");
+		
+		if (filter.sql!=null)
+		{
+			sb.append(" where ");
+			sb.append(filter.sql);	
+		}		
+		
 		sb.append(";");
 		
 		return sb.toString();

@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.content.ContentValues;
+
 import com.abubusoft.kripton.android.adapter.Adapter;
 import com.abubusoft.kripton.android.adapter.SqliteAdapter;
 import com.abubusoft.kripton.database.AbstractDatabaseHandler;
@@ -15,19 +17,17 @@ import com.abubusoft.kripton.database.DeleteOptions;
 import com.abubusoft.kripton.database.Filter;
 import com.abubusoft.kripton.database.InsertOptions;
 import com.abubusoft.kripton.database.QueryOptions;
-import com.abubusoft.kripton.database.SQLStatement;
+import com.abubusoft.kripton.database.Statement;
 import com.abubusoft.kripton.database.UpdateOptions;
 
-import android.content.ContentValues;
-
-public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteInsert, SQLiteUpdate, SQLiteDelete> {
+public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteInsert, SQLiteQuery, SQLiteUpdate, SQLiteDelete> {
 
 	private static final long serialVersionUID = -8926461587267041987L;
 
-	protected ThreadLocal<ContentValues> values = new ThreadLocal<ContentValues>();
+	ThreadLocal<ContentValues> contentValues = new ThreadLocal<ContentValues>();
 
 	public SQLiteHandler() {
-		values.set(new ContentValues());
+		contentValues.set(new ContentValues());
 	}
 
 	/*
@@ -40,7 +40,7 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteIn
 	 */
 	@Override
 	public SQLiteDelete createDelete(DatabaseTable table, DeleteOptions options) {
-		SQLiteDelete delete = super.createDelete(table, options);
+		SQLiteDelete delete = (SQLiteDelete) super.createDelete(table, options);
 
 		findColumnAdapters(delete, delete.columnAdapter);
 		findFilterAdapters(delete.filter, delete.filterAdapter);
@@ -48,7 +48,8 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteIn
 		return delete;
 	}
 
-	public void init() {
+	public void init() {		
+		
 		if (mapToType == null) {
 			mapToType = new HashMap<>();
 
@@ -146,12 +147,13 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteIn
 	@Override
 	public SQLiteInsert createInsert(DatabaseTable table, InsertOptions options) {
 		SQLiteInsert insert = super.createInsert(table, options);
+		
 		findColumnAdapters(insert, insert.columnAdapter);
 
 		return insert;
 	}
 
-	private void findColumnAdapters(SQLStatement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter) {
+	private void findColumnAdapters(Statement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter) {
 		DatabaseColumn col;
 
 		for (int i = 0; i < statement.columns.length; i++) {
@@ -223,7 +225,9 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteIn
 	@Override
 	public SQLiteUpdate createUpdate(DatabaseTable table, UpdateOptions options) {
 		SQLiteUpdate update = super.createUpdate(table, options);
+		
 		findColumnAdapters(update, update.columnAdapter);
+		findFilterAdapters(update.filter, update.filterAdapter);
 
 		return update;
 	}
@@ -242,5 +246,7 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteQuery, SQLiteIn
 	protected SQLiteDelete newDelete() {
 		return new SQLiteDelete();
 	}
+	
+
 
 }

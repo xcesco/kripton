@@ -7,7 +7,7 @@ package com.abubusoft.kripton.database;
  * @author xcesco
  *
  */
-public abstract class Delete extends SQLFilterStatement {
+public abstract class Delete extends FilteredStatement {
 	
 	public String order;
 

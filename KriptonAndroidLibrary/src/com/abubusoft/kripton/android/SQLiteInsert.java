@@ -11,16 +11,13 @@ import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteInsert extends Insert {
 
-	/**
-	 * schema adapter
-	 */
-	SQLiteSchema schema;
+	SQLiteHandler handler;
 
 	/**
 	 * list of adapters
 	 */
 	@SuppressWarnings("rawtypes")
-	ArrayList<SqliteAdapter> columnAdapter = new ArrayList<>();
+	ArrayList<SqliteAdapter> columnAdapter = new ArrayList<>(); 
 
 	public boolean execute(SQLiteDatabase database, Object bean) {
 		// check for supported bean clazz
@@ -29,7 +26,7 @@ public class SQLiteInsert extends Insert {
 					+ bean.getClass().getName()));
 		}
 
-		ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, schema.values, bean);
+		ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, handler.contentValues, bean);
 		
 		if (table.primaryKey!=null)
 			value.remove(table.primaryKey.name);

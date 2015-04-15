@@ -1,30 +1,20 @@
 package com.abubusoft.kripton.android;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.adapter.SqliteAdapter;
-import com.abubusoft.kripton.binder.transform.Transformable;
-import com.abubusoft.kripton.binder.transform.Transformer;
-import com.abubusoft.kripton.database.FilterOriginType;
 import com.abubusoft.kripton.database.Query;
 import com.abubusoft.kripton.database.DatabaseColumn;
 import com.abubusoft.kripton.database.QueryListener;
 import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteQuery extends Query {
+ 
+	SQLiteHandler handler;
 
-	/**
-	 * schema adapter
-	 */
-	SQLiteSchema schema;
-
-	/**
-	 * list of adapters
-	 */
 	@SuppressWarnings("rawtypes")
 	ArrayList<SqliteAdapter> columnAdapter = new ArrayList<>();
 
@@ -33,12 +23,33 @@ public class SQLiteQuery extends Query {
 
 	ThreadLocal<Object> cachedBeans = new ThreadLocal<Object>();
 
+	ThreadLocal<String[]> filterValues=new ThreadLocal<String[]>();
+
 	public <E> ArrayList<E> execute(SQLiteDatabase database, Class<E> beanClazz) {
 		return execute(database, beanClazz, null);
 	}
 
 	public <E> void executeWithListener(SQLiteDatabase database, Class<E> beanClazz, QueryListener<E> listener) {
 		executeWithListener(database, beanClazz, null, listener);
+	}
+	
+	public String[] getFilterValues(Object params) {
+		String[] filterValuesArray = null;
+		switch (filter.origin) {
+		case NONE:
+			break;
+		case ONE_PARAM:
+			filterValuesArray = SQLiteHelper.getFilterValuesFromOneParam(filter, filterValues, params, filter.inputClazz);
+			break;
+		case PARAMS:
+			filterValuesArray = SQLiteHelper.getFilterValuesFromParams(filter, filterValues,params, filter.inputClazz);
+			break;
+		case BEAN:
+			filterValuesArray = SQLiteHelper.getFilterValuesFromParams(filter, filterValues,params, table.clazz);
+			break;
+		}
+		
+		return filterValuesArray;
 	}
 
 	public <E> ArrayList<E> execute(SQLiteDatabase database, Class<E> beanClazz, Object params) {
@@ -47,20 +58,7 @@ public class SQLiteQuery extends Query {
 			throw (new MappingException("Query '" + this.name + "' is for class " + table.clazz.getName() + ". It can not be used for " + beanClazz.getName()));
 		}
 
-		String[] filterValues = null;
-		switch (filter.origin) {
-		case NONE:
-			break;
-		case ONE_PARAM:
-			filterValues = getFilterValuesFromOneParam(params, filter.inputClazz);
-			break;
-		case PARAMS:
-			filterValues = getFilterValuesFromParams(params, filter.inputClazz);
-			break;
-		case BEAN:
-			filterValues = getFilterValuesFromParams(params, beanClazz);
-			break;
-		}
+		String[] filterValues = getFilterValues(params);
 
 		ArrayList<E> result = new ArrayList<E>();
 		try {
@@ -118,20 +116,7 @@ public class SQLiteQuery extends Query {
 			throw (new MappingException("Query '" + this.name + "' is for class " + table.clazz.getName() + ". It can not be used for " + beanClazz.getName()));
 		}
 
-		String[] filterValues = null;
-		switch (filter.origin) {
-		case NONE:
-			break;
-		case ONE_PARAM:
-			filterValues = getFilterValuesFromOneParam(params, filter.inputClazz);
-			break;
-		case PARAMS:
-			filterValues = getFilterValuesFromParams(params, filter.inputClazz);
-			break;
-		case BEAN:
-			filterValues = getFilterValuesFromParams(params, beanClazz);
-			break;
-		}
+		String[] filterValues = getFilterValues(params);
 
 		try {
 			E bean = null;
@@ -167,20 +152,7 @@ public class SQLiteQuery extends Query {
 			throw (new MappingException("Query '" + this.name + "' is for class " + table.clazz.getName() + ". It can not be used for " + beanClazz.getName()));
 		}
 
-		String[] filterValues = null;
-		switch (filter.origin) {
-		case NONE:
-			break;
-		case ONE_PARAM:
-			filterValues = getFilterValuesFromOneParam(params, filter.inputClazz);
-			break;
-		case PARAMS:
-			filterValues = getFilterValuesFromParams(params, filter.inputClazz);
-			break;
-		case BEAN:
-			filterValues = getFilterValuesFromParams(params, beanClazz);
-			break;
-		}
+		String[] filterValues = getFilterValues(params);
 
 		try {
 			Cursor cursor = database.rawQuery(getSQL(), filterValues);

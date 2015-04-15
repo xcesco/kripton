@@ -13,10 +13,11 @@ public class DatabaseSchemaFactory {
 	/**
 	 * Use LRU cache to limit memory consumption.
 	 */
-	protected static Map<String, AbstractDatabaseSchema<?, ?,?,?>> schemaCache = Collections.synchronizedMap(new LRUCache<String, AbstractDatabaseSchema<?,?,?,?>>(
+	@SuppressWarnings("rawtypes")
+	protected static Map<String, AbstractDatabaseSchema> schemaCache = Collections.synchronizedMap(new LRUCache<String, AbstractDatabaseSchema>(
 			CACHE_SIZE));
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <E extends AbstractDatabaseSchema> E create(String name, Class<E> schemaClazz, DatabaseSchemaOptions options)  {
 		if (schemaCache.containsKey(name)) {
 			return (E) schemaCache.get(name);

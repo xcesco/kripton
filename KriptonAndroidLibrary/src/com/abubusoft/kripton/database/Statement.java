@@ -7,8 +7,11 @@ package com.abubusoft.kripton.database;
  * @author xcesco
  *
  */
-public abstract class SQLStatement {
+public abstract class Statement {
 
+	@SuppressWarnings("rawtypes")
+	protected DatabaseHandler handler;
+	
 	/**
 	 * name of the query
 	 */

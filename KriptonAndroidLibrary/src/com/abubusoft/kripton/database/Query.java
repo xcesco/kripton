@@ -7,7 +7,10 @@ package com.abubusoft.kripton.database;
  * @author xcesco
  *
  */
-public abstract class Query extends SQLFilterStatement {
+public abstract class Query extends FilteredStatement {
+	
+	public static final String QUERY_ALL = "defaultAll";
+	
 	
 	public String order;
 
@@ -15,7 +18,7 @@ public abstract class Query extends SQLFilterStatement {
 	 * @see com.abubusoft.kripton.database.SQLStatement#buildSQL()
 	 */
 	@Override
-	protected String buildSQL() {
+	protected String buildSQL() { 
 		StringBuilder sb = new StringBuilder();
 		String separator = "";
 

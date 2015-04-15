@@ -25,7 +25,7 @@ import com.abubusoft.kripton.database.DatabaseTable;
 import com.abubusoft.kripton.database.InsertOptions;
 import com.abubusoft.kripton.database.Filter;
 import com.abubusoft.kripton.database.QueryOptions;
-import com.abubusoft.kripton.database.SQLStatement;
+import com.abubusoft.kripton.database.Statement;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 
@@ -84,7 +84,7 @@ public class Test01Test extends BaseTest {
 						+ column.schema.getFieldType() + " db-type: " + column.type);
 			}
 
-			for (SQLStatement item : table.queries.values()) {
+			for (Statement item : table.queries.values()) {
 				logger.info("\tset-name " + item.name + " set : " + item.columns.toString());
 			}
 
@@ -104,7 +104,7 @@ public class Test01Test extends BaseTest {
 			}
 		}
 		
-		SQLStatement query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().name("3").select("name").where("name=#{name} and love=#{name}").paramsClass(Params.class));
+		Statement query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().name("3").select("name").where("name=#{name} and love=#{name}").paramsClass(Params.class));
 
 		//SQLiteDatabase db = SQLiteDatabase.openDatabase("", null, 0);
 		// db.ra
@@ -145,7 +145,7 @@ public class Test01Test extends BaseTest {
 		params.uid="xxx";
 		params.latitude=12.0f;
 		
-		String[] p = query.getFilterValuesFromParams(params, P.class);
+		String[] p = query.getFilterValues(params);
 		for (String item: p)
 		{
 			logger.info("parameter: "+item);

@@ -6,7 +6,7 @@ import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.exception.MappingException;
 
-public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, U extends Update, D extends Delete> {
+public abstract class AbstractDatabaseSchema<C extends Insert, R extends Query, U extends Update, D extends Delete> {
 
 	interface TableTask {
 		String onTable(DatabaseTable item);
@@ -19,7 +19,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 		return tables;
 	}
 
-	protected DatabaseHandler<Q, I, U, D> handler;
+	protected DatabaseHandler<C,R,U,D> handler;
 
 	protected LinkedHashMap<Class<?>, DatabaseTable> class2Table = new LinkedHashMap<>();
 
@@ -29,8 +29,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 		buildTables(handler, options);
 	}
 
-	@SuppressWarnings("rawtypes")
-	protected void buildTables(DatabaseHandler handler, DatabaseSchemaOptions options) {
+	protected void buildTables(DatabaseHandler<C,R,U,D> handler, DatabaseSchemaOptions options) {
 		MappingSchema[] array = new MappingSchema[options.mappingSchemaSet.size()];
 		array = options.mappingSchemaSet.toArray(array);
 		DatabaseTable table;
@@ -60,29 +59,29 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 			class2Table.put(item.getType(), table);
 
 			// create default insert, update and select
-			createInsert(item.getType(), InsertOptions.build().name("defaultById"));
-			createQuery(item.getType(), QueryOptions.build().name("defaultAll"));
+			createInsert(item.getType(), InsertOptions.build());
+			createQuery(item.getType(), QueryOptions.build().name(Query.QUERY_ALL));
 
 			// only for table with primary key
 			if (table.primaryKey != null) {
 				String whereById = table.primaryKey.schema.getName() + "=#{" + table.primaryKey.schema.getName() + "}";
 
-				createQuery(item.getType(), QueryOptions.build().name("defaultById").where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
-				createUpdate(item.getType(), UpdateOptions.build().name("defaultById").where(whereById));
-				createDelete(item.getType(), DeleteOptions.build().name("defaultById").where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
+				createQuery(item.getType(), QueryOptions.build().name(Query.DEFAULT_BY_ID).where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
+				createUpdate(item.getType(), UpdateOptions.build().name(Update.DEFAULT_BY_ID).where(whereById));
+				createDelete(item.getType(), DeleteOptions.build().name(Delete.DEFAULT_BY_ID).where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
 			}
 		}
 	}
 
 	protected abstract DatabaseColumn createColumn(ElementSchema element, DatabaseSchemaOptions options);
 
-	protected abstract DatabaseHandler<Q, I, U, D> createHandler(DatabaseSchemaOptions options);
+	protected abstract DatabaseHandler<C,R,U,D> createHandler(DatabaseSchemaOptions options);
 
 	public DatabaseTable getTableFromClass(Class<?> clazz) {
 		return class2Table.get(clazz);
 	}
 
-	public Q createQuery(Class<?> clazz, QueryOptions options) {
+	public R createQuery(Class<?> clazz, QueryOptions options) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
@@ -90,7 +89,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 		return handler.createQuery(table, options);
 	}
 
-	public I createInsert(Class<?> clazz, InsertOptions options) {
+	public C createInsert(Class<?> clazz, InsertOptions options) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
@@ -122,7 +121,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public I getInsert(Class<?> clazz, String name) {
+	public <I extends Insert> I getInsert(Class<?> clazz, String name) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
@@ -131,7 +130,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 	}
 
 	@SuppressWarnings("unchecked")
-	public I getInsert(Class<?> clazz) {
+	public <I extends Insert> I getInsert(Class<?> clazz) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
@@ -151,7 +150,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public Q getQuery(Class<?> clazz, String name) {
+	public <Q extends Query> Q  getQuery(Class<?> clazz, String name) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
@@ -160,7 +159,7 @@ public abstract class AbstractDatabaseSchema<Q extends Query, I extends Insert, 
 	}
 
 	@SuppressWarnings("unchecked")
-	public Q getQuery(Class<?> clazz) {
+	public <Q extends Query> Q getQuery(Class<?> clazz) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)

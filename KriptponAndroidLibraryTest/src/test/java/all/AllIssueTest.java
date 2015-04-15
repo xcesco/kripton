@@ -3,6 +3,7 @@
  */
 package all;
 
+import kripton22.Issue22Test1;
 import kripton22.SQLTest;
 import kripton_1.Issue1Test0;
 import kripton_1.Issue1Test1;
@@ -26,7 +27,8 @@ import kripton_15.Issue15Test5;
 import kripton_15.Issue15Test6;
 import kripton_15.Issue15Test7;
 import kripton_15.Issue15Test8;
-import kripton_20.IssueTest20_1;
+import kripton_20.Issue20Test1;
+import kripton_20.Issue20Test2;
 import kripton_3.Issue3Test0;
 import kripton_4.Issue4Test0;
 import kripton_4.Issue4Test1;
@@ -71,8 +73,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	                   Issue13Test1.class,
 	                   Issue14Test1.class,Issue14Test2.class,	                   
 	                   Issue15Test1.class,Issue15Test2.class, Issue15Test3.class, Issue15Test4.class,Issue15Test5.class, Issue15Test6.class,Issue15Test7.class, Issue15Test8.class,
-	                   IssueTest20_1.class,
-	                   SQLTest.class
+	                   Issue20Test1.class,Issue20Test2.class,
+	                   Issue22Test1.class
 	})
 //@formatter:on
 public class AllIssueTest {

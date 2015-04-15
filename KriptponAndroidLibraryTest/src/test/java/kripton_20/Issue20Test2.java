@@ -8,7 +8,7 @@ import com.abubusoft.kripton.annotation.BindTypeXml;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.exception.MappingException;
 
-public class IssueTest20_2 {
+public class Issue20Test2 {
 
 	@BindType
 	public class Bean1
