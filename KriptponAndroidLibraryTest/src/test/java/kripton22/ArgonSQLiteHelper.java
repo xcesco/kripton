@@ -2,21 +2,19 @@ package kripton22;
 
 import java.util.ArrayList;
 
-import org.robolectric.util.Logger;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import com.abubusoft.kripton.android.SQLiteInsert;
 import com.abubusoft.kripton.android.SQLiteQuery;
 import com.abubusoft.kripton.android.SQLiteSchema;
 import com.abubusoft.kripton.android.SQLiteUpdate;
-import com.abubusoft.kripton.database.DatabaseSchemaFactory;
-import com.abubusoft.kripton.database.DatabaseSchemaOptions;
-import com.abubusoft.kripton.database.NameConverterType;
-import com.abubusoft.kripton.database.QueryListener;
-import com.abubusoft.kripton.database.QueryOptions;
-
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import com.abubusoft.kripton.binder.database.DatabaseSchemaFactory;
+import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
+import com.abubusoft.kripton.binder.database.NameConverterType;
+import com.abubusoft.kripton.binder.database.QueryListener;
+import com.abubusoft.kripton.binder.database.QueryOptions;
 
 public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 	

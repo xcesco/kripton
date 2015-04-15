@@ -4,7 +4,6 @@
 package kripton22;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.junit.After;
@@ -14,14 +13,13 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.database.QueryListener;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
-
-import android.database.sqlite.SQLiteDatabase;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "./src/test/resources/AndroidManifest.xml", emulateSdk = 21, reportSdk = 21)

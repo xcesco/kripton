@@ -15,10 +15,12 @@ import com.abubusoft.kripton.android.SQLiteInsert;
 import com.abubusoft.kripton.android.SQLiteQuery;
 import com.abubusoft.kripton.android.SQLiteSchema;
 import com.abubusoft.kripton.android.SQLiteUpdate;
-import com.abubusoft.kripton.database.DatabaseSchemaFactory;
-import com.abubusoft.kripton.database.DatabaseSchemaOptions;
-import com.abubusoft.kripton.database.NameConverterType;
-import com.abubusoft.kripton.database.Query;
+import com.abubusoft.kripton.binder.database.DatabaseSchemaFactory;
+import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
+import com.abubusoft.kripton.binder.database.NameConverterType;
+import com.abubusoft.kripton.binder.database.Query;
+import com.abubusoft.kripton.binder.database.QueryListener;
+import com.abubusoft.kripton.binder.database.QueryOptions;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "./src/test/resources/AndroidManifest.xml", emulateSdk = 21, reportSdk = 21)
@@ -91,6 +93,17 @@ public class Issue22Test1 {
 		msg.mediaUrl="ciao bello!";
 		int n=update.execute(database, msg, msg.id);
 		logger.info("Aggiornati "+n);
+		
+		SQLiteQuery queryFilter=databaseSchema.createQuery(ChatMessage.class, QueryOptions.build().select("id, creationTimestamp, mediaUrl").where("id < #{id} and id > 40").order("id").paramsClass(Long.class));
+		logger.info(queryFilter.getSQL());
+		logger.info(queryFilter.getFilterValues(msg.id).toString());
+		queryFilter.executeWithListener(database, ChatMessage.class, msg.id, new QueryListener<ChatMessage>() {
+
+			@Override
+			public void onRow(int count, ChatMessage bean) {				
+				logger.info("---------- "+bean.toString());
+			}
+		});
 		
 		logger.info(msg.toString());
 		msg=query.executeOne(database, ChatMessage.class, msg.id);

@@ -4,28 +4,24 @@ import java.util.Date;
 
 import org.junit.Test;
 
-
-
-
-
 import all.BaseTest;
 
 import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.BinderOptions;
+import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.android.SQLiteHandler;
 import com.abubusoft.kripton.android.SQLiteInsert;
 import com.abubusoft.kripton.android.SQLiteQuery;
 import com.abubusoft.kripton.android.SQLiteSchema;
+import com.abubusoft.kripton.binder.database.DatabaseColumn;
+import com.abubusoft.kripton.binder.database.DatabaseSchemaFactory;
+import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
+import com.abubusoft.kripton.binder.database.DatabaseTable;
+import com.abubusoft.kripton.binder.database.Filter;
+import com.abubusoft.kripton.binder.database.InsertOptions;
+import com.abubusoft.kripton.binder.database.QueryOptions;
+import com.abubusoft.kripton.binder.database.Statement;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
-import com.abubusoft.kripton.database.DatabaseColumn;
-import com.abubusoft.kripton.database.DatabaseSchemaFactory;
-import com.abubusoft.kripton.database.DatabaseSchemaOptions;
-import com.abubusoft.kripton.database.DatabaseTable;
-import com.abubusoft.kripton.database.InsertOptions;
-import com.abubusoft.kripton.database.Filter;
-import com.abubusoft.kripton.database.QueryOptions;
-import com.abubusoft.kripton.database.Statement;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 

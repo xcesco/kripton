@@ -10,7 +10,7 @@ import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.database.ColumnType;
+import com.abubusoft.kripton.binder.database.ColumnType;
 
 /**
  * <p>
