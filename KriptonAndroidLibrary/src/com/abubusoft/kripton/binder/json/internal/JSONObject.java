@@ -24,6 +24,7 @@ package com.abubusoft.kripton.binder.json.internal;
  SOFTWARE.
  */
 
+import android.annotation.SuppressLint;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -982,7 +983,8 @@ public class JSONObject {
         return NULL.equals(object) ? defaultValue : object.toString();
     }
 
-    private void populateMap(Object bean) {
+    @SuppressLint("DefaultLocale")
+	private void populateMap(Object bean) {
         Class<?> klass = bean.getClass();
 
 // If klass is a System class then set includeSuperClass to false.
@@ -1364,7 +1366,7 @@ public class JSONObject {
                         return d;
                     }
                 } else {
-                    Long myLong = new Long(string);
+                    Long myLong = Long.valueOf(string);
                     if (string.equals(myLong.toString())) {
                         if (myLong == myLong.intValue()) {
                             return myLong.intValue();
@@ -1538,7 +1540,8 @@ public class JSONObject {
      *            The object to wrap
      * @return The wrapped value
      */
-    public static Object wrap(Object object) {
+    @SuppressWarnings("unchecked")
+	public static Object wrap(Object object) {
         try {
             if (object == null) {
                 return NULL;
