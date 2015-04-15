@@ -52,6 +52,8 @@ public class Test01Test extends BaseTest {
 			i++;
 		}
 	}
+	
+	/*
 
 	@Test
 	public void test01() throws MappingException, WriterException {
@@ -105,8 +107,9 @@ public class Test01Test extends BaseTest {
 		//SQLiteDatabase db = SQLiteDatabase.openDatabase("", null, 0);
 		// db.ra
 
-	}
+	}*/
 	
+	/*
 	@Test
 	public void test03() throws MappingException, WriterException {
 		Bean01 bean = new Bean01();
@@ -120,7 +123,7 @@ public class Test01Test extends BaseTest {
 		SQLiteQuery query = databaseSchema.createQuery(Bean01.class, QueryOptions.build().select("name").where("name=#{id} and love=#{uid}").paramsClass(Params.class));		
 		
 		logger.info(""+query.columns.length);
-	}
+	}*/
 	
 	public static class P{
 		String uid;
@@ -132,10 +135,10 @@ public class Test01Test extends BaseTest {
 	public void testSelect() throws MappingException, WriterException {
 		DatabaseSchemaOptions options = DatabaseSchemaOptions.build();
 		options.tablePrefix("TD_");
-		options.add(ChatMessage.class);
+		options.add(Bean0.class);
 
 		SQLiteSchema databaseSchema = DatabaseSchemaFactory.create("prova", SQLiteSchema.class, options);
-		SQLiteQuery query = databaseSchema.createQuery(ChatMessage.class, QueryOptions.build().name("prova").where("uid=#{uid} and latitude=#{latitude} and latitude=#{latitude}").paramsClass(P.class));
+		SQLiteQuery query = databaseSchema.createQuery(Bean0.class, QueryOptions.build().name("prova").where("uid=#{uid} and latitude=#{latitude} and latitude=#{latitude}").paramsClass(P.class));
 		logger.info(""+query.getSQL());
 		P params=new P();
 		params.uid="xxx";
@@ -163,20 +166,21 @@ public class Test01Test extends BaseTest {
 		
 	}
 	
+	/*
 	@Test
 	public void testInsert() throws MappingException, WriterException {
 		DatabaseSchemaOptions options = DatabaseSchemaOptions.build();
 		options.tablePrefix("TD_");
-		options.add(ChatMessage.class);
+		options.add(Bean0.class);
 
 		SQLiteSchema databaseSchema = DatabaseSchemaFactory.create("prova", SQLiteSchema.class, options);
-		SQLiteInsert insert = databaseSchema.createInsert(ChatMessage.class, InsertOptions.build());
+		SQLiteInsert insert = databaseSchema.createInsert(Bean0.class, InsertOptions.build());
 		logger.info(""+insert.getSQL());
 		
-		ChatMessage bean=new ChatMessage();
+		Bean0 bean=new Bean0();
 		
 		bean.creationTimestamp=(new Date()).getTime();
 		bean.value="cuiao balelo";
 				
-	}
+	}*/
 }

@@ -74,9 +74,10 @@ public class SQLTest extends RoboBaseTest {
 		logger.info(writer.write(bean));
 	}
 */
+	/*
 	@Test
 	public void testUpdate() throws MappingException, WriterException {
-		ChatMessage bean = new ChatMessage();
+		Bean0 bean = new Bean0();
 		bean.latitude = 33;
 		bean.rawValue = "hello!".getBytes();
 
@@ -87,12 +88,12 @@ public class SQLTest extends RoboBaseTest {
 
 		logger.info("New id [" + bean.id + "]");
 
-		bean = helper.select(database, ChatMessage.class, bean.id);
+		bean = helper.select(database, Bean0.class, bean.id);
 
 		BinderWriter writer = BinderFactory.getXMLWriter(BinderOptions.build().indent(true));
 		logger.info(writer.write(bean));
 				
-	}
+	}*/
 
 	protected Logger logger = Logger.getAnonymousLogger();
 

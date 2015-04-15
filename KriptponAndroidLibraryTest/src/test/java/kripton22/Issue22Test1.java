@@ -1,8 +1,24 @@
 package kripton22;
 
+
+import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
+
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Currency;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
+import kripton22.Bean0.EnumValue;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +27,7 @@ import org.robolectric.annotation.Config;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import com.abubusoft.kripton.android.SQLiteDelete;
 import com.abubusoft.kripton.android.SQLiteInsert;
 import com.abubusoft.kripton.android.SQLiteQuery;
 import com.abubusoft.kripton.android.SQLiteSchema;
@@ -19,8 +36,6 @@ import com.abubusoft.kripton.binder.database.DatabaseSchemaFactory;
 import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
 import com.abubusoft.kripton.binder.database.NameConverterType;
 import com.abubusoft.kripton.binder.database.Query;
-import com.abubusoft.kripton.binder.database.QueryListener;
-import com.abubusoft.kripton.binder.database.QueryOptions;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "./src/test/resources/AndroidManifest.xml", emulateSdk = 21, reportSdk = 21)
@@ -64,8 +79,7 @@ public class Issue22Test1 {
 		DatabaseSchemaOptions options = DatabaseSchemaOptions.build();
 		options.nameConverter(NameConverterType.UPPER_UNDERSCORE);
 		options.tablePrefix("TD_");
-	//	options.add(Bean01.class);
-		options.add(ChatMessage.class);
+		options.add(Bean0.class);
 
 		String databaseName="kripton22";
 		databaseSchema = DatabaseSchemaFactory.create(databaseName, SQLiteSchema.class, options);
@@ -74,40 +88,68 @@ public class Issue22Test1 {
 	}
 
 	@Test
-	public void test01()
+	public void test01() throws MalformedURLException
 	{
-		ChatMessage msg=new ChatMessage();
-		msg.latitude=2;
-		msg.groupUid="xxx";
-		msg.mediaDuration=224;
+		Bean0 bean0=new Bean0();
+		bean0.doubleNumber=1.1;
+		bean0.doubleNumber2=2.1;
+		bean0.intNumber=10;
+		bean0.intNumber2=11;
+		bean0.enumValue=EnumValue.TYPE0;
+		bean0.longNumber=33;
+		bean0.longNumber2=12L;
+		bean0.shortNumber=1;
+		bean0.shortNumber2=2;
+		bean0.charNumber='a';
+		bean0.charNumber2='b';		
+		bean0.dateValue=new Date();
+		bean0.timeValue=new Time(bean0.dateValue.getTime());
+		bean0.localeValue=Locale.CHINA;
+		bean0.byteValue=4;
+		bean0.byteValue2=8;
+		bean0.floatValue=24.f;
+		bean0.floatValue2=234f;
+			
 		
-		SQLiteInsert insert=databaseSchema.getInsert(ChatMessage.class);
-		insert.execute(database, msg);
+		bean0.description="this is a description";
+		
+		bean0.boolValue=true;
+		bean0.boolValue2=true;
+		
+		bean0.content="this is a content".getBytes();
+		bean0.url=new URL("http://www.google.it");
+		
+		bean0.bigIntegerValue=BigInteger.valueOf(12);
+		bean0.bigDecimalValue=BigDecimal.valueOf(123);
+		bean0.calendarValue=Calendar.getInstance();
+		bean0.currencyValue=Currency.getInstance(Locale.CHINA);
+		bean0.timeZoneValue=TimeZone.getDefault();
+		
+		SQLiteInsert insert=databaseSchema.getInsert(Bean0.class);
+		insert.execute(database, bean0);
 		logger.info(insert.getSQL());		
 		
-		SQLiteQuery query = databaseSchema.getQuery(ChatMessage.class, Query.DEFAULT_BY_ID);
+		SQLiteQuery query = databaseSchema.getQuery(Bean0.class, Query.DEFAULT_BY_ID);
 		logger.info(query.getSQL());
-		msg=query.executeOne(database, ChatMessage.class, msg.id);		
 		
-		SQLiteUpdate update = databaseSchema.getUpdate(ChatMessage.class);
-		msg.mediaUrl="ciao bello!";
-		int n=update.execute(database, msg, msg.id);
-		logger.info("Aggiornati "+n);
+		Bean0 bean1=query.executeOne(database, Bean0.class, bean0.id);
+		int count=query.executeCount(database, Bean0.class, bean0.id);
+		Assert.assertEquals(count, 1);
 		
-		SQLiteQuery queryFilter=databaseSchema.createQuery(ChatMessage.class, QueryOptions.build().select("id, creationTimestamp, mediaUrl").where("id < #{id} and id > 40").order("id").paramsClass(Long.class));
-		logger.info(queryFilter.getSQL());
-		logger.info(queryFilter.getFilterValues(msg.id).toString());
-		queryFilter.executeWithListener(database, ChatMessage.class, msg.id, new QueryListener<ChatMessage>() {
-
-			@Override
-			public void onRow(int count, ChatMessage bean) {				
-				logger.info("---------- "+bean.toString());
-			}
-		});
+		assertReflectionEquals(bean0, bean1);
+				
+		SQLiteUpdate update=databaseSchema.getUpdate(Bean0.class);
 		
-		logger.info(msg.toString());
-		msg=query.executeOne(database, ChatMessage.class, msg.id);
-		logger.info(msg.toString());
+		bean0.longNumber=34;
+		int updateCount=update.execute(database, bean0, bean0.id);
+		Assert.assertEquals(updateCount, 1);
+		
+		SQLiteDelete delete=databaseSchema.getDelete(Bean0.class);
+		
+		Assert.assertEquals(insert.execute(database, bean1), true);		
+		Assert.assertEquals(delete.execute(database, null, bean1.id),1);
+		
+		logger.info(bean0.toString());
 		
 	}
 }
