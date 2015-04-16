@@ -132,6 +132,7 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
 		return (U) handler.createUpdate(table, options);
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	public D createDelete(Class<?> clazz, DeleteOptions options) {
@@ -143,6 +144,8 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 		
 		return delete;
 	}
+	
+
 	
 	/**
 	 * Retrieve an insert already defined.

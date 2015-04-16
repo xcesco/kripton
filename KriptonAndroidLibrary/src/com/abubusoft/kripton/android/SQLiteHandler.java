@@ -161,24 +161,24 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 	}
 
 	@Override
-	protected void onDeleteCreated(SQLiteDelete delete) {
+	protected void onCreateDelete(SQLiteDelete delete) {
 		findColumnAdapters(delete, delete.columnAdapter);
 		findFilterAdapters(delete.filter, delete.filterAdapter);
 	}
 
 	@Override
-	protected void onQueryCreated(SQLiteQuery query) {
+	protected void onCreateQuery(SQLiteQuery query) {
 		findColumnAdapters(query, query.columnAdapter);
 		findFilterAdapters(query.filter, query.filterAdapter);
 	}
 
 	@Override
-	protected void onInsertCreated(SQLiteInsert insert) {
+	protected void onCreateInsert(SQLiteInsert insert) {
 		findColumnAdapters(insert, insert.columnAdapter);
 	}
 
 	@Override
-	protected void onUpdateCreated(SQLiteUpdate update) {
+	protected void onCreateUpdate(SQLiteUpdate update) {
 		findColumnAdapters(update, update.columnAdapter);
 		findFilterAdapters(update.filter, update.filterAdapter);
 	}

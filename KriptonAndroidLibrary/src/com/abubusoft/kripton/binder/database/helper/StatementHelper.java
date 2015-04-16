@@ -32,7 +32,7 @@ public abstract class StatementHelper {
 	 * 		string contains list of comma separated fields name
 	 * @return
 	 */
-	public static <S extends Statement> S buildAffectedColumns(DatabaseTable table, Class<S> clazz, String name, String fields) {
+	public static <S extends Statement> S createStatementAndColumns(DatabaseTable table, Class<S> clazz, String name, String fields) {
 		S statement;
 		try {
 			statement = clazz.newInstance();
