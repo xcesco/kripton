@@ -3,8 +3,14 @@ package com.abubusoft.kripton.android;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import android.content.ContentValues;
 
@@ -32,6 +38,7 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 		DatabaseColumn column;
 		String separator = "";
 		StringBuffer sb = new StringBuffer();
+		StringBuffer sbOther=new StringBuffer();
 
 		sb.append("create table " + table.name + " (");
 
@@ -39,7 +46,11 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 			column = table.columns.get(i);
 			sb.append(separator + column.name);
 			// type
-			sb.append(" " + column.type);
+			if (column.type!=null)
+			{
+				sb.append(" " + column.type);
+			} 
+				
 
 			// index options
 			switch (column.feature) {
@@ -48,9 +59,13 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 				break;
 			case UNIQUE_KEY:
 				sb.append(" unique");
+				break;
 			case FOREIGN_KEY:
 				DatabaseTable primaryTable = schema.getTableFromBeanClass(column.schema.getFieldType());
-				sb.append(" foreign key(" + column.name + ") REFERENCES " + primaryTable.name + "(" + primaryTable.primaryKey.name + ")");
+				sb.append(" ");
+				sb.append(primaryTable.primaryKey.type);
+				
+				sbOther.append(", foreign key(" + column.name + ") references " + primaryTable.name + "(" + primaryTable.primaryKey.name + ")");
 				break;
 			default:
 				break;
@@ -63,6 +78,7 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 
 			separator = ", ";
 		}
+		sb.append(sbOther.toString());
 		sb.append(");");
 
 		return sb.toString();
@@ -113,7 +129,7 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 
 		// TEXT
 		{
-			Class<?> classes[] = { String.class, Enum.class };
+			Class<?> classes[] = { String.class, Enum.class, char.class, Character.class, Currency.class, Date.class , Locale.class, Time.class, TimeZone.class, URL.class};
 
 			for (int i = 0; i < classes.length; i++) {
 				map.put(classes[i], "TEXT");
@@ -122,7 +138,7 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 
 		// INTEGER
 		{
-			Class<?> classes[] = { boolean.class, Boolean.class, int.class, Integer.class, long.class, Long.class, BigInteger.class };
+			Class<?> classes[] = { boolean.class, Boolean.class, int.class, Integer.class, long.class, Long.class, byte.class, Byte.class, short.class, Short.class, BigInteger.class };
 
 			for (int i = 0; i < classes.length; i++) {
 				map.put(classes[i], "INTEGER");

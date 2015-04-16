@@ -92,7 +92,7 @@ public class JsonReader implements BinderReader {
 		try {
 			return this.read(type, StringUtil.reader2String(source));
 		} catch (IOException e) {
-			throw new ReaderException("IO error!", e);
+			throw new ReaderException("IO error!", e); 
 		}
 
 	}

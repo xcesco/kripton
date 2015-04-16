@@ -17,6 +17,9 @@ import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderFactory.ReaderType;
+import com.abubusoft.kripton.binder.json.JsonReader;
+import com.abubusoft.kripton.binder.json.JsonWriter;
+import com.abubusoft.kripton.binder.json.internal.JSONWriter;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -65,8 +68,8 @@ public abstract class IssueBaseTest<E> extends BaseTest {
 	@Test
 	public void testJSON_Packed() throws WriterException, MappingException, ReaderException, IOException {
 		BinderOptions format=BinderOptions.build().indent(false).useApostrophe(true);
-		BinderWriter writer = BinderFactory.getJSONWriter(format);
-		BinderReader reader = BinderFactory.getJSONReader();
+		JsonWriter writer = (JsonWriter) BinderFactory.getJSONWriter(format);
+		JsonReader reader = (JsonReader) BinderFactory.getJSONReader();
 
 		check(beanInput, writer, reader);
 	}
@@ -82,8 +85,8 @@ public abstract class IssueBaseTest<E> extends BaseTest {
 	@Test
 	public void testJSON_Formatted() throws WriterException, MappingException, ReaderException, IOException {
 		BinderOptions format=BinderOptions.build().indent(true).useApostrophe(true);
-		BinderWriter writer = BinderFactory.getJSONWriter(format);
-		BinderReader reader = BinderFactory.getJSONReader();
+		JsonWriter writer = (JsonWriter) BinderFactory.getJSONWriter(format);
+		JsonReader reader = (JsonReader) BinderFactory.getJSONReader();
 
 		check(beanInput, writer, reader);
 	}

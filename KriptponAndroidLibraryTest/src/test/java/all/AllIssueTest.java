@@ -45,6 +45,7 @@ import kripton15.Issue15Test8;
 import kripton20.Issue20Test1;
 import kripton20.Issue20Test2;
 import kripton22.Issue22Test1;
+import kripton22.Issue22Test2;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -73,7 +74,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	                   Issue14Test1.class,Issue14Test2.class,	                   
 	                   Issue15Test1.class,Issue15Test2.class, Issue15Test3.class, Issue15Test4.class,Issue15Test5.class, Issue15Test6.class,Issue15Test7.class, Issue15Test8.class,
 	                   Issue20Test1.class,Issue20Test2.class,
-	                   Issue22Test1.class
+	                   Issue22Test1.class,Issue22Test2.class
 	})
 //@formatter:on
 public class AllIssueTest {

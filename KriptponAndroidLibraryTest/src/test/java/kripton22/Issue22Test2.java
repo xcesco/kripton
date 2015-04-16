@@ -73,6 +73,7 @@ public class Issue22Test2 {
 			for (int i=0;i <sql.length;i++)
 			{
 				String temp=sql[i];
+				logger.info("DDL: "+temp);
 				database.execSQL(temp);	
 			}
 		}
