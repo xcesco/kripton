@@ -39,7 +39,7 @@ public class SQLiteUpdate extends Update {
 		}
 
 		try {
-			ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, ((SQLiteHandler)handler).contentValues, bean);
+			ContentValues value = SQLiteHelper.bean2ContentValues(this, this.columnAdapter, ((SQLiteHandler)handler).contentValues, bean);
 
 			String[] filterValuesArray = null;
 			switch(filter.origin)

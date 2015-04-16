@@ -16,7 +16,7 @@ import com.abubusoft.kripton.exception.MappingException;
 public class SQLiteHelper {
 
 	@SuppressWarnings("unchecked")
-	public static ContentValues bean2Values(Statement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter, ThreadLocal<ContentValues> values, Object bean) {
+	public static ContentValues bean2ContentValues(Statement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter, ThreadLocal<ContentValues> values, Object bean) {
 		ContentValues value = values.get();
 		if (value == null) {
 			value = new ContentValues(); 
