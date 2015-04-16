@@ -9,18 +9,21 @@ import all.BaseTest;
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderWriter;
+import com.abubusoft.kripton.DatabaseSchemaFactory;
+import com.abubusoft.kripton.DatabaseSchemaOptions;
 import com.abubusoft.kripton.android.SQLiteHandler;
+import com.abubusoft.kripton.android.SQLiteHelper;
 import com.abubusoft.kripton.android.SQLiteInsert;
 import com.abubusoft.kripton.android.SQLiteQuery;
 import com.abubusoft.kripton.android.SQLiteSchema;
 import com.abubusoft.kripton.binder.database.DatabaseColumn;
-import com.abubusoft.kripton.binder.database.DatabaseSchemaFactory;
-import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
 import com.abubusoft.kripton.binder.database.DatabaseTable;
 import com.abubusoft.kripton.binder.database.Filter;
 import com.abubusoft.kripton.binder.database.InsertOptions;
 import com.abubusoft.kripton.binder.database.QueryOptions;
 import com.abubusoft.kripton.binder.database.Statement;
+import com.abubusoft.kripton.binder.database.helper.FilterHelper;
+import com.abubusoft.kripton.binder.database.helper.SQLHelper;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -36,22 +39,6 @@ public class Test01Test extends BaseTest {
 		public long uid;
 		
 	} 
-	
-	@Test
-	public void test02() {
-		String input = " id = #{id	}, name=#{  name} and love=#{name};";
-		logger.info("input  " + input);
-		
-		Filter result = SQLiteHandler.createFilterAndFieldNames(input);
-		logger.info("output " + result.sql);
-		
-		int i=0;
-		for (String paramName: result.fieldNames)
-		{
-			logger.info("param "+i+" " + paramName);
-			i++;
-		}
-	}
 	
 	/*
 
@@ -135,10 +122,10 @@ public class Test01Test extends BaseTest {
 	public void testSelect() throws MappingException, WriterException {
 		DatabaseSchemaOptions options = DatabaseSchemaOptions.build();
 		options.tablePrefix("TD_");
-		options.add(Bean0.class);
+		options.add(BeanTest1_0.class);
 
 		SQLiteSchema databaseSchema = DatabaseSchemaFactory.create("prova", SQLiteSchema.class, options);
-		SQLiteQuery query = databaseSchema.createQuery(Bean0.class, QueryOptions.build().name("prova").where("uid=#{uid} and latitude=#{latitude} and latitude=#{latitude}").paramsClass(P.class));
+		SQLiteQuery query = databaseSchema.createQuery(BeanTest1_0.class, QueryOptions.build().name("prova").where("uid=#{uid} and latitude=#{latitude} and latitude=#{latitude}").paramsClass(P.class));
 		logger.info(""+query.getSQL());
 		P params=new P();
 		params.uid="xxx";

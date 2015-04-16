@@ -31,7 +31,7 @@ import com.abubusoft.kripton.binder.database.ColumnType;
 @BindType
 @BindTable
 @BindAllFields
-public class Bean0 {
+public class BeanTest2_Master {
 
 	public enum EnumValue
 	{

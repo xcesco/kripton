@@ -6,12 +6,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.abubusoft.kripton.DatabaseSchemaFactory;
+import com.abubusoft.kripton.DatabaseSchemaOptions;
 import com.abubusoft.kripton.android.SQLiteInsert;
 import com.abubusoft.kripton.android.SQLiteQuery;
 import com.abubusoft.kripton.android.SQLiteSchema;
 import com.abubusoft.kripton.android.SQLiteUpdate;
-import com.abubusoft.kripton.binder.database.DatabaseSchemaFactory;
-import com.abubusoft.kripton.binder.database.DatabaseSchemaOptions;
 import com.abubusoft.kripton.binder.database.NameConverterType;
 import com.abubusoft.kripton.binder.database.QueryListener;
 import com.abubusoft.kripton.binder.database.QueryOptions;
@@ -39,17 +39,17 @@ public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 		options.nameConverter(NameConverterType.UPPER_UNDERSCORE);
 		options.tablePrefix("TD_");
 	//	options.add(Bean01.class);
-		options.add(Bean0.class);
+		options.add(BeanTest1_0.class);
 
 		databaseSchema = DatabaseSchemaFactory.create(databaseName, SQLiteSchema.class, options);
 		
-		selectAll=databaseSchema.createQuery(Bean0.class, QueryOptions.build());
+		selectAll=databaseSchema.createQuery(BeanTest1_0.class, QueryOptions.build());
 		
-		insert=databaseSchema.getInsert(Bean0.class);
-		selectById=databaseSchema.getQuery(Bean0.class, "defaultById");
-		selectOrder01=databaseSchema.createQuery(Bean0.class, QueryOptions.build().name("01").order("latitude ASC"));
-		selectWhere01=databaseSchema.createQuery(Bean0.class, QueryOptions.build().name("02").select("id, creationTimestamp").where(" latitude>#{latitude} ").paramsClass(Param02.class));
-		update=databaseSchema.getUpdate(Bean0.class);
+		insert=databaseSchema.getInsert(BeanTest1_0.class);
+		selectById=databaseSchema.getQuery(BeanTest1_0.class, "defaultById");
+		selectOrder01=databaseSchema.createQuery(BeanTest1_0.class, QueryOptions.build().name("01").order("latitude ASC"));
+		selectWhere01=databaseSchema.createQuery(BeanTest1_0.class, QueryOptions.build().name("02").select("id, creationTimestamp").where(" latitude>#{latitude} ").paramsClass(Param02.class));
+		update=databaseSchema.getUpdate(BeanTest1_0.class);
 	}
 
 	@Override
@@ -80,29 +80,29 @@ public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 		return selectAll.execute(database, clazz);
 	}
 
-	public boolean insert(SQLiteDatabase database, Bean0 bean) {
+	public boolean insert(SQLiteDatabase database, BeanTest1_0 bean) {
 		System.out.println(insert.getSQL());
 		return insert.execute(database, bean);
 	}
 
-	public ArrayList<Bean0> selectOrder01(SQLiteDatabase database, Class<Bean0> class1) {
+	public ArrayList<BeanTest1_0> selectOrder01(SQLiteDatabase database, Class<BeanTest1_0> class1) {
 		return selectOrder01.execute(database, class1);
 	}
 
-	public void selectOrder01(SQLiteDatabase database, Class<Bean0> class1, QueryListener<Bean0> queryListener) {
+	public void selectOrder01(SQLiteDatabase database, Class<BeanTest1_0> class1, QueryListener<BeanTest1_0> queryListener) {
 		selectOrder01.executeWithListener(database, class1, queryListener);
 	}
 	
-	public void selectWhere01(SQLiteDatabase database, Class<Bean0> class1, Param02 params, QueryListener<Bean0> queryListener) {
+	public void selectWhere01(SQLiteDatabase database, Class<BeanTest1_0> class1, Param02 params, QueryListener<BeanTest1_0> queryListener) {
 		selectWhere01.executeWithListener(database, class1,params, queryListener);
 	}
 
-	public int update(SQLiteDatabase database, Bean0 bean) {
+	public int update(SQLiteDatabase database, BeanTest1_0 bean) {
 		System.out.println(update.getSQL());
 		return update.execute(database, bean, null);
 	}
 
-	public Bean0 select(SQLiteDatabase database, Class<Bean0> clazz, long id) {
+	public BeanTest1_0 select(SQLiteDatabase database, Class<BeanTest1_0> clazz, long id) {
 		System.out.println(selectById.getSQL());			
 		return selectById.executeOne(database,clazz,id);
 	}

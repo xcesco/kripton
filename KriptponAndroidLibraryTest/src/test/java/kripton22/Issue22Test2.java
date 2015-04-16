@@ -37,13 +37,18 @@ import com.abubusoft.kripton.android.SQLiteUpdate;
 import com.abubusoft.kripton.binder.database.NameConverterType;
 import com.abubusoft.kripton.binder.database.Query;
 
+/**
+ * Test for foreign key
+ * @author xcesco
+ *
+ */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "./src/test/resources/AndroidManifest.xml", emulateSdk = 21, reportSdk = 21)
-public class Issue22Test1 {
+public class Issue22Test2 {
 	
 	protected Logger logger = Logger.getAnonymousLogger();
 	
-	private static final String DB_PATH = "src/test/resources/database/" + "test.db";
+	private static final String DB_PATH = "src/test/resources/database/" + "test02.db";
 
 	private SQLiteDatabase database;
 
@@ -79,9 +84,10 @@ public class Issue22Test1 {
 		DatabaseSchemaOptions options = DatabaseSchemaOptions.build();
 		options.nameConverter(NameConverterType.UPPER_UNDERSCORE);
 		options.tablePrefix("TD_");
-		options.add(BeanTest1_0.class);
+		options.add(BeanTest2_Master.class);
+		options.add(BeanTest2_Detail.class);
 
-		String databaseName="kripton22";
+		String databaseName="kripton22_test02";
 		databaseSchema = DatabaseSchemaFactory.create(databaseName, SQLiteSchema.class, options);
 		
 		checkDb();
@@ -122,7 +128,8 @@ public class Issue22Test1 {
 		bean0.currencyValue=Currency.getInstance(Locale.CHINA);
 		bean0.timeZoneValue=TimeZone.getDefault();
 		
-		SQLiteInsert insert=databaseSchema.getInsert(BeanTest1_0.class);
+		/*
+		SQLiteInsert insert=databaseSchema.getInsert(BeanTest_0.class);
 		insert.execute(database, bean0);
 		logger.info(insert.getSQL());		
 		
@@ -146,7 +153,7 @@ public class Issue22Test1 {
 		Assert.assertEquals(insert.execute(database, bean1), true);		
 		Assert.assertEquals(delete.execute(database, bean1),1);
 		
-		logger.info(bean0.toString());
+		logger.info(bean0.toString());*/
 		
 	}
 }
