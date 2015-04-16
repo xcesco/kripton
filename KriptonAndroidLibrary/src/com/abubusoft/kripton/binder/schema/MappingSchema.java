@@ -428,8 +428,6 @@ public class MappingSchema {
 				}
 
 				elementSchema.buildXmlInfo(bindXmlAnnotation);
-				elementSchema.buildColumnInfo(bindColumnAnnotation);
-
 				elementSchema.setField(field);
 				// put in set of used names
 				checkAlreadyUsed(elementSchema.getName(), usedNames, "Bind");
@@ -494,6 +492,8 @@ public class MappingSchema {
 				}
 
 				// database section
+				elementSchema.buildColumnInfo(bindColumnAnnotation);
+				
 				switch (elementSchema.getColumnInfo().feature) {
 				case STANDARD:
 					break;

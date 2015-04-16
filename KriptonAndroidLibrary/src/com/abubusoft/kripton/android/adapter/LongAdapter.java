@@ -13,7 +13,9 @@ public class LongAdapter implements SqliteAdapter<Long> {
 
 	@Override
 	public Long readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return cursor.getLong(columnIndex);
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		return Long.valueOf(value);
 	}
 
 	@Override

@@ -13,7 +13,9 @@ public class IntegerAdapter implements SqliteAdapter<Integer> {
 
 	@Override
 	public Integer readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return cursor.getInt(columnIndex);
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		return Integer.valueOf(value);
 	}
 
 	@Override

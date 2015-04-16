@@ -18,10 +18,18 @@ public class SQLiteDelete extends Delete {
 	ArrayList<SqliteAdapter> filterAdapter = new ArrayList<>();
 
 	ThreadLocal<String[]> filterValues=new ThreadLocal<String[]>();
+	
+	public int execute(SQLiteDatabase database, Object bean) {		
+		try {
+			return execute(database, null,table.primaryKey.schema.getFieldValue(bean) );
+		} catch (Exception e) {
+			throw (new MappingException(e.getMessage()));
+		} 
+	}
 
 	public int execute(SQLiteDatabase database, Object bean, Object paramValues) {
 		// check for supported bean clazz
-		if (!bean.getClass().isAssignableFrom(table.clazz)) {
+		if (bean!=null && !bean.getClass().isAssignableFrom(table.clazz)) {
 			throw (new MappingException("Delete '" + this.name + "' is for class " + table.clazz.getName() + ". It can not be used for " + bean.getClass().getName()));
 		}
 		

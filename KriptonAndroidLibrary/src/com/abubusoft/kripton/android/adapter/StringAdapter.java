@@ -12,7 +12,7 @@ import android.database.Cursor;
 public class StringAdapter implements SqliteAdapter<String> {
 
 	@Override
-	public String readCursor(Cursor cursor, int columnIndex) throws Exception {
+	public String readCursor(Cursor cursor, int columnIndex) throws Exception {		
 		return cursor.getString(columnIndex);
 	}
 

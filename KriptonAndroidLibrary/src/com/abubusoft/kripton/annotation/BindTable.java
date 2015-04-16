@@ -16,5 +16,12 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface BindTable {
 
+	/**
+	 * Name of the table, in java style. It will be converted during creation of
+	 * table. If null, the name of the table will be transformed class name.
+	 * 
+	 * @return
+	 * 		forced name of the table in java style
+	 */
 	String name() default "";
 }

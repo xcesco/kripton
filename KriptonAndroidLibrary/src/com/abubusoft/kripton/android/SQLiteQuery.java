@@ -12,7 +12,7 @@ import com.abubusoft.kripton.binder.database.QueryListener;
 import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteQuery extends Query {
- 
+
 	SQLiteHandler handler;
 
 	@SuppressWarnings("rawtypes")
@@ -23,7 +23,7 @@ public class SQLiteQuery extends Query {
 
 	ThreadLocal<Object> cachedBeans = new ThreadLocal<Object>();
 
-	ThreadLocal<String[]> filterValues=new ThreadLocal<String[]>();
+	ThreadLocal<String[]> filterValues = new ThreadLocal<String[]>();
 
 	public <E> ArrayList<E> execute(SQLiteDatabase database, Class<E> beanClazz) {
 		return execute(database, beanClazz, null);
@@ -32,7 +32,7 @@ public class SQLiteQuery extends Query {
 	public <E> void executeWithListener(SQLiteDatabase database, Class<E> beanClazz, QueryListener<E> listener) {
 		executeWithListener(database, beanClazz, null, listener);
 	}
-	
+
 	public String[] getFilterValues(Object params) {
 		String[] filterValuesArray = null;
 		switch (filter.origin) {
@@ -42,13 +42,13 @@ public class SQLiteQuery extends Query {
 			filterValuesArray = SQLiteHelper.getFilterValuesFromOneParam(filter, filterValues, params, filter.inputClazz);
 			break;
 		case PARAMS:
-			filterValuesArray = SQLiteHelper.getFilterValuesFromParams(filter, filterValues,params, filter.inputClazz);
+			filterValuesArray = SQLiteHelper.getFilterValuesFromParams(filter, filterValues, params, filter.inputClazz);
 			break;
 		case BEAN:
-			filterValuesArray = SQLiteHelper.getFilterValuesFromParams(filter, filterValues,params, table.clazz);
+			filterValuesArray = SQLiteHelper.getFilterValuesFromParams(filter, filterValues, params, table.clazz);
 			break;
 		}
-		
+
 		return filterValuesArray;
 	}
 
@@ -87,7 +87,7 @@ public class SQLiteQuery extends Query {
 			throw (new MappingException(e.getMessage()));
 		}
 	}
-	
+
 	/**
 	 * Execute query for extract one bean. Every query instance new bean
 	 * 
@@ -100,8 +100,58 @@ public class SQLiteQuery extends Query {
 		return executeOne(database, beanClazz, params, false);
 	}
 
+	public <E> int executeCount(SQLiteDatabase database, Class<E> beanClazz, Object params) {
+		// check for supported bean clazz
+		if (!beanClazz.isAssignableFrom(table.clazz)) {
+			throw (new MappingException("Query '" + this.name + "' is for class " + table.clazz.getName() + ". It can not be used for " + beanClazz.getName()));
+		}
+		
+		int count=0;
+
+		String[] filterValues = getFilterValues(params);
+
+		try {
+			Cursor cursor = database. rawQuery(buildSQLCount(), filterValues);
+
+			if (cursor.getCount() > 0) {
+				cursor.moveToFirst();
+				count=cursor.getInt(0);
+
+				cursor.close();
+			}
+
+			return count;
+
+		} catch (Exception e) {
+			throw (new MappingException(e.getMessage()));
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.database.SQLStatement#buildSQL()
+	 */
+	protected String buildSQLCount() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("select count(*) ");
+		sb.append(" from " + table.name);
+
+		if (filter.sql != null && filter.sql.length() > 0) {
+			sb.append(" where " + filter.sql);
+		}
+
+		if (order != null && order.length() > 0) {
+			sb.append(" order by " + order);
+		}
+
+		return sb.toString();
+	}
+
 	/**
-	 * Execute query for extract one bean. Extracted bean can ben cached (one value for thread). 
+	 * Execute query for extract one bean. Extracted bean can ben cached (one
+	 * value for thread).
 	 * 
 	 * @param database
 	 * @param beanClazz
@@ -124,9 +174,8 @@ public class SQLiteQuery extends Query {
 
 			if (cursor.getCount() > 0) {
 				if (cachedValue) {
-					bean=(E) cachedBeans.get();
-					if (bean==null)
-					{
+					bean = (E) cachedBeans.get();
+					if (bean == null) {
 						bean = beanClazz.newInstance();
 						cachedBeans.set(bean);
 					}

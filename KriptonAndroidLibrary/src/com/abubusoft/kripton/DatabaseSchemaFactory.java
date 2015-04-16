@@ -1,8 +1,9 @@
-package com.abubusoft.kripton.binder.database;
+package com.abubusoft.kripton;
 
 import java.util.Collections;
 import java.util.Map;
 
+import com.abubusoft.kripton.binder.database.DatabaseSchema;
 import com.abubusoft.kripton.common.LRUCache;
 import com.abubusoft.kripton.exception.MappingException;
 
@@ -14,11 +15,11 @@ public class DatabaseSchemaFactory {
 	 * Use LRU cache to limit memory consumption.
 	 */
 	@SuppressWarnings("rawtypes")
-	protected static Map<String, AbstractDatabaseSchema> schemaCache = Collections.synchronizedMap(new LRUCache<String, AbstractDatabaseSchema>(
+	protected static Map<String, DatabaseSchema> schemaCache = Collections.synchronizedMap(new LRUCache<String, DatabaseSchema>(
 			CACHE_SIZE));
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static <E extends AbstractDatabaseSchema> E create(String name, Class<E> schemaClazz, DatabaseSchemaOptions options)  {
+	public static <E extends DatabaseSchema> E create(String name, Class<E> schemaClazz, DatabaseSchemaOptions options)  {
 		if (schemaCache.containsKey(name)) {
 			return (E) schemaCache.get(name);
 		} else {

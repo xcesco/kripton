@@ -13,7 +13,9 @@ public class FloatAdapter implements SqliteAdapter<Float> {
 
 	@Override
 	public Float readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return cursor.getFloat(columnIndex);
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		return Float.valueOf(value);
 	}
 
 	@Override

@@ -15,7 +15,9 @@ public class UrlAdapter implements SqliteAdapter<URL> {
 
 	@Override
 	public URL readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return new URL(cursor.getString(columnIndex));
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		return new URL(value);
 	}
 
 	@Override

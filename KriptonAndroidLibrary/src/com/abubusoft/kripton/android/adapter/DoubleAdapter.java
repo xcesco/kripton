@@ -13,7 +13,9 @@ public class DoubleAdapter implements SqliteAdapter<Double> {
 
 	@Override
 	public Double readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return cursor.getDouble(columnIndex);
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		return Double.valueOf(value);
 	}
 
 	@Override

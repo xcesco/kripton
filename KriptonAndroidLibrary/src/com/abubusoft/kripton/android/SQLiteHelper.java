@@ -19,7 +19,7 @@ public class SQLiteHelper {
 	public static ContentValues bean2Values(Statement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter, ThreadLocal<ContentValues> values, Object bean) {
 		ContentValues value = values.get();
 		if (value == null) {
-			value = new ContentValues();
+			value = new ContentValues(); 
 			values.set(value);
 		}
 
@@ -28,7 +28,7 @@ public class SQLiteHelper {
 		Object v;
 
 		@SuppressWarnings("rawtypes")
-		SqliteAdapter adapter = null;
+		SqliteAdapter adapter = null; 
 		try {
 			int n = columns.length;
 			for (int i = 0; i < n; i++) {
@@ -92,7 +92,7 @@ public class SQLiteHelper {
 			values[0] = t.write(parameters);
 
 		} catch (Exception e) {
-			throw new MappingException("Unable to get parameter " + e.getMessage());
+			throw new MappingException("Wrong params type, " + e.getMessage());
 		}
 
 		return values;

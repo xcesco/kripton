@@ -16,7 +16,9 @@ class CurrencyAdapter implements SqliteAdapter<Currency> {
 
 	@Override
 	public Currency readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return Currency.getInstance(cursor.getString(columnIndex));
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		return Currency.getInstance(value);
 	}
 
 	@Override

@@ -13,7 +13,10 @@ class ByteAdapter implements SqliteAdapter<Byte> {
 
 	@Override
 	public Byte readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return (byte) cursor.getInt(columnIndex);
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		
+		return (byte) Byte.parseByte(value);
 	}
 
 	@Override

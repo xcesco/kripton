@@ -98,7 +98,7 @@ public class ElementSchema extends AbstractSchema {
 	 * @param bindColumnAnnotation
 	 */
 	void buildColumnInfo(BindColumn bindColumnAnnotation) {
-		columnInfo = new ColumnInfo();
+		columnInfo = new ColumnInfo(); 
 
 		columnInfo.name = getName();
 		columnInfo.feature=ColumnType.STANDARD;		
@@ -110,6 +110,16 @@ public class ElementSchema extends AbstractSchema {
 				columnInfo.name = bindColumnAnnotation.name();
 			}
 			columnInfo.nullable=bindColumnAnnotation.nullable();
+		}
+		
+		final Class<?> typeArray[]={Integer.TYPE, Character.TYPE, Byte.TYPE, Short.TYPE, Long.TYPE, Float.TYPE, Double.TYPE};
+		// check for nullable based on type
+		for (int i=0; i<typeArray.length; i++)
+		{
+			if (typeArray[i]==this.fieldType)
+			{
+				columnInfo.nullable=false;
+			}
 		}
 
 	}

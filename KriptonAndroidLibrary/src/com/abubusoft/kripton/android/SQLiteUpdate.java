@@ -24,11 +24,20 @@ public class SQLiteUpdate extends Update {
 	@SuppressWarnings("rawtypes")
 	ArrayList<SqliteAdapter> columnAdapter = new ArrayList<>();
 
+	public int execute(SQLiteDatabase database, Object bean) {		
+		try {
+			return execute(database, bean,table.primaryKey.schema.getFieldValue(bean) );
+		} catch (Exception e) {
+			throw (new MappingException(e.getMessage()));
+		} 
+	}
+	
+	
 	public int execute(SQLiteDatabase database, Object bean, Object paramValues) {
 		// check for supported bean clazz
 		if (!bean.getClass().isAssignableFrom(table.clazz)) {
 			throw (new MappingException("Query '" + this.name + "' is for class " + table.clazz.getName() + ". It can not be used for "
-					+ bean.getClass().getName()));
+					+ bean.getClass().getName())); 
 		}
 
 		try {

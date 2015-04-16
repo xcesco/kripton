@@ -14,11 +14,10 @@ class CharacterAdapter implements SqliteAdapter<Character> {
 	@Override
 	public Character readCursor(Cursor cursor, int columnIndex) throws Exception {
 		String value = cursor.getString(columnIndex);
-
-		if (value != null && value.length() == 1)
-			return value.charAt(0);
-		if (value == null)
-			return null;
+		if (value==null) return null;
+		
+		if (value.length() == 1)
+			return value.charAt(0);		
 		throw new IllegalArgumentException("Cannot transfrom " + value + " to a character");
 
 	}

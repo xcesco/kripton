@@ -46,7 +46,9 @@ public class LocaleAdapter implements SqliteAdapter<Locale> {
 
 	@Override
 	public Locale readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return read(cursor.getString(columnIndex));
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		return read(value);
 	}
 
 	@Override

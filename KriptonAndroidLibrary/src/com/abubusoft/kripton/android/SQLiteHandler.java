@@ -2,6 +2,7 @@ package com.abubusoft.kripton.android;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,18 +10,14 @@ import android.content.ContentValues;
 
 import com.abubusoft.kripton.android.adapter.Adapter;
 import com.abubusoft.kripton.android.adapter.SqliteAdapter;
-import com.abubusoft.kripton.binder.database.AbstractDatabaseHandler;
 import com.abubusoft.kripton.binder.database.ColumnType;
 import com.abubusoft.kripton.binder.database.DatabaseColumn;
+import com.abubusoft.kripton.binder.database.DatabaseHandler;
 import com.abubusoft.kripton.binder.database.DatabaseTable;
-import com.abubusoft.kripton.binder.database.DeleteOptions;
 import com.abubusoft.kripton.binder.database.Filter;
-import com.abubusoft.kripton.binder.database.InsertOptions;
-import com.abubusoft.kripton.binder.database.QueryOptions;
 import com.abubusoft.kripton.binder.database.Statement;
-import com.abubusoft.kripton.binder.database.UpdateOptions;
 
-public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteInsert, SQLiteQuery, SQLiteUpdate, SQLiteDelete> {
+public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, SQLiteQuery, SQLiteUpdate, SQLiteDelete> {
 
 	private static final long serialVersionUID = -8926461587267041987L;
 
@@ -30,70 +27,8 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteInsert, SQLiteQ
 		contentValues.set(new ContentValues());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.abubusoft.kripton.database.AbstractDatabaseHandler#createDelete(com
-	 * .abubusoft.kripton.database.DatabaseTable,
-	 * com.abubusoft.kripton.database.DeleteOptions)
-	 */
 	@Override
-	public SQLiteDelete createDelete(DatabaseTable table, DeleteOptions options) {
-		SQLiteDelete delete = (SQLiteDelete) super.createDelete(table, options);
-
-		findColumnAdapters(delete, delete.columnAdapter);
-		findFilterAdapters(delete.filter, delete.filterAdapter);
-
-		return delete;
-	}
-
-	public void init() {		
-		
-		if (mapToType == null) {
-			mapToType = new HashMap<>();
-
-			// TEXT
-			{
-				Class<?> classes[] = { String.class, Enum.class };
-
-				for (int i = 0; i < classes.length; i++) {
-					mapToType.put(classes[i], "TEXT");
-				}
-			}
-
-			// INTEGER
-			{
-				Class<?> classes[] = { boolean.class, Boolean.class, int.class, Integer.class, long.class, Long.class };
-
-				for (int i = 0; i < classes.length; i++) {
-					mapToType.put(classes[i], "INTEGER");
-				}
-			}
-
-			// NUMERIC
-
-			// REAL
-			{
-				Class<?> classes[] = { float.class, Float.class, double.class, Double.class, BigDecimal.class };
-
-				for (int i = 0; i < classes.length; i++) {
-					mapToType.put(classes[i], "REAL");
-				}
-			}
-
-			// BLOB
-			{
-				Class<?> classes[] = { (new byte[0]).getClass() };
-
-				for (int i = 0; i < classes.length; i++) {
-					mapToType.put(classes[i], "BLOB");
-				}
-			}
-		}
-	}
-
-	public String createTableSQL(DatabaseTable table) {
+	protected String onDefineCreateTableSQL(SQLiteSchema schema, DatabaseTable table) {
 		DatabaseColumn column;
 		String separator = "";
 		StringBuffer sb = new StringBuffer();
@@ -113,6 +48,9 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteInsert, SQLiteQ
 				break;
 			case UNIQUE_KEY:
 				sb.append(" unique");
+			case FOREIGN_KEY:
+				DatabaseTable primaryTable = schema.getTableFromBeanClass(column.schema.getFieldType());
+				sb.append(" foreign key(" + column.name + ") REFERENCES " + primaryTable.name + "(" + primaryTable.primaryKey.name + ")");
 				break;
 			default:
 				break;
@@ -130,29 +68,6 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteInsert, SQLiteQ
 		return sb.toString();
 	}
 
-	public String dropTableSQL(DatabaseTable table) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("drop table if exists " + table.name + " ");
-		return sb.toString();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.abubusoft.kripton.database.AbstractDatabaseHandler#getInsert(com.
-	 * abubusoft.kripton.database.DatabaseTable,
-	 * com.abubusoft.kripton.database.InsertOptions)
-	 */
-	@Override
-	public SQLiteInsert createInsert(DatabaseTable table, InsertOptions options) {
-		SQLiteInsert insert = super.createInsert(table, options);
-		
-		findColumnAdapters(insert, insert.columnAdapter);
-
-		return insert;
-	}
-
 	private void findColumnAdapters(Statement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter) {
 		DatabaseColumn col;
 
@@ -160,24 +75,6 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteInsert, SQLiteQ
 			col = statement.columns[i];
 			columnAdapter.add(Adapter.lookup(col.schema.getFieldType()));
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.abubusoft.kripton.database.AbstractDatabaseHandler#getQuery(com.abubusoft
-	 * .kripton.database.DatabaseTable,
-	 * com.abubusoft.kripton.database.QueryOptions)
-	 */
-	@Override
-	public SQLiteQuery createQuery(DatabaseTable table, QueryOptions options) {
-		SQLiteQuery query = super.createQuery(table, options);
-
-		findColumnAdapters(query, query.columnAdapter);
-		findFilterAdapters(query.filter, query.filterAdapter);
-
-		return query;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -202,51 +99,89 @@ public class SQLiteHandler extends AbstractDatabaseHandler<SQLiteInsert, SQLiteQ
 	}
 
 	@Override
-	protected SQLiteQuery newQuery() {
-		return new SQLiteQuery();
-	}
-
-	@Override
-	public String getColumnType(Class<?> fieldType) {
+	protected String onDefineColumnType(Class<?> fieldType) {
 		if (fieldType.isEnum()) {
 			return mapToType.get(Enum.class);
 		}
 		return mapToType.get(fieldType);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.abubusoft.kripton.database.AbstractDatabaseHandler#createUpdate(com
-	 * .abubusoft.kripton.database.DatabaseTable,
-	 * com.abubusoft.kripton.database.UpdateOptions)
-	 */
+	protected HashMap<Class<?>, String> onDefineFieldToColumnTypeMap(HashMap<Class<?>, String> map) {
+		if (map != null)
+			return map;
+		map = new HashMap<>();
+
+		// TEXT
+		{
+			Class<?> classes[] = { String.class, Enum.class };
+
+			for (int i = 0; i < classes.length; i++) {
+				map.put(classes[i], "TEXT");
+			}
+		}
+
+		// INTEGER
+		{
+			Class<?> classes[] = { boolean.class, Boolean.class, int.class, Integer.class, long.class, Long.class, BigInteger.class };
+
+			for (int i = 0; i < classes.length; i++) {
+				map.put(classes[i], "INTEGER");
+			}
+		}
+
+		// NUMERIC
+
+		// REAL
+		{
+			Class<?> classes[] = { float.class, Float.class, double.class, Double.class, BigDecimal.class };
+
+			for (int i = 0; i < classes.length; i++) {
+				map.put(classes[i], "REAL");
+			}
+		}
+
+		// BLOB
+		{
+			Class<?> classes[] = { (new byte[0]).getClass() };
+
+			for (int i = 0; i < classes.length; i++) {
+				map.put(classes[i], "BLOB");
+			}
+		}
+
+		return map;
+
+	}
+
 	@Override
-	public SQLiteUpdate createUpdate(DatabaseTable table, UpdateOptions options) {
-		SQLiteUpdate update = super.createUpdate(table, options);
-		
+	protected String onDefineDropTableSQL(SQLiteSchema schema, DatabaseTable table) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("drop table if exists " + table.name + " ");
+		return sb.toString();
+	}
+
+	@Override
+	protected void onDeleteCreated(SQLiteDelete delete) {
+		findColumnAdapters(delete, delete.columnAdapter);
+		findFilterAdapters(delete.filter, delete.filterAdapter);
+	}
+
+	@Override
+	protected void onQueryCreated(SQLiteQuery query) {
+		findColumnAdapters(query, query.columnAdapter);
+		findFilterAdapters(query.filter, query.filterAdapter);
+	}
+
+	@Override
+	protected void onInsertCreated(SQLiteInsert insert) {
+		findColumnAdapters(insert, insert.columnAdapter);
+	}
+
+	@Override
+	protected void onUpdateCreated(SQLiteUpdate update) {
 		findColumnAdapters(update, update.columnAdapter);
 		findFilterAdapters(update.filter, update.filterAdapter);
-
-		return update;
 	}
-
-	@Override
-	protected SQLiteInsert newInsert() {
-		return new SQLiteInsert();
-	}
-
-	@Override
-	protected SQLiteUpdate newUpdate() {
-		return new SQLiteUpdate();
-	}
-
-	@Override
-	protected SQLiteDelete newDelete() {
-		return new SQLiteDelete();
-	}
-	
 
 
 }

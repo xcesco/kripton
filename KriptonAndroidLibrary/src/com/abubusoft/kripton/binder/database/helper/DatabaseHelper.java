@@ -1,9 +1,12 @@
-package com.abubusoft.kripton.binder.database;
+package com.abubusoft.kripton.binder.database.helper;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedHashMap;
 
+import com.abubusoft.kripton.binder.database.DatabaseColumn;
+import com.abubusoft.kripton.binder.database.DatabaseTable;
+import com.abubusoft.kripton.binder.database.Filter;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.exception.MappingException;
 

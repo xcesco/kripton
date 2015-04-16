@@ -92,7 +92,9 @@ class DateAdapter implements SqliteAdapter<Date> {
 
 	@Override
 	public Date readCursor(Cursor cursor, int columnIndex) throws Exception {
-		String value=cursor.getString(columnIndex);
+		String value=cursor.getString(columnIndex); 
+		if (value==null) return null;
+		
 		String pattern = getPattern(value);
 		Date date = ThreadLocalDateFormatter.parse(value, pattern);
 		return date;

@@ -13,7 +13,9 @@ public class ShortAdapter implements SqliteAdapter<Short> {
 
 	@Override
 	public Short readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return cursor.getShort(columnIndex);
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		return Short.valueOf(value);
 	}
 
 	@Override

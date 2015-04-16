@@ -40,7 +40,6 @@ public class EnumAdapter implements SqliteAdapter<Enum> {
 	@Override
 	public Enum readCursor(Cursor cursor, int columnIndex) throws Exception {
 		String value=cursor.getString(columnIndex);
-		
 		if (value==null) return null;
 		
 		if (!customEnum) {
@@ -66,9 +65,6 @@ public class EnumAdapter implements SqliteAdapter<Enum> {
 
 	@Override
 	public void writeValue(Enum value, ContentValues content, String columnKey) throws Exception {
-		
-		if (value==null) return;
-		
 		if (!customEnum) {
 			content.put(columnKey, value.name());
 		} else {

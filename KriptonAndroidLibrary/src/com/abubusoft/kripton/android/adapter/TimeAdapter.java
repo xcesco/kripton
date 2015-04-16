@@ -13,17 +13,14 @@ import android.database.Cursor;
  */
 public class TimeAdapter implements SqliteAdapter<Time> {
 
-	public Time read(String value) throws Exception {
-		return Time.valueOf(value);
-	}
-
-	public String write(Time value) throws Exception {
-		return value.toString();
-	}
-
 	@Override
 	public Time readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return new Time(cursor.getLong(columnIndex));
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		
+		long valueLong=Long.parseLong(value);		
+		
+		return new Time(valueLong);
 	}
 
 	@Override

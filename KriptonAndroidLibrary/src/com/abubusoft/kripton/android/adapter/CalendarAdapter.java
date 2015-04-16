@@ -19,6 +19,7 @@ public class CalendarAdapter implements SqliteAdapter<Calendar> {
 	@Override
 	public Calendar readCursor(Cursor cursor, int columnIndex) throws Exception {
 		Date date=dateTransform.readCursor(cursor, columnIndex);
+		if (date==null) return null;
 		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);

@@ -14,7 +14,10 @@ import android.database.Cursor;
 public class TimeZoneAdapter implements SqliteAdapter<TimeZone> {
 	@Override
 	public TimeZone readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return TimeZone.getTimeZone(cursor.getString(columnIndex));
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		
+		return TimeZone.getTimeZone(value);
 	}
 
 	@Override

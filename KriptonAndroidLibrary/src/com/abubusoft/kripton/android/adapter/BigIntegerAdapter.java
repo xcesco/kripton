@@ -16,7 +16,10 @@ class BigIntegerAdapter implements SqliteAdapter<BigInteger> {
 
 	@Override
 	public BigInteger readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return (new BigInteger(cursor.getString(columnIndex)));
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		
+		return (new BigInteger(value));
 	}
 
 	@Override

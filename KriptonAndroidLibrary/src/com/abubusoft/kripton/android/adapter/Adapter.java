@@ -43,6 +43,7 @@ public class Adapter {
 		if (adapter == null) {
 			throw new IllegalArgumentException("Transform of " + type + " not supported");
 		}
+		if (value==null) return;
 		adapter.writeValue(value, content, columnKey);
 	}
 
@@ -77,7 +78,7 @@ public class Adapter {
 	public static SqliteAdapter<?> lookup(Class<?> type) {
 		SqliteAdapter<?> transform = cache.get(type);
 
-		if (transform != null) {
+		if (transform != null) { 
 			return transform;
 		}
 

@@ -1,10 +1,11 @@
 /**
  * 
  */
-package com.abubusoft.kripton.binder.database;
+package com.abubusoft.kripton;
 
 import java.util.HashSet;
 
+import com.abubusoft.kripton.binder.database.NameConverterType;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.exception.MappingException;
 
@@ -17,7 +18,7 @@ import com.abubusoft.kripton.exception.MappingException;
  */
 public class DatabaseSchemaOptions {
 
-	protected String tablePrefix="";
+	public String tablePrefix="";
 
 	public String getTablePrefix() {
 		return tablePrefix;
@@ -39,7 +40,7 @@ public class DatabaseSchemaOptions {
 
 	protected boolean compiled;
 
-	protected HashSet<MappingSchema> mappingSchemaSet=new HashSet<MappingSchema>();
+	public HashSet<MappingSchema> mappingSchemaSet=new HashSet<MappingSchema>();
 
 	public static DatabaseSchemaOptions build() {
 		DatabaseSchemaOptions value = new DatabaseSchemaOptions();

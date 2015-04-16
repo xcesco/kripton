@@ -13,12 +13,15 @@ class BooleanAdapter implements SqliteAdapter<Boolean> {
 
 	@Override
 	public Boolean readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return Boolean.valueOf(cursor.getString(columnIndex));
+		String value = cursor.getString(columnIndex);
+		if (value == null)
+			return null;
+		return Boolean.valueOf("0".equals(value) ? false : true);
 	}
 
 	@Override
-	public void writeValue(Boolean value, ContentValues content,String columnKey) throws Exception {
-		content.put(columnKey, value);
+	public void writeValue(Boolean value, ContentValues content, String columnKey) throws Exception {
+		content.put(columnKey, value ? 1 : 0);
 	}
 
 }

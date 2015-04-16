@@ -15,7 +15,10 @@ class BigDecimalAdapter implements SqliteAdapter<BigDecimal> {
 
 	@Override
 	public BigDecimal readCursor(Cursor cursor, int columnIndex) throws Exception {
-		return (new BigDecimal(cursor.getString(columnIndex)));
+		String value=cursor.getString(columnIndex);
+		if (value==null) return null;
+		
+		return (new BigDecimal(value));
 	}
 
 	@Override

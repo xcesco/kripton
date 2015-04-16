@@ -28,7 +28,7 @@ public class SQLiteInsert extends Insert {
 
 		ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, handler.contentValues, bean);
 		
-		if (table.primaryKey!=null)
+		if (table.primaryKey!=null) 
 			value.remove(table.primaryKey.name);
 		
 		long id = database.insert(table.name, null, value);
