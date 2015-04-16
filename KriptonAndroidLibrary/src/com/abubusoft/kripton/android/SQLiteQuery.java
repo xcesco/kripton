@@ -13,8 +13,6 @@ import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteQuery extends Query {
 
-	SQLiteHandler handler;
-
 	@SuppressWarnings("rawtypes")
 	ArrayList<SqliteAdapter> columnAdapter = new ArrayList<>();
 

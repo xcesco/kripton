@@ -9,8 +9,6 @@ import com.abubusoft.kripton.binder.database.Delete;
 import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteDelete extends Delete {
-	SQLiteHandler handler;
-
 	@SuppressWarnings("rawtypes")
 	ArrayList<SqliteAdapter> columnAdapter = new ArrayList<>();
 

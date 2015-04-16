@@ -11,8 +11,6 @@ import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteInsert extends Insert {
 
-	SQLiteHandler handler;
-
 	/**
 	 * list of adapters
 	 */
@@ -26,7 +24,7 @@ public class SQLiteInsert extends Insert {
 					+ bean.getClass().getName()));
 		}
 
-		ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, handler.contentValues, bean);
+		ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, ((SQLiteHandler)handler).contentValues, bean);
 		
 		if (table.primaryKey!=null) 
 			value.remove(table.primaryKey.name);

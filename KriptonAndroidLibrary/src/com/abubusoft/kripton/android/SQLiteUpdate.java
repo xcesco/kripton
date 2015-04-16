@@ -11,8 +11,6 @@ import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteUpdate extends Update {
  
-	SQLiteHandler handler;
-	
 	@SuppressWarnings("rawtypes")
 	ArrayList<SqliteAdapter> filterAdapter = new ArrayList<>();
 
@@ -41,7 +39,7 @@ public class SQLiteUpdate extends Update {
 		}
 
 		try {
-			ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, handler.contentValues, bean);
+			ContentValues value = SQLiteHelper.bean2Values(this, this.columnAdapter, ((SQLiteHandler)handler).contentValues, bean);
 
 			String[] filterValuesArray = null;
 			switch(filter.origin)
