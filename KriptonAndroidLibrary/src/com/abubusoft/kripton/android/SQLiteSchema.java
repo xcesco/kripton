@@ -7,13 +7,20 @@ import com.abubusoft.kripton.DatabaseSchemaOptions;
 import com.abubusoft.kripton.binder.database.ColumnType;
 import com.abubusoft.kripton.binder.database.DatabaseColumn;
 import com.abubusoft.kripton.binder.database.DatabaseSchema;
+import com.abubusoft.kripton.binder.database.QueryOptions;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 
 /**
  * @author xcesco
  *
  */
+@SuppressWarnings("rawtypes")
 public class SQLiteSchema extends DatabaseSchema<SQLiteHandler, SQLiteInsert, SQLiteQuery, SQLiteUpdate, SQLiteDelete> {
+	
+	@SuppressWarnings("unchecked")
+	public <E> SQLiteQuery<E> createQuery(Class<E> clazz, QueryOptions options) {
+		return (SQLiteQuery<E>) createQueryInternal(clazz,options);		
+	}
 	
 	static final long INVALID_ID = -1;
 

@@ -2,6 +2,7 @@ package com.abubusoft.kripton.binder.database;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 
@@ -33,6 +34,8 @@ public class DatabaseTable {
 
 	public LinkedHashMap<String, Delete> deletes = new LinkedHashMap<>();
 	
+	//protected boolean parsed=false;
+	
 	public Query lastQuery;
 	
 	public Insert lastInsert;
@@ -41,4 +44,6 @@ public class DatabaseTable {
 	
 	public Delete lastDelete;
 
+	public LinkedHashMap<DatabaseColumn, DatabaseColumn> foreignKeys=new LinkedHashMap<DatabaseColumn, DatabaseColumn>();
+	
 }

@@ -13,24 +13,23 @@ import com.abubusoft.kripton.android.SQLiteQuery;
 import com.abubusoft.kripton.android.SQLiteSchema;
 import com.abubusoft.kripton.android.SQLiteUpdate;
 import com.abubusoft.kripton.binder.database.NameConverterType;
-import com.abubusoft.kripton.binder.database.QueryListener;
 import com.abubusoft.kripton.binder.database.QueryOptions;
 
 public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 	
 	SQLiteSchema databaseSchema;
 	
-	SQLiteQuery selectAll;
+	SQLiteQuery<BeanTest1_0> selectAll;
 
-	SQLiteQuery selectOrder01;
+	SQLiteQuery<BeanTest1_0> selectOrder01;
 	
 	SQLiteInsert insert;
 
-	SQLiteQuery selectWhere01;
+	SQLiteQuery<BeanTest1_0> selectWhere01;
 
 	SQLiteUpdate update;
 	
-	SQLiteQuery selectById;
+	SQLiteQuery<BeanTest1_0> selectById;
 	
 	public ArgonSQLiteHelper(Context context, String databaseName, int version) {
 		super(context, databaseName, null, version);
@@ -54,30 +53,31 @@ public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase database) {
-		String[] sql=databaseSchema.createTablesSQL();
+		ArrayList<String> sql=databaseSchema.createTablesSQL();
 		
-		for (int i=0;i <sql.length;i++)
+		for (int i=0;i <sql.size();i++)
 		{
-			String temp=sql[i];
+			String temp=sql.get(i);
 			database.execSQL(temp);	
 		}
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		String[] sql=databaseSchema.dropTablesSQL();
-		for (int i=0;i <sql.length;i++)
+		ArrayList<String> sql=databaseSchema.dropTablesSQL();
+		for (int i=0;i <sql.size();i++)
 		{
-			db.execSQL(sql[i]);	
+			db.execSQL(sql.get(i));	
 		}
 		
 		onCreate(db);
 	}
 	
-	public <E> ArrayList<E> selectAll(SQLiteDatabase database, Class<E> clazz)
+	public ArrayList<BeanTest1_0> selectAll(SQLiteDatabase database)
 	{
 		System.out.println(selectAll.getSQL());
-		return selectAll.execute(database, clazz);
+		
+		return selectAll.executeList(database);
 	}
 
 	public boolean insert(SQLiteDatabase database, BeanTest1_0 bean) {
@@ -85,16 +85,16 @@ public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 		return insert.execute(database, bean);
 	}
 
-	public ArrayList<BeanTest1_0> selectOrder01(SQLiteDatabase database, Class<BeanTest1_0> class1) {
-		return selectOrder01.execute(database, class1);
+	public ArrayList<BeanTest1_0> selectOrder01(SQLiteDatabase database) {
+		return selectOrder01.executeList(database);
 	}
 
-	public void selectOrder01(SQLiteDatabase database, Class<BeanTest1_0> class1, QueryListener<BeanTest1_0> queryListener) {
-		selectOrder01.executeWithListener(database, class1, queryListener);
+	public void selectOrder01(SQLiteDatabase database, Class<BeanTest1_0> class1) {
+		selectOrder01.executeWithListener(database, class1);
 	}
 	
-	public void selectWhere01(SQLiteDatabase database, Class<BeanTest1_0> class1, Param02 params, QueryListener<BeanTest1_0> queryListener) {
-		selectWhere01.executeWithListener(database, class1,params, queryListener);
+	public void selectWhere01(SQLiteDatabase database, Param02 params) {
+		selectWhere01.executeWithListener(database, params);
 	}
 
 	public int update(SQLiteDatabase database, BeanTest1_0 bean) {
@@ -102,9 +102,9 @@ public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 		return update.execute(database, bean, null);
 	}
 
-	public BeanTest1_0 select(SQLiteDatabase database, Class<BeanTest1_0> clazz, long id) {
+	public BeanTest1_0 select(SQLiteDatabase database, long id) {
 		System.out.println(selectById.getSQL());			
-		return selectById.executeOne(database,clazz,id);
+		return selectById.executeOne(database,id);
 	}
 
 }

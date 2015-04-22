@@ -2,10 +2,12 @@ package com.abubusoft.kripton.android;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import android.content.ContentValues;
 
 import com.abubusoft.kripton.android.adapter.SqliteAdapter;
+import com.abubusoft.kripton.binder.database.ColumnType;
 import com.abubusoft.kripton.binder.database.DatabaseColumn;
 import com.abubusoft.kripton.binder.database.DatabaseTable;
 import com.abubusoft.kripton.binder.database.Filter;
@@ -16,10 +18,12 @@ import com.abubusoft.kripton.exception.MappingException;
 public class SQLiteHelper {
 
 	@SuppressWarnings("unchecked")
-	public static ContentValues bean2ContentValues(Statement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter, ThreadLocal<ContentValues> values, Object bean) {
+	public static ContentValues bean2ContentValues(Statement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter,
+			ThreadLocal<ContentValues> values, Object bean) {
+		LinkedHashMap<DatabaseColumn, DatabaseColumn> foreignKeys = statement.table.foreignKeys;
 		ContentValues value = values.get();
 		if (value == null) {
-			value = new ContentValues(); 
+			value = new ContentValues();
 			values.set(value);
 		}
 
@@ -28,17 +32,24 @@ public class SQLiteHelper {
 		Object v;
 
 		@SuppressWarnings("rawtypes")
-		SqliteAdapter adapter = null; 
+		SqliteAdapter adapter = null;
 		try {
 			int n = columns.length;
 			for (int i = 0; i < n; i++) {
 
-				v = columns[i].schema.getFieldValue(bean);
-				adapter = columnAdapter.get(i);
+				if (columns[i].feature != ColumnType.FOREIGN_KEY) {
+					v = columns[i].schema.getFieldValue(bean);
+					adapter = columnAdapter.get(i);
 
+				} else {
+					v = columns[i].schema.getFieldValue(bean);
+					DatabaseColumn primaryKeyColumn = foreignKeys.get(columns[i]);
+					v = primaryKeyColumn.schema.getFieldValue(v);
+				}
 				if (v != null) {
 					adapter.writeValue(v, value, columns[i].name);
 				}
+
 			}
 
 			return value;
@@ -46,31 +57,31 @@ public class SQLiteHelper {
 			throw new MappingException(e.getMessage());
 		}
 	}
-	
+
 	/**
-	 * It's made for test scope. Application does not need to invoke this methods for statement usage.
+	 * It's made for test scope. Application does not need to invoke this
+	 * methods for statement usage.
 	 * 
 	 * @param parameters
 	 * @return
 	 */
-	public static String[] getFilterValues(Filter filter, ThreadLocal<String[]> filterValues, DatabaseTable table, Object parameters)
-	{
-		
+	public static String[] getFilterValues(Filter filter, ThreadLocal<String[]> filterValues, DatabaseTable table, Object parameters) {
+
 		String[] filterValuesArray = null;
 		switch (filter.origin) {
 		case NONE:
 			break;
 		case ONE_PARAM:
-			filterValuesArray = getFilterValuesFromOneParam(filter, filterValues,parameters, filter.inputClazz);
+			filterValuesArray = getFilterValuesFromOneParam(filter, filterValues, parameters, filter.inputClazz);
 			break;
 		case PARAMS:
-			filterValuesArray = getFilterValuesFromParams(filter, filterValues,parameters, filter.inputClazz);
+			filterValuesArray = getFilterValuesFromParams(filter, filterValues, parameters, filter.inputClazz);
 			break;
 		case BEAN:
-			filterValuesArray = getFilterValuesFromParams(filter, filterValues,parameters, table.clazz);
+			filterValuesArray = getFilterValuesFromParams(filter, filterValues, parameters, table.clazz);
 			break;
 		}
-		
+
 		return filterValuesArray;
 	}
 
@@ -81,10 +92,9 @@ public class SQLiteHelper {
 			values = new String[filter.fieldNames.length];
 			filterValues.set(values);
 		}
-		
-		if (parameters==null)
-		{
-			throw new MappingException("Parameter is null, but parameter of type "+filter.inputClazz+" is needed");
+
+		if (parameters == null) {
+			throw new MappingException("Parameter is null, but parameter of type " + filter.inputClazz + " is needed");
 		}
 
 		try {

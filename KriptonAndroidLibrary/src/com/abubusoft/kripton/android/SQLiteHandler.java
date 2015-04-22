@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -23,6 +24,7 @@ import com.abubusoft.kripton.binder.database.DatabaseTable;
 import com.abubusoft.kripton.binder.database.Filter;
 import com.abubusoft.kripton.binder.database.Statement;
 
+@SuppressWarnings("rawtypes")
 public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, SQLiteQuery, SQLiteUpdate, SQLiteDelete> {
 
 	private static final long serialVersionUID = -8926461587267041987L;
@@ -34,11 +36,17 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 	}
 
 	@Override
-	protected String onDefineCreateTableSQL(SQLiteSchema schema, DatabaseTable table) {
+	protected void onDefineCreateTableSQL(ArrayList<String> result, HashSet<DatabaseTable> alreadyParsedTables, SQLiteSchema schema, DatabaseTable table) {
+		// if already parsed, skip immediately
+		if (alreadyParsedTables.contains(table))
+			return;
+
+		alreadyParsedTables.add(table);
+
 		DatabaseColumn column;
 		String separator = "";
 		StringBuffer sb = new StringBuffer();
-		StringBuffer sbOther=new StringBuffer();
+		StringBuffer sbOther = new StringBuffer();
 
 		sb.append("create table " + table.name + " (");
 
@@ -46,11 +54,9 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 			column = table.columns.get(i);
 			sb.append(separator + column.name);
 			// type
-			if (column.type!=null)
-			{
+			if (column.type != null) {
 				sb.append(" " + column.type);
-			} 
-				
+			}
 
 			// index options
 			switch (column.feature) {
@@ -61,11 +67,17 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 				sb.append(" unique");
 				break;
 			case FOREIGN_KEY:
-				DatabaseTable primaryTable = schema.getTableFromBeanClass(column.schema.getFieldType());
+				DatabaseTable primaryTable = checkedDatabaseTable(schema, column.schema);
+				onDefineCreateTableSQL(result, alreadyParsedTables, schema, primaryTable);
+				column.type = primaryTable.primaryKey.type;
+				// column.schema.setField(primaryTable.primaryKey.schema.getField());
+				table.foreignKeys.put(column, primaryTable.primaryKey);
+
 				sb.append(" ");
 				sb.append(primaryTable.primaryKey.type);
-				
+
 				sbOther.append(", foreign key(" + column.name + ") references " + primaryTable.name + "(" + primaryTable.primaryKey.name + ")");
+
 				break;
 			default:
 				break;
@@ -81,19 +93,25 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 		sb.append(sbOther.toString());
 		sb.append(");");
 
-		return sb.toString();
+		result.add(sb.toString());
 	}
 
-	private void findColumnAdapters(Statement statement, @SuppressWarnings("rawtypes") ArrayList<SqliteAdapter> columnAdapter) {
-		DatabaseColumn col;
+	private void findColumnAdapters(Statement statement, ArrayList<SqliteAdapter> columnAdapter, ArrayList<QueryForeignKey> foreignKeys) {
+		DatabaseColumn col;		
+		QueryForeignKey foreignKey;
 
 		for (int i = 0; i < statement.columns.length; i++) {
 			col = statement.columns[i];
 			columnAdapter.add(Adapter.lookup(col.schema.getFieldType()));
+			
+			if (foreignKeys!=null && col.feature==ColumnType.FOREIGN_KEY)
+			{
+				foreignKey=new QueryForeignKey(i, col, statement.table.foreignKeys.get(col));
+				foreignKeys.add(foreignKey);
+			}
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
 	private void findFilterAdapters(Filter filter, ArrayList<SqliteAdapter> filterAdapter) {
 		Field field;
 
@@ -129,7 +147,8 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 
 		// TEXT
 		{
-			Class<?> classes[] = { String.class, Enum.class, char.class, Character.class, Currency.class, Date.class , Locale.class, Time.class, TimeZone.class, URL.class};
+			Class<?> classes[] = { String.class, Enum.class, char.class, Character.class, Currency.class, Date.class, Locale.class, Time.class, TimeZone.class,
+					URL.class };
 
 			for (int i = 0; i < classes.length; i++) {
 				map.put(classes[i], "TEXT");
@@ -138,7 +157,8 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 
 		// INTEGER
 		{
-			Class<?> classes[] = { boolean.class, Boolean.class, int.class, Integer.class, long.class, Long.class, byte.class, Byte.class, short.class, Short.class, BigInteger.class };
+			Class<?> classes[] = { boolean.class, Boolean.class, int.class, Integer.class, long.class, Long.class, byte.class, Byte.class, short.class,
+					Short.class, BigInteger.class };
 
 			for (int i = 0; i < classes.length; i++) {
 				map.put(classes[i], "INTEGER");
@@ -170,34 +190,57 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 	}
 
 	@Override
-	protected String onDefineDropTableSQL(SQLiteSchema schema, DatabaseTable table) {
+	protected void onDefineDropTableSQL(ArrayList<String> result, HashSet<DatabaseTable> alreadyParsedTables, SQLiteSchema schema, DatabaseTable table) {
+		// if already parsed, skip immediately
+		if (alreadyParsedTables.contains(table))
+			return;
+
+		alreadyParsedTables.add(table);
+
 		StringBuffer sb = new StringBuffer();
 		sb.append("drop table if exists " + table.name + " ");
-		return sb.toString();
+		DatabaseColumn column;
+
+		for (int i = 0; i < table.columns.size(); i++) {
+			column = table.columns.get(i);
+
+			// index options
+			switch (column.feature) {
+			case FOREIGN_KEY:
+				DatabaseTable primaryTable = checkedDatabaseTable(schema, column.schema);
+
+				onDefineDropTableSQL(result, alreadyParsedTables, schema, primaryTable);
+				break;
+			default:
+				break;
+			}
+		}
+
+		result.add(sb.toString());
 	}
 
 	@Override
 	protected void onCreateDelete(SQLiteDelete delete) {
-		findColumnAdapters(delete, delete.columnAdapter);
+		findColumnAdapters(delete, delete.columnAdapter, null);
 		findFilterAdapters(delete.filter, delete.filterAdapter);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	protected void onCreateQuery(SQLiteQuery query) {
-		findColumnAdapters(query, query.columnAdapter);
+	protected void onCreateQuery(SQLiteQuery query) {		
+		findColumnAdapters(query, query.columnAdapter, query.foreignKeys);
 		findFilterAdapters(query.filter, query.filterAdapter);
 	}
 
 	@Override
 	protected void onCreateInsert(SQLiteInsert insert) {
-		findColumnAdapters(insert, insert.columnAdapter);
+		findColumnAdapters(insert, insert.columnAdapter,null);
 	}
 
 	@Override
 	protected void onCreateUpdate(SQLiteUpdate update) {
-		findColumnAdapters(update, update.columnAdapter);
+		findColumnAdapters(update, update.columnAdapter,null);
 		findFilterAdapters(update.filter, update.filterAdapter);
 	}
-
 
 }

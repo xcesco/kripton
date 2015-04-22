@@ -1,5 +1,6 @@
 package kripton22;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Test;
@@ -138,16 +139,16 @@ public class Test01Test extends BaseTest {
 		}
 		
 		{
-			String[] createSql = databaseSchema.createTablesSQL();
-			for (int i = 0; i < createSql.length; i++) {
-				logger.info(createSql[i]);
+			ArrayList<String> createSql = databaseSchema.createTablesSQL();
+			for (int i = 0; i < createSql.size(); i++) {
+				logger.info(createSql.get(i));
 			}
 		}
 
 		{
-			String[] createSql = databaseSchema.dropTablesSQL();
-			for (int i = 0; i < createSql.length; i++) {
-				logger.info(createSql[i]);
+			ArrayList<String> createSql = databaseSchema.dropTablesSQL();
+			for (int i = 0; i < createSql.size(); i++) {
+				logger.info(createSql.get(i));
 			}
 		}	
 		

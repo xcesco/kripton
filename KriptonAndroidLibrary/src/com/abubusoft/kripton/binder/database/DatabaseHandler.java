@@ -1,12 +1,15 @@
 package com.abubusoft.kripton.binder.database;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 import com.abubusoft.kripton.binder.database.helper.FilterHelper;
 import com.abubusoft.kripton.binder.database.helper.SQLHelper;
 import com.abubusoft.kripton.binder.database.helper.StatementHelper;
+import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.exception.MappingException;
 
 /**
@@ -26,6 +29,13 @@ public abstract class DatabaseHandler<S extends DatabaseSchema, C extends Insert
 	protected HashMap<Class<?>, String> mapToType;
 	protected Class<R> readClazz;
 	protected Class<U> updateClazz;
+	
+	protected DatabaseTable checkedDatabaseTable(S schema, ElementSchema element) {		
+		@SuppressWarnings("unchecked")
+		DatabaseTable table=schema.getTableFromBeanClass(element.getFieldType());
+		if (table==null) throw(new MappingException("No table found for class "+element.getFieldType().getName()));
+		return table;
+	}
 
 	public D createDelete(DatabaseTable table, DeleteOptions options) {
 		D delete = StatementHelper.createStatementAndColumns(table, deleteClazz, options.name, options.fields);		
@@ -79,7 +89,7 @@ public abstract class DatabaseHandler<S extends DatabaseSchema, C extends Insert
 		return query;
 	}
 
-	protected abstract String onDefineCreateTableSQL(S schema, DatabaseTable table);
+	protected abstract void onDefineCreateTableSQL(ArrayList<String> result,HashSet<DatabaseTable> alreadyParsedTables,  S schema, DatabaseTable table);
 
 	public U createUpdate(DatabaseTable table, UpdateOptions options) {
 		U update = StatementHelper.createStatementAndColumns(table, updateClazz, options.name, options.fields);
@@ -98,7 +108,7 @@ public abstract class DatabaseHandler<S extends DatabaseSchema, C extends Insert
 		return update;
 	}
 
-	protected abstract String onDefineDropTableSQL(S schema, DatabaseTable table);
+	protected abstract void onDefineDropTableSQL(ArrayList<String> result, HashSet<DatabaseTable> alreadyParsedTables, S schema, DatabaseTable table);
 
 	@SuppressWarnings("unchecked")
 	public D getDelete(DatabaseTable table, String name) {

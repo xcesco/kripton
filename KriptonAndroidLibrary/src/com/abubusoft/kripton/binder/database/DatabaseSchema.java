@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.binder.database;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 import com.abubusoft.kripton.DatabaseSchemaOptions;
@@ -16,7 +18,7 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 	protected Class<D> clazzDelete;
 
 	interface TableTask {
-		String onTable(DatabaseTable item);
+		void onTable(ArrayList<String> result, DatabaseTable item);
 	}
 
 	protected LinkedHashMap<String, DatabaseTable> tables = new LinkedHashMap<>();
@@ -43,6 +45,8 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 		handler = onDefineHandler(options);
 		handler.init(this.clazzInsert, this.clazzQuery, this.clazzUpdate, this.clazzDelete);
 		buildTables(options);
+		createTablesSQL();
+		buidPredefinedStatements(options);
 	}
 
 	protected abstract H onDefineHandler(DatabaseSchemaOptions options);
@@ -54,6 +58,27 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 	protected abstract Class<U> onDefineUpdateClass();
 
 	protected abstract Class<D> onDefineDeleteClass();
+
+	protected void buidPredefinedStatements(DatabaseSchemaOptions options) {
+		MappingSchema schema;
+		for (DatabaseTable table : tables.values()) {
+			schema = table.schema;
+			// create default insert, update and select
+			createInsert(schema.getType(), InsertOptions.build());
+			createQueryInternal(schema.getType(), QueryOptions.build().name(Query.QUERY_ALL));
+
+			// only for table with primary key
+			if (table.primaryKey != null) {
+				String whereById = table.primaryKey.schema.getName() + "=#{" + table.primaryKey.schema.getName() + "}";
+
+				createQueryInternal(schema.getType(),
+						QueryOptions.build().name(Query.DEFAULT_BY_ID).where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
+				createUpdate(schema.getType(), UpdateOptions.build().name(Update.DEFAULT_BY_ID).where(whereById));
+				createDelete(schema.getType(),
+						DeleteOptions.build().name(Delete.DEFAULT_BY_ID).where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
+			}
+		}
+	}
 
 	protected void buildTables(DatabaseSchemaOptions options) {
 		MappingSchema[] array = new MappingSchema[options.mappingSchemaSet.size()];
@@ -75,29 +100,29 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 				table.columns.add(column);
 				table.field2column.put(element.getName(), column);
 
-				// look for pk
-				if (column.feature == ColumnType.PRIMARY_KEY) {
+				switch (column.feature) {
+				case PRIMARY_KEY:
 					table.primaryKey = column;
+					break;
+				default:
+					break;
 				}
+
 			}
 
 			tables.put(key, table);
 			class2Table.put(item.getType(), table);
-
-			// create default insert, update and select
-			createInsert(item.getType(), InsertOptions.build());
-			createQuery(item.getType(), QueryOptions.build().name(Query.QUERY_ALL));
-
-			// only for table with primary key
-			if (table.primaryKey != null) {
-				String whereById = table.primaryKey.schema.getName() + "=#{" + table.primaryKey.schema.getName() + "}";
-
-				createQuery(item.getType(), QueryOptions.build().name(Query.DEFAULT_BY_ID).where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
-				createUpdate(item.getType(), UpdateOptions.build().name(Update.DEFAULT_BY_ID).where(whereById));
-				createDelete(item.getType(),
-						DeleteOptions.build().name(Delete.DEFAULT_BY_ID).where(whereById).paramsClass(table.primaryKey.schema.getFieldType()));
-			}
 		}
+
+		
+	}
+
+	protected DatabaseTable checkedDatabaseTable(DatabaseSchema schema, ElementSchema element) {
+		@SuppressWarnings("unchecked")
+		DatabaseTable table = schema.getTableFromBeanClass(element.getFieldType());
+		if (table == null)
+			throw (new MappingException("No table found for class " + element.getFieldType().getName()));
+		return table;
 	}
 
 	protected abstract DatabaseColumn onDefineColumn(ElementSchema element, DatabaseSchemaOptions options);
@@ -107,7 +132,7 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 	}
 
 	@SuppressWarnings("unchecked")
-	public R createQuery(Class<?> clazz, QueryOptions options) {
+	protected R createQueryInternal(Class<?> clazz, QueryOptions options) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
@@ -132,7 +157,6 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
 		return (U) handler.createUpdate(table, options);
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	public D createDelete(Class<?> clazz, DeleteOptions options) {
@@ -140,13 +164,11 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 
 		if (table == null)
 			throw new MappingException("Table for class " + clazz.getName() + " does not exists. Have you included it in db definition?");
-		D delete=(D) handler.createDelete(table, options);
-		
+		D delete = (D) handler.createDelete(table, options);
+
 		return delete;
 	}
-	
 
-	
 	/**
 	 * Retrieve an insert already defined.
 	 * 
@@ -184,7 +206,7 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public <Q extends Query> Q getQuery(Class<?> clazz, String name) {
+	public <Q extends R, E> Q getQuery(Class<E> clazz, String name) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
@@ -193,7 +215,7 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 	}
 
 	@SuppressWarnings("unchecked")
-	public <Q extends Query> Q getQuery(Class<?> clazz) {
+	public <Q extends Query, E> Q getQuery(Class<E> clazz) {
 		DatabaseTable table = this.class2Table.get(clazz);
 
 		if (table == null)
@@ -261,37 +283,37 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 	 * 
 	 * @return arrays of sql
 	 */
-	public String[] createTablesSQL() {
+	public ArrayList<String> createTablesSQL() {
+		final HashSet<DatabaseTable> alreadyParsedTables = new HashSet<DatabaseTable>();
 		TableTask iteratorCreateTableSQL = new TableTask() {
 			@SuppressWarnings("unchecked")
 			@Override
-			public String onTable(DatabaseTable item) {
-				return handler.onDefineCreateTableSQL(DatabaseSchema.this, item);
+			public void onTable(ArrayList<String> result, DatabaseTable item) {
+				handler.onDefineCreateTableSQL(result, alreadyParsedTables, DatabaseSchema.this, item);
 			}
 		};
 
 		return forEachTable(iteratorCreateTableSQL);
 	}
 
-	public String[] dropTablesSQL() {
+	public ArrayList<String> dropTablesSQL() {
+		final HashSet<DatabaseTable> alreadyParsedTables = new HashSet<DatabaseTable>();
 		TableTask iteratorDropTableSQL = new TableTask() {
 			@SuppressWarnings("unchecked")
 			@Override
-			public String onTable(DatabaseTable item) {
-				return handler.onDefineDropTableSQL(DatabaseSchema.this, item);
+			public void onTable(ArrayList<String> result, DatabaseTable item) {
+				handler.onDefineDropTableSQL(result, alreadyParsedTables, DatabaseSchema.this, item);
 			}
 		};
 
 		return forEachTable(iteratorDropTableSQL);
 	}
 
-	protected String[] forEachTable(TableTask task) {
-		String[] result = new String[tables.size()];
-		int i = 0;
+	protected ArrayList<String> forEachTable(TableTask task) {
+		ArrayList<String> result = new ArrayList<String>();
 
 		for (DatabaseTable item : tables.values()) {
-			result[i] = task.onTable(item);
-			i++;
+			task.onTable(result, item);
 		}
 
 		return result;
