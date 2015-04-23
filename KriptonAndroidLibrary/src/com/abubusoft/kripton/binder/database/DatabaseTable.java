@@ -2,7 +2,6 @@ package com.abubusoft.kripton.binder.database;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 
@@ -16,23 +15,23 @@ public class DatabaseTable {
 	
 	public Class<?> clazz;
 
-	public ArrayList<DatabaseColumn> columns = new ArrayList<>();
+	public ArrayList<DatabaseColumn> columns = new ArrayList<DatabaseColumn>();
 
-	public LinkedHashMap<String, DatabaseColumn> field2column = new LinkedHashMap<>();
+	public LinkedHashMap<String, DatabaseColumn> field2column = new LinkedHashMap<String, DatabaseColumn>();
 
-	public LinkedHashMap<String, Insert> inserts = new LinkedHashMap<>();
+	public LinkedHashMap<String, Insert> inserts = new LinkedHashMap<String, Insert>();
 
 	public String name;
 
-	public LinkedHashMap<String, Query> queries = new LinkedHashMap<>();
+	public LinkedHashMap<String, Query> queries = new LinkedHashMap<String, Query>();
 
 	public MappingSchema schema;
 
-	public LinkedHashMap<String, Update> updates = new LinkedHashMap<>();
+	public LinkedHashMap<String, Update> updates = new LinkedHashMap<String, Update>();
 
 	public DatabaseColumn primaryKey;
 
-	public LinkedHashMap<String, Delete> deletes = new LinkedHashMap<>();
+	public LinkedHashMap<String, Delete> deletes = new LinkedHashMap<String, Delete>();
 	
 	//protected boolean parsed=false;
 	

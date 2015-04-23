@@ -212,8 +212,8 @@ public class MappingSchema {
 		Counters parentCounters = new Counters();
 
 		// set of used names
-		HashSet<String> usedNames = new HashSet<>();
-		ArrayList<ElementSchema> listSchema = new ArrayList<>();
+		HashSet<String> usedNames = new HashSet<String>();
+		ArrayList<ElementSchema> listSchema = new ArrayList<ElementSchema>();
 
 		listSchema = scanFieldSchema(type, usedNames, currentCounters);
 

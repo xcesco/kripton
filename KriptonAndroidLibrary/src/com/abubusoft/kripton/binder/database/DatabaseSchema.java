@@ -21,7 +21,7 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 		void onTable(ArrayList<String> result, DatabaseTable item);
 	}
 
-	protected LinkedHashMap<String, DatabaseTable> tables = new LinkedHashMap<>();
+	protected LinkedHashMap<String, DatabaseTable> tables = new LinkedHashMap<String, DatabaseTable>();
 
 	public LinkedHashMap<String, DatabaseTable> getTables() {
 		return tables;
@@ -33,7 +33,7 @@ public abstract class DatabaseSchema<H extends DatabaseHandler, C extends Insert
 
 	protected H handler;
 
-	protected LinkedHashMap<Class<?>, DatabaseTable> class2Table = new LinkedHashMap<>();
+	protected LinkedHashMap<Class<?>, DatabaseTable> class2Table = new LinkedHashMap<Class<?>, DatabaseTable>();
 
 	@SuppressWarnings("unchecked")
 	public void build(DatabaseSchemaOptions options) {

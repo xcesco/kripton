@@ -1,7 +1,6 @@
 package com.abubusoft.kripton.android;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
