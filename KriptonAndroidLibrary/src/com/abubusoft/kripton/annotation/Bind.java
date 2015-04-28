@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * This annotation maps a POJO field to an XML/JSON element
+ * Maps a POJO field to an persistent element.
  * 
  * @author bulldog
  * @author xcesco
@@ -17,6 +17,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface Bind {
 	
+	/**
+	 * default order of 
+	 */
 	public static final int DEFAULT_ORDER=1000;
 
 	/**

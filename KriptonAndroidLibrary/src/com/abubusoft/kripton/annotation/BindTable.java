@@ -9,6 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 
  * @author xcesco
  *
  */
@@ -21,7 +22,7 @@ public @interface BindTable {
 	 * table. If null, the name of the table will be transformed class name.
 	 * 
 	 * @return
-	 * 		forced name of the table in java style
+	 * 		defined name of the table in java style
 	 */
 	String name() default "";
 }

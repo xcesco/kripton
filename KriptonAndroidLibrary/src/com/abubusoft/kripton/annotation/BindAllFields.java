@@ -6,8 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation, if presents on a POJO, 
- * indicates all fields of the type should map to xml/json element.
+ * Indicates all fields of the type should map to persisted element.
  * 
  * @author bulldog
  * @author xcesco
