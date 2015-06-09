@@ -198,6 +198,19 @@
 							</execution>
 						</executions>
 					</plugin>
+					
+					<!-- deploy on sonatype -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.5</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 
@@ -231,7 +244,7 @@
 									<goal>jar</goal>
 								</goals>
 								<configuration>
-									<additionalparam>-Xdoclint:none</additionalparam>
+<!-- 									<additionalparam>-Xdoclint:none</additionalparam> -->
 									<excludePackageNames>com.abubusoft.kripton.android*</excludePackageNames>
 									<!-- <failOnError>false</failOnError> -->
 								</configuration>
@@ -256,19 +269,6 @@
 								</configuration>
 							</execution>
 						</executions>
-					</plugin>
-
-					<!-- deploy on sonatype -->
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.5</version>
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>ossrh</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
-						</configuration>
 					</plugin>
 
 				</plugins>
