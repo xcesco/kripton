@@ -26,18 +26,21 @@ public @interface BindColumn {
 	 * must be specified in java style naming conventions.
 	 * 
 	 * @return
+	 * 		name of the column
 	 */
 	public String name() default "";
 
 	/**
 	 * Type of column
 	 * @return
+	 * 		type of the column
 	 */
 	public ColumnType value() default ColumnType.STANDARD;
 
 	/**
 	 * If true the column can be nullable.
 	 * @return
+	 * 		true if column can ben null
 	 */
 	public boolean nullable() default NULLABLE_DEFAULT;
 

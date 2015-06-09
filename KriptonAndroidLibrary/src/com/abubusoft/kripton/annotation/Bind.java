@@ -5,9 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.binder.transform.CustomTransform;
-import com.abubusoft.kripton.binder.transform.DefaultCustomTransform;
-
 /**
  * 
  * Maps a POJO field to an persistent element.
