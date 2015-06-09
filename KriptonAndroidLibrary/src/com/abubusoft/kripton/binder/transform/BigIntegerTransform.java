@@ -9,7 +9,7 @@ import java.math.BigInteger;
  * @author bulldog
  *
  */
-class BigIntegerTransform implements Transformable<BigInteger> {
+class BigIntegerTransform implements Transform<BigInteger> {
 
 	public BigInteger read(String value) throws Exception {
 		return new BigInteger(value);

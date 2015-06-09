@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * 
  */
 @SuppressWarnings("rawtypes")
-class EnumTransform implements Transformable<Enum> {
+class EnumTransform implements Transform<Enum> {
 
 	private final Class type;
 	private Method valueMethod;

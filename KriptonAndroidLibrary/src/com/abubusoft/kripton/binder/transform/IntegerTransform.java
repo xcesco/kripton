@@ -6,7 +6,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-public class IntegerTransform implements Transformable<Integer> {
+public class IntegerTransform implements Transform<Integer> {
 
 	public Integer read(String value) throws Exception {
 	      return Integer.valueOf(value);

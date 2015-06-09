@@ -9,14 +9,16 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindTable;
+import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindTypeXml;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.binder.transform.CustomTransform;
+import com.abubusoft.kripton.binder.transform.DefaultCustomTransform;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntry;
@@ -25,6 +27,7 @@ import com.abubusoft.kripton.common.GenericClass;
 import com.abubusoft.kripton.common.LRUCache;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.common.TypeReflector;
+import com.abubusoft.kripton.exception.MappingException;
 
 /**
  * Mapping schema for a class
@@ -228,18 +231,15 @@ public class MappingSchema {
 
 			// xml validation
 			if (currentCounters.valueSchemaCount > 1) {
-				throw new MappingException("BinderValue annotation can't annotate more than one fields in the classes of " + " type = " + type.getName()
-						+ " and parentType = " + superType.getName());
+				throw new MappingException("BinderValue annotation can't annotate more than one fields in the classes of " + " type = " + type.getName() + " and parentType = " + superType.getName());
 			}
 
 			if (currentCounters.anyElementSchemaCount > 1) {
-				throw new MappingException("BinderAnyElement annotation can't annotate more than one fields in the classes of " + " type = " + type.getName()
-						+ " and parentType = " + superType.getName());
+				throw new MappingException("BinderAnyElement annotation can't annotate more than one fields in the classes of " + " type = " + type.getName() + " and parentType = " + superType.getName());
 			}
 
 			if (currentCounters.valueSchemaCount == 1 && currentCounters.elementSchemaCount >= 1) {
-				throw new MappingException("BinderValue and BinderElement annotations can't coexist in the classes of " + " type = " + type.getName()
-						+ " and parentType = " + superType.getName());
+				throw new MappingException("BinderValue and BinderElement annotations can't coexist in the classes of " + " type = " + type.getName() + " and parentType = " + superType.getName());
 			}
 
 			// redefined fields in sub-class will overwrite corresponding fields
@@ -251,8 +251,7 @@ public class MappingSchema {
 
 		// database validation
 		if (currentCounters.primaryKeyCount > 1) {
-			throw new MappingException("There are more than one primary key in the classes of " + " type = " + type.getName() + " and parentType = "
-					+ superType.getName());
+			throw new MappingException("There are more than one primary key in the classes of " + " type = " + type.getName() + " and parentType = " + superType.getName());
 		}
 
 		// sort fields by order annotations, or name order
@@ -311,8 +310,7 @@ public class MappingSchema {
 	}
 
 	/**
-	 * Create attribute schema mapping starting from field2SchemaMapping.
-	 * Elements present in attribute schema are also contained in field2Schema.
+	 * Create attribute schema mapping starting from field2SchemaMapping. Elements present in attribute schema are also contained in field2Schema.
 	 */
 	private void buildField2AttributeSchemaMapping() {
 		field2AttributeSchemaMapping = new LinkedHashMap<String, ElementSchema>();
@@ -368,6 +366,7 @@ public class MappingSchema {
 		String elementNameFromAnnotation;
 		Class<?> fieldType = null;
 		int order;
+		Class<CustomTransform<?>> customTransformer = null;
 
 		for (Field field : fields) {
 
@@ -383,12 +382,12 @@ public class MappingSchema {
 			}
 
 			Bind bindAnnotation = field.getAnnotation(Bind.class);
+			BindTransform bindTransform =field.getAnnotation(BindTransform.class);
 			BindXml bindXmlAnnotation = field.getAnnotation(BindXml.class);
 			BindColumn bindColumnAnnotation = field.getAnnotation(BindColumn.class);
 
 			if (!bindAllFields && bindAnnotation == null && (bindXmlAnnotation != null || bindColumnAnnotation != null)) {
-				throw new MappingException("Can not use @BindXml,@BindColumn without @Bind for field " + field.getName() + " in class "
-						+ type.getCanonicalName());
+				throw new MappingException("Can not use @BindXml,@BindColumn without @Bind for field " + field.getName() + " in class " + type.getCanonicalName());
 			}
 
 			order = 0;
@@ -398,8 +397,8 @@ public class MappingSchema {
 
 				nameFromAnnotation = null;
 				elementNameFromAnnotation = null;
-				order=Bind.DEFAULT_ORDER;
-				
+				order = Bind.DEFAULT_ORDER;
+
 				if (bindAnnotation != null) {
 					nameFromAnnotation = bindAnnotation.value();
 					elementNameFromAnnotation = bindAnnotation.elementName();
@@ -409,6 +408,7 @@ public class MappingSchema {
 
 				ElementSchema elementSchema = new ElementSchema();
 				elementSchema.order = order;
+				customTransformer = (Class<CustomTransform<?>>) (bindTransform == null ? DefaultCustomTransform.class : bindTransform.value());
 
 				if (StringUtil.isEmpty(nameFromAnnotation)) {
 					elementSchema.setName(field.getName());
@@ -435,22 +435,23 @@ public class MappingSchema {
 
 				// manage collections
 				boolean collection = false;
-				collection = collection || handleList(field, elementSchema);
-				collection = collection || handleArray(field, elementSchema);
-				collection = collection || handleSet(field, elementSchema);
-				collection = collection
-						|| handleMap(field, elementSchema, bindAnnotation, bindXmlAnnotation != null ? bindXmlAnnotation.mapEntryStrategy()
-								: MapEntryType.ELEMENTS);
+				collection = collection || handleList(field, elementSchema, customTransformer);
+				collection = collection || handleArray(field, elementSchema, customTransformer);
+				collection = collection || handleSet(field, elementSchema, customTransformer);
+				collection = collection || handleMap(field, elementSchema, bindAnnotation, bindXmlAnnotation != null ? bindXmlAnnotation.mapEntryStrategy() : MapEntryType.ELEMENTS, bindTransform);
 
 				if (!collection) {
-					fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
-					fieldType = fieldType == null ? field.getType() : fieldType;
+					if (DefaultCustomTransform.class.equals(customTransformer)) {
+						fieldType = TypeReflector.getParameterizedType(field, genericsResolver);
+						fieldType = fieldType == null ? field.getType() : fieldType;
+					} else {
+						fieldType = customTransformer;
+					}
 					elementSchema.setFieldType(fieldType);
 
 					if (StringUtil.hasText(elementNameFromAnnotation)) {
 						// this is not a collection
-						throw new MappingException("Attribute elementName is useless in @Bind for field '" + field.getName() + "' of class '" + type.getName()
-								+ "' is not a collection");
+						throw new MappingException("Attribute elementName is useless in @Bind for field '" + field.getName() + "' of class '" + type.getName() + "' is not a collection");
 					}
 				}
 
@@ -459,14 +460,12 @@ public class MappingSchema {
 				case ATTRIBUTE:
 					// validation for attribute
 					if (collection) {
-						throw new MappingException("@BindXml annotation can't annotate like ATTRIBUTE a collection, " + "field = " + field.getName()
-								+ ", type = " + type.getName());
+						throw new MappingException("@BindXml annotation can't annotate like ATTRIBUTE a collection, " + "field = " + field.getName() + ", type = " + type.getName());
 					}
 
 					if (!Transformer.isTransformable(elementSchema.getFieldType())) {
-						throw new MappingException("@BindXml annotation can't annotate like ATTRIBUTE a complex type field, "
-								+ "only primivte type or frequently used java type or enum type field is allowed, " + "field = " + field.getName()
-								+ ", type = " + type.getName());
+						throw new MappingException("@BindXml annotation can't annotate like ATTRIBUTE a complex type field, " + "only primivte type or frequently used java type or enum type field is allowed, " + "field = "
+								+ field.getName() + ", type = " + type.getName());
 					}
 					// don't increment counters.elementSchemaCount, it's an
 					// attribute
@@ -479,9 +478,8 @@ public class MappingSchema {
 				case VALUE_CDATA:
 					// validation
 					if (!Transformer.isTransformable(elementSchema.getFieldType())) {
-						throw new MappingException("BinderValue annotation can't annotate like VALUE and VALUE_CDATA a complex type field, "
-								+ "only primivte type or frequently used java type or enum type field is allowed, " + "field = " + field.getName()
-								+ ", type = " + type.getName());
+						throw new MappingException("BinderValue annotation can't annotate like VALUE and VALUE_CDATA a complex type field, " + "only primivte type or frequently used java type or enum type field is allowed, " + "field = "
+								+ field.getName() + ", type = " + type.getName());
 					}
 					// if considered like value, we have to remove it from
 					// elementSchemaCount
@@ -493,13 +491,13 @@ public class MappingSchema {
 
 				// database section
 				elementSchema.buildColumnInfo(bindColumnAnnotation);
-				
+
 				switch (elementSchema.getColumnInfo().feature) {
 				case STANDARD:
 					break;
 				case PRIMARY_KEY:
 					// primary key can not be null.
-					elementSchema.getColumnInfo().nullable=false;
+					elementSchema.getColumnInfo().nullable = false;
 					counters.primaryKeyCount++;
 					break;
 				case FOREIGN_KEY:
@@ -539,14 +537,14 @@ public class MappingSchema {
 	 * @return
 	 * @throws MappingException
 	 */
-	private boolean handleArray(Field field, ElementSchema elementSchema) throws MappingException {
+	private boolean handleArray(Field field, ElementSchema elementSchema, Class<CustomTransform<?>> customTransformer) throws MappingException {
 		Class<?> type = field.getType();
-		if (type.isArray() && type.getComponentType() != byte.class) {
-			type = field.getType().getComponentType();
-
-			if (!elementSchema.hasWrapperName()) {
-				// elementSchema.setWrapperName(elementSchema.getName());
-				// elementSchema.setName(elementSchema.getName()+"Element");
+		if (type.isArray() && type.getComponentType() != byte.class) {			
+			if (DefaultCustomTransform.class.equals(customTransformer)) {
+				type = field.getType().getComponentType();
+			} else {
+				// use of custom transformer
+				type = customTransformer;
 			}
 
 			elementSchema.setArray();
@@ -566,18 +564,25 @@ public class MappingSchema {
 	 * @return
 	 * @throws MappingException
 	 */
-	private boolean handleSet(Field field, ElementSchema elementSchema) throws MappingException {
+	private boolean handleSet(Field field, ElementSchema elementSchema, Class<CustomTransform<?>> customTransformer) throws MappingException {
 		Class<?> type = field.getType();
 		if (TypeReflector.isSet(type)) {
-			elementSchema.setSet();
-			Class<?> paramizedType = TypeReflector.getParameterizedType(field, genericsResolver);
-			if (paramizedType == null) {
-				throw new MappingException("Can't get parameterized type of a Set field, "
-						+ "Framework only supports collection field of Set<T> type, and T must be a bindable type, " + "field = " + field.getName()
-						+ ", type = " + type.getName());
+			elementSchema.setAsSet();
+			
+			if (DefaultCustomTransform.class.equals(customTransformer)) {
+				Class<?> paramizedType = TypeReflector.getParameterizedType(field, genericsResolver);
+				if (paramizedType == null) {
+					throw new MappingException("Can't get parameterized type of a Set field, " + "Framework only supports collection field of Set<T> type, and T must be a bindable type, " + "field = " + field.getName() + ", type = "
+							+ type.getName());
+				} else {
+					elementSchema.setFieldType(paramizedType);
+				}
 			} else {
-				elementSchema.setFieldType(paramizedType);
+				// use of custom transformer
+				type = customTransformer;
+				elementSchema.setFieldType(type);
 			}
+			
 			return true;
 		}
 
@@ -592,17 +597,16 @@ public class MappingSchema {
 	 * @return
 	 * @throws MappingException
 	 */
-	private boolean handleMap(Field field, ElementSchema elementSchema, Bind bindAnnotation, MapEntryType mapEntryPolicy) throws MappingException {
+	private boolean handleMap(Field field, ElementSchema elementSchema, Bind bindAnnotation, MapEntryType mapEntryPolicy, BindTransform customTransform) throws MappingException {
 		Class<?> type = field.getType();
 		if (TypeReflector.isMap(type)) {
 			Class<?>[] paramizedType = TypeReflector.getParameterizedTypeArray(field, genericsResolver);
 
 			if (paramizedType == null || paramizedType.length != 2) {
-				throw new MappingException("Can't get parameterized type of a Map field, "
-						+ "Framework only supports collection field of Map<K,V> type, and K,V must be bindable types, " + "field = " + field.getName()
-						+ ", type = " + type.getName());
+				throw new MappingException("Can't get parameterized type of a Map field, " + "Framework only supports collection field of Map<K,V> type, and K,V must be bindable types, " + "field = " + field.getName() + ", type = "
+						+ type.getName());
 			}
-			elementSchema.buildMapInfo(field.getName(), type, paramizedType[0], paramizedType[1], bindAnnotation, mapEntryPolicy);
+			elementSchema.buildMapInfo(field.getName(), type, paramizedType[0], paramizedType[1], bindAnnotation, mapEntryPolicy, customTransform);
 			elementSchema.setFieldType(Map.class);
 			return true;
 		}
@@ -618,18 +622,23 @@ public class MappingSchema {
 	 * @return
 	 * @throws MappingException
 	 */
-	private boolean handleList(Field field, ElementSchema elementSchema) throws MappingException {
+	private boolean handleList(Field field, ElementSchema elementSchema, Class<CustomTransform<?>> customTransformer) throws MappingException {
 		Class<?> type = field.getType();
 		if (TypeReflector.isList(type)) {
-
-			elementSchema.setList();
-			Class<?> paramizedType = TypeReflector.getParameterizedType(field, genericsResolver);
-			if (paramizedType == null) {
-				throw new MappingException("Can't get parameterized type of a List field, "
-						+ "Framework only supports collection field of List<T> type, and T must be a bindable type, " + "field = " + field.getName()
-						+ ", type = " + type.getName());
+			elementSchema.setAsList();
+			
+			if (DefaultCustomTransform.class.equals(customTransformer)) {
+				Class<?> paramizedType = TypeReflector.getParameterizedType(field, genericsResolver);
+				if (paramizedType == null) {
+					throw new MappingException("Can't get parameterized type of a List field, " + "Framework only supports collection field of List<T> type, and T must be a bindable type, " + "field = " + field.getName() + ", type = "
+							+ type.getName());
+				} else {
+					elementSchema.setFieldType(paramizedType);
+				}
 			} else {
-				elementSchema.setFieldType(paramizedType);
+				// use of custom transformer
+				type = customTransformer;
+				elementSchema.setFieldType(type);
 			}
 
 			return true;
@@ -657,15 +666,14 @@ public class MappingSchema {
 	public static MappingSchema fromObject(Object object) throws MappingException {
 		return fromClass(object.getClass());
 	}
-	
+
 	/**
 	 * True if class is contained in maps.
 	 * 
 	 * @param type
 	 * @return
 	 */
-	public static boolean contains(Class<?> type)
-	{
+	public static boolean contains(Class<?> type) {
 		return schemaCache.containsKey(type);
 	}
 

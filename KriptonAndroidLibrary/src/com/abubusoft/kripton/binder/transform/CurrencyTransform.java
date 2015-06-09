@@ -8,7 +8,7 @@ import java.util.Currency;
  * @author bulldog
  *
  */
-class CurrencyTransform implements Transformable<Currency> {
+class CurrencyTransform implements Transform<Currency> {
 
 	public Currency read(String value) throws Exception {
 		return Currency.getInstance(value);

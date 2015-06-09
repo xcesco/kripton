@@ -6,7 +6,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-public class DoubleTransform implements Transformable<Double> {
+public class DoubleTransform implements Transform<Double> {
 
 	public Double read(String value) throws Exception {
 		return Double.valueOf(value);

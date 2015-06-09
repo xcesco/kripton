@@ -6,7 +6,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-class CharacterTransform implements Transformable<Character> {
+class CharacterTransform implements Transform<Character> {
 
 	public Character read(String value) throws Exception {
 	      if(value.length() != 1) {

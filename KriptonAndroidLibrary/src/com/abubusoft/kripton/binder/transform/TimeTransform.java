@@ -8,7 +8,7 @@ import java.sql.Time;
  * @author bulldog
  *
  */
-class TimeTransform implements Transformable<Time> {
+class TimeTransform implements Transform<Time> {
 
 	public Time read(String value) throws Exception {
 		return Time.valueOf(value);

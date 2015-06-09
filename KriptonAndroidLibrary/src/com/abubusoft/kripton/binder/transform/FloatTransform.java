@@ -6,7 +6,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-public class FloatTransform implements Transformable<Float> {
+public class FloatTransform implements Transform<Float> {
 
 	public Float read(String value) throws Exception {
 	      return Float.valueOf(value);

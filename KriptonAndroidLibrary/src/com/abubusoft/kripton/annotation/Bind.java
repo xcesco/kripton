@@ -5,6 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.binder.transform.CustomTransform;
+import com.abubusoft.kripton.binder.transform.DefaultCustomTransform;
+
 /**
  * 
  * Maps a POJO field to an persistent element.
@@ -51,6 +54,7 @@ public @interface Bind {
 	 * name of element rapresents key of a map. <b>Used only by map type.</b>
 	 * 
 	 * @return
+	 * 		name of map key. Default is {@link #MAP_KEY_DEFAULT}
 	 */
 	public String mapKeyName() default MAP_KEY_DEFAULT;
 
@@ -58,6 +62,7 @@ public @interface Bind {
 	 * name of element rapresents value of a map. <b>Used only by map type.</b>
 	 * 
 	 * @return
+	 * 		name of map. Default is {@link #MAP_VALUE_DEFAULT}
 	 */
 	public String mapValueName() default MAP_VALUE_DEFAULT;
 
@@ -65,6 +70,7 @@ public @interface Bind {
 	 * specifies the order of pojo fields during mapping. Order is specified entire schema.
 	 * 
 	 * @return
+	 * 		order of field
 	 */
 	public int order() default DEFAULT_ORDER;
 

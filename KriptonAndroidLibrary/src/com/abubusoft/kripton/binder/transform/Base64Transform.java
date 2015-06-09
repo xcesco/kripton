@@ -8,7 +8,7 @@ import com.abubusoft.kripton.common.Base64;
  * @author bulldog
  *
  */
-public class Base64Transform implements Transformable<byte[]> {
+public class Base64Transform implements Transform<byte[]> {
 
 	public byte[] read(String value) throws Exception {
 		return Base64.decode(value);

@@ -80,7 +80,7 @@ public class JsonReader implements BinderReader {
 		} catch (MappingException me) {
 			throw me;
 		} catch (Exception e) {
-			throw new ReaderException("Error to read object", e);
+			throw new ReaderException("Error to read object "+e.getMessage(), e);
 		}
 	}
 
@@ -217,8 +217,8 @@ public class JsonReader implements BinderReader {
 					if (jsonValue instanceof JSONArray) {
 						jsonValue = ((JSONArray) jsonValue).get(0);
 					}
-					if (Transformer.isPrimitive(type)) {
-						if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
+					if (Transformer.isPrimitive(type)) {						
+						if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray) && !(jsonValue instanceof JSONObject.Null)) {
 							Object value = Transformer.read(String.valueOf(jsonValue), type);
 							field.set(instance, value);
 						}
@@ -375,7 +375,6 @@ public class JsonReader implements BinderReader {
 			} else if (jsonValue instanceof JSONArray) {
 				// TODO to implement
 			} else {
-				// (!(jsonValue instanceof JSONObject) && !()) {
 				subObj = Transformer.read(String.valueOf(jsonValue), type);
 				Array.set(array, i, subObj);
 

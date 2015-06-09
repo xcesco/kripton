@@ -8,7 +8,7 @@ import java.util.TimeZone;
  * @author bulldog
  *
  */
-public class TimeZoneTransform implements Transformable<TimeZone> {
+public class TimeZoneTransform implements Transform<TimeZone> {
 
 	public TimeZone read(String value) throws Exception {
 	    return TimeZone.getTimeZone(value);

@@ -6,7 +6,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-public class ShortTransform implements Transformable<Short> {
+public class ShortTransform implements Transform<Short> {
 
 	public Short read(String value) throws Exception {
 		return Short.valueOf(value);

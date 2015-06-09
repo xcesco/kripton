@@ -21,10 +21,10 @@ import javax.xml.namespace.QName;
 public class Transformer {
 
 	// Transformable cache
-	private static final Map<Class<?>, Transformable<?>> cache = new ConcurrentHashMap<Class<?>, Transformable<?>>();
+	private static final Map<Class<?>, Transform<?>> cache = new ConcurrentHashMap<Class<?>, Transform<?>>();
 
 	public static Object read(String value, Class<?> type) throws Exception {
-		Transformable<?> transfrom = lookup(type);
+		Transform<?> transfrom = lookup(type);
 
 		if (transfrom == null) {
 			throw new IllegalArgumentException("Transform of " + type + " not supported");
@@ -35,7 +35,7 @@ public class Transformer {
 	@SuppressWarnings("unchecked")
 	public static String write(Object value, Class<?> type) throws Exception {
 		@SuppressWarnings("rawtypes")
-		Transformable transfrom = lookup(type);
+		Transform transfrom = lookup(type);
 
 		if (transfrom == null) {
 			throw new IllegalArgumentException("Transform of " + type + " not supported");
@@ -52,16 +52,14 @@ public class Transformer {
 	}
 
 	/**
-	 * Register custom transformable for a Java primitive type or a frequently
-	 * used Java type.
+	 * Register custom transformable for a Java primitive type or a frequently used Java type.
 	 * 
 	 * @param type
 	 *            a Java primitive type or a frequently used Java type.
 	 * @param transform
-	 *            a class implementing @see
-	 *            org.abubu.elio.binder.transform.Transformable interface.
+	 *            a class implementing @see org.abubu.elio.binder.transform.Transformable interface.
 	 */
-	public static void register(Class<?> type, Transformable<?> transform) {
+	public static void register(Class<?> type, Transform<?> transform) {
 		cache.put(type, transform);
 	}
 
@@ -71,8 +69,8 @@ public class Transformer {
 	 * @param type
 	 * @return
 	 */
-	public static Transformable<?> lookup(Class<?> type) {
-		Transformable<?> transform = cache.get(type);
+	public static Transform<?> lookup(Class<?> type) {
+		Transform<?> transform = cache.get(type);
 
 		if (transform != null) {
 			return transform;
@@ -86,7 +84,7 @@ public class Transformer {
 		return transform;
 	}
 
-	private static Transformable<?> getTransform(Class<?> type) {
+	private static Transform<?> getTransform(Class<?> type) {
 
 		if (type.isPrimitive()) {
 			return getPrimitiveTransform(type);
@@ -121,11 +119,25 @@ public class Transformer {
 			return new QNameTransform();
 		}
 
+		if (CustomTransform.class.isAssignableFrom(type) && type != DefaultCustomTransform.class) {
+			try {
+				return (Transform<?>) type.newInstance();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+
 		return null;
 	}
 
-	// Get Java primitive type Transformable
-	private static Transformable<?> getPrimitiveTransform(Class<?> type) {
+	/**
+	 * Get Java primitive type Transformable
+	 * @param type
+	 * @return
+	 */
+	private static Transform<?> getPrimitiveTransform(Class<?> type) {
 		if (type == int.class) {
 			return new IntegerTransform();
 		}
@@ -153,8 +165,13 @@ public class Transformer {
 		return null;
 	}
 
-	// Get Java primitive wrapping type Transformable
-	private static Transformable<?> getLanguageTransform(Class<?> type) {
+	/**
+	 * Get Java primitive wrapping type Transformable
+	 * 
+	 * @param type
+	 * @return
+	 */
+	private static Transform<?> getLanguageTransform(Class<?> type) {
 		if (type == Boolean.class) {
 			return new BooleanTransform();
 		}
@@ -185,8 +202,13 @@ public class Transformer {
 		return null;
 	}
 
-	// Get java.math type Transformable
-	private static Transformable<?> getMathTransform(Class<?> type) {
+	/**
+	 * Get java.math type Transformable
+	 * 
+	 * @param type
+	 * @return
+	 */
+	private static Transform<?> getMathTransform(Class<?> type) {
 		if (type == BigDecimal.class) {
 			return new BigDecimalTransform();
 		}
@@ -196,8 +218,13 @@ public class Transformer {
 		return null;
 	}
 
-	// Get java.util type Transformable
-	private static Transformable<?> getUtilTransform(Class<?> type) {
+	/**
+	 * Get java.util type Transformable
+	 * 
+	 * @param type
+	 * @return
+	 */
+	private static Transform<?> getUtilTransform(Class<?> type) {
 		if (type == Date.class) {
 			return new DateTransform();
 		}

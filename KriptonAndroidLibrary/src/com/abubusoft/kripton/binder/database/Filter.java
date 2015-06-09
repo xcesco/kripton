@@ -2,7 +2,7 @@ package com.abubusoft.kripton.binder.database;
 
 import java.lang.reflect.Field;
 
-import com.abubusoft.kripton.binder.transform.Transformable;
+import com.abubusoft.kripton.binder.transform.Transform;
 
 /**
  * Filter for SQLStatement
@@ -44,7 +44,7 @@ public class Filter {
 	/**
 	 * transformer for fields
 	 */
-	public Transformable<?>[] fieldTransform;
+	public Transform<?>[] fieldTransform;
 
 	/**
 	 * is input take from an external class

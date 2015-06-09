@@ -2,8 +2,11 @@ package com.abubusoft.kripton.binder.schema;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindColumn;
+import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.database.ColumnType;
+import com.abubusoft.kripton.binder.transform.CustomTransform;
+import com.abubusoft.kripton.binder.transform.DefaultCustomTransform;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
@@ -98,27 +101,25 @@ public class ElementSchema extends AbstractSchema {
 	 * @param bindColumnAnnotation
 	 */
 	void buildColumnInfo(BindColumn bindColumnAnnotation) {
-		columnInfo = new ColumnInfo(); 
+		columnInfo = new ColumnInfo();
 
 		columnInfo.name = getName();
-		columnInfo.feature=ColumnType.STANDARD;		
-		columnInfo.nullable=BindColumn.NULLABLE_DEFAULT;
+		columnInfo.feature = ColumnType.STANDARD;
+		columnInfo.nullable = BindColumn.NULLABLE_DEFAULT;
 		if (bindColumnAnnotation != null) {
 			columnInfo.feature = bindColumnAnnotation.value();
 			columnInfo.name = this.getName();
 			if (!"".equals(bindColumnAnnotation.name())) {
 				columnInfo.name = bindColumnAnnotation.name();
 			}
-			columnInfo.nullable=bindColumnAnnotation.nullable();
+			columnInfo.nullable = bindColumnAnnotation.nullable();
 		}
-		
-		final Class<?> typeArray[]={Integer.TYPE, Character.TYPE, Byte.TYPE, Short.TYPE, Long.TYPE, Float.TYPE, Double.TYPE};
+
+		final Class<?> typeArray[] = { Integer.TYPE, Character.TYPE, Byte.TYPE, Short.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
 		// check for nullable based on type
-		for (int i=0; i<typeArray.length; i++)
-		{
-			if (typeArray[i]==this.fieldType)
-			{
-				columnInfo.nullable=false;
+		for (int i = 0; i < typeArray.length; i++) {
+			if (typeArray[i] == this.fieldType) {
+				columnInfo.nullable = false;
 			}
 		}
 
@@ -132,23 +133,35 @@ public class ElementSchema extends AbstractSchema {
 	 * 
 	 * @param sql
 	 */
-	void buildMapInfo(String fieldName, Class<?> mapType, Class<?> keyType, Class<?> valueType, Bind bindAnnotation, MapEntryType policy) {
+	void buildMapInfo(String fieldName, Class<?> mapType, Class<?> keyType, Class<?> valueType, Bind bindAnnotation, MapEntryType policy, BindTransform customTransform) {
 		type = ElementSchemaType.MAP;
 		mapInfo = new MapInfo();
 		mapInfo.mapClazz = mapType;
 		mapInfo.entryStrategy = policy;
-		
-		if (policy==MapEntryType.ATTRIBUTES)
-		{
-			if (!Transformer.isPrimitive(keyType)) throw new MappingException("Can not use type "+keyType.getSimpleName()+" as key of map field "+fieldName); 
-			if (!Transformer.isPrimitive(valueType)) throw new MappingException("Can not use type "+valueType.getSimpleName()+" as value of map field "+fieldName);
+
+		if (policy == MapEntryType.ATTRIBUTES) {
+			if (!Transformer.isPrimitive(keyType))
+				throw new MappingException("Can not use type " + keyType.getSimpleName() + " as key of map field " + fieldName);
+			if (!Transformer.isPrimitive(valueType))
+				throw new MappingException("Can not use type " + valueType.getSimpleName() + " as value of map field " + fieldName);
 		}
 
-		mapInfo.keyClazz = keyType;
 		mapInfo.keyName = bindAnnotation != null ? bindAnnotation.mapKeyName() : Bind.MAP_KEY_DEFAULT;
-
-		mapInfo.valueClazz = valueType;
 		mapInfo.valueName = bindAnnotation != null ? bindAnnotation.mapValueName() : Bind.MAP_VALUE_DEFAULT;
+
+		mapInfo.keyClazz = keyType;
+		mapInfo.valueClazz = valueType;
+		
+		if (customTransform != null) {
+			if (!DefaultCustomTransform.class.equals(customTransform.value())) {
+				mapInfo.keyClazz = customTransform.value();
+			}
+
+			if (!DefaultCustomTransform.class.equals(customTransform.mapValue())) {
+				mapInfo.valueClazz = customTransform.mapValue();
+			}
+		}
+
 	}
 
 	void buildXmlInfo(BindXml bindXmlAnnotation) {
@@ -225,7 +238,7 @@ public class ElementSchema extends AbstractSchema {
 	 * 
 	 * @param collection
 	 */
-	public void setList() {
+	public void setAsList() {
 		type = ElementSchemaType.LIST;
 	}
 
@@ -234,7 +247,7 @@ public class ElementSchema extends AbstractSchema {
 	 * 
 	 * @param sql
 	 */
-	public void setSet() {
+	public void setAsSet() {
 		type = ElementSchemaType.SET;
 	}
 
@@ -248,8 +261,7 @@ public class ElementSchema extends AbstractSchema {
 
 	public void setFieldValue(Object bean, Object value) throws IllegalAccessException, IllegalArgumentException {
 		field.set(bean, value);
-		
-	}
 
+	}
 
 }

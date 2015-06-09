@@ -8,7 +8,7 @@ import java.net.URL;
  * @author bulldog
  *
  */
-public class UrlTransform implements Transformable<URL> {
+public class UrlTransform implements Transform<URL> {
 
 	public URL read(String value) throws Exception {
 	    return new URL(value);

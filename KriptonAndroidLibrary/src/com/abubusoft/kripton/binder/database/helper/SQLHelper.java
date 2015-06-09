@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 import com.abubusoft.kripton.binder.database.DatabaseColumn;
 import com.abubusoft.kripton.binder.database.Filter;
-import com.abubusoft.kripton.binder.transform.Transformable;
+import com.abubusoft.kripton.binder.transform.Transform;
 
 /**
  * 
@@ -114,7 +114,7 @@ public abstract class SQLHelper {
 
 		result.fieldNames = new String[paramsArray.size()];
 		result.field = new Field[paramsArray.size()];
-		result.fieldTransform = new Transformable[paramsArray.size()];
+		result.fieldTransform = new Transform[paramsArray.size()];
 
 		if (paramsArray.size() > 0) {
 			paramsArray.toArray(result.fieldNames);

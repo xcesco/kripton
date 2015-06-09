@@ -24,7 +24,6 @@ package com.abubusoft.kripton.binder.json.internal;
  SOFTWARE.
  */
 
-import android.annotation.SuppressLint;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -102,7 +101,7 @@ public class JSONObject {
      * whilst Java's null is equivalent to the value that JavaScript calls
      * undefined.
      */
-    private static final class Null {
+    public static final class Null {
 
         /**
          * There is only intended to be a single instance of the NULL object,
@@ -983,7 +982,6 @@ public class JSONObject {
         return NULL.equals(object) ? defaultValue : object.toString();
     }
 
-    @SuppressLint("DefaultLocale")
 	private void populateMap(Object bean) {
         Class<?> klass = bean.getClass();
 

@@ -9,7 +9,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-public interface Transformable<T> {
+public interface Transform<T> {
 
 	/**
 	 * Transform a string value to an appropriate basic Java object representation.

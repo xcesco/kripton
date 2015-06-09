@@ -12,7 +12,7 @@ import com.abubusoft.kripton.binder.database.DatabaseColumn;
 import com.abubusoft.kripton.binder.database.DatabaseTable;
 import com.abubusoft.kripton.binder.database.Filter;
 import com.abubusoft.kripton.binder.database.Statement;
-import com.abubusoft.kripton.binder.transform.Transformable;
+import com.abubusoft.kripton.binder.transform.Transform;
 import com.abubusoft.kripton.exception.MappingException;
 
 public class SQLiteHelper {
@@ -98,7 +98,7 @@ public class SQLiteHelper {
 		}
 
 		try {
-			Transformable t = filter.fieldTransform[0];
+			Transform t = filter.fieldTransform[0];
 			values[0] = t.write(parameters);
 
 		} catch (Exception e) {
@@ -123,7 +123,7 @@ public class SQLiteHelper {
 		int n = filter.field.length;
 		Field f;
 		@SuppressWarnings("rawtypes")
-		Transformable t;
+		Transform t;
 		try {
 
 			for (int i = 0; i < n; i++) {

@@ -14,7 +14,7 @@ import java.util.TimeZone;
  * @author bulldog
  *
  */
-class DateTransform implements Transformable<Date> {
+class DateTransform implements Transform<Date> {
 	
 	public static String FULL = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 	   

@@ -22,7 +22,7 @@ import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = "./src/test/resources/AndroidManifest.xml", emulateSdk = 21, reportSdk = 21)
+@Config(manifest = "./src/test/resources/AndroidManifest.xml", emulateSdk = 22, reportSdk = 22)
 public class SQLTest extends RoboBaseTest {
 /*
 	@Test

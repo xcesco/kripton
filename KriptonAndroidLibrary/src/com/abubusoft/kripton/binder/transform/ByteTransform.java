@@ -6,7 +6,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-class ByteTransform implements Transformable<Byte> {
+class ByteTransform implements Transform<Byte> {
 
 	public Byte read(String value) throws Exception {
 		return Byte.valueOf(value);

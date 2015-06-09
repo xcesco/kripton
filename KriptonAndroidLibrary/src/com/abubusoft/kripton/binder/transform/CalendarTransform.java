@@ -9,7 +9,7 @@ import java.util.Date;
  * @author bulldog
  *
  */
-public class CalendarTransform implements Transformable<Calendar> {
+public class CalendarTransform implements Transform<Calendar> {
 	
 	private DateTransform dateTransform = new DateTransform();
 

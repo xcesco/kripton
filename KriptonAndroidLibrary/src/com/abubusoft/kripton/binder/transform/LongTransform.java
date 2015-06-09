@@ -6,7 +6,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-public class LongTransform implements Transformable<Long> {
+public class LongTransform implements Transform<Long> {
 
 	public Long read(String value) throws Exception {
 	    return Long.valueOf(value);

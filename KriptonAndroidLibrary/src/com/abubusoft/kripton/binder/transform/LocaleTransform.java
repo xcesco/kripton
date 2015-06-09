@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * @author bulldog
  *
  */
-public class LocaleTransform implements Transformable<Locale> {
+public class LocaleTransform implements Transform<Locale> {
 	
     private final Pattern pattern;
    

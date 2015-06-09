@@ -6,7 +6,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-public class StringTransform implements Transformable<String> {
+public class StringTransform implements Transform<String> {
 
 	public String read(String value) throws Exception {
 	    return value;

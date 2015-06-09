@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * @author bulldog
  *
  */
-class BigDecimalTransform implements Transformable<BigDecimal> {
+class BigDecimalTransform implements Transform<BigDecimal> {
 
 	public BigDecimal read(String value) throws Exception {
 		return new BigDecimal(value);

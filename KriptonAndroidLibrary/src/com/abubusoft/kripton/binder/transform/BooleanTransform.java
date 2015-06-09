@@ -6,7 +6,7 @@ package com.abubusoft.kripton.binder.transform;
  * @author bulldog
  *
  */
-class BooleanTransform implements Transformable<Boolean> {
+class BooleanTransform implements Transform<Boolean> {
 
 	public Boolean read(String value) throws Exception {
 		return Boolean.valueOf(value);

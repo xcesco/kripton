@@ -35,6 +35,7 @@ public abstract class Statement {
 	/**
 	 * Get SQL string
 	 * @return
+	 * 		sql as string
 	 */
 	public String getSQL() {
 		if (cachedSql == null) {

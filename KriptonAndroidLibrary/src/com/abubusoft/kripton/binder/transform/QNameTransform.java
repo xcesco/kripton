@@ -5,7 +5,7 @@ import javax.xml.namespace.QName;
 import com.abubusoft.kripton.common.StringUtil;
 
 
-public class QNameTransform implements Transformable<QName> {
+public class QNameTransform implements Transform<QName> {
 
 	@Override
 	public QName read(String value) throws Exception {
