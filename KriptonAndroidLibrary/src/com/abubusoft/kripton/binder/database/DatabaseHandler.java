@@ -15,11 +15,11 @@ import com.abubusoft.kripton.exception.MappingException;
 /**
  * Base for database handler.
  * 
- * @author xcesco
+ * @param <S>
+ * @param <C>
+ * @param <R>
+ * @param <U>
  * @param <D>
- *
- * @param <Q>
- * @param <I>
  */
 @SuppressWarnings("rawtypes")
 public abstract class DatabaseHandler<S extends DatabaseSchema, C extends Insert, R extends Query, U extends Update, D extends Delete> implements Serializable {
@@ -29,16 +29,17 @@ public abstract class DatabaseHandler<S extends DatabaseSchema, C extends Insert
 	protected HashMap<Class<?>, String> mapToType;
 	protected Class<R> readClazz;
 	protected Class<U> updateClazz;
-	
-	protected DatabaseTable checkedDatabaseTable(S schema, ElementSchema element) {		
+
+	protected DatabaseTable checkedDatabaseTable(S schema, ElementSchema element) {
 		@SuppressWarnings("unchecked")
-		DatabaseTable table=schema.getTableFromBeanClass(element.getFieldType());
-		if (table==null) throw(new MappingException("No table found for class "+element.getFieldType().getName()));
+		DatabaseTable table = schema.getTableFromBeanClass(element.getFieldType());
+		if (table == null)
+			throw (new MappingException("No table found for class " + element.getFieldType().getName()));
 		return table;
 	}
 
 	public D createDelete(DatabaseTable table, DeleteOptions options) {
-		D delete = StatementHelper.createStatementAndColumns(table, deleteClazz, options.name, options.fields);		
+		D delete = StatementHelper.createStatementAndColumns(table, deleteClazz, options.name, options.fields);
 		if (table.deletes.containsKey(delete.name)) {
 			throw new MappingException("Table " + table.name + " already contains a delete named " + delete.name + ".");
 		}
@@ -54,7 +55,7 @@ public abstract class DatabaseHandler<S extends DatabaseSchema, C extends Insert
 	}
 
 	public C createInsert(DatabaseTable table, InsertOptions options) {
-		C insert = StatementHelper.createStatementAndColumns(table, createClazz, options.name, options.fields);		
+		C insert = StatementHelper.createStatementAndColumns(table, createClazz, options.name, options.fields);
 		if (table.inserts.containsKey(insert.name)) {
 			throw new MappingException("Table " + table.name + " already contains an insert named " + insert.name + ".");
 		}
@@ -89,7 +90,7 @@ public abstract class DatabaseHandler<S extends DatabaseSchema, C extends Insert
 		return query;
 	}
 
-	protected abstract void onDefineCreateTableSQL(ArrayList<String> result,HashSet<DatabaseTable> alreadyParsedTables,  S schema, DatabaseTable table);
+	protected abstract void onDefineCreateTableSQL(ArrayList<String> result, HashSet<DatabaseTable> alreadyParsedTables, S schema, DatabaseTable table);
 
 	public U createUpdate(DatabaseTable table, UpdateOptions options) {
 		U update = StatementHelper.createStatementAndColumns(table, updateClazz, options.name, options.fields);

@@ -13,13 +13,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.BinderFactory.XmlReaderType;
+import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.BinderOptions;
-import com.abubusoft.kripton.BinderFactory.ReaderType;
 import com.abubusoft.kripton.binder.json.JsonReader;
 import com.abubusoft.kripton.binder.json.JsonWriter;
-import com.abubusoft.kripton.binder.json.internal.JSONWriter;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -102,8 +101,7 @@ public abstract class IssueBaseTest<E> extends BaseTest {
 	public void testXML_PackedDOM() throws WriterException, MappingException, ReaderException, IOException {
 		BinderOptions format=BinderOptions.build().indent(false).useApostrophe(true);
 		BinderWriter writer = BinderFactory.getXMLWriter(format);
-		BinderFactory.readerType = ReaderType.DOM;
-		BinderReader reader = BinderFactory.getXMLReader(BinderOptions.build().indent(false));
+		BinderReader reader = BinderFactory.getXMLReader(XmlReaderType.DOM, BinderOptions.build().indent(false));
 
 		check(beanInput, writer, reader);
 	}
@@ -119,8 +117,7 @@ public abstract class IssueBaseTest<E> extends BaseTest {
 	public void testXML_FormattedDOM() throws WriterException, MappingException, ReaderException, IOException {
 		BinderOptions format=BinderOptions.build().indent(true).useApostrophe(true);
 		BinderWriter writer = BinderFactory.getXMLWriter(format);
-		BinderFactory.readerType = ReaderType.DOM;
-		BinderReader reader = BinderFactory.getXMLReader(BinderOptions.build().indent(false));
+		BinderReader reader = BinderFactory.getXMLReader(XmlReaderType.DOM,BinderOptions.build().indent(false));
 
 		check(beanInput, writer, reader);
 	}
@@ -136,8 +133,7 @@ public abstract class IssueBaseTest<E> extends BaseTest {
 	public void testXML_PackedSAXS() throws WriterException, MappingException, ReaderException, IOException {
 		BinderOptions format=BinderOptions.build().indent(false);
 		BinderWriter writer = BinderFactory.getXMLWriter(format);
-		BinderFactory.readerType = ReaderType.SAX;
-		BinderReader reader = BinderFactory.getXMLReader();
+		BinderReader reader = BinderFactory.getXMLReader(XmlReaderType.SAX);
 
 		check(beanInput, writer, reader);
 	}
@@ -153,8 +149,7 @@ public abstract class IssueBaseTest<E> extends BaseTest {
 	public void testXML_FormattedSAXS() throws WriterException, MappingException, ReaderException, IOException {
 		BinderOptions format=BinderOptions.build().indent(true);
 		BinderWriter writer = BinderFactory.getXMLWriter(format);
-		BinderFactory.readerType = ReaderType.SAX;
-		BinderReader reader = BinderFactory.getXMLReader();
+		BinderReader reader = BinderFactory.getXMLReader(XmlReaderType.SAX);
 
 		check(beanInput, writer, reader);
 	}

@@ -8,10 +8,10 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 import org.junit.Test;
 
 import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.BinderFactory.ReaderType;
+import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.BinderOptions;
+import com.abubusoft.kripton.BinderFactory.XmlReaderType;
 
 /**
  * @author xcesco
@@ -44,23 +44,21 @@ public class BinderFactoryTest {
 
 		{
 			BinderReader reader1 = BinderFactory.getXMLReader();
-			BinderReader reader2 = BinderFactory.getXMLReader(BinderOptions.build());
+			BinderReader reader2 = BinderFactory.getXMLReader(XmlReaderType.SAX, BinderOptions.build());
 
 			assertReflectionEquals(reader1, reader2);
 		}
 		
 		{
-			BinderFactory.readerType=ReaderType.DOM;
 			BinderReader reader1 = BinderFactory.getXMLReader();
-			BinderReader reader2 = BinderFactory.getXMLReader(BinderOptions.build());
+			BinderReader reader2 = BinderFactory.getXMLReader(XmlReaderType.DOM, BinderOptions.build());
 
 			assertReflectionEquals(reader1, reader2);
 		}
 		
 		{
-			BinderFactory.readerType=ReaderType.SAX;
 			BinderReader reader1 = BinderFactory.getXMLReader();
-			BinderReader reader2 = BinderFactory.getXMLReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+			BinderReader reader2 = BinderFactory.getXMLReader(XmlReaderType.SAX, BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 
 			assertReflectionEquals(reader1, reader2);
 		}

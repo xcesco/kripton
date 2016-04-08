@@ -1,25 +1,13 @@
 package kripton22;
 
-import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
-
 import java.io.File;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Currency;
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.TimeZone;
 import java.util.logging.Logger;
 
-import kripton22.BeanTest1_0.EnumValue;
-
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,12 +21,9 @@ import com.abubusoft.kripton.DatabaseSchemaFactory;
 import com.abubusoft.kripton.DatabaseSchemaOptions;
 import com.abubusoft.kripton.android.OnRowListener;
 import com.abubusoft.kripton.android.QueryForeignKey;
-import com.abubusoft.kripton.android.SQLiteDelete;
 import com.abubusoft.kripton.android.SQLiteInsert;
 import com.abubusoft.kripton.android.SQLiteQuery;
 import com.abubusoft.kripton.android.SQLiteSchema;
-import com.abubusoft.kripton.android.SQLiteUpdate;
-import com.abubusoft.kripton.binder.database.DatabaseColumn;
 import com.abubusoft.kripton.binder.database.NameConverterType;
 import com.abubusoft.kripton.binder.database.Query;
 
