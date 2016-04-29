@@ -1,9 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>KriptonProcessor</groupId>
-	<artifactId>KriptonProcessor</artifactId>
+	<groupId>com.abubusoft</groupId>
+	<artifactId>kripton-processor</artifactId>
 	<version>1.1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<properties>
 		<!-- use UTF-8 for everything -->
@@ -17,23 +18,17 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-android-library</artifactId>
-			<version>${project.version}</version>
-			<classifier>sources</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305</artifactId>
-			<version>${jsr305.version}</version>
-			<optional>true</optional>
+			<groupId>com.sun</groupId>
+			<artifactId>tools</artifactId>
+			<version>1.7</version>
+			<scope>system</scope>
+			<systemPath>${tools.jar}</systemPath>
 		</dependency>
 
 		<dependency>
 			<groupId>com.squareup</groupId>
 			<artifactId>javapoet</artifactId>
-			<version>1.1.0</version>
+			<version>1.6.1</version>
 		</dependency>
 
 		<dependency>
@@ -45,7 +40,7 @@
 		<dependency>
 			<groupId>com.google.testing.compile</groupId>
 			<artifactId>compile-testing</artifactId>
-			<version>0.8</version>
+			<version>1.0-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -109,68 +104,12 @@
 			</build>
 		</profile>
 
-		<!-- Profile enabled if test is needed -->
-		<profile>
-			<id>test</id>
-			<activation>
-				<property>
-					<name>!skipTests</name>
-				</property>
-			</activation>
+		<!-- <profile> <id>test</id> <activation> <property> <name>skipTests</name> 
+			<value>false</value> </property> </activation> <dependencies> <dependency> 
+			<groupId>com.sun</groupId> <artifactId>tools</artifactId> <version>1.7</version> 
+			<scope>system</scope> <systemPath>${tools.jar}</systemPath> </dependency> 
+			</dependencies> </profile> -->
 
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<version>3.0.0</version>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>build-helper-maven-plugin</artifactId>
-						<version>1.10</version>
-						<executions>							
-
-							<execution>
-								<id>add-source</id>
-								<phase>generate-sources</phase>
-								<goals>
-									<goal>add-source</goal>
-								</goals>
-								<configuration>
-									<sources>
-										<source>../KriptonAndroidLibrary/src/</source>
-									</sources>									
-								</configuration>
-							</execution>
-
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-
-			<!-- use compiler -->
-			<dependencies>
-				<dependency>
-					<groupId>com.sun</groupId>
-					<artifactId>tools</artifactId>
-					<version>1.7</version>
-					<scope>system</scope>
-					<systemPath>${tools.jar}</systemPath>
-				</dependency>
-
-			</dependencies>
-		</profile>
 	</profiles>
 
 	<build>
@@ -182,10 +121,37 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+					<compilerArgs>
+						<arg>-proc:none</arg>
+						<arg>-Xlint:unchecked</arg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.10</version>
+				<executions>
+
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>../KriptonAndroidLibrary/src/</source>
+							</sources>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
 		</plugins>
+
 		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 

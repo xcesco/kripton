@@ -22,7 +22,7 @@ public abstract class ConvertGenerator {
 
 	public static final String CONVERT_SUFFIX = "Convert";
 
-	public static void build(ConvertDefinition definition, Elements elementUtils, Filer filer)
+	public static void build(UsedClass definition, Elements elementUtils, Filer filer)
 			throws IOException {
 		TypeElement interfaceTypeElement = definition.getTypeElement();
 		String adapterClassName = interfaceTypeElement.getSimpleName() + CONVERT_SUFFIX;
@@ -39,7 +39,7 @@ public abstract class ConvertGenerator {
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
-	private static MethodSpec buildCreateMethod(ConvertDefinition definition, Elements elementUtils) {
+	private static MethodSpec buildCreateMethod(UsedClass definition, Elements elementUtils) {
 		TypeElement typeElement = definition.getTypeElement();
 		PackageElement pkg = elementUtils.getPackageOf(typeElement);
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();

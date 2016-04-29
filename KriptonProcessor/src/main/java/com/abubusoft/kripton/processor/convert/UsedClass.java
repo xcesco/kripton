@@ -2,7 +2,7 @@ package com.abubusoft.kripton.processor.convert;
 
 import javax.lang.model.element.TypeElement;
 
-public class ConvertDefinition {
+public class UsedClass {
 	
 	private String name;
 	private TypeElement typeElement;
@@ -16,7 +16,7 @@ public class ConvertDefinition {
 		return fullName;
 	}
 
-	public ConvertDefinition(TypeElement classElement)
+	public UsedClass(TypeElement classElement)
 	{
 		this.typeElement = classElement;
 		name = classElement.getSimpleName().toString();		

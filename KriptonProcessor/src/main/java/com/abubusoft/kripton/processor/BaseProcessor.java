@@ -20,7 +20,7 @@ import com.abubusoft.kripton.processor.convert.UsedClass;
 import com.abubusoft.kripton.processor.convert.ConvertGenerator;
 
 
-public class ConvertProcessor extends AbstractProcessor {
+public class BaseProcessor extends AbstractProcessor {
 
 	private Elements elements;
 

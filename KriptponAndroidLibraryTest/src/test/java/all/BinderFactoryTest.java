@@ -5,6 +5,7 @@ package all;
 
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.abubusoft.kripton.BinderFactory;
@@ -53,7 +54,7 @@ public class BinderFactoryTest {
 			BinderReader reader1 = BinderFactory.getXMLReader();
 			BinderReader reader2 = BinderFactory.getXMLReader(XmlReaderType.DOM, BinderOptions.build());
 
-			assertReflectionEquals(reader1, reader2);
+			Assert.assertNotEquals(reader1, reader2);
 		}
 		
 		{

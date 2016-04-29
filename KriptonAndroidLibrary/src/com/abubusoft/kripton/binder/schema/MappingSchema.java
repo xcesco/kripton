@@ -352,6 +352,7 @@ public class MappingSchema {
 	 * @return
 	 * @throws MappingException
 	 */
+	@SuppressWarnings("unchecked")
 	private ArrayList<ElementSchema> scanFieldSchema(Class<?> type, HashSet<String> usedNames, Counters counters) throws MappingException {
 		ArrayList<ElementSchema> fieldsMap = new ArrayList<ElementSchema>();
 
