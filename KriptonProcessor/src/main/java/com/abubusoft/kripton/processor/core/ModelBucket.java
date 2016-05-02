@@ -5,30 +5,30 @@ import java.util.List;
 
 import javax.lang.model.element.Element;
 
-public class KriptonBucket<E extends KriptonEntity> extends KriptonEntity {
+public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends ModelEntity<E> {
 
-	protected List<E> collection = new ArrayList<>();
+	protected List<T> collection = new ArrayList<>();
 
-	public KriptonBucket(Element element) {
-		super(element);
+	public ModelBucket(String name, E element) {
+		super(name, element);
 	}
 
-	public KriptonBucket() {
+	public ModelBucket() {
 	}
 
 	/**
 	 * @return the collection
 	 */
-	public List<E> getCollection() {
+	public List<T> getCollection() {
 		return collection;
 	}
 
-	public void add(E value) {
+	public void add(T value) {
 		collection.add(value);
 	}
 
-	public E get(String name) {
-		for (E item : collection) {
+	public T get(String name) {
+		for (T item : collection) {
 			if (item.getName().equals(name)) {
 				return item;
 			}
@@ -38,7 +38,7 @@ public class KriptonBucket<E extends KriptonEntity> extends KriptonEntity {
 	}
 
 	public boolean contains(String name) {
-		for (E item : collection) {
+		for (T item : collection) {
 			if (item.getName().equals(name)) {
 				return true;
 			}

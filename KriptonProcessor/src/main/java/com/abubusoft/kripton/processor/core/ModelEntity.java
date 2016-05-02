@@ -2,14 +2,14 @@ package com.abubusoft.kripton.processor.core;
 
 import javax.lang.model.element.Element;
 
-public class KriptonEntity {
+public class ModelEntity<E extends Element> {
 	
-	protected Element element;
+	protected E element;
 
 	/**
 	 * @return the element
 	 */
-	public Element getElement() {
+	public E getElement() {
 		return element;
 	}
 
@@ -22,12 +22,12 @@ public class KriptonEntity {
 		return name;
 	}
 
-	public KriptonEntity(Element element) {
+	public ModelEntity(String name, E element) {
 		this.element=element;
-		this.name = element.getSimpleName().toString();		
+		this.name = name;		
 	}
 	
-	public KriptonEntity() {		
+	public ModelEntity() {		
 	}
 
 }

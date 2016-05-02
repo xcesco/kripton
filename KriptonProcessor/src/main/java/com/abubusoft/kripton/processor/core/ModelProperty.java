@@ -1,31 +1,56 @@
 package com.abubusoft.kripton.processor.core;
 
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 @BindAllFields
-public class KriptonProperty extends KriptonEntity implements KriptonElement {
+public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {
 		
-	public KriptonProperty(Element element) {
-		super(element);
+	public ModelProperty(Element element) {
+		super(element.getSimpleName().toString(), element);
+		
+		setType(new ModelType(element.asType()));
+		setPublicField(element.getModifiers().contains(Modifier.PUBLIC));
+		this.annotations = new ArrayList<ModelAnnotation>();
 	}
 	
-	protected KriptonType type;
+	public void addAnnotation(ModelAnnotation annotation) {
+		annotations.add(annotation);
+	}
+	
+	public ModelAnnotation getAnnotation(Class<? extends Annotation> value) {
+		for (ModelAnnotation item : annotations) {
+			if (item.getName().equals(value.getCanonicalName())) {
+				return item;
+			}
+		}
+		
+		return null;
+	}
+	
+	protected List<ModelAnnotation> annotations;
+	
+	protected ModelType type;
 	
 	/**
 	 * @return the type
 	 */
-	public KriptonType getType() {
+	public ModelType getType() {
 		return type;
 	}
 
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(KriptonType type) {
+	public void setType(ModelType type) {
 		this.type = type;
 	}
 
@@ -104,7 +129,7 @@ public class KriptonProperty extends KriptonEntity implements KriptonElement {
 	}
 	
 	@Override
-	public void accept(KriptonElementVisitor visitor) throws Exception {
+	public void accept(ModelElementVisitor visitor) throws Exception {
 		visitor.visit(this);		
 	}
 

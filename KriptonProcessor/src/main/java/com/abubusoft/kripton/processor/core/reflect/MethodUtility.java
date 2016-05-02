@@ -4,8 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.abubusoft.kripton.common.Pair;
+import com.squareup.javapoet.TypeName;
 
-public abstract class MethodAnalyzer {
+public abstract class MethodUtility {
 	
 	private static final Pattern pattern = Pattern.compile("\\((.*)\\)(.*)");
 
@@ -20,6 +21,8 @@ public abstract class MethodAnalyzer {
         }
         return result;
     }
+    
+
 
 	
 }
