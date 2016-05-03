@@ -16,7 +16,14 @@ import java.lang.annotation.Target;
 public @interface SQLInsertBean {
 	
 	/**
-	 * properties to exclude from INSERT operation
+	 * properties to include into INSERT command
+	 * @return
+	 * 		property's names to include
+	 */
+	String[] value() default "";
+	
+	/**
+	 * properties to include into INSERT command
 	 * @return
 	 * 		property's names to exclude
 	 */

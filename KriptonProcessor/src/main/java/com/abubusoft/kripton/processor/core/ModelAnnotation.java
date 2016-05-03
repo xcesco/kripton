@@ -10,7 +10,7 @@ public class ModelAnnotation {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("KriptonAnnotation [");
+		builder.append("ModelAnnotation [");
 		if (name != null) {
 			builder.append("name=");
 			builder.append(name);

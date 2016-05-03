@@ -94,5 +94,24 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		annotations.add(annotation);
 	}
 
+	/**
+	 * Check if method contains a parameter with value as name
+	 * 
+	 * @param value
+	 * 		parameter name to find
+	 * @return
+	 * 		true if parameter is found
+	 */
+	public boolean containsParameterWithName(String value) {
+		for (Pair<String, TypeMirror> item: parameters)
+		{
+			if (item.value0.equals(value))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 }

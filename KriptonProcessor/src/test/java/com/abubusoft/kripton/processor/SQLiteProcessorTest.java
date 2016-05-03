@@ -12,9 +12,6 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -24,7 +21,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.android.annotation.SQLDao;
 import com.abubusoft.kritpon.example01.Channel;
 import com.abubusoft.kritpon.example01.ChannelMessage;
 import com.abubusoft.kritpon.example01.DaoChannel;

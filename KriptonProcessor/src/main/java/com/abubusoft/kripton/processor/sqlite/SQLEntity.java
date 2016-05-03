@@ -40,7 +40,15 @@ public class SQLEntity extends ModelClass {
 		return id;
 	}
 
-	private ModelProperty findPropertyByName(String key) {
+	/**
+	 * find property by its name
+	 * 
+	 * @param key
+	 * 		simple name of property
+	 * @return
+	 * 		property or null
+	 */
+	public ModelProperty findPropertyByName(String key) {
 		for (ModelProperty item : collection) {
 			if (item.getName().equals(key))
 			{

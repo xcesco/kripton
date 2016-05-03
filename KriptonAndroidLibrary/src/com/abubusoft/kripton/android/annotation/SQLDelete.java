@@ -1,7 +1,14 @@
 package com.abubusoft.kripton.android.annotation;
 
-public @interface SQLDelete {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-	String value();
+@Retention(RetentionPolicy.SOURCE)
+@Target(ElementType.METHOD)
+public @interface SQLDelete {
+		
+	String where();
 
 }

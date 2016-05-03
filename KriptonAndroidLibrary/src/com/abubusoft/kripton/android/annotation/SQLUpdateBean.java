@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SQLUpdateBean {
 
-	String fields() default "*";
+	String fields() default "";
 
-	String where();
+	String where() default "id=${id}";
 }

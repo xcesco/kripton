@@ -27,6 +27,8 @@ import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.android.annotation.SQLDao;
 import com.abubusoft.kripton.android.annotation.SQLDatabaseSchema;
+import com.abubusoft.kripton.android.annotation.SQLDelete;
+import com.abubusoft.kripton.android.annotation.SQLDeleteBean;
 import com.abubusoft.kripton.android.annotation.SQLInsert;
 import com.abubusoft.kripton.android.annotation.SQLInsertBean;
 import com.abubusoft.kripton.android.annotation.SQLSelectBean;
@@ -149,9 +151,13 @@ public class SQLiteProcessor extends AbstractProcessor {
 				}
 
 				ModelProperty property;
+				
+				// get all entity used within SQLDatabaseSchema annotation
 				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, SQLDatabaseSchema.class, "value");
+				// define which annotation the annotation processor is interested in 
 				AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
 				AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
+				// for each entity used in database
 				for (String c : classesIntoDatabase) {
 					if (bindElements.containsKey(c)) {
 						TypeElement classElement=(TypeElement) bindElements.get(c);
@@ -226,7 +232,9 @@ public class SQLiteProcessor extends AbstractProcessor {
 										   annotationClassName.equals(SQLInsert.class.getCanonicalName()) 
 										|| annotationClassName.equals(SQLInsertBean.class.getCanonicalName()) 
 										|| annotationClassName.equals(SQLUpdate.class.getCanonicalName()) 
-										|| annotationClassName.equals(SQLUpdateBean.class.getCanonicalName()) 
+										|| annotationClassName.equals(SQLUpdateBean.class.getCanonicalName())
+										|| annotationClassName.equals(SQLDelete.class.getCanonicalName()) 
+										|| annotationClassName.equals(SQLDeleteBean.class.getCanonicalName())
 										|| annotationClassName.equals(SQLSelectBean.class.getCanonicalName()) 
 										|| annotationClassName.equals(SQLSelectBeanList.class.getCanonicalName()) 
 										|| annotationClassName.equals(SQLSelectScalar.class.getCanonicalName())														

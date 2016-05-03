@@ -67,7 +67,7 @@ public class PropertyUtility {
 	}
 	
 	/**
-	 * Given a model clazz, define its properties.
+	 * Given a model clazz, define its properties. The listener allow to select which property include in class definition.
 	 * 
 	 * @param elementUtils
 	 * @param clazz

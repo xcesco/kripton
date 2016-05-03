@@ -14,6 +14,55 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindAllFields
 public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {
 		
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((annotations == null) ? 0 : annotations.hashCode());
+		result = prime * result + (fieldWithGetter ? 1231 : 1237);
+		result = prime * result + (fieldWithIs ? 1231 : 1237);
+		result = prime * result + (fieldWithSetter ? 1231 : 1237);
+		result = prime * result + (publicField ? 1231 : 1237);
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ModelProperty other = (ModelProperty) obj;
+		if (annotations == null) {
+			if (other.annotations != null)
+				return false;
+		} else if (!annotations.equals(other.annotations))
+			return false;
+		if (fieldWithGetter != other.fieldWithGetter)
+			return false;
+		if (fieldWithIs != other.fieldWithIs)
+			return false;
+		if (fieldWithSetter != other.fieldWithSetter)
+			return false;
+		if (publicField != other.publicField)
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		return true;
+	}
+
 	public ModelProperty(Element element) {
 		super(element.getSimpleName().toString(), element);
 		

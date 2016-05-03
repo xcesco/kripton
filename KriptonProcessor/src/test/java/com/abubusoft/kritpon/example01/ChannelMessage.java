@@ -12,7 +12,6 @@ public class ChannelMessage extends UidEntity {
 
 	private static final long serialVersionUID = -2411765210163916759L;
 	
-	@Bind
 	@BindColumn(ColumnType.PRIMARY_KEY)
 	protected long id;
 
@@ -30,15 +29,12 @@ public class ChannelMessage extends UidEntity {
 		this.id = id;
 	}
 
-	@Bind
 	protected String text;
 
 	protected String type;
 
-	@Bind
 	protected String ownerUid;
 
-	@Bind
 	protected long updateTime;
 
 	public long getUpdateTime() {

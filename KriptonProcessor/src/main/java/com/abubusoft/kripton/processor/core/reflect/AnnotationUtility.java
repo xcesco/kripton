@@ -22,6 +22,8 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelWithAnnotation;
+import com.squareup.javapoet.TypeName;
+import com.sun.tools.javac.code.Attribute;
 
 public class AnnotationUtility {
 
@@ -82,7 +84,13 @@ public class AnnotationUtility {
 
 			values.clear();
 			for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : annotation.getElementValues().entrySet()) {
-				values.put(annotationItem.getKey().getSimpleName().toString(), annotationItem.getValue().toString());
+				String value=annotationItem.getValue().toString();
+				if (value.startsWith("\"") && value.endsWith("\""))
+				{														
+					value=value.substring(1);
+					value=value.substring(0, value.length()-1);					
+				} 
+				values.put(annotationItem.getKey().getSimpleName().toString(), value);				
 			}
 			listener.onAnnotation(currentElement, annotationClassName, values);
 		}
@@ -164,6 +172,23 @@ public class AnnotationUtility {
 
 		return new ArrayList<>();
 	}
+	
+	public static String extractAsString(Elements elementUtils, ModelMethod method, ModelAnnotation annotationClass, String attributeName) {
+		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(method.getElement());
+		for (AnnotationMirror item : annotationList) {
+			if (annotationClass.getName().equals(item.getAnnotationType().asElement().toString())) {
+				for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : item.getElementValues().entrySet()) {
+					if (annotationItem.getKey().getSimpleName().toString().equals(attributeName)) {
+						return AnnotationUtility.extractAsArrayOfString(annotationItem.getValue().toString()).get(0);
+
+					}
+				}
+			}
+		}
+
+		return null;
+		
+	}
 
 	/**
 	 * Puts in model class all annotation found for modelClass
@@ -243,5 +268,7 @@ public class AnnotationUtility {
 		}
 
 	}
+
+
 
 }

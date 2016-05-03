@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.annotation.SQLDelete;
 @SQLDao(ChannelMessage.class)
 public interface DaoBase {
 	
-	@SQLDelete("delete where _id=:id")
+	@SQLDelete(where="id=${id}")
 	int deleteById(long id);
 
 }

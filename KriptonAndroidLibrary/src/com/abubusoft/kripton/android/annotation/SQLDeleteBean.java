@@ -7,8 +7,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface SQLInsert {
+public @interface SQLDeleteBean {
 
 	String fields() default "";
-		
+
+	String where() default "id=${id}";
 }

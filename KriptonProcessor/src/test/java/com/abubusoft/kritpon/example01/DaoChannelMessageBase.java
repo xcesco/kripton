@@ -48,6 +48,18 @@ public class DaoChannelMessageBase /*implements DaoChannelMessage*/ {
 		long result = database.update("contacts", contentValues, "where id=?", whereConditions);
 		return result;
 	}
+	
+	public int deleteContact(ChannelMessage bean, long id) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("name", bean.getOwnerUid());
+		contentValues.put("phone", bean.getText());
+		contentValues.put("email", bean.getOwnerUid());
+		
+		String[] whereConditions={String.valueOf(id)};
+		
+		int result = database.delete("contacts", "where id=?", whereConditions);
+		return result;
+	}
 
 	public ChannelMessage selectBean() {
 		// TODO Auto-generated method stub
