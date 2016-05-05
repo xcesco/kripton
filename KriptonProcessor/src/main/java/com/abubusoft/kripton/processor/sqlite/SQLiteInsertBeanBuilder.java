@@ -35,10 +35,9 @@ public abstract class SQLiteInsertBeanBuilder {
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
 			methodBuilder.addParameter(parameterSpec);
-			
 		}
-		
-		ModelProperty primaryKey = CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, entity, method, SQLInsertBean.class, methodBuilder);
+				
+		ModelProperty primaryKey = CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, entity, method, SQLInsertBean.class, methodBuilder, null);
 		
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));

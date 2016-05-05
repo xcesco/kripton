@@ -1,6 +1,5 @@
 package com.abubusoft.kritpon.example01;
 
-import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
@@ -12,6 +11,22 @@ public class ChannelMessage extends UidEntity {
 
 	private static final long serialVersionUID = -2411765210163916759L;
 	
+	protected boolean valid;
+	
+	/**
+	 * @return the valid
+	 */
+	public boolean isValid() {
+		return valid;
+	}
+
+	/**
+	 * @param valid the valid to set
+	 */
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+
 	@BindColumn(ColumnType.PRIMARY_KEY)
 	protected long id;
 

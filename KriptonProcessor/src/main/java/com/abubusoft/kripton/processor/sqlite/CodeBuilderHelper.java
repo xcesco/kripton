@@ -1,7 +1,9 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.lang.annotation.Annotation;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
@@ -30,74 +32,78 @@ public class CodeBuilderHelper {
 	 * @param entity
 	 * @param method
 	 * @param methodBuilder
-	 * @return
-	 * 		primary key.
+	 * @param alreadyUsedBeanPropertiesNames
+	 * @return primary key.
 	 */
-	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteModel model, DaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, Class<? extends Annotation> annotationClazz,  Builder methodBuilder) {
+	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteModel model, DaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, Class<? extends Annotation> annotationClazz,
+			Builder methodBuilder, Set<String> alreadyUsedBeanPropertiesNames) {
 		Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 		// check included and excluded fields
-		ModelAnnotation annotation=method.getAnnotation(annotationClazz);
-		List<String> includedFields=AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, "value");
-		List<String> excludedFields=AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, "excludedFields");
-		if (includedFields.size()>0 && excludedFields.size()>0)
-		{
-			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, "value", "excludedFields"));	
+		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, "value");
+		if (alreadyUsedBeanPropertiesNames != null) {
+			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
+		}
+		Set<String> excludedFields = new HashSet<String>();
+		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, "excludedFields"));
+		
+		if (includedFields.size() > 0 && excludedFields.size() > 0) {
+			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, "value", "excludedFields"));
 		}
 		// check included
-		for (String item: includedFields)
-		{
-			if (!entity.contains(item))
-			{
+		for (String item : includedFields) {
+			if (!entity.contains(item)) {
 				throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
 			}
 		}
 		// check excluded
-		for (String item: excludedFields)
-		{
-			if (!entity.contains(item))
-			{
+		for (String item : excludedFields) {
+			if (!entity.contains(item)) {
 				throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
 			}
 		}
-		
+
 		// initialize contentValues
 		ModelProperty primaryKey = entity.getPrimaryKey();
 		methodBuilder.addCode("contentValues.clear();\n\n");
-		for (ModelProperty item : entity.getCollection()) {					
-			if (item.equals(primaryKey) || excludedFields.contains(item.getName())) continue;
-			if (includedFields.size()>0 && !includedFields.contains(item.getName())) continue;
-			if (excludedFields.size()>0 && excludedFields.contains(item.getName())) continue;
-			
+		for (ModelProperty item : entity.getCollection()) {
+			if (item.equals(primaryKey) || excludedFields.contains(item.getName()))
+				continue;
+			if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
+				continue;
+			if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
+				continue;
+
 			methodBuilder.addCode("contentValues.put($S, $L.$L);\n", model.columnNameConverter.convert(item.getName()), method.getParameters().get(0).value0, getter(propertyConverter, item));
 		}
-		
+
 		return primaryKey;
-		
+
 	}
-	
-	public static String getter(Converter<String, String> converter, ModelProperty property)
-	{
-		if (property.isPublicField()) return property.getName();
-		
+
+	public static String getter(Converter<String, String> converter, ModelProperty property) {
+		if (property.isPublicField())
+			return property.getName();
+
 		if (property.isFieldWithGetter()) {
-			return "get"+converter.convert(property.getName())+"()";
+			return "get" + converter.convert(property.getName()) + "()";
 		}
-		
+
 		if (property.isFieldWithIs()) {
-			return "is"+converter.convert(property.getName())+"()";
+			return "is" + converter.convert(property.getName()) + "()";
 		}
-		
+
 		return null;
 	}
-	
-	public static String setter(Converter<String, String> converter, ModelProperty property)
-	{
-		if (property.isPublicField()) return property.getName();
-		
+
+	public static String setter(Converter<String, String> converter, ModelProperty property) {
+		if (property.isPublicField())
+			return property.getName();
+
 		if (property.isFieldWithGetter() || property.isFieldWithIs()) {
-			return "set"+converter.convert(property.getName());
+			return "set" + converter.convert(property.getName());
 		}
-		
+
 		return null;
 	}
 

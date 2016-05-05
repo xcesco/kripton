@@ -8,12 +8,9 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.SQLDelete;
-import com.abubusoft.kripton.android.annotation.SQLUpdate;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
-import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyNotFoundException;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;

@@ -23,7 +23,6 @@ import org.junit.runners.JUnit4;
 
 import com.abubusoft.kritpon.example01.Channel;
 import com.abubusoft.kritpon.example01.ChannelMessage;
-import com.abubusoft.kritpon.example01.DaoChannel;
 import com.abubusoft.kritpon.example01.DaoChannelMessage;
 import com.abubusoft.kritpon.example01.DummyDatabase;
 import com.google.common.truth.FailureStrategy;

@@ -1,27 +1,19 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.processor.core.ModelClass;
-import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
-import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
-import com.squareup.javapoet.TypeName;
 
 /**
  * Analyze an SQL statement, extract parameter and replace with ?
@@ -31,13 +23,9 @@ import com.squareup.javapoet.TypeName;
  */
 public class SQLAnalyzer {
 
-	//private Map<String, ModelClass> mapClass = new LinkedHashMap<String, ModelClass>();
-
 	private final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w._]*)\\s*\\}");
 
 	private final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");
-
-	//private final Pattern PROPERTY = Pattern.compile("([^.]+)");
 
 	Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
@@ -47,6 +35,11 @@ public class SQLAnalyzer {
 	Converter<String, String> property2ColumnConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	private List<String> paramNames;
+	
+	/**
+	 * bean properties name used into statement.
+	 */
+	private Set<String> usedBeanPropertyNames;
 
 	/**
 	 * @return the paramNames
@@ -74,6 +67,7 @@ public class SQLAnalyzer {
 	public void execute(Elements elementUtils, DaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, String sqlStatement) {
 		paramNames = new ArrayList<String>();
 		paramGetters = new ArrayList<String>();
+		usedBeanPropertyNames=new HashSet<String>();
 
 		// replace placeholder ${ } with ?
 		{
@@ -119,6 +113,7 @@ public class SQLAnalyzer {
 				{				
 					// there are nested property invocation
 					paramGetters.add(splittedName[0]+"."+getter(entity.findByName(splittedName[1])));
+					usedBeanPropertyNames.add(splittedName[1]);
 					
 				} else {
 					throw (new MethodParameterNotFoundException(daoDefinition, method, rawName));
@@ -129,6 +124,13 @@ public class SQLAnalyzer {
 		}
 		
 		this.sqlStatement=sqlStatement;
+	}
+
+	/**
+	 * @return the usedBeanProperties
+	 */
+	public Set<String> getUsedBeanPropertyNames() {
+		return usedBeanPropertyNames;
 	}
 
 	public String getter(ModelProperty property) {

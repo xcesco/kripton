@@ -39,14 +39,14 @@ public abstract class SQLiteUpdateBeanBuilder {
 		SQLAnalyzer analyzer = new SQLAnalyzer();
 		analyzer.execute(elementUtils, daoDefinition, entity, method, whereCondition);
 
-		CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, entity, method, SQLUpdateBean.class, methodBuilder);
+		CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, entity, method, SQLUpdateBean.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 
 		methodBuilder.addCode("\n");
 
 		// build where condition
 		methodBuilder.addCode("String[] whereConditions={");
 		String separator = "";
-		for (String item : analyzer.getParamNames()) {
+		for (String item : analyzer.getParamGetters()) {
 			methodBuilder.addCode(separator);
 			methodBuilder.addCode("String.valueOf($L)", item);
 
