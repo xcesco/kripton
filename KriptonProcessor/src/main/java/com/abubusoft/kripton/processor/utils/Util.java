@@ -16,19 +16,12 @@
  */
 package com.abubusoft.kripton.processor.utils;
 
-import com.google.common.base.Joiner;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.ArrayTypeName;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.WildcardTypeName;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.AnnotationValueVisitor;
@@ -46,6 +39,13 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
 import javax.lang.model.util.SimpleAnnotationValueVisitor6;
 import javax.lang.model.util.SimpleTypeVisitor6;
+
+import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.WildcardTypeName;
 
 /**
  * Utilities for handling types in annotation processors
@@ -85,11 +85,11 @@ final class Util {
     return Keys.isPlatformType(supertype.toString()) ? null : supertype;
   }*/
 
-  /** Returns a class name to complement {@code type}. */
+  /** Returns a class name to complement {@code type}. 
   public static ClassName adapterName(ClassName type, String suffix) {
     return ClassName.get(type.packageName(),
         Joiner.on('$').join(type.simpleNames()) + suffix);
-  }
+  }*/
 
   /** Returns a string for {@code type}. Primitive types are always boxed. */
   public static String typeToString(TypeMirror type) {
