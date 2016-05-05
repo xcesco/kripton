@@ -9,7 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SQLDeleteBean {
 
-	String fields() default "";
-
-	String where() default "id=${id}";
+	String where();
 }

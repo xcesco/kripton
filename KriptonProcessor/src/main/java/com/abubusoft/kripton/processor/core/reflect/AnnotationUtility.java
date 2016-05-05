@@ -29,7 +29,7 @@ public class AnnotationUtility {
 
 	private static final Pattern classPattern = Pattern.compile("([\\w.]*).class");
 
-	private static final Pattern arrayPattern = Pattern.compile("\"([\\w.]*)\"");
+	private static final Pattern arrayPattern = Pattern.compile("\"(.*)\"");
 
 	static List<String> extractAsArrayOfClassName(String value) {
 		Matcher matcher = classPattern.matcher(value);

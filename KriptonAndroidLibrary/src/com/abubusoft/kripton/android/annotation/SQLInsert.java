@@ -9,6 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SQLInsert {
 
-	String fields() default "";
 		
 }

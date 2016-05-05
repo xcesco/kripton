@@ -1,11 +1,11 @@
 package com.abubusoft.kripton.processor.sqlite;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.SQLInsertBean;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
@@ -33,10 +33,10 @@ public class CodeBuilderHelper {
 	 * @return
 	 * 		primary key.
 	 */
-	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteModel model, DaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, Builder methodBuilder) {
+	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteModel model, DaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, Class<? extends Annotation> annotationClazz,  Builder methodBuilder) {
 		Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 		// check included and excluded fields
-		ModelAnnotation annotation=method.getAnnotation(SQLInsertBean.class);
+		ModelAnnotation annotation=method.getAnnotation(annotationClazz);
 		List<String> includedFields=AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, "value");
 		List<String> excludedFields=AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, "excludedFields");
 		if (includedFields.size()>0 && excludedFields.size()>0)
@@ -58,13 +58,6 @@ public class CodeBuilderHelper {
 			{
 				throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
 			}
-		}
-		
-		// build method signature
-		ParameterSpec parameterSpec;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
-			methodBuilder.addParameter(parameterSpec);
 		}
 		
 		// initialize contentValues

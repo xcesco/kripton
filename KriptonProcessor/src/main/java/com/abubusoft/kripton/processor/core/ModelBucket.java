@@ -6,6 +6,25 @@ import java.util.List;
 import javax.lang.model.element.Element;
 
 public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends ModelEntity<E> {
+	
+	/**
+	 * find property by its name
+	 * 
+	 * @param key
+	 * 		simple name of property
+	 * @return
+	 * 		property or null
+	 */
+	public T findByName(String key) {
+		for (T item : collection) {
+			if (item.getName().equals(key))
+			{
+				return item;
+			}
+		}
+		
+		return null;
+	}
 
 	protected List<T> collection = new ArrayList<>();
 

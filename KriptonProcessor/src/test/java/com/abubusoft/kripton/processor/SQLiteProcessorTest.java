@@ -76,7 +76,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 				sources(
 						DummyDatabase.class,
 						ChannelMessage.class, Channel.class,
-						DaoChannelMessage.class, DaoChannel.class
+						DaoChannelMessage.class//, DaoChannel.class
 				))
 				.processedWith(new SQLiteProcessor()).compilesWithoutError();
 		//@formatter:on

@@ -35,28 +35,9 @@ public class SQLEntity extends ModelClass {
 		}
 		
 		// try to get id
-		ModelProperty id=findPropertyByName("id");			
+		ModelProperty id=findByName("id");			
 
 		return id;
-	}
-
-	/**
-	 * find property by its name
-	 * 
-	 * @param key
-	 * 		simple name of property
-	 * @return
-	 * 		property or null
-	 */
-	public ModelProperty findPropertyByName(String key) {
-		for (ModelProperty item : collection) {
-			if (item.getName().equals(key))
-			{
-				return item;
-			}
-		}
-		
-		return null;
 	}
 
 }

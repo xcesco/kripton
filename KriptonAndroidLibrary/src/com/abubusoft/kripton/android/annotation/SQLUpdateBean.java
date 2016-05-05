@@ -9,7 +9,25 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SQLUpdateBean {
 
-	String fields() default "";
-
-	String where() default "id=${id}";
+	/**
+	 * properties to include into UPDATE command
+	 * @return
+	 * 		property's names to include
+	 */
+	String[] value() default "";
+	
+	/**
+	 * properties to include into UPDATE command
+	 * @return
+	 * 		property's names to exclude
+	 */
+	String[] excludedFields() default "";
+	
+	/**
+	 * where condition
+	 * 
+	 * @return
+	 * 		where condition
+	 */
+	String where();
 }

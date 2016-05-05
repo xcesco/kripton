@@ -112,6 +112,25 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		}
 		return false;
 	}
+	
+	/**
+	 * Check if method contains a parameter with value as name
+	 * 
+	 * @param value
+	 * 		parameter name to find
+	 * @return
+	 * 		TypeMirror associated
+	 */
+	public TypeMirror findParameterWithName(String value) {
+		for (Pair<String, TypeMirror> item: parameters)
+		{
+			if (item.value0.equals(value))
+			{
+				return item.value1;
+			}
+		}
+		return null;
+	}
 
 
 }

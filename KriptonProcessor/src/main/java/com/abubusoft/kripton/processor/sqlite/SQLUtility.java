@@ -9,6 +9,8 @@ import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.core.ModelClass;
+import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.TypeName;
 
@@ -51,7 +53,7 @@ public class SQLUtility {
 
 			StringBuffer buffer = new StringBuffer();
 			while (matcher.find()) {
-				ModelProperty property = entity.findPropertyByName(matcher.group(1));
+				ModelProperty property = entity.findByName(matcher.group(1));
 				if (property != null) {
 					matcher.appendReplacement(buffer, columnNameConverter.convert(matcher.group(1)));
 				}
@@ -94,6 +96,18 @@ public class SQLUtility {
 	public static boolean isIn(TypeMirror typeMirror, String ... classes) {
 		TypeName value=TypeName.get(typeMirror);
 		return isIn(value.toString(), classes);
+	}
+	
+	/**
+	 * Check if class that is rapresented by typeMirror has same name of className parameter.
+	 * 
+	 * @param typeMirror
+	 * @param entity
+	 * @return true if typeMirror is equals to className.
+	 */
+	public static boolean isEquals(TypeMirror typeMirror, ModelClass entity) {
+		TypeName value=TypeName.get(typeMirror);
+		return value.toString().equals(entity.getName());
 	}
 	
 	public static boolean isIn(String value, String ... classes) {

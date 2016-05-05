@@ -1,50 +1,33 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.SQLInsert;
-import com.abubusoft.kripton.android.annotation.SQLInsertBean;
-import com.abubusoft.kripton.android.annotation.SQLSelectBean;
-import com.abubusoft.kripton.android.annotation.SQLSelectBeanList;
-import com.abubusoft.kripton.android.annotation.SQLSelectScalar;
-import com.abubusoft.kripton.android.annotation.SQLUpdate;
-import com.abubusoft.kripton.android.annotation.SQLUpdateBean;
-import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilterBuilder;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
-import com.abubusoft.kripton.processor.sqlite.SQLiteModelMethod;
 
 public class PropertyUtility {
-	
+
 	static Logger logger = Logger.getGlobal();
 
 	private static final String SET_PREFIX = "set";
 	private static final String IS_PREFIX = "is";
 	private static final String GET_PREFIX = "get";
-	
-	public interface PropertyCreatedListener
-	{
+
+	public interface PropertyCreatedListener {
 		/**
 		 * If true, the property will be included in the class. If return false, the property will be ignored
 		 * 
@@ -55,42 +38,54 @@ public class PropertyUtility {
 	};
 
 	/**
+	 * Given a model clazz, define its properties. No annotation is analyzed for properties
+	 * 
+	 * @param elementUtils
+	 * @param clazz
+	 */
+	public static void buildProperties(Elements elementUtils, ModelClass clazz) {
+		buildProperties(elementUtils, clazz, null, null);
+	}
+
+	/**
 	 * Given a model clazz, define its properties.
 	 * 
 	 * @param elementUtils
 	 * @param clazz
-	 * @param propertyAnnotationFilter 
-	 * 			if null, no filter is applied to annotations
+	 * @param propertyAnnotationFilter
+	 *            if null, no filter is applied to annotations
 	 */
 	public static void buildProperties(Elements elementUtils, ModelClass clazz, AnnotationFilter propertyAnnotationFilter) {
 		buildProperties(elementUtils, clazz, propertyAnnotationFilter, null);
 	}
-	
+
 	/**
 	 * Given a model clazz, define its properties. The listener allow to select which property include in class definition.
 	 * 
 	 * @param elementUtils
 	 * @param clazz
-	 * @param propertyAnnotationFilter 
-	 * 			if null, no filter is applied to annotations
+	 * @param propertyAnnotationFilter
+	 *            if null, no filter is applied to annotations
 	 */
 	public static void buildProperties(Elements elementUtils, ModelClass clazz, AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener listener) {
 		List<? extends Element> list = elementUtils.getAllMembers((TypeElement) clazz.getElement());
-		
-		AnnotationUtility.forEachAnnotations(elementUtils, clazz.getElement(), propertyAnnotationFilter, new AnnotationFoundListener() {
-			
-			@Override
-			public void onAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
-				logger.info("Annotation... " + annotationClassName);
-			}
-		});
-		
+
+		if (propertyAnnotationFilter != null) {
+			AnnotationUtility.forEachAnnotations(elementUtils, clazz.getElement(), propertyAnnotationFilter, new AnnotationFoundListener() {
+
+				@Override
+				public void onAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
+					logger.info("Annotation... " + annotationClassName);
+				}
+			});
+		}
+
 		ModelProperty field;
 		for (Element item : list) {
 			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
-				field = new ModelProperty(item);												
+				field = new ModelProperty(item);
 				AnnotationUtility.buildAnnotations(elementUtils, field, propertyAnnotationFilter);
-				
+
 				clazz.add(field);
 			}
 		}
@@ -142,19 +137,16 @@ public class PropertyUtility {
 				}
 			}
 		}
-		
-		if (listener!=null)
-		{
-			List<ModelProperty> listPropertiesToFilter=new ArrayList<ModelProperty>(clazz.getCollection());
-			
-			for (ModelProperty item: listPropertiesToFilter)
-			{
-				if (!listener.onProperty(item))
-				{
+
+		if (listener != null) {
+			List<ModelProperty> listPropertiesToFilter = new ArrayList<ModelProperty>(clazz.getCollection());
+
+			for (ModelProperty item : listPropertiesToFilter) {
+				if (!listener.onProperty(item)) {
 					clazz.getCollection().remove(item);
 				}
 			}
-			
+
 		}
 	}
 

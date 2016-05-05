@@ -36,7 +36,7 @@ public abstract class SQLiteDeleteBeanBuilder {
 			throw (new InvalidMethodSignException(daoDefinition, method));
 		}
 		
-		CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, entity, method, methodBuilder);		
+		CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, entity, method, SQLDeleteBean.class, methodBuilder);		
 
 		methodBuilder.addCode("\n");
 		String whereCondition=AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(SQLDeleteBean.class), "where");
