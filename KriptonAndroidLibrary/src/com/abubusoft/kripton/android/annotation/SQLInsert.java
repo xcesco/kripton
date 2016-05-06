@@ -9,5 +9,18 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SQLInsert {
 
+	/**
+	 * properties to include into INSERT command
+	 * @return
+	 * 		property's names to include
+	 */
+	String[] value() default {};
+	
+	/**
+	 * properties to include into INSERT command
+	 * @return
+	 * 		property's names to exclude
+	 */
+	String[] excludedFields() default {};
 		
 }

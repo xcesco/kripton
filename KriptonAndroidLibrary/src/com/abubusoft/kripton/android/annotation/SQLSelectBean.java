@@ -13,17 +13,18 @@ public @interface SQLSelectBean {
 	
 	/**
 	 * properties to include into UPDATE command
+	 * 
 	 * @return
 	 * 		property's names to include
 	 */
-	String[] value() default "";
+	String[] value() default {};
 	
 	/**
 	 * properties to include into UPDATE command
 	 * @return
 	 * 		property's names to exclude
 	 */
-	String[] excludedFields() default "";
+	String[] excludedFields() default {};
 	
 	/**
 	 * where condition
@@ -31,6 +32,12 @@ public @interface SQLSelectBean {
 	 * @return
 	 * 		where condition
 	 */
-	String where();
+	String where() default "";
+	
+	String having() default "";
+	
+	String groupBy() default "";
+	
+	String orderBy() default "";
 
 }

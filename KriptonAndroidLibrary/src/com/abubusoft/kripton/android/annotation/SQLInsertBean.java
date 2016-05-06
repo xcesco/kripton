@@ -20,13 +20,13 @@ public @interface SQLInsertBean {
 	 * @return
 	 * 		property's names to include
 	 */
-	String[] value() default "";
+	String[] value() default {};
 	
 	/**
 	 * properties to include into INSERT command
 	 * @return
 	 * 		property's names to exclude
 	 */
-	String[] excludedFields() default "";
+	String[] excludedFields() default {};
 	
 }

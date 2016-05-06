@@ -16,14 +16,14 @@ public @interface SQLSelectScalar {
 	 * @return
 	 * 		property's names to include
 	 */
-	String[] value() default "";
+	String[] value() default {};
 	
 	/**
 	 * properties to include into UPDATE command
 	 * @return
 	 * 		property's names to exclude
 	 */
-	String[] excludedFields() default "";
+	String[] excludedFields() default {};
 	
 	/**
 	 * where condition

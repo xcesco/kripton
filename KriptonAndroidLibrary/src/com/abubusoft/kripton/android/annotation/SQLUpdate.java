@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SQLUpdate {
 	
-	String where() default "id=${id}";
+	String where();
 
 }
