@@ -1,6 +1,7 @@
 package com.abubusoft.kritpon.example01;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DaoChannelMessageBase /*implements DaoChannelMessage*/ {
@@ -61,8 +62,9 @@ public class DaoChannelMessageBase /*implements DaoChannelMessage*/ {
 		return result;
 	}
 
-	public ChannelMessage selectBean() {
-		// TODO Auto-generated method stub
-		return null;
+	public Cursor select() {
+		String args[]={};
+		Cursor result = database.rawQuery("select * from pippo", args);
+		return result;
 	}
 }

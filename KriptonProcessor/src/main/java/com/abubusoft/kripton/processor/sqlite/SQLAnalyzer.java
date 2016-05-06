@@ -13,6 +13,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
 
 /**
@@ -109,7 +110,7 @@ public class SQLAnalyzer {
 			{
 				paramGetters.add(rawName);
 			} else if (splittedName.length==2) {
-				if (SQLUtility.isEquals(method.findParameterWithName(splittedName[0]), entity) && entity.contains(splittedName[1]))
+				if (TypeUtility.isEquals(TypeUtility.typeName(method.findParameter(splittedName[0])), entity) && entity.contains(splittedName[1]))
 				{				
 					// there are nested property invocation
 					paramGetters.add(splittedName[0]+"."+getter(entity.findByName(splittedName[1])));

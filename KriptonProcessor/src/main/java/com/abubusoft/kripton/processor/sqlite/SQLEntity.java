@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite;
 
+import java.lang.annotation.Annotation;
+
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindColumn;
@@ -26,7 +28,7 @@ public class SQLEntity extends ModelClass {
 		for (ModelProperty item : collection) {
 			annotation = item.getAnnotation(BindColumn.class);
 			if (annotation != null) {
-				value = annotation.getAttribute("value");
+				value = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
 				if (value != null && value.contains(ColumnType.PRIMARY_KEY.toString())) {
 					return item;
 				}
@@ -38,6 +40,10 @@ public class SQLEntity extends ModelClass {
 		ModelProperty id=findByName("id");			
 
 		return id;
+	}
+
+	public boolean containsAnnotation(Class<? extends Annotation> annotation) {
+		return getAnnotation(annotation)!=null;
 	}
 
 }

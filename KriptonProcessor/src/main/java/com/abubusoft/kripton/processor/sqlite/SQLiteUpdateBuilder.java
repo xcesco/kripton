@@ -33,7 +33,7 @@ public abstract class SQLiteUpdateBuilder {
 		
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
-		String whereCondition=method.getAnnotation(SQLUpdate.class).getAttribute("where");
+		String whereCondition=method.getAnnotation(SQLUpdate.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		
 		Pair<String, List<String>> where = SQLUtility.extractParametersFromString(whereCondition, model.columnNameConverter, entity);
 		

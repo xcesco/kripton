@@ -1,6 +1,7 @@
 package com.abubusoft.kripton.processor.core;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.sun.tools.internal.xjc.reader.TypeUtil;
 
 @BindType
 @BindAllFields
@@ -180,6 +183,14 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	@Override
 	public void accept(ModelElementVisitor visitor) throws Exception {
 		visitor.visit(this);		
+	}
+
+	public boolean isType(String value) {
+		return this.getType().isEquals(value);
+	}
+
+	public boolean isType(Type ... types) {
+		return TypeUtility.isTypeIncludedIn(type.value, types);		
 	}
 
 }

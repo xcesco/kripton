@@ -32,8 +32,10 @@ public class ModelClass extends ModelBucket<ModelProperty, TypeElement> implemen
 	}
 
 	public ModelAnnotation getAnnotation(Class<? extends Annotation> value) {
+		String canonicalName=value.getCanonicalName();
+		
 		for (ModelAnnotation item : annotations) {
-			if (item.getName().equals(value.getCanonicalName())) {
+			if (item.getName().equals(canonicalName)) {
 				return item;
 			}
 		}

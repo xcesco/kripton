@@ -5,14 +5,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.lang.model.type.TypeMirror;
-
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.core.ModelClass;
-import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.TypeName;
 
 public class SQLUtility {
 	private static final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w]*)\\s*\\}");
@@ -67,56 +62,5 @@ public class SQLUtility {
 
 		return result;
 	}
-
-	/**
-	 * Check if typeName belong to classes set defined.
-	 * 
-	 * @param typeName
-	 * @param classes
-	 * @return true if typeName belong to classes set defined.
-	 */
-	public static boolean isIn(TypeName typeName, Class<?>... classes) {
-		String value=typeName.toString();
-		for (Class<?> item : classes) {
-			if (value.equals(TypeName.get(item).toString())) {
-				return true;
-			}
-		}
-
-		return false;
-	}
 	
-	/**
-	 * Check if typeMirror belong to classes set defined.
-	 * 
-	 * @param typeMirror
-	 * @param classes
-	 * @return true if typeMirror belong to classes set defined.
-	 */
-	public static boolean isIn(TypeMirror typeMirror, String ... classes) {
-		TypeName value=TypeName.get(typeMirror);
-		return isIn(value.toString(), classes);
-	}
-	
-	/**
-	 * Check if class that is rapresented by typeMirror has same name of className parameter.
-	 * 
-	 * @param typeMirror
-	 * @param entity
-	 * @return true if typeMirror is equals to className.
-	 */
-	public static boolean isEquals(TypeMirror typeMirror, ModelClass entity) {
-		TypeName value=TypeName.get(typeMirror);
-		return value.toString().equals(entity.getName());
-	}
-	
-	public static boolean isIn(String value, String ... classes) {
-		for (String item : classes) {
-			if (value.equals(item)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
 }

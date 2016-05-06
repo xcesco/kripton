@@ -3,7 +3,6 @@ package com.abubusoft.kripton.processor.sqlite;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.processor.core.ModelBucket;
-import com.abubusoft.kripton.processor.core.ModelMethod;
 
 public class DaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
 

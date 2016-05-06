@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
@@ -119,7 +120,7 @@ public class PropertyUtility {
 					currentKriptonField = clazz.get(propertyName);
 					Pair<String, String> result = MethodUtility.extractResultAndArguments(item.asType().toString());
 
-					if (currentKriptonField.getType().isSameType(result.value1)) {
+					if (currentKriptonField.isType(result.value1)) {
 						switch (status) {
 						case 0:
 							currentKriptonField.setFieldWithGetter(true);

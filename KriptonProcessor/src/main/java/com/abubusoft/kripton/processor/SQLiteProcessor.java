@@ -1,6 +1,7 @@
 package com.abubusoft.kripton.processor;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import com.abubusoft.kripton.android.annotation.SQLDelete;
 import com.abubusoft.kripton.android.annotation.SQLDeleteBean;
 import com.abubusoft.kripton.android.annotation.SQLInsert;
 import com.abubusoft.kripton.android.annotation.SQLInsertBean;
+import com.abubusoft.kripton.android.annotation.SQLSelect;
 import com.abubusoft.kripton.android.annotation.SQLSelectBean;
 import com.abubusoft.kripton.android.annotation.SQLSelectBeanList;
 import com.abubusoft.kripton.android.annotation.SQLSelectScalar;
@@ -48,8 +50,10 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
+import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
+import com.abubusoft.kripton.processor.sqlite.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.ClassTableGenerator;
 import com.abubusoft.kripton.processor.sqlite.DaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.DaoGenerator;
@@ -87,6 +91,7 @@ public class SQLiteProcessor extends AbstractProcessor {
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
+
 		annotations.add(SQLDatabaseSchema.class.getCanonicalName());
 		annotations.add(BindType.class.getCanonicalName());
 		annotations.add(SQLDao.class.getCanonicalName());
@@ -118,18 +123,17 @@ public class SQLiteProcessor extends AbstractProcessor {
 
 		model = new SQLiteModel();
 	}
-	
+
 	private int count;
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		count++;
-		if (count>1)
-		{
-			logger.info("skip "+count);
+		if (count > 1) {
+			logger.info("skip " + count);
 			return true;
 		}
-		
+
 		try {
 			model.clear();
 			Map<String, Element> bindElements = new HashMap<String, Element>();
@@ -151,78 +155,89 @@ public class SQLiteProcessor extends AbstractProcessor {
 				}
 
 				ModelProperty property;
-				
+
 				// get all entity used within SQLDatabaseSchema annotation
-				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, SQLDatabaseSchema.class, "value");
-				// define which annotation the annotation processor is interested in 
+				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				// define which annotation the annotation processor is interested in
 				AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
 				AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
 				// for each entity used in database
 				for (String c : classesIntoDatabase) {
 					if (bindElements.containsKey(c)) {
-						TypeElement classElement=(TypeElement) bindElements.get(c);
-						
-						currentKriptonClass = new SQLEntity(classElement);						
+						TypeElement classElement = (TypeElement) bindElements.get(c);
+
+						currentKriptonClass = new SQLEntity(classElement);
 						AnnotationUtility.buildAnnotations(elementUtils, currentKriptonClass, classAnnotationFilter);
-						
-						if (currentKriptonClass.getAnnotation(BindAllFields.class)!=null)
-						{
+
+						if (currentKriptonClass.containsAnnotation(BindAllFields.class)) {
 							PropertyUtility.buildProperties(elementUtils, currentKriptonClass, propertyAnnotationFilter);
 						} else {
 							PropertyUtility.buildProperties(elementUtils, currentKriptonClass, propertyAnnotationFilter, new PropertyCreatedListener() {
-								
+
 								@Override
 								public boolean onProperty(ModelProperty property) {
-									if (property.getAnnotation(Bind.class)!=null)
-									{
+									if (property.getAnnotation(Bind.class) != null) {
 										return true;
 									}
 									return false;
-									
 								}
-							});	
+							});
 						}
-																		
-						
+
 						// check primary key
 						property = currentKriptonClass.getPrimaryKey();
-						if (property==null) throw(new SQLPrimaryKeyNotFoundException(currentKriptonClass));
-						
-						if (!property.getType().isSameType(Long.TYPE, Long.class)) throw(new SQLPrimaryKeyNotValidTypeException(currentKriptonClass, property));						
-						//TypeUtility.isIn(property.getType().isSameType(value), classes)
+						if (property == null)
+							throw (new SQLPrimaryKeyNotFoundException(currentKriptonClass));
+
+						if (!property.isType(Long.TYPE, Long.class))
+							throw (new SQLPrimaryKeyNotValidTypeException(currentKriptonClass, property));
 
 						model.entityAdd(currentKriptonClass);
 					}
 				}
-			}			
+			}
 
-			// Get all dao definitions
+
+			// define methods to ignore
+			final Set<String> excludedMethods = new HashSet<String>();
+			excludedMethods.add("wait");
+			excludedMethods.add("notifyAll");
+			excludedMethods.add("notify");
+			excludedMethods.add("toString");
+			excludedMethods.add("equals");
+			excludedMethods.add("hashCode");
+			excludedMethods.add("getClass");
+			
+			// Get all dao definitions 
 			for (Element daoItem : roundEnv.getElementsAnnotatedWith(SQLDao.class)) {
 				if (daoItem.getKind() != ElementKind.INTERFACE) {
 					error(daoItem, "Only interfaces can be annotated with @%s annotation", SQLDao.class.getSimpleName());
 					return true;
 				}
 
-				String entityClassName=AnnotationUtility.extractAsClassName(elementUtils, daoItem, SQLDao.class, "value");
-				final DaoDefinition currentDaoDefinition = new DaoDefinition((TypeElement) daoItem, entityClassName);								
-				
-				if (!bindElements.containsKey(currentDaoDefinition.getEntityClassName()))
-				{
-					throw(new InvalidSQLDaoDefinitionException(currentDaoDefinition));
-				}
-				
-				model.daoAdd(currentDaoDefinition);				
-				logger.info("Dao... " + currentDaoDefinition.getName()+" "+entityClassName+" "+bindElements.containsKey(currentDaoDefinition.getEntityClassName()));				
+				String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoItem, SQLDao.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				final DaoDefinition currentDaoDefinition = new DaoDefinition((TypeElement) daoItem, entityClassName);
 
-				AnnotationUtility.forEachMethods(elementUtils, (TypeElement) daoItem, new MethodFoundListener() {
+				if (!bindElements.containsKey(currentDaoDefinition.getEntityClassName())) {
+					throw (new InvalidSQLDaoDefinitionException(currentDaoDefinition));
+				}
+
+				model.daoAdd(currentDaoDefinition);
+				logger.info("Dao... " + currentDaoDefinition.getName() + " " + entityClassName + " " + bindElements.containsKey(currentDaoDefinition.getEntityClassName()));
+
+				// create method for dao
+				MethodUtility.forEachMethods(elementUtils, (TypeElement) daoItem, new MethodFoundListener() {
 
 					@Override
-					public void onMethod(Element element) {
-
-						final SQLiteModelMethod currentMethod=new SQLiteModelMethod((ExecutableElement) element);	
-						currentDaoDefinition.add(currentMethod);
+					public void onMethod(ExecutableElement element) {
+						if (excludedMethods.contains(element.getSimpleName().toString())) return;
 						
+						// add method
+						final SQLiteModelMethod currentMethod = new SQLiteModelMethod((ExecutableElement) element);
+						currentDaoDefinition.add(currentMethod);
+
 						AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
+
 
 							@Override
 							public void onAnnotation(Element element, String annotationClassName, Map<String, String> attributes) {
@@ -230,11 +245,15 @@ public class SQLiteProcessor extends AbstractProcessor {
 								if //@formatter:off
 									(										
 										   annotationClassName.equals(SQLInsert.class.getCanonicalName()) 
-										|| annotationClassName.equals(SQLInsertBean.class.getCanonicalName()) 
+										|| annotationClassName.equals(SQLInsertBean.class.getCanonicalName())
+										
 										|| annotationClassName.equals(SQLUpdate.class.getCanonicalName()) 
 										|| annotationClassName.equals(SQLUpdateBean.class.getCanonicalName())
+										
 										|| annotationClassName.equals(SQLDelete.class.getCanonicalName()) 
 										|| annotationClassName.equals(SQLDeleteBean.class.getCanonicalName())
+										
+										|| annotationClassName.equals(SQLSelect.class.getCanonicalName())
 										|| annotationClassName.equals(SQLSelectBean.class.getCanonicalName()) 
 										|| annotationClassName.equals(SQLSelectBeanList.class.getCanonicalName()) 
 										|| annotationClassName.equals(SQLSelectScalar.class.getCanonicalName())														
@@ -257,11 +276,10 @@ public class SQLiteProcessor extends AbstractProcessor {
 
 				});
 			}
-			
+
 			// generate table java
 			ClassTableGenerator.generate(elementUtils, filer, model);
 			DaoGenerator.generate(elementUtils, filer, model);
-			
 
 			logger.info(model.toString());
 		} catch (Exception e) {
@@ -299,7 +317,7 @@ public class SQLiteProcessor extends AbstractProcessor {
 			}
 		}
 
-		PropertyUtility.buildProperties(elementUtils, currentKriptonClass,null);
+		PropertyUtility.buildProperties(elementUtils, currentKriptonClass, null);
 
 		BinderWriter writer = BinderFactory.getJSONWriter(BinderOptions.build().indent(true));
 

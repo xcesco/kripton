@@ -11,30 +11,47 @@ public class ChannelMessage extends UidEntity {
 
 	private static final long serialVersionUID = -2411765210163916759L;
 	
-	protected boolean valid;
-	
-	/**
-	 * @return the valid
-	 */
-	public boolean isValid() {
-		return valid;
-	}
-
-	/**
-	 * @param valid the valid to set
-	 */
-	public void setValid(boolean valid) {
-		this.valid = valid;
-	}
-
 	@BindColumn(ColumnType.PRIMARY_KEY)
 	protected long id;
+	
+	protected String ownerUid;
+
+	protected String text;
+
+	protected String type;
+
+	protected long updateTime;
+
+	protected boolean valid;
 
 	/**
 	 * @return the id
 	 */
 	public long getId() {
 		return id;
+	}
+
+	public String getOwnerUid() {
+		return ownerUid;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public long getUpdateTime() {
+		return updateTime;
+	}
+
+	/**
+	 * @return the valid
+	 */
+	public boolean isValid() {
+		return valid;
 	}
 
 	/**
@@ -44,44 +61,27 @@ public class ChannelMessage extends UidEntity {
 		this.id = id;
 	}
 
-	protected String text;
-
-	protected String type;
-
-	protected String ownerUid;
-
-	protected long updateTime;
-
-	public long getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(long updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public String getOwnerUid() {
-		return ownerUid;
-	}
-
 	public void setOwnerUid(String ownerUid) {
 		this.ownerUid = ownerUid;
 	}
 
-	public String getType() {
-		return type;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public void setType(String type) {
 		this.type = type;
 	}
 
-	public String getText() {
-		return text;
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	/**
+	 * @param valid the valid to set
+	 */
+	public void setValid(boolean valid) {
+		this.valid = valid;
 	}
 
 	@Override

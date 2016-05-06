@@ -1,5 +1,9 @@
 package com.abubusoft.kripton.processor.sqlite;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isSameType;
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isTypeIncludedIn;
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
@@ -24,10 +28,10 @@ public abstract class SQLiteUpdateBeanBuilder {
 		boolean foundBean = false;
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
+			parameterSpec = ParameterSpec.builder(typeName(item.value1), item.value0).build();
 			methodBuilder.addParameter(parameterSpec);
 
-			if (SQLUtility.isIn(item.value1, daoDefinition.getEntityClassName())) {
+			if (isSameType(typeName(item.value1), daoDefinition.getEntityClassName())) {
 				foundBean = true;
 			}
 		}
@@ -35,11 +39,11 @@ public abstract class SQLiteUpdateBeanBuilder {
 			throw (new InvalidMethodSignException(daoDefinition, method));
 		}
 
-		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(SQLUpdateBean.class), "where");
+		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(SQLUpdateBean.class), AnnotationAttributeType.ATTRIBUTE_WHERE);
 		SQLAnalyzer analyzer = new SQLAnalyzer();
 		analyzer.execute(elementUtils, daoDefinition, entity, method, whereCondition);
 
-		CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, entity, method, SQLUpdateBean.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+		CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, SQLUpdateBean.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 
 		methodBuilder.addCode("\n");
 
@@ -63,17 +67,17 @@ public abstract class SQLiteUpdateBeanBuilder {
 		// define return value
 		if (returnType == TypeName.VOID) {
 
-		} else if (SQLUtility.isIn(returnType, String.class)) {
+		} else if (isTypeIncludedIn(returnType, String.class)) {
 			methodBuilder.addCode("return String.valueOf(result);\n");
-		} else if (SQLUtility.isIn(returnType, Boolean.TYPE, Boolean.class)) {
+		} else if (isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
 			methodBuilder.addCode("return result!=-1;\n");
-		} else if (SQLUtility.isIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
+		} else if (isTypeIncludedIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
 			methodBuilder.addCode("return result;\n");
-		} else if (SQLUtility.isIn(returnType, Float.TYPE, Float.class)) {
+		} else if (isTypeIncludedIn(returnType, Float.TYPE, Float.class)) {
 			methodBuilder.addCode("return result;\n");
-		} else if (SQLUtility.isIn(returnType, Double.TYPE, Double.class)) {
+		} else if (isTypeIncludedIn(returnType, Double.TYPE, Double.class)) {
 			methodBuilder.addCode("return result;\n");
-		} else if (SQLUtility.isIn(returnType, Character.TYPE, Character.class)) {
+		} else if (isTypeIncludedIn(returnType, Character.TYPE, Character.class)) {
 			methodBuilder.addCode("return '';\n");
 		} else {
 			methodBuilder.addCode("return null;\n");

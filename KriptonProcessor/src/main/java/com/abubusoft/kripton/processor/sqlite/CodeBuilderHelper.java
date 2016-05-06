@@ -1,11 +1,11 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.CaseFormat;
@@ -18,8 +18,6 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyInAnnotationNotFoundException;
 import com.squareup.javapoet.MethodSpec.Builder;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeName;
 
 public class CodeBuilderHelper {
 
@@ -29,26 +27,93 @@ public class CodeBuilderHelper {
 	 * @param elementUtils
 	 * @param model
 	 * @param daoDefinition
-	 * @param entity
 	 * @param method
-	 * @param methodBuilder
+	 *            used to code generation
 	 * @param alreadyUsedBeanPropertiesNames
+	 *            optional
 	 * @return primary key.
 	 */
-	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteModel model, DaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, Class<? extends Annotation> annotationClazz,
-			Builder methodBuilder, Set<String> alreadyUsedBeanPropertiesNames) {
-		Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+	public static Pair<String, List<ModelProperty>> generatePropertyList(Elements elementUtils, SQLiteModel model, DaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz,
+			Set<String> alreadyUsedBeanPropertiesNames) {
+		Pair<String, List<ModelProperty>> result = new Pair<String, List<ModelProperty>>();
+		result.value1 = new ArrayList<ModelProperty>();
+
+		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+	//	Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 		// check included and excluded fields
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, "value");
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE);
 		if (alreadyUsedBeanPropertiesNames != null) {
 			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
 		}
 		Set<String> excludedFields = new HashSet<String>();
-		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, "excludedFields"));
-		
+		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
+
 		if (includedFields.size() > 0 && excludedFields.size() > 0) {
-			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, "value", "excludedFields"));
+			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
+		}
+		// check included
+		for (String item : includedFields) {
+			if (!entity.contains(item)) {
+				throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+			}
+		}
+		// check excluded
+		for (String item : excludedFields) {
+			if (!entity.contains(item)) {
+				throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+			}
+		}
+
+		StringBuilder buffer = new StringBuilder();
+		String separator = "";
+		// methodBuilder.addCode("contentValues.clear();\n\n");
+		// for each property in entity except primaryKey and excluded properties
+		for (ModelProperty item : entity.getCollection()) {
+			if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
+				continue;
+			if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
+				continue;
+
+			buffer.append(separator + model.columnNameConverter.convert(item.getName()));
+			result.value1.add(item);
+			separator = ", ";
+		}
+
+		result.value0 = buffer.toString();
+
+		return result;
+
+	}
+
+	/**
+	 * Generate code necessary to put bean properties in content values map. Return primary key
+	 * 
+	 * @param elementUtils
+	 * @param model
+	 * @param daoDefinition
+	 * @param method
+	 * @param methodBuilder
+	 *            used to code generation
+	 * @param alreadyUsedBeanPropertiesNames
+	 *            optional
+	 * @return primary key.
+	 */
+	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteModel model, DaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+			Set<String> alreadyUsedBeanPropertiesNames) {
+		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+		Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+		// check included and excluded fields
+		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		if (alreadyUsedBeanPropertiesNames != null) {
+			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
+		}
+		Set<String> excludedFields = new HashSet<String>();
+		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
+
+		if (includedFields.size() > 0 && excludedFields.size() > 0) {
+			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
 		}
 		// check included
 		for (String item : includedFields) {
@@ -66,6 +131,7 @@ public class CodeBuilderHelper {
 		// initialize contentValues
 		ModelProperty primaryKey = entity.getPrimaryKey();
 		methodBuilder.addCode("contentValues.clear();\n\n");
+		// for each property in entity except primaryKey and excluded properties
 		for (ModelProperty item : entity.getCollection()) {
 			if (item.equals(primaryKey) || excludedFields.contains(item.getName()))
 				continue;

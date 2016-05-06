@@ -10,6 +10,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -21,13 +22,12 @@ public abstract class SQLiteInsertBeanBuilder {
 	public static void generate(Elements elementUtils, Builder builder, SQLiteModel model, DaoDefinition daoDefinition, ModelMethod method) {
 		Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 		
-		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
 		methodBuilder.addJavadoc("\n$L\n",method.getAnnotations().get(0).toString());
 
 		// check if there is only one parameter
-		if (method.getParameters().size() != 1 && SQLUtility.isIn(TypeName.get(method.getParameters().get(0).value1).toString(), daoDefinition.getEntityClassName())) {
+		if (method.getParameters().size() != 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName())) {
 			throw (new InvalidMethodSignException(daoDefinition, method));
 		}
 		
@@ -37,7 +37,7 @@ public abstract class SQLiteInsertBeanBuilder {
 			methodBuilder.addParameter(parameterSpec);
 		}
 				
-		ModelProperty primaryKey = CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, entity, method, SQLInsertBean.class, methodBuilder, null);
+		ModelProperty primaryKey = CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, SQLInsertBean.class, methodBuilder, null);
 		
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));
@@ -59,17 +59,17 @@ public abstract class SQLiteInsertBeanBuilder {
 		// define return value
 		if (returnType == TypeName.VOID) {
 
-		} else if (SQLUtility.isIn(returnType, String.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, String.class)) {
 			methodBuilder.addCode("return String.valueOf(result);\n");
-		} else if (SQLUtility.isIn(returnType, Boolean.TYPE, Boolean.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
 			methodBuilder.addCode("return result!=-1;\n");
-		} else if (SQLUtility.isIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
 			methodBuilder.addCode("return result;\n");
-		} else if (SQLUtility.isIn(returnType, Float.TYPE, Float.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Float.TYPE, Float.class)) {
 			methodBuilder.addCode("return result;\n");
-		} else if (SQLUtility.isIn(returnType, Double.TYPE, Double.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Double.TYPE, Double.class)) {
 			methodBuilder.addCode("return result;\n");
-		} else if (SQLUtility.isIn(returnType, Character.TYPE, Character.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Character.TYPE, Character.class)) {
 			methodBuilder.addCode("return '';\n");
 		} else {
 			methodBuilder.addCode("return null;\n");

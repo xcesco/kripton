@@ -32,7 +32,7 @@ public abstract class SQLiteDeleteBuilder {
 		
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
-		String whereCondition=method.getAnnotation(SQLDelete.class).getAttribute("where");
+		String whereCondition=method.getAnnotation(SQLDelete.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		
 		Pair<String, List<String>> where = SQLUtility.extractParametersFromString(whereCondition, model.columnNameConverter, entity);
 		
@@ -53,7 +53,7 @@ public abstract class SQLiteDeleteBuilder {
 		
 		// check if method parameters contains where parameters		
 		for (String item: where.value1) {
-			if (!method.containsParameterWithName(item))
+			if (!method.containsParameter(item))
 			{
 				throw (new MethodParameterNotFoundException(daoDefinition, method, item));
 			}			

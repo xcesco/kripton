@@ -1,10 +1,17 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
+
 import com.abubusoft.kripton.common.Pair;
-import com.squareup.javapoet.TypeName;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 
 public abstract class MethodUtility {
 	
@@ -22,6 +29,22 @@ public abstract class MethodUtility {
         return result;
     }
     
+	/**
+	 * Iterate over methods.
+	 * 
+	 * @param elementUtils
+	 * @param typeElement
+	 * @param listener
+	 */
+	public static void forEachMethods(Elements elementUtils, TypeElement typeElement, MethodFoundListener listener) {
+		List<? extends Element> list = elementUtils.getAllMembers(typeElement);
+
+		for (Element item : list) {
+			if (item.getKind() == ElementKind.METHOD) {
+				listener.onMethod((ExecutableElement) item);
+			}
+		}
+	}
 
 
 	

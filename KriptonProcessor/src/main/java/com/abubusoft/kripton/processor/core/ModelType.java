@@ -1,20 +1,20 @@
 package com.abubusoft.kripton.processor.core;
 
-import java.lang.reflect.Type;
-
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.TypeName;
 
 @BindType
 @BindAllFields
 public class ModelType implements ModelElement {
 	
-	String value;
+	TypeName value;
 	
 	public ModelType(TypeMirror type) {
-		this.value=type.toString();
+		this.value=TypeName.get(type);
 	}
 
 	@Override
@@ -22,10 +22,9 @@ public class ModelType implements ModelElement {
 		visitor.visit(this);		
 	}
 	
-	public boolean isSameType(String value)
+	public boolean isEquals(String value)
 	{
-		//return type.toString().equals(value);
-		return this.value.equals(value);
+		return TypeUtility.isSameType(this.value, value);
 	}
 	
 	public boolean isSameType(String ... value)
@@ -39,16 +38,6 @@ public class ModelType implements ModelElement {
 		}
 		return false;
 	}
-
-	public boolean isSameType(Type ... value) {
-		for (Type item: value)
-		{
-			if (this.value.equals(item.toString()))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+	
 
 }

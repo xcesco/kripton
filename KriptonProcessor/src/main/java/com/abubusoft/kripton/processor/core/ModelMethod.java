@@ -22,18 +22,21 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("KriptonMethod [");
+		builder.append("ModelMethod [");
 		if (name != null) {
 			builder.append("name=");
 			builder.append(name);
+			builder.append(", ");
+		}
+		if (annotations != null) {
+			builder.append("annotations=");
+			builder.append(annotations);
 			builder.append(", ");
 		}
 		if (parameters != null) {
@@ -44,6 +47,11 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		if (returnClass != null) {
 			builder.append("returnClass=");
 			builder.append(returnClass);
+			builder.append(", ");
+		}
+		if (element != null) {
+			builder.append("element=");
+			builder.append(element);
 		}
 		builder.append("]");
 		return builder.toString();
@@ -97,15 +105,15 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	/**
 	 * Check if method contains a parameter with value as name
 	 * 
-	 * @param value
+	 * @param name
 	 * 		parameter name to find
 	 * @return
 	 * 		true if parameter is found
 	 */
-	public boolean containsParameterWithName(String value) {
+	public boolean containsParameter(String name) {
 		for (Pair<String, TypeMirror> item: parameters)
 		{
-			if (item.value0.equals(value))
+			if (item.value0.equals(name))
 			{
 				return true;
 			}
@@ -116,15 +124,15 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	/**
 	 * Check if method contains a parameter with value as name
 	 * 
-	 * @param value
+	 * @param name
 	 * 		parameter name to find
 	 * @return
 	 * 		TypeMirror associated
 	 */
-	public TypeMirror findParameterWithName(String value) {
+	public TypeMirror findParameter(String name) {
 		for (Pair<String, TypeMirror> item: parameters)
 		{
-			if (item.value0.equals(value))
+			if (item.value0.equals(name))
 			{
 				return item.value1;
 			}
@@ -132,5 +140,23 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		return null;
 	}
 
+	/**
+	 * Check if method contains a parameter with value as name
+	 * 
+	 * @param name
+	 * 		parameter name to find
+	 * @return
+	 * 		true if there is parameter with specified name 
+	 */
+	public boolean hasParameter(String name) {
+		for (Pair<String, TypeMirror> item: parameters)
+		{
+			if (item.value0.equals(name))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

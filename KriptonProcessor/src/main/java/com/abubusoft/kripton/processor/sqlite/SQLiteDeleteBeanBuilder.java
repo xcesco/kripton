@@ -5,10 +5,10 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.SQLDeleteBean;
-import com.abubusoft.kripton.android.annotation.SQLUpdateBean;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -28,7 +28,7 @@ public abstract class SQLiteDeleteBeanBuilder {
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
 			methodBuilder.addParameter(parameterSpec);
 
-			if (SQLUtility.isIn(item.value1, daoDefinition.getEntityClassName())) {
+			if (TypeUtility.isSameType(TypeUtility.typeName(item.value1), daoDefinition.getEntityClassName())) {
 				foundBean = true;
 			}
 		}
@@ -38,7 +38,7 @@ public abstract class SQLiteDeleteBeanBuilder {
 
 		methodBuilder.addCode("\n");
 
-		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(SQLDeleteBean.class), "where");
+		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(SQLDeleteBean.class), AnnotationAttributeType.ATTRIBUTE_WHERE);
 		SQLAnalyzer analyzer = new SQLAnalyzer();
 		analyzer.execute(elementUtils, daoDefinition, entity, method, whereCondition);
 
@@ -62,17 +62,17 @@ public abstract class SQLiteDeleteBeanBuilder {
 		// define return value
 		if (returnType == TypeName.VOID) {
 
-		} else if (SQLUtility.isIn(returnType, String.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, String.class)) {
 			methodBuilder.addCode("return String.valueOf(result);\n");
-		} else if (SQLUtility.isIn(returnType, Boolean.TYPE, Boolean.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
 			methodBuilder.addCode("return result!=-1;\n");
-		} else if (SQLUtility.isIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
 			methodBuilder.addCode("return result;\n");
-		} else if (SQLUtility.isIn(returnType, Float.TYPE, Float.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Float.TYPE, Float.class)) {
 			methodBuilder.addCode("return result;\n");
-		} else if (SQLUtility.isIn(returnType, Double.TYPE, Double.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Double.TYPE, Double.class)) {
 			methodBuilder.addCode("return result;\n");
-		} else if (SQLUtility.isIn(returnType, Character.TYPE, Character.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Character.TYPE, Character.class)) {
 			methodBuilder.addCode("return '';\n");
 		} else {
 			methodBuilder.addCode("return null;\n");
