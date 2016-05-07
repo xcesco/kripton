@@ -70,4 +70,17 @@ public class TypeUtility {
 		return TypeName.get(element.asType());
 	}
 
+	public static boolean isTypeIncludedIn(String clazzName, Class<?> ... set) {
+		String a;
+		for (Class<?> item: set)
+		{
+			a=item.getCanonicalName();
+			
+			if (clazzName.equals(a)) return true;
+		}
+		
+		return false;
+		
+	}
+
 }

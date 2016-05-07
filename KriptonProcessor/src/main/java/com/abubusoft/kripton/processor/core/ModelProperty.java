@@ -11,7 +11,6 @@ import javax.lang.model.element.Modifier;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.sun.tools.internal.xjc.reader.TypeUtil;
 
 @BindType
 @BindAllFields
@@ -29,7 +28,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		result = prime * result + (fieldWithIs ? 1231 : 1237);
 		result = prime * result + (fieldWithSetter ? 1231 : 1237);
 		result = prime * result + (publicField ? 1231 : 1237);
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((modelType == null) ? 0 : modelType.hashCode());
 		return result;
 	}
 
@@ -58,10 +57,10 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 			return false;
 		if (publicField != other.publicField)
 			return false;
-		if (type == null) {
-			if (other.type != null)
+		if (modelType == null) {
+			if (other.modelType != null)
 				return false;
-		} else if (!type.equals(other.type))
+		} else if (!modelType.equals(other.modelType))
 			return false;
 		return true;
 	}
@@ -69,7 +68,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	public ModelProperty(Element element) {
 		super(element.getSimpleName().toString(), element);
 		
-		setType(new ModelType(element.asType()));
+		setModelType(new ModelType(element.asType()));
 		setPublicField(element.getModifiers().contains(Modifier.PUBLIC));
 		this.annotations = new ArrayList<ModelAnnotation>();
 	}
@@ -90,20 +89,20 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	
 	protected List<ModelAnnotation> annotations;
 	
-	protected ModelType type;
+	protected ModelType modelType;
 	
 	/**
 	 * @return the type
 	 */
-	public ModelType getType() {
-		return type;
+	public ModelType getModelType() {
+		return modelType;
 	}
 
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(ModelType type) {
-		this.type = type;
+	public void setModelType(ModelType type) {
+		this.modelType = type;
 	}
 
 	protected boolean publicField;
@@ -186,11 +185,11 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	public boolean isType(String value) {
-		return this.getType().isEquals(value);
+		return this.getModelType().isEquals(value);
 	}
 
 	public boolean isType(Type ... types) {
-		return TypeUtility.isTypeIncludedIn(type.value, types);		
+		return TypeUtility.isTypeIncludedIn(modelType.name, types);		
 	}
 
 }

@@ -5,11 +5,10 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.SQLInsertBean;
-import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
 import com.squareup.javapoet.MethodSpec;
@@ -20,8 +19,6 @@ import com.squareup.javapoet.TypeSpec.Builder;
 public abstract class SQLiteInsertBeanBuilder {
 	
 	public static void generate(Elements elementUtils, Builder builder, SQLiteModel model, DaoDefinition daoDefinition, ModelMethod method) {
-		Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-		
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
 		methodBuilder.addJavadoc("\n$L\n",method.getAnnotations().get(0).toString());
@@ -48,7 +45,7 @@ public abstract class SQLiteInsertBeanBuilder {
 			{
 				methodBuilder.addCode("$L.$L=result;\n",method.getParameters().get(0).value0,primaryKey.getName());
 			} else {
-				methodBuilder.addCode("$L.$L(result);\n",method.getParameters().get(0).value0,CodeBuilderHelper.setter(propertyConverter, primaryKey));
+				methodBuilder.addCode("$L.$L(result);\n",method.getParameters().get(0).value0,PropertyUtility.setter(primaryKey));
 			}
 		}
 

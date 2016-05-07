@@ -3,6 +3,8 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.lang.model.element.Modifier;
@@ -14,17 +16,19 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.annotation.SQLSelect;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.JavaDocUtility;
+import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidReturnTypeException;
-import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
-import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyNotFoundException;
+import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
+
 
 /**
  * @author xcesco
@@ -42,6 +46,7 @@ public abstract class SQLiteSelectBuilder {
 	 * @param daoDefinition
 	 * @param method
 	 */
+	@SuppressWarnings("serial")
 	public static void generate(Elements elementUtils, Builder builder, SQLiteModel model, DaoDefinition daoDefinition, SQLiteModelMethod method) {
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		
@@ -49,8 +54,10 @@ public abstract class SQLiteSelectBuilder {
 		// analyze whereCondition
 		ModelAnnotation annotation = method.getAnnotation(SQLSelect.class);
 		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_DISTINCT));
-		// String fieldStatement=method.getAnnotation(SQLSelect.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
-		String fieldStatement = CodeBuilderHelper.generatePropertyList(elementUtils, model, daoDefinition, method, SQLSelect.class, null).value0;
+
+		Pair<String, List<ModelProperty>> fieldList = CodeBuilderHelper.generatePropertyList(elementUtils, model, daoDefinition, method, SQLSelect.class, null);
+		String fieldStatement = fieldList.value0;
+		List<ModelProperty> fields=fieldList.value1;
 		String tableStatement = model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName());
 
 		SQLAnalyzer analyzer=new SQLAnalyzer();
@@ -60,28 +67,24 @@ public abstract class SQLiteSelectBuilder {
 		String whereStatement = analyzer.getSQLStatement();
 		List<String> whereParamGetters=analyzer.getParamGetters();
 		List<String> whereParamNames=analyzer.getParamNames();		
-		//Pair<String, List<String>> whereStatement = SQLUtility.extractParametersFromString(whereSQL, model.columnNameConverter, entity);
 
 		String havingSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_HAVING);
 		analyzer.execute(elementUtils, daoDefinition, entity, method, havingSQL);
 		String havingStatement = analyzer.getSQLStatement();
 		List<String> havingParamGetters=analyzer.getParamGetters();
 		List<String> havingParamNames=analyzer.getParamNames();
-		//Pair<String, List<String>> havingStatement = SQLUtility.extractParametersFromString(havingSQL, model.columnNameConverter, entity);
 
 		String groupBySQL= annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_GROUP_BY);
 		analyzer.execute(elementUtils, daoDefinition, entity, method, groupBySQL);
 		String groupByStatement = analyzer.getSQLStatement();
 		List<String> groupByParamGetters=analyzer.getParamGetters();
 		List<String> groupByParamNames=analyzer.getParamNames();
-		//Pair<String, List<String>> groupByStatement = SQLUtility.extractParametersFromString(groupBySQL, model.columnNameConverter, entity);
 		
 		String orderBySQL= annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_ORDER_BY);
 		analyzer.execute(elementUtils, daoDefinition, entity, method, orderBySQL);
 		String orderByStatement = analyzer.getSQLStatement();
 		List<String> orderByParamGetters=analyzer.getParamGetters();
 		List<String> orderByParamNames=analyzer.getParamNames();
-		//Pair<String, List<String>> orderByStatement = SQLUtility.extractParametersFromString(orderBySQL, model.columnNameConverter, entity);
 
 		// select statement
 		String sqlWithParameters = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereSQL).having(havingSQL).groupBy(groupBySQL).orderBy(orderBySQL)
@@ -116,6 +119,7 @@ public abstract class SQLiteSelectBuilder {
 		
 		// build where condition
 		methodBuilder.addCode("String[] args={");
+		{
 		String separator = "";
 
 		for (String item : paramGetters) {
@@ -125,6 +129,7 @@ public abstract class SQLiteSelectBuilder {
 			separator = ", ";
 		}
 		methodBuilder.addCode("};");
+		}
 
 		/*
 		for (String item : paramNames) {
@@ -140,19 +145,80 @@ public abstract class SQLiteSelectBuilder {
 		}*/
 
 		methodBuilder.addCode("\n");
-		methodBuilder.addCode("Cursor result = database.rawQuery(\"$L\", args);\n", sql);
+		methodBuilder.addCode("$T cursor = database.rawQuery(\"$L\", args);\n", Cursor.class, sql);
 
 		TypeName returnType = TypeName.get(method.getReturnClass());
 		methodBuilder.returns(returnType);
-
-		if (!TypeUtility.isTypeIncludedIn(TypeUtility.typeName(method.getReturnClass()), Cursor.class, Void.class)) {
+		
+		if ((returnType instanceof ParameterizedTypeName))
+		{
+			// return Collection<Entity>
+			ParameterizedTypeName returnListName = (ParameterizedTypeName) returnType;
+			
+			TypeName collectionClass;			
+			TypeName entityClass= typeName(entity.getElement());
+			ClassName listClazzName=returnListName.rawType;
+			
+			if (TypeUtility.isTypeIncludedIn(listClazzName.toString(), List.class, Collection.class, Iterable.class))
+			{
+				// there is an interface as result
+				collectionClass=typeName(LinkedList.class);
+			} else {
+				collectionClass=listClazzName;
+			}
+			
+			methodBuilder.addCode("\n");
+			methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n",collectionClass,entityClass, collectionClass,entityClass);
+			methodBuilder.addCode("$T resultBean=new $T();\n",entityClass, entityClass);
+			methodBuilder.addCode("\n");
+			methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
+			
+			// generate index from columns
+			
+			methodBuilder.addCode("\n");
+			{
+				int i=0;	
+				for (ModelProperty item : fields) {					
+					methodBuilder.addCode("int index"+(i++)+"=");
+					methodBuilder.addCode("cursor.getColumnIndex($S)", model.columnNameConverter.convert(item.getName()));
+					methodBuilder.addCode(";\n");
+				}
+			}
+			methodBuilder.addCode("\n\n");			
+			
+			methodBuilder.beginControlFlow("do\n");			
+			methodBuilder.addCode("resultBean=new $T();\n",entityClass);
+			
+			// generate mapping
+			int i=0;
+			for (ModelProperty item : fields) {			
+				Transformer.cursor2Bean(methodBuilder, item, "resultBean", "cursor","index"+(i++)+"");
+				methodBuilder.addCode("\n");
+			}
+			methodBuilder.addCode("\n");
+			
+			methodBuilder.addCode("resultList.add(resultBean);\n");			
+			methodBuilder.endControlFlow("while (cursor.moveToNext())");						
+			
+			methodBuilder.endControlFlow();
+			methodBuilder.addCode("cursor.close();\n");
+			
+			methodBuilder.addCode("\n");
+			methodBuilder.addCode("return resultList;\n");
+			
+		} else if (TypeUtility.isTypeIncludedIn(TypeUtility.typeName(method.getReturnClass()), Cursor.class, Void.class)) {			
+			// return cursor
+			// define return value
+			if (TypeUtility.isTypeIncludedIn(TypeUtility.typeName(method.getReturnClass()), Cursor.class)) {
+				methodBuilder.addCode("return cursor;\n");
+			}			
+		} else {
 			throw (new InvalidReturnTypeException(daoDefinition, method, typeName(method.getReturnClass()), typeName(Cursor.class)));
 		}
+		
+		methodBuilder.addJavadoc("caio2\n");
 
-		// define return value
-		if (TypeUtility.isTypeIncludedIn(TypeUtility.typeName(method.getReturnClass()), Cursor.class)) {
-			methodBuilder.addCode("return result;\n");
-		}
+		
 		MethodSpec methodSpec = methodBuilder.build();
 
 		builder.addMethod(methodSpec);

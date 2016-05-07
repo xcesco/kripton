@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
@@ -21,6 +20,8 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
 
 public class PropertyUtility {
+	
+	static Converter<String, String> converterField2Method=CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	static Logger logger = Logger.getGlobal();
 
@@ -160,6 +161,43 @@ public class PropertyUtility {
 		}
 
 		return true;
+	}
+	
+	public static String getter(ModelProperty property) {
+		if (property.isPublicField())
+			return property.getName();
+
+		if (property.isFieldWithGetter()) {
+			return "get" + converterField2Method.convert(property.getName()) + "()";
+		}
+
+		if (property.isFieldWithIs()) {
+			return "is" + converterField2Method.convert(property.getName()) + "()";
+		}
+
+		return null;
+	}
+
+	public static String setter(ModelProperty property) {
+		if (property.isPublicField())
+			return property.getName();
+
+		if (property.isFieldWithGetter() || property.isFieldWithIs()) {
+			return "set" + converterField2Method.convert(property.getName());
+		}
+
+		return null;
+	}
+	
+	public static String setter(ModelProperty property, String value) {
+		if (property.isPublicField())
+			return property.getName()+"="+value;
+
+		if (property.isFieldWithGetter() || property.isFieldWithIs()) {
+			return "set" + converterField2Method.convert(property.getName())+"("+value+")";
+		}
+
+		return null;
 	}
 
 }

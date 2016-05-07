@@ -11,10 +11,17 @@ import com.squareup.javapoet.TypeName;
 @BindAllFields
 public class ModelType implements ModelElement {
 	
-	TypeName value;
+	TypeName name;
 	
+	/**
+	 * @return the value
+	 */
+	public TypeName getName() {
+		return name;
+	}
+
 	public ModelType(TypeMirror type) {
-		this.value=TypeName.get(type);
+		this.name=TypeName.get(type);
 	}
 
 	@Override
@@ -24,14 +31,14 @@ public class ModelType implements ModelElement {
 	
 	public boolean isEquals(String value)
 	{
-		return TypeUtility.isSameType(this.value, value);
+		return TypeUtility.isSameType(this.name, value);
 	}
 	
 	public boolean isSameType(String ... value)
 	{
 		for (String item: value)
 		{
-			if (this.value.equals(item))
+			if (this.name.equals(item))
 			{
 				return true;
 			}

@@ -14,6 +14,38 @@ public class ChannelMessage extends UidEntity {
 	@BindColumn(ColumnType.PRIMARY_KEY)
 	protected long id;
 	
+	protected byte[] image;
+	
+	/**
+	 * @return the image
+	 */
+	public byte[] getImage() {
+		return image;
+	}
+
+	/**
+	 * @param image the image to set
+	 */
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	protected DayType day;
+	
+	/**
+	 * @return the day
+	 */
+	public DayType getDay() {
+		return day;
+	}
+
+	/**
+	 * @param day the day to set
+	 */
+	public void setDay(DayType day) {
+		this.day = day;
+	}
+
 	protected String ownerUid;
 
 	protected String text;

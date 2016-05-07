@@ -285,7 +285,7 @@ public class SQLiteProcessor extends AbstractProcessor {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			error(null, e.getMessage());
+			error(null,e.getMessage());
 		}
 
 		return true;

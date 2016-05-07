@@ -31,9 +31,6 @@ public class JavaDocUtility {
 		}
 		methodBuilder.addJavadoc("]</pre>\n\n");
 		
-		
-		//methodBuilder.addJavadoc("\n$L\n\n", method.getAnnotations().get(0).toString());
-		
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();

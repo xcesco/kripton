@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
+
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,8 +10,6 @@ import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
@@ -102,7 +102,6 @@ public class CodeBuilderHelper {
 	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteModel model, DaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
 			Set<String> alreadyUsedBeanPropertiesNames) {
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
-		Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 		// check included and excluded fields
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
 		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE);
@@ -140,37 +139,11 @@ public class CodeBuilderHelper {
 			if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
 				continue;
 
-			methodBuilder.addCode("contentValues.put($S, $L.$L);\n", model.columnNameConverter.convert(item.getName()), method.getParameters().get(0).value0, getter(propertyConverter, item));
+			methodBuilder.addCode("contentValues.put($S, $L.$L);\n", model.columnNameConverter.convert(item.getName()), method.getParameters().get(0).value0, getter(item));
 		}
 
 		return primaryKey;
 
-	}
-
-	public static String getter(Converter<String, String> converter, ModelProperty property) {
-		if (property.isPublicField())
-			return property.getName();
-
-		if (property.isFieldWithGetter()) {
-			return "get" + converter.convert(property.getName()) + "()";
-		}
-
-		if (property.isFieldWithIs()) {
-			return "is" + converter.convert(property.getName()) + "()";
-		}
-
-		return null;
-	}
-
-	public static String setter(Converter<String, String> converter, ModelProperty property) {
-		if (property.isPublicField())
-			return property.getName();
-
-		if (property.isFieldWithGetter() || property.isFieldWithIs()) {
-			return "set" + converter.convert(property.getName());
-		}
-
-		return null;
 	}
 
 }

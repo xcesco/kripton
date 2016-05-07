@@ -107,6 +107,29 @@ public class Base64 {
         System.arraycopy(obuf, 0, ret, 0, obufcount);
         return ret;
     }
+    
+    public static byte[] decode(byte[] data) {
+        char[] ibuf = new char[4];
+        int ibufcount = 0;
+        byte[] obuf = new byte[data.length/4*3+3];
+        int obufcount = 0;
+        for (int i = 0;  i < data.length;  i ++) {
+            char ch = (char) data[i];
+            if (ch == S_BASE64PAD
+                || ch < S_DECODETABLE.length && S_DECODETABLE[ch] != Byte.MAX_VALUE) {
+                ibuf[ibufcount++] = ch;
+                if (ibufcount == ibuf.length) {
+                    ibufcount = 0;
+                    obufcount += decode0(ibuf, obuf, obufcount);
+                }
+            }
+        }
+        if (obufcount == obuf.length)
+            return obuf;
+        byte[] ret = new byte[obufcount];
+        System.arraycopy(obuf, 0, ret, 0, obufcount);
+        return ret;
+    }
 
     /**
      *

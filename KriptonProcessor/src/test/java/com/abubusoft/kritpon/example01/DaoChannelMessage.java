@@ -1,5 +1,8 @@
 package com.abubusoft.kritpon.example01;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.database.Cursor;
 
 import com.abubusoft.kripton.android.annotation.SQLDao;
@@ -69,8 +72,11 @@ public interface DaoChannelMessage {
    * @param bean
    * @param uid
    */
+	/*@SQLSelect(distinct=true, excludedFields="uid", where="id = ${bean.valid}", having="uid = ${uid} ")
+	Cursor selectAll(ChannelMessage bean, long uid);*/
+	
 	@SQLSelect(distinct=true, excludedFields="uid", where="id = ${bean.valid}", having="uid = ${uid} ")
-	Cursor selectAll(ChannelMessage bean, long uid);
+	List<ChannelMessage> selectList(ChannelMessage bean, long uid);
 	
 	@SQLDeleteBean(where="id=${id} and uid=${bean.uid}")
 	long deleteBeanAll(ChannelMessage bean, long id);
