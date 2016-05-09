@@ -20,10 +20,12 @@ import com.abubusoft.kripton.android.annotation.SQLSelect;
 import com.abubusoft.kripton.android.annotation.SQLSelectBean;
 import com.abubusoft.kripton.android.annotation.SQLUpdate;
 import com.abubusoft.kripton.android.annotation.SQLUpdateBean;
-import com.abubusoft.kripton.processor.core.ModelMethod;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
@@ -41,18 +43,18 @@ public class DaoGenerator implements SQLiteModelElementVisitor {
 	private Builder builder;
 
 	private DaoDefinition currentDaoDefinition;
-	private SQLiteModel model;
+	private SQLiteDatabaseSchema model;
 
-	public DaoGenerator(SQLiteModel model, Elements elementUtils, Filer filer) {
+	public DaoGenerator(SQLiteDatabaseSchema model, Elements elementUtils, Filer filer) {
 		this.model = model;
 		this.elementUtils = elementUtils;
 		this.filer = filer;
 	}
 
-	public static void generate(Elements elementUtils, Filer filer, SQLiteModel model) throws Exception {
+	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
 		DaoGenerator visitor = new DaoGenerator(model, elementUtils, filer);
 
-		for (DaoDefinition item : model.daos.values()) {
+		for (DaoDefinition item : model.getCollection()) {
 			item.accept(visitor);
 		}
 	}
@@ -73,7 +75,7 @@ public class DaoGenerator implements SQLiteModelElementVisitor {
 		// add database field
 		FieldSpec fieldDatabase = FieldSpec.builder(SQLiteDatabase.class, "database", Modifier.PROTECTED).build();// .initializer("\"$L\"", classNameConverter.convert(value.getName())).build();
 		builder.addField(fieldDatabase);
-		
+
 		// add content value field
 		FieldSpec fieldContentValues = FieldSpec.builder(ContentValues.class, "contentValues", Modifier.PROTECTED).initializer("new ContentValues()").build();
 		builder.addField(fieldContentValues);
@@ -90,11 +92,11 @@ public class DaoGenerator implements SQLiteModelElementVisitor {
 
 	@Override
 	public void visit(SQLiteModelMethod value) throws Exception {
-		
+
 		if (value.getAnnotation(SQLInsert.class) != null) {
 			SQLiteInsertBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
 		} else if (value.getAnnotation(SQLInsertBean.class) != null) {
-			SQLiteInsertBeanBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);			
+			SQLiteInsertBeanBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
 		} else if (value.getAnnotation(SQLUpdate.class) != null) {
 			SQLiteUpdateBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
 		} else if (value.getAnnotation(SQLUpdateBean.class) != null) {
@@ -108,10 +110,7 @@ public class DaoGenerator implements SQLiteModelElementVisitor {
 		} else if (value.getAnnotation(SQLSelectBean.class) != null) {
 			SQLiteSelectBeanBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
 		}
-		
-		
 
 	}
-
 
 }

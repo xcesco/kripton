@@ -21,6 +21,11 @@ import com.abubusoft.kripton.processor.core.reflect.JavaDocUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidReturnTypeException;
+import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -47,7 +52,7 @@ public abstract class SQLiteSelectBuilder {
 	 * @param method
 	 */
 	@SuppressWarnings("serial")
-	public static void generate(Elements elementUtils, Builder builder, SQLiteModel model, DaoDefinition daoDefinition, SQLiteModelMethod method) {
+	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, DaoDefinition daoDefinition, SQLiteModelMethod method) {
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		
 		// separate params used for update bean and params used in whereCondition
@@ -180,7 +185,7 @@ public abstract class SQLiteSelectBuilder {
 				int i=0;	
 				for (ModelProperty item : fields) {					
 					methodBuilder.addCode("int index"+(i++)+"=");
-					methodBuilder.addCode("cursor.getColumnIndex($S)", model.columnNameConverter.convert(item.getName()));
+					methodBuilder.addCode("cursor.getColumnIndex($S)", SQLUtility.getColumnName(item));
 					methodBuilder.addCode(";\n");
 				}
 			}

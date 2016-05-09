@@ -13,6 +13,10 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
@@ -20,7 +24,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 
 public abstract class SQLiteUpdateBeanBuilder {
 
-	public static void generate(Elements elementUtils, Builder builder, SQLiteModel model, DaoDefinition daoDefinition, ModelMethod method) {
+	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, DaoDefinition daoDefinition, ModelMethod method) {
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 

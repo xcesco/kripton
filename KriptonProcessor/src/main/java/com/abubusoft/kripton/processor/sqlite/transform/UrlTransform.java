@@ -3,7 +3,6 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import java.net.URL;
-import java.util.TimeZone;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -34,6 +33,16 @@ public class UrlTransform implements Transform {
 	public String generateWriteProperty(ModelProperty property) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(property, "null")+";", beanName);
+	}
+	
+	@Override
+	public String generateColumnType(ModelProperty property) {
+		return "TEXT";
 	}
 
 }

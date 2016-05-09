@@ -53,16 +53,19 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoun
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
-import com.abubusoft.kripton.processor.sqlite.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.sqlite.ClassTableGenerator;
-import com.abubusoft.kripton.processor.sqlite.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.CursorGenerator;
 import com.abubusoft.kripton.processor.sqlite.DaoGenerator;
-import com.abubusoft.kripton.processor.sqlite.SQLEntity;
-import com.abubusoft.kripton.processor.sqlite.SQLiteModel;
-import com.abubusoft.kripton.processor.sqlite.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.sqlite.DatabaseGenerator;
+import com.abubusoft.kripton.processor.sqlite.TableGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidSQLDaoDefinitionException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.SQLPrimaryKeyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.SQLPrimaryKeyNotValidTypeException;
+import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.StringUtility;
 
 public class SQLiteProcessor extends AbstractProcessor {
@@ -75,7 +78,9 @@ public class SQLiteProcessor extends AbstractProcessor {
 
 	private Messager messager;
 
-	private SQLEntity currentKriptonClass;
+	private SQLEntity currentEntity;
+
+	private SQLiteDatabaseSchema currentSchema;
 
 	private SQLiteModel model;
 
@@ -135,7 +140,8 @@ public class SQLiteProcessor extends AbstractProcessor {
 		}
 
 		try {
-			model.clear();
+			model.schemaClear();
+
 			Map<String, Element> bindElements = new HashMap<String, Element>();
 
 			// Get all bind type
@@ -147,17 +153,23 @@ public class SQLiteProcessor extends AbstractProcessor {
 				bindElements.put(item.toString(), item);
 			}
 
+			ModelProperty property;
 			// Get all database schema definitions
 			for (Element item : roundEnv.getElementsAnnotatedWith(SQLDatabaseSchema.class)) {
 				if (item.getKind() != ElementKind.INTERFACE) {
 					error(item, "Only interfaces can be annotated with @%s annotation", SQLDatabaseSchema.class.getSimpleName());
 					return true;
 				}
-
-				ModelProperty property;
-
+				
 				// get all entity used within SQLDatabaseSchema annotation
 				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				
+				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
+				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
+				
+				currentSchema = new SQLiteDatabaseSchema((TypeElement) item, schemaFileName, schemaVersion);
+				model.schemaAdd(currentSchema);
+				
 				// define which annotation the annotation processor is interested in
 				AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
 				AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
@@ -166,13 +178,13 @@ public class SQLiteProcessor extends AbstractProcessor {
 					if (bindElements.containsKey(c)) {
 						TypeElement classElement = (TypeElement) bindElements.get(c);
 
-						currentKriptonClass = new SQLEntity(classElement);
-						AnnotationUtility.buildAnnotations(elementUtils, currentKriptonClass, classAnnotationFilter);
+						currentEntity = new SQLEntity(classElement);
+						AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
-						if (currentKriptonClass.containsAnnotation(BindAllFields.class)) {
-							PropertyUtility.buildProperties(elementUtils, currentKriptonClass, propertyAnnotationFilter);
+						if (currentEntity.containsAnnotation(BindAllFields.class)) {
+							PropertyUtility.buildProperties(elementUtils, currentEntity, propertyAnnotationFilter);
 						} else {
-							PropertyUtility.buildProperties(elementUtils, currentKriptonClass, propertyAnnotationFilter, new PropertyCreatedListener() {
+							PropertyUtility.buildProperties(elementUtils, currentEntity, propertyAnnotationFilter, new PropertyCreatedListener() {
 
 								@Override
 								public boolean onProperty(ModelProperty property) {
@@ -185,18 +197,23 @@ public class SQLiteProcessor extends AbstractProcessor {
 						}
 
 						// check primary key
-						property = currentKriptonClass.getPrimaryKey();
+						property = currentEntity.getPrimaryKey();
 						if (property == null)
-							throw (new SQLPrimaryKeyNotFoundException(currentKriptonClass));
+							throw (new SQLPrimaryKeyNotFoundException(currentEntity));
 
 						if (!property.isType(Long.TYPE, Long.class))
-							throw (new SQLPrimaryKeyNotValidTypeException(currentKriptonClass, property));
+							throw (new SQLPrimaryKeyNotValidTypeException(currentEntity, property));
 
-						model.entityAdd(currentKriptonClass);
+						currentSchema.entityAdd(currentEntity);
 					}
 				}
 			}
 
+			if (model.schemaCount() > 1) {
+				// TODO improve schema management (more than one)
+				error(null, "Only one interface can be defined in project @%s annotation", SQLDatabaseSchema.class.getSimpleName());
+				return true;
+			}
 
 			// define methods to ignore
 			final Set<String> excludedMethods = new HashSet<String>();
@@ -207,8 +224,8 @@ public class SQLiteProcessor extends AbstractProcessor {
 			excludedMethods.add("equals");
 			excludedMethods.add("hashCode");
 			excludedMethods.add("getClass");
-			
-			// Get all dao definitions 
+
+			// Get all dao definitions
 			for (Element daoItem : roundEnv.getElementsAnnotatedWith(SQLDao.class)) {
 				if (daoItem.getKind() != ElementKind.INTERFACE) {
 					error(daoItem, "Only interfaces can be annotated with @%s annotation", SQLDao.class.getSimpleName());
@@ -222,7 +239,7 @@ public class SQLiteProcessor extends AbstractProcessor {
 					throw (new InvalidSQLDaoDefinitionException(currentDaoDefinition));
 				}
 
-				model.daoAdd(currentDaoDefinition);
+				currentSchema.add(currentDaoDefinition);
 				logger.info("Dao... " + currentDaoDefinition.getName() + " " + entityClassName + " " + bindElements.containsKey(currentDaoDefinition.getEntityClassName()));
 
 				// create method for dao
@@ -230,14 +247,14 @@ public class SQLiteProcessor extends AbstractProcessor {
 
 					@Override
 					public void onMethod(ExecutableElement element) {
-						if (excludedMethods.contains(element.getSimpleName().toString())) return;
-						
+						if (excludedMethods.contains(element.getSimpleName().toString()))
+							return;
+
 						// add method
 						final SQLiteModelMethod currentMethod = new SQLiteModelMethod((ExecutableElement) element);
 						currentDaoDefinition.add(currentMethod);
 
 						AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
-
 
 							@Override
 							public void onAnnotation(Element element, String annotationClassName, Map<String, String> attributes) {
@@ -278,14 +295,16 @@ public class SQLiteProcessor extends AbstractProcessor {
 			}
 
 			// generate table java
-			ClassTableGenerator.generate(elementUtils, filer, model);
-			DaoGenerator.generate(elementUtils, filer, model);
+			TableGenerator.generate(elementUtils, filer, currentSchema);
+			DaoGenerator.generate(elementUtils, filer, currentSchema);
+			CursorGenerator.generate(elementUtils, filer, currentSchema);
+			DatabaseGenerator.generate(elementUtils, filer, currentSchema);
 
-			logger.info(model.toString());
+			logger.info(currentSchema.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			error(null,e.getMessage());
+			error(null, e.getMessage());
 		}
 
 		return true;
@@ -317,11 +336,11 @@ public class SQLiteProcessor extends AbstractProcessor {
 			}
 		}
 
-		PropertyUtility.buildProperties(elementUtils, currentKriptonClass, null);
+		PropertyUtility.buildProperties(elementUtils, currentEntity, null);
 
 		BinderWriter writer = BinderFactory.getJSONWriter(BinderOptions.build().indent(true));
 
-		logger.info(writer.write(currentKriptonClass));
+		logger.info(writer.write(currentEntity));
 
 	}
 

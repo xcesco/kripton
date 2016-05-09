@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 
 public class SQLUtility {
 	private static final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w]*)\\s*\\}");
@@ -62,5 +65,40 @@ public class SQLUtility {
 
 		return result;
 	}
+
+	/**
+	 * Convert java property name in sql column name.
+	 */
+	static Converter<String, String> field2ColumnConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 	
+	/**
+	 * Convert java property name in sql column name.
+	 */
+	static Converter<String, String> field2ColumnNameFromTableConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
+
+	/**
+	 * Obtain column name for property
+	 * 
+	 * @param property
+	 * @return column name
+	 */
+	public static String getColumnName(ModelProperty property) {
+		return getColumnName(property.getName());
+	}
+
+	/**
+	 * Obtain column name for property
+	 * 
+	 * @param property
+	 * @return column name
+	 */
+	public static String getColumnName(String propertyName) {
+		return field2ColumnConverter.convert(propertyName);
+	}
+	
+	public static String nameFromTable(ModelClass entity, ModelProperty property)
+	{
+		return entity.getSimpleName()+"Table."+field2ColumnNameFromTableConverter.convert(property.getName());
+	}
+
 }

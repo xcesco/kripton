@@ -63,7 +63,7 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 			case PRIMARY_KEY:
 				sb.append(" primary key autoincrement");
 				break;
-			case UNIQUE_KEY:
+			case UNIQUE:
 				sb.append(" unique");
 				break;
 			case FOREIGN_KEY:
@@ -78,11 +78,11 @@ public class SQLiteHandler extends DatabaseHandler<SQLiteSchema, SQLiteInsert, S
 
 				sbOther.append(", foreign key(" + column.name + ") references " + primaryTable.name + "(" + primaryTable.primaryKey.name + ")");
 
-				break;
+				break;			
 			default:
 				break;
 			}
-
+			
 			// nullable
 			if (column.feature != ColumnType.PRIMARY_KEY && !column.schema.getColumnInfo().nullable) {
 				sb.append(" not null");

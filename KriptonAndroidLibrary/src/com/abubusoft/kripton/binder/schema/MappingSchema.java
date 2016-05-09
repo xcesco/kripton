@@ -502,10 +502,7 @@ public class MappingSchema {
 					counters.primaryKeyCount++;
 					break;
 				case FOREIGN_KEY:
-				case INDEX:
-				case MAP_KEY:
-				case MAP_VALUE:
-				case UNIQUE_KEY:
+				case UNIQUE:
 					break;
 				}
 

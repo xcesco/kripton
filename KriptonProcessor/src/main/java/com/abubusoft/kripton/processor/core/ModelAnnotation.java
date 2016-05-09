@@ -2,7 +2,7 @@ package com.abubusoft.kripton.processor.core;
 
 import java.util.Map;
 
-import com.abubusoft.kripton.processor.sqlite.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 
 public class ModelAnnotation {
 

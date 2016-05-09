@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite.exceptions;
 
 import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.sqlite.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
 import com.squareup.javapoet.TypeName;
 
 public class InvalidReturnTypeException extends SQLiteProcessorException {

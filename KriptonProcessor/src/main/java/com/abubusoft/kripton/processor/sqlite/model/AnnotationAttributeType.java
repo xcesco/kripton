@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.processor.sqlite;
+package com.abubusoft.kripton.processor.sqlite.model;
 
 import javax.lang.model.element.Element;
 
@@ -15,10 +15,15 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_VALUE("value"),
 	ATTRIBUTE_EXCLUDED_FIELDS("excludedFields"),	
 	ATTRIBUTE_DISTINCT("distinct"),
+	
 	ATTRIBUTE_WHERE("where"),	
 	ATTRIBUTE_HAVING("having"),
 	ATTRIBUTE_GROUP_BY("groupBy"),
-	ATTRIBUTE_ORDER_BY("orderBy");
+	ATTRIBUTE_ORDER_BY("orderBy"),
+	ATTRIBUTE_NULLABLE("nullable"),
+	ATTRIBUTE_FILENAME("fileName"),
+	ATTRIBUTE_VERSION("version");
+	
 	
 	private String value;
 	

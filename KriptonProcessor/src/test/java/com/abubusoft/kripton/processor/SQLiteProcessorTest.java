@@ -24,7 +24,7 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kritpon.example01.Channel;
 import com.abubusoft.kritpon.example01.ChannelMessage;
 import com.abubusoft.kritpon.example01.DaoChannelMessage;
-import com.abubusoft.kritpon.example01.DummyDatabase;
+import com.abubusoft.kritpon.example01.DummyDatabaseSchema;
 import com.google.common.truth.FailureStrategy;
 import com.google.common.truth.TestVerb;
 import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
@@ -41,7 +41,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 		 * assert_().about(javaSource()) .that(JavaFileObjects.forSourceString("HelloWorld", "final class HelloWorld {}")) .compilesWithoutError();
 		 */
 
-		JavaFileObject source = getSourceFile(PathSourceType.SRC_TEST_JAVA, DummyDatabase.class);
+		JavaFileObject source = getSourceFile(PathSourceType.SRC_TEST_JAVA, DummyDatabaseSchema.class);
 		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new SQLiteProcessor()).compilesWithoutError();
 		GenerationClause<SuccessfulCompilationClause> sources = result.and().generatesSources();
 
@@ -73,7 +73,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 		//@formatter:off
 		SuccessfulCompilationClause result = assertAbout(javaSources()).that(
 				sources(
-						DummyDatabase.class,
+						DummyDatabaseSchema.class,
 						ChannelMessage.class, Channel.class,
 						DaoChannelMessage.class//, DaoChannel.class
 				))

@@ -6,6 +6,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.core.ModelClass;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 
 public class TypeUtility {
@@ -33,6 +34,28 @@ public class TypeUtility {
 	public static boolean isEquals(TypeName value, ModelClass entity) {
 		return isSameType(value, entity.getName()); 		
 	}
+	
+	/**
+	 * Generate class name
+	 * @param packageName
+	 * @param className
+	 * @return
+	 * 		class name generated
+	 */
+	public static ClassName className(String packageName, String className) {
+		return ClassName.get(packageName, className);
+	}
+	
+	/**
+	 * Generate class name
+	 * @param className
+	 * @return
+	 * 		class name generated
+	 */
+	public static ClassName className(String className) {
+		return ClassName.get("", className);
+	}
+
 	
 	/**
 	 * Convert a type in a typeName

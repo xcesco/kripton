@@ -114,6 +114,15 @@ class DateTransform implements Transform {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(property, "null")+";", beanName);
+	}
 
+	@Override
+	public String generateColumnType(ModelProperty property) {
+		return "TEXT";
+	}
 
 }

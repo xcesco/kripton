@@ -25,6 +25,23 @@ public interface Transform {
 	 * @return generated code to write property
 	 */
 	public String generateWriteProperty(ModelProperty property);
+
+	/**
+	 * Generate code to set property  to null value or default value
+	 * @param methodBuilder
+	 * @param property
+	 * @param beanName
+	 * @param cursorName
+	 * @param indexName
+	 */
+	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName);
+
+	/**
+	 * Generate code to define column 
+	 * 
+	 * @param property
+	 */
+	public String generateColumnType(ModelProperty property);
 	
 	
 }

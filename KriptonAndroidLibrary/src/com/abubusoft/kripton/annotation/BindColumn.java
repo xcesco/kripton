@@ -19,28 +19,26 @@ import com.abubusoft.kripton.binder.database.ColumnType;
 @Target(ElementType.FIELD)
 public @interface BindColumn {
 
-	public final static boolean NULLABLE_DEFAULT = true;
+	static boolean NULLABLE_DEFAULT = true;
 
 	/**
-	 * Name of the column. If not present, the column name is same of field. It
-	 * must be specified in java style naming conventions.
+	 * Name of the column. If not present, the column name is same of field. It must be specified in java style naming conventions.
 	 * 
-	 * @return
-	 * 		name of the column
+	 * @return name of the column
 	 */
 	public String name() default "";
 
 	/**
 	 * Type of column
-	 * @return
-	 * 		type of the column
+	 * 
+	 * @return type of the column
 	 */
 	public ColumnType value() default ColumnType.STANDARD;
 
 	/**
-	 * If true the column can be nullable.
-	 * @return
-	 * 		true if column can ben null
+	 * if true, column can be set to null
+	 * 
+	 * @return if true, column can be set to null
 	 */
 	public boolean nullable() default NULLABLE_DEFAULT;
 

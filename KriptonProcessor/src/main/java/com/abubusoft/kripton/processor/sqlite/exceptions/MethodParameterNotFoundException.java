@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite.exceptions;
 
 import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.sqlite.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
 
 public class MethodParameterNotFoundException extends SQLiteProcessorException {
  

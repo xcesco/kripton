@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite.exceptions;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 
 public class SQLPrimaryKeyNotValidTypeException extends SQLiteProcessorException {
 

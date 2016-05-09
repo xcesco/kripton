@@ -21,5 +21,23 @@ public @interface SQLDatabaseSchema {
 	 * 		class to include in the database schema
 	 */
 	Class<?>[] value();
+	
+	/**
+	 * Name of database file
+	 * 
+	 * @return
+	 * 		database name
+	 */
+	String fileName();
+	
+	/**
+	 * Database version
+	 * 
+	 * @return
+	 * 		database version
+	 */
+	int version() default 1;
+	
+	
 
 }

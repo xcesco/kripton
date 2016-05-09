@@ -28,7 +28,7 @@ public class BeanTest2_Detail {
 	@BindColumn(ColumnType.PRIMARY_KEY)
 	public long id;
 	
-	@BindColumn(nullable=false, value=ColumnType.FOREIGN_KEY)
+	@BindColumn(value=ColumnType.FOREIGN_KEY)
 	public BeanTest2_Master master;
 	
 	public URL url;

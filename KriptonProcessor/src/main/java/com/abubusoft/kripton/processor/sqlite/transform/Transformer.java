@@ -65,6 +65,7 @@ public class Transformer {
 	 * 
 	 * @param type
 	 * @return
+	 * 		transform
 	 */
 	public static Transform lookup(TypeName type) {
 		Transform transform = cache.get(type);
@@ -137,28 +138,27 @@ public class Transformer {
 	private static Transform getPrimitiveTransform(TypeName type) {
 
 		if (Integer.TYPE.toString().equals(type.toString())) {
-			return new IntegerTransform();
+			return new IntegerTransform(false);
 		}
 		if (Boolean.TYPE.toString().equals(type.toString())) {
-			return new BooleanTransform();
+			return new BooleanTransform(false);
 		}
 		if (Long.TYPE.toString().equals(type.toString())) {
-			return new LongTransform();
+			return new LongTransform(false);
 		}
 		if (Double.TYPE.toString().equals(type.toString())) {
-			return new DoubleTransform();
+			return new DoubleTransform(false);
 		}
 		if (Float.TYPE.toString().equals(type.toString())) {
-			return new FloatTransform();
+			return new FloatTransform(false);
 		}
 		if (Short.TYPE.toString().equals(type.toString())) {
-			return new ShortTransform();
+			return new ShortTransform(false);
 		}
 		if (Byte.TYPE.toString().equals(type.toString())) {
-			return new ByteTransform();
+			return new ByteTransform(false);
 		}
 		if (Character.TYPE.toString().equals(type.toString())) {
-			return new CharacterTransform();
 		}
 		return null;
 	}
@@ -173,28 +173,28 @@ public class Transformer {
 		String typeName = type.toString();
 
 		if (Integer.class.getCanonicalName().equals(typeName)) {
-			return new IntegerTransform();
+			return new IntegerTransform(true);
 		}
 		if (Boolean.class.getCanonicalName().equals(typeName)) {
-			return new BooleanTransform();
+			return new BooleanTransform(true);
 		}
 		if (Long.class.getCanonicalName().equals(typeName)) {
-			return new LongTransform();
+			return new LongTransform(true);
 		}
 		if (Double.class.getCanonicalName().equals(typeName)) {
-			return new DoubleTransform();
+			return new DoubleTransform(true);
 		}
 		if (Float.class.getCanonicalName().equals(typeName)) {
-			return new FloatTransform();
+			return new FloatTransform(true);
 		}
 		if (Short.class.getCanonicalName().equals(typeName)) {
-			return new ShortTransform();
+			return new ShortTransform(true);
 		}
 		if (Byte.class.getCanonicalName().equals(typeName)) {
-			return new ByteTransform();
+			return new ByteTransform(true);
 		}
 		if (Character.class.getCanonicalName().equals(typeName)) {
-			return new CharacterTransform();
+			return new CharacterTransform(true);
 		}
 		if (String.class.getCanonicalName().equals(typeName)) {
 			return new StringTransform();
@@ -239,6 +239,26 @@ public class Transformer {
 			return new TimeZoneTransform();
 		}
 		return null;
+	}
+
+	public static void resetBean(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+		Transform transform = lookup(typeName(property.getElement().asType()));
+
+		if (transform == null) {
+			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
+		}
+		transform.generateResetProperty(methodBuilder, property, beanName, cursorName, indexName);
+		
+	}
+
+	public static String columnType(ModelProperty property) {
+		Transform transform = lookup(typeName(property.getElement().asType()));
+
+		if (transform == null) {
+			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
+		}
+		return transform.generateColumnType(property);
+		
 	}
 
 }

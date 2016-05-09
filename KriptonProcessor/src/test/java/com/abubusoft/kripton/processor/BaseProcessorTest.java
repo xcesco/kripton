@@ -15,7 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.abubusoft.kritpon.example01.ChannelMessage;
-import com.abubusoft.kritpon.example01.DummyDatabase;
+import com.abubusoft.kritpon.example01.DummyDatabaseSchema;
 import com.google.testing.compile.JavaFileObjects;
 
 public class BaseProcessorTest {

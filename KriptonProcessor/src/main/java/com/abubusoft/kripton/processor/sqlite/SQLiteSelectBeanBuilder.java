@@ -20,6 +20,11 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidReturnTypeException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyNotFoundException;
+import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
@@ -41,7 +46,7 @@ public abstract class SQLiteSelectBeanBuilder {
 	 * @param daoDefinition
 	 * @param method
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteModel model, DaoDefinition daoDefinition, SQLiteModelMethod method) {
+	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, DaoDefinition daoDefinition, SQLiteModelMethod method) {
 SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		
 		// separate params used for update bean and params used in whereCondition

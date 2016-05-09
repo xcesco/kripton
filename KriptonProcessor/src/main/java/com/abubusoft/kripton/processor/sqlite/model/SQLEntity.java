@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.processor.sqlite;
+package com.abubusoft.kripton.processor.sqlite.model;
 
 import java.lang.annotation.Annotation;
 

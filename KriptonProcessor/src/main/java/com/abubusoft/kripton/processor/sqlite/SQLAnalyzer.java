@@ -15,6 +15,8 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 
 /**
  * Analyze an SQL statement, extract parameter and replace with ?
@@ -29,11 +31,6 @@ public class SQLAnalyzer {
 	private final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");
 
 	Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-
-	/**
-	 * Convert java property name in sql column name.
-	 */
-	Converter<String, String> property2ColumnConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	private List<String> paramNames;
 	
@@ -92,7 +89,7 @@ public class SQLAnalyzer {
 			while (matcher.find()) {
 				ModelProperty property = entity.findByName(matcher.group(1));
 				if (property != null) {
-					matcher.appendReplacement(buffer, property2ColumnConverter.convert(matcher.group(1)));
+					matcher.appendReplacement(buffer, SQLUtility.getColumnName(matcher.group(1)));
 				}
 
 			}

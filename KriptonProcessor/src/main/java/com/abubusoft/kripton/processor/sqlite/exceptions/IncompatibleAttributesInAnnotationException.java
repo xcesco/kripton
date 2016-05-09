@@ -2,8 +2,8 @@ package com.abubusoft.kripton.processor.sqlite.exceptions;
 
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.sqlite.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.sqlite.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
 
 public class IncompatibleAttributesInAnnotationException extends SQLiteProcessorException {
  

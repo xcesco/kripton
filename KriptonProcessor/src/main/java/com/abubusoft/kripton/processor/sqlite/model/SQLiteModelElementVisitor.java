@@ -1,4 +1,5 @@
-package com.abubusoft.kripton.processor.sqlite;
+package com.abubusoft.kripton.processor.sqlite.model;
+
 
 
 public interface SQLiteModelElementVisitor {

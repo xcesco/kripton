@@ -67,6 +67,17 @@ public class DaoChannelMessageBase /* implements DaoChannelMessage */{
 		int result = database.delete("contacts", "where id=?", whereConditions);
 		return result;
 	}
+	
+	/**
+	 * Listener to use when 
+	 * 
+	 * @author xcesco
+	 *
+	 */
+	public interface OnChannelMessageListener
+	{
+		void onRow(int row, ChannelMessage bean);
+	}
 
 	/**
 	 * <p>
@@ -98,7 +109,7 @@ public class DaoChannelMessageBase /* implements DaoChannelMessage */{
 	 *            caio2
 	 */
 	public List<ChannelMessage> selectList(ChannelMessage bean, long uid) {
-	    String[] args={String.valueOf(bean.isValid()), String.valueOf(uid)};
+	    String[] args={String.valueOf(bean.isValid()), String.valueOf(uid)};	    
 	    Cursor cursor = database.rawQuery("select distinct id, owner_uid, text, type, update_time, valid from channel_message where id = ? having uid = ? ", args);
 
 	    LinkedList<ChannelMessage> resultList=new LinkedList<ChannelMessage>();
@@ -114,7 +125,6 @@ public class DaoChannelMessageBase /* implements DaoChannelMessage */{
 	    	cursor.getColumnIndex("type"),
 	    	cursor.getColumnIndex("update_time"),
 	    	cursor.getColumnIndex("valid")
-	    	
 	    	};
 	    	
 	    	do {
@@ -126,7 +136,11 @@ public class DaoChannelMessageBase /* implements DaoChannelMessage */{
 	    }
 	    
 	    cursor.close();
+	    
+	    
 
 	    return resultList;
 	  }
+	
+
 }

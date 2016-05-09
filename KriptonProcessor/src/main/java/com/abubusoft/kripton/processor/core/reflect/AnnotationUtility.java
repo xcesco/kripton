@@ -14,15 +14,15 @@ import java.util.regex.Pattern;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.annotation.SQLDatabaseSchema;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
+import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelWithAnnotation;
-import com.abubusoft.kripton.processor.sqlite.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 
 public class AnnotationUtility {
 
@@ -116,19 +116,17 @@ public class AnnotationUtility {
 	 * 		attribute value extracted as array of class name
 	 */
 	public static List<String> extractAsClassNameArray(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
-		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(item);
-		for (AnnotationMirror annotation : annotationList) {
-			if (annotationClass.getCanonicalName().equals(annotation.getAnnotationType().asElement().toString())) {
-				for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : elementUtils.getElementValuesWithDefaults(annotation).entrySet()) {
-					if (attributeName.isEquals(annotationItem.getKey())) {
-						return AnnotationUtility.extractAsArrayOfClassName(annotationItem.getValue().toString());
-
-					}
-				}
+		final Result<List<String>> result=new Result<List<String>>(); 
+		
+		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
+			
+			@Override
+			public void onFound(String value) {
+				result.value=AnnotationUtility.extractAsArrayOfClassName(value);				
 			}
-		}
-
-		return null;
+		});
+		
+		return result.value;			
 	}
 
 	/**
@@ -141,21 +139,76 @@ public class AnnotationUtility {
 	 * @return attribute value extracted as class name
 	 */
 	public static String extractAsClassName(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+		final Result<String> result=new Result<String>(); 
+		
+		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
+			
+			@Override
+			public void onFound(String value) {
+				result.value=AnnotationUtility.extractAsArrayOfClassName(value).get(0);				
+			}
+		});
+		
+		return result.value;				
+	}
+	
+	/**
+	 * Extract from an annotation of a method the attribute value specified.
+	 * 
+	 * @param elementUtils
+	 * @param item
+	 * @param annotationClass
+	 * @param attributeName
+	 * @return attribute value extracted as class name
+	 */
+	public static String extractAsString(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+		final Result<String> result=new Result<String>(); 
+		
+		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
+			
+			@Override
+			public void onFound(String value) {
+				result.value=AnnotationUtility.extractAsArrayOfString(value).get(0);				
+			}
+		});
+		
+		return result.value;				
+	}
+	
+	static class Result<T>
+	{
+		T value;
+	}
+	
+	
+	interface OnAttributeFoundListener
+	{
+		void onFound(String value);
+	}
+	
+	static void extractString(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName, OnAttributeFoundListener listener) {
+		extractAttributeValue(elementUtils, item, annotationClass.getCanonicalName(), attributeName, listener);
+	}
+	
+	/**
+	 * Extract from an annotation of a method the attribute value specified.
+	 * 
+	 */
+	static void extractAttributeValue(Elements elementUtils, Element item, String annotationName, AnnotationAttributeType attributeName, OnAttributeFoundListener listener) {
 		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(item);
 		for (AnnotationMirror annotation : annotationList) {
 
-			if (annotationClass.getCanonicalName().equals(annotation.getAnnotationType().asElement().toString())) {
+			if (annotationName.equals(annotation.getAnnotationType().asElement().toString())) {
 				// found annotation
 				for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : elementUtils.getElementValuesWithDefaults(annotation).entrySet()) {
 					if (attributeName.isEquals(annotationItem.getKey())) {
-						// found attribute
-						return AnnotationUtility.extractAsArrayOfClassName(annotationItem.getValue().toString()).get(0);
+						
+						listener.onFound(annotationItem.getValue().toString());
+						return;
 					}
 				}
 			}
 		}
-
-		return null;
 	}
 
 	/**
@@ -171,23 +224,18 @@ public class AnnotationUtility {
 	 * @return attribute value as list of string
 	 */
 	public static List<String> extractAsStringArray(Elements elementUtils, ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attributeName) {
-		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(method.getElement());
-		for (AnnotationMirror item : annotationList) {
-			if (annotationClass.getName().equals(item.getAnnotationType().asElement().toString())) {
-				// found annotation
-				for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : elementUtils.getElementValuesWithDefaults(item).entrySet()) {
-					// found attribute
-					if (attributeName.isEquals(annotationItem.getKey())) {
-						// get value
-						return AnnotationUtility.extractAsArrayOfString(annotationItem.getValue().toString());
-					}
-				}
+		final Result<List<String>> result=new Result<List<String>>();
+		extractAttributeValue(elementUtils, method.getElement(), annotationClass.getName(), attributeName, new OnAttributeFoundListener() {
+			
+			@Override
+			public void onFound(String value) {
+				result.value=AnnotationUtility.extractAsArrayOfString(value);
 			}
-		}
+		});
 
-		return new ArrayList<>();
+		return result.value;				
 	}
-
+	
 	/**
 	 * Estract from an annotation of a method the attribute value specified
 	 * 
@@ -201,22 +249,44 @@ public class AnnotationUtility {
 	 * @return attribute value as list of string
 	 */
 	public static String extractAsString(Elements elementUtils, ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attributeName) {
-		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(method.getElement());
-		for (AnnotationMirror item : annotationList) {
-			if (annotationClass.getName().equals(item.getAnnotationType().asElement().toString())) {
-				// found annotation
-				for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : elementUtils.getElementValuesWithDefaults(item).entrySet()) {
-					// found attribute
-					if (attributeName.isEquals(annotationItem.getKey())) {
-						// get value
-						return AnnotationUtility.extractAsArrayOfString(annotationItem.getValue().toString()).get(0);
-					}
-				}
+		final Result<String> result=new Result<String>(); 
+		
+		extractAttributeValue(elementUtils, method.getElement(), annotationClass.getName(), attributeName, new OnAttributeFoundListener() {
+			
+			@Override
+			public void onFound(String value) {
+				result.value=AnnotationUtility.extractAsArrayOfString(value).get(0);				
 			}
-		}
+		});
+		
+		return result.value;		
+	}
 
-		return null;
-
+	/**
+	 * Estract from an annotation of a property the attribute value specified
+	 * 
+	 * @param elementUtils
+	 * @param property
+	 *            property to analyze
+	 * @param annotationClass
+	 *            annotation to analyze
+	 * @param attributeName
+	 *            attribute name to analyze
+	 * @return attribute value as list of string
+	 */
+	public static String extractAsEnumerationValue(Elements elementUtils, ModelProperty property, ModelAnnotation annotationClass, AnnotationAttributeType attributeName) {
+		final Result<String> result=new Result<String>(); 
+		
+		extractAttributeValue(elementUtils, property.getElement(), annotationClass.getName(), attributeName, new OnAttributeFoundListener() {
+			
+			@Override
+			public void onFound(String value) {
+							
+				result.value=value.substring(value.lastIndexOf(".")+1);							
+			}
+		});
+		
+		return result.value;		
 	}
 
 	/**
@@ -298,6 +368,20 @@ public class AnnotationUtility {
 			return new AnnotationFilter(set);
 		}
 
+	}
+
+	public static int extractAsInt(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+		final Result<Integer> result=new Result<Integer>(); 
+		
+		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
+			
+			@Override
+			public void onFound(String value) {
+				result.value=Integer.parseInt(value);				
+			}
+		});
+		
+		return result.value;			
 	}
 
 }

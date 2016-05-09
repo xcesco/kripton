@@ -111,8 +111,7 @@ public class ElementSchema extends AbstractSchema {
 			columnInfo.name = this.getName();
 			if (!"".equals(bindColumnAnnotation.name())) {
 				columnInfo.name = bindColumnAnnotation.name();
-			}
-			columnInfo.nullable = bindColumnAnnotation.nullable();
+			}			
 		}
 
 		final Class<?> typeArray[] = { Integer.TYPE, Character.TYPE, Byte.TYPE, Short.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
