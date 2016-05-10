@@ -1,32 +1,20 @@
 package com.abubusoft.kripton.processor.sqlite;
 
-import java.util.Date;
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.annotation.BindColumn;
-import com.abubusoft.kripton.binder.database.ColumnType;
-import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelClass;
-import com.abubusoft.kripton.processor.core.ModelElementVisitor;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.ModelType;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
-import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
-import com.squareup.javapoet.CodeBlock;
+import com.google.common.base.CaseFormat;
+import com.google.common.base.Converter;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 
 /**
  * Generates database class
@@ -39,8 +27,6 @@ public class DatabaseGenerator extends AbstractCodeGenerator  {
 	public static final String SUFFIX = "Database";
 	
 	public static final String SUFFIX_TO_REMOVE = "Schema";
-
-	private Converter<String, String> columnNameConverter;
 
 	public DatabaseGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
@@ -61,6 +47,8 @@ public class DatabaseGenerator extends AbstractCodeGenerator  {
 	}
 
 	public void buildDatabase(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
+		
 		String schemaName =  schema.getName();
 		if (schemaName.endsWith(SUFFIX_TO_REMOVE))
 		{
@@ -80,8 +68,23 @@ public class DatabaseGenerator extends AbstractCodeGenerator  {
 		
 		// define static fields
 		builder.addField(className(schemaName), "instance", Modifier.PRIVATE, Modifier.STATIC);
+		
 		builder.addField(FieldSpec.builder(String.class, "name", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$S", schema.fileName).build());
+		
 		builder.addField(FieldSpec.builder(Integer.TYPE, "version", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$L", schema.version).build());
+		
+		
+		for (DaoDefinition dao : schema.getCollection()) {
+			builder.addField(FieldSpec.builder(className(dao.getName()+"Impl"),convert.convert(dao.getName()), Modifier.PROTECTED).build());
+			
+			MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).returns(className(dao.getName()));
+			methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
+			builder.addMethod(methodBuilder.build());
+		}
+		
+		//builder.addField(FieldSpec.builder(className("DaoInteger.TYPE, "version", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$L", schema.version).build());			
+		
+		
 		/*
 		SQLEntity entity=(SQLEntity) modelEntity;
 

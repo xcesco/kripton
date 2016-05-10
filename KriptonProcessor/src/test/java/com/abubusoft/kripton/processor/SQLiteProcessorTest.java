@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -42,9 +44,11 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 		 */
 
 		JavaFileObject source = getSourceFile(PathSourceType.SRC_TEST_JAVA, DummyDatabaseSchema.class);
-		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new SQLiteProcessor()).compilesWithoutError();
+		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
 		GenerationClause<SuccessfulCompilationClause> sources = result.and().generatesSources();
-
+				
+		assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
+		
 		sources.forAllOfWhich(new CompilationResultsConsumer() {
 
 			@Override
@@ -70,27 +74,32 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 
 	@Test
 	public void testMultiple() throws IOException {
+		
+		final List<JavaFileObject> sourcesPhase2=new ArrayList<JavaFileObject>();
+		
+		final List<JavaFileObject> sourcesPhase1=sources(
+				DummyDatabaseSchema.class,
+				ChannelMessage.class, Channel.class,
+				DaoChannelMessage.class//, DaoChannel.class
+		);
+		
 		//@formatter:off
-		SuccessfulCompilationClause result = assertAbout(javaSources()).that(
-				sources(
-						DummyDatabaseSchema.class,
-						ChannelMessage.class, Channel.class,
-						DaoChannelMessage.class//, DaoChannel.class
-				))
-				.processedWith(new SQLiteProcessor()).compilesWithoutError();
+		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
+				sourcesPhase1).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
 		//@formatter:on
-		GenerationClause<SuccessfulCompilationClause> sources = result.and().generatesSources();
+		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
 
-		sources.forAllOfWhich(new CompilationResultsConsumer() {
+		
+		resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
 
 			@Override
-			public void accept(Map<String, JavaFileObject> t) {
-
+			public void accept(Map<String, JavaFileObject> t) {				
 				for (Entry<String, JavaFileObject> item : t.entrySet()) {
 					logger.info("item " + item.getKey());
 					try {
+						sourcesPhase2.add(item.getValue());
 						logger.info("-------\n" + getStringFromInputStream(item.getValue().openInputStream()));
-						assertAbout(javaSource()).that(item.getValue()).compilesWithoutError();
+						//assertAbout(javaSource()).that(item.getValue()).compilesWithoutError();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -98,6 +107,32 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 
 			}
 		});
+		
+		/*
+		logger.info("===========================================================");
+		
+		sourcesPhase2.addAll(sourcesPhase1);
+		//@formatter:off
+		SuccessfulCompilationClause result2 = assertAbout(javaSources()).that(sourcesPhase2).processedWith(new DatabaseProcessor()).compilesWithoutError();
+		GenerationClause<SuccessfulCompilationClause> resultPhase2 = result2.and().generatesSources();
+		//@formatter:on
+		resultPhase2.forAllOfWhich(new CompilationResultsConsumer() {
+
+			@Override
+			public void accept(Map<String, JavaFileObject> t) {				
+				for (Entry<String, JavaFileObject> item : t.entrySet()) {
+					logger.info("item " + item.getKey());
+					try {						
+						logger.info("-------\n" + getStringFromInputStream(item.getValue().openInputStream()));
+						//assertAbout(javaSource()).that(item.getValue()).compilesWithoutError();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
+		});
+		*/
 
 		// .that(JavaFileObjects.forResource(Resources.getResource("HelloWorld.java")))compilesWithoutError();
 		// result.and().generatesFileNamed(StandardLocation.SOURCE_OUTPUT,"com.abubusoft.kripton.processor","EntityBeanConvert.java").withContents(ByteSource.empty());
@@ -119,7 +154,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 
 		JavaFileObject source = JavaFileObjects.forSourceLines(UserIdentity.class.getCanonicalName(), new String(buffer));
 		// assertAbout(javaSource).that()
-		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new SQLiteProcessor()).compilesWithoutError();
+		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
 
 		GenerationClause<SuccessfulCompilationClause> sources = result.and().generatesSources();
 

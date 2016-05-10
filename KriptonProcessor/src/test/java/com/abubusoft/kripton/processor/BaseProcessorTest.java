@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.tools.JavaFileObject;
@@ -14,8 +13,6 @@ import javax.tools.JavaFileObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.abubusoft.kritpon.example01.ChannelMessage;
-import com.abubusoft.kritpon.example01.DummyDatabaseSchema;
 import com.google.testing.compile.JavaFileObjects;
 
 public class BaseProcessorTest {

@@ -1,2 +1,2 @@
-#com.abubusoft.kripton.processor.BundleTypeProcessor
-com.abubusoft.kripton.processor.SQLiteProcessor
+com.abubusoft.kripton.processor.BindDatabaseProcessor
+

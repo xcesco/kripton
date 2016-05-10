@@ -68,7 +68,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.StringUtility;
 
-public class SQLiteProcessor extends AbstractProcessor {
+public class BindDatabaseProcessor extends AbstractProcessor {
 
 	Logger logger = Logger.getGlobal();
 
@@ -133,13 +133,15 @@ public class SQLiteProcessor extends AbstractProcessor {
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-		count++;
-		if (count > 1) {
-			logger.info("skip " + count);
-			return true;
-		}
 
 		try {
+
+			count++;
+			if (count > 1) {
+				logger.info("============================================== " + count);
+				return true;
+			}
+
 			model.schemaClear();
 
 			Map<String, Element> bindElements = new HashMap<String, Element>();
@@ -160,16 +162,16 @@ public class SQLiteProcessor extends AbstractProcessor {
 					error(item, "Only interfaces can be annotated with @%s annotation", SQLDatabaseSchema.class.getSimpleName());
 					return true;
 				}
-				
+
 				// get all entity used within SQLDatabaseSchema annotation
 				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
-				
+
 				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
 				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
-				
+
 				currentSchema = new SQLiteDatabaseSchema((TypeElement) item, schemaFileName, schemaVersion);
 				model.schemaAdd(currentSchema);
-				
+
 				// define which annotation the annotation processor is interested in
 				AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
 				AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
@@ -255,6 +257,7 @@ public class SQLiteProcessor extends AbstractProcessor {
 						currentDaoDefinition.add(currentMethod);
 
 						AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
+
 
 							@Override
 							public void onAnnotation(Element element, String annotationClassName, Map<String, String> attributes) {
