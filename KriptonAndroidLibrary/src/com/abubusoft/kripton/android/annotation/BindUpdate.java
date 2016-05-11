@@ -6,9 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE)
-@Target(ElementType.TYPE)
-public @interface SQLDao {
-
-	Class<?> value();
+@Target(ElementType.METHOD)
+public @interface BindUpdate {
+	
+	String where();
 
 }

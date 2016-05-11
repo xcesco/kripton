@@ -5,10 +5,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Allow to insert a bean into database.
+ * 
+ * @author xcesco
+ *
+ */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface SQLInsert {
-
+public @interface BindInsertBean {
+	
 	/**
 	 * properties to include into INSERT command
 	 * @return
@@ -22,5 +28,5 @@ public @interface SQLInsert {
 	 * 		property's names to exclude
 	 */
 	String[] excludedFields() default {};
-		
+	
 }

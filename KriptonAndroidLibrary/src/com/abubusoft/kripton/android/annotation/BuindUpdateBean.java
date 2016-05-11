@@ -7,9 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface SQLSelectBeanList {
-
-	boolean distinct() default false;
+public @interface BuindUpdateBean {
 
 	/**
 	 * properties to include into UPDATE command

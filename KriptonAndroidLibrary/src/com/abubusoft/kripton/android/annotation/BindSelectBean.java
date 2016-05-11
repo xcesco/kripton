@@ -7,10 +7,19 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface SQLUpdateBean {
-
+public @interface BindSelectBean {
+	
+	/**
+	 * if true, set distinct clause
+	 * 
+	 * @return
+	 * 		distinct clause
+	 */
+	boolean distinct() default false;
+	
 	/**
 	 * properties to include into UPDATE command
+	 * 
 	 * @return
 	 * 		property's names to include
 	 */
@@ -29,5 +38,32 @@ public @interface SQLUpdateBean {
 	 * @return
 	 * 		where condition
 	 */
-	String where();
+	String where() default "";
+	
+	/**
+	 * having statement
+	 * 
+	 * @return
+	 * 		having statement
+	 */
+	String having() default "";
+	
+	/**
+	 * having statement
+	 * 
+	 * @return
+	 * 		groupBy statement
+	 * 		
+	 */
+	String groupBy() default "";
+	
+	/**
+	 * order statement
+	 * 
+	 * @return
+	 * 		order statement
+	 */
+	String orderBy() default "";
+
+
 }

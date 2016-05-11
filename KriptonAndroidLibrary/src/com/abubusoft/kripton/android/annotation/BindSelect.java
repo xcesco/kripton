@@ -5,14 +5,27 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * @author xcesco
+ *
+ *
+ * @since 05/mag/2016
+ */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface SQLSelectScalar {
-
+public @interface BindSelect {
+	
+	/**
+	 * if true, set distinct clause
+	 * 
+	 * @return
+	 * 		distinct clause
+	 */
 	boolean distinct() default false;
-
+	
 	/**
 	 * properties to include into UPDATE command
+	 * 
 	 * @return
 	 * 		property's names to include
 	 */
@@ -31,5 +44,31 @@ public @interface SQLSelectScalar {
 	 * @return
 	 * 		where condition
 	 */
-	String where();
+	String where() default "";
+	
+	/**
+	 * having statement
+	 * 
+	 * @return
+	 * 		having statement
+	 */
+	String having() default "";
+	
+	/**
+	 * having statement
+	 * 
+	 * @return
+	 * 		groupBy statement
+	 * 		
+	 */
+	String groupBy() default "";
+	
+	/**
+	 * order statement
+	 * 
+	 * @return
+	 * 		order statement
+	 */
+	String orderBy() default "";
+
 }

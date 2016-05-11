@@ -5,16 +5,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * @author xcesco
- *
- *
- * @since 05/mag/2016
- */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface SQLSelect {
-	
+public @interface BindSelectBeanByListener {
+
 	/**
 	 * if true, set distinct clause
 	 * 
