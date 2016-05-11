@@ -1,12 +1,12 @@
 package com.abubusoft.kripton.android.sqlite;
 
-import com.abubusoft.kripton.android.annotation.BinderDaoDefinition;
+import com.abubusoft.kripton.android.annotation.BindDaoDefinition;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * This class become the parent class for every Dao generated. Every Dao have to be defined by an interface with {@link BinderDaoDefinition} annotation. 
+ * This class become the parent class for every Dao generated. Every Dao have to be defined by an interface with {@link BindDaoDefinition} annotation. 
  * 
  * @author xcesco
  *

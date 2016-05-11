@@ -1,7 +1,6 @@
 /**
+ * Annotation used to generate sqlite support for android platform.
  * 
- */
-/**
  * @author xcesco
  *
  */

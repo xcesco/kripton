@@ -8,14 +8,14 @@ import java.lang.annotation.Target;
 /**
  * <p>Decorate an database schema definition interface. This definition is needed to generate a {@link com.abubusoft.kripton.android.sqlite.AbstractDatabaseHelper} instance.</p>
  * 
- * <p>For every managed entity referred in {{@link #value()} attribute, will be used the associated {@link BinderDaoDefinition} definition.
+ * <p>For every managed entity referred in {{@link #value()} attribute, will be used the associated {@link BindDaoDefinition} definition.
  * 
  * @author xcesco
  *
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-public @interface BinderDatabaseSchema {
+public @interface BindDatabaseSchema {
 
 	/**
 	 * entity classes to include in the database schema
