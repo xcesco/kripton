@@ -10,7 +10,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 
-public class SQLiteDatabaseSchema extends ModelBucket<DaoDefinition, TypeElement> {
+public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElement> {
 	
 	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 	

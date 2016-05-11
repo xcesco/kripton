@@ -7,13 +7,13 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.SQLUpdate;
+import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.MethodSpec;
@@ -23,7 +23,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 
 public abstract class SQLiteUpdateBuilder {
 	
-	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, DaoDefinition daoDefinition, ModelMethod method) {
+	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method) {
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		com.squareup.javapoet.MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
@@ -37,7 +37,7 @@ public abstract class SQLiteUpdateBuilder {
 		
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
-		String whereCondition=method.getAnnotation(SQLUpdate.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
+		String whereCondition=method.getAnnotation(BindUpdate.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		
 		Pair<String, List<String>> where = SQLUtility.extractParametersFromString(whereCondition, model.columnNameConverter, entity);
 		

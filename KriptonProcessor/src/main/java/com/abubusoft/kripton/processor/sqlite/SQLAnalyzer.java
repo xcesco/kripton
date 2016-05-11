@@ -15,7 +15,7 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
-import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 
 /**
@@ -62,7 +62,7 @@ public class SQLAnalyzer {
 	 * ?. This second parameter is the list of parameters and replaced with ?.
 	 * 
 	 */
-	public void execute(Elements elementUtils, DaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, String sqlStatement) {
+	public void execute(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, String sqlStatement) {
 		paramNames = new ArrayList<String>();
 		paramGetters = new ArrayList<String>();
 		usedBeanPropertyNames=new HashSet<String>();

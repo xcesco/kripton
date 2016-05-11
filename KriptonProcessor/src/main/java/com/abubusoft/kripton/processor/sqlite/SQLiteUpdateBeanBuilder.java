@@ -8,13 +8,13 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.SQLUpdateBean;
+import com.abubusoft.kripton.android.annotation.BuindUpdateBean;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.MethodSpec;
@@ -24,7 +24,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 
 public abstract class SQLiteUpdateBeanBuilder {
 
-	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, DaoDefinition daoDefinition, ModelMethod method) {
+	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method) {
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
@@ -43,11 +43,11 @@ public abstract class SQLiteUpdateBeanBuilder {
 			throw (new InvalidMethodSignException(daoDefinition, method));
 		}
 
-		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(SQLUpdateBean.class), AnnotationAttributeType.ATTRIBUTE_WHERE);
+		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(BuindUpdateBean.class), AnnotationAttributeType.ATTRIBUTE_WHERE);
 		SQLAnalyzer analyzer = new SQLAnalyzer();
 		analyzer.execute(elementUtils, daoDefinition, entity, method, whereCondition);
 
-		CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, SQLUpdateBean.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+		CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BuindUpdateBean.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 
 		methodBuilder.addCode("\n");
 

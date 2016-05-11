@@ -17,7 +17,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.SQLDatabaseSchema;
+import com.abubusoft.kripton.android.annotation.BinderDatabaseSchema;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;

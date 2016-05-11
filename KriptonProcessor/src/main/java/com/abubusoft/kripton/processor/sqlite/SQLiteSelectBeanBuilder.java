@@ -11,8 +11,8 @@ import javax.lang.model.util.Elements;
 
 import android.database.Cursor;
 
-import com.abubusoft.kripton.android.annotation.SQLSelect;
-import com.abubusoft.kripton.android.annotation.SQLSelectBean;
+import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSelectBean;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.JavaDocUtility;
@@ -21,7 +21,7 @@ import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidReturnTypeExcept
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -46,15 +46,15 @@ public abstract class SQLiteSelectBeanBuilder {
 	 * @param daoDefinition
 	 * @param method
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, DaoDefinition daoDefinition, SQLiteModelMethod method) {
+	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLiteModelMethod method) {
 SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
-		ModelAnnotation annotation = method.getAnnotation(SQLSelect.class);
+		ModelAnnotation annotation = method.getAnnotation(BindSelectBean.class);
 		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_DISTINCT));
 		// String fieldStatement=method.getAnnotation(SQLSelect.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
-		String fieldStatement = CodeBuilderHelper.generatePropertyList(elementUtils, model, daoDefinition, method, SQLSelect.class, null).value0;
+		String fieldStatement = CodeBuilderHelper.generatePropertyList(elementUtils, model, daoDefinition, method, BindSelect.class, null).value0;
 		String tableStatement = model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName());
 
 		SQLAnalyzer analyzer=new SQLAnalyzer();

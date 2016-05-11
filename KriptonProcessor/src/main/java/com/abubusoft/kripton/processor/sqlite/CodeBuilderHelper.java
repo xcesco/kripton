@@ -18,7 +18,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -37,7 +37,7 @@ public class CodeBuilderHelper {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static Pair<String, List<ModelProperty>> generatePropertyList(Elements elementUtils, SQLiteDatabaseSchema model, DaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz,
+	public static Pair<String, List<ModelProperty>> generatePropertyList(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz,
 			Set<String> alreadyUsedBeanPropertiesNames) {
 		Pair<String, List<ModelProperty>> result = new Pair<String, List<ModelProperty>>();
 		result.value1 = new ArrayList<ModelProperty>();
@@ -103,7 +103,7 @@ public class CodeBuilderHelper {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteDatabaseSchema model, DaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
 			Set<String> alreadyUsedBeanPropertiesNames) {
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		// check included and excluded fields

@@ -26,18 +26,17 @@ import javax.tools.Diagnostic;
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.android.annotation.SQLDao;
-import com.abubusoft.kripton.android.annotation.SQLDatabaseSchema;
-import com.abubusoft.kripton.android.annotation.SQLDelete;
-import com.abubusoft.kripton.android.annotation.SQLDeleteBean;
-import com.abubusoft.kripton.android.annotation.SQLInsert;
-import com.abubusoft.kripton.android.annotation.SQLInsertBean;
-import com.abubusoft.kripton.android.annotation.SQLSelect;
-import com.abubusoft.kripton.android.annotation.SQLSelectBean;
-import com.abubusoft.kripton.android.annotation.SQLSelectBeanList;
-import com.abubusoft.kripton.android.annotation.SQLSelectScalar;
-import com.abubusoft.kripton.android.annotation.SQLUpdate;
-import com.abubusoft.kripton.android.annotation.SQLUpdateBean;
+import com.abubusoft.kripton.android.annotation.BinderDaoDefinition;
+import com.abubusoft.kripton.android.annotation.BinderDatabaseSchema;
+import com.abubusoft.kripton.android.annotation.BindDelete;
+import com.abubusoft.kripton.android.annotation.BindDeleteBean;
+import com.abubusoft.kripton.android.annotation.BindInsert;
+import com.abubusoft.kripton.android.annotation.BindInsertBean;
+import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSelectBean;
+import com.abubusoft.kripton.android.annotation.BindSelectBeanByListener;
+import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BuindUpdateBean;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
@@ -55,20 +54,20 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.sqlite.CursorGenerator;
 import com.abubusoft.kripton.processor.sqlite.DaoGenerator;
-import com.abubusoft.kripton.processor.sqlite.DatabaseGenerator;
+import com.abubusoft.kripton.processor.sqlite.BindDatabaseGenerator;
 import com.abubusoft.kripton.processor.sqlite.TableGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidSQLDaoDefinitionException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.SQLPrimaryKeyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.SQLPrimaryKeyNotValidTypeException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.sqlite.model.DaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.StringUtility;
 
-public class BindDatabaseProcessor extends AbstractProcessor {
+public class BinderDatabaseProcessor extends AbstractProcessor {
 
 	Logger logger = Logger.getGlobal();
 
@@ -97,9 +96,9 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
 
-		annotations.add(SQLDatabaseSchema.class.getCanonicalName());
+		annotations.add(BinderDatabaseSchema.class.getCanonicalName());
 		annotations.add(BindType.class.getCanonicalName());
-		annotations.add(SQLDao.class.getCanonicalName());
+		annotations.add(BinderDaoDefinition.class.getCanonicalName());
 
 		return annotations;
 	}
@@ -157,17 +156,17 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 			ModelProperty property;
 			// Get all database schema definitions
-			for (Element item : roundEnv.getElementsAnnotatedWith(SQLDatabaseSchema.class)) {
+			for (Element item : roundEnv.getElementsAnnotatedWith(BinderDatabaseSchema.class)) {
 				if (item.getKind() != ElementKind.INTERFACE) {
-					error(item, "Only interfaces can be annotated with @%s annotation", SQLDatabaseSchema.class.getSimpleName());
+					error(item, "Only interfaces can be annotated with @%s annotation", BinderDatabaseSchema.class.getSimpleName());
 					return true;
 				}
 
 				// get all entity used within SQLDatabaseSchema annotation
-				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, BinderDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 
-				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
-				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, item, SQLDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
+				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, item, BinderDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
+				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, item, BinderDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
 
 				currentSchema = new SQLiteDatabaseSchema((TypeElement) item, schemaFileName, schemaVersion);
 				model.schemaAdd(currentSchema);
@@ -213,7 +212,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 			if (model.schemaCount() > 1) {
 				// TODO improve schema management (more than one)
-				error(null, "Only one interface can be defined in project @%s annotation", SQLDatabaseSchema.class.getSimpleName());
+				error(null, "Only one interface can be defined in project @%s annotation", BinderDatabaseSchema.class.getSimpleName());
 				return true;
 			}
 
@@ -228,14 +227,14 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 			excludedMethods.add("getClass");
 
 			// Get all dao definitions
-			for (Element daoItem : roundEnv.getElementsAnnotatedWith(SQLDao.class)) {
+			for (Element daoItem : roundEnv.getElementsAnnotatedWith(BinderDaoDefinition.class)) {
 				if (daoItem.getKind() != ElementKind.INTERFACE) {
-					error(daoItem, "Only interfaces can be annotated with @%s annotation", SQLDao.class.getSimpleName());
+					error(daoItem, "Only interfaces can be annotated with @%s annotation", BinderDaoDefinition.class.getSimpleName());
 					return true;
 				}
 
-				String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoItem, SQLDao.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
-				final DaoDefinition currentDaoDefinition = new DaoDefinition((TypeElement) daoItem, entityClassName);
+				String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoItem, BinderDaoDefinition.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition((TypeElement) daoItem, entityClassName);
 
 				if (!bindElements.containsKey(currentDaoDefinition.getEntityClassName())) {
 					throw (new InvalidSQLDaoDefinitionException(currentDaoDefinition));
@@ -264,19 +263,19 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 								if //@formatter:off
 									(										
-										   annotationClassName.equals(SQLInsert.class.getCanonicalName()) 
-										|| annotationClassName.equals(SQLInsertBean.class.getCanonicalName())
+										   annotationClassName.equals(BindInsert.class.getCanonicalName()) 
+										|| annotationClassName.equals(BindInsertBean.class.getCanonicalName())
 										
-										|| annotationClassName.equals(SQLUpdate.class.getCanonicalName()) 
-										|| annotationClassName.equals(SQLUpdateBean.class.getCanonicalName())
+										|| annotationClassName.equals(BindUpdate.class.getCanonicalName()) 
+										|| annotationClassName.equals(BuindUpdateBean.class.getCanonicalName())
 										
-										|| annotationClassName.equals(SQLDelete.class.getCanonicalName()) 
-										|| annotationClassName.equals(SQLDeleteBean.class.getCanonicalName())
+										|| annotationClassName.equals(BindDelete.class.getCanonicalName()) 
+										|| annotationClassName.equals(BindDeleteBean.class.getCanonicalName())
 										
-										|| annotationClassName.equals(SQLSelect.class.getCanonicalName())
-										|| annotationClassName.equals(SQLSelectBean.class.getCanonicalName()) 
-										|| annotationClassName.equals(SQLSelectBeanList.class.getCanonicalName()) 
-										|| annotationClassName.equals(SQLSelectScalar.class.getCanonicalName())														
+										|| annotationClassName.equals(BindSelect.class.getCanonicalName())
+										|| annotationClassName.equals(BindSelectBean.class.getCanonicalName()) 
+										|| annotationClassName.equals(BindSelectBeanByListener.class.getCanonicalName()) 
+																							
 									)	
 									//@formatter:on
 								{
@@ -301,7 +300,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 			TableGenerator.generate(elementUtils, filer, currentSchema);
 			DaoGenerator.generate(elementUtils, filer, currentSchema);
 			CursorGenerator.generate(elementUtils, filer, currentSchema);
-			DatabaseGenerator.generate(elementUtils, filer, currentSchema);
+			BindDatabaseGenerator.generate(elementUtils, filer, currentSchema);
 
 			logger.info(currentSchema.toString());
 		} catch (Exception e) {

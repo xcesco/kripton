@@ -4,7 +4,7 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.processor.core.ModelBucket;
 
-public class DaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
+public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
 
 	private String entityClassName;
 
@@ -28,7 +28,7 @@ public class DaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> i
 		return entitySimplyClassName;
 	}
 
-	public DaoDefinition(TypeElement element, String entityClassName) {
+	public SQLDaoDefinition(TypeElement element, String entityClassName) {
 		super(element.getSimpleName().toString(), element);
 		this.entityClassName = entityClassName;
 

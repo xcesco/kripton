@@ -23,10 +23,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kritpon.example01.Channel;
-import com.abubusoft.kritpon.example01.ChannelMessage;
-import com.abubusoft.kritpon.example01.DaoChannelMessage;
-import com.abubusoft.kritpon.example01.DummyDatabaseSchema;
+import com.abubusoft.kripton.example01.Channel;
+import com.abubusoft.kripton.example01.ChannelMessage;
+import com.abubusoft.kripton.example01.DaoChannel;
+import com.abubusoft.kripton.example01.DaoChannelMessage;
+import com.abubusoft.kripton.example01.DummyDatabaseSchema;
 import com.google.common.truth.FailureStrategy;
 import com.google.common.truth.TestVerb;
 import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
@@ -44,10 +45,10 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 		 */
 
 		JavaFileObject source = getSourceFile(PathSourceType.SRC_TEST_JAVA, DummyDatabaseSchema.class);
-		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
+		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BinderDatabaseProcessor()).compilesWithoutError();
 		GenerationClause<SuccessfulCompilationClause> sources = result.and().generatesSources();
 				
-		assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
+		assertAbout(javaSource()).that(source).processedWith(new BinderDatabaseProcessor()).compilesWithoutError();
 		
 		sources.forAllOfWhich(new CompilationResultsConsumer() {
 
@@ -80,12 +81,12 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 		final List<JavaFileObject> sourcesPhase1=sources(
 				DummyDatabaseSchema.class,
 				ChannelMessage.class, Channel.class,
-				DaoChannelMessage.class//, DaoChannel.class
+				DaoChannelMessage.class, DaoChannel.class
 		);
 		
 		//@formatter:off
 		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
-				sourcesPhase1).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
+				sourcesPhase1).processedWith(new BinderDatabaseProcessor()).compilesWithoutError();
 		//@formatter:on
 		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
 
@@ -99,6 +100,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 					try {
 						sourcesPhase2.add(item.getValue());
 						logger.info("-------\n" + getStringFromInputStream(item.getValue().openInputStream()));
+						writeGeneratedFile(item.getValue());
 						//assertAbout(javaSource()).that(item.getValue()).compilesWithoutError();
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -154,7 +156,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 
 		JavaFileObject source = JavaFileObjects.forSourceLines(UserIdentity.class.getCanonicalName(), new String(buffer));
 		// assertAbout(javaSource).that()
-		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
+		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BinderDatabaseProcessor()).compilesWithoutError();
 
 		GenerationClause<SuccessfulCompilationClause> sources = result.and().generatesSources();
 
@@ -182,34 +184,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 	}
 
 	// convert InputStream to String
-	private static String getStringFromInputStream(InputStream is) {
-
-		BufferedReader br = null;
-		StringBuilder sb = new StringBuilder();
-
-		String line;
-		try {
-
-			br = new BufferedReader(new InputStreamReader(is));
-			while ((line = br.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return sb.toString();
-
-	}
+	
 
 	private static final TestVerb VERIFY = new TestVerb(new FailureStrategy() {
 		@Override
