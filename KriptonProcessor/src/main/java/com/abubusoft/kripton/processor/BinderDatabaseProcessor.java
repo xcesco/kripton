@@ -26,8 +26,8 @@ import javax.tools.Diagnostic;
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.android.annotation.BinderDaoDefinition;
-import com.abubusoft.kripton.android.annotation.BinderDatabaseSchema;
+import com.abubusoft.kripton.android.annotation.BindDaoDefinition;
+import com.abubusoft.kripton.android.annotation.BindDatabaseSchema;
 import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindDeleteBean;
 import com.abubusoft.kripton.android.annotation.BindInsert;
@@ -96,9 +96,9 @@ public class BinderDatabaseProcessor extends AbstractProcessor {
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
 
-		annotations.add(BinderDatabaseSchema.class.getCanonicalName());
+		annotations.add(BindDatabaseSchema.class.getCanonicalName());
 		annotations.add(BindType.class.getCanonicalName());
-		annotations.add(BinderDaoDefinition.class.getCanonicalName());
+		annotations.add(BindDaoDefinition.class.getCanonicalName());
 
 		return annotations;
 	}
@@ -156,17 +156,17 @@ public class BinderDatabaseProcessor extends AbstractProcessor {
 
 			ModelProperty property;
 			// Get all database schema definitions
-			for (Element item : roundEnv.getElementsAnnotatedWith(BinderDatabaseSchema.class)) {
+			for (Element item : roundEnv.getElementsAnnotatedWith(BindDatabaseSchema.class)) {
 				if (item.getKind() != ElementKind.INTERFACE) {
-					error(item, "Only interfaces can be annotated with @%s annotation", BinderDatabaseSchema.class.getSimpleName());
+					error(item, "Only interfaces can be annotated with @%s annotation", BindDatabaseSchema.class.getSimpleName());
 					return true;
 				}
 
 				// get all entity used within SQLDatabaseSchema annotation
-				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, BinderDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, BindDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 
-				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, item, BinderDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
-				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, item, BinderDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
+				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, item, BindDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
+				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, item, BindDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
 
 				currentSchema = new SQLiteDatabaseSchema((TypeElement) item, schemaFileName, schemaVersion);
 				model.schemaAdd(currentSchema);
@@ -212,7 +212,7 @@ public class BinderDatabaseProcessor extends AbstractProcessor {
 
 			if (model.schemaCount() > 1) {
 				// TODO improve schema management (more than one)
-				error(null, "Only one interface can be defined in project @%s annotation", BinderDatabaseSchema.class.getSimpleName());
+				error(null, "Only one interface can be defined in project @%s annotation", BindDatabaseSchema.class.getSimpleName());
 				return true;
 			}
 
@@ -227,13 +227,13 @@ public class BinderDatabaseProcessor extends AbstractProcessor {
 			excludedMethods.add("getClass");
 
 			// Get all dao definitions
-			for (Element daoItem : roundEnv.getElementsAnnotatedWith(BinderDaoDefinition.class)) {
+			for (Element daoItem : roundEnv.getElementsAnnotatedWith(BindDaoDefinition.class)) {
 				if (daoItem.getKind() != ElementKind.INTERFACE) {
-					error(daoItem, "Only interfaces can be annotated with @%s annotation", BinderDaoDefinition.class.getSimpleName());
+					error(daoItem, "Only interfaces can be annotated with @%s annotation", BindDaoDefinition.class.getSimpleName());
 					return true;
 				}
 
-				String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoItem, BinderDaoDefinition.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoItem, BindDaoDefinition.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 				final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition((TypeElement) daoItem, entityClassName);
 
 				if (!bindElements.containsKey(currentDaoDefinition.getEntityClassName())) {
