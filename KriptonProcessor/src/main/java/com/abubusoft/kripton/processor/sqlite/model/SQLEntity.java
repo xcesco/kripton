@@ -17,6 +17,36 @@ public class SQLEntity extends ModelClass {
 	}
 
 	/**
+	 * Check how many PK are defined in entity. Only one field can be PK.
+	 * 
+	 * @return number of PK
+	 */
+	public int countPrimaryKeys() {
+		int countAnnotation = 0;
+		ModelAnnotation annotation;
+		String value;
+
+		for (ModelProperty item : collection) {
+			annotation = item.getAnnotation(BindColumn.class);
+			if (annotation != null) {
+				value = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
+				if (value != null && !"id".equals(item.getName()) && value.contains(ColumnType.PRIMARY_KEY.toString())) {
+					countAnnotation++;
+				}
+
+			}
+		}
+
+		// try to get id
+		ModelProperty id = findByName("id");
+		if (id != null) {
+			countAnnotation++;
+		}
+
+		return countAnnotation;
+	}
+
+	/**
 	 * True if there is a primary key
 	 * 
 	 * @return true if there is a primary key
@@ -35,15 +65,15 @@ public class SQLEntity extends ModelClass {
 
 			}
 		}
-		
+
 		// try to get id
-		ModelProperty id=findByName("id");			
+		ModelProperty id = findByName("id");
 
 		return id;
 	}
 
 	public boolean containsAnnotation(Class<? extends Annotation> annotation) {
-		return getAnnotation(annotation)!=null;
+		return getAnnotation(annotation) != null;
 	}
 
 }

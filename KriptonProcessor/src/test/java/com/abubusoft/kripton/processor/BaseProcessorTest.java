@@ -1,5 +1,8 @@
 package com.abubusoft.kripton.processor;
 
+import static com.google.common.truth.Truth.assertAbout;
+import static com.google.testing.compile.JavaSourcesSubjectFactory.javaSources;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -10,7 +13,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.tools.JavaFileObject;
 
@@ -19,6 +25,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.google.common.io.ByteStreams;
 import com.google.testing.compile.JavaFileObjects;
+import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
+import com.google.testing.compile.CompileTester.GenerationClause;
+import com.google.testing.compile.CompileTester.SuccessfulCompilationClause;
 
 public class BaseProcessorTest {
 	protected Log logger = LogFactory.getLog(getClass());
@@ -111,5 +120,46 @@ public class BaseProcessorTest {
 
 		JavaFileObject source = JavaFileObjects.forSourceLines(clazz.getCanonicalName(), new String(buffer));
 		return source;
+	}
+	
+	/**
+	 * Build standard test
+	 * 
+	 * @param classesToTest
+	 * 		classes to compile and test
+	 * @throws IOException 
+	 */
+	protected void buildTest(Class<?> ... classesToTest) throws IOException
+	{
+		final List<JavaFileObject> sourcesPhase2=new ArrayList<JavaFileObject>();
+		
+		final List<JavaFileObject> sourcesPhase1=sources(classesToTest);
+		
+		BinderDatabaseProcessor.DEVELOP_MODE=true;
+		
+		//@formatter:off
+		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
+				sourcesPhase1).processedWith(new BinderDatabaseProcessor()).compilesWithoutError();
+		//@formatter:on
+		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
+		
+		resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
+
+			@Override
+			public void accept(Map<String, JavaFileObject> t) {				
+				for (Entry<String, JavaFileObject> item : t.entrySet()) {
+					logger.info("item " + item.getKey());
+					try {
+						sourcesPhase2.add(item.getValue());
+						logger.info("-------\n" + getStringFromInputStream(item.getValue().openInputStream()));
+						writeGeneratedFile(item.getValue());
+						//assertAbout(javaSource()).that(item.getValue()).compilesWithoutError();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
+		});
 	}
 }

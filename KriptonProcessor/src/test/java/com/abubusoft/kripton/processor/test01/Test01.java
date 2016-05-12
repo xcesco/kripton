@@ -17,46 +17,112 @@ import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.BaseProcessorTest;
 import com.abubusoft.kripton.processor.BinderDatabaseProcessor;
+import com.abubusoft.kripton.processor.sqlite.exceptions.NoBindTypeElementsFound;
 import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
 import com.google.testing.compile.CompileTester.GenerationClause;
 import com.google.testing.compile.CompileTester.SuccessfulCompilationClause;
 
+/**
+ * @author xcesco
+ *
+ */
 @RunWith(JUnit4.class)
 public class Test01 extends BaseProcessorTest {
 
-	@Test
-	public void test() throws IOException {
-		
-		final List<JavaFileObject> sourcesPhase2=new ArrayList<JavaFileObject>();
-		
-		final List<JavaFileObject> sourcesPhase1=sources(
-				Dummy01DatabaseSchema.class,
-				Bean01.class
-		);
-		
-		//@formatter:off
-		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
-				sourcesPhase1).processedWith(new BinderDatabaseProcessor()).compilesWithoutError();
-		//@formatter:on
-		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
-		
-		resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
-
-			@Override
-			public void accept(Map<String, JavaFileObject> t) {				
-				for (Entry<String, JavaFileObject> item : t.entrySet()) {
-					logger.info("item " + item.getKey());
-					try {
-						sourcesPhase2.add(item.getValue());
-						logger.info("-------\n" + getStringFromInputStream(item.getValue().openInputStream()));
-						writeGeneratedFile(item.getValue());
-						//assertAbout(javaSource()).that(item.getValue()).compilesWithoutError();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-
-			}
-		});
+	/**
+	 * No @BindType is put in bean definition
+	 * 
+	 * @throws IOException
+	 */
+	@Test(expected = AssertionError.class)
+	public void test01() throws IOException {
+		buildTest(Dummy01DatabaseSchema.class, Bean01.class);
 	}
+
+	/**
+	 * No @BindType is put in bean definition
+	 * 
+	 * @throws IOException
+	 */
+	@Test(expected = AssertionError.class)
+	public void test02() throws IOException {
+		buildTest(Dummy02DatabaseSchema.class, Bean01.class, Bean02.class);
+
+	}
+
+	/**
+	 * No database schema with @BindDatabaseSchema was found
+	 * 
+	 * @throws IOException
+	 */
+	@Test
+	public void test03() throws IOException {
+		buildTest(Dummy03DatabaseSchema.class, Bean01.class, Bean02.class);
+	}
+
+	/**
+	 * No database schema with @BindDatabaseSchema was found
+	 * 
+	 * @throws IOException
+	 */
+	@Test(expected = AssertionError.class)
+	public void test04() throws IOException {
+		buildTest(Dummy04DatabaseSchema.class, Bean04.class);
+	}
+
+	/**
+	 * No database schema with @BindDatabaseSchema was found
+	 * 
+	 * @throws IOException
+	 */
+	@Test(expected = AssertionError.class)
+	public void test05() throws IOException {
+		buildTest(Dummy05DatabaseSchema.class, Bean04.class);		
+	}
+
+	@Test(expected = AssertionError.class)
+	public void test06() throws IOException {
+		buildTest(Dummy06DatabaseSchema.class, Bean06.class);	
+	}
+
+	/**
+	 * No primary key
+	 * 
+	 * @throws IOException
+	 */
+	@Test(expected = AssertionError.class)
+	public void test07() throws IOException {
+		buildTest(Dummy07DatabaseSchema.class, Bean07.class);					
+	}
+
+	/**
+	 * No primary key
+	 * 
+	 * @throws IOException
+	 */
+	@Test(expected = AssertionError.class)
+	public void test08() throws IOException {
+		buildTest(Dummy08DatabaseSchema.class, Bean08.class);		
+	}
+
+	/**
+	 * Primary key Long
+	 * 
+	 * @throws IOException
+	 */
+	@Test(expected = AssertionError.class)
+	public void test09() throws IOException {
+		buildTest(Dummy09DatabaseSchema.class, Bean09.class);		
+	}
+
+	/**
+	 * Primary key twice
+	 * 
+	 * @throws IOException
+	 */
+	@Test(expected = AssertionError.class)
+	public void test10() throws IOException {
+		buildTest(Dummy10DatabaseSchema.class, Bean10.class);		
+	}
+
 }

@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -56,9 +57,14 @@ import com.abubusoft.kripton.processor.sqlite.CursorGenerator;
 import com.abubusoft.kripton.processor.sqlite.DaoGenerator;
 import com.abubusoft.kripton.processor.sqlite.BindDatabaseGenerator;
 import com.abubusoft.kripton.processor.sqlite.TableGenerator;
+import com.abubusoft.kripton.processor.sqlite.exceptions.AbsentAnnotationException;
+import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidSQLDaoDefinitionException;
+import com.abubusoft.kripton.processor.sqlite.exceptions.NoBindTypeElementsFound;
+import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.SQLPrimaryKeyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.SQLPrimaryKeyNotValidTypeException;
+import com.abubusoft.kripton.processor.sqlite.exceptions.TooManySQLPrimaryKeyFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -68,6 +74,8 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.StringUtility;
 
 public class BinderDatabaseProcessor extends AbstractProcessor {
+
+	public static boolean DEVELOP_MODE = false;
 
 	Logger logger = Logger.getGlobal();
 
@@ -134,10 +142,8 @@ public class BinderDatabaseProcessor extends AbstractProcessor {
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
 		try {
-
 			count++;
 			if (count > 1) {
-				logger.info("============================================== " + count);
 				return true;
 			}
 
@@ -145,74 +151,111 @@ public class BinderDatabaseProcessor extends AbstractProcessor {
 
 			Map<String, Element> bindElements = new HashMap<String, Element>();
 
-			// Get all bind type
+			// Put all @BindType elements in bindElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
 				if (item.getKind() != ElementKind.CLASS) {
-					error(item, "Only class can be annotated with @%s annotation", BindType.class.getSimpleName());
-					return true;
+					String msg = String.format("Only class can be annotated with @%s annotation", BindType.class.getSimpleName());
+					throw(new InvalidKindForAnnotationException(msg));
 				}
 				bindElements.put(item.toString(), item);
 			}
 
+			// No bind type is present
+			if (bindElements.size() == 0) {
+				throw (new NoBindTypeElementsFound());
+			}
+
 			ModelProperty property;
+
 			// Get all database schema definitions
-			for (Element item : roundEnv.getElementsAnnotatedWith(BindDatabaseSchema.class)) {
-				if (item.getKind() != ElementKind.INTERFACE) {
-					error(item, "Only interfaces can be annotated with @%s annotation", BindDatabaseSchema.class.getSimpleName());
-					return true;
+			for (Element databaseSchema : roundEnv.getElementsAnnotatedWith(BindDatabaseSchema.class)) {
+				if (databaseSchema.getKind() != ElementKind.INTERFACE) {
+					String msg = String.format("Only interfaces can be annotated with @%s annotation", BindDatabaseSchema.class.getSimpleName());
+					throw(new InvalidKindForAnnotationException(msg));
 				}
 
 				// get all entity used within SQLDatabaseSchema annotation
-				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, item, BindDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, databaseSchema, BindDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 
-				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, item, BindDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
-				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, item, BindDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
+				// check if any bean lack of @BindType annotation
 
-				currentSchema = new SQLiteDatabaseSchema((TypeElement) item, schemaFileName, schemaVersion);
+				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
+				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDatabaseSchema.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
+
+				currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion);
 				model.schemaAdd(currentSchema);
 
 				// define which annotation the annotation processor is interested in
 				AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
 				AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
 				// for each entity used in database
-				for (String c : classesIntoDatabase) {
-					if (bindElements.containsKey(c)) {
-						TypeElement classElement = (TypeElement) bindElements.get(c);
-
-						currentEntity = new SQLEntity(classElement);
-						AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
-
-						if (currentEntity.containsAnnotation(BindAllFields.class)) {
-							PropertyUtility.buildProperties(elementUtils, currentEntity, propertyAnnotationFilter);
-						} else {
-							PropertyUtility.buildProperties(elementUtils, currentEntity, propertyAnnotationFilter, new PropertyCreatedListener() {
-
-								@Override
-								public boolean onProperty(ModelProperty property) {
-									if (property.getAnnotation(Bind.class) != null) {
-										return true;
-									}
-									return false;
-								}
-							});
-						}
-
-						// check primary key
-						property = currentEntity.getPrimaryKey();
-						if (property == null)
-							throw (new SQLPrimaryKeyNotFoundException(currentEntity));
-
-						if (!property.isType(Long.TYPE, Long.class))
-							throw (new SQLPrimaryKeyNotValidTypeException(currentEntity, property));
-
-						currentSchema.entityAdd(currentEntity);
+				for (String beanClassName : classesIntoDatabase) {
+					if (!bindElements.containsKey(beanClassName)) {
+						String msg = String.format("Class %s, used in %s DatabaseSchemaDefinition, is not marked with @%s annotation", beanClassName, databaseSchema.getSimpleName().toString(), BindType.class);						
+						throw(new AbsentAnnotationException(msg));
 					}
+					
+					// assert: bean is present
+					TypeElement classElement = (TypeElement) bindElements.get(beanClassName);
+
+					currentEntity = new SQLEntity(classElement);
+					AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
+
+					if (currentEntity.containsAnnotation(BindAllFields.class)) {
+						PropertyUtility.buildProperties(elementUtils, currentEntity, propertyAnnotationFilter);
+					} else {
+						PropertyUtility.buildProperties(elementUtils, currentEntity, propertyAnnotationFilter, new PropertyCreatedListener() {
+
+							@Override
+							public boolean onProperty(ModelProperty property) {
+								if (property.getAnnotation(Bind.class) != null) {
+									return true;
+								}
+								return false;
+							}
+						});
+					}
+					
+					if (currentEntity.getCollection().size()==0) {						
+						String msg = String.format("Class %s, used in %s DatabaseSchemaDefinition, has no property!", beanClassName, databaseSchema.getSimpleName().toString());
+						throw(new PropertyNotFoundException(msg));
+					}
+					
+					if (currentEntity.countPrimaryKeys()>1)
+					{
+						throw (new TooManySQLPrimaryKeyFoundException(currentEntity));
+					}
+
+					// check primary key
+					property = currentEntity.getPrimaryKey();
+					if (property == null)
+						throw (new SQLPrimaryKeyNotFoundException(currentEntity));
+
+					if (!property.isType(Long.TYPE, Long.class))
+						throw (new SQLPrimaryKeyNotValidTypeException(currentEntity, property));
+
+					currentSchema.entityAdd(currentEntity);
 				}
+			}
+
+			if (model.schemaCount() == 0) {
+				// if no schema is found, exit, BUT THIS NOT AN ERROR
+				String msg = String.format("No Database schema definition with @%s annotation was found", BindDatabaseSchema.class.getSimpleName());
+
+				if (DEVELOP_MODE) {
+					logger.log(Level.INFO, msg);
+				}
+				return true;
 			}
 
 			if (model.schemaCount() > 1) {
 				// TODO improve schema management (more than one)
-				error(null, "Only one interface can be defined in project @%s annotation", BindDatabaseSchema.class.getSimpleName());
+				String msg = String.format("Only one interface can be defined in project @%s annotation", BindDatabaseSchema.class.getSimpleName());
+				error(null, msg);
+
+				if (DEVELOP_MODE) {
+					logger.log(Level.SEVERE, msg);
+				}
 				return true;
 			}
 
@@ -258,6 +301,8 @@ public class BinderDatabaseProcessor extends AbstractProcessor {
 						AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
 
 
+
+
 							@Override
 							public void onAnnotation(Element element, String annotationClassName, Map<String, String> attributes) {
 
@@ -296,6 +341,16 @@ public class BinderDatabaseProcessor extends AbstractProcessor {
 				});
 			}
 
+			if (currentSchema.getCollection().size() == 0) {
+				String msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDaoDefinition.class.getSimpleName(), currentSchema.getElement().getSimpleName().toString(),
+						BindDatabaseSchema.class.getSimpleName());
+				if (DEVELOP_MODE) {
+					logger.log(Level.SEVERE, msg);
+				}
+				error(null, msg);
+				return true;
+			}
+
 			// generate table java
 			TableGenerator.generate(elementUtils, filer, currentSchema);
 			DaoGenerator.generate(elementUtils, filer, currentSchema);
@@ -304,46 +359,16 @@ public class BinderDatabaseProcessor extends AbstractProcessor {
 
 			logger.info(currentSchema.toString());
 		} catch (Exception e) {
-			e.printStackTrace();
-
-			error(null, e.getMessage());
-		}
-
-		return true;
-	}
-
-	protected void analyzeClassHierarchy(StringBuilder buffer, TypeElement clazz, int level) {
-		String name = clazz.getQualifiedName().toString();
-		// se siamo arrivati all'object, usciamo
-		if (name.equals(Object.class.getCanonicalName()))
-			return;
-
-		String pad = StringUtility.repeatString("  ", level);
-		buffer.append(pad + " " + name + "\n");
-
-		TypeMirror superClassTypeMirror = clazz.getSuperclass();
-		TypeElement superClassTypeElement = (TypeElement) ((DeclaredType) superClassTypeMirror).asElement();
-		analyzeClassHierarchy(buffer, superClassTypeElement, level + 1);
-	}
-
-	protected void analyzeDeclaredField(StringBuilder buffer, TypeElement clazz, int level) throws MappingException, WriterException {
-		List<? extends Element> list = elementUtils.getAllMembers(clazz);
-
-		String pad = StringUtility.repeatString("  ", level);
-
-		// elenco completo
-		for (Element item : list) {
-			{
-				buffer.append(pad + " - " + item.getKind() + " " + item.getSimpleName() + " [" + item.asType() + "] " + item.getModifiers() + "\n");
+			String msg = e.getMessage();
+			error(null, msg);
+			if (DEVELOP_MODE) {
+				// logger.error(e.getMessage());
+				logger.log(Level.SEVERE, msg);
+				e.printStackTrace();
 			}
 		}
 
-		PropertyUtility.buildProperties(elementUtils, currentEntity, null);
-
-		BinderWriter writer = BinderFactory.getJSONWriter(BinderOptions.build().indent(true));
-
-		logger.info(writer.write(currentEntity));
-
+		return true;
 	}
 
 }
