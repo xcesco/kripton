@@ -15,17 +15,17 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  * @since 10/mag/2016
  */
-public abstract class AbstractDatabaseHelper extends SQLiteOpenHelper implements AutoCloseable {
+public abstract class AbstractBindDatabaseHelper extends SQLiteOpenHelper implements AutoCloseable {
 
-	public AbstractDatabaseHelper(Context context, String name, CursorFactory factory, int version) {
+	public AbstractBindDatabaseHelper(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
 	}
 
-	public AbstractDatabaseHelper(Context context, String name, CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
+	public AbstractBindDatabaseHelper(Context context, String name, CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
 		super(context, name, factory, version, errorHandler);
 	}
 	
-	public interface TransactionExecutor<E extends DaoFactory>
+	public interface TransactionExecutor<E extends BindDaoFactory>
 	{
 		/**
 		 * Execute 

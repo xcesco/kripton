@@ -18,7 +18,7 @@ import com.abubusoft.kripton.annotation.BindType;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-public @interface BindDaoDefinition {
+public @interface BindDao {
 
 	/**
 	 * <p>Bean class to associate with this dao definition.</p>
