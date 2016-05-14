@@ -76,8 +76,8 @@ public class PropertyUtility {
 			AnnotationUtility.forEachAnnotations(elementUtils, clazz.getElement(), propertyAnnotationFilter, new AnnotationFoundListener() {
 
 				@Override
-				public void onAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
-					logger.info("Annotation... " + annotationClassName);
+				public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
+					logger.info("Annotation... " + annotationClassName);					
 				}
 			});
 		}

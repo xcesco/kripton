@@ -1,5 +1,5 @@
 /**
- *	Only DatabaseSchema
+ *	Tests on DatabaseSchema. Without Dao and BindType elements, no database schema can ben generated.
  * 
  * @author xcesco
  *

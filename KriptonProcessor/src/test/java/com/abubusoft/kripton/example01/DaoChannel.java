@@ -2,12 +2,12 @@ package com.abubusoft.kripton.example01;
 
 import java.util.List;
 
-import com.abubusoft.kripton.android.annotation.BindDaoDefinition;
+import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindInsertBean;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 
-@BindDaoDefinition(Channel.class)
+@BindDao(Channel.class)
 public interface DaoChannel {
 
 	@BindInsert

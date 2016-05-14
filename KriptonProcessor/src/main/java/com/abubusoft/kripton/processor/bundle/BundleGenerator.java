@@ -16,6 +16,7 @@ import javax.lang.model.util.Types;
 
 import android.content.ContentValues;
 
+import com.abubusoft.kripton.processor.BindDatabaseProcessor;
 import com.abubusoft.kripton.processor.convert.UsedClass;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -42,6 +43,7 @@ public abstract class BundleGenerator {
 		builder.addMethod(buildContentValue2ObjectMethod(processingEnv, definition, elementUtils));
 		TypeSpec typeSpec = builder.build();
 
+		BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 

@@ -13,6 +13,7 @@ import javax.lang.model.util.Elements;
 
 import android.content.ContentValues;
 
+import com.abubusoft.kripton.processor.BindDatabaseProcessor;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -36,6 +37,7 @@ public abstract class ConvertGenerator {
 		builder.addMethod(buildCreateMethod(definition, elementUtils));
 		TypeSpec typeSpec = builder.build();
 
+		BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 

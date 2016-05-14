@@ -18,5 +18,5 @@ public abstract class AbstractCodeGenerator {
 		this.elementUtils = elementUtils;
 		this.filer = filer;
 	}
-	
+		
 }

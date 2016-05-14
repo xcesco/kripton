@@ -17,7 +17,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindDatabaseSchema;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -55,7 +54,14 @@ public class AnnotationUtility {
 	}
 
 	public interface AnnotationFoundListener {
-		void onAnnotation(Element executableMethod, final String annotationClassName, final Map<String, String> attributes);
+		/**
+		 * If true, annotation is accepted
+		 * 
+		 * @param executableMethod
+		 * @param annotationClassName
+		 * @param attributes
+		 */
+		void onAcceptAnnotation(Element executableMethod, final String annotationClassName, final Map<String, String> attributes);
 	}
 
 	public interface MethodFoundListener {
@@ -63,7 +69,7 @@ public class AnnotationUtility {
 	}
 
 	/**
-	 * Iterate over annotations of currentElement.
+	 * Iterate over annotations of currentElement. Accept only annotation in accepted set.
 	 * 
 	 * @param elementUtils
 	 * @param currentElement
@@ -74,6 +80,8 @@ public class AnnotationUtility {
 		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(currentElement);
 		String annotationClassName;
 		Map<String, String> values = new HashMap<String, String>();
+		boolean valid=true;
+		
 		for (AnnotationMirror annotation : annotationList) {
 			annotationClassName = annotation.getAnnotationType().asElement().toString();
 
@@ -90,8 +98,9 @@ public class AnnotationUtility {
 				}
 				values.put(annotationItem.getKey().getSimpleName().toString(), value);
 			}
-			listener.onAnnotation(currentElement, annotationClassName, values);
+			listener.onAcceptAnnotation(currentElement, annotationClassName, values);
 		}
+		
 	}
 
 	/**
@@ -309,10 +318,10 @@ public class AnnotationUtility {
 		forEachAnnotations(elementUtils, modelWithAnnotation.getElement(), filter, new AnnotationFoundListener() {
 
 			@Override
-			public void onAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
+			public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
 				ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
 
-				modelWithAnnotation.addAnnotation(annotation);
+				modelWithAnnotation.addAnnotation(annotation);				
 			}
 		});
 

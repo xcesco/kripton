@@ -221,9 +221,6 @@ public abstract class SQLiteSelectBuilder {
 			throw (new InvalidReturnTypeException(daoDefinition, method, typeName(method.getReturnClass()), typeName(Cursor.class)));
 		}
 		
-		methodBuilder.addJavadoc("caio2\n");
-
-		
 		MethodSpec methodSpec = methodBuilder.build();
 
 		builder.addMethod(methodSpec);

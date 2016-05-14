@@ -11,7 +11,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
-import com.abubusoft.kripton.android.sqlite.AbstractDatabaseHelper;
+import com.abubusoft.kripton.android.sqlite.AbstractBindDatabaseHelper;
+import com.abubusoft.kripton.processor.BindDatabaseProcessor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
@@ -32,10 +33,8 @@ import com.squareup.javapoet.TypeSpec;
  */
 public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 
-	public static final String SUFFIX = "Database";
-	
-	public static final String SUFFIX_TO_REMOVE = "Schema";
-
+	public static final String PREFIX = "Bind";
+		
 	public BindDatabaseGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
@@ -49,7 +48,7 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 	 * @throws Exception
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
-		DaoFactoryGenerator visitor = new DaoFactoryGenerator(elementUtils, filer, schema);		
+		BindDaoFactoryGenerator visitor = new BindDaoFactoryGenerator(elementUtils, filer, schema);		
 		String daoFactoryName=visitor.buildDaoFactoryInterface(elementUtils, filer, schema);
 		
 		BindDatabaseGenerator visitorDao = new BindDatabaseGenerator(elementUtils, filer, schema);		
@@ -61,20 +60,12 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		
 		String schemaName =  schema.getName();
-		if (schemaName.endsWith(SUFFIX_TO_REMOVE))
-		{
-			schemaName=schemaName.substring(0, schemaName.lastIndexOf(SUFFIX_TO_REMOVE));
-		}
-		
-		if (!schemaName.endsWith(SUFFIX))
-		{
-			schemaName+=SUFFIX;
-		}
+		schemaName=PREFIX+schemaName;
 		
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		
-		builder = TypeSpec.classBuilder(schemaName).addModifiers(Modifier.PUBLIC).superclass(AbstractDatabaseHelper.class).addSuperinterface(daoFactory);
+		builder = TypeSpec.classBuilder(schemaName).addModifiers(Modifier.PUBLIC).superclass(AbstractBindDatabaseHelper.class).addSuperinterface(daoFactory);
 				
 		// define static fields
 		builder.addField(className(schemaName), "instance", Modifier.PRIVATE, Modifier.STATIC);		
@@ -82,12 +73,12 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 		builder.addField(FieldSpec.builder(Integer.TYPE, "version", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$L", schema.version).build());		
 		
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			ClassName daoImplName = className(dao.getName()+"Impl");
+			ClassName daoImplName = className(BindDatabaseGenerator.PREFIX+ dao.getName());
 			builder.addField(FieldSpec.builder(daoImplName,convert.convert(dao.getName()), Modifier.PROTECTED).initializer("new $T()", daoImplName) .build());
 			
 			// dao with connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addModifiers(Modifier.PUBLIC).returns(className(dao.getName()+"Impl"));
+				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addModifiers(Modifier.PUBLIC).returns(className(BindDatabaseGenerator.PREFIX+dao.getName()));
 				methodBuilder.addCode("$L.setDatabase(getWritableDatabase());\n", convert.convert(dao.getName()));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
 				builder.addMethod(methodBuilder.build());
@@ -95,7 +86,7 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 			
 			// dao with external connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addParameter(SQLiteDatabase.class, "database").addModifiers(Modifier.PUBLIC).returns(className(dao.getName()+"Impl")).addAnnotation(Override.class);
+				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addParameter(SQLiteDatabase.class, "database").addModifiers(Modifier.PUBLIC).returns(className(BindDatabaseGenerator.PREFIX+dao.getName())).addAnnotation(Override.class);
 				methodBuilder.addCode("$L.setDatabase(database);\n", convert.convert(dao.getName()));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
 				builder.addMethod(methodBuilder.build());
@@ -127,7 +118,7 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 			{
 				database.endTransaction();
 			}*/
-		MethodSpec.Builder executeMethod=MethodSpec.methodBuilder("execute").addParameter(className(transationExecutorName),"executor");
+		MethodSpec.Builder executeMethod=MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName),"executor");
 		executeMethod.addCode("$T database=getWritableDatabase();\n",SQLiteDatabase.class);
 		executeMethod.beginControlFlow("try");
 		executeMethod.addCode("database.beginTransaction();\n");
@@ -168,7 +159,7 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 			// onCreate
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 			methodBuilder.addParameter(SQLiteDatabase.class, "database");
-			methodBuilder.addJavadoc("\n$L\n","onCreate");
+			methodBuilder.addJavadoc("\n$L\n","onCreate\n");
 			
 			for (SQLEntity item: schema.getEntities())
 			{
@@ -188,7 +179,7 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 			methodBuilder.addParameter(Integer.TYPE, "newVersion");
 			methodBuilder.addJavadoc("\n$L\n","onUpgrade");
 
-			methodBuilder.addCode("// drop tables");
+			methodBuilder.addCode("// drop tables\n");
 			for (SQLEntity item: schema.getEntities())
 			{
 				methodBuilder.addCode("database.execSQL($LTable.DROP_TABLE_SQL);\n", item.getSimpleName());								
@@ -207,6 +198,8 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 		}
 
 		TypeSpec typeSpec = builder.build();
+		
+		BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
