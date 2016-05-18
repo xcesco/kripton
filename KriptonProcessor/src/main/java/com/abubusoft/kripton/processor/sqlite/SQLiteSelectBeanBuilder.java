@@ -47,14 +47,14 @@ public abstract class SQLiteSelectBeanBuilder {
 	 * @param method
 	 */
 	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLiteModelMethod method) {
-SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
 		ModelAnnotation annotation = method.getAnnotation(BindSelectBean.class);
 		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_DISTINCT));
 		// String fieldStatement=method.getAnnotation(SQLSelect.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
-		String fieldStatement = CodeBuilderHelper.generatePropertyList(elementUtils, model, daoDefinition, method, BindSelect.class, null).value0;
+		String fieldStatement = CodeBuilderUtility.generatePropertyList(elementUtils, model, daoDefinition, method, BindSelect.class, true, null).value0;
 		String tableStatement = model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName());
 
 		SQLAnalyzer analyzer=new SQLAnalyzer();

@@ -9,7 +9,7 @@ import com.squareup.javapoet.TypeName;
 
 @BindType
 @BindAllFields
-public class ModelType implements ModelElement {
+public class ModelType {
 	
 	TypeName name;
 	
@@ -24,10 +24,6 @@ public class ModelType implements ModelElement {
 		this.name=TypeName.get(type);
 	}
 
-	@Override
-	public void accept(ModelElementVisitor visitor) throws Exception {
-		visitor.visit(this);		
-	}
 	
 	public boolean isEquals(String value)
 	{

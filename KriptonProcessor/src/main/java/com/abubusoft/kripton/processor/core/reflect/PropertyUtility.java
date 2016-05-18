@@ -29,51 +29,54 @@ public class PropertyUtility {
 	private static final String IS_PREFIX = "is";
 	private static final String GET_PREFIX = "get";
 
-	public interface PropertyCreatedListener {
+	public interface PropertyCreatedListener<E extends ModelProperty> {
 		/**
 		 * If true, the property will be included in the class. If return false, the property will be ignored
 		 * 
 		 * @param property
 		 * @return true to include property, false otherwise
 		 */
-		boolean onProperty(ModelProperty property);
+		boolean onProperty(E property);
 	};
 
 	/**
 	 * Given a model clazz, define its properties. No annotation is analyzed for properties
-	 * 
 	 * @param elementUtils
-	 * @param clazz
+	 * @param entity
+	 * @param factoryProperty
 	 */
-	public static void buildProperties(Elements elementUtils, ModelClass clazz) {
-		buildProperties(elementUtils, clazz, null, null);
+	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils,  T entity, PropertyFactory<P> factoryProperty) {
+		buildProperties(elementUtils, entity, factoryProperty, null, null);
 	}
 
 	/**
 	 * Given a model clazz, define its properties.
 	 * 
 	 * @param elementUtils
-	 * @param clazz
+	 * @param entity
+	 * @param factoryProperty
 	 * @param propertyAnnotationFilter
 	 *            if null, no filter is applied to annotations
 	 */
-	public static void buildProperties(Elements elementUtils, ModelClass clazz, AnnotationFilter propertyAnnotationFilter) {
-		buildProperties(elementUtils, clazz, propertyAnnotationFilter, null);
+	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils,  T entity, PropertyFactory<P> factoryProperty,  AnnotationFilter propertyAnnotationFilter) {
+		buildProperties(elementUtils, entity, factoryProperty, propertyAnnotationFilter, null);
 	}
 
 	/**
 	 * Given a model clazz, define its properties. The listener allow to select which property include in class definition.
 	 * 
 	 * @param elementUtils
-	 * @param clazz
+	 * @param entity
+	 * @param factoryProperty
 	 * @param propertyAnnotationFilter
 	 *            if null, no filter is applied to annotations
+	 * @param listener
 	 */
-	public static void buildProperties(Elements elementUtils, ModelClass clazz, AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener listener) {
-		List<? extends Element> list = elementUtils.getAllMembers((TypeElement) clazz.getElement());
+	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils, T entity, PropertyFactory<P> factoryProperty,  AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener<P> listener) {
+		List<? extends Element> list = elementUtils.getAllMembers((TypeElement) entity.getElement());
 
 		if (propertyAnnotationFilter != null) {
-			AnnotationUtility.forEachAnnotations(elementUtils, clazz.getElement(), propertyAnnotationFilter, new AnnotationFoundListener() {
+			AnnotationUtility.forEachAnnotations(elementUtils, entity.getElement(), propertyAnnotationFilter, new AnnotationFoundListener() {
 
 				@Override
 				public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
@@ -82,13 +85,13 @@ public class PropertyUtility {
 			});
 		}
 
-		ModelProperty field;
+		P field;
 		for (Element item : list) {
 			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
-				field = new ModelProperty(item);
+				field = factoryProperty.createProperty(item);				
 				AnnotationUtility.buildAnnotations(elementUtils, field, propertyAnnotationFilter);
 
-				clazz.add(field);
+				entity.add(field);
 			}
 		}
 
@@ -117,8 +120,8 @@ public class PropertyUtility {
 				}
 
 				propertyName = converter.convert(propertyName);
-				if (clazz.contains(propertyName)) {
-					currentKriptonField = clazz.get(propertyName);
+				if (entity.contains(propertyName)) {
+					currentKriptonField = entity.get(propertyName);
 					Pair<String, String> result = MethodUtility.extractResultAndArguments(item.asType().toString());
 
 					if (currentKriptonField.isType(result.value1)) {
@@ -141,11 +144,11 @@ public class PropertyUtility {
 		}
 
 		if (listener != null) {
-			List<ModelProperty> listPropertiesToFilter = new ArrayList<ModelProperty>(clazz.getCollection());
+			List<P> listPropertiesToFilter = new ArrayList<P>(entity.getCollection());
 
-			for (ModelProperty item : listPropertiesToFilter) {
+			for (P item : listPropertiesToFilter) {
 				if (!listener.onProperty(item)) {
-					clazz.getCollection().remove(item);
+					entity.getCollection().remove(item);
 				}
 			}
 

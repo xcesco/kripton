@@ -11,7 +11,8 @@ import javax.lang.model.element.Element;
  * @since 05/mag/2016
  */
 public enum AnnotationAttributeType {
-
+	ATTRIBUTE_RAW_FIELDS("rawFields"),
+	
 	ATTRIBUTE_VALUE("value"),
 	ATTRIBUTE_EXCLUDED_FIELDS("excludedFields"),	
 	ATTRIBUTE_DISTINCT("distinct"),
@@ -22,7 +23,8 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_ORDER_BY("orderBy"),
 	ATTRIBUTE_NULLABLE("nullable"),
 	ATTRIBUTE_FILENAME("fileName"),
-	ATTRIBUTE_VERSION("version");
+	ATTRIBUTE_VERSION("version") 
+	;
 	
 	
 	private String value;

@@ -186,7 +186,7 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 			}
 			
 			methodBuilder.addCode("\n");
-			methodBuilder.addCode("// generate tables");
+			methodBuilder.addCode("// generate tables\n");
 			
 			for (SQLEntity item: schema.getEntities())
 			{

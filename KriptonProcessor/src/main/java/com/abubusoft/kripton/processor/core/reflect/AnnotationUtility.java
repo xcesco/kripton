@@ -18,6 +18,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelWithAnnotation;
@@ -80,8 +81,8 @@ public class AnnotationUtility {
 		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(currentElement);
 		String annotationClassName;
 		Map<String, String> values = new HashMap<String, String>();
-		boolean valid=true;
-		
+		// boolean valid=true;
+
 		for (AnnotationMirror annotation : annotationList) {
 			annotationClassName = annotation.getAnnotationType().asElement().toString();
 
@@ -90,7 +91,7 @@ public class AnnotationUtility {
 			}
 
 			values.clear();
-			for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : elementUtils.getElementValuesWithDefaults(annotation).entrySet()) {				
+			for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : elementUtils.getElementValuesWithDefaults(annotation).entrySet()) {
 				String value = annotationItem.getValue().toString();
 				if (value.startsWith("\"") && value.endsWith("\"")) {
 					value = value.substring(1);
@@ -100,7 +101,7 @@ public class AnnotationUtility {
 			}
 			listener.onAcceptAnnotation(currentElement, annotationClassName, values);
 		}
-		
+
 	}
 
 	/**
@@ -121,21 +122,20 @@ public class AnnotationUtility {
 	 * @param item
 	 * @param annotationClass
 	 * @param attributeName
-	 * @return
-	 * 		attribute value extracted as array of class name
+	 * @return attribute value extracted as array of class name
 	 */
 	public static List<String> extractAsClassNameArray(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
-		final Result<List<String>> result=new Result<List<String>>(); 
-		
+		final Result<List<String>> result = new Result<List<String>>();
+
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
-			
+
 			@Override
 			public void onFound(String value) {
-				result.value=AnnotationUtility.extractAsArrayOfClassName(value);				
+				result.value = AnnotationUtility.extractAsArrayOfClassName(value);
 			}
 		});
-		
-		return result.value;			
+
+		return result.value;
 	}
 
 	/**
@@ -148,19 +148,19 @@ public class AnnotationUtility {
 	 * @return attribute value extracted as class name
 	 */
 	public static String extractAsClassName(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
-		final Result<String> result=new Result<String>(); 
-		
+		final Result<String> result = new Result<String>();
+
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
-			
+
 			@Override
 			public void onFound(String value) {
-				result.value=AnnotationUtility.extractAsArrayOfClassName(value).get(0);				
+				result.value = AnnotationUtility.extractAsArrayOfClassName(value).get(0);
 			}
 		});
-		
-		return result.value;				
+
+		return result.value;
 	}
-	
+
 	/**
 	 * Extract from an annotation of a method the attribute value specified.
 	 * 
@@ -171,35 +171,33 @@ public class AnnotationUtility {
 	 * @return attribute value extracted as class name
 	 */
 	public static String extractAsString(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
-		final Result<String> result=new Result<String>(); 
-		
+		final Result<String> result = new Result<String>();
+
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
-			
+
 			@Override
 			public void onFound(String value) {
-				result.value=AnnotationUtility.extractAsArrayOfString(value).get(0);				
+				result.value = AnnotationUtility.extractAsArrayOfString(value).get(0);
 			}
 		});
-		
-		return result.value;				
+
+		return result.value;
 	}
-	
-	static class Result<T>
-	{
+
+	static class Result<T> {
 		T value;
 	}
-	
-	
-	interface OnAttributeFoundListener
-	{
+
+	interface OnAttributeFoundListener {
 		void onFound(String value);
 	}
-	
+
 	static void extractString(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName, OnAttributeFoundListener listener) {
 		extractAttributeValue(elementUtils, item, annotationClass.getCanonicalName(), attributeName, listener);
 	}
-	
+
 	/**
+	 * 
 	 * Extract from an annotation of a method the attribute value specified.
 	 * 
 	 */
@@ -211,7 +209,7 @@ public class AnnotationUtility {
 				// found annotation
 				for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : elementUtils.getElementValuesWithDefaults(annotation).entrySet()) {
 					if (attributeName.isEquals(annotationItem.getKey())) {
-						
+
 						listener.onFound(annotationItem.getValue().toString());
 						return;
 					}
@@ -233,18 +231,18 @@ public class AnnotationUtility {
 	 * @return attribute value as list of string
 	 */
 	public static List<String> extractAsStringArray(Elements elementUtils, ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attributeName) {
-		final Result<List<String>> result=new Result<List<String>>();
+		final Result<List<String>> result = new Result<List<String>>();
 		extractAttributeValue(elementUtils, method.getElement(), annotationClass.getName(), attributeName, new OnAttributeFoundListener() {
-			
+
 			@Override
 			public void onFound(String value) {
-				result.value=AnnotationUtility.extractAsArrayOfString(value);
+				result.value = AnnotationUtility.extractAsArrayOfString(value);
 			}
 		});
 
-		return result.value;				
+		return result.value;
 	}
-	
+
 	/**
 	 * Estract from an annotation of a method the attribute value specified
 	 * 
@@ -258,18 +256,19 @@ public class AnnotationUtility {
 	 * @return attribute value as list of string
 	 */
 	public static String extractAsString(Elements elementUtils, ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attributeName) {
-		final Result<String> result=new Result<String>(); 
-		
+		final Result<String> result = new Result<String>();
+
 		extractAttributeValue(elementUtils, method.getElement(), annotationClass.getName(), attributeName, new OnAttributeFoundListener() {
-			
+
 			@Override
 			public void onFound(String value) {
-				result.value=AnnotationUtility.extractAsArrayOfString(value).get(0);				
+				result.value = AnnotationUtility.extractAsArrayOfString(value).get(0);
 			}
 		});
-		
-		return result.value;		
+
+		return result.value;
 	}
+
 
 	/**
 	 * Estract from an annotation of a property the attribute value specified
@@ -284,18 +283,18 @@ public class AnnotationUtility {
 	 * @return attribute value as list of string
 	 */
 	public static String extractAsEnumerationValue(Elements elementUtils, ModelProperty property, ModelAnnotation annotationClass, AnnotationAttributeType attributeName) {
-		final Result<String> result=new Result<String>(); 
-		
+		final Result<String> result = new Result<String>();
+
 		extractAttributeValue(elementUtils, property.getElement(), annotationClass.getName(), attributeName, new OnAttributeFoundListener() {
-			
+
 			@Override
 			public void onFound(String value) {
-							
-				result.value=value.substring(value.lastIndexOf(".")+1);							
+
+				result.value = value.substring(value.lastIndexOf(".") + 1);
 			}
 		});
-		
-		return result.value;		
+
+		return result.value;
 	}
 
 	/**
@@ -309,19 +308,19 @@ public class AnnotationUtility {
 	}
 
 	/**
-	 * Puts in model class all annotation found for modelClass
+	 * Define for entity the model annotation set.
 	 * 
 	 * @param elementUtils
-	 * @param modelWithAnnotation
+	 * @param entity
 	 */
-	public static void buildAnnotations(Elements elementUtils, final ModelWithAnnotation modelWithAnnotation, final AnnotationFilter filter) {
-		forEachAnnotations(elementUtils, modelWithAnnotation.getElement(), filter, new AnnotationFoundListener() {
+	public static void buildAnnotations(Elements elementUtils, final ModelWithAnnotation entity, final AnnotationFilter filter) {
+		forEachAnnotations(elementUtils, entity.getElement(), filter, new AnnotationFoundListener() {
 
 			@Override
 			public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
 				ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
 
-				modelWithAnnotation.addAnnotation(annotation);				
+				entity.addAnnotation(annotation);
 			}
 		});
 
@@ -380,17 +379,42 @@ public class AnnotationUtility {
 	}
 
 	public static int extractAsInt(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
-		final Result<Integer> result=new Result<Integer>(); 
-		
+		final Result<Integer> result = new Result<Integer>();
+
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
-			
+
 			@Override
 			public void onFound(String value) {
-				result.value=Integer.parseInt(value);				
+				result.value = Integer.parseInt(value);
 			}
 		});
-		
-		return result.value;			
+
+		return result.value;
+	}
+
+	/**
+	 * Estract from an annotation of a method the attribute value specified
+	 * 
+	 * @param elementUtils
+	 * @param item
+	 *            entity to analyze
+	 * @param annotation
+	 *            annotation to analyze
+	 * @param attributeName
+	 *            attribute name to analyze 
+	 */
+	public static <E extends ModelEntity<?>> boolean extractAsBoolean(Elements elementUtils, E item, ModelAnnotation annotation, AnnotationAttributeType attributeName) {
+		final Result<Boolean> result = new Result<Boolean>();
+
+		extractAttributeValue(elementUtils, item.getElement(), annotation.getName(), attributeName, new OnAttributeFoundListener() {
+
+			@Override
+			public void onFound(String value) {
+				result.value = Boolean.valueOf(value);
+			}
+		});
+
+		return result.value;
 	}
 
 }

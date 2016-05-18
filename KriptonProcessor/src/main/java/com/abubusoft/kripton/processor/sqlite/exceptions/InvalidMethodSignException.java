@@ -11,4 +11,9 @@ public class InvalidMethodSignException extends SQLiteProcessorException {
 	{
 		super("Method '"+method.getName()+"' of class '"+daoDefinition.getName()+"' has an invalid signature");
 	}
+	
+	public InvalidMethodSignException(SQLDaoDefinition daoDefinition, ModelMethod method, String msg)
+	{
+		super("Method '"+method.getName()+"' of class '"+daoDefinition.getName()+"' has an invalid signature: "+msg);
+	}
 }

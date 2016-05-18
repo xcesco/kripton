@@ -13,14 +13,12 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.BindDatabaseProcessor;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
-import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.FieldSpec;
@@ -33,7 +31,7 @@ import com.squareup.javapoet.TypeSpec;
  * @author xcesco
  *
  */
-public class TableGenerator extends AbstractCodeGenerator implements ModelElementVisitor {
+public class TableGenerator extends AbstractCodeGenerator implements ModelElementVisitor<SQLEntity, SQLProperty> {
 
 	public static final String SUFFIX = "Table";
 
@@ -60,7 +58,7 @@ public class TableGenerator extends AbstractCodeGenerator implements ModelElemen
 	}
 
 	@Override
-	public void visit(ModelClass kriptonClass) throws Exception {
+	public void visit(SQLEntity kriptonClass) throws Exception {
 		SQLEntity entity=(SQLEntity) kriptonClass;
 				
 		String classTableName =  entity.getSimpleName() + SUFFIX;
@@ -156,16 +154,12 @@ public class TableGenerator extends AbstractCodeGenerator implements ModelElemen
 	}
 
 	@Override
-	public void visit(ModelProperty kriptonProperty) {
+	public void visit(SQLProperty kriptonProperty) {
 		FieldSpec fieldSpec = FieldSpec.builder(String.class, "COLUMN_" + columnNameConverter.convert(kriptonProperty.getName()), Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
 				.initializer("\"$L\"", model.columnNameConverter.convert(kriptonProperty.getName())).build();
 
 		builder.addField(fieldSpec);
 	}
 
-	@Override
-	public void visit(ModelType kriptonType) {
-
-	}
 
 }

@@ -16,12 +16,11 @@ import javax.lang.model.util.Elements;
 import android.database.Cursor;
 
 import com.abubusoft.kripton.processor.BindDatabaseProcessor;
-import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.ClassName;
@@ -38,7 +37,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
  * @author xcesco
  *
  */
-public class BindCursorGenerator extends AbstractCodeGenerator implements ModelElementVisitor {
+public class BindCursorGenerator extends AbstractCodeGenerator implements ModelElementVisitor<SQLEntity, SQLProperty> {
 
 	public static final String PREFIX = "Bind";
 	
@@ -60,7 +59,7 @@ public class BindCursorGenerator extends AbstractCodeGenerator implements ModelE
 	}
 
 	@Override
-	public void visit(ModelClass entity) throws Exception {
+	public void visit(SQLEntity entity) throws Exception {
 		String classTableName = PREFIX+entity.getSimpleName()+SUFFIX;		
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
@@ -114,7 +113,7 @@ public class BindCursorGenerator extends AbstractCodeGenerator implements ModelE
 
 	}
 
-	private MethodSpec.Builder generateExecuteMethod(String packageName, ModelClass entity) {		
+	private MethodSpec.Builder generateExecuteMethod(String packageName, SQLEntity entity) {		
 		ParameterizedTypeName parameterizedReturnTypeName = ParameterizedTypeName.get(className("java.util","LinkedList"), className(packageName, entity.getSimpleName()));
 		
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).returns(parameterizedReturnTypeName);
@@ -153,7 +152,7 @@ public class BindCursorGenerator extends AbstractCodeGenerator implements ModelE
 		return methodBuilder;
 	}
 	
-	private MethodSpec.Builder generateExecuteListener(String packageName, ModelClass entity) {		
+	private MethodSpec.Builder generateExecuteListener(String packageName, SQLEntity entity) {		
 		String interfaceName="On" + entity.getSimpleName() + "Listener";
 		Builder listenerInterface = TypeSpec.interfaceBuilder(interfaceName).addModifiers(Modifier.PUBLIC);
 		listenerInterface.addMethod(MethodSpec.methodBuilder("onRow").addParameter(ParameterSpec.builder(typeName(entity.getElement()), "bean").build()).addParameter(ParameterSpec.builder(Integer.TYPE, "rowPosition").build()).addParameter(ParameterSpec.builder(Integer.TYPE, "rowCount").build())
@@ -221,16 +220,12 @@ public class BindCursorGenerator extends AbstractCodeGenerator implements ModelE
 	}
 
 	@Override
-	public void visit(ModelProperty kriptonProperty) throws Exception {
+	public void visit(SQLProperty property) throws Exception {
 		// add property index
-		builder.addField(FieldSpec.builder(Integer.TYPE, "index"+(counter++), Modifier.PROTECTED).addJavadoc("Index for column $S\n", kriptonProperty.getName()).build());
+		builder.addField(FieldSpec.builder(Integer.TYPE, "index"+(counter++), Modifier.PROTECTED).addJavadoc("Index for column $S\n", property.getName()).build());
 
 	}
 
-	@Override
-	public void visit(ModelType kriptonType) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }

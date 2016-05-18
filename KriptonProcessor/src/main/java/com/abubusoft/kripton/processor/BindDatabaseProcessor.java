@@ -37,6 +37,7 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.binder.database.ColumnType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -44,11 +45,12 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
+import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
-import com.abubusoft.kripton.processor.sqlite.BindDatabaseGenerator;
 import com.abubusoft.kripton.processor.sqlite.BindCursorGenerator;
 import com.abubusoft.kripton.processor.sqlite.BindDaoGenerator;
+import com.abubusoft.kripton.processor.sqlite.BindDatabaseGenerator;
 import com.abubusoft.kripton.processor.sqlite.TableGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.AbsentAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidKindForAnnotationException;
@@ -63,9 +65,12 @@ import com.abubusoft.kripton.processor.sqlite.exceptions.TooManySQLPrimaryKeyFou
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.utils.LiteralType;
+import com.squareup.javapoet.TypeName;
 
 public class BindDatabaseProcessor extends AbstractProcessor {
 
@@ -212,20 +217,57 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 					currentEntity = new SQLEntity(classElement);
 					AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
-					if (currentEntity.containsAnnotation(BindAllFields.class)) {
-						PropertyUtility.buildProperties(elementUtils, currentEntity, propertyAnnotationFilter);
-					} else {
-						PropertyUtility.buildProperties(elementUtils, currentEntity, propertyAnnotationFilter, new PropertyCreatedListener() {
+					final boolean bindAllFields = currentEntity.containsAnnotation(BindAllFields.class);
+
+					{
+						PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLProperty>() {
 
 							@Override
-							public boolean onProperty(ModelProperty property) {
-								if (property.getAnnotation(Bind.class) != null) {
+							public SQLProperty createProperty(Element element) {
+								return new SQLProperty(element);
+							}
+						}, propertyAnnotationFilter, new PropertyCreatedListener<SQLProperty>() {
+
+							@Override
+							public boolean onProperty(SQLProperty property) {
+								ModelAnnotation annotation=null;
+								if (bindAllFields || (annotation=property.getAnnotation(Bind.class)) != null) {
+
+									TypeName name = TypeName.get(property.getElement().asType());
+
+									LiteralType lt = LiteralType.of(name.toString());
+
+									if (lt.isComposed()) {
+										String msg = String.format("In class '%s', property '%s' is ignored in database build because it is composed", currentEntity.getSimpleName(), property.getName());
+										info(msg);
+										return false;
+									}
+
+									if (name.isPrimitive())
+										return true;
+									
+									if (annotation!=null)
+									{																				
+										property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_NULLABLE));
+										ColumnType columnType=ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE));
+										
+										property.setPrimaryKey(columnType==ColumnType.PRIMARY_KEY);
+									}
+									
 									return true;
 								}
+
 								return false;
 							}
 						});
 					}
+					
+					// just to fix that property id can be the default PK without annotation.
+					// this operation force primary key flag for property 
+					SQLProperty primaryKey = currentEntity.getPrimaryKey();
+					if (primaryKey!=null)
+						primaryKey.setPrimaryKey(true);
+
 
 					if (currentEntity.getCollection().size() == 0) {
 						String msg = String.format("Class %s, used in %s database definition, has no property!", beanClassName, databaseSchema.getSimpleName().toString());
@@ -272,7 +314,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 			// Get all dao definitions
 			for (Element daoItem : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
 				if (daoItem.getKind() != ElementKind.INTERFACE) {
-					String msg = String.format("class %s: only interfaces can be annotated with @%s annotation", daoItem.getSimpleName().toString(), BindDao.class.getSimpleName());
+					String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", daoItem.getSimpleName().toString(), BindDao.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 
@@ -294,7 +336,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 					public void onMethod(ExecutableElement element) {
 						if (excludedMethods.contains(element.getSimpleName().toString()))
 							return;
-						
+
 						final SQLiteModelMethod currentMethod = new SQLiteModelMethod((ExecutableElement) element);
 
 						AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
@@ -329,22 +371,21 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 								logger.info("Annotation... " + annotation);
 								logger.info("Method... " + currentMethod.toString());
-								
+
 								return;
 							}
 						});
-						
-						// add method						
+
+						// add method
 						currentDaoDefinition.add(currentMethod);
 
 					}
 
 				});
-				
+
 				// dao definition must have >0 method associated to query
-				if (currentDaoDefinition.getCollection().size()==0)
-				{
-					String msg="Dao definition "+currentDaoDefinition.getName() + " contains no methods to bind queries";
+				if (currentDaoDefinition.getCollection().size() == 0) {
+					String msg = "Dao definition " + currentDaoDefinition.getName() + " contains no methods to bind queries";
 					throw (new MethodNotFoundException(msg));
 				}
 			}

@@ -15,6 +15,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface BindSelect {
 	
+
 	/**
 	 * if true, set distinct clause
 	 * 
@@ -24,7 +25,7 @@ public @interface BindSelect {
 	boolean distinct() default false;
 	
 	/**
-	 * properties to include into UPDATE command
+	 * properties to include into SELECT command
 	 * 
 	 * @return
 	 * 		property's names to include
@@ -69,6 +70,6 @@ public @interface BindSelect {
 	 * @return
 	 * 		order statement
 	 */
-	String orderBy() default "";
+	String orderBy() default "";		
 
 }

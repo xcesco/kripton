@@ -36,7 +36,7 @@ public abstract class SQLiteInsertBeanBuilder {
 			methodBuilder.addParameter(parameterSpec);
 		}
 				
-		ModelProperty primaryKey = CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BindInsertBean.class, methodBuilder, null);
+		ModelProperty primaryKey = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BindInsertBean.class, methodBuilder, null);
 		
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));

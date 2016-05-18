@@ -1,10 +1,8 @@
 package com.abubusoft.kripton.processor.core;
 
-public interface ModelElementVisitor {
-	void visit(ModelClass kriptonClass) throws Exception;
 
-	void visit(ModelProperty kriptonProperty) throws Exception;
+public interface ModelElementVisitor<T extends ModelClass<P>, P extends ModelProperty> {
+	void visit(T entity) throws Exception;
 
-	void visit(ModelType kriptonType) throws Exception;
-	
+	void visit(P property) throws Exception;	
 }

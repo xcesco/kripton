@@ -11,7 +11,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 @BindAllFields
-public class ModelClass extends ModelBucket<ModelProperty, TypeElement> implements ModelElement, ModelWithAnnotation {
+public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElement> implements ModelElement, ModelWithAnnotation {
 	
 	protected List<ModelAnnotation> annotations;
 	

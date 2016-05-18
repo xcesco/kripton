@@ -47,7 +47,7 @@ public abstract class SQLiteUpdateBeanBuilder {
 		SQLAnalyzer analyzer = new SQLAnalyzer();
 		analyzer.execute(elementUtils, daoDefinition, entity, method, whereCondition);
 
-		CodeBuilderHelper.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BuindUpdateBean.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+		CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BuindUpdateBean.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 
 		methodBuilder.addCode("\n");
 

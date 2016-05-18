@@ -20,6 +20,14 @@ public class TypeUtility {
 		return false;
 	}
 	
+	public static boolean isTypePrimitive(TypeName value) {
+		return isTypeIncludedIn(value, Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE);
+	}
+	
+	public static boolean isTypeWrappedPrimitive(TypeName value) {
+		return isTypeIncludedIn(value, Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class);
+	}
+	
 	public static boolean isSameType(TypeName value, String className) {
 		return value.toString().equals(className);		
 	}
@@ -33,6 +41,17 @@ public class TypeUtility {
 	 */
 	public static boolean isEquals(TypeName value, ModelClass entity) {
 		return isSameType(value, entity.getName()); 		
+	}
+	
+	/**
+	 * Check if class that is rapresented by value has same name of entity parameter.
+	 * 
+	 * @param value
+	 * @param kindOfParameter
+	 * @return true if value is equals to className.
+	 */
+	public static boolean isEquals(TypeName value, TypeName kindOfParameter) {
+		return value.toString().equals(kindOfParameter.toString()); 		
 	}
 	
 	/**

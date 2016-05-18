@@ -13,17 +13,21 @@ import javax.lang.model.util.Elements;
 
 import android.database.Cursor;
 
+import com.abubusoft.kripton.android.OnRowListener;
 import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.JavaDocUtility;
-import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
+import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidReturnTypeException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
@@ -34,7 +38,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
-
 /**
  * @author xcesco
  *
@@ -42,6 +45,56 @@ import com.squareup.javapoet.TypeSpec.Builder;
  * @since 05/mag/2016
  */
 public abstract class SQLiteSelectBuilder {
+
+	public enum SelectResultType {
+			LISTENER_BEAN(SelectBeanListenerHelper.class, true),
+			LISTENER_CURSOR(SelectCursorListenerHelper.class, false),
+			LIST_BEAN(SelectBeanListHelper.class, true),
+			LIST_SCALAR(SelectScalarListHelper.class, false),
+			CURSOR(SelectCursorHelper.class, false),
+			BEAN(SelectBeanHelper.class, true),
+			SCALAR(SelectScalarHelper.class, false);
+
+		private SelectCodeGenerator codeGenerator;
+
+		private boolean mapFields;
+
+		/**
+		 * if true, map cursor fields to bean attributes.
+		 * 
+		 * @return the mapFields
+		 */
+		public boolean isMapFields() {
+			return mapFields;
+		}
+
+		/**
+		 * @return the codeGenerator
+		 */
+		public SelectCodeGenerator getCodeGenerator() {
+			return codeGenerator;
+		}
+
+		private SelectResultType(Class<? extends SelectCodeGenerator> codeGenerator, boolean mapFields) {
+			try {
+				this.mapFields = mapFields;
+				this.codeGenerator = codeGenerator.newInstance();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+			codeGenerator.generate(elementUtils, daoDefinition, entity, fieldList, methodBuilder, this.isMapFields(), method, returnType);
+
+		}
+	}
+
+	public interface SelectCodeGenerator {
+		void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+	}
 
 	/**
 	 * 
@@ -51,66 +104,112 @@ public abstract class SQLiteSelectBuilder {
 	 * @param daoDefinition
 	 * @param method
 	 */
-	@SuppressWarnings("serial")
 	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLiteModelMethod method) {
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
-		
+		SelectResultType selectResultType = null;
+
+		// if true, field must be associate to ben attributes
+		TypeName returnType = typeName(method.getReturnClass());
+
+		if (TypeUtility.isTypeIncludedIn(returnType, Void.class)) {
+			// return VOID (in the parameters must be a listener)
+			if (MethodUtility.hasParameterOfType(method, typeName(ReadCursorListener.class))) {
+				selectResultType = SelectResultType.LISTENER_CURSOR;
+			} else if (MethodUtility.hasParameterOfType(method, typeName(ReadBeanListener.class))) {
+				selectResultType = SelectResultType.LISTENER_BEAN;
+			}
+
+			if (selectResultType == null) {
+				// error
+			}
+
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Cursor.class)) {
+			// return Cursor (no listener)
+			selectResultType = SelectResultType.CURSOR;
+		} else if (returnType instanceof ParameterizedTypeName) {
+			ClassName listClazzName = ((ParameterizedTypeName) returnType).rawType;
+
+			if (TypeUtility.isTypeIncludedIn(listClazzName, List.class, Collection.class)) {
+				// return List (no listener)
+				List<TypeName> list = ((ParameterizedTypeName) returnType).typeArguments;
+
+				if (list.size() == 1) {
+					if (TypeUtility.isSameType(list.get(0), entity.getName().toString())) {
+						// entity list
+						selectResultType = SelectResultType.LIST_BEAN;
+					} else if (TypeUtility.isTypePrimitive(returnType) || TypeUtility.isTypeWrappedPrimitive(returnType) || TypeUtility.isTypeIncludedIn(returnType, String.class)) {
+						// scalar list
+						selectResultType = SelectResultType.LIST_SCALAR;
+					}
+				} else {
+					// error
+				}
+			} else {
+				// error
+			}
+		} else if (TypeUtility.isEquals(returnType, entity)) {
+			// return one element (no listener)
+			selectResultType = SelectResultType.BEAN;
+		} else if (TypeUtility.isTypePrimitive(returnType) || TypeUtility.isTypeWrappedPrimitive(returnType) || TypeUtility.isTypeIncludedIn(returnType, String.class)) {
+			// return single value string, int, long, short, double, float, String (no listener)
+			selectResultType = SelectResultType.SCALAR;
+		}
+
+		// take field list
+		Pair<String, List<SQLProperty>> fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, model, daoDefinition, method, BindSelect.class, selectResultType.isMapFields(),  null);
+		String fieldStatement = fieldList.value0;
+		List<SQLProperty> fields = fieldList.value1;
+		String tableStatement = model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName());
+
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
 		ModelAnnotation annotation = method.getAnnotation(BindSelect.class);
 		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_DISTINCT));
 
-		Pair<String, List<ModelProperty>> fieldList = CodeBuilderHelper.generatePropertyList(elementUtils, model, daoDefinition, method, BindSelect.class, null);
-		String fieldStatement = fieldList.value0;
-		List<ModelProperty> fields=fieldList.value1;
-		String tableStatement = model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName());
+		SQLAnalyzer analyzer = new SQLAnalyzer();
 
-		SQLAnalyzer analyzer=new SQLAnalyzer();
-		
-		String whereSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);	
+		String whereSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		analyzer.execute(elementUtils, daoDefinition, entity, method, whereSQL);
 		String whereStatement = analyzer.getSQLStatement();
-		List<String> whereParamGetters=analyzer.getParamGetters();
-		List<String> whereParamNames=analyzer.getParamNames();		
+		List<String> whereParamGetters = analyzer.getParamGetters();
+		List<String> whereParamNames = analyzer.getParamNames();
 
 		String havingSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_HAVING);
 		analyzer.execute(elementUtils, daoDefinition, entity, method, havingSQL);
 		String havingStatement = analyzer.getSQLStatement();
-		List<String> havingParamGetters=analyzer.getParamGetters();
-		List<String> havingParamNames=analyzer.getParamNames();
+		List<String> havingParamGetters = analyzer.getParamGetters();
+		List<String> havingParamNames = analyzer.getParamNames();
 
-		String groupBySQL= annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_GROUP_BY);
+		String groupBySQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_GROUP_BY);
 		analyzer.execute(elementUtils, daoDefinition, entity, method, groupBySQL);
 		String groupByStatement = analyzer.getSQLStatement();
-		List<String> groupByParamGetters=analyzer.getParamGetters();
-		List<String> groupByParamNames=analyzer.getParamNames();
-		
-		String orderBySQL= annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_ORDER_BY);
+		List<String> groupByParamGetters = analyzer.getParamGetters();
+		List<String> groupByParamNames = analyzer.getParamNames();
+
+		String orderBySQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_ORDER_BY);
 		analyzer.execute(elementUtils, daoDefinition, entity, method, orderBySQL);
 		String orderByStatement = analyzer.getSQLStatement();
-		List<String> orderByParamGetters=analyzer.getParamGetters();
-		List<String> orderByParamNames=analyzer.getParamNames();
+		List<String> orderByParamGetters = analyzer.getParamGetters();
+		List<String> orderByParamNames = analyzer.getParamNames();
 
 		// select statement
-		String sqlWithParameters = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereSQL).having(havingSQL).groupBy(groupBySQL).orderBy(orderBySQL)
-				.build();
-		String sql = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement).orderBy(orderByStatement)
-				.build();
-		
+		String sqlWithParameters = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereSQL).having(havingSQL).groupBy(groupBySQL).orderBy(orderBySQL).build();
+		String sql = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement).orderBy(orderByStatement).build();
+
 		// select parameters
 		List<String> paramNames = new ArrayList<String>();
 		paramNames.addAll(whereParamNames);
 		paramNames.addAll(havingParamNames);
 		paramNames.addAll(groupByParamNames);
 		paramNames.addAll(orderByParamNames);
-		
+
 		// select getter
 		List<String> paramGetters = new ArrayList<String>();
 		paramGetters.addAll(whereParamGetters);
 		paramGetters.addAll(havingParamGetters);
 		paramGetters.addAll(groupByParamGetters);
 		paramGetters.addAll(orderByParamGetters);
-		
+
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
@@ -121,106 +220,32 @@ public abstract class SQLiteSelectBuilder {
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
 			methodBuilder.addParameter(parameterSpec);
 		}
-		
-		// build where condition
+		methodBuilder.returns(returnType);
+
+		// build where condition (common for every type of select)
+		methodBuilder.addCode("// build where condition\n");
 		methodBuilder.addCode("String[] args={");
 		{
-		String separator = "";
+			String separator = "";
 
-		for (String item : paramGetters) {
-			methodBuilder.addCode(separator);
-			methodBuilder.addCode("String.valueOf($L)", item);
+			for (String item : paramGetters) {
+				methodBuilder.addCode(separator);
+				methodBuilder.addCode("String.valueOf($L)", item);
 
-			separator = ", ";
-		}
-		methodBuilder.addCode("};");
-		}
-
-		/*
-		for (String item : paramNames) {
-			if (!entity.contains(item))
-			{
-				throw (new PropertyNotFoundException(daoDefinition, method, item));
+				separator = ", ";
 			}
-			
-			if (!method.hasParameter(item))
-			{
-				throw (new MethodParameterNotFoundException(daoDefinition, method, item));
-			}
-		}*/
+			methodBuilder.addCode("};\n");
+		}
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("$T cursor = database.rawQuery(\"$L\", args);\n", Cursor.class, sql);
 
-		TypeName returnType = TypeName.get(method.getReturnClass());
-		methodBuilder.returns(returnType);
-		
-		if ((returnType instanceof ParameterizedTypeName))
-		{
-			// return Collection<Entity>
-			ParameterizedTypeName returnListName = (ParameterizedTypeName) returnType;
-			
-			TypeName collectionClass;			
-			TypeName entityClass= typeName(entity.getElement());
-			ClassName listClazzName=returnListName.rawType;
-			
-			if (TypeUtility.isTypeIncludedIn(listClazzName.toString(), List.class, Collection.class, Iterable.class))
-			{
-				// there is an interface as result
-				collectionClass=typeName(LinkedList.class);
-			} else {
-				collectionClass=listClazzName;
-			}
-			
-			methodBuilder.addCode("\n");
-			methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n",collectionClass,entityClass, collectionClass,entityClass);
-			methodBuilder.addCode("$T resultBean=new $T();\n",entityClass, entityClass);
-			methodBuilder.addCode("\n");
-			methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
-			
-			// generate index from columns
-			
-			methodBuilder.addCode("\n");
-			{
-				int i=0;	
-				for (ModelProperty item : fields) {					
-					methodBuilder.addCode("int index"+(i++)+"=");
-					methodBuilder.addCode("cursor.getColumnIndex($S)", SQLUtility.getColumnName(item));
-					methodBuilder.addCode(";\n");
-				}
-			}
-			methodBuilder.addCode("\n\n");			
-			
-			methodBuilder.beginControlFlow("do\n");			
-			methodBuilder.addCode("resultBean=new $T();\n",entityClass);
-			
-			// generate mapping
-			int i=0;
-			for (ModelProperty item : fields) {			
-				Transformer.cursor2Bean(methodBuilder, item, "resultBean", "cursor","index"+(i++)+"");
-				methodBuilder.addCode("\n");
-			}
-			methodBuilder.addCode("\n");
-			
-			methodBuilder.addCode("resultList.add(resultBean);\n");			
-			methodBuilder.endControlFlow("while (cursor.moveToNext())");						
-			
-			methodBuilder.endControlFlow();
-			methodBuilder.addCode("cursor.close();\n");
-			
-			methodBuilder.addCode("\n");
-			methodBuilder.addCode("return resultList;\n");
-			
-		} else if (TypeUtility.isTypeIncludedIn(TypeUtility.typeName(method.getReturnClass()), Cursor.class, Void.class)) {			
-			// return cursor
-			// define return value
-			if (TypeUtility.isTypeIncludedIn(TypeUtility.typeName(method.getReturnClass()), Cursor.class)) {
-				methodBuilder.addCode("return cursor;\n");
-			}			
-		} else {
+		selectResultType.generate(elementUtils, daoDefinition, entity, fieldList, methodBuilder, method, returnType);
+
+		/*} else {
 			throw (new InvalidReturnTypeException(daoDefinition, method, typeName(method.getReturnClass()), typeName(Cursor.class)));
-		}
-		
+		}*/
+
 		MethodSpec methodSpec = methodBuilder.build();
 
 		builder.addMethod(methodSpec);

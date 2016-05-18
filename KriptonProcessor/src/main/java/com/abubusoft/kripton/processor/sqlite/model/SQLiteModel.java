@@ -17,7 +17,6 @@ public class SQLiteModel {
 
 	public void schemaClear() {
 		schemas.clear();
-		
 	}
 
 	public int schemaCount() {

@@ -8,10 +8,16 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
+import com.squareup.javapoet.TypeName;
+
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 public abstract class MethodUtility {
 	
@@ -45,6 +51,47 @@ public abstract class MethodUtility {
 			}
 		}
 	}
+	
+	public static boolean hasParameterOfType(ModelMethod method, TypeName kindOfParameter)
+	{
+		for(Pair<String, TypeMirror> item:method.getParameters())
+		{
+			if (TypeUtility.isEquals(typeName(item.value1), kindOfParameter))
+			{
+				return true;
+			}			
+		}
+			
+			return false;
+	}
+	
+	public static int countParameterOfType(ModelMethod method, TypeName kindOfParameter)
+	{
+		int counter=0;
+		for (Pair<String, TypeMirror> item:method.getParameters())
+		{
+			if (TypeUtility.isEquals(typeName(item.value1), typeName(ReadCursorListener.class)))
+			{
+				counter++;
+			}
+		}
+		
+		return counter;
+	}
+	
+	public static String getNameParameterOfType(ModelMethod method, TypeName kindOfParameter)
+	{
+		for (Pair<String, TypeMirror> item:method.getParameters())
+		{
+			if (TypeUtility.isEquals(typeName(item.value1), typeName(ReadCursorListener.class)))
+			{
+				return item.value0;
+			}
+		}
+		
+		return null;
+	}
+
 
 
 	

@@ -13,17 +13,17 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.MethodSpec.Builder;
 
-public class CodeBuilderHelper {
+public class CodeBuilderUtility {
 
 	/**
 	 * Generate code necessary to put bean properties in content values map. Return primary key
@@ -33,19 +33,22 @@ public class CodeBuilderHelper {
 	 * @param daoDefinition
 	 * @param method
 	 *            used to code generation
+	 * @param checkProperty
+	 *            if true, check if property used in query is present as attribute in bean
 	 * @param alreadyUsedBeanPropertiesNames
 	 *            optional
 	 * @return primary key.
 	 */
-	public static Pair<String, List<ModelProperty>> generatePropertyList(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz,
-			Set<String> alreadyUsedBeanPropertiesNames) {
-		Pair<String, List<ModelProperty>> result = new Pair<String, List<ModelProperty>>();
-		result.value1 = new ArrayList<ModelProperty>();
+	public static Pair<String, List<SQLProperty>> generatePropertyList(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz,
+			boolean checkProperty, Set<String> alreadyUsedBeanPropertiesNames) {
+		Pair<String, List<SQLProperty>> result = new Pair<String, List<SQLProperty>>();
+		result.value1 = new ArrayList<SQLProperty>();
 
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
-	//	Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-		// check included and excluded fields
+
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
+
+		// check included and excluded fields
 		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE);
 		if (alreadyUsedBeanPropertiesNames != null) {
 			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
@@ -56,16 +59,19 @@ public class CodeBuilderHelper {
 		if (includedFields.size() > 0 && excludedFields.size() > 0) {
 			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
 		}
-		// check included
-		for (String item : includedFields) {
-			if (!entity.contains(item)) {
-				throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+
+		if (checkProperty) {
+			// check included
+			for (String item : includedFields) {
+				if (!entity.contains(item)) {
+					throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+				}
 			}
-		}
-		// check excluded
-		for (String item : excludedFields) {
-			if (!entity.contains(item)) {
-				throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+			// check excluded
+			for (String item : excludedFields) {
+				if (!entity.contains(item)) {
+					throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+				}
 			}
 		}
 
@@ -73,7 +79,7 @@ public class CodeBuilderHelper {
 		String separator = "";
 		// methodBuilder.addCode("contentValues.clear();\n\n");
 		// for each property in entity except primaryKey and excluded properties
-		for (ModelProperty item : entity.getCollection()) {
+		for (SQLProperty item : entity.getCollection()) {
 			if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
 				continue;
 			if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
@@ -103,7 +109,7 @@ public class CodeBuilderHelper {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static ModelProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+	public static SQLProperty populateContentValuesFromEntity(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
 			Set<String> alreadyUsedBeanPropertiesNames) {
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
 		// check included and excluded fields
@@ -132,10 +138,10 @@ public class CodeBuilderHelper {
 		}
 
 		// initialize contentValues
-		ModelProperty primaryKey = entity.getPrimaryKey();
+		SQLProperty primaryKey = entity.getPrimaryKey();
 		methodBuilder.addCode("contentValues.clear();\n\n");
 		// for each property in entity except primaryKey and excluded properties
-		for (ModelProperty item : entity.getCollection()) {
+		for (SQLProperty item : entity.getCollection()) {
 			if (item.equals(primaryKey) || excludedFields.contains(item.getName()))
 				continue;
 			if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
