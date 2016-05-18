@@ -111,7 +111,7 @@ public abstract class SQLiteSelectBuilder {
 		// if true, field must be associate to ben attributes
 		TypeName returnType = typeName(method.getReturnClass());
 
-		if (TypeUtility.isTypeIncludedIn(returnType, Void.class)) {
+		if (TypeUtility.isTypeIncludedIn(returnType, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
 			if (MethodUtility.hasParameterOfType(method, typeName(ReadCursorListener.class))) {
 				selectResultType = SelectResultType.LISTENER_CURSOR;

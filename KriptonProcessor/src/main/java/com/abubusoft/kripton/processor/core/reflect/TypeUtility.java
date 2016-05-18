@@ -39,9 +39,23 @@ public class TypeUtility {
 	 * @param entity
 	 * @return true if value is equals to className.
 	 */
-	public static boolean isEquals(TypeName value, ModelClass entity) {
+	public static boolean isEquals(TypeName value, ModelClass<?> entity) {
 		return isSameType(value, entity.getName()); 		
 	}
+	
+	/**
+	 * Check if class that is rapresented by value has same name of entity parameter.
+	 * 
+	 * @param value
+	 * @param rawType
+	 * @param generic
+	 * @return true if value is equals to className.
+	 */
+	public static boolean isEqualsToGeneric(TypeName value, TypeName rawType, TypeName generic) {
+		return isSameType(value, rawType+"<"+generic.toString()+">");		
+	}
+	
+	//com.abubusoft.kripton.android.sqlite.ReadBeanListener<com.abubusoft.kripton.processor.test03.Bean01>
 	
 	/**
 	 * Check if class that is rapresented by value has same name of entity parameter.

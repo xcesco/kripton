@@ -60,6 +60,7 @@ public class SelectBeanHelper implements SelectCodeGenerator {
 		methodBuilder.addCode("\n");		
 		methodBuilder.addCode("$T resultBean=new $T();\n", entityClass, entityClass);
 		methodBuilder.addCode("\n");
+						
 		methodBuilder.beginControlFlow("if (cursor.getCount()>1)");		
 		methodBuilder.addCode("cursor.close();\n");
 		methodBuilder.addCode("throw new RuntimeException(\"Aspect max one element, found \"+cursor.getCount()+\" elements\");\n");
