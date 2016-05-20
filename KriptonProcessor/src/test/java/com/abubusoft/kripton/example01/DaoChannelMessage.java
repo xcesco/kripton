@@ -3,7 +3,7 @@ package com.abubusoft.kripton.example01;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDeleteBean;
+import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 
 @BindDao(ChannelMessage.class)
@@ -69,7 +69,7 @@ public interface DaoChannelMessage {
 	@BindSelect(distinct=true, excludedFields="uid", where="id = ${bean.valid}", having="uid = ${uid} ")
 	List<ChannelMessage> selectList(ChannelMessage bean, long uid);
 	
-	@BindDeleteBean(where="id=${id} and uid=${bean.uid}")
+	@BindDelete(where="id=${id} and uid=${bean.uid}")
 	long deleteBeanAll(ChannelMessage bean, long id);
 
 	

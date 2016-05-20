@@ -11,6 +11,22 @@ public class Bean02 {
 	
 	protected String text;
 	
+	protected byte[] content;
+	
+	/**
+	 * @return the content
+	 */
+	public byte[] getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(byte[] content) {
+		this.content = content;
+	}
+
 	/**
 	 * @return the text
 	 */

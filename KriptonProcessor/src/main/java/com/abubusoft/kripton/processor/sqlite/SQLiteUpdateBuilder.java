@@ -7,7 +7,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindUpdateRaw;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -37,7 +37,7 @@ public abstract class SQLiteUpdateBuilder {
 		
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
-		String whereCondition=method.getAnnotation(BindUpdate.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
+		String whereCondition=method.getAnnotation(BindUpdateRaw.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		
 		Pair<String, List<String>> where = SQLUtility.extractParametersFromString(whereCondition, model.columnNameConverter, entity);
 		

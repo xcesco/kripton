@@ -4,11 +4,7 @@ import java.lang.annotation.Annotation;
 
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.annotation.BindColumn;
-import com.abubusoft.kripton.binder.database.ColumnType;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
-import com.abubusoft.kripton.processor.core.ModelProperty;
 
 public class SQLEntity extends ModelClass<SQLProperty> {
 

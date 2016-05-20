@@ -1,9 +1,9 @@
 package com.abubusoft.kripton.example01;
 
+import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.binder.database.ColumnType;
 
 @BindType
 @BindAllFields

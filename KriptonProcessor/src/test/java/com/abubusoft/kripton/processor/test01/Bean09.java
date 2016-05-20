@@ -1,9 +1,7 @@
 package com.abubusoft.kripton.processor.test01;
 
 import com.abubusoft.kripton.annotation.BindAllFields;
-import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.binder.database.ColumnType;
 
 @BindType
 @BindAllFields

@@ -42,7 +42,7 @@ public class SelectBeanListHelper<ElementUtils> implements SelectCodeGenerator {
 	@Override
 	public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields,  SQLiteModelMethod method,TypeName returnType) {
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnType;
-		String fieldStatement = fieldList.value0;
+		//String fieldStatement = fieldList.value0;
 		List<SQLProperty> fields = fieldList.value1;
 
 		TypeName collectionClass;
@@ -58,7 +58,7 @@ public class SelectBeanListHelper<ElementUtils> implements SelectCodeGenerator {
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass, entityClass);
-		methodBuilder.addCode("$T resultBean=new $T();\n", entityClass, entityClass);
+		methodBuilder.addCode("$T resultBean=null;\n", entityClass);
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
@@ -85,6 +85,7 @@ public class SelectBeanListHelper<ElementUtils> implements SelectCodeGenerator {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 			}
 			Transformer.cursor2Bean(methodBuilder, item, "resultBean", "cursor", "index" + i + "");
+			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");
 			}

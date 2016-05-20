@@ -33,6 +33,30 @@ public class TypeUtility {
 	}
 	
 	/**
+	 * Check if its type is byte[]
+	 * 
+	 * @param value
+	 * @return true if it is byte[]
+	 */
+	public static boolean isByteArray(TypeName value) {
+		return value.toString().equals(Byte.TYPE.getCanonicalName()+"[]");		
+	}
+	
+	/**
+	 * Check if its type is String
+	 * 
+	 * @param value
+	 * @return true if it is String
+	 */
+	public static boolean isString(TypeName value) {
+		return value.toString().equals(String.class.getCanonicalName());		
+	}
+	
+	public static boolean isNullable(TypeName value) {
+		return !isTypePrimitive(value);		
+	}
+	
+	/**
 	 * Check if class that is rapresented by value has same name of entity parameter.
 	 * 
 	 * @param value

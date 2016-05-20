@@ -8,7 +8,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BuindUpdateBean;
+import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -43,11 +43,11 @@ public abstract class SQLiteUpdateBeanBuilder {
 			throw (new InvalidMethodSignException(daoDefinition, method));
 		}
 
-		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(BuindUpdateBean.class), AnnotationAttributeType.ATTRIBUTE_WHERE);
+		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(BindUpdate.class), AnnotationAttributeType.ATTRIBUTE_WHERE);
 		SQLAnalyzer analyzer = new SQLAnalyzer();
 		analyzer.execute(elementUtils, daoDefinition, entity, method, whereCondition);
 
-		CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BuindUpdateBean.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+		CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BindUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 
 		methodBuilder.addCode("\n");
 

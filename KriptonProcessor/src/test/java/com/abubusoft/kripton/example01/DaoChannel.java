@@ -3,22 +3,22 @@ package com.abubusoft.kripton.example01;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindInsertRaw;
 import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindInsertBean;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 
 @BindDao(Channel.class)
 public interface DaoChannel {
 
-	@BindInsert
+	@BindInsertRaw
 	long insertContact(String ownerUid);
 	
 
-    @BindSelect
+    @BindSelect(where="1=1")
     List<Channel> selectAll();
 	
 	
-	@BindInsertBean
+	@BindInsert
 	long insertBean(Channel bean);
 	
 	/*

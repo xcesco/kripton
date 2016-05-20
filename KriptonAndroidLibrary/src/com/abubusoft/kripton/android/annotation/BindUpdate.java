@@ -8,7 +8,26 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface BindUpdate {
-	
-	String where();
 
+	/**
+	 * properties to include into UPDATE command
+	 * @return
+	 * 		property's names to include
+	 */
+	String[] value() default {};
+	
+	/**
+	 * properties to include into UPDATE command
+	 * @return
+	 * 		property's names to exclude
+	 */
+	String[] excludedFields() default {};
+	
+	/**
+	 * where condition
+	 * 
+	 * @return
+	 * 		where condition
+	 */
+	String where();
 }

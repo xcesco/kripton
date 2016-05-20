@@ -16,17 +16,22 @@ import com.squareup.javapoet.MethodSpec.Builder;
 public class TimeZoneTransform implements Transform {
 
 	public TimeZone read(String value) throws Exception {
-	    return TimeZone.getTimeZone(value);
+		return TimeZone.getTimeZone(value);
 	}
 
 	public String write(TimeZone value) throws Exception {
-	    return value.getID();
+		return value.getID();
 	}
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "$T.getTimeZone($L.getString($L))")+";", beanName,TimeZone.class, cursorName, indexName);	
-		
+		methodBuilder.addCode("$L." + setter(property, "$T.getTimeZone($L.getString($L))") , beanName, TimeZone.class, cursorName, indexName);
+
+	}
+
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);
 	}
 
 	@Override
@@ -34,12 +39,18 @@ public class TimeZoneTransform implements Transform {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode("null");		
+	}
+
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "null")+";", beanName);
+		methodBuilder.addCode("$L." + setter(property, "null") , beanName);
 	}
-	
+
 	@Override
 	public String generateColumnType(ModelProperty property) {
 		return "TEXT";

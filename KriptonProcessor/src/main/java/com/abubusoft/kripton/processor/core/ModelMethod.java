@@ -7,22 +7,25 @@ import java.util.List;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVariable;
 
 import com.abubusoft.kripton.common.Pair;
 
 public class ModelMethod extends ModelEntity<ExecutableElement> implements ModelWithAnnotation {
-	
+
 	public ModelAnnotation getAnnotation(Class<? extends Annotation> value) {
 		for (ModelAnnotation item : annotations) {
 			if (item.getName().equals(value.getCanonicalName())) {
 				return item;
 			}
 		}
-		
+
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -65,8 +68,13 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		for (VariableElement p : element.getParameters()) {
 			parameters.add(new Pair<String, TypeMirror>(p.getSimpleName().toString(), p.asType()));
 		}
-
-		returnClass = element.getReturnType();
+		
+		if (element.getReturnType() instanceof TypeVariable) {			
+			//TODO for the moment, if method return type is typeVariable, we set it to null 
+			returnClass = null;
+		} else {
+			returnClass = element.getReturnType();
+		}
 	}
 
 	protected String name;
@@ -94,6 +102,13 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		return returnClass;
 	}
 
+	/**
+	 * @param returnClass the returnClass to set
+	 */
+	public void setReturnClass(TypeMirror returnClass) {
+		this.returnClass = returnClass;
+	}
+
 	protected List<Pair<String, TypeMirror>> parameters;
 
 	protected TypeMirror returnClass;
@@ -106,34 +121,28 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	 * Check if method contains a parameter with value as name
 	 * 
 	 * @param name
-	 * 		parameter name to find
-	 * @return
-	 * 		true if parameter is found
+	 *            parameter name to find
+	 * @return true if parameter is found
 	 */
 	public boolean containsParameter(String name) {
-		for (Pair<String, TypeMirror> item: parameters)
-		{
-			if (item.value0.equals(name))
-			{
+		for (Pair<String, TypeMirror> item : parameters) {
+			if (item.value0.equals(name)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Check if method contains a parameter with value as name
 	 * 
 	 * @param name
-	 * 		parameter name to find
-	 * @return
-	 * 		TypeMirror associated
+	 *            parameter name to find
+	 * @return TypeMirror associated
 	 */
 	public TypeMirror findParameter(String name) {
-		for (Pair<String, TypeMirror> item: parameters)
-		{
-			if (item.value0.equals(name))
-			{
+		for (Pair<String, TypeMirror> item : parameters) {
+			if (item.value0.equals(name)) {
 				return item.value1;
 			}
 		}
@@ -144,15 +153,12 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	 * Check if method contains a parameter with value as name
 	 * 
 	 * @param name
-	 * 		parameter name to find
-	 * @return
-	 * 		true if there is parameter with specified name 
+	 *            parameter name to find
+	 * @return true if there is parameter with specified name
 	 */
 	public boolean hasParameter(String name) {
-		for (Pair<String, TypeMirror> item: parameters)
-		{
-			if (item.value0.equals(name))
-			{
+		for (Pair<String, TypeMirror> item : parameters) {
+			if (item.value0.equals(name)) {
 				return true;
 			}
 		}

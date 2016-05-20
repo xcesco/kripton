@@ -5,26 +5,18 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
-import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
@@ -43,28 +35,25 @@ public class SelectBeanHelper implements SelectCodeGenerator {
 	 */
 	@Override
 	public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields,  SQLiteModelMethod method, TypeName returnType) {
-		String fieldStatement = fieldList.value0;
+		//String fieldStatement = fieldList.value0;
 		List<SQLProperty> fields = fieldList.value1;
 
-		TypeName collectionClass;
+		//TypeName collectionClass;
 		TypeName entityClass = typeName(entity.getElement());
-		ClassName listClazzName = (ClassName) returnType;
+		//ClassName listClazzName = (ClassName) returnType;
 
+		/*
 		if (TypeUtility.isTypeIncludedIn(listClazzName.toString(), List.class, Collection.class, Iterable.class)) {
 			// there is an interface as result
 			collectionClass = typeName(LinkedList.class);
 		} else {
 			collectionClass = listClazzName;
-		}
+		}*/
 
 		methodBuilder.addCode("\n");		
-		methodBuilder.addCode("$T resultBean=new $T();\n", entityClass, entityClass);
+		methodBuilder.addCode("$T resultBean=null;\n", entityClass);
 		methodBuilder.addCode("\n");
 						
-		methodBuilder.beginControlFlow("if (cursor.getCount()>1)");		
-		methodBuilder.addCode("cursor.close();\n");
-		methodBuilder.addCode("throw new RuntimeException(\"Aspect max one element, found \"+cursor.getCount()+\" elements\");\n");
-		methodBuilder.endControlFlow();
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
 		// generate index from columns
@@ -89,6 +78,7 @@ public class SelectBeanHelper implements SelectCodeGenerator {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 			}
 			Transformer.cursor2Bean(methodBuilder, item, "resultBean", "cursor", "index" + i + "");
+			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");
 			}

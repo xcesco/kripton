@@ -25,19 +25,29 @@ public class UrlTransform implements Transform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "new $T($L.getString($L))")+";", beanName,URL.class, cursorName, indexName);
+		methodBuilder.addCode("$L."+setter(property, "new $T($L.getString($L))"), beanName,URL.class, cursorName, indexName);
 		
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 
 	@Override
 	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode("null");		
+	}
+	
+	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "null")+";", beanName);
+		methodBuilder.addCode("$L."+setter(property, "null"), beanName);
 	}
 	
 	@Override

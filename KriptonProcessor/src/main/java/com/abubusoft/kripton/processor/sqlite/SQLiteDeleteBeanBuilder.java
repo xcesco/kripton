@@ -4,7 +4,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindDeleteBean;
+import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -42,7 +42,7 @@ public abstract class SQLiteDeleteBeanBuilder {
 
 		methodBuilder.addCode("\n");
 
-		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(BindDeleteBean.class), AnnotationAttributeType.ATTRIBUTE_WHERE);
+		String whereCondition = AnnotationUtility.extractAsString(elementUtils, method, method.getAnnotation(BindDelete.class), AnnotationAttributeType.ATTRIBUTE_WHERE);
 		SQLAnalyzer analyzer = new SQLAnalyzer();
 		analyzer.execute(elementUtils, daoDefinition, entity, method, whereCondition);
 

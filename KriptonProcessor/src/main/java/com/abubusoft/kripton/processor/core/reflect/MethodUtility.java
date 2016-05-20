@@ -1,6 +1,10 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,15 +13,14 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVariable;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
-import com.squareup.javapoet.TypeName;
-
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+import com.abubusoft.kripton.processor.utils.LiteralType;
+import com.sun.mirror.type.ClassType;
 
 public abstract class MethodUtility {
 	
@@ -43,6 +46,17 @@ public abstract class MethodUtility {
 	 * @param listener
 	 */
 	public static void forEachMethods(Elements elementUtils, TypeElement typeElement, MethodFoundListener listener) {
+		
+		Map<String, TypeMirror> resolvedParameter=new HashMap<String, TypeMirror>();
+		List<? extends TypeMirror > listInterface=typeElement.getInterfaces();
+		for (TypeMirror item: listInterface)
+		{					
+			//if (item instanceof Type$ClassType)
+			{
+				resolvedParameter.put("E", item);
+			}
+		}
+		
 		List<? extends Element> list = elementUtils.getAllMembers(typeElement);
 
 		for (Element item : list) {
@@ -52,11 +66,11 @@ public abstract class MethodUtility {
 		}
 	}
 	
-	public static boolean hasParameterOfType(ModelMethod method, TypeName kindOfParameter)
+	public static boolean hasParameterOfType(ModelMethod method, String kindOfParameter)
 	{
 		for(Pair<String, TypeMirror> item:method.getParameters())
 		{
-			if (TypeUtility.isEquals(typeName(item.value1), kindOfParameter))
+			if (typeName(item.value1).toString().equals(kindOfParameter))
 			{
 				return true;
 			}			
@@ -65,12 +79,25 @@ public abstract class MethodUtility {
 		return false;
 	}
 	
-	public static int countParameterOfType(ModelMethod method, TypeName kindOfParameter)
+	public static boolean hasParameterOfType(ModelMethod method, LiteralType parameter)
+	{
+		for(Pair<String, TypeMirror> item:method.getParameters())
+		{
+			if (typeName(item.value1).toString().equals(parameter.getValue()))
+			{
+				return true;
+			}			
+		}
+			
+		return false;
+	}
+	
+	public static int countParameterOfType(ModelMethod method, LiteralType parameter)
 	{
 		int counter=0;
 		for (Pair<String, TypeMirror> item:method.getParameters())
 		{
-			if (TypeUtility.isEquals(typeName(item.value1), typeName(ReadCursorListener.class)))
+			if (typeName(item.value1).toString().equals(parameter.getValue()))
 			{
 				counter++;
 			}
@@ -79,11 +106,11 @@ public abstract class MethodUtility {
 		return counter;
 	}
 	
-	public static String getNameParameterOfType(ModelMethod method, TypeName kindOfParameter)
+	public static String getNameParameterOfType(ModelMethod method, LiteralType parameter)
 	{
 		for (Pair<String, TypeMirror> item:method.getParameters())
 		{
-			if (TypeUtility.isEquals(typeName(item.value1), typeName(ReadCursorListener.class)))
+			if (typeName(item.value1).toString().equals(parameter.getValue()))
 			{
 				return item.value0;
 			}

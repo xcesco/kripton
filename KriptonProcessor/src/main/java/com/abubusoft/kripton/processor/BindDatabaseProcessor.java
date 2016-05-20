@@ -22,22 +22,20 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
 
+import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDatabase;
 import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindDeleteBean;
+import com.abubusoft.kripton.android.annotation.BindDeleteRaw;
 import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindInsertBean;
+import com.abubusoft.kripton.android.annotation.BindInsertRaw;
 import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindSelectBean;
-import com.abubusoft.kripton.android.annotation.BindSelectBeanByListener;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
-import com.abubusoft.kripton.android.annotation.BuindUpdateBean;
+import com.abubusoft.kripton.android.annotation.BindUpdateRaw;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.binder.database.ColumnType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -160,7 +158,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 			model.schemaClear();
 
-			Map<String, Element> bindElements = new HashMap<String, Element>();
+			final Map<String, Element> bindElements = new HashMap<String, Element>();
 
 			// Put all @BindType elements in bindElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
@@ -229,10 +227,14 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 						}, propertyAnnotationFilter, new PropertyCreatedListener<SQLProperty>() {
 
 							@Override
-							public boolean onProperty(SQLProperty property) {
-								ModelAnnotation annotation=null;
-								if (bindAllFields || (annotation=property.getAnnotation(Bind.class)) != null) {
-
+							public boolean onProperty(SQLProperty property) {	
+								if (!bindAllFields && (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindColumn.class) != null))
+								{
+									String msg = String.format("In class '%s', property '%s' needs '%s' annotation", currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());									
+									throw (new AbsentAnnotationException(msg));
+								}
+								
+								if (bindAllFields || (property.getAnnotation(Bind.class)) != null) {																											
 									TypeName name = TypeName.get(property.getElement().asType());
 
 									LiteralType lt = LiteralType.of(name.toString());
@@ -242,16 +244,16 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 										info(msg);
 										return false;
 									}
-
-									if (name.isPrimitive())
-										return true;
 									
+									ModelAnnotation annotation=property.getAnnotation(BindColumn.class);
 									if (annotation!=null)
 									{																				
 										property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_NULLABLE));
 										ColumnType columnType=ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE));
 										
 										property.setPrimaryKey(columnType==ColumnType.PRIMARY_KEY);
+									} else {
+										property.setNullable(true);
 									}
 									
 									return true;
@@ -338,6 +340,12 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 							return;
 
 						final SQLiteModelMethod currentMethod = new SQLiteModelMethod((ExecutableElement) element);
+						//TODO fix it: if return type is null, the method is inherited and probably it has bean type
+						if (currentMethod.getReturnClass()==null)
+						{							
+							Element beanElement=bindElements.get(currentDaoDefinition.getEntityClassName());
+							currentMethod.setReturnClass(beanElement.asType());
+						}
 
 						AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
 
@@ -346,19 +354,16 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 								if //@formatter:off
 									(										
-										   annotationClassName.equals(BindInsert.class.getCanonicalName()) 
-										|| annotationClassName.equals(BindInsertBean.class.getCanonicalName())
+										   annotationClassName.equals(BindInsertRaw.class.getCanonicalName()) 
+										|| annotationClassName.equals(BindInsert.class.getCanonicalName())
 										
-										|| annotationClassName.equals(BindUpdate.class.getCanonicalName()) 
-										|| annotationClassName.equals(BuindUpdateBean.class.getCanonicalName())
+										|| annotationClassName.equals(BindUpdateRaw.class.getCanonicalName()) 
+										|| annotationClassName.equals(BindUpdate.class.getCanonicalName())
 										
-										|| annotationClassName.equals(BindDelete.class.getCanonicalName()) 
-										|| annotationClassName.equals(BindDeleteBean.class.getCanonicalName())
+										|| annotationClassName.equals(BindDeleteRaw.class.getCanonicalName()) 
+										|| annotationClassName.equals(BindDelete.class.getCanonicalName())
 										
 										|| annotationClassName.equals(BindSelect.class.getCanonicalName())
-										|| annotationClassName.equals(BindSelectBean.class.getCanonicalName()) 
-										|| annotationClassName.equals(BindSelectBeanByListener.class.getCanonicalName()) 
-																							
 									)	
 									//@formatter:on
 								{

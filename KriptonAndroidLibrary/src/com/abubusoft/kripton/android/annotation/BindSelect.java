@@ -45,7 +45,7 @@ public @interface BindSelect {
 	 * @return
 	 * 		where condition
 	 */
-	String where() default "";
+	String where();
 	
 	/**
 	 * having statement

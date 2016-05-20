@@ -16,7 +16,12 @@ public class StringTransform implements Transform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {
-		methodBuilder.addCode("$L."+setter(property, "$L.getString($L)")+";", beanName,cursorName, indexName);
+		methodBuilder.addCode("$L."+setter(property, "$L.getString($L)"), beanName,cursorName, indexName);
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 
 	@Override
@@ -27,12 +32,18 @@ public class StringTransform implements Transform {
 	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "null")+";", beanName);
+		methodBuilder.addCode("$L."+setter(property, "null"), beanName);
 	}
 	
 	@Override
 	public String generateColumnType(ModelProperty property) {
 		return "TEXT";
+	}
+	
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode("null");		
 	}
 
 }

@@ -10,6 +10,22 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindAllFields
 public class Bean01 {
 
+	protected List<Bean02> lista;
+	
+	/**
+	 * @return the lista
+	 */
+	public List<Bean02> getLista() {
+		return lista;
+	}
+
+	/**
+	 * @param lista the lista to set
+	 */
+	public void setLista(List<Bean02> lista) {
+		this.lista = lista;
+	}
+
 	protected long id;
 	
 	protected long messageDate;
@@ -92,4 +108,5 @@ public class Bean01 {
 	public void setId(long id) {
 		this.id = id;
 	}
+
 }

@@ -4,7 +4,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindInsertBean;
+import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -36,7 +36,7 @@ public abstract class SQLiteInsertBeanBuilder {
 			methodBuilder.addParameter(parameterSpec);
 		}
 				
-		ModelProperty primaryKey = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BindInsertBean.class, methodBuilder, null);
+		ModelProperty primaryKey = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BindInsert.class, methodBuilder, null);
 		
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));

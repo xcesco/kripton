@@ -7,7 +7,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindDelete;
+import com.abubusoft.kripton.android.annotation.BindDeleteRaw;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
@@ -36,7 +36,7 @@ public abstract class SQLiteDeleteBuilder {
 		
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
-		String whereCondition=method.getAnnotation(BindDelete.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
+		String whereCondition=method.getAnnotation(BindDeleteRaw.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		
 		Pair<String, List<String>> where = SQLUtility.extractParametersFromString(whereCondition, model.columnNameConverter, entity);
 		

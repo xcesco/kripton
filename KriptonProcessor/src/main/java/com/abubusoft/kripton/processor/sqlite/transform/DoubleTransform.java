@@ -16,7 +16,12 @@ public class DoubleTransform implements Transform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {				
-		methodBuilder.addCode("$L."+setter(property, "$L.getDouble($L)")+";", beanName,cursorName, indexName);
+		methodBuilder.addCode("$L."+setter(property, "$L.getDouble($L)"), beanName,cursorName, indexName);
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getDouble($L)", cursorName, indexName);		
 	}
 
 	@Override
@@ -34,12 +39,18 @@ public class DoubleTransform implements Transform {
 		}
 	}
 	
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode(defaultValue);		
+	}
+	
 	protected String defaultValue;
 	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(property, defaultValue)+";", beanName);
+		methodBuilder.addCode("$L."+setter(property, defaultValue), beanName);
 	}
 
 	@Override

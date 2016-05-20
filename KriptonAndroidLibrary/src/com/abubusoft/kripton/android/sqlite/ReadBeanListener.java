@@ -3,6 +3,7 @@
  */
 package com.abubusoft.kripton.android.sqlite;
 
+
 /**
  * <p></p>
  * 
@@ -25,4 +26,5 @@ public interface ReadBeanListener<E> {
 	 * 		number of found rows
 	 */
 	void onRead(E bean, int row, int rowCount);
+		
 }

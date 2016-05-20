@@ -16,7 +16,12 @@ public class FloatTransform implements Transform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {
-		methodBuilder.addCode("$L."+setter(property, "$L.getFloat($L)")+";", beanName,cursorName, indexName);
+		methodBuilder.addCode("$L."+setter(property, "$L.getFloat($L)"), beanName,cursorName, indexName);
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getFloat($L)", cursorName, indexName);		
 	}
 
 	@Override
@@ -27,11 +32,17 @@ public class FloatTransform implements Transform {
 	
 	public FloatTransform(boolean nullable)
 	{
-		defaultValue="0";
+		defaultValue="0f";
 		if (nullable)
 		{
 			defaultValue="null";
 		}
+	}
+	
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode(defaultValue);		
 	}
 	
 	protected String defaultValue;
@@ -39,7 +50,7 @@ public class FloatTransform implements Transform {
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(property, defaultValue)+";", beanName);
+		methodBuilder.addCode("$L."+setter(property, defaultValue), beanName);
 	}
 	
 	@Override

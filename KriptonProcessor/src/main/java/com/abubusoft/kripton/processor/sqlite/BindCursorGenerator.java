@@ -133,7 +133,8 @@ public class BindCursorGenerator extends AbstractCodeGenerator implements ModelE
 		int i=0;
 		for (ModelProperty item : entity.getCollection()) {			
 			methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
-			Transformer.cursor2Bean(methodBuilder, item, "resultBean", "cursor","index"+i+"");			
+			Transformer.cursor2Bean(methodBuilder, item, "resultBean", "cursor","index"+i+"");		
+			methodBuilder.addCode(";");
 			methodBuilder.addCode("}\n");
 			
 			i++;
@@ -188,6 +189,7 @@ public class BindCursorGenerator extends AbstractCodeGenerator implements ModelE
 			for (ModelProperty item : entity.getCollection()) {			
 				methodBuilder.addCode("if (index$L>=0) { ",i);
 				Transformer.resetBean(methodBuilder, item, "resultBean", "cursor","index"+i+"");
+				methodBuilder.addCode(";");
 				methodBuilder.addCode("}\n");
 				
 				i++;
@@ -201,6 +203,7 @@ public class BindCursorGenerator extends AbstractCodeGenerator implements ModelE
 			for (ModelProperty item : entity.getCollection()) {			
 				methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
 				Transformer.cursor2Bean(methodBuilder, item, "resultBean", "cursor","index"+i+"");
+				methodBuilder.addCode(";");
 				methodBuilder.addCode("}\n");
 				
 				i++;

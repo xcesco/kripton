@@ -4,7 +4,6 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.lang.model.element.Modifier;
@@ -13,24 +12,22 @@ import javax.lang.model.util.Elements;
 
 import android.database.Cursor;
 
-import com.abubusoft.kripton.android.OnRowListener;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.JavaDocUtility;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidReturnTypeException;
+import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -110,12 +107,14 @@ public abstract class SQLiteSelectBuilder {
 
 		// if true, field must be associate to ben attributes
 		TypeName returnType = typeName(method.getReturnClass());
+		LiteralType readBeanListener=LiteralType.of(ReadBeanListener.class.getCanonicalName(), entity.getName());
+		LiteralType readCursorListener=LiteralType.of(ReadCursorListener.class);
 
 		if (TypeUtility.isTypeIncludedIn(returnType, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
-			if (MethodUtility.hasParameterOfType(method, typeName(ReadCursorListener.class))) {
+			if (MethodUtility.hasParameterOfType(method, readCursorListener)) {
 				selectResultType = SelectResultType.LISTENER_CURSOR;
-			} else if (MethodUtility.hasParameterOfType(method, typeName(ReadBeanListener.class))) {
+			} else if (MethodUtility.hasParameterOfType(method, readBeanListener)) {
 				selectResultType = SelectResultType.LISTENER_BEAN;
 			}
 
@@ -127,17 +126,18 @@ public abstract class SQLiteSelectBuilder {
 			// return Cursor (no listener)
 			selectResultType = SelectResultType.CURSOR;
 		} else if (returnType instanceof ParameterizedTypeName) {
-			ClassName listClazzName = ((ParameterizedTypeName) returnType).rawType;
+			ClassName listClazzName = ((ParameterizedTypeName) returnType).rawType;						
 
 			if (TypeUtility.isTypeIncludedIn(listClazzName, List.class, Collection.class)) {
 				// return List (no listener)
 				List<TypeName> list = ((ParameterizedTypeName) returnType).typeArguments;
 
 				if (list.size() == 1) {
+					TypeName elementName = ((ParameterizedTypeName) returnType).typeArguments.get(0);
 					if (TypeUtility.isSameType(list.get(0), entity.getName().toString())) {
 						// entity list
 						selectResultType = SelectResultType.LIST_BEAN;
-					} else if (TypeUtility.isTypePrimitive(returnType) || TypeUtility.isTypeWrappedPrimitive(returnType) || TypeUtility.isTypeIncludedIn(returnType, String.class)) {
+					} else if (TypeUtility.isByteArray(elementName) || TypeUtility.isTypePrimitive(elementName) || TypeUtility.isTypeWrappedPrimitive(elementName) || TypeUtility.isTypeIncludedIn(elementName, String.class)) {
 						// scalar list
 						selectResultType = SelectResultType.LIST_SCALAR;
 					}
@@ -150,9 +150,14 @@ public abstract class SQLiteSelectBuilder {
 		} else if (TypeUtility.isEquals(returnType, entity)) {
 			// return one element (no listener)
 			selectResultType = SelectResultType.BEAN;
-		} else if (TypeUtility.isTypePrimitive(returnType) || TypeUtility.isTypeWrappedPrimitive(returnType) || TypeUtility.isTypeIncludedIn(returnType, String.class)) {
+		} else if (TypeUtility.isTypePrimitive(returnType) || TypeUtility.isTypeWrappedPrimitive(returnType) || TypeUtility.isTypeIncludedIn(returnType, String.class) || TypeUtility.isByteArray(returnType)) {
 			// return single value string, int, long, short, double, float, String (no listener)
 			selectResultType = SelectResultType.SCALAR;
+		}
+		
+		if (selectResultType==null)
+		{
+			throw(new InvalidMethodSignException(daoDefinition, method));
 		}
 
 		// take field list

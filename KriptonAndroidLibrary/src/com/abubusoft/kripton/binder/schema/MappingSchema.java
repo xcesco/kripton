@@ -490,22 +490,6 @@ public class MappingSchema {
 					break;
 				}
 
-				// database section
-				elementSchema.buildColumnInfo(bindColumnAnnotation);
-
-				switch (elementSchema.getColumnInfo().feature) {
-				case STANDARD:
-					break;
-				case PRIMARY_KEY:
-					// primary key can not be null.
-					elementSchema.getColumnInfo().nullable = false;
-					counters.primaryKeyCount++;
-					break;
-				case FOREIGN_KEY:
-				case UNIQUE:
-					break;
-				}
-
 				fieldsMap.add(elementSchema);
 			}
 		}

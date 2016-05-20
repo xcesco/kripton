@@ -1,11 +1,10 @@
 package com.abubusoft.kripton.binder.schema;
 
+import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder.database.ColumnType;
-import com.abubusoft.kripton.binder.transform.CustomTransform;
 import com.abubusoft.kripton.binder.transform.DefaultCustomTransform;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.XmlType;
@@ -20,16 +19,6 @@ import com.abubusoft.kripton.exception.MappingException;
  * 
  */
 public class ElementSchema extends AbstractSchema {
-
-	/**
-	 * column info
-	 *
-	 */
-	public static class ColumnInfo {
-		public String name;
-		public ColumnType feature;
-		public boolean nullable;
-	}
 
 	/**
 	 * Json info of element schema
@@ -77,8 +66,6 @@ public class ElementSchema extends AbstractSchema {
 
 	}
 
-	private ColumnInfo columnInfo;
-
 	private MapInfo mapInfo;
 
 	/**
@@ -94,35 +81,6 @@ public class ElementSchema extends AbstractSchema {
 	 * info about xml rapresentation
 	 */
 	protected XmlInfo xmlInfo;
-
-	/**
-	 * Build column info
-	 * 
-	 * @param bindColumnAnnotation
-	 */
-	void buildColumnInfo(BindColumn bindColumnAnnotation) {
-		columnInfo = new ColumnInfo();
-
-		columnInfo.name = getName();
-		columnInfo.feature = ColumnType.STANDARD;
-		columnInfo.nullable = BindColumn.NULLABLE_DEFAULT;
-		if (bindColumnAnnotation != null) {
-			columnInfo.feature = bindColumnAnnotation.value();
-			columnInfo.name = this.getName();
-			if (!"".equals(bindColumnAnnotation.name())) {
-				columnInfo.name = bindColumnAnnotation.name();
-			}			
-		}
-
-		final Class<?> typeArray[] = { Integer.TYPE, Character.TYPE, Byte.TYPE, Short.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
-		// check for nullable based on type
-		for (int i = 0; i < typeArray.length; i++) {
-			if (typeArray[i] == this.fieldType) {
-				columnInfo.nullable = false;
-			}
-		}
-
-	}
 
 	/**
 	 * Build map info.
@@ -171,10 +129,6 @@ public class ElementSchema extends AbstractSchema {
 		} else {
 			xmlInfo.type = XmlType.TAG;
 		}
-	}
-
-	public ColumnInfo getColumnInfo() {
-		return columnInfo;
 	}
 
 	public MapInfo getMapInfo() {

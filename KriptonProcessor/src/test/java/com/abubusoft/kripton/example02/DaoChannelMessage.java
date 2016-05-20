@@ -11,6 +11,6 @@ import com.abubusoft.kripton.android.annotation.BindSelect;
 @BindDao(ChannelMessage.class)
 public interface DaoChannelMessage {
 
-    @BindSelect
+    @BindSelect(where="1=1")
     List<ChannelMessage> selectAll();
 }

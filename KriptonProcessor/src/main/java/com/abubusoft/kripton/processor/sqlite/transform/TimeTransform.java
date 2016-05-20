@@ -25,7 +25,12 @@ class TimeTransform implements Transform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "$T.valueOf($L.getString($L))")+";", beanName,Time.class, cursorName, indexName);	
+		methodBuilder.addCode("$L."+setter(property, "$T.valueOf($L.getString($L))"), beanName,Time.class, cursorName, indexName);	
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 
 	@Override
@@ -36,7 +41,13 @@ class TimeTransform implements Transform {
 	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "null")+";", beanName);
+		methodBuilder.addCode("$L."+setter(property, "null"), beanName);
+	}
+	
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode("null");		
 	}
 	
 	@Override

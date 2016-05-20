@@ -60,6 +60,9 @@ public class CodeBuilderUtility {
 			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
 		}
 
+		StringBuilder buffer = new StringBuilder();
+		String separator = "";
+
 		if (checkProperty) {
 			// check included
 			for (String item : includedFields) {
@@ -73,21 +76,32 @@ public class CodeBuilderUtility {
 					throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
 				}
 			}
-		}
 
-		StringBuilder buffer = new StringBuilder();
-		String separator = "";
-		// methodBuilder.addCode("contentValues.clear();\n\n");
-		// for each property in entity except primaryKey and excluded properties
-		for (SQLProperty item : entity.getCollection()) {
-			if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
-				continue;
-			if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
-				continue;
+			// methodBuilder.addCode("contentValues.clear();\n\n");
+			// for each property in entity except primaryKey and excluded properties
+			for (SQLProperty item : entity.getCollection()) {
+				if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
+					continue;
+				if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
+					continue;
 
-			buffer.append(separator + model.columnNameConverter.convert(item.getName()));
-			result.value1.add(item);
-			separator = ", ";
+				buffer.append(separator + model.columnNameConverter.convert(item.getName()));
+				result.value1.add(item);
+				separator = ", ";
+			}
+		} else {
+			// get fields from property
+			if (includedFields.size() == 0) {
+				for (SQLProperty item : entity.getCollection()) {
+					includedFields.add(item.getName());
+				}
+				;
+			}
+			for (String item : includedFields) {
+				buffer.append(separator + model.columnNameConverter.convert(item));
+				result.value1.add(null);
+				separator = ", ";
+			}
 		}
 
 		result.value0 = buffer.toString();

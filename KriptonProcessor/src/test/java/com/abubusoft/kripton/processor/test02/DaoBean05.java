@@ -8,7 +8,7 @@ import com.abubusoft.kripton.android.annotation.BindSelect;
 @BindDao(Bean05.class)
 public interface DaoBean05 {
 
-	@BindSelect
+	@BindSelect(where="1=1")
 	public List<Bean05> listAll();
 	
 	public void notWorking();

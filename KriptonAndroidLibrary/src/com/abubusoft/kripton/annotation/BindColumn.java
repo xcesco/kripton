@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.binder.database.ColumnType;
+import com.abubusoft.kripton.android.ColumnType;
 
 /**
  * 

@@ -1,13 +1,13 @@
 package com.abubusoft.kripton.example01;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
+import com.abubusoft.kripton.android.annotation.BindDeleteRaw;
 
 
 @BindDao(ChannelMessage.class)
 public interface DaoBase {
 	
-	@BindDelete(where="id=${id}")
+	@BindDeleteRaw(where="id=${id}")
 	int deleteById(long id);
 
 }

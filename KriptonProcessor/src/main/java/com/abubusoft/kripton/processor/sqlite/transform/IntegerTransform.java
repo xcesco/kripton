@@ -29,12 +29,23 @@ public class IntegerTransform implements Transform {
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(property, defaultValue)+";", beanName);
+		methodBuilder.addCode("$L."+setter(property, defaultValue), beanName);
 	}
 	
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {
-		methodBuilder.addCode("$L."+setter(property, "$L.getInt($L)")+";", beanName,cursorName, indexName);
+		methodBuilder.addCode("$L."+setter(property, "$L.getInt($L)"), beanName,cursorName, indexName);
+	}
+	
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode(defaultValue);		
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);		
 	}
 
 	@Override

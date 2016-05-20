@@ -5,25 +5,20 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.List;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
-
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 /**
  * @author xcesco
@@ -40,7 +35,9 @@ public class SelectCursorListenerHelper implements SelectCodeGenerator {
 	 */
 	@Override
 	public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
-		int counter = MethodUtility.countParameterOfType(method, typeName(ReadCursorListener.class));
+		LiteralType listenerType=LiteralType.of(ReadCursorListener.class);
+		
+		int counter = MethodUtility.countParameterOfType(method, listenerType);
 		if (counter == 0) {
 			// non listener found
 			throw (new InvalidMethodSignException(daoDefinition, method, "there is no parameter of type \"ReadCursorListener\""));
@@ -50,7 +47,7 @@ public class SelectCursorListenerHelper implements SelectCodeGenerator {
 			throw (new InvalidMethodSignException(daoDefinition, method, "there are more than one parameter of type \"ReadCursorListener\""));
 		}
 
-		String listenerName = MethodUtility.getNameParameterOfType(method, typeName(ReadCursorListener.class));
+		String listenerName = MethodUtility.getNameParameterOfType(method, listenerType);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("try");

@@ -10,11 +10,17 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVisitor;
+
 /**
  * @author xcesco
  *
  */
-public class LiteralType {
+public class LiteralType implements TypeMirror {
 	
 	final static Map<String, LiteralType> cached=new HashMap<String, LiteralType>();
 
@@ -113,6 +119,10 @@ public class LiteralType {
 	public boolean isArray() {
 		return array;
 	}
+	
+	public static LiteralType of(Class<?> clazz) {
+		return of(clazz.getCanonicalName());				
+	}
 
 	public static LiteralType of(String clazzString) {
 		LiteralType newValue;
@@ -127,6 +137,30 @@ public class LiteralType {
 			return newValue;
 		}
 				
+	}
+	
+	public static LiteralType of(String rawType, String parametrizedType) {
+		String clazzName=rawType+"<"+parametrizedType+">";
+		LiteralType newValue;
+		if (cached.containsKey(clazzName))
+		{
+			return cached.get(clazzName);
+		} else {
+			
+			newValue=new LiteralType(clazzName);
+			cached.put(clazzName, newValue);
+			
+			return newValue;
+		}
+				
+	}
+	
+	public static LiteralType of(Class<?> rawType, TypeElement parametrizedType) {
+		return of(rawType.getCanonicalName(), parametrizedType.getQualifiedName().toString());
+	}
+	
+	public static LiteralType of(Class<?> rawType, Class<?> parametrizedType) {
+		return of(rawType.getCanonicalName(), parametrizedType.getCanonicalName());
 	}
 
 	public boolean isCollection() {
@@ -164,5 +198,16 @@ public class LiteralType {
 
 	public String getRawType() {
 		return rawType;
+	}
+
+	@Override
+	public TypeKind getKind() {
+
+		return null;
+	}
+
+	@Override
+	public <R, P> R accept(TypeVisitor<R, P> v, P p) {
+		return null;
 	}
 }

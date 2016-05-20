@@ -16,13 +16,24 @@ class CharacterTransform implements Transform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {		
-		methodBuilder.addCode("$L."+setter(property, "$T.toChars($L.getInt($L))")+";", beanName,Character.class, cursorName, indexName);
+		methodBuilder.addCode("$L."+setter(property, "$T.toChars($L.getInt($L))"), beanName,Character.class, cursorName, indexName);
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);		
 	}
 
 	@Override
 	public String generateWriteProperty(ModelProperty property) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode(defaultValue);		
 	}
 	
 	public CharacterTransform(boolean nullable)
@@ -39,7 +50,7 @@ class CharacterTransform implements Transform {
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(property, defaultValue)+";", beanName);
+		methodBuilder.addCode("$L."+setter(property, defaultValue), beanName);
 	}
 	
 	@Override

@@ -105,7 +105,7 @@ class DateTransform implements Transform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "$T.getInstance($L.getString($L))")+";", beanName,Currency.class, cursorName, indexName);
+		methodBuilder.addCode("$L."+setter(property, "$T.getInstance($L.getString($L))"), beanName,Currency.class, cursorName, indexName);
 		
 	}
 
@@ -117,12 +117,23 @@ class DateTransform implements Transform {
 	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "null")+";", beanName);
+		methodBuilder.addCode("$L."+setter(property, "null"), beanName);
 	}
 
 	@Override
 	public String generateColumnType(ModelProperty property) {
 		return "TEXT";
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
+	}
+	
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode("null");
 	}
 
 }
