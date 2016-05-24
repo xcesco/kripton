@@ -26,6 +26,7 @@ public class Bean03 {
 		this.id = id;
 	}
 	
+	@Bind
 	@BindColumn
 	protected String text;
 

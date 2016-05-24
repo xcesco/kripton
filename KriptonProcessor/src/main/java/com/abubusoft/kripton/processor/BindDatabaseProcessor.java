@@ -26,12 +26,9 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDatabase;
 import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindDeleteRaw;
 import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindInsertRaw;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
-import com.abubusoft.kripton.android.annotation.BindUpdateRaw;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
@@ -354,15 +351,9 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 								if //@formatter:off
 									(										
-										   annotationClassName.equals(BindInsertRaw.class.getCanonicalName()) 
-										|| annotationClassName.equals(BindInsert.class.getCanonicalName())
-										
-										|| annotationClassName.equals(BindUpdateRaw.class.getCanonicalName()) 
-										|| annotationClassName.equals(BindUpdate.class.getCanonicalName())
-										
-										|| annotationClassName.equals(BindDeleteRaw.class.getCanonicalName()) 
-										|| annotationClassName.equals(BindDelete.class.getCanonicalName())
-										
+										annotationClassName.equals(BindInsert.class.getCanonicalName())																				
+										|| annotationClassName.equals(BindUpdate.class.getCanonicalName())										
+										|| annotationClassName.equals(BindDelete.class.getCanonicalName())										
 										|| annotationClassName.equals(BindSelect.class.getCanonicalName())
 									)	
 									//@formatter:on

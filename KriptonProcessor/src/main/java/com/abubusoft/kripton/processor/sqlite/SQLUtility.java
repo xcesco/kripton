@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.lang.model.type.TypeMirror;
+
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 public class SQLUtility {
 	private static final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w]*)\\s*\\}");
@@ -22,23 +25,26 @@ public class SQLUtility {
 	 * ?. This second parameter is the list of parameters and replaced with ?.
 	 * 
 	 * @param value
+	 * @param method
 	 * @param columnNameConverter
 	 * @param entity
 	 * @return Pair<String, List<String>>
 	 */
-	public static Pair<String, List<String>> extractParametersFromString(String value, Converter<String, String> columnNameConverter, SQLEntity entity) {
+	public static Pair<String, List<Pair<String, TypeMirror>>> extractParametersFromString(String value, SQLiteModelMethod method, Converter<String, String> columnNameConverter, SQLEntity entity) {
 		String whereStatement = value;
-		Pair<String, List<String>> result = new Pair<String, List<String>>();
-		result.value1 = new ArrayList<String>();
+		Pair<String, List< Pair<String, TypeMirror>>> result = new Pair<String, List< Pair<String, TypeMirror>>>();
+		result.value1 = new ArrayList< Pair<String, TypeMirror>>();
 
 		// replace placeholder ${ } with ?
 		{
 			Matcher matcher = PARAMETER.matcher(whereStatement);
 
+			String paramName;
 			StringBuffer buffer = new StringBuffer();
 			while (matcher.find()) {
 				matcher.appendReplacement(buffer, "?");
-				result.value1.add(matcher.group(1));
+				paramName=matcher.group(1);				
+				result.value1.add(new Pair<String, TypeMirror>(paramName, method.findParameter(paramName)));
 			}
 			matcher.appendTail(buffer);
 
@@ -70,7 +76,7 @@ public class SQLUtility {
 	 * Convert java property name in sql column name.
 	 */
 	static Converter<String, String> field2ColumnConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
-	
+
 	/**
 	 * Convert java property name in sql column name.
 	 */
@@ -95,10 +101,9 @@ public class SQLUtility {
 	public static String getColumnName(String propertyName) {
 		return field2ColumnConverter.convert(propertyName);
 	}
-	
-	public static String nameFromTable(ModelClass entity, ModelProperty property)
-	{
-		return entity.getSimpleName()+"Table."+field2ColumnNameFromTableConverter.convert(property.getName());
+
+	public static String nameFromTable(ModelClass entity, ModelProperty property) {
+		return entity.getSimpleName() + "Table." + field2ColumnNameFromTableConverter.convert(property.getName());
 	}
 
 }

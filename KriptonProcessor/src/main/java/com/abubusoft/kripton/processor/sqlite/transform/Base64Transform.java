@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class Base64Transform implements Transform {
+public class Base64Transform extends AbstractTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
@@ -29,12 +29,6 @@ public class Base64Transform implements Transform {
 	public void generateDefaultValue(Builder methodBuilder)
 	{
 		methodBuilder.addCode("null");		
-	}
-
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

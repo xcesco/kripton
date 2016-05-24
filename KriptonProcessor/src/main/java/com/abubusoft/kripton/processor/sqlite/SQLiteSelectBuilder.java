@@ -45,10 +45,10 @@ public abstract class SQLiteSelectBuilder {
 
 	public enum SelectResultType {
 			LISTENER_BEAN(SelectBeanListenerHelper.class, true),
-			LISTENER_CURSOR(SelectCursorListenerHelper.class, false),
+			LISTENER_CURSOR(SelectRawListenerHelper.class, false),
 			LIST_BEAN(SelectBeanListHelper.class, true),
 			LIST_SCALAR(SelectScalarListHelper.class, false),
-			CURSOR(SelectCursorHelper.class, false),
+			CURSOR(SelectRawHelper.class, false),
 			BEAN(SelectBeanHelper.class, true),
 			SCALAR(SelectScalarHelper.class, false);
 
@@ -163,7 +163,7 @@ public abstract class SQLiteSelectBuilder {
 		// take field list
 		Pair<String, List<SQLProperty>> fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, model, daoDefinition, method, BindSelect.class, selectResultType.isMapFields(),  null);
 		String fieldStatement = fieldList.value0;
-		List<SQLProperty> fields = fieldList.value1;
+		//List<SQLProperty> fields = fieldList.value1;
 		String tableStatement = model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName());
 
 		// separate params used for update bean and params used in whereCondition
@@ -218,7 +218,7 @@ public abstract class SQLiteSelectBuilder {
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
-		JavaDocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldStatement);
+		JavaDocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldStatement, selectResultType);
 
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
@@ -247,12 +247,7 @@ public abstract class SQLiteSelectBuilder {
 
 		selectResultType.generate(elementUtils, daoDefinition, entity, fieldList, methodBuilder, method, returnType);
 
-		/*} else {
-			throw (new InvalidReturnTypeException(daoDefinition, method, typeName(method.getReturnClass()), typeName(Cursor.class)));
-		}*/
-
 		MethodSpec methodSpec = methodBuilder.build();
-
 		builder.addMethod(methodSpec);
 	}
 

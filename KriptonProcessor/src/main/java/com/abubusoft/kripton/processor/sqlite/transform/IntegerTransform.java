@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class IntegerTransform implements Transform {
+public class IntegerTransform  extends AbstractTransform {
 	
 	public IntegerTransform(boolean nullable)
 	{
@@ -48,12 +48,6 @@ public class IntegerTransform implements Transform {
 		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public String generateColumnType(ModelProperty property) {
 		return "INTEGER";

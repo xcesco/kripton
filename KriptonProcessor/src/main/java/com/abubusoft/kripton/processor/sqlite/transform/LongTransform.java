@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class LongTransform implements Transform {
+public class LongTransform  extends AbstractTransform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {
@@ -24,12 +24,6 @@ public class LongTransform implements Transform {
 		methodBuilder.addCode("$L.getLong($L)", cursorName, indexName);		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public LongTransform(boolean nullable)
 	{
 		defaultValue="0L";

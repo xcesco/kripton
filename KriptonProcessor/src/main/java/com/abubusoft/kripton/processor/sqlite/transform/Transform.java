@@ -36,11 +36,13 @@ public interface Transform {
 	/**
 	 * Generate a string representing code to write property
 	 * 
+	 * 
+	 * @param methodBuilder
 	 * @param property
 	 *            property to write
-	 * @return generated code to write property
+	 * @param beanName
 	 */
-	String generateWriteProperty(ModelProperty property);
+	void generateWriteProperty(Builder methodBuilder, ModelProperty property, String beanName);
 
 	/**
 	 * Generate code to set property to null value or default value
@@ -59,5 +61,12 @@ public interface Transform {
 	 * @param property
 	 */
 	String generateColumnType(ModelProperty property);
+
+	/**
+	 * <p>Generate name</p>
+	 * @param methodBuilder
+	 * @param objectName
+	 */
+	void generateWriteProperty(Builder methodBuilder, String objectName);
 
 }

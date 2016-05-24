@@ -1,19 +1,9 @@
 package com.abubusoft.kripton.processor.test03;
 
-import java.util.List;
-
-import android.database.Cursor;
-
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDeleteRaw;
 import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsertRaw;
 import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdateRaw;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 
 @BindDao(Bean01.class)
 public interface DaoBean02
@@ -44,16 +34,16 @@ public interface DaoBean02
 	@BindInsert
 	public long insert(Bean01 bean);
 	
-	@BindInsertRaw
+	@BindInsert
 	public long insert(String value, long messageDate);
 	
-	@BindDeleteRaw(where="id=${id}")
+	@BindDelete(where="id=${id}")
 	public long delete(long id);
 	
 	@BindDelete(where = "id=${bean.id}")
 	public long delete(Bean01 bean);
 	
-	@BindUpdateRaw(where = "id>${id}")
+	@BindUpdate(where = "id>${id}")
 	public long update(String value, long id);
 	
 	@BindUpdate(where = "value=${bean.value}")

@@ -9,12 +9,9 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindDeleteRaw;
 import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsertRaw;
 import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdateRaw;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.android.sqlite.AbstractBindDao;
 import com.abubusoft.kripton.processor.BindDatabaseProcessor;
@@ -101,18 +98,12 @@ public class BindDaoGenerator implements SQLiteModelElementVisitor {
 	@Override
 	public void visit(SQLiteModelMethod value) throws Exception {
 
-		if (value.getAnnotation(BindInsertRaw.class) != null) {
+		if (value.getAnnotation(BindInsert.class) != null) {
 			SQLiteInsertBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
-		} else if (value.getAnnotation(BindInsert.class) != null) {
-			SQLiteInsertBeanBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
-		} else if (value.getAnnotation(BindUpdateRaw.class) != null) {
-			SQLiteUpdateBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
 		} else if (value.getAnnotation(BindUpdate.class) != null) {
-			SQLiteUpdateBeanBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
-		} else if (value.getAnnotation(BindDeleteRaw.class) != null) {
-			SQLiteDeleteBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
+			SQLiteModifyBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value, true);		
 		} else if (value.getAnnotation(BindDelete.class) != null) {
-			SQLiteDeleteBeanBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
+			SQLiteModifyBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value, false);
 		} else if (value.getAnnotation(BindSelect.class) != null) {
 			SQLiteSelectBuilder.generate(elementUtils, builder, model, currentDaoDefinition, value);
 		} else {

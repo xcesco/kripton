@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-class CurrencyTransform implements Transform {
+class CurrencyTransform  extends AbstractTransform {
 /*
 	public Currency read(String value) throws Exception {
 		return Currency.getInstance(value);
@@ -39,12 +39,6 @@ class CurrencyTransform implements Transform {
 		methodBuilder.addCode("null");
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
 		methodBuilder.addCode("$L."+setter(property, "null"), beanName);

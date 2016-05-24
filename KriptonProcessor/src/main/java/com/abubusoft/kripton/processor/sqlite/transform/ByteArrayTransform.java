@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class ByteArrayTransform implements Transform {
+public class ByteArrayTransform extends AbstractTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
@@ -30,12 +30,6 @@ public class ByteArrayTransform implements Transform {
 		methodBuilder.addCode("null");		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
 		methodBuilder.addCode("$L."+setter(property, "null"), beanName);

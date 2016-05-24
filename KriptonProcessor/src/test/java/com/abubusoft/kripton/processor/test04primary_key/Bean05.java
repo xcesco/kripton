@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.processor.test04primary_key;
 
+import java.util.Date;
+
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindColumn;
@@ -33,6 +35,24 @@ public class Bean05 {
 	@Bind
 	@BindColumn
 	protected byte[] content;
+	
+	@Bind
+	@BindColumn
+	protected Date creationTime;
+
+	/**
+	 * @return the creationTime
+	 */
+	public Date getCreationTime() {
+		return creationTime;
+	}
+
+	/**
+	 * @param creationTime the creationTime to set
+	 */
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	/**
 	 * @return the content

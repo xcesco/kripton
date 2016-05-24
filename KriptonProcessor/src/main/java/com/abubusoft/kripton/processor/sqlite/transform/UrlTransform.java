@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class UrlTransform implements Transform {
+public class UrlTransform  extends AbstractTransform {
 
 	public URL read(String value) throws Exception {
 	    return new URL(value);
@@ -34,11 +34,6 @@ public class UrlTransform implements Transform {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		return null;
-	}
-	
 	@Override
 	public void generateDefaultValue(Builder methodBuilder)
 	{

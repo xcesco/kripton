@@ -5,6 +5,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.Calendar;
 import java.util.Date;
 
+import com.abubusoft.kripton.common.DateUtil;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 
@@ -14,12 +15,10 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class CalendarTransform implements Transform {
+public class CalendarTransform  extends AbstractTransform {
 	
-	private DateTransform dateTransform = new DateTransform();
-
 	public Calendar read(String value) throws Exception {
-		Date date = dateTransform.read(value);
+		Date date = DateUtil.read(value);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		return cal;
@@ -27,7 +26,7 @@ public class CalendarTransform implements Transform {
 
 	public String write(Calendar value) throws Exception {
 		Date date = value.getTime();
-		String text = dateTransform.write(date);
+		String text = DateUtil.write(date);
 		return text;
 	}
 
@@ -37,12 +36,6 @@ public class CalendarTransform implements Transform {
 		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public void generateDefaultValue(Builder methodBuilder)
 	{

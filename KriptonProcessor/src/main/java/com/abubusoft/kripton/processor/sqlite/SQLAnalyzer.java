@@ -1,9 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +35,7 @@ public class SQLAnalyzer {
 	/**
 	 * bean properties name used into statement.
 	 */
-	private Set<String> usedBeanPropertyNames;
+	private List<String> usedBeanPropertyNames;
 
 	/**
 	 * @return the paramNames
@@ -65,7 +63,7 @@ public class SQLAnalyzer {
 	public void execute(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, String sqlStatement) {
 		paramNames = new ArrayList<String>();
 		paramGetters = new ArrayList<String>();
-		usedBeanPropertyNames=new HashSet<String>();
+		usedBeanPropertyNames=new ArrayList<String>();
 
 		// replace placeholder ${ } with ?
 		{
@@ -127,7 +125,7 @@ public class SQLAnalyzer {
 	/**
 	 * @return the usedBeanProperties
 	 */
-	public Set<String> getUsedBeanPropertyNames() {
+	public List<String> getUsedBeanPropertyNames() {
 		return usedBeanPropertyNames;
 	}
 

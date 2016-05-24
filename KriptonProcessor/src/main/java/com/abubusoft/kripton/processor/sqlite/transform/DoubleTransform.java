@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class DoubleTransform implements Transform {
+public class DoubleTransform  extends AbstractTransform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {				
@@ -24,12 +24,6 @@ public class DoubleTransform implements Transform {
 		methodBuilder.addCode("$L.getDouble($L)", cursorName, indexName);		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public DoubleTransform(boolean nullable)
 	{
 		defaultValue="0";

@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-class ByteTransform implements Transform {
+class ByteTransform  extends AbstractTransform {
 	
 	public ByteTransform(boolean nullable)
 	{
@@ -37,12 +37,6 @@ class ByteTransform implements Transform {
 	public void generateDefaultValue(Builder methodBuilder)
 	{
 		methodBuilder.addCode(defaultValue);		
-	}
-
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	protected String defaultValue;

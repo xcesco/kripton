@@ -1,8 +1,6 @@
 package com.abubusoft.kripton.processor;
 
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -30,11 +28,6 @@ public class BundleTypeProcessor extends AbstractProcessor {
 
 	private Messager messager;
 	
-	/**
-	 * map of bundle to generate
-	 */
-	private Map<String, BundleDefinition> map = new LinkedHashMap<String, BundleDefinition>();
-
 	private void error(Element e, String msg, Object... args) {
 		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
 	}
@@ -79,12 +72,9 @@ public class BundleTypeProcessor extends AbstractProcessor {
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		try {
-			System.out.println("entro");
-			
 			// different rounds can use this instance, so clear map before begin
-			map.clear();
 			
-			// Analizza tutti gli elementi annotati con Factory
+			// Analize Factory annotation
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindTypeBundle.class)) {
 				// Verifichiamo che siano di tipo class
 				if (item.getKind() != ElementKind.CLASS) {

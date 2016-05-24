@@ -10,11 +10,14 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.lang.model.type.TypeMirror;
+
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.google.common.reflect.TypeToken;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
  * Transformer for java primitive types and frequently used java types
@@ -30,7 +33,7 @@ public class Transformer {
 	/**
 	 * "resultBean", "cursor","indexes["+(i++)+"]"
 	 */
-	public static void cursor2Bean(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+	public static void cursor2Java(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
 		Transform transform = lookup(typeName(property.getElement().asType()));
 
 		if (transform == null) {
@@ -39,13 +42,22 @@ public class Transformer {
 		transform.generateReadProperty(methodBuilder, property, beanName, cursorName, indexName);
 	}
 
-	public static String bean2ContentValues(ModelProperty property) throws Exception {
+	public static void java2ContentValues(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName) {
 		Transform transform = lookup(typeName(property.getElement().asType()));
 
 		if (transform == null) {
-			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
+			throw new RuntimeException("Transform of " + property.getElement().asType() + " not supported");
 		}
-		return transform.generateWriteProperty(property);
+		transform.generateWriteProperty(methodBuilder, property, beanName);
+	}
+	
+	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeMirror objectType, String objectName) {
+		Transform transform = lookup(typeName(objectType));
+
+		if (transform == null) {
+			throw new RuntimeException("Transform of " + objectType + " not supported");
+		}
+		transform.generateWriteProperty(methodBuilder, objectName);
 	}
 
 	/**

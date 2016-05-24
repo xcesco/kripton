@@ -12,7 +12,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
  * @author bulldog
  *
  */
-class BooleanTransform implements Transform {
+class BooleanTransform extends AbstractTransform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {
@@ -30,11 +30,6 @@ class BooleanTransform implements Transform {
 		methodBuilder.addCode(defaultValue);		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		return null;
-	}
-	
 	public BooleanTransform(boolean nullable)
 	{
 		defaultValue="false";

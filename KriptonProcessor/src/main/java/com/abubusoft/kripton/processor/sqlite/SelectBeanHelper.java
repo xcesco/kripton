@@ -40,16 +40,7 @@ public class SelectBeanHelper implements SelectCodeGenerator {
 
 		//TypeName collectionClass;
 		TypeName entityClass = typeName(entity.getElement());
-		//ClassName listClazzName = (ClassName) returnType;
-
-		/*
-		if (TypeUtility.isTypeIncludedIn(listClazzName.toString(), List.class, Collection.class, Iterable.class)) {
-			// there is an interface as result
-			collectionClass = typeName(LinkedList.class);
-		} else {
-			collectionClass = listClazzName;
-		}*/
-
+		
 		methodBuilder.addCode("\n");		
 		methodBuilder.addCode("$T resultBean=null;\n", entityClass);
 		methodBuilder.addCode("\n");
@@ -77,7 +68,7 @@ public class SelectBeanHelper implements SelectCodeGenerator {
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 			}
-			Transformer.cursor2Bean(methodBuilder, item, "resultBean", "cursor", "index" + i + "");
+			Transformer.cursor2Java(methodBuilder, item, "resultBean", "cursor", "index" + i + "");
 			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");

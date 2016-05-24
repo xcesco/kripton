@@ -76,7 +76,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 		methodBuilder.beginControlFlow("do\n");
 
 		// reset mapping
-		methodBuilder.addCode("//reset mapping (only for nullable property)\n");
+		methodBuilder.addCode("// reset mapping (only for nullable property)\n");
 		{
 			int i = 0;
 			for (SQLProperty item : entity.getCollection()) {
@@ -101,7 +101,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 				if (item.isNullable()) {
 					methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 				}
-				Transformer.cursor2Bean(methodBuilder, item, "resultBean", "cursor", "index" + i + "");
+				Transformer.cursor2Java(methodBuilder, item, "resultBean", "cursor", "index" + i + "");
 				methodBuilder.addCode(";");
 				if (item.isNullable()) {
 					methodBuilder.addCode(" }");
@@ -117,8 +117,8 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("catch(Throwable e)");
-		methodBuilder.addCode("throw (e);\n");
+		//methodBuilder.nextControlFlow("catch(Throwable e)");
+		//methodBuilder.addCode("throw (e);\n");
 		methodBuilder.nextControlFlow("finally");
 		methodBuilder.beginControlFlow("if (cursor!=null)\n");
 		methodBuilder.addCode("cursor.close();\n");

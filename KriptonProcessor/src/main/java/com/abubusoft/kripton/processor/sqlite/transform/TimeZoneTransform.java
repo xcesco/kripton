@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class TimeZoneTransform implements Transform {
+public class TimeZoneTransform  extends AbstractTransform {
 
 	public TimeZone read(String value) throws Exception {
 		return TimeZone.getTimeZone(value);
@@ -32,12 +32,6 @@ public class TimeZoneTransform implements Transform {
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);
-	}
-
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

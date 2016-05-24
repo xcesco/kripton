@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class ShortTransform implements Transform {
+public class ShortTransform  extends AbstractTransform {
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {		
 		methodBuilder.addCode("$L."+setter(property, "$L.getShort($L)"), beanName,cursorName, indexName);
@@ -23,12 +23,6 @@ public class ShortTransform implements Transform {
 		methodBuilder.addCode("$L.getShort($L)", cursorName, indexName);		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public ShortTransform(boolean nullable)
 	{
 		defaultValue="0";

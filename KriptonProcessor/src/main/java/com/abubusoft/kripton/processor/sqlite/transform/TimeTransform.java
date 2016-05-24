@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-class TimeTransform implements Transform {
+class TimeTransform  extends AbstractTransform {
 
 	public Time read(String value) throws Exception {
 		return Time.valueOf(value);
@@ -33,12 +33,6 @@ class TimeTransform implements Transform {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
 		methodBuilder.addCode("$L."+setter(property, "null"), beanName);

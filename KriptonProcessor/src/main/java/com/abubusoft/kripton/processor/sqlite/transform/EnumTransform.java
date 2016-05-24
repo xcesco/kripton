@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  * 
  */
-class EnumTransform implements Transform {
+class EnumTransform  extends AbstractTransform {
 
 	public EnumTransform(TypeName typeName) {
 		
@@ -30,12 +30,6 @@ class EnumTransform implements Transform {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public void generateDefaultValue(Builder methodBuilder)
 	{

@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-class CharacterTransform implements Transform {
+class CharacterTransform  extends AbstractTransform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {		
@@ -24,12 +24,6 @@ class CharacterTransform implements Transform {
 		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);		
 	}
 
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public void generateDefaultValue(Builder methodBuilder)
 	{

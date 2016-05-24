@@ -14,7 +14,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class LocaleTransform implements Transform {
+public class LocaleTransform  extends AbstractTransform {
 
 	private final Pattern pattern;
 
@@ -50,12 +50,6 @@ public class LocaleTransform implements Transform {
 	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String generateWriteProperty(ModelProperty property) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
