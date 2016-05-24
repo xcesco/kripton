@@ -1,5 +1,5 @@
 /**
- * Annotation used to generate sqlite support for android platform.
+ * Annotation used to generate sqlite database code for android platform.
  * 
  * @author xcesco
  *
