@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class ShortTransform  extends AbstractTransform {
+public class ShortTransform  extends AbstractCompileTimeTransform {
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {		
 		methodBuilder.addCode("$L."+setter(property, "$L.getShort($L)"), beanName,cursorName, indexName);

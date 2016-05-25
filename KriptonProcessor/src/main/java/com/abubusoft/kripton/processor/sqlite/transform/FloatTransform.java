@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class FloatTransform  extends AbstractTransform {
+public class FloatTransform  extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {

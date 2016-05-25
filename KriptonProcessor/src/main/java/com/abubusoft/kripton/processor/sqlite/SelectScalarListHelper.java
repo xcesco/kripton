@@ -48,7 +48,7 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 			throw (new InvalidMethodSignException(daoDefinition, method, "No column was selected"));
 		} else if (fieldList.value1.size() > 1) {
 			// too many values
-			throw (new InvalidMethodSignException(daoDefinition, method, "Only one column can be defined for this kind of method"));
+			throw (new InvalidMethodSignException(daoDefinition, method, "only one column can be defined for this kind of method"));
 		}
 		
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnType;

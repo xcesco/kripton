@@ -1,9 +1,9 @@
 package com.abubusoft.kripton.processor.sqlite.exceptions;
 
 
-public class AbsentAnnotationException extends SQLiteProcessorException {
+public class NoAnnotationFoundException extends SQLiteProcessorException {
  
-	public AbsentAnnotationException(String msg)
+	public NoAnnotationFoundException(String msg)
 	{
 		super(msg);
 	}

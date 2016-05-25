@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class TimeZoneTransform  extends AbstractTransform {
+public class TimeZoneTransform  extends AbstractCompileTimeTransform {
 
 	public TimeZone read(String value) throws Exception {
 		return TimeZone.getTimeZone(value);

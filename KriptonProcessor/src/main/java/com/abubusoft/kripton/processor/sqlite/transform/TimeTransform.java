@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-class TimeTransform  extends AbstractTransform {
+class TimeTransform  extends AbstractCompileTimeTransform {
 
 	public Time read(String value) throws Exception {
 		return Time.valueOf(value);

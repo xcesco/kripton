@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-class DateTransform extends AbstractTransform {
+class DateTransform extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {

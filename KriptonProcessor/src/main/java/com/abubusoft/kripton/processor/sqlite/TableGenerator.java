@@ -31,7 +31,7 @@ import com.squareup.javapoet.TypeSpec;
  * @author xcesco
  *
  */
-public class TableGenerator extends AbstractCodeGenerator implements ModelElementVisitor<SQLEntity, SQLProperty> {
+public class TableGenerator extends AbstractBuilder implements ModelElementVisitor<SQLEntity, SQLProperty> {
 
 	public static final String SUFFIX = "Table";
 

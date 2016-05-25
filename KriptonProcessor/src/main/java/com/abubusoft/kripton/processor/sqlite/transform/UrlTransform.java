@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class UrlTransform  extends AbstractTransform {
+public class UrlTransform  extends AbstractCompileTimeTransform {
 
 	public URL read(String value) throws Exception {
 	    return new URL(value);

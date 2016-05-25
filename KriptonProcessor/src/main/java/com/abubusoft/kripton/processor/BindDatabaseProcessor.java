@@ -43,11 +43,11 @@ import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
-import com.abubusoft.kripton.processor.sqlite.BindCursorGenerator;
-import com.abubusoft.kripton.processor.sqlite.BindDaoGenerator;
-import com.abubusoft.kripton.processor.sqlite.BindDatabaseGenerator;
+import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
+import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
+import com.abubusoft.kripton.processor.sqlite.BindDatabaseBuilder;
 import com.abubusoft.kripton.processor.sqlite.TableGenerator;
-import com.abubusoft.kripton.processor.sqlite.exceptions.AbsentAnnotationException;
+import com.abubusoft.kripton.processor.sqlite.exceptions.NoAnnotationFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidSQLDaoDefinitionException;
@@ -203,7 +203,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 				for (String beanClassName : classesIntoDatabase) {
 					if (!bindElements.containsKey(beanClassName)) {
 						String msg = String.format("Class %s, used in %s database definition, is not marked with @%s annotation", beanClassName, databaseSchema.getSimpleName().toString(), BindType.class);
-						throw (new AbsentAnnotationException(msg));
+						throw (new NoAnnotationFoundException(msg));
 					}
 
 					// assert: bean is present
@@ -228,7 +228,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 								if (!bindAllFields && (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindColumn.class) != null))
 								{
 									String msg = String.format("In class '%s', property '%s' needs '%s' annotation", currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());									
-									throw (new AbsentAnnotationException(msg));
+									throw (new NoAnnotationFoundException(msg));
 								}
 								
 								if (bindAllFields || (property.getAnnotation(Bind.class)) != null) {																											
@@ -396,9 +396,9 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 			// generate table java
 			TableGenerator.generate(elementUtils, filer, currentSchema);
-			BindDaoGenerator.generate(elementUtils, filer, currentSchema);
-			BindCursorGenerator.generate(elementUtils, filer, currentSchema);
-			BindDatabaseGenerator.generate(elementUtils, filer, currentSchema);
+			BindDaoBuilder.execute(elementUtils, filer, currentSchema);
+			BindCursorBuilder.execute(elementUtils, filer, currentSchema);
+			BindDatabaseBuilder.generate(elementUtils, filer, currentSchema);
 
 			logger.info(currentSchema.toString());
 		} catch (Exception e) {

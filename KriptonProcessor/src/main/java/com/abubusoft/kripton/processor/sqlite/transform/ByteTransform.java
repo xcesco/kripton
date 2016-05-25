@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-class ByteTransform  extends AbstractTransform {
+class ByteTransform  extends AbstractCompileTimeTransform {
 	
 	public ByteTransform(boolean nullable)
 	{

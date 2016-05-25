@@ -107,7 +107,7 @@ public class Transformer {
 					return new ByteArrayTransform();
 
 				} else {
-					return new Base64Transform();
+					return new Base64CompileTransform();
 				}
 			}
 

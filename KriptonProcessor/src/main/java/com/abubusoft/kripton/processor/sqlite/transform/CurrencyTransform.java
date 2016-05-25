@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-class CurrencyTransform  extends AbstractTransform {
+class CurrencyTransform  extends AbstractCompileTimeTransform {
 /*
 	public Currency read(String value) throws Exception {
 		return Currency.getInstance(value);

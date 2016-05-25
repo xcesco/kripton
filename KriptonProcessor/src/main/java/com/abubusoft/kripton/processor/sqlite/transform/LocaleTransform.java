@@ -14,7 +14,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class LocaleTransform  extends AbstractTransform {
+public class LocaleTransform  extends AbstractCompileTimeTransform {
 
 	private final Pattern pattern;
 

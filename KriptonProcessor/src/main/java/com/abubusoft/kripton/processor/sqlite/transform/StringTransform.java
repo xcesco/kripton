@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class StringTransform  extends AbstractTransform {
+public class StringTransform  extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {

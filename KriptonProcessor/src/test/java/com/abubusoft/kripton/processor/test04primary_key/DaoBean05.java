@@ -20,6 +20,9 @@ public interface DaoBean05 {
 	@BindSelect(where="pk=${id}")
 	List<Bean05> selectAll(long id);
 	
+	@BindSelect(value="pk",where=" 1 = 1")
+	List<Long> selectPK();
+	
 	@BindSelect(where="pk=${id}")
 	void selectCursorListener(long id, ReadCursorListener listener);
 	

@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class IntegerTransform  extends AbstractTransform {
+public class IntegerTransform  extends AbstractCompileTimeTransform {
 	
 	public IntegerTransform(boolean nullable)
 	{

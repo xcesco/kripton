@@ -6,14 +6,14 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.TypeSpec.Builder;
 
-public abstract class AbstractCodeGenerator {
+public abstract class AbstractBuilder {
 	
 	protected Elements elementUtils;
 	protected Filer filer;
 	protected Builder builder;
 	protected SQLiteDatabaseSchema model;
 	
-	public AbstractCodeGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
+	public AbstractBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		this.model=model;
 		this.elementUtils = elementUtils;
 		this.filer = filer;

@@ -24,13 +24,13 @@ import com.squareup.javapoet.TypeSpec;
  * @author xcesco
  *
  */
-public class BindDaoFactoryGenerator extends AbstractCodeGenerator  {
+public class BindDaoFactoryBuilder extends AbstractBuilder  {
 
 	public static final String PREFIX = "Bind";
 	
 	public static final String SUFFIX = "DaoFactory";
 
-	public BindDaoFactoryGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
+	public BindDaoFactoryBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
@@ -57,7 +57,7 @@ public class BindDaoFactoryGenerator extends AbstractCodeGenerator  {
 		builder = TypeSpec.interfaceBuilder(schemaName).addModifiers(Modifier.PUBLIC).addSuperinterface(BindDaoFactory.class);
 						
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			ClassName daoImplName = className(BindDatabaseGenerator.PREFIX+ dao.getName());					
+			ClassName daoImplName = className(BindDatabaseBuilder.PREFIX+ dao.getName());					
 			
 			// dao with external connections
 			{

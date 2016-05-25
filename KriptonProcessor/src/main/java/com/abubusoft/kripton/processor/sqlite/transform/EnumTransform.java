@@ -13,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  * 
  */
-class EnumTransform  extends AbstractTransform {
+class EnumTransform  extends AbstractCompileTimeTransform {
 
 	public EnumTransform(TypeName typeName) {
 		

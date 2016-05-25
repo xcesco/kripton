@@ -31,11 +31,11 @@ import com.squareup.javapoet.TypeSpec;
  * @author xcesco
  *
  */
-public class BindDatabaseGenerator extends AbstractCodeGenerator  {
+public class BindDatabaseBuilder extends AbstractBuilder  {
 
 	public static final String PREFIX = "Bind";
 		
-	public BindDatabaseGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
+	public BindDatabaseBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
@@ -48,10 +48,10 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 	 * @throws Exception
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
-		BindDaoFactoryGenerator visitor = new BindDaoFactoryGenerator(elementUtils, filer, schema);		
+		BindDaoFactoryBuilder visitor = new BindDaoFactoryBuilder(elementUtils, filer, schema);		
 		String daoFactoryName=visitor.buildDaoFactoryInterface(elementUtils, filer, schema);
 		
-		BindDatabaseGenerator visitorDao = new BindDatabaseGenerator(elementUtils, filer, schema);		
+		BindDatabaseBuilder visitorDao = new BindDatabaseBuilder(elementUtils, filer, schema);		
 		visitorDao.buildDatabase(elementUtils, filer, schema, daoFactoryName);
 	}
 
@@ -73,12 +73,12 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 		builder.addField(FieldSpec.builder(Integer.TYPE, "version", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$L", schema.version).build());		
 		
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			ClassName daoImplName = className(BindDatabaseGenerator.PREFIX+ dao.getName());
+			ClassName daoImplName = className(BindDatabaseBuilder.PREFIX+ dao.getName());
 			builder.addField(FieldSpec.builder(daoImplName,convert.convert(dao.getName()), Modifier.PROTECTED).initializer("new $T()", daoImplName) .build());
 			
 			// dao with connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addModifiers(Modifier.PUBLIC).returns(className(BindDatabaseGenerator.PREFIX+dao.getName()));
+				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addModifiers(Modifier.PUBLIC).returns(className(BindDatabaseBuilder.PREFIX+dao.getName()));
 				methodBuilder.addCode("$L.setDatabase(getWritableDatabase());\n", convert.convert(dao.getName()));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
 				builder.addMethod(methodBuilder.build());
@@ -86,7 +86,7 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 			
 			// dao with external connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addParameter(SQLiteDatabase.class, "database").addModifiers(Modifier.PUBLIC).returns(className(BindDatabaseGenerator.PREFIX+dao.getName())).addAnnotation(Override.class);
+				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addParameter(SQLiteDatabase.class, "database").addModifiers(Modifier.PUBLIC).returns(className(BindDatabaseBuilder.PREFIX+dao.getName())).addAnnotation(Override.class);
 				methodBuilder.addCode("$L.setDatabase(database);\n", convert.convert(dao.getName()));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
 				builder.addMethod(methodBuilder.build());
@@ -95,45 +95,7 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 		
 		// interface 
 		//public interface DummyExecutor extends DatabaseExecutor
-		String transationExecutorName=schemaName+"TransactionExecutor";
-		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("TransactionExecutor"), className(daoFactoryName));			
-		builder.addType(TypeSpec.interfaceBuilder(transationExecutorName).addModifiers(Modifier.PUBLIC).addSuperinterface(parameterizedTypeName).build());
-		
-		// execute
-		//public void execute(E execute)
-		//{
-			/*SQLiteDatabase database = getWritableDatabase();
-			
-			try {
-				database.beginTransaction();
-				
-				if (execute.onExecute(database))
-				{
-					database.setTransactionSuccessful();
-				}
-			} catch(Throwable e)
-			{
-				execute.onError(e);
-			} finally
-			{
-				database.endTransaction();
-			}*/
-		MethodSpec.Builder executeMethod=MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName),"executor");
-		executeMethod.addCode("$T database=getWritableDatabase();\n",SQLiteDatabase.class);
-		executeMethod.beginControlFlow("try");
-		executeMethod.addCode("database.beginTransaction();\n");
-		
-		executeMethod.beginControlFlow("if (executor!=null && executor.onExecute(this, database))");
-		executeMethod.addCode("database.setTransactionSuccessful();\n");
-		executeMethod.endControlFlow();
-		
-		executeMethod.nextControlFlow("catch(Throwable e)");
-		executeMethod.nextControlFlow("finally");
-		executeMethod.addCode("database.endTransaction();\n");
-		executeMethod.endControlFlow();
-		
-		
-		builder.addMethod(executeMethod.build());
+		generateMethodExecute(daoFactoryName);
 		
 		{
 			// instance
@@ -172,7 +134,6 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 
 		{
 			// onUpgrade
-			//public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 			methodBuilder.addParameter(SQLiteDatabase.class, "database");
 			methodBuilder.addParameter(Integer.TYPE, "oldVersion");
@@ -201,6 +162,38 @@ public class BindDatabaseGenerator extends AbstractCodeGenerator  {
 		
 		BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+	}
+
+	/**
+	 * <p>Generate execute method</p>
+	 * 
+	 * @param daoFactoryName
+	 */
+	public void generateMethodExecute(String daoFactoryName) {
+		String transationExecutorName="Transaction";
+		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactoryName));			
+		builder.addType(TypeSpec.interfaceBuilder(transationExecutorName).addModifiers(Modifier.PUBLIC).addSuperinterface(parameterizedTypeName).build());
+			
+		MethodSpec.Builder executeMethod=MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName),"transaction");
+		executeMethod.addCode("$T database=getWritableDatabase();\n",SQLiteDatabase.class);
+		executeMethod.beginControlFlow("try");
+		executeMethod.addCode("database.beginTransaction();\n");
+		
+		executeMethod.beginControlFlow("if (transaction!=null && transaction.onExecute(this, database))");
+		executeMethod.addCode("database.setTransactionSuccessful();\n");
+		executeMethod.endControlFlow();
+				
+		executeMethod.nextControlFlow("finally");
+		executeMethod.addCode("database.endTransaction();\n");
+		executeMethod.endControlFlow();
+		
+		// generate javadoc
+		executeMethod.addJavadoc("<p>Allow to execute a transaction. The database will be open in write mode.</p>\n");
+		executeMethod.addJavadoc("\n");
+		executeMethod.addJavadoc("@param transaction\n");
+		executeMethod.addJavadoc("\ttransaction to execute\n");
+		
+		builder.addMethod(executeMethod.build());
 	}
 
 }

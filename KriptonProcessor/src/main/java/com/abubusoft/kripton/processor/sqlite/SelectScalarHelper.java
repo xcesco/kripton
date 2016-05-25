@@ -7,13 +7,7 @@ import java.util.List;
 
 import javax.lang.model.util.Elements;
 
-import android.database.Cursor;
-
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
-import com.abubusoft.kripton.processor.sqlite.transform.Transform;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
@@ -21,7 +15,8 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.utils.LiteralType;
+import com.abubusoft.kripton.processor.sqlite.transform.Transform;
+import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
@@ -34,10 +29,6 @@ import com.squareup.javapoet.TypeName;
  * @since 17/mag/2016
  */
 public class SelectScalarHelper implements SelectCodeGenerator {
-
-	public long a() {
-		return 0;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -88,8 +79,6 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("catch(Throwable e)");
-		methodBuilder.addCode("throw (e);\n");
 		methodBuilder.nextControlFlow("finally");
 		methodBuilder.beginControlFlow("if (cursor!=null)\n");
 		methodBuilder.addCode("cursor.close();\n");

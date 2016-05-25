@@ -12,7 +12,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author xcesco
  *
  */
-public abstract class AbstractTransform implements Transform {
+public abstract class AbstractCompileTimeTransform implements Transform {
 	
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, ModelProperty property, String beanName) {		

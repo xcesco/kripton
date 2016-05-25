@@ -37,7 +37,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
  * @author xcesco
  *
  */
-public class BindCursorGenerator extends AbstractCodeGenerator implements ModelElementVisitor<SQLEntity, SQLProperty> {
+public class BindCursorBuilder extends AbstractBuilder implements ModelElementVisitor<SQLEntity, SQLProperty> {
 
 	public static final String PREFIX = "Bind";
 	
@@ -45,12 +45,12 @@ public class BindCursorGenerator extends AbstractCodeGenerator implements ModelE
 	
 	private int counter;
 
-	public BindCursorGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
+	public BindCursorBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
-	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
-		BindCursorGenerator visitor = new BindCursorGenerator(elementUtils, filer, model);
+	public static void execute(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
+		BindCursorBuilder visitor = new BindCursorBuilder(elementUtils, filer, model);
 
 		for (SQLEntity item : model.getEntities()) {
 			visitor.visit(item);

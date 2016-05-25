@@ -78,6 +78,6 @@ public class BindDummy02Database extends AbstractBindDatabaseHelper implements B
     database.execSQL(Bean02Table.CREATE_TABLE_SQL);
   }
 
-  public interface BindDummy02DatabaseTransactionExecutor extends TransactionExecutor<BindDummy02DaoFactory> {
+  public interface BindDummy02DatabaseTransactionExecutor extends AbstractTransaction<BindDummy02DaoFactory> {
   }
 }

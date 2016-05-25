@@ -12,7 +12,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
  * @author bulldog
  *
  */
-class BooleanTransform extends AbstractTransform {
+class BooleanTransform extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {

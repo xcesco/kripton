@@ -15,7 +15,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class CalendarTransform  extends AbstractTransform {
+public class CalendarTransform  extends AbstractCompileTimeTransform {
 	
 	public Calendar read(String value) throws Exception {
 		Date date = DateUtil.read(value);
