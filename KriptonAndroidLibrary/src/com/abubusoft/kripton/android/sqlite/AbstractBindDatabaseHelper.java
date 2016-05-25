@@ -25,7 +25,7 @@ public abstract class AbstractBindDatabaseHelper extends SQLiteOpenHelper implem
 		super(context, name, factory, version, errorHandler);
 	}
 	
-	public interface TransactionExecutor<E extends BindDaoFactory>
+	public interface AbstractTransaction<E extends BindDaoFactory>
 	{
 		/**
 		 * Execute 
