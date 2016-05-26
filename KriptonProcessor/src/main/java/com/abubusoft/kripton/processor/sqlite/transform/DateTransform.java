@@ -5,6 +5,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import com.abubusoft.kripton.common.DateUtil;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -16,14 +17,14 @@ import com.squareup.javapoet.MethodSpec.Builder;
 class DateTransform extends AbstractCompileTimeTransform {
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(property, "$T.read($L.getString($L))"), beanName, DateUtil.class, cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, DateUtil.class, cursorName, indexName);
 
 	}
 	
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, ModelProperty property, String beanName) {		
-		methodBuilder.addCode("$T.write($L."+getter(property)+")", DateUtil.class, beanName);
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {	
+		methodBuilder.addCode("$T.write($L."+getter(beanClass, property)+")", DateUtil.class, beanName);
 	}
 	
 	@Override
@@ -32,8 +33,8 @@ class DateTransform extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(property, "null"), beanName);
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
 	}
 
 	@Override

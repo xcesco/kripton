@@ -4,6 +4,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -15,10 +16,10 @@ import com.squareup.javapoet.MethodSpec.Builder;
 class CharacterTransform  extends AbstractCompileTimeTransform {
 
 	@Override
-	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {		
-		methodBuilder.addCode("$L."+setter(property, "$T.toChars($L.getInt($L))"), beanName,Character.class, cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {	
+		methodBuilder.addCode("$L."+setter(beanClass, property, "$T.toChars($L.getInt($L))"), beanName,Character.class, cursorName, indexName);
 	}
-	
+	 
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);		
@@ -42,9 +43,9 @@ class CharacterTransform  extends AbstractCompileTimeTransform {
 	protected String defaultValue;
 	
 	@Override
-	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(property, defaultValue), beanName);
+		methodBuilder.addCode("$L."+setter(beanClass, property, defaultValue), beanName);
 	}
 	
 	@Override

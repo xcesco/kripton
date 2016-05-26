@@ -6,6 +6,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.core.ModelClass;
+import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 
@@ -161,6 +162,10 @@ public class TypeUtility {
 		
 		return false;
 		
+	}
+
+	public static boolean isNullable(ModelProperty property) {
+		return isNullable(property.getModelType().getName());
 	}
 
 }

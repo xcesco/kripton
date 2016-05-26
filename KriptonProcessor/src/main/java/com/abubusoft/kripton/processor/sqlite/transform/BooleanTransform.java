@@ -2,6 +2,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
@@ -15,8 +16,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 class BooleanTransform extends AbstractCompileTimeTransform {
 
 	@Override
-	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {
-		methodBuilder.addCode("$L."+setter(property, "$L.getInt($L)==0?false:true"), beanName,cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getInt($L)==0?false:true"), beanName,cursorName, indexName);
 	}
 	
 	@Override
@@ -42,9 +43,9 @@ class BooleanTransform extends AbstractCompileTimeTransform {
 	protected String defaultValue;
 	
 	@Override
-	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(property, defaultValue), beanName);
+		methodBuilder.addCode("$L."+setter(beanClass, property, defaultValue), beanName);
 	}
 	
 	@Override

@@ -17,7 +17,6 @@ import com.google.common.reflect.TypeToken;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
  * Transformer for java primitive types and frequently used java types
@@ -32,30 +31,36 @@ public class Transformer {
 
 	/**
 	 * "resultBean", "cursor","indexes["+(i++)+"]"
+	 * @param beanClass 
 	 */
-	public static void cursor2Java(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+	public static void cursor2Java(MethodSpec.Builder methodBuilder, TypeName beanClass, ModelProperty property, String beanName, String cursorName, String indexName) {
 		Transform transform = lookup(typeName(property.getElement().asType()));
 
 		if (transform == null) {
 			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
 		}
-		transform.generateReadProperty(methodBuilder, property, beanName, cursorName, indexName);
+		transform.generateReadProperty(methodBuilder, beanClass, beanName, property, cursorName, indexName);
 	}
 
-	public static void java2ContentValues(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName) {
+	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		Transform transform = lookup(typeName(property.getElement().asType()));
 
 		if (transform == null) {
 			throw new RuntimeException("Transform of " + property.getElement().asType() + " not supported");
 		}
-		transform.generateWriteProperty(methodBuilder, property, beanName);
+		transform.generateWriteProperty(methodBuilder, beanClass, beanName, property);
 	}
 	
+	
 	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeMirror objectType, String objectName) {
-		Transform transform = lookup(typeName(objectType));
+		java2ContentValues(methodBuilder, typeName(objectType), objectName);
+	}
+	
+	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeName objectTypeName, String objectName) {
+		Transform transform = lookup(objectTypeName);
 
 		if (transform == null) {
-			throw new RuntimeException("Transform of " + objectType + " not supported");
+			throw new RuntimeException("Transform of " + objectTypeName + " not supported");
 		}
 		transform.generateWriteProperty(methodBuilder, objectName);
 	}
@@ -253,13 +258,13 @@ public class Transformer {
 		return null;
 	}
 
-	public static void resetBean(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+	public static void resetBean(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		Transform transform = lookup(typeName(property.getElement().asType()));
 
 		if (transform == null) {
 			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
 		}
-		transform.generateResetProperty(methodBuilder, property, beanName, cursorName, indexName);
+		transform.generateResetProperty(methodBuilder, beanClass, beanName, property, cursorName, indexName);
 		
 	}
 

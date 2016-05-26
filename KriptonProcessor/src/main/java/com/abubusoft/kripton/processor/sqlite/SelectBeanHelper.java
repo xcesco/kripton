@@ -68,7 +68,7 @@ public class SelectBeanHelper implements SelectCodeGenerator {
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 			}
-			Transformer.cursor2Java(methodBuilder, item, "resultBean", "cursor", "index" + i + "");
+			Transformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor", "index" + i + "");
 			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");

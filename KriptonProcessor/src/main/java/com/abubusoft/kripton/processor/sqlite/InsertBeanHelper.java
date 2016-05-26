@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
 import java.util.List;
 
 import javax.lang.model.type.TypeMirror;
@@ -29,7 +31,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BindInsert.class, methodBuilder, null);
 
 		ModelProperty primaryKey = entity.getPrimaryKey();
-
+ 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));
 
@@ -37,7 +39,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			if (primaryKey.isPublicField()) {
 				methodBuilder.addCode("$L.$L=result;\n", method.getParameters().get(0).value0, primaryKey.getName());
 			} else {
-				methodBuilder.addCode("$L.$L(result);\n", method.getParameters().get(0).value0, PropertyUtility.setter(primaryKey));
+				methodBuilder.addCode("$L.$L(result);\n", method.getParameters().get(0).value0, PropertyUtility.setter(typeName(entity.getElement()), primaryKey));
 			}
 		}
 

@@ -1,5 +1,6 @@
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -13,16 +14,20 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  * 
  */
-class EnumTransform  extends AbstractCompileTimeTransform {
+class EnumTransform extends AbstractCompileTimeTransform {
 
 	public EnumTransform(TypeName typeName) {
 		
 	}
+	
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
+		methodBuilder.addCode("$L."+getter(beanClass, property)+".toString()", beanName);
+	}
 
 	@Override
-	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {		
-		//methodBuilder.addCode("$L."+setter(property, "T$.valueOf($L.getString($L))")+";", beanName,property.getModelType().getName(), cursorName, indexName);
-		methodBuilder.addCode("$L."+setter(property, "$T.valueOf($L.getString($L))"), beanName,property.getModelType().getName(), cursorName, indexName);	
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
+		methodBuilder.addCode("$L."+setter(beanClass, property, "$T.valueOf($L.getString($L))"), beanName, property.getModelType().getName(),cursorName, indexName);
 	}
 	
 	@Override
@@ -37,8 +42,8 @@ class EnumTransform  extends AbstractCompileTimeTransform {
 	}
 	
 	@Override
-	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "null"), beanName);
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(beanClass, property, "null"), beanName);
 	}
 	
 	@Override

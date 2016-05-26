@@ -31,14 +31,19 @@ public class BindDummy02Database extends AbstractBindDatabaseHelper implements B
     return daoBean02;
   }
 
-  public void execute(BindDummy02DatabaseTransactionExecutor executor) {
+  /**
+   * <p>Allow to execute a transaction. The database will be open in write mode.</p>
+   *
+   * @param transaction
+   * 	transaction to execute
+   */
+  public void execute(Transaction transaction) {
     SQLiteDatabase database=getWritableDatabase();
     try {
       database.beginTransaction();
-      if (executor!=null && executor.onExecute(this, database)) {
+      if (transaction!=null && transaction.onExecute(this, database)) {
         database.setTransactionSuccessful();
       }
-    } catch(Throwable e) {
     } finally {
       database.endTransaction();
     }
@@ -78,6 +83,6 @@ public class BindDummy02Database extends AbstractBindDatabaseHelper implements B
     database.execSQL(Bean02Table.CREATE_TABLE_SQL);
   }
 
-  public interface BindDummy02DatabaseTransactionExecutor extends AbstractTransaction<BindDummy02DaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindDummy02DaoFactory> {
   }
 }

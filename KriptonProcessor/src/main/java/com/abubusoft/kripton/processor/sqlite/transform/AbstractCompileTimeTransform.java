@@ -6,6 +6,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -15,8 +16,8 @@ import com.squareup.javapoet.MethodSpec.Builder;
 public abstract class AbstractCompileTimeTransform implements Transform {
 	
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, ModelProperty property, String beanName) {		
-		methodBuilder.addCode("$L."+getter(property), beanName);
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
+		methodBuilder.addCode("$L."+getter(beanClass, property), beanName);
 	}
 
 	/* (non-Javadoc)

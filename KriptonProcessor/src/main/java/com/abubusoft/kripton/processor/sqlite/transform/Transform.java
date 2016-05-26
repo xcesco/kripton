@@ -2,6 +2,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 /**
  * 
@@ -14,9 +15,10 @@ public interface Transform {
 
 	/**
 	 * Generate code to put into cursor, the bean property value
+	 * @param beanClass 
 	 */
-	void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName);
-
+	void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
+	
 	/**
 	 * Generate code to read from cursor
 	 * 
@@ -42,7 +44,7 @@ public interface Transform {
 	 *            property to write
 	 * @param beanName
 	 */
-	void generateWriteProperty(Builder methodBuilder, ModelProperty property, String beanName);
+	void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property);
 
 	/**
 	 * Generate code to set property to null value or default value
@@ -53,7 +55,7 @@ public interface Transform {
 	 * @param cursorName
 	 * @param indexName
 	 */
-	void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName);
+	void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName);
 
 	/**
 	 * Generate code to define column

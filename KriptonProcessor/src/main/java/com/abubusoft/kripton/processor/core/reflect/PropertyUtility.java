@@ -18,6 +18,8 @@ import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
+import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyVisibilityException;
+import com.squareup.javapoet.TypeName;
 
 public class PropertyUtility {
 	
@@ -124,21 +126,14 @@ public class PropertyUtility {
 					currentKriptonField = entity.get(propertyName);
 					Pair<String, String> result = MethodUtility.extractResultAndArguments(item.asType().toString());
 
-					if (currentKriptonField.isType(result.value1)) {
-						switch (status) {
-						case 0:
-							currentKriptonField.setFieldWithGetter(true);
-							break;
-						case 1:
-							currentKriptonField.setFieldWithIs(true);
-							break;
-						case 2:
-							currentKriptonField.setFieldWithSetter(true);
-							break;
-						default:
-							break;
-						}
+					if (currentKriptonField.isType(result.value1) && status==0) {
+						currentKriptonField.setFieldWithGetter(true);
+					} else if (currentKriptonField.isType(result.value1) && status==1) {
+						currentKriptonField.setFieldWithIs(true);
+					} else if (currentKriptonField.isType(result.value0) && status==2) {
+						currentKriptonField.setFieldWithSetter(true);
 					}
+					
 				}
 			}
 		}
@@ -166,41 +161,39 @@ public class PropertyUtility {
 		return true;
 	}
 	
-	public static String getter(ModelProperty property) {
+	public static String getter(TypeName beanClass, ModelProperty property) {
 		if (property.isPublicField())
 			return property.getName();
 
 		if (property.isFieldWithGetter()) {
 			return "get" + converterField2Method.convert(property.getName()) + "()";
-		}
-
-		if (property.isFieldWithIs()) {
+		} else if (property.isFieldWithIs()) {
 			return "is" + converterField2Method.convert(property.getName()) + "()";
+		} else {
+			throw new PropertyVisibilityException("Property "+property.getName()+" of class "+beanClass+" can not be read");
 		}
 
-		return null;
 	}
 
-	public static String setter(ModelProperty property) {
+	public static String setter(TypeName beanClass, ModelProperty property) {
 		if (property.isPublicField())
+		{
 			return property.getName();
-
-		if (property.isFieldWithGetter() || property.isFieldWithIs()) {
+		} else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName());
+		} else {
+			throw new PropertyVisibilityException("Property "+property.getName()+" of class "+beanClass+" can not be modify");
 		}
-
-		return null;
 	}
 	
-	public static String setter(ModelProperty property, String value) {
+	public static String setter(TypeName beanClass, ModelProperty property, String value) {
 		if (property.isPublicField())
 			return property.getName()+"="+value;
-
-		if (property.isFieldWithGetter() || property.isFieldWithIs()) {
+		else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName())+"("+value+")";
+		} else {
+			throw new PropertyVisibilityException("Property "+property.getName()+" of class "+beanClass+" can not be modify");
 		}
-
-		return null;
 	}
 
 }

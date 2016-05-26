@@ -5,6 +5,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.Currency;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -21,11 +22,11 @@ class CurrencyTransform  extends AbstractCompileTimeTransform {
 
 	public String write(Currency value) throws Exception {
 		return value.toString();
-	}
+	} 
 */
 	@Override
-	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "$T.getInstance($L.getString($L))"), beanName,Currency.class, cursorName, indexName);		
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(beanClass, property, "$T.getInstance($L.getString($L))"), beanName,Currency.class, cursorName, indexName);		
 	}
 	
 	@Override
@@ -40,8 +41,8 @@ class CurrencyTransform  extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "null"), beanName);
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(beanClass, property, "null"), beanName);
 	}
 	
 	@Override

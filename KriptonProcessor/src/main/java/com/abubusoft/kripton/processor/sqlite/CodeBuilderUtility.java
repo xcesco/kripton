@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,6 +14,8 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
+import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
@@ -21,6 +25,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 public class CodeBuilderUtility {
 
@@ -180,6 +185,10 @@ public class CodeBuilderUtility {
 		// all check is already done
 		
 		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+		
+		String entityName=method.getParameters().get(0).value0;
+		TypeName entityClassName=typeName(entity.getElement());
+		
 		// check included and excluded fields
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
 		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE);
@@ -188,7 +197,6 @@ public class CodeBuilderUtility {
 		}
 		Set<String> excludedFields = new HashSet<String>();
 		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
-
 	
 		// initialize contentValues
 		SQLProperty primaryKey = entity.getPrimaryKey();
@@ -202,10 +210,23 @@ public class CodeBuilderUtility {
 			if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
 				continue;
 
+			if (TypeUtility.isNullable(item))
+			{
+				methodBuilder.beginControlFlow("if ($L."+PropertyUtility.getter(entityClassName, item)+"!=null)", entityName);
+			}
+			
 			// add property to list of used properties
 			methodBuilder.addCode("contentValues.put($S, ", model.columnNameConverter.convert(item.getName()));
-			Transformer.java2ContentValues(methodBuilder, item, method.getParameters().get(0).value0);
+			Transformer.java2ContentValues(methodBuilder, entityClassName,entityName , item);
 			methodBuilder.addCode(");\n", model.columnNameConverter.convert(item.getName()));
+			
+			if (TypeUtility.isNullable(item))
+			{
+				methodBuilder.nextControlFlow("else");
+				methodBuilder.addCode("contentValues.putNull($S);\n", model.columnNameConverter.convert(item.getName()));				
+				methodBuilder.endControlFlow();
+			}
+			methodBuilder.addCode("\n");
 
 		}
 

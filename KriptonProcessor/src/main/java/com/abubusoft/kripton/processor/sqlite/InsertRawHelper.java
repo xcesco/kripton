@@ -21,16 +21,31 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 	@Override
 	public void generate(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
-		// code
+		boolean nullable;
+		
 		methodBuilder.addCode("contentValues.clear();\n\n");
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			ModelProperty a = entity.get(item.value0);
-			if (a == null)
+			ModelProperty property = entity.get(item.value0);
+			if (property == null)
 				throw (new PropertyNotFoundException(daoDefinition, method, item.value0));
+			
+			nullable=TypeUtility.isNullable(property);
 
-			methodBuilder.addCode("contentValues.put($S, ", model.columnNameConverter.convert(a.getName()));
+			if (nullable)
+			{
+				methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
+			}
+			//methodBuilder.beginControlFlow("if (, args)
+			methodBuilder.addCode("contentValues.put($S, ", model.columnNameConverter.convert(property.getName()));
 			Transformer.java2ContentValues(methodBuilder, item.value1, item.value0);
 			methodBuilder.addCode(");\n");
+			if (nullable)
+			{
+				methodBuilder.nextControlFlow("else");
+				methodBuilder.addCode("contentValues.putNull($S);\n", model.columnNameConverter.convert(item.value0));				
+				methodBuilder.endControlFlow();				
+			}
+			methodBuilder.addCode("\n");
 		}
 
 		methodBuilder.addCode("\n");

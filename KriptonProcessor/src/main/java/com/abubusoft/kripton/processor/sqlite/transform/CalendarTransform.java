@@ -7,6 +7,7 @@ import java.util.Date;
 
 import com.abubusoft.kripton.common.DateUtil;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -16,7 +17,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  *
  */
 public class CalendarTransform  extends AbstractCompileTimeTransform {
-	
+	 
 	public Calendar read(String value) throws Exception {
 		Date date = DateUtil.read(value);
 		Calendar cal = Calendar.getInstance();
@@ -31,7 +32,7 @@ public class CalendarTransform  extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -43,8 +44,8 @@ public class CalendarTransform  extends AbstractCompileTimeTransform {
 	}
 	
 	@Override
-	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "null"), beanName);
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(beanClass, property, "null"), beanName);
 	}
 	
 	@Override

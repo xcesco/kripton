@@ -61,8 +61,6 @@ public class SelectRawListenerHelper implements SelectCodeGenerator {
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
-		//methodBuilder.nextControlFlow("catch(Throwable e)");
-		//methodBuilder.addCode("throw (e);\n");
 		methodBuilder.nextControlFlow("finally");
 		methodBuilder.beginControlFlow("if (cursor!=null)\n");
 		methodBuilder.addCode("cursor.close();\n");

@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -9,12 +11,13 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.TypeName;
 
 /**
  * Analyze an SQL statement, extract parameter and replace with ?
@@ -32,6 +35,15 @@ public class SQLAnalyzer {
 
 	private List<String> paramNames;
 	
+	private List<TypeName> paramTypeNames;
+	
+	/**
+	 * @return the paramTypes
+	 */
+	public List<TypeName> getParamTypeNames() {
+		return paramTypeNames;
+	}
+
 	/**
 	 * bean properties name used into statement.
 	 */
@@ -60,10 +72,11 @@ public class SQLAnalyzer {
 	 * ?. This second parameter is the list of parameters and replaced with ?.
 	 * 
 	 */
-	public void execute(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, ModelMethod method, String sqlStatement) {
+	public void execute(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, SQLiteModelMethod method, String sqlStatement) {
 		paramNames = new ArrayList<String>();
 		paramGetters = new ArrayList<String>();
 		usedBeanPropertyNames=new ArrayList<String>();
+		paramTypeNames=new ArrayList<TypeName>();
 
 		// replace placeholder ${ } with ?
 		{
@@ -104,19 +117,21 @@ public class SQLAnalyzer {
 			if (splittedName.length==1)
 			{
 				paramGetters.add(rawName);
+				paramTypeNames.add(typeName(method.findParameter(rawName)));
 			} else if (splittedName.length==2) {
 				if (TypeUtility.isEquals(TypeUtility.typeName(method.findParameter(splittedName[0])), entity) && entity.contains(splittedName[1]))
 				{				
 					// there are nested property invocation
 					paramGetters.add(splittedName[0]+"."+getter(entity.findByName(splittedName[1])));
 					usedBeanPropertyNames.add(splittedName[1]);
-					
+					paramTypeNames.add(entity.findByName(splittedName[1]).getModelType().getName());
 				} else {
 					throw (new MethodParameterNotFoundException(daoDefinition, method, rawName));
 				}
 			} else {
 				throw (new MethodParameterNotFoundException(daoDefinition, method, rawName));
 			}
+			
 		}
 		
 		this.sqlStatement=sqlStatement;

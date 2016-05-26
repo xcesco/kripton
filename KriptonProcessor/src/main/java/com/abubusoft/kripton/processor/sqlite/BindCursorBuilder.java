@@ -133,7 +133,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		int i=0;
 		for (ModelProperty item : entity.getCollection()) {			
 			methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
-			Transformer.cursor2Java(methodBuilder, item, "resultBean", "cursor","index"+i+"");		
+			Transformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");		
 			methodBuilder.addCode(";");
 			methodBuilder.addCode("}\n");
 			
@@ -188,7 +188,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 			int i=0;
 			for (ModelProperty item : entity.getCollection()) {			
 				methodBuilder.addCode("if (index$L>=0) { ",i);
-				Transformer.resetBean(methodBuilder, item, "resultBean", "cursor","index"+i+"");
+				Transformer.resetBean(methodBuilder, entityClass, "resultBean", item,  "cursor","index"+i+"");
 				methodBuilder.addCode(";");
 				methodBuilder.addCode("}\n");
 				
@@ -202,7 +202,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 			int i=0;
 			for (ModelProperty item : entity.getCollection()) {			
 				methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
-				Transformer.cursor2Java(methodBuilder, item, "resultBean", "cursor","index"+i+"");
+				Transformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");
 				methodBuilder.addCode(";");
 				methodBuilder.addCode("}\n");
 				

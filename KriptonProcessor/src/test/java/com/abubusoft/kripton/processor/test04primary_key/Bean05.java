@@ -13,6 +13,42 @@ public class Bean05 {
 	@Bind
 	@BindColumn(ColumnType.PRIMARY_KEY)
 	protected long pk;
+	
+	@Bind
+	@BindColumn
+	protected long number;
+	
+	/**
+	 * @return the number
+	 */
+	public long getNumber() {
+		return number;
+	}
+
+	/**
+	 * @param number the number to set
+	 */
+	public void setNumber(long number) {
+		this.number = number;
+	}
+
+	@Bind
+	@BindColumn
+	protected BeanType beanType;
+
+	/**
+	 * @return the beanType
+	 */
+	public BeanType getBeanType() {
+		return beanType;
+	}
+
+	/**
+	 * @param beanType the beanType to set
+	 */
+	public void setBeanType(BeanType beanType) {
+		this.beanType = beanType;
+	}
 
 	/**
 	 * @return the pk

@@ -1,10 +1,12 @@
 package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import com.abubusoft.kripton.common.Base64;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 
 /**
@@ -16,8 +18,8 @@ import com.squareup.javapoet.MethodSpec.Builder;
 public class Base64CompileTransform extends AbstractCompileTimeTransform {
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "$T.decode($L.getBlob($L))"), beanName,Base64.class, cursorName, indexName);				
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(beanClass, property, "$T.decode($L.getBlob($L))"), beanName,Base64.class, cursorName, indexName);				
 	}
 	
 	@Override
@@ -32,8 +34,8 @@ public class Base64CompileTransform extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(property, "null"), beanName);
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(beanClass, property, "null"), beanName);
 	}
 
 	@Override

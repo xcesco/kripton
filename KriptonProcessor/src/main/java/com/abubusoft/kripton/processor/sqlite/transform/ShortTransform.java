@@ -4,6 +4,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -14,8 +15,8 @@ import com.squareup.javapoet.MethodSpec.Builder;
  */
 public class ShortTransform  extends AbstractCompileTimeTransform {
 	@Override
-	public void generateReadProperty(MethodSpec.Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName)  {		
-		methodBuilder.addCode("$L."+setter(property, "$L.getShort($L)"), beanName,cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {	
+		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getShort($L)"), beanName,cursorName, indexName);
 	}
 	
 	@Override
@@ -41,9 +42,9 @@ public class ShortTransform  extends AbstractCompileTimeTransform {
 	protected String defaultValue;
 	
 	@Override
-	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(property, defaultValue), beanName);
+		methodBuilder.addCode("$L."+setter(beanClass, property, defaultValue), beanName);
 	}
 	
 	@Override

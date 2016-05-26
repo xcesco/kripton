@@ -101,8 +101,8 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 		Set<String> annotations = new LinkedHashSet<String>();
 
 		annotations.add(BindDatabase.class.getCanonicalName());
-		annotations.add(BindType.class.getCanonicalName());
-		annotations.add(BindDao.class.getCanonicalName());
+		//annotations.add(BindType.class.getCanonicalName());
+		//annotations.add(BindDao.class.getCanonicalName());
 
 		return annotations;
 	}

@@ -68,40 +68,27 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, elementName, collectionClass, elementName);		
 		methodBuilder.addCode("\n");
 		
-		
 
 		Transform t = Transformer.lookup(elementName);
 
-//		methodBuilder.addCode("$T result=", returnType);
-//		t.generateDefaultValue(methodBuilder);
-//		methodBuilder.addCode(";\n");
-
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("try");
-		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
-
-		// generate index from columns
-		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("do\n");
-		
-		methodBuilder.beginControlFlow("if (!cursor.isNull(0))");
-		methodBuilder.addCode("resultList.add(");
-		t.generateRead(methodBuilder, "cursor", "0");
-		methodBuilder.addCode(");\n");
-		methodBuilder.nextControlFlow("else");
-		methodBuilder.addCode("resultList.add(null);\n");		
-		methodBuilder.endControlFlow();
-
-
-		methodBuilder.endControlFlow("while (cursor.moveToNext())");
-
-		methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("catch(Throwable e)");
-		methodBuilder.addCode("throw (e);\n");
+			methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
+				methodBuilder.addCode("\n");
+				methodBuilder.beginControlFlow("do\n");
+					methodBuilder.beginControlFlow("if (!cursor.isNull(0))");
+						methodBuilder.addCode("resultList.add(");
+						t.generateRead(methodBuilder, "cursor", "0");
+						methodBuilder.addCode(");\n");
+					methodBuilder.nextControlFlow("else");
+						methodBuilder.addCode("resultList.add(null);\n");		
+					methodBuilder.endControlFlow();
+				methodBuilder.endControlFlow("while (cursor.moveToNext())");
+			methodBuilder.endControlFlow();
 		methodBuilder.nextControlFlow("finally");
-		methodBuilder.beginControlFlow("if (cursor!=null)\n");
-		methodBuilder.addCode("cursor.close();\n");
-		methodBuilder.endControlFlow();
+			methodBuilder.beginControlFlow("if (cursor!=null)\n");
+				methodBuilder.addCode("cursor.close();\n");
+			methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 
 		methodBuilder.addCode("return resultList;\n");

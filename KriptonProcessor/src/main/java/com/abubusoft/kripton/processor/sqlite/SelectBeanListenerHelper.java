@@ -81,7 +81,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 			int i = 0;
 			for (SQLProperty item : entity.getCollection()) {
 				if (item.isNullable()) {
-					Transformer.resetBean(methodBuilder, item, "resultBean", "cursor", "index" + i + "");
+					Transformer.resetBean(methodBuilder, entityClass, "resultBean", item,  "cursor", "index" + i + "");
 					methodBuilder.addCode(";");
 					methodBuilder.addCode("\n");
 				} else {
@@ -101,7 +101,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 				if (item.isNullable()) {
 					methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 				}
-				Transformer.cursor2Java(methodBuilder, item, "resultBean", "cursor", "index" + i + "");
+				Transformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "cursor", "index" + i + "");
 				methodBuilder.addCode(";");
 				if (item.isNullable()) {
 					methodBuilder.addCode(" }");

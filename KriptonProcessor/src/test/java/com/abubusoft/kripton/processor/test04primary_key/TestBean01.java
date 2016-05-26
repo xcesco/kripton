@@ -63,7 +63,7 @@ public class TestBean01 extends BaseProcessorTest {
 	 */
 	@Test
 	public void test05() throws IOException {
-		buildTest(Dummy05Database.class, DaoBean05.class, Bean05.class, BaseDao.class);
+		buildTest(Dummy05Database.class, DaoBean05.class, Bean05.class, BaseDao.class, BeanType.class);
 	}
 
 }

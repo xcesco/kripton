@@ -5,6 +5,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.TimeZone;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -24,8 +25,8 @@ public class TimeZoneTransform  extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(property, "$T.getTimeZone($L.getString($L))") , beanName, TimeZone.class, cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.getTimeZone($L.getString($L))") , beanName, TimeZone.class, cursorName, indexName);
 
 	}
 
@@ -41,8 +42,8 @@ public class TimeZoneTransform  extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, ModelProperty property, String beanName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(property, "null") , beanName);
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+		methodBuilder.addCode("$L." + setter(beanClass, property, "null") , beanName);
 	}
 
 	@Override

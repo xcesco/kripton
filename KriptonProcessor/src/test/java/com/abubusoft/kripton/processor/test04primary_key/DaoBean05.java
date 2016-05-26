@@ -15,7 +15,10 @@ import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 public interface DaoBean05 {
 
 	@BindSelect(where="pk=${id}")
-	Bean05 selectOne(long id);
+	Bean05 selectOne(Long id);
+	
+	@BindSelect(where="pk=${bean.pk} and prova=${bean.text}")
+	Bean05 selectOne(Bean05 bean);
 	
 	@BindSelect(where="pk=${id}")
 	List<Bean05> selectAll(long id);
@@ -24,13 +27,13 @@ public interface DaoBean05 {
 	List<Long> selectPK();
 	
 	@BindSelect(where="pk=${id}")
-	void selectCursorListener(long id, ReadCursorListener listener);
+	void selectCursorListener(Long id, ReadCursorListener listener);
 	
 	@BindSelect(where="pk=${id}")
-	void selectBeanListener(long id, ReadBeanListener<Bean05> listener);
+	void selectBeanListener(Long id, ReadBeanListener<Bean05> listener);
 
 	@BindSelect(where="pk=${id}")
-	void selectOne(long id, ReadCursorListener listener);
+	void selectOne(Long id, ReadCursorListener listener);
 
 	@BindSelect(where="pk=${id}")
 	void selectOne(long id, ReadBeanListener<Bean05> listener);
