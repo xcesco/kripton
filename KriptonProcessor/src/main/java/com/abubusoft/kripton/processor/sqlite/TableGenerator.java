@@ -11,7 +11,6 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.processor.BindDatabaseProcessor;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -149,7 +148,7 @@ public class TableGenerator extends AbstractBuilder implements ModelElementVisit
 		}
 
 		TypeSpec typeSpec = builder.build();
-		BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
+		//BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 

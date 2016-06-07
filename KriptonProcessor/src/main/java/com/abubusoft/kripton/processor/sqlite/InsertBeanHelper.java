@@ -8,6 +8,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindInsert;
+import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
@@ -17,7 +18,6 @@ import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignExcept
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -25,15 +25,27 @@ import com.squareup.javapoet.TypeName;
 public class InsertBeanHelper implements InsertCodeGenerator {
 
 	@Override
-	public void generate(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		SQLEntity entity=daoDefinition.getEntity();
+		String sqlInsert;
 
-		List<SQLProperty> listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BindInsert.class, methodBuilder, null);
-		CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, model, daoDefinition, method, BindInsert.class, methodBuilder, null);
+		List<SQLProperty> listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindInsert.class, methodBuilder, null);
+		CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindInsert.class, methodBuilder, null);
 
 		ModelProperty primaryKey = entity.getPrimaryKey();
- 
-		methodBuilder.addCode("\n");
-		methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));
+
+		//methodBuilder.addCode("\n");
+		
+		// generate javadoc and query
+		sqlInsert = generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
+
+		if (daoDefinition.isLogEnabled()) {
+			methodBuilder.addCode("// log\n");
+			methodBuilder.addCode("$T.info(\"SQL: $L\");\n", Logger.class, sqlInsert);
+		}
+
+		methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", daoDefinition.getParent().classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));
 
 		if (primaryKey != null) {
 			if (primaryKey.isPublicField()) {
@@ -43,7 +55,6 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			}
 		}
 
-		
 		// define return value
 		if (returnType == TypeName.VOID) {
 
@@ -64,29 +75,50 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			throw (new InvalidMethodSignException(daoDefinition, method, "invalid return type"));
 		}
 
-		// generate javadoc
+		return sqlInsert;
+	}
+
+	/**
+	 * @param methodBuilder
+	 * @param method
+	 * @param returnType
+	 * @param listUsedProperty
+	 * @param primaryKey
+	 * @return
+	 * 		string to use in log
+	 */
+	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		
+		String sqlInsert;
+		// generate javadoc and result
 		{
 			String beanNameParameter = method.getParameters().get(0).value0;
 			StringBuilder bufferName = new StringBuilder();
 			StringBuilder bufferValue = new StringBuilder();
+			StringBuilder bufferQuestion = new StringBuilder();
 			String separator = "";
 			for (SQLProperty property : listUsedProperty) {
-				bufferName.append(separator + model.columnNameConverter.convert(property.getName()));
+				bufferName.append(separator + daoDefinition.getColumnNameConverter().convert(property.getName()));
 				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
+				bufferQuestion.append(separator + "'\"+checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(property.getName()) + "\"))+\"'");
 				separator = ", ";
 			}
 
 			methodBuilder.addJavadoc("<p>Insert query:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()), bufferName.toString(),bufferValue.toString());
-			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n",beanNameParameter, primaryKey.getName());
+			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferName.toString(), bufferValue.toString());
+			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");
+
+			// generate sql query
+			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferName.toString(), bufferQuestion.toString());
 
 			// update bean have only one parameter: the bean to update
 			for (Pair<String, TypeMirror> param : method.getParameters()) {
 				methodBuilder.addJavadoc("@param $L", param.value0);
 				methodBuilder.addJavadoc("\n\tused as updated field and in where condition\n");
 			}
-			
+
 			if (returnType == TypeName.VOID) {
 			} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
 				methodBuilder.addJavadoc("@return true if record is inserted");
@@ -98,8 +130,9 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 				methodBuilder.addJavadoc("@return id of inserted record");
 				methodBuilder.addJavadoc("\n");
 			}
-			
+
 		}
+		return sqlInsert;
 	}
 
 }

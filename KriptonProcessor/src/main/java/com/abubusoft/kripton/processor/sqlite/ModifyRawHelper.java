@@ -1,8 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isNullable;
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +11,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -21,7 +21,6 @@ import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyNotFoundExcepti
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.MethodSpec;
@@ -29,7 +28,10 @@ import com.squareup.javapoet.TypeName;
 
 public class ModifyRawHelper implements ModifyCodeGenerator {
 
-	public void generate(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		SQLEntity entity=daoDefinition.getEntity();
+		
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
 		String whereCondition = null;
@@ -40,7 +42,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			whereCondition = method.getAnnotation(BindDelete.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		}
 
-		Pair<String, List<Pair<String, TypeMirror>>> where = SQLUtility.extractParametersFromString(whereCondition, method, model.columnNameConverter, entity);
+		Pair<String, List<Pair<String, TypeMirror>>> where = SQLUtility.extractParametersFromString(whereCondition, method, daoDefinition.getColumnNameConverter(), entity);
 
 		// defines which parameter is used like update field and which is used in where condition.
 		List<Pair<String, TypeMirror>> methodParams = method.getParameters();
@@ -66,10 +68,10 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				if (TypeUtility.isNullable(property)) {
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 				}
-				methodBuilder.addCode("contentValues.put($S, $L);\n", model.columnNameConverter.convert(property.getName()), item.value0);
+				methodBuilder.addCode("contentValues.put($S, $L);\n", daoDefinition.getColumnNameConverter().convert(property.getName()), item.value0);
 				if (TypeUtility.isNullable(property)) {
 					methodBuilder.nextControlFlow("else");
-					methodBuilder.addCode("contentValues.putNull($S);\n", model.columnNameConverter.convert(property.getName()));
+					methodBuilder.addCode("contentValues.putNull($S);\n", daoDefinition.getColumnNameConverter().convert(property.getName()));
 					methodBuilder.endControlFlow();
 				}
 			}
@@ -97,38 +99,20 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("\n");
+		
+		// generate javadoc
+		String sqlModify = generateJavaDoc(daoDefinition, methodBuilder, updateMode, whereCondition, where, methodParams, updateableParams);
 
 		if (updateMode) {
-			methodBuilder.addCode("int result = database.update($S, contentValues, $S, whereConditions);\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()), where.value0);
+			if (daoDefinition.isLogEnabled()) {
+				methodBuilder.addCode("$T.info(\"SQL: $L\", (Object[])whereConditions);\n", Logger.class, sqlModify);
+			}
+			methodBuilder.addCode("int result = database.update($S, contentValues, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), where.value0);
 		} else {
-			methodBuilder.addCode("int result = database.delete($S, $S, whereConditions);\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()), where.value0);
-		}
-
-		// generate javadoc
-		{
-			StringBuilder buffer = new StringBuilder();
-			String separator = "";
-			for (Pair<String, TypeMirror> param : updateableParams) {
-				buffer.append(separator + param.value0 + "=${" + param.value0 + "}");
-				separator = ", ";
+			if (daoDefinition.isLogEnabled()) {
+				methodBuilder.addCode("$T.info(\"SQL: $L\", (Object[])whereConditions);\n", Logger.class, sqlModify);
 			}
-
-			if (updateMode) {
-				methodBuilder.addJavadoc("<p>Update query:</p>\n");
-				methodBuilder.addJavadoc("<pre>UPDATE $L SET $L WHERE $L</pre>\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()), buffer.toString(), whereCondition);
-			} else {
-				methodBuilder.addJavadoc("<p>Delete query:</p>\n");
-				methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName()), whereCondition);
-			}
-			methodBuilder.addJavadoc("\n");
-			for (Pair<String, TypeMirror> param : methodParams) {
-				methodBuilder.addJavadoc("@param $L", param.value0);
-				if (where.value1.contains(param)) {
-					methodBuilder.addJavadoc("\n\tused in where condition\n");
-				} else {
-					methodBuilder.addJavadoc("\n\tused as updated field\n");
-				}
-			}
+			methodBuilder.addCode("int result = database.delete($S, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), where.value0);
 		}
 
 		// define return value
@@ -153,6 +137,58 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			throw (new InvalidMethodSignException(daoDefinition, method, "invalid return type"));
 		}
 
+	}
+
+	/**
+	 * @param daoDefinition
+	 * @param methodBuilder
+	 * @param updateMode
+	 * @param whereCondition
+	 * @param where
+	 * @param methodParams
+	 * @param updateableParams
+	 */
+	public String generateJavaDoc(SQLDaoDefinition daoDefinition, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeMirror>>> where, List<Pair<String, TypeMirror>> methodParams,
+			List<Pair<String, TypeMirror>> updateableParams) {
+		String sqlResult;
+		StringBuilder buffer = new StringBuilder();
+		StringBuilder bufferQuestion = new StringBuilder();
+
+		String separator = "";
+		for (Pair<String, TypeMirror> param : updateableParams) {
+			buffer.append(separator + param.value0 + "=${" + param.value0 + "}");
+			bufferQuestion.append(separator + param.value0 + "='\"+checkSize(contentValues.get(\""+daoDefinition.getColumnNameConverter().convert(param.value0)+"\"))+\"'");
+			
+			separator = ", ";
+		}
+		
+		// used for logging
+		String whereForLogging=SQLUtility.replaceParametersWithQuestion(whereCondition, "%s");
+
+		if (updateMode) {
+			// generate sql query
+			sqlResult=String.format("UPDATE %s SET %s WHERE %s",daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferQuestion.toString(),whereForLogging);			
+			
+			methodBuilder.addJavadoc("<p>Update query:</p>\n");
+			methodBuilder.addJavadoc("<pre>UPDATE $L SET $L WHERE $L</pre>\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), buffer.toString(), whereCondition);
+		} else {
+			// generate sql query
+			sqlResult=String.format("DELETE %s WHERE %s",daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferQuestion.toString(),whereForLogging);
+			
+			methodBuilder.addJavadoc("<p>Delete query:</p>\n");
+			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), whereCondition);
+		}
+		methodBuilder.addJavadoc("\n");
+		for (Pair<String, TypeMirror> param : methodParams) {
+			methodBuilder.addJavadoc("@param $L", param.value0);
+			if (where.value1.contains(param)) {
+				methodBuilder.addJavadoc("\n\tused in where condition\n");
+			} else {
+				methodBuilder.addJavadoc("\n\tused as updated field\n");
+			}
+		}
+		
+		return sqlResult;
 	}
 
 	/**

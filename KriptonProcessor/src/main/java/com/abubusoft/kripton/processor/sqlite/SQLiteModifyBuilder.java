@@ -16,7 +16,6 @@ import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignExcept
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -68,15 +67,15 @@ public abstract class SQLiteModifyBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
+		public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
 				TypeName returnType) {
-			codeGenerator.generate(elementUtils, model, daoDefinition, entity, methodBuilder, isUpdate(), method, returnType);
+			codeGenerator.generate(elementUtils, methodBuilder, isUpdate(), method, returnType);
 
 		}
 	}
 
 	public interface ModifyCodeGenerator {
-		void generate(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, boolean mapFields,
+		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields,
 				SQLiteModelMethod method, TypeName returnType);
 	}
 
@@ -84,13 +83,13 @@ public abstract class SQLiteModifyBuilder {
 	 * 
 	 * @param elementUtils
 	 * @param builder
-	 * @param model
-	 * @param daoDefinition
 	 * @param method
 	 * @param updateMode 
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLiteModelMethod method, boolean updateMode) {
-		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method, boolean updateMode) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		SQLEntity entity=daoDefinition.getEntity();
+
 		ModifyType updateResultType = null;
 
 		// check type of arguments
@@ -157,7 +156,7 @@ public abstract class SQLiteModifyBuilder {
 		methodBuilder.returns(returnType);
 
 		// generate inner code
-		updateResultType.generate(elementUtils, model, daoDefinition, entity, methodBuilder, method, returnType);
+		updateResultType.generate(elementUtils, daoDefinition, entity, methodBuilder, method, returnType);
 
 		MethodSpec methodSpec = methodBuilder.build();
 		builder.addMethod(methodSpec);

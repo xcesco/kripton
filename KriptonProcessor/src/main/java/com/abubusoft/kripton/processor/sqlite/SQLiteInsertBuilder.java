@@ -15,7 +15,6 @@ import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignExcept
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -65,15 +64,15 @@ public abstract class SQLiteInsertBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
+		public String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
 				TypeName returnType) {
-			codeGenerator.generate(elementUtils, model, daoDefinition, entity, methodBuilder, this.isMapFields(), method, returnType);
+			return codeGenerator.generate(elementUtils, methodBuilder, this.isMapFields(), method, returnType);
 
 		}
 	}
 
 	public interface InsertCodeGenerator {
-		void generate(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, boolean mapFields,
+		String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields,
 				SQLiteModelMethod method, TypeName returnType);
 	}
 
@@ -81,12 +80,12 @@ public abstract class SQLiteInsertBuilder {
 	 * 
 	 * @param elementUtils
 	 * @param builder
-	 * @param model
-	 * @param daoDefinition
 	 * @param method
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLiteModelMethod method) {
-		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		SQLEntity entity=daoDefinition.getEntity();
+		
 		InsertType insertResultType = null;
 
 		// check type of arguments
@@ -146,7 +145,7 @@ public abstract class SQLiteInsertBuilder {
 		methodBuilder.returns(returnType);
 
 		// generate inner code
-		insertResultType.generate(elementUtils, model, daoDefinition, entity, methodBuilder, method, returnType);
+		insertResultType.generate(elementUtils, methodBuilder, method, returnType);
 
 		MethodSpec methodSpec = methodBuilder.build();
 		builder.addMethod(methodSpec);

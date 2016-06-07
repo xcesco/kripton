@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sqlite.AbstractBindDatabaseHelper;
+import com.abubusoft.kripton.common.Logger;
 import java.lang.Override;
 import java.lang.String;
 
@@ -67,6 +68,8 @@ public class BindDummy02Database extends AbstractBindDatabaseHelper implements B
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
+    // generate tables
+    Logger.info("DDL: %s",Bean02Table.CREATE_TABLE_SQL);
     database.execSQL(Bean02Table.CREATE_TABLE_SQL);
   }
 
@@ -77,9 +80,11 @@ public class BindDummy02Database extends AbstractBindDatabaseHelper implements B
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
+    Logger.info("DDL: %s",Bean02Table.DROP_TABLE_SQL);
     database.execSQL(Bean02Table.DROP_TABLE_SQL);
 
     // generate tables
+    Logger.info("DDL: %s",Bean02Table.CREATE_TABLE_SQL);
     database.execSQL(Bean02Table.CREATE_TABLE_SQL);
   }
 

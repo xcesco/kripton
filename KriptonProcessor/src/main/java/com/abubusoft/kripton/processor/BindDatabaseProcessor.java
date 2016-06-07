@@ -47,11 +47,11 @@ import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDatabaseBuilder;
 import com.abubusoft.kripton.processor.sqlite.TableGenerator;
-import com.abubusoft.kripton.processor.sqlite.exceptions.NoAnnotationFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidSQLDaoDefinitionException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodNotFoundException;
+import com.abubusoft.kripton.processor.sqlite.exceptions.NoAnnotationFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.NoBindTypeElementsFound;
 import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.SQLPrimaryKeyNotFoundException;
@@ -101,8 +101,8 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 		Set<String> annotations = new LinkedHashSet<String>();
 
 		annotations.add(BindDatabase.class.getCanonicalName());
-		//annotations.add(BindType.class.getCanonicalName());
-		//annotations.add(BindDao.class.getCanonicalName());
+		annotations.add(BindType.class.getCanonicalName());
+		annotations.add(BindDao.class.getCanonicalName());
 
 		return annotations;
 	}
@@ -192,8 +192,9 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDatabase.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
 				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDatabase.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
+				boolean generateLog=AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDatabase.class, AnnotationAttributeType.ATTRIBUTE_LOG);
 
-				currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion);
+				currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog);
 				model.schemaAdd(currentSchema);
 
 				// define which annotation the annotation processor is interested in
@@ -318,7 +319,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 				}
 
 				String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoItem, BindDao.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
-				final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition((TypeElement) daoItem, entityClassName);
+				final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, (TypeElement) daoItem, entityClassName);
 
 				// dao is associated to an entity is not contained in analyzed class set.
 				if (!bindElements.containsKey(currentDaoDefinition.getEntityClassName())) {
@@ -326,7 +327,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 				}
 
 				currentSchema.add(currentDaoDefinition);
-				info("Dao... " + currentDaoDefinition.getName() + " " + entityClassName + " " + bindElements.containsKey(currentDaoDefinition.getEntityClassName()));
+				//info("Dao... " + currentDaoDefinition.getName() + " " + entityClassName + " " + bindElements.containsKey(currentDaoDefinition.getEntityClassName()));
 
 				// create method for dao
 				MethodUtility.forEachMethods(elementUtils, (TypeElement) daoItem, new MethodFoundListener() {
@@ -336,7 +337,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 						if (excludedMethods.contains(element.getSimpleName().toString()))
 							return;
 
-						final SQLiteModelMethod currentMethod = new SQLiteModelMethod((ExecutableElement) element);
+						final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, (ExecutableElement) element);
 						//TODO fix it: if return type is null, the method is inherited and probably it has bean type
 						if (currentMethod.getReturnClass()==null)
 						{							
@@ -364,11 +365,6 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 								ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
 								currentMethod.addAnnotation(annotation);
-
-								logger.info("Annotation... " + annotation);
-								logger.info("Method... " + currentMethod.toString());
-
-								return;
 							}
 						});
 

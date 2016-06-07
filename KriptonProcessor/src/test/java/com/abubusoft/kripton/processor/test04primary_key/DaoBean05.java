@@ -47,16 +47,14 @@ public interface DaoBean05 {
 	@BindUpdate(where="pk=${bean.pk} and text=${bean.text} and creationTime=${bean.creationTime}")
 	long updateOne(Bean05 bean);
 	
-	
 	@BindUpdate(where="pk=${uid} and creationTime=${valido} and creationTime=${validoIn}")
 	long updateOne(byte[] content, String text, long uid, Date validoIn, Date valido );
 
 	@BindDelete(where="pk=${bean.pk} and text=${bean.text} and creationTime=${bean.creationTime}")
 	long deleteOne(Bean05 bean);
 	
-	
 	@BindDelete(where="pk=${uid} and creationTime=${valido} and creationTime=${validoIn}")
-	long updateOne(long uid, Date validoIn, Date valido );
+	long deleteOne(long uid, Date validoIn, Date valido );
 	
 	@BindDelete(where="pk=${id}")
 	long deleteOne(long id);
@@ -64,11 +62,7 @@ public interface DaoBean05 {
 	@BindDelete(where="pk=${va.pk}")
 	long deleteBean(Bean05 va);
 	
-	
-	
 	@BindSelect(value="content",where="pk=${id}")
 	byte[] getOne(long id);
-	
-	
 	
 }

@@ -22,7 +22,6 @@ import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -33,7 +32,6 @@ public class CodeBuilderUtility {
 	 * Generate code necessary to put bean properties in content values map. Return primary key
 	 * 
 	 * @param elementUtils
-	 * @param model
 	 * @param daoDefinition
 	 * @param method
 	 *            used to code generation
@@ -43,12 +41,12 @@ public class CodeBuilderUtility {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static Pair<String, List<SQLProperty>> generatePropertyList(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz,
+	public static Pair<String, List<SQLProperty>> generatePropertyList(Elements elementUtils, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz,
 			boolean checkProperty, Set<String> alreadyUsedBeanPropertiesNames) {
 		Pair<String, List<SQLProperty>> result = new Pair<String, List<SQLProperty>>();
 		result.value1 = new ArrayList<SQLProperty>();
 
-		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+		SQLEntity entity = daoDefinition.getEntity();
 
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
 
@@ -89,7 +87,7 @@ public class CodeBuilderUtility {
 				if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
 					continue;
 
-				buffer.append(separator + model.columnNameConverter.convert(item.getName()));
+				buffer.append(separator + daoDefinition.getColumnNameConverter().convert(item.getName()));
 				result.value1.add(item);
 				separator = ", ";
 			}
@@ -102,7 +100,7 @@ public class CodeBuilderUtility {
 				;
 			}
 			for (String item : includedFields) {
-				buffer.append(separator + model.columnNameConverter.convert(item));
+				buffer.append(separator + daoDefinition.getColumnNameConverter().convert(item));
 				result.value1.add(null);
 				separator = ", ";
 			}
@@ -118,7 +116,6 @@ public class CodeBuilderUtility {
 	 * Generate code necessary to put bean properties in content values map. Return primary key
 	 * 
 	 * @param elementUtils
-	 * @param model
 	 * @param daoDefinition
 	 * @param method
 	 * @param methodBuilder
@@ -127,11 +124,11 @@ public class CodeBuilderUtility {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static List<SQLProperty> populateContentValuesFromEntity(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+	public static List<SQLProperty> populateContentValuesFromEntity(Elements elementUtils, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
 			List<String> alreadyUsedBeanPropertiesNames) {
 		List<SQLProperty> listPropertyInContentValue=new ArrayList<SQLProperty>();
 		
-		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+		SQLEntity entity = daoDefinition.getEntity();
 		// check included and excluded fields
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
 		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE);
@@ -180,11 +177,11 @@ public class CodeBuilderUtility {
 
 	}
 	
-	public static void generateContentValuesFromEntity(Elements elementUtils, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+	public static void generateContentValuesFromEntity(Elements elementUtils, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
 			List<String> alreadyUsedBeanPropertiesNames) {
 		// all check is already done
 		
-		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+		SQLEntity entity = daoDefinition.getEntity();
 		
 		String entityName=method.getParameters().get(0).value0;
 		TypeName entityClassName=typeName(entity.getElement());
@@ -216,14 +213,14 @@ public class CodeBuilderUtility {
 			}
 			
 			// add property to list of used properties
-			methodBuilder.addCode("contentValues.put($S, ", model.columnNameConverter.convert(item.getName()));
+			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(item.getName()));
 			Transformer.java2ContentValues(methodBuilder, entityClassName,entityName , item);
-			methodBuilder.addCode(");\n", model.columnNameConverter.convert(item.getName()));
+			methodBuilder.addCode(");\n");
 			
 			if (TypeUtility.isNullable(item))
 			{
 				methodBuilder.nextControlFlow("else");
-				methodBuilder.addCode("contentValues.putNull($S);\n", model.columnNameConverter.convert(item.getName()));				
+				methodBuilder.addCode("contentValues.putNull($S);\n", daoDefinition.getColumnNameConverter().convert(item.getName()));				
 				methodBuilder.endControlFlow();
 			}
 			methodBuilder.addCode("\n");
@@ -231,5 +228,39 @@ public class CodeBuilderUtility {
 		}
 
 	}
+	
+	/**
+	 *	convert to string 
+	 *//*
+	public static void toStringForInsert(ContentValues values) {
+		StringBuilder sb = new StringBuilder();
+		for (String name : values.keySet()) {
+			String value = values.getAsString(name);
+			if (sb.length() > 0)
+				sb.append(", ");
+			sb.append(name + "=" + value);
+		}
+		sb.toString();
+	}*/
+	
+	/**
+	 *	convert to string 
+	 */
+	/*public static String toStringForUpdate(ContentValues values) {
+		StringBuilder keyBuffer = new StringBuilder();
+		StringBuilder valueBuffer = new StringBuilder();
+		for (String name : values.keySet()) {			
+			if (keyBuffer.length() > 0)
+			{
+				keyBuffer.append(", ");
+				valueBuffer.append(", ");
+			}
+			
+			keyBuffer.append(name);			
+			valueBuffer.append("'"+values.get .getAsString(name)+"'");			
+		}
+		
+		return "("+keyBuffer.toString()+") VALUES "+;
+	}*/
 
 }

@@ -10,13 +10,13 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 public class SQLUtility {
-	private static final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w]*)\\s*\\}");
+	private static final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w\\.]*)\\s*\\}");
 
 	private static final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");
 
@@ -71,6 +71,34 @@ public class SQLUtility {
 
 		return result;
 	}
+	
+	/**
+	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field name with column name. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
+	 * ?. This second parameter is the list of parameters and replaced with ?.
+	 * 
+	 * @param value
+	 * @return statement with ? replaced
+	 */
+	public static String replaceParametersWithQuestion(String value, String replaceValue) {
+		String whereStatement = value;
+		Pair<String, List< Pair<String, TypeMirror>>> result = new Pair<String, List< Pair<String, TypeMirror>>>();
+		result.value1 = new ArrayList< Pair<String, TypeMirror>>();
+
+		// replace placeholder ${ } with ?
+		{
+			Matcher matcher = PARAMETER.matcher(whereStatement);
+
+			StringBuffer buffer = new StringBuffer();
+			while (matcher.find()) {
+				matcher.appendReplacement(buffer, replaceValue);
+			}
+			matcher.appendTail(buffer);
+
+			whereStatement = buffer.toString();
+		}
+		
+		return whereStatement;
+	}
 
 	/**
 	 * Convert java property name in sql column name.
@@ -95,14 +123,13 @@ public class SQLUtility {
 	/**
 	 * Obtain column name for property
 	 * 
-	 * @param property
 	 * @return column name
 	 */
 	public static String getColumnName(String propertyName) {
 		return field2ColumnConverter.convert(propertyName);
 	}
 
-	public static String nameFromTable(ModelClass entity, ModelProperty property) {
+	public static String nameFromTable(SQLEntity entity, SQLProperty property) {
 		return entity.getSimpleName() + "Table." + field2ColumnNameFromTableConverter.convert(property.getName());
 	}
 

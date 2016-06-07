@@ -10,7 +10,6 @@ import javax.lang.model.util.Elements;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
-import com.abubusoft.kripton.processor.BindDatabaseProcessor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.ClassName;
@@ -42,6 +41,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 	 * @param schema
 	 * 
 	 * @return
+	 * 		schema name
 	 * 
 	 * @throws Exception
 	 */
@@ -57,7 +57,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 		builder = TypeSpec.interfaceBuilder(schemaName).addModifiers(Modifier.PUBLIC).addSuperinterface(BindDaoFactory.class);
 						
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			ClassName daoImplName = className(BindDatabaseBuilder.PREFIX+ dao.getName());					
+			ClassName daoImplName = className(BindDatabaseBuilder.PREFIX+dao.getName());					
 			
 			// dao with external connections
 			{
@@ -67,7 +67,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 		}		
 
 		TypeSpec typeSpec = builder.build();
-		BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
+		//BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 		
 		return schemaName;

@@ -12,7 +12,6 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transform;
@@ -36,7 +35,9 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		
 		if (TypeUtility.isTypePrimitive(returnType) || TypeUtility.isTypeWrappedPrimitive(returnType) || TypeUtility.isTypeIncludedIn(returnType, String.class) || TypeUtility.isByteArray(returnType)) {
 
 		} else {

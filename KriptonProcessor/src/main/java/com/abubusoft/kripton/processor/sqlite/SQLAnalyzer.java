@@ -72,11 +72,15 @@ public class SQLAnalyzer {
 	 * ?. This second parameter is the list of parameters and replaced with ?.
 	 * 
 	 */
-	public void execute(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, SQLiteModelMethod method, String sqlStatement) {
+	public void execute(Elements elementUtils, SQLiteModelMethod method, String sqlStatement) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		SQLEntity entity=daoDefinition.getEntity();
+		
 		paramNames = new ArrayList<String>();
 		paramGetters = new ArrayList<String>();
 		usedBeanPropertyNames=new ArrayList<String>();
 		paramTypeNames=new ArrayList<TypeName>();
+				
 
 		// replace placeholder ${ } with ?
 		{

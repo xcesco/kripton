@@ -38,7 +38,10 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		SQLEntity entity=daoDefinition.getEntity();
+		
 		LiteralType listenerType = LiteralType.of(ReadBeanListener.class, entity.getElement());
 		List<SQLProperty> fields = fieldList.value1;
 		TypeName entityClass = typeName(entity.getElement());

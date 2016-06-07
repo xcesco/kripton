@@ -34,8 +34,10 @@ public class SelectBeanHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields,  SQLiteModelMethod method, TypeName returnType) {
-		//String fieldStatement = fieldList.value0;
+	public void generate(Elements elementUtils, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields,  SQLiteModelMethod method, TypeName returnType) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		SQLEntity entity=daoDefinition.getEntity();
+		
 		List<SQLProperty> fields = fieldList.value1;
 
 		//TypeName collectionClass;

@@ -23,7 +23,8 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_ORDER_BY("orderBy"),
 	ATTRIBUTE_NULLABLE("nullable"),
 	ATTRIBUTE_FILENAME("fileName"),
-	ATTRIBUTE_VERSION("version") 
+	ATTRIBUTE_VERSION("version"),
+	ATTRIBUTE_LOG("log") 
 	;
 	
 	

@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sqlite.AbstractBindDatabaseHelper;
+import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.processor.BindDatabaseProcessor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -122,9 +123,12 @@ public class BindDatabaseBuilder extends AbstractBuilder  {
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 			methodBuilder.addParameter(SQLiteDatabase.class, "database");
 			methodBuilder.addJavadoc("\n$L\n","onCreate\n");
-			
+			methodBuilder.addCode("// generate tables\n");
 			for (SQLEntity item: schema.getEntities())
 			{
+				if (schema.isLogEnabled()) {
+					methodBuilder.addCode("$T.info(\"DDL: %s\",$LTable.CREATE_TABLE_SQL);\n", Logger.class, item.getSimpleName());
+				}
 				methodBuilder.addCode("database.execSQL($LTable.CREATE_TABLE_SQL);\n", item.getSimpleName());
 				
 			}
@@ -143,6 +147,9 @@ public class BindDatabaseBuilder extends AbstractBuilder  {
 			methodBuilder.addCode("// drop tables\n");
 			for (SQLEntity item: schema.getEntities())
 			{
+				if (schema.isLogEnabled()) {
+					methodBuilder.addCode("$T.info(\"DDL: %s\",$LTable.DROP_TABLE_SQL);\n", Logger.class, item.getSimpleName());
+				}
 				methodBuilder.addCode("database.execSQL($LTable.DROP_TABLE_SQL);\n", item.getSimpleName());								
 			}
 			
@@ -151,6 +158,9 @@ public class BindDatabaseBuilder extends AbstractBuilder  {
 			
 			for (SQLEntity item: schema.getEntities())
 			{
+				if (schema.isLogEnabled()) {
+					methodBuilder.addCode("$T.info(\"DDL: %s\",$LTable.CREATE_TABLE_SQL);\n", Logger.class, item.getSimpleName());
+				}
 				methodBuilder.addCode("database.execSQL($LTable.CREATE_TABLE_SQL);\n", item.getSimpleName());								
 			}
 			

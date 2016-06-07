@@ -22,11 +22,14 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public int version;
 	
-	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion) {	
+	public boolean log;
+	
+	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean log) {	
 		super(item.getSimpleName().toString(), item);
 		
 		this.fileName=schemaFileName;
 		this.version=schemaVersion;
+		this.log=log;
 	}
 
 	public void clear() {
@@ -43,6 +46,10 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	
 	public SQLEntity getEntity(String entityClassName) {
 		return entities.get(entityClassName);
+	}
+
+	public boolean isLogEnabled() {
+		return log;
 	}
 
 }

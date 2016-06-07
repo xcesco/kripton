@@ -391,6 +391,21 @@ public class AnnotationUtility {
 
 		return result.value;
 	}
+	
+	public static boolean extractAsBoolean(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+		final Result<Boolean> result = new Result<Boolean>();
+
+		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
+
+			@Override
+			public void onFound(String value) {
+				result.value = Boolean.parseBoolean(value);
+			}
+		});
+
+		return result.value;
+	}
+	
 
 	/**
 	 * Estract from an annotation of a method the attribute value specified

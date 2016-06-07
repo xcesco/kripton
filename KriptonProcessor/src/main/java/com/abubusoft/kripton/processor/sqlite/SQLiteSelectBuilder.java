@@ -15,6 +15,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.JavaDocUtility;
@@ -25,7 +26,6 @@ import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
@@ -84,26 +84,26 @@ public abstract class SQLiteSelectBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
-			codeGenerator.generate(elementUtils, daoDefinition, entity, fieldList, methodBuilder, this.isMapFields(), method, returnType);
+		public void generate(Elements elementUtils, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+			codeGenerator.generate(elementUtils, fieldList, methodBuilder, this.isMapFields(), method, returnType);
 
 		}
 	}
 
 	public interface SelectCodeGenerator {
-		void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+		void generate(Elements elementUtils, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
 	 * 
 	 * @param elementUtils
 	 * @param builder
-	 * @param model
-	 * @param daoDefinition
 	 * @param method
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteDatabaseSchema model, SQLDaoDefinition daoDefinition, SQLiteModelMethod method) {
-		SQLEntity entity = model.getEntity(daoDefinition.getEntityClassName());
+	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		SQLEntity entity=daoDefinition.getEntity();
+
 		SelectResultType selectResultType = null;
 
 		// if true, field must be associate to ben attributes
@@ -161,10 +161,10 @@ public abstract class SQLiteSelectBuilder {
 		}
 
 		// take field list
-		Pair<String, List<SQLProperty>> fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, model, daoDefinition, method, BindSelect.class, selectResultType.isMapFields(), null);
+		Pair<String, List<SQLProperty>> fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSelect.class, selectResultType.isMapFields(), null);
 		String fieldStatement = fieldList.value0;
 		// List<SQLProperty> fields = fieldList.value1;
-		String tableStatement = model.classNameConverter.convert(daoDefinition.getEntitySimplyClassName());
+		String tableStatement = daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName());
 
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
@@ -179,28 +179,28 @@ public abstract class SQLiteSelectBuilder {
 		SQLAnalyzer analyzer = new SQLAnalyzer();
 
 		String whereSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
-		analyzer.execute(elementUtils, daoDefinition, entity, method, whereSQL);
+		analyzer.execute(elementUtils, method, whereSQL);
 		String whereStatement = analyzer.getSQLStatement();
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 
 		String havingSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_HAVING);
-		analyzer.execute(elementUtils, daoDefinition, entity, method, havingSQL);
+		analyzer.execute(elementUtils, method, havingSQL);
 		String havingStatement = analyzer.getSQLStatement();
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 
 		String groupBySQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_GROUP_BY);
-		analyzer.execute(elementUtils, daoDefinition, entity, method, groupBySQL);
+		analyzer.execute(elementUtils, method, groupBySQL);
 		String groupByStatement = analyzer.getSQLStatement();
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 
 		String orderBySQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_ORDER_BY);
-		analyzer.execute(elementUtils, daoDefinition, entity, method, orderBySQL);
+		analyzer.execute(elementUtils, method, orderBySQL);
 		String orderByStatement = analyzer.getSQLStatement();
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
@@ -222,18 +222,20 @@ public abstract class SQLiteSelectBuilder {
 			methodBuilder.addParameter(parameterSpec);
 		}
 		methodBuilder.returns(returnType);
-
+		
 		// build where condition (common for every type of select)
+		StringBuilder logArgsBuffer=new StringBuilder();
 		methodBuilder.addCode("// build where condition\n");
 		methodBuilder.addCode("String[] args={");
 		{
 			String separator = "";
-
+			
 			TypeName paramTypeName;
 			boolean nullable;
 			int i = 0;
 			for (String item : paramGetters) {
 				methodBuilder.addCode(separator);
+				logArgsBuffer.append(separator+"%s");
 
 				paramTypeName = paramTypeNames.get(i);
 				nullable = TypeUtility.isNullable(paramTypeName);
@@ -246,7 +248,7 @@ public abstract class SQLiteSelectBuilder {
 				methodBuilder.addCode(")");
 				if (nullable) {
 					methodBuilder.addCode(")");
-				}				
+				}								
 
 				separator = ", ";
 				i++;
@@ -255,9 +257,19 @@ public abstract class SQLiteSelectBuilder {
 		}
 
 		methodBuilder.addCode("\n");
+		
+		if (daoDefinition.isLogEnabled())
+		{
+			methodBuilder.addCode("$T.info(\"SQL: $L\",(Object[])args);\n", Logger.class, sql.replaceAll("\\?", "\'%s\'"));
+		}
 		methodBuilder.addCode("$T cursor = database.rawQuery(\"$L\", args);\n", Cursor.class, sql);
 
-		selectResultType.generate(elementUtils, daoDefinition, entity, fieldList, methodBuilder, method, returnType);
+		if (daoDefinition.isLogEnabled())
+		{
+		    methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
+		}
+		
+		selectResultType.generate(elementUtils, fieldList, methodBuilder, method, returnType);
 
 		MethodSpec methodSpec = methodBuilder.build();
 		builder.addMethod(methodSpec);
