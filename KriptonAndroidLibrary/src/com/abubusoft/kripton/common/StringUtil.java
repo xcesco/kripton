@@ -20,10 +20,32 @@ public class StringUtil {
 	 * Contains text.
 	 * 
 	 * @param value
-	 * @return
+	 * @return true if string is not empty and contains not only spaces
 	 */
 	public static boolean hasText(String value) {
 		return value != null && value.trim().length() > 0;
+	}
+
+	/**
+	 * limit string size
+	 */
+	public static String checkSize(Object value, int limitSize) {		
+		if (value != null) {
+			String str=value.toString();
+			if (str.length() > limitSize) {
+				return str.substring(0, limitSize-3)+"...";
+			} else
+				return str;
+		} else
+			return null;
+
+	}
+	
+	/**
+	 * limit string size to 32
+	 */
+	public static String checkSize(Object value) {
+		return checkSize(value, 32);
 	}
 
 	public static String lowercaseFirstLetter(String value) {

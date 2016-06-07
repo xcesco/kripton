@@ -41,6 +41,14 @@ public @interface BindDatabase {
 	 */
 	int version() default 1;
 	
+	/**
+	 * if true, generate log info
+	 * 
+	 * @return
+	 * 		true if you want to produce log code
+	 */
+	boolean log() default true;
+	
 	
 
 }
