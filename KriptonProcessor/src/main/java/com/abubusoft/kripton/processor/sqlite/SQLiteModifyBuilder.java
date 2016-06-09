@@ -123,7 +123,7 @@ public abstract class SQLiteModifyBuilder {
 			}
 			
 			// check if there is only one parameter
-			if (method.getParameters().size() != 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName())) {
+			if (method.getParameters().size() > 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName())) {
 				throw (new InvalidMethodSignException(daoDefinition, method));
 			}
 			

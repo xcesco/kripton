@@ -61,7 +61,7 @@ public class SelectStatementBuilder {
 	
 	public SelectStatementBuilder orderBy(String value)
 	{
-		groupBy=value;
+		orderBy=value;
 		return this;
 	}
 	
@@ -69,14 +69,14 @@ public class SelectStatementBuilder {
 	{
 		StringBuilder buffer=new StringBuilder();
 		
-		buffer.append("select ");
-		if (distinct) buffer.append("distinct ");
+		buffer.append("SELECT ");
+		if (distinct) buffer.append("DISTINCT ");
 		buffer.append(fields);
-		buffer.append(" from "+table);
-		if (StringUtility.hasText(where)) buffer.append(" where "+where);
-		if (StringUtility.hasText(having)) buffer.append(" having "+having);
-		if (StringUtility.hasText(groupBy)) buffer.append(" groupBy "+groupBy);
-		if (StringUtility.hasText(orderBy)) buffer.append(" orderBy "+orderBy);
+		buffer.append(" FROM "+table);
+		if (StringUtility.hasText(where)) buffer.append(" WHERE "+where);
+		if (StringUtility.hasText(having)) buffer.append(" HAVING "+having);
+		if (StringUtility.hasText(groupBy)) buffer.append(" GROUP BY "+groupBy);
+		if (StringUtility.hasText(orderBy)) buffer.append(" ORDER BY "+orderBy);
 		
 		return buffer.toString();
 	}

@@ -1,7 +1,5 @@
 package com.abubusoft.kripton.processor.test03;
 
-import static com.abubusoft.kripton.common.StringUtil.checkSize;
-
 import android.database.Cursor;
 import com.abubusoft.kripton.android.sqlite.AbstractBindDao;
 import com.abubusoft.kripton.common.Logger;

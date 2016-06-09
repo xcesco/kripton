@@ -76,10 +76,8 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		//BindDatabaseProcessor.info("WRITE " + typeSpec.name);
 		
 		JavaFile.Builder fileBuilder = JavaFile.builder(packageName, typeSpec);
-		if (value.isLogEnabled())
-		{
-			fileBuilder.addStaticImport(StringUtil.class,"checkSize");
-		}
+		fileBuilder.skipJavaLangImports(true);
+		
 		fileBuilder.build().writeTo(filer);
 	}
 

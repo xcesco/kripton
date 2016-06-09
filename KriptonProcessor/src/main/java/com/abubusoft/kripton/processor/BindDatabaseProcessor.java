@@ -176,7 +176,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 			// Get all database schema definitions
 			for (Element databaseSchema : roundEnv.getElementsAnnotatedWith(BindDatabase.class)) {
 				if (databaseSchema.getKind() != ElementKind.INTERFACE) {
-					String msg = String.format("Interface %s: only interfaces can be annotated with @%s annotation", databaseSchema.getSimpleName().toString(), BindDatabase.class.getSimpleName());
+					String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", databaseSchema.getSimpleName().toString(), BindDatabase.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 

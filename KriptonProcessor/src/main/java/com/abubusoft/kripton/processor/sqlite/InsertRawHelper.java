@@ -5,6 +5,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SQLiteInsertBuilder.InsertCodeGenerator;
@@ -59,7 +60,8 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		if (daoDefinition.isLogEnabled())
 		{
 			methodBuilder.addCode("// log\n");
-			methodBuilder.addCode("$T.info(\"SQL: $L\");\n", Logger.class, sqlInsert);
+			//methodBuilder.addCode("$T.info(\"SQL: $L\");\n", Logger.class, sqlInsert);
+			methodBuilder.addCode("$T.info($T.formatSQL(\"SQL: $L\"));\n", Logger.class, StringUtil.class, sqlInsert);
 		}
 
 		// define return value
@@ -102,7 +104,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			for (Pair<String, TypeMirror> item : method.getParameters()) {
 				bufferName.append(separator + daoDefinition.getColumnNameConverter().convert(item.value0));
 				bufferValue.append(separator + "${" + item.value0 + "}");
-				bufferQuestion.append(separator + "'\"+checkSize(contentValues.get(\""+daoDefinition.getColumnNameConverter().convert(item.value0)+"\"))+\"'");
+				bufferQuestion.append(separator + "'\"+StringUtil.checkSize(contentValues.get(\""+daoDefinition.getColumnNameConverter().convert(item.value0)+"\"))+\"'");
 				separator = ", ";
 			}
 

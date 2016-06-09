@@ -10,6 +10,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -42,7 +43,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 		if (daoDefinition.isLogEnabled()) {
 			methodBuilder.addCode("// log\n");
-			methodBuilder.addCode("$T.info(\"SQL: $L\");\n", Logger.class, sqlInsert);
+			methodBuilder.addCode("$T.info($T.formatSQL(\"SQL: $L\"));\n", Logger.class, StringUtil.class, sqlInsert);
 		}
 
 		methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", daoDefinition.getParent().classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));
@@ -101,14 +102,14 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			for (SQLProperty property : listUsedProperty) {
 				bufferName.append(separator + daoDefinition.getColumnNameConverter().convert(property.getName()));
 				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
-				bufferQuestion.append(separator + "'\"+checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(property.getName()) + "\"))+\"'");
+				bufferQuestion.append(separator + "'\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(property.getName()) + "\"))+\"'");
 				separator = ", ";
 			}
 
 			methodBuilder.addJavadoc("<p>Insert query:</p>\n");
 			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferName.toString(), bufferValue.toString());
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
-			methodBuilder.addJavadoc("\n");
+			methodBuilder.addJavadoc("\n");						
 
 			// generate sql query
 			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferName.toString(), bufferQuestion.toString());

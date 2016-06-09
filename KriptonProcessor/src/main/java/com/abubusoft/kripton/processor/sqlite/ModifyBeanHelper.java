@@ -13,6 +13,7 @@ import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SQLiteModifyBuilder.ModifyCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
@@ -66,13 +67,13 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		methodBuilder.addCode("\n");
 
 		if (updateMode) {
-			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info(\"$L\", (Object[])whereConditions);\n", Logger.class, sqlModify);
+			if (daoDefinition.isLogEnabled()) {				
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);				
 			}
 			methodBuilder.addCode("int result = database.update($S, contentValues, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), analyzer.getSQLStatement());
 		} else {
-			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info(\"$L\", (Object[])whereConditions);\n", Logger.class, sqlModify);
+			if (daoDefinition.isLogEnabled()) {				
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);
 			}
 			methodBuilder.addCode("int result = database.delete($S, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), analyzer.getSQLStatement());
 		}	
@@ -174,7 +175,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			
 			bufferQuestion.append(separator);
 			bufferQuestion.append(daoDefinition.getColumnNameConverter().convert(property.getName()) + "=");
-			bufferQuestion.append("'\"+checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(property.getName()) + "\"))+\"'");
+			bufferQuestion.append("'\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(property.getName()) + "\"))+\"'");
 			
 			separator = ", ";
 		}

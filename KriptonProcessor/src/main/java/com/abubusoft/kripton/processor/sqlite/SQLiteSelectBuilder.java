@@ -17,6 +17,7 @@ import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.JavaDocUtility;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
@@ -260,7 +261,7 @@ public abstract class SQLiteSelectBuilder {
 		
 		if (daoDefinition.isLogEnabled())
 		{
-			methodBuilder.addCode("$T.info(\"SQL: $L\",(Object[])args);\n", Logger.class, sql.replaceAll("\\?", "\'%s\'"));
+			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"),(Object[])args);\n", Logger.class, StringUtil.class, sql.replaceAll("\\?", "\'%s\'"));			
 		}
 		methodBuilder.addCode("$T cursor = database.rawQuery(\"$L\", args);\n", Cursor.class, sql);
 
