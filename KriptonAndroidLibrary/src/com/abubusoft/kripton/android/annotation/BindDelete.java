@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface BindDelete {
 
-	String where();
+	String where() default "1=1";
 }

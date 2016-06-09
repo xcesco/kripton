@@ -25,6 +25,18 @@ public class StringUtil {
 	public static boolean hasText(String value) {
 		return value != null && value.trim().length() > 0;
 	}
+	
+	/**
+	 * Format sql
+	 * 
+	 * @param input
+	 * @return
+	 * 		formatted sql
+	 */
+	public static String formatSQL(String input)
+	{
+		return "SQL: "+input;
+	}
 
 	/**
 	 * limit string size

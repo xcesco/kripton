@@ -29,5 +29,5 @@ public @interface BindUpdate {
 	 * @return
 	 * 		where condition
 	 */
-	String where();
+	String where() default "1=1";
 }
