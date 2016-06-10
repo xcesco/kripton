@@ -12,6 +12,7 @@ I found some fantastic libraries that i partially reused to realize kripton
 
 
 ## How it works? Just a simple example##
+Most applications works with data exchanged with (REST) web service, or simpler created and saved on local storage such as file or database. Tipically data are the same, the only difference is kind of persistence. 
 As example we take a simple java class:
 
 ```java
@@ -19,8 +20,11 @@ package com.abubusoft.kripton.examples;
 
 import com.abubusoft.kripton.binder.annotation.BindAllFields;
 
+@BindType
 @BindAllFields
 public class SimpleBean {
+
+    public long id;
 
     private long age;
 
