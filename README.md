@@ -1,9 +1,9 @@
 # Kripton
-A simple Java-XML-JSON binder for Android and Java platforms environment
+A simple Java library to manage bean's persistence in XML, JSON and SQLite (for Android version).
 
 
 ## Introduction##
-Kritpon is a small library with the aim to translate java POJO in XML/JSON and viceversa. The rules needed are expressed through annotations. I know there are many other framework and library do this for me, but my goal is build the smallest library to do the translation with good performance. The main platform is Android, but i choose to support generic java platform too.
+Kritpon is a small library with the aim to simplify translate java POJO in XML/JSON and viceversa. The rules needed are expressed through annotations. I know there are many other framework and library do this for me, but my goal is build the smallest library to do the translation with good performance. The main platform is Android, but i choose to support generic java platform too.
 
 I found some fantastic libraries that i partially reused to realize kripton
 
