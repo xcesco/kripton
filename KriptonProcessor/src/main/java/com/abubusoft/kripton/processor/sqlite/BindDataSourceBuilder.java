@@ -11,8 +11,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
-import com.abubusoft.kripton.android.sqlite.AbstractBindDatabaseHelper;
+import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.common.Logger;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BindDatabaseProcessor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -32,11 +33,13 @@ import com.squareup.javapoet.TypeSpec;
  * @author xcesco
  *
  */
-public class BindDatabaseBuilder extends AbstractBuilder  {
+public class BindDataSourceBuilder extends AbstractBuilder  {
 
 	public static final String PREFIX = "Bind";
+	
+	public static final String SUFFIX = "DataSource";
 		
-	public BindDatabaseBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
+	public BindDataSourceBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
@@ -52,11 +55,11 @@ public class BindDatabaseBuilder extends AbstractBuilder  {
 		BindDaoFactoryBuilder visitor = new BindDaoFactoryBuilder(elementUtils, filer, schema);		
 		String daoFactoryName=visitor.buildDaoFactoryInterface(elementUtils, filer, schema);
 		
-		BindDatabaseBuilder visitorDao = new BindDatabaseBuilder(elementUtils, filer, schema);		
-		visitorDao.buildDatabase(elementUtils, filer, schema, daoFactoryName);
+		BindDataSourceBuilder visitorDao = new BindDataSourceBuilder(elementUtils, filer, schema);		
+		visitorDao.buildDataSource(elementUtils, filer, schema, daoFactoryName);
 	}
 
-	public void buildDatabase(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema, String daoFactoryName) throws Exception {
+	public void buildDataSource(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema, String daoFactoryName) throws Exception {
 		ClassName daoFactory=className(daoFactoryName);
 		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		
@@ -66,7 +69,7 @@ public class BindDatabaseBuilder extends AbstractBuilder  {
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		
-		builder = TypeSpec.classBuilder(schemaName).addModifiers(Modifier.PUBLIC).superclass(AbstractBindDatabaseHelper.class).addSuperinterface(daoFactory);
+		builder = TypeSpec.classBuilder(schemaName).addModifiers(Modifier.PUBLIC).superclass(AbstractDataSource.class).addSuperinterface(daoFactory);
 				
 		// define static fields
 		builder.addField(className(schemaName), "instance", Modifier.PRIVATE, Modifier.STATIC);		
@@ -74,20 +77,22 @@ public class BindDatabaseBuilder extends AbstractBuilder  {
 		builder.addField(FieldSpec.builder(Integer.TYPE, "version", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$L", schema.version).build());		
 		
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			ClassName daoImplName = className(BindDatabaseBuilder.PREFIX+ dao.getName());
+			ClassName daoImplName = className(BindDataSourceBuilder.PREFIX+ dao.getName());
 			builder.addField(FieldSpec.builder(daoImplName,convert.convert(dao.getName()), Modifier.PROTECTED).initializer("new $T()", daoImplName) .build());
 			
 			// dao with connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addModifiers(Modifier.PUBLIC).returns(className(BindDatabaseBuilder.PREFIX+dao.getName()));
-				methodBuilder.addCode("$L.setDatabase(getWritableDatabase());\n", convert.convert(dao.getName()));
+				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addModifiers(Modifier.PUBLIC).returns(className(BindDataSourceBuilder.PREFIX+dao.getName()));
+				methodBuilder.addCode("// get current database connection, without increment connection counter\n");
+				methodBuilder.addCode("if (database==null) throw(new $T(\"No database connection is opened\"));\n", KriptonRuntimeException.class);
+				methodBuilder.addCode("$L.setDatabase(database);\n", convert.convert(dao.getName()));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
 				builder.addMethod(methodBuilder.build());
 			}
 			
 			// dao with external connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addParameter(SQLiteDatabase.class, "database").addModifiers(Modifier.PUBLIC).returns(className(BindDatabaseBuilder.PREFIX+dao.getName())).addAnnotation(Override.class);
+				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addParameter(SQLiteDatabase.class, "database").addModifiers(Modifier.PUBLIC).returns(className(BindDataSourceBuilder.PREFIX+dao.getName())).addAnnotation(Override.class);
 				methodBuilder.addCode("$L.setDatabase(database);\n", convert.convert(dao.getName()));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
 				builder.addMethod(methodBuilder.build());
@@ -130,7 +135,6 @@ public class BindDatabaseBuilder extends AbstractBuilder  {
 					methodBuilder.addCode("$T.info(\"DDL: %s\",$LTable.CREATE_TABLE_SQL);\n", Logger.class, item.getSimpleName());
 				}
 				methodBuilder.addCode("database.execSQL($LTable.CREATE_TABLE_SQL);\n", item.getSimpleName());
-				
 			}
 
 			builder.addMethod(methodBuilder.build());
@@ -170,7 +174,7 @@ public class BindDatabaseBuilder extends AbstractBuilder  {
 
 		TypeSpec typeSpec = builder.build();
 		
-		BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
+		//BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
@@ -185,16 +189,26 @@ public class BindDatabaseBuilder extends AbstractBuilder  {
 		builder.addType(TypeSpec.interfaceBuilder(transationExecutorName).addModifiers(Modifier.PUBLIC).addSuperinterface(parameterizedTypeName).build());
 			
 		MethodSpec.Builder executeMethod=MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName),"transaction");
-		executeMethod.addCode("$T database=getWritableDatabase();\n",SQLiteDatabase.class);
-		executeMethod.beginControlFlow("try");
-		executeMethod.addCode("database.beginTransaction();\n");
 		
-		executeMethod.beginControlFlow("if (transaction!=null && transaction.onExecute(this, database))");
-		executeMethod.addCode("database.setTransactionSuccessful();\n");
+		executeMethod.addCode("boolean localConnection=false;\n");
+		executeMethod.addCode("$T connection=this.database;\n",SQLiteDatabase.class);
+		executeMethod.beginControlFlow("if (connection==null)");
+			executeMethod.addCode("localConnection=true;\n");
+			executeMethod.addCode("connection=openDatabase();\n");
+	    executeMethod.endControlFlow();
+		
+		executeMethod.beginControlFlow("try");
+		executeMethod.addCode("connection.beginTransaction();\n");
+		
+		executeMethod.beginControlFlow("if (transaction!=null && transaction.onExecute(this, connection))");
+		executeMethod.addCode("connection.setTransactionSuccessful();\n");
 		executeMethod.endControlFlow();
 				
 		executeMethod.nextControlFlow("finally");
-		executeMethod.addCode("database.endTransaction();\n");
+		executeMethod.addCode("connection.endTransaction();\n");
+		executeMethod.beginControlFlow("if (localConnection)");
+			executeMethod.addCode("connection.close();\n");
+		executeMethod.endControlFlow();
 		executeMethod.endControlFlow();
 		
 		// generate javadoc

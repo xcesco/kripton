@@ -3,12 +3,12 @@ package com.abubusoft.kripton.processor.test03;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
-import com.abubusoft.kripton.android.sqlite.AbstractBindDatabaseHelper;
+import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.common.Logger;
 import java.lang.Override;
 import java.lang.String;
 
-public class BindDummy01Database extends AbstractBindDatabaseHelper implements BindDummy01DaoFactory {
+public class BindDummy01Database extends AbstractDataSource implements BindDummy01DaoFactory {
   private static BindDummy01Database instance;
 
   public static final String name = "dummy";

@@ -24,7 +24,7 @@ import javax.tools.Diagnostic;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDatabase;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
@@ -45,7 +45,7 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
-import com.abubusoft.kripton.processor.sqlite.BindDatabaseBuilder;
+import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
 import com.abubusoft.kripton.processor.sqlite.TableGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidNameException;
@@ -100,7 +100,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
 
-		annotations.add(BindDatabase.class.getCanonicalName());
+		annotations.add(BindDataSource.class.getCanonicalName());
 		annotations.add(BindType.class.getCanonicalName());
 		annotations.add(BindDao.class.getCanonicalName());
 
@@ -174,25 +174,25 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 			ModelProperty property;
 
 			// Get all database schema definitions
-			for (Element databaseSchema : roundEnv.getElementsAnnotatedWith(BindDatabase.class)) {
+			for (Element databaseSchema : roundEnv.getElementsAnnotatedWith(BindDataSource.class)) {
 				if (databaseSchema.getKind() != ElementKind.INTERFACE) {
-					String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", databaseSchema.getSimpleName().toString(), BindDatabase.class.getSimpleName());
+					String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", databaseSchema.getSimpleName().toString(), BindDataSource.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 
-				if (!databaseSchema.getSimpleName().toString().endsWith("Database")) {
-					String msg = String.format("Interface %s: interface marked with @%s annotation must have a name with suffix \"Database\"", databaseSchema.getSimpleName().toString(), BindDatabase.class.getSimpleName());
+				if (!databaseSchema.getSimpleName().toString().endsWith(BindDataSourceBuilder.SUFFIX)) {
+					String msg = String.format("Interface %s: interface marked with @%s annotation must have a name with suffix \""+BindDataSourceBuilder.SUFFIX+"\"", databaseSchema.getSimpleName().toString(), BindDataSource.class.getSimpleName());
 					throw (new InvalidNameException(msg));
 				}
 
 				// get all entity used within SQLDatabaseSchema annotation
-				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, databaseSchema, BindDatabase.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 
 				// check if any bean lack of @BindType annotation
 
-				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDatabase.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
-				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDatabase.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
-				boolean generateLog=AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDatabase.class, AnnotationAttributeType.ATTRIBUTE_LOG);
+				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
+				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
+				boolean generateLog=AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_LOG);
 
 				currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog);
 				model.schemaAdd(currentSchema);
@@ -292,7 +292,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 			if (model.schemaCount() == 0) {
 				// if no schema is found, exit, BUT THIS NOT AN ERROR
-				String msg = String.format("No database definition with @%s annotation was found", BindDatabase.class.getSimpleName());
+				String msg = String.format("No database definition with @%s annotation was found", BindDataSource.class.getSimpleName());
 
 				if (DEVELOP_MODE) {
 					logger.log(Level.INFO, msg);
@@ -302,7 +302,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 			if (model.schemaCount() > 1) {
 				// TODO improve schema management (more than one)
-				String msg = String.format("Only one interface can be defined in project @%s annotation", BindDatabase.class.getSimpleName());
+				String msg = String.format("Only one interface can be defined in project @%s annotation", BindDataSource.class.getSimpleName());
 				error(null, msg);
 
 				if (DEVELOP_MODE) {
@@ -384,7 +384,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 			if (currentSchema.getCollection().size() == 0) {
 				String msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(), currentSchema.getElement().getSimpleName().toString(),
-						BindDatabase.class.getSimpleName());
+						BindDataSource.class.getSimpleName());
 				info(msg);
 				error(null, msg);
 				return true;
@@ -394,7 +394,7 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 			TableGenerator.generate(elementUtils, filer, currentSchema);
 			BindDaoBuilder.execute(elementUtils, filer, currentSchema);
 			BindCursorBuilder.execute(elementUtils, filer, currentSchema);
-			BindDatabaseBuilder.generate(elementUtils, filer, currentSchema);
+			BindDataSourceBuilder.generate(elementUtils, filer, currentSchema);
 
 			logger.info(currentSchema.toString());
 		} catch (Exception e) {

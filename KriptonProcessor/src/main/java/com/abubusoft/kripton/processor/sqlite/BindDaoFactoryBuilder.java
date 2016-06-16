@@ -49,7 +49,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 		String schemaName =  schema.getName();
 		schemaName=PREFIX+schemaName;		
 		
-		schemaName=schemaName.replace("Database", SUFFIX);
+		schemaName=schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
 		
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
@@ -57,7 +57,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 		builder = TypeSpec.interfaceBuilder(schemaName).addModifiers(Modifier.PUBLIC).addSuperinterface(BindDaoFactory.class);
 						
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			ClassName daoImplName = className(BindDatabaseBuilder.PREFIX+dao.getName());					
+			ClassName daoImplName = className(BindDataSourceBuilder.PREFIX+dao.getName());					
 			
 			// dao with external connections
 			{

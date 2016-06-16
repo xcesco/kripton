@@ -1,9 +1,9 @@
 package com.abubusoft.kripton.example02;
 
-import com.abubusoft.kripton.android.annotation.BindDatabase;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@BindDatabase(value={ChannelMessage.class}, fileName = "pippo" , version=1)
+@BindDataSource(value={ChannelMessage.class}, fileName = "pippo" , version=1)
 public interface DummyDatabaseSchema {
 
 }

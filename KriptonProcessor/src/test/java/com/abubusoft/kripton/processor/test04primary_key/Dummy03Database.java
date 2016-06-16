@@ -1,9 +1,9 @@
 package com.abubusoft.kripton.processor.test04primary_key;
 
-import com.abubusoft.kripton.android.annotation.BindDatabase;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@BindDatabase(value=Bean03.class, fileName = "dummy" , version=1)
+@BindDataSource(value=Bean03.class, fileName = "dummy" , version=1)
 public interface Dummy03Database {
 
 }
