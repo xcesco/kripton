@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Decorate an database schema definition interface. This definition is needed to generate a {@link com.abubusoft.kripton.android.sqlite.AbstractBindDatabaseHelper} instance.</p>
+ * <p>Decorate an database schema definition interface. This definition is needed to generate a {@link com.abubusoft.kripton.android.sqlite.AbstractDataSource} instance.</p>
  * 
  * <p>For every managed entity referred in {{@link #value()} attribute, will be used the associated {@link BindDao} definition.
  * 
@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-public @interface BindDatabase {
+public @interface BindDataSource {
 
 	/**
 	 * entity classes to include in the database schema
