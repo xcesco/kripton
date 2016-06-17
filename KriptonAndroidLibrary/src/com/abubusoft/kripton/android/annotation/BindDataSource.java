@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.common.Converter;
+
 /**
  * <p>Decorate an database schema definition interface. This definition is needed to generate a {@link com.abubusoft.kripton.android.sqlite.AbstractDataSource} instance.</p>
  * 
@@ -16,9 +18,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
 public @interface BindDataSource {
-
+	
 	/**
-	 * entity classes to include in the database schema
+	 * DAOs to include in the database schema
 	 * 
 	 * @return
 	 * 		class to include in the database schema
@@ -49,6 +51,11 @@ public @interface BindDataSource {
 	 */
 	boolean log() default true;
 	
-	
+	/**
+	 * TODO
+	 * options.tablePrefix("TD_");
+	 * @return
+	 */
+	String tableNamePrefix() default "";
 
 }
