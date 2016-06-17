@@ -22,7 +22,7 @@ public class TestFirstAid extends BaseProcessorTest {
 	 */
 	@Test
 	public void test01() throws IOException {
-		buildTest(FirstAidDatabase.class, FirstAidDao.class, FirstAid.class);
+		buildTest(FirstAidDataSource.class, FirstAidDao.class, FirstAid.class);
 	}	
 
 }

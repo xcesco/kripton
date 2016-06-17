@@ -64,7 +64,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			for (Pair<String, TypeMirror> item : updateableParams) {
 				ModelProperty property = entity.get(item.value0);
 				if (property == null)
-					throw (new PropertyNotFoundException(daoDefinition, method, item.value0));
+					throw (new PropertyNotFoundException(method, item.value0));
 
 				if (TypeUtility.isNullable(property)) {
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
@@ -88,9 +88,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				}
 				// in DELETE can not be updated fields
 				if (updateableParams.size() > 1) {
-					throw (new InvalidMethodSignException(daoDefinition, method, " parameters " + buffer.toString() + " are not used in where conditions"));
+					throw (new InvalidMethodSignException(method, " parameters " + buffer.toString() + " are not used in where conditions"));
 				} else {
-					throw (new InvalidMethodSignException(daoDefinition, method, " parameter " + buffer.toString() + " is not used in where conditions"));
+					throw (new InvalidMethodSignException(method, " parameter " + buffer.toString() + " is not used in where conditions"));
 				}
 			}
 		}
@@ -135,7 +135,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addCode("return result;\n");
 		} else {
 			// more than one listener found
-			throw (new InvalidMethodSignException(daoDefinition, method, "invalid return type"));
+			throw (new InvalidMethodSignException(method, "invalid return type"));
 		}
 
 	}

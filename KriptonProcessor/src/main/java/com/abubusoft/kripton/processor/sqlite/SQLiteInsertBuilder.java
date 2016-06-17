@@ -46,13 +46,6 @@ public abstract class SQLiteInsertBuilder {
 			return mapFields;
 		}
 
-		/**
-		 * @return the codeGenerator
-		 */
-		public InsertCodeGenerator getCodeGenerator() {
-			return codeGenerator;
-		}
-
 		private InsertType(Class<? extends InsertCodeGenerator> codeGenerator, boolean mapFields) {
 			try {
 				this.mapFields = mapFields;
@@ -103,16 +96,16 @@ public abstract class SQLiteInsertBuilder {
 			ModelAnnotation annotation = method.getAnnotation(BindInsert.class);
 			
 			if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE).size()>0) {
-				throw (new InvalidMethodSignException(daoDefinition, method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_VALUE + " in this kind of query definition"));
+				throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_VALUE + " in this kind of query definition"));
 			}
 			
 			if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS).size()>0) {
-				throw (new InvalidMethodSignException(daoDefinition, method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS + " in this kind of query definition"));
+				throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS + " in this kind of query definition"));
 			}
 			
 			// check if there is only one parameter
 			if (method.getParameters().size() != 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName())) {
-				throw (new InvalidMethodSignException(daoDefinition, method));
+				throw (new InvalidMethodSignException(method));
 			}
 			
 
@@ -121,17 +114,17 @@ public abstract class SQLiteInsertBuilder {
 			
 			if (method.getParameters().size()>1)
 			{
-				throw (new InvalidMethodSignException(daoDefinition, method, " aspected only one parameter of "+daoDefinition.getEntityClassName()+" type"));
+				throw (new InvalidMethodSignException(method, " aspected only one parameter of "+daoDefinition.getEntityClassName()+" type"));
 			}
 		} else {
-			throw (new InvalidMethodSignException(daoDefinition, method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));
+			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));
 		}
 
 		// if true, field must be associate to ben attributes
 		TypeName returnType = typeName(method.getReturnClass());
 
 		if (insertResultType == null) {
-			throw (new InvalidMethodSignException(daoDefinition, method));
+			throw (new InvalidMethodSignException(method));
 		}
 
 		// generate method code

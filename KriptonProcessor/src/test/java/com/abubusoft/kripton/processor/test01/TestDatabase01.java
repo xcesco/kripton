@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.BaseProcessorTest;
-import com.abubusoft.kripton.processor.sqlite.exceptions.*;
 
 /**
  * @author xcesco
@@ -23,7 +22,7 @@ public class TestDatabase01 extends BaseProcessorTest {
 	 */
 	@Test(expected = AssertionError.class)
 	public void test01() throws IOException {
-		buildTest(Dummy01Database.class, Bean01.class);
+		buildTest(Dummy01DataSource.class, Bean01.class);
 	}
 
 	/**

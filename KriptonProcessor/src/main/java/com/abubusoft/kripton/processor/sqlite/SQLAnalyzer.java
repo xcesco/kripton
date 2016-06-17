@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.CaseFormat;
@@ -14,6 +15,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
+import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -112,6 +114,7 @@ public class SQLAnalyzer {
 			sqlStatement = buffer.toString();
 		}
 		
+		TypeMirror rawNameType;
 		// analyze parametersName
 		String[] splittedName;
 		for (String rawName: paramNames)
@@ -120,8 +123,13 @@ public class SQLAnalyzer {
 			
 			if (splittedName.length==1)
 			{
+				rawNameType = method.findParameter(rawName);
+				if (rawNameType==null)
+				{
+					throw new MethodParameterNotFoundException(method, rawName);
+				}
 				paramGetters.add(rawName);
-				paramTypeNames.add(typeName(method.findParameter(rawName)));
+				paramTypeNames.add(typeName(rawNameType));
 			} else if (splittedName.length==2) {
 				if (TypeUtility.isEquals(TypeUtility.typeName(method.findParameter(splittedName[0])), entity) && entity.contains(splittedName[1]))
 				{				
@@ -130,10 +138,10 @@ public class SQLAnalyzer {
 					usedBeanPropertyNames.add(splittedName[1]);
 					paramTypeNames.add(entity.findByName(splittedName[1]).getModelType().getName());
 				} else {
-					throw (new MethodParameterNotFoundException(daoDefinition, method, rawName));
+					throw (new PropertyInAnnotationNotFoundException(method, splittedName[1]));
 				}
 			} else {
-				throw (new MethodParameterNotFoundException(daoDefinition, method, rawName));
+				throw (new PropertyInAnnotationNotFoundException(method, rawName));
 			}
 			
 		}

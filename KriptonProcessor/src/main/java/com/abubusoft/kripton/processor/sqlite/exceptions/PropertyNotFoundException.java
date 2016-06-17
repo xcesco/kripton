@@ -1,7 +1,6 @@
 package com.abubusoft.kripton.processor.sqlite.exceptions;
 
-import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 public class PropertyNotFoundException extends SQLiteProcessorException {
 
@@ -12,8 +11,9 @@ public class PropertyNotFoundException extends SQLiteProcessorException {
 		super(msg);
 	}
 	
-	public PropertyNotFoundException(SQLDaoDefinition daoDefinition, ModelMethod method, String fieldName)
-	{
-		super("Method '"+method.getName()+"' of class '"+daoDefinition.getName()+"' uses field '"+fieldName+"' that does not exists in bean '"+daoDefinition.getEntityClassName()+"'");
+	public PropertyNotFoundException(SQLiteModelMethod method, String fieldName)
+	{		
+		super(String.format("in class '%s' method '%s' uses field '%s' that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName, method.getParent().getEntitySimplyClassName()));
 	}
+		
 }

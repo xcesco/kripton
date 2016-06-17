@@ -73,7 +73,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("return (int)result;\n");
 		} else {
 			// more than one listener found
-			throw (new InvalidMethodSignException(daoDefinition, method, "invalid return type"));
+			throw (new InvalidMethodSignException(method, "invalid return type"));
 		}
 
 		return sqlInsert;

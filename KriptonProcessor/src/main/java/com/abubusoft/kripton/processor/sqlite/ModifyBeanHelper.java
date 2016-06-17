@@ -129,8 +129,6 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 * @param returnType
 	 */
 	public void buildReturnCode(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
-		SQLDaoDefinition daoDefinition=method.getParent();
-		
 		if (returnType == TypeName.VOID) {
 
 		} else if (isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
@@ -148,7 +146,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addCode("return result;\n");
 		} else {
 			// more than one listener found
-			throw (new InvalidMethodSignException(daoDefinition, method, "invalid return type"));
+			throw (new InvalidMethodSignException(method, "invalid return type"));
 		}
 	}
 

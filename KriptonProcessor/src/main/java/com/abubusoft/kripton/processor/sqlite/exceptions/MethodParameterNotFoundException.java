@@ -1,13 +1,12 @@
 package com.abubusoft.kripton.processor.sqlite.exceptions;
 
-import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 public class MethodParameterNotFoundException extends SQLiteProcessorException {
  
-	public MethodParameterNotFoundException(SQLDaoDefinition daoDefinition, ModelMethod method, String paramName)
+	public MethodParameterNotFoundException(SQLiteModelMethod method, String paramName)
 	{
-		super("In class '"+daoDefinition.getElement().getQualifiedName().toString()+"' method '"+method.getName()+"' has not a parameter '"+paramName+"'");
+		super(String.format("In class '%s', annotation of method '%s' uses method parameter '%s' that does not exists",  method.getParent().getName(), method.getName(), paramName));		
 	}
 	
 	private static final long serialVersionUID = -8862365033337349246L;

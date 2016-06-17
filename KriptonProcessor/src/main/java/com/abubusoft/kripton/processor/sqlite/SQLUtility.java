@@ -11,6 +11,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -41,10 +42,17 @@ public class SQLUtility {
 
 			String paramName;
 			StringBuffer buffer = new StringBuffer();
+			TypeMirror paramType;
 			while (matcher.find()) {
 				matcher.appendReplacement(buffer, "?");
 				paramName=matcher.group(1);				
-				result.value1.add(new Pair<String, TypeMirror>(paramName, method.findParameter(paramName)));
+				paramType=method.findParameter(paramName);
+				
+				if (paramType==null)
+				{
+					throw(new MethodParameterNotFoundException(method, paramName));
+				}
+				result.value1.add(new Pair<String, TypeMirror>(paramName, paramType));
 			}
 			matcher.appendTail(buffer);
 

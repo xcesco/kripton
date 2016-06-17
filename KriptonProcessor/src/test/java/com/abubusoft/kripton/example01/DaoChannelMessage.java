@@ -4,31 +4,29 @@ import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDelete;
+import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindUpdate;
 
 @BindDao(ChannelMessage.class)
 public interface DaoChannelMessage {
-
-	/*
-	@SQLInsertBean
+	
+	@BindInsert
 	long insertBean(ChannelMessage bean);
 
-	@SQLInsertBean
+	@BindInsert
 	long insertBeanAll(ChannelMessage bean);
 	
-	@SQLUpdateBean(value="uid", where = "id = ${id} and ownerUid = ${bean.ownerUid}")
-	long updateBean(ChannelMessage bean, long id);
+	@BindUpdate(value="uid", where = "id = ${bean.id}")
+	long updateBean(ChannelMessage bean);
 	
+	@BindUpdate(where = "ownerUid = ${bean.ownerUid}")
+	long updatBeanAll(ChannelMessage bean);
 	
-	@SQLUpdateBean(where = "saluto = ${salutoA} and ownerUid = ${bean.ownerUid}")
-	long updatBeanAll(ChannelMessage bean, long id, String salutoA);
-	*/
-	
-	/*
-	@SQLDeleteBean(where="id=${bean.id}")
+	@BindDelete(where="id=${bean.id}")
 	long deleteBean(ChannelMessage bean);
 	
-	
+	/*
 	
 	
 	@SQLInsert
@@ -69,8 +67,8 @@ public interface DaoChannelMessage {
 	@BindSelect(distinct=true, excludedFields="uid", where="id = ${bean.valid}", having="uid = ${uid} ")
 	List<ChannelMessage> selectList(ChannelMessage bean, long uid);
 	
-	@BindDelete(where="id=${id} and uid=${bean.uid}")
-	long deleteBeanAll(ChannelMessage bean, long id);
+	@BindDelete(where="uid=${bean.uid}")
+	long deleteBeanAll(ChannelMessage bean);
 
 	
 	/*@SQLSelect(distinct=true, where = " id = ${id}")

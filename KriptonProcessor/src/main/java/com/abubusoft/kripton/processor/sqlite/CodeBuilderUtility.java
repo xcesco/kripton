@@ -22,6 +22,7 @@ import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -41,7 +42,7 @@ public class CodeBuilderUtility {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static Pair<String, List<SQLProperty>> generatePropertyList(Elements elementUtils, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz,
+	public static Pair<String, List<SQLProperty>> generatePropertyList(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
 			boolean checkProperty, Set<String> alreadyUsedBeanPropertiesNames) {
 		Pair<String, List<SQLProperty>> result = new Pair<String, List<SQLProperty>>();
 		result.value1 = new ArrayList<SQLProperty>();
@@ -69,13 +70,13 @@ public class CodeBuilderUtility {
 			// check included
 			for (String item : includedFields) {
 				if (!entity.contains(item)) {
-					throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+					throw (new PropertyInAnnotationNotFoundException(method, item));
 				}
 			}
 			// check excluded
 			for (String item : excludedFields) {
 				if (!entity.contains(item)) {
-					throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+					throw (new PropertyInAnnotationNotFoundException(method, item));
 				}
 			}
 
@@ -124,7 +125,7 @@ public class CodeBuilderUtility {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static List<SQLProperty> populateContentValuesFromEntity(Elements elementUtils, SQLDaoDefinition daoDefinition, ModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+	public static List<SQLProperty> populateContentValuesFromEntity(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
 			List<String> alreadyUsedBeanPropertiesNames) {
 		List<SQLProperty> listPropertyInContentValue=new ArrayList<SQLProperty>();
 		
@@ -148,13 +149,13 @@ public class CodeBuilderUtility {
 		// check included
 		for (String item : includedFields) {
 			if (!entity.contains(item)) {
-				throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+				throw (new PropertyInAnnotationNotFoundException(method, item));
 			}
 		}
 		// check excluded
 		for (String item : excludedFields) {
 			if (!entity.contains(item)) {
-				throw (new PropertyInAnnotationNotFoundException(daoDefinition, method, item));
+				throw (new PropertyInAnnotationNotFoundException(method, item));
 			}
 		}
 

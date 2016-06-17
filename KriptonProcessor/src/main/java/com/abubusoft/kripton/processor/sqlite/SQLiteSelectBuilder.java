@@ -158,7 +158,7 @@ public abstract class SQLiteSelectBuilder {
 		}
 
 		if (selectResultType == null) {
-			throw (new InvalidMethodSignException(daoDefinition, method));
+			throw (new InvalidMethodSignException(method));
 		}
 
 		// take field list

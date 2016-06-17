@@ -36,7 +36,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		entities.clear();
 	}
 
-	public void entityAdd(SQLEntity value) {
+	public void addEntity(SQLEntity value) {
 		entities.put(value.getName(), value);
 	}
 

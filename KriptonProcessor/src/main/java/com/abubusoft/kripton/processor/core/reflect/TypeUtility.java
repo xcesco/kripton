@@ -22,11 +22,11 @@ public class TypeUtility {
 	}
 	
 	public static boolean isTypePrimitive(TypeName value) {
-		return isTypeIncludedIn(value, Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE);
+		return isTypeIncludedIn(value, Byte.TYPE, Boolean.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE);
 	}
 	
 	public static boolean isTypeWrappedPrimitive(TypeName value) {
-		return isTypeIncludedIn(value, Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class);
+		return isTypeIncludedIn(value, Byte.class, Boolean.class, Short.class, Integer.class, Long.class, Float.class, Double.class);
 	}
 	
 	public static boolean isSameType(TypeName value, String className) {

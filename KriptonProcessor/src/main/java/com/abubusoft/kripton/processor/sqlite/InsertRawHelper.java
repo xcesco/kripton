@@ -35,7 +35,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
 			ModelProperty property = entity.get(item.value0);
 			if (property == null)
-				throw (new PropertyNotFoundException(daoDefinition, method, item.value0));
+				throw (new PropertyNotFoundException(method, item.value0));
 			
 			nullable=TypeUtility.isNullable(property);
 
@@ -78,7 +78,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("return result;\n");
 		} else {
 			// more than one listener found
-			throw (new InvalidMethodSignException(daoDefinition, method, "invalid return type"));
+			throw (new InvalidMethodSignException(method, "invalid return type"));
 		}
 		
 		return sqlInsert;

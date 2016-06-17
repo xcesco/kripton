@@ -2,6 +2,8 @@ package com.abubusoft.kripton.example01;
 
 import java.util.List;
 
+import android.database.Cursor;
+
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
@@ -13,12 +15,21 @@ public interface DaoChannel {
 	long insertContact(String ownerUid);
 	
 
-    @BindSelect(where="1=1")
+    @BindSelect
     List<Channel> selectAll();
+    
 	
 	
-	@BindInsert
-	long insertBean(Channel bean);
+    @BindSelect(where="updateTime=${updateTimeA}")
+    List<Channel> select(long updateTimeA);
+    
+    @BindSelect(where="updateTime=${channel.updateTime}")
+    List<Channel> select(Channel channel);
+    
+    @BindSelect(where="updateTime=${channel.updateTime}")
+    Cursor selectCursor(Channel channel);
+	
+	
 	
 	/*
 	@SQLUpdateBean(where = "id=:id")

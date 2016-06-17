@@ -15,7 +15,6 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transform;
@@ -40,15 +39,13 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 	 */
 	@Override
 	public void generate(Elements elementUtils, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
-		SQLDaoDefinition daoDefinition=method.getParent();
-		
 		// return type is already checked
 		if (fieldList.value1.size() == 0) {
 			// no projection
-			throw (new InvalidMethodSignException(daoDefinition, method, "No column was selected"));
+			throw (new InvalidMethodSignException(method, "No column was selected"));
 		} else if (fieldList.value1.size() > 1) {
 			// too many values
-			throw (new InvalidMethodSignException(daoDefinition, method, "only one column can be defined for this kind of method"));
+			throw (new InvalidMethodSignException(method, "only one column can be defined for this kind of method"));
 		}
 		
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnType;

@@ -49,11 +49,11 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 		int counter = MethodUtility.countParameterOfType(method, listenerType);
 		if (counter == 0) {
 			// non listener found
-			throw (new InvalidMethodSignException(daoDefinition, method, "there is no parameter of type \"ReadCursorListener\""));
+			throw (new InvalidMethodSignException(method, "there is no parameter of type \"ReadCursorListener\""));
 		}
 		if (counter > 1) {
 			// more than one listener found
-			throw (new InvalidMethodSignException(daoDefinition, method, "there are more than one parameter of type \"ReadCursorListener\""));
+			throw (new InvalidMethodSignException(method, "there are more than one parameter of type \"ReadCursorListener\""));
 		}
 
 		String listenerName = MethodUtility.getNameParameterOfType(method, listenerType);

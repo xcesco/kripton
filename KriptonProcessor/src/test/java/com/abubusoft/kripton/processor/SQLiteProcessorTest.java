@@ -24,7 +24,7 @@ import com.abubusoft.kripton.example01.Channel;
 import com.abubusoft.kripton.example01.ChannelMessage;
 import com.abubusoft.kripton.example01.DaoChannel;
 import com.abubusoft.kripton.example01.DaoChannelMessage;
-import com.abubusoft.kripton.example01.DummyDatabaseSchema;
+import com.abubusoft.kripton.processor.test01.Dummy01DataSource;
 import com.google.common.truth.FailureStrategy;
 import com.google.common.truth.TestVerb;
 import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
@@ -35,39 +35,14 @@ import com.google.testing.compile.JavaFileObjects;
 @RunWith(JUnit4.class)
 public class SQLiteProcessorTest extends BaseProcessorTest {
 
+	/**
+	 * No @BindType is put in bean definition
+	 * 
+	 * @throws IOException
+	 */
 	@Test
 	public void test01() throws IOException {
-		/*
-		 * assert_().about(javaSource()) .that(JavaFileObjects.forSourceString("HelloWorld", "final class HelloWorld {}")) .compilesWithoutError();
-		 */
-
-		JavaFileObject source = getSourceFile(PathSourceType.SRC_TEST_JAVA, DummyDatabaseSchema.class);
-		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
-		GenerationClause<SuccessfulCompilationClause> sources = result.and().generatesSources();
-				
-		assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
-		
-		sources.forAllOfWhich(new CompilationResultsConsumer() {
-
-			@Override
-			public void accept(Map<String, JavaFileObject> t) {
-
-				for (Entry<String, JavaFileObject> item : t.entrySet()) {
-					logger.info("item " + item.getKey());
-					try {
-						logger.info("-------\n" + getStringFromInputStream(item.getValue().openInputStream()));
-						assertAbout(javaSource()).that(item.getValue()).compilesWithoutError();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-
-			}
-		});
-
-		// .that(JavaFileObjects.forResource(Resources.getResource("HelloWorld.java")))compilesWithoutError();
-		// result.and().generatesFileNamed(StandardLocation.SOURCE_OUTPUT,"com.abubusoft.kripton.processor","EntityBeanConvert.java").withContents(ByteSource.empty());
-		// logger.info(new String(buffer));
+		buildTest(Dummy01DataSource.class, DaoChannelMessage.class, ChannelMessage.class);
 	}
 
 	@Test
@@ -76,7 +51,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 		final List<JavaFileObject> sourcesPhase2=new ArrayList<JavaFileObject>();
 		
 		final List<JavaFileObject> sourcesPhase1=sources(
-				DummyDatabaseSchema.class,
+				Dummy01DataSource.class,
 				ChannelMessage.class, Channel.class,
 				DaoChannelMessage.class, DaoChannel.class
 		);
