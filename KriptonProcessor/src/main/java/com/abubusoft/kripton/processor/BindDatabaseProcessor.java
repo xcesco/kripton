@@ -79,13 +79,17 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 	private Messager messager;
 
-	private SQLEntity currentEntity;
-
 	private SQLiteDatabaseSchema currentSchema;
 
 	private SQLiteModel model;
 
 	private HashSet<String> excludedMethods;
+
+	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
+	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
+	// define which annotation the annotation processor is interested in
+	private final Map<String, Element> globalBeanElements = new HashMap<String, Element>();
+	private final Map<String, Element> globalDaoElements = new HashMap<String, Element>();
 
 	private void error(Element e, String msg, Object... args) {
 		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
@@ -153,142 +157,63 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 				return true;
 			}
 
+			globalDaoElements.clear();
+			globalBeanElements.clear();
 			model.schemaClear();
 
-			final Map<String, Element> bindElements = new HashMap<String, Element>();
-
-			// Put all @BindType elements in bindElements
+			// Put all @BindType elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
 				if (item.getKind() != ElementKind.CLASS) {
 					String msg = String.format("Only class can be annotated with @%s annotation", BindType.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
-				bindElements.put(item.toString(), item);
+				globalBeanElements.put(item.toString(), item);
+			}
+
+			// Put all @BindDao elements in daoElements
+			for (Element item : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
+				if (item.getKind() != ElementKind.INTERFACE) {
+					String msg = String.format("Only interface can be annotated with @%s annotation", BindDao.class.getSimpleName());
+					throw (new InvalidKindForAnnotationException(msg));
+				}
+				globalDaoElements.put(item.toString(), item);
 			}
 
 			// No bind type is present
-			if (bindElements.size() == 0) {
+			if (globalBeanElements.size() == 0) {
 				throw (new NoBindTypeElementsFound());
 			}
 
-			ModelProperty property;
-
 			// Get all database schema definitions
-			for (Element databaseSchema : roundEnv.getElementsAnnotatedWith(BindDataSource.class)) {
-				if (databaseSchema.getKind() != ElementKind.INTERFACE) {
-					String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", databaseSchema.getSimpleName().toString(), BindDataSource.class.getSimpleName());
-					throw (new InvalidKindForAnnotationException(msg));
+			for (Element dataSource : roundEnv.getElementsAnnotatedWith(BindDataSource.class)) {
+				createDataSource(dataSource);
+				// get all dao used within SQLDatabaseSchema annotation
+				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+
+				// Analyze beans BEFORE daos, because beans are needed for DAO definition
+				for (String daoName : daoIntoDataSource) {
+					// check dao into bean definition
+					createBeanFromDao(dataSource, daoName);
+
+				} // end foreach bean
+
+				// DAO analysis
+				// Get all dao definitions
+				for (String daoItem : daoIntoDataSource) {
+					createDao(globalBeanElements, globalDaoElements, daoItem);
 				}
 
-				if (!databaseSchema.getSimpleName().toString().endsWith(BindDataSourceBuilder.SUFFIX)) {
-					String msg = String.format("Interface %s: interface marked with @%s annotation must have a name with suffix \""+BindDataSourceBuilder.SUFFIX+"\"", databaseSchema.getSimpleName().toString(), BindDataSource.class.getSimpleName());
-					throw (new InvalidNameException(msg));
+				if (currentSchema.getCollection().size() == 0) {
+					String msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(), currentSchema.getElement().getSimpleName().toString(),
+							BindDataSource.class.getSimpleName());
+					info(msg);
+					error(null, msg);
+					return true;
 				}
 
-				// get all entity used within SQLDatabaseSchema annotation
-				List<String> classesIntoDatabase = AnnotationUtility.extractAsClassNameArray(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+				buildClasses();
 
-				// check if any bean lack of @BindType annotation
-
-				String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
-				int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
-				boolean generateLog=AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_LOG);
-
-				currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog);
-				model.schemaAdd(currentSchema);
-
-				// define which annotation the annotation processor is interested in
-				AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
-				AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
-				// for each entity used in database
-				for (String beanClassName : classesIntoDatabase) {
-					if (!bindElements.containsKey(beanClassName)) {
-						String msg = String.format("Class %s, used in %s database definition, is not marked with @%s annotation", beanClassName, databaseSchema.getSimpleName().toString(), BindType.class);
-						throw (new NoAnnotationFoundException(msg));
-					}
-
-					// assert: bean is present
-					TypeElement classElement = (TypeElement) bindElements.get(beanClassName);
-
-					currentEntity = new SQLEntity(classElement);
-					AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
-
-					final boolean bindAllFields = currentEntity.containsAnnotation(BindAllFields.class);
-
-					{
-						PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLProperty>() {
-
-							@Override
-							public SQLProperty createProperty(Element element) {
-								return new SQLProperty(element);
-							}
-						}, propertyAnnotationFilter, new PropertyCreatedListener<SQLProperty>() {
-
-							@Override
-							public boolean onProperty(SQLProperty property) {	
-								if (!bindAllFields && (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindColumn.class) != null))
-								{
-									String msg = String.format("In class '%s', property '%s' needs '%s' annotation", currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());									
-									throw (new NoAnnotationFoundException(msg));
-								}
-								
-								if (bindAllFields || (property.getAnnotation(Bind.class)) != null) {																											
-									TypeName name = TypeName.get(property.getElement().asType());
-
-									LiteralType lt = LiteralType.of(name.toString());
-
-									if (lt.isComposed()) {
-										String msg = String.format("In class '%s', property '%s' is ignored in database build because it is composed", currentEntity.getSimpleName(), property.getName());
-										info(msg);
-										return false;
-									}
-									
-									ModelAnnotation annotation=property.getAnnotation(BindColumn.class);
-									if (annotation!=null)
-									{																				
-										property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_NULLABLE));
-										ColumnType columnType=ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE));
-										
-										property.setPrimaryKey(columnType==ColumnType.PRIMARY_KEY);
-									} else {
-										property.setNullable(true);
-									}
-									
-									return true;
-								}
-
-								return false;
-							}
-						});
-					}
-					
-					// just to fix that property id can be the default PK without annotation.
-					// this operation force primary key flag for property 
-					SQLProperty primaryKey = currentEntity.getPrimaryKey();
-					if (primaryKey!=null)
-						primaryKey.setPrimaryKey(true);
-
-
-					if (currentEntity.getCollection().size() == 0) {
-						String msg = String.format("Class %s, used in %s database definition, has no property!", beanClassName, databaseSchema.getSimpleName().toString());
-						throw (new PropertyNotFoundException(msg));
-					}
-
-					if (currentEntity.countPrimaryKeys() > 1) {
-						throw (new TooManySQLPrimaryKeyFoundException(currentEntity));
-					}
-
-					// check primary key
-					property = currentEntity.getPrimaryKey();
-					if (property == null)
-						throw (new SQLPrimaryKeyNotFoundException(currentEntity));
-
-					if (!property.isType(Long.TYPE, Long.class))
-						throw (new SQLPrimaryKeyNotValidTypeException(currentEntity, property));
-
-					currentSchema.entityAdd(currentEntity);
-				}
-			}
+			} // end foreach dataSource
 
 			if (model.schemaCount() == 0) {
 				// if no schema is found, exit, BUT THIS NOT AN ERROR
@@ -311,91 +236,6 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 				return true;
 			}
 
-			// Get all dao definitions
-			for (Element daoItem : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
-				if (daoItem.getKind() != ElementKind.INTERFACE) {
-					String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", daoItem.getSimpleName().toString(), BindDao.class.getSimpleName());
-					throw (new InvalidKindForAnnotationException(msg));
-				}
-
-				String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoItem, BindDao.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
-				final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, (TypeElement) daoItem, entityClassName);
-
-				// dao is associated to an entity is not contained in analyzed class set.
-				if (!bindElements.containsKey(currentDaoDefinition.getEntityClassName())) {
-					throw (new InvalidSQLDaoDefinitionException(currentDaoDefinition));
-				}
-
-				currentSchema.add(currentDaoDefinition);
-				//info("Dao... " + currentDaoDefinition.getName() + " " + entityClassName + " " + bindElements.containsKey(currentDaoDefinition.getEntityClassName()));
-
-				// create method for dao
-				MethodUtility.forEachMethods(elementUtils, (TypeElement) daoItem, new MethodFoundListener() {
-
-					@Override
-					public void onMethod(ExecutableElement element) {
-						if (excludedMethods.contains(element.getSimpleName().toString()))
-							return;
-
-						final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, (ExecutableElement) element);
-						//TODO fix it: if return type is null, the method is inherited and probably it has bean type
-						if (currentMethod.getReturnClass()==null)
-						{							
-							Element beanElement=bindElements.get(currentDaoDefinition.getEntityClassName());
-							currentMethod.setReturnClass(beanElement.asType());
-						}
-
-						AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
-
-							@Override
-							public void onAcceptAnnotation(Element element, String annotationClassName, Map<String, String> attributes) {
-
-								if //@formatter:off
-									(										
-										annotationClassName.equals(BindInsert.class.getCanonicalName())																				
-										|| annotationClassName.equals(BindUpdate.class.getCanonicalName())										
-										|| annotationClassName.equals(BindDelete.class.getCanonicalName())										
-										|| annotationClassName.equals(BindSelect.class.getCanonicalName())
-									)	
-									//@formatter:on
-								{
-								} else {
-									return;
-								}
-
-								ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
-								currentMethod.addAnnotation(annotation);
-							}
-						});
-
-						// add method
-						currentDaoDefinition.add(currentMethod);
-
-					}
-
-				});
-
-				// dao definition must have >0 method associated to query
-				if (currentDaoDefinition.getCollection().size() == 0) {
-					String msg = "Dao definition " + currentDaoDefinition.getName() + " contains no methods to bind queries";
-					throw (new MethodNotFoundException(msg));
-				}
-			}
-
-			if (currentSchema.getCollection().size() == 0) {
-				String msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(), currentSchema.getElement().getSimpleName().toString(),
-						BindDataSource.class.getSimpleName());
-				info(msg);
-				error(null, msg);
-				return true;
-			}
-
-			// generate table java
-			TableGenerator.generate(elementUtils, filer, currentSchema);
-			BindDaoBuilder.execute(elementUtils, filer, currentSchema);
-			BindCursorBuilder.execute(elementUtils, filer, currentSchema);
-			BindDataSourceBuilder.generate(elementUtils, filer, currentSchema);
-
 			logger.info(currentSchema.toString());
 		} catch (Exception e) {
 			String msg = e.getMessage();
@@ -408,6 +248,223 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Create bean definition for each dao definition contained in dataSource
+	 * 
+	 * @param dataSource
+	 * @param daoName
+	 */
+	private void createBeanFromDao(Element dataSource, String daoName) {
+		Element daoElement = globalDaoElements.get(daoName);
+		if (daoElement == null) {
+			String msg = String.format("Data source %s references a DAO %s without @BindDao annotation", dataSource.toString(), daoName);
+			throw (new InvalidNameException(msg));
+		}
+		
+		ModelProperty property;
+		String beanName = AnnotationUtility.extractAsClassName(elementUtils, daoElement, BindDao.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		Element beanElement = globalBeanElements.get(beanName);
+		if (beanElement == null) {
+			String msg = String.format("In dao definition %s is referred a bean definition %s without @BindType annotation", daoElement.toString(), beanName);
+			throw (new InvalidNameException(msg));
+		}				
+		
+		// assert: bean is present
+		final SQLEntity currentEntity = new SQLEntity((TypeElement) beanElement);
+		if (currentSchema.contains(currentEntity.getName())) {
+			// bean already defined in datasource
+			return;
+		}
+		currentSchema.addEntity(currentEntity);
+
+		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
+
+		final boolean bindAllFields = currentEntity.containsAnnotation(BindAllFields.class);
+		{
+			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLProperty>() {
+
+				@Override
+				public SQLProperty createProperty(Element element) {
+					return new SQLProperty(element);
+				}
+			}, propertyAnnotationFilter, new PropertyCreatedListener<SQLProperty>() {
+
+				@Override
+				public boolean onProperty(SQLProperty property) {
+					if (!bindAllFields && (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindColumn.class) != null)) {
+						String msg = String.format("In class '%s', property '%s' needs '%s' annotation", currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());
+						throw (new NoAnnotationFoundException(msg));
+					}
+
+					if (bindAllFields || (property.getAnnotation(Bind.class)) != null) {
+						TypeName name = TypeName.get(property.getElement().asType());
+
+						LiteralType lt = LiteralType.of(name.toString());
+
+						if (lt.isComposed()) {
+							String msg = String.format("In class '%s', property '%s' is ignored in database build because it is composed", currentEntity.getSimpleName(), property.getName());
+							info(msg);
+							return false;
+						}
+
+						ModelAnnotation annotation = property.getAnnotation(BindColumn.class);
+						if (annotation != null) {
+							property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_NULLABLE));
+							ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE));
+
+							property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
+						} else {
+							property.setNullable(true);
+						}
+
+						return true;
+					}
+
+					return false;
+				}
+			});
+		}
+
+		// just to fix that property id can be the default PK without annotation.
+		// this operation force primary key flag for property
+		SQLProperty primaryKey = currentEntity.getPrimaryKey();
+		if (primaryKey != null)
+			primaryKey.setPrimaryKey(true);
+
+		if (currentEntity.getCollection().size() == 0) {
+			String msg = String.format("Bean class %s, used in %s database definition, has no property!", currentEntity.getName(), dataSource.getSimpleName().toString());
+			throw (new PropertyNotFoundException(msg));
+		}
+
+		if (currentEntity.countPrimaryKeys() > 1) {
+			throw (new TooManySQLPrimaryKeyFoundException(currentEntity));
+		}
+
+		// check primary key
+		property = currentEntity.getPrimaryKey();
+		if (property == null)
+			throw (new SQLPrimaryKeyNotFoundException(currentEntity));
+
+		if (!property.isType(Long.TYPE, Long.class))
+			throw (new SQLPrimaryKeyNotValidTypeException(currentEntity, property));
+
+	}
+
+	/**
+	 * Build classes
+	 * 
+	 * @throws Exception
+	 */
+	public void buildClasses() throws Exception {
+		// generate
+		TableGenerator.generate(elementUtils, filer, currentSchema);
+		BindDaoBuilder.execute(elementUtils, filer, currentSchema);
+		BindCursorBuilder.execute(elementUtils, filer, currentSchema);
+		BindDataSourceBuilder.generate(elementUtils, filer, currentSchema);
+	}
+
+	/**
+	 * Create DAO definition
+	 * 
+	 * @param globalBeanElements
+	 * @param globalDaoElements
+	 * @param daoItem
+	 */
+	public void createDao(final Map<String, Element> globalBeanElements, final Map<String, Element> globalDaoElements, String daoItem) {
+		Element daoElement = globalDaoElements.get(daoItem);
+
+		if (daoElement.getKind() != ElementKind.INTERFACE) {
+			String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", daoElement.getSimpleName().toString(), BindDao.class.getSimpleName());
+			throw (new InvalidKindForAnnotationException(msg));
+		}
+
+		String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoElement, BindDao.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, (TypeElement) daoElement, entityClassName);
+
+		// dao is associated to an entity is not contained in analyzed class set.
+		if (!globalBeanElements.containsKey(currentDaoDefinition.getEntityClassName())) {
+			throw (new InvalidSQLDaoDefinitionException(currentDaoDefinition));
+		}
+
+		currentSchema.add(currentDaoDefinition);
+
+		// create method for dao
+		MethodUtility.forEachMethods(elementUtils, (TypeElement) daoElement, new MethodFoundListener() {
+
+			@Override
+			public void onMethod(ExecutableElement element) {
+				if (excludedMethods.contains(element.getSimpleName().toString()))
+					return;
+
+				final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, (ExecutableElement) element);
+				// TODO fix it: if return type is null, the method is inherited and probably it has bean type
+				if (currentMethod.getReturnClass() == null) {
+					Element beanElement = globalBeanElements.get(currentDaoDefinition.getEntityClassName());
+					currentMethod.setReturnClass(beanElement.asType());
+				}
+
+				AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
+
+
+					@Override
+					public void onAcceptAnnotation(Element element, String annotationClassName, Map<String, String> attributes) {
+
+						if //@formatter:off
+							(										
+								annotationClassName.equals(BindInsert.class.getCanonicalName())																				
+								|| annotationClassName.equals(BindUpdate.class.getCanonicalName())										
+								|| annotationClassName.equals(BindDelete.class.getCanonicalName())										
+								|| annotationClassName.equals(BindSelect.class.getCanonicalName())
+							)	
+							//@formatter:on
+						{
+						} else {
+							return;
+						}
+
+						ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
+						currentMethod.addAnnotation(annotation);
+					}
+				});
+
+				// add method
+				currentDaoDefinition.add(currentMethod);
+
+			}
+
+		});
+
+		// dao definition must have >0 method associated to query
+		if (currentDaoDefinition.getCollection().size() == 0) {
+			String msg = "Dao definition " + currentDaoDefinition.getName() + " contains no methods to bind queries";
+			throw (new MethodNotFoundException(msg));
+		}
+	}
+
+	/**
+	 * @param databaseSchema
+	 */
+	public void createDataSource(Element databaseSchema) {
+		if (databaseSchema.getKind() != ElementKind.INTERFACE) {
+			String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", databaseSchema.getSimpleName().toString(), BindDataSource.class.getSimpleName());
+			throw (new InvalidKindForAnnotationException(msg));
+		}
+
+		if (!databaseSchema.getSimpleName().toString().endsWith(BindDataSourceBuilder.SUFFIX)) {
+			String msg = String.format("Interface marked with @%s annotation must have a name with suffix \"" + BindDataSourceBuilder.SUFFIX + "\" to be used with @BindDataSource", databaseSchema.getSimpleName().toString(),
+					BindDataSource.class.getSimpleName());
+			throw (new InvalidNameException(msg));
+		}
+
+		// go ahead to dataSource analysis
+		// ASSERT: daoElement and beanElement is element for dao and bean associated
+		String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
+		int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
+		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_LOG);
+		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog);
+		model.schemaAdd(currentSchema);
 	}
 
 	/**
