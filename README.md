@@ -1,9 +1,9 @@
 # Kripton
-A simple Java-XML-JSON binder for Android and Java platforms environment
+A simple Java library to manage bean's persistence in XML, JSON and SQLite (for Android version).
 
 
 ## Introduction##
-Kritpon is a small library with the aim to translate java POJO in XML/JSON and viceversa. The rules needed are expressed through annotations. I know there are many other framework and library do this for me, but my goal is build the smallest library to do the translation with good performance. The main platform is Android, but i choose to support generic java platform too.
+Kritpon is a small library with the aim to simplify translate java POJO in XML/JSON and viceversa. The rules needed are expressed through annotations. I know there are many other framework and library do this for me, but my goal is build the smallest library to do the translation with good performance. The main platform is Android, but i choose to support generic java platform too.
 
 I found some fantastic libraries that i partially reused to realize kripton
 
@@ -12,6 +12,7 @@ I found some fantastic libraries that i partially reused to realize kripton
 
 
 ## How it works? Just a simple example##
+Most applications works with data exchanged with (REST) web service, or simpler created and saved on local storage such as file or database. Tipically data are the same, the only difference is kind of persistence. 
 As example we take a simple java class:
 
 ```java
@@ -19,8 +20,11 @@ package com.abubusoft.kripton.examples;
 
 import com.abubusoft.kripton.binder.annotation.BindAllFields;
 
+@BindType
 @BindAllFields
 public class SimpleBean {
+
+    public long id;
 
     private long age;
 
