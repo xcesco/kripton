@@ -5,15 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.abubusoft.kripton.DatabaseSchemaFactory;
-import com.abubusoft.kripton.DatabaseSchemaOptions;
-import com.abubusoft.kripton.android.SQLiteInsert;
-import com.abubusoft.kripton.android.SQLiteQuery;
-import com.abubusoft.kripton.android.SQLiteSchema;
-import com.abubusoft.kripton.android.SQLiteUpdate;
-import com.abubusoft.kripton.binder.database.NameConverterType;
-import com.abubusoft.kripton.binder.database.QueryOptions;
+import android.database.sqlite.SQLiteQuery;
 
 public class ArgonSQLiteHelper extends SQLiteOpenHelper {
 	
