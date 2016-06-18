@@ -92,12 +92,12 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	public interface AbstractTransaction<E extends BindDaoFactory>
 	{
 		/**
-		 * Execute 
-		 * @param database
+		 * Execute transaction. Connection is managed from DataSource
+		 * @param daoFactory
 		 * @return
 		 * 		true to commit, false to rollback
 		 */
-		boolean onExecute(E daoFactory, SQLiteDatabase database);
+		boolean onExecute(E daoFactory);
 		
 		void onError(Throwable e);
 	}
