@@ -3,6 +3,8 @@ package com.abubusoft.kripton.processor.sqlite;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
+import android.content.ContentValues;
+
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
@@ -31,6 +33,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		// generate javadoc
 		sqlInsert = generateJavaDoc(methodBuilder, method, returnType);
 		
+		methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 		methodBuilder.addCode("contentValues.clear();\n\n");
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
 			ModelProperty property = entity.get(item.value0);
@@ -66,15 +69,15 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		// define return value
 		if (returnType == TypeName.VOID) {
-			methodBuilder.addCode("database.insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
+			methodBuilder.addCode("database().insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
-			methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
+			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
 			methodBuilder.addCode("return result!=-1;\n");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
-			methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
+			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
 			methodBuilder.addCode("return result;\n");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
-			methodBuilder.addCode("int result = (int)database.insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
+			methodBuilder.addCode("int result = (int)database().insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
 			methodBuilder.addCode("return result;\n");
 		} else {
 			// more than one listener found

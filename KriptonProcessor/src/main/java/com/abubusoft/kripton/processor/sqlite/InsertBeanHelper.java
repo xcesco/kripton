@@ -46,7 +46,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("$T.info($T.formatSQL(\"SQL: $L\"));\n", Logger.class, StringUtil.class, sqlInsert);
 		}
 
-		methodBuilder.addCode("long result = database.insert($S, null, contentValues);\n", daoDefinition.getParent().classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));
+		methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getParent().classNameConverter.convert(daoDefinition.getEntitySimplyClassName()));
 
 		if (primaryKey != null) {
 			if (primaryKey.isPublicField()) {

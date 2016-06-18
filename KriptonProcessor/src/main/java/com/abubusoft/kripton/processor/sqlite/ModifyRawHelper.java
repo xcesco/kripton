@@ -9,6 +9,8 @@ import java.util.List;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
+import android.content.ContentValues;
+
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
@@ -59,8 +61,10 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		}
 
 		if (updateMode) {
-			// put params in contentValues
+			// clear contentValues
+			methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 			methodBuilder.addCode("contentValues.clear();\n\n");
+			
 			for (Pair<String, TypeMirror> item : updateableParams) {
 				ModelProperty property = entity.get(item.value0);
 				if (property == null)
@@ -108,12 +112,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			if (daoDefinition.isLogEnabled()) {
 				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);
 			}
-			methodBuilder.addCode("int result = database.update($S, contentValues, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), where.value0);
+			methodBuilder.addCode("int result = database().update($S, contentValues, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), where.value0);
 		} else {
 			if (daoDefinition.isLogEnabled()) {
 				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);
 			}
-			methodBuilder.addCode("int result = database.delete($S, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), where.value0);
+			methodBuilder.addCode("int result = database().delete($S, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), where.value0);
 		}
 
 		// define return value

@@ -9,6 +9,8 @@ import java.util.List;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
+import android.content.ContentValues;
+
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
@@ -55,8 +57,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		if (updateMode) {
 			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
-		} else {
-			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindDelete.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+		} else {			
+			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindDelete.class, methodBuilder, analyzer.getUsedBeanPropertyNames());			
 		}
 		// build javadoc
 		String sqlModify=buildJavadoc(methodBuilder, updateMode, method, beanNameParameter, whereCondition, listUsedProperty);					
@@ -66,16 +68,17 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		
 		methodBuilder.addCode("\n");
 
+		
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {				
 				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);				
 			}
-			methodBuilder.addCode("int result = database.update($S, contentValues, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), analyzer.getSQLStatement());
+			methodBuilder.addCode("int result = database().update($S, contentValues, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), analyzer.getSQLStatement());
 		} else {
 			if (daoDefinition.isLogEnabled()) {				
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, analyzer.getSQLStatement().replaceAll("\\?", "%s"));
 			}
-			methodBuilder.addCode("int result = database.delete($S, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), analyzer.getSQLStatement());
+			methodBuilder.addCode("int result = database().delete($S, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), analyzer.getSQLStatement());
 		}	
 
 		// define return value

@@ -13,7 +13,7 @@ import com.abubusoft.kripton.processor.BaseProcessorTest;
  *
  */
 @RunWith(JUnit4.class)
-public class TestBean01 extends BaseProcessorTest {
+public class TestKripton38 extends BaseProcessorTest {
 
 	/**
 	 *  id: Long id

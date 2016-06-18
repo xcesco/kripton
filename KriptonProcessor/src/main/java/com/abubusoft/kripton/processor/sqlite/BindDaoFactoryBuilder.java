@@ -61,7 +61,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 			
 			// dao with external connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).addParameter(SQLiteDatabase.class, "database").returns(daoImplName);
+				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).returns(daoImplName);
 				builder.addMethod(methodBuilder.build());
 			}
 		}		

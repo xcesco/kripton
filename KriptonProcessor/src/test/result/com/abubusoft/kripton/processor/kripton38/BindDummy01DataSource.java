@@ -2,12 +2,9 @@ package com.abubusoft.kripton.processor.kripton38;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-
 import java.lang.Override;
 import java.lang.String;
 
@@ -18,48 +15,33 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
 
   public static final int version = 1;
 
-  protected BindDaoBean01 daoBean01 = new BindDaoBean01();
+  protected BindDaoBean01 daoBean01 = new BindDaoBean01(this);
 
   protected BindDummy01DataSource(Context context) {
     super(context, name, null, version);
   }
 
-  public BindDaoBean01 getDaoBean01() {
-    // get current database connection, without increment connection counter
-    if (database==null) throw(new KriptonRuntimeException("No database connection is opened"));
-    daoBean01.setDatabase(database);
-    return daoBean01;
-  }
-
   @Override
-  public BindDaoBean01 getDaoBean01(SQLiteDatabase database) {
-    daoBean01.setDatabase(database);
+  public BindDaoBean01 getDaoBean01() {
     return daoBean01;
   }
 
   /**
-   * <p>Allow to execute a transaction. The database will be open in write mode.</p>
+   * <p>Allow to execute a transaction. Method is synchronized to avoid concurrent problems. The database will be open in write mode.</p>
    *
    * @param transaction
    * 	transaction to execute
    */
-  public void execute(Transaction transaction) {
-    boolean localConnection=false;
-    SQLiteDatabase connection=this.database;
-    if (connection==null) {
-      localConnection=true;
-      connection=openDatabase();
-    }
+  public synchronized void execute(Transaction transaction) {
+    SQLiteDatabase connection=openDatabase();
     try {
       connection.beginTransaction();
-      if (transaction!=null && transaction.onExecute(this, connection)) {
+      if (transaction!=null && transaction.onExecute(this)) {
         connection.setTransactionSuccessful();
       }
     } finally {
       connection.endTransaction();
-      if (localConnection) {
-        connection.close();
-      }
+      close();
     }
   }
 

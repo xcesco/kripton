@@ -77,25 +77,17 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 		
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			ClassName daoImplName = className(BindDataSourceBuilder.PREFIX+ dao.getName());
-			builder.addField(FieldSpec.builder(daoImplName,convert.convert(dao.getName()), Modifier.PROTECTED).initializer("new $T()", daoImplName) .build());
+			builder.addField(FieldSpec.builder(daoImplName,convert.convert(dao.getName()), Modifier.PROTECTED).initializer("new $T(this)", daoImplName) .build());
 			
 			// dao with connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addModifiers(Modifier.PUBLIC).returns(className(BindDataSourceBuilder.PREFIX+dao.getName()));
-				methodBuilder.addCode("// get current database connection, without increment connection counter\n");
-				methodBuilder.addCode("if (database==null) throw(new $T(\"No database connection is opened\"));\n", KriptonRuntimeException.class);
-				methodBuilder.addCode("$L.setDatabase(database);\n", convert.convert(dao.getName()));
+				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).returns(className(BindDataSourceBuilder.PREFIX+dao.getName()));
+				//methodBuilder.addCode("// get current database connection, without increment connection counter\n");
+				//methodBuilder.addCode("if (database==null) throw(new $T(\"No database connection is opened\"));\n", KriptonRuntimeException.class);
+				//methodBuilder.addCode("$L.setDatabase(database);\n", convert.convert(dao.getName()));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
 				builder.addMethod(methodBuilder.build());
-			}
-			
-			// dao with external connections
-			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addParameter(SQLiteDatabase.class, "database").addModifiers(Modifier.PUBLIC).returns(className(BindDataSourceBuilder.PREFIX+dao.getName())).addAnnotation(Override.class);
-				methodBuilder.addCode("$L.setDatabase(database);\n", convert.convert(dao.getName()));
-				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
-				builder.addMethod(methodBuilder.build());
-			}
+			}						
 		}
 		
 		// interface 
@@ -187,31 +179,24 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactoryName));			
 		builder.addType(TypeSpec.interfaceBuilder(transationExecutorName).addModifiers(Modifier.PUBLIC).addSuperinterface(parameterizedTypeName).build());
 			
-		MethodSpec.Builder executeMethod=MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName),"transaction");
-		
-		executeMethod.addCode("boolean localConnection=false;\n");
-		executeMethod.addCode("$T connection=this.database;\n",SQLiteDatabase.class);
-		executeMethod.beginControlFlow("if (connection==null)");
-			executeMethod.addCode("localConnection=true;\n");
-			executeMethod.addCode("connection=openDatabase();\n");
-	    executeMethod.endControlFlow();
+		MethodSpec.Builder executeMethod=MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC, Modifier.SYNCHRONIZED).addParameter(className(transationExecutorName),"transaction");
+				
+		executeMethod.addCode("$T connection=openDatabase();\n",SQLiteDatabase.class);
 		
 		executeMethod.beginControlFlow("try");
 		executeMethod.addCode("connection.beginTransaction();\n");
 		
-		executeMethod.beginControlFlow("if (transaction!=null && transaction.onExecute(this, connection))");
+		executeMethod.beginControlFlow("if (transaction!=null && transaction.onExecute(this))");
 		executeMethod.addCode("connection.setTransactionSuccessful();\n");
 		executeMethod.endControlFlow();
 				
 		executeMethod.nextControlFlow("finally");
 		executeMethod.addCode("connection.endTransaction();\n");
-		executeMethod.beginControlFlow("if (localConnection)");
-			executeMethod.addCode("connection.close();\n");
-		executeMethod.endControlFlow();
+		executeMethod.addCode("close();\n");
 		executeMethod.endControlFlow();
 		
 		// generate javadoc
-		executeMethod.addJavadoc("<p>Allow to execute a transaction. The database will be open in write mode.</p>\n");
+		executeMethod.addJavadoc("<p>Allow to execute a transaction. Method is synchronized to avoid concurrent problems. The database will be open in write mode.</p>\n");
 		executeMethod.addJavadoc("\n");
 		executeMethod.addJavadoc("@param transaction\n");
 		executeMethod.addJavadoc("\ttransaction to execute\n");

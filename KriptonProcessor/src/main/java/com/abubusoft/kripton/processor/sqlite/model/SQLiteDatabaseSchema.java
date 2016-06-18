@@ -19,6 +19,15 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	protected Map<String, SQLEntity> entities=new HashMap<String, SQLEntity>();
 
 	public String fileName;
+	
+	public String generatedClassName;
+
+	/**
+	 * @return the generatedClassName
+	 */
+	public String getGeneratedClassName() {
+		return generatedClassName;
+	}
 
 	public int version;
 	
@@ -30,6 +39,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		this.fileName=schemaFileName;
 		this.version=schemaVersion;
 		this.log=log;
+		this.generatedClassName="Bind"+getName();
 	}
 
 	public void clear() {

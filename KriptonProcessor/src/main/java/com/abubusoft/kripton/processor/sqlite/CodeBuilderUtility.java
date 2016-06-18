@@ -10,6 +10,8 @@ import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
+import android.content.ContentValues;
+
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
@@ -80,7 +82,6 @@ public class CodeBuilderUtility {
 				}
 			}
 
-			// methodBuilder.addCode("contentValues.clear();\n\n");
 			// for each property in entity except primaryKey and excluded properties
 			for (SQLProperty item : entity.getCollection()) {
 				if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
@@ -198,6 +199,7 @@ public class CodeBuilderUtility {
 	
 		// initialize contentValues
 		SQLProperty primaryKey = entity.getPrimaryKey();
+		methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 		methodBuilder.addCode("contentValues.clear();\n\n");
 		// for each property in entity except primaryKey and excluded properties
 		for (SQLProperty item : entity.getCollection()) {

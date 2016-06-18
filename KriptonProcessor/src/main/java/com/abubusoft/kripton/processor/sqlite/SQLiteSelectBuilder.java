@@ -263,7 +263,7 @@ public abstract class SQLiteSelectBuilder {
 		{
 			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"),(Object[])args);\n", Logger.class, StringUtil.class, sql.replaceAll("\\?", "\'%s\'"));			
 		}
-		methodBuilder.addCode("$T cursor = database.rawQuery(\"$L\", args);\n", Cursor.class, sql);
+		methodBuilder.addCode("$T cursor = database().rawQuery(\"$L\", args);\n", Cursor.class, sql);
 
 		if (daoDefinition.isLogEnabled())
 		{
