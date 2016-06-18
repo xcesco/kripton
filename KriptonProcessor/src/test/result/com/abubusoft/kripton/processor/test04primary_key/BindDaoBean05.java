@@ -2,11 +2,11 @@ package com.abubusoft.kripton.processor.test04primary_key;
 
 import android.database.Cursor;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractBindDao;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.DateUtil;
-import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.kripton38.Bean05;
 import com.abubusoft.kripton.processor.kripton38.BeanType;

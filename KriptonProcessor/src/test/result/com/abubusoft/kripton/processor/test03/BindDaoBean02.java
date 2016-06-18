@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.processor.test03;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractBindDao;
-import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.StringUtil;
 
 /**

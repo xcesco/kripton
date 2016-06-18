@@ -1,8 +1,9 @@
 package com.abubusoft.kripton.processor.kripton38;
 
 import android.database.Cursor;
+
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractBindDao;
-import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.StringUtil;
 
 /**

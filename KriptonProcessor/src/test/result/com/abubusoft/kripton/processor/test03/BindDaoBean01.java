@@ -1,9 +1,11 @@
 package com.abubusoft.kripton.processor.test03;
 
 import android.database.Cursor;
+
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractBindDao;
-import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.StringUtil;
+
 import java.util.LinkedList;
 import java.util.List;
 

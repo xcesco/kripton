@@ -7,8 +7,8 @@ import java.util.List;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.ModelProperty;

@@ -12,10 +12,10 @@ import javax.lang.model.util.Elements;
 
 import android.database.Cursor;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
-import com.abubusoft.kripton.common.Logger;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
