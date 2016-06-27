@@ -3,7 +3,6 @@
  */
 package com.abubusoft.kripton.android;
 
-import android.content.ContentValues;
 import android.util.Log;
 
 /**

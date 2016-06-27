@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.annotation;
+package com.abubusoft.kripton.annotation;       
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
