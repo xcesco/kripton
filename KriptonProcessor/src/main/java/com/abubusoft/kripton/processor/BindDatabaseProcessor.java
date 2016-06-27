@@ -215,27 +215,6 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 
 			} // end foreach dataSource
 
-			if (model.schemaCount() == 0) {
-				// if no schema is found, exit, BUT THIS NOT AN ERROR
-				String msg = String.format("No database definition with @%s annotation was found", BindDataSource.class.getSimpleName());
-
-				if (DEVELOP_MODE) {
-					logger.log(Level.INFO, msg);
-				}
-				return true;
-			}
-
-			if (model.schemaCount() > 1) {
-				// TODO improve schema management (more than one)
-				String msg = String.format("Only one interface can be defined in project @%s annotation", BindDataSource.class.getSimpleName());
-				error(null, msg);
-
-				if (DEVELOP_MODE) {
-					logger.log(Level.SEVERE, msg);
-				}
-				return true;
-			}
-
 			logger.info(currentSchema.toString());
 		} catch (Exception e) {
 			String msg = e.getMessage();
