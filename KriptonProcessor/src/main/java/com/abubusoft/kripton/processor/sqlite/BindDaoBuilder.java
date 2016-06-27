@@ -16,6 +16,7 @@ import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.android.sqlite.DaoBase;
+import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodWithoutSupportedAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -100,7 +101,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		} else if (value.getAnnotation(BindDelete.class) != null) {
 			SQLiteModifyBuilder.generate(elementUtils, builder, value, false);
 		} else if (value.getAnnotation(BindSelect.class) != null) {
-			SQLiteSelectBuilder.generate(elementUtils, builder, value);
+			MethodUtility.generateSelect(elementUtils, builder, value);
 		} else {
 			// method without supported annotation
 			throw (new MethodWithoutSupportedAnnotationException(currentDaoDefinition, value));

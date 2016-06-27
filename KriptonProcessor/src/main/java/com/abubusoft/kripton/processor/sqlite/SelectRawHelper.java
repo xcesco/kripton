@@ -3,13 +3,9 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
-import java.util.List;
-
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -28,7 +24,7 @@ public class SelectRawHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, Pair<String, List<SQLProperty>> fieldList,  MethodSpec.Builder methodBuilder, boolean mapFields,  SQLiteModelMethod method,TypeName returnType) {		
+	public void generate(Elements elementUtils, PropertyList fieldList,  MethodSpec.Builder methodBuilder, boolean mapFields,  SQLiteModelMethod method,TypeName returnType) {		
 		methodBuilder.addCode("return cursor;\n");
 	}
 

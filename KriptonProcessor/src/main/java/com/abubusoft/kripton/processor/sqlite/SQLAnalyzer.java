@@ -3,7 +3,9 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,6 +70,18 @@ public class SQLAnalyzer {
 	private List<String> paramGetters;
 
 	private String sqlStatement;
+	
+	/**
+	 * used method parameter.
+	 */
+	private Set<String> usedMethodParameters;
+
+	/**
+	 * @return the usedMethodParameters
+	 */
+	public Set<String> getUsedMethodParameters() {
+		return usedMethodParameters;
+	}
 
 	/**
 	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field name with column name. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
@@ -77,6 +91,8 @@ public class SQLAnalyzer {
 	public void execute(Elements elementUtils, SQLiteModelMethod method, String sqlStatement) {
 		SQLDaoDefinition daoDefinition=method.getParent();
 		SQLEntity entity=daoDefinition.getEntity();
+		
+		usedMethodParameters=new HashSet<String>();		
 		
 		paramNames = new ArrayList<String>();
 		paramGetters = new ArrayList<String>();
@@ -130,6 +146,8 @@ public class SQLAnalyzer {
 				}
 				paramGetters.add(rawName);
 				paramTypeNames.add(typeName(rawNameType));
+				
+				usedMethodParameters.add(rawName);
 			} else if (splittedName.length==2) {
 				if (TypeUtility.isEquals(TypeUtility.typeName(method.findParameter(splittedName[0])), entity) && entity.contains(splittedName[1]))
 				{				
@@ -137,6 +155,8 @@ public class SQLAnalyzer {
 					paramGetters.add(splittedName[0]+"."+getter(entity.findByName(splittedName[1])));
 					usedBeanPropertyNames.add(splittedName[1]);
 					paramTypeNames.add(entity.findByName(splittedName[1]).getModelType().getName());
+					
+					usedMethodParameters.add(splittedName[0]);
 				} else {
 					throw (new PropertyInAnnotationNotFoundException(method, splittedName[1]));
 				}
@@ -145,7 +165,7 @@ public class SQLAnalyzer {
 			}
 			
 		}
-		
+				
 		this.sqlStatement=sqlStatement;
 	}
 

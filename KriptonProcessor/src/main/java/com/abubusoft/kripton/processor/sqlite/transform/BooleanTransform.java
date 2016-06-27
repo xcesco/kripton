@@ -38,7 +38,7 @@ class BooleanTransform extends AbstractCompileTimeTransform {
 	
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);		
+		methodBuilder.addCode("$L.getInt($L)==0?false:true", cursorName, indexName);		
 	}
 	
 	@Override

@@ -44,10 +44,9 @@ public class CodeBuilderUtility {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static Pair<String, List<SQLProperty>> generatePropertyList(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
+	public static PropertyList generatePropertyList(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
 			boolean checkProperty, Set<String> alreadyUsedBeanPropertiesNames) {
-		Pair<String, List<SQLProperty>> result = new Pair<String, List<SQLProperty>>();
-		result.value1 = new ArrayList<SQLProperty>();
+		PropertyList result=new PropertyList();		
 
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -75,6 +74,13 @@ public class CodeBuilderUtility {
 					throw (new PropertyInAnnotationNotFoundException(method, item));
 				}
 			}
+			if (includedFields.size()>0)
+			{
+				result.explicitDefinition=true;
+			} else {
+				result.explicitDefinition=false;
+			}
+			
 			// check excluded
 			for (String item : excludedFields) {
 				if (!entity.contains(item)) {
@@ -96,11 +102,14 @@ public class CodeBuilderUtility {
 		} else {
 			// get fields from property
 			if (includedFields.size() == 0) {
+				result.explicitDefinition=false;
 				for (SQLProperty item : entity.getCollection()) {
 					includedFields.add(item.getName());
 				}
-				;
+			} else {
+				result.explicitDefinition=true;
 			}
+			
 			for (String item : includedFields) {
 				buffer.append(separator + daoDefinition.getColumnNameConverter().convert(item));
 				result.value1.add(null);

@@ -5,8 +5,11 @@ import java.lang.reflect.Type;
 import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 
@@ -166,6 +169,24 @@ public class TypeUtility {
 
 	public static boolean isNullable(ModelProperty property) {
 		return isNullable(property.getModelType().getName());
+	}
+
+	/**
+	 * Check if method parameter is nullable. Moreover, check nullable status of method param and property are compatible.
+	 * 
+	 * @param method
+	 * @param methodParam
+	 * @param property
+	 * @return
+	 * 	true is method param is nullable
+	 */
+	public static boolean isNullable(SQLiteModelMethod method, Pair<String, TypeMirror> methodParam, ModelProperty property) {
+		if (!isNullable(property) && isNullable(typeName(methodParam.value1)))
+		{
+			//ASSERT: property is not nullable but method yes, so we throw an exception
+			throw (new InvalidMethodSignException(method, String.format("property '%s' is NOT nullable but method parameter '%s' is nullable  ", property.getName(), methodParam.value0)));
+		} 
+		return isNullable(typeName(methodParam.value1));
 	}
 
 }

@@ -70,11 +70,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				if (property == null)
 					throw (new PropertyNotFoundException(method, item.value0));
 
-				if (TypeUtility.isNullable(property)) {
+				if (TypeUtility.isNullable(method, item, property)) {
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 				}
 				methodBuilder.addCode("contentValues.put($S, $L);\n", daoDefinition.getColumnNameConverter().convert(property.getName()), item.value0);
-				if (TypeUtility.isNullable(property)) {
+				if (TypeUtility.isNullable(method, item, property)) {
 					methodBuilder.nextControlFlow("else");
 					methodBuilder.addCode("contentValues.putNull($S);\n", daoDefinition.getColumnNameConverter().convert(property.getName()));
 					methodBuilder.endControlFlow();

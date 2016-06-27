@@ -11,11 +11,9 @@ import java.util.List;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transform;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
@@ -38,11 +36,11 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		// return type is already checked
 		if (fieldList.value1.size() == 0) {
 			// no projection
-			throw (new InvalidMethodSignException(method, "No column was selected"));
+			throw (new InvalidMethodSignException(method, "no column was selected"));
 		} else if (fieldList.value1.size() > 1) {
 			// too many values
 			throw (new InvalidMethodSignException(method, "only one column can be defined for this kind of method"));

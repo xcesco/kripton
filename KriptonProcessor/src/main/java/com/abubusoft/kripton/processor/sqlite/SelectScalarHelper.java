@@ -3,15 +3,11 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
-import java.util.List;
-
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transform;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
@@ -34,20 +30,23 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, Pair<String, List<SQLProperty>> fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		if (TypeUtility.isTypePrimitive(returnType) || TypeUtility.isTypeWrappedPrimitive(returnType) || TypeUtility.isTypeIncludedIn(returnType, String.class) || TypeUtility.isByteArray(returnType)) {
 
 		} else {
 			// error return type
 			throw (new InvalidMethodSignException(method, "Invalid return type"));
 		}
-
+		
 		if (fieldList.value1.size() == 0) {
 			// no projection
 			throw (new InvalidMethodSignException(method, "No column was selected"));
 		} else if (fieldList.value1.size() > 1) {
 			// too many values
-			throw (new InvalidMethodSignException(method, "Only one column can be defined for this kind of method"));
+			if (fieldList.explicitDefinition)
+				throw (new InvalidMethodSignException(method, "Only one column can be defined for this kind of method"));
+			else
+				throw (new InvalidMethodSignException(method, "No column was selected for query defined with method"));
 		}
 		
 		Transform t = Transformer.lookup(returnType);
@@ -62,19 +61,21 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 
 		// generate index from columns
 		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("do\n");
+		//methodBuilder.beginControlFlow("do\n");
 		
 		//methodBuilder.addCode("if (cursor.getString(0);\n");
 		if (TypeUtility.isNullable(returnType)) {
 			methodBuilder.addCode("if (cursor.isNull(0)) { return null; }\n");
 		} else  {
-			methodBuilder.addCode("if (cursor.isNull(0)) { return 0; }\n");
+			methodBuilder.addCode("if (cursor.isNull(0)) { return ");
+			t.generateDefaultValue(methodBuilder);			
+			methodBuilder.addCode("; }\n", t);
 		}
 		methodBuilder.addCode("result=");
 		t.generateRead(methodBuilder, "cursor", "0");
 		methodBuilder.addCode(";\n");
 
-		methodBuilder.endControlFlow("while (cursor.moveToNext())");
+		//methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
 		methodBuilder.nextControlFlow("finally");
