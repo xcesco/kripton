@@ -6,7 +6,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-android-library</artifactId>
-	<version>1.1.26-SNAPSHOT</version>
+	<version>1.1.27-SNAPSHOT</version>
 
 	<url>https://github.com/xcesco/kripton</url>
 
@@ -21,7 +21,7 @@
 		<!-- <support-v4.version>21.0.3</support-v4.version> -->
 	</properties>
 
-	<description>Bind library to convert java POJO to XML, to JSON and viceversa .</description>
+	<description>Bind library to convert java POJO to XML, to JSON and viceversa.</description>
 
 	<licenses>
 		<license>
