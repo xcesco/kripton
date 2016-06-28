@@ -189,4 +189,19 @@ public class TypeUtility {
 		return isNullable(typeName(methodParam.value1));
 	}
 
+	/**
+	 * Check if type if compatibility
+	 * 
+	 * @param method
+	 * @param item
+	 * @param property
+	 */
+	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeMirror> item, ModelProperty property) {
+		if (!TypeUtility.isEquals(typeName(item.value1), property.getModelType().getName()))
+		{
+			//ASSERT: property is not nullable but method yes, so we throw an exception
+			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ", property.getName(), property.getModelType().getName(), item.value0, item.value1.toString())));
+		}				
+	}
+
 }

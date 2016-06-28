@@ -53,6 +53,7 @@ import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidSQLDaoDefinition
 import com.abubusoft.kripton.processor.sqlite.exceptions.MethodNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.NoAnnotationFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.NoBindTypeElementsFound;
+import com.abubusoft.kripton.processor.sqlite.exceptions.NoDaoElementsFound;
 import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.SQLPrimaryKeyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.exceptions.SQLPrimaryKeyNotValidTypeException;
@@ -179,13 +180,23 @@ public class BindDatabaseProcessor extends AbstractProcessor {
 				globalDaoElements.put(item.toString(), item);
 			}
 
+			// Get all database schema definitions
+			Set<? extends Element> dataSets = roundEnv.getElementsAnnotatedWith(BindDataSource.class);
+			// exit without error
+			if (dataSets==null) return true;
+			
 			// No bind type is present
 			if (globalBeanElements.size() == 0) {
 				throw (new NoBindTypeElementsFound());
 			}
-
-			// Get all database schema definitions
-			for (Element dataSource : roundEnv.getElementsAnnotatedWith(BindDataSource.class)) {
+			
+			// No bind type is present
+			if (globalDaoElements.size() == 0) {
+				throw (new NoDaoElementsFound());
+			}
+			
+			for (Element dataSource : dataSets) {
+				
 				createDataSource(dataSource);
 				// get all dao used within SQLDatabaseSchema annotation
 				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VALUE);

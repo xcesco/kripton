@@ -39,9 +39,12 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			ModelProperty property = entity.get(item.value0);
 			if (property == null)
 				throw (new PropertyNotFoundException(method, item.value0));
-			 
+			
+			// check same type
+			TypeUtility.checkTypeCompatibility(method, item, property);
+			// check nullabliity
 			nullable=TypeUtility.isNullable(method, item, property);
-
+			
 			if (nullable)
 			{
 				methodBuilder.beginControlFlow("if ($L!=null)", item.value0);

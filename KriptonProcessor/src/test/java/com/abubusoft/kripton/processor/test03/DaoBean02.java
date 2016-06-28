@@ -35,7 +35,7 @@ public interface DaoBean02
 	public long insert(Bean01 bean);
 	
 	@BindInsert
-	public long insert(String value, long messageDate);
+	public long insert(long value, long messageDate);
 	
 	@BindDelete(where="id=${id}")
 	public long delete(long id);
@@ -44,7 +44,7 @@ public interface DaoBean02
 	public long delete(Bean01 bean);
 	
 	@BindUpdate(where = "id>${id}")
-	public long update(String value, long id);
+	public long update(long value, long id);
 	
 	@BindUpdate(where = "value=${bean.value}")
 	public long update(Bean01 bean);

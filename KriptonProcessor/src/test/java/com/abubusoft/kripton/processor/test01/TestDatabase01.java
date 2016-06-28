@@ -41,7 +41,7 @@ public class TestDatabase01 extends BaseProcessorTest {
 	 * 
 	 * @throws IOException
 	 */
-	@Test
+	@Test(expected=AssertionError.class)
 	public void test03() throws IOException {
 		buildTest(Dummy03Database.class, Bean01.class, Bean02.class);
 	}

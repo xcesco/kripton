@@ -12,7 +12,7 @@ public interface DaoBeanInsertOK  {
 	
 	
 	@BindInsert
-	boolean insertDistance(long id, double value);
+	boolean insertDistance(long id, Double value);
 	/*
 	@BindUpdate
 	boolean updateDistance(long id, double value);

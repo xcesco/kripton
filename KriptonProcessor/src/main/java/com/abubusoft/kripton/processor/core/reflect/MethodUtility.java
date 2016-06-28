@@ -51,21 +51,20 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 public abstract class MethodUtility {
-	
+
 	private static final Pattern pattern = Pattern.compile("\\((.*)\\)(.*)");
 
-    public static Pair<String, String> extractResultAndArguments(String value) {
-        Matcher matcher = pattern.matcher(value);
-        
-        Pair<String, String> result=new Pair<String, String>();
-        if (matcher.matches())
-        {
-        	result.value0=matcher.group(1);
-        	result.value1=matcher.group(2);
-        }
-        return result;
-    }
-    
+	public static Pair<String, String> extractResultAndArguments(String value) {
+		Matcher matcher = pattern.matcher(value);
+
+		Pair<String, String> result = new Pair<String, String>();
+		if (matcher.matches()) {
+			result.value0 = matcher.group(1);
+			result.value1 = matcher.group(2);
+		}
+		return result;
+	}
+
 	/**
 	 * Iterate over methods.
 	 * 
@@ -74,17 +73,16 @@ public abstract class MethodUtility {
 	 * @param listener
 	 */
 	public static void forEachMethods(Elements elementUtils, TypeElement typeElement, MethodFoundListener listener) {
-		
-		Map<String, TypeMirror> resolvedParameter=new HashMap<String, TypeMirror>();
-		List<? extends TypeMirror > listInterface=typeElement.getInterfaces();
-		for (TypeMirror item: listInterface)
-		{					
-			//if (item instanceof Type$ClassType)
+
+		Map<String, TypeMirror> resolvedParameter = new HashMap<String, TypeMirror>();
+		List<? extends TypeMirror> listInterface = typeElement.getInterfaces();
+		for (TypeMirror item : listInterface) {
+			// if (item instanceof Type$ClassType)
 			{
 				resolvedParameter.put("E", item);
 			}
 		}
-		
+
 		List<? extends Element> list = elementUtils.getAllMembers(typeElement);
 
 		for (Element item : list) {
@@ -93,57 +91,45 @@ public abstract class MethodUtility {
 			}
 		}
 	}
-	
-	public static boolean hasParameterOfType(ModelMethod method, String kindOfParameter)
-	{
-		for(Pair<String, TypeMirror> item:method.getParameters())
-		{
-			if (typeName(item.value1).toString().equals(kindOfParameter))
-			{
+
+	public static boolean hasParameterOfType(ModelMethod method, String kindOfParameter) {
+		for (Pair<String, TypeMirror> item : method.getParameters()) {
+			if (typeName(item.value1).toString().equals(kindOfParameter)) {
 				return true;
-			}			
+			}
 		}
-			
+
 		return false;
 	}
-	
-	public static boolean hasParameterOfType(ModelMethod method, LiteralType parameter)
-	{
-		for(Pair<String, TypeMirror> item:method.getParameters())
-		{
-			if (typeName(item.value1).toString().equals(parameter.getValue()))
-			{
+
+	public static boolean hasParameterOfType(ModelMethod method, LiteralType parameter) {
+		for (Pair<String, TypeMirror> item : method.getParameters()) {
+			if (typeName(item.value1).toString().equals(parameter.getValue())) {
 				return true;
-			}			
+			}
 		}
-			
+
 		return false;
 	}
-	
-	public static int countParameterOfType(ModelMethod method, LiteralType parameter)
-	{
-		int counter=0;
-		for (Pair<String, TypeMirror> item:method.getParameters())
-		{
-			if (typeName(item.value1).toString().equals(parameter.getValue()))
-			{
+
+	public static int countParameterOfType(ModelMethod method, LiteralType parameter) {
+		int counter = 0;
+		for (Pair<String, TypeMirror> item : method.getParameters()) {
+			if (typeName(item.value1).toString().equals(parameter.getValue())) {
 				counter++;
 			}
 		}
-		
+
 		return counter;
 	}
-	
-	public static String getNameParameterOfType(ModelMethod method, LiteralType parameter)
-	{
-		for (Pair<String, TypeMirror> item:method.getParameters())
-		{
-			if (typeName(item.value1).toString().equals(parameter.getValue()))
-			{
+
+	public static String getNameParameterOfType(ModelMethod method, LiteralType parameter) {
+		for (Pair<String, TypeMirror> item : method.getParameters()) {
+			if (typeName(item.value1).toString().equals(parameter.getValue())) {
 				return item.value0;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -154,16 +140,16 @@ public abstract class MethodUtility {
 	 * @param method
 	 */
 	public static void generateSelect(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
-		SQLDaoDefinition daoDefinition=method.getParent();
-		SQLEntity entity=daoDefinition.getEntity();
-	
+		SQLDaoDefinition daoDefinition = method.getParent();
+		SQLEntity entity = daoDefinition.getEntity();
+
 		SQLiteSelectBuilder.SelectResultType selectResultType = null;
-	
+
 		// if true, field must be associate to ben attributes
 		TypeName returnType = typeName(method.getReturnClass());
 		LiteralType readBeanListener = LiteralType.of(ReadBeanListener.class.getCanonicalName(), entity.getName());
 		LiteralType readCursorListener = LiteralType.of(ReadCursorListener.class);
-	
+
 		if (TypeUtility.isTypeIncludedIn(returnType, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
 			if (hasParameterOfType(method, readCursorListener)) {
@@ -171,21 +157,21 @@ public abstract class MethodUtility {
 			} else if (hasParameterOfType(method, readBeanListener)) {
 				selectResultType = SQLiteSelectBuilder.SelectResultType.LISTENER_BEAN;
 			}
-	
+
 			if (selectResultType == null) {
 				// error
 			}
-	
+
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Cursor.class)) {
 			// return Cursor (no listener)
 			selectResultType = SQLiteSelectBuilder.SelectResultType.CURSOR;
 		} else if (returnType instanceof ParameterizedTypeName) {
 			ClassName listClazzName = ((ParameterizedTypeName) returnType).rawType;
-	
+
 			if (TypeUtility.isTypeIncludedIn(listClazzName, List.class, Collection.class)) {
 				// return List (no listener)
 				List<TypeName> list = ((ParameterizedTypeName) returnType).typeArguments;
-	
+
 				if (list.size() == 1) {
 					TypeName elementName = ((ParameterizedTypeName) returnType).typeArguments.get(0);
 					if (TypeUtility.isSameType(list.get(0), entity.getName().toString())) {
@@ -208,30 +194,30 @@ public abstract class MethodUtility {
 			// return single value string, int, long, short, double, float, String (no listener)
 			selectResultType = SQLiteSelectBuilder.SelectResultType.SCALAR;
 		}
-	
+
 		if (selectResultType == null) {
 			throw (new InvalidMethodSignException(method));
 		}
-	
+
 		// take field list
 		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSelect.class, selectResultType.isMapFields(), null);
 		String fieldStatement = fieldList.value0;
 		// List<SQLProperty> fields = fieldList.value1;
 		String tableStatement = daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName());
-	
+
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
 		ModelAnnotation annotation = method.getAnnotation(BindSelect.class);
 		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_DISTINCT));
-	
+
 		// parameters
 		List<String> paramNames = new ArrayList<String>();
 		List<String> paramGetters = new ArrayList<String>();
 		List<TypeName> paramTypeNames = new ArrayList<TypeName>();
-		Set<String> usedMethodParameters=new HashSet<String>();
-		
+		Set<String> usedMethodParameters = new HashSet<String>();
+
 		SQLAnalyzer analyzer = new SQLAnalyzer();
-	
+
 		String whereSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		analyzer.execute(elementUtils, method, whereSQL);
 		String whereStatement = analyzer.getSQLStatement();
@@ -239,7 +225,7 @@ public abstract class MethodUtility {
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
-	
+
 		String havingSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_HAVING);
 		analyzer.execute(elementUtils, method, havingSQL);
 		String havingStatement = analyzer.getSQLStatement();
@@ -247,7 +233,7 @@ public abstract class MethodUtility {
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
-	
+
 		String groupBySQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_GROUP_BY);
 		analyzer.execute(elementUtils, method, groupBySQL);
 		String groupByStatement = analyzer.getSQLStatement();
@@ -255,7 +241,7 @@ public abstract class MethodUtility {
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
-	
+
 		String orderBySQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_ORDER_BY);
 		analyzer.execute(elementUtils, method, orderBySQL);
 		String orderByStatement = analyzer.getSQLStatement();
@@ -263,102 +249,120 @@ public abstract class MethodUtility {
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
-	
+
 		// select statement
 		String sqlWithParameters = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereSQL).having(havingSQL).groupBy(groupBySQL).orderBy(orderBySQL).build();
 		String sql = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement).orderBy(orderByStatement).build();
-	
+
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
-	
+
 		// generate javadoc
 		JavaDocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldStatement, selectResultType);
-	
+
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
 			methodBuilder.addParameter(parameterSpec);
 		}
 		methodBuilder.returns(returnType);
-		
+
 		// build where condition (common for every type of select)
-		StringBuilder logArgsBuffer=new StringBuilder();
+		StringBuilder logArgsBuffer = new StringBuilder();
 		methodBuilder.addCode("// build where condition\n");
 		methodBuilder.addCode("String[] args={");
 		{
 			String separator = "";
-			
+
 			TypeName paramTypeName;
 			boolean nullable;
 			int i = 0;
 			for (String item : paramGetters) {
 				methodBuilder.addCode(separator);
-				logArgsBuffer.append(separator+"%s");
-	
+				logArgsBuffer.append(separator + "%s");
+
 				paramTypeName = paramTypeNames.get(i);
 				nullable = TypeUtility.isNullable(paramTypeName);
-	
+
 				if (nullable) {
 					methodBuilder.addCode("($L==null?null:", item);
-				}				
+				}
 				methodBuilder.addCode("String.valueOf(");
 				Transformer.java2ContentValues(methodBuilder, paramTypeName, item);
 				methodBuilder.addCode(")");
 				if (nullable) {
 					methodBuilder.addCode(")");
-				}								
-	
+				}
+
 				separator = ", ";
 				i++;
 			}
 			methodBuilder.addCode("};\n");
 		}
-	
+
 		methodBuilder.addCode("\n");
-		
-		if (daoDefinition.isLogEnabled())
-		{
-			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"),(Object[])args);\n", Logger.class, StringUtil.class, sql.replaceAll("\\?", "\'%s\'"));			
+
+		if (daoDefinition.isLogEnabled()) {
+			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"),(Object[])args);\n", Logger.class, StringUtil.class, sql.replaceAll("\\?", "\'%s\'"));
 		}
 		methodBuilder.addCode("$T cursor = database().rawQuery(\"$L\", args);\n", Cursor.class, sql);
-	
-		if (daoDefinition.isLogEnabled())
-		{
-		    methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
+
+		if (daoDefinition.isLogEnabled()) {
+			methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
 		}
-		
-		checkUnusedParameters(method, usedMethodParameters);
-		
+
+		{
+			switch (selectResultType) {
+			case LISTENER_CURSOR: {
+				LiteralType readCursorListenerToExclude = LiteralType.of(ReadCursorListener.class);
+				checkUnusedParameters(method, usedMethodParameters, readCursorListenerToExclude);
+			}
+				break;
+			case LISTENER_BEAN: {
+				LiteralType readBeanListenerToExclude = LiteralType.of(ReadBeanListener.class.getCanonicalName(), entity.getName());
+				checkUnusedParameters(method, usedMethodParameters, readBeanListenerToExclude);
+			}
+				break;
+			default:
+				checkUnusedParameters(method, usedMethodParameters, null);
+				break;
+			}
+		}
+
 		selectResultType.generate(elementUtils, fieldList, methodBuilder, method, returnType);
-	
+
 		MethodSpec methodSpec = methodBuilder.build();
 		builder.addMethod(methodSpec);
 	}
-	
+
 	/**
 	 * Check if there are unused method parameters. In this case an exception was throws.
 	 * 
 	 * @param method
 	 * @param usedMethodParameters
 	 */
-	public static void checkUnusedParameters(SQLiteModelMethod method, Set<String> usedMethodParameters) {
-		if (method.getParameters().size()>usedMethodParameters.size())
-		{
-			StringBuilder sb=new StringBuilder();
-			String separator="";			
-			for (Pair<String, TypeMirror> item:method.getParameters())
-			{
-				if (!usedMethodParameters.contains(item.value0))
-				{
-					sb.append(separator+"'"+item.value0+"'");
-					separator=", ";					
+	public static void checkUnusedParameters(SQLiteModelMethod method, Set<String> usedMethodParameters, LiteralType excludedClasses) {
+		int paramsCount = method.getParameters().size();
+		int usedCount = usedMethodParameters.size();
+
+		if (paramsCount > usedCount) {
+			StringBuilder sb = new StringBuilder();
+			String separator = "";
+			for (Pair<String, TypeMirror> item : method.getParameters()) {
+				if (excludedClasses != null && typeName(item.value1).toString().equals(excludedClasses.getValue())) {
+					usedCount++;
+				} else {
+					if (!usedMethodParameters.contains(item.value0)) {
+						sb.append(separator + "'" + item.value0 + "'");
+						separator = ", ";
+					}
 				}
 			}
-			throw (new InvalidMethodSignException(method, "unused parameter(s) "+sb.toString()));			
+
+			if (paramsCount > usedCount) {
+				throw (new InvalidMethodSignException(method, "unused parameter(s) " + sb.toString()));
+			}
 		}
 	}
 
-
-
-	
 }
