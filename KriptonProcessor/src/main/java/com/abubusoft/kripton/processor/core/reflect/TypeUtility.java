@@ -116,6 +116,18 @@ public class TypeUtility {
 	public static ClassName className(String className) {
 		return ClassName.get("", className);
 	}
+	
+	/**
+	 * Convert a class in a classname
+	 * 
+	 * @param clazz
+	 * @return
+	 * 		typeName
+	 */
+	public static ClassName className(Class<?> clazz)
+	{
+		return ClassName.get(clazz);
+	}
 
 	
 	/**
@@ -140,6 +152,18 @@ public class TypeUtility {
 	public static TypeName typeName(TypeMirror typeMirror)
 	{
 		return TypeName.get(typeMirror);
+	}
+	
+	/**
+	 * Convert a TypeMirror in a typeName
+	 * 
+	 * @param typeName
+	 * @return
+	 * 		typeName
+	 */
+	public static TypeName typeName(String typeName)
+	{
+		return className(typeName);		
 	}
 	
 	/**
