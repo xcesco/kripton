@@ -113,7 +113,7 @@ public class BindAsyncTaskBuilder {
 				.nextControlFlow("catch(Exception e)")
 				.nextControlFlow("finally")
 					.beginControlFlow("if (sqlite!=null && sqlite.isOpen())")
-					.addStatement("sqlite.close()")
+					.addStatement("dataSource.close()")
 					.endControlFlow()
 				.endControlFlow()
 				.addStatement("return null").build());
