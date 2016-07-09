@@ -6,7 +6,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-android-library</artifactId>
-	<version>1.2.01-SNAPSHOT</version>
+	<version>1.2.6-SNAPSHOT</version>
 
 	<url>https://github.com/xcesco/kripton</url>
 
@@ -16,6 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<android-maven-plugin.version>4.2.0</android-maven-plugin.version>
+		<jackson.version>2.7.5</jackson.version>
 
 		<!-- <android.version>5.0.1_r2</android.version> -->
 		<!-- <support-v4.version>21.0.3</support-v4.version> -->
@@ -56,6 +57,41 @@
 
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-properties -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-properties</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-csv -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-csv</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
@@ -83,7 +119,6 @@
 			<version>2.5.2</version>
 			<scope>provided</scope>
 		</dependency>
-		
 
 		<!-- <dependency> -->
 		<!-- <groupId>com.android.support</groupId> -->
