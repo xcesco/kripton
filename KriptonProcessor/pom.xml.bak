@@ -2,11 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>Kripton Android Library</name>
-
 	<groupId>com.abubusoft</groupId>
-	<artifactId>kripton-android-library</artifactId>
+	<artifactId>kripton-processor</artifactId>
 	<version>1.2.8-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<url>https://github.com/xcesco/kripton</url>
 
@@ -15,15 +14,13 @@
 		<sourceEncoding>UTF-8</sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<android-maven-plugin.version>4.2.0</android-maven-plugin.version>
+		<jsr305.version>3.0.1</jsr305.version>
+		<guava.version>19.0</guava.version>
 		<jackson.version>2.7.5</jackson.version>
-		<roboletric.version>3.1</roboletric.version>
-
-		<!-- <android.version>5.0.1_r2</android.version> -->
-		<!-- <support-v4.version>21.0.3</support-v4.version> -->
+		<javapoet.version>1.7.0</javapoet.version>
 	</properties>
 
-	<description>Bind library to convert java POJO to XML, to JSON and viceversa.</description>
+	<description>Annotation processor for Kripton Android Library.</description>
 
 	<licenses>
 		<license>
@@ -55,7 +52,6 @@
 			</roles>
 		</developer>
 	</developers>
-
 
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
@@ -92,70 +88,102 @@
 			<artifactId>jackson-dataformat-csv</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-		
+	
+
 		<dependency>
-			<groupId>org.robolectric</groupId>
-			<artifactId>robolectric</artifactId>
-			<version>${roboletric.version}</version>
+			<groupId>com.sun</groupId>
+			<artifactId>tools</artifactId>
+			<version>1.7</version>
+			<scope>system</scope>
+			<systemPath>${tools.jar}</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.squareup</groupId>
+			<artifactId>javapoet</artifactId>
+			<version>${javapoet.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.testing.compile</groupId>
+			<artifactId>compile-testing</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Dipendenze collegate ad android -->
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
-			<version>5.0.0_r2-robolectric-0</version>
-			<scope>test</scope>
+			<version>5.0.0_r2-robolectric-1</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>android</artifactId>
-			<version>4.1.1.4</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>support-v4</artifactId>
-			<version>r7</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-install-plugin</artifactId>
-			<version>2.5.2</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- <dependency> -->
-		<!-- <groupId>com.android.support</groupId> -->
-		<!-- <artifactId>support-v4</artifactId> -->
-		<!-- <version>${support-v4.version}</version> -->
-		<!-- <type>aar</type> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
-
 	</dependencies>
 
-	<build>		
-
-		<plugins>			
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-
-		</plugins>
-	</build>
-
 	<profiles>
+
+		<profile>
+			<id>default-tools.jar</id>
+			<activation>
+				<file>
+					<exists>${java.home}/../lib/tools.jar</exists>
+				</file>
+			</activation>
+			<properties>
+				<tools.jar>${java.home}/../lib/tools.jar</tools.jar>
+			</properties>
+		</profile>
+		<profile>
+			<id>default-tools.jar-mac</id>
+			<activation>
+				<file>
+					<exists>${java.home}/../Classes/classes.jar</exists>
+				</file>
+			</activation>
+			<properties>
+				<tools.jar>${java.home}/../Classes/classes.jar</tools.jar>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>prepare-eclipse</id>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
+						<executions>
+							<execution>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<echo>Using env.test.properties</echo>
+										<copy file="${tools.jar}" tofile="${basedir}/eclipseLib/tools.jar" />
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 		<profile>
 			<id>deploy</id>
 
@@ -212,7 +240,21 @@
 			</activation>
 
 			<build>
-				<plugins>					
+				<plugins>
+					<plugin>
+						<groupId>com.simpligility.maven.plugins</groupId>
+						<artifactId>android-maven-plugin</artifactId>
+						<version>${android-maven-plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<androidManifestFile>AndroidManifest.xml</androidManifestFile>
+							<resourceDirectory>res</resourceDirectory>
+							<assetsDirectory>assets</assetsDirectory>
+							<nativeLibrariesDirectory>libs</nativeLibrariesDirectory>
+							<includeLibsJarsFromAar>false</includeLibsJarsFromAar>
+							<attachSources>true</attachSources>
+						</configuration>
+					</plugin>
 
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -280,7 +322,85 @@
 				</pluginManagement>
 			</build>
 		</profile>
+
+
 	</profiles>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<compilerArgs>
+						<arg>-proc:none</arg>
+						<arg>-Xlint:unchecked</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.10</version>
+				<executions>
+
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>../KriptonAndroidLibrary/src/</source>
+							</sources>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											build-helper-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.10,)
+										</versionRange>
+										<goals>
+											<goal>add-source</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>

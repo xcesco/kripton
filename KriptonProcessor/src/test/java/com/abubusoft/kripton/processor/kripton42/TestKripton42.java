@@ -31,7 +31,7 @@ public class TestKripton42 extends BaseProcessorTest {
 		File file=new File("src/test/result/com/abubusoft/kripton/processor/kripton42/"+"restaurant.json");
 		JsonFactory jsonFactory = new JsonFactory(); // or, for data binding, org.codehaus.jackson.mapper.MappingJsonFactory 
 		JsonGenerator generator = jsonFactory.createGenerator(file, JsonEncoding.UTF8); // or Stream, Reader
-		
+		generator.wr
 		
 		/*JsonFactory jsonFactory = new JsonFactory(); // or, for data binding, org.codehaus.jackson.mapper.MappingJsonFactory 
 		  JsonParser jp = jsonFactory.createJsonParser(file); // or URL, Stream, Reader, String, byte[]*/

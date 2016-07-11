@@ -58,7 +58,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 		
 		//@formatter:off
 		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
-				sourcesPhase1).processedWith(new BindDataSourceProcessor()).compilesWithoutError();
+				sourcesPhase1).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
 		//@formatter:on
 		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
 
@@ -128,7 +128,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 
 		JavaFileObject source = JavaFileObjects.forSourceLines(UserIdentity.class.getCanonicalName(), new String(buffer));
 		// assertAbout(javaSource).that()
-		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BindDataSourceProcessor()).compilesWithoutError();
+		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
 
 		GenerationClause<SuccessfulCompilationClause> sources = result.and().generatesSources();
 

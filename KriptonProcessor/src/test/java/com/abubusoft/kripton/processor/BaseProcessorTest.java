@@ -135,11 +135,11 @@ public class BaseProcessorTest {
 		
 		final List<JavaFileObject> sourcesPhase1=sources(classesToTest);
 		
-		BindDataSourceProcessor.DEVELOP_MODE=true;
+		BindDatabaseProcessor.DEVELOP_MODE=true;
 		
 		//@formatter:off
 		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
-				sourcesPhase1).processedWith(new BindDataSourceProcessor()).compilesWithoutError();
+				sourcesPhase1).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
 		//@formatter:on
 		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
 		
