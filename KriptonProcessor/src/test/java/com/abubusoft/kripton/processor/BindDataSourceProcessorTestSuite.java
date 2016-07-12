@@ -14,6 +14,6 @@ import com.abubusoft.kripton.processor.test05firt_aid.TestFirstAid;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ TestDatabase01.class, TestDao01.class, Test03.class, TestKripton33.class, TestKripton38.class, TestKripton40.class, TestKripton41.class, TestFirstAid.class })
-public class TestSuite {
+public class BindDataSourceProcessorTestSuite {
 
 }
