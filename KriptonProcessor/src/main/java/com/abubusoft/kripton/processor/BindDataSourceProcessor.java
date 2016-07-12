@@ -7,11 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Filer;
-import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
@@ -19,8 +15,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.Elements;
-import javax.tools.Diagnostic;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDao;
@@ -69,17 +63,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.TypeName;
 
-public class BindDataSourceProcessor extends AbstractProcessor {
-
-	public static boolean DEVELOP_MODE = false;
-
-	static Logger logger = Logger.getGlobal();
-
-	private Elements elementUtils;
-
-	private Filer filer;
-
-	private Messager messager;
+public class BindDataSourceProcessor extends BaseProcessor {
 
 	private SQLiteDatabaseSchema currentSchema;
 
@@ -92,10 +76,6 @@ public class BindDataSourceProcessor extends AbstractProcessor {
 	// define which annotation the annotation processor is interested in
 	private final Map<String, Element> globalBeanElements = new HashMap<String, Element>();
 	private final Map<String, Element> globalDaoElements = new HashMap<String, Element>();
-
-	private void error(Element e, String msg, Object... args) {
-		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -349,7 +329,7 @@ public class BindDataSourceProcessor extends AbstractProcessor {
 	 * 
 	 * @throws Exception
 	 */
-	public void buildClasses() throws Exception {
+	protected void buildClasses() throws Exception {
 		// generate
 		TableGenerator.generate(elementUtils, filer, currentSchema);
 		BindDaoBuilder.execute(elementUtils, filer, currentSchema);
@@ -365,7 +345,7 @@ public class BindDataSourceProcessor extends AbstractProcessor {
 	 * @param globalDaoElements
 	 * @param daoItem
 	 */
-	public void createDao(final Map<String, Element> globalBeanElements, final Map<String, Element> globalDaoElements, String daoItem) {
+	protected void createDao(final Map<String, Element> globalBeanElements, final Map<String, Element> globalDaoElements, String daoItem) {
 		Element daoElement = globalDaoElements.get(daoItem);
 
 		if (daoElement.getKind() != ElementKind.INTERFACE) {
@@ -439,7 +419,7 @@ public class BindDataSourceProcessor extends AbstractProcessor {
 	/**
 	 * @param databaseSchema
 	 */
-	public void createDataSource(Element databaseSchema) {
+	protected void createDataSource(Element databaseSchema) {
 		if (databaseSchema.getKind() != ElementKind.INTERFACE) {
 			String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", databaseSchema.getSimpleName().toString(), BindDataSource.class.getSimpleName());
 			throw (new InvalidKindForAnnotationException(msg));
@@ -458,19 +438,6 @@ public class BindDataSourceProcessor extends AbstractProcessor {
 		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_LOG);
 		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog);
 		model.schemaAdd(currentSchema);
-	}
-
-	/**
-	 * Display message. Used only in develop mode
-	 * 
-	 * @param msg
-	 *            message to display
-	 */
-	public static void info(String msg) {
-		if (DEVELOP_MODE) {
-			logger.info(msg);
-		}
-
 	}
 
 }

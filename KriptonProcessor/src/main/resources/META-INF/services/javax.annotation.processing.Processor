@@ -1,2 +1,3 @@
 com.abubusoft.kripton.processor.BindDataSourceProcessor
+com.abubusoft.kripton.processor.BindSharedPreferencesProcessor
 
