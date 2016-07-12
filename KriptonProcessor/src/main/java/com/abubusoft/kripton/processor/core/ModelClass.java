@@ -16,7 +16,11 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	protected List<ModelAnnotation> annotations;
 	
 	public ModelClass(TypeElement element) {
-		super(element.getQualifiedName().toString(), element);
+		this(element.getQualifiedName().toString(), element);		
+	}
+	
+	public ModelClass(String name, TypeElement element) {
+		super(name, element);
 		
 		this.annotations = new ArrayList<ModelAnnotation>();
 	}
@@ -53,5 +57,10 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	public void addAnnotation(ModelAnnotation annotation) {
 		annotations.add(annotation);
 	}
+	
+	public boolean containsAnnotation(Class<? extends Annotation> annotation) {
+		return getAnnotation(annotation) != null;
+	}
+
 
 }

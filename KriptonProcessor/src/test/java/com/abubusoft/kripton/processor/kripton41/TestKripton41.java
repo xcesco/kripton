@@ -16,43 +16,43 @@ import com.abubusoft.kripton.processor.BaseProcessorTest;
 public class TestKripton41 extends BaseProcessorTest {
 
 	@Test(expected=AssertionError.class)
-	public void testSelectError() throws IOException {
-		buildTest(Dummy01DataSource.class, DaoBeanSelectERR.class, Bean01.class, BaseDao.class);
+	public void testSelectError() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBeanSelectERR.class, Bean01.class, BaseDao.class);
 	}	
 	
 	@Test
-	public void testSelectOK() throws IOException {
-		buildTest(Dummy02DataSource.class, DaoBeanSelectOK.class, Bean01.class, BaseDao.class);
+	public void testSelectOK() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy02DataSource.class, DaoBeanSelectOK.class, Bean01.class, BaseDao.class);
 	}	
 
 	@Test(expected=AssertionError.class)
-	public void testInsertError() throws IOException {
-		buildTest(Dummy03DataSource.class, DaoBeanInsertERR.class, Bean01.class, BaseDao.class);
+	public void testInsertError() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy03DataSource.class, DaoBeanInsertERR.class, Bean01.class, BaseDao.class);
 	}	
 	
 	@Test
-	public void testInsertOK() throws IOException {
-		buildTest(Dummy04DataSource.class, DaoBeanInsertOK.class, Bean01.class, BaseDao.class);
+	public void testInsertOK() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy04DataSource.class, DaoBeanInsertOK.class, Bean01.class, BaseDao.class);
 	}	
 	
 	@Test(expected=AssertionError.class)
-	public void testUpdateError() throws IOException {
-		buildTest(Dummy05DataSource.class, DaoBeanUpdateERR.class, Bean01.class, BaseDao.class);
+	public void testUpdateError() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy05DataSource.class, DaoBeanUpdateERR.class, Bean01.class, BaseDao.class);
 	}	
 	
 	@Test
-	public void testUpdateOK() throws IOException {
-		buildTest(Dummy06DataSource.class, DaoBeanUpdateOK.class, Bean01.class, BaseDao.class);
+	public void testUpdateOK() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy06DataSource.class, DaoBeanUpdateOK.class, Bean01.class, BaseDao.class);
 	}	
 
 	@Test(expected=AssertionError.class)
-	public void testDeleteError() throws IOException {
-		buildTest(Dummy07DataSource.class, DaoBeanDeleteERR.class, Bean01.class, BaseDao.class);
+	public void testDeleteError() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy07DataSource.class, DaoBeanDeleteERR.class, Bean01.class, BaseDao.class);
 	}	
 	
 	@Test
-	public void testDeleteOK() throws IOException {
-		buildTest(Dummy08DataSource.class, DaoBeanDeleteOK.class, Bean01.class, BaseDao.class);
+	public void testDeleteOK() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy08DataSource.class, DaoBeanDeleteOK.class, Bean01.class, BaseDao.class);
 	}	
 
 }

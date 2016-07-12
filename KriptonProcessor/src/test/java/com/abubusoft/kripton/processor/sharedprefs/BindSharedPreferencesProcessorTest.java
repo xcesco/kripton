@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.processor.kripton40;
+package com.abubusoft.kripton.processor.sharedprefs;
 
 import java.io.IOException;
 
@@ -8,15 +8,11 @@ import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.BaseProcessorTest;
 
-/**
- * @author xcesco
- *
- */
 @RunWith(JUnit4.class)
-public class TestKripton40 extends BaseProcessorTest {
+public class BindSharedPreferencesProcessorTest extends BaseProcessorTest {
 
 	/**
-	 *  id: Long id
+	 * No @BindType is put in bean definition
 	 * 
 	 * @throws IOException
 	 * @throws IllegalAccessException 
@@ -24,8 +20,7 @@ public class TestKripton40 extends BaseProcessorTest {
 	 */
 	@Test
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, BaseDao.class,Dummy02DataSource.class, DaoBean02.class, Bean02.class);
-	}	
-
+		buildSharedPreferencesProcessorTest(AppPreference.class);
+	}
 
 }

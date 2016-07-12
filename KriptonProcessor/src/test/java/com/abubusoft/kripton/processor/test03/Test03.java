@@ -20,16 +20,18 @@ public class Test03 extends BaseProcessorTest {
 	 *  No DAO definition with @BindDaoDefinition annotation was found for class Dummy01DatabaseSchema with @BindDatabaseSchema annotation
 	 * 
 	 * @throws IOException
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 	@Test
-	public void test01() throws IOException {
-		buildTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, Bean02.class);
+	public void test01() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, Bean02.class);
 	}
 	
 	@Test
-	public void testSelectCursor() throws IOException
+	public void testSelectCursor() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildTest(Dummy02DataSource.class, DaoBean02.class, Bean01.class);
+		buildDataSourceProcessorTest(Dummy02DataSource.class, DaoBean02.class, Bean01.class);
 	}
 	
 	@Test

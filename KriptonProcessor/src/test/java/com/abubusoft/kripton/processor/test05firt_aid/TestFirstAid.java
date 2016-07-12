@@ -19,10 +19,12 @@ public class TestFirstAid extends BaseProcessorTest {
 	 *  id: Long id
 	 * 
 	 * @throws IOException
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 	@Test
-	public void test01() throws IOException {
-		buildTest(FirstAidDataSource.class, FirstAidDao.class, FirstAid.class);
+	public void test01() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(FirstAidDataSource.class, FirstAidDao.class, FirstAid.class);
 	}	
 
 }

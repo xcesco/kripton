@@ -1,7 +1,5 @@
 package com.abubusoft.kripton.processor.sqlite.model;
 
-import java.lang.annotation.Annotation;
-
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.processor.core.ModelClass;
@@ -47,10 +45,6 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 		SQLProperty id = findByName("id");
 
 		return id;
-	}
-
-	public boolean containsAnnotation(Class<? extends Annotation> annotation) {
-		return getAnnotation(annotation) != null;
 	}
 
 }

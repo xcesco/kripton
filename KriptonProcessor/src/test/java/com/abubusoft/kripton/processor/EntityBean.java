@@ -1,10 +1,8 @@
 package com.abubusoft.kripton.processor;
 
-import java.util.List;
+import com.abubusoft.kripton.annotation.BindType;
 
-import com.abubusoft.kripton.annotation.BindTypeBundle;
-
-@BindTypeBundle
+@BindType
 public class EntityBean {
 
 

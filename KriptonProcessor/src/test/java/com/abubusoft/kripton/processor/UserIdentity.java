@@ -6,13 +6,11 @@ import java.util.Set;
 
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindTypeBundle;
 
 /**
  * Created by xcesco on 07/04/2016.
  */
 @BindType
-@BindTypeBundle
 @BindAllFields
 public class UserIdentity extends BaseUserIdentity {
 

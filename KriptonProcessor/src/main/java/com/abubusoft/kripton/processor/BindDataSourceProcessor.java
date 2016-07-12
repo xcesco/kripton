@@ -1,7 +1,6 @@
 package com.abubusoft.kripton.processor;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import java.util.logging.Level;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -69,8 +67,6 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 	private SQLiteModel model;
 
-	private HashSet<String> excludedMethods;
-
 	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
 	
@@ -97,16 +93,6 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.annotation.processing.AbstractProcessor#getSupportedSourceVersion()
-	 */
-	@Override
-	public SourceVersion getSupportedSourceVersion() {
-		return SourceVersion.latestSupported();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see javax.annotation.processing.AbstractProcessor#init(javax.annotation. processing.ProcessingEnvironment)
 	 */
 	@Override
@@ -114,19 +100,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		super.init(processingEnv);		
 
 		model = new SQLiteModel();
-
-		// define methods to ignore
-		excludedMethods = new HashSet<String>();
-		excludedMethods.add("wait");
-		excludedMethods.add("notifyAll");
-		excludedMethods.add("notify");
-		excludedMethods.add("toString");
-		excludedMethods.add("equals");
-		excludedMethods.add("hashCode");
-		excludedMethods.add("getClass");
 	}
-
-	private int count;
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
@@ -196,8 +170,9 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					createDao(globalBeanElements, globalDaoElements, daoItem);
 				}
 
+				String msg;
 				if (currentSchema.getCollection().size() == 0) {
-					String msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(), currentSchema.getElement().getSimpleName().toString(),
+					 msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(), currentSchema.getElement().getSimpleName().toString(),
 							BindDataSource.class.getSimpleName());
 					info(msg);
 					error(null, msg);
@@ -223,7 +198,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * Create bean definition for each dao definition contained in dataSource
+	 * <p>Create bean definition for each dao definition contained in dataSource</p>
 	 * 
 	 * @param dataSource
 	 * @param daoName

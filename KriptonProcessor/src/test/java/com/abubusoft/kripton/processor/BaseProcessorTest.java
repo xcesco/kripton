@@ -122,14 +122,26 @@ public class BaseProcessorTest {
 		return source;
 	}
 	
+	protected void buildSharedPreferencesProcessorTest(Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
+	{
+		buildTest(BindSharedPreferencesProcessor.class, classesToTest);
+	}
+	
+	protected void buildDataSourceProcessorTest(Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
+	{
+		buildTest(BindDataSourceProcessor.class, classesToTest);
+	}
+	
 	/**
 	 * Build standard test
 	 * 
 	 * @param classesToTest
 	 * 		classes to compile and test
 	 * @throws IOException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	protected void buildTest(Class<?> ... classesToTest) throws IOException
+	protected void buildTest(Class<? extends BaseProcessor> processorClazz, Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
 	{
 		final List<JavaFileObject> sourcesPhase2=new ArrayList<JavaFileObject>();
 		
@@ -139,7 +151,7 @@ public class BaseProcessorTest {
 		
 		//@formatter:off
 		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
-				sourcesPhase1).processedWith(new BindDataSourceProcessor()).compilesWithoutError();
+				sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
 		//@formatter:on
 		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
 		

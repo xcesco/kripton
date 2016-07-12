@@ -39,10 +39,12 @@ public class BindDataSourceProcessorTest extends BaseProcessorTest {
 	 * No @BindType is put in bean definition
 	 * 
 	 * @throws IOException
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 	@Test
-	public void test01() throws IOException {
-		buildTest(Dummy01DataSource.class, DaoChannelMessage.class, ChannelMessage.class);
+	public void test01() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoChannelMessage.class, ChannelMessage.class);
 	}
 
 	@Test
@@ -81,36 +83,7 @@ public class BindDataSourceProcessorTest extends BaseProcessorTest {
 
 			}
 		});
-		
-		/*
-		logger.info("===========================================================");
-		
-		sourcesPhase2.addAll(sourcesPhase1);
-		//@formatter:off
-		SuccessfulCompilationClause result2 = assertAbout(javaSources()).that(sourcesPhase2).processedWith(new DatabaseProcessor()).compilesWithoutError();
-		GenerationClause<SuccessfulCompilationClause> resultPhase2 = result2.and().generatesSources();
-		//@formatter:on
-		resultPhase2.forAllOfWhich(new CompilationResultsConsumer() {
-
-			@Override
-			public void accept(Map<String, JavaFileObject> t) {				
-				for (Entry<String, JavaFileObject> item : t.entrySet()) {
-					logger.info("item " + item.getKey());
-					try {						
-						logger.info("-------\n" + getStringFromInputStream(item.getValue().openInputStream()));
-						//assertAbout(javaSource()).that(item.getValue()).compilesWithoutError();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-
-			}
-		});
-		*/
-
-		// .that(JavaFileObjects.forResource(Resources.getResource("HelloWorld.java")))compilesWithoutError();
-		// result.and().generatesFileNamed(StandardLocation.SOURCE_OUTPUT,"com.abubusoft.kripton.processor","EntityBeanConvert.java").withContents(ByteSource.empty());
-		// logger.info(new String(buffer));
+				
 	}
 
 	/*

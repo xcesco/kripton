@@ -1,19 +1,22 @@
 package com.abubusoft.kripton.processor;
 
-import java.util.Set;
+import java.util.HashSet;
 import java.util.logging.Logger;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
 
 public abstract class BaseProcessor extends AbstractProcessor {
+
+	protected int count;
+	
+	protected HashSet<String> excludedMethods;
 
 	/**
 	 * for development scope
@@ -23,17 +26,30 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
-		
+
 		elementUtils = processingEnv.getElementUtils();
 		filer = processingEnv.getFiler();
 		messager = processingEnv.getMessager();
+
+		// define methods to ignore
+		excludedMethods = new HashSet<String>();
+		excludedMethods.add("wait");
+		excludedMethods.add("notifyAll");
+		excludedMethods.add("notify");
+		excludedMethods.add("toString");
+		excludedMethods.add("equals");
+		excludedMethods.add("hashCode");
+		excludedMethods.add("getClass");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.annotation.processing.AbstractProcessor#getSupportedSourceVersion()
+	 */
 	@Override
-	public boolean process(Set<? extends TypeElement> annotations,
-			RoundEnvironment roundEnv) {
-		// TODO Auto-generated method stub
-		return false;
+	public SourceVersion getSupportedSourceVersion() {
+		return SourceVersion.latestSupported();
 	}
 
 	/**
@@ -44,10 +60,10 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	protected Elements elementUtils;
 	protected Filer filer;
 	protected Messager messager;
-	
-	protected void info(String msg, Object ... args) {
+
+	protected void info(String msg, Object... args) {
 		if (DEVELOP_MODE) {
-			logger.info(msg);
+			logger.info( String.format(msg, args));
 		}
 		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
 
@@ -55,6 +71,13 @@ public abstract class BaseProcessor extends AbstractProcessor {
 
 	protected void error(Element e, String msg, Object... args) {
 		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
+	}
+
+	protected void warn(String msg, Object... args) {
+		if (DEVELOP_MODE) {
+			logger.warning(String.format(msg, args));
+		}
+		messager.printMessage(Diagnostic.Kind.WARNING, String.format(msg, args));
 	}
 
 }

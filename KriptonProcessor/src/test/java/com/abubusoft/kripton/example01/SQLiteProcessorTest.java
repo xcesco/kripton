@@ -15,9 +15,11 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 	 * No @BindType is put in bean definition
 	 * 
 	 * @throws IOException
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 	@Test
-	public void test01() throws IOException {
-		buildTest(Dummy01DataSource.class, DaoChannel.class, DaoChannelMessage.class, Channel.class, ChannelMessage.class);
+	public void test01() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoChannel.class, DaoChannelMessage.class, Channel.class, ChannelMessage.class);
 	}
 }
