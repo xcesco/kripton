@@ -33,7 +33,7 @@ import com.google.testing.compile.CompileTester.SuccessfulCompilationClause;
 import com.google.testing.compile.JavaFileObjects;
 
 @RunWith(JUnit4.class)
-public class SQLiteProcessorTest extends BaseProcessorTest {
+public class BindDataSourceProcessorTest extends BaseProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition
@@ -58,7 +58,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 		
 		//@formatter:off
 		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
-				sourcesPhase1).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
+				sourcesPhase1).processedWith(new BindDataSourceProcessor()).compilesWithoutError();
 		//@formatter:on
 		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
 
@@ -128,7 +128,7 @@ public class SQLiteProcessorTest extends BaseProcessorTest {
 
 		JavaFileObject source = JavaFileObjects.forSourceLines(UserIdentity.class.getCanonicalName(), new String(buffer));
 		// assertAbout(javaSource).that()
-		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BindDatabaseProcessor()).compilesWithoutError();
+		SuccessfulCompilationClause result = assertAbout(javaSource()).that(source).processedWith(new BindDataSourceProcessor()).compilesWithoutError();
 
 		GenerationClause<SuccessfulCompilationClause> sources = result.and().generatesSources();
 

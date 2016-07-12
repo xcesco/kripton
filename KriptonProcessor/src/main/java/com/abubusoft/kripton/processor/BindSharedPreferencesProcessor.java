@@ -6,6 +6,7 @@ package com.abubusoft.kripton.processor;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
@@ -31,6 +32,12 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 		annotations.add(BindSharedPreferences.class.getCanonicalName());		
 
 		return annotations;
+	}
+	
+	@Override
+	public synchronized void init(ProcessingEnvironment processingEnv) {
+		super.init(processingEnv);
+		
 	}
 	
 	@Override

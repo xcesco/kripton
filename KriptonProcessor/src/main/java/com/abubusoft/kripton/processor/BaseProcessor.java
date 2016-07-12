@@ -1,11 +1,15 @@
 package com.abubusoft.kripton.processor;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
 
@@ -16,6 +20,22 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 */
 	public static boolean DEVELOP_MODE = false;
 
+	@Override
+	public synchronized void init(ProcessingEnvironment processingEnv) {
+		super.init(processingEnv);
+		
+		elementUtils = processingEnv.getElementUtils();
+		filer = processingEnv.getFiler();
+		messager = processingEnv.getMessager();
+	}
+
+	@Override
+	public boolean process(Set<? extends TypeElement> annotations,
+			RoundEnvironment roundEnv) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	/**
 	 * logger
 	 */
@@ -24,17 +44,12 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	protected Elements elementUtils;
 	protected Filer filer;
 	protected Messager messager;
-
-	/**
-	 * Display message. Used only in develop mode
-	 * 
-	 * @param msg
-	 *            message to display
-	 */
-	public static void info(String msg) {
+	
+	protected void info(String msg, Object ... args) {
 		if (DEVELOP_MODE) {
 			logger.info(msg);
 		}
+		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
 
 	}
 

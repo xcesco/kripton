@@ -107,8 +107,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 			item.accept(this);
 		}
 		
-		TypeSpec typeSpec = builder.build();
-		BindDataSourceProcessor.info("WRITE "+typeSpec.name);		
+		TypeSpec typeSpec = builder.build();			
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 
 	}

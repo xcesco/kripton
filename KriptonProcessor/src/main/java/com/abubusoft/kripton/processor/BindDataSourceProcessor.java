@@ -73,6 +73,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
+	
 	// define which annotation the annotation processor is interested in
 	private final Map<String, Element> globalBeanElements = new HashMap<String, Element>();
 	private final Map<String, Element> globalDaoElements = new HashMap<String, Element>();
@@ -110,10 +111,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	 */
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
-		super.init(processingEnv);
-		elementUtils = processingEnv.getElementUtils();
-		filer = processingEnv.getFiler();
-		messager = processingEnv.getMessager();
+		super.init(processingEnv);		
 
 		model = new SQLiteModel();
 
@@ -176,10 +174,12 @@ public class BindDataSourceProcessor extends BaseProcessor {
 				throw (new NoDaoElementsFound());
 			}
 			
+			String schemaName;
 			for (Element dataSource : dataSets) {
 				
-				createDataSource(dataSource);
-				
+				schemaName=createDataSource(dataSource);
+				info("Processing annotation %s generate: %s",BindDataSource.class, schemaName);
+							
 				// get all dao used within SQLDatabaseSchema annotation
 				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 
@@ -418,8 +418,9 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 	/**
 	 * @param databaseSchema
+	 * @return databaseSchema
 	 */
-	protected void createDataSource(Element databaseSchema) {
+	protected String createDataSource(Element databaseSchema) {
 		if (databaseSchema.getKind() != ElementKind.INTERFACE) {
 			String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", databaseSchema.getSimpleName().toString(), BindDataSource.class.getSimpleName());
 			throw (new InvalidKindForAnnotationException(msg));
@@ -438,6 +439,8 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_LOG);
 		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog);
 		model.schemaAdd(currentSchema);
+		
+		return currentSchema.getName();
 	}
 
 }

@@ -128,10 +128,10 @@ public class BindAppPreferences {
 	{
 		T result=null;
 		if (converterMap.containsKey(key)){
-			value=converterMap.get(key).convertToPreference(key, value);
+			//value=converterMap.get(key).convertToPreference(key, value);
 		} else 
 		{
-			value=defaultConverter.convertToPreference(
+			//value=defaultConverter.convertToPreference(
 		}
 		
 		return result;
@@ -141,7 +141,7 @@ public class BindAppPreferences {
 	{
 		T result=null;
 		if (converterMap.containsKey(key)){
-			value=converterMap.get(key).convertToConfig(key, value);
+			//value=converterMap.get(key).convertToConfig(key, value);
 		}
 		
 		return result;

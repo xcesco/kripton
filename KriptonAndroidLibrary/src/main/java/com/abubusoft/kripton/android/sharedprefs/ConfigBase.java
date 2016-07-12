@@ -40,7 +40,7 @@ public abstract class ConfigBase implements Config {
 	public void readPreferences(Context context) {
 	//	SharedPreferences preference=context.getSharedPreferences(ApplicationManager.DEFAULT_SHARED_PREFERENCES_NAME, 0);
 		
-		readPreferences(preference);
+		//readPreferences(preference);
 		
 	}
 
@@ -51,7 +51,7 @@ public abstract class ConfigBase implements Config {
 	public void writePreferences(Context context) {
 	//	SharedPreferences preference=context.getSharedPreferences(ApplicationManager.DEFAULT_SHARED_PREFERENCES_NAME, 0);
 		
-		writePreferences(preference);
+		//writePreferences(preference);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public abstract class ConfigBase implements Config {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			ElioLogger.fatal("Impossible to clone config!");
+			Logger.fatal("Impossible to clone config!");
 		}
 	}
 
@@ -144,9 +144,9 @@ public abstract class ConfigBase implements Config {
 	}
 	
 	public void readPreference(Context context, String configKey) {
-		SharedPreferences preference=context.getSharedPreferences(ApplicationManager.DEFAULT_SHARED_PREFERENCES_NAME, 0);
+		//SharedPreferences preference=context.getSharedPreferences(ApplicationManager.DEFAULT_SHARED_PREFERENCES_NAME, 0);
 		
-		readPreference(configKey, preference);
+		//readPreference(configKey, preference);
 	}
 
 	/*
@@ -184,34 +184,7 @@ public abstract class ConfigBase implements Config {
 						value = defaultValue;
 
 					item.set(this, value);
-
-					if (value != null && value.getClass().isArray()) {
-						if (ElioLogger.isEnabledFor(ElioLoggerLevelType.DEBUG)) {
-							String separator = "";
-							StringBuilder sb = new StringBuilder();
-							Object[] arrayValue = (Object[]) value;
-
-							for (Object a : arrayValue) {
-								sb.append(separator);
-								if (a != null) {
-									if (a.getClass().isAssignableFrom(PackItem.class)) {
-										sb.append(((PackItem) a).getPath());
-									} else if (a.getClass().isAssignableFrom(PackResource.class)) {
-										sb.append(((PackResource) a).getPath());
-									} else {
-										sb.append(a.toString());
-									}
-								} else {
-									sb.append(" <NULL> ");
-								}
-								separator = " , ";
-							}
-							ElioLogger.debug("Load config array \"%s\" from preference \"%s\" - size=%s - values={ %s } ", item.getName(), key, arrayValue.length, sb.toString());
-						}
-					} else {
-						ElioLogger.debug("Load config \"%s\" from preference \"%s\" - BinderValue \"%s\" - BinderDefault BinderValue %s", item.getName(), key, value, defaultValue);
-					}
-
+					
 					if (!configKey.equals("")) {
 						// usciamo dato che abbiamo finito
 						return;
@@ -219,7 +192,7 @@ public abstract class ConfigBase implements Config {
 				}
 
 			} catch (Exception e) {
-				ElioLogger.error("Error on load config \"%s\" from preference \"%s\" - BinderDefault BinderValue %s", item.getName(), key, defaultValue);
+				Logger.error("Error on load config \"%s\" from preference \"%s\" - BinderDefault BinderValue %s", item.getName(), key, defaultValue);
 				e.printStackTrace();
 			}
 
@@ -228,9 +201,9 @@ public abstract class ConfigBase implements Config {
 
 	@Override
 	public void writePreference(Context context, String configKey) {
-		SharedPreferences preference=context.getSharedPreferences(ApplicationManager.DEFAULT_SHARED_PREFERENCES_NAME, 0);
+		//SharedPreferences preference=context.getSharedPreferences(ApplicationManager.DEFAULT_SHARED_PREFERENCES_NAME, 0);
 		
-		writePreference(configKey, preference);
+		//writePreference(configKey, preference);
 		
 	}
 
@@ -293,6 +266,7 @@ public abstract class ConfigBase implements Config {
 	 * 
 	 * @param itemSource
 	 */
+	/*
 	public void readPackItem(PackItem itemSource) {
 
 		for (Field item : annotatedFields.values()) {
@@ -329,7 +303,7 @@ public abstract class ConfigBase implements Config {
 			}
 
 		}
-	}
+	}*/
 
 	/**
 	 * Dato un field ed una shared preference, prende il valore dell'oggetto e la salva
@@ -348,7 +322,7 @@ public abstract class ConfigBase implements Config {
 			Converter conv = annotation.converter().newInstance();
 			temp = conv.convertToPreference(field.get(this), typePreference);
 
-			ElioLogger.debug("Save config into preference \"%s\" - BinderValue \"%s\" type %s", key, temp, typePreference);
+			Logger.debug("Save config into preference \"%s\" - BinderValue \"%s\" type %s", key, temp, typePreference);
 
 			switch (typePreference) {
 			case STRING: {
@@ -363,18 +337,18 @@ public abstract class ConfigBase implements Config {
 				if (temp != null && (temp.getClass() == Boolean.TYPE || temp.getClass() == Boolean.class)) {
 					edit.putBoolean(key, (Boolean) temp);
 				} else {
-					ElioLogger.warn("NON STO SALVANDO %s", key);
+					Logger.warn("NON STO SALVANDO %s", key);
 				}
 				break;
 			case INT:
 				if (temp != null && (temp.getClass() == Integer.TYPE || temp.getClass() == Integer.class)) {
 					edit.putInt(key, (Integer) temp);
 				} else {
-					ElioLogger.warn("NON STO SALVANDO %s", key);
+					Logger.warn("NON STO SALVANDO %s", key);
 				}
 				break;
 			default:
-				ElioLogger.warn("NON STO SALVANDO %s", key);
+				Logger.warn("NON STO SALVANDO %s", key);
 			}
 			;
 
@@ -443,7 +417,7 @@ public abstract class ConfigBase implements Config {
 	 * @return
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
-	 */
+	 *//*
 	protected Object retrieveResourceValue(Field field, PackResource resourceSource, String key, PreferenceConfig annotation) throws Exception {
 		Object ret = null;
 
@@ -484,16 +458,11 @@ public abstract class ConfigBase implements Config {
 			ret = conv.convertToConfig(field, value);
 		}
 			break;
-		/*
-		 * case BOOL: if (field.getType() == Boolean.TYPE || field.getType() == Boolean.class) { Boolean value = sharedPreferences.getBoolean(key, (Boolean) field.get(this)); ret =
-		 * conv.convertToConfig(field, value); } break; case INT: if (field.getType() == Integer.TYPE || field.getType() == Integer.class) { Integer value =
-		 * sharedPreferences.getInt(key, (Integer) field.get(this)); ret = conv.convertToConfig(field, value); } break;
-		 */
 		default:
 			break;
 		}
 		;
 
 		return ret;
-	}
+	}*/
 }

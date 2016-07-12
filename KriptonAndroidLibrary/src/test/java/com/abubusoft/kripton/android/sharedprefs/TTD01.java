@@ -6,7 +6,7 @@ public class TTD01 {
 	{
 		BindAppPreferences prefs=BindAppPreferences.instance();
 				
-		prefs.edit().putName("test").save();
+		//prefs.edit().putName("test").save();
 	}
 
 }
