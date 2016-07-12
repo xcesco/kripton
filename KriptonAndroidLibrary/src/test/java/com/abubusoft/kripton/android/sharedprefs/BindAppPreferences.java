@@ -10,11 +10,13 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public class BindAppPreferences {
 	
+	public static final String SHARED_PREFERENCE_NAME="dummy";
+	
 	private DefaultConverter defaultConverter;
 
 	public BindAppPreferences()
 	{
-		prefs=KriptonLibrary.context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+		prefs=KriptonLibrary.context().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
 		
 		converterMap = new HashMap<String, Converter>();
 		 
@@ -76,8 +78,6 @@ public class BindAppPreferences {
 
 	private SharedPreferences prefs;
 	
-	public static final String SHARED_PREFERENCE_NAME="dummy";
-	
 	public static BindAppPreferences instance()
 	{		
 		BindAppPreferences result=new BindAppPreferences();
@@ -93,6 +93,7 @@ public class BindAppPreferences {
 	
 	public AppPreferences read()
 	{
+		
 		prefs=KriptonLibrary.context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
 		AppPreferences bean=new AppPreferences();			
 		

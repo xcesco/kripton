@@ -10,7 +10,9 @@ import android.content.Context;
  */
 public class KriptonLibrary {
 
-	public static Context context;
+	public static Context context() { return context; };
+	
+	private static Context context;
 
 	/**
 	 * Method to invoke during application initialization
@@ -20,4 +22,5 @@ public class KriptonLibrary {
 	public static void init(Context contextValue) {
 		context = contextValue;
 	}
+	
 }

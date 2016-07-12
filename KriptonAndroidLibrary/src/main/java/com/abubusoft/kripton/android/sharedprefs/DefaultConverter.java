@@ -69,7 +69,7 @@ public class DefaultConverter implements Converter {
 			"unchecked", "rawtypes"
 	})
 	@Override
-	public Object convertToConfig(Field field, Object preferenceValue) {
+	public Object convertToConfig(Object preferenceValue, Class<?> propertyType) {
 		Object convertedValue = null;
 
 		// se è null non facciamo nulla
@@ -83,21 +83,21 @@ public class DefaultConverter implements Converter {
 			// per default e nel caso di stringhe
 			convertedValue = preferenceString;
 
-			if (field.getType() == Integer.TYPE || field.getType() == Integer.class) {
+			if (propertyType == Integer.TYPE || propertyType == Integer.class) {
 				if (preferenceString.startsWith("#")) {
 					// assert: è un colore, dobbiamo convertirlo
 					convertedValue = Color.parseColor(preferenceString);
 				} else {
 					convertedValue = Integer.parseInt(preferenceString);
 				}
-			} else if (field.getType() == Float.TYPE || field.getType() == Float.class) {
+			} else if (propertyType == Float.TYPE || propertyType == Float.class) {
 				convertedValue = Float.parseFloat(preferenceString);
-			} else if (field.getType() == Boolean.TYPE || field.getType() == Boolean.class) {
+			} else if (propertyType == Boolean.TYPE || propertyType == Boolean.class) {
 				convertedValue = Boolean.parseBoolean(preferenceString);
-			} else if (field.getType().isEnum()) {
+			} else if (propertyType.isEnum()) {
 				// il field type è di tipo enum
-				convertedValue = Enum.valueOf((Class<Enum>) field.getType(), (String) preferenceValue);
-			} else if (field.getType().isArray()) {
+				convertedValue = Enum.valueOf((Class<Enum>) propertyType, (String) preferenceValue);
+			} else if (propertyType.isArray()) {
 				// siamo nel caso in cui il field type è un array
 				
 				String tempValues[]=preferenceString.split(ConfigBase.STRING_ARRAY_SEPARATOR);
@@ -112,7 +112,7 @@ public class DefaultConverter implements Converter {
 					}
 				}
 				
-				if (field.getType().getComponentType() == String.class) {
+				if (propertyType.getComponentType() == String.class) {
 					String[] array= new String[values.size()];
 					int i=0;
 					for (String item: values)
@@ -124,15 +124,15 @@ public class DefaultConverter implements Converter {
 				}
 			}
 		} else if (preferenceValue.getClass() == Integer.TYPE || preferenceValue.getClass() == Integer.class) {
-			if (field.getType() == Integer.TYPE || field.getType() == Integer.class) {
+			if (propertyType == Integer.TYPE || propertyType == Integer.class) {
 				convertedValue = preferenceValue;
 			}
 		} else if (preferenceValue.getClass() == Boolean.TYPE || preferenceValue.getClass() == Boolean.class) {
-			if (field.getType() == Boolean.TYPE || field.getType() == Boolean.class) {
+			if (propertyType == Boolean.TYPE || propertyType == Boolean.class) {
 				convertedValue = preferenceValue;
 			}
 		} else if (preferenceValue.getClass() == Float.TYPE || preferenceValue.getClass() == Float.class) {
-			if (field.getType() == Float.TYPE || field.getType() == Float.class) {
+			if (propertyType == Float.TYPE || propertyType == Float.class) {
 				convertedValue = preferenceValue;
 			}
 		}
