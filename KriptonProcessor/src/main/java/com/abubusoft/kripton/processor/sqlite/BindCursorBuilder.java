@@ -15,7 +15,6 @@ import javax.lang.model.util.Elements;
 
 import android.database.Cursor;
 
-import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;

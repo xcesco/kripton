@@ -25,6 +25,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
+import com.abubusoft.kripton.processor.sharedprefs.BindSharedPreferencesBuilder;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefModel;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
@@ -44,11 +45,8 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 	private PrefModel model;
 
-	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class)
-			.add(BindAllFields.class)
-			.add(BindSharedPreferences.class).build();
-	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class)
-			.add(BindPreference.class).build();
+	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).add(BindSharedPreferences.class).build();
+	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindPreference.class).build();
 
 	/*
 	 * (non-Javadoc)
@@ -79,26 +77,28 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 			model = new PrefModel();
 			int itemCounter = 0;
-			String generatedName;
 
 			// Put all @BindSharedPreferences elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindSharedPreferences.class)) {
 				if (item.getKind() != ElementKind.CLASS) {
-					String msg = String.format("Only class can be annotated with @%s annotation",
-							BindSharedPreferences.class.getSimpleName());
+					String msg = String.format("Only class can be annotated with @%s annotation", BindSharedPreferences.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 
-				generatedName = createSharedPreferences(item);
-				info("Processing annotation %s generate: %s", BindSharedPreferences.class, generatedName);
-
-				// BindSharedPreferencesBuilder.generate(elementUtils, filer, currentSchema);
+				createSharedPreferences(item);							
 
 				itemCounter++;
 			}
 
 			if (itemCounter == 0) {
 				warn("No class with %s annotation was found", BindSharedPreferences.class);
+			}
+
+			String generatedName;
+			for (PrefEntity item: model.getEntities())
+			{				
+				generatedName=BindSharedPreferencesBuilder.generate(elementUtils, filer, item);
+				info("Processing annotation %s generate: %s", BindSharedPreferences.class.getSimpleName(), generatedName);
 			}
 
 		} catch (Exception e) {
@@ -114,16 +114,11 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 		return true;
 	}
 
-	protected static final String PREFIX = "Bind";
-	
-	protected static final String SUFFIX = "Preferences";
-
 	private String createSharedPreferences(Element sharedPreference) {
 		Element beanElement = sharedPreference;
-		String result;
-
-		result = PREFIX + beanElement.getSimpleName().toString() + SUFFIX;
-		final PrefEntity currentEntity = new PrefEntity(result, (TypeElement) beanElement);
+		String result=beanElement.getSimpleName().toString();
+		
+		final PrefEntity currentEntity = new PrefEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
@@ -139,10 +134,8 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 				@Override
 				public boolean onProperty(PrefProperty property) {
-					if (!bindAllFields
-							&& (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindColumn.class) != null)) {
-						String msg = String.format("In class '%s', property '%s' needs '%s' annotation",
-								currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());
+					if (!bindAllFields && (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindColumn.class) != null)) {
+						String msg = String.format("In class '%s', property '%s' needs '%s' annotation", currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());
 						throw (new NoAnnotationFoundException(msg));
 					}
 
@@ -152,17 +145,14 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 						LiteralType lt = LiteralType.of(name.toString());
 
 						if (lt.isComposed()) {
-							String msg = String.format(
-									"In class '%s', property '%s' is ignored in database build because it is composed",
-									currentEntity.getSimpleName(), property.getName());
+							String msg = String.format("In class '%s', property '%s' is ignored in database build because it is composed", currentEntity.getSimpleName(), property.getName());
 							info(msg);
 							return false;
 						}
 
 						ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
 						if (annotation != null) {
-							String key = AnnotationUtility.extractAsString(elementUtils, property.getElement(),
-									BindPreference.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+							String key = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindPreference.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 						}
 
 						return true;
@@ -172,6 +162,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 				}
 			});
 
+			model.entityAdd(currentEntity);
 			return result;
 		}
 

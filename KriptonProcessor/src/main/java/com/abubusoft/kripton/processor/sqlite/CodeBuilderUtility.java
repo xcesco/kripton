@@ -12,7 +12,6 @@ import javax.lang.model.util.Elements;
 
 import android.content.ContentValues;
 
-import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;

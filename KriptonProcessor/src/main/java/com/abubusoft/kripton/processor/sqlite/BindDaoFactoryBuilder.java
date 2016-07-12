@@ -7,8 +7,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;

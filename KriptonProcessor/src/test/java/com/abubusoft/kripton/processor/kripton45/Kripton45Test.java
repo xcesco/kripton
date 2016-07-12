@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.processor.sharedprefs;
+package com.abubusoft.kripton.processor.kripton45;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kripton.processor.BaseProcessorTest;
 
 @RunWith(JUnit4.class)
-public class BindSharedPreferencesProcessorTest extends BaseProcessorTest {
+public class Kripton45Test extends BaseProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition
@@ -20,7 +20,7 @@ public class BindSharedPreferencesProcessorTest extends BaseProcessorTest {
 	 */
 	@Test
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
-		buildSharedPreferencesProcessorTest(AppPreference.class);
+		buildSharedPreferencesProcessorTest(AppPreferences.class);
 	}
 
 }

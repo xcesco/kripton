@@ -9,8 +9,6 @@ import java.util.List;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import android.content.ContentValues;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
