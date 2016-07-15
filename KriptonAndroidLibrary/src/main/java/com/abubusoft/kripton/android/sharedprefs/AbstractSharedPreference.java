@@ -42,11 +42,11 @@ public class AbstractSharedPreference {
 	}
 
 	protected Object readPreference(String key, Object value, PreferenceType preferenceType) {
-		Object result;
+		Object result=null;
 		if (converterMap.containsKey(key)) {
-			result = converterMap.get(key).convertToConfig(value, preferenceType);
+			//result = converterMap.get(key).convertToConfig(value, preferenceType);
 		} else {
-			result = defaultConverter.convertToConfig(value, preferenceType);
+			//result = defaultConverter.convertToConfig(value, preferenceType);
 		}
 
 		return result;

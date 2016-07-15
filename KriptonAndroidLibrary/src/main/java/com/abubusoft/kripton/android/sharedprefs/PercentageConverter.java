@@ -22,8 +22,9 @@ public class PercentageConverter implements Converter {
 		return null;
 	}
 
+
 	@Override
-	public Object convertToConfig(Object preferenceValue, PreferenceType preferenceType) {
+	public Object convertToConfig(Object preferenceValue, Class<?> propertyType) {
 		if (preferenceValue == null)
 			return 0;
 

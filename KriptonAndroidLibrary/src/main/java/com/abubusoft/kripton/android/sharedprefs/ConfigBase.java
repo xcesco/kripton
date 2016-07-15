@@ -4,12 +4,11 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.abubusoft.kripton.android.Logger;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-
-import com.abubusoft.kripton.android.Logger;
-import com.ibm.icu.impl.LocaleUtility;
 
 /**
  * <p>
@@ -388,17 +387,17 @@ public abstract class ConfigBase implements Config {
 				value = ConfigHelper.decodeString((String) value);
 			}
 
-			ret = conv.convertToConfig(field, value);
+			//ret = conv.convertToConfig(field, value);
 		}
 			break;
 		case BOOL: {
 			Boolean value = sharedPreferences.getBoolean(key, (Boolean) conv.convertToPreference(field.get(this), typePreference));
-			ret = conv.convertToConfig(field, value);
+			//ret = conv.convertToConfig(field, value);
 		}
 			break;
 		case INT: {
 			Integer value = sharedPreferences.getInt(key, (Integer) conv.convertToPreference(field.get(this), typePreference));
-			ret = conv.convertToConfig(field, value);
+			//ret = conv.convertToConfig(field, value);
 		}
 			break;
 		}
