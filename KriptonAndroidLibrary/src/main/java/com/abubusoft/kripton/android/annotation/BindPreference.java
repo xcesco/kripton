@@ -11,7 +11,7 @@ import com.abubusoft.kripton.android.sharedprefs.DefaultConverter;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 
 @Retention(RetentionPolicy.SOURCE)
-@Target(ElementType.METHOD)
+@Target(ElementType.FIELD)
 public @interface BindPreference {
 	
 	/**
@@ -21,7 +21,7 @@ public @interface BindPreference {
 	boolean enabled() default true;
 
 	/**
-	 * rappresenta il nome della preference da associare alla configurazione. Di default viene utilizzato il nome dell'attributo.
+	 * Preference name. Default name is attribute name.
 	 * 
 	 * @return
 	 */

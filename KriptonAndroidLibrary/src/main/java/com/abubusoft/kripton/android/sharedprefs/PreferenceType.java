@@ -1,13 +1,15 @@
 package com.abubusoft.kripton.android.sharedprefs;
 
 /**
- * Tipi di preferenze supportati
+ * Supported preference type
  * 
- * @author Francesco Benincasa
+ * @author xcesco
  *
  */
 public enum PreferenceType {
 	STRING,
 	BOOL,
-	INT;	
+	INT, 
+	LONG,
+	FLOAT;	
 }

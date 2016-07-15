@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.preference.PreferenceManager;
 
 public class BindAppPreferences {
 	
@@ -92,9 +93,9 @@ public class BindAppPreferences {
 	}
 	
 	public AppPreferences read()
-	{
-		
+	{		
 		prefs=KriptonLibrary.context().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+		
 		AppPreferences bean=new AppPreferences();			
 		
 		bean.name=prefToBean("name", prefs.getString("name", "default"));
