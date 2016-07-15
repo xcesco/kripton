@@ -15,6 +15,7 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
+import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
@@ -45,7 +46,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 	private PrefModel model;
 
-	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).add(BindSharedPreferences.class).build();
+	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindSharedPreferences.class).build();
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindPreference.class).build();
 
 	/*
@@ -122,7 +123,11 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
-		final boolean bindAllFields = currentEntity.containsAnnotation(BindAllFields.class);
+		boolean temp1=AnnotationUtility.extractAsBoolean(elementUtils, currentEntity.getElement(), BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS);
+		boolean temp2=AnnotationUtility.extractAsBoolean(elementUtils, currentEntity.getElement(), BindSharedPreferences.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS);
+		
+		
+		final boolean bindAllFields =  temp1 && temp2;
 		{
 			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<PrefProperty>() {
 
@@ -134,7 +139,25 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 				@Override
 				public boolean onProperty(PrefProperty property) {
-					if (!bindAllFields && (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindColumn.class) != null)) {
+					if (property.isType(Boolean.TYPE, Boolean.class))
+					{
+						property.setPreferenceType(PreferenceType.BOOL);
+					} else if (property.isType(Integer.TYPE, Integer.class))
+					{
+						property.setPreferenceType(PreferenceType.INT);
+					} else if (property.isType(Long.TYPE, Long.class))
+					{
+						property.setPreferenceType(PreferenceType.LONG);
+					}
+					else if (property.isType(Float.TYPE, Float.class))
+					{
+						property.setPreferenceType(PreferenceType.FLOAT);
+					} else 
+					{
+						property.setPreferenceType(PreferenceType.STRING);
+					}
+					
+					if (!bindAllFields && (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindPreference.class) != null)) {
 						String msg = String.format("In class '%s', property '%s' needs '%s' annotation", currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());
 						throw (new NoAnnotationFoundException(msg));
 					}

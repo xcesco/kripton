@@ -11,6 +11,10 @@ import javax.lang.model.element.Element;
  * @since 05/mag/2016
  */
 public enum AnnotationAttributeType {
+	ATTRIBUTE_ALL_FIELDS("allFields"),
+	
+	ATTRIBUTE_NAME("name"),
+	
 	ATTRIBUTE_RAW_FIELDS("rawFields"),
 	
 	ATTRIBUTE_VALUE("value"),
@@ -24,7 +28,9 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_NULLABLE("nullable"),
 	ATTRIBUTE_FILENAME("fileName"),
 	ATTRIBUTE_VERSION("version"),
-	ATTRIBUTE_LOG("log") 
+	ATTRIBUTE_LOG("log"), 
+	
+	
 	;
 	
 	
