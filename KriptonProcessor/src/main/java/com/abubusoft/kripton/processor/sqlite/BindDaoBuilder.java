@@ -16,7 +16,7 @@ import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.android.sqlite.DaoBase;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.exceptions.MethodWithoutSupportedAnnotationException;
+import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;

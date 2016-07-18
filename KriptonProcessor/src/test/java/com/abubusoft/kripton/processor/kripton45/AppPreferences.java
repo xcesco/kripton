@@ -1,22 +1,36 @@
 package com.abubusoft.kripton.processor.kripton45;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindSharedPreferences(allFields=true)
+@BindSharedPreferences
 public class AppPreferences {
 
-	@BindPreference(preferenceType=PreferenceType.STRING)
-	public String name; 
+	public String name="ciao"; 
 	
-	@BindPreference(preferenceType=PreferenceType.STRING)
 	protected String description;
 		
-	public float valueFloat;
+	public float valueFloat=5.0f;
 	
-	public String[] stringArray;
+	protected String[] stringArray;
 	
+	public List<String> stringList;
+	
+	
+	public String[] getStringArray() {
+		return stringArray;
+	}
+
+	public void setStringArray(String[] stringArray) {
+		this.stringArray = stringArray;
+	}
+
 	public int valueInt;
 	
 	public Long valueLong;

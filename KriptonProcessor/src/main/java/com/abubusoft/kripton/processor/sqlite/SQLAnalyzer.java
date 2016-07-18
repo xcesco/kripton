@@ -16,8 +16,8 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.exceptions.MethodParameterNotFoundException;
-import com.abubusoft.kripton.processor.sqlite.exceptions.PropertyInAnnotationNotFoundException;
+import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
+import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -154,7 +154,7 @@ public class SQLAnalyzer {
 					// there are nested property invocation
 					paramGetters.add(splittedName[0]+"."+getter(entity.findByName(splittedName[1])));
 					usedBeanPropertyNames.add(splittedName[1]);
-					paramTypeNames.add(entity.findByName(splittedName[1]).getModelType().getName());
+					paramTypeNames.add(entity.findByName(splittedName[1]).getPropertyType().getName());
 					
 					usedMethodParameters.add(splittedName[0]);
 				} else {

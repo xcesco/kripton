@@ -24,4 +24,6 @@ public class PrefProperty extends ModelProperty {
 		this.preferenceType = preferenceType;
 	}
 
+
+
 }

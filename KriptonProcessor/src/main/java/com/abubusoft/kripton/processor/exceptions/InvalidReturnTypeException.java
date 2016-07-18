@@ -1,10 +1,10 @@
-package com.abubusoft.kripton.processor.sqlite.exceptions;
+package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.TypeName;
 
-public class InvalidReturnTypeException extends SQLiteProcessorException {
+public class InvalidReturnTypeException extends KriptonProcessorException {
 
 	private static final long serialVersionUID = -864898010888025423L;
 	

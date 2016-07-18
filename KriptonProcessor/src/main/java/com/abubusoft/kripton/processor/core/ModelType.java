@@ -44,5 +44,21 @@ public class ModelType extends LiteralType {
 		return false;
 	}
 	
+	public boolean isSameRawType(String ... value)
+	{
+		for (String item: value)
+		{
+			if (this.rawType.equals(item))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isSameType(Class<String> clazz) {
+		return isSameType(clazz.getName());
+	}
+	
 
 }

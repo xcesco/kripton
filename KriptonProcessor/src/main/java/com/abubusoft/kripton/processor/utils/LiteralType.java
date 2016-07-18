@@ -23,7 +23,9 @@ public class LiteralType implements TypeMirror {
 	
 	final static Map<String, LiteralType> cached=new HashMap<String, LiteralType>();
 
-	private static final int GROUP_BASE_INDEX = 1;
+	private static final int GROUP_COMPLEX_INDEX = 1;
+	
+	private static final int GROUP_COMPOSED_INDEX = 2;
 
 	private static final int GROUP_ARRAY_INDEX = 3;
 
@@ -55,6 +57,12 @@ public class LiteralType implements TypeMirror {
 
 	private boolean array;
 
+	private String composedType;
+
+	public String getComposedValue() {
+		return composedType;
+	}
+
 	protected LiteralType(String value) {
 		this.value=value;
 		parse(value);
@@ -69,14 +77,15 @@ public class LiteralType implements TypeMirror {
 		Matcher matcher = CLASS_PATTERN.matcher(value);
 
 		while (matcher.find()) {
-			if (matcher.group(GROUP_SIMPLE_INDEX) != null || matcher.group(GROUP_ARRAY_INDEX) != null || matcher.group(GROUP_BASE_INDEX) != null) {
+			if (matcher.group(GROUP_SIMPLE_INDEX) != null || matcher.group(GROUP_ARRAY_INDEX) != null || matcher.group(GROUP_COMPLEX_INDEX) != null) {
 				value = matcher.group(GROUP_SIMPLE_INDEX);
 				if (value == null && matcher.group(GROUP_ARRAY_INDEX) != null) {
 					value = matcher.group(GROUP_ARRAY_INDEX);
 					array = true;
 				}
-				if (value == null && matcher.group(GROUP_BASE_INDEX) != null) {
-					value = matcher.group(GROUP_BASE_INDEX);
+				if (value == null && matcher.group(GROUP_COMPLEX_INDEX) != null) {
+					value = matcher.group(GROUP_COMPLEX_INDEX);
+					composedType=matcher.group(GROUP_COMPOSED_INDEX);;
 				}
 
 				if (value.indexOf(".") >= 0) {
@@ -169,8 +178,9 @@ public class LiteralType implements TypeMirror {
 	
 	public boolean isComposed()
 	{
-		return isCollection() || isMap();
+		return isCollection() || isMap() || composedType!=null;
 	}
+
 
 	public boolean isList() {
 		if (isResolved() && List.class.isAssignableFrom(resolvedRawType)) {
@@ -194,6 +204,24 @@ public class LiteralType implements TypeMirror {
 
 	public String getRawType() {
 		return rawType;
+	}
+	
+	public boolean isComposedType(Class<?> clazz)	
+	{
+		return isComposedType(clazz.getName());
+	}
+	
+	public boolean isComposedType(String clazzName)
+	{
+		if (isComposed())
+		{
+			if (this.composedType.equals(clazzName))
+			{
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 
 	@Override

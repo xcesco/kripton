@@ -165,4 +165,8 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		return false;
 	}
 
+	@Override
+	public boolean hasAnnotation(Class<? extends Annotation> annotationClazz) {
+		return getAnnotation(annotationClazz)!=null;
+	}
 }

@@ -1,8 +1,8 @@
-package com.abubusoft.kripton.processor.sqlite.exceptions;
+package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
-public class MethodParameterNotFoundException extends SQLiteProcessorException {
+public class MethodParameterNotFoundException extends KriptonProcessorException {
  
 	public MethodParameterNotFoundException(SQLiteModelMethod method, String paramName)
 	{

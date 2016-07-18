@@ -8,7 +8,7 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
@@ -192,7 +192,7 @@ public class TypeUtility {
 	}
 
 	public static boolean isNullable(ModelProperty property) {
-		return isNullable(property.getModelType().getName());
+		return isNullable(property.getPropertyType().getName());
 	}
 
 	/**
@@ -221,10 +221,10 @@ public class TypeUtility {
 	 * @param property
 	 */
 	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeMirror> item, ModelProperty property) {
-		if (!TypeUtility.isEquals(typeName(item.value1), property.getModelType().getName()))
+		if (!TypeUtility.isEquals(typeName(item.value1), property.getPropertyType().getName()))
 		{
 			//ASSERT: property is not nullable but method yes, so we throw an exception
-			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ", property.getName(), property.getModelType().getName(), item.value0, item.value1.toString())));
+			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ", property.getName(), property.getPropertyType().getName(), item.value0, item.value1.toString())));
 		}				
 	}
 

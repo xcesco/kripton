@@ -79,11 +79,11 @@ public class AnnotationUtility {
 	 */
 	public static void forEachAnnotations(Elements elementUtils, Element currentElement, AnnotationFilter filter, AnnotationFoundListener listener) {
 		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(currentElement);
-		String annotationClassName;
-		Map<String, String> values = new HashMap<String, String>();
+		String annotationClassName;		
 		// boolean valid=true;
 
 		for (AnnotationMirror annotation : annotationList) {
+			Map<String, String> values = new HashMap<String, String>();
 			annotationClassName = annotation.getAnnotationType().asElement().toString();
 
 			if (filter != null && !filter.isAccepted(annotationClassName)) {

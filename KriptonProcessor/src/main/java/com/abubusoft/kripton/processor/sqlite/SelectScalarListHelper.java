@@ -12,8 +12,8 @@ import java.util.List;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
-import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transform;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;

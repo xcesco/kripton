@@ -8,8 +8,6 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
-import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 
 @BindType
 @BindAllFields
@@ -61,6 +59,11 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 
 	public boolean containsAnnotation(Class<? extends Annotation> annotation) {
 		return getAnnotation(annotation) != null;
+	}
+
+	@Override
+	public boolean hasAnnotation(Class<? extends Annotation> annotationClazz) {
+		return getAnnotation(annotationClazz)!=null;
 	}
 
 }

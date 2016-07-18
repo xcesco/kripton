@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.processor.sqlite.exceptions;
+package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindInsert;
@@ -7,7 +7,7 @@ import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 
-public class MethodWithoutSupportedAnnotationException extends SQLiteProcessorException {
+public class MethodWithoutSupportedAnnotationException extends KriptonProcessorException {
 
 	private static final long serialVersionUID = 8462705406839489618L;
 

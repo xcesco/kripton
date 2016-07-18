@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.abubusoft.kripton.processor.sqlite.exceptions;
+package com.abubusoft.kripton.processor.exceptions;
 
 /**
  * @author xcesco
  *
  */
-public class NoDaoElementsFound extends SQLiteProcessorException {
+public class NoDaoElementsFound extends KriptonProcessorException {
 
 	public NoDaoElementsFound() {
 		super("No bean with @Dao annotation is present in to-compile sources");

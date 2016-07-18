@@ -99,7 +99,7 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 	
 			methodBuilder.addJavadoc("\n$L\n","instance");
 			methodBuilder.beginControlFlow("if (instance==null)");
-			methodBuilder.addCode("instance=new $L($T.context);\n", className(schemaName), KriptonLibrary.class);
+			methodBuilder.addCode("instance=new $L($T.context());\n", className(schemaName), KriptonLibrary.class);
 			methodBuilder.endControlFlow();
 			methodBuilder.addCode("return instance;\n");
 

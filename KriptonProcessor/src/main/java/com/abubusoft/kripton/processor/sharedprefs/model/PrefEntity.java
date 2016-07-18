@@ -8,6 +8,7 @@ public class PrefEntity extends ModelClass<PrefProperty> {
 
 	public PrefEntity(String name, TypeElement beanElement) {
 		super(name, beanElement);
+		
 	}
 
 

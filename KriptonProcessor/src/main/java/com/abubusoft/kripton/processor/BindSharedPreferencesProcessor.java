@@ -3,7 +3,9 @@
  */
 package com.abubusoft.kripton.processor;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -18,21 +20,19 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
+import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
+import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldType;
 import com.abubusoft.kripton.processor.sharedprefs.BindSharedPreferencesBuilder;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefModel;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
-import com.abubusoft.kripton.processor.sqlite.exceptions.InvalidKindForAnnotationException;
-import com.abubusoft.kripton.processor.sqlite.exceptions.NoAnnotationFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.utils.LiteralType;
-import com.squareup.javapoet.TypeName;
 
 /**
  * Annotation processor for shared preferences
@@ -44,7 +44,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 	private PrefModel model;
 
-	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindSharedPreferences.class).build();
+	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindSharedPreferences.class).build();
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindPreference.class).build();
 
 	/*
@@ -122,7 +122,12 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
 		boolean temp1=AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity , BindType.class,AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);						
-		boolean temp2=AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity , BindPreference.class,AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);		
+		boolean temp2=AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity , BindSharedPreferences.class,AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
+		
+		if (!temp1 && temp2) {
+			String msg = String.format("In class '%s', inconsistent value of attribute 'allFields' in annotations '%s' and '%s'", currentEntity.getSimpleName(), BindType.class.getSimpleName(), BindSharedPreferences.class.getSimpleName());
+			throw (new IncompatibleAttributesInAnnotationException(msg));
+		}
 		
 		final boolean bindAllFields =  temp1 && temp2;
 		{
@@ -136,7 +141,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 				@Override
 				public boolean onProperty(PrefProperty property) {
-					if (property.getModelType().isArray() || property.getModelType().isList())
+					if (property.getPropertyType().isArray() || property.getPropertyType().isList())
 					{
 						property.setPreferenceType(PreferenceType.STRING);
 					} else {
@@ -159,26 +164,24 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 						}
 					}
 										
-					if (!bindAllFields && (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindPreference.class) != null)) {
-						String msg = String.format("In class '%s', property '%s' needs '%s' annotation", currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());
-						throw (new NoAnnotationFoundException(msg));
+					if (!bindAllFields && !property.hasAnnotation(Bind.class) && !property.hasAnnotation(BindPreference.class)) {
+						// skip field
+						return false;
 					}
 
-					if (bindAllFields || (property.getAnnotation(Bind.class)) != null) {
-						TypeName name = TypeName.get(property.getElement().asType());
-
-						LiteralType lt = LiteralType.of(name.toString());
-
-						if (lt.isComposed()) {
-							String msg = String.format("In class '%s', property '%s' is ignored in database build because it is composed", currentEntity.getSimpleName(), property.getName());
-							info(msg);
-							return false;
+					if (bindAllFields || property.hasAnnotation(Bind.class) || property.hasAnnotation(BindPreference.class)) {
+						if ((property.getPropertyType().isComposed() && !property.getPropertyType().isComposedType(String.class)) ||
+								(property.getPropertyType().isComposed() && !property.getPropertyType().isSameRawType(List.class.getName(), ArrayList.class.getName()))
+								) {
+							
+							String msg = String.format("In class '%s', property '%s' can not be used to generate BindSharedPreference", currentEntity.getSimpleName(), property.getName());
+							throw (new UnsupportedFieldType(msg));							
 						}
-
-						ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
-						if (annotation != null) {
-							String key = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindPreference.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
-						}
+						
+						//ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
+						//if (annotation != null) {
+							//String key = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindPreference.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+						//}
 
 						return true;
 					}

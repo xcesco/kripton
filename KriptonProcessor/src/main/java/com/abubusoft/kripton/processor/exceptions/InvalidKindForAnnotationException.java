@@ -1,7 +1,7 @@
-package com.abubusoft.kripton.processor.sqlite.exceptions;
+package com.abubusoft.kripton.processor.exceptions;
 
 
-public class InvalidKindForAnnotationException extends SQLiteProcessorException {
+public class InvalidKindForAnnotationException extends KriptonProcessorException {
  
 	public InvalidKindForAnnotationException(String msg)
 	{
