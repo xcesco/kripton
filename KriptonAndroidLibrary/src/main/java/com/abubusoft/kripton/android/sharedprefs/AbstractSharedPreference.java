@@ -5,6 +5,10 @@ package com.abubusoft.kripton.android.sharedprefs;
 
 import java.util.HashMap;
 
+import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.BinderReader;
+import com.abubusoft.kripton.BinderWriter;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
@@ -13,6 +17,15 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
  *
  */
 public class AbstractSharedPreference {
+
+	protected AbstractSharedPreference() {
+		jsonReader = BinderFactory.getJSONReader();
+		jsonWriter = BinderFactory.getJSONWriter();
+	}
+
+	protected BinderWriter jsonWriter;
+
+	protected BinderReader jsonReader;
 
 	protected static final DefaultConverter defaultConverter = new DefaultConverter();
 
@@ -42,13 +55,30 @@ public class AbstractSharedPreference {
 	}
 
 	protected Object readPreference(String key, Object value, PreferenceType preferenceType) {
-		Object result=null;
+		Object result = null;
 		if (converterMap.containsKey(key)) {
-			//result = converterMap.get(key).convertToConfig(value, preferenceType);
+			// result = converterMap.get(key).convertToConfig(value, preferenceType);
 		} else {
-			//result = defaultConverter.convertToConfig(value, preferenceType);
+			// result = defaultConverter.convertToConfig(value, preferenceType);
 		}
 
 		return result;
 	}
+	
+	protected String array2String(Object[] array)
+	{
+		String result;
+		String separator="";
+		StringBuilder buffer=new StringBuilder();						
+		for (Object item: array)
+		{
+			if (item==null) continue;
+			buffer.append(separator+item);
+			separator=ConfigBase.STRING_ARRAY_SEPARATOR;
+		}
+		result=buffer.toString();
+		
+		return result;
+	}
+
 }
