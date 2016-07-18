@@ -5,11 +5,12 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.TypeName;
 
 @BindType
 @BindAllFields
-public class ModelType {
+public class ModelType extends LiteralType {
 	
 	TypeName name;
 	
@@ -21,6 +22,7 @@ public class ModelType {
 	}
 
 	public ModelType(TypeMirror type) {
+		super(type.toString());
 		this.name=TypeName.get(type);
 	}
 

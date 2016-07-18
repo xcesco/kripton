@@ -12,4 +12,26 @@ public class AppPreferences {
 	
 	@BindPreference(preferenceType=PreferenceType.STRING)
 	protected String description;
+		
+	public float valueFloat;
+	
+	public String[] stringArray;
+	
+	public int valueInt;
+	
+	public Long valueLong;
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

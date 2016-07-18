@@ -92,7 +92,7 @@ public class PropertyUtility {
 			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
 				field = factoryProperty.createProperty(item);				
 				AnnotationUtility.buildAnnotations(elementUtils, field, propertyAnnotationFilter);
-
+								
 				entity.add(field);
 			}
 		}

@@ -3,7 +3,6 @@
  */
 package com.abubusoft.kripton.processor.utils;
 
-import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
@@ -57,7 +55,7 @@ public class LiteralType implements TypeMirror {
 
 	private boolean array;
 
-	private LiteralType(String value) {
+	protected LiteralType(String value) {
 		this.value=value;
 		parse(value);
 	}
@@ -114,9 +112,6 @@ public class LiteralType implements TypeMirror {
 		}
 	}
 
-	/**
-	 * @return the array
-	 */
 	public boolean isArray() {
 		return array;
 	}
@@ -212,21 +207,4 @@ public class LiteralType implements TypeMirror {
 		return null;
 	}
 
-	@Override
-	public List<? extends AnnotationMirror> getAnnotationMirrors() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <A extends Annotation> A[] getAnnotationsByType(Class<A> annotationType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

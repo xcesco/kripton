@@ -11,6 +11,7 @@ import javax.lang.model.element.Modifier;
 import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.utils.LiteralType;
 
 @BindType
 @BindAllFields
@@ -68,7 +69,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	public ModelProperty(Element element) {
 		super(element.getSimpleName().toString(), element);
 		
-		setModelType(new ModelType(element.asType()));
+		this.modelType=new ModelType(element.asType());
 		setPublicField(element.getModifiers().contains(Modifier.PUBLIC));
 		this.annotations = new ArrayList<ModelAnnotation>();
 	}
@@ -96,13 +97,6 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	 */
 	public ModelType getModelType() {
 		return modelType;
-	}
-
-	/**
-	 * @param type the type to set
-	 */
-	public void setModelType(ModelType type) {
-		this.modelType = type;
 	}
 
 	protected boolean publicField;
@@ -190,6 +184,6 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 
 	public boolean isType(Type ... types) {
 		return TypeUtility.isTypeIncludedIn(modelType.name, types);		
-	}
-
+	}	
+		
 }

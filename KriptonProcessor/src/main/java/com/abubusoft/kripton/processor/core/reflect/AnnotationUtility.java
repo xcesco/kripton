@@ -431,5 +431,32 @@ public class AnnotationUtility {
 
 		return result.value;
 	}
+	
+	public static Boolean getAnnotationAttributeAsBoolean(ModelWithAnnotation model, Class<? extends Annotation> annotation, AnnotationAttributeType attribute, Boolean defaultValue) {
+		return getAnnotationAttribute(model, annotation, attribute, defaultValue, new OnAnnotationAttributeListener<Boolean>() {
+
+			@Override
+			public Boolean onFound(String value) {
+				return Boolean.valueOf(value);
+			}
+		});
+	}
+
+	static <T> T getAnnotationAttribute(ModelWithAnnotation model, Class<? extends Annotation> annotation, AnnotationAttributeType attribute, T defaultValue, OnAnnotationAttributeListener<T> listener) {		
+		String attributeResult;
+
+		ModelAnnotation item=model.getAnnotation(annotation);
+		if (item!=null) {
+			attributeResult = item.getAttribute(attribute);
+
+			return listener.onFound(attributeResult);
+		}
+
+		return defaultValue;
+	}
+
+	interface OnAnnotationAttributeListener<T> {
+		T onFound(String value);
+	}
 
 }
