@@ -57,4 +57,5 @@ public @interface BindPreference {
 	 * @return
 	 */
 	boolean crypted() default false;
+
 }

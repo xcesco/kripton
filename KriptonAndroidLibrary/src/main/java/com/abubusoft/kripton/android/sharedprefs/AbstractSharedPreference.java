@@ -3,29 +3,24 @@
  */
 package com.abubusoft.kripton.android.sharedprefs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.BinderReader;
-import com.abubusoft.kripton.BinderWriter;
+import java.util.List;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 /**
+ * 
  * @author xcesco
  *
  */
 public class AbstractSharedPreference {
 
 	protected AbstractSharedPreference() {
-		jsonReader = BinderFactory.getJSONReader();
-		jsonWriter = BinderFactory.getJSONWriter();
 	}
 
-	protected BinderWriter jsonWriter;
-
-	protected BinderReader jsonReader;
+	public static final String STRING_ARRAY_SEPARATOR = ";##@@;";
 
 	protected static final DefaultConverter defaultConverter = new DefaultConverter();
 
@@ -64,21 +59,69 @@ public class AbstractSharedPreference {
 
 		return result;
 	}
-	
-	protected String array2String(Object[] array)
-	{
+
+	protected String list2String(List<String> array) {
 		String result;
-		String separator="";
-		StringBuilder buffer=new StringBuilder();						
-		for (Object item: array)
-		{
-			if (item==null) continue;
-			buffer.append(separator+item);
-			separator=ConfigBase.STRING_ARRAY_SEPARATOR;
+		String separator = "";
+		StringBuilder buffer = new StringBuilder();
+		for (String item : array) {
+			if (item == null)
+				continue;
+			buffer.append(separator + item);
+			separator = STRING_ARRAY_SEPARATOR;
 		}
-		result=buffer.toString();
-		
+		result = buffer.toString();
+
 		return result;
 	}
+
+	protected String array2String(String[] array) {
+		String result;
+		String separator = "";
+		StringBuilder buffer = new StringBuilder();
+		for (String item : array) {
+			if (item == null)
+				continue;
+			buffer.append(separator + item);
+			separator = STRING_ARRAY_SEPARATOR;
+		}
+		result = buffer.toString();
+
+		return result;
+	}
+
+	protected List<String> string2list(String input, List<String> defaultValue) {
+		if (input==null) return defaultValue;		
+		
+		String tempValues[] = input.split(ConfigBase.STRING_ARRAY_SEPARATOR);
+		ArrayList<String> values;
+		values = new ArrayList<String>();
+		// ripuliamo gli array dalle stringhe vuote
+		for (String item : tempValues) {
+			if (item != null && item.trim().length() > 0) {
+				values.add(item);
+			}
+		}
+
+		return values;
+	}
+
+	protected String[] string2array(String input, String[] defaultValue) {
+		if (input==null) return defaultValue;
+		
+		String tempValues[] = input.split(ConfigBase.STRING_ARRAY_SEPARATOR);
+		List<String> values = new ArrayList<String>();
+
+		// ripuliamo gli array dalle stringhe vuote
+		for (String item : tempValues) {
+			if (item != null && item.trim().length() > 0) {
+				values.add(item);
+			}
+		}
+
+		return values.toArray(new String[values.size()]);
+
+	}
+
 
 }

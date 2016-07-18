@@ -4,11 +4,11 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.abubusoft.kripton.android.Logger;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import com.abubusoft.kripton.android.Logger;
 
 /**
  * <p>
@@ -84,7 +84,7 @@ public abstract class ConfigBase implements Config {
 
 	/**
 	 * <p>
-	 * Fields annotati.
+	 * Annotated fields
 	 * </p>
 	 */
 	private Map<String, Field> annotatedFields;
