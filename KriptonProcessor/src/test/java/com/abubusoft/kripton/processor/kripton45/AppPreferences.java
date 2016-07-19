@@ -18,7 +18,9 @@ public class AppPreferences {
 		
 	public float valueFloat=5.0f;
 	
-	public AppType appType;
+	public boolean valueBoolean;
+	
+	//public AppType appType;
 	
 	protected String[] stringArray;
 	

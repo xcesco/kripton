@@ -163,8 +163,6 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 		}
 
 		TypeSpec typeSpec = builder.build();
-		
-		//BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
