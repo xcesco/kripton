@@ -4,7 +4,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-processor</artifactId>
-	<version>1.2.8-SNAPSHOT</version>
+	<version>1.2.9-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<url>https://github.com/xcesco/kripton</url>
@@ -18,6 +18,7 @@
 		<guava.version>19.0</guava.version>
 		<jackson.version>2.7.5</jackson.version>
 		<javapoet.version>1.7.0</javapoet.version>
+		<junit.version>4.12</junit.version>
 	</properties>
 
 	<description>Annotation processor for Kripton Android Library.</description>
@@ -54,6 +55,15 @@
 	</developers>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>${junit.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+	
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -128,7 +138,7 @@
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>5.0.0_r2-robolectric-1</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
@@ -357,7 +367,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>../KriptonAndroidLibrary/src/</source>
+								<source>../KriptonAndroidLibrary/src/main/java</source>
 							</sources>
 						</configuration>
 					</execution>

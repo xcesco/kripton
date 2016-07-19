@@ -18,6 +18,8 @@ public class AppPreferences {
 		
 	public float valueFloat=5.0f;
 	
+	public AppType appType;
+	
 	protected String[] stringArray;
 	
 	public List<String> stringList;

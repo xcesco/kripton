@@ -10,6 +10,7 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
 public abstract class BaseProcessor extends AbstractProcessor {
@@ -17,6 +18,8 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	protected int count;
 	
 	protected HashSet<String> excludedMethods;
+
+	protected Types typeUtils;
 
 	/**
 	 * for development scope
@@ -30,6 +33,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		elementUtils = processingEnv.getElementUtils();
 		filer = processingEnv.getFiler();
 		messager = processingEnv.getMessager();
+		typeUtils=processingEnv.getTypeUtils();
 
 		// define methods to ignore
 		excludedMethods = new HashSet<String>();

@@ -59,6 +59,11 @@ public class ModelType extends LiteralType {
 	public boolean isSameType(Class<String> clazz) {
 		return isSameType(clazz.getName());
 	}
+
+	public boolean isEnum() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }

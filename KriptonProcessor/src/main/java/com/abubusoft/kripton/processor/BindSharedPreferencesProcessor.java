@@ -14,6 +14,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;

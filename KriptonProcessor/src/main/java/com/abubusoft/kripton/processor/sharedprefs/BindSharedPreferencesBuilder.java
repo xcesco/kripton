@@ -181,6 +181,9 @@ public class BindSharedPreferencesBuilder {
 				} else if (item.getPropertyType().isList()) {
 					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "string2list(prefs.getString($S, null), bean.$L)"), item.getName(),
 							PropertyUtility.getter(typeName(entity.getElement()), item));
+				} else if (item.getPropertyType().isEnum())
+				{
+					
 				} else {
 					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getString($S, bean.$L)"), item.getName(),
 							PropertyUtility.getter(typeName(entity.getElement()), item));
