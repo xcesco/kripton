@@ -6,7 +6,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton</artifactId>
-	<version>1.2.8-SNAPSHOT</version>
+	<version>1.2.9-SNAPSHOT</version>
 	<url>https://github.com/xcesco/kripton</url>
 
 	<packaging>jar</packaging>
@@ -76,7 +76,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>../KriptonAndroidLibrary/src/</source>
+								<source>../KriptonAndroidLibrary/src/main/java/</source>
 							</sources>
 							<excludes>
 								<exclude>**/android/**</exclude>
