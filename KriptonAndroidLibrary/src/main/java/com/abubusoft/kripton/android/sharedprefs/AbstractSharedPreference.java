@@ -4,30 +4,26 @@
 package com.abubusoft.kripton.android.sharedprefs;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
-/**
- * 
- * @author xcesco
- *
- */
 public class AbstractSharedPreference {
-
+	
 	protected AbstractSharedPreference() {
+		
 	}
 
 	public static final String STRING_ARRAY_SEPARATOR = ";##@@;";
 
 	//protected static final DefaultConverter defaultConverter = new DefaultConverter();
 
-	protected HashMap<String, Converter> converterMap;
+	//protected HashMap<String, Converter> converterMap;
 
 	protected SharedPreferences prefs;
-
+		
 	public void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener listener) {
 		if (prefs != null)
 			prefs.registerOnSharedPreferenceChangeListener(listener);
@@ -93,7 +89,7 @@ public class AbstractSharedPreference {
 	}
 
 	protected List<String> string2list(String input, List<String> defaultValue) {
-		if (input==null) return defaultValue;		
+		if (input==null) return new ArrayList<String>(defaultValue);		
 		
 		String tempValues[] = input.split(STRING_ARRAY_SEPARATOR);
 		ArrayList<String> values;
@@ -109,7 +105,7 @@ public class AbstractSharedPreference {
 	}
 
 	protected String[] string2array(String input, String[] defaultValue) {
-		if (input==null) return defaultValue;
+		if (input==null) return Arrays.copyOf(defaultValue, defaultValue.length);
 		
 		String tempValues[] = input.split(STRING_ARRAY_SEPARATOR);
 		List<String> values = new ArrayList<String>();
@@ -125,5 +121,19 @@ public class AbstractSharedPreference {
 
 	}
 
+	public class AbstractEditor
+	{
+		protected AbstractEditor()
+		{
+			editor=prefs.edit();
+		}
+		
+		protected final SharedPreferences.Editor editor;
+		
+		public void commit()
+		{
+			editor.commit();
+		}
+	}
 
 }
