@@ -22,7 +22,7 @@ public class AbstractSharedPreference {
 
 	public static final String STRING_ARRAY_SEPARATOR = ";##@@;";
 
-	protected static final DefaultConverter defaultConverter = new DefaultConverter();
+	//protected static final DefaultConverter defaultConverter = new DefaultConverter();
 
 	protected HashMap<String, Converter> converterMap;
 
@@ -38,6 +38,7 @@ public class AbstractSharedPreference {
 			prefs.unregisterOnSharedPreferenceChangeListener(listener);
 	}
 
+	/*
 	protected Object writePreference(String key, Object value, PreferenceType preferenceType) {
 		Object result;
 		if (converterMap.containsKey(key)) {
@@ -47,8 +48,9 @@ public class AbstractSharedPreference {
 		}
 
 		return result;
-	}
+	}*/
 
+	/*
 	protected Object readPreference(String key, Object value, PreferenceType preferenceType) {
 		Object result = null;
 		if (converterMap.containsKey(key)) {
@@ -58,7 +60,7 @@ public class AbstractSharedPreference {
 		}
 
 		return result;
-	}
+	}*/
 
 	protected String list2String(List<String> array) {
 		String result;
@@ -93,7 +95,7 @@ public class AbstractSharedPreference {
 	protected List<String> string2list(String input, List<String> defaultValue) {
 		if (input==null) return defaultValue;		
 		
-		String tempValues[] = input.split(ConfigBase.STRING_ARRAY_SEPARATOR);
+		String tempValues[] = input.split(STRING_ARRAY_SEPARATOR);
 		ArrayList<String> values;
 		values = new ArrayList<String>();
 		// ripuliamo gli array dalle stringhe vuote
@@ -109,7 +111,7 @@ public class AbstractSharedPreference {
 	protected String[] string2array(String input, String[] defaultValue) {
 		if (input==null) return defaultValue;
 		
-		String tempValues[] = input.split(ConfigBase.STRING_ARRAY_SEPARATOR);
+		String tempValues[] = input.split(STRING_ARRAY_SEPARATOR);
 		List<String> values = new ArrayList<String>();
 
 		// ripuliamo gli array dalle stringhe vuote

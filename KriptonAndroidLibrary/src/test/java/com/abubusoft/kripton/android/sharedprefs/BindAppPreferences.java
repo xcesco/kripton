@@ -13,15 +13,11 @@ public class BindAppPreferences {
 	
 	public static final String SHARED_PREFERENCE_NAME="dummy";
 	
-	private DefaultConverter defaultConverter;
-
 	public BindAppPreferences()
 	{
 		prefs=KriptonLibrary.context().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
 		
 		converterMap = new HashMap<String, Converter>();
-		 
-		defaultConverter = new DefaultConverter();
 		 
 		 //converterMap.put("name", defaultConverter);
 	}

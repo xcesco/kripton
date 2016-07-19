@@ -6,7 +6,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-android-library</artifactId>
-	<version>1.2.8-SNAPSHOT</version>
+	<version>1.2.9-SNAPSHOT</version>
 
 	<url>https://github.com/xcesco/kripton</url>
 
@@ -97,14 +97,14 @@
 			<groupId>org.robolectric</groupId>
 			<artifactId>robolectric</artifactId>
 			<version>${roboletric.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>5.0.0_r2-robolectric-0</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>

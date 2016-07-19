@@ -5,9 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.android.sharedprefs.ConfigBase;
-import com.abubusoft.kripton.android.sharedprefs.Converter;
-import com.abubusoft.kripton.android.sharedprefs.DefaultConverter;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 
 @Retention(RetentionPolicy.SOURCE)
@@ -25,14 +22,14 @@ public @interface BindPreference {
 	 * 
 	 * @return
 	 */
-	String name() default ConfigBase.DEFAULT_KEY;
+	String name() default "";
 
 	/**
 	 * converter da utilizzare per la conversione tra preference e config e viceversa.
 	 * 
 	 * @return
 	 */
-	Class<? extends Converter> converter() default DefaultConverter.class;
+	//Class<? extends Converter> converter() default DefaultConverter.class;
 
 	/**
 	 * Tipo di preferenza. Normalmente è string, ma può essere anche altro.
