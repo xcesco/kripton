@@ -18,7 +18,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
 		<!-- dependencies -->
-		<kripton-android-library.version>1.2.8-SNAPSHOT</kripton-android-library.version>
+		<kripton-android-library.version>1.2.10-SNAPSHOT</kripton-android-library.version>
 	</properties>
 
 	<licenses>
