@@ -6,7 +6,6 @@ package kripton11;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindTypeXml;

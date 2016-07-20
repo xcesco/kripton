@@ -15,12 +15,10 @@ import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class Bean1 {
 
 	public enum BeanType 

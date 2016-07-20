@@ -1,13 +1,8 @@
 package com.abubusoft.kripton.processor.kripton45;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
-import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
-import com.abubusoft.kripton.annotation.BindType;
 
 @BindSharedPreferences
 public class AppPreferences {

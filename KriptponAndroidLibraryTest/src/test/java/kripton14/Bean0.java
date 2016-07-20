@@ -4,7 +4,6 @@
 package kripton14;
 
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 
 
@@ -14,7 +13,6 @@ import com.abubusoft.kripton.annotation.BindType;
  *
  */
 @BindType
-@BindAllFields
 public class Bean0 {
 
 	public Bean0(String string, int i) {

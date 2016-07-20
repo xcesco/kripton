@@ -1,8 +1,6 @@
 package com.abubusoft.kripton.examples;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 
-@BindAllFields
 public class SimpleBean {
 
 	private long age;

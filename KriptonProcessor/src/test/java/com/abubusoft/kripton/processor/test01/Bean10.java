@@ -1,15 +1,14 @@
 package com.abubusoft.kripton.processor.test01;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class Bean10 {
 	
 	protected Long id;
+	
 	@BindColumn(value=ColumnType.PRIMARY_KEY)
 	protected long pk;
 

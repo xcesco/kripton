@@ -5,11 +5,8 @@ package com.abubusoft.kripton.examples.example01;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 
 
-
-@BindAllFields
 public class Employee {
 
 	private Date birthday;

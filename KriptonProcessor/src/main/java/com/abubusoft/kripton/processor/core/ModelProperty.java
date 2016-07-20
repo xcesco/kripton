@@ -8,12 +8,10 @@ import java.util.List;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 
 @BindType
-@BindAllFields
 public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {
 		
 	/* (non-Javadoc)

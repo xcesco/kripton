@@ -1,10 +1,8 @@
 package com.abubusoft.kripton.processor.kripton41;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class Bean01 {
 
 	protected long id;

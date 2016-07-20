@@ -4,14 +4,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 
 /**
  * Created by xcesco on 07/04/2016.
  */
 @BindType
-@BindAllFields
 public class UserIdentity extends BaseUserIdentity {
 
 	protected List<String> values;

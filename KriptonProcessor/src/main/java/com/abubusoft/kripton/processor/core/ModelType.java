@@ -2,14 +2,12 @@ package com.abubusoft.kripton.processor.core;
 
 import javax.lang.model.type.TypeMirror;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.TypeName;
 
 @BindType
-@BindAllFields
 public class ModelType extends LiteralType {
 	
 	TypeName name;

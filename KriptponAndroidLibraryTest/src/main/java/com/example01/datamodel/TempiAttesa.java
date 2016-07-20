@@ -3,12 +3,10 @@ package com.example01.datamodel;
 import java.util.Date;
 import java.util.List;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class TempiAttesa {
 
 	@BindTransform(DateTransform.class)

@@ -1,12 +1,10 @@
 package com.abubusoft.kripton.example01;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class ChannelMessage extends UidEntity {
 
 	private static final long serialVersionUID = -2411765210163916759L;

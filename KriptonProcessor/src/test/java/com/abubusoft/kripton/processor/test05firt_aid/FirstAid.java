@@ -1,7 +1,6 @@
 package com.abubusoft.kripton.processor.test05firt_aid;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -9,7 +8,6 @@ import com.abubusoft.kripton.annotation.BindType;
  * Created by xcesco on 09/06/2016.
  */
 @BindType
-@BindAllFields
 public class FirstAid {
 
 	@BindColumn(ColumnType.PRIMARY_KEY)

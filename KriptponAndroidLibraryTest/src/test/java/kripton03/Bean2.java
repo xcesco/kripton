@@ -6,7 +6,6 @@ package kripton03;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -16,7 +15,6 @@ import com.abubusoft.kripton.annotation.BindType;
  * @author xcesco
  *
  */
-@BindAllFields
 public class Bean2 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
@@ -27,7 +25,6 @@ public class Bean2 implements Serializable {
 		@Bind
 		public SubBean02 sbean2;
 		
-		@BindAllFields
 		public static class SubBean02
 		{
 			String fieldString;

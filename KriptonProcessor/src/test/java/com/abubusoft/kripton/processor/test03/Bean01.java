@@ -2,12 +2,10 @@ package com.abubusoft.kripton.processor.test03;
 
 import java.util.List;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class Bean01 {
 
 	protected List<Bean02> lista;

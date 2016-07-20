@@ -3,15 +3,12 @@ package com.example01.datamodel;
 
 import java.util.List;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 
 /**
- * @author 908099
  *
  */
 @BindType
-@BindAllFields
 public class ProntoSoccorso {
 	public String id;
 	

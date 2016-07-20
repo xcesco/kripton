@@ -6,11 +6,9 @@ import java.util.List;
 
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElement> implements ModelElement, ModelWithAnnotation {
 
 	protected List<ModelAnnotation> annotations;

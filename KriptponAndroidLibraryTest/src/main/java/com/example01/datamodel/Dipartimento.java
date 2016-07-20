@@ -2,11 +2,9 @@ package com.example01.datamodel;
 
 import java.util.List;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class Dipartimento {
 
 	public String id;

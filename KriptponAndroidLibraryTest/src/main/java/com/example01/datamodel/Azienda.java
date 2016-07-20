@@ -3,12 +3,10 @@ package com.example01.datamodel;
 import java.util.List;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class Azienda {
 
 	public String descrizione;

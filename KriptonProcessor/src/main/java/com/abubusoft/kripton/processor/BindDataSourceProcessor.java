@@ -20,9 +20,9 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -35,6 +35,7 @@ import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.exceptions.InvalidSQLDaoDefinitionException;
@@ -67,9 +68,9 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 	private SQLiteModel model;
 
-	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindAllFields.class).build();
+	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
-	
+
 	// define which annotation the annotation processor is interested in
 	private final Map<String, Element> globalBeanElements = new HashMap<String, Element>();
 	private final Map<String, Element> globalDaoElements = new HashMap<String, Element>();
@@ -85,6 +86,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 		annotations.add(BindDataSource.class.getCanonicalName());
 		annotations.add(BindType.class.getCanonicalName());
+		annotations.add(BindTable.class.getCanonicalName());
 		annotations.add(BindDao.class.getCanonicalName());
 
 		return annotations;
@@ -97,7 +99,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	 */
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
-		super.init(processingEnv);		
+		super.init(processingEnv);
 
 		model = new SQLiteModel();
 	}
@@ -124,6 +126,15 @@ public class BindDataSourceProcessor extends BaseProcessor {
 				globalBeanElements.put(item.toString(), item);
 			}
 
+			// Put all @BindTable elements in beanElements
+			for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
+				if (item.getKind() != ElementKind.CLASS) {
+					String msg = String.format("Only class can be annotated with @%s annotation", BindTable.class.getSimpleName());
+					throw (new InvalidKindForAnnotationException(msg));
+				}
+				globalBeanElements.put(item.toString(), item);
+			}
+
 			// Put all @BindDao elements in daoElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
 				if (item.getKind() != ElementKind.INTERFACE) {
@@ -136,24 +147,25 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			// Get all database schema definitions
 			Set<? extends Element> dataSets = roundEnv.getElementsAnnotatedWith(BindDataSource.class);
 			// exit without error
-			if (dataSets==null) return true;
-			
+			if (dataSets == null)
+				return true;
+
 			// No bind type is present
 			if (globalBeanElements.size() == 0) {
 				throw (new NoBindTypeElementsFound());
 			}
-			
+
 			// No bind type is present
 			if (globalDaoElements.size() == 0) {
 				throw (new NoDaoElementsFound());
 			}
-			
+
 			String schemaName;
 			for (Element dataSource : dataSets) {
-				
-				schemaName=createDataSource(dataSource);
-				info("Processing annotation %s generate: %s",BindDataSource.class, schemaName);
-							
+
+				schemaName = createDataSource(dataSource);
+				info("Processing annotation %s generate: %s", BindDataSource.class, schemaName);
+
 				// get all dao used within SQLDatabaseSchema annotation
 				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 
@@ -172,7 +184,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 				String msg;
 				if (currentSchema.getCollection().size() == 0) {
-					 msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(), currentSchema.getElement().getSimpleName().toString(),
+					msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(), currentSchema.getElement().getSimpleName().toString(),
 							BindDataSource.class.getSimpleName());
 					info(msg);
 					error(null, msg);
@@ -198,7 +210,9 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * <p>Create bean definition for each dao definition contained in dataSource</p>
+	 * <p>
+	 * Create bean definition for each dao definition contained in dataSource
+	 * </p>
 	 * 
 	 * @param dataSource
 	 * @param daoName
@@ -209,15 +223,15 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			String msg = String.format("Data source %s references a DAO %s without @BindDao annotation", dataSource.toString(), daoName);
 			throw (new InvalidNameException(msg));
 		}
-		
+
 		ModelProperty property;
 		String beanName = AnnotationUtility.extractAsClassName(elementUtils, daoElement, BindDao.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 		Element beanElement = globalBeanElements.get(beanName);
 		if (beanElement == null) {
 			String msg = String.format("In dao definition %s is referred a bean definition %s without @BindType annotation", daoElement.toString(), beanName);
 			throw (new InvalidNameException(msg));
-		}				
-		
+		}
+
 		// assert: bean is present
 		final SQLEntity currentEntity = new SQLEntity((TypeElement) beanElement);
 		if (currentSchema.contains(currentEntity.getName())) {
@@ -227,8 +241,16 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		currentSchema.addEntity(currentEntity);
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
-
-		final boolean bindAllFields = currentEntity.containsAnnotation(BindAllFields.class);
+		
+		boolean temp1=AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity , BindType.class,AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);						
+		boolean temp2=AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity , BindTable.class,AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
+		
+		if (!temp1 && temp2) {
+			String msg = String.format("In class '%s', inconsistent value of attribute 'allFields' in annotations '%s' and '%s'", currentEntity.getSimpleName(), BindType.class.getSimpleName(), BindTable.class.getSimpleName());
+			throw (new IncompatibleAttributesInAnnotationException(msg));
+		}
+		
+		final boolean bindAllFields =  temp1 && temp2;
 		{
 			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLProperty>() {
 
@@ -354,8 +376,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 				}
 
 				AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
-
-
+					
 					@Override
 					public void onAcceptAnnotation(Element element, String annotationClassName, Map<String, String> attributes) {
 
@@ -414,7 +435,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_LOG);
 		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog);
 		model.schemaAdd(currentSchema);
-		
+
 		return currentSchema.getName();
 	}
 

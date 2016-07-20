@@ -1,10 +1,8 @@
 package com.abubusoft.kripton.processor.kripton33;
 
-import com.abubusoft.kripton.annotation.BindAllFields;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindAllFields
 public class Channel {	
 	
 	protected String ownerUid;

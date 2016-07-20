@@ -10,9 +10,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindAllFields;
-import com.abubusoft.kripton.annotation.BindColumn;
-import com.abubusoft.kripton.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindTypeXml;
@@ -53,7 +50,6 @@ public class MappingSchema {
 		/**
 		 * if true, mapping schema is connected to a map entry.
 		 * 
-		 * @return
 		 */
 		public boolean isMapEntryStub() {
 			return mapEntryStub;
@@ -143,7 +139,7 @@ public class MappingSchema {
 
 		// if present @BindAllFields, each field is mapped, except transient,
 		// static and final fields
-		this.bindAllFields = type.isAnnotationPresent(BindAllFields.class);
+		this.bindAllFields = type.getAnnotation(BindType.class).allFields();
 
 		if (MapEntry.class.isAssignableFrom(type)) {
 			xmlInfo.mapEntryStub = true;
@@ -171,9 +167,8 @@ public class MappingSchema {
 		// BindTypeJson
 		BindType bindType = type.getAnnotation(BindType.class);
 		BindTypeXml bindTypeXml = type.getAnnotation(BindTypeXml.class);
-		BindTable bindTable = type.getAnnotation(BindTable.class);
 
-		if (bindType == null && (bindTypeXml != null || bindTable != null)) {
+		if (bindType == null && bindTypeXml != null) {
 			throw new MappingException("Class " + type.getName() + " need @BindType annotation, because it uses @BindTypeXml or @BindTable");
 		}
 		// BindTypeXml
@@ -196,12 +191,7 @@ public class MappingSchema {
 		}
 
 		//
-		tableInfo.name = type.getSimpleName();
-		if (bindTable != null) {
-			if (!"".equals(bindTable.name())) {
-				tableInfo.name = bindTable.name();
-			}
-		}
+		tableInfo.name = type.getSimpleName();		
 
 	}
 
@@ -385,9 +375,8 @@ public class MappingSchema {
 			Bind bindAnnotation = field.getAnnotation(Bind.class);
 			BindTransform bindTransform =field.getAnnotation(BindTransform.class);
 			BindXml bindXmlAnnotation = field.getAnnotation(BindXml.class);
-			BindColumn bindColumnAnnotation = field.getAnnotation(BindColumn.class);
 
-			if (!bindAllFields && bindAnnotation == null && (bindXmlAnnotation != null || bindColumnAnnotation != null)) {
+			if (!bindAllFields && bindAnnotation == null && bindXmlAnnotation != null) {
 				throw new MappingException("Can not use @BindXml,@BindColumn without @Bind for field " + field.getName() + " in class " + type.getCanonicalName());
 			}
 
