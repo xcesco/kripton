@@ -164,7 +164,6 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			for (Element dataSource : dataSets) {
 
 				schemaName = createDataSource(dataSource);
-				info("Processing annotation %s generate: %s", BindDataSource.class, schemaName);
 
 				// get all dao used within SQLDatabaseSchema annotation
 				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
@@ -172,7 +171,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 				// Analyze beans BEFORE daos, because beans are needed for DAO definition
 				for (String daoName : daoIntoDataSource) {
 					// check dao into bean definition
-					createBeanFromDao(dataSource, daoName);
+					analyzeBeanFromDao(dataSource, daoName);
 
 				} // end foreach bean
 
@@ -217,7 +216,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	 * @param dataSource
 	 * @param daoName
 	 */
-	private void createBeanFromDao(Element dataSource, String daoName) {
+	private void analyzeBeanFromDao(Element dataSource, String daoName) {
 		Element daoElement = globalDaoElements.get(daoName);
 		if (daoElement == null) {
 			String msg = String.format("Data source %s references a DAO %s without @BindDao annotation", dataSource.toString(), daoName);

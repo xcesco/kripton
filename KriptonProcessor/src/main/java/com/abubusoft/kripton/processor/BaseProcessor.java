@@ -13,10 +13,12 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
+import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+
 public abstract class BaseProcessor extends AbstractProcessor {
 
 	protected int count;
-	
+
 	protected HashSet<String> excludedMethods;
 
 	protected Types typeUtils;
@@ -29,11 +31,13 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
-
+		
+		AnnotationProcessorUtilis.init(processingEnv.getMessager());
+				
 		elementUtils = processingEnv.getElementUtils();
 		filer = processingEnv.getFiler();
 		messager = processingEnv.getMessager();
-		typeUtils=processingEnv.getTypeUtils();
+		typeUtils = processingEnv.getTypeUtils();
 
 		// define methods to ignore
 		excludedMethods = new HashSet<String>();
@@ -67,7 +71,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 
 	protected void info(String msg, Object... args) {
 		if (DEVELOP_MODE) {
-			logger.info( String.format(msg, args));
+			logger.info(String.format(msg, args));
 		}
 		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
 

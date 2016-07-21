@@ -93,11 +93,9 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 				warn("No class with %s annotation was found", BindSharedPreferences.class);
 			}
 
-			String generatedName;
 			for (PrefEntity item: model.getEntities())
 			{				
-				generatedName=BindSharedPreferencesBuilder.generate(elementUtils, filer, item);
-				info("Processing annotation %s generate: %s", BindSharedPreferences.class.getSimpleName(), generatedName);
+				BindSharedPreferencesBuilder.generate(elementUtils, filer, item);
 			}
 
 		} catch (Exception e) {
