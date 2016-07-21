@@ -31,7 +31,7 @@ public class Bean1 implements Serializable {
 		@Bind(value="f2")
 		public SubBean02 bean2;
 		
-		@BindAllFields
+		@BindType
 		public static class SubBean02
 		{
 			String fieldString;
