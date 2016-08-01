@@ -147,9 +147,9 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			// Get all database schema definitions
 			Set<? extends Element> dataSets = roundEnv.getElementsAnnotatedWith(BindDataSource.class);
 			// exit without error
-			if (dataSets == null)
-				return true;
-
+			if (dataSets.size()==0)
+				return true;			
+			
 			// No bind type is present
 			if (globalBeanElements.size() == 0) {
 				throw (new NoBindTypeElementsFound());
@@ -160,10 +160,9 @@ public class BindDataSourceProcessor extends BaseProcessor {
 				throw (new NoDaoElementsFound());
 			}
 
-			String schemaName;
 			for (Element dataSource : dataSets) {
 
-				schemaName = createDataSource(dataSource);
+				createDataSource(dataSource);
 
 				// get all dao used within SQLDatabaseSchema annotation
 				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VALUE);

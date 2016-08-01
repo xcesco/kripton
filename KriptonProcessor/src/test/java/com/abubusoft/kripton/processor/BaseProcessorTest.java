@@ -4,7 +4,6 @@ import static com.google.common.truth.Truth.assertAbout;
 import static com.google.testing.compile.JavaSourcesSubjectFactory.javaSources;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -24,10 +22,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.google.common.io.ByteStreams;
-import com.google.testing.compile.JavaFileObjects;
 import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
 import com.google.testing.compile.CompileTester.GenerationClause;
 import com.google.testing.compile.CompileTester.SuccessfulCompilationClause;
+import com.google.testing.compile.JavaFileObjects;
 
 public class BaseProcessorTest {
 	protected Log logger = LogFactory.getLog(getClass());

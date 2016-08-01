@@ -9,7 +9,7 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kripton.processor.BaseProcessorTest;
 
 @RunWith(JUnit4.class)
-public class Kripton45Test extends BaseProcessorTest {
+public class TestKripton45 extends BaseProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition
