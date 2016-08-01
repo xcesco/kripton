@@ -15,11 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.tools.JavaFileObject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
+
+import sun.tools.tree.ReturnStatement;
 
 import com.google.common.io.ByteStreams;
 import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
@@ -120,14 +124,19 @@ public class BaseProcessorTest {
 		return source;
 	}
 	
-	protected void buildSharedPreferencesProcessorTest(Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
+	protected void withGeneratedSourceCounter(long realValue, long aspected)
 	{
-		buildTest(BindSharedPreferencesProcessor.class, classesToTest);
+		Assert.assertEquals(realValue, aspected);
 	}
 	
-	protected void buildDataSourceProcessorTest(Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
+	protected long buildSharedPreferencesProcessorTest(Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildTest(BindDataSourceProcessor.class, classesToTest);
+		return buildTest(BindSharedPreferencesProcessor.class, classesToTest);
+	}
+	
+	protected long buildDataSourceProcessorTest(Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
+	{
+		return buildTest(BindDataSourceProcessor.class, classesToTest);
 	}
 	
 	/**
@@ -135,11 +144,14 @@ public class BaseProcessorTest {
 	 * 
 	 * @param classesToTest
 	 * 		classes to compile and test
+	 *  
 	 * @throws IOException 
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
+	 * 
+	 *  @return count of generated sources
 	 */
-	protected void buildTest(Class<? extends BaseProcessor> processorClazz, Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
+	protected long buildTest(Class<? extends BaseProcessor> processorClazz, Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
 	{
 		final List<JavaFileObject> sourcesPhase2=new ArrayList<JavaFileObject>();
 		
@@ -147,17 +159,19 @@ public class BaseProcessorTest {
 		
 		BindDataSourceProcessor.DEVELOP_MODE=true;
 		
+		final AtomicLong counter=new AtomicLong(0);
+		
 		//@formatter:off
 		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
 				sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
 		//@formatter:on
-		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
-		
+		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();						
 		resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
 
 			@Override
 			public void accept(Map<String, JavaFileObject> t) {				
 				for (Entry<String, JavaFileObject> item : t.entrySet()) {
+					counter.addAndGet(1);
 					logger.info("item " + item.getKey());
 					try {
 						sourcesPhase2.add(item.getValue());
@@ -171,5 +185,7 @@ public class BaseProcessorTest {
 
 			}
 		});
+		
+		return counter.longValue();
 	}
 }

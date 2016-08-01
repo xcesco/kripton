@@ -2,6 +2,7 @@ package com.abubusoft.kripton.processor.test01;
 
 import java.io.IOException;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -47,9 +48,9 @@ public class TestDatabase01 extends BaseProcessorTest {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@Test(expected=AssertionError.class)
-	public void test03() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy03Database.class, Bean01.class, Bean02.class);
+	@Test
+	public void test03() throws IOException, InstantiationException, IllegalAccessException {		
+		withGeneratedSourceCounter(buildDataSourceProcessorTest(Dummy03Database.class, Bean01.class, Bean02.class),0);
 	}
 
 	/**

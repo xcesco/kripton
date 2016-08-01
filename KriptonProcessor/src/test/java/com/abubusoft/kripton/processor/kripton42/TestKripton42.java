@@ -19,7 +19,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 @RunWith(JUnit4.class)
 public class TestKripton42 extends BaseProcessorTest {
 	
-	@Test
+	//@Test
 	public void testFormats() throws IOException
 	{
 		Restaurant bean=new Restaurant();
