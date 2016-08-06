@@ -34,7 +34,7 @@ public class ModelType extends LiteralType {
 	{
 		for (String item: value)
 		{
-			if (this.name.equals(item))
+			if (this.name.toString().equals(item))
 			{
 				return true;
 			}
@@ -54,7 +54,7 @@ public class ModelType extends LiteralType {
 		return false;
 	}
 
-	public boolean isSameType(Class<String> clazz) {
+	public boolean isSameType(Class<?> clazz) {
 		return isSameType(clazz.getName());
 	}
 

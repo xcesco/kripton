@@ -7,14 +7,71 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.BinderOptions;
+import com.abubusoft.kripton.BinderReader;
+import com.abubusoft.kripton.BinderWriter;
+import com.abubusoft.kripton.common.Base64;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.ReaderException;
+import com.abubusoft.kripton.exception.WriterException;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public class AbstractSharedPreference {
 	
 	protected AbstractSharedPreference() {
-		
 	}
+	
+	protected String writeObj(Object obj)
+	{
+		if (obj==null) return null;
+		
+		if (objWriter!=null)
+		{
+			objWriter=BinderFactory.getJSONWriter(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+		}
+		
+		String result=null;		
+		try {
+			result = objWriter.write(obj);
+			Base64.encode(result.getBytes());
+		} catch (MappingException e) {
+			e.printStackTrace();
+		} catch (WriterException e) {
+			e.printStackTrace();
+		}		
+		
+		return result;
+	}
+	
+	protected <E> E readObj(String input, Class<E> clazz)
+	{
+		if (input==null || input.length()==0) return null;
+		
+		if (objReader!=null)
+		{
+			objReader=BinderFactory.getJSONReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+		}
+		
+		E result=null;
+		String buffer;
+		try {
+			buffer=new String(Base64.decode(input));
+			result=objReader.read(clazz, buffer );
+		} catch (MappingException e) {
+			e.printStackTrace();
+		} catch (ReaderException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	protected BinderWriter objWriter;
+	
+	protected BinderReader objReader;
 
 	public static final String STRING_ARRAY_SEPARATOR = ";##@@;";
 

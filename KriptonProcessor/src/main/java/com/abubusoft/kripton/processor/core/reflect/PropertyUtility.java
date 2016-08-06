@@ -9,9 +9,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
@@ -21,11 +19,7 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
-import com.abubusoft.kripton.processor.utils.LiteralType;
-import com.google.common.reflect.TypeToken;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
-import com.sun.tools.classfile.Instruction.TypeKind;
 
 public class PropertyUtility {
 	
@@ -188,7 +182,7 @@ public class PropertyUtility {
 		} else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName());
 		} else {
-			throw new PropertyVisibilityException("Property "+property.getName()+" of class "+beanClass+" can not be modify");
+			throw new PropertyVisibilityException("property \""+property.getName()+"\" of class \""+beanClass+"\" can not be modify");
 		}
 	}
 	
@@ -198,7 +192,7 @@ public class PropertyUtility {
 		else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName())+"("+value+")";
 		} else {
-			throw new PropertyVisibilityException("Property "+property.getName()+" of class "+beanClass+" can not be modify");
+			throw new PropertyVisibilityException("property \""+property.getName()+"\" of class \""+beanClass+"\" can not be modify");
 		}
 	}
 

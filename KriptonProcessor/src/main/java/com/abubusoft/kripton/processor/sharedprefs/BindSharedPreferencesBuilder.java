@@ -31,6 +31,7 @@ import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
@@ -67,8 +68,7 @@ public class BindSharedPreferencesBuilder {
 		//@formatter:on
 
 		if (StringUtil.hasText(sharedPreferenceName)) {
-			builder.addField(FieldSpec.builder(String.class, "SHARED_PREFERENCE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-					.initializer("$S", converter.convert(entity.getSimpleName().toString())).build());
+			builder.addField(FieldSpec.builder(String.class, "SHARED_PREFERENCE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$S", converter.convert(entity.getSimpleName().toString())).build());
 		}
 
 		builder.addField(FieldSpec.builder(className(beanClassName), "defaultBean", Modifier.PRIVATE, Modifier.FINAL).build());
@@ -82,7 +82,7 @@ public class BindSharedPreferencesBuilder {
 		generateEditor(entity);
 
 		generateConstructor(sharedPreferenceName, beanClassName);
-		
+
 		generateResetMethod(entity);
 
 		generateReadMethod(entity);
@@ -115,10 +115,11 @@ public class BindSharedPreferencesBuilder {
 					method.addStatement("editor.putString($S, array2String(value))", item.getName());
 				} else if (item.getPropertyType().isList()) {
 					method.addStatement("editor.putString($S, list2String(value))", item.getName());
-				} else {
+				} else if (item.getPropertyType().isSameType(String.class)){
 					method.addStatement("editor.putString($S, value)", item.getName());
+				} else {
+					method.addStatement("editor.putString($S, writeObj(value))", item.getName());
 				}
-
 				break;
 			case BOOL:
 				method.addStatement("editor.putBoolean($S, value)", item.getName());
@@ -172,7 +173,7 @@ public class BindSharedPreferencesBuilder {
 				method.addStatement("prefs=$T.getDefaultSharedPreferences($T.context())", PreferenceManager.class, KriptonLibrary.class);
 			}
 
-			//method.addStatement("converterMap=new $T<$T, $T>()", HashMap.class, String.class, Converter.class);
+			// method.addStatement("converterMap=new $T<$T, $T>()", HashMap.class, String.class, Converter.class);
 			method.addStatement("defaultBean=new $T()", className(beanClassName));
 			builder.addMethod(method.build());
 		}
@@ -182,7 +183,7 @@ public class BindSharedPreferencesBuilder {
 		{
 			// write method
 			MethodSpec.Builder method = MethodSpec.methodBuilder("reset").addModifiers(Modifier.PUBLIC).returns(Void.TYPE);
-			method.addStatement("$T bean=new $T()", entity.getElement(),entity.getElement());			
+			method.addStatement("$T bean=new $T()", entity.getElement(), entity.getElement());
 			method.addStatement("write(bean)");
 			builder.addMethod(method.build());
 		}
@@ -197,15 +198,17 @@ public class BindSharedPreferencesBuilder {
 			MethodSpec.Builder method = MethodSpec.methodBuilder("write").addModifiers(Modifier.PUBLIC).addParameter(typeName(entity.getName()), "bean").returns(Void.TYPE);
 			method.addStatement("$T editor=prefs.edit()", SharedPreferences.Editor.class);
 			for (PrefProperty item : entity.getCollection()) {
-				//method.addCode("// set $L property ($L)\n", item.getName(), item.getPreferenceType());
+				// method.addCode("// set $L property ($L)\n", item.getName(), item.getPreferenceType());
 				switch (item.getPreferenceType()) {
 				case STRING:
 					if (item.getPropertyType().isArray()) {
 						method.addStatement("editor.putString($S, array2String(bean.$L))", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 					} else if (item.getPropertyType().isList()) {
 						method.addStatement("editor.putString($S, list2String(bean.$L))", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-					} else {
+					} else if (item.getPropertyType().isSameType(String.class)) {
 						method.addStatement("editor.putString($S, bean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
+					} else {
+						method.addStatement("editor.putString($S, writeObj(bean.$L))", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 					}
 					break;
 				case BOOL:
@@ -236,38 +239,38 @@ public class BindSharedPreferencesBuilder {
 		MethodSpec.Builder method = MethodSpec.methodBuilder("read").addModifiers(Modifier.PUBLIC).returns(typeName(entity.getName()));
 		method.addStatement("$T bean=new $T()", typeName(entity.getName()), typeName(entity.getName()));
 		for (PrefProperty item : entity.getCollection()) {
-			//method.addCode("// get $L property ($L)\n", item.getName(), item.getPreferenceType());
+			// method.addCode("// get $L property ($L)\n", item.getName(), item.getPreferenceType());
 
 			switch (item.getPreferenceType()) {
 			case STRING:
 				if (item.getPropertyType().isArray()) {
-					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "string2array(prefs.getString($S, null), bean.$L)"), item.getName(),
-							PropertyUtility.getter(typeName(entity.getElement()), item));
+					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "string2array(prefs.getString($S, null), bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				} else if (item.getPropertyType().isList()) {
-					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "string2list(prefs.getString($S, null), bean.$L)"), item.getName(),
-							PropertyUtility.getter(typeName(entity.getElement()), item));
+					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "string2list(prefs.getString($S, null), bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				} else if (item.getPropertyType().isEnum()) {
 
+				} else if (item.getPropertyType().isSameType(String.class)) {
+					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getString($S, bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				} else {
-					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getString($S, bean.$L)"), item.getName(),
-							PropertyUtility.getter(typeName(entity.getElement()), item));
+					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "($T)readObj(prefs.getString($S, null), $T.class)"), typeName(item.getPropertyType().getRawType()), item.getName(), typeName(item.getPropertyType()
+							.getRawType()));
+					method.beginControlFlow("if (bean." + PropertyUtility.getter(typeName(entity.getElement()), item)+"==null) ");
+					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "defaultBean.$L"), PropertyUtility.getter(typeName(entity.getElement()), item));
+					method.endControlFlow();
 				}
+
 				break;
 			case BOOL:
-				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getBoolean($S,bean.$L)"), item.getName(),
-						PropertyUtility.getter(typeName(entity.getElement()), item));
+				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getBoolean($S,bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				break;
 			case FLOAT:
-				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getFloat($S,bean.$L)"), item.getName(),
-						PropertyUtility.getter(typeName(entity.getElement()), item));
+				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getFloat($S,bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				break;
 			case INT:
-				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getInt($S,bean.$L)"), item.getName(),
-						PropertyUtility.getter(typeName(entity.getElement()), item));
+				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getInt($S,bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				break;
 			case LONG:
-				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getLong($S,bean.$L)"), item.getName(),
-						PropertyUtility.getter(typeName(entity.getElement()), item));
+				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getLong($S,bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				break;
 			default:
 				break;
@@ -285,20 +288,25 @@ public class BindSharedPreferencesBuilder {
 
 		for (PrefProperty item : entity.getCollection()) {
 			MethodSpec.Builder method = MethodSpec.methodBuilder(item.getName()).addModifiers(Modifier.PUBLIC).returns(item.getPropertyType().getName());
-			//method.addCode("// get $L property ($L)\n", item.getName(), item.getPreferenceType());
+			// method.addCode("// get $L property ($L)\n", item.getName(), item.getPreferenceType());
 
 			switch (item.getPreferenceType()) {
 			case STRING:
 				if (item.getPropertyType().isArray()) {
-					method.addStatement("return string2array(prefs.getString($S, null), defaultBean.$L)", item.getName(),
-							PropertyUtility.getter(typeName(entity.getElement()), item));
+					method.addStatement("return string2array(prefs.getString($S, null), defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				} else if (item.getPropertyType().isList()) {
-					method.addStatement("return string2list(prefs.getString($S, null), defaultBean.$L)", item.getName(),
-							PropertyUtility.getter(typeName(entity.getElement()), item));
+					method.addStatement("return string2list(prefs.getString($S, null), defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				} else if (item.getPropertyType().isEnum()) {
 
-				} else {
+				} else if (item.getPropertyType().isSameType(String.class)) {
 					method.addStatement("return prefs.getString($S, defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
+				} else {
+					TypeName type = typeName(item.getPropertyType().getRawType());
+					method.addStatement("$T temp=($T)readObj(prefs.getString($S, null), $T.class)", type, type, item.getName(), type);
+					method.beginControlFlow("if (temp!=null) ");
+					method.addStatement("return temp");
+					method.endControlFlow();
+					method.addStatement("return defaultBean.$L", PropertyUtility.getter(typeName(entity.getElement()), item));
 				}
 				break;
 			case BOOL:
