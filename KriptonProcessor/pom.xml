@@ -4,7 +4,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-processor</artifactId>
-	<version>1.2.47-SNAPSHOT</version>
+	<version>1.2.49-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<url>https://github.com/xcesco/kripton</url>
@@ -19,6 +19,7 @@
 		<jackson.version>2.7.5</jackson.version>
 		<javapoet.version>1.7.0</javapoet.version>
 		<junit.version>4.12</junit.version>
+		<robolectric.version>3.1.2</robolectric.version>
 	</properties>
 
 	<description>Annotation processor for Kripton Android Library.</description>
@@ -140,6 +141,14 @@
 			<version>5.0.0_r2-robolectric-1</version>
 			<scope>compile</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.robolectric/robolectric -->
+		<dependency>
+    		<groupId>org.robolectric</groupId>
+    		<artifactId>robolectric</artifactId>
+    	<version>${robolectric.version}</version>
+</dependency>
+		
 	</dependencies>
 
 	<profiles>

@@ -28,7 +28,7 @@ public class AbstractSharedPreference {
 	{
 		if (obj==null) return null;
 		
-		if (objWriter!=null)
+		if (objWriter==null)
 		{
 			objWriter=BinderFactory.getJSONWriter(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 		}
@@ -50,7 +50,7 @@ public class AbstractSharedPreference {
 	{
 		if (input==null || input.length()==0) return null;
 		
-		if (objReader!=null)
+		if (objReader==null)
 		{
 			objReader=BinderFactory.getJSONReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 		}
