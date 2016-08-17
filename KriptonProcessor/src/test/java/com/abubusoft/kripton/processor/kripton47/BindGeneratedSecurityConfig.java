@@ -69,7 +69,8 @@ public class BindGeneratedSecurityConfig extends AbstractSharedPreference {
   }
 
   public UserIdentity userIdentity() {
-    com.abubusoft.kripton.processor.kripton47.UserIdentity temp=(com.abubusoft.kripton.processor.kripton47.UserIdentity)readObj(prefs.getString("userIdentity", null), com.abubusoft.kripton.processor.kripton47.UserIdentity.class);
+	  String buffer=prefs.getString("userIdentity", null);
+    com.abubusoft.kripton.processor.kripton47.UserIdentity temp=(com.abubusoft.kripton.processor.kripton47.UserIdentity)readObj(buffer, com.abubusoft.kripton.processor.kripton47.UserIdentity.class);
     if (temp!=null)  {
       return temp;
     }

@@ -36,7 +36,7 @@ public class AbstractSharedPreference {
 		String result=null;		
 		try {
 			result = objWriter.write(obj);
-			Base64.encode(result.getBytes());
+			result=Base64.encode(result.getBytes());
 		} catch (MappingException e) {
 			e.printStackTrace();
 		} catch (WriterException e) {
