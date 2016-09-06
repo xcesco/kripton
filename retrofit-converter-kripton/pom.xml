@@ -6,7 +6,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>retrofit-converter-kripton</artifactId>
-	<version>2.0.2</version>
+	<version>1.0.0</version>
 	<url>https://github.com/xcesco/kripton</url>
 
 	<packaging>jar</packaging>
@@ -58,12 +58,14 @@
 			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>retrofit</artifactId>
 			<version>${retrofit.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-android-library</artifactId>
 			<version>${kripton-android-library.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
