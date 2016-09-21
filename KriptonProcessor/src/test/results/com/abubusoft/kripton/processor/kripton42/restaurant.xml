@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<restaurant id="-1">
+  <name>dummy restaurant</name>
+  <address>dummy address</address>
+  <longitude>20.0</longitude>
+  <latitude>24.0</latitude>
+</restaurant>

@@ -23,8 +23,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 
-import sun.tools.tree.ReturnStatement;
-
 import com.google.common.io.ByteStreams;
 import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
 import com.google.testing.compile.CompileTester.GenerationClause;
@@ -46,6 +44,22 @@ public class BaseProcessorTest {
 
 		public String getPath() {
 			return path;
+		}
+		
+		/**
+		 * <p>
+		 * Create a file starting with specified folder. Path have to start without "/" 
+		 * 
+		 * @param fileName
+		 * @return
+		 */
+		public File createFile(String fileNameWithRelativePath)
+		{
+			if (fileNameWithRelativePath.startsWith("/") || fileNameWithRelativePath.startsWith("\\") )
+			{
+				fileNameWithRelativePath=fileNameWithRelativePath.substring(1);
+			}
+			return new File(this.path+fileNameWithRelativePath);
 		}
 	};
 	
