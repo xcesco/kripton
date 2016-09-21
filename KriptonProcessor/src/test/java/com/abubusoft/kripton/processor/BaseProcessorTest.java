@@ -36,7 +36,7 @@ public class BaseProcessorTest {
 
 	public enum PathSourceType {
 		SRC_TEST_JAVA("src/test/java/"),
-		SRC_TEST_RESULT("src/test/result/");
+		SRC_TEST_RESULT("src/test/results/");
 
 		private PathSourceType(String path) {
 			this.path = path;
