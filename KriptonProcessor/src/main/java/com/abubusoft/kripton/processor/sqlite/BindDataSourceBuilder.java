@@ -84,9 +84,6 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			// dao with connections
 			{
 				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).returns(className(BindDataSourceBuilder.PREFIX+dao.getName()));
-				//methodBuilder.addCode("// get current database connection, without increment connection counter\n");
-				//methodBuilder.addCode("if (database==null) throw(new $T(\"No database connection is opened\"));\n", KriptonRuntimeException.class);
-				//methodBuilder.addCode("$L.setDatabase(database);\n", convert.convert(dao.getName()));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
 				builder.addMethod(methodBuilder.build());
 			}						
@@ -125,9 +122,9 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			for (SQLEntity item: schema.getEntities())
 			{
 				if (schema.isLogEnabled()) {
-					methodBuilder.addCode("$T.info(\"DDL: %s\",$LTable.CREATE_TABLE_SQL);\n", Logger.class, item.getSimpleName());
+					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class,className(item.getName()+"Table"));
 				}
-				methodBuilder.addCode("database.execSQL($LTable.CREATE_TABLE_SQL);\n", item.getSimpleName());
+				methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", className(item.getName()+"Table"));
 			}
 
 			builder.addMethod(methodBuilder.build());
@@ -145,9 +142,9 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			for (SQLEntity item: schema.getEntities())
 			{
 				if (schema.isLogEnabled()) {
-					methodBuilder.addCode("$T.info(\"DDL: %s\",$LTable.DROP_TABLE_SQL);\n", Logger.class, item.getSimpleName());
+					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.DROP_TABLE_SQL);\n", Logger.class, className(item.getName()+"Table"));
 				}
-				methodBuilder.addCode("database.execSQL($LTable.DROP_TABLE_SQL);\n", item.getSimpleName());								
+				methodBuilder.addCode("database.execSQL($T.DROP_TABLE_SQL);\n", className(item.getName()+"Table"));								
 			}
 			
 			methodBuilder.addCode("\n");
@@ -156,9 +153,9 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			for (SQLEntity item: schema.getEntities())
 			{
 				if (schema.isLogEnabled()) {
-					methodBuilder.addCode("$T.info(\"DDL: %s\",$LTable.CREATE_TABLE_SQL);\n", Logger.class, item.getSimpleName());
+					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, className(item.getName()+"Table"));
 				}
-				methodBuilder.addCode("database.execSQL($LTable.CREATE_TABLE_SQL);\n", item.getSimpleName());								
+				methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", className(item.getName()+"Table"));								
 			}
 			
 			
