@@ -107,12 +107,12 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			}
 
 			methodBuilder.addJavadoc("<p>Insert query:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferName.toString(), bufferValue.toString());
+			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");						
 
 			// generate sql query
-			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferName.toString(), bufferQuestion.toString());
+			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
 
 			// update bean have only one parameter: the bean to update
 			for (Pair<String, TypeMirror> param : method.getParameters()) {

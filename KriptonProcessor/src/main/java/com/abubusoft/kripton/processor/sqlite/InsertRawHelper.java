@@ -72,15 +72,15 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		// define return value
 		if (returnType == TypeName.VOID) {
-			methodBuilder.addCode("database().insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
+			methodBuilder.addCode("database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
-			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
+			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
 			methodBuilder.addCode("return result!=-1;\n");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
-			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
+			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
 			methodBuilder.addCode("return result;\n");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
-			methodBuilder.addCode("int result = (int)database().insert($S, null, contentValues);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()));
+			methodBuilder.addCode("int result = (int)database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
 			methodBuilder.addCode("return result;\n");
 		} else {
 			// more than one listener found
@@ -115,11 +115,11 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}
 
 			methodBuilder.addJavadoc("<p>Insert query:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferName.toString(), bufferValue.toString());
+			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
 			methodBuilder.addJavadoc("\n");
 			
 			// generate sql query
-			sqlInsert=String.format("INSERT INTO %s (%s) VALUES (%s)",daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferName.toString(),bufferQuestion.toString());
+			sqlInsert=String.format("INSERT INTO %s (%s) VALUES (%s)",daoDefinition.getEntity().getTableName(), bufferName.toString(),bufferQuestion.toString());
 
 			// update bean have only one parameter: the bean to update
 			for (Pair<String, TypeMirror> param : method.getParameters()) {

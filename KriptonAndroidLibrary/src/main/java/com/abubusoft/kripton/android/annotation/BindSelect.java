@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  *
  * @since 05/mag/2016
  */
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface BindSelect {
 	

@@ -203,7 +203,7 @@ public abstract class MethodUtility {
 		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSelect.class, selectResultType.isMapFields(), null);
 		String fieldStatement = fieldList.value0;
 		// List<SQLProperty> fields = fieldList.value1;
-		String tableStatement = daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName());
+		String tableStatement = daoDefinition.getEntity().getTableName();
 
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition

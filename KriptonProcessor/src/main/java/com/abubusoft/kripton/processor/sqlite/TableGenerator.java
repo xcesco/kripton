@@ -9,6 +9,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
@@ -58,9 +59,9 @@ public class TableGenerator extends AbstractBuilder implements ModelElementVisit
 
 	@Override
 	public void visit(SQLEntity kriptonClass) throws Exception {
-		SQLEntity entity=(SQLEntity) kriptonClass;
+		SQLEntity entity=kriptonClass;
 				
-		String classTableName =  entity.getSimpleName() + SUFFIX;
+		String classTableName =  entity.getSimpleName() + SUFFIX;		
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
@@ -73,9 +74,10 @@ public class TableGenerator extends AbstractBuilder implements ModelElementVisit
 
 		columnNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
 
+		entity.buildTableName(elementUtils, model);
 		{
 			// table_name
-			FieldSpec fieldSpec = FieldSpec.builder(String.class, "TABLE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("\"$L\"", model.classNameConverter.convert(kriptonClass.getSimpleName())).build();
+			FieldSpec fieldSpec = FieldSpec.builder(String.class, "TABLE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("\"$L\"", entity.getTableName()).build();
 			builder.addField(fieldSpec);
 		}
 		
@@ -85,7 +87,7 @@ public class TableGenerator extends AbstractBuilder implements ModelElementVisit
 			FieldSpec.Builder fieldSpec = FieldSpec.builder(String.class, "CREATE_TABLE_SQL").addModifiers(Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC);			
 			
 			StringBuilder buffer=new StringBuilder();
-			buffer.append("CREATE TABLE "+model.classNameConverter.convert(kriptonClass.getSimpleName()));
+			buffer.append("CREATE TABLE "+entity.getTableName());
 			// define column name set
 			
 			String separator=" ";
@@ -137,7 +139,7 @@ public class TableGenerator extends AbstractBuilder implements ModelElementVisit
 		{			
 			// drop table SQL
 			// "CREATE TABLE IF NOT EXISTS TutorialsPoint(Username VARCHAR,Password VARCHAR);"
-			String sql="DROP TABLE IF EXISTS "+model.classNameConverter.convert(kriptonClass.getSimpleName())+";";
+			String sql="DROP TABLE IF EXISTS "+entity.getTableName()+";";
 			
 			FieldSpec fieldSpec = FieldSpec.builder(String.class, "DROP_TABLE_SQL").addModifiers(Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC).initializer("$S",sql).build();
 			builder.addField(fieldSpec);

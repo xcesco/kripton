@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindTable {
 	/**
@@ -15,7 +15,7 @@ public @interface BindTable {
 	 * @return
 	 * 		defined name of the table in java style
 	 */
-	String name() default "";
+	String value() default "";
 	
 	boolean allFields() default true;
 }

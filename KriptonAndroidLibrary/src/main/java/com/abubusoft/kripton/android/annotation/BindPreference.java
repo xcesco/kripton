@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BindPreference {
 	

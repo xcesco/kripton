@@ -26,7 +26,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * @author xcesco
  *
  */
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindDao {
 

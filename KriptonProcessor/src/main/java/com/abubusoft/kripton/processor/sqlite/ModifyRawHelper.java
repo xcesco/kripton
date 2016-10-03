@@ -115,12 +115,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			if (daoDefinition.isLogEnabled()) {
 				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);
 			}
-			methodBuilder.addCode("int result = database().update($S, contentValues, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), where.value0);
+			methodBuilder.addCode("int result = database().update($S, contentValues, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), where.value0);
 		} else {
 			if (daoDefinition.isLogEnabled()) {
 				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);
 			}
-			methodBuilder.addCode("int result = database().delete($S, $S, whereConditions);\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), where.value0);
+			methodBuilder.addCode("int result = database().delete($S, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), where.value0);
 		}
 
 		// define return value
@@ -175,16 +175,16 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			// generate sql query
-			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), bufferQuestion.toString(), whereForLogging);
+			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), whereForLogging);
 
 			methodBuilder.addJavadoc("<p>Update query:</p>\n");
-			methodBuilder.addJavadoc("<pre>UPDATE $L SET $L WHERE $L</pre>\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), buffer.toString(), whereCondition);
+			methodBuilder.addJavadoc("<pre>UPDATE $L SET $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), buffer.toString(), whereCondition);
 		} else {
 			// generate sql query
-			sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), whereForLogging);
+			sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getEntity().getTableName(), whereForLogging);
 
 			methodBuilder.addJavadoc("<p>Delete query:</p>\n");
-			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getClassNameConverter().convert(daoDefinition.getEntitySimplyClassName()), whereCondition);
+			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), whereCondition);
 		}
 
 		if (methodParams.size() > 0) {

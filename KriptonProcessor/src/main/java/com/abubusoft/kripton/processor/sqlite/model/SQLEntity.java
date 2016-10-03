@@ -1,10 +1,15 @@
 package com.abubusoft.kripton.processor.sqlite.model;
 
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.processor.core.ModelClass;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
 public class SQLEntity extends ModelClass<SQLProperty> {
+
+	private String tableName;
 
 	public SQLEntity(TypeElement element) {
 		super(element);
@@ -45,6 +50,23 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 		SQLProperty id = findByName("id");
 
 		return id;
+	}
+
+	public String getTableName() {		
+		return tableName;
+	}
+
+	public void buildTableName(Elements elementUtils, SQLiteDatabaseSchema model) {
+		tableName=getSimpleName();
+		if (containsAnnotation(BindTable.class))			
+		{
+			String temp=AnnotationUtility.extractAsString(elementUtils, getElement(), BindTable.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+			
+			if (temp!=null && temp.length()>0)
+				tableName=temp;
+		}		
+		tableName=model.classNameConverter.convert(tableName);
+		
 	}
 
 }
