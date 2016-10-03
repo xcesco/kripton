@@ -5,7 +5,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 @BindSharedPreferences
-public class SecurityConfig {
+public class SecurityPreferences {
 
     /**
      * FCM-ID

@@ -13,8 +13,14 @@ public class TestKripton50 extends BaseProcessorTest {
 
 	
 	@Test
-	public void testSharedPreferenceName() throws IOException, InstantiationException, IllegalAccessException {
-		buildSharedPreferencesProcessorTest(App.class, UserAccessToken.class);
+	public void testRight() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(RightPreferences.class, UserAccessToken.class);
+	}
+	
+	
+	@Test(expected=AssertionError.class)
+	public void testWrong() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(Wrong.class, UserAccessToken.class);
 	}
 
 }

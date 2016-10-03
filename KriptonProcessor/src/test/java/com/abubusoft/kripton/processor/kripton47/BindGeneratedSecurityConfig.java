@@ -9,12 +9,12 @@ import java.lang.String;
 public class BindGeneratedSecurityConfig extends AbstractSharedPreference {
   private static BindGeneratedSecurityConfig instance;
 
-  private final SecurityConfig defaultBean;
+  private final SecurityPreferences defaultBean;
 
   private BindGeneratedSecurityConfig() {
     // no name specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
-    defaultBean=new SecurityConfig();
+    defaultBean=new SecurityPreferences();
   }
 
   public BindEditor edit() {
@@ -22,12 +22,12 @@ public class BindGeneratedSecurityConfig extends AbstractSharedPreference {
   }
 
   public void reset() {
-    SecurityConfig bean=new SecurityConfig();
+    SecurityPreferences bean=new SecurityPreferences();
     write(bean);
   }
 
-  public SecurityConfig read() {
-    SecurityConfig bean=new SecurityConfig();
+  public SecurityPreferences read() {
+    SecurityPreferences bean=new SecurityPreferences();
     bean.fcmId=prefs.getString("fcmId", bean.fcmId);
     bean.authorizationToken=(com.abubusoft.kripton.processor.kripton47.DeviceAccessToken)readObj(prefs.getString("authorizationToken", null), com.abubusoft.kripton.processor.kripton47.DeviceAccessToken.class);
     if (bean.authorizationToken==null)  {
@@ -42,7 +42,7 @@ public class BindGeneratedSecurityConfig extends AbstractSharedPreference {
     return bean;
   }
 
-  public void write(SecurityConfig bean) {
+  public void write(SecurityPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putString("fcmId", bean.fcmId);
     editor.putString("authorizationToken", writeObj(bean.authorizationToken));

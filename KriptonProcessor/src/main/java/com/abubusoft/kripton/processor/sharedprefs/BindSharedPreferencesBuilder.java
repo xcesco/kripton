@@ -24,6 +24,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
+import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
@@ -43,6 +44,8 @@ public class BindSharedPreferencesBuilder {
 
 	protected static final String PREFIX = "Bind";
 
+	protected static final String SUFFIX = "Preferences";
+
 	protected static Builder builder;
 
 	/**
@@ -55,7 +58,13 @@ public class BindSharedPreferencesBuilder {
 	public static String generate(Elements elementUtils, Filer filer, PrefEntity entity) throws IOException {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		String beanClassName = entity.getSimpleName().toString();
-		String className = PREFIX + entity.getSimpleName().toString(); // + SUFFIX;
+
+		if (!beanClassName.endsWith(SUFFIX)) {
+			String msg = String.format("Class %s must have a name with suffix \"%s\" to be used with @%s", beanClassName, SUFFIX, BindSharedPreferences.class.getSimpleName());
+			throw (new InvalidNameException(msg));
+		}
+
+		String className = PREFIX + beanClassName; // + SUFFIX;
 		ModelAnnotation annotation = entity.getAnnotation(BindSharedPreferences.class);
 		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_NAME);
 
@@ -104,10 +113,10 @@ public class BindSharedPreferencesBuilder {
 		Builder innerClassBuilder = TypeSpec.classBuilder("BindEditor").addModifiers(Modifier.PUBLIC).superclass(typeName("AbstractEditor"));
 		innerClassBuilder.addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).build());
 
-		// write method		
+		// write method
 		for (PrefProperty item : entity.getCollection()) {
-			MethodSpec.Builder method = MethodSpec.methodBuilder("put"+converter.convert(item.getName())).addModifiers(Modifier.PUBLIC).addParameter(typeName(item.getElement()), "value").returns(typeName("BindEditor"));
-			//method.addCode("// set $L property ($L)\n", item.getName(), item.getPreferenceType());
+			MethodSpec.Builder method = MethodSpec.methodBuilder("put" + converter.convert(item.getName())).addModifiers(Modifier.PUBLIC).addParameter(typeName(item.getElement()), "value").returns(typeName("BindEditor"));
+			// method.addCode("// set $L property ($L)\n", item.getName(), item.getPreferenceType());
 
 			switch (item.getPreferenceType()) {
 			case STRING:
@@ -115,7 +124,7 @@ public class BindSharedPreferencesBuilder {
 					method.addStatement("editor.putString($S, array2String(value))", item.getName());
 				} else if (item.getPropertyType().isList()) {
 					method.addStatement("editor.putString($S, list2String(value))", item.getName());
-				} else if (item.getPropertyType().isSameType(String.class)){
+				} else if (item.getPropertyType().isSameType(String.class)) {
 					method.addStatement("editor.putString($S, value)", item.getName());
 				} else {
 					method.addStatement("editor.putString($S, writeObj(value))", item.getName());
@@ -139,7 +148,7 @@ public class BindSharedPreferencesBuilder {
 
 			method.addStatement("return this");
 			innerClassBuilder.addMethod(method.build());
-		}				
+		}
 
 		builder.addType(innerClassBuilder.build());
 	}
@@ -252,9 +261,9 @@ public class BindSharedPreferencesBuilder {
 				} else if (item.getPropertyType().isSameType(String.class)) {
 					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getString($S, bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				} else {
-					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "($T)readObj(prefs.getString($S, null), $T.class)"), typeName(item.getPropertyType().getRawType()), item.getName(), typeName(item.getPropertyType()
-							.getRawType()));
-					method.beginControlFlow("if (bean." + PropertyUtility.getter(typeName(entity.getElement()), item)+"==null) ");
+					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "($T)readObj(prefs.getString($S, null), $T.class)"), typeName(item.getPropertyType().getRawType()), item.getName(), typeName(item
+							.getPropertyType().getRawType()));
+					method.beginControlFlow("if (bean." + PropertyUtility.getter(typeName(entity.getElement()), item) + "==null) ");
 					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "defaultBean.$L"), PropertyUtility.getter(typeName(entity.getElement()), item));
 					method.endControlFlow();
 				}
