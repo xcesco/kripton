@@ -15,6 +15,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDelete;
@@ -23,7 +24,6 @@ import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;

@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.example01;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
