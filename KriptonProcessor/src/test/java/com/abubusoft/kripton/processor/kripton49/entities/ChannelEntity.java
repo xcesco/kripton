@@ -1,8 +1,10 @@
 package com.abubusoft.kripton.processor.kripton49.entities;
 
+import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
+@BindTable("Channel")
 public class ChannelEntity {	
 	
 	protected String ownerUid;

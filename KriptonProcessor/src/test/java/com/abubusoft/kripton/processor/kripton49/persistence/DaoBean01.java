@@ -8,7 +8,7 @@ import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.processor.kripton49.entities.Bean01Entity;
 
 @BindDao(Bean01Entity.class)
-public interface DaoBean01 extends BaseDao<Bean01Entity>  {
+public interface DaoBean01 {
 	@BindSelect(where="id=${id}")
 	Bean01Entity selectOne(Long id);
 	
@@ -20,5 +20,8 @@ public interface DaoBean01 extends BaseDao<Bean01Entity>  {
 	
 	@BindInsert()
 	long insertOne(Long id);
+	
+	@BindInsert
+	long insertOne(Bean01Entity bean);
 	
 }
