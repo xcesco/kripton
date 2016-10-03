@@ -3,8 +3,8 @@ package com.abubusoft.kripton.processor.kripton38;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType

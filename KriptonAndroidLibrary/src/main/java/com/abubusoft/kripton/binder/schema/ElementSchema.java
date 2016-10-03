@@ -1,8 +1,8 @@
 package com.abubusoft.kripton.binder.schema;
 
 import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.transform.DefaultCustomTransform;

@@ -2,7 +2,7 @@ package com.abubusoft.kripton.processor.test03;
 
 import java.util.List;
 
-import com.abubusoft.kripton.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
