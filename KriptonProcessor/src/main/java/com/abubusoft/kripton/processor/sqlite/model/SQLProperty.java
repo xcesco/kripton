@@ -1,16 +1,26 @@
 package com.abubusoft.kripton.processor.sqlite.model;
 
+import java.lang.ref.WeakReference;
+
 import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
 
 public class SQLProperty extends ModelProperty {
 
-	public SQLProperty(Element element) {
+	public SQLProperty(SQLEntity entity, Element element) {
 		super(element);
+		this.parent=new WeakReference<SQLEntity>(entity);
 	}
 	
 	protected boolean nullable;
+	
+	protected WeakReference<SQLEntity> parent;
+	
+	public SQLEntity getParent()
+	{
+		return parent.get();
+	}
 	
 	/**
 	 * @param primaryKey the primaryKey to set
