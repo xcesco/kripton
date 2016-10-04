@@ -73,10 +73,10 @@ public class SelectStatementBuilder {
 		if (distinct) buffer.append("DISTINCT ");
 		buffer.append(fields);
 		buffer.append(" FROM "+table);
-		if (StringUtility.hasText(where)) buffer.append(" WHERE "+where);
-		if (StringUtility.hasText(having)) buffer.append(" HAVING "+having);
-		if (StringUtility.hasText(groupBy)) buffer.append(" GROUP BY "+groupBy);
-		if (StringUtility.hasText(orderBy)) buffer.append(" ORDER BY "+orderBy);
+		if (StringUtility.hasText(where)) buffer.append(" WHERE "+where.trim());
+		if (StringUtility.hasText(having)) buffer.append(" HAVING "+having.trim());
+		if (StringUtility.hasText(groupBy)) buffer.append(" GROUP BY "+groupBy.trim());
+		if (StringUtility.hasText(orderBy)) buffer.append(" ORDER BY "+orderBy.trim());
 		
 		return buffer.toString();
 	}

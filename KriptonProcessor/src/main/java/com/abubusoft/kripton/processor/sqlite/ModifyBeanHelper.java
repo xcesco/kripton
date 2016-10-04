@@ -23,6 +23,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
@@ -47,6 +48,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			whereCondition = method.getAnnotation(BindUpdate.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		} else {
 			whereCondition = method.getAnnotation(BindDelete.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
+		}
+		
+		if (StringUtility.hasText(whereCondition))
+		{
+			whereCondition=whereCondition.trim();					
 		}
 
 		analyzer.execute(elementUtils, method, whereCondition);
