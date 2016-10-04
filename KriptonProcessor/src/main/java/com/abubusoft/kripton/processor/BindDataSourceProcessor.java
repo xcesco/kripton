@@ -325,10 +325,10 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	 * @throws Exception
 	 */
 	protected void buildClasses() throws Exception {
-		// generate
 		TableGenerator.generate(elementUtils, filer, currentSchema);
 		BindDaoBuilder.execute(elementUtils, filer, currentSchema);
 		BindCursorBuilder.execute(elementUtils, filer, currentSchema);
+		//
 		BindAsyncTaskBuilder.generate(elementUtils, filer, currentSchema);
 		BindDataSourceBuilder.generate(elementUtils, filer, currentSchema);
 	}
