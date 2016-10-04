@@ -254,7 +254,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 				@Override
 				public SQLProperty createProperty(Element element) {
-					return new SQLProperty(element);
+					return new SQLProperty(currentEntity, element);
 				}
 			}, propertyAnnotationFilter, new PropertyCreatedListener<SQLProperty>() {
 

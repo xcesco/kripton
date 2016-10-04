@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
