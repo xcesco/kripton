@@ -31,14 +31,20 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public int version;
 	
-	public boolean log;
+	public boolean generateLog;
+
+	public boolean generateAsyncTask;
+
+	public boolean generateCursor;
 	
-	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean log) {	
+	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean log, boolean asyncTask, boolean generateCursor) {	
 		super(item.getSimpleName().toString(), item);
 		
 		this.fileName=schemaFileName;
 		this.version=schemaVersion;
-		this.log=log;
+		this.generateLog=log;
+		this.generateAsyncTask=asyncTask;
+		this.generateCursor=generateCursor;
 		this.generatedClassName="Bind"+getName();
 	}
 
@@ -59,7 +65,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	}
 
 	public boolean isLogEnabled() {
-		return log;
+		return generateLog;
 	}
 
 }

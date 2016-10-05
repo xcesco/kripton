@@ -55,5 +55,21 @@ public @interface BindDataSource {
 	 * @return
 	 */
 	String tableNamePrefix() default "";
+	
+	/**
+	 * if true, generate async task
+	 * 
+	 * @return
+	 * 		true if you want to generate async task class
+	 */
+	boolean asyncTask() default true;
+
+	/**
+	 * if true, generate cursor wrapper
+	 * 
+	 * @return
+	 * 		true if you want to generate cursor wrapper
+	 */
+	boolean cursor() default true;
 
 }

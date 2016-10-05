@@ -327,9 +327,10 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	protected void buildClasses() throws Exception {
 		TableGenerator.generate(elementUtils, filer, currentSchema);
 		BindDaoBuilder.execute(elementUtils, filer, currentSchema);
-		BindCursorBuilder.execute(elementUtils, filer, currentSchema);
-		//
-		BindAsyncTaskBuilder.generate(elementUtils, filer, currentSchema);
+		if (currentSchema.generateCursor)
+			BindCursorBuilder.execute(elementUtils, filer, currentSchema);
+		if (currentSchema.generateAsyncTask)
+			BindAsyncTaskBuilder.generate(elementUtils, filer, currentSchema);
 		BindDataSourceBuilder.generate(elementUtils, filer, currentSchema);
 	}
 
@@ -431,7 +432,10 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
 		int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
 		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_LOG);
-		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog);
+		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_ASYNCTASK);
+		boolean generateCursor = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_CURSOR);
+		
+		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog, generateAsyncTask, generateCursor);
 		model.schemaAdd(currentSchema);
 
 		return currentSchema.getName();

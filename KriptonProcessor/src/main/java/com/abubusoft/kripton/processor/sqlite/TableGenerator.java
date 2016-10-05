@@ -1,7 +1,5 @@
 package com.abubusoft.kripton.processor.sqlite;
 
-import java.util.Date;
-
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
@@ -12,8 +10,6 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.processor.BindDataSourceProcessor;
-import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;

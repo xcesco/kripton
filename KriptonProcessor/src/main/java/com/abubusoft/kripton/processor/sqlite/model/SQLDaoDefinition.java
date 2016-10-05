@@ -79,7 +79,7 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	 * 	Return true if log must be generated.
 	 */
 	public boolean isLogEnabled() {
-		return getParent().log;
+		return getParent().generateLog;
 	}
 
 }
