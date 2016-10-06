@@ -9,6 +9,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
+import com.abubusoft.kripton.processor.core.JavadocUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;

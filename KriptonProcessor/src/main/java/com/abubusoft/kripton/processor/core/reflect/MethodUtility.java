@@ -28,6 +28,7 @@ import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.processor.core.JavadocUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
@@ -258,7 +259,7 @@ public abstract class MethodUtility {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
 		// generate javadoc
-		JavaDocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldStatement, selectResultType);
+		JavadocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldStatement, selectResultType);
 
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {

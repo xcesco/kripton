@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.processor.core.JavadocUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
