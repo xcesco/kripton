@@ -56,13 +56,23 @@ public class TableGenerator extends AbstractBuilder implements ModelElementVisit
 			visitor.visit(item);
 		}
 	}
-
+	
+	static String generateSimpleTableName(SQLEntity entity)
+	{
+		return entity.getSimpleName() + SUFFIX;
+	}
+	
+	public static String generateTableName(SQLEntity entity)
+	{
+		return entity.getName() + SUFFIX;
+	}
+	
 	@Override
 	public void visit(SQLEntity kriptonClass) throws Exception {
 		SQLEntity entity=kriptonClass;
 		entity.buildTableName(elementUtils, model);
 				
-		String classTableName =  entity.getSimpleName() + SUFFIX;	
+		String classTableName =  generateSimpleTableName(entity);	
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();

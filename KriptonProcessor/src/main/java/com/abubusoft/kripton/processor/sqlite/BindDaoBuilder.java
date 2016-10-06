@@ -2,8 +2,6 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
-import java.util.Date;
-
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
@@ -14,8 +12,6 @@ import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.android.sqlite.DaoBase;
-import com.abubusoft.kripton.processor.BindDataSourceProcessor;
-import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
@@ -74,6 +70,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getEntityClassName()));
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getElement().getQualifiedName().toString()));
+		builder.addJavadoc(" @see $T\n", TypeUtility.className(TableGenerator.generateTableName(value.getEntity())));
 		
 
 		{

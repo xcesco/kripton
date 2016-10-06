@@ -14,6 +14,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
@@ -53,14 +54,16 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindDaoFactoryBuilder visitor = new BindDaoFactoryBuilder(elementUtils, filer, schema);		
-		String daoFactoryName=visitor.buildDaoFactoryInterface(elementUtils, filer, schema);
+		visitor.buildDaoFactoryInterface(elementUtils, filer, schema);
+		String daoFactoryName=BindDaoFactoryBuilder.generateDaoFactoryName(schema);
+				
 		
 		BindDataSourceBuilder visitorDao = new BindDataSourceBuilder(elementUtils, filer, schema);		
 		visitorDao.buildDataSource(elementUtils, filer, schema, daoFactoryName);
 	}
 
 	public void buildDataSource(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema, String daoFactoryName) throws Exception {
-		ClassName daoFactory=className(daoFactoryName);
+		ClassName daoFactoryClazz=className(daoFactoryName);
 		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		
 		String schemaName =  schema.getName();
@@ -70,16 +73,37 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, schemaName);
-		builder = TypeSpec.classBuilder(schemaName).addModifiers(Modifier.PUBLIC).superclass(AbstractDataSource.class).addSuperinterface(daoFactory);
+		builder = TypeSpec.classBuilder(schemaName).addModifiers(Modifier.PUBLIC)
+				.superclass(AbstractDataSource.class)
+				.addSuperinterface(daoFactoryClazz);
+		
+		builder.addJavadoc("<p>\n");
+		builder.addJavadoc("Represents implementation of datasource $L.\n",schema.getName());
+		builder.addJavadoc("This class expose database interface through Dao attribute.\n",schema.getName());
+		builder.addJavadoc("</p>\n\n");
+		
+		JavadocUtility.generateJavadocGeneratedBy(builder);
+		builder.addJavadoc("@see $T\n", TypeUtility.typeName(schema.getName()));
+		builder.addJavadoc("@see $T\n", daoFactoryClazz);
+		for (SQLDaoDefinition dao : schema.getCollection()) {
+		ClassName daoImplName = className(BindDataSourceBuilder.PREFIX+ dao.getName());
+			builder.addJavadoc("@see $T\n", dao.getElement());
+			builder.addJavadoc("@see $T\n", daoImplName);
+			builder.addJavadoc("@see $T\n", dao.getEntity().getElement());
+		}
+		
+		//builder.addJavadoc("@see $T\n", TypeUtility.typeName(dataSourceName));
 				
 		// define static fields
-		builder.addField(className(schemaName), "instance", Modifier.PRIVATE, Modifier.STATIC);		
-		builder.addField(FieldSpec.builder(String.class, "name", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$S", schema.fileName).build());		
-		builder.addField(FieldSpec.builder(Integer.TYPE, "version", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$L", schema.version).build());		
+		builder.addField(FieldSpec.builder(className(schemaName), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p><singleton of datasource,/p>\n").build());	
+		builder.addField(FieldSpec.builder(String.class, "name", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p><file name used to save database,/p>\n").initializer("$S", schema.fileName).build());		
+		builder.addField(FieldSpec.builder(Integer.TYPE, "version", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>database version</p>\n").initializer("$L", schema.version).build());		
 		
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			ClassName daoImplName = className(BindDataSourceBuilder.PREFIX+ dao.getName());
-			builder.addField(FieldSpec.builder(daoImplName,convert.convert(dao.getName()), Modifier.PROTECTED).initializer("new $T(this)", daoImplName) .build());
+			builder.addField(FieldSpec.builder(daoImplName,convert.convert(dao.getName()), Modifier.PROTECTED)
+					.addJavadoc("<p>dao instance</p>\n")
+					.initializer("new $T(this)", daoImplName) .build());
 			
 			// dao with connections
 			{
@@ -97,7 +121,7 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			// instance
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
 	
-			methodBuilder.addJavadoc("\n$L\n","instance");
+			methodBuilder.addJavadoc("instance\n");
 			methodBuilder.beginControlFlow("if (instance==null)");
 			methodBuilder.addCode("instance=new $L($T.context());\n", className(schemaName), KriptonLibrary.class);
 			methodBuilder.endControlFlow();
@@ -117,7 +141,7 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			// onCreate
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 			methodBuilder.addParameter(SQLiteDatabase.class, "database");
-			methodBuilder.addJavadoc("\n$L\n","onCreate\n");
+			methodBuilder.addJavadoc("onCreate\n");
 			methodBuilder.addCode("// generate tables\n");
 			for (SQLEntity item: schema.getEntities())
 			{
@@ -136,7 +160,7 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			methodBuilder.addParameter(SQLiteDatabase.class, "database");
 			methodBuilder.addParameter(Integer.TYPE, "oldVersion");
 			methodBuilder.addParameter(Integer.TYPE, "newVersion");
-			methodBuilder.addJavadoc("\n$L\n","onUpgrade");
+			methodBuilder.addJavadoc("onUpgrade\n");
 
 			methodBuilder.addCode("// drop tables\n");
 			for (SQLEntity item: schema.getEntities())
@@ -174,7 +198,10 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 	public void generateMethodExecute(String daoFactoryName) {
 		String transationExecutorName="Transaction";
 		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactoryName));			
-		builder.addType(TypeSpec.interfaceBuilder(transationExecutorName).addModifiers(Modifier.PUBLIC).addSuperinterface(parameterizedTypeName).build());
+		builder.addType(TypeSpec.interfaceBuilder(transationExecutorName)
+				.addModifiers(Modifier.PUBLIC).addSuperinterface(parameterizedTypeName)
+				.addJavadoc("interface to define transactions\n")
+				.build());
 			
 		MethodSpec.Builder executeMethod=MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC, Modifier.SYNCHRONIZED).addParameter(className(transationExecutorName),"transaction");
 				
@@ -193,10 +220,9 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 		executeMethod.endControlFlow();
 		
 		// generate javadoc
-		executeMethod.addJavadoc("<p>Allow to execute a transaction. Method is synchronized to avoid concurrent problems. The database will be open in write mode.</p>\n");
+		executeMethod.addJavadoc("<p>executes a transaction. This method is synchronized to avoid concurrent problems. The database will be open in write mode.</p>\n");
 		executeMethod.addJavadoc("\n");
-		executeMethod.addJavadoc("@param transaction\n");
-		executeMethod.addJavadoc("\ttransaction to execute\n");
+		executeMethod.addJavadoc("@param transaction transaction to execute\n");
 		
 		builder.addMethod(executeMethod.build());
 	}
