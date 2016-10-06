@@ -4,7 +4,7 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindSharedPreferences(allFields=true)
+@BindSharedPreferences(name="dummy")
 public class AppPreferences {
 
 	public String name="ciao"; 
