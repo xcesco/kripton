@@ -19,3 +19,5 @@ To avoid boilerplate-code, Kripton use the power of annotation processor. With t
 
 # Supported platforms
 There are two platform: the android environment and generic Java environment. For each platform there is a version of library. Android platform already include a json library and xml parser library. Java JDK does not include a json library and have different xml parser libraries.
+
+See [wiki|https://github.com/xcesco/] for more informations.
