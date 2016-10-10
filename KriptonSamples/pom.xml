@@ -5,11 +5,48 @@
 	<artifactId>KriptonSamples</artifactId>
 	<version>1.2.2-SNAPSHOT</version>
 	
+	<properties>
+		<whisperSharedVersion>1.0.43-SNAPSHOT</whisperSharedVersion>
+	</properties>
+	
+	<build>
+    <plugins>
+        <plugin>
+        	<groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.5.1</version>
+
+            <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+
+                <annotationProcessors>
+                    <annotationProcessor>com.abubusoft.kripton.processor.BindDataSourceProcessor</annotationProcessor>
+                    <annotationProcessor>com.abubusoft.kripton.processor.BindSharedPreferencesProcessor</annotationProcessor>                    
+                </annotationProcessors>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton</artifactId>
-			<version>1.0.0</version>
+			<artifactId>kripton-processor</artifactId>
+			<version>1.2.63-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-android-library</artifactId>
+			<version>1.2.63-SNAPSHOT</version>			
+		</dependency>
+		
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>whisper-shared</artifactId>
+			<version>${whisperSharedVersion}</version>			
 		</dependency>
 	</dependencies>
 </project>
