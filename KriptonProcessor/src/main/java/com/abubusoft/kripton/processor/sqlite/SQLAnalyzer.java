@@ -39,12 +39,12 @@ public class SQLAnalyzer {
 
 	private List<String> paramNames;
 	
-	private List<TypeName> paramTypeNames;
+	private List<TypeMirror> paramTypeNames;
 	
 	/**
 	 * @return the paramTypes
 	 */
-	public List<TypeName> getParamTypeNames() {
+	public List<TypeMirror> getParamTypeNames() {
 		return paramTypeNames;
 	}
 
@@ -97,7 +97,7 @@ public class SQLAnalyzer {
 		paramNames = new ArrayList<String>();
 		paramGetters = new ArrayList<String>();
 		usedBeanPropertyNames=new ArrayList<String>();
-		paramTypeNames=new ArrayList<TypeName>();
+		paramTypeNames=new ArrayList<TypeMirror>();
 				
 
 		// replace placeholder ${ } with ?
@@ -145,7 +145,7 @@ public class SQLAnalyzer {
 					throw new MethodParameterNotFoundException(method, rawName);
 				}
 				paramGetters.add(rawName);
-				paramTypeNames.add(typeName(rawNameType));
+				paramTypeNames.add(rawNameType);
 				
 				usedMethodParameters.add(rawName);
 			} else if (splittedName.length==2) {
@@ -154,7 +154,7 @@ public class SQLAnalyzer {
 					// there are nested property invocation
 					paramGetters.add(splittedName[0]+"."+getter(entity.findByName(splittedName[1])));
 					usedBeanPropertyNames.add(splittedName[1]);
-					paramTypeNames.add(entity.findByName(splittedName[1]).getPropertyType().getName());
+					paramTypeNames.add(entity.findByName(splittedName[1]).getPropertyType());
 					
 					usedMethodParameters.add(splittedName[0]);
 				} else {

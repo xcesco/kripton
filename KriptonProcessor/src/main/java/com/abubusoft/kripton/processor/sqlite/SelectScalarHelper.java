@@ -3,6 +3,9 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -30,8 +33,9 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
-		if (TypeUtility.isTypePrimitive(returnType) || TypeUtility.isTypeWrappedPrimitive(returnType) || TypeUtility.isTypeIncludedIn(returnType, String.class) || TypeUtility.isByteArray(returnType)) {
+	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
+		TypeName returnTypeName=typeName(returnType);
+		if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class) || TypeUtility.isByteArray(returnTypeName)) {
 
 		} else {
 			// error return type
@@ -64,7 +68,7 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 		//methodBuilder.beginControlFlow("do\n");
 		
 		//methodBuilder.addCode("if (cursor.getString(0);\n");
-		if (TypeUtility.isNullable(returnType)) {
+		if (TypeUtility.isNullable(returnTypeName)) {
 			methodBuilder.addCode("if (cursor.isNull(0)) { return null; }\n");
 		} else  {
 			methodBuilder.addCode("if (cursor.isNull(0)) { return ");

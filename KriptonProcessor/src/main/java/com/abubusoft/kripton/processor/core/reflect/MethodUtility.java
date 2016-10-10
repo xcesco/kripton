@@ -147,11 +147,13 @@ public abstract class MethodUtility {
 		SQLiteSelectBuilder.SelectResultType selectResultType = null;
 
 		// if true, field must be associate to ben attributes
-		TypeName returnType = typeName(method.getReturnClass());
+		TypeMirror returnType=method.getReturnClass();
+		TypeName returnTypeName = typeName(returnType);
+		
 		LiteralType readBeanListener = LiteralType.of(ReadBeanListener.class.getCanonicalName(), entity.getName());
 		LiteralType readCursorListener = LiteralType.of(ReadCursorListener.class);
 
-		if (TypeUtility.isTypeIncludedIn(returnType, Void.class, Void.TYPE)) {
+		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
 			if (hasParameterOfType(method, readCursorListener)) {
 				selectResultType = SQLiteSelectBuilder.SelectResultType.LISTENER_CURSOR;
@@ -163,18 +165,18 @@ public abstract class MethodUtility {
 				// error
 			}
 
-		} else if (TypeUtility.isTypeIncludedIn(returnType, Cursor.class)) {
+		} else if (TypeUtility.isTypeIncludedIn(returnTypeName, Cursor.class)) {
 			// return Cursor (no listener)
 			selectResultType = SQLiteSelectBuilder.SelectResultType.CURSOR;
-		} else if (returnType instanceof ParameterizedTypeName) {
-			ClassName listClazzName = ((ParameterizedTypeName) returnType).rawType;
+		} else if (returnTypeName instanceof ParameterizedTypeName) {
+			ClassName listClazzName = ((ParameterizedTypeName) returnTypeName).rawType;
 
 			if (TypeUtility.isTypeIncludedIn(listClazzName, List.class, Collection.class)) {
 				// return List (no listener)
-				List<TypeName> list = ((ParameterizedTypeName) returnType).typeArguments;
+				List<TypeName> list = ((ParameterizedTypeName) returnTypeName).typeArguments;
 
 				if (list.size() == 1) {
-					TypeName elementName = ((ParameterizedTypeName) returnType).typeArguments.get(0);
+					TypeName elementName = ((ParameterizedTypeName) returnTypeName).typeArguments.get(0);
 					if (TypeUtility.isSameType(list.get(0), entity.getName().toString())) {
 						// entity list
 						selectResultType = SQLiteSelectBuilder.SelectResultType.LIST_BEAN;
@@ -188,10 +190,10 @@ public abstract class MethodUtility {
 			} else {
 				// error
 			}
-		} else if (TypeUtility.isEquals(returnType, entity)) {
+		} else if (TypeUtility.isEquals(returnTypeName, entity)) {
 			// return one element (no listener)
 			selectResultType = SQLiteSelectBuilder.SelectResultType.BEAN;
-		} else if (TypeUtility.isTypePrimitive(returnType) || TypeUtility.isTypeWrappedPrimitive(returnType) || TypeUtility.isTypeIncludedIn(returnType, String.class) || TypeUtility.isByteArray(returnType)) {
+		} else if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class) || TypeUtility.isByteArray(returnTypeName)) {
 			// return single value string, int, long, short, double, float, String (no listener)
 			selectResultType = SQLiteSelectBuilder.SelectResultType.SCALAR;
 		}
@@ -214,7 +216,7 @@ public abstract class MethodUtility {
 		// parameters
 		List<String> paramNames = new ArrayList<String>();
 		List<String> paramGetters = new ArrayList<String>();
-		List<TypeName> paramTypeNames = new ArrayList<TypeName>();
+		List<TypeMirror> paramTypeNames = new ArrayList<TypeMirror>();
 		Set<String> usedMethodParameters = new HashSet<String>();
 
 		SQLAnalyzer analyzer = new SQLAnalyzer();
@@ -266,7 +268,7 @@ public abstract class MethodUtility {
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
 			methodBuilder.addParameter(parameterSpec);
 		}
-		methodBuilder.returns(returnType);
+		methodBuilder.returns(returnTypeName);
 
 		// build where condition (common for every type of select)
 		StringBuilder logArgsBuffer = new StringBuilder();
@@ -275,7 +277,7 @@ public abstract class MethodUtility {
 		{
 			String separator = "";
 
-			TypeName paramTypeName;
+			TypeMirror paramTypeName;
 			boolean nullable;
 			int i = 0;
 			for (String item : paramGetters) {
@@ -283,7 +285,7 @@ public abstract class MethodUtility {
 				logArgsBuffer.append(separator + "%s");
 
 				paramTypeName = paramTypeNames.get(i);
-				nullable = TypeUtility.isNullable(paramTypeName);
+				nullable = TypeUtility.isNullable(typeName(paramTypeName));
 
 				if (nullable) {
 					methodBuilder.addCode("($L==null?null:", item);

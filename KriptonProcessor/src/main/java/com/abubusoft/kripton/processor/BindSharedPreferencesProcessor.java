@@ -56,6 +56,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
 
+		annotations.add(BindType.class.getCanonicalName());
 		annotations.add(BindSharedPreferences.class.getCanonicalName());
 
 		return annotations;
@@ -76,6 +77,8 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 			model = new PrefModel();
 			int itemCounter = 0;
+			
+			parseBindType(roundEnv);
 
 			// Put all @BindSharedPreferences elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindSharedPreferences.class)) {

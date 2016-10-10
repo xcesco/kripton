@@ -1,10 +1,10 @@
 package com.abubusoft.kripton.processor.sqlite;
 
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 
 /**
  * @author xcesco
@@ -54,14 +54,14 @@ public abstract class SQLiteSelectBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+		public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeMirror returnType) {
 			codeGenerator.generate(elementUtils, fieldList, methodBuilder, this.isMapFields(), method, returnType);
 
 		}
 	}
 
 	public interface SelectCodeGenerator {
-		void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+		void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType);
 	}
 
 }

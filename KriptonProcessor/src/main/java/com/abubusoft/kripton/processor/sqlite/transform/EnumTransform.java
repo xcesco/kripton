@@ -4,7 +4,6 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
@@ -14,7 +13,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  * 
  */
-class EnumTransform extends AbstractCompileTimeTransform {
+public class EnumTransform extends AbstractCompileTimeTransform {
 
 	public EnumTransform(TypeName typeName) {
 		

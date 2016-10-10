@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -36,7 +37,9 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
+		TypeName returnTypeName=typeName(returnType);
+		
 		// return type is already checked
 		if (fieldList.value1.size() == 0) {
 			// no projection
@@ -46,7 +49,7 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 			throw (new InvalidMethodSignException(method, "only one column can be defined for this kind of method"));
 		}
 		
-		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnType;
+		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
 
 		TypeName collectionClass;		
 		ClassName listClazzName = returnListName.rawType;
@@ -64,7 +67,7 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 		methodBuilder.addCode("\n");
 	
 		//elementName.
-		Transform t = Transformer.lookup(elementName);
+		Transform t = Transformer.lookup(returnType);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("try");

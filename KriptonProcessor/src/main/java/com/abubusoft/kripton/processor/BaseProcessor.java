@@ -1,23 +1,54 @@
 package com.abubusoft.kripton.processor;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
+import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.binder.transform.Transformer;
+import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 
 public abstract class BaseProcessor extends AbstractProcessor {
 
 	protected int count;
+	
+	/**
+	 * build bindType elements map
+	 * 
+	 * @param roundEnv
+	 */
+	protected void parseBindType(RoundEnvironment roundEnv) {
+		// Put all @BindType elements in beanElements
+		globalBeanElements.clear();
+		for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
+			if (!(item.getKind() == ElementKind.CLASS || item.getKind() == ElementKind.ENUM)) {
+				String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindType.class.getSimpleName());
+				throw (new InvalidKindForAnnotationException(msg));
+			}
+			globalBeanElements.put(item.toString(), item);
+		}
+		
+		
+	}
+	
+	/**
+	 * define which annotation the annotation processor is interested in
+	 */
+	protected final Map<String, Element> globalBeanElements = new HashMap<String, Element>();
 
 	protected HashSet<String> excludedMethods;
 

@@ -59,8 +59,12 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.sqlite.transform.EnumTransform;
+import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.TypeName;
+
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 public class BindDataSourceProcessor extends BaseProcessor {
 
@@ -70,9 +74,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
-
-	// define which annotation the annotation processor is interested in
-	private final Map<String, Element> globalBeanElements = new HashMap<String, Element>();
+	
 	private final Map<String, Element> globalDaoElements = new HashMap<String, Element>();
 
 	/*
@@ -84,8 +86,8 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
 
-		annotations.add(BindDataSource.class.getCanonicalName());
 		annotations.add(BindType.class.getCanonicalName());
+		annotations.add(BindDataSource.class.getCanonicalName());
 		annotations.add(BindTable.class.getCanonicalName());
 		annotations.add(BindDao.class.getCanonicalName());
 
@@ -114,16 +116,16 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			}
 
 			globalDaoElements.clear();
-			globalBeanElements.clear();
+			
 			model.schemaClear();
 
-			// Put all @BindType elements in beanElements
-			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
-				if (!(item.getKind() == ElementKind.CLASS || item.getKind() == ElementKind.ENUM)) {
-					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindType.class.getSimpleName());
-					throw (new InvalidKindForAnnotationException(msg));
+			parseBindType(roundEnv);
+			for (Element item: globalBeanElements.values())
+			{
+				if (item.getKind()==ElementKind.ENUM)
+				{
+					Transformer.register(typeName(item), new EnumTransform(typeName(item)));
 				}
-				globalBeanElements.put(item.toString(), item);
 			}
 
 			// Put all @BindTable elements in beanElements

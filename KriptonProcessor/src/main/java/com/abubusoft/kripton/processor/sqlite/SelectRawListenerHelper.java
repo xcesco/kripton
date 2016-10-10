@@ -5,6 +5,7 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.List;
 
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
@@ -32,7 +33,7 @@ public class SelectRawListenerHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
 		LiteralType listenerType=LiteralType.of(ReadCursorListener.class);
 		
 		int counter = MethodUtility.countParameterOfType(method, listenerType);
