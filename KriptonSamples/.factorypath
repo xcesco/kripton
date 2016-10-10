@@ -1,0 +1,4 @@
+<factorypath>
+    <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/KriptonProcessor/target/kripton-processor-1.2.63-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>
