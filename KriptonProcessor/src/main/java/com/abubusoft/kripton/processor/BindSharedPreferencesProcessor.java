@@ -80,7 +80,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 			// Put all @BindSharedPreferences elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindSharedPreferences.class)) {
 				if (item.getKind() != ElementKind.CLASS) {
-					String msg = String.format("Only class can be annotated with @%s annotation", BindSharedPreferences.class.getSimpleName());
+					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindSharedPreferences.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 

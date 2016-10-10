@@ -10,6 +10,9 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -34,7 +37,7 @@ public class Transformer {
 	 * @param beanClass 
 	 */
 	public static void cursor2Java(MethodSpec.Builder methodBuilder, TypeName beanClass, ModelProperty property, String beanName, String cursorName, String indexName) {
-		Transform transform = lookup(typeName(property.getElement().asType()));
+		Transform transform = lookup(property.getElement());
 
 		if (transform == null) {
 			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
@@ -43,7 +46,7 @@ public class Transformer {
 	}
 
 	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		Transform transform = lookup(typeName(property.getElement().asType()));
+		Transform transform = lookup(property.getElement());
 
 		if (transform == null) {
 			throw new RuntimeException("Transform of " + property.getElement().asType() + " not supported");
@@ -80,28 +83,30 @@ public class Transformer {
 	/**
 	 * Get transformer for type
 	 * 
-	 * @param type
+	 * @param element
 	 * @return
 	 * 		transform
 	 */
-	public static Transform lookup(TypeName type) {
-		Transform transform = cache.get(type);
+	public static Transform lookup(Element element) {
+		TypeName typeName = typeName(element.asType());
+		Transform transform = cache.get(typeName);
 
 		if (transform != null) {
 			return transform;
 		}
 
-		transform = getTransform(type);
+		transform = getTransform(element);
 		if (transform != null) {
-			cache.put(type, transform);
+			cache.put(typeName, transform);
 		}
 
 		return transform;
 	}
 
-	private static Transform getTransform(TypeName typeName) {
-		try {
-
+	private static Transform getTransform(Element element) {
+		TypeName typeName = typeName(element.asType());
+		
+		//try {			
 			if (typeName.isPrimitive()) {
 				return getPrimitiveTransform(typeName);
 			}
@@ -116,9 +121,12 @@ public class Transformer {
 				}
 			}
 
-			TypeToken<?> type = TypeToken.of(Class.forName(typeName.toString()));
-
-			if (type.getRawType().isEnum()) {
+			//TypeToken<?> type = TypeToken. .of(Class.forName(typeName.toString()));
+			//if (type.getRawType().isEnum()) {
+				//return new EnumTransform(typeName);
+			//}
+			if (element.getKind()==ElementKind.ENUM)
+			{
 				return new EnumTransform(typeName);
 			}
 
@@ -139,9 +147,9 @@ public class Transformer {
 			 * (IllegalAccessException e) { e.printStackTrace(); } }
 			 */
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		//} catch (ClassNotFoundException e) {
+			//e.printStackTrace();
+		//}
 
 		return null;
 	}
@@ -259,7 +267,7 @@ public class Transformer {
 	}
 
 	public static void resetBean(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		Transform transform = lookup(typeName(property.getElement().asType()));
+		Transform transform = lookup(property.getElement());
 
 		if (transform == null) {
 			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
@@ -269,7 +277,7 @@ public class Transformer {
 	}
 
 	public static String columnType(ModelProperty property) {
-		Transform transform = lookup(typeName(property.getElement().asType()));
+		Transform transform = lookup(property.getElement());
 
 		if (transform == null) {
 			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");

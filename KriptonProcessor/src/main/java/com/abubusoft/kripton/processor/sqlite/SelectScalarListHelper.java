@@ -62,8 +62,8 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, elementName, collectionClass, elementName);		
 		methodBuilder.addCode("\n");
-		
-
+	
+		//elementName.
 		Transform t = Transformer.lookup(elementName);
 
 		methodBuilder.addCode("\n");

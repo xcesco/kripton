@@ -119,8 +119,8 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 			// Put all @BindType elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
-				if (item.getKind() != ElementKind.CLASS) {
-					String msg = String.format("Only class can be annotated with @%s annotation", BindType.class.getSimpleName());
+				if (!(item.getKind() == ElementKind.CLASS || item.getKind() == ElementKind.ENUM)) {
+					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindType.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 				globalBeanElements.put(item.toString(), item);
@@ -129,7 +129,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			// Put all @BindTable elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
 				if (item.getKind() != ElementKind.CLASS) {
-					String msg = String.format("Only class can be annotated with @%s annotation", BindTable.class.getSimpleName());
+					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindTable.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 				globalBeanElements.put(item.toString(), item);
@@ -138,7 +138,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			// Put all @BindDao elements in daoElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
 				if (item.getKind() != ElementKind.INTERFACE) {
-					String msg = String.format("Only interface can be annotated with @%s annotation", BindDao.class.getSimpleName());
+					String msg = String.format("%s %s, only interface can be annotated with @%s annotation", item.getKind(), item, BindDao.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 				globalDaoElements.put(item.toString(), item);

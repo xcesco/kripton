@@ -3,6 +3,7 @@ package com.abubusoft.kripton.processor.core.reflect;
 import java.lang.reflect.Type;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.common.Pair;
@@ -176,6 +177,11 @@ public class TypeUtility {
 	public static TypeName typeName(Element element)
 	{		
 		return TypeName.get(element.asType());
+	}
+	
+	public static boolean isEnumType(Element element)
+	{
+		return element.getKind()==ElementKind.ENUM;
 	}
 
 	public static boolean isTypeIncludedIn(String clazzName, Class<?> ... set) {
