@@ -16,8 +16,6 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
-import com.sun.tools.javac.code.Symbol.TypeSymbol;
-import com.sun.tools.javac.code.Type.ClassType;
 
 /**
  * Transformer for java primitive types and frequently used java types
@@ -56,7 +54,6 @@ public abstract class Transformer {
 	}
 
 	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeMirror objectType, String objectName) {
-		// java2ContentValues(methodBuilder, typeName(objectType), objectName);
 		Transform transform = lookup(objectType);
 
 		if (transform == null) {
@@ -64,17 +61,6 @@ public abstract class Transformer {
 		}
 		transform.generateWriteProperty(methodBuilder, objectName);
 	}
-
-	// public static void java2ContentValues(MethodSpec.Builder methodBuilder,
-	// TypeName objectTypeName, String objectName) {
-	// Transform transform = lookup(objectTypeName);
-	//
-	// if (transform == null) {
-	// throw new RuntimeException("Transform of " + objectTypeName + " not
-	// supported");
-	// }
-	// transform.generateWriteProperty(methodBuilder, objectName);
-	// }
 
 	/**
 	 * Register custom transformable for a Java primitive type or a frequently
@@ -93,7 +79,7 @@ public abstract class Transformer {
 	/**
 	 * Get transformer for type
 	 * 
-	 * @param element
+	 * @param typeMirror
 	 * @return transform
 	 */
 	public static Transform lookup(TypeMirror typeMirror) {
