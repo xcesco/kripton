@@ -13,12 +13,9 @@ public interface DaoChannel {
 
 	@BindInsert
 	long insertContact(String ownerUid);
-	
 
     @BindSelect
     List<Channel> selectAll();
-    
-	
 	
     @BindSelect(where="updateTime=${updateTimeA}")
     List<Channel> select(long updateTimeA);
@@ -28,8 +25,6 @@ public interface DaoChannel {
     
     @BindSelect(where="updateTime=${channel.updateTime}")
     Cursor selectCursor(Channel channel);
-	
-	
 	
 	/*
 	@SQLUpdateBean(where = "id=:id")

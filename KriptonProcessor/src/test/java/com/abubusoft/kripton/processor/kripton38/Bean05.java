@@ -4,10 +4,13 @@ import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
+@BindTable("WsBean")
 public class Bean05 {
 
 	@Bind
@@ -33,7 +36,7 @@ public class Bean05 {
 	}
 
 	@Bind
-	@BindColumn
+	@BindColumn(fieldType=FieldType.ENUM)
 	protected BeanType beanType;
 
 	/**

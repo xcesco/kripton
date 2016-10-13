@@ -20,7 +20,7 @@ public class ModelType extends LiteralType {
 	}
 
 	public ModelType(TypeMirror type) {
-		super(type.toString());
+		super(type.toString());		
 		this.name=TypeName.get(type);
 	}
 
@@ -62,6 +62,5 @@ public class ModelType extends LiteralType {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
 
 }

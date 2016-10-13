@@ -1,7 +1,6 @@
 package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import com.abubusoft.kripton.common.Base64;
 import com.abubusoft.kripton.processor.core.ModelProperty;

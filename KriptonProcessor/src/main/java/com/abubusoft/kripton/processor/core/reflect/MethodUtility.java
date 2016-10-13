@@ -31,6 +31,7 @@ import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.JavadocUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
+import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.CodeBuilderUtility;
@@ -147,9 +148,9 @@ public abstract class MethodUtility {
 		SQLiteSelectBuilder.SelectResultType selectResultType = null;
 
 		// if true, field must be associate to ben attributes
-		TypeMirror returnType=method.getReturnClass();
+		TypeMirror returnType = method.getReturnClass();
 		TypeName returnTypeName = typeName(returnType);
-		
+
 		LiteralType readBeanListener = LiteralType.of(ReadBeanListener.class.getCanonicalName(), entity.getName());
 		LiteralType readCursorListener = LiteralType.of(ReadCursorListener.class);
 
@@ -278,6 +279,8 @@ public abstract class MethodUtility {
 			String separator = "";
 
 			TypeMirror paramTypeName;
+			TypeName paramName;
+			
 			boolean nullable;
 			int i = 0;
 			for (String item : paramGetters) {
@@ -285,7 +288,15 @@ public abstract class MethodUtility {
 				logArgsBuffer.append(separator + "%s");
 
 				paramTypeName = paramTypeNames.get(i);
-				nullable = TypeUtility.isNullable(typeName(paramTypeName));
+
+				if (paramTypeName instanceof ModelType) {
+					paramName = ((ModelType) paramTypeName).getName();
+				} else
+				{
+					paramName=typeName(paramTypeName);
+				}
+				
+				nullable = TypeUtility.isNullable(paramName);
 
 				if (nullable) {
 					methodBuilder.addCode("($L==null?null:", item);

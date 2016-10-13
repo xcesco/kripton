@@ -30,7 +30,8 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_VERSION("version"),
 	ATTRIBUTE_LOG("log"), 
 	ATTRIBUTE_ASYNCTASK("asyncTask"), 
-	ATTRIBUTE_CURSOR("cursor") 
+	ATTRIBUTE_CURSOR("cursor"), 
+	ATTRIBUTE_FIELD_TYPE("fieldType")
 	
 	
 	;

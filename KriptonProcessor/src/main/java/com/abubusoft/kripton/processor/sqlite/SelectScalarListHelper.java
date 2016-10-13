@@ -12,12 +12,14 @@ import java.util.List;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transform;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -66,8 +68,16 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, elementName, collectionClass, elementName);		
 		methodBuilder.addCode("\n");
 	
-		//elementName.
-		Transform t = Transformer.lookup(returnType);
+		LiteralType literalReturn=LiteralType.of(returnType.toString());
+		
+		Transform t;
+		if (!literalReturn.isList())
+			 t = Transformer.lookup(returnType);
+		else 
+		{			
+			t=Transformer.lookup(typeName(literalReturn.getComposedValue()));
+		}
+		
 
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("try");

@@ -2,6 +2,7 @@ package com.abubusoft.kripton.example01;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
@@ -28,6 +29,7 @@ public class ChannelMessage extends UidEntity {
 		this.image = image;
 	}
 
+	@BindColumn(fieldType=FieldType.ENUM)
 	protected DayType day;
 	
 	/**

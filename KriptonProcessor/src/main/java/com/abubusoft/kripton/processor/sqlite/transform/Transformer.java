@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.ModelType;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -83,8 +84,37 @@ public abstract class Transformer {
 	 * @return transform
 	 */
 	public static Transform lookup(TypeMirror typeMirror) {
-		TypeName typeName = typeName(typeMirror);
+		TypeName typeName;
+		
+		if (typeMirror instanceof ModelType)
+		{
+			typeName = ((ModelType)typeMirror).getName();	
+		} else {
+			typeName = typeName(typeMirror);
+		}
+		
 
+		Transform transform = cache.get(typeName);
+
+		if (transform != null) {
+			return transform;
+		}
+
+		transform = getTransform(typeName);
+		if (transform != null) {
+			cache.put(typeName, transform);
+		}
+
+		return transform;
+	}
+	
+	/**
+	 * Get transformer for type
+	 * 
+	 * @param typeName
+	 * @return transform
+	 */
+	public static Transform lookup(TypeName typeName) {
 		Transform transform = cache.get(typeName);
 
 		if (transform != null) {

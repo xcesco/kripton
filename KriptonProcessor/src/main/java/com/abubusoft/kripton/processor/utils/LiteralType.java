@@ -113,7 +113,6 @@ public class LiteralType implements TypeMirror {
 							resolvedRawType = i;
 							break;
 						}
-
 					}
 				}
 

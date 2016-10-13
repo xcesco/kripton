@@ -18,7 +18,6 @@ import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 

@@ -17,14 +17,18 @@ public interface DaoBean05 {
 	@BindSelect(where="pk=${id}")
 	Bean05 selectOne(Long id);
 	
+	
 	@BindSelect(where="pk=${bean.pk} and prova=${bean.text}")
 	Bean05 selectOne(Bean05 bean);
 	
 	@BindSelect(where="pk=${id}")
 	List<Bean05> selectAll(long id);
+
+	@BindSelect(value="pk",where=" text = ${text}")
+	List<Long> selectPK(String text);
 	
-	@BindSelect(value="pk",where=" 1 = 1")
-	List<Long> selectPK();
+	@BindSelect(value="count(*)",where=" text = ${text}")
+	Long selectCount(String text);
 	
 	@BindSelect(where="pk=${id}")
 	void selectCursorListener(Long id, ReadCursorListener listener);

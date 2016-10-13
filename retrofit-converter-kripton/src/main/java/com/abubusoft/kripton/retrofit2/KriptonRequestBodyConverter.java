@@ -14,16 +14,13 @@ import com.abubusoft.kripton.exception.WriterException;
 
 final class KriptonRequestBodyConverter<T> implements Converter<T, RequestBody> {
 	private static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8");
-	//private static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	BinderWriter writer;
 	BinderReader reader;
-	//private Class<T> clazz;
 
 	KriptonRequestBodyConverter(Class<T> clazz, BinderWriter writer, BinderReader reader) {
 		this.writer = writer;
 		this.reader = reader;
-		//this.clazz = clazz;
 	}
 
 	@Override

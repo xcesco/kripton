@@ -6,7 +6,7 @@
 	<version>1.2.2-SNAPSHOT</version>
 	
 	<properties>
-		<whisperSharedVersion>1.0.43-SNAPSHOT</whisperSharedVersion>
+		
 	</properties>
 	
 	<build>
@@ -33,20 +33,15 @@
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-processor</artifactId>
-			<version>1.2.63-SNAPSHOT</version>
+			<version>1.2.65-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-android-library</artifactId>
-			<version>1.2.63-SNAPSHOT</version>			
+			<version>1.2.65-SNAPSHOT</version>			
 		</dependency>
-		
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>whisper-shared</artifactId>
-			<version>${whisperSharedVersion}</version>			
-		</dependency>
+				
 	</dependencies>
 </project>

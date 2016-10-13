@@ -23,6 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -74,7 +75,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
-	
+
 	private final Map<String, Element> globalDaoElements = new HashMap<String, Element>();
 
 	/*
@@ -116,16 +117,15 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			}
 
 			globalDaoElements.clear();
-			
+
 			model.schemaClear();
 
 			parseBindType(roundEnv);
-			for (Element item: globalBeanElements.values())
-			{
-				if (item.getKind()==ElementKind.ENUM)
-				{
+			for (Element item : globalBeanElements.values()) {
+				if (item.getKind() == ElementKind.ENUM) {
 					Transformer.register(typeName(item), new EnumTransform(typeName(item)));
 				}
+
 			}
 
 			// Put all @BindTable elements in beanElements
@@ -149,9 +149,9 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			// Get all database schema definitions
 			Set<? extends Element> dataSets = roundEnv.getElementsAnnotatedWith(BindDataSource.class);
 			// exit without error
-			if (dataSets.size()==0)
-				return true;			
-			
+			if (dataSets.size() == 0)
+				return true;
+
 			// No bind type is present
 			if (globalBeanElements.size() == 0) {
 				throw (new NoBindTypeElementsFound());
@@ -241,16 +241,16 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		currentSchema.addEntity(currentEntity);
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
-		
-		boolean temp1=AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity , BindType.class,AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);						
-		boolean temp2=AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity , BindTable.class,AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
-		
+
+		boolean temp1 = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
+		boolean temp2 = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindTable.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
+
 		if (!temp1 && temp2) {
 			String msg = String.format("In class '%s', inconsistent value of attribute 'allFields' in annotations '%s' and '%s'", currentEntity.getSimpleName(), BindType.class.getSimpleName(), BindTable.class.getSimpleName());
 			throw (new IncompatibleAttributesInAnnotationException(msg));
 		}
-		
-		final boolean bindAllFields =  temp1 && temp2;
+
+		final boolean bindAllFields = temp1 && temp2;
 		{
 			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLProperty>() {
 
@@ -284,6 +284,21 @@ public class BindDataSourceProcessor extends BaseProcessor {
 							ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE));
 
 							property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
+
+							// set transformer
+							FieldType definitionType = FieldType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_FIELD_TYPE));
+							if (definitionType != null) {
+								switch (definitionType) {
+								case NONE:
+									break;
+								case ENUM:
+									Transformer.register(typeName(property.getElement()), new EnumTransform(typeName(property.getElement())));
+								default:
+									break;
+								}
+
+							}
+
 						} else {
 							property.setNullable(true);
 						}
@@ -377,6 +392,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 				}
 
 				AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
+
 					
 					@Override
 					public void onAcceptAnnotation(Element element, String annotationClassName, Map<String, String> attributes) {
@@ -436,7 +452,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_LOG);
 		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_ASYNCTASK);
 		boolean generateCursor = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_CURSOR);
-		
+
 		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog, generateAsyncTask, generateCursor);
 		model.schemaAdd(currentSchema);
 
