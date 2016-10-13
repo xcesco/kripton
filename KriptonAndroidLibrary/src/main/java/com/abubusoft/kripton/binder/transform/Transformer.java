@@ -68,6 +68,7 @@ public class Transformer {
 	 * 
 	 * @param type
 	 * @return
+	 * 		transform 
 	 */
 	public static Transform<?> lookup(Class<?> type) {
 		Transform<?> transform = cache.get(type);

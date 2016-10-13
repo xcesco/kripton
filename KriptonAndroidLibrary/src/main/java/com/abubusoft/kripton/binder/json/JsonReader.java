@@ -64,7 +64,12 @@ public class JsonReader implements BinderReader {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public <T> T read(Class<? extends T> type, String source) throws ReaderException, MappingException {
-		validate(type, source);
+		// if empty input, exit immediately
+		if (StringUtil.isEmpty(source)) {
+			return null;
+		}
+		
+		validate(type, source);		
 
 		try {
 			Constructor con = TypeReflector.getConstructor(type);
@@ -112,10 +117,7 @@ public class JsonReader implements BinderReader {
 	private <T> void validate(Class<? extends T> type, String source) throws ReaderException {
 		if (type == null) {
 			throw new ReaderException("Cannot read, type is null!");
-		}
-		if (StringUtil.isEmpty(source)) {
-			throw new ReaderException("Source is empty!");
-		}
+		}		
 
 		if (Transformer.isPrimitive(type)) {
 			throw new ReaderException("Can not read primitive or enum type object, " + "only Nano bindable complex type object can be accepted!");

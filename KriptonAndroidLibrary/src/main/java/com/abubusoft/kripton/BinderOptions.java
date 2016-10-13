@@ -10,13 +10,13 @@ package com.abubusoft.kripton;
 public class BinderOptions {
 
 	public static final String DEFAULT_ENCODING = "utf-8";
-	
+
 	public static final String ENCODING_UTF_8 = DEFAULT_ENCODING;
 
 	/**
 	 * Builder for format class
 	 * 
-	 * @return
+	 * @return options
 	 */
 	public static BinderOptions build() {
 		return new BinderOptions();
@@ -31,15 +31,15 @@ public class BinderOptions {
 	 * Indicates if serialized xml should be indented or not
 	 */
 	private boolean indent;
-	
+
 	/**
 	 * if true use apostrophe to delimit strings. Used only for xml format.
 	 */
 	private boolean useApostrophe;
 
 	/**
-	 * if true use apostrophe to delimit strings. Used only for xml format.
-	 * @return
+	 * 
+	 * @return if true use apostrophe to delimit strings. Used only for xml format.
 	 */
 	public boolean isUseApostrophe() {
 		return useApostrophe;
@@ -50,7 +50,7 @@ public class BinderOptions {
 	 */
 	public BinderOptions useApostrophe(boolean useApostrophe) {
 		this.useApostrophe = useApostrophe;
-		
+
 		return this;
 	}
 
@@ -66,9 +66,9 @@ public class BinderOptions {
 	}
 
 	/**
-	 * Get the file encoding setting.
 	 * 
-	 * @return
+	 * 
+	 * @return Get the file encoding setting.
 	 */
 	public BinderOptions encoding(String value) {
 		this.encoding = value;
@@ -85,9 +85,9 @@ public class BinderOptions {
 	}
 
 	/**
-	 * Indicates if serialized xml should be indented or not.
 	 * 
-	 * @return
+	 * 
+	 * @return Indicates if serialized xml should be indented or not.
 	 */
 	public BinderOptions indent(boolean value) {
 		this.indent = value;
@@ -95,9 +95,9 @@ public class BinderOptions {
 	}
 
 	/**
-	 * Indicates if serialized xml should be indented or not.
 	 * 
-	 * @return
+	 * 
+	 * @return Indicates if serialized xml should be indented or not.
 	 */
 	public boolean isIndent() {
 		return this.indent;

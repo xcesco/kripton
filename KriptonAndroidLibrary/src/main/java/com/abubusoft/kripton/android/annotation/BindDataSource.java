@@ -53,6 +53,7 @@ public @interface BindDataSource {
 	 * TODO
 	 * options.tablePrefix("TD_");
 	 * @return
+	 * 		prefix table
 	 */
 	String tableNamePrefix() default "";
 	

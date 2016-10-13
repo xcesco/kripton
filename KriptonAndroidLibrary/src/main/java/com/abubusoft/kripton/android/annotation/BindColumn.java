@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.sqlite.FieldType;
 
 /**
  * 
@@ -41,5 +42,13 @@ public @interface BindColumn {
 	 * @return if true, column can be set to null
 	 */
 	public boolean nullable() default NULLABLE_DEFAULT;
+	
+	/**
+	 * Transformation to apply
+	 * 
+	 * @return
+	 * 		transformation
+	 */
+	public FieldType fieldType() default FieldType.NONE;
 
 }

@@ -76,8 +76,8 @@ class DateTransform implements Transform<Date> {
 		/**
 		 * static public and thread-safe method to parse a date from the given string
 		 * 
-		 * @param strDate: input string to parse
-		 * @param pattern: date format pattern fo the input string
+		 * @param strDate input string to parse
+		 * @param pattern date format pattern fo the input string
 		 * @return Date value of the input string
 		 * @throws ParseException if parse exception happened
 		 */
@@ -88,8 +88,8 @@ class DateTransform implements Transform<Date> {
 		/**
 		 * A thread-safe method to format a given Date based-on the given pattern
 		 * 
-		 * @param theDate, Date to be formatted
-		 * @param pattern, pattern used to format the date
+		 * @param theDate Date to be formatted
+		 * @param pattern pattern used to format the date
 		 * @return String of formatted date
 		 */
 		static public String format(final Date theDate, final String pattern) {

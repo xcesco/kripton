@@ -94,7 +94,6 @@ public class XmlSAXReader implements BinderReader {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public <T> T read(Class<? extends T> type, Reader source) throws ReaderException, MappingException {
-
 		validate(type, source);
 
 		try {
@@ -112,29 +111,36 @@ public class XmlSAXReader implements BinderReader {
 
 			// put root object
 			holder.helper.valueStack.push(obj);
-			
-			holder.xmlReader.setContentHandler(holder.saxHandler);
-			holder.xmlReader.parse(new InputSource(source));
 
-			if (holder.helper.valueStack.size() == 1) { 
+			holder.xmlReader.setContentHandler(holder.saxHandler);
+			InputSource is = new InputSource(source);
+
+			holder.xmlReader.parse(is);
+
+			if (holder.helper.valueStack.size() == 1) {
 				// has one and only one object
 				// left on the stack
-				return (T) holder.helper.valueStack.pop(); 
+				return (T) holder.helper.valueStack.pop();
 				// read is successful, just
 				// return the object
 			} else {
 				throw new ReaderException("Error to read/descrialize object, no result to return");
 			}
 		} catch (SAXException se) {
-			if (se.getException() instanceof MappingException) {
-				MappingException me = (MappingException) (se.getException());
-				throw me;
+			if (se.getException() == null) {
+				// return null
+				return null;
+			} else {
+				if (se.getException() instanceof MappingException) {
+					MappingException me = (MappingException) (se.getException());
+					throw me;
+				}
+				if (se.getException() instanceof ReaderException) {
+					ReaderException re = (ReaderException) (se.getException());
+					throw re;
+				}
+				throw new ReaderException("Error to read/descrialize object", se);
 			}
-			if (se.getException() instanceof ReaderException) {
-				ReaderException re = (ReaderException) (se.getException());
-				throw re;
-			}
-			throw new ReaderException("Error to read/descrialize object", se);
 		} catch (ReaderException re) {
 			throw re;
 		} catch (Exception e) {

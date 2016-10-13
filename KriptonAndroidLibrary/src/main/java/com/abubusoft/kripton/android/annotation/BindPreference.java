@@ -12,46 +12,40 @@ import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 public @interface BindPreference {
 	
 	/**
-	 * if true, means field must bind persist model
+	 * 
 	 * @return
+	 * 		if true, means field must bind persist model
 	 */
 	boolean enabled() default true;
 
 	/**
-	 * Preference name. Default name is attribute name.
+	 * 
 	 * 
 	 * @return
+	 * 		Preference name. Default name is attribute name.
 	 */
 	String name() default "";
 
-	/**
-	 * converter da utilizzare per la conversione tra preference e config e viceversa.
-	 * 
-	 * @return
-	 */
-	//Class<? extends Converter> converter() default DefaultConverter.class;
 
 	/**
-	 * Tipo di preferenza. Normalmente è string, ma può essere anche altro.
+	 * 
 	 * 
 	 * @return
+	 * 		Preference type. Usually it is a string.
 	 */
 	PreferenceType preferenceType() default PreferenceType.STRING;
 
 	/**
-	 * Se true il campo viene ricopiato durante il reset, altrimenti viene ignorato.
-	 * 
 	 * @return
+	 * 		if true, field are copied while reset. Otherwise it will be ignored.
 	 */
 	boolean copyOnReset() default true;
 
 	/**
-	 * <p>
-	 * Se true indica che il campo deve essere criptato. <b>Gli attributi di config possono essere di qualunque tipo convertibile in stringa. Funziona solo con le preference di
-	 * tipo Stringa</b>
-	 * </p>
+	 * If true, field will be cripted. It will be applyed only for string convertible field.
 	 * 
 	 * @return
+	 * 		if true, field will be cripted.
 	 */
 	boolean crypted() default false;
 

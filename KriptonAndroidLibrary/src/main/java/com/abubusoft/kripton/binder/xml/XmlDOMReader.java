@@ -23,6 +23,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderOptions;
@@ -98,6 +99,21 @@ public class XmlDOMReader implements BinderReader {
 			return (T) obj;
 		} catch (MappingException me) {
 			throw me;
+		} catch(SAXException se) {
+			if (se.getException() == null) {
+				// return null
+				return null;
+			} else {
+				if (se.getException() instanceof MappingException) {
+					MappingException me = (MappingException) (se.getException());
+					throw me;
+				}
+				if (se.getException() instanceof ReaderException) {
+					ReaderException re = (ReaderException) (se.getException());
+					throw re;
+				}
+				throw new ReaderException("Error to read/descrialize object", se);
+			}
 		} catch (Exception e) {
 			throw new ReaderException("Error to read/descrialize object", e);
 		}

@@ -59,6 +59,8 @@ public class XmlPullWriter implements BinderWriter {
 
 	public void write(Object source, Writer out) throws WriterException, MappingException {
 		try {
+			// if nothing to persist, exist now!
+			if (source==null) return;
 			// entry validation
 			validate(source, out);
 

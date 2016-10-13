@@ -344,8 +344,10 @@ public class JsonWriter implements BinderWriter {
 	@Override
 	public String write(Object source) throws WriterException, MappingException {
 		try {
+			
 			if (source == null) {
-				throw new IllegalArgumentException("Can not write null instance!");
+				// "Can not write null instance!");
+				return null;
 			}
 
 			if (Transformer.isPrimitive(source.getClass())) {
