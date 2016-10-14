@@ -15,7 +15,7 @@ See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 # Download
 You can use Kritpon Annotation Processor and Kripton Library via maven
 
-```
+```xml
 <!-- https://mvnrepository.com/artifact/com.abubusoft/kripton-processor -->
 <dependency>
     <groupId>com.abubusoft</groupId>
