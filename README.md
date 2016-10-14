@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton)
+
 # Kripton 
 Java library with the aim to provide a simple and uniform way to manage persistence of Java classes in different flavours. Supported persistence format are:
 
