@@ -11,6 +11,7 @@ To get performannce and avoid boilerplate-code, Kripton use the power of annotat
 
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
+
 # Download
 You can use Kritpon Annotation Processor and Kripton Library via maven
 
@@ -44,7 +45,6 @@ compile group: 'com.abubusoft', name: 'kripton', version: '1.0.0'
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
 
 Kritpon requires at minimum Java 7 or Android 2.3.
-
 
 
 # Supported platforms
