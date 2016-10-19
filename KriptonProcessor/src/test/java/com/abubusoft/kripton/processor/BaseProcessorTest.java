@@ -58,8 +58,9 @@ public class BaseProcessorTest {
 	protected static Logger logger = Logger.getGlobal();
 
 	public enum PathSourceType {
-		SRC_TEST_JAVA("src/test/java/"),
-		SRC_TEST_RESULT("src/test/results/");
+		SRC_TEST_JAVA("src/test/java/"),		
+		SRC_TEST_EXPECTED("src/test/expected/"),
+		TARGET_TEST_RESULT("target/test/generated/");
 
 		private PathSourceType(String path) {
 			this.path = path;
@@ -105,9 +106,9 @@ public class BaseProcessorTest {
 		return list;
 	}
 	
-	protected static void writeGeneratedFile(JavaFileObject javaFileObject) throws IOException
+	protected static void writeGeneratedFile(PathSourceType basePath, JavaFileObject javaFileObject) throws IOException
 	{
-		PathSourceType pathSourceType=PathSourceType.SRC_TEST_RESULT;
+		PathSourceType pathSourceType=basePath;
 		Path path = Paths.get(pathSourceType.getPath(), javaFileObject.getName().replace("SOURCE_OUTPUT", ""));
 				
 		Files.createDirectories(path.getParent());
@@ -118,10 +119,10 @@ public class BaseProcessorTest {
 	
 	protected static boolean compareGeneratedFile(JavaFileObject javaFileObject) throws IOException
 	{
-		PathSourceType pathSourceType=PathSourceType.SRC_TEST_RESULT;
+		PathSourceType pathSourceType=PathSourceType.SRC_TEST_EXPECTED;
 		Path path = Paths.get(pathSourceType.getPath(), javaFileObject.getName().replace("SOURCE_OUTPUT", ""));
 				
-		Files.createDirectories(path.getParent());
+		//Files.createDirectories(path.getParent());
 		byte[] bytes=ByteStreams.toByteArray(javaFileObject.openInputStream());		 		
 		byte[] aspectedBytes=Files.readAllBytes(path);
 		
@@ -229,11 +230,12 @@ public class BaseProcessorTest {
 						
 						if (testType==TestType.COMPARE)
 						{
+							writeGeneratedFile(PathSourceType.TARGET_TEST_RESULT, item.getValue());
 							boolean result=compareGeneratedFile(item.getValue());
 							Assert.assertTrue(String.format("%s not generated as aspected", item.getKey()), result);
 							//logger.info(String.format("%s: %s",item.getKey(), result));
 						} else {
-							writeGeneratedFile(item.getValue());
+							writeGeneratedFile(PathSourceType.SRC_TEST_EXPECTED, item.getValue());
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
