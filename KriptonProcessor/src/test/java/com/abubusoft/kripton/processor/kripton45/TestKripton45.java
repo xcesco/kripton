@@ -11,13 +11,6 @@ import com.abubusoft.kripton.processor.BaseProcessorTest;
 @RunWith(JUnit4.class)
 public class TestKripton45 extends BaseProcessorTest {
 
-	/**
-	 * No @BindType is put in bean definition
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 */
 	@Test
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(AppPreferences.class);

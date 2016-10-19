@@ -1,19 +1,14 @@
 package com.abubusoft.kripton.example01;
 
-import java.util.List;
-
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
 
 @BindDao(ChannelMessage.class)
-public interface DaoChannelMessage {
+public interface DaoChannelMessage {	
 	
 	@BindInsert
 	long insertBean(ChannelMessage bean);
-
+/*
 	@BindInsert
 	long insertBeanAll(ChannelMessage bean);
 	
@@ -26,7 +21,7 @@ public interface DaoChannelMessage {
 	@BindDelete(where="id=${bean.id}")
 	long deleteBean(ChannelMessage bean);
 	
-	/*
+	
 	
 	
 	@SQLInsert
@@ -45,32 +40,17 @@ public interface DaoChannelMessage {
 	
 	*/
 	
-  /**
-   * <p>This SQLSelect <pre>[valid, id, text, type, owner_uid, update_time]</pre> is based on query:</p>
-   *
-   * <pre>select distinct valid, id, text, type, owner_uid, update_time from channel_message where id = ${bean.valid} having uid = ${uid} </pre>
-   *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[bean.valid, uid]</pre>
-   *
-   * <p>Extracted column are:</p>
-   *
-   * 
-   *
-   * @param bean
-   * @param uid
-   */
+
 	/*@SQLSelect(distinct=true, excludedFields="uid", where="id = ${bean.valid}", having="uid = ${uid} ")
 	Cursor selectAll(ChannelMessage bean, long uid);*/
-	
+/*	
 	@BindSelect(distinct=true, excludedFields="uid", where="id = ${bean.valid}", having="uid = ${uid} ")
 	List<ChannelMessage> selectList(ChannelMessage bean, long uid);
 	
 	@BindDelete(where="uid=${bean.uid}")
 	long deleteBeanAll(ChannelMessage bean);
 
-	
+	*/
 	/*@SQLSelect(distinct=true, where = " id = ${id}")
 	Cursor selecAll(long id);*/
 
