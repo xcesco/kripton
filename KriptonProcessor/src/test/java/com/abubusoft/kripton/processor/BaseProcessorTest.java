@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.processor;
 
 import static com.google.common.truth.Truth.assertAbout;
-import static com.google.testing.compile.JavaSourcesSubjectFactory.javaSources;
+import static com.abubusoft.testing.compile.JavaSourcesSubjectFactory.javaSources;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,10 +26,10 @@ import org.junit.Assert;
 import org.junit.Before;
 
 import com.google.common.io.ByteStreams;
-import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
-import com.google.testing.compile.CompileTester.GenerationClause;
-import com.google.testing.compile.CompileTester.SuccessfulCompilationClause;
-import com.google.testing.compile.JavaFileObjects;
+import com.abubusoft.testing.compile.CompileTester.CompilationResultsConsumer;
+import com.abubusoft.testing.compile.CompileTester.GenerationClause;
+import com.abubusoft.testing.compile.CompileTester.SuccessfulCompilationClause;
+import com.abubusoft.testing.compile.JavaFileObjects;
 
 public class BaseProcessorTest {
 	

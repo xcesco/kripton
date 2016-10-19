@@ -1,8 +1,8 @@
 package com.abubusoft.kripton.processor;
 
 import static com.google.common.truth.Truth.assertAbout;
-import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
-import static com.google.testing.compile.JavaSourcesSubjectFactory.javaSources;
+import static com.abubusoft.testing.compile.JavaSourceSubjectFactory.javaSource;
+import static com.abubusoft.testing.compile.JavaSourcesSubjectFactory.javaSources;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,10 +27,10 @@ import com.abubusoft.kripton.example01.DaoChannelMessage;
 import com.abubusoft.kripton.processor.test01.Dummy01DataSource;
 import com.google.common.truth.FailureStrategy;
 import com.google.common.truth.TestVerb;
-import com.google.testing.compile.CompileTester.CompilationResultsConsumer;
-import com.google.testing.compile.CompileTester.GenerationClause;
-import com.google.testing.compile.CompileTester.SuccessfulCompilationClause;
-import com.google.testing.compile.JavaFileObjects;
+import com.abubusoft.testing.compile.CompileTester.CompilationResultsConsumer;
+import com.abubusoft.testing.compile.CompileTester.GenerationClause;
+import com.abubusoft.testing.compile.CompileTester.SuccessfulCompilationClause;
+import com.abubusoft.testing.compile.JavaFileObjects;
 
 @RunWith(JUnit4.class)
 public class BindDataSourceProcessorTest extends BaseProcessorTest {

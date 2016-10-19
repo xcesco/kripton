@@ -135,9 +135,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.google.testing.compile</groupId>
+			<groupId>com.abubusoft.testing.compile</groupId>
 			<artifactId>compile-testing</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>test</scope>
 		</dependency>
 
