@@ -1,3 +1,5 @@
+This is a slighty modified version of [google compile testing library](https://github.com/google/compile-testing). I renamed packages to avoid compatibility problems.
+
 Compile Testing
 ===============
 
