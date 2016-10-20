@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kriptpon-android-library-test</artifactId>
-	<version>1.2.2-SNAPSHOT</version>
+	<version>1.2.67</version>
 	<name>kriptpon-android-library-test</name>
 
 	<description>Kripton Android Library test project</description>

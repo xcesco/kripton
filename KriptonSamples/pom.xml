@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>KriptonSamples</artifactId>
-	<version>1.2.2-SNAPSHOT</version>
+	<version>1.2.67</version>
 	
 	<properties>
-		
+		<kripton-android-library.version>1.2.67</kripton-android-library.version>
 	</properties>
 	
 	<build>
@@ -33,14 +33,14 @@
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-processor</artifactId>
-			<version>1.2.67-SNAPSHOT</version>
+			<version>${kripton-android-library.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-android-library</artifactId>
-			<version>1.2.67-SNAPSHOT</version>			
+			<version>${kripton-android-library.version}</version>			
 		</dependency>
 				
 	</dependencies>
