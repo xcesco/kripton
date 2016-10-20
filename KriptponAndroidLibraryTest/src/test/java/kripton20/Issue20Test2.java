@@ -17,6 +17,7 @@ public class Issue20Test2 {
 		public String value;
 	}
 	
+	@BindType
 	@BindTypeXml
 	public class Bean2
 	{
