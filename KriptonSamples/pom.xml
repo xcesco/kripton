@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>KriptonSamples</artifactId>
-	<version>1.2.67</version>
+	<version>1.3.1-SNAPSHOT</version>
 	
 	<properties>
 		<kripton-android-library.version>1.2.67</kripton-android-library.version>
