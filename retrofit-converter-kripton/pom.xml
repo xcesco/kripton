@@ -19,7 +19,7 @@
 		
 		<!-- dependencies -->
 		<kripton-android-library.version>1.2.67</kripton-android-library.version>
-		<retrofit.version>2.0.2</retrofit.version>
+		<retrofit.version>2.1.0</retrofit.version>
 	</properties>
 
 	<licenses>
