@@ -18,8 +18,11 @@ package com.abubusoft.kripton.example01;
 import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.DaoBase;
+import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.processor.example01.Channel;
+import com.abubusoft.kripton.processor.example01.DaoChannel;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,11 +30,11 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>Channel</code>, based on interface <code>DaoChannel</code>
  * </p>
- *  @see com.abubusoft.kripton.example01.Channel
- *  @see com.abubusoft.kripton.example01.DaoChannel
+ *  @see com.abubusoft.kripton.processor.example01.Channel
+ *  @see com.abubusoft.kripton.processor.example01.DaoChannel
  *  @see com.abubusoft.kripton.example01.ChannelTable
  */
-public class BindDaoChannel extends DaoBase implements DaoChannel {
+public class BindDaoChannel extends AbstractDao implements DaoChannel {
   public BindDaoChannel(BindDummy01DataSource dataSet) {
     super(dataSet);
   }

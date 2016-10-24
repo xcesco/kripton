@@ -27,8 +27,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
+
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
+import com.abubusoft.kripton.processor.utils.Util;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -149,13 +151,16 @@ public abstract class Transformer {
 			return getPrimitiveTransform(typeName);
 		}
 
-		if (typeName instanceof ArrayTypeName) {
+		if (typeName instanceof ArrayTypeName) {			
 			ArrayTypeName typeNameArray = (ArrayTypeName) typeName;
-			if (typeNameArray.toString().equals(Byte.TYPE + "[]")) {
+			String arrayType=typeNameArray.toString().replace("[]", "");
+												
+			if (arrayType.equals(Byte.TYPE)) {
 				return new ByteArrayTransform();
-
-			} else {
-				return new Base64CompileTransform();
+			} else if (arrayType.equals(Short.TYPE) || arrayType.equals(Short.class.toString())){
+				return new ArrayTransform<Short>();
+			}else if (arrayType.equals(Integer.TYPE)){
+				return new ArrayTransform<Integer>();
 			}
 		}
 
@@ -168,6 +173,7 @@ public abstract class Transformer {
 		if (name.startsWith("java.util")) {
 			return getUtilTransform(typeName);
 		}
+		
 		/*
 		 * if (name.startsWith("java.math")) { return getMathTransform(type); }
 		 * if (name.startsWith("java.net")) { return new UrlTransform(); } if

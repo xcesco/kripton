@@ -106,30 +106,6 @@ public class AbstractSharedPreference {
 			prefs.unregisterOnSharedPreferenceChangeListener(listener);
 	}
 
-	/*
-	protected Object writePreference(String key, Object value, PreferenceType preferenceType) {
-		Object result;
-		if (converterMap.containsKey(key)) {
-			result = converterMap.get(key).convertToPreference(value, preferenceType);
-		} else {
-			result = defaultConverter.convertToPreference(value, preferenceType);
-		}
-
-		return result;
-	}*/
-
-	/*
-	protected Object readPreference(String key, Object value, PreferenceType preferenceType) {
-		Object result = null;
-		if (converterMap.containsKey(key)) {
-			// result = converterMap.get(key).convertToConfig(value, preferenceType);
-		} else {
-			// result = defaultConverter.convertToConfig(value, preferenceType);
-		}
-
-		return result;
-	}*/
-
 	protected String list2String(List<String> array) {
 		String result;
 		String separator = "";
@@ -163,10 +139,18 @@ public class AbstractSharedPreference {
 	protected List<String> string2list(String input, List<String> defaultValue) {
 		if (input==null) return new ArrayList<String>(defaultValue);		
 		
-		String tempValues[] = input.split(STRING_ARRAY_SEPARATOR);
-		ArrayList<String> values;
-		values = new ArrayList<String>();
-		// ripuliamo gli array dalle stringhe vuote
+		String tempValues[] = input.split(STRING_ARRAY_SEPARATOR);		
+		return removeEmptyItems(tempValues);
+	}
+
+	/**
+	 * @param tempValues
+	 * @return
+	 */
+	private List<String> removeEmptyItems(String[] tempValues) {
+		ArrayList<String> values = new ArrayList<String>();
+
+		// remove empty item
 		for (String item : tempValues) {
 			if (item != null && item.trim().length() > 0) {
 				values.add(item);
@@ -180,14 +164,7 @@ public class AbstractSharedPreference {
 		if (input==null) return Arrays.copyOf(defaultValue, defaultValue.length);
 		
 		String tempValues[] = input.split(STRING_ARRAY_SEPARATOR);
-		List<String> values = new ArrayList<String>();
-
-		// ripuliamo gli array dalle stringhe vuote
-		for (String item : tempValues) {
-			if (item != null && item.trim().length() > 0) {
-				values.add(item);
-			}
-		}
+		List<String> values = removeEmptyItems(tempValues);
 
 		return values.toArray(new String[values.size()]);
 

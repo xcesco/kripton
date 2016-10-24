@@ -20,6 +20,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.processor.example01.Channel;
+import com.abubusoft.kripton.processor.example01.DaoChannel;
+import com.abubusoft.kripton.processor.example01.Dummy01DataSource;
+
 import java.lang.Override;
 import java.lang.String;
 

@@ -18,11 +18,13 @@ package com.abubusoft.kripton.example01;
 import android.database.Cursor;
 import java.util.LinkedList;
 
+import com.abubusoft.kripton.processor.example01.Channel;
+
 /**
  * <p>
  * Cursor implementation for entity <code>Channel</code>
  * </p>
- *  @see com.abubusoft.kripton.example01.Channel
+ *  @see com.abubusoft.kripton.processor.example01.Channel
  */
 public class BindChannelCursor {
   /**

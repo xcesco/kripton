@@ -22,7 +22,7 @@ import java.lang.String;
  * Entity <code>Channel</code> is associated to table <code>channel</code>
  * This class represents table associated to entity.
  * </p>
- *  @see com.abubusoft.kripton.example01.Channel
+ *  @see com.abubusoft.kripton.processor.example01.Channel
  */
 public class ChannelTable {
   /**
@@ -51,35 +51,35 @@ public class ChannelTable {
   /**
    * Entity's property <code>uid</code> is associated to table column <code>uid</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.example01.Channel#uid
+   *  @see com.abubusoft.kripton.processor.example01.Channel#uid
    */
   public static final String COLUMN_UID = "uid";
 
   /**
    * Entity's property <code>ownerUid</code> is associated to table column <code>owner_uid</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.example01.Channel#ownerUid
+   *  @see com.abubusoft.kripton.processor.example01.Channel#ownerUid
    */
   public static final String COLUMN_OWNER_UID = "owner_uid";
 
   /**
    * Entity's property <code>updateTime</code> is associated to table column <code>update_time</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.example01.Channel#updateTime
+   *  @see com.abubusoft.kripton.processor.example01.Channel#updateTime
    */
   public static final String COLUMN_UPDATE_TIME = "update_time";
 
   /**
    * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.example01.Channel#name
+   *  @see com.abubusoft.kripton.processor.example01.Channel#name
    */
   public static final String COLUMN_NAME = "name";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.example01.Channel#id
+   *  @see com.abubusoft.kripton.processor.example01.Channel#id
    */
   public static final String COLUMN_ID = "id";
 }

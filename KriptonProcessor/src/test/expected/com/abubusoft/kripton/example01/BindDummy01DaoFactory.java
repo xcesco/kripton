@@ -16,6 +16,9 @@
 package com.abubusoft.kripton.example01;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
+import com.abubusoft.kripton.processor.example01.Channel;
+import com.abubusoft.kripton.processor.example01.DaoChannel;
+import com.abubusoft.kripton.processor.example01.Dummy01DataSource;
 
 /**
  * <p>

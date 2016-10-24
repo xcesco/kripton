@@ -26,7 +26,7 @@ import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
-import com.abubusoft.kripton.android.sqlite.DaoBase;
+import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.processor.core.JavadocUtility;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -77,7 +77,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		PackageElement pkg = elementUtils.getPackageOf(value.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
-		builder = TypeSpec.classBuilder(classTableName).superclass(DaoBase.class).addSuperinterface(typeName(value.getElement())).addModifiers(Modifier.PUBLIC);
+		builder = TypeSpec.classBuilder(classTableName).superclass(AbstractDao.class).addSuperinterface(typeName(value.getElement())).addModifiers(Modifier.PUBLIC);
 
 		// javadoc for class
 		builder.addJavadoc("<p>");

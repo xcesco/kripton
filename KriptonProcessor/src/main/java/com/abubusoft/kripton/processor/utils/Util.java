@@ -49,7 +49,7 @@ import com.squareup.javapoet.WildcardTypeName;
 /**
  * Utilities for handling types in annotation processors
  */
-final class Util {
+public final class Util {
   // Binding<?>.
  /* public static final TypeName BINDING_OF_ANY = ParameterizedTypeName.get(
       ClassName.get(Binding.class), WildcardTypeName.subtypeOf(Object.class));*/
