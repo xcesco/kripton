@@ -7,6 +7,8 @@ import java.net.MalformedURLException;
 
 import org.junit.Before;
 
+import com.abubusoft.kripton.android.kripton04.Bean0;
+
 import all.IssueBaseTest;
 
 /**

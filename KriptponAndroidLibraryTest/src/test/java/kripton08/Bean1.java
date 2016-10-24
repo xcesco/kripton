@@ -12,6 +12,7 @@ import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
+import com.abubusoft.kripton.android.kripton08.Bean0;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;

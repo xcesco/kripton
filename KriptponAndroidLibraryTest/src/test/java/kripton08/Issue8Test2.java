@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Categories.ExcludeCategory;
 
+import com.abubusoft.kripton.android.kripton08.Bean2;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;

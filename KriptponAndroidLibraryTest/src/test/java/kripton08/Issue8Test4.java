@@ -6,11 +6,11 @@ package kripton08;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import kripton08.Bean4.BeanType;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import com.abubusoft.kripton.android.kripton08.Bean4;
+import com.abubusoft.kripton.android.kripton08.Bean4.BeanType;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;

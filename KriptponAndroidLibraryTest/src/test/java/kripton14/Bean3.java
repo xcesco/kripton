@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.abubusoft.kripton.android.kripton14.Bean0;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;

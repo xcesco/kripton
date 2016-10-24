@@ -8,6 +8,8 @@ import java.util.Date;
 
 import org.junit.Before;
 
+import com.abubusoft.kripton.android.kripton03.Bean0;
+
 import all.IssueBaseTest;
 
 /**

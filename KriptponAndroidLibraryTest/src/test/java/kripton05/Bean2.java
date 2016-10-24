@@ -15,6 +15,7 @@ import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
+import com.abubusoft.kripton.android.kripton05.Bean2Super;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType

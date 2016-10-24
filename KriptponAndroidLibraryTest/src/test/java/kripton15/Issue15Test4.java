@@ -8,6 +8,10 @@ import java.util.Locale;
 
 import org.junit.Before;
 
+import com.abubusoft.kripton.android.kripton15.Bean4;
+import com.abubusoft.kripton.android.kripton15.Level1;
+import com.abubusoft.kripton.android.kripton15.Level2;
+
 import all.IssueBaseTest;
 
 

@@ -7,6 +7,8 @@ import java.util.Calendar;
 
 import org.junit.Before;
 
+import com.abubusoft.kripton.android.kripton10.Bean01;
+
 import all.IssueBaseTest;
 
 

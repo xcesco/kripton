@@ -5,6 +5,7 @@ package kripton15;
 
 import java.util.ArrayList;
 
+import com.abubusoft.kripton.android.kripton15.KriptonMap;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 

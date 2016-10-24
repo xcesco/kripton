@@ -124,6 +124,8 @@ public class MappingSchema {
 	 */
 	private Map<String, ElementSchema> xmlWrapper2SchemaMapping;
 
+	private BindType bindTypeAnnotation;
+
 	public Map<String, ElementSchema> getXmlWrapper2SchemaMapping() {
 		return xmlWrapper2SchemaMapping;
 	}
@@ -139,7 +141,13 @@ public class MappingSchema {
 
 		// if present @BindAllFields, each field is mapped, except transient,
 		// static and final fields
-		this.bindAllFields = type.getAnnotation(BindType.class).allFields();
+		bindTypeAnnotation = type.getAnnotation(BindType.class);
+		
+		// if no annotation @Bind is specified, every field will be mapped
+		if (bindTypeAnnotation!=null)
+			this.bindAllFields = bindTypeAnnotation.allFields();
+		else
+			this.bindAllFields=true;
 
 		if (MapEntry.class.isAssignableFrom(type)) {
 			xmlInfo.mapEntryStub = true;

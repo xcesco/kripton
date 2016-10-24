@@ -5,6 +5,8 @@ package kripton15;
 
 import org.junit.Before;
 
+import com.abubusoft.kripton.android.kripton15.Bean2;
+
 import all.IssueBaseTest;
 
 

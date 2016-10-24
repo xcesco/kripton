@@ -16,9 +16,10 @@ import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
-import kripton06.Bean0.BeanType;
-
 import org.junit.Before;
+
+import com.abubusoft.kripton.android.kripton06.Bean0;
+import com.abubusoft.kripton.android.kripton06.Bean0.BeanType;
 
 import all.IssueBaseTest;
 

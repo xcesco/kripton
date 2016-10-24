@@ -6,9 +6,10 @@ package kripton01;
 import java.util.Calendar;
 import java.util.Date;
 
-import kripton01.Bean06.SubBean06;
-
 import org.junit.Before;
+
+import com.abubusoft.kripton.android.kripton01.Bean06;
+import com.abubusoft.kripton.android.kripton01.Bean06.SubBean06;
 
 import all.IssueBaseTest;
 

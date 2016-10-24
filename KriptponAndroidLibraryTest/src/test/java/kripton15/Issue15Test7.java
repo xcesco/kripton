@@ -14,6 +14,9 @@ import org.junit.Test;
 
 import all.IssueBaseTest;
 
+import com.abubusoft.kripton.android.kripton15.Bean7;
+import com.abubusoft.kripton.android.kripton15.Level1;
+import com.abubusoft.kripton.android.kripton15.Level2;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;

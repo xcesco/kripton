@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.abubusoft.kripton.android.kripton13.Bean0;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 

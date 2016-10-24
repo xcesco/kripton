@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-import kripton10.Bean03.SubBean03;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import all.IssueBaseTest;
 
+import com.abubusoft.kripton.android.kripton10.Bean03;
+import com.abubusoft.kripton.android.kripton10.Bean03.SubBean03;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;

@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.Before;
 
+import com.abubusoft.kripton.android.kripton07.Bean4;
+
 import all.IssueBaseTest;
 
 

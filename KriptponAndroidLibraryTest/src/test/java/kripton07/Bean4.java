@@ -6,6 +6,7 @@ package kripton07;
 import java.util.Date;
 import java.util.List;
 
+import com.abubusoft.kripton.android.kripton07.Bean0;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 

@@ -17,13 +17,13 @@ import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
-import kripton08.Bean1.BeanType;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import all.IssueBaseTest;
 
+import com.abubusoft.kripton.android.kripton08.Bean1;
+import com.abubusoft.kripton.android.kripton08.Bean1.BeanType;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;

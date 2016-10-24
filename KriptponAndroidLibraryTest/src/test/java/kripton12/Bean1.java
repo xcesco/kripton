@@ -6,6 +6,8 @@ package kripton12;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.abubusoft.kripton.android.kripton12.Bean0;
+import com.abubusoft.kripton.android.kripton12.BeanGeneric;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
