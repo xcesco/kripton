@@ -21,7 +21,7 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, array FROM bean01 WHERE id=${id}</pre>
+   * <pre>SELECT id, a_byte, a_string, a_long FROM bean01 WHERE id=${id}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -29,7 +29,7 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, array]</pre>
+   * <pre>[id, a_byte, a_string, a_long]</pre>
    *
    * @param id
    *
@@ -40,8 +40,8 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, array FROM bean01 WHERE id='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, array FROM bean01 WHERE id=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT id, a_byte, a_string, a_long FROM bean01 WHERE id='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, a_byte, a_string, a_long FROM bean01 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean01 resultBean=null;
@@ -49,12 +49,62 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
     if (cursor.moveToFirst()) {
 
       int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("array");
+      int index1=cursor.getColumnIndex("a_byte");
+      int index2=cursor.getColumnIndex("a_string");
+      int index3=cursor.getColumnIndex("a_long");
 
       resultBean=new Bean01();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.array=cursor.getBlob(index1); }
+      if (!cursor.isNull(index1)) { resultBean.aByte=cursor.getBlob(index1); }
+      if (!cursor.isNull(index2)) { resultBean.aString=(String[])readFromByteArray(String.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index3)) { resultBean.aLong=(Long[])readFromByteArray(Long.class, cursor.getBlob(index3)); }
+
+    }
+    cursor.close();
+
+    return resultBean;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT id, a_byte, a_string, a_long FROM bean01 WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[id, a_byte, a_string, a_long]</pre>
+   *
+   *
+   * @return selected bean or <code>null</code>.
+   */
+  @Override
+  public Bean01 selectOne() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT id, a_byte, a_string, a_long FROM bean01 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, a_byte, a_string, a_long FROM bean01 WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    Bean01 resultBean=null;
+
+    if (cursor.moveToFirst()) {
+
+      int index0=cursor.getColumnIndex("id");
+      int index1=cursor.getColumnIndex("a_byte");
+      int index2=cursor.getColumnIndex("a_string");
+      int index3=cursor.getColumnIndex("a_long");
+
+      resultBean=new Bean01();
+
+      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+      if (!cursor.isNull(index1)) { resultBean.aByte=cursor.getBlob(index1); }
+      if (!cursor.isNull(index2)) { resultBean.aString=(String[])readFromByteArray(String.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index3)) { resultBean.aLong=(Long[])readFromByteArray(Long.class, cursor.getBlob(index3)); }
 
     }
     cursor.close();

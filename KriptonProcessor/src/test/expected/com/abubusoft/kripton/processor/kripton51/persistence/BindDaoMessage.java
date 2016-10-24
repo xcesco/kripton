@@ -67,7 +67,6 @@ public class BindDaoMessage extends AbstractDao implements DaoMessage {
       do
        {
         resultBean=new MessageEntity();
-
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
         if (!cursor.isNull(index1)) { resultBean.channelId=cursor.getLong(index1); }
         if (!cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(cursor.getString(index2)); }

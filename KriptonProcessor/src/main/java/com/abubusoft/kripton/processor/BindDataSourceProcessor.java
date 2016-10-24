@@ -89,6 +89,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	private SQLiteModel model;
 
 	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
+	
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindColumn.class).build();
 
 	private final Map<String, Element> globalDaoElements = new HashMap<String, Element>();

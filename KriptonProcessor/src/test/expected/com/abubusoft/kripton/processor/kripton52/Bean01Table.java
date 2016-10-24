@@ -20,9 +20,9 @@ public class Bean01Table {
    * DDL to create table bean01
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, array BLOB);</pre>
+   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, a_byte BLOB, a_string BLOB, a_long BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, array BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, a_byte BLOB, a_string BLOB, a_long BLOB);";
 
   /**
    * <p>
@@ -41,9 +41,23 @@ public class Bean01Table {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>array</code> is associated to table column <code>array</code>. This costant represents column name.
+   * Entity's property <code>aByte</code> is associated to table column <code>a_byte</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton52.Bean01#array
+   *  @see com.abubusoft.kripton.processor.kripton52.Bean01#aByte
    */
-  public static final String COLUMN_ARRAY = "array";
+  public static final String COLUMN_A_BYTE = "a_byte";
+
+  /**
+   * Entity's property <code>aString</code> is associated to table column <code>a_string</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton52.Bean01#aString
+   */
+  public static final String COLUMN_A_STRING = "a_string";
+
+  /**
+   * Entity's property <code>aLong</code> is associated to table column <code>a_long</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton52.Bean01#aLong
+   */
+  public static final String COLUMN_A_LONG = "a_long";
 }

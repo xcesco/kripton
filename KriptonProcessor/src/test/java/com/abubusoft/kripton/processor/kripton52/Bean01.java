@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.kripton52;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
@@ -23,10 +22,18 @@ public class Bean01 {
 
 	public long id;
 	
-	public byte[] array;
+	public byte[] aByte;
 		
-	public String[] base64;
-
-
+	//public String[] aString;
+	
+	public long[] aLong;
+	
+	public int a()
+	{
+		int a=(int)a();
+		
+		return 0;
+	}
+	
 
 }

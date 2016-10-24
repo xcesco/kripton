@@ -15,8 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +34,6 @@ import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundEx
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.TypeName;
 
 /**
  * Analyze an SQL statement, extract parameter and replace with ?

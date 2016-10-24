@@ -18,9 +18,6 @@ package com.abubusoft.kripton.android.sqlite;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderReader;
@@ -31,6 +28,9 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
+
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * This class become the parent class for every Dao generated. Every Dao have to be defined by an interface with {@link BindDao} annotation.
@@ -120,7 +120,7 @@ public abstract class AbstractDao {
 		
 	};
 	
-	protected static <E> byte[] writeToByteArray(E[] value)
+	protected static <E> String writeToString(E[] value)
 	{
 		if (objWriter==null)
 		{
@@ -140,7 +140,7 @@ public abstract class AbstractDao {
 		String result;
 		try {
 			result = writer.write(w);
-			return result.getBytes();
+			return result;
 		} catch (MappingException e) {
 			e.printStackTrace();
 		} catch (WriterException e) {
@@ -152,8 +152,9 @@ public abstract class AbstractDao {
 
 	
 	@SuppressWarnings("unchecked")
-	protected static <E> E[] readFromByteArray(Class<E> clazz, String input)
+	protected static <E> E[] readFromByteArray(Class<E> clazz, byte[] input)
 	{
+		
 		if (objReader==null)
 		{
 			objReader=new ThreadLocal<BinderReader>() {
@@ -170,7 +171,7 @@ public abstract class AbstractDao {
 		WrappedArray<E> w=new WrappedArray<E>();
 		
 		try {
-			w = reader.read(w.getClass(), input);
+			w = reader.read(w.getClass(), new String(input));
 			return w.value;
 		} catch (MappingException e) {
 			e.printStackTrace();

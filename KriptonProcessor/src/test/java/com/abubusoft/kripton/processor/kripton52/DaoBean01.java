@@ -16,9 +16,15 @@
 package com.abubusoft.kripton.processor.kripton52;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindUpdate;
 
 @BindDao(Bean01.class)
 public interface DaoBean01 extends BaseDao<Bean01>  {
+	@BindSelect(where="1=1")
+	Bean01 selectOne();
 	
+	@BindUpdate(where="id=${uid}")
+	long updateOne(long id, long uid);
 	
 }

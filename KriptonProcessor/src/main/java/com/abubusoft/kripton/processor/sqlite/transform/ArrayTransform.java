@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -28,16 +29,56 @@ import com.squareup.javapoet.TypeName;
  * @author xcesco
  *
  */
-public class ArrayTransform<E> extends AbstractCompileTimeTransform {
+public class ArrayTransform extends AbstractCompileTimeTransform {
 				
+	private TypeName clazz;
+	
+	private boolean primitive;
+
+	public ArrayTransform(TypeName clazz)
+	{
+		this.clazz=clazz;
+	}
+	
+	public ArrayTransform(TypeName componentTypeName, boolean primitive) {
+		this.primitive=primitive;
+		if (primitive)
+		{
+			this.clazz=componentTypeName;
+		} else {
+			this.clazz=componentTypeName;
+		}
+	}
+
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getBlob($L)"), beanName,cursorName, indexName);			
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
+		methodBuilder.addCode("writeToString($L."+getter(beanClass, property)+")", beanName);
+	}
+
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, String objectName) {
+		methodBuilder.addCode("writeToString($L)", objectName);		
 	}
 	
 	@Override
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		if (primitive)
+		{
+		methodBuilder.addCode("$L."+setter(beanClass, property, "($T[])readFromByteArray($T.TYPE, $L.getBlob($L))"), beanName,clazz, clazz, cursorName, indexName);			
+		} else {
+			methodBuilder.addCode("$L."+setter(beanClass, property, "($T[])readFromByteArray($T.class, $L.getBlob($L))"), beanName,clazz, clazz, cursorName, indexName);			
+			
+		}
+	}
+		
+	
+	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getBlob($L)", cursorName, indexName);		
+		if (primitive)
+		{
+			methodBuilder.addCode("($T[])readFromByteArray($T.TYPE, $L.getBlob($L))",clazz, clazz, cursorName, indexName);		
+		} else 
+			methodBuilder.addCode("($T[])readFromByteArray($T.class, $L.getBlob($L))",clazz, clazz, cursorName, indexName);		
 	}
 	
 	@Override
@@ -48,7 +89,7 @@ public class ArrayTransform<E> extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(beanClass, property, "null"), beanName);
+		methodBuilder.addCode("(writeToByteArray($T.class, $L."+setter(beanClass, property, "null")+")", clazz, beanName);
 	}
 	
 	@Override

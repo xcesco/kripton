@@ -23,6 +23,6 @@ public interface BaseDao<E> {
 	@BindSelect(where="id=${id}")
 	E selectOne(long id);
 	
-	@BindUpdate(where="id=${uid}")
-	long updateOne(long id, long uid);
+
+	
 }

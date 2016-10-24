@@ -27,10 +27,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
-
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
-import com.abubusoft.kripton.processor.utils.Util;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -43,7 +42,9 @@ import com.squareup.javapoet.TypeName;
  */
 public abstract class Transformer {
 
-	// Transformable cache
+	/**
+	 * cache for transform
+	 */
 	private static final Map<TypeName, Transform> cache = new ConcurrentHashMap<TypeName, Transform>();
 
 	/**
@@ -153,14 +154,15 @@ public abstract class Transformer {
 
 		if (typeName instanceof ArrayTypeName) {			
 			ArrayTypeName typeNameArray = (ArrayTypeName) typeName;
-			String arrayType=typeNameArray.toString().replace("[]", "");
-												
-			if (arrayType.equals(Byte.TYPE)) {
+			TypeName componentTypeName = typeNameArray.componentType;
+			
+			
+			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
 				return new ByteArrayTransform();
-			} else if (arrayType.equals(Short.TYPE) || arrayType.equals(Short.class.toString())){
-				return new ArrayTransform<Short>();
-			}else if (arrayType.equals(Integer.TYPE)){
-				return new ArrayTransform<Integer>();
+			} else if (componentTypeName.isPrimitive()) {
+				return new ArrayTransform(componentTypeName, componentTypeName.isPrimitive());
+			} else {
+				return new ArrayTransform(componentTypeName);
 			}
 		}
 
