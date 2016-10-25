@@ -30,10 +30,10 @@ public interface DaoBean01 /*extends BaseDao<Bean01>*/  {
 	
 	@BindSelect(value="value", where="id=${uid}")
 	byte[] selectSingle(long uid);
-	*/
+	
 	@BindSelect(value="count(*)", where="id=${uid} and longValue=${longValue}")
 	long selectLongSingle(long uid, long[] longValue);
-	
+	*/
 	@BindUpdate(where="id=${uid}")
 	long update(long uid, long[] longValue);
 	
