@@ -37,7 +37,7 @@ public interface BinderJsonWriter extends BinderWriter {
 	 * @param out a character stream
 	 * @throws WriterException if writes fail
 	 */
-	public void writeList(List<?> source, Writer out) throws WriterException, MappingException;
+	public void writeList(@SuppressWarnings("rawtypes") List source, Writer out) throws WriterException, MappingException;
 	
 	/**
 	 * 
@@ -45,7 +45,7 @@ public interface BinderJsonWriter extends BinderWriter {
 	 * @param os an output stream of bytes.
 	 * @throws WriterException if writes fail
 	 */
-	public void writeList(List<?> source, OutputStream os) throws WriterException, MappingException;
+	public void writeList(@SuppressWarnings("rawtypes") List source, OutputStream os) throws WriterException, MappingException;
 	
 	/**
 	 * 
@@ -53,7 +53,7 @@ public interface BinderJsonWriter extends BinderWriter {
 	 * @return a string representation
 	 * @throws WriterException if writes fail
 	 */
-	public String writeList(List<?> source) throws WriterException, MappingException;
+	public String writeList(@SuppressWarnings("rawtypes") List source) throws WriterException, MappingException;
 	
 
 }

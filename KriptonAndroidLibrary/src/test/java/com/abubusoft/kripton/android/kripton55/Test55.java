@@ -26,13 +26,19 @@ import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderJsonWriter;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.common.CollectionUtils;
+import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 
+/**
+ * Test for support list and array generation for json 
+ * 
+ * @author Francesco Benincasa (abubusoft@gmail.com)
+ *
+ */
 public class Test55 {
 
 	@Test
@@ -43,7 +49,7 @@ public class Test55 {
 		list.add(new Bean(1,"ciao"));
 		list.add(new Bean(2,"ciao2"));
 		
-		BinderJsonWriter writer=(BinderJsonWriter) BinderFactory.getJSONWriter();
+		BinderJsonWriter writer= BinderFactory.getJSONWriter();
 		
 		String result=writer.writeList(list);
 		
@@ -58,7 +64,7 @@ public class Test55 {
 		list[0]=new Bean(1,"ciao");
 		list[1]=new Bean(2,"ciao2");
 		
-		BinderJsonWriter writer=(BinderJsonWriter) BinderFactory.getJSONWriter();
+		BinderJsonWriter writer= BinderFactory.getJSONWriter();
 		
 		String result=writer.writeList(Arrays.asList(list));
 		
@@ -73,7 +79,7 @@ public class Test55 {
 		list[0]=1L;
 		list[1]=2L;
 						
-		BinderJsonWriter writer=(BinderJsonWriter) BinderFactory.getJSONWriter();
+		BinderJsonWriter writer= BinderFactory.getJSONWriter();
 		
 		String result=writer.writeList(Arrays.asList(list));//CollectionUtils.convertArray(list, ArrayList.class));
 		
@@ -88,11 +94,11 @@ public class Test55 {
 		list[0]=1.1f;
 		list[1]=2.2f;
 						
-		BinderJsonWriter writer=(BinderJsonWriter) BinderFactory.getJSONWriter();		
-		String middle=writer.writeList(CollectionUtils.toList(list, LinkedList.class));		
+		BinderJsonWriter writer= BinderFactory.getJSONWriter();		
+		String middle=writer.writeList(CollectionUtility.toList(list, LinkedList.class));		
 		System.out.println(middle);
 		
-		BinderJsonReader reader=(BinderJsonReader) BinderFactory.getJSONReader();		
+		BinderJsonReader reader= BinderFactory.getJSONReader();		
 		List<Float> result=reader.readList(Float.TYPE, middle);		
 		System.out.println(result.toArray(new Float[result.size()]));
 	}
@@ -105,11 +111,11 @@ public class Test55 {
 		list[0]=1L;
 		list[1]=2L;
 						
-		BinderJsonWriter writer=(BinderJsonWriter) BinderFactory.getJSONWriter();		
+		BinderJsonWriter writer= BinderFactory.getJSONWriter();		
 		String middle=writer.writeList(Arrays.asList(list));		
 		System.out.println(middle);
 				
-		BinderJsonReader reader=(BinderJsonReader) BinderFactory.getJSONReader();		
+		BinderJsonReader reader= BinderFactory.getJSONReader();		
 		List<Long> result=reader.readList(Long.TYPE, middle);		
 		System.out.println(result);
 	}
@@ -158,7 +164,7 @@ public class Test55 {
 	@Test
 	public void testWriteArrayPrestazione() throws MappingException, WriterException, ReaderException
 	{
-		BinderJsonReader reader=(BinderJsonReader) BinderFactory.getJSONReader();		
+		BinderJsonReader reader= BinderFactory.getJSONReader();		
 		List<Parent> result=reader.readList(Parent.class, input);		
 		System.out.println(result);
 	}

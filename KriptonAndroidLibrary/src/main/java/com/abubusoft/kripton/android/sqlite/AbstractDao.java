@@ -16,18 +16,9 @@
 package com.abubusoft.kripton.android.sqlite;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
-import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.BinderOptions;
-import com.abubusoft.kripton.BinderReader;
-import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.ReaderException;
-import com.abubusoft.kripton.exception.WriterException;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;

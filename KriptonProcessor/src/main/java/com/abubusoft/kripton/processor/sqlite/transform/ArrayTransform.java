@@ -18,6 +18,10 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import java.util.ArrayList;
+
+import com.abubusoft.kripton.android.sqlite.DaoHelper;
+import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -52,12 +56,12 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
-		methodBuilder.addCode("writeToString($L."+getter(beanClass, property)+")", beanName);
+		methodBuilder.addCode("$T.toString($T.toList($L."+getter(beanClass, property)+", $T.class))", DaoHelper.class, CollectionUtility.class, beanName, ArrayList.class);
 	}
 
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("writeToString($L)", objectName);		
+		methodBuilder.addCode("$T.toString($T.toList($L, $T.class))", DaoHelper.class, CollectionUtility.class, objectName, ArrayList.class);		
 	}
 	
 	@Override

@@ -20,11 +20,21 @@ import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
 
 @BindDao(Bean01.class)
-public interface DaoBean01 extends BaseDao<Bean01>  {
-	@BindSelect(where="1=1")
-	Bean01 selectOne();
+public interface DaoBean01 /*extends BaseDao<Bean01>*/  {
+	/*
+	@BindSelect(where="value=${value} and longValue=${longValue}")
+	Bean01 selectOne(byte[] value, long[] longValue);
 	
 	@BindUpdate(where="id=${uid}")
-	long updateOne(long id, long uid);
+	long updateOne(byte[] value, long[] longValue, long uid);
+	
+	@BindSelect(value="value", where="id=${uid}")
+	byte[] selectSingle(long uid);
+	*/
+	@BindSelect(value="count(*)", where="id=${uid} and longValue=${longValue}")
+	long selectLongSingle(long uid, long[] longValue);
+	
+	@BindUpdate(where="id=${uid}")
+	long update(long uid, long[] longValue);
 	
 }

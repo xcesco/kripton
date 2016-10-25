@@ -22,18 +22,8 @@ public class Bean01 {
 
 	public long id;
 	
-	public byte[] aByte;
-		
-	//public String[] aString;
+	public byte[] value;
 	
-	public long[] aLong;
-	
-	public int a()
-	{
-		int a=(int)a();
-		
-		return 0;
-	}
-	
+	public long[] longValue;
 
 }

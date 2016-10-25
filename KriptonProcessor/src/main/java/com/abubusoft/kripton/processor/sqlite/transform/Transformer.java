@@ -154,8 +154,7 @@ public abstract class Transformer {
 
 		if (typeName instanceof ArrayTypeName) {			
 			ArrayTypeName typeNameArray = (ArrayTypeName) typeName;
-			TypeName componentTypeName = typeNameArray.componentType;
-			
+			TypeName componentTypeName = typeNameArray.componentType;			
 			
 			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
 				return new ByteArrayTransform();

@@ -322,7 +322,7 @@ public class JsonWriter implements BinderJsonWriter {
 	}
 
 	@Override
-	public void writeList(List<?> source, Writer out) throws WriterException, MappingException {
+	public void writeList(@SuppressWarnings("rawtypes") List source, Writer out) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
@@ -339,7 +339,7 @@ public class JsonWriter implements BinderJsonWriter {
 	}
 
 	@Override
-	public void writeList(List<?> source, OutputStream os) throws WriterException, MappingException {
+	public void writeList(@SuppressWarnings("rawtypes") List source, OutputStream os) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
@@ -351,7 +351,7 @@ public class JsonWriter implements BinderJsonWriter {
 	}
 
 	@Override
-	public String writeList(List<?> source) throws WriterException, MappingException {
+	public String writeList(@SuppressWarnings("rawtypes") List source) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {

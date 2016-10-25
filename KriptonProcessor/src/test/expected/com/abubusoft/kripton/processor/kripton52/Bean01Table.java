@@ -20,9 +20,9 @@ public class Bean01Table {
    * DDL to create table bean01
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, a_byte BLOB, a_string BLOB, a_long BLOB);</pre>
+   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, long_value BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, a_byte BLOB, a_string BLOB, a_long BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, long_value BLOB);";
 
   /**
    * <p>
@@ -41,23 +41,16 @@ public class Bean01Table {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>aByte</code> is associated to table column <code>a_byte</code>. This costant represents column name.
+   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton52.Bean01#aByte
+   *  @see com.abubusoft.kripton.processor.kripton52.Bean01#value
    */
-  public static final String COLUMN_A_BYTE = "a_byte";
+  public static final String COLUMN_VALUE = "value";
 
   /**
-   * Entity's property <code>aString</code> is associated to table column <code>a_string</code>. This costant represents column name.
+   * Entity's property <code>longValue</code> is associated to table column <code>long_value</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton52.Bean01#aString
+   *  @see com.abubusoft.kripton.processor.kripton52.Bean01#longValue
    */
-  public static final String COLUMN_A_STRING = "a_string";
-
-  /**
-   * Entity's property <code>aLong</code> is associated to table column <code>a_long</code>. This costant represents column name.
-   *
-   *  @see com.abubusoft.kripton.processor.kripton52.Bean01#aLong
-   */
-  public static final String COLUMN_A_LONG = "a_long";
+  public static final String COLUMN_LONG_VALUE = "long_value";
 }

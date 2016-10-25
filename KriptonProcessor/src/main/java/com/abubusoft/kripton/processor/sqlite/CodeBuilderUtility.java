@@ -240,7 +240,10 @@ public class CodeBuilderUtility {
 			
 			// add property to list of used properties
 			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(item.getName()));
+			
+			// it does not need to be converted in string
 			Transformer.java2ContentValues(methodBuilder, entityClassName,entityName , item);
+			
 			methodBuilder.addCode(");\n");
 			
 			if (TypeUtility.isNullable(item))
@@ -253,40 +256,6 @@ public class CodeBuilderUtility {
 
 		}
 
-	}
-	
-	/**
-	 *	convert to string 
-	 *//*
-	public static void toStringForInsert(ContentValues values) {
-		StringBuilder sb = new StringBuilder();
-		for (String name : values.keySet()) {
-			String value = values.getAsString(name);
-			if (sb.length() > 0)
-				sb.append(", ");
-			sb.append(name + "=" + value);
-		}
-		sb.toString();
-	}*/
-	
-	/**
-	 *	convert to string 
-	 */
-	/*public static String toStringForUpdate(ContentValues values) {
-		StringBuilder keyBuffer = new StringBuilder();
-		StringBuilder valueBuffer = new StringBuilder();
-		for (String name : values.keySet()) {			
-			if (keyBuffer.length() > 0)
-			{
-				keyBuffer.append(", ");
-				valueBuffer.append(", ");
-			}
-			
-			keyBuffer.append(name);			
-			valueBuffer.append("'"+values.get .getAsString(name)+"'");			
-		}
-		
-		return "("+keyBuffer.toString()+") VALUES "+;
-	}*/
+	}	
 
 }

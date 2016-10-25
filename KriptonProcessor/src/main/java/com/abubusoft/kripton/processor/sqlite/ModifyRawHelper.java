@@ -234,9 +234,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			if (nullable) {
 				methodBuilder.addCode("($L==null?null:", item.value0);
 			}
-			methodBuilder.addCode("String.valueOf(");
+						
+			// check for string conversion
+			methodBuilder.addCode(TypeUtility.beginValueOf(item.value1));
 			Transformer.java2ContentValues(methodBuilder, item.value1, item.value0);
-			methodBuilder.addCode(")");
+			// check for string conversion
+			methodBuilder.addCode(TypeUtility.endValueOf(item.value1));
+			
 			if (nullable) {
 				methodBuilder.addCode(")");
 			}

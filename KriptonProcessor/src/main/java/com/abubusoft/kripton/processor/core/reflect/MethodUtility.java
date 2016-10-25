@@ -212,6 +212,10 @@ public abstract class MethodUtility {
 		} else if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class) || TypeUtility.isByteArray(returnTypeName)) {
 			// return single value string, int, long, short, double, float, String (no listener)
 			selectResultType = SQLiteSelectBuilder.SelectResultType.SCALAR;
+		} else if (TypeUtility.isArray(returnTypeName))
+		{
+			// array return type is not supported.
+			throw (new InvalidMethodSignException(method));
 		}
 
 		if (selectResultType == null) {
@@ -311,14 +315,18 @@ public abstract class MethodUtility {
 					paramName=typeName(paramTypeName);
 				}
 				
-				nullable = TypeUtility.isNullable(paramName);
-
+				// code for query arguments
+				nullable = TypeUtility.isNullable(paramName);			
 				if (nullable) {
 					methodBuilder.addCode("($L==null?null:", item);
-				}
-				methodBuilder.addCode("String.valueOf(");
+				}				
+				
+				// check for string conversion
+				methodBuilder.addCode(TypeUtility.beginValueOf(paramTypeName));			
 				Transformer.java2ContentValues(methodBuilder, paramTypeName, item);
-				methodBuilder.addCode(")");
+				// check for string conversion
+				methodBuilder.addCode(TypeUtility.endValueOf(paramTypeName));
+				
 				if (nullable) {
 					methodBuilder.addCode(")");
 				}

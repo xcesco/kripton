@@ -73,7 +73,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderReader implementation
 	 */
-	public static BinderReader getJSONReader() {
+	public static BinderJsonReader getJSONReader() {
 		return new JsonReader();
 	}
 
@@ -84,7 +84,7 @@ public class BinderFactory {
 	 *            info about encoding
 	 * @return an instance of BinderReader implementation.
 	 */
-	public static BinderReader getJSONReader(BinderOptions format) {
+	public static BinderJsonReader getJSONReader(BinderOptions format) {
 		return new JsonReader(format);
 	}
 
@@ -113,7 +113,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderWriter getJSONWriter() {
+	public static BinderJsonWriter getJSONWriter() {
 		return new JsonWriter();
 	}
 
@@ -122,7 +122,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderWriter getJSONWriter(BinderOptions options) {
+	public static BinderJsonWriter getJSONWriter(BinderOptions options) {
 		return new JsonWriter(options);
 	}
 
