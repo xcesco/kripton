@@ -30,29 +30,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.abubusoft.kripton.BinderReader;
+import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.binder.json.internal.JSONArray;
 import com.abubusoft.kripton.binder.json.internal.JSONObject;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.common.TypeReflector;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.ReaderException;
 
 /**
- * BinderReader implementation using org.json library,
+ * Json reader
  * 
- * JsonReader de-serialize JSON string into POJO, the de-serialization is guided
- * by mapping schema defined in the POJO using Nano annotations.
- * 
- * @author bulldog
+ * @author xcesco
  * 
  */
-public class JsonReader implements BinderReader {
+public class JsonReader implements BinderJsonReader {
 
 	/**
 	 * format of json reader
@@ -198,7 +195,13 @@ public class JsonReader implements BinderReader {
 					if (jsonValue instanceof JSONArray) {
 						JSONArray jsonArray = (JSONArray) jsonValue;
 						if (jsonArray.length() > 0) {
-							readList(instance, type, field, jsonArray);
+							List<?> list = (List<?>) field.get(instance);
+							if (list == null) {
+								list = new ArrayList<>();
+								field.set(instance, list);
+							}
+							
+							readList(instance, type, list, jsonArray);
 						}
 					}
 					break;
@@ -343,31 +346,22 @@ public class JsonReader implements BinderReader {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void readList(Object instance, Class<?> type, Field field, JSONArray jsonArray) throws Exception {
-		if (Transformer.isPrimitive(type)) {
+	private void readList(Object instance, Class<?> type, List list, JSONArray jsonArray) throws Exception {
+		if (Transformer.isPrimitive(type)) {						
 			for (int i = 0; i < jsonArray.length(); i++) {
 				Object jsonValue = jsonArray.get(i);
 				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
-					Object value = Transformer.read(String.valueOf(jsonValue), type);
-					List list = (List) field.get(instance);
-					if (list == null) {
-						list = new ArrayList();
-						field.set(instance, list);
-					}
+					Object value = Transformer.read(String.valueOf(jsonValue), type);					
 					list.add(value);
 				}
 			}
-		} else { // Object
+		} else { // Object						
 			for (int i = 0; i < jsonArray.length(); i++) {
 				Object jsonValue = jsonArray.get(i);
 				if (jsonValue instanceof JSONObject) {
 					Constructor con = TypeReflector.getConstructor(type);
 					Object subObj = con.newInstance();
-					List list = (List) field.get(instance);
-					if (list == null) {
-						list = new ArrayList();
-						field.set(instance, list);
-					}
+					
 					list.add(subObj);
 					this.readObject(subObj, (JSONObject) jsonValue);
 				}
@@ -398,5 +392,46 @@ public class JsonReader implements BinderReader {
 			}
 		}
 	}
+
+	@Override
+	public <E> List<E> readList(Class<E> type, String input) throws ReaderException {
+		JSONArray array=new JSONArray(input);
+		List<E> result=new ArrayList<E>();
+		
+		try {
+			readList(input, type, result, array);
+			
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(new ReaderException(e.getMessage()));
+		}						
+	}
+	
+	@Override
+	public <E> List<E> readList(Class<E> type, InputStream source) throws ReaderException {
+		try {
+			return this.readList(type, new InputStreamReader(source, format.getEncoding()));
+		} catch (UnsupportedEncodingException e) {
+			throw new ReaderException("Encoding is not supported", e);
+		}			
+	}
+	
+	@Override
+	public <E> List<E> readList(Class<E> type, Reader source) throws ReaderException, MappingException {
+		if (source == null) {
+			throw new ReaderException("Cannot read, reader is null!");
+		}
+
+		try {
+			return this.readList(type, StringUtil.reader2String(source));
+		} catch (IOException e) {
+			throw new ReaderException("IO error!", e); 
+		}
+
+	}
+
+
+	
 
 }

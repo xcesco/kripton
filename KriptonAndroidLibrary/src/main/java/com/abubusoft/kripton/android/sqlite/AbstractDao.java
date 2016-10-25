@@ -40,54 +40,12 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public abstract class AbstractDao {
 	
-	@BindType
-	public static class WrappedArray<E>
-	{
-		public WrappedArray()
-		{			
-		}
-		
-		public WrappedArray(E[] value)
-		{
-			this.value=value;
-		}
-		
-		public E[] value; 
-	}
-	
-	@BindType
-	public static class WrappedList<E>
-	{
-		public WrappedList()
-		{
-			
-		}
-		
-		public WrappedList(List<E> value)
-		{
-			this.value=value;
-		}
-		
-		public List<E> value; 
-	}
-	
 	public AbstractDao(AbstractDataSource dataSource)
 	{
 		this.dataSource=new WeakReference<AbstractDataSource>(dataSource);
 	}
 
 	protected WeakReference<AbstractDataSource> dataSource;
-	
-	/**
-	 * Json writer. It's need to write embedded field
-	 */
-	protected static ThreadLocal<BinderWriter> objWriter;
-	
-	/**
-	 * json reader. It's need to read embedded field
-	 */
-	protected static ThreadLocal<BinderReader> objReader;
-
 	
 	/**
 	 * Retrieve SQLite database instance
@@ -119,69 +77,6 @@ public abstract class AbstractDao {
 		}
 		
 	};
-	
-	protected static <E> String writeToString(E[] value)
-	{
-		if (objWriter==null)
-		{
-			objWriter=new ThreadLocal<BinderWriter>() {
-
-				@Override
-				protected BinderWriter initialValue() {
-					return BinderFactory.getJSONWriter(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
-				}
-				
-			};			
-		}
-		
-		BinderWriter writer = objWriter.get();
-		WrappedArray<E> w=new WrappedArray<E>(value);
-		
-		String result;
-		try {
-			result = writer.write(w);
-			return result;
-		} catch (MappingException e) {
-			e.printStackTrace();
-		} catch (WriterException e) {
-			e.printStackTrace();
-		}
-		
-		return null;		
-	}
-
-	
-	@SuppressWarnings("unchecked")
-	protected static <E> E[] readFromByteArray(Class<E> clazz, byte[] input)
-	{
-		
-		if (objReader==null)
-		{
-			objReader=new ThreadLocal<BinderReader>() {
-
-				@Override
-				protected BinderReader initialValue() {
-					return BinderFactory.getJSONReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
-				}
-				
-			};			
-		}
-		
-		BinderReader reader = objReader.get();
-		WrappedArray<E> w=new WrappedArray<E>();
-		
-		try {
-			w = reader.read(w.getClass(), new String(input));
-			return w.value;
-		} catch (MappingException e) {
-			e.printStackTrace();
-		} catch (ReaderException e) {
-			e.printStackTrace();
-		} 
-		
-		return null;		
-	}
-	
 	
 
 }

@@ -27,16 +27,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.abubusoft.kripton.BinderWriter;
+import com.abubusoft.kripton.BinderJsonWriter;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.binder.json.internal.JSONArray;
 import com.abubusoft.kripton.binder.json.internal.JSONObject;
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.WriterException;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.WriterException;
 
 /**
  * <p>
@@ -52,9 +52,7 @@ import com.abubusoft.kripton.common.StringUtil;
  * @author xcesco
  * 
  */
-public class JsonWriter implements BinderWriter {
-
-	static final String VALUE_KEY = "__value__";
+public class JsonWriter implements BinderJsonWriter {
 
 	static final int DEFAULT_INDENTATION = 4;
 
@@ -98,46 +96,8 @@ public class JsonWriter implements BinderWriter {
 	private void writeObject(JSONObject jsonObject, Object source) throws Exception {
 		MappingSchema ms = MappingSchema.fromObject(source);
 
-		// write attributes first
-		// writeAttributes(jsonObject, source, ms);
-
-		// write value if any
-		// writeValue(jsonObject, source, ms);
-
-		// write elements last
 		writeElements(jsonObject, source, ms);
-
 	}
-
-	// private void writeAttributes(JSONObject jsonObject, Object source,
-	// MappingSchema ms) throws Exception {
-	// Map<String, AttributeSchema> field2AttributeSchemaMapping =
-	// ms.getField2AttributeSchemaMapping();
-	// for (String fieldName : field2AttributeSchemaMapping.keySet()) {
-	// AttributeSchema as = field2AttributeSchemaMapping.get(fieldName);
-	// Field field = as.getField();
-	// Object value = field.get(source);
-	// if (value != null) {
-	// String key = "@" + as.getName();
-	// Object jsonValue = this.getJSONValue(value, as.getFieldType());
-	// jsonObject.put(key, jsonValue);
-	// }
-	// }
-	// }
-
-	// private void writeValue(JSONObject jsonObject, Object source,
-	// MappingSchema ms) throws Exception {
-	// ValueSchema vs = ms.getValueSchema();
-	// if (vs == null)
-	// return; // no ValueSchema, do nothing
-	//
-	// Field field = vs.getField();
-	// Object value = field.get(source);
-	// if (value != null) {
-	// Object jsonValue = getJSONValue(value, vs.getFieldType());
-	// jsonObject.put(VALUE_KEY, jsonValue);
-	// }
-	// }
 
 	private void writeElements(JSONObject jsonObject, Object source, MappingSchema ms) throws Exception {
 		Map<String, ElementSchema> field2SchemaMapping = ms.getField2SchemaMapping();
@@ -358,15 +318,65 @@ public class JsonWriter implements BinderWriter {
 
 	@Override
 	public String write(Object source) throws WriterException, MappingException {
+		return String.valueOf(writeInternal(source));
+	}
+
+	@Override
+	public void writeList(List<?> source, Writer out) throws WriterException, MappingException {
+		JSONArray array = new JSONArray();
+
+		for (Object item : source) {
+			array.put(writeInternal(item));
+		}
+
 		try {
-			
+			out.write(array.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new WriterException(e);
+		}
+
+	}
+
+	@Override
+	public void writeList(List<?> source, OutputStream os) throws WriterException, MappingException {
+		JSONArray array = new JSONArray();
+
+		for (Object item : source) {
+			array.put(writeInternal(item));
+		}
+
+		write(array.toString(), os);
+
+	}
+
+	@Override
+	public String writeList(List<?> source) throws WriterException, MappingException {
+		JSONArray array = new JSONArray();
+
+		for (Object item : source) {
+			array.put(writeInternal(item));
+		}
+
+		return array.toString();
+
+	}
+	
+	private Object writeInternal(Object source) throws WriterException, MappingException {
+		try {
+
 			if (source == null) {
 				// "Can not write null instance!");
 				return null;
 			}
 
 			if (Transformer.isPrimitive(source.getClass())) {
-				throw new IllegalArgumentException("Can not write primitive or enum type object, " + "only Nano bindable complex type object can be accepted!");
+				Class<?> type = source.getClass();
+
+				// primitives
+				Object jsonValue = getJSONValue(source, type);
+
+				return jsonValue;
 			}
 
 			JSONObject childJsonObject = new JSONObject();
