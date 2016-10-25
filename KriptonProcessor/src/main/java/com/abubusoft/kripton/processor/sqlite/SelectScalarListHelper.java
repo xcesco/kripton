@@ -27,7 +27,6 @@ import java.util.List;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;

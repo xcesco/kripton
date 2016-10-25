@@ -58,7 +58,7 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
       if (!cursor.isNull(index1)) { resultBean.aByte=cursor.getBlob(index1); }
       if (!cursor.isNull(index2)) { resultBean.aString=(String[])readFromByteArray(String.class, cursor.getBlob(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.aLong=(Long[])readFromByteArray(Long.class, cursor.getBlob(index3)); }
+      if (!cursor.isNull(index3)) { resultBean.aLong=(Long[])readFromByteArray(Long.TYPE, cursor.getBlob(index3)); }
 
     }
     cursor.close();

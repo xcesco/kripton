@@ -24,7 +24,6 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 
 /**
  * @author xcesco
