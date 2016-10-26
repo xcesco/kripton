@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.processor.kripton52;
+package com.abubusoft.kripton.processor.kripton58;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 

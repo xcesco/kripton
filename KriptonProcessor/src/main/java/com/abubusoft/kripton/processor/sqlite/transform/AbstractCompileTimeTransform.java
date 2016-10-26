@@ -31,8 +31,13 @@ import com.squareup.javapoet.MethodSpec.Builder;
 public abstract class AbstractCompileTimeTransform implements Transform {
 	
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
-		methodBuilder.addCode("$L."+getter(beanClass, property), beanName);
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+		if (beanName!=null)
+		{
+			methodBuilder.addCode("$L."+getter(beanClass, property), beanName);
+		} else {
+			generateWriteProperty(methodBuilder, property.getName());
+		}
 	}
 
 	/* (non-Javadoc)

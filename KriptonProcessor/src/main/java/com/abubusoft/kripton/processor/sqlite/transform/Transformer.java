@@ -111,7 +111,6 @@ public abstract class Transformer {
 			typeName = typeName(typeMirror);
 		}
 		
-
 		Transform transform = cache.get(typeName);
 
 		if (transform != null) {

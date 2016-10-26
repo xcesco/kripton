@@ -73,9 +73,4 @@ public class ModelType extends LiteralType {
 		return isSameType(clazz.getName());
 	}
 
-	public boolean isEnum() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

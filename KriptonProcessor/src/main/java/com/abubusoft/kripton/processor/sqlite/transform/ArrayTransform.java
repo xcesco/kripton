@@ -21,11 +21,13 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.ArrayList;
 
 import com.abubusoft.kripton.android.sqlite.DaoHelper;
+import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.CollectionUtility;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
-
 
 /**
  * Transformer between an array field to base64 encoded string and viceversa
@@ -34,68 +36,73 @@ import com.squareup.javapoet.TypeName;
  *
  */
 public class ArrayTransform extends AbstractCompileTimeTransform {
-				
-	private TypeName clazz;
+
+	static Converter<String, String> nc=CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 	
+	private TypeName clazz;
+
 	private boolean primitive;
 
-	public ArrayTransform(TypeName clazz)
-	{
-		this.clazz=clazz;
+	public ArrayTransform(TypeName clazz) {
+		this.clazz = clazz;
 	}
-	
+
 	public ArrayTransform(TypeName componentTypeName, boolean primitive) {
-		this.primitive=primitive;
-		if (primitive)
-		{
-			this.clazz=componentTypeName;
+		this.primitive = primitive;
+		if (primitive) {
+			this.clazz = componentTypeName;
 		} else {
-			this.clazz=componentTypeName;
+			this.clazz = componentTypeName;
 		}
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
-		methodBuilder.addCode("$T.toString($T.toList($L."+getter(beanClass, property)+", $T.class))", DaoHelper.class, CollectionUtility.class, beanName, ArrayList.class);
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+		if (beanName != null) {
+			methodBuilder.addCode("$T.toByteArray($T.toList($L." + getter(beanClass, property) + ", $T.class))", DaoHelper.class, CollectionUtility.class, beanName, ArrayList.class);
+		} else {
+			generateWriteProperty(methodBuilder, property.getName());
+		}
 	}
 
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.toString($T.toList($L, $T.class))", DaoHelper.class, CollectionUtility.class, objectName, ArrayList.class);		
-	}
-	
-	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		if (primitive)
-		{
-		methodBuilder.addCode("$L."+setter(beanClass, property, "($T[])readFromByteArray($T.TYPE, $L.getBlob($L))"), beanName,clazz, clazz, cursorName, indexName);			
-		} else {
-			methodBuilder.addCode("$L."+setter(beanClass, property, "($T[])readFromByteArray($T.class, $L.getBlob($L))"), beanName,clazz, clazz, cursorName, indexName);			
-			
-		}
-	}
-		
-	
-	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		if (primitive)
-		{
-			methodBuilder.addCode("($T[])readFromByteArray($T.TYPE, $L.getBlob($L))",clazz, clazz, cursorName, indexName);		
-		} else 
-			methodBuilder.addCode("($T[])readFromByteArray($T.class, $L.getBlob($L))",clazz, clazz, cursorName, indexName);		
-	}
-	
-	@Override
-	public void generateDefaultValue(Builder methodBuilder)
-	{
-		methodBuilder.addCode("null");		
+		methodBuilder.addCode("$T.toByteArray($T.toList($L, $T.class))", DaoHelper.class, CollectionUtility.class, objectName, ArrayList.class);
 	}
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		methodBuilder.addCode("(writeToByteArray($T.class, $L."+setter(beanClass, property, "null")+")", clazz, beanName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		if (primitive) {
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.to$LTypeArray($T.toList($L.TYPE, $L.getBlob($L)))"), beanName, CollectionUtility.class, nc.convert(clazz.toString()), DaoHelper.class, nc.convert(clazz.toString()), cursorName, indexName);
+		} else if (TypeUtility.isString(clazz)){
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toStringArray($T.toList(String.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, DaoHelper.class, cursorName, indexName);
+		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)){
+			String name=nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".")+1));
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.to$LArray($T.toList($L.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, name, DaoHelper.class, name, cursorName, indexName);
+		} else {
+			String name=nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".")+1));			
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toArray($T.toList($L.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, DaoHelper.class, name, cursorName, indexName);
+		}
 	}
-	
+
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		if (primitive) {
+			methodBuilder.addCode("$T.toList($T.TYPE, $L.getBlob($L))", CollectionUtility.class, DaoHelper.class, clazz, cursorName, indexName);
+		} else
+			methodBuilder.addCode("$T.toList($T.class, $L.getBlob($L))", CollectionUtility.class, DaoHelper.class, clazz, cursorName, indexName);
+	}
+
+	@Override
+	public void generateDefaultValue(Builder methodBuilder) {
+		methodBuilder.addCode("null");
+	}
+
+	@Override
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode("(writeToByteArray($T.class, $L." + setter(beanClass, property, "null") + ")", clazz, beanName);
+	}
+
 	@Override
 	public String generateColumnType(ModelProperty property) {
 		return "BLOB";

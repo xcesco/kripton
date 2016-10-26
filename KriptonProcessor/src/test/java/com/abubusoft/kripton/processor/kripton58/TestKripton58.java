@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.kripton52;
+package com.abubusoft.kripton.processor.kripton58;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ import com.abubusoft.kripton.processor.BaseProcessorTest;
  *
  */
 @RunWith(JUnit4.class)
-public class TestKripton52 extends BaseProcessorTest {
+public class TestKripton58 extends BaseProcessorTest {
 
 	/**
 	 * Test all transformation type available
@@ -38,7 +38,7 @@ public class TestKripton52 extends BaseProcessorTest {
 	 */
 	@Test
 	public void testAllFieldType() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, BaseDao.class);
+		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, Bean02.class, BaseDao.class);
 	}	
 
 }

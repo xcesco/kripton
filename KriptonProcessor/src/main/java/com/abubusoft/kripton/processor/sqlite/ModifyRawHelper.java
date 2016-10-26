@@ -91,7 +91,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				if (TypeUtility.isNullable(method, item, property)) {
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 				}
-				methodBuilder.addCode("contentValues.put($S, $L);\n", daoDefinition.getColumnNameConverter().convert(property.getName()), item.value0);
+				
+				//methodBuilder.addCode("contentValues.put($S, $L);\n", , item.value0);
+				methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));			
+				Transformer.java2ContentValues(methodBuilder, typeName(property.getElement().asType()),null , property);			
+				methodBuilder.addCode(");\n");
+				
+				
 				if (TypeUtility.isNullable(method, item, property)) {
 					methodBuilder.nextControlFlow("else");
 					methodBuilder.addCode("contentValues.putNull($S);\n", daoDefinition.getColumnNameConverter().convert(property.getName()));
@@ -236,10 +242,16 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			}
 						
 			// check for string conversion
-			methodBuilder.addCode(TypeUtility.beginValueOf(item.value1));
+			methodBuilder.addCode(TypeUtility.beginStringConversion(item.value1));
+			
+			// check for string conversion
+			methodBuilder.addCode(TypeUtility.beginStringConversion(item.value1));															
 			Transformer.java2ContentValues(methodBuilder, item.value1, item.value0);
 			// check for string conversion
-			methodBuilder.addCode(TypeUtility.endValueOf(item.value1));
+			methodBuilder.addCode(TypeUtility.endStringConversion(item.value1));
+			
+			// check for string conversion
+			methodBuilder.addCode(TypeUtility.endStringConversion(item.value1));
 			
 			if (nullable) {
 				methodBuilder.addCode(")");

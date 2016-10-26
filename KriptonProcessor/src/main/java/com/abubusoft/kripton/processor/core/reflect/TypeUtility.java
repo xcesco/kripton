@@ -24,8 +24,8 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
@@ -43,13 +43,11 @@ public class TypeUtility {
 	}
 
 	public static boolean isTypePrimitive(TypeName value) {
-		return isTypeIncludedIn(value, Byte.TYPE, Boolean.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE,
-				Double.TYPE);
+		return isTypeIncludedIn(value, Byte.TYPE, Boolean.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE);
 	}
 
 	public static boolean isTypeWrappedPrimitive(TypeName value) {
-		return isTypeIncludedIn(value, Byte.class, Boolean.class, Short.class, Integer.class, Long.class, Float.class,
-				Double.class);
+		return isTypeIncludedIn(value, Byte.class, Boolean.class, Short.class, Integer.class, Long.class, Float.class, Double.class);
 	}
 
 	public static boolean isSameType(TypeName value, String className) {
@@ -67,6 +65,21 @@ public class TypeUtility {
 	}
 
 	/**
+	 * Check if its type is an array of type specified
+	 * 
+	 * @param value
+	 * @return true if it is array []
+	 */
+	public static boolean isArray(TypeName arrayType, TypeName value) {
+		return value.toString().equals(arrayType + "[]");
+	}
+
+	public static boolean isArrayOfPrimitive(TypeName typeName) {
+		return isArray(TypeName.BOOLEAN, typeName) || isArray(TypeName.BYTE, typeName) || isArray(TypeName.CHAR, typeName) || isArray(TypeName.DOUBLE, typeName) || isArray(TypeName.FLOAT, typeName) || isArray(TypeName.INT, typeName)
+				|| isArray(TypeName.LONG, typeName) || isArray(TypeName.SHORT, typeName);
+	}
+
+	/**
 	 * Check if its type is String
 	 * 
 	 * @param value
@@ -81,8 +94,7 @@ public class TypeUtility {
 	}
 
 	/**
-	 * Check if class that is rapresented by value has same name of entity
-	 * parameter.
+	 * Check if class that is rapresented by value has same name of entity parameter.
 	 * 
 	 * @param value
 	 * @param entity
@@ -93,8 +105,7 @@ public class TypeUtility {
 	}
 
 	/**
-	 * Check if class that is rapresented by value has same name of entity
-	 * parameter.
+	 * Check if class that is rapresented by value has same name of entity parameter.
 	 * 
 	 * @param value
 	 * @param rawType
@@ -108,8 +119,7 @@ public class TypeUtility {
 	// com.abubusoft.kripton.android.sqlite.ReadBeanListener<com.abubusoft.kripton.processor.test03.Bean01>
 
 	/**
-	 * Check if class that is rapresented by value has same name of entity
-	 * parameter.
+	 * Check if class that is rapresented by value has same name of entity parameter.
 	 * 
 	 * @param value
 	 * @param kindOfParameter
@@ -212,22 +222,18 @@ public class TypeUtility {
 	}
 
 	/**
-	 * Check if method parameter is nullable. Moreover, check nullable status of
-	 * method param and property are compatible.
+	 * Check if method parameter is nullable. Moreover, check nullable status of method param and property are compatible.
 	 * 
 	 * @param method
 	 * @param methodParam
 	 * @param property
 	 * @return true is method param is nullable
 	 */
-	public static boolean isNullable(SQLiteModelMethod method, Pair<String, TypeMirror> methodParam,
-			ModelProperty property) {
+	public static boolean isNullable(SQLiteModelMethod method, Pair<String, TypeMirror> methodParam, ModelProperty property) {
 		if (!isNullable(property) && isNullable(typeName(methodParam.value1))) {
 			// ASSERT: property is not nullable but method yes, so we throw an
 			// exception
-			throw (new InvalidMethodSignException(method,
-					String.format("property '%s' is NOT nullable but method parameter '%s' is nullable  ",
-							property.getName(), methodParam.value0)));
+			throw (new InvalidMethodSignException(method, String.format("property '%s' is NOT nullable but method parameter '%s' is nullable  ", property.getName(), methodParam.value0)));
 		}
 		return isNullable(typeName(methodParam.value1));
 	}
@@ -239,86 +245,97 @@ public class TypeUtility {
 	 * @param item
 	 * @param property
 	 */
-	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeMirror> item,
-			ModelProperty property) {
+	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeMirror> item, ModelProperty property) {
 		if (!TypeUtility.isEquals(typeName(item.value1), property.getPropertyType().getName())) {
 			// ASSERT: property is not nullable but method yes, so we throw an
 			// exception
-			throw (new InvalidMethodSignException(method, String.format(
-					"property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ",
-					property.getName(), property.getPropertyType().getName(), item.value0, item.value1.toString())));
+			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ", property.getName(), property.getPropertyType().getName(),
+					item.value0, item.value1.toString())));
 		}
 	}
 
 	/**
-	 * generate begin string to translate in code to used in content value or parameter need to
-	 * be converted in string through String.valueOf
+	 * generate begin string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 * 
 	 * @param property
 	 * @return
 	 * 
 	 */
-	public static String beginValueOf(ModelProperty property) {
+	public static String beginStringConversion(ModelProperty property) {
 		TypeMirror modelType = property.getElement().asType();
 
-		return beginValueOf(modelType);
+		return beginStringConversion(modelType);
 	}
 
 	/**
-	 * generate begin string to translate in code to used in content value or parameter need to
-	 * be converted in string through String.valueOf
+	 * generate begin string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 * 
 	 * @param property
 	 * @return
 	 * 
 	 */
-	public static String beginValueOf(TypeMirror typeMirror) {
-		TypeName typeName=typeName(typeMirror);
-		if (isString(typeName) || isArray(typeName)) {
+
+	/**
+	 * generate begin string to translate in code to used in String or parameter need to be converted in string through String.valueOf
+	 * 
+	 * @param typeMirror
+	 * @return
+	 * 
+	 */
+	public static String beginStringConversion(TypeMirror typeMirror) {
+		TypeName typeName = typeName(typeMirror);
+		if (typeName == null && typeMirror instanceof ModelType) {
+			typeName = ((ModelType) typeMirror).getName();
+		}
+
+		if (isString(typeName)) {
 			return "";
-		} else if (isByteArray(typeName))
-		{
+		} else if (isArray(typeName)) {
+			// every array of primitive will be converted in byte[]
 			return "new String(";
 		}
 		return "String.valueOf(";
 	}
-	
+
 	/**
-	 * generate end string to translate in code to used in content value or parameter need to
-	 * be converted in string through String.valueOf
+	 * generate end string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 * 
 	 * @param property
 	 * @return
 	 * 
 	 */
-	public static String endValueOf(ModelProperty property) {
+	public static String endStringConversion(ModelProperty property) {
 		TypeMirror modelType = property.getElement().asType();
 
-		return endValueOf(modelType);
+		return endStringConversion(modelType);
 	}
 
 	/**
-	 * generate end string to translate in code to used in content value or parameter need to
-	 * be converted in string through String.valueOf
+	 * generate end string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 * 
 	 * @param property
 	 * @return
 	 * 
 	 */
-	public static String endValueOf(TypeMirror typeMirror) {
+	public static String endStringConversion(TypeMirror typeMirror) {
 		TypeName typeName = typeName(typeMirror);
-		if (isString(typeName) || isArray(typeName)) {
-			return "";
+		if (typeName == null && typeMirror instanceof ModelType) {
+			typeName = ((ModelType) typeMirror).getName();
 		}
-		return ")";
+
+		if (isString(typeName)) {
+			return "";
+		} else if (isArray(typeName)) {
+			return ")";
+		}
+		return ")";		
 	}
 
 	public static boolean isArray(TypeName typeName) {
-		if (typeName instanceof ArrayTypeName)
-		{
+		if (typeName instanceof ArrayTypeName) {
 			return true;
 		}
-		
+
 		return false;
 	}
 

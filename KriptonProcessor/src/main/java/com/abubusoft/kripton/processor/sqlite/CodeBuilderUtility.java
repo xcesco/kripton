@@ -239,11 +239,8 @@ public class CodeBuilderUtility {
 			}
 			
 			// add property to list of used properties
-			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(item.getName()));
-			
-			// it does not need to be converted in string
-			Transformer.java2ContentValues(methodBuilder, entityClassName,entityName , item);
-			
+			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(item.getName()));			
+			Transformer.java2ContentValues(methodBuilder, entityClassName,entityName , item);			
 			methodBuilder.addCode(");\n");
 			
 			if (TypeUtility.isNullable(item))

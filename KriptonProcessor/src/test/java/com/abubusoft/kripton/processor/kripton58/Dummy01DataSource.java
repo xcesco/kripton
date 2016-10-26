@@ -13,17 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.kripton52;
+package com.abubusoft.kripton.processor.kripton58;
 
-import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@BindType
-public class Bean01 {
 
-	public long id;
-	
-	public byte[] value;
-	
-	public long[] longValue;
+@BindDataSource(value=DaoBean01.class, fileName = "dummy" , version=1, asyncTask=false, cursor=false)
+public interface Dummy01DataSource {
 
 }

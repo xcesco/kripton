@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.kripton52;
+package com.abubusoft.kripton.processor.kripton58;
 
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.annotation.BindType;
 
-public interface BaseDao<E> {
+@BindType
+public class Bean02 {
 
-	@BindSelect(where="id=${id}")
-	E selectOne(long id);
-	
+	public long id;
 
-	
 }

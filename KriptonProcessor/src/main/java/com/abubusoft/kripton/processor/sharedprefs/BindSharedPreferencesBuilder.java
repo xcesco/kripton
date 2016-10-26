@@ -319,7 +319,7 @@ public class BindSharedPreferencesBuilder {
 					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "string2array(prefs.getString($S, null), bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				} else if (item.getPropertyType().isList()) {
 					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "string2list(prefs.getString($S, null), bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				} else if (item.getPropertyType().isEnum()) {
+			//	} else if (item.getPropertyType().isEnum()) {
 
 				} else if (item.getPropertyType().isSameType(String.class)) {
 					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getString($S, bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
@@ -372,7 +372,7 @@ public class BindSharedPreferencesBuilder {
 					method.addStatement("return string2array(prefs.getString($S, null), defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
 				} else if (item.getPropertyType().isList()) {
 					method.addStatement("return string2list(prefs.getString($S, null), defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				} else if (item.getPropertyType().isEnum()) {
+				//} else if (item.getPropertyType().isEnum()) {
 
 				} else if (item.getPropertyType().isSameType(String.class)) {
 					method.addStatement("return prefs.getString($S, defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
