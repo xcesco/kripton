@@ -32,6 +32,7 @@ import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -111,18 +112,7 @@ public abstract class Transformer {
 			typeName = typeName(typeMirror);
 		}
 		
-		Transform transform = cache.get(typeName);
-
-		if (transform != null) {
-			return transform;
-		}
-
-		transform = getTransform(typeName);
-		if (transform != null) {
-			cache.put(typeName, transform);
-		}
-
-		return transform;
+		return lookup(typeName);
 	}
 	
 	/**
@@ -162,6 +152,13 @@ public abstract class Transformer {
 			} else {
 				return new ArrayTransform(componentTypeName);
 			}
+		} else if (typeName instanceof ParameterizedTypeName)
+		{
+			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
+			if (TypeUtility.isList(parameterizedTypeName))
+			{
+				return new ListTransformation(parameterizedTypeName);
+			}						
 		}
 
 		String name = typeName.toString();

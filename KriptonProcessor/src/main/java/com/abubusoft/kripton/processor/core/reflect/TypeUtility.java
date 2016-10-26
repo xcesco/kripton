@@ -27,8 +27,10 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
 public class TypeUtility {
@@ -334,6 +336,16 @@ public class TypeUtility {
 	public static boolean isArray(TypeName typeName) {
 		if (typeName instanceof ArrayTypeName) {
 			return true;
+		}
+
+		return false;
+	}
+	
+	public static boolean isList(TypeName typeName) {
+		if (typeName instanceof ParameterizedTypeName) {
+			LiteralType lt=LiteralType.of(typeName.toString());	
+			
+			return lt.isList();
 		}
 
 		return false;
