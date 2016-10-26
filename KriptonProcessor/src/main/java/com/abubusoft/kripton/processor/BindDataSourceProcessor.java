@@ -288,11 +288,12 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 						LiteralType lt = LiteralType.of(name.toString());
 
+						/*
 						if (lt.isComposed()) {
 							String msg = String.format("In class '%s', property '%s' is ignored in database build because it is composed", currentEntity.getSimpleName(), property.getName());
 							info(msg);
 							return false;
-						}
+						}*/
 
 						ModelAnnotation annotation = property.getAnnotation(BindColumn.class);
 						if (annotation != null) {

@@ -34,7 +34,7 @@ public class Bean01 {
 	
 	public short[] shortValue;
 	
-	public Bean02[] beanValue;
+	public Bean01Inner[] beanValue;
 	
 	
 

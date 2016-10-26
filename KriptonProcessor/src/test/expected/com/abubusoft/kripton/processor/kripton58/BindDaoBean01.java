@@ -72,7 +72,7 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
       if (!cursor.isNull(index4)) { resultBean.integerValue=CollectionUtility.toIntegerArray(DaoHelper.toList(Integer.class, cursor.getBlob(index4))); }
       if (!cursor.isNull(index5)) { resultBean.byteValue=CollectionUtility.toByteArray(DaoHelper.toList(Byte.class, cursor.getBlob(index5))); }
       if (!cursor.isNull(index6)) { resultBean.shortValue=CollectionUtility.toShortTypeArray(DaoHelper.toList(Short.TYPE, cursor.getBlob(index6))); }
-      if (!cursor.isNull(index7)) { resultBean.beanValue=CollectionUtility.toArray(DaoHelper.toList(Bean02.class, cursor.getBlob(index7))); }
+      if (!cursor.isNull(index7)) { resultBean.beanValue=CollectionUtility.toArray(DaoHelper.toList(Bean01Inner.class, cursor.getBlob(index7))); }
 
     }
     cursor.close();
@@ -249,7 +249,7 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
         if (!cursor.isNull(index4)) { resultBean.integerValue=CollectionUtility.toIntegerArray(DaoHelper.toList(Integer.class, cursor.getBlob(index4))); }
         if (!cursor.isNull(index5)) { resultBean.byteValue=CollectionUtility.toByteArray(DaoHelper.toList(Byte.class, cursor.getBlob(index5))); }
         if (!cursor.isNull(index6)) { resultBean.shortValue=CollectionUtility.toShortTypeArray(DaoHelper.toList(Short.TYPE, cursor.getBlob(index6))); }
-        if (!cursor.isNull(index7)) { resultBean.beanValue=CollectionUtility.toArray(DaoHelper.toList(Bean02.class, cursor.getBlob(index7))); }
+        if (!cursor.isNull(index7)) { resultBean.beanValue=CollectionUtility.toArray(DaoHelper.toList(Bean01Inner.class, cursor.getBlob(index7))); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -350,7 +350,7 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
       if (!cursor.isNull(index4)) { resultBean.integerValue=CollectionUtility.toIntegerArray(DaoHelper.toList(Integer.class, cursor.getBlob(index4))); }
       if (!cursor.isNull(index5)) { resultBean.byteValue=CollectionUtility.toByteArray(DaoHelper.toList(Byte.class, cursor.getBlob(index5))); }
       if (!cursor.isNull(index6)) { resultBean.shortValue=CollectionUtility.toShortTypeArray(DaoHelper.toList(Short.TYPE, cursor.getBlob(index6))); }
-      if (!cursor.isNull(index7)) { resultBean.beanValue=CollectionUtility.toArray(DaoHelper.toList(Bean02.class, cursor.getBlob(index7))); }
+      if (!cursor.isNull(index7)) { resultBean.beanValue=CollectionUtility.toArray(DaoHelper.toList(Bean01Inner.class, cursor.getBlob(index7))); }
 
     }
     cursor.close();
