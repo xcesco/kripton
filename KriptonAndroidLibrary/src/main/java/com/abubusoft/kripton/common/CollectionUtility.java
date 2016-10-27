@@ -292,7 +292,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static char[] toCharTypeArray(List<Character> input) {
+	public static char[] toCharacterTypeArray(List<Character> input) {
 		char[] result = new char[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -312,7 +312,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static int[] toIntTypeArray(List<Integer> input) {
+	public static int[] toIntegerTypeArray(List<Integer> input) {
 		int[] result = new int[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
