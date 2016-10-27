@@ -26,5 +26,7 @@ public class Bean02 {
 	public long id;
 	
 	public LinkedList<Byte> value;
+	
+	public List<String> stringValue;
 
 }

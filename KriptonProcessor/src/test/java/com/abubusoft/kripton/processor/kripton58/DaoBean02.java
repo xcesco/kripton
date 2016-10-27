@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.kripton58;
 
+import java.util.List;
+
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 
@@ -24,10 +26,11 @@ public interface DaoBean02 /* extends BaseDao<Bean01> */{
 	@BindSelect()
 	Bean02 selectOne();
 	
-/*
-	@BindSelect(where = "value=${value} and longValue=${longValue}")
-	Bean01 selectOne(byte[] value, long[] longValue);
 
+	@BindSelect(where = "stringValue=${stringValue}")
+	Bean01 selectOne(List<String> stringValue);
+
+	/*
 	@BindUpdate(where = "id=${uid}")
 	long updateOne(byte[] value, long[] longValue, long uid);
 
