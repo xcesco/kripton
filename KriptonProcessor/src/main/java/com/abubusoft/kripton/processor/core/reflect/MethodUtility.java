@@ -215,11 +215,11 @@ public abstract class MethodUtility {
 		} else if (TypeUtility.isArray(returnTypeName))
 		{
 			// array return type is not supported.
-			throw (new InvalidMethodSignException(method));
+			throw (new InvalidMethodSignException(method, "array can not be used as return type"));
 		}
 
 		if (selectResultType == null) {
-			throw (new InvalidMethodSignException(method));
+			throw (new InvalidMethodSignException(method, "return type is not supported"));
 		}
 
 		// take field list

@@ -28,7 +28,7 @@ public interface DaoBean02 /* extends BaseDao<Bean01> */{
 	
 
 	@BindSelect(where = "stringValue=${stringValue}")
-	Bean01 selectList(List<String> stringValue);
+	Bean02 selectList(List<String> stringValue);
 
 	/*
 	@BindUpdate(where = "id=${uid}")
