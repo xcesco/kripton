@@ -146,10 +146,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			}
 
 			// check for string conversion
-			methodBuilder.addCode(TypeUtility.beginStringConversion(property));			
+			TypeUtility.beginStringConversion(methodBuilder, property);			
 			Transformer.java2ContentValues(methodBuilder, beanClass, beanParamName, property);
 			// check for string conversion
-			methodBuilder.addCode(TypeUtility.endStringConversion(property));
+			TypeUtility.endStringConversion(methodBuilder, property);
 
 			if (nullable) {
 				methodBuilder.addCode(")");

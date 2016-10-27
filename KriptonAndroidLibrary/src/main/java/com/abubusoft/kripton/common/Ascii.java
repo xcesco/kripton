@@ -27,7 +27,7 @@ import static com.abubusoft.kripton.common.Preconditions.checkNotNull;
  * <p>ASCII utilities also exist in other classes of this package:
  * <ul>
  * <!-- TODO(kevinb): how can we make this not produce a warning when building gwt javadoc? -->
- * <li>{@link Charsets#US_ASCII} specifies the {@code Charset} of ASCII characters.
+ * <li>{@link SupportedCharsets#US_ASCII} specifies the {@code Charset} of ASCII characters.
  * <li>{@link CharMatcher#ASCII} matches ASCII characters and provides text processing methods
  *     which operate only on the ASCII characters of a string.
  * </ul>

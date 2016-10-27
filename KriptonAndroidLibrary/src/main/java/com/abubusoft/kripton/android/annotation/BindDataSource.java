@@ -19,6 +19,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>Decorate an database schema definition interface. This definition is needed to generate a {@link com.abubusoft.kripton.android.sqlite.AbstractDataSource} instance.</p>
@@ -87,5 +88,5 @@ public @interface BindDataSource {
 	 * 		true if you want to generate cursor wrapper
 	 */
 	boolean cursor() default true;
-
+	
 }

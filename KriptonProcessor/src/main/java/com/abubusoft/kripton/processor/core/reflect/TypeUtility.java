@@ -16,12 +16,15 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.SupportedCharsets;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
@@ -30,6 +33,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
@@ -258,15 +262,16 @@ public class TypeUtility {
 
 	/**
 	 * generate begin string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
+	 * @param methodBuilder 
 	 * 
 	 * @param property
 	 * @return
 	 * 
 	 */
-	public static String beginStringConversion(ModelProperty property) {
+	public static void beginStringConversion(Builder methodBuilder, ModelProperty property) {
 		TypeMirror modelType = property.getElement().asType();
 
-		return beginStringConversion(modelType);
+		beginStringConversion(methodBuilder, modelType);
 	}
 
 	/**
@@ -284,19 +289,20 @@ public class TypeUtility {
 	 * @return
 	 * 
 	 */
-	public static String beginStringConversion(TypeMirror typeMirror) {
+	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
 		TypeName typeName = typeName(typeMirror);
 		if (typeName == null && typeMirror instanceof ModelType) {
 			typeName = ((ModelType) typeMirror).getName();
 		}
 
 		if (isString(typeName)) {
-			return "";
-		} else if (isArray(typeName)) {
+			return;
+		} else if (isArray(typeName) || isList(typeName)) {
 			// every array of primitive will be converted in byte[]
-			return "new String(";
+			methodBuilder.addCode("new String(");			
+		} else {		
+			methodBuilder.addCode("String.valueOf(");
 		}
-		return "String.valueOf(";
 	}
 
 	/**
@@ -306,10 +312,10 @@ public class TypeUtility {
 	 * @return
 	 * 
 	 */
-	public static String endStringConversion(ModelProperty property) {
+	public static void endStringConversion(Builder methodBuilder, ModelProperty property) {
 		TypeMirror modelType = property.getElement().asType();
 
-		return endStringConversion(modelType);
+		endStringConversion(methodBuilder, modelType);
 	}
 
 	/**
@@ -319,18 +325,21 @@ public class TypeUtility {
 	 * @return
 	 * 
 	 */
-	public static String endStringConversion(TypeMirror typeMirror) {
+	public static void endStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
 		TypeName typeName = typeName(typeMirror);
 		if (typeName == null && typeMirror instanceof ModelType) {
 			typeName = ((ModelType) typeMirror).getName();
 		}
 
 		if (isString(typeName)) {
-			return "";
-		} else if (isArray(typeName)) {
-			return ")";
-		}
-		return ")";		
+			return;
+		} else if (isArray(typeName) || isList(typeName)) {
+			//TODO support StandardCharsets.UTF8
+			// see http://stackoverflow.com/questions/5729806/encode-string-to-utf-8
+			methodBuilder.addCode(",$T.UTF_8)", StandardCharsets.class);
+		} else {
+			methodBuilder.addCode(")");
+		}		
 	}
 
 	public static boolean isArray(TypeName typeName) {

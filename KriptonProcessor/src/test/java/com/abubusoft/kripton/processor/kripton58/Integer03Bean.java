@@ -15,30 +15,19 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.kripton58;
 
-import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import com.abubusoft.kripton.annotation.BindType;
 
-import com.abubusoft.kripton.processor.BaseProcessorTest;
+@BindType
+public class Integer03Bean {
 
-/**
- * @author xcesco
- *
- */
-@RunWith(JUnit4.class)
-public class TestKripton58_1 extends BaseProcessorTest {
-
-	/**
-	 * Test all transformation type available
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 */
-	@Test
-	public void testListFieldType() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy02DataSource.class, DaoBean02.class, Bean02.class, BaseDao.class);
-	}	
+	public long id;
+	
+	public List<Integer> value;
+	
+	public LinkedList<Integer> value2;
+	
 
 }

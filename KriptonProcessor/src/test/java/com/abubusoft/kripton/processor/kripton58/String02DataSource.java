@@ -15,13 +15,10 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.kripton58;
 
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-public interface BaseDao<E> {
-/*
-	@BindSelect(where="id=${id}")
-	E selectOne(long id);
-	*/
 
-	
+@BindDataSource(value=String02Dao.class, fileName = "dummy" , version=1, asyncTask=false, cursor=false)
+public interface String02DataSource {
+
 }

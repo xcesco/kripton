@@ -322,10 +322,10 @@ public abstract class MethodUtility {
 				}				
 				
 				// check for string conversion
-				methodBuilder.addCode(TypeUtility.beginStringConversion(paramTypeName));			
+				TypeUtility.beginStringConversion(methodBuilder, paramTypeName);			
 				Transformer.java2ContentValues(methodBuilder, paramTypeName, item);
 				// check for string conversion
-				methodBuilder.addCode(TypeUtility.endStringConversion(paramTypeName));
+				TypeUtility.endStringConversion(methodBuilder, paramTypeName);
 				
 				if (nullable) {
 					methodBuilder.addCode(")");

@@ -31,14 +31,49 @@ import com.abubusoft.kripton.processor.BaseProcessorTest;
 public class TestKripton58 extends BaseProcessorTest {
 
 	/**
-	 * Test all transformation type available
+	 * Test bean with array fields
 	 * @throws IOException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
 	@Test
-	public void testAllFieldType() throws IOException, InstantiationException, IllegalAccessException {
+	public void test01ArrayFields() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, Bean01Inner.class, BaseDao.class);
 	}	
+	
+	/**
+	 * Test bean with string list
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void test02StringListFieldType() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(String02DataSource.class, String02Dao.class, String02Bean.class, BaseDao.class);
+	}
+	
+	/**
+	 * Test bean with integer list
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void test03IntegerListFieldType() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Integer03DataSource.class, Integer03Dao.class, Integer03Bean.class, BaseDao.class);
+	}	
+
+	
+	/**
+	 * Test bean with ilst of another bean
+	 * 
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void test04InnerBeanListFieldType() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Bean04DataSource.class, Bean04Dao.class, Bean04Bean.class, Bean04Inner.class,BaseDao.class);
+	}
 
 }

@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isNullable;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -229,7 +230,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 */
 	public void generateWhereCondition(MethodSpec.Builder methodBuilder, Pair<String, List<Pair<String, TypeMirror>>> where) {
 		boolean nullable;
-
+		
 		methodBuilder.addCode("String[] whereConditions={");
 		String separator = "";
 		for (Pair<String, TypeMirror> item : where.value1) {
@@ -242,16 +243,10 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			}
 						
 			// check for string conversion
-			methodBuilder.addCode(TypeUtility.beginStringConversion(item.value1));
-			
-			// check for string conversion
-			methodBuilder.addCode(TypeUtility.beginStringConversion(item.value1));															
+			TypeUtility.beginStringConversion(methodBuilder, item.value1);			
 			Transformer.java2ContentValues(methodBuilder, item.value1, item.value0);
 			// check for string conversion
-			methodBuilder.addCode(TypeUtility.endStringConversion(item.value1));
-			
-			// check for string conversion
-			methodBuilder.addCode(TypeUtility.endStringConversion(item.value1));
+			TypeUtility.endStringConversion(methodBuilder, item.value1);
 			
 			if (nullable) {
 				methodBuilder.addCode(")");

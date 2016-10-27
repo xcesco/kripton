@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.android.sqlite;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import com.abubusoft.kripton.BinderFactory;
@@ -44,6 +46,13 @@ public abstract class DaoHelper {
 		return null;		
 	}
 	
+	/**
+	 * Convert a list in an UTF-8 byte array
+	 * 
+	 * @param value
+	 * @return
+	 * 		UTF-8 byte array
+	 */
 	public static byte[] toByteArray(List<?> value)
 	{
 		BinderJsonWriter writer = getWriter();
@@ -51,7 +60,24 @@ public abstract class DaoHelper {
 		String result;
 		try {
 			result = writer.writeList(value);
-			return result.getBytes();
+			return result.getBytes(StandardCharsets.UTF_8);
+		} catch (MappingException e) {
+			e.printStackTrace();
+		} catch (WriterException e) {
+			e.printStackTrace();
+		}
+		
+		return null;		
+	}
+	
+	public static byte[] toByteArray(List<?> value, Charset charset)
+	{
+		BinderJsonWriter writer = getWriter();
+		
+		String result;
+		try {
+			result = writer.writeList(value);
+			return result.getBytes(charset);
 		} catch (MappingException e) {
 			e.printStackTrace();
 		} catch (WriterException e) {

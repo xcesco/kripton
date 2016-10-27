@@ -33,7 +33,8 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		if (beanName != null) {
-			methodBuilder.addCode("$T.toByteArray($T.toList($L." + getter(beanClass, property) + ", $T.class))", DaoHelper.class, CollectionUtility.class, beanName, ArrayList.class);
+			//methodBuilder.addCode("$T.toByteArray($T.toList($L." + getter(beanClass, property) + ", $T.class))", DaoHelper.class, CollectionUtility.class, beanName, ArrayList.class);
+			methodBuilder.addCode("$T.toByteArray($L." + getter(beanClass, property) + ")", DaoHelper.class, beanName);
 		} else {
 			generateWriteProperty(methodBuilder, property.getName());
 		}
@@ -41,7 +42,7 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.toByteArray($T.toList($L, $T.class))", DaoHelper.class, CollectionUtility.class, objectName, ArrayList.class);
+		methodBuilder.addCode("$T.toByteArray($L)", DaoHelper.class, objectName);
 	}
 
 	@Override

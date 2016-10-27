@@ -15,13 +15,11 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.kripton58;
 
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.annotation.BindType;
 
-public interface BaseDao<E> {
-/*
-	@BindSelect(where="id=${id}")
-	E selectOne(long id);
-	*/
+@BindType
+public class Bean04Inner {
 
-	
+	public long id;
+
 }
