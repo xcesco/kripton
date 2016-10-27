@@ -4,9 +4,8 @@
 [![method count](https://img.shields.io/badge/Methods and size-core: 1824 | deps: 18311 | 280 KB-e91e63.svg)](http://www.methodscount.com/?lib=com.abubusoft%3Akripton-android-library%3A1.2.67)
 
 ## Kripton annotation processor librayr (compile-time dependency)
-[![download](https://api.bintray.com/packages/xcesco/kripton/kripton-android-library/images/download.svg)](https://bintray.com/xcesco/kripton/kripton-android-library/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/xcesco/kripton/kripton-processor/images/download.svg) ](https://bintray.com/xcesco/kripton/kripton-processor/_latestVersion)
 [![maven central](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton)
-
 [![build status](https://img.shields.io/travis/xcesco/kripton.svg?style=flat-square)](https://travis-ci.org/xcesco/kripton)
 [![test coverage](https://img.shields.io/codecov/c/github/xcesco/kripton/master.svg?style=flat-square)](https://codecov.io/gh/xcesco/kripton?branch=master)
 
