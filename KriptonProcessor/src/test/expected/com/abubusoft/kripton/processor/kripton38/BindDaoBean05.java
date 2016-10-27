@@ -95,7 +95,7 @@ public class BindDaoBean05 extends AbstractDao implements DaoBean05 {
   @Override
   public Bean05 selectOne(Bean05 bean) {
     // build where condition
-    String[] args={String.valueOf(bean.getPk()), (bean.getText()==null?null:String.valueOf(bean.getText()))};
+    String[] args={String.valueOf(bean.getPk()), (bean.getText()==null?null:bean.getText())};
 
     Logger.info(StringUtil.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s' and prova='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and prova=?", args);
@@ -202,7 +202,7 @@ public class BindDaoBean05 extends AbstractDao implements DaoBean05 {
   @Override
   public List<Long> selectPK(String text) {
     // build where condition
-    String[] args={(text==null?null:String.valueOf(text))};
+    String[] args={(text==null?null:text)};
 
     Logger.info(StringUtil.formatSQL("SELECT pk FROM ws_bean WHERE text = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk FROM ws_bean WHERE text = ?", args);
@@ -251,7 +251,7 @@ public class BindDaoBean05 extends AbstractDao implements DaoBean05 {
   @Override
   public Long selectCount(String text) {
     // build where condition
-    String[] args={(text==null?null:String.valueOf(text))};
+    String[] args={(text==null?null:text)};
 
     Logger.info(StringUtil.formatSQL("SELECT count(*) FROM ws_bean WHERE text = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT count(*) FROM ws_bean WHERE text = ?", args);
@@ -351,7 +351,7 @@ public class BindDaoBean05 extends AbstractDao implements DaoBean05 {
         int rowCount=cursor.getCount();
         do
          {
-          // reset mapping (only for nullable property)
+          // reset mapping
           resultBean.setPk(0L);
           resultBean.setNumber(0L);
           resultBean.setBeanType(null);
@@ -456,7 +456,7 @@ public class BindDaoBean05 extends AbstractDao implements DaoBean05 {
         int rowCount=cursor.getCount();
         do
          {
-          // reset mapping (only for nullable property)
+          // reset mapping
           resultBean.setPk(0L);
           resultBean.setNumber(0L);
           resultBean.setBeanType(null);
@@ -609,7 +609,7 @@ public class BindDaoBean05 extends AbstractDao implements DaoBean05 {
       contentValues.putNull("creation_time");
     }
 
-    String[] whereConditions={String.valueOf(bean.getPk()), (bean.getText()==null?null:String.valueOf(bean.getText())), (bean.getCreationTime()==null?null:String.valueOf(DateUtil.write(bean.getCreationTime())))};
+    String[] whereConditions={String.valueOf(bean.getPk()), (bean.getText()==null?null:bean.getText()), (bean.getCreationTime()==null?null:String.valueOf(DateUtil.write(bean.getCreationTime())))};
 
     Logger.info(StringUtil.formatSQL("UPDATE ws_bean SET number='"+StringUtil.checkSize(contentValues.get("number"))+"', bean_type='"+StringUtil.checkSize(contentValues.get("bean_type"))+"', text='"+StringUtil.checkSize(contentValues.get("text"))+"', content='"+StringUtil.checkSize(contentValues.get("content"))+"', creation_time='"+StringUtil.checkSize(contentValues.get("creation_time"))+"' WHERE pk=%s and text=%s and creationTime=%s"), (Object[])whereConditions);
     int result = database().update("ws_bean", contentValues, "pk=? and text=? and creation_time=?", whereConditions);
@@ -667,7 +667,7 @@ public class BindDaoBean05 extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(Bean05 bean) {
-    String[] whereConditions={String.valueOf(bean.getPk()), (bean.getText()==null?null:String.valueOf(bean.getText())), (bean.getCreationTime()==null?null:String.valueOf(DateUtil.write(bean.getCreationTime())))};
+    String[] whereConditions={String.valueOf(bean.getPk()), (bean.getText()==null?null:bean.getText()), (bean.getCreationTime()==null?null:String.valueOf(DateUtil.write(bean.getCreationTime())))};
 
     Logger.info(StringUtil.formatSQL("pk=%s and text=%s and creation_time=%s"), (Object[])whereConditions);
     int result = database().delete("ws_bean", "pk=? and text=? and creation_time=?", whereConditions);

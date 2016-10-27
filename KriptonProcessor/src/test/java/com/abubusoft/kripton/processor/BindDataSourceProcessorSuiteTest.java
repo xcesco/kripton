@@ -30,6 +30,8 @@ import com.abubusoft.kripton.processor.kripton48.TestKripton48;
 import com.abubusoft.kripton.processor.kripton49.TestKripton49;
 import com.abubusoft.kripton.processor.kripton50.TestKripton50;
 import com.abubusoft.kripton.processor.kripton58.TestKripton58Array;
+import com.abubusoft.kripton.processor.kripton58.TestKripton58List;
+import com.abubusoft.kripton.processor.kripton60.TestKripton60;
 import com.abubusoft.kripton.processor.test01.TestDatabase01;
 import com.abubusoft.kripton.processor.test02.TestDao01;
 import com.abubusoft.kripton.processor.test03.Test03;
@@ -44,7 +46,8 @@ import com.abubusoft.kripton.processor.test05firt_aid.TestFirstAid;
 			TestKripton33.class, TestKripton38.class, TestKripton40.class, TestKripton41.class, 
 			TestKripton42.class, TestKripton45.class, TestKripton46.class, TestKripton47.class,
 			TestKripton48.class, TestKripton49.class, TestKripton50.class,
-			TestKripton58Array.class, 
+			TestKripton58Array.class,TestKripton58List.class,
+			TestKripton60.class,
 		TestFirstAid.class })
 //@formatter:on
 public class BindDataSourceProcessorSuiteTest {

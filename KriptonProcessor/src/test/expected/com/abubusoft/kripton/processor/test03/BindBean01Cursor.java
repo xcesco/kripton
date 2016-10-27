@@ -1,6 +1,8 @@
 package com.abubusoft.kripton.processor.test03;
 
 import android.database.Cursor;
+import com.abubusoft.kripton.android.sqlite.DaoHelper;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -16,24 +18,34 @@ public class BindBean01Cursor {
   protected Cursor cursor;
 
   /**
-   * Index for column "id"
+   * Index for column "lista"
    */
   protected int index0;
 
   /**
-   * Index for column "messageDate"
+   * Index for column "id"
    */
   protected int index1;
 
   /**
-   * Index for column "messageText"
+   * Index for column "messageDate"
    */
   protected int index2;
 
   /**
-   * Index for column "value"
+   * Index for column "messageText"
    */
   protected int index3;
+
+  /**
+   * Index for column "beanList"
+   */
+  protected int index4;
+
+  /**
+   * Index for column "value"
+   */
+  protected int index5;
 
   /**
    * <p>Constructor</p>
@@ -51,10 +63,12 @@ public class BindBean01Cursor {
   public BindBean01Cursor wrap(Cursor cursor) {
     this.cursor=cursor;
 
-    index0=cursor.getColumnIndex("id");
-    index1=cursor.getColumnIndex("message_date");
-    index2=cursor.getColumnIndex("message_text");
-    index3=cursor.getColumnIndex("value");
+    index0=cursor.getColumnIndex("lista");
+    index1=cursor.getColumnIndex("id");
+    index2=cursor.getColumnIndex("message_date");
+    index3=cursor.getColumnIndex("message_text");
+    index4=cursor.getColumnIndex("bean_list");
+    index5=cursor.getColumnIndex("value");
 
     return this;
   }
@@ -74,10 +88,12 @@ public class BindBean01Cursor {
        {
         resultBean=new Bean01();
 
-        if (index0>=0 && !cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0));}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.setMessageDate(cursor.getLong(index1));}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.setMessageText(cursor.getString(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.setValue(cursor.getLong(index3));}
+        if (index0>=0 && !cursor.isNull(index0)) { resultBean.setLista(DaoHelper.toList(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index0)));}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.setMessageDate(cursor.getLong(index2));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.setMessageText(cursor.getString(index3));}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setBeanList(DaoHelper.toList(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index4)));}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.setValue(cursor.getLong(index5));}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -98,15 +114,19 @@ public class BindBean01Cursor {
     if (cursor.moveToFirst()) {
       do
        {
-        if (index0>=0) { resultBean.setId(0L);}
-        if (index1>=0) { resultBean.setMessageDate(0L);}
-        if (index2>=0) { resultBean.setMessageText(null);}
-        if (index3>=0) { resultBean.setValue(0L);}
+        if (index0>=0) { resultBean.setLista(null);}
+        if (index1>=0) { resultBean.setId(0L);}
+        if (index2>=0) { resultBean.setMessageDate(0L);}
+        if (index3>=0) { resultBean.setMessageText(null);}
+        if (index4>=0) { resultBean.setBeanList(null);}
+        if (index5>=0) { resultBean.setValue(0L);}
 
-        if (index0>=0 && !cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0));}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.setMessageDate(cursor.getLong(index1));}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.setMessageText(cursor.getString(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.setValue(cursor.getLong(index3));}
+        if (index0>=0 && !cursor.isNull(index0)) { resultBean.setLista(DaoHelper.toList(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index0)));}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.setMessageDate(cursor.getLong(index2));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.setMessageText(cursor.getString(index3));}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setBeanList(DaoHelper.toList(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index4)));}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.setValue(cursor.getLong(index5));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

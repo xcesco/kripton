@@ -3,7 +3,9 @@ package com.abubusoft.kripton.processor.test03;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.DaoHelper;
 import com.abubusoft.kripton.common.StringUtil;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, message_date, message_text, value FROM bean01 WHERE 1=1</pre>
+   * <pre>SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -30,7 +32,7 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, message_date, message_text, value]</pre>
+   * <pre>[lista, id, message_date, message_text, bean_list, value]</pre>
    *
    *
    * @return list of bean or empty list.
@@ -40,8 +42,8 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, message_date, message_text, value FROM bean01 WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, message_date, message_text, value FROM bean01 WHERE 1=1", args);
+    Logger.info(StringUtil.formatSQL("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Bean01> resultList=new LinkedList<Bean01>();
@@ -49,19 +51,23 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("message_date");
-      int index2=cursor.getColumnIndex("message_text");
-      int index3=cursor.getColumnIndex("value");
+      int index0=cursor.getColumnIndex("lista");
+      int index1=cursor.getColumnIndex("id");
+      int index2=cursor.getColumnIndex("message_date");
+      int index3=cursor.getColumnIndex("message_text");
+      int index4=cursor.getColumnIndex("bean_list");
+      int index5=cursor.getColumnIndex("value");
 
       do
        {
         resultBean=new Bean01();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setMessageDate(cursor.getLong(index1)); }
-        resultBean.setMessageText(cursor.getString(index2));
-        if (!cursor.isNull(index3)) { resultBean.setValue(cursor.getLong(index3)); }
+        if (!cursor.isNull(index0)) { resultBean.setLista(DaoHelper.toList(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index0))); }
+        if (!cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setMessageDate(cursor.getLong(index2)); }
+        resultBean.setMessageText(cursor.getString(index3));
+        if (!cursor.isNull(index4)) { resultBean.setBeanList(DaoHelper.toList(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index4))); }
+        if (!cursor.isNull(index5)) { resultBean.setValue(cursor.getLong(index5)); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
