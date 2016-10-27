@@ -33,6 +33,9 @@ import com.abubusoft.kripton.processor.kripton58.list.Bean04Inner;
 import com.abubusoft.kripton.processor.kripton58.list.Integer03Bean;
 import com.abubusoft.kripton.processor.kripton58.list.Integer03Dao;
 import com.abubusoft.kripton.processor.kripton58.list.Integer03DataSource;
+import com.abubusoft.kripton.processor.kripton58.list.Short05Bean;
+import com.abubusoft.kripton.processor.kripton58.list.Short05Dao;
+import com.abubusoft.kripton.processor.kripton58.list.Short05DataSource;
 import com.abubusoft.kripton.processor.kripton58.list.String02Bean;
 import com.abubusoft.kripton.processor.kripton58.list.String02Dao;
 import com.abubusoft.kripton.processor.kripton58.list.String02DataSource;
@@ -79,7 +82,7 @@ public class TestKripton58 extends BaseProcessorTest {
 
 	
 	/**
-	 * Test bean with ilst of another bean
+	 * Test bean with list of another bean
 	 * 
 	 * @throws IOException
 	 * @throws InstantiationException
@@ -88,6 +91,18 @@ public class TestKripton58 extends BaseProcessorTest {
 	@Test
 	public void test04InnerBeanListFieldType() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Bean04DataSource.class, Bean04Dao.class, Bean04Bean.class, Bean04Inner.class,BaseDao.class);
+	}
+	
+	/**
+	 * Test bean with list of Short
+	 * 
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void test05ShortListFieldType() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Short05DataSource.class, Short05Dao.class, Short05Bean.class, BaseDao.class);
 	}
 
 }
