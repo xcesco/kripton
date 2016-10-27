@@ -100,7 +100,7 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("(writeToByteArray($T.class, $L." + setter(beanClass, property, "null") + ")", clazz, beanName);
+		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);		
 	}
 
 	@Override

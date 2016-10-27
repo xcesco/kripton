@@ -94,7 +94,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 		methodBuilder.beginControlFlow("do\n");
 
 		// reset mapping
-		methodBuilder.addCode("// reset mapping (only for nullable property)\n");
+		methodBuilder.addCode("// reset mapping\n");
 		{
 			int i = 0;
 			for (SQLProperty item : entity.getCollection()) {

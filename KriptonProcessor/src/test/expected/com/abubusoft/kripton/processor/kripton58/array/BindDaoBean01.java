@@ -1,16 +1,14 @@
-package com.abubusoft.kripton.processor.kripton58;
+package com.abubusoft.kripton.processor.kripton58.array;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.DaoHelper;
+import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.StringUtil;
-import com.abubusoft.kripton.processor.kripton58.array.Bean01;
-import com.abubusoft.kripton.processor.kripton58.array.Bean01Inner;
-import com.abubusoft.kripton.processor.kripton58.array.DaoBean01;
-
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,7 +20,7 @@ import java.util.List;
  * </p>
  *  @see com.abubusoft.kripton.processor.kripton58.array.Bean01
  *  @see com.abubusoft.kripton.processor.kripton58.array.DaoBean01
- *  @see com.abubusoft.kripton.processor.kripton58.Bean01Table
+ *  @see com.abubusoft.kripton.processor.kripton58.array.Bean01Table
  */
 public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
   public BindDaoBean01(BindDummy01DataSource dataSet) {
@@ -305,6 +303,117 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
       }
     }
     return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT id, value, string_value, long_value, integer_value, byte_value, short_value, bean_value FROM bean01 WHERE integerValue=${value}</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[value]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[id, value, string_value, long_value, integer_value, byte_value, short_value, bean_value]</pre>
+   *
+   * @param value
+   * @param listener
+   */
+  @Override
+  public void selectOne(int[] value, ReadBeanListener<Bean01> listener) {
+    // build where condition
+    String[] args={(value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("SELECT id, value, string_value, long_value, integer_value, byte_value, short_value, bean_value FROM bean01 WHERE integer_value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value, string_value, long_value, integer_value, byte_value, short_value, bean_value FROM bean01 WHERE integer_value=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Bean01 resultBean=new Bean01();
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("string_value");
+        int index3=cursor.getColumnIndex("long_value");
+        int index4=cursor.getColumnIndex("integer_value");
+        int index5=cursor.getColumnIndex("byte_value");
+        int index6=cursor.getColumnIndex("short_value");
+        int index7=cursor.getColumnIndex("bean_value");
+
+        int rowCount=cursor.getCount();
+        do
+         {
+          // reset mapping
+          resultBean.id=0L;
+          resultBean.value=null;
+          resultBean.stringValue=null;
+          resultBean.longValue=null;
+          resultBean.integerValue=null;
+          resultBean.byteValue=null;
+          resultBean.shortValue=null;
+          resultBean.beanValue=null;
+
+          // generate mapping
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.value=cursor.getBlob(index1); }
+          if (!cursor.isNull(index2)) { resultBean.stringValue=CollectionUtility.toStringArray(DaoHelper.toList(String.class, cursor.getBlob(index2))); }
+          if (!cursor.isNull(index3)) { resultBean.longValue=CollectionUtility.toLongTypeArray(DaoHelper.toList(Long.TYPE, cursor.getBlob(index3))); }
+          if (!cursor.isNull(index4)) { resultBean.integerValue=CollectionUtility.toIntegerArray(DaoHelper.toList(Integer.class, cursor.getBlob(index4))); }
+          if (!cursor.isNull(index5)) { resultBean.byteValue=CollectionUtility.toByteArray(DaoHelper.toList(Byte.class, cursor.getBlob(index5))); }
+          if (!cursor.isNull(index6)) { resultBean.shortValue=CollectionUtility.toShortTypeArray(DaoHelper.toList(Short.TYPE, cursor.getBlob(index6))); }
+          if (!cursor.isNull(index7)) { resultBean.beanValue=CollectionUtility.toArray(DaoHelper.toList(Bean01Inner.class, cursor.getBlob(index7))); }
+
+          listener.onRead(resultBean, cursor.getPosition(), rowCount);
+        } while (cursor.moveToNext());
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT id, value, string_value, long_value, integer_value, byte_value, short_value, bean_value FROM bean01 WHERE value=${value}</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[value]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[id, value, string_value, long_value, integer_value, byte_value, short_value, bean_value]</pre>
+   *
+   * @param value
+   * @param listener
+   */
+  @Override
+  public void selectOne(int[] value, ReadCursorListener listener) {
+    // build where condition
+    String[] args={(value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("SELECT id, value, string_value, long_value, integer_value, byte_value, short_value, bean_value FROM bean01 WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value, string_value, long_value, integer_value, byte_value, short_value, bean_value FROM bean01 WHERE value=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        do
+         {
+          listener.onRead(cursor);
+        } while (cursor.moveToNext());
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
   }
 
   /**

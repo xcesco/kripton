@@ -1,34 +1,30 @@
-package com.abubusoft.kripton.processor.kripton58;
+package com.abubusoft.kripton.processor.kripton58.array;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
-import com.abubusoft.kripton.processor.kripton58.list.Bean04Bean;
-import com.abubusoft.kripton.processor.kripton58.list.Bean04Dao;
-import com.abubusoft.kripton.processor.kripton58.list.Bean04DataSource;
-
 import java.lang.Override;
 import java.lang.String;
 
 /**
  * <p>
- * Represents implementation of datasource Bean04DataSource.
+ * Represents implementation of datasource Dummy01DataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see Bean04DataSource
- * @see BindBean04DaoFactory
- * @see Bean04Dao
- * @see BindBean04Dao
- * @see Bean04Bean
+ * @see Dummy01DataSource
+ * @see BindDummy01DaoFactory
+ * @see DaoBean01
+ * @see BindDaoBean01
+ * @see Bean01
  */
-public class BindBean04DataSource extends AbstractDataSource implements BindBean04DaoFactory {
+public class BindDummy01DataSource extends AbstractDataSource implements BindDummy01DaoFactory {
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindBean04DataSource instance;
+  private static BindDummy01DataSource instance;
 
   /**
    * <p><file name used to save database,/p>
@@ -43,15 +39,15 @@ public class BindBean04DataSource extends AbstractDataSource implements BindBean
   /**
    * <p>dao instance</p>
    */
-  protected BindBean04Dao bean04Dao = new BindBean04Dao(this);
+  protected BindDaoBean01 daoBean01 = new BindDaoBean01(this);
 
-  protected BindBean04DataSource(Context context) {
+  protected BindDummy01DataSource(Context context) {
     super(context, name, null, version);
   }
 
   @Override
-  public BindBean04Dao getBean04Dao() {
-    return bean04Dao;
+  public BindDaoBean01 getDaoBean01() {
+    return daoBean01;
   }
 
   /**
@@ -75,9 +71,9 @@ public class BindBean04DataSource extends AbstractDataSource implements BindBean
   /**
    * instance
    */
-  public static BindBean04DataSource instance() {
+  public static BindDummy01DataSource instance() {
     if (instance==null) {
-      instance=new BindBean04DataSource(KriptonLibrary.context());
+      instance=new BindDummy01DataSource(KriptonLibrary.context());
     }
     return instance;
   }
@@ -88,8 +84,8 @@ public class BindBean04DataSource extends AbstractDataSource implements BindBean
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",com.abubusoft.kripton.processor.kripton58.Bean04BeanTable.CREATE_TABLE_SQL);
-    database.execSQL(com.abubusoft.kripton.processor.kripton58.Bean04BeanTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",com.abubusoft.kripton.processor.kripton58.array.Bean01Table.CREATE_TABLE_SQL);
+    database.execSQL(com.abubusoft.kripton.processor.kripton58.array.Bean01Table.CREATE_TABLE_SQL);
   }
 
   /**
@@ -98,17 +94,17 @@ public class BindBean04DataSource extends AbstractDataSource implements BindBean
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",com.abubusoft.kripton.processor.kripton58.Bean04BeanTable.DROP_TABLE_SQL);
-    database.execSQL(com.abubusoft.kripton.processor.kripton58.Bean04BeanTable.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",com.abubusoft.kripton.processor.kripton58.array.Bean01Table.DROP_TABLE_SQL);
+    database.execSQL(com.abubusoft.kripton.processor.kripton58.array.Bean01Table.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",com.abubusoft.kripton.processor.kripton58.Bean04BeanTable.CREATE_TABLE_SQL);
-    database.execSQL(com.abubusoft.kripton.processor.kripton58.Bean04BeanTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",com.abubusoft.kripton.processor.kripton58.array.Bean01Table.CREATE_TABLE_SQL);
+    database.execSQL(com.abubusoft.kripton.processor.kripton58.array.Bean01Table.CREATE_TABLE_SQL);
   }
 
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindBean04DaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindDummy01DaoFactory> {
   }
 }

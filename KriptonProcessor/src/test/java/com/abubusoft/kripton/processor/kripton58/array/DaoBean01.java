@@ -22,6 +22,9 @@ import com.abubusoft.kripton.android.annotation.BindDelete;
 import com.abubusoft.kripton.android.annotation.BindInsert;
 import com.abubusoft.kripton.android.annotation.BindSelect;
 import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.processor.kripton58.list.Short05Bean;
 
 @BindDao(Bean01.class)
 public interface DaoBean01 /* extends BaseDao<Bean01> */{
@@ -43,6 +46,12 @@ public interface DaoBean01 /* extends BaseDao<Bean01> */{
 
 	@BindSelect(value = "count(*)", where = "id=${id} and longValue=${longValue} or byteValue=${byteValue}")
 	long selectRawSingle(long id, long[] longValue, Byte[] byteValue);
+	
+	@BindSelect(where = "integerValue=${value}")
+	void selectOne(int[] value, ReadBeanListener<Bean01> listener);
+
+	@BindSelect(where = "value=${value}")
+	void selectOne(int[] value, ReadCursorListener listener);
 
 	@BindSelect(where = "id=${id} and longValue=${longValue}")
 	Bean01 selectRawSingle(long id, Long[] longValue);

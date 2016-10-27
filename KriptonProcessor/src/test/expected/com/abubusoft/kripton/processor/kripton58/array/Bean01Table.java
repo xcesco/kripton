@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.processor.kripton58;
+package com.abubusoft.kripton.processor.kripton58.array;
 
 import java.lang.String;
 
