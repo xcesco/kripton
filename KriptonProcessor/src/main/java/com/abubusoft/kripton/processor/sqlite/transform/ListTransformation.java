@@ -4,6 +4,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.abubusoft.kripton.android.sqlite.DaoHelper;
 import com.abubusoft.kripton.common.CaseFormat;
@@ -11,6 +12,7 @@ import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
@@ -18,10 +20,13 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 
 	static Converter<String, String> nc=CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 	
-	private TypeName clazz;
+	private ParameterizedTypeName listTypeName;
+
+	private TypeName rawTypeName;
 
 	public ListTransformation(TypeName clazz) {
-		this.clazz = clazz;
+		this.listTypeName = (ParameterizedTypeName)clazz;
+		this.rawTypeName=listTypeName.typeArguments.get(0);
 	}
 
 
@@ -41,20 +46,41 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		if (TypeUtility.isString(clazz)){
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toStringArray($T.toList(String.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, DaoHelper.class, cursorName, indexName);
-		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)){
-			String name=nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".")+1));
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.to$LArray($T.toList($L.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, name, DaoHelper.class, name, cursorName, indexName);
+		String name=nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".")+1));
+		
+		Class<?> listClazz=defineListClass(listTypeName);
+		
+		if (TypeUtility.isString(rawTypeName)){
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toList(new $T<String>(), String.class, $L.getBlob($L))"), beanName, DaoHelper.class, listClazz, cursorName, indexName);
+		} else if (TypeUtility.isTypeWrappedPrimitive(rawTypeName)){
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toList(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, DaoHelper.class, listClazz, name, name, cursorName, indexName);
 		} else {
-			String name=nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".")+1));			
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toArray($T.toList($L.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, DaoHelper.class, name, cursorName, indexName);
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toList(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, DaoHelper.class, listClazz, name, name, cursorName, indexName);
 		}
 	}
 
+	private Class<?> defineListClass(ParameterizedTypeName listTypeName) {
+		if (listTypeName.toString().startsWith(List.class.getCanonicalName()))
+		{
+			// it's a list
+			return ArrayList.class;
+		}
+		try {
+			return Class.forName(listTypeName.rawType.toString());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$T.toList($T.class, $L.getBlob($L))", CollectionUtility.class, DaoHelper.class, clazz, cursorName, indexName);
+		String name=nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".")+1));	
+		
+		Class<?> listClazz=defineListClass(listTypeName);
+		
+		methodBuilder.addCode("$T.toList(new $T<$L>(),$T.class, $L.getBlob($L))", CollectionUtility.class, DaoHelper.class, listClazz, name, name, cursorName, indexName);
 	}
 
 	@Override
@@ -64,7 +90,7 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("(writeToByteArray($T.class, $L." + setter(beanClass, property, "null") + ")", clazz, beanName);
+		methodBuilder.addCode("(writeToByteArray($T.class, $L." + setter(beanClass, property, "null") + ")", listTypeName, beanName);
 	}
 
 	@Override

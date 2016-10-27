@@ -3,7 +3,9 @@ package com.abubusoft.kripton.processor.kripton58;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.DaoHelper;
 import com.abubusoft.kripton.common.StringUtil;
+import java.util.LinkedList;
 
 /**
  * <p>
@@ -20,7 +22,7 @@ public class BindDaoBean02 extends AbstractDao implements DaoBean02 {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id FROM bean02 WHERE 1=1</pre>
+   * <pre>SELECT id, value FROM bean02 WHERE 1=1</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -28,7 +30,7 @@ public class BindDaoBean02 extends AbstractDao implements DaoBean02 {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id]</pre>
+   * <pre>[id, value]</pre>
    *
    *
    * @return selected bean or <code>null</code>.
@@ -38,8 +40,8 @@ public class BindDaoBean02 extends AbstractDao implements DaoBean02 {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT id FROM bean02 WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id FROM bean02 WHERE 1=1", args);
+    Logger.info(StringUtil.formatSQL("SELECT id, value FROM bean02 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value FROM bean02 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean02 resultBean=null;
@@ -47,10 +49,12 @@ public class BindDaoBean02 extends AbstractDao implements DaoBean02 {
     if (cursor.moveToFirst()) {
 
       int index0=cursor.getColumnIndex("id");
+      int index1=cursor.getColumnIndex("value");
 
       resultBean=new Bean02();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+      if (!cursor.isNull(index1)) { resultBean.value=DaoHelper.toList(new LinkedList<Byte>(), Byte.class, cursor.getBlob(index1)); }
 
     }
     cursor.close();

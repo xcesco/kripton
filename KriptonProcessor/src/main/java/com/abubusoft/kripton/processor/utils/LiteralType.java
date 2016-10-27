@@ -196,7 +196,7 @@ public class LiteralType implements TypeMirror {
 	}
 
 
-	public boolean isList() {
+	public boolean isList() {		
 		if (isResolved() && List.class.isAssignableFrom(resolvedRawType)) {
 			return true;
 		}

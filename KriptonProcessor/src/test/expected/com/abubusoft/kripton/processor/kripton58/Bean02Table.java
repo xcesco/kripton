@@ -20,9 +20,9 @@ public class Bean02Table {
    * DDL to create table bean02
    * </p>
    *
-   * <pre>CREATE TABLE bean02 (id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE bean02 (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean02 (id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean02 (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB);";
 
   /**
    * <p>
@@ -39,4 +39,11 @@ public class Bean02Table {
    *  @see com.abubusoft.kripton.processor.kripton58.Bean02#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton58.Bean02#value
+   */
+  public static final String COLUMN_VALUE = "value";
 }

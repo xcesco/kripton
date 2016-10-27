@@ -430,6 +430,44 @@ public class JsonReader implements BinderJsonReader {
 		}
 
 	}
+	
+	@Override
+	public <E> List<E> readList(List<E> list, Class<E> type, String input) throws ReaderException {
+		JSONArray array=new JSONArray(input);
+		List<E> result=list;
+		
+		try {
+			readList(input, type, result, array);
+			
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(new ReaderException(e.getMessage()));
+		}						
+	}
+	
+	@Override
+	public <E> List<E> readList(List<E> list, Class<E> type, InputStream source) throws ReaderException {
+		try {
+			return this.readList(list, type, new InputStreamReader(source, format.getEncoding()));
+		} catch (UnsupportedEncodingException e) {
+			throw new ReaderException("Encoding is not supported", e);
+		}			
+	}
+	
+	@Override
+	public <E> List<E> readList(List<E> list, Class<E> type, Reader source) throws ReaderException, MappingException {
+		if (source == null) {
+			throw new ReaderException("Cannot read, reader is null!");
+		}
+
+		try {
+			return this.readList(list, type, StringUtil.reader2String(source));
+		} catch (IOException e) {
+			throw new ReaderException("IO error!", e); 
+		}
+
+	}
 
 
 	

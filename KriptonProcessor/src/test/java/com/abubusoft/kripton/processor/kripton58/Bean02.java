@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.kripton58;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.abubusoft.kripton.annotation.BindType;
@@ -24,6 +25,6 @@ public class Bean02 {
 
 	public long id;
 	
-	public List<Byte> value;
+	public LinkedList<Byte> value;
 
 }

@@ -105,6 +105,33 @@ public abstract class DaoHelper {
 		
 		return null;		
 	}
+	
+	/**
+	 * convert blog (byte[]) in a list of element of type clazz
+	 * 
+	 * @param list
+	 * @param clazz
+	 * 			item class
+	 * @param input
+	 * 			blob
+	 * @return
+	 * 			list of element extracted from blob
+	 */
+	public static <E, L extends List<E>> L toList(L list, Class<E> clazz, byte[] input)
+	{		
+		BinderJsonReader reader = getReader();
+		
+		try {
+			L result = (L) reader.readList(list, clazz, new String(input));
+			return result;
+		} catch (MappingException e) {
+			e.printStackTrace();
+		} catch (ReaderException e) {
+			e.printStackTrace();
+		} 
+		
+		return null;		
+	}
 
 	/**
 	 * @return 

@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.kripton58;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@BindDataSource(value=DaoBean02.class, fileName = "dummy" , version=1)
+@BindDataSource(value=DaoBean02.class, fileName = "dummy" , version=1, asyncTask=false, cursor=false)
 public interface Dummy02DataSource {
 
 }
