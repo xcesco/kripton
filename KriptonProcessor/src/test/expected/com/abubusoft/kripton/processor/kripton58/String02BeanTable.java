@@ -7,7 +7,7 @@ import java.lang.String;
  * Entity <code>String02Bean</code> is associated to table <code>string02_bean</code>
  * This class represents table associated to entity.
  * </p>
- *  @see com.abubusoft.kripton.processor.kripton58.String02Bean
+ *  @see com.abubusoft.kripton.processor.kripton58.list.String02Bean
  */
 public class String02BeanTable {
   /**
@@ -36,14 +36,14 @@ public class String02BeanTable {
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton58.String02Bean#id
+   *  @see com.abubusoft.kripton.processor.kripton58.list.String02Bean#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
    * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton58.String02Bean#value
+   *  @see com.abubusoft.kripton.processor.kripton58.list.String02Bean#value
    */
   public static final String COLUMN_VALUE = "value";
 }

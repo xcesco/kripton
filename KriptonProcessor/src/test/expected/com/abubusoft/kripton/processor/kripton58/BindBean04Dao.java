@@ -6,6 +6,10 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.DaoHelper;
 import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04Bean;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04Dao;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04Inner;
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -15,8 +19,8 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>Bean04Bean</code>, based on interface <code>Bean04Dao</code>
  * </p>
- *  @see com.abubusoft.kripton.processor.kripton58.Bean04Bean
- *  @see com.abubusoft.kripton.processor.kripton58.Bean04Dao
+ *  @see com.abubusoft.kripton.processor.kripton58.list.Bean04Bean
+ *  @see com.abubusoft.kripton.processor.kripton58.list.Bean04Dao
  *  @see com.abubusoft.kripton.processor.kripton58.Bean04BeanTable
  */
 public class BindBean04Dao extends AbstractDao implements Bean04Dao {

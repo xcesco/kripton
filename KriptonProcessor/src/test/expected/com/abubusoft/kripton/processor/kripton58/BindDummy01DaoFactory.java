@@ -1,6 +1,9 @@
 package com.abubusoft.kripton.processor.kripton58;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
+import com.abubusoft.kripton.processor.kripton58.array.Bean01;
+import com.abubusoft.kripton.processor.kripton58.array.DaoBean01;
+import com.abubusoft.kripton.processor.kripton58.array.Dummy01DataSource;
 
 /**
  * <p>

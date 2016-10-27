@@ -6,6 +6,9 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.DaoHelper;
 import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.processor.kripton58.list.String02Bean;
+import com.abubusoft.kripton.processor.kripton58.list.String02Dao;
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -15,8 +18,8 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>String02Bean</code>, based on interface <code>String02Dao</code>
  * </p>
- *  @see com.abubusoft.kripton.processor.kripton58.String02Bean
- *  @see com.abubusoft.kripton.processor.kripton58.String02Dao
+ *  @see com.abubusoft.kripton.processor.kripton58.list.String02Bean
+ *  @see com.abubusoft.kripton.processor.kripton58.list.String02Dao
  *  @see com.abubusoft.kripton.processor.kripton58.String02BeanTable
  */
 public class BindString02Dao extends AbstractDao implements String02Dao {

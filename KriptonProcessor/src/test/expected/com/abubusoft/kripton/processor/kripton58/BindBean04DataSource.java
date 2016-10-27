@@ -5,6 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04Bean;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04Dao;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04DataSource;
+
 import java.lang.Override;
 import java.lang.String;
 

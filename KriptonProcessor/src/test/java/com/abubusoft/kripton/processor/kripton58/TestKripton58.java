@@ -22,6 +22,20 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.BaseProcessorTest;
+import com.abubusoft.kripton.processor.kripton58.array.Bean01;
+import com.abubusoft.kripton.processor.kripton58.array.Bean01Inner;
+import com.abubusoft.kripton.processor.kripton58.array.DaoBean01;
+import com.abubusoft.kripton.processor.kripton58.array.Dummy01DataSource;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04Bean;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04Dao;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04DataSource;
+import com.abubusoft.kripton.processor.kripton58.list.Bean04Inner;
+import com.abubusoft.kripton.processor.kripton58.list.Integer03Bean;
+import com.abubusoft.kripton.processor.kripton58.list.Integer03Dao;
+import com.abubusoft.kripton.processor.kripton58.list.Integer03DataSource;
+import com.abubusoft.kripton.processor.kripton58.list.String02Bean;
+import com.abubusoft.kripton.processor.kripton58.list.String02Dao;
+import com.abubusoft.kripton.processor.kripton58.list.String02DataSource;
 
 /**
  * @author xcesco
