@@ -219,7 +219,7 @@ public abstract class MethodUtility {
 		}
 
 		if (selectResultType == null) {
-			throw (new InvalidMethodSignException(method, "return type is not supported"));
+			throw (new InvalidMethodSignException(method, String.format("'%s' as return type is not supported", returnTypeName)));
 		}
 
 		// take field list

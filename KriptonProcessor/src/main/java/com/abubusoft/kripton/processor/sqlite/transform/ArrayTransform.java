@@ -73,7 +73,7 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		if (primitive) {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.to$LTypeArray($T.toList($L.TYPE, $L.getBlob($L)))"), beanName, CollectionUtility.class, nc.convert(clazz.toString()), DaoHelper.class, nc.convert(clazz.toString()), cursorName, indexName);
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.to$LTypeArray($T.toList($L.TYPE, $L.getBlob($L)))"), beanName, CollectionUtility.class, primitiveType(), DaoHelper.class, primitiveType(), cursorName, indexName);
 		} else if (TypeUtility.isString(clazz)){
 			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toStringArray($T.toList(String.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, DaoHelper.class, cursorName, indexName);
 		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)){
@@ -83,6 +83,20 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 			String name=nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".")+1));			
 			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toArray($T.toList($L.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, DaoHelper.class, name, cursorName, indexName);
 		}
+	}
+
+	/**
+	 * Convert to primitive type name. 
+	 * @return
+	 * 		primitive type name
+	 */
+	public String primitiveType() {
+		String value=nc.convert(clazz.toString());
+		
+		if ("Char".equals(value)) value="Character";
+		if ("Int".equals(value)) value="Integer";
+		
+		return value;
 	}
 
 	@Override
