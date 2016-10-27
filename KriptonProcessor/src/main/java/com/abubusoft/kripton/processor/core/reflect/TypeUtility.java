@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -299,7 +300,9 @@ public class TypeUtility {
 			return;
 		} else if (isArray(typeName) || isList(typeName)) {
 			// every array of primitive will be converted in byte[]
-			methodBuilder.addCode("new String(");			
+			methodBuilder.addCode("new String(");
+		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
+			methodBuilder.addCode("");
 		} else {		
 			methodBuilder.addCode("String.valueOf(");
 		}
@@ -337,6 +340,8 @@ public class TypeUtility {
 			//TODO support StandardCharsets.UTF8
 			// see http://stackoverflow.com/questions/5729806/encode-string-to-utf-8
 			methodBuilder.addCode(",$T.UTF_8)", StandardCharsets.class);
+		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
+			methodBuilder.addCode("");	
 		} else {
 			methodBuilder.addCode(")");
 		}		

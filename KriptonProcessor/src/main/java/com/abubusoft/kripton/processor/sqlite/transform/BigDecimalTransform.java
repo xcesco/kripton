@@ -15,9 +15,14 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
+
 import java.math.BigDecimal;
 
-import com.abubusoft.kripton.binder.transform.Transform;
+import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a java.math.BigDecimal object
@@ -25,14 +30,45 @@ import com.abubusoft.kripton.binder.transform.Transform;
  * @author bulldog
  *
  */
-class BigDecimalTransform implements Transform<BigDecimal> {
-
-	public BigDecimal read(String value) throws Exception {
-		return new BigDecimal(value);
+class BigDecimalTransform extends AbstractCompileTimeTransform {
+	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.Transform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String)
+	 */
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, String objectName) {
+		methodBuilder.addCode("$L.toPlainString()", objectName);		
+	}
+	
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
+		methodBuilder.addCode("$L."+getter(beanClass, property)+".toPlainString()", beanName);
 	}
 
-	public String write(BigDecimal value) throws Exception {
-		return value.toString();
+	@Override
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
+		methodBuilder.addCode("$L."+setter(beanClass, property, "new $T($L.getString($L))"), beanName, BigDecimal.class,cursorName, indexName);
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
+	}
+
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode("null");		
+	}
+	
+	@Override
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(beanClass, property, "null"), beanName);
+	}
+
+	@Override
+	public String generateColumnType(ModelProperty property) {
+		return "TEXT";
 	}
 
 

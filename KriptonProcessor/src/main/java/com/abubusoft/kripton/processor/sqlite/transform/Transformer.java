@@ -17,6 +17,8 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -171,8 +173,10 @@ public abstract class Transformer {
 			return getUtilTransform(typeName);
 		}
 		
-		/*
-		 * if (name.startsWith("java.math")) { return getMathTransform(type); }
+		 if (name.startsWith("java.math")) {
+			 return getMathTransform(typeName);		 
+		 }
+		 /*
 		 * if (name.startsWith("java.net")) { return new UrlTransform(); } if
 		 * (name.startsWith("java.sql")) { return new TimeTransform(); } if
 		 * (type == QName.class) { return new QNameTransform(); }
@@ -188,6 +192,16 @@ public abstract class Transformer {
 		// e.printStackTrace();
 		// }
 
+		return null;
+	}
+
+	private static Transform getMathTransform(TypeName typeName) {
+		if (BigDecimal.class.getName().equals(typeName.toString())) {
+			return new BigDecimalTransform();
+		} else if (BigInteger.class.getName().equals(typeName.toString())) {
+			return new BigIntegerTransform();
+		} 
+		
 		return null;
 	}
 
@@ -264,17 +278,6 @@ public abstract class Transformer {
 		return null;
 	}
 
-	/**
-	 * Get java.math type Transformable
-	 * 
-	 * @param type
-	 * @return
-	 */
-	/*
-	 * private static Transform<?> getMathTransform(Class<?> type) { if (type ==
-	 * BigDecimal.class) { return new BigDecimalTransform(); } if (type ==
-	 * BigInteger.class) { return new BigIntegerTransform(); } return null; }
-	 */
 
 	/**
 	 * Get java.util type Transformable

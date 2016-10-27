@@ -15,9 +15,14 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
+
 import java.math.BigInteger;
 
-import com.abubusoft.kripton.binder.transform.Transform;
+import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 
 /**
@@ -26,15 +31,45 @@ import com.abubusoft.kripton.binder.transform.Transform;
  * @author bulldog
  *
  */
-class BigIntegerTransform implements Transform<BigInteger> {
-
-	public BigInteger read(String value) throws Exception {
-		return new BigInteger(value);
+class BigIntegerTransform extends AbstractCompileTimeTransform {
+	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.Transform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String)
+	 */
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, String objectName) {
+		methodBuilder.addCode("$L.toString()", objectName);		
+	}
+	
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
+		methodBuilder.addCode("$L."+getter(beanClass, property)+".toString()", beanName);
 	}
 
-	public String write(BigInteger value) throws Exception {
-		return value.toString();
+	@Override
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
+		methodBuilder.addCode("$L."+setter(beanClass, property, "new $T($L.getString($L))"), beanName, BigInteger.class,cursorName, indexName);
+	}
+	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode("null");		
+	}
+	
+	@Override
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+		methodBuilder.addCode("$L."+setter(beanClass, property, "null"), beanName);
+	}
+
+	@Override
+	public String generateColumnType(ModelProperty property) {
+		return "TEXT";
+	}
 
 }
