@@ -78,7 +78,6 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
   public long updateOne(String text, long id) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (text!=null) {
       contentValues.put("text", text);
     } else {

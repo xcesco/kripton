@@ -278,7 +278,6 @@ public class BindLongDao extends AbstractDao implements LongDao {
   public long updateOne(List<Long> value, long id, List<Long> paramValue) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (value!=null) {
       contentValues.put("value", DaoHelper.toByteArray(value));
     } else {

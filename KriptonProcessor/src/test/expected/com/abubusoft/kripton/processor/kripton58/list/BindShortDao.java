@@ -278,7 +278,6 @@ public class BindShortDao extends AbstractDao implements ShortDao {
   public long updateOne(List<Short> value, long id, List<Short> paramValue) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (value!=null) {
       contentValues.put("value", DaoHelper.toByteArray(value));
     } else {

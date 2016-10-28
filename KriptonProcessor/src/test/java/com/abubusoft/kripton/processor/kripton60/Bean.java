@@ -38,55 +38,53 @@ public class Bean {
 	
 	public boolean valueBoolType;
 		
-	//public Boolean valueBool;
+	public Boolean valueBool;
 	
 	public byte valueByteType;
 		
-	//public Byte valueByte;
-	
-	/*
-	
-	public Calendar valueCalendar;
+	public Byte valueByte;
 	
 	public char valueCharType;
 	
 	public Character valueChar;
 	
-	public Currency valueCurrency;
+	public short valueShortType;
 	
-	public Date valueDate;
-	
-	public double valueDoubleType;
-	
-	public Double valueDouble;
-	
-	public EnumType valueEnum;
-	
-	public float valueFloatType;
-	
-	public Float valueFloat;
+	public Short valueShort;
 	
 	public int valueIntType;
 	
 	public Integer valueInt;
 	
-	public Locale valueLocale;
-	
 	public long valueLongType;
 	
 	public Long valueLong;
 	
-	public short valueShortType;
+	public float valueFloatType;
 	
-	public Short valueShort;
+	public Float valueFloat;
+	
+	public double valueDoubleType;
+	
+	public Double valueDouble;
 	
 	public String valueString;
 	
+	public Date valueDate;
+	
+	public Calendar valueCalendar;
+	
+	public Locale valueLocale;
+	
+	public URL valueUrl;
+	
 	public Time valueTime;
+	
+	public Currency valueCurrency;
 	
 	public TimeZone valueTimeZone;
 	
-	public URL valueUrl;
-	*/
+	public EnumType valueEnumType;
+	
 
 }

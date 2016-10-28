@@ -278,7 +278,6 @@ public class BindByteDao extends AbstractDao implements ByteDao {
   public long updateOne(List<Byte> value, long id, List<Byte> paramValue) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (value!=null) {
       contentValues.put("value", DaoHelper.toByteArray(value));
     } else {

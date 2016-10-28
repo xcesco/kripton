@@ -284,7 +284,6 @@ public class BindLongDao extends AbstractDao implements LongDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-
     String[] whereConditions={String.valueOf(id), (value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtil.formatSQL("UPDATE long_bean SET  WHERE id=%s and value=%s and value2=%s"), (Object[])whereConditions);

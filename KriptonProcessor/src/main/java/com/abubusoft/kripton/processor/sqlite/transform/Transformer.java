@@ -19,6 +19,8 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -106,17 +108,16 @@ public abstract class Transformer {
 	 */
 	public static Transform lookup(TypeMirror typeMirror) {
 		TypeName typeName;
-		
-		if (typeMirror instanceof ModelType)
-		{
-			typeName = ((ModelType)typeMirror).getName();	
+
+		if (typeMirror instanceof ModelType) {
+			typeName = ((ModelType) typeMirror).getName();
 		} else {
 			typeName = typeName(typeMirror);
 		}
-		
+
 		return lookup(typeName);
 	}
-	
+
 	/**
 	 * Get transformer for type
 	 * 
@@ -138,15 +139,15 @@ public abstract class Transformer {
 		return transform;
 	}
 
-	private static Transform getTransform(TypeName typeName) {
+	private static Transform getTransform(TypeName typeName) {				
 		if (typeName.isPrimitive()) {
 			return getPrimitiveTransform(typeName);
 		}
 
-		if (typeName instanceof ArrayTypeName) {			
+		if (typeName instanceof ArrayTypeName) {
 			ArrayTypeName typeNameArray = (ArrayTypeName) typeName;
-			TypeName componentTypeName = typeNameArray.componentType;			
-			
+			TypeName componentTypeName = typeNameArray.componentType;
+
 			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
 				return new ByteArrayTransform();
 			} else if (componentTypeName.isPrimitive()) {
@@ -154,13 +155,11 @@ public abstract class Transformer {
 			} else {
 				return new ArrayTransform(componentTypeName);
 			}
-		} else if (typeName instanceof ParameterizedTypeName)
-		{
+		} else if (typeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
-			if (TypeUtility.isList(parameterizedTypeName))
-			{
+			if (TypeUtility.isList(parameterizedTypeName)) {
 				return new ListTransformation(parameterizedTypeName);
-			}						
+			}
 		}
 
 		String name = typeName.toString();
@@ -172,14 +171,20 @@ public abstract class Transformer {
 		if (name.startsWith("java.util")) {
 			return getUtilTransform(typeName);
 		}
-		
-		 if (name.startsWith("java.math")) {
-			 return getMathTransform(typeName);		 
-		 }
-		 /*
-		 * if (name.startsWith("java.net")) { return new UrlTransform(); } if
-		 * (name.startsWith("java.sql")) { return new TimeTransform(); } if
-		 * (type == QName.class) { return new QNameTransform(); }
+
+		if (name.startsWith("java.math")) {
+			return getMathTransform(typeName);
+		}
+
+		if (name.startsWith("java.net")) {
+			return getNetTransform(typeName);
+		}
+
+		if (name.startsWith("java.sql")) {
+			return getSqlTransform(typeName);
+		}
+		/*
+		 * if (type == QName.class) { return new QNameTransform(); }
 		 * 
 		 * if (CustomTransform.class.isAssignableFrom(type) && type !=
 		 * DefaultCustomTransform.class) { try { return (Transform<?>)
@@ -195,13 +200,29 @@ public abstract class Transformer {
 		return null;
 	}
 
+	private static Transform getSqlTransform(TypeName typeName) {
+		if (Time.class.getName().equals(typeName.toString())) {
+			return new TimeTransform();
+		}
+
+		return null;
+	}
+
+	private static Transform getNetTransform(TypeName typeName) {
+		if (URL.class.getName().equals(typeName.toString())) {
+			return new UrlTransform();
+		}
+
+		return null;
+	}
+
 	private static Transform getMathTransform(TypeName typeName) {
 		if (BigDecimal.class.getName().equals(typeName.toString())) {
 			return new BigDecimalTransform();
 		} else if (BigInteger.class.getName().equals(typeName.toString())) {
 			return new BigIntegerTransform();
-		} 
-		
+		}
+
 		return null;
 	}
 
@@ -235,6 +256,7 @@ public abstract class Transformer {
 			return new ByteTransform(false);
 		}
 		if (Character.TYPE.toString().equals(type.toString())) {
+			return new CharacterTransform(false);
 		}
 		return null;
 	}
@@ -277,7 +299,6 @@ public abstract class Transformer {
 		}
 		return null;
 	}
-
 
 	/**
 	 * Get java.util type Transformable

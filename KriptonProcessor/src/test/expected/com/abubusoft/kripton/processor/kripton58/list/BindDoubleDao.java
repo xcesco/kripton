@@ -278,7 +278,6 @@ public class BindDoubleDao extends AbstractDao implements DoubleDao {
   public long updateOne(List<Double> value, Double id, List<Double> paramValue) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (value!=null) {
       contentValues.put("value", DaoHelper.toByteArray(value));
     } else {

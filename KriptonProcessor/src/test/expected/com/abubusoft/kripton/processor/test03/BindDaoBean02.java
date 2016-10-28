@@ -139,7 +139,6 @@ public class BindDaoBean02 extends AbstractDao implements DaoBean02 {
   public long update(long value, long id) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     contentValues.put("value", value);
 
     String[] whereConditions={String.valueOf(id)};

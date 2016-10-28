@@ -40,9 +40,6 @@ public abstract class AbstractCompileTimeTransform implements Transform {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.transform.Transform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String)
-	 */
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
 		methodBuilder.addCode("$L", objectName);		

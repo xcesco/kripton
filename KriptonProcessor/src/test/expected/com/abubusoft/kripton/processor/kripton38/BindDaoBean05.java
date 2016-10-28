@@ -637,7 +637,6 @@ public class BindDaoBean05 extends AbstractDao implements DaoBean05 {
   public long updateOne(byte[] content, String text, long uid, Date validoIn, Date valido) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (content!=null) {
       contentValues.put("content", content);
     } else {

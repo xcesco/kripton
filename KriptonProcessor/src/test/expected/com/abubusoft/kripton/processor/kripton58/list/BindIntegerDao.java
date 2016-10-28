@@ -278,7 +278,6 @@ public class BindIntegerDao extends AbstractDao implements IntegerDao {
   public long updateOne(List<Integer> value, long id, List<Integer> paramValue) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (value!=null) {
       contentValues.put("value", DaoHelper.toByteArray(value));
     } else {

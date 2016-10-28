@@ -34,7 +34,6 @@ public class BindDaoBeanUpdateOK extends AbstractDao implements DaoBeanUpdateOK 
   public boolean updateDistance(long id, Double value, long test) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     contentValues.put("id", id);
     if (value!=null) {
       contentValues.put("value", value);

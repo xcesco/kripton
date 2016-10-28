@@ -277,7 +277,6 @@ public class BindStringDao extends AbstractDao implements StringDao {
   public boolean updateOne(List<String> value, long id, List<String> paramValue) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (value!=null) {
       contentValues.put("value", DaoHelper.toByteArray(value));
     } else {

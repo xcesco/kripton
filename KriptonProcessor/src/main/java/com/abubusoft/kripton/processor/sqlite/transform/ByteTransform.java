@@ -40,12 +40,12 @@ class ByteTransform  extends AbstractCompileTimeTransform {
 	 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
-		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getInt($L)"), beanName,cursorName, indexName);
+		methodBuilder.addCode("$L."+setter(beanClass, property, "(byte)$L.getInt($L)"), beanName,cursorName, indexName);
 	}
 	
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);		
+		methodBuilder.addCode("(byte)$L.getInt($L)", cursorName, indexName);		
 	}
 	
 	@Override

@@ -277,7 +277,6 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
   public boolean updateOne(List<BeanInner> value, long id, List<BeanInner> paramValue) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (value!=null) {
       contentValues.put("value", DaoHelper.toByteArray(value));
     } else {

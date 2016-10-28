@@ -87,17 +87,17 @@ public class BindFirstAidDao extends AbstractDao implements FirstAidDao {
         if (!cursor.isNull(index7)) { resultBean.address2=cursor.getString(index7); }
         if (!cursor.isNull(index8)) { resultBean.city=cursor.getString(index8); }
         if (!cursor.isNull(index9)) { resultBean.phone=cursor.getString(index9); }
-        if (!cursor.isNull(index10)) { resultBean.totalPatientCount=0; }
-        if (!cursor.isNull(index11)) { resultBean.whiteWaitingPatients=0; }
-        if (!cursor.isNull(index12)) { resultBean.whiteVisitingPatients=0; }
+        if (!cursor.isNull(index10)) { resultBean.totalPatientCount=cursor.getInt(index10); }
+        if (!cursor.isNull(index11)) { resultBean.whiteWaitingPatients=cursor.getInt(index11); }
+        if (!cursor.isNull(index12)) { resultBean.whiteVisitingPatients=cursor.getInt(index12); }
         if (!cursor.isNull(index13)) { resultBean.whiteAverageWaitingTime=cursor.getString(index13); }
-        if (!cursor.isNull(index14)) { resultBean.greenWaitingPatients=0; }
-        if (!cursor.isNull(index15)) { resultBean.greenVisitingPatients=0; }
+        if (!cursor.isNull(index14)) { resultBean.greenWaitingPatients=cursor.getInt(index14); }
+        if (!cursor.isNull(index15)) { resultBean.greenVisitingPatients=cursor.getInt(index15); }
         if (!cursor.isNull(index16)) { resultBean.greenAverageWaitingTime=cursor.getString(index16); }
-        if (!cursor.isNull(index17)) { resultBean.yellowWaitingPatients=0; }
-        if (!cursor.isNull(index18)) { resultBean.yellowVisitingPatients=0; }
+        if (!cursor.isNull(index17)) { resultBean.yellowWaitingPatients=cursor.getInt(index17); }
+        if (!cursor.isNull(index18)) { resultBean.yellowVisitingPatients=cursor.getInt(index18); }
         if (!cursor.isNull(index19)) { resultBean.yellowAverageWaitingTime=cursor.getString(index19); }
-        if (!cursor.isNull(index20)) { resultBean.redWaitingPatients=0; }
+        if (!cursor.isNull(index20)) { resultBean.redWaitingPatients=cursor.getInt(index20); }
         if (!cursor.isNull(index21)) { resultBean.redAverageWaitingTime=cursor.getString(index21); }
 
         resultList.add(resultBean);

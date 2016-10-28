@@ -34,12 +34,21 @@ class DateTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, DateUtil.class, cursorName, indexName);
-
 	}
 	
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {	
-		methodBuilder.addCode("$T.write($L."+getter(beanClass, property)+")", DateUtil.class, beanName);
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$T.read($L.getString($L))", DateUtil.class, cursorName, indexName);
+	}
+	
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+		if (beanName!=null)
+		{
+			methodBuilder.addCode("$T.write($L."+getter(beanClass, property)+")", DateUtil.class, beanName);
+		} else {
+			generateWriteProperty(methodBuilder, property.getName());
+		}
 	}
 	
 	@Override
@@ -57,10 +66,6 @@ class DateTransform extends AbstractCompileTimeTransform {
 		return "TEXT";
 	}
 
-	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);
-	}
 
 	@Override
 	public void generateDefaultValue(Builder methodBuilder) {

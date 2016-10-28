@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -28,6 +29,20 @@ import com.squareup.javapoet.TypeName;
  *
  */
 public class ShortTransform  extends AbstractCompileTimeTransform {
+	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.Transform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String)
+	 */
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, String objectName) {
+		methodBuilder.addCode("(int)$L", objectName);		
+	}
+	
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
+		methodBuilder.addCode("(int)$L."+getter(beanClass, property), beanName);
+	}
+	
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {	
 		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getShort($L)"), beanName,cursorName, indexName);

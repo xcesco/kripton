@@ -15,10 +15,10 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import java.util.TimeZone;
-
+import com.abubusoft.kripton.common.TimeZoneUtil;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -31,39 +31,47 @@ import com.squareup.javapoet.MethodSpec.Builder;
  */
 public class TimeZoneTransform  extends AbstractCompileTimeTransform {
 
-	public TimeZone read(String value) throws Exception {
-		return TimeZone.getTimeZone(value);
-	}
-
-	public String write(TimeZone value) throws Exception {
-		return value.getID();
-	}
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.getTimeZone($L.getString($L))") , beanName, TimeZone.class, cursorName, indexName);
+		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, TimeZoneUtil.class, cursorName, indexName);
 
 	}
-
+	
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);
+		methodBuilder.addCode("$T.read($L.getString($L))", TimeZoneUtil.class, cursorName, indexName);
 	}
-
+	
 	@Override
-	public void generateDefaultValue(Builder methodBuilder)
-	{
-		methodBuilder.addCode("null");		
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+		if (beanName!=null)
+		{
+			methodBuilder.addCode("$T.write($L."+getter(beanClass, property)+")", TimeZoneUtil.class, beanName);
+		} else {
+			generateWriteProperty(methodBuilder, property.getName());
+		}
+	}
+	
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, String objectName) {
+		methodBuilder.addCode("$T.write($L)", TimeZoneUtil.class, objectName);		
 	}
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null") , beanName);
+		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
 	}
 
 	@Override
 	public String generateColumnType(ModelProperty property) {
 		return "TEXT";
 	}
+
+	@Override
+	public void generateDefaultValue(Builder methodBuilder) {
+		methodBuilder.addCode("null");
+	}
+
 
 }

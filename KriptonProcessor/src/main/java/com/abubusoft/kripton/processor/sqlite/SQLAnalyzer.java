@@ -161,6 +161,12 @@ public class SQLAnalyzer {
 				
 				usedMethodParameters.add(rawName);
 			} else if (splittedName.length==2) {
+				//TODO verify
+				if (method.findParameter(splittedName[0])==null)
+				{
+					throw new MethodParameterNotFoundException(method, splittedName[0]);
+				}
+				
 				if (TypeUtility.isEquals(TypeUtility.typeName(method.findParameter(splittedName[0])), entity) && entity.contains(splittedName[1]))
 				{				
 					// there are nested property invocation

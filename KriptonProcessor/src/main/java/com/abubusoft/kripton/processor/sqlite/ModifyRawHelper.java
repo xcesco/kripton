@@ -18,14 +18,11 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isNullable;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
-
-import android.content.ContentValues;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDelete;
@@ -44,6 +41,8 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
+
+import android.content.ContentValues;
 
 public class ModifyRawHelper implements ModifyCodeGenerator {
 
@@ -79,7 +78,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		if (updateMode) {
 			// clear contentValues
 			methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
-			methodBuilder.addCode("contentValues.clear();\n\n");
+			methodBuilder.addCode("contentValues.clear();\n");
 			
 			for (Pair<String, TypeMirror> item : updateableParams) {
 				ModelProperty property = entity.get(item.value0);

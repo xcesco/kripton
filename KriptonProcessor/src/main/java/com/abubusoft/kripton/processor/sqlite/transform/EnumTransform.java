@@ -35,8 +35,18 @@ public class EnumTransform extends AbstractCompileTimeTransform {
 	}
 	
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
-		methodBuilder.addCode("$L."+getter(beanClass, property)+".toString()", beanName);
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+		if (beanName!=null)
+		{
+			methodBuilder.addCode("$L."+getter(beanClass, property)+".toString()", beanName);
+		} else {
+			generateWriteProperty(methodBuilder, property.getName());
+		}
+	}
+	
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, String objectName) {
+		methodBuilder.addCode("$L.toString()", objectName);		
 	}
 
 	@Override

@@ -278,7 +278,6 @@ public class BindCharDao extends AbstractDao implements CharDao {
   public long updateOne(List<Character> value, long id, List<Character> paramValue) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (value!=null) {
       contentValues.put("value", DaoHelper.toByteArray(value));
     } else {

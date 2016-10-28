@@ -29,7 +29,16 @@ import com.squareup.javapoet.TypeName;
  *
  */
 public class IntegerTransform  extends AbstractCompileTimeTransform {
+	@Override
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {	
+		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getInt($L)"), beanName,cursorName, indexName);
+	}
 	
+	@Override
+	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);		
+	}
+
 	public IntegerTransform(boolean nullable)
 	{
 		defaultValue="0";
@@ -39,37 +48,24 @@ public class IntegerTransform  extends AbstractCompileTimeTransform {
 		}
 	}
 	
-	protected String defaultValue;
-	
-	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		
-		methodBuilder.addCode("$L."+setter(beanClass, property, defaultValue), beanName);
-	}
-	
-	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getInt($L)"), beanName,cursorName, indexName);
-	}
-	
 	@Override
 	public void generateDefaultValue(Builder methodBuilder)
 	{
 		methodBuilder.addCode(defaultValue);		
 	}
 	
+	protected String defaultValue;
+	
 	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);		
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+		
+		methodBuilder.addCode("$L."+setter(beanClass, property, defaultValue), beanName);
 	}
-
+	
 	@Override
 	public String generateColumnType(ModelProperty property) {
 		return "INTEGER";
 	}
-	
-
-
 
 
 }

@@ -278,7 +278,6 @@ public class BindFloatDao extends AbstractDao implements FloatDao {
   public long updateOne(List<Float> value, long id, List<Float> paramValue) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
     if (value!=null) {
       contentValues.put("value", DaoHelper.toByteArray(value));
     } else {
