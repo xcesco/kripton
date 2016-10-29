@@ -198,7 +198,7 @@ public class BindDaoUser extends AbstractDao implements DaoUser {
   @Override
   public List<User> selectById(String name) {
     // build where condition
-    String[] args={(name==null?null:String.valueOf(name))};
+    String[] args={(name==null?null:name)};
 
     Logger.info(StringUtil.formatSQL("SELECT id, email, name, surname, username FROM user WHERE name='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, email, name, surname, username FROM user WHERE name=?", args);

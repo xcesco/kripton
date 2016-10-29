@@ -284,7 +284,6 @@ public class BindIntDao extends AbstractDao implements IntDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-
     String[] whereConditions={String.valueOf(id), (value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtil.formatSQL("UPDATE int_bean SET  WHERE id=%s and value=%s and value2=%s"), (Object[])whereConditions);

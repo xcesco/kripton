@@ -67,6 +67,7 @@ public class BindDaoMessage extends AbstractDao implements DaoMessage {
       do
        {
         resultBean=new MessageEntity();
+
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
         if (!cursor.isNull(index1)) { resultBean.channelId=cursor.getLong(index1); }
         if (!cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(cursor.getString(index2)); }
@@ -224,7 +225,7 @@ public class BindDaoMessage extends AbstractDao implements DaoMessage {
   @Override
   public MessageEntity selectByUid(String uid) {
     // build where condition
-    String[] args={(uid==null?null:String.valueOf(uid))};
+    String[] args={(uid==null?null:uid)};
 
     Logger.info(StringUtil.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ?", args);

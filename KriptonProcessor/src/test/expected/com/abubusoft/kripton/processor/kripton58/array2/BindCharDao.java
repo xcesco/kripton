@@ -63,7 +63,7 @@ public class BindCharDao extends AbstractDao implements CharDao {
 
       if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
       if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.toCharacterTypeArray(DaoHelper.toList(Character.TYPE, cursor.getBlob(index1)))); }
-      if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toArray(DaoHelper.toList(Character.class, cursor.getBlob(index2)))); }
+      if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toCharacterArray(DaoHelper.toList(Character.class, cursor.getBlob(index2)))); }
 
     }
     cursor.close();
@@ -109,7 +109,7 @@ public class BindCharDao extends AbstractDao implements CharDao {
 
       if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
       if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.toCharacterTypeArray(DaoHelper.toList(Character.TYPE, cursor.getBlob(index1)))); }
-      if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toArray(DaoHelper.toList(Character.class, cursor.getBlob(index2)))); }
+      if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toCharacterArray(DaoHelper.toList(Character.class, cursor.getBlob(index2)))); }
 
     }
     cursor.close();
@@ -161,7 +161,7 @@ public class BindCharDao extends AbstractDao implements CharDao {
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
           if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.toCharacterTypeArray(DaoHelper.toList(Character.TYPE, cursor.getBlob(index1)))); }
-          if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toArray(DaoHelper.toList(Character.class, cursor.getBlob(index2)))); }
+          if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toCharacterArray(DaoHelper.toList(Character.class, cursor.getBlob(index2)))); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -256,7 +256,7 @@ public class BindCharDao extends AbstractDao implements CharDao {
 
         if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
         if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.toCharacterTypeArray(DaoHelper.toList(Character.TYPE, cursor.getBlob(index1)))); }
-        if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toArray(DaoHelper.toList(Character.class, cursor.getBlob(index2)))); }
+        if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toCharacterArray(DaoHelper.toList(Character.class, cursor.getBlob(index2)))); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -283,7 +283,6 @@ public class BindCharDao extends AbstractDao implements CharDao {
   public long updateOne(long id, char[] value, Character[] value2) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
 
     String[] whereConditions={String.valueOf(id), (value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 

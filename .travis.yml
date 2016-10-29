@@ -3,7 +3,6 @@ jdk: oraclejdk7
 sudo: false # faster builds
 
 script:
-  - cd ./KriptonProcessor/
   - mvn cobertura:cobertura
 
 after_success:
