@@ -15,13 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
-
 import com.abubusoft.kripton.common.TimeUtil;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
  * Transformer between a string and a custom Time object
@@ -29,48 +23,9 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-public class TimeTransform  extends AbstractCompileTimeTransform {
+public class TimeTransform extends WrappedCompileTimeTransform<TimeUtil> {
 
-	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, TimeUtil.class, cursorName, indexName);
-
+	public TimeTransform() {
+		super(TimeUtil.class);
 	}
-	
-	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$T.read($L.getString($L))", TimeUtil.class, cursorName, indexName);
-	}
-	
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName!=null)
-		{
-			methodBuilder.addCode("$T.write($L."+getter(beanClass, property)+")", TimeUtil.class, beanName);
-		} else {
-			generateWriteProperty(methodBuilder, property.getName());
-		}
-	}
-	
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.write($L)", TimeUtil.class, objectName);		
-	}
-
-	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
-	}
-
-	@Override
-	public String generateColumnType(ModelProperty property) {
-		return "TEXT";
-	}
-
-	@Override
-	public void generateDefaultValue(Builder methodBuilder) {
-		methodBuilder.addCode("null");
-	}
-
-
 }

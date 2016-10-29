@@ -15,13 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
-
 import com.abubusoft.kripton.common.LocaleUtil;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
-import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a java.util.Locale object
@@ -29,47 +23,9 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public class LocaleTransform  extends AbstractCompileTimeTransform {
+public class LocaleTransform extends WrappedCompileTimeTransform<LocaleUtil> {
 
-	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, LocaleUtil.class, cursorName, indexName);
-
+	public LocaleTransform() {
+		super(LocaleUtil.class);
 	}
-	
-	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$T.read($L.getString($L))", LocaleUtil.class, cursorName, indexName);
-	}
-	
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName!=null)
-		{
-			methodBuilder.addCode("$T.write($L."+getter(beanClass, property)+")", LocaleUtil.class, beanName);
-		} else {
-			generateWriteProperty(methodBuilder, property.getName());
-		}
-	}
-	
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.write($L)", LocaleUtil.class, objectName);		
-	}
-
-	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
-	}
-
-	@Override
-	public String generateColumnType(ModelProperty property) {
-		return "TEXT";
-	}
-
-	@Override
-	public void generateDefaultValue(Builder methodBuilder) {
-		methodBuilder.addCode("null");
-	}
-
 }

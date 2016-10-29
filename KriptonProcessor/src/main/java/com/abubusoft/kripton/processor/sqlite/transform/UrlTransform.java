@@ -15,13 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
-
 import com.abubusoft.kripton.common.UrlUtil;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
-import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a java.net.URL object
@@ -29,47 +23,10 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public class UrlTransform  extends AbstractCompileTimeTransform {
+public class UrlTransform extends WrappedCompileTimeTransform<UrlUtil> {
 
-	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, UrlUtil.class, cursorName, indexName);
-
-	}
-	
-	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$T.read($L.getString($L))", UrlUtil.class, cursorName, indexName);
-	}
-	
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName!=null)
-		{
-			methodBuilder.addCode("$T.write($L."+getter(beanClass, property)+")", UrlUtil.class, beanName);
-		} else {
-			generateWriteProperty(methodBuilder, property.getName());
-		}
-	}
-	
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.write($L)", UrlUtil.class, objectName);		
-	}
-
-	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
-	}
-
-	@Override
-	public String generateColumnType(ModelProperty property) {
-		return "TEXT";
-	}
-
-	@Override
-	public void generateDefaultValue(Builder methodBuilder) {
-		methodBuilder.addCode("null");
+	public UrlTransform() {
+		super(UrlUtil.class);
 	}
 
 }
