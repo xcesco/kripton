@@ -33,6 +33,8 @@
 		<android-maven-plugin.version>4.2.0</android-maven-plugin.version>
 		<jackson.version>2.7.5</jackson.version>
 		<roboletric.version>3.1</roboletric.version>
+		
+		<unitilsVersion>3.4.2</unitilsVersion>
 
 		<!-- <android.version>5.0.1_r2</android.version> -->
 		<!-- <support-v4.version>21.0.3</support-v4.version> -->
@@ -146,7 +148,7 @@
 		<dependency>
 			<groupId>org.unitils</groupId>
 			<artifactId>unitils-core</artifactId>
-			<version>3.4.2</version>
+			<version>${unitilsVersion}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>junit</artifactId>
