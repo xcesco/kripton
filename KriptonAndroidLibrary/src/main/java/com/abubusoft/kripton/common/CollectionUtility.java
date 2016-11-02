@@ -1,5 +1,6 @@
 package com.abubusoft.kripton.common;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -176,7 +177,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Character>> E asList(char[] array, Class<E> listType) {
+	public static <E extends Collection<Character>> E asList(char[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();

@@ -25,6 +25,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -320,7 +321,7 @@ public class JsonReader implements BinderJsonReader {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void readList(Object instance, Class<?> type, List list, JSONArray jsonArray) throws Exception {
+	private void readList(Object instance, Class<?> type, Collection list, JSONArray jsonArray) throws Exception {
 		if (Transformer.isPrimitive(type)) {						
 			for (int i = 0; i < jsonArray.length(); i++) {
 				Object jsonValue = jsonArray.get(i);
@@ -368,7 +369,7 @@ public class JsonReader implements BinderJsonReader {
 	}
 
 	@Override
-	public <E> List<E> readList(Class<E> type, String input) throws ReaderException {
+	public <E> Collection<E> readCollection(Class<E> type, String input) throws ReaderException {
 		JSONArray array=new JSONArray(input);
 		List<E> result=new ArrayList<E>();
 		
@@ -383,22 +384,22 @@ public class JsonReader implements BinderJsonReader {
 	}
 	
 	@Override
-	public <E> List<E> readList(Class<E> type, InputStream source) throws ReaderException {
+	public <E> Collection<E> readCollection(Class<E> type, InputStream source) throws ReaderException {
 		try {
-			return this.readList(type, new InputStreamReader(source, format.getEncoding()));
+			return this.readCollection(type, new InputStreamReader(source, format.getEncoding()));
 		} catch (UnsupportedEncodingException e) {
 			throw new ReaderException("Encoding is not supported", e);
 		}			
 	}
 	
 	@Override
-	public <E> List<E> readList(Class<E> type, Reader source) throws ReaderException, MappingException {
+	public <E> Collection<E> readCollection(Class<E> type, Reader source) throws ReaderException, MappingException {
 		if (source == null) {
 			throw new ReaderException("Cannot read, reader is null!");
 		}
 
 		try {
-			return this.readList(type, StringUtil.reader2String(source));
+			return this.readCollection(type, StringUtil.reader2String(source));
 		} catch (IOException e) {
 			throw new ReaderException("IO error!", e); 
 		}
@@ -406,9 +407,9 @@ public class JsonReader implements BinderJsonReader {
 	}
 	
 	@Override
-	public <E> List<E> readList(List<E> list, Class<E> type, String input) throws ReaderException {
+	public <L extends Collection<E>, E> L readCollection(L list, Class<E> type, String input) throws ReaderException {
 		JSONArray array=new JSONArray(input);
-		List<E> result=list;
+		L result=list;
 		
 		try {
 			readList(input, type, result, array);
@@ -421,22 +422,22 @@ public class JsonReader implements BinderJsonReader {
 	}
 	
 	@Override
-	public <E> List<E> readList(List<E> list, Class<E> type, InputStream source) throws ReaderException {
+	public <L extends Collection<E>, E> L readCollection(L list, Class<E> type, InputStream source) throws ReaderException {
 		try {
-			return this.readList(list, type, new InputStreamReader(source, format.getEncoding()));
+			return this.readCollection(list, type, new InputStreamReader(source, format.getEncoding()));
 		} catch (UnsupportedEncodingException e) {
 			throw new ReaderException("Encoding is not supported", e);
 		}			
 	}
 	
 	@Override
-	public <E> List<E> readList(List<E> list, Class<E> type, Reader source) throws ReaderException, MappingException {
+	public <L extends Collection<E>, E> L readCollection(L list, Class<E> type, Reader source) throws ReaderException, MappingException {
 		if (source == null) {
 			throw new ReaderException("Cannot read, reader is null!");
 		}
 
 		try {
-			return this.readList(list, type, StringUtil.reader2String(source));
+			return this.readCollection(list, type, StringUtil.reader2String(source));
 		} catch (IOException e) {
 			throw new ReaderException("IO error!", e); 
 		}
@@ -472,7 +473,5 @@ public class JsonReader implements BinderJsonReader {
 		return null;
 	}
 
-
-	
 
 }

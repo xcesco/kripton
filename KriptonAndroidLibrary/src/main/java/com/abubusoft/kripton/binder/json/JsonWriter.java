@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -324,7 +325,7 @@ public class JsonWriter implements BinderJsonWriter {
 	}
 
 	@Override
-	public void writeList(@SuppressWarnings("rawtypes") List source, Writer out) throws WriterException, MappingException {
+	public void writeCollection(@SuppressWarnings("rawtypes") Collection source, Writer out) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
@@ -341,7 +342,7 @@ public class JsonWriter implements BinderJsonWriter {
 	}
 
 	@Override
-	public void writeList(@SuppressWarnings("rawtypes") List source, OutputStream os) throws WriterException, MappingException {
+	public void writeCollection(@SuppressWarnings("rawtypes") Collection source, OutputStream os) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
@@ -353,7 +354,7 @@ public class JsonWriter implements BinderJsonWriter {
 	}
 
 	@Override
-	public String writeList(@SuppressWarnings("rawtypes") List source) throws WriterException, MappingException {
+	public String writeCollection(@SuppressWarnings("rawtypes") Collection source) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
@@ -409,34 +410,5 @@ public class JsonWriter implements BinderJsonWriter {
 		
 		return false;
 	}
-	
-	@SuppressWarnings("rawtypes")
-	@Override
-	public String writeObjectOrList(Object source) throws WriterException, MappingException {
-		if (isList(source))
-		{
-			return writeList((List) source);
-		}
-		return write(source);
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public void writeObjectOrList(Object source, Writer out) throws WriterException, MappingException {
-		if (isList(source))
-		{
-			writeList((List) source, out);
-		}
-		write(source, out);
-	}
-
-	@SuppressWarnings("rawtypes")
-	public void writeObjectOrList(Object source, OutputStream os) throws WriterException, MappingException {
-		if (isList(source))
-		{
-			writeList((List) source, os);
-		}
-		write(source, os);
-	}
-	
 
 }

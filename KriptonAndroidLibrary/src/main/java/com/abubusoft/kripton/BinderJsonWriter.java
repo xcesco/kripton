@@ -17,6 +17,7 @@ package com.abubusoft.kripton;
 
 import java.io.OutputStream;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.List;
 
 import com.abubusoft.kripton.exception.MappingException;
@@ -37,7 +38,7 @@ public interface BinderJsonWriter extends BinderWriter {
 	 * @param out a character stream
 	 * @throws WriterException if writes fail
 	 */
-	public void writeList(@SuppressWarnings("rawtypes") List source, Writer out) throws WriterException, MappingException;
+	public void writeCollection(@SuppressWarnings("rawtypes") Collection source, Writer out) throws WriterException, MappingException;
 	
 	/**
 	 * 
@@ -45,7 +46,7 @@ public interface BinderJsonWriter extends BinderWriter {
 	 * @param os an output stream of bytes.
 	 * @throws WriterException if writes fail
 	 */
-	public void writeList(@SuppressWarnings("rawtypes") List source, OutputStream os) throws WriterException, MappingException;
+	public void writeCollection(@SuppressWarnings("rawtypes") Collection source, OutputStream os) throws WriterException, MappingException;
 	
 	/**
 	 * 
@@ -53,9 +54,6 @@ public interface BinderJsonWriter extends BinderWriter {
 	 * @return a string representation
 	 * @throws WriterException if writes fail
 	 */
-	public String writeList(@SuppressWarnings("rawtypes") List source) throws WriterException, MappingException;
-
-	String writeObjectOrList(Object source) throws WriterException, MappingException;
-	
+	public String writeCollection(@SuppressWarnings("rawtypes") Collection source) throws WriterException, MappingException;
 
 }

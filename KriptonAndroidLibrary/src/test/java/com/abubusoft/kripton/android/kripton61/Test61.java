@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.android.kripton61;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class Test61 {
 
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
 
-		String result = writer.writeList(list);
+		String result = writer.writeCollection(list);
 
 		System.out.println(result);
 	}
@@ -70,7 +71,7 @@ public class Test61 {
 
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
 
-		String result = writer.writeList(Arrays.asList(list));
+		String result = writer.writeCollection(Arrays.asList(list));
 
 		System.out.println(result);
 	}
@@ -84,7 +85,7 @@ public class Test61 {
 
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
 
-		String result = writer.writeList(Arrays.asList(list));// CollectionUtils.convertArray(list, ArrayList.class));
+		String result = writer.writeCollection(Arrays.asList(list));// CollectionUtils.convertArray(list, ArrayList.class));
 
 		System.out.println(result);
 	}
@@ -99,7 +100,7 @@ public class Test61 {
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
-		String middle = writer.writeList(CollectionUtility.asList(list, LinkedList.class));
+		String middle = writer.writeCollection(CollectionUtility.asList(list, LinkedList.class));
 		System.out.println(middle);
 
 		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJSONReader();
@@ -115,7 +116,7 @@ public class Test61 {
 		list[1] = 2L;
 
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
-		String middle = writer.writeList(Arrays.asList(list));
+		String middle = writer.writeCollection(Arrays.asList(list));
 		System.out.println(middle);
 
 		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJSONReader();
@@ -162,7 +163,7 @@ public class Test61 {
 	@Test
 	public void testWriteArrayPrestazione() throws MappingException, WriterException, ReaderException {
 		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJSONReader();
-		List<Parent> result = reader.readList(Parent.class, input);
+		ArrayList<Parent> result = reader.readCollection(new ArrayList<Parent>(),  Parent.class, input);
 		System.out.println(result);
 	}
 
@@ -176,7 +177,7 @@ public class Test61 {
 		bean.text = "test";
 
 		{
-			String value = writer.writeObjectOrList(bean);
+			String value = writer.write(bean);
 			Assert.assertEquals(value, "{\"text\":\"test\"}");
 			Bean result = (Bean) reader.read(Bean.class, value);
 			

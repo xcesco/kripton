@@ -53,7 +53,7 @@ public class Test55 {
 
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
 
-		String result = writer.writeList(list);
+		String result = writer.writeCollection(list);
 
 		System.out.println(result);
 	}
@@ -67,7 +67,7 @@ public class Test55 {
 
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
 
-		String result = writer.writeList(Arrays.asList(list));
+		String result = writer.writeCollection(Arrays.asList(list));
 
 		System.out.println(result);
 	}
@@ -81,7 +81,7 @@ public class Test55 {
 
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
 
-		String result = writer.writeList(Arrays.asList(list));// CollectionUtils.convertArray(list, ArrayList.class));
+		String result = writer.writeCollection(Arrays.asList(list));// CollectionUtils.convertArray(list, ArrayList.class));
 
 		System.out.println(result);
 	}
@@ -96,11 +96,11 @@ public class Test55 {
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
-		String middle = writer.writeList(CollectionUtility.asList(list, LinkedList.class));
+		String middle = writer.writeCollection(CollectionUtility.asList(list, LinkedList.class));
 		System.out.println(middle);
 
 		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJSONReader();
-		List<Float> result = reader.readList(Float.TYPE, middle);
+		List<Float> result = reader.readCollection(new ArrayList(), Float.TYPE, middle);
 		System.out.println(result.toArray(new Float[result.size()]));
 	}
 
@@ -112,11 +112,11 @@ public class Test55 {
 		list[1] = 2L;
 
 		BinderJsonWriter writer = BinderFactory.getJSONWriter();
-		String middle = writer.writeList(Arrays.asList(list));
+		String middle = writer.writeCollection(Arrays.asList(list));
 		System.out.println(middle);
 
 		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJSONReader();
-		List<Long> result = reader.readList(Long.TYPE, middle);
+		List<Long> result = reader.readCollection(Long.TYPE, middle);
 		System.out.println(result);
 	}
 
@@ -173,7 +173,7 @@ public class Test55 {
 		bean.text = "test";
 
 		{
-			String value = writer.writeObjectOrList(bean);
+			String value = writer.write(bean);
 			Assert.assertEquals(value, "{\"id\":235,\"text\":\"test\"}");
 			Bean result = (Bean) reader.read(Bean.class, value);
 			Assert.assertEquals(bean, result);

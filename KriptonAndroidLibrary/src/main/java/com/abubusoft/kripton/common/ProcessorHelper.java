@@ -2,6 +2,8 @@ package com.abubusoft.kripton.common;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.abubusoft.kripton.BinderFactory;
@@ -29,13 +31,13 @@ public abstract class ProcessorHelper {
 	protected static ThreadLocal<BinderJsonReader> objReader;
 
 	
-	public static String asString(List<?> value)
+	public static String asString(Collection<?> value)
 	{
 		BinderJsonWriter writer = getWriter();
 		
 		String result;
 		try {
-			result = writer.writeList(value);
+			result = writer.writeCollection(value);
 			return result;
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -59,7 +61,7 @@ public abstract class ProcessorHelper {
 		
 		String result;
 		try {
-			result = writer.writeList(value);
+			result = writer.writeCollection(value);
 			return result.getBytes(StandardCharsets.UTF_8);
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -76,7 +78,7 @@ public abstract class ProcessorHelper {
 		
 		String result;
 		try {
-			result = writer.writeList(value);
+			result = writer.writeCollection(value);
 			return result.getBytes(charset);
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -118,7 +120,7 @@ public abstract class ProcessorHelper {
 		BinderJsonReader reader = getReader();
 		
 		try {
-			List<E> result = reader.readList(clazz, new String(input));
+			List<E> result = reader.readCollection(new ArrayList<E>(), clazz, new String(input));
 			return result;
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -143,7 +145,7 @@ public abstract class ProcessorHelper {
 		BinderJsonReader reader = getReader();
 		
 		try {
-			List<E> result = reader.readList(clazz, input);
+			List<E> result = reader.readCollection(new ArrayList<E>(),clazz, input);
 			return result;
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -165,13 +167,12 @@ public abstract class ProcessorHelper {
 	 * @return
 	 * 			list of element extracted from blob
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E, L extends List<E>> L asList(L list, Class<E> clazz, byte[] input)
 	{		
 		BinderJsonReader reader = getReader();
 		
 		try {
-			L result = (L) reader.readList(list, clazz, new String(input));
+			L result = (L) reader.readCollection(list, clazz, new String(input));
 			return result;
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -193,13 +194,12 @@ public abstract class ProcessorHelper {
 	 * @return
 	 * 			list of element extracted from blob
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E, L extends List<E>> L asList(L list, Class<E> clazz, String input)
 	{		
 		BinderJsonReader reader = getReader();
 		
 		try {
-			L result = (L) reader.readList(list, clazz, input);
+			L result = (L) reader.readCollection(list, clazz, input);
 			return result;
 		} catch (MappingException e) {
 			e.printStackTrace();
