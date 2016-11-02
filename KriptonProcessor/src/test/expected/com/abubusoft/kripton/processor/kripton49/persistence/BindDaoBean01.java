@@ -115,7 +115,7 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
 
   /**
    * <p>Update query:</p>
-   * <pre>UPDATE bean01 SET text=${text} WHERE  id=${id}</pre>
+   * <pre>UPDATE bean01 SET text=${text} WHERE id=${id}</pre>
    *
    * @param text
    * 	used as updated field
@@ -136,14 +136,14 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
 
     String[] whereConditions={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean01 SET text='"+StringUtil.checkSize(contentValues.get("text"))+"' WHERE  id=%s"), (Object[])whereConditions);
-    int result = database().update("bean01", contentValues, " id=?", whereConditions);
+    Logger.info(StringUtil.formatSQL("UPDATE bean01 SET text='"+StringUtil.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditions);
+    int result = database().update("bean01", contentValues, "id=?", whereConditions);
     return result;
   }
 
   /**
    * <p>Delete query:</p>
-   * <pre>DELETE bean01 WHERE  id=${id}</pre>
+   * <pre>DELETE bean01 WHERE id=${id}</pre>
    *
    * @param id
    * 	used in where condition
@@ -154,8 +154,8 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
   public long deleteOne(Long id) {
     String[] whereConditions={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean01 WHERE  id=%s"), (Object[])whereConditions);
-    int result = database().delete("bean01", " id=?", whereConditions);
+    Logger.info(StringUtil.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditions);
+    int result = database().delete("bean01", "id=?", whereConditions);
     return result;
   }
 

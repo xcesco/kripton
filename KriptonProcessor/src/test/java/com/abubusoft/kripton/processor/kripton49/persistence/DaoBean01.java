@@ -26,16 +26,16 @@ import com.abubusoft.kripton.processor.kripton49.entities.Bean01Entity;
 
 @BindDao(Bean01Entity.class)
 public interface DaoBean01 {
-	@BindSelect(where=" id=${id}")
+	@BindSelect(where="id=${id}")
 	Bean01Entity selectOne(Long id);
 	
-	@BindSelect(where=" id=${id}")
+	@BindSelect(where="id=${id}")
 	List<Bean01Entity> selectById(Long id);
 	
-	@BindUpdate(where=" id=${id}")
+	@BindUpdate(where="id=${id}")
 	long updateOne(String text, Long id);
 	
-	@BindDelete(where=" id=${id}")
+	@BindDelete(where="id=${id}")
 	long deleteOne(Long id);
 	
 	@BindInsert()
