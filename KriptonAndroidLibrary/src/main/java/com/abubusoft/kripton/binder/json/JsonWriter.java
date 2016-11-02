@@ -77,6 +77,7 @@ public class JsonWriter implements BinderJsonWriter {
 		for (String fieldName : field2SchemaMapping.keySet()) {
 			ElementSchema es = field2SchemaMapping.get(fieldName);
 			if (es!=null) {
+				
 				if (!es.getJsonInfo().enabled) continue;
 				
 				Field field = es.getField();

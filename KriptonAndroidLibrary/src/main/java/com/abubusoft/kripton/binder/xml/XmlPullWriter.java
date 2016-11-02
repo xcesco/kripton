@@ -166,7 +166,7 @@ public class XmlPullWriter implements BinderWriter {
 		for (String fieldName : field2AttributeSchemaMapping.keySet()) {
 			ElementSchema as = field2AttributeSchemaMapping.get(fieldName);
 			
-			//if (!as.getXmlInfo().enabled) continue;
+			if (!as.getXmlInfo().enabled) continue;
 			
 			Field field = as.getField();
 			Object value = field.get(source);
@@ -185,7 +185,7 @@ public class XmlPullWriter implements BinderWriter {
 		if (vs == null)
 			return; // no ValueSchema, do nothing
 		
-		//if (!vs.getXmlInfo().enabled) return;
+		if (!vs.getXmlInfo().enabled) return;
 
 		Field field = vs.getField();
 		Object value = field.get(source);
@@ -207,7 +207,7 @@ public class XmlPullWriter implements BinderWriter {
 			ElementSchema schemaObj = field2SchemaMapping.get(fieldName);
 			ElementSchema es = (ElementSchema) schemaObj;
 			
-			//if (!es.getXmlInfo().enabled) continue;
+			if (!es.getXmlInfo().enabled) continue;
 
 			// if not a tag skip, we cover it in another place
 			if (es.getXmlInfo().type != XmlType.TAG)
@@ -402,7 +402,7 @@ public class XmlPullWriter implements BinderWriter {
 
 		String xmlName = es.getName();
 		
-		//if (!es.getXmlInfo().enabled) return;
+		if (!es.getXmlInfo().enabled) return;
 
 		// primitives
 		if (Transformer.isPrimitive(type)) {

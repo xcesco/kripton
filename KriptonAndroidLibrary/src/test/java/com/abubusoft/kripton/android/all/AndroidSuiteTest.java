@@ -65,6 +65,7 @@ import com.abubusoft.kripton.android.kripton20.Issue20Test1;
 import com.abubusoft.kripton.android.kripton20.Issue20Test2;
 import com.abubusoft.kripton.android.kripton54.Test54;
 import com.abubusoft.kripton.android.kripton55.Test55;
+import com.abubusoft.kripton.android.kripton61.Test61;
 
 
 /**
@@ -90,7 +91,8 @@ import com.abubusoft.kripton.android.kripton55.Test55;
 	                   Issue15Test1.class,Issue15Test2.class, Issue15Test3.class, Issue15Test4.class,Issue15Test5.class, Issue15Test6.class,Issue15Test7.class, Issue15Test8.class,
 	                   Issue20Test1.class,Issue20Test2.class,
 	   Test54.class,
-	   Test55.class
+	   Test55.class,
+	   Test61.class
 	})
 //@formatter:on
 public class AndroidSuiteTest {

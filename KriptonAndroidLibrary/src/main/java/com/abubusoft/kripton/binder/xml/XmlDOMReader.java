@@ -253,7 +253,7 @@ public class XmlDOMReader implements BinderReader {
 
 					ElementSchema schemaObj = xml2SchemaMapping.get(localName);
 					
-					//if (!schemaObj.getXmlInfo().enabled) continue;
+					if (!schemaObj.getXmlInfo().enabled) continue;
 
 					if (schemaObj.getXmlInfo().type==XmlType.TAG) {
 						// found match element

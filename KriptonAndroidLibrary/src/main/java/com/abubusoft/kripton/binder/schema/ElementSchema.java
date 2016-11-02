@@ -70,7 +70,7 @@ public class ElementSchema extends AbstractSchema {
 	public static class XmlInfo {
 
 		public XmlType type;
-		//public boolean enabled;
+		public boolean enabled;
 
 	}
 	
@@ -148,9 +148,10 @@ public class ElementSchema extends AbstractSchema {
 		xmlInfo = new XmlInfo();
 	
 		if (bindXmlAnnotation != null) {
-			//xmlInfo.enabled=bindXmlAnnotation.enabled();
+			xmlInfo.enabled=bindXmlAnnotation.enabled();
 			xmlInfo.type = bindXmlAnnotation.value();
 		} else {
+			xmlInfo.enabled=true;
 			xmlInfo.type = XmlType.TAG;
 		}
 	}

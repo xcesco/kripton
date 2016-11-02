@@ -69,7 +69,7 @@ class XmlReaderHandler extends DefaultHandler {
 			if (as == null)
 				continue;
 			
-			//if (!as.getXmlInfo().enabled) continue;
+			if (!as.getXmlInfo().enabled) continue;
 
 			String attrValue = attrs.getValue(index);
 
@@ -84,7 +84,7 @@ class XmlReaderHandler extends DefaultHandler {
 	public void startElement(String uri, String localName, String name, Attributes attrs) throws SAXException {
 		try {
 			Object obj = helper.valueStack.peek();
-			MappingSchema ms = MappingSchema.fromObject(obj);
+			MappingSchema ms = MappingSchema.fromObject(obj);					
 
 			Map<String, ElementSchema> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
 			if (xmlWrapper2SchemaMapping.containsKey(localName)) {
@@ -131,10 +131,8 @@ class XmlReaderHandler extends DefaultHandler {
 					}
 				} else {
 					Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
-					ElementSchema schema = xml2SchemaMapping.get(localName);
+					ElementSchema schema = xml2SchemaMapping.get(localName);	
 					
-					//if (!schema.getXmlInfo().enabled) return;
-
 					// detect type
 					type = schema.getFieldType();
 
@@ -229,8 +227,13 @@ class XmlReaderHandler extends DefaultHandler {
 				if (lastArray != null && lastArray.value0.getField().getDeclaringClass() == obj.getClass() && !lastArray.value0.getName().equals(localName)) {
 					ElementSchema es = lastArray.value0;
 					
-					//if (!es.getXmlInfo().enabled) return;
-					
+					if (es.getXmlInfo().enabled)
+					{
+						helper.arrayStack.pop();
+						helper.depth--;
+						return;
+					}
+										
 					Field field = es.getField();
 
 					int n = lastArray.value1.size();
@@ -259,9 +262,13 @@ class XmlReaderHandler extends DefaultHandler {
 				MappingSchema ms = MappingSchema.fromObject(obj);
 
 				Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
-				ElementSchema schema = xml2SchemaMapping.get(localName);
+				ElementSchema schema = xml2SchemaMapping.get(localName);			
 				
-				//if (!schema.getXmlInfo().enabled) return;
+				if (schema.getXmlInfo().enabled)
+				{
+					helper.depth--;
+					return;
+				}
 
 				if (ms.xmlInfo.isMapEntryStub()) {
 					MapEntry mapStrategy = (MapEntry) obj;
@@ -369,9 +376,13 @@ class XmlReaderHandler extends DefaultHandler {
 
 				ElementSchema vs = ms.getValueSchema();
 				
-				
-				
 				if (vs != null) {
+					if (vs.getXmlInfo().enabled)
+					{
+						helper.depth--;
+						return;
+					}
+					
 					Field field = vs.getField();
 					String xmlData = helper.textBuilder.toString();
 					if (!StringUtil.isEmpty(xmlData)) {
