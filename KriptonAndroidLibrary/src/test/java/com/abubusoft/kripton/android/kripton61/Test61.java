@@ -195,6 +195,9 @@ public class Test61 {
 		Bean bean = new Bean();
 		bean.id = 235;
 		bean.text = "test";
+		bean.valueStringList=new ArrayList<String>();
+		bean.valueStringList.add("inva");
+		bean.valueStringList.add("inva2");
 
 		{
 			String value = writer.write(bean);
@@ -211,37 +214,42 @@ public class Test61 {
 	
 	@Test
 	public void testXmlRead1() throws MappingException, WriterException, ReaderException {
-		String input="<?xml version=\"1.0\" encoding=\"utf-8\"?><bean><id>235</id><text>test</text></bean>";
+		String input="<?xml version=\"1.0\" encoding=\"utf-8\"?><bean><text>test</text><valueStringList>inva</valueStringList><valueStringList>inva2</valueStringList></bean>";
 		BinderReader reader = BinderFactory.getXMLReader(XmlReaderType.DOM);
 
 		Bean bean = new Bean();
 		bean.id = 235;
 		bean.text = "test";
+		bean.valueStringList=null;
 
 		{			
 			Bean result = (Bean) reader.read(Bean.class, input);
 			
 			// result value does not have id
 			bean.id=0;
-			Assert.assertEquals(bean.id, result.id);			
+			Assert.assertEquals(bean.id, result.id);
+			Assert.assertEquals(bean.valueStringList, result.valueStringList);
 		}
 	}
 	
 	@Test
 	public void testXmlRead2() throws MappingException, WriterException, ReaderException {
-		String input="<?xml version=\"1.0\" encoding=\"utf-8\"?><bean><id>235</id><text>test</text></bean>";
+		String input="<?xml version=\"1.0\" encoding=\"utf-8\"?><bean><text>test</text><valueStringList>inva</valueStringList><valueStringList>inva2</valueStringList></bean>";
 		BinderReader reader = BinderFactory.getXMLReader(XmlReaderType.SAX);
 
 		Bean bean = new Bean();
 		bean.id = 235;
 		bean.text = "test";
+		bean.valueStringList=null;
 
 		{			
 			Bean result = (Bean) reader.read(Bean.class, input);
 			
 			// result value does not have id
 			bean.id=0;
-			Assert.assertEquals(bean.id, result.id);			
+			
+			Assert.assertEquals(bean.id, result.id);
+			Assert.assertEquals(bean.valueStringList, result.valueStringList);
 		}
 	}
 	

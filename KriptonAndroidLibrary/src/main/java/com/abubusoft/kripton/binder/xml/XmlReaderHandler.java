@@ -68,8 +68,9 @@ class XmlReaderHandler extends DefaultHandler {
 			ElementSchema as = attributeSchemaMapping.get(attrName);
 			if (as == null)
 				continue;
-			
-			if (!as.getXmlInfo().enabled) continue;
+
+			if (!as.getXmlInfo().enabled)
+				continue;
 
 			String attrValue = attrs.getValue(index);
 
@@ -84,7 +85,7 @@ class XmlReaderHandler extends DefaultHandler {
 	public void startElement(String uri, String localName, String name, Attributes attrs) throws SAXException {
 		try {
 			Object obj = helper.valueStack.peek();
-			MappingSchema ms = MappingSchema.fromObject(obj);					
+			MappingSchema ms = MappingSchema.fromObject(obj);
 
 			Map<String, ElementSchema> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
 			if (xmlWrapper2SchemaMapping.containsKey(localName)) {
@@ -102,7 +103,7 @@ class XmlReaderHandler extends DefaultHandler {
 
 			if (helper.isRoot()) { // first time root element mapping
 				TypeElementSchema res = ms.getRootElementSchema();
-				String xmlName = res.xmlInfo.getName();							
+				String xmlName = res.xmlInfo.getName();
 
 				// simple validation only for root element
 				if (!xmlName.equalsIgnoreCase(localName)) {
@@ -123,16 +124,15 @@ class XmlReaderHandler extends DefaultHandler {
 					} else if (mapStrategy.isValue(localName)) {
 						type = mapStrategy.getMapInfo().valueClazz;
 					}
-					
-					if (!Transformer.isPrimitive(type))
-					{
+
+					if (!Transformer.isPrimitive(type)) {
 						Object newObj = type.newInstance();
 						helper.valueStack.push(newObj);
 					}
 				} else {
 					Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
-					ElementSchema schema = xml2SchemaMapping.get(localName);	
-					
+					ElementSchema schema = xml2SchemaMapping.get(localName);
+
 					// detect type
 					type = schema.getFieldType();
 
@@ -219,21 +219,13 @@ class XmlReaderHandler extends DefaultHandler {
 
 				Map<String, ElementSchema> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
 				if (xmlWrapper2SchemaMapping.containsKey(localName)) {
-					// ArrayList array = helper.listStack.pop();
 					return;
 				}
 
 				SchemaArray lastArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
 				if (lastArray != null && lastArray.value0.getField().getDeclaringClass() == obj.getClass() && !lastArray.value0.getName().equals(localName)) {
 					ElementSchema es = lastArray.value0;
-					
-					if (es.getXmlInfo().enabled)
-					{
-						helper.arrayStack.pop();
-						helper.depth--;
-						return;
-					}
-										
+
 					Field field = es.getField();
 
 					int n = lastArray.value1.size();
@@ -245,7 +237,10 @@ class XmlReaderHandler extends DefaultHandler {
 					if (!field.isAccessible()) {
 						field.setAccessible(true);
 					}
-					field.set(obj, value);
+
+					if (es.getXmlInfo().enabled) {
+						field.set(obj, value);
+					}
 					helper.arrayStack.pop();
 				}
 
@@ -262,13 +257,7 @@ class XmlReaderHandler extends DefaultHandler {
 				MappingSchema ms = MappingSchema.fromObject(obj);
 
 				Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
-				ElementSchema schema = xml2SchemaMapping.get(localName);			
-				
-				if (schema.getXmlInfo().enabled)
-				{
-					helper.depth--;
-					return;
-				}
+				ElementSchema schema = xml2SchemaMapping.get(localName);
 
 				if (ms.xmlInfo.isMapEntryStub()) {
 					MapEntry mapStrategy = (MapEntry) obj;
@@ -329,7 +318,10 @@ class XmlReaderHandler extends DefaultHandler {
 								List list = (List) field.get(obj);
 								if (list == null) {
 									list = new ArrayList();
-									field.set(obj, list);
+
+									if (schema.getXmlInfo().enabled) {
+										field.set(obj, list);
+									}
 								}
 								list.add(value);
 							} else if (schema.isSet()) {
@@ -338,7 +330,9 @@ class XmlReaderHandler extends DefaultHandler {
 								Set set = (Set) field.get(obj);
 								if (set == null) {
 									set = new LinkedHashSet();
-									field.set(obj, set);
+									if (schema.getXmlInfo().enabled) {
+										field.set(obj, set);
+									}
 								}
 								set.add(value);
 							} else if (schema.isArray() && schema.getFieldType() != Byte.TYPE) {
@@ -349,8 +343,6 @@ class XmlReaderHandler extends DefaultHandler {
 									helper.arrayStack.add(schemaArray);
 								}
 								Class<?> paramizedType = schema.getFieldType();
-								// Object value = Transformer.read(xmlData,
-								// paramizedType);
 								Object value;
 								// --------
 								if (Transformer.isPrimitive(paramizedType)) {
@@ -364,7 +356,9 @@ class XmlReaderHandler extends DefaultHandler {
 
 							} else {
 								Object value = Transformer.read(xmlData, field.getType());
-								field.set(obj, value);
+								if (schema.getXmlInfo().enabled) {
+									field.set(obj, value);
+								}
 							}
 						}
 					}
@@ -375,19 +369,20 @@ class XmlReaderHandler extends DefaultHandler {
 				MappingSchema ms = MappingSchema.fromObject(obj);
 
 				ElementSchema vs = ms.getValueSchema();
-				
+
 				if (vs != null) {
-					if (vs.getXmlInfo().enabled)
-					{
+					if (vs.getXmlInfo().enabled) {
 						helper.depth--;
 						return;
 					}
-					
+
 					Field field = vs.getField();
 					String xmlData = helper.textBuilder.toString();
 					if (!StringUtil.isEmpty(xmlData)) {
 						Object value = Transformer.read(xmlData, vs.getFieldType());
-						field.set(obj, value);
+						if (vs.getXmlInfo().enabled) {
+							field.set(obj, value);
+						}
 					}
 				}
 
@@ -402,15 +397,14 @@ class XmlReaderHandler extends DefaultHandler {
 				MappingSchema parentMs = MappingSchema.fromObject(parentObj);
 				Map<String, ElementSchema> parentXml2SchemaMapping = parentMs.getXml2SchemaMapping();
 
-				Object schema = parentXml2SchemaMapping.get(localName);
-				if (schema != null && schema instanceof ElementSchema) {
+				ElementSchema schema = parentXml2SchemaMapping.get(localName);
+				if (schema != null && schema.getXmlInfo().enabled ) {
 					ElementSchema es = (ElementSchema) schema;
 					Field field = es.getField();
 					if (ms.xmlInfo.isMapEntryStub()) {
 						// do nothing... all is done!
 						MapEntry mapObj = (MapEntry) obj;
-						if (mapObj.isKeyPresent())
-						{
+						if (mapObj.isKeyPresent()) {
 							mapObj.getMap().put(mapObj.getEntryKey(), mapObj.getEntryValue());
 						}
 					} else if (parentMs.xmlInfo.isMapEntryStub()) {

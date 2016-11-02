@@ -39,4 +39,9 @@ public class TestKripton60 extends BaseProcessorTest {
 	public void testSharedFields() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(Bean.class, EnumType.class);
 	}
+	
+	@Test
+	public void testSharedFields2() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(Bean2.class, EnumType.class);
+	}
 }
