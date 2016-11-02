@@ -36,6 +36,13 @@ import com.abubusoft.kripton.android.sqlite.FieldType;
 public @interface BindColumn {
 
 	static boolean NULLABLE_DEFAULT = true;
+	
+	/**
+	 * 
+	 * @return
+	 * 		if true, means field must bind persist model
+	 */
+	boolean enabled() default true;
 
 	/**
 	 * Name of the column. If not present, the column name is same of field. It must be specified in java style naming conventions.

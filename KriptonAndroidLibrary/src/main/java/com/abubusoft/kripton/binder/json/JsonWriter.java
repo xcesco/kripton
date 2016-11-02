@@ -66,33 +66,6 @@ public class JsonWriter implements BinderJsonWriter {
 		this.options = options;
 	}
 
-	public void write(Object source, Writer out) throws WriterException, MappingException {
-		if (out == null) {
-			throw new WriterException("Entry validation failure, Writer is null!");
-		}
-
-		String result = this.write(source);
-		try {
-			StringUtil.string2Writer(result, out);
-		} catch (IOException e) {
-			throw new WriterException("IO error", e);
-		}
-
-	}
-
-	public void write(Object source, OutputStream os) throws WriterException, MappingException {
-
-		if (os == null) {
-			throw new WriterException("Entry validation failure, OutputStream is null!");
-		}
-
-		try {
-			this.write(source, new OutputStreamWriter(os, options.getEncoding()));
-		} catch (UnsupportedEncodingException e) {
-			throw new WriterException("Error to serialize object", e);
-		}
-	}
-
 	private void writeObject(JSONObject jsonObject, Object source) throws Exception {
 		MappingSchema ms = MappingSchema.fromObject(source);
 
@@ -102,27 +75,28 @@ public class JsonWriter implements BinderJsonWriter {
 	private void writeElements(JSONObject jsonObject, Object source, MappingSchema ms) throws Exception {
 		Map<String, ElementSchema> field2SchemaMapping = ms.getField2SchemaMapping();
 		for (String fieldName : field2SchemaMapping.keySet()) {
-			Object schemaObj = field2SchemaMapping.get(fieldName);
-			if (schemaObj instanceof ElementSchema) {
-				ElementSchema es = (ElementSchema) schemaObj;
+			ElementSchema es = field2SchemaMapping.get(fieldName);
+			if (es!=null) {
+				if (!es.getJsonInfo().enabled) continue;
+				
 				Field field = es.getField();
 				Object value = field.get(source);
 				if (value != null) {
 					switch (es.getType()) {
 					case LIST:
-						this.writeElementList(jsonObject, value, es);
+						writeElementList(jsonObject, value, es);
 						break;
 					case SET:
-						this.writeElementSet(jsonObject, value, es);
+						writeElementSet(jsonObject, value, es);
 						break;
 					case ARRAY:
-						this.writeElementArray(jsonObject, value, es);
+						writeElementArray(jsonObject, value, es);
 						break;
 					case MAP:
-						this.writeElementMap(jsonObject, value, es);
+						writeElementMap(jsonObject, value, es);
 						break;
 					case ELEMENT:
-						this.writeElement(jsonObject, value, es);
+						writeElement(jsonObject, value, es);
 						break;
 					}
 				}
@@ -320,13 +294,40 @@ public class JsonWriter implements BinderJsonWriter {
 	public String write(Object source) throws WriterException, MappingException {
 		return String.valueOf(writeInternal(source));
 	}
+	
+	public void write(Object source, Writer out) throws WriterException, MappingException {
+		if (out == null) {
+			throw new WriterException("Entry validation failure, Writer is null!");
+		}
+
+		String result = this.write(source);
+		try {
+			StringUtil.string2Writer(result, out);
+		} catch (IOException e) {
+			throw new WriterException("IO error", e);
+		}
+
+	}
+
+	public void write(Object source, OutputStream os) throws WriterException, MappingException {
+
+		if (os == null) {
+			throw new WriterException("Entry validation failure, OutputStream is null!");
+		}
+
+		try {
+			this.write(source, new OutputStreamWriter(os, options.getEncoding()));
+		} catch (UnsupportedEncodingException e) {
+			throw new WriterException("Error to serialize object", e);
+		}
+	}
 
 	@Override
 	public void writeList(@SuppressWarnings("rawtypes") List source, Writer out) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
-			array.put(writeInternal(item));
+			array.put((Object)writeInternal(item));
 		}
 
 		try {
@@ -343,7 +344,7 @@ public class JsonWriter implements BinderJsonWriter {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
-			array.put(writeInternal(item));
+			array.put((Object)writeInternal(item));
 		}
 
 		write(array.toString(), os);
@@ -355,36 +356,36 @@ public class JsonWriter implements BinderJsonWriter {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
-			array.put(writeInternal(item));
+			array.put((Object)writeInternal(item));
 		}
 
 		return array.toString();
 
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private Object writeInternal(Object source) throws WriterException, MappingException {
 		try {
 
 			if (source == null) {
 				// "Can not write null instance!");
 				return null;
-			}
+			}								
 
 			if (Transformer.isPrimitive(source.getClass())) {
 				Class<?> type = source.getClass();
 
 				// primitives
 				Object jsonValue = getJSONValue(source, type);
-
 				return jsonValue;
 			}
 
 			JSONObject childJsonObject = new JSONObject();
 			writeObject(childJsonObject, source);
 			if (this.options.isIndent()) {
-				return childJsonObject.toString(DEFAULT_INDENTATION);
+				return childJsonObject;//.toString(DEFAULT_INDENTATION);
 			} else {
-				return childJsonObject.toString();
+				return childJsonObject;//.toString();
 			}
 
 		} catch (MappingException me) {
@@ -395,5 +396,46 @@ public class JsonWriter implements BinderJsonWriter {
 			throw new WriterException("Error to serialize object", e);
 		}
 	}
+	
+	protected boolean isList(Object obj)
+	{
+		if (obj==null) return false;
+		
+		if (List.class.isAssignableFrom(obj.getClass()))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public String writeObjectOrList(Object source) throws WriterException, MappingException {
+		if (isList(source))
+		{
+			return writeList((List) source);
+		}
+		return write(source);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void writeObjectOrList(Object source, Writer out) throws WriterException, MappingException {
+		if (isList(source))
+		{
+			writeList((List) source, out);
+		}
+		write(source, out);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void writeObjectOrList(Object source, OutputStream os) throws WriterException, MappingException {
+		if (isList(source))
+		{
+			writeList((List) source, os);
+		}
+		write(source, os);
+	}
+	
 
 }

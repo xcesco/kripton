@@ -20,4 +20,5 @@ public interface BinderJsonReader extends BinderReader {
 	<E> List<E> readList(List<E> list, Class<E> type, InputStream source) throws ReaderException;
 
 	<E> List<E> readList(List<E> list, Class<E> type, Reader source) throws ReaderException, MappingException;
+	
 }

@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.common.Base64;
+import com.abubusoft.kripton.common.Base64Util;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -33,7 +33,7 @@ public class Base64CompileTransform extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(beanClass, property, "$T.decode($L.getBlob($L))"), beanName,Base64.class, cursorName, indexName);				
+		methodBuilder.addCode("$L."+setter(beanClass, property, "$T.decode($L.getBlob($L))"), beanName,Base64Util.class, cursorName, indexName);				
 	}
 	
 	@Override

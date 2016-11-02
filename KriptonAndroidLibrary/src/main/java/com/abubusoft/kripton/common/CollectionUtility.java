@@ -12,7 +12,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
  */
 public class CollectionUtility {
 
-	public static <E extends List<Byte>> E toList(Byte[] array, Class<E> listType) {
+	public static <E extends List<Byte>> E asList(Byte[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -29,7 +29,7 @@ public class CollectionUtility {
 	}
 
 	//
-	public static <E extends List<Boolean>> E toList(Boolean[] array, Class<E> listType) {
+	public static <E extends List<Boolean>> E asList(Boolean[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -45,7 +45,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Character>> E toList(Character[] array, Class<E> listType) {
+	public static <E extends List<Character>> E asList(Character[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -62,7 +62,7 @@ public class CollectionUtility {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <E extends List<T>, T> E toList(T[] array, Class<E> listType) {
+	public static <E extends List<T>, T> E asList(T[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -78,7 +78,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Short>> E toList(Short[] array, Class<E> listType) {
+	public static <E extends List<Short>> E asList(Short[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -94,7 +94,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Integer>> E toList(Integer[] array, Class<E> listType) {
+	public static <E extends List<Integer>> E asList(Integer[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -110,7 +110,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Long>> List<Long> toList(Long[] array, Class<E> listType) {
+	public static <E extends List<Long>> List<Long> asList(Long[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -126,7 +126,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Float>> List<Float> toList(Float[] array, Class<E> listType) {
+	public static <E extends List<Float>> List<Float> asList(Float[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -142,7 +142,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Double>> List<Double> toList(Double[] array, Class<E> listType) {
+	public static <E extends List<Double>> List<Double> asList(Double[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -160,7 +160,7 @@ public class CollectionUtility {
 
 	//
 
-	public static <E extends List<Boolean>> E toList(boolean[] array, Class<E> listType) {
+	public static <E extends List<Boolean>> E asList(boolean[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -176,7 +176,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Character>> E toList(char[] array, Class<E> listType) {
+	public static <E extends List<Character>> E asList(char[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -192,7 +192,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Short>> E toList(short[] array, Class<E> listType) {
+	public static <E extends List<Short>> E asList(short[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -208,7 +208,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Integer>> E toList(int[] array, Class<E> listType) {
+	public static <E extends List<Integer>> E asList(int[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -224,7 +224,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Long>> List<Long> toList(long[] array, Class<E> listType) {
+	public static <E extends List<Long>> List<Long> asList(long[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -240,7 +240,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Float>> List<Float> toList(float[] array, Class<E> listType) {
+	public static <E extends List<Float>> List<Float> asList(float[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -256,7 +256,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static <E extends List<Double>> List<Double> toList(double[] array, Class<E> listType) {
+	public static <E extends List<Double>> List<Double> asList(double[] array, Class<E> listType) {
 		E result;
 		try {
 			result = listType.newInstance();
@@ -272,7 +272,7 @@ public class CollectionUtility {
 		}
 	}
 
-	public static boolean[] toBooleanTypeArray(List<Boolean> input) {
+	public static boolean[] asBooleanTypeArray(List<Boolean> input) {
 		boolean[] result = new boolean[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -282,7 +282,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static byte[] toByteTypeArray(List<Byte> input) {
+	public static byte[] asByteTypeArray(List<Byte> input) {
 		byte[] result = new byte[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -292,7 +292,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static char[] toCharacterTypeArray(List<Character> input) {
+	public static char[] asCharacterTypeArray(List<Character> input) {
 		char[] result = new char[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -302,7 +302,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static short[] toShortTypeArray(List<Short> input) {
+	public static short[] asShortTypeArray(List<Short> input) {
 		short[] result = new short[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -312,7 +312,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static int[] toIntegerTypeArray(List<Integer> input) {
+	public static int[] asIntegerTypeArray(List<Integer> input) {
 		int[] result = new int[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -322,7 +322,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static long[] toLongTypeArray(List<Long> input) {
+	public static long[] asLongTypeArray(List<Long> input) {
 		long[] result = new long[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -332,7 +332,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static float[] toFloatTypeArray(List<Float> input) {
+	public static float[] asFloatTypeArray(List<Float> input) {
 		float[] result = new float[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -342,7 +342,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static double[] toDoubleTypeArray(List<Double> input) {
+	public static double[] asDoubleTypeArray(List<Double> input) {
 		double[] result = new double[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -352,7 +352,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static String[] toStringArray(List<String> input) {
+	public static String[] asStringArray(List<String> input) {
 		String[] result = new String[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -362,7 +362,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static Boolean[] toBooleanArray(List<Boolean> input) {
+	public static Boolean[] asBooleanArray(List<Boolean> input) {
 		Boolean[] result = new Boolean[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -372,7 +372,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static Byte[] toByteArray(List<Byte> input) {
+	public static Byte[] asByteArray(List<Byte> input) {
 		Byte[] result = new Byte[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -382,7 +382,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static Character[] toCharacterArray(List<Character> input) {
+	public static Character[] asCharacterArray(List<Character> input) {
 		Character[] result = new Character[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -392,7 +392,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static Short[] toShortArray(List<Short> input) {
+	public static Short[] asShortArray(List<Short> input) {
 		Short[] result = new Short[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -402,7 +402,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static Integer[] toIntegerArray(List<Integer> input) {
+	public static Integer[] asIntegerArray(List<Integer> input) {
 		Integer[] result = new Integer[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -412,7 +412,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static Long[] toLongArray(List<Long> input) {
+	public static Long[] asLongArray(List<Long> input) {
 		Long[] result = new Long[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -423,11 +423,11 @@ public class CollectionUtility {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E>  E[] toArray(List<E> input) {
+	public static <E>  E[] asArray(List<E> input) {
 		return (E[]) input.toArray();
 	}
 	
-	public static Float[] toFloatArray(List<Float> input) {
+	public static Float[] asFloatArray(List<Float> input) {
 		Float[] result = new Float[input.size()];
 
 		for (int i = 0; i < result.length; i++) {
@@ -437,7 +437,7 @@ public class CollectionUtility {
 		return result;
 	}
 
-	public static Double[] toDoubleArray(List<Double> input) {
+	public static Double[] asDoubleArray(List<Double> input) {
 		Double[] result = new Double[input.size()];
 
 		for (int i = 0; i < result.length; i++) {

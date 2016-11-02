@@ -6,9 +6,12 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.common.CalendarUtil;
+import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.CurrencyUtil;
 import com.abubusoft.kripton.common.DateUtil;
 import com.abubusoft.kripton.common.LocaleUtil;
+import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.common.TimeUtil;
 import com.abubusoft.kripton.common.TimeZoneUtil;
@@ -17,6 +20,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -40,7 +44,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE 1=1</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -48,7 +52,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    *
    * @return selected bean or <code>null</code>.
@@ -58,73 +62,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE 1=1", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -134,7 +160,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE id = ${id}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -142,7 +168,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param id
    * @param listener
@@ -152,105 +178,138 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE id = '%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE id = ?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE id = '%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean resultBean=new Bean();
 
     try {
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("value_big_decimal");
-        int index2=cursor.getColumnIndex("value_big_integer");
-        int index3=cursor.getColumnIndex("value_bool_type");
-        int index4=cursor.getColumnIndex("value_bool");
-        int index5=cursor.getColumnIndex("value_byte_type");
-        int index6=cursor.getColumnIndex("value_byte");
-        int index7=cursor.getColumnIndex("value_char_type");
-        int index8=cursor.getColumnIndex("value_char");
-        int index9=cursor.getColumnIndex("value_short_type");
-        int index10=cursor.getColumnIndex("value_short");
-        int index11=cursor.getColumnIndex("value_int_type");
-        int index12=cursor.getColumnIndex("value_int");
-        int index13=cursor.getColumnIndex("value_long_type");
-        int index14=cursor.getColumnIndex("value_long");
-        int index15=cursor.getColumnIndex("value_float_type");
-        int index16=cursor.getColumnIndex("value_float");
-        int index17=cursor.getColumnIndex("value_double_type");
-        int index18=cursor.getColumnIndex("value_double");
-        int index19=cursor.getColumnIndex("value_string");
-        int index20=cursor.getColumnIndex("value_date");
+        int index0=cursor.getColumnIndex("value_bool_type");
+        int index1=cursor.getColumnIndex("value_bool");
+        int index2=cursor.getColumnIndex("value_byte_type");
+        int index3=cursor.getColumnIndex("value_byte");
+        int index4=cursor.getColumnIndex("value_short_type");
+        int index5=cursor.getColumnIndex("value_short");
+        int index6=cursor.getColumnIndex("value_int_type");
+        int index7=cursor.getColumnIndex("value_int");
+        int index8=cursor.getColumnIndex("value_string");
+        int index9=cursor.getColumnIndex("value_char_type");
+        int index10=cursor.getColumnIndex("value_char");
+        int index11=cursor.getColumnIndex("value_float_type");
+        int index12=cursor.getColumnIndex("value_float");
+        int index13=cursor.getColumnIndex("value_big_integer");
+        int index14=cursor.getColumnIndex("value_big_decimal");
+        int index15=cursor.getColumnIndex("value_enum_type");
+        int index16=cursor.getColumnIndex("value_long_type");
+        int index17=cursor.getColumnIndex("value_long");
+        int index18=cursor.getColumnIndex("value_double_type");
+        int index19=cursor.getColumnIndex("value_double");
+        int index20=cursor.getColumnIndex("value_locale");
         int index21=cursor.getColumnIndex("value_calendar");
-        int index22=cursor.getColumnIndex("value_locale");
+        int index22=cursor.getColumnIndex("value_date");
         int index23=cursor.getColumnIndex("value_url");
         int index24=cursor.getColumnIndex("value_time");
         int index25=cursor.getColumnIndex("value_currency");
         int index26=cursor.getColumnIndex("value_time_zone");
-        int index27=cursor.getColumnIndex("value_enum_type");
+        int index27=cursor.getColumnIndex("value_time_list");
+        int index28=cursor.getColumnIndex("value_strin_list");
+        int index29=cursor.getColumnIndex("value_long_list");
+        int index30=cursor.getColumnIndex("value_byte_array");
+        int index31=cursor.getColumnIndex("value_long_type_array");
+        int index32=cursor.getColumnIndex("value_long_array");
+        int index33=cursor.getColumnIndex("value_bean_array");
+        int index34=cursor.getColumnIndex("value_string_array");
+        int index35=cursor.getColumnIndex("value_char_list");
+        int index36=cursor.getColumnIndex("value_char_type_array");
+        int index37=cursor.getColumnIndex("value_char_array");
+        int index38=cursor.getColumnIndex("id");
 
         int rowCount=cursor.getCount();
         do
          {
           // reset mapping
-          resultBean.id=0L;
-          resultBean.valueBigDecimal=null;
-          resultBean.valueBigInteger=null;
           resultBean.valueBoolType=false;
           resultBean.valueBool=null;
           resultBean.valueByteType=0;
           resultBean.valueByte=0;
-          resultBean.valueCharType=0;
-          resultBean.valueChar=0;
           resultBean.valueShortType=0;
           resultBean.valueShort=null;
           resultBean.valueIntType=0;
           resultBean.valueInt=null;
-          resultBean.valueLongType=0L;
-          resultBean.valueLong=null;
+          resultBean.valueString=null;
+          resultBean.valueCharType=0;
+          resultBean.valueChar=0;
           resultBean.valueFloatType=0f;
           resultBean.valueFloat=null;
+          resultBean.valueBigInteger=null;
+          resultBean.valueBigDecimal=null;
+          resultBean.valueEnumType=null;
+          resultBean.valueLongType=0L;
+          resultBean.valueLong=null;
           resultBean.valueDoubleType=0;
           resultBean.valueDouble=null;
-          resultBean.valueString=null;
-          resultBean.valueDate=null;
-          resultBean.valueCalendar=null;
           resultBean.valueLocale=null;
+          resultBean.valueCalendar=null;
+          resultBean.valueDate=null;
           resultBean.valueUrl=null;
           resultBean.valueTime=null;
           resultBean.valueCurrency=null;
           resultBean.valueTimeZone=null;
-          resultBean.valueEnumType=null;
+          resultBean.valueTimeList=null;
+          resultBean.valueStrinList=null;
+          resultBean.valueLongList=null;
+          resultBean.valueByteArray=null;
+          resultBean.valueLongTypeArray=null;
+          resultBean.valueLongArray=null;
+          resultBean.valueBeanArray=null;
+          resultBean.valueStringArray=null;
+          resultBean.valueCharList=null;
+          resultBean.valueCharTypeArray=null;
+          resultBean.valueCharArray=null;
+          resultBean.id=0L;
 
           // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-          if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-          if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-          if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-          if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-          if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-          if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-          if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-          if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-          if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-          if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-          if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-          if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-          if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-          if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-          if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-          if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-          if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-          if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-          if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+          if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+          if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+          if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+          if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+          if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+          if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+          if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+          if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+          if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+          if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+          if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+          if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+          if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+          if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+          if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+          if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+          if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+          if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+          if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+          if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+          if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+          if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+          if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
           if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
           if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
           if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
           if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-          if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+          if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+          if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+          if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+          if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+          if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+          if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+          if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+          if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+          if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+          if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+          if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+          if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -265,7 +324,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE id = ${id}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -273,7 +332,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param id
    * @param listener
@@ -283,8 +342,8 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE id = '%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE id = ?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE id = '%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     try {
@@ -305,7 +364,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE id = ${id}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -313,7 +372,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param id
    *
@@ -324,8 +383,8 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE id = '%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE id = ?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE id = '%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Bean> resultList=new LinkedList<Bean>();
@@ -333,67 +392,89 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       do
        {
         resultBean=new Bean();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-        if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-        if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-        if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-        if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-        if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-        if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-        if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-        if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-        if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-        if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-        if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-        if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-        if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-        if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-        if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-        if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-        if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-        if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-        if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+        if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+        if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+        if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+        if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+        if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+        if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+        if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+        if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+        if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+        if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+        if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+        if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+        if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+        if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+        if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+        if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+        if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+        if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+        if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+        if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+        if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+        if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+        if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
         if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-        if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+        if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+        if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+        if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+        if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+        if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+        if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+        if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+        if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+        if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+        if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+        if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+        if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -405,7 +486,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Update query:</p>
-   * <pre>UPDATE bean SET value_big_decimal=${value.valueBigDecimal}, value_big_integer=${value.valueBigInteger}, value_bool_type=${value.valueBoolType}, value_bool=${value.valueBool}, value_byte_type=${value.valueByteType}, value_byte=${value.valueByte}, value_char_type=${value.valueCharType}, value_char=${value.valueChar}, value_short_type=${value.valueShortType}, value_short=${value.valueShort}, value_int_type=${value.valueIntType}, value_int=${value.valueInt}, value_long_type=${value.valueLongType}, value_long=${value.valueLong}, value_float_type=${value.valueFloatType}, value_float=${value.valueFloat}, value_double_type=${value.valueDoubleType}, value_double=${value.valueDouble}, value_string=${value.valueString}, value_date=${value.valueDate}, value_calendar=${value.valueCalendar}, value_locale=${value.valueLocale}, value_url=${value.valueUrl}, value_time=${value.valueTime}, value_currency=${value.valueCurrency}, value_time_zone=${value.valueTimeZone}, value_enum_type=${value.valueEnumType} WHERE id=${value.id}</pre>
+   * <pre>UPDATE bean SET value_bool_type=${value.valueBoolType}, value_bool=${value.valueBool}, value_byte_type=${value.valueByteType}, value_byte=${value.valueByte}, value_short_type=${value.valueShortType}, value_short=${value.valueShort}, value_int_type=${value.valueIntType}, value_int=${value.valueInt}, value_string=${value.valueString}, value_char_type=${value.valueCharType}, value_char=${value.valueChar}, value_float_type=${value.valueFloatType}, value_float=${value.valueFloat}, value_big_integer=${value.valueBigInteger}, value_big_decimal=${value.valueBigDecimal}, value_enum_type=${value.valueEnumType}, value_long_type=${value.valueLongType}, value_long=${value.valueLong}, value_double_type=${value.valueDoubleType}, value_double=${value.valueDouble}, value_locale=${value.valueLocale}, value_calendar=${value.valueCalendar}, value_date=${value.valueDate}, value_url=${value.valueUrl}, value_time=${value.valueTime}, value_currency=${value.valueCurrency}, value_time_zone=${value.valueTimeZone}, value_time_list=${value.valueTimeList}, value_strin_list=${value.valueStrinList}, value_long_list=${value.valueLongList}, value_byte_array=${value.valueByteArray}, value_long_type_array=${value.valueLongTypeArray}, value_long_array=${value.valueLongArray}, value_bean_array=${value.valueBeanArray}, value_string_array=${value.valueStringArray}, value_char_list=${value.valueCharList}, value_char_type_array=${value.valueCharTypeArray}, value_char_array=${value.valueCharArray} WHERE id=${value.id}</pre>
    *
    * @param value
    * 	used as updated field and in where condition
@@ -416,18 +497,6 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
   public long updateOne(Bean value) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
-    if (value.valueBigDecimal!=null) {
-      contentValues.put("value_big_decimal", value.valueBigDecimal.toPlainString());
-    } else {
-      contentValues.putNull("value_big_decimal");
-    }
-
-    if (value.valueBigInteger!=null) {
-      contentValues.put("value_big_integer", value.valueBigInteger.toString());
-    } else {
-      contentValues.putNull("value_big_integer");
-    }
 
     contentValues.put("value_bool_type", value.valueBoolType);
 
@@ -443,14 +512,6 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.put("value_byte", value.valueByte);
     } else {
       contentValues.putNull("value_byte");
-    }
-
-    contentValues.put("value_char_type", (int)value.valueCharType);
-
-    if (value.valueChar!=null) {
-      contentValues.put("value_char", (int)value.valueChar);
-    } else {
-      contentValues.putNull("value_char");
     }
 
     contentValues.put("value_short_type", (int)value.valueShortType);
@@ -469,12 +530,18 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.putNull("value_int");
     }
 
-    contentValues.put("value_long_type", value.valueLongType);
-
-    if (value.valueLong!=null) {
-      contentValues.put("value_long", value.valueLong);
+    if (value.valueString!=null) {
+      contentValues.put("value_string", value.valueString);
     } else {
-      contentValues.putNull("value_long");
+      contentValues.putNull("value_string");
+    }
+
+    contentValues.put("value_char_type", (int)value.valueCharType);
+
+    if (value.valueChar!=null) {
+      contentValues.put("value_char", (int)value.valueChar);
+    } else {
+      contentValues.putNull("value_char");
     }
 
     contentValues.put("value_float_type", value.valueFloatType);
@@ -485,6 +552,32 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.putNull("value_float");
     }
 
+    if (value.valueBigInteger!=null) {
+      contentValues.put("value_big_integer", value.valueBigInteger.toString());
+    } else {
+      contentValues.putNull("value_big_integer");
+    }
+
+    if (value.valueBigDecimal!=null) {
+      contentValues.put("value_big_decimal", value.valueBigDecimal.toPlainString());
+    } else {
+      contentValues.putNull("value_big_decimal");
+    }
+
+    if (value.valueEnumType!=null) {
+      contentValues.put("value_enum_type", value.valueEnumType.toString());
+    } else {
+      contentValues.putNull("value_enum_type");
+    }
+
+    contentValues.put("value_long_type", value.valueLongType);
+
+    if (value.valueLong!=null) {
+      contentValues.put("value_long", value.valueLong);
+    } else {
+      contentValues.putNull("value_long");
+    }
+
     contentValues.put("value_double_type", value.valueDoubleType);
 
     if (value.valueDouble!=null) {
@@ -493,28 +586,22 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.putNull("value_double");
     }
 
-    if (value.valueString!=null) {
-      contentValues.put("value_string", value.valueString);
+    if (value.valueLocale!=null) {
+      contentValues.put("value_locale", LocaleUtil.write(value.valueLocale));
     } else {
-      contentValues.putNull("value_string");
+      contentValues.putNull("value_locale");
+    }
+
+    if (value.valueCalendar!=null) {
+      contentValues.put("value_calendar", CalendarUtil.write(value.valueCalendar));
+    } else {
+      contentValues.putNull("value_calendar");
     }
 
     if (value.valueDate!=null) {
       contentValues.put("value_date", DateUtil.write(value.valueDate));
     } else {
       contentValues.putNull("value_date");
-    }
-
-    if (value.valueCalendar!=null) {
-      contentValues.put("value_calendar", DateUtil.writeCalendar(value.valueCalendar));
-    } else {
-      contentValues.putNull("value_calendar");
-    }
-
-    if (value.valueLocale!=null) {
-      contentValues.put("value_locale", LocaleUtil.write(value.valueLocale));
-    } else {
-      contentValues.putNull("value_locale");
     }
 
     if (value.valueUrl!=null) {
@@ -541,22 +628,82 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.putNull("value_time_zone");
     }
 
-    if (value.valueEnumType!=null) {
-      contentValues.put("value_enum_type", value.valueEnumType.toString());
+    if (value.valueTimeList!=null) {
+      contentValues.put("value_time_list", ProcessorHelper.asByteArray(value.valueTimeList));
     } else {
-      contentValues.putNull("value_enum_type");
+      contentValues.putNull("value_time_list");
+    }
+
+    if (value.valueStrinList!=null) {
+      contentValues.put("value_strin_list", ProcessorHelper.asByteArray(value.valueStrinList));
+    } else {
+      contentValues.putNull("value_strin_list");
+    }
+
+    if (value.valueLongList!=null) {
+      contentValues.put("value_long_list", ProcessorHelper.asByteArray(value.valueLongList));
+    } else {
+      contentValues.putNull("value_long_list");
+    }
+
+    if (value.valueByteArray!=null) {
+      contentValues.put("value_byte_array", value.valueByteArray);
+    } else {
+      contentValues.putNull("value_byte_array");
+    }
+
+    if (value.valueLongTypeArray!=null) {
+      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueLongTypeArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_long_type_array");
+    }
+
+    if (value.valueLongArray!=null) {
+      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueLongArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_long_array");
+    }
+
+    if (value.valueBeanArray!=null) {
+      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueBeanArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_bean_array");
+    }
+
+    if (value.valueStringArray!=null) {
+      contentValues.put("value_string_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueStringArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_string_array");
+    }
+
+    if (value.valueCharList!=null) {
+      contentValues.put("value_char_list", ProcessorHelper.asByteArray(value.valueCharList));
+    } else {
+      contentValues.putNull("value_char_list");
+    }
+
+    if (value.valueCharTypeArray!=null) {
+      contentValues.put("value_char_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueCharTypeArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_char_type_array");
+    }
+
+    if (value.valueCharArray!=null) {
+      contentValues.put("value_char_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueCharArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_char_array");
     }
 
     String[] whereConditions={String.valueOf(value.id)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET value_big_decimal='"+StringUtil.checkSize(contentValues.get("value_big_decimal"))+"', value_big_integer='"+StringUtil.checkSize(contentValues.get("value_big_integer"))+"', value_bool_type='"+StringUtil.checkSize(contentValues.get("value_bool_type"))+"', value_bool='"+StringUtil.checkSize(contentValues.get("value_bool"))+"', value_byte_type='"+StringUtil.checkSize(contentValues.get("value_byte_type"))+"', value_byte='"+StringUtil.checkSize(contentValues.get("value_byte"))+"', value_char_type='"+StringUtil.checkSize(contentValues.get("value_char_type"))+"', value_char='"+StringUtil.checkSize(contentValues.get("value_char"))+"', value_short_type='"+StringUtil.checkSize(contentValues.get("value_short_type"))+"', value_short='"+StringUtil.checkSize(contentValues.get("value_short"))+"', value_int_type='"+StringUtil.checkSize(contentValues.get("value_int_type"))+"', value_int='"+StringUtil.checkSize(contentValues.get("value_int"))+"', value_long_type='"+StringUtil.checkSize(contentValues.get("value_long_type"))+"', value_long='"+StringUtil.checkSize(contentValues.get("value_long"))+"', value_float_type='"+StringUtil.checkSize(contentValues.get("value_float_type"))+"', value_float='"+StringUtil.checkSize(contentValues.get("value_float"))+"', value_double_type='"+StringUtil.checkSize(contentValues.get("value_double_type"))+"', value_double='"+StringUtil.checkSize(contentValues.get("value_double"))+"', value_string='"+StringUtil.checkSize(contentValues.get("value_string"))+"', value_date='"+StringUtil.checkSize(contentValues.get("value_date"))+"', value_calendar='"+StringUtil.checkSize(contentValues.get("value_calendar"))+"', value_locale='"+StringUtil.checkSize(contentValues.get("value_locale"))+"', value_url='"+StringUtil.checkSize(contentValues.get("value_url"))+"', value_time='"+StringUtil.checkSize(contentValues.get("value_time"))+"', value_currency='"+StringUtil.checkSize(contentValues.get("value_currency"))+"', value_time_zone='"+StringUtil.checkSize(contentValues.get("value_time_zone"))+"', value_enum_type='"+StringUtil.checkSize(contentValues.get("value_enum_type"))+"' WHERE id=%s"), (Object[])whereConditions);
+    Logger.info(StringUtil.formatSQL("UPDATE bean SET value_bool_type='"+StringUtil.checkSize(contentValues.get("value_bool_type"))+"', value_bool='"+StringUtil.checkSize(contentValues.get("value_bool"))+"', value_byte_type='"+StringUtil.checkSize(contentValues.get("value_byte_type"))+"', value_byte='"+StringUtil.checkSize(contentValues.get("value_byte"))+"', value_short_type='"+StringUtil.checkSize(contentValues.get("value_short_type"))+"', value_short='"+StringUtil.checkSize(contentValues.get("value_short"))+"', value_int_type='"+StringUtil.checkSize(contentValues.get("value_int_type"))+"', value_int='"+StringUtil.checkSize(contentValues.get("value_int"))+"', value_string='"+StringUtil.checkSize(contentValues.get("value_string"))+"', value_char_type='"+StringUtil.checkSize(contentValues.get("value_char_type"))+"', value_char='"+StringUtil.checkSize(contentValues.get("value_char"))+"', value_float_type='"+StringUtil.checkSize(contentValues.get("value_float_type"))+"', value_float='"+StringUtil.checkSize(contentValues.get("value_float"))+"', value_big_integer='"+StringUtil.checkSize(contentValues.get("value_big_integer"))+"', value_big_decimal='"+StringUtil.checkSize(contentValues.get("value_big_decimal"))+"', value_enum_type='"+StringUtil.checkSize(contentValues.get("value_enum_type"))+"', value_long_type='"+StringUtil.checkSize(contentValues.get("value_long_type"))+"', value_long='"+StringUtil.checkSize(contentValues.get("value_long"))+"', value_double_type='"+StringUtil.checkSize(contentValues.get("value_double_type"))+"', value_double='"+StringUtil.checkSize(contentValues.get("value_double"))+"', value_locale='"+StringUtil.checkSize(contentValues.get("value_locale"))+"', value_calendar='"+StringUtil.checkSize(contentValues.get("value_calendar"))+"', value_date='"+StringUtil.checkSize(contentValues.get("value_date"))+"', value_url='"+StringUtil.checkSize(contentValues.get("value_url"))+"', value_time='"+StringUtil.checkSize(contentValues.get("value_time"))+"', value_currency='"+StringUtil.checkSize(contentValues.get("value_currency"))+"', value_time_zone='"+StringUtil.checkSize(contentValues.get("value_time_zone"))+"', value_time_list='"+StringUtil.checkSize(contentValues.get("value_time_list"))+"', value_strin_list='"+StringUtil.checkSize(contentValues.get("value_strin_list"))+"', value_long_list='"+StringUtil.checkSize(contentValues.get("value_long_list"))+"', value_byte_array='"+StringUtil.checkSize(contentValues.get("value_byte_array"))+"', value_long_type_array='"+StringUtil.checkSize(contentValues.get("value_long_type_array"))+"', value_long_array='"+StringUtil.checkSize(contentValues.get("value_long_array"))+"', value_bean_array='"+StringUtil.checkSize(contentValues.get("value_bean_array"))+"', value_string_array='"+StringUtil.checkSize(contentValues.get("value_string_array"))+"', value_char_list='"+StringUtil.checkSize(contentValues.get("value_char_list"))+"', value_char_type_array='"+StringUtil.checkSize(contentValues.get("value_char_type_array"))+"', value_char_array='"+StringUtil.checkSize(contentValues.get("value_char_array"))+"' WHERE id=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "id=?", whereConditions);
     return result;
   }
 
   /**
    * <p>Insert query:</p>
-   * <pre>INSERT INTO bean (value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type) VALUES (${bean.valueBigDecimal}, ${bean.valueBigInteger}, ${bean.valueBoolType}, ${bean.valueBool}, ${bean.valueByteType}, ${bean.valueByte}, ${bean.valueCharType}, ${bean.valueChar}, ${bean.valueShortType}, ${bean.valueShort}, ${bean.valueIntType}, ${bean.valueInt}, ${bean.valueLongType}, ${bean.valueLong}, ${bean.valueFloatType}, ${bean.valueFloat}, ${bean.valueDoubleType}, ${bean.valueDouble}, ${bean.valueString}, ${bean.valueDate}, ${bean.valueCalendar}, ${bean.valueLocale}, ${bean.valueUrl}, ${bean.valueTime}, ${bean.valueCurrency}, ${bean.valueTimeZone}, ${bean.valueEnumType})</pre>
+   * <pre>INSERT INTO bean (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array) VALUES (${bean.valueBoolType}, ${bean.valueBool}, ${bean.valueByteType}, ${bean.valueByte}, ${bean.valueShortType}, ${bean.valueShort}, ${bean.valueIntType}, ${bean.valueInt}, ${bean.valueString}, ${bean.valueCharType}, ${bean.valueChar}, ${bean.valueFloatType}, ${bean.valueFloat}, ${bean.valueBigInteger}, ${bean.valueBigDecimal}, ${bean.valueEnumType}, ${bean.valueLongType}, ${bean.valueLong}, ${bean.valueDoubleType}, ${bean.valueDouble}, ${bean.valueLocale}, ${bean.valueCalendar}, ${bean.valueDate}, ${bean.valueUrl}, ${bean.valueTime}, ${bean.valueCurrency}, ${bean.valueTimeZone}, ${bean.valueTimeList}, ${bean.valueStrinList}, ${bean.valueLongList}, ${bean.valueByteArray}, ${bean.valueLongTypeArray}, ${bean.valueLongArray}, ${bean.valueBeanArray}, ${bean.valueStringArray}, ${bean.valueCharList}, ${bean.valueCharTypeArray}, ${bean.valueCharArray})</pre>
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * @param bean
@@ -567,18 +714,6 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
   public long insert(Bean bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
-    if (bean.valueBigDecimal!=null) {
-      contentValues.put("value_big_decimal", bean.valueBigDecimal.toPlainString());
-    } else {
-      contentValues.putNull("value_big_decimal");
-    }
-
-    if (bean.valueBigInteger!=null) {
-      contentValues.put("value_big_integer", bean.valueBigInteger.toString());
-    } else {
-      contentValues.putNull("value_big_integer");
-    }
 
     contentValues.put("value_bool_type", bean.valueBoolType);
 
@@ -594,14 +729,6 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.put("value_byte", bean.valueByte);
     } else {
       contentValues.putNull("value_byte");
-    }
-
-    contentValues.put("value_char_type", (int)bean.valueCharType);
-
-    if (bean.valueChar!=null) {
-      contentValues.put("value_char", (int)bean.valueChar);
-    } else {
-      contentValues.putNull("value_char");
     }
 
     contentValues.put("value_short_type", (int)bean.valueShortType);
@@ -620,12 +747,18 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.putNull("value_int");
     }
 
-    contentValues.put("value_long_type", bean.valueLongType);
-
-    if (bean.valueLong!=null) {
-      contentValues.put("value_long", bean.valueLong);
+    if (bean.valueString!=null) {
+      contentValues.put("value_string", bean.valueString);
     } else {
-      contentValues.putNull("value_long");
+      contentValues.putNull("value_string");
+    }
+
+    contentValues.put("value_char_type", (int)bean.valueCharType);
+
+    if (bean.valueChar!=null) {
+      contentValues.put("value_char", (int)bean.valueChar);
+    } else {
+      contentValues.putNull("value_char");
     }
 
     contentValues.put("value_float_type", bean.valueFloatType);
@@ -636,6 +769,32 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.putNull("value_float");
     }
 
+    if (bean.valueBigInteger!=null) {
+      contentValues.put("value_big_integer", bean.valueBigInteger.toString());
+    } else {
+      contentValues.putNull("value_big_integer");
+    }
+
+    if (bean.valueBigDecimal!=null) {
+      contentValues.put("value_big_decimal", bean.valueBigDecimal.toPlainString());
+    } else {
+      contentValues.putNull("value_big_decimal");
+    }
+
+    if (bean.valueEnumType!=null) {
+      contentValues.put("value_enum_type", bean.valueEnumType.toString());
+    } else {
+      contentValues.putNull("value_enum_type");
+    }
+
+    contentValues.put("value_long_type", bean.valueLongType);
+
+    if (bean.valueLong!=null) {
+      contentValues.put("value_long", bean.valueLong);
+    } else {
+      contentValues.putNull("value_long");
+    }
+
     contentValues.put("value_double_type", bean.valueDoubleType);
 
     if (bean.valueDouble!=null) {
@@ -644,28 +803,22 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.putNull("value_double");
     }
 
-    if (bean.valueString!=null) {
-      contentValues.put("value_string", bean.valueString);
+    if (bean.valueLocale!=null) {
+      contentValues.put("value_locale", LocaleUtil.write(bean.valueLocale));
     } else {
-      contentValues.putNull("value_string");
+      contentValues.putNull("value_locale");
+    }
+
+    if (bean.valueCalendar!=null) {
+      contentValues.put("value_calendar", CalendarUtil.write(bean.valueCalendar));
+    } else {
+      contentValues.putNull("value_calendar");
     }
 
     if (bean.valueDate!=null) {
       contentValues.put("value_date", DateUtil.write(bean.valueDate));
     } else {
       contentValues.putNull("value_date");
-    }
-
-    if (bean.valueCalendar!=null) {
-      contentValues.put("value_calendar", DateUtil.writeCalendar(bean.valueCalendar));
-    } else {
-      contentValues.putNull("value_calendar");
-    }
-
-    if (bean.valueLocale!=null) {
-      contentValues.put("value_locale", LocaleUtil.write(bean.valueLocale));
-    } else {
-      contentValues.putNull("value_locale");
     }
 
     if (bean.valueUrl!=null) {
@@ -692,14 +845,74 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       contentValues.putNull("value_time_zone");
     }
 
-    if (bean.valueEnumType!=null) {
-      contentValues.put("value_enum_type", bean.valueEnumType.toString());
+    if (bean.valueTimeList!=null) {
+      contentValues.put("value_time_list", ProcessorHelper.asByteArray(bean.valueTimeList));
     } else {
-      contentValues.putNull("value_enum_type");
+      contentValues.putNull("value_time_list");
+    }
+
+    if (bean.valueStrinList!=null) {
+      contentValues.put("value_strin_list", ProcessorHelper.asByteArray(bean.valueStrinList));
+    } else {
+      contentValues.putNull("value_strin_list");
+    }
+
+    if (bean.valueLongList!=null) {
+      contentValues.put("value_long_list", ProcessorHelper.asByteArray(bean.valueLongList));
+    } else {
+      contentValues.putNull("value_long_list");
+    }
+
+    if (bean.valueByteArray!=null) {
+      contentValues.put("value_byte_array", bean.valueByteArray);
+    } else {
+      contentValues.putNull("value_byte_array");
+    }
+
+    if (bean.valueLongTypeArray!=null) {
+      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueLongTypeArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_long_type_array");
+    }
+
+    if (bean.valueLongArray!=null) {
+      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueLongArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_long_array");
+    }
+
+    if (bean.valueBeanArray!=null) {
+      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueBeanArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_bean_array");
+    }
+
+    if (bean.valueStringArray!=null) {
+      contentValues.put("value_string_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueStringArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_string_array");
+    }
+
+    if (bean.valueCharList!=null) {
+      contentValues.put("value_char_list", ProcessorHelper.asByteArray(bean.valueCharList));
+    } else {
+      contentValues.putNull("value_char_list");
+    }
+
+    if (bean.valueCharTypeArray!=null) {
+      contentValues.put("value_char_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueCharTypeArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_char_type_array");
+    }
+
+    if (bean.valueCharArray!=null) {
+      contentValues.put("value_char_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueCharArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_char_array");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_big_decimal"))+"', '"+StringUtil.checkSize(contentValues.get("value_big_integer"))+"', '"+StringUtil.checkSize(contentValues.get("value_bool_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_bool"))+"', '"+StringUtil.checkSize(contentValues.get("value_byte_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_byte"))+"', '"+StringUtil.checkSize(contentValues.get("value_char_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_char"))+"', '"+StringUtil.checkSize(contentValues.get("value_short_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_short"))+"', '"+StringUtil.checkSize(contentValues.get("value_int_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_int"))+"', '"+StringUtil.checkSize(contentValues.get("value_long_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_long"))+"', '"+StringUtil.checkSize(contentValues.get("value_float_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_float"))+"', '"+StringUtil.checkSize(contentValues.get("value_double_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_double"))+"', '"+StringUtil.checkSize(contentValues.get("value_string"))+"', '"+StringUtil.checkSize(contentValues.get("value_date"))+"', '"+StringUtil.checkSize(contentValues.get("value_calendar"))+"', '"+StringUtil.checkSize(contentValues.get("value_locale"))+"', '"+StringUtil.checkSize(contentValues.get("value_url"))+"', '"+StringUtil.checkSize(contentValues.get("value_time"))+"', '"+StringUtil.checkSize(contentValues.get("value_currency"))+"', '"+StringUtil.checkSize(contentValues.get("value_time_zone"))+"', '"+StringUtil.checkSize(contentValues.get("value_enum_type"))+"')"));
+    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array) VALUES ('"+StringUtil.checkSize(contentValues.get("value_bool_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_bool"))+"', '"+StringUtil.checkSize(contentValues.get("value_byte_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_byte"))+"', '"+StringUtil.checkSize(contentValues.get("value_short_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_short"))+"', '"+StringUtil.checkSize(contentValues.get("value_int_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_int"))+"', '"+StringUtil.checkSize(contentValues.get("value_string"))+"', '"+StringUtil.checkSize(contentValues.get("value_char_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_char"))+"', '"+StringUtil.checkSize(contentValues.get("value_float_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_float"))+"', '"+StringUtil.checkSize(contentValues.get("value_big_integer"))+"', '"+StringUtil.checkSize(contentValues.get("value_big_decimal"))+"', '"+StringUtil.checkSize(contentValues.get("value_enum_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_long_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_long"))+"', '"+StringUtil.checkSize(contentValues.get("value_double_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_double"))+"', '"+StringUtil.checkSize(contentValues.get("value_locale"))+"', '"+StringUtil.checkSize(contentValues.get("value_calendar"))+"', '"+StringUtil.checkSize(contentValues.get("value_date"))+"', '"+StringUtil.checkSize(contentValues.get("value_url"))+"', '"+StringUtil.checkSize(contentValues.get("value_time"))+"', '"+StringUtil.checkSize(contentValues.get("value_currency"))+"', '"+StringUtil.checkSize(contentValues.get("value_time_zone"))+"', '"+StringUtil.checkSize(contentValues.get("value_time_list"))+"', '"+StringUtil.checkSize(contentValues.get("value_strin_list"))+"', '"+StringUtil.checkSize(contentValues.get("value_long_list"))+"', '"+StringUtil.checkSize(contentValues.get("value_byte_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_long_type_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_long_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_bean_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_string_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_char_list"))+"', '"+StringUtil.checkSize(contentValues.get("value_char_type_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_char_array"))+"')"));
     long result = database().insert("bean", null, contentValues);
     bean.id=result;
 
@@ -733,7 +946,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${value}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${value}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -741,7 +954,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param value
    *
@@ -752,73 +965,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(value==null?null:value.toPlainString())};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -892,7 +1127,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${value}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${value}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -900,7 +1135,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param value
    *
@@ -911,73 +1146,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(value==null?null:String.valueOf(value.toString()))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -1047,7 +1304,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueBoolType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueBoolType}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -1055,7 +1312,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueBoolType
    *
@@ -1066,73 +1323,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueBoolType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -1206,7 +1485,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueBool}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueBool}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -1214,7 +1493,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueBool
    *
@@ -1225,73 +1504,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueBool==null?null:String.valueOf(valueBool))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -1361,7 +1662,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueByteType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueByteType}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -1369,7 +1670,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueByteType
    *
@@ -1380,73 +1681,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueByteType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -1520,7 +1843,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueByte}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueByte}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -1528,7 +1851,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueByte
    *
@@ -1539,73 +1862,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueByte==null?null:String.valueOf(valueByte))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -1675,7 +2020,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueCharType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueCharType}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -1683,7 +2028,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueCharType
    *
@@ -1694,73 +2039,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf((int)valueCharType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -1834,7 +2201,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueChar}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueChar}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -1842,7 +2209,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueChar
    *
@@ -1853,73 +2220,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueChar==null?null:String.valueOf((int)valueChar))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -1989,7 +2378,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueShortType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueShortType}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -1997,7 +2386,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueShortType
    *
@@ -2008,73 +2397,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf((int)valueShortType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -2148,7 +2559,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueShort}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueShort}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -2156,7 +2567,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueShort
    *
@@ -2167,73 +2578,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueShort==null?null:String.valueOf((int)valueShort))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -2303,7 +2736,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueIntType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueIntType}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -2311,7 +2744,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueIntType
    *
@@ -2322,73 +2755,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueIntType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -2462,7 +2917,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueInt}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueInt}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -2470,7 +2925,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueInt
    *
@@ -2481,73 +2936,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueInt==null?null:String.valueOf(valueInt))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -2617,7 +3094,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueLongType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueLongType}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -2625,7 +3102,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueLongType
    *
@@ -2636,73 +3113,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueLongType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -2776,7 +3275,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueLong}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueLong}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -2784,7 +3283,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueLong
    *
@@ -2795,73 +3294,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueLong==null?null:String.valueOf(valueLong))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -2931,7 +3452,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueFloatType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueFloatType}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -2939,7 +3460,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueFloatType
    *
@@ -2950,73 +3471,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueFloatType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -3090,7 +3633,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueFloat}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueFloat}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -3098,7 +3641,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueFloat
    *
@@ -3109,73 +3652,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueFloat==null?null:String.valueOf(valueFloat))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -3245,7 +3810,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueDoubleType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueDoubleType}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -3253,7 +3818,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueDoubleType
    *
@@ -3264,73 +3829,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueDoubleType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -3404,7 +3991,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueDouble}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueDouble}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -3412,7 +3999,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueDouble
    *
@@ -3423,73 +4010,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueDouble==null?null:String.valueOf(valueDouble))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -3563,7 +4172,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueString}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueString}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -3571,7 +4180,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueString
    *
@@ -3582,73 +4191,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueString==null?null:valueString)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -3722,7 +4353,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueDate}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueDate}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -3730,7 +4361,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueDate
    *
@@ -3741,73 +4372,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueDate==null?null:String.valueOf(DateUtil.write(valueDate)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -3868,7 +4521,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueCalendar!=null) {
-      contentValues.put("value_calendar", DateUtil.writeCalendar(valueCalendar));
+      contentValues.put("value_calendar", CalendarUtil.write(valueCalendar));
     } else {
       contentValues.putNull("value_calendar");
     }
@@ -3881,7 +4534,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueCalendar}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueCalendar}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -3889,7 +4542,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueCalendar
    *
@@ -3898,75 +4551,97 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneCalendar(Calendar valueCalendar) {
     // build where condition
-    String[] args={(valueCalendar==null?null:String.valueOf(DateUtil.writeCalendar(valueCalendar)))};
+    String[] args={(valueCalendar==null?null:String.valueOf(CalendarUtil.write(valueCalendar)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -4006,7 +4681,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueCalendar==null?null:String.valueOf(DateUtil.writeCalendar(valueCalendar)))};
+    String[] whereConditions={(valueCalendar==null?null:String.valueOf(CalendarUtil.write(valueCalendar)))};
 
     Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE value=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value=?", whereConditions);
@@ -4040,7 +4715,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueLocale}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueLocale}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -4048,7 +4723,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueLocale
    *
@@ -4057,75 +4732,97 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneLocale(Calendar valueLocale) {
     // build where condition
-    String[] args={(valueLocale==null?null:String.valueOf(DateUtil.writeCalendar(valueLocale)))};
+    String[] args={(valueLocale==null?null:String.valueOf(CalendarUtil.write(valueLocale)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -4199,7 +4896,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueUrl}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueUrl}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -4207,7 +4904,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueUrl
    *
@@ -4218,73 +4915,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueUrl==null?null:String.valueOf(UrlUtil.write(valueUrl)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -4358,7 +5077,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueTime}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueTime}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -4366,7 +5085,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueTime
    *
@@ -4377,73 +5096,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueTime==null?null:String.valueOf(TimeUtil.write(valueTime)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -4517,7 +5258,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueCurrency}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueCurrency}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -4525,7 +5266,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueCurrency
    *
@@ -4536,73 +5277,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueCurrency==null?null:String.valueOf(CurrencyUtil.write(valueCurrency)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -4676,7 +5439,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueTimeZone}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueTimeZone}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -4684,7 +5447,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueTimeZone
    *
@@ -4695,73 +5458,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueTimeZone==null?null:String.valueOf(TimeZoneUtil.write(valueTimeZone)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();
@@ -4835,7 +5620,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=${valueEnumType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueEnumType}</pre>
    *
    * <p>Its parameters are:</p>
    *
@@ -4843,7 +5628,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    *
    * <p>Projected column are:</p>
    *
-   * <pre>[id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type]</pre>
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
    *
    * @param valueEnumType
    *
@@ -4854,73 +5639,95 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueEnumType==null?null:String.valueOf(valueEnumType.toString()))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_big_decimal, value_big_integer, value_bool_type, value_bool, value_byte_type, value_byte, value_char_type, value_char, value_short_type, value_short, value_int_type, value_int, value_long_type, value_long, value_float_type, value_float, value_double_type, value_double, value_string, value_date, value_calendar, value_locale, value_url, value_time, value_currency, value_time_zone, value_enum_type FROM bean WHERE value=?", args);
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_big_decimal");
-      int index2=cursor.getColumnIndex("value_big_integer");
-      int index3=cursor.getColumnIndex("value_bool_type");
-      int index4=cursor.getColumnIndex("value_bool");
-      int index5=cursor.getColumnIndex("value_byte_type");
-      int index6=cursor.getColumnIndex("value_byte");
-      int index7=cursor.getColumnIndex("value_char_type");
-      int index8=cursor.getColumnIndex("value_char");
-      int index9=cursor.getColumnIndex("value_short_type");
-      int index10=cursor.getColumnIndex("value_short");
-      int index11=cursor.getColumnIndex("value_int_type");
-      int index12=cursor.getColumnIndex("value_int");
-      int index13=cursor.getColumnIndex("value_long_type");
-      int index14=cursor.getColumnIndex("value_long");
-      int index15=cursor.getColumnIndex("value_float_type");
-      int index16=cursor.getColumnIndex("value_float");
-      int index17=cursor.getColumnIndex("value_double_type");
-      int index18=cursor.getColumnIndex("value_double");
-      int index19=cursor.getColumnIndex("value_string");
-      int index20=cursor.getColumnIndex("value_date");
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
       int index21=cursor.getColumnIndex("value_calendar");
-      int index22=cursor.getColumnIndex("value_locale");
+      int index22=cursor.getColumnIndex("value_date");
       int index23=cursor.getColumnIndex("value_url");
       int index24=cursor.getColumnIndex("value_time");
       int index25=cursor.getColumnIndex("value_currency");
       int index26=cursor.getColumnIndex("value_time_zone");
-      int index27=cursor.getColumnIndex("value_enum_type");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
 
       resultBean=new Bean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueBoolType=cursor.getInt(index3)==0?false:true; }
-      if (!cursor.isNull(index4)) { resultBean.valueBool=cursor.getInt(index4)==0?false:true; }
-      if (!cursor.isNull(index5)) { resultBean.valueByteType=(byte)cursor.getInt(index5); }
-      if (!cursor.isNull(index6)) { resultBean.valueByte=(byte)cursor.getInt(index6); }
-      if (!cursor.isNull(index7)) { resultBean.valueCharType=(char)cursor.getInt(index7); }
-      if (!cursor.isNull(index8)) { resultBean.valueChar=(char)cursor.getInt(index8); }
-      if (!cursor.isNull(index9)) { resultBean.valueShortType=cursor.getShort(index9); }
-      if (!cursor.isNull(index10)) { resultBean.valueShort=cursor.getShort(index10); }
-      if (!cursor.isNull(index11)) { resultBean.valueIntType=cursor.getInt(index11); }
-      if (!cursor.isNull(index12)) { resultBean.valueInt=cursor.getInt(index12); }
-      if (!cursor.isNull(index13)) { resultBean.valueLongType=cursor.getLong(index13); }
-      if (!cursor.isNull(index14)) { resultBean.valueLong=cursor.getLong(index14); }
-      if (!cursor.isNull(index15)) { resultBean.valueFloatType=cursor.getFloat(index15); }
-      if (!cursor.isNull(index16)) { resultBean.valueFloat=cursor.getFloat(index16); }
-      if (!cursor.isNull(index17)) { resultBean.valueDoubleType=cursor.getDouble(index17); }
-      if (!cursor.isNull(index18)) { resultBean.valueDouble=cursor.getDouble(index18); }
-      if (!cursor.isNull(index19)) { resultBean.valueString=cursor.getString(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueDate=DateUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=DateUtil.readCalendar(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
       if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index27)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asList(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asList(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asList(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
 
     }
     cursor.close();

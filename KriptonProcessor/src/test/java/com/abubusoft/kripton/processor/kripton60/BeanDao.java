@@ -55,8 +55,6 @@ public interface BeanDao {
 	@BindInsert()
 	long insert(Bean bean);
 	
-	
-	
 	// BigDecimal
 	@BindInsert()
 	long insert(BigDecimal valueBigDecimal);

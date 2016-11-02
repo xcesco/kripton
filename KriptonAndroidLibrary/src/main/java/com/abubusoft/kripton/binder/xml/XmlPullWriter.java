@@ -165,6 +165,9 @@ public class XmlPullWriter implements BinderWriter {
 		Map<String, ElementSchema> field2AttributeSchemaMapping = ms.getField2AttributeSchemaMapping();
 		for (String fieldName : field2AttributeSchemaMapping.keySet()) {
 			ElementSchema as = field2AttributeSchemaMapping.get(fieldName);
+			
+			//if (!as.getXmlInfo().enabled) continue;
+			
 			Field field = as.getField();
 			Object value = field.get(source);
 			if (value != null) {
@@ -181,6 +184,8 @@ public class XmlPullWriter implements BinderWriter {
 		ElementSchema vs = ms.getValueSchema();
 		if (vs == null)
 			return; // no ValueSchema, do nothing
+		
+		//if (!vs.getXmlInfo().enabled) return;
 
 		Field field = vs.getField();
 		Object value = field.get(source);
@@ -201,6 +206,8 @@ public class XmlPullWriter implements BinderWriter {
 		for (String fieldName : field2SchemaMapping.keySet()) {
 			ElementSchema schemaObj = field2SchemaMapping.get(fieldName);
 			ElementSchema es = (ElementSchema) schemaObj;
+			
+			//if (!es.getXmlInfo().enabled) continue;
 
 			// if not a tag skip, we cover it in another place
 			if (es.getXmlInfo().type != XmlType.TAG)
@@ -265,7 +272,6 @@ public class XmlPullWriter implements BinderWriter {
 	}
 
 	private void writeElementList(XmlSerializer serializer, Object source, ElementSchema es, String namespace) throws Exception {
-		// String xmlName = es.getXmlName()+"list";
 		if (es.hasWrapperName()) {
 			serializer.startTag(namespace, es.getWrapperName());
 		}
@@ -395,6 +401,8 @@ public class XmlPullWriter implements BinderWriter {
 			return; // do nothing
 
 		String xmlName = es.getName();
+		
+		//if (!es.getXmlInfo().enabled) return;
 
 		// primitives
 		if (Transformer.isPrimitive(type)) {

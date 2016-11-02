@@ -73,7 +73,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderReader implementation
 	 */
-	public static BinderJsonReader getJSONReader() {
+	public static BinderReader getJSONReader() {
 		return new JsonReader();
 	}
 
@@ -84,7 +84,7 @@ public class BinderFactory {
 	 *            info about encoding
 	 * @return an instance of BinderReader implementation.
 	 */
-	public static BinderJsonReader getJSONReader(BinderOptions format) {
+	public static BinderReader getJSONReader(BinderOptions format) {
 		return new JsonReader(format);
 	}
 

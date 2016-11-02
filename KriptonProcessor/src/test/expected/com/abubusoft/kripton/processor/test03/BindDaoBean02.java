@@ -3,7 +3,7 @@ package com.abubusoft.kripton.processor.test03;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.DaoHelper;
+import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtil;
 
 /**
@@ -34,7 +34,7 @@ public class BindDaoBean02 extends AbstractDao implements DaoBean02 {
     contentValues.clear();
 
     if (bean.getLista()!=null) {
-      contentValues.put("lista", DaoHelper.toByteArray(bean.getLista()));
+      contentValues.put("lista", ProcessorHelper.asByteArray(bean.getLista()));
     } else {
       contentValues.putNull("lista");
     }
@@ -48,7 +48,7 @@ public class BindDaoBean02 extends AbstractDao implements DaoBean02 {
     }
 
     if (bean.getBeanList()!=null) {
-      contentValues.put("bean_list", DaoHelper.toByteArray(bean.getBeanList()));
+      contentValues.put("bean_list", ProcessorHelper.asByteArray(bean.getBeanList()));
     } else {
       contentValues.putNull("bean_list");
     }
@@ -163,7 +163,7 @@ public class BindDaoBean02 extends AbstractDao implements DaoBean02 {
     contentValues.clear();
 
     if (bean.getLista()!=null) {
-      contentValues.put("lista", DaoHelper.toByteArray(bean.getLista()));
+      contentValues.put("lista", ProcessorHelper.asByteArray(bean.getLista()));
     } else {
       contentValues.putNull("lista");
     }
@@ -177,7 +177,7 @@ public class BindDaoBean02 extends AbstractDao implements DaoBean02 {
     }
 
     if (bean.getBeanList()!=null) {
-      contentValues.put("bean_list", DaoHelper.toByteArray(bean.getBeanList()));
+      contentValues.put("bean_list", ProcessorHelper.asByteArray(bean.getBeanList()));
     } else {
       contentValues.putNull("bean_list");
     }

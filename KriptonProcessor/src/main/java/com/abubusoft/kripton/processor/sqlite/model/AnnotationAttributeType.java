@@ -46,7 +46,8 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_LOG("log"), 
 	ATTRIBUTE_ASYNCTASK("asyncTask"), 
 	ATTRIBUTE_CURSOR("cursor"), 
-	ATTRIBUTE_FIELD_TYPE("fieldType")
+	ATTRIBUTE_FIELD_TYPE("fieldType"),
+	ATTRIBUTE_ENABLED("enabled")
 	
 	
 	;

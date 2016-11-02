@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -38,6 +39,7 @@ import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.common.TypeReflector;
 import com.abubusoft.kripton.exception.MappingException;
@@ -139,39 +141,8 @@ public class JsonReader implements BinderJsonReader {
 	private void readObject(Object instance, JSONObject jsonObj) throws Exception {
 		MappingSchema ms = MappingSchema.fromObject(instance);
 
-		//this.readAttribute(instance, jsonObj, ms);
-		//this.readValue(instance, jsonObj, ms);
 		this.readElement(instance, jsonObj, ms);
 	}
-
-//	private void readAttribute(Object instance, JSONObject jsonObj, MappingSchema ms) throws Exception {
-//		Map<String, ElementSchema> xml2AttributeSchemaMapping = ms.getXml2AttributeSchemaMapping();
-//		for (String xmlName : xml2AttributeSchemaMapping.keySet()) {
-//			Object jsonValue = jsonObj.opt("@" + xmlName);
-//			if (jsonValue != null) {
-//				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
-//					AttributeSchema as = xml2AttributeSchemaMapping.get(xmlName);
-//					Field field = as.getField();
-//					Object value = Transformer.read(String.valueOf(jsonValue), as.getFieldType());
-//					field.set(instance, value);
-//				}
-//			}
-//		}
-//	}
-
-//	private void readValue(Object instance, JSONObject jsonObj, MappingSchema ms) throws Exception {
-//		ValueSchema vs = ms.getValueSchema();
-//		if (vs != null) {
-//			Object jsonValue = jsonObj.opt(JsonWriter.VALUE_KEY);
-//			if (jsonValue != null) {
-//				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
-//					Field field = vs.getField();
-//					Object value = Transformer.read(String.valueOf(jsonValue), vs.getFieldType());
-//					field.set(instance, value);
-//				}
-//			}
-//		}
-//	}
 
 	private void readElement(Object instance, JSONObject jsonObj, MappingSchema ms) throws Exception {
 		Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
@@ -182,10 +153,13 @@ public class JsonReader implements BinderJsonReader {
 
 	private void readElementInternal(Object instance, JSONObject jsonObj, Map<String, ElementSchema> map) throws Exception {
 		Class<?> type;
-		for (String xmlName : map.keySet()) {
-			Object jsonValue = jsonObj.opt(xmlName);
+		for (String name : map.keySet()) {
+			Object jsonValue = jsonObj.opt(name);
 			if (jsonValue != null) {
-				ElementSchema es = map.get(xmlName);
+				ElementSchema es = map.get(name);
+				
+				if (!es.getJsonInfo().enabled) continue;
+				
 				Field field = es.getField();
 				type = es.getFieldType();
 
@@ -467,6 +441,35 @@ public class JsonReader implements BinderJsonReader {
 			throw new ReaderException("IO error!", e); 
 		}
 
+	}	
+	
+
+	
+	protected boolean isList(@SuppressWarnings("rawtypes") Class clazz)
+	{
+		if (clazz==null) return false;
+		
+		if (List.class.isAssignableFrom(clazz))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	protected Pair<Class, Class> getListElementClass(Class clazz)
+	{
+		if (List.class.isAssignableFrom(clazz))
+		{
+			final ParameterizedType genericSuperclass = (ParameterizedType) clazz.getGenericSuperclass();
+			
+			Class<?> elementType = (Class<?>) genericSuperclass.getActualTypeArguments()[0];
+			
+			return new Pair<Class, Class>(clazz,elementType);			
+		}
+		
+		return null;
 	}
 
 

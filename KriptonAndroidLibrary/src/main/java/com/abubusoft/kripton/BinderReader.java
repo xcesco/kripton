@@ -60,4 +60,5 @@ public interface BinderReader {
 	 */
 	public <T> T read(Class<? extends T>type, Reader source) throws ReaderException, MappingException;
 
+
 }

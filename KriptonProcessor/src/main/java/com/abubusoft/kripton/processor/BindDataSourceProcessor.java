@@ -282,21 +282,16 @@ public class BindDataSourceProcessor extends BaseProcessor {
 						String msg = String.format("In class '%s', property '%s' needs '%s' annotation", currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());
 						throw (new NoAnnotationFoundException(msg));
 					}
-
+					
 					if (bindAllFields || (property.getAnnotation(Bind.class)) != null) {
-						TypeName name = TypeName.get(property.getElement().asType());
-
-						LiteralType lt = LiteralType.of(name.toString());
-
-						/*
-						if (lt.isComposed()) {
-							String msg = String.format("In class '%s', property '%s' is ignored in database build because it is composed", currentEntity.getSimpleName(), property.getName());
-							info(msg);
-							return false;
-						}*/
-
 						ModelAnnotation annotation = property.getAnnotation(BindColumn.class);
 						if (annotation != null) {
+							// if field disable, skip property definition
+							if (AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_ENABLED)==false)
+							{
+								return false;
+							}
+							
 							property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_NULLABLE));
 							ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE));
 

@@ -22,17 +22,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.BinderOptions;
-import com.abubusoft.kripton.BinderReader;
-import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.common.Base64;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+
+import com.abubusoft.kripton.BinderJsonReader;
+import com.abubusoft.kripton.BinderJsonWriter;
+import com.abubusoft.kripton.common.Base64Util;
+import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
-
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public class AbstractSharedPreference {
 	
@@ -43,15 +42,12 @@ public class AbstractSharedPreference {
 	{
 		if (obj==null) return null;
 		
-		if (objWriter==null)
-		{
-			objWriter=BinderFactory.getJSONWriter(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
-		}
+		BinderJsonWriter objWriter = ProcessorHelper.getWriter();
 		
 		String result=null;		
 		try {
 			result = objWriter.write(obj);
-			result=Base64.encode(result.getBytes());
+			result=Base64Util.encode(result.getBytes());
 		} catch (MappingException e) {
 			e.printStackTrace();
 		} catch (WriterException e) {
@@ -65,15 +61,12 @@ public class AbstractSharedPreference {
 	{
 		if (input==null || input.length()==0) return null;
 		
-		if (objReader==null)
-		{
-			objReader=BinderFactory.getJSONReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
-		}
+		BinderJsonReader objReader = ProcessorHelper.getReader();
 		
 		E result=null;
 		String buffer;
 		try {
-			buffer=new String(Base64.decode(input));
+			buffer=new String(Base64Util.decode(input));
 			result=objReader.read(clazz, buffer );
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -84,15 +77,7 @@ public class AbstractSharedPreference {
 		return result;
 	}
 	
-	protected BinderWriter objWriter;
-	
-	protected BinderReader objReader;
-
 	public static final String STRING_ARRAY_SEPARATOR = ";##@@;";
-
-	//protected static final DefaultConverter defaultConverter = new DefaultConverter();
-
-	//protected HashMap<String, Converter> converterMap;
 
 	protected SharedPreferences prefs;
 		

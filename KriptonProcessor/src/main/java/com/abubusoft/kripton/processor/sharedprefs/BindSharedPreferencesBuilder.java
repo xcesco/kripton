@@ -28,6 +28,10 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
@@ -35,22 +39,17 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.JavadocUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
-import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
+import com.abubusoft.kripton.processor.sharedprefs.transform.SPTransform;
+import com.abubusoft.kripton.processor.sharedprefs.transform.SPTransformer;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 /**
  * @author xcesco
@@ -60,7 +59,7 @@ public class BindSharedPreferencesBuilder {
 
 	protected static final String PREFIX = "Bind";
 
-	protected static final String SUFFIX = "Preferences";
+	protected static final String SUFFIX = "SharedPreferences";
 
 	protected static Builder builder;
 
@@ -75,12 +74,14 @@ public class BindSharedPreferencesBuilder {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		String beanClassName = entity.getSimpleName().toString();
 
-		if (!beanClassName.endsWith(SUFFIX)) {
-			String msg = String.format("Class %s must have a name with suffix \"%s\" to be used with @%s", beanClassName, SUFFIX, BindSharedPreferences.class.getSimpleName());
-			throw (new InvalidNameException(msg));
+		boolean needSuffix=true;
+		if (beanClassName.endsWith(SUFFIX)) {
+			needSuffix=false;
+			//String msg = String.format("Class %s must have a name with suffix \"%s\" to be used with @%s", beanClassName, SUFFIX, BindSharedPreferences.class.getSimpleName());
+			//throw (new InvalidNameException(msg));
 		}
 
-		String className = PREFIX + beanClassName; // + SUFFIX;
+		String className = PREFIX + beanClassName + (needSuffix ? SUFFIX : "" );
 		ModelAnnotation annotation = entity.getAnnotation(BindSharedPreferences.class);
 		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_NAME);
 
@@ -150,6 +151,7 @@ public class BindSharedPreferencesBuilder {
 				.superclass(typeName("AbstractEditor"));
 		innerClassBuilder.addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).build());
 
+		SPTransform transform;
 		// write method
 		for (PrefProperty item : entity.getCollection()) {
 			MethodSpec.Builder builder = MethodSpec.methodBuilder("put" + converter.convert(item.getName()))
@@ -158,6 +160,11 @@ public class BindSharedPreferencesBuilder {
 					.addJavadoc("modifier for property $L\n", item.getName())
 					.returns(typeName("BindEditor"));
 
+			transform = SPTransformer.lookup(item);
+			transform.generateWriteProperty(builder, "editor", null, "value", item); //generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "bean", item, true);
+			builder.addCode(";\n");
+			
+			/*
 			switch (item.getPreferenceType()) {
 			case STRING:
 				if (item.getPropertyType().isArray()) {
@@ -184,7 +191,7 @@ public class BindSharedPreferencesBuilder {
 				break;
 			default:
 				break;
-			}
+			}*/
 
 			builder.addStatement("return this");
 			innerClassBuilder.addMethod(builder.build());
@@ -265,9 +272,16 @@ public class BindSharedPreferencesBuilder {
 					.addParameter(typeName(entity.getName()), "bean")
 					.returns(Void.TYPE);
 			method.addStatement("$T editor=prefs.edit()", SharedPreferences.Editor.class);
+			
+			SPTransform transform;
 			for (PrefProperty item : entity.getCollection()) {
+				
+				transform = SPTransformer.lookup(item);
+				transform.generateWriteProperty(method, "editor", typeName(entity.getElement()), "bean", item); //generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "bean", item, true);
+				method.addCode(";\n");
+				
 				// method.addCode("// set $L property ($L)\n", item.getName(), item.getPreferenceType());
-				switch (item.getPreferenceType()) {
+				/*switch (item.getPreferenceType()) {
 				case STRING:
 					if (item.getPropertyType().isArray()) {
 						method.addStatement("editor.putString($S, array2String(bean.$L))", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
@@ -293,7 +307,7 @@ public class BindSharedPreferencesBuilder {
 					break;
 				default:
 					break;
-				}
+				}*/
 
 			}
 			method.addCode("\n");
@@ -310,9 +324,15 @@ public class BindSharedPreferencesBuilder {
 				.addJavadoc("@return read bean\n")
 				.returns(typeName(entity.getName()));
 		method.addStatement("$T bean=new $T()", typeName(entity.getName()), typeName(entity.getName()));
+		
+		SPTransform transform;
+		
 		for (PrefProperty item : entity.getCollection()) {
 			// method.addCode("// get $L property ($L)\n", item.getName(), item.getPreferenceType());
-
+			transform=SPTransformer.lookup(item);
+			transform.generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "bean", item, true);
+			method.addCode(";\n");
+			/*
 			switch (item.getPreferenceType()) {
 			case STRING:
 				if (item.getPropertyType().isArray()) {
@@ -346,7 +366,7 @@ public class BindSharedPreferencesBuilder {
 				break;
 			default:
 				break;
-			}
+			}*/
 
 		}
 
@@ -357,6 +377,8 @@ public class BindSharedPreferencesBuilder {
 
 	private static void generateSingleReadMethod(PrefEntity entity) {
 		// read method
+		
+		SPTransform transform;
 
 		for (PrefProperty item : entity.getCollection()) {
 			MethodSpec.Builder method = MethodSpec.methodBuilder(item.getName())
@@ -364,8 +386,12 @@ public class BindSharedPreferencesBuilder {
 					.addJavadoc("read property $L\n\n", item.getName())
 					.addJavadoc("@return property $L value\n", item.getName())
 					.returns(item.getPropertyType().getName());
-			// method.addCode("// get $L property ($L)\n", item.getName(), item.getPreferenceType());
 
+			method.addCode("return ");
+			transform = SPTransformer.lookup(item);
+			transform.generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "defaultBean", item, false);
+			method.addCode(";\n");
+			/*
 			switch (item.getPreferenceType()) {
 			case STRING:
 				if (item.getPropertyType().isArray()) {
@@ -399,7 +425,7 @@ public class BindSharedPreferencesBuilder {
 				break;
 			default:
 				break;
-			}
+			}*/
 
 			builder.addMethod(method.build());
 		}

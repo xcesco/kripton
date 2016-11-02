@@ -30,9 +30,13 @@ import com.abubusoft.kripton.processor.BaseProcessorTest;
 @RunWith(JUnit4.class)
 public class TestKripton60 extends BaseProcessorTest {
 
-	
 	@Test
 	public void testFields() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(BeanDataSource.class, BeanDao.class, Bean.class, EnumType.class);
+	}
+
+	@Test
+	public void testSharedFields() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(Bean.class, EnumType.class);
 	}
 }

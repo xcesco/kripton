@@ -28,7 +28,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.commons.AesCbcWithIntegrity.CipherTextIvMac;
-import com.abubusoft.kripton.common.Base64;
+import com.abubusoft.kripton.common.Base64Util;
 
 
 public class Encrypter {
@@ -49,7 +49,7 @@ public class Encrypter {
 	public String encode(String input) throws UnsupportedEncodingException, GeneralSecurityException
 	{
 		CipherTextIvMac output = encrypt(input, key);
-		return Base64.encode(output.toString().getBytes());		
+		return Base64Util.encode(output.toString().getBytes());		
 	}
 
 	public String encode(byte[] inputBytes)
@@ -64,13 +64,13 @@ public class Encrypter {
         	e.printStackTrace();
             Logger.error("AES encryption error "+e.getMessage());
         }
-        return Base64.encode(encodedBytes);
+        return Base64Util.encode(encodedBytes);
 	}
 
 	public String decode(String input) throws UnsupportedEncodingException, GeneralSecurityException {
 		
 		//Use the constructor to re-create the CipherTextIvMac class from the string:
-		CipherTextIvMac cipherTextIvMac = new CipherTextIvMac (new String(Base64.decode(input)));
+		CipherTextIvMac cipherTextIvMac = new CipherTextIvMac (new String(Base64Util.decode(input)));
 		String plainText = decryptString(cipherTextIvMac, key);
 		  
 		return plainText;

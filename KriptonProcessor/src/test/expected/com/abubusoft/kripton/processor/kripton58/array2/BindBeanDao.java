@@ -2,13 +2,15 @@ package com.abubusoft.kripton.processor.kripton58.array2;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.DaoHelper;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.CollectionUtility;
+import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtil;
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -62,8 +64,8 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       resultBean=new BeanBean();
 
       if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.toArray(DaoHelper.toList(BeanInner.class, cursor.getBlob(index1)))); }
-      if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toArray(DaoHelper.toList(BeanInner.class, cursor.getBlob(index2)))); }
+      if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index1)))); }
+      if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index2)))); }
 
     }
     cursor.close();
@@ -91,7 +93,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
   @Override
   public BeanBean selectOne(BeanInner[] value, BeanInner[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
@@ -108,8 +110,8 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       resultBean=new BeanBean();
 
       if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.toArray(DaoHelper.toList(BeanInner.class, cursor.getBlob(index1)))); }
-      if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toArray(DaoHelper.toList(BeanInner.class, cursor.getBlob(index2)))); }
+      if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index1)))); }
+      if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index2)))); }
 
     }
     cursor.close();
@@ -136,7 +138,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
   @Override
   public void selectOne(BeanInner[] value, BeanInner[] value2, ReadBeanListener<BeanBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
@@ -160,8 +162,8 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-          if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.toArray(DaoHelper.toList(BeanInner.class, cursor.getBlob(index1)))); }
-          if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toArray(DaoHelper.toList(BeanInner.class, cursor.getBlob(index2)))); }
+          if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index1)))); }
+          if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index2)))); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -193,7 +195,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
   @Override
   public void selectOne(BeanInner[] value, BeanInner[] value2, ReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
@@ -235,7 +237,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
   @Override
   public List<BeanBean> selectList(BeanInner[] value, BeanInner[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
@@ -255,8 +257,8 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
         resultBean=new BeanBean();
 
         if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.toArray(DaoHelper.toList(BeanInner.class, cursor.getBlob(index1)))); }
-        if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.toArray(DaoHelper.toList(BeanInner.class, cursor.getBlob(index2)))); }
+        if (!cursor.isNull(index1)) { resultBean.setValue(CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index1)))); }
+        if (!cursor.isNull(index2)) { resultBean.setValue2(CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index2)))); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -284,7 +286,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={String.valueOf(id), (value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={String.valueOf(id), (value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtil.formatSQL("UPDATE bean_bean SET  WHERE id=%s and value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().update("bean_bean", contentValues, "id=? and value=? and value2=?", whereConditions);
@@ -311,13 +313,13 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     contentValues.put("id", id);
 
     if (value!=null) {
-      contentValues.put("value", DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)));
+      contentValues.put("value", ProcessorHelper.asByteArray(CollectionUtility.asList(value, ArrayList.class)));
     } else {
       contentValues.putNull("value");
     }
 
     if (value2!=null) {
-      contentValues.put("value2", DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)));
+      contentValues.put("value2", ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)));
     } else {
       contentValues.putNull("value2");
     }
@@ -343,13 +345,13 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (bean.getValue()!=null) {
-      contentValues.put("value", DaoHelper.toByteArray(CollectionUtility.toList(bean.getValue(), ArrayList.class)));
+      contentValues.put("value", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.getValue(), ArrayList.class)));
     } else {
       contentValues.putNull("value");
     }
 
     if (bean.getValue2()!=null) {
-      contentValues.put("value2", DaoHelper.toByteArray(CollectionUtility.toList(bean.getValue2(), ArrayList.class)));
+      contentValues.put("value2", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.getValue2(), ArrayList.class)));
     } else {
       contentValues.putNull("value2");
     }
@@ -375,7 +377,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(BeanInner[] value, BeanInner[] value2) {
-    String[] whereConditions={(value==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(DaoHelper.toByteArray(CollectionUtility.toList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtil.formatSQL("DELETE bean_bean WHERE value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().delete("bean_bean", "value=? and value2=?", whereConditions);

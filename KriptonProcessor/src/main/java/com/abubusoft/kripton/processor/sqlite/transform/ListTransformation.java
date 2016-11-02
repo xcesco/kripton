@@ -6,10 +6,10 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abubusoft.kripton.android.sqlite.DaoHelper;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -24,8 +24,8 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 
 	private TypeName rawTypeName;
 
-	public ListTransformation(TypeName clazz) {
-		this.listTypeName = (ParameterizedTypeName)clazz;
+	public ListTransformation(ParameterizedTypeName clazz) {
+		this.listTypeName = clazz;
 		this.rawTypeName=listTypeName.typeArguments.get(0);
 	}
 
@@ -34,7 +34,7 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		if (beanName != null) {
 			//methodBuilder.addCode("$T.toByteArray($T.toList($L." + getter(beanClass, property) + ", $T.class))", DaoHelper.class, CollectionUtility.class, beanName, ArrayList.class);
-			methodBuilder.addCode("$T.toByteArray($L." + getter(beanClass, property) + ")", DaoHelper.class, beanName);
+			methodBuilder.addCode("$T.asByteArray($L." + getter(beanClass, property) + ")", ProcessorHelper.class, beanName);
 		} else {
 			generateWriteProperty(methodBuilder, property.getName());
 		}
@@ -42,7 +42,7 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.toByteArray($L)", DaoHelper.class, objectName);
+		methodBuilder.addCode("$T.asByteArray($L)", ProcessorHelper.class, objectName);
 	}
 
 	@Override
@@ -52,11 +52,11 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 		Class<?> listClazz=defineListClass(listTypeName);
 		
 		if (TypeUtility.isString(rawTypeName)){
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toList(new $T<String>(), String.class, $L.getBlob($L))"), beanName, DaoHelper.class, listClazz, cursorName, indexName);
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asList(new $T<String>(), String.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, listClazz, cursorName, indexName);
 		} else if (TypeUtility.isTypeWrappedPrimitive(rawTypeName)){
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toList(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, DaoHelper.class, listClazz, name, name, cursorName, indexName);
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asList(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
 		} else {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.toList(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, DaoHelper.class, listClazz, name, name, cursorName, indexName);
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asList(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
 		}
 	}
 
@@ -81,7 +81,7 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 		
 		Class<?> listClazz=defineListClass(listTypeName);
 		
-		methodBuilder.addCode("$T.toList(new $T<$L>(),$T.class, $L.getBlob($L))", CollectionUtility.class, DaoHelper.class, listClazz, name, name, cursorName, indexName);
+		methodBuilder.addCode("$T.asList(new $T<$L>(),$T.class, $L.getBlob($L))", CollectionUtility.class, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
 	}
 
 	@Override

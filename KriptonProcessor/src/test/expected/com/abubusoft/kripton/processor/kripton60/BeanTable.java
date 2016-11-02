@@ -20,9 +20,9 @@ public class BeanTable {
    * DDL to create table bean
    * </p>
    *
-   * <pre>CREATE TABLE bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value_big_decimal TEXT, value_big_integer TEXT, value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_char_type INTEGER, value_char INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_long_type INTEGER, value_long INTEGER, value_float_type REAL, value_float REAL, value_double_type REAL, value_double REAL, value_string TEXT, value_date TEXT, value_calendar TEXT, value_locale TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_enum_type TEXT);</pre>
+   * <pre>CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value_big_decimal TEXT, value_big_integer TEXT, value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_char_type INTEGER, value_char INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_long_type INTEGER, value_long INTEGER, value_float_type REAL, value_float REAL, value_double_type REAL, value_double REAL, value_string TEXT, value_date TEXT, value_calendar TEXT, value_locale TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_enum_type TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);";
 
   /**
    * <p>
@@ -32,27 +32,6 @@ public class BeanTable {
    * <pre>DROP TABLE IF EXISTS bean;</pre>
    */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean;";
-
-  /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
-   *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#id
-   */
-  public static final String COLUMN_ID = "id";
-
-  /**
-   * Entity's property <code>valueBigDecimal</code> is associated to table column <code>value_big_decimal</code>. This costant represents column name.
-   *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueBigDecimal
-   */
-  public static final String COLUMN_VALUE_BIG_DECIMAL = "value_big_decimal";
-
-  /**
-   * Entity's property <code>valueBigInteger</code> is associated to table column <code>value_big_integer</code>. This costant represents column name.
-   *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueBigInteger
-   */
-  public static final String COLUMN_VALUE_BIG_INTEGER = "value_big_integer";
 
   /**
    * Entity's property <code>valueBoolType</code> is associated to table column <code>value_bool_type</code>. This costant represents column name.
@@ -83,20 +62,6 @@ public class BeanTable {
   public static final String COLUMN_VALUE_BYTE = "value_byte";
 
   /**
-   * Entity's property <code>valueCharType</code> is associated to table column <code>value_char_type</code>. This costant represents column name.
-   *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueCharType
-   */
-  public static final String COLUMN_VALUE_CHAR_TYPE = "value_char_type";
-
-  /**
-   * Entity's property <code>valueChar</code> is associated to table column <code>value_char</code>. This costant represents column name.
-   *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueChar
-   */
-  public static final String COLUMN_VALUE_CHAR = "value_char";
-
-  /**
    * Entity's property <code>valueShortType</code> is associated to table column <code>value_short_type</code>. This costant represents column name.
    *
    *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueShortType
@@ -125,18 +90,25 @@ public class BeanTable {
   public static final String COLUMN_VALUE_INT = "value_int";
 
   /**
-   * Entity's property <code>valueLongType</code> is associated to table column <code>value_long_type</code>. This costant represents column name.
+   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueLongType
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueString
    */
-  public static final String COLUMN_VALUE_LONG_TYPE = "value_long_type";
+  public static final String COLUMN_VALUE_STRING = "value_string";
 
   /**
-   * Entity's property <code>valueLong</code> is associated to table column <code>value_long</code>. This costant represents column name.
+   * Entity's property <code>valueCharType</code> is associated to table column <code>value_char_type</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueLong
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueCharType
    */
-  public static final String COLUMN_VALUE_LONG = "value_long";
+  public static final String COLUMN_VALUE_CHAR_TYPE = "value_char_type";
+
+  /**
+   * Entity's property <code>valueChar</code> is associated to table column <code>value_char</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueChar
+   */
+  public static final String COLUMN_VALUE_CHAR = "value_char";
 
   /**
    * Entity's property <code>valueFloatType</code> is associated to table column <code>value_float_type</code>. This costant represents column name.
@@ -153,6 +125,41 @@ public class BeanTable {
   public static final String COLUMN_VALUE_FLOAT = "value_float";
 
   /**
+   * Entity's property <code>valueBigInteger</code> is associated to table column <code>value_big_integer</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueBigInteger
+   */
+  public static final String COLUMN_VALUE_BIG_INTEGER = "value_big_integer";
+
+  /**
+   * Entity's property <code>valueBigDecimal</code> is associated to table column <code>value_big_decimal</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueBigDecimal
+   */
+  public static final String COLUMN_VALUE_BIG_DECIMAL = "value_big_decimal";
+
+  /**
+   * Entity's property <code>valueEnumType</code> is associated to table column <code>value_enum_type</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueEnumType
+   */
+  public static final String COLUMN_VALUE_ENUM_TYPE = "value_enum_type";
+
+  /**
+   * Entity's property <code>valueLongType</code> is associated to table column <code>value_long_type</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueLongType
+   */
+  public static final String COLUMN_VALUE_LONG_TYPE = "value_long_type";
+
+  /**
+   * Entity's property <code>valueLong</code> is associated to table column <code>value_long</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueLong
+   */
+  public static final String COLUMN_VALUE_LONG = "value_long";
+
+  /**
    * Entity's property <code>valueDoubleType</code> is associated to table column <code>value_double_type</code>. This costant represents column name.
    *
    *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueDoubleType
@@ -167,18 +174,11 @@ public class BeanTable {
   public static final String COLUMN_VALUE_DOUBLE = "value_double";
 
   /**
-   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column name.
+   * Entity's property <code>valueLocale</code> is associated to table column <code>value_locale</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueString
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueLocale
    */
-  public static final String COLUMN_VALUE_STRING = "value_string";
-
-  /**
-   * Entity's property <code>valueDate</code> is associated to table column <code>value_date</code>. This costant represents column name.
-   *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueDate
-   */
-  public static final String COLUMN_VALUE_DATE = "value_date";
+  public static final String COLUMN_VALUE_LOCALE = "value_locale";
 
   /**
    * Entity's property <code>valueCalendar</code> is associated to table column <code>value_calendar</code>. This costant represents column name.
@@ -188,11 +188,11 @@ public class BeanTable {
   public static final String COLUMN_VALUE_CALENDAR = "value_calendar";
 
   /**
-   * Entity's property <code>valueLocale</code> is associated to table column <code>value_locale</code>. This costant represents column name.
+   * Entity's property <code>valueDate</code> is associated to table column <code>value_date</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueLocale
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueDate
    */
-  public static final String COLUMN_VALUE_LOCALE = "value_locale";
+  public static final String COLUMN_VALUE_DATE = "value_date";
 
   /**
    * Entity's property <code>valueUrl</code> is associated to table column <code>value_url</code>. This costant represents column name.
@@ -223,9 +223,86 @@ public class BeanTable {
   public static final String COLUMN_VALUE_TIME_ZONE = "value_time_zone";
 
   /**
-   * Entity's property <code>valueEnumType</code> is associated to table column <code>value_enum_type</code>. This costant represents column name.
+   * Entity's property <code>valueTimeList</code> is associated to table column <code>value_time_list</code>. This costant represents column name.
    *
-   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueEnumType
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueTimeList
    */
-  public static final String COLUMN_VALUE_ENUM_TYPE = "value_enum_type";
+  public static final String COLUMN_VALUE_TIME_LIST = "value_time_list";
+
+  /**
+   * Entity's property <code>valueStrinList</code> is associated to table column <code>value_strin_list</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueStrinList
+   */
+  public static final String COLUMN_VALUE_STRIN_LIST = "value_strin_list";
+
+  /**
+   * Entity's property <code>valueLongList</code> is associated to table column <code>value_long_list</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueLongList
+   */
+  public static final String COLUMN_VALUE_LONG_LIST = "value_long_list";
+
+  /**
+   * Entity's property <code>valueByteArray</code> is associated to table column <code>value_byte_array</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueByteArray
+   */
+  public static final String COLUMN_VALUE_BYTE_ARRAY = "value_byte_array";
+
+  /**
+   * Entity's property <code>valueLongTypeArray</code> is associated to table column <code>value_long_type_array</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueLongTypeArray
+   */
+  public static final String COLUMN_VALUE_LONG_TYPE_ARRAY = "value_long_type_array";
+
+  /**
+   * Entity's property <code>valueLongArray</code> is associated to table column <code>value_long_array</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueLongArray
+   */
+  public static final String COLUMN_VALUE_LONG_ARRAY = "value_long_array";
+
+  /**
+   * Entity's property <code>valueBeanArray</code> is associated to table column <code>value_bean_array</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueBeanArray
+   */
+  public static final String COLUMN_VALUE_BEAN_ARRAY = "value_bean_array";
+
+  /**
+   * Entity's property <code>valueStringArray</code> is associated to table column <code>value_string_array</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueStringArray
+   */
+  public static final String COLUMN_VALUE_STRING_ARRAY = "value_string_array";
+
+  /**
+   * Entity's property <code>valueCharList</code> is associated to table column <code>value_char_list</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueCharList
+   */
+  public static final String COLUMN_VALUE_CHAR_LIST = "value_char_list";
+
+  /**
+   * Entity's property <code>valueCharTypeArray</code> is associated to table column <code>value_char_type_array</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueCharTypeArray
+   */
+  public static final String COLUMN_VALUE_CHAR_TYPE_ARRAY = "value_char_type_array";
+
+  /**
+   * Entity's property <code>valueCharArray</code> is associated to table column <code>value_char_array</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#valueCharArray
+   */
+  public static final String COLUMN_VALUE_CHAR_ARRAY = "value_char_array";
+
+  /**
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   *
+   *  @see com.abubusoft.kripton.processor.kripton60.Bean#id
+   */
+  public static final String COLUMN_ID = "id";
 }

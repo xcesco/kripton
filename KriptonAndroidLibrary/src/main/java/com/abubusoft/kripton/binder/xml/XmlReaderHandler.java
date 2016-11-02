@@ -68,6 +68,8 @@ class XmlReaderHandler extends DefaultHandler {
 			ElementSchema as = attributeSchemaMapping.get(attrName);
 			if (as == null)
 				continue;
+			
+			//if (!as.getXmlInfo().enabled) continue;
 
 			String attrValue = attrs.getValue(index);
 
@@ -86,9 +88,6 @@ class XmlReaderHandler extends DefaultHandler {
 
 			Map<String, ElementSchema> xmlWrapper2SchemaMapping = ms.getXmlWrapper2SchemaMapping();
 			if (xmlWrapper2SchemaMapping.containsKey(localName)) {
-				// SchemaArray value = new SchemaArray((AbstractSchema)
-				// xmlWrapper2SchemaMapping.get(localName), new ArrayList());
-				// helper.arrayStack.add(value);
 				return;
 			}
 
@@ -103,18 +102,7 @@ class XmlReaderHandler extends DefaultHandler {
 
 			if (helper.isRoot()) { // first time root element mapping
 				TypeElementSchema res = ms.getRootElementSchema();
-				String xmlName = res.xmlInfo.getName();
-				// String namespace = res.getNamespace();
-				// validation only for root element
-				// String srcXmlFullname = StringUtil.isEmpty(uri)?localName:"{"
-				// + uri + "}#" + localName;
-				// String targetXmlFullname =
-				// StringUtil.isEmpty(namespace)?xmlName:"{" + namespace + "}#"
-				// + xmlName;
-				// if (!srcXmlFullname.equals(targetXmlFullname)) {
-				// throw new ReaderException("Root element name mismatch, " +
-				// targetXmlFullname + " != " + srcXmlFullname);
-				// }
+				String xmlName = res.xmlInfo.getName();							
 
 				// simple validation only for root element
 				if (!xmlName.equalsIgnoreCase(localName)) {
@@ -140,11 +128,12 @@ class XmlReaderHandler extends DefaultHandler {
 					{
 						Object newObj = type.newInstance();
 						helper.valueStack.push(newObj);
-						
 					}
 				} else {
 					Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
 					ElementSchema schema = xml2SchemaMapping.get(localName);
+					
+					//if (!schema.getXmlInfo().enabled) return;
 
 					// detect type
 					type = schema.getFieldType();
@@ -201,11 +190,6 @@ class XmlReaderHandler extends DefaultHandler {
 					}
 
 				}
-
-				// if (schema != null && schema instanceof ElementSchema) {
-				// ElementSchema es = (ElementSchema) schema;
-
-				// }
 			}
 
 		} catch (Exception ex) {
@@ -244,13 +228,13 @@ class XmlReaderHandler extends DefaultHandler {
 				SchemaArray lastArray = helper.arrayStack.size() > 0 ? helper.arrayStack.peek() : null;
 				if (lastArray != null && lastArray.value0.getField().getDeclaringClass() == obj.getClass() && !lastArray.value0.getName().equals(localName)) {
 					ElementSchema es = lastArray.value0;
+					
+					//if (!es.getXmlInfo().enabled) return;
+					
 					Field field = es.getField();
 
 					int n = lastArray.value1.size();
 					Object value = Array.newInstance(es.getFieldType(), lastArray.value1.size());
-					// lastArray.value1.toArray();
-					// System.arraycopy(lastArray.value1.toArray(), 0,
-					// value, 0, n);
 					for (int i = 0; i < n; i++) {
 						Array.set(value, i, lastArray.value1.get(i));
 					}
@@ -276,6 +260,8 @@ class XmlReaderHandler extends DefaultHandler {
 
 				Map<String, ElementSchema> xml2SchemaMapping = ms.getXml2SchemaMapping();
 				ElementSchema schema = xml2SchemaMapping.get(localName);
+				
+				//if (!schema.getXmlInfo().enabled) return;
 
 				if (ms.xmlInfo.isMapEntryStub()) {
 					MapEntry mapStrategy = (MapEntry) obj;
@@ -382,6 +368,9 @@ class XmlReaderHandler extends DefaultHandler {
 				MappingSchema ms = MappingSchema.fromObject(obj);
 
 				ElementSchema vs = ms.getValueSchema();
+				
+				
+				
 				if (vs != null) {
 					Field field = vs.getField();
 					String xmlData = helper.textBuilder.toString();

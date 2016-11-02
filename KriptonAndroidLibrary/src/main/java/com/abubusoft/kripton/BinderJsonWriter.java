@@ -54,6 +54,8 @@ public interface BinderJsonWriter extends BinderWriter {
 	 * @throws WriterException if writes fail
 	 */
 	public String writeList(@SuppressWarnings("rawtypes") List source) throws WriterException, MappingException;
+
+	String writeObjectOrList(Object source) throws WriterException, MappingException;
 	
 
 }

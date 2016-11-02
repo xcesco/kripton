@@ -15,9 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.binder.schema;
 
-import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindJson;
 import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.transform.DefaultCustomTransform;
@@ -34,13 +33,6 @@ import com.abubusoft.kripton.exception.MappingException;
  * 
  */
 public class ElementSchema extends AbstractSchema {
-
-	/**
-	 * Json info of element schema
-	 */
-	public static class JsonInfo {
-
-	}
 
 	/**
 	 * Map info. Used for schema linked to field who implements Map interfaces.
@@ -78,8 +70,18 @@ public class ElementSchema extends AbstractSchema {
 	public static class XmlInfo {
 
 		public XmlType type;
+		//public boolean enabled;
 
 	}
+	
+	/**
+	 * Json info of element schema
+	 */
+	public static class JsonInfo {
+
+		public boolean enabled;
+	}
+
 
 	private MapInfo mapInfo;
 
@@ -96,6 +98,12 @@ public class ElementSchema extends AbstractSchema {
 	 * info about xml rapresentation
 	 */
 	protected XmlInfo xmlInfo;
+
+	private JsonInfo jsonInfo;
+
+	public JsonInfo getJsonInfo() {
+		return jsonInfo;
+	}
 
 	/**
 	 * Build map info.
@@ -138,11 +146,22 @@ public class ElementSchema extends AbstractSchema {
 
 	void buildXmlInfo(BindXml bindXmlAnnotation) {
 		xmlInfo = new XmlInfo();
-
+	
 		if (bindXmlAnnotation != null) {
+			//xmlInfo.enabled=bindXmlAnnotation.enabled();
 			xmlInfo.type = bindXmlAnnotation.value();
 		} else {
 			xmlInfo.type = XmlType.TAG;
+		}
+	}
+	
+	void buildJsonInfo(BindJson bindJsonAnnotation) {
+		jsonInfo = new JsonInfo();
+	
+		if (bindJsonAnnotation != null) {
+			jsonInfo.enabled=bindJsonAnnotation.enabled();			
+		} else {
+			jsonInfo.enabled = true;
 		}
 	}
 

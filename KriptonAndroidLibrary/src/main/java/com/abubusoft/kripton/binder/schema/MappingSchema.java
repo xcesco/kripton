@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindJson;
 import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindTypeXml;
@@ -72,23 +73,9 @@ public class MappingSchema {
 	}
 
 	/**
-	 * Generic database info
-	 *
-	 */
-	public static class TableInfo {
-
-		public String name;
-	}
-
-	/**
 	 * info for xml rapresentation
 	 */
 	public XmlInfo xmlInfo = new XmlInfo();
-
-	/**
-	 * info for database rapresentation
-	 */
-	public TableInfo tableInfo = new TableInfo();
 
 	/**
 	 * Counters
@@ -212,9 +199,6 @@ public class MappingSchema {
 			rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
 			rootElementSchema.xmlInfo.setNamespace(null);
 		}
-
-		//
-		tableInfo.name = type.getSimpleName();		
 
 	}
 
@@ -395,12 +379,15 @@ public class MappingSchema {
 				continue;
 			}
 
-			Bind bindAnnotation = field.getAnnotation(Bind.class);
+			
 			BindTransform bindTransform =field.getAnnotation(BindTransform.class);
+			
+			Bind bindAnnotation = field.getAnnotation(Bind.class);
 			BindXml bindXmlAnnotation = field.getAnnotation(BindXml.class);
+			BindJson bindJsonAnnotation = field.getAnnotation(BindJson.class);
 
-			if (!bindAllFields && bindAnnotation == null && bindXmlAnnotation != null) {
-				throw new MappingException("Can not use @BindXml,@BindColumn without @Bind for field " + field.getName() + " in class " + type.getCanonicalName());
+			if (!bindAllFields && bindAnnotation == null && (bindXmlAnnotation != null || bindJsonAnnotation != null)) {
+				throw new MappingException("Can not use @BindXml,@BindJson without @Bind for field " + field.getName() + " in class " + type.getCanonicalName());
 			}
 
 			order = 0;
@@ -441,6 +428,8 @@ public class MappingSchema {
 				}
 
 				elementSchema.buildXmlInfo(bindXmlAnnotation);
+				elementSchema.buildJsonInfo(bindJsonAnnotation);
+				
 				elementSchema.setField(field);
 				// put in set of used names
 				checkAlreadyUsed(elementSchema.getName(), usedNames, "Bind");
@@ -666,6 +655,7 @@ public class MappingSchema {
 	 * 
 	 * @param type
 	 * @return
+	 *		true if class is contained in maps.
 	 */
 	public static boolean contains(Class<?> type) {
 		return schemaCache.containsKey(type);

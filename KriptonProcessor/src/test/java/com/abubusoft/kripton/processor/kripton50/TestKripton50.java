@@ -33,9 +33,5 @@ public class TestKripton50 extends BaseProcessorTest {
 	}
 	
 	
-	@Test(expected=AssertionError.class)
-	public void testWrong() throws IOException, InstantiationException, IllegalAccessException {
-		buildSharedPreferencesProcessorTest(Wrong.class, UserAccessToken.class);
-	}
 
 }

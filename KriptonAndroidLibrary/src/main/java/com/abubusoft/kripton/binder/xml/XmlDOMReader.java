@@ -246,12 +246,14 @@ public class XmlDOMReader implements BinderReader {
 					String localName = node.getLocalName();
 
 					if (xmlWrapper2SchemaMapping.containsKey(localName)) {
-						// ASSERT: stiamo su un nodo wrapper. Che ignoriamo
+						// ASSERT: we are on ignored wrapper node
 						readElement(obj, childElement, anyChildElements);
 						continue;
 					}
 
 					ElementSchema schemaObj = xml2SchemaMapping.get(localName);
+					
+					//if (!schemaObj.getXmlInfo().enabled) continue;
 
 					if (schemaObj.getXmlInfo().type==XmlType.TAG) {
 						// found match element

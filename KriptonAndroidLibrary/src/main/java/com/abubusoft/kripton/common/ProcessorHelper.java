@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.sqlite;
+package com.abubusoft.kripton.common;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -16,7 +16,7 @@ import com.abubusoft.kripton.exception.WriterException;
  * @author Francesco Benincasa
  *
  */
-public abstract class DaoHelper {
+public abstract class ProcessorHelper {
 	
 	/**
 	 * Json writer. It's need to write embedded field
@@ -29,7 +29,7 @@ public abstract class DaoHelper {
 	protected static ThreadLocal<BinderJsonReader> objReader;
 
 	
-	public static String toString(List<?> value)
+	public static String asString(List<?> value)
 	{
 		BinderJsonWriter writer = getWriter();
 		
@@ -53,7 +53,7 @@ public abstract class DaoHelper {
 	 * @return
 	 * 		UTF-8 byte array
 	 */
-	public static byte[] toByteArray(List<?> value)
+	public static byte[] asByteArray(List<?> value)
 	{
 		BinderJsonWriter writer = getWriter();
 		
@@ -70,7 +70,7 @@ public abstract class DaoHelper {
 		return null;		
 	}
 	
-	public static byte[] toByteArray(List<?> value, Charset charset)
+	public static byte[] asByteArray(List<?> value, Charset charset)
 	{
 		BinderJsonWriter writer = getWriter();
 		
@@ -87,10 +87,7 @@ public abstract class DaoHelper {
 		return null;		
 	}
 
-	/**
-	 * @return
-	 */
-	private static BinderJsonWriter getWriter() {
+	public static BinderJsonWriter getWriter() {
 		if (objWriter==null)
 		{
 			objWriter=new ThreadLocal<BinderJsonWriter>() {
@@ -116,12 +113,37 @@ public abstract class DaoHelper {
 	 * @return
 	 * 			list of element extracted from blob
 	 */
-	public static <E> List<E> toList(Class<E> clazz, byte[] input)
+	public static <E> List<E> asList(Class<E> clazz, byte[] input)
 	{		
 		BinderJsonReader reader = getReader();
 		
 		try {
 			List<E> result = reader.readList(clazz, new String(input));
+			return result;
+		} catch (MappingException e) {
+			e.printStackTrace();
+		} catch (ReaderException e) {
+			e.printStackTrace();
+		} 
+		
+		return null;		
+	}
+	
+	/**
+	 * convert blog (byte[]) in a list of element of type clazz
+	 * @param clazz
+	 * 			item class
+	 * @param input
+	 * 			blob
+	 * @return
+	 * 			list of element extracted from blob
+	 */
+	public static <E> List<E> asList(Class<E> clazz, String input)
+	{		
+		BinderJsonReader reader = getReader();
+		
+		try {
+			List<E> result = reader.readList(clazz, input);
 			return result;
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -143,7 +165,8 @@ public abstract class DaoHelper {
 	 * @return
 	 * 			list of element extracted from blob
 	 */
-	public static <E, L extends List<E>> L toList(L list, Class<E> clazz, byte[] input)
+	@SuppressWarnings("unchecked")
+	public static <E, L extends List<E>> L asList(L list, Class<E> clazz, byte[] input)
 	{		
 		BinderJsonReader reader = getReader();
 		
@@ -158,19 +181,43 @@ public abstract class DaoHelper {
 		
 		return null;		
 	}
-
+	
 	/**
-	 * @return 
+	 * convert blog (byte[]) in a list of element of type clazz
 	 * 
+	 * @param list
+	 * @param clazz
+	 * 			item class
+	 * @param input
+	 * 			blob
+	 * @return
+	 * 			list of element extracted from blob
 	 */
-	private static BinderJsonReader getReader() {
+	@SuppressWarnings("unchecked")
+	public static <E, L extends List<E>> L asList(L list, Class<E> clazz, String input)
+	{		
+		BinderJsonReader reader = getReader();
+		
+		try {
+			L result = (L) reader.readList(list, clazz, input);
+			return result;
+		} catch (MappingException e) {
+			e.printStackTrace();
+		} catch (ReaderException e) {
+			e.printStackTrace();
+		} 
+		
+		return null;		
+	}
+
+	public static BinderJsonReader getReader() {
 		if (objReader==null)
 		{
 			objReader=new ThreadLocal<BinderJsonReader>() {
 
 				@Override
 				protected BinderJsonReader initialValue() {
-					return BinderFactory.getJSONReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+					return (BinderJsonReader) BinderFactory.getJSONReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 				}
 				
 			};			

@@ -18,7 +18,6 @@ package com.abubusoft.kripton.common;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,15 +34,6 @@ public class DateUtil {
 	public static String SHORT = "yyyy-MM-dd";
 
 	public static String TIME_ZONE = "GMT";
-	
-	public static Calendar readCalendar(String value) {
-		Date date=read(value);
-		
-		Calendar calendar=Calendar.getInstance();
-		calendar.setTime(date);
-		
-		return calendar;
-	}
 
 	public static Date read(String value) {
 		String pattern = getPattern(value);
@@ -61,10 +51,6 @@ public class DateUtil {
 		return text;
 	}
 	
-	public static String writeCalendar(Calendar value) {
-		return write(value.getTime());
-	}
-
 	static String getPattern(String text) {
 		int length = text.length();
 

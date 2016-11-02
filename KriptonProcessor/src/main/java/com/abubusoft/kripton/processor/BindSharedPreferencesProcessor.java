@@ -18,9 +18,9 @@
  */
 package com.abubusoft.kripton.processor;
 
-import java.util.ArrayList;
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -35,6 +35,7 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
@@ -42,11 +43,12 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
-import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldType;
 import com.abubusoft.kripton.processor.sharedprefs.BindSharedPreferencesBuilder;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefModel;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
+import com.abubusoft.kripton.processor.sharedprefs.transform.EnumTransform;
+import com.abubusoft.kripton.processor.sharedprefs.transform.SPTransformer;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 
 /**
@@ -94,6 +96,12 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 			int itemCounter = 0;
 			
 			parseBindType(roundEnv);
+			for (Element item : globalBeanElements.values()) {
+				if (item.getKind() == ElementKind.ENUM) {
+					SPTransformer.register(typeName(item), new EnumTransform(typeName(item)));
+				}
+
+			}
 
 			// Put all @BindSharedPreferences elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindSharedPreferences.class)) {
@@ -186,19 +194,14 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 					}
 
 					if (bindAllFields || property.hasAnnotation(Bind.class) || property.hasAnnotation(BindPreference.class)) {
-						if ((property.getPropertyType().isComposed() && !property.getPropertyType().isComposedType(String.class)) ||
-								(property.getPropertyType().isComposed() && !property.getPropertyType().isSameRawType(List.class.getName(), ArrayList.class.getName()))
-								) {
-							
-							String msg = String.format("In class '%s', property '%s' can not be used to generate BindSharedPreference", currentEntity.getSimpleName(), property.getName());
-							throw (new UnsupportedFieldType(msg));							
+						
+						ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
+						// if field disable, skip property definition
+						if (annotation != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_ENABLED)==false)
+						{
+							return false;
 						}
 						
-						//ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
-						//if (annotation != null) {
-							//String key = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindPreference.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
-						//}
-
 						return true;
 					}
 

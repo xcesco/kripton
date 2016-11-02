@@ -33,6 +33,13 @@ import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BindXml {
+	
+	/**
+	 * 
+	 * @return
+	 * 		if true, means field must bind persist model
+	 */
+	//boolean enabled() default true;
 
 	/**
 	 * Type of binding. Default is by TAG. See {@link XmlType}
