@@ -37,8 +37,8 @@ import com.squareup.javapoet.TypeName;
  */
 public class ArrayTransform extends AbstractCompileTimeTransform {
 
-	static Converter<String, String> nc=CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-	
+	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+
 	private TypeName clazz;
 
 	private boolean primitive;
@@ -49,11 +49,11 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 
 	public ArrayTransform(TypeName componentTypeName, boolean primitive) {
 		this.primitive = primitive;
-		if (primitive) {
-			this.clazz = componentTypeName;
-		} else {
-			this.clazz = componentTypeName;
-		}
+		// if (primitive) {
+		// this.clazz = componentTypeName;
+		// } else {
+		this.clazz = componentTypeName;
+		// }
 	}
 
 	@Override
@@ -73,29 +73,32 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		if (primitive) {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.as$LTypeArray($T.asList($L.TYPE, $L.getBlob($L)))"), beanName, CollectionUtility.class, primitiveType(), ProcessorHelper.class, primitiveType(), cursorName, indexName);
-		} else if (TypeUtility.isString(clazz)){
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.as$LTypeArray($T.asList($L.TYPE, $L.getBlob($L)))"), beanName, CollectionUtility.class, primitiveType(), ProcessorHelper.class, primitiveType(), cursorName,
+					indexName);
+		} else if (TypeUtility.isString(clazz)) {
 			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asStringArray($T.asList(String.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, ProcessorHelper.class, cursorName, indexName);
-		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)){
-			String name=nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".")+1));
+		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)) {
+			String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
 			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.as$LArray($T.asList($L.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, name, ProcessorHelper.class, name, cursorName, indexName);
 		} else {
-			String name=nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".")+1));			
+			String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
 			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asArray($T.asList($L.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, ProcessorHelper.class, name, cursorName, indexName);
 		}
 	}
 
 	/**
-	 * Convert to primitive type name. 
-	 * @return
-	 * 		primitive type name
+	 * Convert to primitive type name.
+	 * 
+	 * @return primitive type name
 	 */
 	public String primitiveType() {
-		String value=nc.convert(clazz.toString());
-		
-		if ("Char".equals(value)) value="Character";
-		if ("Int".equals(value)) value="Integer";
-		
+		String value = nc.convert(clazz.toString());
+
+		if ("Char".equals(value))
+			value = "Character";
+		if ("Int".equals(value))
+			value = "Integer";
+
 		return value;
 	}
 
@@ -114,7 +117,7 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);		
+		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
 	}
 
 	@Override

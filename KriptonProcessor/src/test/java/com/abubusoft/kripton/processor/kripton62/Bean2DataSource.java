@@ -13,27 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor;
+package com.abubusoft.kripton.processor.kripton62;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import com.abubusoft.kripton.processor.kripton45.TestKripton45;
-import com.abubusoft.kripton.processor.kripton47.TestKripton47;
-import com.abubusoft.kripton.processor.kripton50.TestKripton50;
-import com.abubusoft.kripton.processor.kripton62.TestKripton62;
-import com.abubusoft.kripton.processor.test05firt_aid.TestFirstAid;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-			TestKripton45.class, TestKripton47.class,
-			TestKripton50.class,
-			TestKripton62.class,
-			TestFirstAid.class })
-//@formatter:on
-public class SharedPreferenceProcessorSuiteTest {
+@BindDataSource(value=BeanDao2.class, fileName = "dummy" , version=1, asyncTask=false, cursor=false)
+public interface Bean2DataSource {
 
 }

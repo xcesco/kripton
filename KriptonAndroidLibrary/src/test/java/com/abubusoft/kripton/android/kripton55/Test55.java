@@ -116,7 +116,7 @@ public class Test55 {
 		System.out.println(middle);
 
 		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJSONReader();
-		List<Long> result = reader.readCollection(Long.TYPE, middle);
+		List<Long> result = reader.readList(Long.TYPE, middle);
 		System.out.println(result);
 	}
 

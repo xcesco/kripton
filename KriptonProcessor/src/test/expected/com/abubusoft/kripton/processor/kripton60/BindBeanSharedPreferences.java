@@ -110,18 +110,18 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     bean.valueTime=(prefs.getString("bean", null)!=null) ? TimeUtil.read(prefs.getString("valueTime", null)): null;
     bean.valueCurrency=(prefs.getString("bean", null)!=null) ? CurrencyUtil.read(prefs.getString("valueCurrency", null)): null;
     bean.valueTimeZone=(prefs.getString("bean", null)!=null) ? TimeZoneUtil.read(prefs.getString("valueTimeZone", null)): null;
-    bean.valueTimeList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asList(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null;
-    bean.valueStrinList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asList(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null;
-    bean.valueLongList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asList(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null;
+    bean.valueTimeList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null;
+    bean.valueStrinList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null;
+    bean.valueLongList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null;
     bean.valueByteArray=(prefs.getString("bean", null)!=null) ? Base64Util.decode(prefs.getString("valueByteArray", null)): null;
     bean.valueBean=(prefs.getString("bean", null)!=null) ? (Bean)readObj(prefs.getString("valueBean", null), Bean.class): null;
-    bean.valueLongTypeArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asLongTypeArray(ProcessorHelper.asList(new ArrayList<Long>(), Long.class, prefs.getString("valueLongTypeArray", null))): null;
-    bean.valueLongArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asLongArray(ProcessorHelper.asList(new ArrayList<Long>(), Long.class, prefs.getString("valueLongArray", null))): null;
-    bean.valueBeanArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asList(new ArrayList<Bean>(), Bean.class, prefs.getString("valueBeanArray", null))): null;
-    bean.valueStringArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asList(new ArrayList<String>(), String.class, prefs.getString("valueStringArray", null))): null;
-    bean.valueCharList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asList(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null;
-    bean.valueCharTypeArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(new ArrayList<Character>(), Character.class, prefs.getString("valueCharTypeArray", null))): null;
-    bean.valueCharArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asCharacterArray(ProcessorHelper.asList(new ArrayList<Character>(), Character.class, prefs.getString("valueCharArray", null))): null;
+    bean.valueLongTypeArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asLongTypeArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongTypeArray", null))): null;
+    bean.valueLongArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asLongArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongArray", null))): null;
+    bean.valueBeanArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, prefs.getString("valueBeanArray", null))): null;
+    bean.valueStringArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("valueStringArray", null))): null;
+    bean.valueCharList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null;
+    bean.valueCharTypeArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asCharacterTypeArray(ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, prefs.getString("valueCharTypeArray", null))): null;
+    bean.valueCharArray=(prefs.getString("bean", null)!=null) ? CollectionUtility.asCharacterArray(ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, prefs.getString("valueCharArray", null))): null;
     bean.id=(prefs.getString("bean", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
 
     return bean;
@@ -427,7 +427,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueTimeList value
    */
   public List<Time> valueTimeList() {
-    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asList(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null;
+    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null;
   }
 
   /**
@@ -436,7 +436,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueStrinList value
    */
   public LinkedList<String> valueStrinList() {
-    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asList(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null;
+    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null;
   }
 
   /**
@@ -445,7 +445,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueLongList value
    */
   public LinkedList<Long> valueLongList() {
-    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asList(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null;
+    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null;
   }
 
   /**
@@ -472,7 +472,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueLongTypeArray value
    */
   public long[] valueLongTypeArray() {
-    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asLongTypeArray(ProcessorHelper.asList(new ArrayList<Long>(), Long.class, prefs.getString("valueLongTypeArray", null))): null;
+    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asLongTypeArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongTypeArray", null))): null;
   }
 
   /**
@@ -481,7 +481,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueLongArray value
    */
   public Long[] valueLongArray() {
-    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asLongArray(ProcessorHelper.asList(new ArrayList<Long>(), Long.class, prefs.getString("valueLongArray", null))): null;
+    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asLongArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongArray", null))): null;
   }
 
   /**
@@ -490,7 +490,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueBeanArray value
    */
   public Bean[] valueBeanArray() {
-    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asList(new ArrayList<Bean>(), Bean.class, prefs.getString("valueBeanArray", null))): null;
+    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, prefs.getString("valueBeanArray", null))): null;
   }
 
   /**
@@ -499,7 +499,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueStringArray value
    */
   public String[] valueStringArray() {
-    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asList(new ArrayList<String>(), String.class, prefs.getString("valueStringArray", null))): null;
+    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("valueStringArray", null))): null;
   }
 
   /**
@@ -508,7 +508,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueCharList value
    */
   public LinkedList<Character> valueCharList() {
-    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asList(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null;
+    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null;
   }
 
   /**
@@ -517,7 +517,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueCharTypeArray value
    */
   public char[] valueCharTypeArray() {
-    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(new ArrayList<Character>(), Character.class, prefs.getString("valueCharTypeArray", null))): null;
+    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asCharacterTypeArray(ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, prefs.getString("valueCharTypeArray", null))): null;
   }
 
   /**
@@ -526,7 +526,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueCharArray value
    */
   public Character[] valueCharArray() {
-    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asCharacterArray(ProcessorHelper.asList(new ArrayList<Character>(), Character.class, prefs.getString("valueCharArray", null))): null;
+    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asCharacterArray(ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, prefs.getString("valueCharArray", null))): null;
   }
 
   /**

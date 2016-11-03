@@ -27,11 +27,7 @@ public class ListTransformation extends AbstractSPTransform {
 
 		this.listTypeName = clazz;
 		this.rawTypeName = listTypeName.typeArguments.get(0);
-
-		this.nullable = true;
 	}
-
-	protected boolean nullable;
 
 	private Class<?> defineListClass(ParameterizedTypeName listTypeName) {
 		if (listTypeName.toString().startsWith(List.class.getCanonicalName())) {
@@ -57,7 +53,7 @@ public class ListTransformation extends AbstractSPTransform {
 		}
 
 		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, beanName);
-		methodBuilder.addCode("$T.asList(new $T<$L>(), $L.class, $L.getString($S, null))", utilClazz, listClazz, name, name, preferenceName, property.getName());
+		methodBuilder.addCode("$T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null))", utilClazz, listClazz, name, name, preferenceName, property.getName());
 		methodBuilder.addCode(": null");
 
 		if (add) {
@@ -68,25 +64,17 @@ public class ListTransformation extends AbstractSPTransform {
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
 		if (beanClass != null) {
-			if (nullable) {
-				methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
-			}
+			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 			methodBuilder.addCode("$L.putString($S,$T.asString($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
-			if (nullable) {
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
+			methodBuilder.addCode(";");
+			methodBuilder.addCode(" else ");
+			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
 		} else {
-			if (nullable) {
-				methodBuilder.addCode("if ($L!=null) ", beanName);
-			}
+			methodBuilder.addCode("if ($L!=null) ", beanName);
 			methodBuilder.addCode("$L.putString($S,$T.asString($L))", editorName, property.getName(), utilClazz, beanName);
-			if (nullable) {
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
+			methodBuilder.addCode(";");
+			methodBuilder.addCode(" else ");
+			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
 		}
 
 	}

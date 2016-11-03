@@ -65,11 +65,11 @@ public class ArrayTransform extends AbstractSPTransform {
 		
 		if (primitive)
 		{		
-			methodBuilder.addCode("$T.as$LTypeArray($T.asList(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, primitiveName, helperClazz, ArrayList.class, primitiveName, primitiveName, preferenceName, property.getName());
+			methodBuilder.addCode("$T.as$LTypeArray($T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, primitiveName, helperClazz, ArrayList.class, primitiveName, primitiveName, preferenceName, property.getName());
 		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)){
-			methodBuilder.addCode("$T.as$LArray($T.asList(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, primitiveName, helperClazz, ArrayList.class, name, name, preferenceName, property.getName());
+			methodBuilder.addCode("$T.as$LArray($T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, primitiveName, helperClazz, ArrayList.class, name, name, preferenceName, property.getName());
 		} else {
-			methodBuilder.addCode("$T.asArray($T.asList(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, helperClazz, ArrayList.class, name, name, preferenceName, property.getName());
+			methodBuilder.addCode("$T.asArray($T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, helperClazz, ArrayList.class, name, name, preferenceName, property.getName());
 		}
 		methodBuilder.addCode(": null");
 

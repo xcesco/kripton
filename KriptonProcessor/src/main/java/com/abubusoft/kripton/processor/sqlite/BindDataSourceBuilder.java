@@ -108,8 +108,6 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			builder.addJavadoc("@see $T\n", dao.getEntity().getElement());
 		}
 		
-		//builder.addJavadoc("@see $T\n", TypeUtility.typeName(dataSourceName));
-				
 		// define static fields
 		builder.addField(FieldSpec.builder(className(schemaName), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p><singleton of datasource,/p>\n").build());	
 		builder.addField(FieldSpec.builder(String.class, "name", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p><file name used to save database,/p>\n").initializer("$S", schema.fileName).build());		

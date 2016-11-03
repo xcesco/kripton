@@ -13,32 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-/**
- * 
- */
-package com.abubusoft.kripton.processor.sqlite.transform;
+package com.abubusoft.kripton.processor.kripton62;
 
-import com.abubusoft.kripton.binder.transform.CustomTransform;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-/**
- * @author xcesco
- *
- */
-public class DefaultCustomTransform implements CustomTransform<Object> {
 
-	@Override
-	public Object read(String value) throws Exception {
-		return value;
-	}
-
-	@Override
-	public String write(Object value) throws Exception {
-		if (value!=null)
-			return value.toString();
-		
-		return null;
-	}
-	
-	
+@BindDataSource(value=BeanDao.class, fileName = "dummy" , version=1, asyncTask=false, cursor=false)
+public interface BeanDataSource {
 
 }

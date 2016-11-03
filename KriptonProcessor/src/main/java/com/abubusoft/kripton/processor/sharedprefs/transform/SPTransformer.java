@@ -124,6 +124,8 @@ public abstract class SPTransformer {
 			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
 			if (TypeUtility.isList(parameterizedTypeName)) {
 				return new ListTransformation(parameterizedTypeName);
+			} else if (TypeUtility.isSet(parameterizedTypeName)) {
+				return new SetTransformation(parameterizedTypeName);
 			}
 		}
 

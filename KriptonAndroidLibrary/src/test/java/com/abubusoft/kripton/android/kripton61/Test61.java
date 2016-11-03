@@ -16,7 +16,6 @@
 package com.abubusoft.kripton.android.kripton61;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,9 +23,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.BinderFactory.XmlReaderType;
 import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderJsonWriter;
-import com.abubusoft.kripton.BinderFactory.XmlReaderType;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.annotation.Bind;

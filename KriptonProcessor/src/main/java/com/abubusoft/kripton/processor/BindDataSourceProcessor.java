@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -77,10 +79,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.EnumTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
-import com.abubusoft.kripton.processor.utils.LiteralType;
-import com.squareup.javapoet.TypeName;
-
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 public class BindDataSourceProcessor extends BaseProcessor {
 
@@ -452,7 +450,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		}
 
 		if (!databaseSchema.getSimpleName().toString().endsWith(BindDataSourceBuilder.SUFFIX)) {
-			String msg = String.format("Interface marked with @%s annotation must have a name with suffix \"" + BindDataSourceBuilder.SUFFIX + "\" to be used with @BindDataSource", databaseSchema.getSimpleName().toString(),
+			String msg = String.format("Interface %s marked with @%s annotation must have a name with suffix \"" + BindDataSourceBuilder.SUFFIX + "\" to be used with @BindDataSource", databaseSchema.getSimpleName().toString(),
 					BindDataSource.class.getSimpleName());
 			throw (new InvalidNameException(msg));
 		}

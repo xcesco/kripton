@@ -62,8 +62,8 @@ public class BindRightPreferencesSharedPreferences extends AbstractSharedPrefere
     bean.setDescription(prefs.getString("description", bean.getDescription()));
     bean.valueFloat=prefs.getFloat("valueFloat", bean.valueFloat);
     bean.valueBoolean=(boolean)prefs.getBoolean("valueBoolean", (boolean)bean.valueBoolean);
-    bean.setStringArray((prefs.getString("bean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asList(new ArrayList<String>(), String.class, prefs.getString("stringArray", null))): null);
-    bean.stringList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asList(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
+    bean.setStringArray((prefs.getString("bean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringArray", null))): null);
+    bean.stringList=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
     bean.valueInt=(int)prefs.getInt("valueInt", (int)bean.valueInt);
     bean.valueLong=(prefs.getString("bean", null)!=null) ? Long.valueOf(prefs.getString("valueLong", "0")): null;
 
@@ -131,7 +131,7 @@ public class BindRightPreferencesSharedPreferences extends AbstractSharedPrefere
    * @return property stringArray value
    */
   public String[] stringArray() {
-    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asList(new ArrayList<String>(), String.class, prefs.getString("stringArray", null))): null;
+    return (prefs.getString("defaultBean", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringArray", null))): null;
   }
 
   /**
@@ -140,7 +140,7 @@ public class BindRightPreferencesSharedPreferences extends AbstractSharedPrefere
    * @return property stringList value
    */
   public List<String> stringList() {
-    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asList(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
+    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
   }
 
   /**

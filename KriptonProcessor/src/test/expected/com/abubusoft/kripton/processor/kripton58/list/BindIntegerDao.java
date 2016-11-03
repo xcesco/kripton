@@ -61,8 +61,8 @@ public class BindIntegerDao extends AbstractDao implements IntegerDao {
       resultBean=new IntegerBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asList(new ArrayList<Integer>(), Integer.class, cursor.getBlob(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asList(new LinkedList<Integer>(), Integer.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<Integer>(), Integer.class, cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<Integer>(), Integer.class, cursor.getBlob(index2)); }
 
     }
     cursor.close();
@@ -106,8 +106,8 @@ public class BindIntegerDao extends AbstractDao implements IntegerDao {
       resultBean=new IntegerBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asList(new ArrayList<Integer>(), Integer.class, cursor.getBlob(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asList(new LinkedList<Integer>(), Integer.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<Integer>(), Integer.class, cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<Integer>(), Integer.class, cursor.getBlob(index2)); }
 
     }
     cursor.close();
@@ -157,8 +157,8 @@ public class BindIntegerDao extends AbstractDao implements IntegerDao {
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asList(new ArrayList<Integer>(), Integer.class, cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asList(new LinkedList<Integer>(), Integer.class, cursor.getBlob(index2)); }
+          if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<Integer>(), Integer.class, cursor.getBlob(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<Integer>(), Integer.class, cursor.getBlob(index2)); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -250,8 +250,8 @@ public class BindIntegerDao extends AbstractDao implements IntegerDao {
         resultBean=new IntegerBean();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asList(new ArrayList<Integer>(), Integer.class, cursor.getBlob(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asList(new LinkedList<Integer>(), Integer.class, cursor.getBlob(index2)); }
+        if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<Integer>(), Integer.class, cursor.getBlob(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<Integer>(), Integer.class, cursor.getBlob(index2)); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());

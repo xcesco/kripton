@@ -62,11 +62,11 @@ public class BindDaoBean01 extends AbstractDao implements DaoBean01 {
        {
         resultBean=new Bean01();
 
-        if (!cursor.isNull(index0)) { resultBean.setLista(ProcessorHelper.asList(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index0))); }
+        if (!cursor.isNull(index0)) { resultBean.setLista(ProcessorHelper.asCollection(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index0))); }
         if (!cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1)); }
         if (!cursor.isNull(index2)) { resultBean.setMessageDate(cursor.getLong(index2)); }
         resultBean.setMessageText(cursor.getString(index3));
-        if (!cursor.isNull(index4)) { resultBean.setBeanList(ProcessorHelper.asList(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index4))); }
+        if (!cursor.isNull(index4)) { resultBean.setBeanList(ProcessorHelper.asCollection(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index4))); }
         if (!cursor.isNull(index5)) { resultBean.setValue(cursor.getLong(index5)); }
 
         resultList.add(resultBean);

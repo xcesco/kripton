@@ -28,56 +28,52 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-class CharacterTransform  extends AbstractCompileTimeTransform {
+class CharacterTransform extends AbstractCompileTimeTransform {
 
-	public CharacterTransform(boolean nullable)
-	{
-		defaultValue="0";
-		if (nullable)
-		{
-			defaultValue="null";
+	public CharacterTransform(boolean nullable) {
+		defaultValue = "0";
+		if (nullable) {
+			defaultValue = "null";
 		}
 	}
-	
+
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName!=null)
-		{
-			methodBuilder.addCode("(int)$L."+getter(beanClass, property), beanName);
+		if (beanName != null) {
+			methodBuilder.addCode("(int)$L." + getter(beanClass, property), beanName);
 		} else {
 			generateWriteProperty(methodBuilder, property.getName());
 		}
 	}
-	
+
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("(int)$L", objectName);		
+		methodBuilder.addCode("(int)$L", objectName);
 	}
-	 
+
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
-		methodBuilder.addCode("$L."+setter(beanClass, property, "(char)$L.getInt($L)"), beanName,cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode("$L." + setter(beanClass, property, "(char)$L.getInt($L)"), beanName, cursorName, indexName);
 	}
-	
+
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("(char)$L.getInt($L)", cursorName, indexName);		
+		methodBuilder.addCode("(char)$L.getInt($L)", cursorName, indexName);
 	}
-	
+
 	@Override
-	public void generateDefaultValue(Builder methodBuilder)
-	{
-		methodBuilder.addCode(defaultValue);		
+	public void generateDefaultValue(Builder methodBuilder) {
+		methodBuilder.addCode(defaultValue);
 	}
 
 	protected String defaultValue;
-	
+
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		
-		methodBuilder.addCode("$L."+setter(beanClass, property, "0"), beanName);
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+
+		methodBuilder.addCode("$L." + setter(beanClass, property, "0"), beanName);
 	}
-	
+
 	@Override
 	public String generateColumnType(ModelProperty property) {
 		return "INTEGER";

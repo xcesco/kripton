@@ -364,5 +364,15 @@ public class TypeUtility {
 
 		return false;
 	}
+	
+	public static boolean isSet(TypeName typeName) {
+		if (typeName instanceof ParameterizedTypeName) {
+			LiteralType lt=LiteralType.of(typeName.toString());	
+			
+			return lt.isSet();
+		}
+
+		return false;
+	}
 
 }

@@ -3,8 +3,8 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
@@ -33,13 +33,13 @@ public class SetTransformation extends AbstractSPTransform {
 
 	protected boolean nullable;
 
-	private Class<?> defineListClass(ParameterizedTypeName listTypeName) {
-		if (listTypeName.toString().startsWith(List.class.getCanonicalName())) {
+	private Class<?> defineListClass(ParameterizedTypeName setTypeName) {
+		if (setTypeName.toString().startsWith(Set.class.getCanonicalName())) {
 			// it's a list
-			return ArrayList.class;
+			return HashSet.class;
 		}
 		try {
-			return Class.forName(listTypeName.rawType.toString());
+			return Class.forName(setTypeName.rawType.toString());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
@@ -57,7 +57,7 @@ public class SetTransformation extends AbstractSPTransform {
 		}
 
 		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, beanName);
-		methodBuilder.addCode("$T.asList(new $T<$L>(), $L.class, $L.getString($S, null))", utilClazz, listClazz, name, name, preferenceName, property.getName());
+		methodBuilder.addCode("$T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null))", utilClazz, listClazz, name, name, preferenceName, property.getName());
 		methodBuilder.addCode(": null");
 
 		if (add) {
@@ -68,25 +68,17 @@ public class SetTransformation extends AbstractSPTransform {
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
 		if (beanClass != null) {
-			if (nullable) {
-				methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
-			}
+			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 			methodBuilder.addCode("$L.putString($S,$T.asString($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
-			if (nullable) {
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
+			methodBuilder.addCode(";");
+			methodBuilder.addCode(" else ");
+			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
 		} else {
-			if (nullable) {
-				methodBuilder.addCode("if ($L!=null) ", beanName);
-			}
+			methodBuilder.addCode("if ($L!=null) ", beanName);
 			methodBuilder.addCode("$L.putString($S,$T.asString($L))", editorName, property.getName(), utilClazz, beanName);
-			if (nullable) {
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
+			methodBuilder.addCode(";");
+			methodBuilder.addCode(" else ");
+			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
 		}
 
 	}

@@ -55,7 +55,7 @@ public abstract class ProcessorHelper {
 	 * @return
 	 * 		UTF-8 byte array
 	 */
-	public static byte[] asByteArray(List<?> value)
+	public static byte[] asByteArray(Collection<?> value)
 	{
 		BinderJsonWriter writer = getWriter();
 		
@@ -72,7 +72,7 @@ public abstract class ProcessorHelper {
 		return null;		
 	}
 	
-	public static byte[] asByteArray(List<?> value, Charset charset)
+	public static byte[] asByteArray(Collection<?> value, Charset charset)
 	{
 		BinderJsonWriter writer = getWriter();
 		
@@ -157,9 +157,9 @@ public abstract class ProcessorHelper {
 	}
 	
 	/**
-	 * convert blog (byte[]) in a list of element of type clazz
+	 * convert blog (byte[]) in a collection of element of type clazz
 	 * 
-	 * @param list
+	 * @param collection
 	 * @param clazz
 	 * 			item class
 	 * @param input
@@ -167,12 +167,12 @@ public abstract class ProcessorHelper {
 	 * @return
 	 * 			list of element extracted from blob
 	 */
-	public static <E, L extends List<E>> L asList(L list, Class<E> clazz, byte[] input)
+	public static <E, L extends Collection<E>> L asCollection(L collection, Class<E> clazz, byte[] input)
 	{		
 		BinderJsonReader reader = getReader();
 		
 		try {
-			L result = (L) reader.readCollection(list, clazz, new String(input));
+			L result = (L) reader.readCollection(collection, clazz, new String(input));
 			return result;
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -184,7 +184,7 @@ public abstract class ProcessorHelper {
 	}
 	
 	/**
-	 * convert blog (byte[]) in a list of element of type clazz
+	 * convert blog (byte[]) in a collection of element of type clazz
 	 * 
 	 * @param list
 	 * @param clazz
@@ -194,7 +194,7 @@ public abstract class ProcessorHelper {
 	 * @return
 	 * 			list of element extracted from blob
 	 */
-	public static <E, L extends List<E>> L asList(L list, Class<E> clazz, String input)
+	public static <E, L extends Collection<E>> L asCollection(L list, Class<E> clazz, String input)
 	{		
 		BinderJsonReader reader = getReader();
 		

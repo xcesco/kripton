@@ -61,8 +61,8 @@ public class BindStringDao extends AbstractDao implements StringDao {
       resultBean=new StringBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asList(new ArrayList<String>(), String.class, cursor.getBlob(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index2)); }
 
     }
     cursor.close();
@@ -106,8 +106,8 @@ public class BindStringDao extends AbstractDao implements StringDao {
       resultBean=new StringBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asList(new ArrayList<String>(), String.class, cursor.getBlob(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index2)); }
 
     }
     cursor.close();
@@ -157,8 +157,8 @@ public class BindStringDao extends AbstractDao implements StringDao {
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asList(new ArrayList<String>(), String.class, cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index2)); }
+          if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, cursor.getBlob(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index2)); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -250,8 +250,8 @@ public class BindStringDao extends AbstractDao implements StringDao {
         resultBean=new StringBean();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asList(new ArrayList<String>(), String.class, cursor.getBlob(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asList(new LinkedList<String>(), String.class, cursor.getBlob(index2)); }
+        if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, cursor.getBlob(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index2)); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
