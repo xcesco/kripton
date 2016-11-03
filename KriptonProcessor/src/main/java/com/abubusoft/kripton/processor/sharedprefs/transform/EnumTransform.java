@@ -29,65 +29,47 @@ import com.squareup.javapoet.TypeName;
  * 
  */
 public class EnumTransform extends AbstractSPTransform {
-	
+
 	private TypeName typeName;
 
-	public EnumTransform(TypeName typeName)
-	{
-		this.typeName=typeName;
-		this.nullable=true;
-		defaultValue="null";
+	public EnumTransform(TypeName typeName) {
+		this.typeName = typeName;
+		defaultValue = "null";
 	}
-	
-	protected boolean nullable;
-	
+
 	protected String defaultValue;
-	
+
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
 		if (add) {
-						
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
+
+			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
 		}
-		
+
 		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, beanName);
-		methodBuilder.addCode("$T.valueOf($L.getString($S, $L))",  typeName, preferenceName, property.getName(), defaultValue);
+		methodBuilder.addCode("$T.valueOf($L.getString($S, $L))", typeName, preferenceName, property.getName(), defaultValue);
 		methodBuilder.addCode(": null");
-		
+
 		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter()?")":""));
+			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
 		}
 	}
 
-
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanClass!=null)
-		{
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L." + getter(beanClass, property)+"!=null) ", beanName);
-			}
+		if (beanClass != null) {
+			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 			methodBuilder.addCode("$L.putString($S,$L." + getter(beanClass, property) + ".toString() )", editorName, property.getName(), beanName);
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, $L)", editorName, property.getName(), defaultValue);
-			}
+			methodBuilder.addCode(";");
+			methodBuilder.addCode(" else ");
+			methodBuilder.addCode("$L.putString($S, $L)", editorName, property.getName(), defaultValue);
 		} else {
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L!=null) ", beanName);
-			}
+			methodBuilder.addCode("if ($L!=null) ", beanName);
 			methodBuilder.addCode("$L.putString($S,$L.toString())", editorName, property.getName(), beanName);
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, $L)", editorName, property.getName(), defaultValue);
-			}
+			methodBuilder.addCode(";");
+			methodBuilder.addCode(" else ");
+			methodBuilder.addCode("$L.putString($S, $L)", editorName, property.getName(), defaultValue);
 		}
-			
+
 	}
 }
