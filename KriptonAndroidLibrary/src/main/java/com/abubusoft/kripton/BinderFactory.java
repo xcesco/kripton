@@ -36,7 +36,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderReader implementation
 	 */
-	public static BinderReader getXMLReader(XmlReaderType type) {
+	public static BinderReader getXmlReader(XmlReaderType type) {
 		if (type == XmlReaderType.SAX) {
 			return new XmlSAXReader();
 		} else {
@@ -49,8 +49,8 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderReader implementation
 	 */
-	public static BinderReader getXMLReader() {
-		return getXMLReader(XmlReaderType.SAX);
+	public static BinderReader getXmlReader() {
+		return getXmlReader(XmlReaderType.SAX);
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class BinderFactory {
 	 *            info about encoding and indent
 	 * @return an instance of BinderReader implementation
 	 */
-	public static BinderReader getXMLReader(XmlReaderType type, BinderOptions format) {
+	public static BinderReader getXmlReader(XmlReaderType type, BinderOptions format) {
 		if (type == XmlReaderType.SAX) {
 			return new XmlSAXReader(format);
 		} else {
@@ -73,7 +73,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderReader implementation
 	 */
-	public static BinderReader getJSONReader() {
+	public static BinderJsonReader getJsonReader() {
 		return new JsonReader();
 	}
 
@@ -84,7 +84,7 @@ public class BinderFactory {
 	 *            info about encoding
 	 * @return an instance of BinderReader implementation.
 	 */
-	public static BinderReader getJSONReader(BinderOptions format) {
+	public static BinderJsonReader getJsonReader(BinderOptions format) {
 		return new JsonReader(format);
 	}
 
@@ -93,7 +93,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderWriter getXMLWriter() {
+	public static BinderWriter getXmlWriter() {
 		return new XmlPullWriter();
 	}
 
@@ -104,7 +104,7 @@ public class BinderFactory {
 	 *            info about encoding and indent
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderWriter getXMLWriter(BinderOptions options) {
+	public static BinderWriter getXmlWriter(BinderOptions options) {
 		return new XmlPullWriter(options);
 	}
 
@@ -113,7 +113,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderJsonWriter getJSONWriter() {
+	public static BinderJsonWriter getJsonWriter() {
 		return new JsonWriter();
 	}
 
@@ -122,7 +122,7 @@ public class BinderFactory {
 	 * 
 	 * @return an instance of BinderWriter implementation
 	 */
-	public static BinderJsonWriter getJSONWriter(BinderOptions options) {
+	public static BinderJsonWriter getJsonWriter(BinderOptions options) {
 		return new JsonWriter(options);
 	}
 

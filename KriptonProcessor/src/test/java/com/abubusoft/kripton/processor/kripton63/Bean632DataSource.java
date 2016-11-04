@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-/**
- * @author xcesco
- *
- */
-package com.abubusoft.kripton.processor.kripton42;
+package com.abubusoft.kripton.processor.kripton63;
+
+import com.abubusoft.kripton.android.annotation.BindDataSource;
+
+
+@BindDataSource(value=BeanDao2.class, fileName = "dummy" , version=1, asyncTask=false, cursor=false)
+public interface Bean632DataSource {
+
+}

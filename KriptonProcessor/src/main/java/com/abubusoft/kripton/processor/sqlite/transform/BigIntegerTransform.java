@@ -51,16 +51,17 @@ class BigIntegerTransform extends AbstractCompileTimeTransform {
 		methodBuilder.addCode("$L."+setter(beanClass, property, "new $T($L.getString($L))"), beanName, BigInteger.class,cursorName, indexName);
 	}
 	
+	/*
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void generateDefaultValue(Builder methodBuilder)
 	{
 		methodBuilder.addCode("null");		
-	}
+	}*/
 	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {

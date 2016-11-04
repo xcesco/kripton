@@ -18,7 +18,7 @@ package com.abubusoft.kripton;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Collection;
-import java.util.List;
+import java.util.Map;
 
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -32,28 +32,16 @@ import com.abubusoft.kripton.exception.WriterException;
  */
 public interface BinderJsonWriter extends BinderWriter {
 	
-	/**
-	 * 
-	 * @param source an POJO
-	 * @param out a character stream
-	 * @throws WriterException if writes fail
-	 */
-	public void writeCollection(@SuppressWarnings("rawtypes") Collection source, Writer out) throws WriterException, MappingException;
+	public void writeCollection(Collection<?> source, Writer out) throws WriterException, MappingException;
 	
-	/**
-	 * 
-	 * @param source an POJO
-	 * @param os an output stream of bytes.
-	 * @throws WriterException if writes fail
-	 */
-	public void writeCollection(@SuppressWarnings("rawtypes") Collection source, OutputStream os) throws WriterException, MappingException;
+	public void writeCollection(Collection<?> source, OutputStream os) throws WriterException, MappingException;
 	
-	/**
-	 * 
-	 * @param source an POJO
-	 * @return a string representation
-	 * @throws WriterException if writes fail
-	 */
-	public String writeCollection(@SuppressWarnings("rawtypes") Collection source) throws WriterException, MappingException;
+	public String writeCollection(Collection<?> source) throws WriterException, MappingException;
+	
+	public void writeMap(Map<?, ?> source, Writer out) throws WriterException, MappingException;
+	
+	public void writeMap(Map<?, ?> source, OutputStream os) throws WriterException, MappingException;
+	
+	public String writeMap(Map<?, ?> source) throws WriterException, MappingException;
 
 }

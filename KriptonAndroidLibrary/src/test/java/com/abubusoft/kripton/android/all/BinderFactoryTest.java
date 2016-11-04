@@ -38,43 +38,43 @@ public class BinderFactoryTest {
 	@Test
 	public void test() {
 		{
-			BinderWriter writer1 = BinderFactory.getJSONWriter();
-			BinderWriter writer2 = BinderFactory.getJSONWriter(BinderOptions.build());
+			BinderWriter writer1 = BinderFactory.getJsonWriter();
+			BinderWriter writer2 = BinderFactory.getJsonWriter(BinderOptions.build());
 
 			assertReflectionEquals(writer1, writer2);
 		}
 
 		{
-			BinderWriter writer1 = BinderFactory.getXMLWriter();
-			BinderWriter writer2 = BinderFactory.getXMLWriter(BinderOptions.build());
+			BinderWriter writer1 = BinderFactory.getXmlWriter();
+			BinderWriter writer2 = BinderFactory.getXmlWriter(BinderOptions.build());
 
 			assertReflectionEquals(writer1, writer2);
 		}
 		
 		{
-			BinderReader reader1 = BinderFactory.getJSONReader();
-			BinderReader reader2 = BinderFactory.getJSONReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+			BinderReader reader1 = BinderFactory.getJsonReader();
+			BinderReader reader2 = BinderFactory.getJsonReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 
 			assertReflectionEquals(reader1, reader2);
 		}
 
 		{
-			BinderReader reader1 = BinderFactory.getXMLReader();
-			BinderReader reader2 = BinderFactory.getXMLReader(XmlReaderType.SAX, BinderOptions.build());
+			BinderReader reader1 = BinderFactory.getXmlReader();
+			BinderReader reader2 = BinderFactory.getXmlReader(XmlReaderType.SAX, BinderOptions.build());
 
 			assertReflectionEquals(reader1, reader2);
 		}
 		
 		{
-			BinderReader reader1 = BinderFactory.getXMLReader();
-			BinderReader reader2 = BinderFactory.getXMLReader(XmlReaderType.DOM, BinderOptions.build());
+			BinderReader reader1 = BinderFactory.getXmlReader();
+			BinderReader reader2 = BinderFactory.getXmlReader(XmlReaderType.DOM, BinderOptions.build());
 
 			Assert.assertNotEquals(reader1, reader2);
 		}
 		
 		{
-			BinderReader reader1 = BinderFactory.getXMLReader();
-			BinderReader reader2 = BinderFactory.getXMLReader(XmlReaderType.SAX, BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+			BinderReader reader1 = BinderFactory.getXmlReader();
+			BinderReader reader2 = BinderFactory.getXmlReader(XmlReaderType.SAX, BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 
 			assertReflectionEquals(reader1, reader2);
 		}

@@ -83,8 +83,8 @@ public class JsonReader implements BinderJsonReader {
 		if (StringUtil.isEmpty(source)) {
 			return null;
 		}
-		
-		validate(type, source);		
+
+		validate(type, source);
 
 		try {
 			Constructor con = TypeReflector.getConstructor(type);
@@ -100,7 +100,7 @@ public class JsonReader implements BinderJsonReader {
 		} catch (MappingException me) {
 			throw me;
 		} catch (Exception e) {
-			throw new ReaderException("Error to read object "+e.getMessage(), e);
+			throw new ReaderException("Error to read object " + e.getMessage(), e);
 		}
 	}
 
@@ -112,7 +112,7 @@ public class JsonReader implements BinderJsonReader {
 		try {
 			return this.read(type, StringUtil.reader2String(source));
 		} catch (IOException e) {
-			throw new ReaderException("IO error!", e); 
+			throw new ReaderException("IO error!", e);
 		}
 
 	}
@@ -132,7 +132,7 @@ public class JsonReader implements BinderJsonReader {
 	private <T> void validate(Class<? extends T> type, String source) throws ReaderException {
 		if (type == null) {
 			throw new ReaderException("Cannot read, type is null!");
-		}		
+		}
 
 		if (Transformer.isPrimitive(type)) {
 			throw new ReaderException("Can not read primitive or enum type object, " + "only Nano bindable complex type object can be accepted!");
@@ -158,9 +158,10 @@ public class JsonReader implements BinderJsonReader {
 			Object jsonValue = jsonObj.opt(name);
 			if (jsonValue != null) {
 				ElementSchema es = map.get(name);
-				
-				if (!es.getJsonInfo().enabled) continue;
-				
+
+				if (!es.getJsonInfo().enabled)
+					continue;
+
 				Field field = es.getField();
 				type = es.getFieldType();
 
@@ -175,7 +176,7 @@ public class JsonReader implements BinderJsonReader {
 								list = new ArrayList<>();
 								field.set(instance, list);
 							}
-							
+
 							readList(instance, type, list, jsonArray);
 						}
 					}
@@ -212,7 +213,7 @@ public class JsonReader implements BinderJsonReader {
 					if (jsonValue instanceof JSONArray) {
 						jsonValue = ((JSONArray) jsonValue).get(0);
 					}
-					if (Transformer.isPrimitive(type)) {						
+					if (Transformer.isPrimitive(type)) {
 						if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray) && !(jsonValue instanceof JSONObject.Null)) {
 							Object value = Transformer.read(String.valueOf(jsonValue), type);
 							field.set(instance, value);
@@ -229,61 +230,75 @@ public class JsonReader implements BinderJsonReader {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void readMap(Object instance, Class<?> type, Field field, JSONArray jsonArray, MapInfo mapInfo) throws Exception {
-		Map map = (Map) field.get(instance);
+		Map<?, ?> map = (Map<?, ?>) field.get(instance);
 		if (map == null) {
-			map = new LinkedHashMap();
+			map = new LinkedHashMap<>();
 			field.set(instance, map);
 		}
-		Object objectValue;
-		Object objectKey;
-		Object value;
-		Object key;
 		Object entry;
-		JSONObject jsonEntry;
-		MappingSchema msKey;
-		MappingSchema msValue;
+
+		String keyName = mapInfo.keyName;
+		Class<?> keyClazz = mapInfo.keyClazz;
+		String valueName = mapInfo.valueName;
+		Class<?> valueClazz = mapInfo.valueClazz;
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			entry = jsonArray.get(i);
 			if (entry instanceof JSONObject) {
-				jsonEntry = (JSONObject) entry;
-				key = jsonEntry.get(mapInfo.keyName);
-
-				if (Transformer.isPrimitive(key.getClass())) {
-					// simple type
-					objectKey = Transformer.read(String.valueOf(key), mapInfo.keyClazz);
-				} else {
-					objectKey = mapInfo.keyClazz.newInstance();
-					msKey = MappingSchema.fromClass(mapInfo.keyClazz);
-					readElementInternal(objectKey, (JSONObject) key, msKey.getField2SchemaMapping());
-				}
-
-				value = jsonEntry.opt(mapInfo.valueName);
-				if (value == null) {
-					objectValue = null;
-				} else if (Transformer.isPrimitive(value.getClass())) {
-					// simple type
-					objectValue = Transformer.read(String.valueOf(value), mapInfo.valueClazz);
-				} else {
-					objectValue = mapInfo.valueClazz.newInstance();
-					msValue = MappingSchema.fromClass(mapInfo.valueClazz);
-					readElementInternal(objectValue, (JSONObject) value, msValue.getField2SchemaMapping());
-					// key=read(instance, )
-				}
-
-				map.put(objectKey, objectValue);
-				/*
-				 * Constructor con = TypeReflector.getConstructor(type); subObj
-				 * = con.newInstance(); Array.set(array, i, subObj);
-				 * this.readObject(subObj, (JSONObject) jsonValue);
-				 */
+				readMapEntry(map, entry, keyName, keyClazz, valueName, valueClazz);
 			} else {
 				throw new MappingException("Badformat for map field " + field.getName() + " of class " + instance.getClass().getName());
 			}
 		}
 
+	}
+
+	/**
+	 * @param map
+	 * @param entry
+	 * @param keyName
+	 * @param keyClazz
+	 * @param valueName
+	 * @param valueClazz
+	 * @throws Exception
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@SuppressWarnings("unchecked")
+	private void readMapEntry(@SuppressWarnings("rawtypes") Map map, Object entry, String keyName, Class<?> keyClazz, String valueName, Class<?> valueClazz) throws Exception, InstantiationException, IllegalAccessException {
+		Object objectValue;
+		Object objectKey;
+		Object value;
+		Object key;
+		JSONObject jsonEntry;
+		MappingSchema msKey;
+		MappingSchema msValue;
+		jsonEntry = (JSONObject) entry;
+		key = jsonEntry.get(keyName);
+
+		if (Transformer.isPrimitive(key.getClass())) {
+			// simple type
+			objectKey = Transformer.read(String.valueOf(key), keyClazz);
+		} else {
+			objectKey = keyClazz.newInstance();
+			msKey = MappingSchema.fromClass(keyClazz);
+			readElementInternal(objectKey, (JSONObject) key, msKey.getField2SchemaMapping());
+		}
+
+		value = jsonEntry.opt(valueName);
+		if (value == null) {
+			objectValue = null;
+		} else if (Transformer.isPrimitive(value.getClass())) {
+			// simple type
+			objectValue = Transformer.read(String.valueOf(value), valueClazz);
+		} else {
+			objectValue = valueClazz.newInstance();
+			msValue = MappingSchema.fromClass(valueClazz);
+			readElementInternal(objectValue, (JSONObject) value, msValue.getField2SchemaMapping());
+		}
+
+		map.put(objectKey, objectValue);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -322,21 +337,21 @@ public class JsonReader implements BinderJsonReader {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void readList(Object instance, Class<?> type, Collection list, JSONArray jsonArray) throws Exception {
-		if (Transformer.isPrimitive(type)) {						
+		if (Transformer.isPrimitive(type)) {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				Object jsonValue = jsonArray.get(i);
 				if (!(jsonValue instanceof JSONObject) && !(jsonValue instanceof JSONArray)) {
-					Object value = Transformer.read(String.valueOf(jsonValue), type);					
+					Object value = Transformer.read(String.valueOf(jsonValue), type);
 					list.add(value);
 				}
 			}
-		} else { // Object						
+		} else { // Object
 			for (int i = 0; i < jsonArray.length(); i++) {
 				Object jsonValue = jsonArray.get(i);
 				if (jsonValue instanceof JSONObject) {
 					Constructor con = TypeReflector.getConstructor(type);
 					Object subObj = con.newInstance();
-					
+
 					list.add(subObj);
 					this.readObject(subObj, (JSONObject) jsonValue);
 				}
@@ -370,28 +385,28 @@ public class JsonReader implements BinderJsonReader {
 
 	@Override
 	public <E> List<E> readList(Class<E> type, String input) throws ReaderException {
-		JSONArray array=new JSONArray(input);
-		List<E> result=new ArrayList<E>();
-		
+		JSONArray array = new JSONArray(input);
+		List<E> result = new ArrayList<E>();
+
 		try {
 			readList(input, type, result, array);
-			
+
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw(new ReaderException(e.getMessage()));
-		}						
+			throw (new ReaderException(e.getMessage()));
+		}
 	}
-	
+
 	@Override
 	public <E> List<E> readList(Class<E> type, InputStream source) throws ReaderException {
 		try {
 			return this.readList(type, new InputStreamReader(source, format.getEncoding()));
 		} catch (UnsupportedEncodingException e) {
 			throw new ReaderException("Encoding is not supported", e);
-		}			
+		}
 	}
-	
+
 	@Override
 	public <E> List<E> readList(Class<E> type, Reader source) throws ReaderException, MappingException {
 		if (source == null) {
@@ -401,35 +416,35 @@ public class JsonReader implements BinderJsonReader {
 		try {
 			return this.readList(type, StringUtil.reader2String(source));
 		} catch (IOException e) {
-			throw new ReaderException("IO error!", e); 
+			throw new ReaderException("IO error!", e);
 		}
 
 	}
-	
+
 	@Override
 	public <L extends Collection<E>, E> L readCollection(L list, Class<E> type, String input) throws ReaderException {
-		JSONArray array=new JSONArray(input);
-		L result=list;
-		
+		JSONArray array = new JSONArray(input);
+		L result = list;
+
 		try {
 			readList(input, type, result, array);
-			
+
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw(new ReaderException(e.getMessage()));
-		}						
+			throw (new ReaderException(e.getMessage()));
+		}
 	}
-	
+
 	@Override
 	public <L extends Collection<E>, E> L readCollection(L collection, Class<E> type, InputStream source) throws ReaderException {
 		try {
 			return this.readCollection(collection, type, new InputStreamReader(source, format.getEncoding()));
 		} catch (UnsupportedEncodingException e) {
 			throw new ReaderException("Encoding is not supported", e);
-		}			
+		}
 	}
-	
+
 	@Override
 	public <L extends Collection<E>, E> L readCollection(L collection, Class<E> type, Reader source) throws ReaderException, MappingException {
 		if (source == null) {
@@ -439,39 +454,81 @@ public class JsonReader implements BinderJsonReader {
 		try {
 			return this.readCollection(collection, type, StringUtil.reader2String(source));
 		} catch (IOException e) {
-			throw new ReaderException("IO error!", e); 
+			throw new ReaderException("IO error!", e);
 		}
 
-	}	
-	
+	}
 
-	
-	protected boolean isList(@SuppressWarnings("rawtypes") Class clazz)
-	{
-		if (clazz==null) return false;
-		
-		if (List.class.isAssignableFrom(clazz))
-		{
+	protected boolean isList(@SuppressWarnings("rawtypes") Class clazz) {
+		if (clazz == null)
+			return false;
+
+		if (List.class.isAssignableFrom(clazz)) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	protected Pair<Class, Class> getListElementClass(Class clazz)
-	{
-		if (List.class.isAssignableFrom(clazz))
-		{
+	protected Pair<Class, Class> getListElementClass(Class clazz) {
+		if (List.class.isAssignableFrom(clazz)) {
 			final ParameterizedType genericSuperclass = (ParameterizedType) clazz.getGenericSuperclass();
-			
+
 			Class<?> elementType = (Class<?>) genericSuperclass.getActualTypeArguments()[0];
-			
-			return new Pair<Class, Class>(clazz,elementType);			
+
+			return new Pair<Class, Class>(clazz, elementType);
 		}
-		
+
 		return null;
 	}
 
+	@Override
+	public <M extends Map<K, V>, K, V> M readMap(M map, Class<K> keyType, Class<V> valueType, String source) throws ReaderException {
+		JSONArray jsonArray = new JSONArray(source);
+		String keyName = "key";
+		String valueName = "value";
+		Object entry;
+
+		try {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				entry = jsonArray.get(i);
+				if (entry instanceof JSONObject) {
+
+					readMapEntry(map, entry, keyName, keyType, valueName, valueType);
+
+				} else {
+					throw new MappingException("Badformat for map");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ReaderException("Badformat for map");
+		}
+		
+		return map;
+	}
+
+	@Override
+	public <M extends Map<K, V>, K, V> M readMap(M map, Class<K> keyType, Class<V> valueType, InputStream source) throws ReaderException {
+		try {
+			return readMap(map, keyType, valueType, new InputStreamReader(source, format.getEncoding()));
+		} catch (UnsupportedEncodingException e) {
+			throw new ReaderException("Encoding is not supported", e);
+		}
+	}
+
+	@Override
+	public <M extends Map<K, V>, K, V> M readMap(M map, Class<K> keyType, Class<V> valueType, Reader source) throws ReaderException, MappingException {
+		if (source == null) {
+			throw new ReaderException("Cannot read, reader is null!");
+		}
+
+		try {
+			return this.readMap(map, keyType, valueType, StringUtil.reader2String(source));
+		} catch (IOException e) {
+			throw new ReaderException("IO error!", e);
+		}
+	}
 
 }

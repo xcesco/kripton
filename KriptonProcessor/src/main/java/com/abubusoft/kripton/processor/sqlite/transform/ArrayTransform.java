@@ -102,18 +102,19 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 		return value;
 	}
 
+	/*
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
 		if (primitive) {
 			methodBuilder.addCode("$T.asList($T.TYPE, $L.getBlob($L))", CollectionUtility.class, ProcessorHelper.class, clazz, cursorName, indexName);
 		} else
 			methodBuilder.addCode("$T.asList($T.class, $L.getBlob($L))", CollectionUtility.class, ProcessorHelper.class, clazz, cursorName, indexName);
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void generateDefaultValue(Builder methodBuilder) {
 		methodBuilder.addCode("null");
-	}
+	}*/
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {

@@ -22,6 +22,7 @@ import java.sql.Time;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -36,6 +37,61 @@ import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 
 @BindDao(Bean.class)
 public interface BeanDao {
+	//-- select raw
+	@BindSelect(value="valueBoolType")
+	boolean selectValueBoolType();
+	
+	@BindSelect(value="valueBool")
+	public Boolean selectValueBool();
+
+	@BindSelect(value="valueByteType")
+	public byte selectValueByteType();
+	
+	@BindSelect(value="valueByte")
+	public Byte selectValueByte();
+	
+	@BindSelect(value="valueShortType")
+	public short selectValueShortType();
+	
+	@BindSelect(value="valueShort")
+	public Short selectValueShort();
+
+	@BindSelect(value="valueIntType")
+	public int selectValueIntType();
+	
+	@BindSelect(value="valueInt")
+	public Integer selectValueInt();
+	
+	@BindSelect(value="valueString")
+	public String selectValueString();
+	
+	@BindSelect(value="valueCharType")
+	public char selectValueCharType();
+	
+	@BindSelect(value="valueChar")
+	public Character selectValueChar();
+	
+	@BindSelect(value="valueFloatType")
+	public float selectValueFloatType();
+	
+	@BindSelect(value="valueFloat")
+	public Float selectValueFloat();
+	
+	@BindSelect(value="valueLongType")
+	public long selectValueLongType();
+	
+	@BindSelect(value="valueLong")
+	public Long selectValueLong();
+	
+	@BindSelect(value="valueDoubleType")
+	public double selectValueDoubleType();
+	
+	@BindSelect(value="valueDouble")
+	public Double selectValueDouble();
+	
+	
+	
+	//--
 	
 	@BindSelect()
 	Bean selectOne();	
@@ -426,4 +482,57 @@ public interface BeanDao {
 	
 	@BindUpdate(where = "value=${valueEnumType}")
 	long updateOneEnumType(EnumType valueEnumType);
+	
+	// array bean	
+	@BindInsert
+	long insertArrayBeanType(Bean[] valueBeanArray);
+	
+	@BindSelect(where = "value=${valueBeanArray}")
+	Bean selectOneArrayBeanType(Bean[] valueBeanArray);
+	
+	@BindDelete(where = "value=${valueBeanArray}")
+	long deleteArrayBeanType(Bean[] valueBeanArray);
+	
+	@BindUpdate(where = "value=${valueBeanArray}")
+	long updateOneArrayBean(Bean[] valueBeanArray);
+	
+	// array long	
+	@BindInsert
+	long insertArrayLongType(long[] valueLongTypeArray);
+	
+	@BindSelect(where = "value=${valueLongTypeArray}")
+	Bean selectOneArrayLongType(long[] valueLongTypeArray);
+	
+	@BindDelete(where = "value=${valueLongTypeArray}")
+	long deleteArrayLongType(long[] valueLongTypeArray);
+	
+	@BindUpdate(where = "value=${valueLongTypeArray}")
+	long updateOneArrayLongType(long[] valueLongTypeArray);
+	
+	// array Long	
+	@BindInsert
+	long insertArrayLong(Long[] valueLongArray);
+	
+	@BindSelect(where = "value=${valueLongArray}")
+	Bean selectOneArrayLong(Long[] valueLongArray);
+	
+	@BindDelete(where = "value=${valueLongArray}")
+	long deleteArrayLong(Long[] valueLongArray);
+	
+	@BindUpdate(where = "value=${valueLongArray}")
+	long updateOneArrayLong(Long[] valueLongArray);
+	
+	// List Long	
+	@BindInsert
+	long insertListLong(LinkedList<Long> valueLongList);
+	
+	@BindSelect(where = "value=${valueLongList}")
+	Bean selectOneListLong(LinkedList<Long> valueLongList);
+	
+	@BindDelete(where = "value=${valueLongList}")
+	long deleteListLong(LinkedList<Long> valueLongList);
+	
+	@BindUpdate(where = "value=${valueLongList}")
+	long updateOneListLong(LinkedList<Long> valueLongList);
+		
 }

@@ -19,6 +19,7 @@ import com.abubusoft.kripton.common.UrlUtil;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +41,686 @@ import java.util.TimeZone;
 public class BindBeanDao extends AbstractDao implements BeanDao {
   public BindBeanDao(BindBeanDataSource dataSet) {
     super(dataSet);
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_bool_type FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_bool_type]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public boolean selectValueBoolType() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    boolean result=false;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return false; }
+        result=cursor.getInt(0)==0?false:true;
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_bool FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_bool]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public Boolean selectValueBool() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_bool FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Boolean result=null;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return null; }
+        result=cursor.getInt(0)==0?false:true;
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_byte_type FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_byte_type]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public byte selectValueByteType() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_byte_type FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_byte_type FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    byte result=0;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return 0; }
+        result=(byte)cursor.getInt(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_byte FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_byte]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public Byte selectValueByte() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_byte FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_byte FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Byte result=null;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return null; }
+        result=(byte)cursor.getInt(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_short_type FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_short_type]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public short selectValueShortType() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_short_type FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_short_type FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    short result=0;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return 0; }
+        result=cursor.getShort(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_short FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_short]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public Short selectValueShort() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_short FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_short FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Short result=null;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return null; }
+        result=cursor.getShort(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_int_type FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_int_type]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public int selectValueIntType() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_int_type FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_int_type FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    int result=0;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return 0; }
+        result=cursor.getInt(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_int FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_int]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public Integer selectValueInt() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_int FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_int FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Integer result=null;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return null; }
+        result=cursor.getInt(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_string FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_string]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public String selectValueString() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_string FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_string FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    String result=null;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return null; }
+        result=cursor.getString(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_char_type FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_char_type]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public char selectValueCharType() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_char_type FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_char_type FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    char result=0;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return 0; }
+        result=(char)cursor.getInt(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_char FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_char]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public Character selectValueChar() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_char FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_char FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Character result=null;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return null; }
+        result=(char)cursor.getInt(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_float_type FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_float_type]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public float selectValueFloatType() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_float_type FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_float_type FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    float result=0f;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return 0f; }
+        result=cursor.getFloat(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_float FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_float]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public Float selectValueFloat() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_float FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_float FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Float result=null;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return null; }
+        result=cursor.getFloat(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_long_type FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_long_type]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public long selectValueLongType() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_long_type FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_long_type FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    long result=0L;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return 0L; }
+        result=cursor.getLong(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_long FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_long]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public Long selectValueLong() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_long FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_long FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Long result=null;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return null; }
+        result=cursor.getLong(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_double_type FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_double_type]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public double selectValueDoubleType() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_double_type FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_double_type FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    double result=0;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return 0; }
+        result=cursor.getDouble(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_double FROM bean WHERE 1=1</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_double]</pre>
+   *
+   *
+   * @return single value extracted with query.
+   */
+  @Override
+  public Double selectValueDouble() {
+    // build where condition
+    String[] args={};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_double FROM bean WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_double FROM bean WHERE 1=1", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Double result=null;
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        if (cursor.isNull(0)) { return null; }
+        result=cursor.getDouble(0);
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
+    return result;
   }
 
   /**
@@ -5768,6 +6449,730 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     String[] whereConditions={(valueEnumType==null?null:String.valueOf(valueEnumType.toString()))};
+
+    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE value=%s"), (Object[])whereConditions);
+    int result = database().update("bean", contentValues, "value=?", whereConditions);
+    return result;
+  }
+
+  /**
+   * <p>Insert query:</p>
+   * <pre>INSERT INTO bean (value_bean_array) VALUES (${valueBeanArray})</pre>
+   *
+   * @param valueBeanArray
+   * 	used as updated field and in where condition
+   * @return id of inserted record
+   */
+  @Override
+  public long insertArrayBeanType(Bean[] valueBeanArray) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    if (valueBeanArray!=null) {
+      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtility.asList(valueBeanArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_bean_array");
+    }
+
+    // log
+    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_bean_array) VALUES ('"+StringUtil.checkSize(contentValues.get("value_bean_array"))+"')"));
+    long result = database().insert("bean", null, contentValues);
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueBeanArray}</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[valueBeanArray]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
+   *
+   * @param valueBeanArray
+   *
+   * @return selected bean or <code>null</code>.
+   */
+  @Override
+  public Bean selectOneArrayBeanType(Bean[] valueBeanArray) {
+    // build where condition
+    String[] args={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    Bean resultBean=null;
+
+    if (cursor.moveToFirst()) {
+
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
+      int index21=cursor.getColumnIndex("value_calendar");
+      int index22=cursor.getColumnIndex("value_date");
+      int index23=cursor.getColumnIndex("value_url");
+      int index24=cursor.getColumnIndex("value_time");
+      int index25=cursor.getColumnIndex("value_currency");
+      int index26=cursor.getColumnIndex("value_time_zone");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
+
+      resultBean=new Bean();
+
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
+
+    }
+    cursor.close();
+
+    return resultBean;
+  }
+
+  /**
+   * <p>Delete query:</p>
+   * <pre>DELETE bean WHERE value=${valueBeanArray}</pre>
+   *
+   * @param valueBeanArray
+   * 	used in where condition
+   *
+   * @return number of deleted records
+   */
+  @Override
+  public long deleteArrayBeanType(Bean[] valueBeanArray) {
+    String[] whereConditions={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("DELETE bean WHERE value=%s"), (Object[])whereConditions);
+    int result = database().delete("bean", "value=?", whereConditions);
+    return result;
+  }
+
+  /**
+   * <p>Update query:</p>
+   * <pre>UPDATE bean SET  WHERE value=${valueBeanArray}</pre>
+   *
+   * @param valueBeanArray
+   * 	used in where condition
+   *
+   * @return number of updated records
+   */
+  @Override
+  public long updateOneArrayBean(Bean[] valueBeanArray) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    String[] whereConditions={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE value=%s"), (Object[])whereConditions);
+    int result = database().update("bean", contentValues, "value=?", whereConditions);
+    return result;
+  }
+
+  /**
+   * <p>Insert query:</p>
+   * <pre>INSERT INTO bean (value_long_type_array) VALUES (${valueLongTypeArray})</pre>
+   *
+   * @param valueLongTypeArray
+   * 	used as updated field and in where condition
+   * @return id of inserted record
+   */
+  @Override
+  public long insertArrayLongType(long[] valueLongTypeArray) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    if (valueLongTypeArray!=null) {
+      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongTypeArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_long_type_array");
+    }
+
+    // log
+    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_long_type_array) VALUES ('"+StringUtil.checkSize(contentValues.get("value_long_type_array"))+"')"));
+    long result = database().insert("bean", null, contentValues);
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueLongTypeArray}</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[valueLongTypeArray]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
+   *
+   * @param valueLongTypeArray
+   *
+   * @return selected bean or <code>null</code>.
+   */
+  @Override
+  public Bean selectOneArrayLongType(long[] valueLongTypeArray) {
+    // build where condition
+    String[] args={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    Bean resultBean=null;
+
+    if (cursor.moveToFirst()) {
+
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
+      int index21=cursor.getColumnIndex("value_calendar");
+      int index22=cursor.getColumnIndex("value_date");
+      int index23=cursor.getColumnIndex("value_url");
+      int index24=cursor.getColumnIndex("value_time");
+      int index25=cursor.getColumnIndex("value_currency");
+      int index26=cursor.getColumnIndex("value_time_zone");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
+
+      resultBean=new Bean();
+
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
+
+    }
+    cursor.close();
+
+    return resultBean;
+  }
+
+  /**
+   * <p>Delete query:</p>
+   * <pre>DELETE bean WHERE value=${valueLongTypeArray}</pre>
+   *
+   * @param valueLongTypeArray
+   * 	used in where condition
+   *
+   * @return number of deleted records
+   */
+  @Override
+  public long deleteArrayLongType(long[] valueLongTypeArray) {
+    String[] whereConditions={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("DELETE bean WHERE value=%s"), (Object[])whereConditions);
+    int result = database().delete("bean", "value=?", whereConditions);
+    return result;
+  }
+
+  /**
+   * <p>Update query:</p>
+   * <pre>UPDATE bean SET  WHERE value=${valueLongTypeArray}</pre>
+   *
+   * @param valueLongTypeArray
+   * 	used in where condition
+   *
+   * @return number of updated records
+   */
+  @Override
+  public long updateOneArrayLongType(long[] valueLongTypeArray) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    String[] whereConditions={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE value=%s"), (Object[])whereConditions);
+    int result = database().update("bean", contentValues, "value=?", whereConditions);
+    return result;
+  }
+
+  /**
+   * <p>Insert query:</p>
+   * <pre>INSERT INTO bean (value_long_array) VALUES (${valueLongArray})</pre>
+   *
+   * @param valueLongArray
+   * 	used as updated field and in where condition
+   * @return id of inserted record
+   */
+  @Override
+  public long insertArrayLong(Long[] valueLongArray) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    if (valueLongArray!=null) {
+      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongArray, ArrayList.class)));
+    } else {
+      contentValues.putNull("value_long_array");
+    }
+
+    // log
+    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_long_array) VALUES ('"+StringUtil.checkSize(contentValues.get("value_long_array"))+"')"));
+    long result = database().insert("bean", null, contentValues);
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueLongArray}</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[valueLongArray]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
+   *
+   * @param valueLongArray
+   *
+   * @return selected bean or <code>null</code>.
+   */
+  @Override
+  public Bean selectOneArrayLong(Long[] valueLongArray) {
+    // build where condition
+    String[] args={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    Bean resultBean=null;
+
+    if (cursor.moveToFirst()) {
+
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
+      int index21=cursor.getColumnIndex("value_calendar");
+      int index22=cursor.getColumnIndex("value_date");
+      int index23=cursor.getColumnIndex("value_url");
+      int index24=cursor.getColumnIndex("value_time");
+      int index25=cursor.getColumnIndex("value_currency");
+      int index26=cursor.getColumnIndex("value_time_zone");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
+
+      resultBean=new Bean();
+
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
+
+    }
+    cursor.close();
+
+    return resultBean;
+  }
+
+  /**
+   * <p>Delete query:</p>
+   * <pre>DELETE bean WHERE value=${valueLongArray}</pre>
+   *
+   * @param valueLongArray
+   * 	used in where condition
+   *
+   * @return number of deleted records
+   */
+  @Override
+  public long deleteArrayLong(Long[] valueLongArray) {
+    String[] whereConditions={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("DELETE bean WHERE value=%s"), (Object[])whereConditions);
+    int result = database().delete("bean", "value=?", whereConditions);
+    return result;
+  }
+
+  /**
+   * <p>Update query:</p>
+   * <pre>UPDATE bean SET  WHERE value=${valueLongArray}</pre>
+   *
+   * @param valueLongArray
+   * 	used in where condition
+   *
+   * @return number of updated records
+   */
+  @Override
+  public long updateOneArrayLong(Long[] valueLongArray) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    String[] whereConditions={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE value=%s"), (Object[])whereConditions);
+    int result = database().update("bean", contentValues, "value=?", whereConditions);
+    return result;
+  }
+
+  /**
+   * <p>Insert query:</p>
+   * <pre>INSERT INTO bean (value_long_list) VALUES (${valueLongList})</pre>
+   *
+   * @param valueLongList
+   * 	used as updated field and in where condition
+   * @return id of inserted record
+   */
+  @Override
+  public long insertListLong(LinkedList<Long> valueLongList) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    if (valueLongList!=null) {
+      contentValues.put("value_long_list", ProcessorHelper.asByteArray(valueLongList));
+    } else {
+      contentValues.putNull("value_long_list");
+    }
+
+    // log
+    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_long_list) VALUES ('"+StringUtil.checkSize(contentValues.get("value_long_list"))+"')"));
+    long result = database().insert("bean", null, contentValues);
+    return result;
+  }
+
+  /**
+   * <p>Select query is:</p>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=${valueLongList}</pre>
+   *
+   * <p>Its parameters are:</p>
+   *
+   * <pre>[valueLongList]</pre>
+   *
+   * <p>Projected column are:</p>
+   *
+   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id]</pre>
+   *
+   * @param valueLongList
+   *
+   * @return selected bean or <code>null</code>.
+   */
+  @Override
+  public Bean selectOneListLong(LinkedList<Long> valueLongList) {
+    // build where condition
+    String[] args={(valueLongList==null?null:new String(ProcessorHelper.asByteArray(valueLongList),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, id FROM bean WHERE value=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    Bean resultBean=null;
+
+    if (cursor.moveToFirst()) {
+
+      int index0=cursor.getColumnIndex("value_bool_type");
+      int index1=cursor.getColumnIndex("value_bool");
+      int index2=cursor.getColumnIndex("value_byte_type");
+      int index3=cursor.getColumnIndex("value_byte");
+      int index4=cursor.getColumnIndex("value_short_type");
+      int index5=cursor.getColumnIndex("value_short");
+      int index6=cursor.getColumnIndex("value_int_type");
+      int index7=cursor.getColumnIndex("value_int");
+      int index8=cursor.getColumnIndex("value_string");
+      int index9=cursor.getColumnIndex("value_char_type");
+      int index10=cursor.getColumnIndex("value_char");
+      int index11=cursor.getColumnIndex("value_float_type");
+      int index12=cursor.getColumnIndex("value_float");
+      int index13=cursor.getColumnIndex("value_big_integer");
+      int index14=cursor.getColumnIndex("value_big_decimal");
+      int index15=cursor.getColumnIndex("value_enum_type");
+      int index16=cursor.getColumnIndex("value_long_type");
+      int index17=cursor.getColumnIndex("value_long");
+      int index18=cursor.getColumnIndex("value_double_type");
+      int index19=cursor.getColumnIndex("value_double");
+      int index20=cursor.getColumnIndex("value_locale");
+      int index21=cursor.getColumnIndex("value_calendar");
+      int index22=cursor.getColumnIndex("value_date");
+      int index23=cursor.getColumnIndex("value_url");
+      int index24=cursor.getColumnIndex("value_time");
+      int index25=cursor.getColumnIndex("value_currency");
+      int index26=cursor.getColumnIndex("value_time_zone");
+      int index27=cursor.getColumnIndex("value_time_list");
+      int index28=cursor.getColumnIndex("value_strin_list");
+      int index29=cursor.getColumnIndex("value_long_list");
+      int index30=cursor.getColumnIndex("value_byte_array");
+      int index31=cursor.getColumnIndex("value_long_type_array");
+      int index32=cursor.getColumnIndex("value_long_array");
+      int index33=cursor.getColumnIndex("value_bean_array");
+      int index34=cursor.getColumnIndex("value_string_array");
+      int index35=cursor.getColumnIndex("value_char_list");
+      int index36=cursor.getColumnIndex("value_char_type_array");
+      int index37=cursor.getColumnIndex("value_char_array");
+      int index38=cursor.getColumnIndex("id");
+
+      resultBean=new Bean();
+
+      if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
+      if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
+      if (!cursor.isNull(index2)) { resultBean.valueByteType=(byte)cursor.getInt(index2); }
+      if (!cursor.isNull(index3)) { resultBean.valueByte=(byte)cursor.getInt(index3); }
+      if (!cursor.isNull(index4)) { resultBean.valueShortType=cursor.getShort(index4); }
+      if (!cursor.isNull(index5)) { resultBean.valueShort=cursor.getShort(index5); }
+      if (!cursor.isNull(index6)) { resultBean.valueIntType=cursor.getInt(index6); }
+      if (!cursor.isNull(index7)) { resultBean.valueInt=cursor.getInt(index7); }
+      if (!cursor.isNull(index8)) { resultBean.valueString=cursor.getString(index8); }
+      if (!cursor.isNull(index9)) { resultBean.valueCharType=(char)cursor.getInt(index9); }
+      if (!cursor.isNull(index10)) { resultBean.valueChar=(char)cursor.getInt(index10); }
+      if (!cursor.isNull(index11)) { resultBean.valueFloatType=cursor.getFloat(index11); }
+      if (!cursor.isNull(index12)) { resultBean.valueFloat=cursor.getFloat(index12); }
+      if (!cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(cursor.getString(index13)); }
+      if (!cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(cursor.getString(index14)); }
+      if (!cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(cursor.getString(index15)); }
+      if (!cursor.isNull(index16)) { resultBean.valueLongType=cursor.getLong(index16); }
+      if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
+      if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
+      if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index38)) { resultBean.id=cursor.getLong(index38); }
+
+    }
+    cursor.close();
+
+    return resultBean;
+  }
+
+  /**
+   * <p>Delete query:</p>
+   * <pre>DELETE bean WHERE value=${valueLongList}</pre>
+   *
+   * @param valueLongList
+   * 	used in where condition
+   *
+   * @return number of deleted records
+   */
+  @Override
+  public long deleteListLong(LinkedList<Long> valueLongList) {
+    String[] whereConditions={(valueLongList==null?null:new String(ProcessorHelper.asByteArray(valueLongList),StandardCharsets.UTF_8))};
+
+    Logger.info(StringUtil.formatSQL("DELETE bean WHERE value=%s"), (Object[])whereConditions);
+    int result = database().delete("bean", "value=?", whereConditions);
+    return result;
+  }
+
+  /**
+   * <p>Update query:</p>
+   * <pre>UPDATE bean SET  WHERE value=${valueLongList}</pre>
+   *
+   * @param valueLongList
+   * 	used in where condition
+   *
+   * @return number of updated records
+   */
+  @Override
+  public long updateOneListLong(LinkedList<Long> valueLongList) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    String[] whereConditions={(valueLongList==null?null:new String(ProcessorHelper.asByteArray(valueLongList),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE value=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value=?", whereConditions);

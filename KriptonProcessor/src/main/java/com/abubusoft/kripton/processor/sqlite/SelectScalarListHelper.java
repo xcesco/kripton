@@ -92,7 +92,7 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 			t=Transformer.lookup(typeName(literalReturn.getComposedValue()));
 		}
 		
-
+		//@formatter:off
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("try");
 			methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
@@ -112,6 +112,7 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 				methodBuilder.addCode("cursor.close();\n");
 			methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
+		//@formatter:on
 
 		methodBuilder.addCode("return resultList;\n");
 

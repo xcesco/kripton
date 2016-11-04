@@ -13,19 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-/**
- * 
- */
-package com.abubusoft.kripton.processor.sqlite.transform;
+package com.abubusoft.kripton.processor.kripton63;
 
-import com.abubusoft.kripton.binder.transform.Transform;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-/**
- * Base class for custom trasformation
- * 
- * @author xcesco
- *
- */
-public interface CustomTransform<T> extends Transform<T> {
+
+@BindDataSource(value=BeanDao.class, fileName = "dummy" , version=1, asyncTask=true, cursor=true)
+public interface BeanDataSource {
 
 }

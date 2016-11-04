@@ -30,10 +30,10 @@ public class WrappedCompileTimeTransform<U> extends AbstractCompileTimeTransform
 
 	}
 	
-	@Override
+	/*@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
 		methodBuilder.addCode("$T.read($L.getString($L))", utilClazz, cursorName, indexName);
-	}
+	}*/
 	
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
@@ -60,9 +60,9 @@ public class WrappedCompileTimeTransform<U> extends AbstractCompileTimeTransform
 		return "TEXT";
 	}
 
-	@Override
+	/*@Override
 	public void generateDefaultValue(Builder methodBuilder) {
 		methodBuilder.addCode("null");
-	}
+	}*/
 
 }

@@ -22,6 +22,7 @@ import com.abubusoft.kripton.processor.kripton45.TestKripton45;
 import com.abubusoft.kripton.processor.kripton47.TestKripton47;
 import com.abubusoft.kripton.processor.kripton50.TestKripton50;
 import com.abubusoft.kripton.processor.kripton62.TestKripton62;
+import com.abubusoft.kripton.processor.kripton63.TestKripton63;
 import com.abubusoft.kripton.processor.test05firt_aid.TestFirstAid;
 
 
@@ -32,6 +33,7 @@ import com.abubusoft.kripton.processor.test05firt_aid.TestFirstAid;
 			TestKripton45.class, TestKripton47.class,
 			TestKripton50.class,
 			TestKripton62.class,
+			TestKripton63.class,
 			TestFirstAid.class })
 //@formatter:on
 public class SharedPreferenceProcessorSuiteTest {

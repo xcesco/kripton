@@ -375,4 +375,14 @@ public class TypeUtility {
 		return false;
 	}
 
+	public static boolean isMap(TypeName typeName) {
+		if (typeName instanceof ParameterizedTypeName) {
+			LiteralType lt=LiteralType.of(typeName.toString());	
+			
+			return lt.isMap();
+		}
+
+		return false;
+	}
+
 }

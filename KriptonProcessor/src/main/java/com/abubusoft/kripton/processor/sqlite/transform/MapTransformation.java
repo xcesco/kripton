@@ -3,11 +3,10 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -15,17 +14,19 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class ListTransformation extends AbstractCompileTimeTransform {
+public class MapTransformation extends AbstractCompileTimeTransform {
 
 	static Converter<String, String> nc=CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 	
-	private ParameterizedTypeName listTypeName;
+	private ParameterizedTypeName mapTypeName;
 
-	private TypeName rawTypeName;
+	private TypeName keyTypeName;
+	private TypeName valueTypeName;
 
-	public ListTransformation(ParameterizedTypeName clazz) {
-		this.listTypeName = clazz;
-		this.rawTypeName=listTypeName.typeArguments.get(0);
+	public MapTransformation(ParameterizedTypeName clazz) {
+		this.mapTypeName = clazz;
+		this.keyTypeName=mapTypeName.typeArguments.get(0);
+		this.valueTypeName=mapTypeName.typeArguments.get(1);
 	}
 
 	@Override
@@ -42,38 +43,36 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 		methodBuilder.addCode("$T.asByteArray($L)", ProcessorHelper.class, objectName);
 	}
 
-	
-	@Override	
+	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		String name=nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".")+1));
+		Class<?> mapClazz=defineMapClass(mapTypeName);
 		
-		Class<?> listClazz=defineListClass(listTypeName);
-		
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
+		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asMap(new $T<$T,$T>(), $T.class, $T.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, mapClazz, keyTypeName, valueTypeName, keyTypeName, valueTypeName, cursorName, indexName);
 	}
 
-	private Class<?> defineListClass(ParameterizedTypeName listTypeName) {
-		if (listTypeName.toString().startsWith(List.class.getCanonicalName()))
+	private Class<?> defineMapClass(ParameterizedTypeName typeName) {
+		if (typeName.toString().startsWith(Map.class.getCanonicalName()))
 		{
 			// it's a list
-			return ArrayList.class;
+			return HashMap.class;
 		}
 		try {
-			return Class.forName(listTypeName.rawType.toString());
+			return Class.forName(typeName.rawType.toString());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-/*
-	@Override
+
+	/*@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		String name=nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".")+1));	
+		String keyName=nc.convert(keyTypeName.toString().substring(keyTypeName.toString().lastIndexOf(".")+1));
+		String valueName=nc.convert(valueTypeName.toString().substring(valueTypeName.toString().lastIndexOf(".")+1));
 		
-		Class<?> listClazz=defineListClass(listTypeName);
+		Class<?> mapClazz=defineMapClass(mapTypeName);
 		
-		methodBuilder.addCode("$T.asCollection(new $T<$L>(),$T.class, $L.getBlob($L))", CollectionUtility.class, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
+		methodBuilder.addCode("$T.asMap(new $T<$L,$L>(), $T.class, $T.class, $L.getBlob($L))", ProcessorHelper.class, mapClazz, keyName, valueName, keyTypeName, valueTypeName, cursorName, indexName);
 	}*/
 
 	/*@Override

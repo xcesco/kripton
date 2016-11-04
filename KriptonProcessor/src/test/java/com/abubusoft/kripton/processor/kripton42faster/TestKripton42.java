@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.kripton42;
+package com.abubusoft.kripton.processor.kripton42faster;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,16 +33,16 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 import com.abubusoft.kripton.processor.BaseProcessorTest;
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
-import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
-import com.fasterxml.jackson.dataformat.smile.SmileFactory;
-import com.fasterxml.jackson.dataformat.xml.XmlFactory;
-import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
-import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator.Feature;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+//import com.fasterxml.jackson.core.JsonEncoding;
+//import com.fasterxml.jackson.core.JsonFactory;
+//import com.fasterxml.jackson.core.JsonGenerator;
+//import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
+//import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
+//import com.fasterxml.jackson.dataformat.smile.SmileFactory;
+//import com.fasterxml.jackson.dataformat.xml.XmlFactory;
+//import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
+//import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator.Feature;
+//import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 /**
  * @author xcesco

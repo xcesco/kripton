@@ -4,7 +4,9 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
@@ -14,28 +16,30 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class ListTransformation extends AbstractSPTransform {
+public class MapTransformation extends AbstractSPTransform {
 
 	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	protected Class<?> utilClazz;
 	private ParameterizedTypeName listTypeName;
-	private TypeName rawTypeName;
+	private TypeName keyTypeName;
+	private TypeName valueTypeName;
 
-	public ListTransformation(ParameterizedTypeName clazz) {
+	public MapTransformation(ParameterizedTypeName clazz) {
 		this.utilClazz = ProcessorHelper.class;
 
 		this.listTypeName = clazz;
-		this.rawTypeName = listTypeName.typeArguments.get(0);
+		this.keyTypeName = listTypeName.typeArguments.get(0);
+		this.valueTypeName = listTypeName.typeArguments.get(1);
 	}
 
-	private Class<?> defineListClass(ParameterizedTypeName listTypeName) {
-		if (listTypeName.toString().startsWith(List.class.getCanonicalName())) {
+	private Class<?> defineMapClass(ParameterizedTypeName mapTypeName) {
+		if (mapTypeName.toString().startsWith(Map.class.getCanonicalName())) {
 			// it's a list
-			return ArrayList.class;
+			return HashMap.class;
 		}
 		try {
-			return Class.forName(listTypeName.rawType.toString());
+			return Class.forName(mapTypeName.rawType.toString());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
@@ -44,16 +48,17 @@ public class ListTransformation extends AbstractSPTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		//String name = nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".") + 1));
-		Class<?> listClazz = defineListClass(listTypeName);
+		//String name = nc.convert(keyTypeName.toString().substring(keyTypeName.toString().lastIndexOf(".") + 1));
+		//String name = nc.convert(keyTypeName.toString().substring(keyTypeName.toString().lastIndexOf(".") + 1));
+		
+		Class<?> mapClazz = defineMapClass(listTypeName);
 
 		if (add) {
-
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
 		}
 
 		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, beanName);
-		methodBuilder.addCode("$T.asCollection(new $T<$T>(), $T.class, $L.getString($S, null))", utilClazz, listClazz, rawTypeName, rawTypeName, preferenceName, property.getName());
+		methodBuilder.addCode("$T.asMap(new $T<$T, $T>(), $T.class, $T.class, $L.getString($S, null))", utilClazz, mapClazz, keyTypeName, valueTypeName, keyTypeName, valueTypeName, preferenceName, property.getName());
 		methodBuilder.addCode(": null");
 
 		if (add) {

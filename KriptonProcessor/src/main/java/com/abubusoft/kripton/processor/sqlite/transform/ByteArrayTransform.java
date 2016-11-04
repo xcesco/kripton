@@ -35,6 +35,7 @@ public class ByteArrayTransform extends AbstractCompileTimeTransform {
 		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getBlob($L)"), beanName,cursorName, indexName);			
 	}
 	
+	
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getBlob($L)", cursorName, indexName);		

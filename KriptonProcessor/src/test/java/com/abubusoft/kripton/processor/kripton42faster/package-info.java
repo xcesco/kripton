@@ -13,21 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.kripton33;
-
-import java.util.List;
-
-import android.database.Cursor;
-
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-
-@BindDao(Channel.class)
-public interface DaoChannel01 {
-	@BindSelect(where = "updateTime=${updateTimeB}")
-	List<Channel> select(long updateTimeA);
-	
-	@BindSelect(where = "updateTime=${updateTimeB}")
-	Cursor selectCursor(long updateTimeA);
-
-}
+/**
+ * @author xcesco
+ *
+ */
+package com.abubusoft.kripton.processor.kripton42faster;

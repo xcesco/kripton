@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.kripton42;
+package com.abubusoft.kripton.processor.kripton42faster;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
+//import com.fasterxml.jackson.core.JsonGenerator;
+//import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 
 public interface BindMapper<E> {
 
-	void write(JsonGenerator generator, E source) throws IOException;
+	//void write(JsonGenerator generator, E source) throws IOException;
 	
-	void writeXml(ToXmlGenerator generator, E source) throws IOException;
+	//void writeXml(ToXmlGenerator generator, E source) throws IOException;
 	
 	E read();
 }

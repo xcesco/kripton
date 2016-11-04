@@ -49,6 +49,7 @@ public class EnumTransform extends AbstractCompileTimeTransform {
 		methodBuilder.addCode("$L.toString()", objectName);		
 	}
 
+	
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
 		methodBuilder.addCode("$L."+setter(beanClass, property, "$T.valueOf($L.getString($L))"), beanName, property.getPropertyType().getName(),cursorName, indexName);

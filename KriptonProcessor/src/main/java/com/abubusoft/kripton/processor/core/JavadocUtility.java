@@ -23,7 +23,6 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.Version;
-import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectResultType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;

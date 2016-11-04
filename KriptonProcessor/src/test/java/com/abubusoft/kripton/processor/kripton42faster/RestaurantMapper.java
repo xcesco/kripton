@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.kripton42;
+package com.abubusoft.kripton.processor.kripton42faster;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
+//import com.fasterxml.jackson.core.JsonGenerator;
+//import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 
-public class RestaurantMapper implements BindMapper<Restaurant> {
+public class RestaurantMapper /* implements BindMapper<Restaurant> */ {
 
 	static RestaurantMapper instance;
 
@@ -31,50 +31,50 @@ public class RestaurantMapper implements BindMapper<Restaurant> {
 		return instance;
 	}
 
-	@Override
-	public void write(JsonGenerator generator, Restaurant source) throws IOException {
-		generator.writeStartObject();
-
-		generator.writeFieldName("id");
-		generator.writeNumber(source.id);
-
-		generator.writeFieldName("name");		
-		generator.writeString(source.name);
-
-		generator.writeFieldName("address");
-		generator.writeString(source.address);
-
-		generator.writeFieldName("longitude");
-		generator.writeNumber(source.longitude);
-
-		generator.writeFieldName("latitude");
-		generator.writeNumber(source.latitude);
-
-		generator.writeEndObject();
-	}
+//	@Override
+//	public void write(JsonGenerator generator, Restaurant source) throws IOException {
+//		generator.writeStartObject();
+//
+//		generator.writeFieldName("id");
+//		generator.writeNumber(source.id);
+//
+//		generator.writeFieldName("name");		
+//		generator.writeString(source.name);
+//
+//		generator.writeFieldName("address");
+//		generator.writeString(source.address);
+//
+//		generator.writeFieldName("longitude");
+//		generator.writeNumber(source.longitude);
+//
+//		generator.writeFieldName("latitude");
+//		generator.writeNumber(source.latitude);
+//
+//		generator.writeEndObject();
+//	}
 	
-	@Override
-	public void writeXml(ToXmlGenerator generator, Restaurant source) throws IOException {
-		generator.writeStartObject();
-
-		generator.setNextIsAttribute(true);
-		generator.writeFieldName("id");
-		generator.writeNumber(source.id);
-
-		generator.setNextIsAttribute(false);
-		generator.writeFieldName("name");		
-		generator.writeString(source.name);
-
-		generator.writeFieldName("address");
-		generator.writeString(source.address);
-
-		generator.writeFieldName("longitude");
-		generator.writeNumber(source.longitude);
-
-		generator.writeFieldName("latitude");
-		generator.writeNumber(source.latitude);
-
-		generator.writeEndObject();
+//	@Override
+//	public void writeXml(ToXmlGenerator generator, Restaurant source) throws IOException {
+//		generator.writeStartObject();
+//
+//		generator.setNextIsAttribute(true);
+//		generator.writeFieldName("id");
+//		generator.writeNumber(source.id);
+//
+//		generator.setNextIsAttribute(false);
+//		generator.writeFieldName("name");		
+//		generator.writeString(source.name);
+//
+//		generator.writeFieldName("address");
+//		generator.writeString(source.address);
+//
+//		generator.writeFieldName("longitude");
+//		generator.writeNumber(source.longitude);
+//
+//		generator.writeFieldName("latitude");
+//		generator.writeNumber(source.latitude);
+//
+//		generator.writeEndObject();
 		
 		/*
 		generator.writeStartObject();
@@ -139,12 +139,12 @@ public class RestaurantMapper implements BindMapper<Restaurant> {
 	        generator.writeString("<ciao>");
         
         generator.writeEndObject();*/
-	}
-
-	@Override
-	public Restaurant read() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	}
+//
+//	@Override
+//	public Restaurant read() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

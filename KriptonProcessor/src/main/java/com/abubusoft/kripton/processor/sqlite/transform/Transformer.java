@@ -161,6 +161,8 @@ public abstract class Transformer {
 				return new ListTransformation(parameterizedTypeName);
 			} else if (TypeUtility.isSet(parameterizedTypeName)) {
 				return new SetTransformation(parameterizedTypeName);
+			} else if (TypeUtility.isMap(parameterizedTypeName)) {
+				return new MapTransformation(parameterizedTypeName);
 			}
 		}
 

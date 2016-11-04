@@ -67,7 +67,7 @@ public class KriptonFileManager {
     	if (bean==null) return;
     	
     	if (writer==null)
-    		writer=BinderFactory.getJSONWriter(BinderOptions.build().indent(true));
+    		writer=BinderFactory.getJsonWriter(BinderOptions.build().indent(true));
 
         try {
             writer.write(bean, KriptonLibrary.context().openFileOutput(bean.getClass().getSimpleName()+EXTENSION , Context.MODE_PRIVATE));
@@ -92,7 +92,7 @@ public class KriptonFileManager {
         if (file.exists())
         {   
         	if (reader==null)
-        		reader=BinderFactory.getJSONReader();
+        		reader=BinderFactory.getJsonReader();
         	
             try {
                 bean=reader.read(clazz, KriptonLibrary.context().openFileInput(clazz.getSimpleName()+EXTENSION));

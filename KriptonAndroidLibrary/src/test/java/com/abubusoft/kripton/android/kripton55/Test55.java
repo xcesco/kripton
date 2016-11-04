@@ -51,7 +51,7 @@ public class Test55 {
 		list.add(new Bean(1, "ciao"));
 		list.add(new Bean(2, "ciao2"));
 
-		BinderJsonWriter writer = BinderFactory.getJSONWriter();
+		BinderJsonWriter writer = BinderFactory.getJsonWriter();
 
 		String result = writer.writeCollection(list);
 
@@ -65,7 +65,7 @@ public class Test55 {
 		list[0] = new Bean(1, "ciao");
 		list[1] = new Bean(2, "ciao2");
 
-		BinderJsonWriter writer = BinderFactory.getJSONWriter();
+		BinderJsonWriter writer = BinderFactory.getJsonWriter();
 
 		String result = writer.writeCollection(Arrays.asList(list));
 
@@ -79,7 +79,7 @@ public class Test55 {
 		list[0] = 1L;
 		list[1] = 2L;
 
-		BinderJsonWriter writer = BinderFactory.getJSONWriter();
+		BinderJsonWriter writer = BinderFactory.getJsonWriter();
 
 		String result = writer.writeCollection(Arrays.asList(list));// CollectionUtils.convertArray(list, ArrayList.class));
 
@@ -93,13 +93,13 @@ public class Test55 {
 		list[0] = 1.1f;
 		list[1] = 2.2f;
 
-		BinderJsonWriter writer = BinderFactory.getJSONWriter();
+		BinderJsonWriter writer = BinderFactory.getJsonWriter();
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
 		String middle = writer.writeCollection(CollectionUtility.asList(list, LinkedList.class));
 		System.out.println(middle);
 
-		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJSONReader();
+		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJsonReader();
 		List<Float> result = reader.readCollection(new ArrayList(), Float.TYPE, middle);
 		System.out.println(result.toArray(new Float[result.size()]));
 	}
@@ -111,11 +111,11 @@ public class Test55 {
 		list[0] = 1L;
 		list[1] = 2L;
 
-		BinderJsonWriter writer = BinderFactory.getJSONWriter();
+		BinderJsonWriter writer = BinderFactory.getJsonWriter();
 		String middle = writer.writeCollection(Arrays.asList(list));
 		System.out.println(middle);
 
-		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJSONReader();
+		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJsonReader();
 		List<Long> result = reader.readList(Long.TYPE, middle);
 		System.out.println(result);
 	}
@@ -158,15 +158,15 @@ public class Test55 {
 
 	@Test
 	public void testWriteArrayPrestazione() throws MappingException, WriterException, ReaderException {
-		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJSONReader();
+		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJsonReader();
 		List<Parent> result = reader.readList(Parent.class, input);
 		System.out.println(result);
 	}
 
 	@Test
 	public void testObjectOrList() throws MappingException, WriterException, ReaderException {
-		JsonWriter writer = (JsonWriter) BinderFactory.getJSONWriter();
-		JsonReader reader = (JsonReader) BinderFactory.getJSONReader();
+		JsonWriter writer = (JsonWriter) BinderFactory.getJsonWriter();
+		JsonReader reader = (JsonReader) BinderFactory.getJsonReader();
 
 		Bean bean = new Bean();
 		bean.id = 235;

@@ -37,7 +37,7 @@ public class Test54 {
 	public void testWriteXmlNull() throws MappingException, WriterException
 	{
 		// write
-		BinderWriter writer=BinderFactory.getXMLWriter();
+		BinderWriter writer=BinderFactory.getXmlWriter();
 		
 		writer.write(null);
 	}
@@ -48,7 +48,7 @@ public class Test54 {
 		InputStream stream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));// );
 		
 		// write
-		BinderReader reader=BinderFactory.getXMLReader();
+		BinderReader reader=BinderFactory.getXmlReader();
 		
 		Bean result=reader.read(Bean.class, stream);
 		assertNull(result);
@@ -60,7 +60,7 @@ public class Test54 {
 		InputStream stream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));// );
 		
 		// write
-		BinderReader reader=BinderFactory.getXMLReader(XmlReaderType.DOM);
+		BinderReader reader=BinderFactory.getXmlReader(XmlReaderType.DOM);
 		
 		Bean result=reader.read(Bean.class, stream);
 		assertNull(result);
@@ -72,7 +72,7 @@ public class Test54 {
 		InputStream stream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));// );
 		
 		// write
-		BinderReader reader=BinderFactory.getXMLReader(XmlReaderType.SAX);
+		BinderReader reader=BinderFactory.getXmlReader(XmlReaderType.SAX);
 		
 		Bean result=reader.read(Bean.class, stream);
 		assertNull(result);
@@ -82,7 +82,7 @@ public class Test54 {
 	public void testWriteJsonNull() throws MappingException, WriterException
 	{
 		// write
-		BinderWriter writer=BinderFactory.getJSONWriter();
+		BinderWriter writer=BinderFactory.getJsonWriter();
 		
 		writer.write(null);
 	}
@@ -93,7 +93,7 @@ public class Test54 {
 		InputStream stream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));// );
 		
 		// write
-		BinderReader reader=BinderFactory.getJSONReader();
+		BinderReader reader=BinderFactory.getJsonReader();
 		
 		Bean result=reader.read(Bean.class, stream);
 		assertNull(result);

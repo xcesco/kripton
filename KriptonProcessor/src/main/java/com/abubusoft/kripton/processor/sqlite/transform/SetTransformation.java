@@ -45,45 +45,39 @@ public class SetTransformation extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		String name = nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".") + 1));
+		Class<?> setClazz = defineSetClass(listTypeName);
 
-		Class<?> listClazz = defineSetClass(listTypeName);
-
-		if (TypeUtility.isString(rawTypeName)) {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asCollection(new $T<String>(), String.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, listClazz, cursorName, indexName);
-		} else if (TypeUtility.isTypeWrappedPrimitive(rawTypeName)) {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
+		if (TypeUtility.isTypeWrappedPrimitive(rawTypeName)) {
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asCollection(new $T<$L>(), $T.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, setClazz, rawTypeName, rawTypeName, cursorName, indexName);
 		} else {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
+			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asCollection(new $T<$T>(), $T.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, setClazz, rawTypeName, rawTypeName, cursorName, indexName);
 		}
 	}
 
-	private Class<?> defineSetClass(ParameterizedTypeName listTypeName) {
-		if (listTypeName.toString().startsWith(Set.class.getCanonicalName())) {
-			// it's a list
+	private Class<?> defineSetClass(ParameterizedTypeName setTypeName) {
+		if (setTypeName.toString().startsWith(Set.class.getCanonicalName())) {
 			return HashSet.class;
 		}
 		try {
-			return Class.forName(listTypeName.rawType.toString());
+			return Class.forName(setTypeName.rawType.toString());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
+	/*
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		String name = nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".") + 1));
+		Class<?> setClazz = defineSetClass(listTypeName);
 
-		Class<?> listClazz = defineSetClass(listTypeName);
+		methodBuilder.addCode("$T.asCollection(new $T<$T>(),$T.class, $L.getBlob($L))", CollectionUtility.class, ProcessorHelper.class, setClazz, rawTypeName, rawTypeName, cursorName, indexName);
+	}*/
 
-		methodBuilder.addCode("$T.asCollection(new $T<$L>(),$T.class, $L.getBlob($L))", CollectionUtility.class, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
-	}
-
-	@Override
+	/*@Override
 	public void generateDefaultValue(Builder methodBuilder) {
 		methodBuilder.addCode("null");
-	}
+	}*/
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {

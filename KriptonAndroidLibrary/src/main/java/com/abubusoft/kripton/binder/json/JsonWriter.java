@@ -45,8 +45,7 @@ import com.abubusoft.kripton.exception.WriterException;
  * </p>
  * 
  * <p>
- * JsonWriter serializes POJO into JSON string, the serialization is guided by
- * mapping schema defined in the POJO using Nano annotations.
+ * JsonWriter serializes POJO into JSON string, the serialization is guided by mapping schema defined in the POJO using Nano annotations.
  * </p>
  * 
  * @author bulldog
@@ -77,10 +76,11 @@ public class JsonWriter implements BinderJsonWriter {
 		Map<String, ElementSchema> field2SchemaMapping = ms.getField2SchemaMapping();
 		for (String fieldName : field2SchemaMapping.keySet()) {
 			ElementSchema es = field2SchemaMapping.get(fieldName);
-			if (es!=null) {
-				
-				if (!es.getJsonInfo().enabled) continue;
-				
+			if (es != null) {
+
+				if (!es.getJsonInfo().enabled)
+					continue;
+
 				Field field = es.getField();
 				Object value = field.get(source);
 				if (value != null) {
@@ -106,46 +106,19 @@ public class JsonWriter implements BinderJsonWriter {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	private void writeElementMap(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {
-		@SuppressWarnings("rawtypes")
 		Map<?, ?> map = (Map) source;
 		if (map.size() > 0) {
 
 			JSONArray jsonEntryArray = new JSONArray();
 			JSONObject jsonEntry;
-			Object jsonKey = null;
-			Object jsonValue = null;
-			Object key;
-			Object value;
 
-			for (@SuppressWarnings("rawtypes")
-			Entry item : map.entrySet()) {
-				jsonEntry = new JSONObject();
+			String keyName = es.getMapInfo().keyName;
+			String valueName = es.getMapInfo().valueName;
 
-				key = item.getKey();
-				value = item.getValue();
-
-				// key
-				if (Transformer.isPrimitive(key.getClass())) {
-					jsonKey = getJSONValue(key, key.getClass());
-				} else {
-					MappingSchema msKey = MappingSchema.fromClass(key.getClass());
-					jsonKey = new JSONObject();
-					writeElements((JSONObject) jsonKey, key, msKey);
-				}
-				jsonEntry.put(es.getMapInfo().keyName, jsonKey);
-
-				// value
-				if (value != null) {
-					if (Transformer.isPrimitive(value.getClass())) {
-						jsonValue = getJSONValue(value, value.getClass());
-					} else {
-						MappingSchema msValue = MappingSchema.fromClass(value.getClass());
-						jsonValue = new JSONObject();
-						writeElements((JSONObject) jsonValue, value, msValue);
-					}
-					jsonEntry.put(es.getMapInfo().valueName, jsonValue);
-				}
+			for (Entry item : map.entrySet()) {
+				jsonEntry = writeMapEntry(keyName, valueName, item);
 
 				jsonEntryArray.put(jsonEntry);
 			}
@@ -155,6 +128,49 @@ public class JsonWriter implements BinderJsonWriter {
 			jsonObject.put(mapKey, jsonEntryArray);
 		}
 
+	}
+
+	/**
+	 * @param keyName
+	 * @param valueName
+	 * @param item
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("rawtypes")
+	JSONObject writeMapEntry(String keyName, String valueName, Entry item) throws Exception {
+		JSONObject jsonEntry;
+		Object jsonKey;
+		Object jsonValue;
+		Object key;
+		Object value;
+		jsonEntry = new JSONObject();
+
+		key = item.getKey();
+		value = item.getValue();
+
+		// key
+		if (Transformer.isPrimitive(key.getClass())) {
+			jsonKey = getJSONValue(key, key.getClass());
+		} else {
+			MappingSchema msKey = MappingSchema.fromClass(key.getClass());
+			jsonKey = new JSONObject();
+			writeElements((JSONObject) jsonKey, key, msKey);
+		}
+		jsonEntry.put(keyName, jsonKey);
+
+		// value
+		if (value != null) {
+			if (Transformer.isPrimitive(value.getClass())) {
+				jsonValue = getJSONValue(value, value.getClass());
+			} else {
+				MappingSchema msValue = MappingSchema.fromClass(value.getClass());
+				jsonValue = new JSONObject();
+				writeElements((JSONObject) jsonValue, value, msValue);
+			}
+			jsonEntry.put(valueName, jsonValue);
+		}
+		return jsonEntry;
 	}
 
 	private void writeElementSet(JSONObject jsonObject, Object source, ElementSchema es) throws Exception {
@@ -296,7 +312,7 @@ public class JsonWriter implements BinderJsonWriter {
 	public String write(Object source) throws WriterException, MappingException {
 		return String.valueOf(writeInternal(source));
 	}
-	
+
 	public void write(Object source, Writer out) throws WriterException, MappingException {
 		if (out == null) {
 			throw new WriterException("Entry validation failure, Writer is null!");
@@ -325,11 +341,11 @@ public class JsonWriter implements BinderJsonWriter {
 	}
 
 	@Override
-	public void writeCollection(@SuppressWarnings("rawtypes") Collection source, Writer out) throws WriterException, MappingException {
+	public void writeCollection(Collection<?> source, Writer out) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
-			array.put((Object)writeInternal(item));
+			array.put((Object) writeInternal(item));
 		}
 
 		try {
@@ -342,11 +358,11 @@ public class JsonWriter implements BinderJsonWriter {
 	}
 
 	@Override
-	public void writeCollection(@SuppressWarnings("rawtypes") Collection source, OutputStream os) throws WriterException, MappingException {
+	public void writeCollection(Collection<?> source, OutputStream os) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
-			array.put((Object)writeInternal(item));
+			array.put((Object) writeInternal(item));
 		}
 
 		write(array.toString(), os);
@@ -354,25 +370,24 @@ public class JsonWriter implements BinderJsonWriter {
 	}
 
 	@Override
-	public String writeCollection(@SuppressWarnings("rawtypes") Collection source) throws WriterException, MappingException {
+	public String writeCollection(Collection<?> source) throws WriterException, MappingException {
 		JSONArray array = new JSONArray();
 
 		for (Object item : source) {
-			array.put((Object)writeInternal(item));
+			array.put((Object) writeInternal(item));
 		}
 
 		return array.toString();
 
 	}
-	
-	@SuppressWarnings("rawtypes")
+
 	private Object writeInternal(Object source) throws WriterException, MappingException {
 		try {
 
 			if (source == null) {
 				// "Can not write null instance!");
 				return null;
-			}								
+			}
 
 			if (Transformer.isPrimitive(source.getClass())) {
 				Class<?> type = source.getClass();
@@ -385,9 +400,9 @@ public class JsonWriter implements BinderJsonWriter {
 			JSONObject childJsonObject = new JSONObject();
 			writeObject(childJsonObject, source);
 			if (this.options.isIndent()) {
-				return childJsonObject;//.toString(DEFAULT_INDENTATION);
+				return childJsonObject;// .toString(DEFAULT_INDENTATION);
 			} else {
-				return childJsonObject;//.toString();
+				return childJsonObject;// .toString();
 			}
 
 		} catch (MappingException me) {
@@ -398,17 +413,70 @@ public class JsonWriter implements BinderJsonWriter {
 			throw new WriterException("Error to serialize object", e);
 		}
 	}
-	
-	protected boolean isList(Object obj)
-	{
-		if (obj==null) return false;
-		
-		if (List.class.isAssignableFrom(obj.getClass()))
-		{
+
+	protected boolean isList(Object obj) {
+		if (obj == null)
+			return false;
+
+		if (List.class.isAssignableFrom(obj.getClass())) {
 			return true;
 		}
-		
+
 		return false;
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public void writeMap(Map<?, ?> source, Writer out) throws WriterException, MappingException {
+		JSONArray array = new JSONArray();
+
+		try {
+			for (Entry item : source.entrySet()) {
+				array.put(writeMapEntry("key", "value", item));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			out.write(array.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new WriterException(e);
+		}
+
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public void writeMap(Map<?, ?> source, OutputStream os) throws WriterException, MappingException {
+		JSONArray array = new JSONArray();
+
+		try {
+			for (Entry item : source.entrySet()) {
+				array.put(writeMapEntry("key", "value", item));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		write(array.toString(), os);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public String writeMap(Map<?, ?> source) throws WriterException, MappingException {
+		JSONArray array = new JSONArray();
+
+		try {
+			for (Entry item : source.entrySet()) {
+				array.put(writeMapEntry("key", "value", item));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return array.toString();
 	}
 
 }
