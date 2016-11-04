@@ -30,7 +30,7 @@ class BigDecimalTransform implements Transform<BigDecimal> {
 	}
 
 	public String write(BigDecimal value) throws Exception {
-		return value.toString();
+		return value.toPlainString();
 	}
 
 }

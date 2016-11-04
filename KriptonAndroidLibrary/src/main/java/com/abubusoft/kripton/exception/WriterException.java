@@ -18,11 +18,10 @@ package com.abubusoft.kripton.exception;
 /**
  * This exception indicates there is reading error at runtime.
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
-@SuppressWarnings("serial")
-public class WriterException extends Exception {
+public class WriterException extends KriptonRuntimeException {
 	public WriterException() {
 	}
 

@@ -18,10 +18,10 @@ package com.abubusoft.kripton.exception;
 /**
  * This exception indicates there is mapping error event the mapping schema is scanned.
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
-public class MappingException extends RuntimeException {
+public class MappingException extends KriptonRuntimeException {
 
 	private static final long serialVersionUID = 7993865639459660322L;
 

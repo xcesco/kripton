@@ -18,11 +18,15 @@ package com.abubusoft.kripton.exception;
 /**
  * This exception indicates there is reading error at runtime.
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
-@SuppressWarnings("serial")
-public class ReaderException extends Exception {
+public class ReaderException extends KriptonRuntimeException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2670503593024072190L;
+
 	public ReaderException() {
 	}
 
