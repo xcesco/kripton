@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * This class is the shared preference binder defined for Bean63
  *
- * @see Bean63
+ * @see Bean
  */
 public class BindBean63SharedPreferences extends AbstractSharedPreference {
   /**
@@ -25,7 +25,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   /**
    * working instance of bean
    */
-  private final Bean63 defaultBean;
+  private final Bean defaultBean;
 
   /**
    * constructor
@@ -33,7 +33,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   private BindBean63SharedPreferences() {
     // no name specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
-    defaultBean=new Bean63();
+    defaultBean=new Bean();
   }
 
   /**
@@ -47,7 +47,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * reset shared preferences
    */
   public void reset() {
-    Bean63 bean=new Bean63();
+    Bean bean=new Bean();
     write(bean);
   }
 
@@ -56,8 +56,8 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    *
    * @return read bean
    */
-  public Bean63 read() {
-    Bean63 bean=new Bean63();
+  public Bean read() {
+    Bean bean=new Bean();
     bean.id=(prefs.getString("bean", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
     bean.value=prefs.getString("value", bean.value);
     bean.valueMapStringByte=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, prefs.getString("valueMapStringByte", null)): null;
@@ -71,7 +71,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    *
    * @param bean bean to entirely write
    */
-  public void write(Bean63 bean) {
+  public void write(Bean bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putString("id",String.valueOf(bean.id));
     editor.putString("value",bean.value );

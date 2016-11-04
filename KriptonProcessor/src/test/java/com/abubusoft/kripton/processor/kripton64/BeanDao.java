@@ -29,33 +29,33 @@ import com.abubusoft.kripton.android.annotation.BindUpdate;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 
-@BindDao(Bean63.class)
+@BindDao(Bean.class)
 public interface BeanDao {
 	
 	@BindSelect()
-	Bean63 selectOne();	
+	Bean selectOne();	
 
 	@BindSelect(where = "id = ${id}")
-	void selectOne(int id, ReadBeanListener<Bean63> listener);
+	void selectOne(int id, ReadBeanListener<Bean> listener);
 
 	@BindSelect(where = "id = ${id}")
 	void selectOne(long id, ReadCursorListener listener);
 
 	@BindSelect(where = "id = ${id}")
-	List<Bean63> selectList(long id);
+	List<Bean> selectList(long id);
 	
 	@BindUpdate(where = "id=${value.id}")
-	long updateOne(Bean63 value);
+	long updateOne(Bean value);
 	
 	@BindInsert()
-	long insert(Bean63 bean);
+	long insert(Bean bean);
 	
 	// -- map
 	@BindInsert()
 	long insert(Map<String, Byte> valueMapStringByte);
 	
 	@BindSelect(where = "value=${valueMapStringByte}")
-	Bean63 selectOne(Map<String, Byte> valueMapStringByte);
+	Bean selectOne(Map<String, Byte> valueMapStringByte);
 	
 	@BindDelete(where = "value=${valueMapStringByte}")
 	long delete(Map<String, Byte> valueMapStringByte);
@@ -68,13 +68,13 @@ public interface BeanDao {
 	long insert(HashMap<EnumType, Byte> valueMapEnumByte);
 	
 	@BindSelect(where = "value=${valueMapEnumByte}")
-	Bean63 selectOne(HashMap<EnumType, Byte> valueMapEnumByte);
+	Bean selectOne(HashMap<EnumType, Byte> valueMapEnumByte);
 	
 	@BindSelect(where = "value=${valueMapEnumByte}")
 	Cursor selectCursorOne(HashMap<EnumType, Byte> valueMapEnumByte);
 	
 	@BindSelect(where = "value=${valueMapEnumByte}")
-	void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, ReadBeanListener<Bean63> listener);
+	void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, ReadBeanListener<Bean> listener);
 	
 	@BindSelect(where = "value=${valueMapEnumByte}")
 	void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, ReadCursorListener listener);
@@ -86,7 +86,7 @@ public interface BeanDao {
 	long updateOne(HashMap<EnumType, Byte> valueMapEnumByte);
 	
 	@BindSelect(value = "valueMapEnumByte")
-	List<Bean63> selectMapEnumByteOne();
+	List<Bean> selectMapEnumByteOne();
 	
 	@BindSelect(value = "valueMapEnumByte")
 	List<String> selectMapEnumByteOneString();

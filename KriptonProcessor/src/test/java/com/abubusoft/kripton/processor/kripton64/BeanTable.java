@@ -9,7 +9,7 @@ import java.lang.String;
  * </p>
  *  @see com.abubusoft.kripton.processor.kripton63.Bean63
  */
-public class Bean63Table {
+public class BeanTable {
   /**
    * Costant represents name of table bean63
    */

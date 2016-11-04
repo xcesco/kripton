@@ -18,7 +18,7 @@ import java.lang.String;
  * @see BindBeanDaoFactory
  * @see BeanDao
  * @see BindBeanDao
- * @see Bean63
+ * @see Bean
  */
 public class BindBeanDataSource extends AbstractDataSource implements BindBeanDaoFactory {
   /**
@@ -85,7 +85,7 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("DDL: %s",com.abubusoft.kripton.processor.kripton63.Bean63Table.CREATE_TABLE_SQL);
-    database.execSQL(com.abubusoft.kripton.processor.kripton63.Bean63Table.CREATE_TABLE_SQL);
+    database.execSQL(BeanTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -95,11 +95,11 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
     Logger.info("DDL: %s",com.abubusoft.kripton.processor.kripton63.Bean63Table.DROP_TABLE_SQL);
-    database.execSQL(com.abubusoft.kripton.processor.kripton63.Bean63Table.DROP_TABLE_SQL);
+    database.execSQL(BeanTable.DROP_TABLE_SQL);
 
     // generate tables
     Logger.info("DDL: %s",com.abubusoft.kripton.processor.kripton63.Bean63Table.CREATE_TABLE_SQL);
-    database.execSQL(com.abubusoft.kripton.processor.kripton63.Bean63Table.CREATE_TABLE_SQL);
+    database.execSQL(BeanTable.CREATE_TABLE_SQL);
   }
 
   /**

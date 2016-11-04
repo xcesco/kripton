@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.robolectric.Robolectric;
@@ -47,13 +48,13 @@ import android.content.Context;
  * @author xcesco
  *
  */
-
+@Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class TestKripton64 extends BaseProcessorTest {
 
 	@Test
 	public void testJson() throws IOException, InstantiationException, IllegalAccessException, MappingException, WriterException, ReaderException {
-		Bean63 bean=new Bean63();
+		Bean bean=new Bean();
 		
 		bean.value="hell";
 		bean.valueMapStringByte=new HashMap<>();
@@ -72,11 +73,17 @@ public class TestKripton64 extends BaseProcessorTest {
 		Assert.assertEquals(buffer, buffer2);				
 	}
 	
-	@Config(manifest=Config.NONE)
-	@Test
-	public void testSqlite() throws IOException, InstantiationException, IllegalAccessException {
+	
+	@Before
+	public void setup()
+	{
 		ShadowLog.stream = System.out;
 		KriptonLibrary.init(RuntimeEnvironment.application);
+	}
+	
+	@Test
+	public void testSqlite() throws IOException, InstantiationException, IllegalAccessException {
+		
 		
 		//Context context=Robolectric.
 		BindBeanDataSource dataSource=BindBeanDataSource.instance();
@@ -84,13 +91,13 @@ public class TestKripton64 extends BaseProcessorTest {
 		
 		BindBeanDao dao = dataSource.getBeanDao();
 		
-		Bean63 bean=new Bean63();
+		Bean bean=new Bean();
 		bean.value="hello";
 		bean.valueMapEnumByte=new HashMap<>();
 		bean.valueMapEnumByte.put(EnumType.VALUE_1, (byte) 34);
 		
 		dao.insert(bean);
-		List<Bean63> list=dao.selectList(bean.id);
+		List<Bean> list=dao.selectList(bean.id);
 		Assert.assertEquals("not ", 1, list.size());
 		
 		

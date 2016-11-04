@@ -42,7 +42,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean63 selectOne() {
+  public Bean selectOne() {
     // build where condition
     String[] args={};
 
@@ -50,7 +50,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean63 resultBean=null;
+    Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -59,7 +59,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       int index2=cursor.getColumnIndex("value_map_string_byte");
       int index3=cursor.getColumnIndex("value_map_enum_byte");
 
-      resultBean=new Bean63();
+      resultBean=new Bean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
       if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
@@ -88,14 +88,14 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectOne(int id, ReadBeanListener<Bean63> listener) {
+  public void selectOne(int id, ReadBeanListener<Bean> listener) {
     // build where condition
     String[] args={String.valueOf(id)};
 
     Logger.info(StringUtil.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
-    Bean63 resultBean=new Bean63();
+    Bean resultBean=new Bean();
 
     try {
       if (cursor.moveToFirst()) {
@@ -188,7 +188,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    * @return list of bean or empty list.
    */
   @Override
-  public List<Bean63> selectList(long id) {
+  public List<Bean> selectList(long id) {
     // build where condition
     String[] args={String.valueOf(id)};
 
@@ -196,8 +196,8 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean63> resultList=new LinkedList<Bean63>();
-    Bean63 resultBean=null;
+    LinkedList<Bean> resultList=new LinkedList<Bean>();
+    Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -208,7 +208,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
       do
        {
-        resultBean=new Bean63();
+        resultBean=new Bean();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
         if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
@@ -233,7 +233,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    * @return number of updated records
    */
   @Override
-  public long updateOne(Bean63 value) {
+  public long updateOne(Bean value) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
@@ -272,7 +272,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    * @return id of inserted record
    */
   @Override
-  public long insert(Bean63 bean) {
+  public long insert(Bean bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
@@ -344,7 +344,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean63 selectOne(Map<String, Byte> valueMapStringByte) {
+  public Bean selectOne(Map<String, Byte> valueMapStringByte) {
     // build where condition
     String[] args={(valueMapStringByte==null?null:String.valueOf(ProcessorHelper.asByteArray(valueMapStringByte)))};
 
@@ -352,7 +352,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean63 resultBean=null;
+    Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -361,7 +361,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       int index2=cursor.getColumnIndex("value_map_string_byte");
       int index3=cursor.getColumnIndex("value_map_enum_byte");
 
-      resultBean=new Bean63();
+      resultBean=new Bean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
       if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
@@ -455,7 +455,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean63 selectOne(HashMap<EnumType, Byte> valueMapEnumByte) {
+  public Bean selectOne(HashMap<EnumType, Byte> valueMapEnumByte) {
     // build where condition
     String[] args={(valueMapEnumByte==null?null:String.valueOf(ProcessorHelper.asByteArray(valueMapEnumByte)))};
 
@@ -463,7 +463,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean63 resultBean=null;
+    Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -472,7 +472,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
       int index2=cursor.getColumnIndex("value_map_string_byte");
       int index3=cursor.getColumnIndex("value_map_enum_byte");
 
-      resultBean=new Bean63();
+      resultBean=new Bean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
       if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
@@ -528,14 +528,14 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, ReadBeanListener<Bean63> listener) {
+  public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, ReadBeanListener<Bean> listener) {
     // build where condition
     String[] args={(valueMapEnumByte==null?null:String.valueOf(ProcessorHelper.asByteArray(valueMapEnumByte)))};
 
     Logger.info(StringUtil.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
-    Bean63 resultBean=new Bean63();
+    Bean resultBean=new Bean();
 
     try {
       if (cursor.moveToFirst()) {
@@ -666,7 +666,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
    * @return list of bean or empty list.
    */
   @Override
-  public List<Bean63> selectMapEnumByteOne() {
+  public List<Bean> selectMapEnumByteOne() {
     // build where condition
     String[] args={};
 
@@ -674,8 +674,8 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
     Cursor cursor = database().rawQuery("SELECT value_map_enum_byte FROM bean63 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean63> resultList=new LinkedList<Bean63>();
-    Bean63 resultBean=null;
+    LinkedList<Bean> resultList=new LinkedList<Bean>();
+    Bean resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -683,7 +683,7 @@ public class BindBeanDao extends AbstractDao implements BeanDao {
 
       do
        {
-        resultBean=new Bean63();
+        resultBean=new Bean();
 
         if (!cursor.isNull(index0)) { resultBean.valueMapEnumByte=ProcessorHelper.asMap(new HashMap<EnumType,Byte>(), EnumType.class, Byte.class, cursor.getBlob(index0)); }
 

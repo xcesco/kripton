@@ -13,7 +13,7 @@ import java.util.LinkedList;
  * </p>
  *  @see com.abubusoft.kripton.processor.kripton63.Bean63
  */
-public class BindBean63Cursor {
+public class BindBeanCursor {
   /**
    * Cursor used to read database
    */
@@ -43,7 +43,7 @@ public class BindBean63Cursor {
    * <p>Constructor</p>
    * @param cursor cursor used to read from database
    */
-  BindBean63Cursor(Cursor cursor) {
+  BindBeanCursor(Cursor cursor) {
     wrap(cursor);
   }
 
@@ -52,7 +52,7 @@ public class BindBean63Cursor {
    *
    * @param cursor cursor to include
    */
-  public BindBean63Cursor wrap(Cursor cursor) {
+  public BindBeanCursor wrap(Cursor cursor) {
     this.cursor=cursor;
 
     index0=cursor.getColumnIndex("id");
@@ -68,15 +68,15 @@ public class BindBean63Cursor {
    *
    * @return list of beans
    */
-  public LinkedList<Bean63> execute() {
+  public LinkedList<Bean> execute() {
 
-    LinkedList<Bean63> resultList=new LinkedList<Bean63>();
-    Bean63 resultBean=new Bean63();
+    LinkedList<Bean> resultList=new LinkedList<Bean>();
+    Bean resultBean=new Bean();
 
     if (cursor.moveToFirst()) {
       do
        {
-        resultBean=new Bean63();
+        resultBean=new Bean();
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.value=cursor.getString(index1);}
@@ -97,7 +97,7 @@ public class BindBean63Cursor {
    * @param listener listener to invoke for each row
    */
   public void executeListener(OnBean63Listener listener) {
-    Bean63 resultBean=new Bean63();
+    Bean resultBean=new Bean();
 
     if (cursor.moveToFirst()) {
       do
@@ -123,8 +123,8 @@ public class BindBean63Cursor {
    *
    * @param cursor to wrap
    */
-  public static BindBean63Cursor create(Cursor cursor) {
-    return new BindBean63Cursor(cursor);
+  public static BindBeanCursor create(Cursor cursor) {
+    return new BindBeanCursor(cursor);
   }
 
   /**
@@ -138,6 +138,6 @@ public class BindBean63Cursor {
      * @param rowPosition position of row
      * @param rowCount total number of rows
      */
-    void onRow(Bean63 bean, int rowPosition, int rowCount);
+    void onRow(Bean bean, int rowPosition, int rowCount);
   }
 }

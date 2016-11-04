@@ -23,7 +23,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 @BindSharedPreferences
-public class Bean63 {
+public class Bean {
 		
 	public long id;
 		
