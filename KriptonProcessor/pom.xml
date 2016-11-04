@@ -28,7 +28,8 @@
 		<javapoet.version>1.7.0</javapoet.version>
 		<junit.version>4.12</junit.version>
 		<unitilsVersion>3.4.2</unitilsVersion>
-		<robolectric.version>3.1.2</robolectric.version>
+		<robolectric.version>3.1.4</robolectric.version>
+		<roboletricAndroidAll.version>6.0.0_r1-robolectric-0</roboletricAndroidAll.version>
 	</properties>
 
 	<description>Annotation processor for Kripton Android Library.</description>
@@ -162,11 +163,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Dipendenze collegate ad android -->
+		<!-- https://mvnrepository.com/artifact/org.robolectric/android-all -->
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
-			<version>5.0.0_r2-robolectric-1</version>
+			<version>${roboletricAndroidAll.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
