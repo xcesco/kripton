@@ -9,8 +9,8 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * </p>
  *
  * @see Dummy02DataSource
- * @see com.abubusoft.kripton.processor.test03.DaoBean02
- * @see com.abubusoft.kripton.processor.test03.DaoBean02$Impl
+ * @see DaoBean02
+ * @see DaoBean02Impl
  * @see Bean01
  */
 public interface BindDummy02DaoFactory extends BindDaoFactory {
@@ -18,5 +18,5 @@ public interface BindDummy02DaoFactory extends BindDaoFactory {
    *
    * retrieve dao DaoBean02
    */
-  com.abubusoft.kripton.processor.test03.DaoBean02 getDaoBean02();
+  DaoBean02Impl getDaoBean02();
 }

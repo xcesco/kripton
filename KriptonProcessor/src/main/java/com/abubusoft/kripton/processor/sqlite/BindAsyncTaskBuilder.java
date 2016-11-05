@@ -38,6 +38,8 @@ import com.squareup.javapoet.TypeVariableName;
 
 import android.os.AsyncTask;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
+
 /**
  * Utility class to generate async task for database operations
  */
@@ -77,8 +79,8 @@ public class BindAsyncTaskBuilder {
 		builder.addJavadoc("\n<p>\nUnlike standard async task, for an instance of this class can be used many time.\n</p>\n");
 		builder.addJavadoc("\n<p>\nWhen method <code>execute</code> is invoked, an inner async task is created.\n</p>\n\n");
 		JavadocUtility.generateJavadocGeneratedBy(builder);
-		builder.addJavadoc("@see $T\n", TypeUtility.typeName(className.replaceAll(SUFFIX, BindDaoFactoryBuilder.SUFFIX)));
-		builder.addJavadoc("@see $T\n", TypeUtility.typeName(dataSourceName));
+		builder.addJavadoc("@see $T\n", className(className.replaceAll(SUFFIX, BindDaoFactoryBuilder.SUFFIX)));
+		builder.addJavadoc("@see $T\n", className(dataSourceName));
 
 		// build constructors
 		builder.addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addCode("this(true);")

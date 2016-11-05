@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * <p>
  * Cursor implementation for entity <code>Bean01</code>
  * </p>
- *  @see com.abubusoft.kripton.processor.test03.Bean01
+ *  @see Bean01
  */
 public class BindBean01Cursor {
   /**
@@ -49,6 +49,7 @@ public class BindBean01Cursor {
 
   /**
    * <p>Constructor</p>
+   *
    * @param cursor cursor used to read from database
    */
   BindBean01Cursor(Cursor cursor) {

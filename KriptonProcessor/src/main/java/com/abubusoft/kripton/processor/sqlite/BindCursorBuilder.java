@@ -80,7 +80,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		
-		ClassName className=TypeUtility.className(packageName, classCursorName);
+		ClassName className=TypeUtility.className(packageName,classCursorName);
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classCursorName);
 		builder = TypeSpec.classBuilder(classCursorName).addModifiers(Modifier.PUBLIC);
@@ -102,7 +102,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		// add constructor
 		//@formatter:off
 		builder.addMethod(MethodSpec.constructorBuilder()
-				.addJavadoc("<p>Constructor</p>\n")
+				.addJavadoc("<p>Constructor</p>\n\n")
 				.addJavadoc("@param cursor cursor used to read from database\n")
 				.addParameter(Cursor.class, "cursor")
 				.addCode("wrap(cursor);\n")
@@ -163,7 +163,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 
 
 	private MethodSpec.Builder generateExecuteMethod(String packageName, SQLEntity entity) {		
-		ParameterizedTypeName parameterizedReturnTypeName = ParameterizedTypeName.get(className("java.util","LinkedList"), className(packageName, entity.getSimpleName()));
+		ParameterizedTypeName parameterizedReturnTypeName = ParameterizedTypeName.get(className("java.util.LinkedList"), className(packageName,entity.getSimpleName()));
 		
 		//@formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("execute")
@@ -225,7 +225,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 				.returns(Void.TYPE).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).build());
 		//@formatter:on
 		
-		ClassName interfaceType=TypeUtility.className("", interfaceName);
+		ClassName interfaceType=TypeUtility.className(interfaceName);
 		
 		
 		// javadoc for interface

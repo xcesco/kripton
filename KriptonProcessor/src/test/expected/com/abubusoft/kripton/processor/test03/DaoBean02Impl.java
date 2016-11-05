@@ -10,12 +10,12 @@ import com.abubusoft.kripton.common.StringUtil;
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBean02</code>
  * </p>
- *  @see com.abubusoft.kripton.processor.test03.Bean01
- *  @see com.abubusoft.kripton.processor.test03.DaoBean02
- *  @see com.abubusoft.kripton.processor.test03.Bean01$Table
+ *  @see Bean01
+ *  @see DaoBean02
+ *  @see Bean01$Table
  */
-public class DaoBean02$Impl extends AbstractDao implements DaoBean02 {
-  public DaoBean02$Impl(BindDummy02DataSource dataSet) {
+public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
+  public DaoBean02Impl(BindDummy02DataSource dataSet) {
     super(dataSet);
   }
 

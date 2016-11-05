@@ -17,10 +17,10 @@ import java.lang.String;
  * @see Dummy02DataSource
  * @see BindDummy02DaoFactory
  * @see DaoBean02
- * @see com.abubusoft.kripton.processor.test03.DaoBean02$Impl
+ * @see DaoBean02Impl
  * @see Bean01
  */
-public class BindDummy02DataSource extends AbstractDataSource implements BindDummy02DaoFactory {
+public class BindDummy02DataSource extends AbstractDataSource implements BindDummy02DaoFactory, Dummy02DataSource {
   /**
    * <p><singleton of datasource,/p>
    */
@@ -39,14 +39,14 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>dao instance</p>
    */
-  protected com.abubusoft.kripton.processor.test03.DaoBean02 daoBean02 = new com.abubusoft.kripton.processor.test03.DaoBean02$Impl(this);
+  protected DaoBean02Impl daoBean02 = new DaoBean02Impl(this);
 
   protected BindDummy02DataSource(Context context) {
     super(context, name, null, version);
   }
 
   @Override
-  public com.abubusoft.kripton.processor.test03.DaoBean02 getDaoBean02() {
+  public DaoBean02Impl getDaoBean02() {
     return daoBean02;
   }
 
@@ -84,8 +84,8 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",com.abubusoft.kripton.processor.test03.Bean01$Table.CREATE_TABLE_SQL);
-    database.execSQL(com.abubusoft.kripton.processor.test03.Bean01$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean01$Table.CREATE_TABLE_SQL);
+    database.execSQL(Bean01$Table.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",com.abubusoft.kripton.processor.test03.Bean01$Table.DROP_TABLE_SQL);
-    database.execSQL(com.abubusoft.kripton.processor.test03.Bean01$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",Bean01$Table.DROP_TABLE_SQL);
+    database.execSQL(Bean01$Table.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",com.abubusoft.kripton.processor.test03.Bean01$Table.CREATE_TABLE_SQL);
-    database.execSQL(com.abubusoft.kripton.processor.test03.Bean01$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean01$Table.CREATE_TABLE_SQL);
+    database.execSQL(Bean01$Table.CREATE_TABLE_SQL);
   }
 
   /**

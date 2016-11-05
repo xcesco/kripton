@@ -13,12 +13,12 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBean01</code>
  * </p>
- *  @see com.abubusoft.kripton.processor.test03.Bean01
- *  @see com.abubusoft.kripton.processor.test03.DaoBean01
- *  @see com.abubusoft.kripton.processor.test03.Bean01$Table
+ *  @see Bean01
+ *  @see DaoBean01
+ *  @see Bean01$Table
  */
-public class DaoBean01$Impl extends AbstractDao implements DaoBean01 {
-  public DaoBean01$Impl(BindDummy01DataSource dataSet) {
+public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
+  public DaoBean01Impl(BindDummy01DataSource dataSet) {
     super(dataSet);
   }
 

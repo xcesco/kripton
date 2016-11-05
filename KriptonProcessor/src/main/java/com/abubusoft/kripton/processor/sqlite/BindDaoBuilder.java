@@ -35,7 +35,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -52,7 +51,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 	//public static final String PREFIX = "Bind";
 	
-	public static final String SUFFIX = "$Impl";
+	public static final String SUFFIX = "Impl";
 	
 	protected Elements elementUtils;
 	protected Filer filer;
@@ -91,7 +90,6 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getEntityClassName()));
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getElement().getQualifiedName().toString()));
 		builder.addJavadoc(" @see $T\n", BindTableGenerator.tableClassName(value.getEntity()));
-		
 
 		{
 			// constructor
@@ -116,6 +114,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	/**
 	 * @param value
 	 * @return
+	 * 		name of dao
 	 */
 	public static String daoName(SQLDaoDefinition value) {
 		String classTableName = value.getName();

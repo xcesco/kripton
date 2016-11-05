@@ -17,7 +17,6 @@ package com.abubusoft.kripton.processor.core.reflect;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import javax.lang.model.element.Element;
@@ -26,7 +25,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.SupportedCharsets;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
@@ -142,22 +140,27 @@ public class TypeUtility {
 	 * 
 	 * @param packageName
 	 * @param className
+	 * @param prefix
 	 * @return class name generated
 	 */
-	public static ClassName className(String packageName, String className) {
-		return ClassName.get(packageName, className);
+	public static ClassName classNameWithPrefix(String packageName, String className, String prefix) {
+		return ClassName.get(packageName, className + prefix);
 	}
 	
 	/**
 	 * Generate class name
 	 * 
-	 * @param packageName
 	 * @param className
-	 * @param prefix
 	 * @return class name generated
 	 */
-	public static ClassName className(String packageName, String className, String prefix) {
-		return ClassName.get(packageName, className+prefix);
+	public static ClassName className(String className) {
+		int index=className.lastIndexOf(".");
+		if (index>0)
+		{
+			return classNameWithPrefix(className.substring(0, index), className.substring(index+1),"");
+		}
+		return ClassName.get("",className);
+		
 	}
 
 	/**
@@ -166,8 +169,15 @@ public class TypeUtility {
 	 * @param className
 	 * @return class name generated
 	 */
-	public static ClassName className(String className) {
-		return ClassName.get("", className);
+	public static ClassName classNameWithPrefix(String className, String prefix) {
+		String fullName=className+prefix;
+		
+		int lastIndex=fullName.lastIndexOf(".");
+		
+		String packageName=fullName.substring(0, lastIndex);
+		String clazzName=fullName.substring(lastIndex+1);
+		
+		return ClassName.get(packageName, clazzName);
 	}
 
 	/**
@@ -200,7 +210,6 @@ public class TypeUtility {
 		return TypeName.get(typeMirror);
 	}
 
-	
 	/**
 	 * Convert a TypeMirror in a typeName
 	 * 
@@ -208,7 +217,17 @@ public class TypeUtility {
 	 * @return typeName
 	 */
 	public static TypeName typeName(String packageName, String typeName) {
-		return className(packageName, typeName);
+		return classNameWithPrefix(packageName, typeName,"");
+	}
+	
+	/**
+	 * Convert a TypeMirror in a typeName
+	 * 
+	 * @param typeName
+	 * @return typeName
+	 */
+	public static TypeName typeName(String typeName) {
+		return className(typeName);
 	}
 
 	/**
@@ -277,10 +296,7 @@ public class TypeUtility {
 
 	/**
 	 * generate begin string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
-	 * @param methodBuilder 
 	 * 
-	 * @param property
-	 * @return
 	 * 
 	 */
 	public static void beginStringConversion(Builder methodBuilder, ModelProperty property) {
@@ -300,9 +316,6 @@ public class TypeUtility {
 	/**
 	 * generate begin string to translate in code to used in String or parameter need to be converted in string through String.valueOf
 	 * 
-	 * @param typeMirror
-	 * @return
-	 * 
 	 */
 	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
 		TypeName typeName = typeName(typeMirror);
@@ -317,7 +330,7 @@ public class TypeUtility {
 			methodBuilder.addCode("new String(");
 		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
 			methodBuilder.addCode("");
-		} else {		
+		} else {
 			methodBuilder.addCode("String.valueOf(");
 		}
 	}
@@ -325,8 +338,6 @@ public class TypeUtility {
 	/**
 	 * generate end string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 * 
-	 * @param property
-	 * @return
 	 * 
 	 */
 	public static void endStringConversion(Builder methodBuilder, ModelProperty property) {
@@ -338,8 +349,6 @@ public class TypeUtility {
 	/**
 	 * generate end string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 * 
-	 * @param property
-	 * @return
 	 * 
 	 */
 	public static void endStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
@@ -351,14 +360,14 @@ public class TypeUtility {
 		if (isString(typeName)) {
 			return;
 		} else if (isArray(typeName) || isList(typeName)) {
-			//TODO support StandardCharsets.UTF8
+			// TODO support StandardCharsets.UTF8
 			// see http://stackoverflow.com/questions/5729806/encode-string-to-utf-8
 			methodBuilder.addCode(",$T.UTF_8)", StandardCharsets.class);
 		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
-			methodBuilder.addCode("");	
+			methodBuilder.addCode("");
 		} else {
 			methodBuilder.addCode(")");
-		}		
+		}
 	}
 
 	public static boolean isArray(TypeName typeName) {
@@ -368,21 +377,21 @@ public class TypeUtility {
 
 		return false;
 	}
-	
+
 	public static boolean isList(TypeName typeName) {
 		if (typeName instanceof ParameterizedTypeName) {
-			LiteralType lt=LiteralType.of(typeName.toString());	
-			
+			LiteralType lt = LiteralType.of(typeName.toString());
+
 			return lt.isList();
 		}
 
 		return false;
 	}
-	
+
 	public static boolean isSet(TypeName typeName) {
 		if (typeName instanceof ParameterizedTypeName) {
-			LiteralType lt=LiteralType.of(typeName.toString());	
-			
+			LiteralType lt = LiteralType.of(typeName.toString());
+
 			return lt.isSet();
 		}
 
@@ -391,8 +400,8 @@ public class TypeUtility {
 
 	public static boolean isMap(TypeName typeName) {
 		if (typeName instanceof ParameterizedTypeName) {
-			LiteralType lt=LiteralType.of(typeName.toString());	
-			
+			LiteralType lt = LiteralType.of(typeName.toString());
+
 			return lt.isMap();
 		}
 
@@ -400,8 +409,17 @@ public class TypeUtility {
 	}
 
 	public static TypeName typeName(TypeElement element, String suffix) {
-		if (element.getQualifiedName()
-		String packageName=element.getQualifiedName().toString().substring(beginIndex)
+		String fullName=element.getQualifiedName().toString()+suffix;
+		
+		int lastIndex=fullName.lastIndexOf(".");
+		
+		String packageName=fullName.substring(0, lastIndex);
+		String className=fullName.substring(lastIndex+1);
+		
+		return typeName(packageName, className);
 	}
 
+	public static ClassName className(String packageName, String className) {
+		return classNameWithPrefix(packageName, className, "");
+	}
 }
