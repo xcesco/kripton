@@ -19,17 +19,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import org.junit.Test;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.shadows.ShadowContextImpl;
 import org.robolectric.shadows.ShadowLog;
 
 import com.abubusoft.kripton.BinderFactory;
@@ -40,9 +37,7 @@ import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
 import com.abubusoft.kripton.processor.BaseProcessorTest;
-
-import android.app.Application;
-import android.content.Context;
+import com.abubusoft.kripton.processor.kripton64.BindBeanDataSource.Transaction;
 
 /**
  * @author xcesco
@@ -50,7 +45,47 @@ import android.content.Context;
  */
 @Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner.class)
+//@RunWith(JUnit4.class)
 public class TestKripton64 extends BaseProcessorTest {
+	
+	@Before
+	public void setup()
+	{
+		ShadowLog.stream = System.out;
+		KriptonLibrary.init(RuntimeEnvironment.application);
+	}
+	
+	@Test
+	public void testSqlite() throws IOException, InstantiationException, IllegalAccessException {
+		//Context context=Robolectric.
+		BindBeanDataSource dataSource=BindBeanDataSource.instance();
+		dataSource.openWritableDatabase();
+		
+		dataSource.execute(new Transaction() {
+			
+			@Override
+			public boolean onExecute(BindBeanDaoFactory daoFactory) {
+				BindBeanDao dao = daoFactory.getBeanDao();
+				
+				Bean bean=new Bean();
+				bean.value="hello";
+				bean.valueMapEnumByte=new HashMap<>();
+				bean.valueMapEnumByte.put(EnumType.VALUE_1, (byte) 34);
+				
+				dao.insert(bean);
+				List<Bean> list=dao.selectList(bean.id);
+				Assert.assertEquals("not ", 1, list.size());
+				
+				return true;
+			}
+			
+			@Override
+			public void onError(Throwable e) {
+				
+			}
+		});
+				
+	}
 
 	@Test
 	public void testJson() throws IOException, InstantiationException, IllegalAccessException, MappingException, WriterException, ReaderException {
@@ -74,36 +109,7 @@ public class TestKripton64 extends BaseProcessorTest {
 	}
 	
 	
-	@Before
-	public void setup()
-	{
-		ShadowLog.stream = System.out;
-		KriptonLibrary.init(RuntimeEnvironment.application);
-	}
 	
-	@Test
-	public void testSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		
-		
-		//Context context=Robolectric.
-		BindBeanDataSource dataSource=BindBeanDataSource.instance();
-		dataSource.openWritableDatabase();
-		
-		BindBeanDao dao = dataSource.getBeanDao();
-		
-		Bean bean=new Bean();
-		bean.value="hello";
-		bean.valueMapEnumByte=new HashMap<>();
-		bean.valueMapEnumByte.put(EnumType.VALUE_1, (byte) 34);
-		
-		dao.insert(bean);
-		List<Bean> list=dao.selectList(bean.id);
-		Assert.assertEquals("not ", 1, list.size());
-		
-		
-		dataSource.close();
-				
-	}
 
 	@Test
 	public void testSharedFields() throws IOException, InstantiationException, IllegalAccessException {
