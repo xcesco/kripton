@@ -22,9 +22,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
@@ -42,7 +39,11 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Generates database class
@@ -102,7 +103,7 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 		builder.addJavadoc("@see $T\n", TypeUtility.typeName(schema.getName()));
 		builder.addJavadoc("@see $T\n", daoFactoryClazz);
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-		ClassName daoImplName = className(BindDataSourceBuilder.PREFIX+ dao.getName());
+			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
 			builder.addJavadoc("@see $T\n", dao.getElement());
 			builder.addJavadoc("@see $T\n", daoImplName);
 			builder.addJavadoc("@see $T\n", dao.getEntity().getElement());
@@ -114,14 +115,15 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 		builder.addField(FieldSpec.builder(Integer.TYPE, "version", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>database version</p>\n").initializer("$L", schema.version).build());		
 		
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			ClassName daoImplName = className(BindDataSourceBuilder.PREFIX+ dao.getName());
-			builder.addField(FieldSpec.builder(daoImplName,convert.convert(dao.getName()), Modifier.PROTECTED)
+			TypeName daoInterfaceName = BindDaoBuilder.daoInterfaceTypeName(dao);
+			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
+			builder.addField(FieldSpec.builder(daoInterfaceName,convert.convert(dao.getName()), Modifier.PROTECTED)
 					.addJavadoc("<p>dao instance</p>\n")
 					.initializer("new $T(this)", daoImplName) .build());
 			
 			// dao with connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).returns(className(BindDataSourceBuilder.PREFIX+dao.getName()));
+				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).returns(BindDaoBuilder.daoInterfaceTypeName(dao));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
 				builder.addMethod(methodBuilder.build());
 			}						
@@ -160,9 +162,9 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			for (SQLEntity item: schema.getEntities())
 			{
 				if (schema.isLogEnabled()) {
-					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class,className(item.getName()+"Table"));
+					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class,BindTableGenerator.tableClassName(item));
 				}
-				methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", className(item.getName()+"Table"));
+				methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
 			}
 
 			builder.addMethod(methodBuilder.build());
@@ -180,9 +182,9 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			for (SQLEntity item: schema.getEntities())
 			{
 				if (schema.isLogEnabled()) {
-					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.DROP_TABLE_SQL);\n", Logger.class, className(item.getName()+"Table"));
+					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.DROP_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
 				}
-				methodBuilder.addCode("database.execSQL($T.DROP_TABLE_SQL);\n", className(item.getName()+"Table"));								
+				methodBuilder.addCode("database.execSQL($T.DROP_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));								
 			}
 			
 			methodBuilder.addCode("\n");
@@ -191,9 +193,9 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			for (SQLEntity item: schema.getEntities())
 			{
 				if (schema.isLogEnabled()) {
-					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, className(item.getName()+"Table"));
+					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
 				}
-				methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", className(item.getName()+"Table"));								
+				methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));								
 			}
 			
 			

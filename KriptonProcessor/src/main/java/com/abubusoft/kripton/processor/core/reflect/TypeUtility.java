@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.common.Pair;
@@ -146,6 +147,18 @@ public class TypeUtility {
 	public static ClassName className(String packageName, String className) {
 		return ClassName.get(packageName, className);
 	}
+	
+	/**
+	 * Generate class name
+	 * 
+	 * @param packageName
+	 * @param className
+	 * @param prefix
+	 * @return class name generated
+	 */
+	public static ClassName className(String packageName, String className, String prefix) {
+		return ClassName.get(packageName, className+prefix);
+	}
 
 	/**
 	 * Generate class name
@@ -187,14 +200,15 @@ public class TypeUtility {
 		return TypeName.get(typeMirror);
 	}
 
+	
 	/**
 	 * Convert a TypeMirror in a typeName
 	 * 
 	 * @param typeName
 	 * @return typeName
 	 */
-	public static TypeName typeName(String typeName) {
-		return className(typeName);
+	public static TypeName typeName(String packageName, String typeName) {
+		return className(packageName, typeName);
 	}
 
 	/**
@@ -383,6 +397,11 @@ public class TypeUtility {
 		}
 
 		return false;
+	}
+
+	public static TypeName typeName(TypeElement element, String suffix) {
+		if (element.getQualifiedName()
+		String packageName=element.getQualifiedName().toString().substring(beginIndex)
 	}
 
 }

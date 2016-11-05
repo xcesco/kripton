@@ -75,15 +75,15 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 
 	@Override
 	public void visit(SQLEntity entity) throws Exception {
-		String classTableName = PREFIX+entity.getSimpleName()+SUFFIX;		
+		String classCursorName = PREFIX+entity.getSimpleName()+SUFFIX;		
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		
-		ClassName className=TypeUtility.className(packageName, classTableName);
+		ClassName className=TypeUtility.className(packageName, classCursorName);
 
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
-		builder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC);
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classCursorName);
+		builder = TypeSpec.classBuilder(classCursorName).addModifiers(Modifier.PUBLIC);
 
 		// javadoc for class
 		builder.addJavadoc("<p>");
@@ -142,10 +142,10 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 				MethodSpec.methodBuilder("create")
 				.addModifiers(Modifier.STATIC, Modifier.PUBLIC)
 				.addParameter(Cursor.class, "cursor")
-				.returns(className(packageName, classTableName))
+				.returns(className(packageName, classCursorName))
 				.addJavadoc("<p>Create a binded cursor starting from a cursor</p>\n\n")
 				.addJavadoc("@param cursor to wrap\n")
-				.addCode("return new "+classTableName+"(cursor);\n")				
+				.addCode("return new "+classCursorName+"(cursor);\n")				
 				.build());
 		//@formatter:on
 

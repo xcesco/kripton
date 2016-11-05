@@ -69,7 +69,7 @@ import com.abubusoft.kripton.processor.sqlite.BindAsyncTaskBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
-import com.abubusoft.kripton.processor.sqlite.TableGenerator;
+import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -352,7 +352,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	 * @throws Exception
 	 */
 	protected void buildClasses() throws Exception {
-		TableGenerator.generate(elementUtils, filer, currentSchema);
+		BindTableGenerator.generate(elementUtils, filer, currentSchema);
 		BindDaoBuilder.execute(elementUtils, filer, currentSchema);
 		if (currentSchema.generateCursor)
 			BindCursorBuilder.execute(elementUtils, filer, currentSchema);

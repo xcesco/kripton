@@ -35,8 +35,10 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
@@ -48,7 +50,10 @@ import com.squareup.javapoet.TypeSpec.Builder;
  */
 public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
-	public static final String PREFIX = "Bind";
+	//public static final String PREFIX = "Bind";
+	
+	public static final String SUFFIX = "$Impl";
+	
 	protected Elements elementUtils;
 	protected Filer filer;
 	private Builder builder;
@@ -71,8 +76,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	public void visit(SQLDaoDefinition value) throws Exception {
 		currentDaoDefinition = value;
 
-		String classTableName = value.getName();
-		classTableName = PREFIX + classTableName;
+		String classTableName = daoName(value);
 
 		PackageElement pkg = elementUtils.getPackageOf(value.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
@@ -86,7 +90,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getEntityClassName()));
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getElement().getQualifiedName().toString()));
-		builder.addJavadoc(" @see $T\n", TypeUtility.className(TableGenerator.generateTableName(value.getEntity())));
+		builder.addJavadoc(" @see $T\n", BindTableGenerator.tableClassName(value.getEntity()));
 		
 
 		{
@@ -107,6 +111,24 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		fileBuilder.skipJavaLangImports(true);
 
 		fileBuilder.build().writeTo(filer);
+	}
+
+	/**
+	 * @param value
+	 * @return
+	 */
+	public static String daoName(SQLDaoDefinition value) {
+		String classTableName = value.getName();
+		classTableName =  classTableName+ SUFFIX;
+		return classTableName;
+	}
+	
+	public static TypeName daoTypeName(SQLDaoDefinition value) {
+		return TypeUtility.typeName(value.getElement(), SUFFIX);
+	}
+	
+	public static TypeName daoInterfaceTypeName(SQLDaoDefinition value) {
+		return TypeUtility.typeName(value.getElement());
 	}
 
 	@Override

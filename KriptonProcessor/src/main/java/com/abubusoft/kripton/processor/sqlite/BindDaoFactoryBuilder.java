@@ -32,6 +32,7 @@ import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -81,7 +82,6 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, schemaName);
 		builder=buildDaoFactoryInterface(null, elementUtils, filer, schema);
 		TypeSpec typeSpec = builder.build();
-		//BindDatabaseProcessor.info("WRITE "+typeSpec.name);		
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 		
 		return schemaName;
@@ -115,14 +115,15 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc("@see $T\n", TypeUtility.typeName(schema.getName()));
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-		ClassName daoImplName = className(BindDataSourceBuilder.PREFIX+ dao.getName());
-			builder.addJavadoc("@see $T\n", dao.getElement());
+			TypeName daoName = BindDaoBuilder.daoInterfaceTypeName(dao);
+			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao); 
+			builder.addJavadoc("@see $T\n", daoName);
 			builder.addJavadoc("@see $T\n", daoImplName);
 			builder.addJavadoc("@see $T\n", dao.getEntity().getElement());
 		}
 						
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			ClassName daoImplName = className(BindDataSourceBuilder.PREFIX+dao.getName());					
+			TypeName daoImplName =  BindDaoBuilder.daoInterfaceTypeName(dao);
 			
 			// dao with external connections
 			{
