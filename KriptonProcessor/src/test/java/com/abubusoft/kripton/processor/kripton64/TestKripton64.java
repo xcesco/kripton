@@ -30,6 +30,11 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
+import org.robolectric.util.Logger;
+
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.util.Log;
 
 import com.abubusoft.kripton.BinderFactory;
 import com.abubusoft.kripton.BinderJsonReader;
@@ -111,6 +116,14 @@ public class TestKripton64 extends BaseProcessorTest {
 	@Test
 	public void testSharedFields() throws IOException, InstantiationException, IllegalAccessException {
 		BindBeanSharedPreferences shared = BindBeanSharedPreferences.instance();
+		
+		shared.registerOnSharedPreferenceChangeListener(new OnSharedPreferenceChangeListener() {
+			
+			@Override
+			public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+				Log.i("TAG", "change "+key);			
+			}
+		});
 		
 		shared.edit()		
 		.putValueBool(true)
