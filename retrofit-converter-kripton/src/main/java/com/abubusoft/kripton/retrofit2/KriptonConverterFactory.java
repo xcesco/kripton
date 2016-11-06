@@ -15,7 +15,7 @@ import com.abubusoft.kripton.BinderWriter;
 public final class KriptonConverterFactory extends Converter.Factory {
 
 	public static KriptonConverterFactory create() {
-		return create(BinderFactory.getJSONWriter(), BinderFactory.getJSONReader());
+		return create(BinderFactory.getJsonWriter(), BinderFactory.getJsonReader());
 	}
 
 	public static KriptonConverterFactory create(BinderWriter writer, BinderReader reader) {
