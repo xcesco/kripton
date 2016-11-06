@@ -30,6 +30,7 @@ class CharacterTransform extends PrimitiveSPTransform {
 		SIMPLE_TYPE="(char)";
 		PREFS_CONVERT="(char)";
 		PREFS_TYPE="Int";
+		PREFS_DEFAULT_VALUE="(char)0";
 	}
 
 }

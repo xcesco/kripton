@@ -30,5 +30,6 @@ class ByteTransform extends PrimitiveSPTransform {
 		SIMPLE_TYPE="(byte)";
 		PREFS_CONVERT="(int)";
 		PREFS_TYPE="Int";
+		PREFS_DEFAULT_VALUE="(byte)0";
 	}
 }

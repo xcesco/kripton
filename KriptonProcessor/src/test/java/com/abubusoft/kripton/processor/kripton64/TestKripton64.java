@@ -16,6 +16,8 @@
 package com.abubusoft.kripton.processor.kripton64;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,7 +47,6 @@ import com.abubusoft.kripton.processor.kripton64.BindBeanDataSource.Transaction;
  */
 @Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner.class)
-//@RunWith(JUnit4.class)
 public class TestKripton64 extends BaseProcessorTest {
 	
 	@Before
@@ -65,12 +66,12 @@ public class TestKripton64 extends BaseProcessorTest {
 			
 			@Override
 			public boolean onExecute(BindBeanDaoFactory daoFactory) {
-				BindBeanDao dao = daoFactory.getBeanDao();
+				BeanDaoImpl dao = daoFactory.getBeanDao();
 				
 				Bean bean=new Bean();
-				bean.value="hello";
-				bean.valueMapEnumByte=new HashMap<>();
-				bean.valueMapEnumByte.put(EnumType.VALUE_1, (byte) 34);
+				bean.valueString ="hello";
+				bean.valueMapStringBean =new HashMap<>();
+				bean.valueMapStringBean.put("key1", new Bean());
 				
 				dao.insert(bean);
 				List<Bean> list=dao.selectList(bean.id);
@@ -91,28 +92,43 @@ public class TestKripton64 extends BaseProcessorTest {
 	public void testJson() throws IOException, InstantiationException, IllegalAccessException, MappingException, WriterException, ReaderException {
 		Bean bean=new Bean();
 		
-		bean.value="hell";
-		bean.valueMapStringByte=new HashMap<>();
-		bean.valueMapStringByte.put("hello", (byte) 24);
-		bean.valueMapStringByte.put("hello2", (byte) 224);
+		bean.valueString ="hello";
+		bean.valueMapStringBean =new HashMap<>();
+		bean.valueMapStringBean.put("key1", new Bean());
 		
 		BinderJsonWriter writer=BinderFactory.getJsonWriter();
 		
-		String buffer=writer.writeMap(bean.valueMapStringByte);
+		String buffer=writer.writeMap(bean.valueMapStringBean);
 		
 		BinderJsonReader reader=BinderFactory.getJsonReader();
-		HashMap<String, Byte> map = reader.readMap(new HashMap<String, Byte>(), String.class, Byte.class, buffer);
+		HashMap<String, Bean> map = reader.readMap(new HashMap<String, Bean>(), String.class, Bean.class, buffer);
 		
 		String buffer2=writer.writeMap(map);
 		
 		Assert.assertEquals(buffer, buffer2);				
 	}
-	
-	
-	
 
 	@Test
 	public void testSharedFields() throws IOException, InstantiationException, IllegalAccessException {
+		BindBeanSharedPreferences shared = BindBeanSharedPreferences.instance();
+		
+		shared.edit()		
+		.putValueBool(true)
+		.putValueBoolType(true)
+		.putValueBigDecimal(new BigDecimal(10))
+		.putValueBigInteger(BigInteger.valueOf(20))
+		.putValueByte((byte)34)
+		.putValueByteType((byte)34)
+		.putValueString("hello")
+		.commit();
+		
+		Assert.assertEquals(true, shared.valueBool());
+		Assert.assertEquals(true, shared.valueBoolType());
+		Assert.assertEquals(new BigDecimal(10), shared.valueBigDecimal());
+		Assert.assertEquals(BigInteger.valueOf(20), shared.valueBigInteger());
+		Assert.assertTrue((byte)34==shared.valueByte());
+		Assert.assertEquals((byte)34, shared.valueByteType());
+		Assert.assertEquals("hello", shared.valueString());
 	}
 	
 }

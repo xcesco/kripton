@@ -31,6 +31,7 @@ public class IntegerTransform extends PrimitiveSPTransform {
 		SIMPLE_TYPE="(int)";
 		PREFS_CONVERT="(int)";
 		PREFS_TYPE="Int";
+		PREFS_DEFAULT_VALUE="0";
 	}
 
 }

@@ -33,7 +33,7 @@ public class WrappedCompileTimeTransform extends AbstractSPTransform {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
 		}
 		
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, beanName);
+		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
 		methodBuilder.addCode("$T.read($L.getString($S, null))",  utilClazz, preferenceName, property.getName());
 		methodBuilder.addCode(": null");
 		

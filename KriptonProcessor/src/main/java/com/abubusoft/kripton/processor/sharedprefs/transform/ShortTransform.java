@@ -30,5 +30,6 @@ public class ShortTransform extends PrimitiveSPTransform {
 		SIMPLE_TYPE="(short)";
 		PREFS_CONVERT="(int)";
 		PREFS_TYPE="Int";
+		PREFS_DEFAULT_VALUE="(short)0";
 	}
 }

@@ -57,7 +57,7 @@ public class MapTransformation extends AbstractSPTransform {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
 		}
 
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, beanName);
+		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
 		methodBuilder.addCode("$T.asMap(new $T<$T, $T>(), $T.class, $T.class, $L.getString($S, null))", utilClazz, mapClazz, keyTypeName, valueTypeName, keyTypeName, valueTypeName, preferenceName, property.getName());
 		methodBuilder.addCode(": null");
 

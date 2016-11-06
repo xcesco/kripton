@@ -49,7 +49,7 @@ class BigDecimalTransform extends AbstractSPTransform {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
 		}
 		
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, beanName);
+		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
 		methodBuilder.addCode("new $T($L.getString($S, $S))",  BigDecimal.class, preferenceName, property.getName(), defaultValue);
 		methodBuilder.addCode(": null");
 		

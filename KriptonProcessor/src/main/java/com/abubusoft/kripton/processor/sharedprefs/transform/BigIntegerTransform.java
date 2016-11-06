@@ -45,11 +45,10 @@ class BigIntegerTransform extends AbstractSPTransform {
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
 		if (add) {
-						
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
+			methodBuilder.addCode("$L.$L" + (property.isFieldWithSetter()?"(":"=")+"", beanName, setter(beanClass, property));
 		}
 		
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, beanName);
+		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
 		methodBuilder.addCode("new $T($L.getString($S, $S))",  BigInteger.class, preferenceName, property.getName(), defaultValue);
 		methodBuilder.addCode(": null");
 		
@@ -65,7 +64,7 @@ class BigIntegerTransform extends AbstractSPTransform {
 		{
 			if (nullable)
 			{
-				methodBuilder.addCode("if ($L." + getter(beanClass, property)+"!=null) ", beanName);
+				methodBuilder.addCode("if ($L.$L!=null) ", beanName, getter(beanClass, property));
 			}
 			methodBuilder.addCode("$L.putString($S,$L." + getter(beanClass, property) + ".toString() )", editorName, property.getName(), beanName);
 			if (nullable)

@@ -115,27 +115,27 @@ public interface BeanDao {
 	@BindInsert()
 	long insert(BigDecimal valueBigDecimal);
 	
-	@BindSelect(where = "value=${value}")
-	Bean selectOne(BigDecimal value);
+	@BindSelect(where = "valueBigDecimal=${valueBigDecimal}")
+	Bean selectOne(BigDecimal valueBigDecimal);
 	
-	@BindDelete(where = "value=${value}")
-	long delete(BigDecimal value);
+	@BindDelete(where = "valueBigDecimal=${valueBigDecimal}")
+	long delete(BigDecimal valueBigDecimal);
 	
-	@BindUpdate(where = "value=${value}")
-	long updateOne(BigDecimal value);
+	@BindUpdate(where = "valueBigDecimal=${valueBigDecimal}")
+	long updateOne(BigDecimal valueBigDecimal);
 	
 	// BigInteger
 	@BindInsert()
 	long insert(BigInteger valueBigInteger);
 	
-	@BindSelect(where = "value=${value}")
-	Bean selectOne(BigInteger value);
+	@BindSelect(where = "valueBigDecimal=${valueBigDecimal}")
+	Bean selectOne(BigInteger valueBigDecimal);
 	
-	@BindDelete(where = "value=${value}")
-	long delete(BigInteger value);
+	@BindDelete(where = "valueBigDecimal=${valueBigDecimal}")
+	long delete(BigInteger valueBigDecimal);
 	
-	@BindUpdate(where = "value=${value}")
-	long updateOne(BigInteger value);
+	@BindUpdate(where = "valueBigDecimal=${valueBigDecimal}")
+	long updateOne(BigInteger valueBigDecimal);
 	
 	
 	
@@ -143,13 +143,13 @@ public interface BeanDao {
 	@BindInsert()
 	long insert(boolean valueBoolType);
 	
-	@BindSelect(where = "value=${valueBoolType}")
+	@BindSelect(where = "valueBoolType=${valueBoolType}")
 	Bean selectOne(boolean valueBoolType);
 	
-	@BindDelete(where = "value=${valueBoolType}")
+	@BindDelete(where = "valueBoolType=${valueBoolType}")
 	long delete(boolean valueBoolType);
 	
-	@BindUpdate(where = "value=${valueBoolType}")
+	@BindUpdate(where = "valueBoolType=${valueBoolType}")
 	long updateOne(boolean valueBoolType);
 	
 	
@@ -158,13 +158,13 @@ public interface BeanDao {
 	@BindInsert()
 	long insert(Boolean valueBool);
 	
-	@BindSelect(where = "value=${valueBool}")
+	@BindSelect(where = "valueBool=${valueBool}")
 	Bean selectOne(Boolean valueBool);
 	
-	@BindDelete(where = "value=${valueBool}")
+	@BindDelete(where = "valueBool=${valueBool}")
 	long delete(Boolean valueBool);
 	
-	@BindUpdate(where = "value=${valueBool}")
+	@BindUpdate(where = "valueBool=${valueBool}")
 	long updateOne(Boolean valueBool);
 	
 	
@@ -172,13 +172,13 @@ public interface BeanDao {
 	@BindInsert()
 	long insertByteType(byte valueByteType);
 	
-	@BindSelect(where = "value=${valueByteType}")
+	@BindSelect(where = "valueByteType=${valueByteType}")
 	Bean selectOneByteType(boolean valueByteType);
 	
-	@BindDelete(where = "value=${valueByteType}")
+	@BindDelete(where = "valueByteType=${valueByteType}")
 	long deleteByteType(boolean valueByteType);
 	
-	@BindUpdate(where = "value=${valueByteType}")
+	@BindUpdate(where = "valueByteType=${valueByteType}")
 	long updateOneByteType(boolean valueByteType);
 	
 	
@@ -186,13 +186,13 @@ public interface BeanDao {
 	@BindInsert()
 	long insertByte(Byte valueByte);
 	
-	@BindSelect(where = "value=${valueByte}")
+	@BindSelect(where = "valueByte=${valueByte}")
 	Bean selectOneByte(Byte valueByte);
 	
-	@BindDelete(where = "value=${valueByte}")
+	@BindDelete(where = "valueByte=${valueByte}")
 	long deleteByte(Byte valueByte);
 	
-	@BindUpdate(where = "value=${valueByte}")
+	@BindUpdate(where = "valueByte=${valueByte}")
 	long updateOneByte(Byte valueByte);
 	
 	
@@ -201,26 +201,26 @@ public interface BeanDao {
 	@BindInsert()
 	long insertCharType(char valueCharType);
 	
-	@BindSelect(where = "value=${valueCharType}")
+	@BindSelect(where = "valueCharType=${valueCharType}")
 	Bean selectOneCharType(char valueCharType);
 	
-	@BindDelete(where = "value=${valueCharType}")
+	@BindDelete(where = "valueCharType=${valueCharType}")
 	long deleteCharType(char valueCharType);
 	
-	@BindUpdate(where = "value=${valueCharType}")
+	@BindUpdate(where = "valueCharType=${valueCharType}")
 	long updateOneCharType(char valueCharType);
 				
 	// char
 	@BindInsert()
 	long insertChar(Character valueChar);
 	
-	@BindSelect(where = "value=${valueChar}")
+	@BindSelect(where = "valueCharType=${valueChar}")
 	Bean selectOneChar(Character valueChar);
 	
-	@BindDelete(where = "value=${valueChar}")
+	@BindDelete(where = "valueCharType=${valueChar}")
 	long deleteChar(Character valueChar);
 	
-	@BindUpdate(where = "value=${valueChar}")
+	@BindUpdate(where = "valueCharType=${valueChar}")
 	long updateOneChar(Character valueChar);
 	
 	
@@ -229,26 +229,26 @@ public interface BeanDao {
 	@BindInsert()
 	long insertShortType(short valueShortType);
 	
-	@BindSelect(where = "value=${valueShortType}")
+	@BindSelect(where = "valueShortType=${valueShortType}")
 	Bean selectOneShortType(short valueShortType);
 	
-	@BindDelete(where = "value=${valueShortType}")
+	@BindDelete(where = "valueShortType=${valueShortType}")
 	long deleteShortType(short valueShortType);
 	
-	@BindUpdate(where = "value=${valueShortType}")
+	@BindUpdate(where = "valueShortType=${valueShortType}")
 	long updateOneShortType(short valueShortType);
 				
 	// Short
 	@BindInsert()
 	long insertShort(Short valueShort);
 	
-	@BindSelect(where = "value=${valueShort}")
+	@BindSelect(where = "valueShort=${valueShort}")
 	Bean selectOneShort(Short valueShort);
 	
-	@BindDelete(where = "value=${valueShort}")
+	@BindDelete(where = "valueShort=${valueShort}")
 	long deleteShort(Short valueShort);
 	
-	@BindUpdate(where = "value=${valueShort}")
+	@BindUpdate(where = "valueShort=${valueShort}")
 	long updateOneShort(Short valueShort);
 	
 	
@@ -256,26 +256,26 @@ public interface BeanDao {
 	@BindInsert()
 	long insertIntType(int valueIntType);
 	
-	@BindSelect(where = "value=${valueIntType}")
+	@BindSelect(where = "valueIntType=${valueIntType}")
 	Bean selectOneIntType(int valueIntType);
 	
-	@BindDelete(where = "value=${valueIntType}")
+	@BindDelete(where = "valueIntType=${valueIntType}")
 	long deleteIntType(int valueIntType);
 	
-	@BindUpdate(where = "value=${valueIntType}")
+	@BindUpdate(where = "valueIntType=${valueIntType}")
 	long updateOneIntType(int valueIntType);
 				
 	// int
 	@BindInsert()
 	long insertInt(Integer valueInt);
 	
-	@BindSelect(where = "value=${valueInt}")
+	@BindSelect(where = "valueInt=${valueInt}")
 	Bean selectOneInt(Integer valueInt);
 	
-	@BindDelete(where = "value=${valueInt}")
+	@BindDelete(where = "valueInt=${valueInt}")
 	long deleteInt(Integer valueInt);
 	
-	@BindUpdate(where = "value=${valueInt}")
+	@BindUpdate(where = "valueInt=${valueInt}")
 	long updateOneInt(Integer valueInt);
 	
 	
@@ -284,26 +284,26 @@ public interface BeanDao {
 	@BindInsert()
 	long insertLongType(long valueLongType);
 	
-	@BindSelect(where = "value=${valueLongType}")
+	@BindSelect(where = "valueLongType=${valueLongType}")
 	Bean selectOneLongType(long valueLongType);
 	
-	@BindDelete(where = "value=${valueLongType}")
+	@BindDelete(where = "valueLongType=${valueLongType}")
 	long deleteLongType(long valueLongType);
 	
-	@BindUpdate(where = "value=${valueLongType}")
+	@BindUpdate(where = "valueLongType=${valueLongType}")
 	long updateOneLongType(long valueLongType);
 				
 	// long
 	@BindInsert()
 	long insertLong(Long valueLong);
 	
-	@BindSelect(where = "value=${valueLong}")
+	@BindSelect(where = "valueLong=${valueLong}")
 	Bean selectOneLong(Long valueLong);
 	
-	@BindDelete(where = "value=${valueLong}")
+	@BindDelete(where = "valueLong=${valueLong}")
 	long deleteLong(Long valueLong);
 	
-	@BindUpdate(where = "value=${valueLong}")
+	@BindUpdate(where = "valueLong=${valueLong}")
 	long updateOneLong(Long valueLong);
 
 
@@ -311,52 +311,52 @@ public interface BeanDao {
 	@BindInsert()
 	long insertFloatType(float valueFloatType);
 	
-	@BindSelect(where = "value=${valueFloatType}")
+	@BindSelect(where = "valueFloatType=${valueFloatType}")
 	Bean selectOneFloatType(float valueFloatType);
 	
-	@BindDelete(where = "value=${valueFloatType}")
+	@BindDelete(where = "valueFloatType=${valueFloatType}")
 	long deleteFloatType(float valueFloatType);
 	
-	@BindUpdate(where = "value=${valueFloatType}")
+	@BindUpdate(where = "valueFloatType=${valueFloatType}")
 	long updateOneFloatType(float valueFloatType);
 				
 	// float
 	@BindInsert()
 	long insertFloat(Float valueFloat);
 	
-	@BindSelect(where = "value=${valueFloat}")
+	@BindSelect(where = "valueFloat=${valueFloat}")
 	Bean selectOneFloat(Float valueFloat);
 	
-	@BindDelete(where = "value=${valueFloat}")
+	@BindDelete(where = "valueFloat=${valueFloat}")
 	long deleteFloat(Float valueFloat);
 	
-	@BindUpdate(where = "value=${valueFloat}")
+	@BindUpdate(where = "valueFloat=${valueFloat}")
 	long updateOneFloat(Float valueFloat);
 	
 	// double type
 	@BindInsert()
 	long insertDoubleType(double valueDoubleType);
 	
-	@BindSelect(where = "value=${valueDoubleType}")
+	@BindSelect(where = "valueDoubleType=${valueDoubleType}")
 	Bean selectOneDoubleType(double valueDoubleType);
 	
-	@BindDelete(where = "value=${valueDoubleType}")
+	@BindDelete(where = "valueDoubleType=${valueDoubleType}")
 	long deleteDoubleType(double valueDoubleType);
 	
-	@BindUpdate(where = "value=${valueDoubleType}")
+	@BindUpdate(where = "valueDoubleType=${valueDoubleType}")
 	long updateOneDoubleType(double valueDoubleType);
 				
 	// double
 	@BindInsert()
 	long insertDouble(Double valueDouble);
 	
-	@BindSelect(where = "value=${valueDouble}")
+	@BindSelect(where = "valueDouble=${valueDouble}")
 	Bean selectOneDouble(Double valueDouble);
 	
-	@BindDelete(where = "value=${valueDouble}")
+	@BindDelete(where = "valueDouble=${valueDouble}")
 	long deleteDouble(Double valueDouble);
 	
-	@BindUpdate(where = "value=${valueDouble}")
+	@BindUpdate(where = "valueDouble=${valueDouble}")
 	long updateOneDouble(Double valueDouble);
 	
 	
@@ -364,13 +364,13 @@ public interface BeanDao {
 	@BindInsert()
 	long insertString(String valueString);
 	
-	@BindSelect(where = "value=${valueString}")
+	@BindSelect(where = "valueString=${valueString}")
 	Bean selectOneString(String valueString);
 	
-	@BindDelete(where = "value=${valueString}")
+	@BindDelete(where = "valueString=${valueString}")
 	long deleteString(String valueString);
 	
-	@BindUpdate(where = "value=${valueString}")
+	@BindUpdate(where = "valueString=${valueString}")
 	long updateOneString(Double valueString);
 	
 	
@@ -378,13 +378,13 @@ public interface BeanDao {
 	@BindInsert()
 	long insertDate(Date valueDate);
 	
-	@BindSelect(where = "value=${valueDate}")
+	@BindSelect(where = "valueDate=${valueDate}")
 	Bean selectOneDate(Date valueDate);
 	
-	@BindDelete(where = "value=${valueDate}")
+	@BindDelete(where = "valueDate=${valueDate}")
 	long deleteDate(Date valueDate);
 	
-	@BindUpdate(where = "value=${valueDate}")
+	@BindUpdate(where = "valueDate=${valueDate}")
 	long updateOneDate(Date valueDate);
 	
 	
@@ -392,13 +392,13 @@ public interface BeanDao {
 	@BindInsert()
 	long insertCalendar(Calendar valueCalendar);
 	
-	@BindSelect(where = "value=${valueCalendar}")
+	@BindSelect(where = "valueCalendar=${valueCalendar}")
 	Bean selectOneCalendar(Calendar valueCalendar);
 	
-	@BindDelete(where = "value=${valueCalendar}")
+	@BindDelete(where = "valueCalendar=${valueCalendar}")
 	long deleteCalendar(Date valueCalendar);
 	
-	@BindUpdate(where = "value=${valueCalendar}")
+	@BindUpdate(where = "valueCalendar=${valueCalendar}")
 	long updateOneCalendar(Calendar valueCalendar);
 
 	
@@ -406,13 +406,13 @@ public interface BeanDao {
 	@BindInsert()
 	long insertLocale(Locale valueLocale);
 	
-	@BindSelect(where = "value=${valueLocale}")
+	@BindSelect(where = "valueLocale=${valueLocale}")
 	Bean selectOneLocale(Calendar valueLocale);
 	
-	@BindDelete(where = "value=${valueLocale}")
+	@BindDelete(where = "valueLocale=${valueLocale}")
 	long deleteLocale(Date valueLocale);
 	
-	@BindUpdate(where = "value=${valueLocale}")
+	@BindUpdate(where = "valueLocale=${valueLocale}")
 	long updateOneLocale(Locale valueLocale);
 	
 	
@@ -420,26 +420,26 @@ public interface BeanDao {
 	@BindInsert()
 	long insertURL(URL valueUrl);
 	
-	@BindSelect(where = "value=${valueUrl}")
+	@BindSelect(where = "valueUrl=${valueUrl}")
 	Bean selectOneURL(URL valueUrl);
 	
-	@BindDelete(where = "value=${valueUrl}")
+	@BindDelete(where = "valueUrl=${valueUrl}")
 	long deleteURL(URL valueUrl);
 	
-	@BindUpdate(where = "value=${valueUrl}")
+	@BindUpdate(where = "valueUrl=${valueUrl}")
 	long updateOneURL(URL valueUrl);
 	
 	// Time
 	@BindInsert()
 	long insertTime(Time valueTime);
 	
-	@BindSelect(where = "value=${valueTime}")
+	@BindSelect(where = "valueTime=${valueTime}")
 	Bean selectOneTime(Time valueTime);
 	
-	@BindDelete(where = "value=${valueTime}")
+	@BindDelete(where = "valueTime=${valueTime}")
 	long deleteTime(Time valueTime);
 	
-	@BindUpdate(where = "value=${valueTime}")
+	@BindUpdate(where = "valueTime=${valueTime}")
 	long updateOneTime(Time valueTime);
 	
 	
@@ -447,13 +447,13 @@ public interface BeanDao {
 	@BindInsert()
 	long insertCurrency(Currency valueCurrency);
 	
-	@BindSelect(where = "value=${valueCurrency}")
+	@BindSelect(where = "valueCurrency=${valueCurrency}")
 	Bean selectOneCurrencye(Currency valueCurrency);
 	
-	@BindDelete(where = "value=${valueCurrency}")
+	@BindDelete(where = "valueCurrency=${valueCurrency}")
 	long deleteCurrency(Currency valueCurrency);
 	
-	@BindUpdate(where = "value=${valueCurrency}")
+	@BindUpdate(where = "valueCurrency=${valueCurrency}")
 	long updateOneCurrency(Currency valueCurrency);
 	
 	
@@ -461,78 +461,78 @@ public interface BeanDao {
 	@BindInsert()
 	long insertTimeZone(TimeZone valueTimeZone);
 	
-	@BindSelect(where = "value=${valueTimeZone}")
+	@BindSelect(where = "valueTimeZone=${valueTimeZone}")
 	Bean selectOneTimeZone(TimeZone valueTimeZone);
 	
-	@BindDelete(where = "value=${valueTimeZone}")
+	@BindDelete(where = "valueTimeZone=${valueTimeZone}")
 	long deleteTimeZone(TimeZone valueTimeZone);
 	
-	@BindUpdate(where = "value=${valueTimeZone}")
+	@BindUpdate(where = "valueTimeZone=${valueTimeZone}")
 	long updateOneTimeZone(TimeZone valueTimeZone);
 	
 	// enum
 	@BindInsert()
 	long insertEnumType(EnumType valueEnumType);
 	
-	@BindSelect(where = "value=${valueEnumType}")
+	@BindSelect(where = "valueEnumType=${valueEnumType}")
 	Bean selectOneEnumType(EnumType valueEnumType);
 	
-	@BindDelete(where = "value=${valueEnumType}")
+	@BindDelete(where = "valueEnumType=${valueEnumType}")
 	long deleteEnumType(EnumType valueEnumType);
 	
-	@BindUpdate(where = "value=${valueEnumType}")
+	@BindUpdate(where = "valueEnumType=${valueEnumType}")
 	long updateOneEnumType(EnumType valueEnumType);
 	
 	// array bean	
 	@BindInsert
 	long insertArrayBeanType(Bean[] valueBeanArray);
 	
-	@BindSelect(where = "value=${valueBeanArray}")
+	@BindSelect(where = "valueBeanArray=${valueBeanArray}")
 	Bean selectOneArrayBeanType(Bean[] valueBeanArray);
 	
-	@BindDelete(where = "value=${valueBeanArray}")
+	@BindDelete(where = "valueBeanArray=${valueBeanArray}")
 	long deleteArrayBeanType(Bean[] valueBeanArray);
 	
-	@BindUpdate(where = "value=${valueBeanArray}")
+	@BindUpdate(where = "valueBeanArray=${valueBeanArray}")
 	long updateOneArrayBean(Bean[] valueBeanArray);
 	
 	// array long	
 	@BindInsert
 	long insertArrayLongType(long[] valueLongTypeArray);
 	
-	@BindSelect(where = "value=${valueLongTypeArray}")
+	@BindSelect(where = "valueLongTypeArray=${valueLongTypeArray}")
 	Bean selectOneArrayLongType(long[] valueLongTypeArray);
 	
-	@BindDelete(where = "value=${valueLongTypeArray}")
+	@BindDelete(where = "valueLongTypeArray=${valueLongTypeArray}")
 	long deleteArrayLongType(long[] valueLongTypeArray);
 	
-	@BindUpdate(where = "value=${valueLongTypeArray}")
+	@BindUpdate(where = "valueLongTypeArray=${valueLongTypeArray}")
 	long updateOneArrayLongType(long[] valueLongTypeArray);
 	
 	// array Long	
 	@BindInsert
 	long insertArrayLong(Long[] valueLongArray);
 	
-	@BindSelect(where = "value=${valueLongArray}")
+	@BindSelect(where = "valueLongArray=${valueLongArray}")
 	Bean selectOneArrayLong(Long[] valueLongArray);
 	
-	@BindDelete(where = "value=${valueLongArray}")
+	@BindDelete(where = "valueLongArray=${valueLongArray}")
 	long deleteArrayLong(Long[] valueLongArray);
 	
-	@BindUpdate(where = "value=${valueLongArray}")
+	@BindUpdate(where = "valueLongArray=${valueLongArray}")
 	long updateOneArrayLong(Long[] valueLongArray);
 	
 	// List Long	
 	@BindInsert
 	long insertListLong(LinkedList<Long> valueLongList);
 	
-	@BindSelect(where = "value=${valueLongList}")
+	@BindSelect(where = "valueLongList=${valueLongList}")
 	Bean selectOneListLong(LinkedList<Long> valueLongList);
 	
-	@BindDelete(where = "value=${valueLongList}")
+	@BindDelete(where = "valueLongList=${valueLongList}")
 	long deleteListLong(LinkedList<Long> valueLongList);
 	
-	@BindUpdate(where = "value=${valueLongList}")
+	@BindUpdate(where = "valueLongList=${valueLongList}")
 	long updateOneListLong(LinkedList<Long> valueLongList);
-		
+			
 }

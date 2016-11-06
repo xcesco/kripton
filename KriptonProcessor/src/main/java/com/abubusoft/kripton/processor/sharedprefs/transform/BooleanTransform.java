@@ -30,6 +30,7 @@ class BooleanTransform extends PrimitiveSPTransform {
 		SIMPLE_TYPE="(boolean)";
 		PREFS_CONVERT="(boolean)";
 		PREFS_TYPE="Boolean";
+		PREFS_DEFAULT_VALUE="false";
 	}
 
 }

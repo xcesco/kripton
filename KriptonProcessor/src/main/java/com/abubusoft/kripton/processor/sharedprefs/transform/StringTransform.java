@@ -30,6 +30,7 @@ public class StringTransform extends PrimitiveSPTransform {
 		SIMPLE_TYPE="";
 		PREFS_CONVERT="";
 		PREFS_TYPE="String";
+		PREFS_DEFAULT_VALUE="null";
 	}
 
 }

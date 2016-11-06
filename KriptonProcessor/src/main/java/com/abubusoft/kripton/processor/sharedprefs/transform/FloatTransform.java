@@ -30,6 +30,7 @@ public class FloatTransform extends PrimitiveSPTransform {
 		SIMPLE_TYPE="";
 		PREFS_CONVERT="";
 		PREFS_TYPE="Float";
+		PREFS_DEFAULT_VALUE="0F";
 	}
 
 }

@@ -10,7 +10,7 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  *
  * @see BeanDataSource
  * @see BeanDao
- * @see BindBeanDao
+ * @see BeanDaoImpl
  * @see Bean
  */
 public interface BindBeanDaoFactory extends BindDaoFactory {
@@ -18,5 +18,5 @@ public interface BindBeanDaoFactory extends BindDaoFactory {
    *
    * retrieve dao BeanDao
    */
-  BindBeanDao getBeanDao();
+  BeanDaoImpl getBeanDao();
 }

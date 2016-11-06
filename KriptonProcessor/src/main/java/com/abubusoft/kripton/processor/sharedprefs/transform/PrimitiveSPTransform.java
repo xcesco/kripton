@@ -33,10 +33,6 @@ abstract class PrimitiveSPTransform extends AbstractSPTransform {
 	public PrimitiveSPTransform(boolean nullable)
 	{
 		this.nullable=nullable;
-		
-		//SIMPLE_TYPE="(byte)";
-		//PREFS_CONVERT="(int)";
-		//PREFS_TYPE="Int";
 	}
 	
 	protected boolean nullable;
@@ -44,16 +40,20 @@ abstract class PrimitiveSPTransform extends AbstractSPTransform {
 	protected String SIMPLE_TYPE;
 	protected String PREFS_CONVERT;
 	protected String PREFS_TYPE;
+	protected String PREFS_DEFAULT_VALUE;
 
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		if (add) {
-						
+		if (add) {						
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
 		}
 
-		methodBuilder.addCode(SIMPLE_TYPE+"$L.get"+PREFS_TYPE+"($S, "+SIMPLE_TYPE+"$L." + getter(beanClass, property) + ")", preferenceName, property.getName(), beanName);
+		if (nullable){
+			methodBuilder.addCode(SIMPLE_TYPE+"$L.get"+PREFS_TYPE+"($S, "+SIMPLE_TYPE+"($L.$L==null?"+PREFS_DEFAULT_VALUE+":$L.$L))", preferenceName, property.getName(), beanName, getter(beanClass, property), beanName, getter(beanClass, property));
+		} else {
+			methodBuilder.addCode(SIMPLE_TYPE+"$L.get"+PREFS_TYPE+"($S, "+SIMPLE_TYPE+"$L.$L)", preferenceName, property.getName(), beanName, getter(beanClass, property));
+		}
 
 		if (add) {
 			methodBuilder.addCode((property.isFieldWithSetter()?")":""));

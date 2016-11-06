@@ -52,7 +52,7 @@ public class ListTransformation extends AbstractSPTransform {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
 		}
 
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, beanName);
+		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
 		methodBuilder.addCode("$T.asCollection(new $T<$T>(), $T.class, $L.getString($S, null))", utilClazz, listClazz, rawTypeName, rawTypeName, preferenceName, property.getName());
 		methodBuilder.addCode(": null");
 

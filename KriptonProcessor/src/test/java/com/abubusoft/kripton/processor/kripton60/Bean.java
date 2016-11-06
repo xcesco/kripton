@@ -22,9 +22,11 @@ import java.sql.Time;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import com.abubusoft.kripton.android.annotation.BindColumn;
@@ -61,7 +63,7 @@ public class Bean {
 	public float valueFloatType;
 	
 	public Float valueFloat;
-	
+		
 	public BigInteger valueBigInteger;
 	
 	public BigDecimal valueBigDecimal;
@@ -103,8 +105,7 @@ public class Bean {
 	
 	public long[] valueLongTypeArray;
 	
-	public Long[] valueLongArray;
-	
+	public Long[] valueLongArray;	
 	
 	public Bean[] valueBeanArray;
 	
@@ -116,6 +117,10 @@ public class Bean {
 
 	public Character[] valueCharArray;
 	
-	@BindPreference(enabled=true)
+	public Map<String, Bean> valueMapStringBean;
+	
+	public LinkedHashMap<String, Bean> valueLinkedMapStringBean;
+	
+	@BindPreference(enabled=false)
 	public long id;
 }
