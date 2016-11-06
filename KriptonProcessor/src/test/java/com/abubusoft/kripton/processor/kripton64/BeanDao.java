@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
@@ -123,6 +124,9 @@ public interface BeanDao {
 	
 	@BindUpdate(where = "valueBigDecimal=${valueBigDecimal}")
 	long updateOne(BigDecimal valueBigDecimal);
+	
+	@BindUpdate(where = "id=${id}")
+	long updateOne(long id, Set<String> valueSetString);
 	
 	// BigInteger
 	@BindInsert()

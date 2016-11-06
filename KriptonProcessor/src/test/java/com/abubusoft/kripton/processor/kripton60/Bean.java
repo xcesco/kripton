@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import com.abubusoft.kripton.android.annotation.BindColumn;
@@ -120,6 +121,8 @@ public class Bean {
 	public Map<String, Bean> valueMapStringBean;
 	
 	public LinkedHashMap<String, Bean> valueLinkedMapStringBean;
+	
+	public Set<String> valueSetString;
 	
 	@BindPreference(enabled=false)
 	public long id;

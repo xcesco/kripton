@@ -32,11 +32,13 @@ import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 /**
@@ -127,6 +129,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     bean.valueCharArray=(prefs.getString("valueCharArray", null)!=null) ? CollectionUtility.asCharacterArray(ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, prefs.getString("valueCharArray", null))): null;
     bean.valueMapStringBean=(prefs.getString("valueMapStringBean", null)!=null) ? ProcessorHelper.asMap(new HashMap<String, Bean>(), String.class, Bean.class, prefs.getString("valueMapStringBean", null)): null;
     bean.valueLinkedMapStringBean=(prefs.getString("valueLinkedMapStringBean", null)!=null) ? ProcessorHelper.asMap(new LinkedHashMap<String, Bean>(), String.class, Bean.class, prefs.getString("valueLinkedMapStringBean", null)): null;
+    bean.valueSetString=(prefs.getString("valueSetString", null)!=null) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, prefs.getString("valueSetString", null)): null;
 
     return bean;
   }
@@ -179,6 +182,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     if (bean.valueCharArray!=null) editor.putString("valueCharArray",ProcessorHelper.asString(CollectionUtility.asList(bean.valueCharArray, ArrayList.class))); else editor.putString("valueCharArray", null);
     if (bean.valueMapStringBean!=null) editor.putString("valueMapStringBean",ProcessorHelper.asString(bean.valueMapStringBean)); else editor.putString("valueMapStringBean", null);
     if (bean.valueLinkedMapStringBean!=null) editor.putString("valueLinkedMapStringBean",ProcessorHelper.asString(bean.valueLinkedMapStringBean)); else editor.putString("valueLinkedMapStringBean", null);
+    if (bean.valueSetString!=null) editor.putString("valueSetString",ProcessorHelper.asString(bean.valueSetString)); else editor.putString("valueSetString", null);
 
     editor.commit();
   }
@@ -553,6 +557,15 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * read property valueSetString
+   *
+   * @return property valueSetString value
+   */
+  public Set<String> valueSetString() {
+    return (prefs.getString("valueSetString", null)!=null) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, prefs.getString("valueSetString", null)): null;
+  }
+
+  /**
    * get instance of shared preferences
    */
   public static BindBeanSharedPreferences instance() {
@@ -894,6 +907,14 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueLinkedMapStringBean(LinkedHashMap<String, Bean> value) {
       if (value!=null) editor.putString("valueLinkedMapStringBean",ProcessorHelper.asString(value)); else editor.putString("valueLinkedMapStringBean", null);
+      return this;
+    }
+
+    /**
+     * modifier for property valueSetString
+     */
+    public BindEditor putValueSetString(Set<String> value) {
+      if (value!=null) editor.putString("valueSetString",ProcessorHelper.asString(value)); else editor.putString("valueSetString", null);
       return this;
     }
   }

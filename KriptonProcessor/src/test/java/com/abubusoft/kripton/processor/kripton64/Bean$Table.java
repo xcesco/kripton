@@ -20,9 +20,9 @@ public class Bean$Table {
    * DDL to create table bean
    * </p>
    *
-   * <pre>CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, value_set_string BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, value_set_string BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);";
 
   /**
    * <p>
@@ -312,6 +312,13 @@ public class Bean$Table {
    *  @see Bean#valueLinkedMapStringBean
    */
   public static final String COLUMN_VALUE_LINKED_MAP_STRING_BEAN = "value_linked_map_string_bean";
+
+  /**
+   * Entity's property <code>valueSetString</code> is associated to table column <code>value_set_string</code>. This costant represents column name.
+   *
+   *  @see Bean#valueSetString
+   */
+  public static final String COLUMN_VALUE_SET_STRING = "value_set_string";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.

@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -81,10 +82,16 @@ public class TestKripton64 extends BaseProcessorTest {
 				bean.valueString ="hello";
 				bean.valueMapStringBean =new HashMap<>();
 				bean.valueMapStringBean.put("key1", new Bean());
+				bean.valueSetString=new HashSet<String>();
+				bean.valueSetString.add("hello");
 				
 				dao.insert(bean);
 				List<Bean> list=dao.selectList(bean.id);
-				Assert.assertEquals("not ", 1, list.size());
+				Assert.assertEquals("not list ", 1, list.size());
+											
+				Assert.assertEquals("not map", 1, list.size());
+				
+				Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
 				
 				return true;
 			}
