@@ -18,8 +18,12 @@ package com.abubusoft.kripton.processor.kripton64;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Calendar;
+import java.util.Currency;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -125,6 +129,9 @@ public class TestKripton64 extends BaseProcessorTest {
 			}
 		});
 		
+		Calendar c=Calendar.getInstance();
+		Date d=new Date();
+		
 		shared.edit()		
 		.putValueBool(true)
 		.putValueBoolType(true)
@@ -132,7 +139,20 @@ public class TestKripton64 extends BaseProcessorTest {
 		.putValueBigInteger(BigInteger.valueOf(20))
 		.putValueByte((byte)34)
 		.putValueByteType((byte)34)
+		.putValueCalendar(c)
+		.putValueChar((char)3)
+		.putValueCurrency(Currency.getInstance(Locale.ITALY))
+		.putValueDate(d)
+		.putValueDouble(34.0)
+		.putValueDoubleType(34.0)
+		.putValueEnumType(EnumType.VALUE_2)
+		.putValueFloat(2f)
+		.putValueFloatType(2f)
+		.putValueLocale(Locale.JAPAN)
+		.putValueLong(2L)
+		.putValueLongType(2L)
 		.putValueString("hello")
+		
 		.commit();
 		
 		Assert.assertEquals(true, shared.valueBool());
@@ -141,6 +161,18 @@ public class TestKripton64 extends BaseProcessorTest {
 		Assert.assertEquals(BigInteger.valueOf(20), shared.valueBigInteger());
 		Assert.assertTrue((byte)34==shared.valueByte());
 		Assert.assertEquals((byte)34, shared.valueByteType());
+		Assert.assertEquals(c, shared.valueCalendar());
+		Assert.assertTrue((char)3==shared.valueChar());
+		Assert.assertEquals(Currency.getInstance(Locale.ITALY), shared.valueCurrency());
+		Assert.assertEquals(d, shared.valueDate());
+		Assert.assertTrue(34.0==shared.valueDouble());
+		Assert.assertTrue(34.0==shared.valueDoubleType());
+		Assert.assertEquals(EnumType.VALUE_2, shared.valueEnumType());
+		Assert.assertTrue(2.0f==shared.valueFloat());
+		Assert.assertTrue(2.0f==shared.valueFloatType());
+		Assert.assertEquals(Locale.JAPAN, shared.valueLocale());
+		Assert.assertTrue(2L==shared.valueLong());
+		Assert.assertTrue(2L==shared.valueLongType());
 		Assert.assertEquals("hello", shared.valueString());
 	}
 	

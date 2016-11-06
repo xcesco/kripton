@@ -3,9 +3,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.abubusoft.kripton.common.CaseFormat;
@@ -48,9 +46,6 @@ public class MapTransformation extends AbstractSPTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		//String name = nc.convert(keyTypeName.toString().substring(keyTypeName.toString().lastIndexOf(".") + 1));
-		//String name = nc.convert(keyTypeName.toString().substring(keyTypeName.toString().lastIndexOf(".") + 1));
-		
 		Class<?> mapClazz = defineMapClass(listTypeName);
 
 		if (add) {
