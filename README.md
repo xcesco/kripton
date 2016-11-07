@@ -32,7 +32,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton-processor</artifactId>
-    <version>1.0.0</version>
+    <version>1.3.0</version>
     <scope>compile</scope>
 </dependency>
 
@@ -40,7 +40,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>1.0.0</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -48,10 +48,10 @@ or via gradle
 
 ```
 // https://mvnrepository.com/artifact/com.abubusoft/kripton-processor
-compile group: 'com.abubusoft', name: 'kripton-processor', version: '1.0.0'
+compile group: 'com.abubusoft', name: 'kripton-processor', version: '1.3.0'
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-compile group: 'com.abubusoft', name: 'kripton', version: '1.0.0'
+compile group: 'com.abubusoft', name: 'kripton', version: '1.3.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
