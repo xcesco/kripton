@@ -21,6 +21,7 @@ final class KriptonResponseBodyConverter<T> implements Converter<ResponseBody, T
 		this.clazz = clazz;
 	}
 
+
 	@Override
 	public T convert(ResponseBody value) throws IOException {
 		try {
