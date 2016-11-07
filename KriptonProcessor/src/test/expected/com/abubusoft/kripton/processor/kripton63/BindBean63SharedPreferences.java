@@ -58,10 +58,10 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public Bean63 read() {
     Bean63 bean=new Bean63();
-    bean.id=(prefs.getString("bean", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
+    bean.id=(prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
     bean.value=prefs.getString("value", bean.value);
-    bean.valueMapStringByte=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, prefs.getString("valueMapStringByte", null)): null;
-    bean.valueMapEnumByte=(prefs.getString("bean", null)!=null) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, prefs.getString("valueMapEnumByte", null)): null;
+    bean.valueMapStringByte=(prefs.getString("valueMapStringByte", null)!=null) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, prefs.getString("valueMapStringByte", null)): null;
+    bean.valueMapEnumByte=(prefs.getString("valueMapEnumByte", null)!=null) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, prefs.getString("valueMapEnumByte", null)): null;
 
     return bean;
   }
@@ -87,7 +87,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property id value
    */
   public long id() {
-    return (prefs.getString("defaultBean", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
+    return (prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
   }
 
   /**
@@ -105,7 +105,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property valueMapStringByte value
    */
   public Map<String, Byte> valueMapStringByte() {
-    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, prefs.getString("valueMapStringByte", null)): null;
+    return (prefs.getString("valueMapStringByte", null)!=null) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, prefs.getString("valueMapStringByte", null)): null;
   }
 
   /**
@@ -114,7 +114,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property valueMapEnumByte value
    */
   public HashMap<EnumType, Byte> valueMapEnumByte() {
-    return (prefs.getString("defaultBean", null)!=null) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, prefs.getString("valueMapEnumByte", null)): null;
+    return (prefs.getString("valueMapEnumByte", null)!=null) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, prefs.getString("valueMapEnumByte", null)): null;
   }
 
   /**

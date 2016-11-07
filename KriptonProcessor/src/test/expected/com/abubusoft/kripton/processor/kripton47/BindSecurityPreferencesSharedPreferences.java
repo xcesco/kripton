@@ -54,9 +54,9 @@ public class BindSecurityPreferencesSharedPreferences extends AbstractSharedPref
   public SecurityPreferences read() {
     SecurityPreferences bean=new SecurityPreferences();
     bean.fcmId=prefs.getString("fcmId", bean.fcmId);
-    bean.authorizationToken=(prefs.getString("bean", null)!=null) ? (DeviceAccessToken)readObj(prefs.getString("authorizationToken", null), DeviceAccessToken.class): null;
+    bean.authorizationToken=(prefs.getString("authorizationToken", null)!=null) ? (DeviceAccessToken)readObj(prefs.getString("authorizationToken", null), DeviceAccessToken.class): null;
     bean.deviceUid=prefs.getString("deviceUid", bean.deviceUid);
-    bean.userIdentity=(prefs.getString("bean", null)!=null) ? (UserIdentity)readObj(prefs.getString("userIdentity", null), UserIdentity.class): null;
+    bean.userIdentity=(prefs.getString("userIdentity", null)!=null) ? (UserIdentity)readObj(prefs.getString("userIdentity", null), UserIdentity.class): null;
 
     return bean;
   }
@@ -91,7 +91,7 @@ public class BindSecurityPreferencesSharedPreferences extends AbstractSharedPref
    * @return property authorizationToken value
    */
   public DeviceAccessToken authorizationToken() {
-    return (prefs.getString("defaultBean", null)!=null) ? (DeviceAccessToken)readObj(prefs.getString("authorizationToken", null), DeviceAccessToken.class): null;
+    return (prefs.getString("authorizationToken", null)!=null) ? (DeviceAccessToken)readObj(prefs.getString("authorizationToken", null), DeviceAccessToken.class): null;
   }
 
   /**
@@ -109,7 +109,7 @@ public class BindSecurityPreferencesSharedPreferences extends AbstractSharedPref
    * @return property userIdentity value
    */
   public UserIdentity userIdentity() {
-    return (prefs.getString("defaultBean", null)!=null) ? (UserIdentity)readObj(prefs.getString("userIdentity", null), UserIdentity.class): null;
+    return (prefs.getString("userIdentity", null)!=null) ? (UserIdentity)readObj(prefs.getString("userIdentity", null), UserIdentity.class): null;
   }
 
   /**

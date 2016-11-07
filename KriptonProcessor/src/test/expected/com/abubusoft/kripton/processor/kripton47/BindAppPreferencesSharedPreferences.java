@@ -59,7 +59,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
   public AppPreferences read() {
     AppPreferences bean=new AppPreferences();
     bean.name=prefs.getString("name", bean.name);
-    bean.userAccessToken=(prefs.getString("bean", null)!=null) ? (UserAccessToken)readObj(prefs.getString("userAccessToken", null), UserAccessToken.class): null;
+    bean.userAccessToken=(prefs.getString("userAccessToken", null)!=null) ? (UserAccessToken)readObj(prefs.getString("userAccessToken", null), UserAccessToken.class): null;
 
     return bean;
   }
@@ -92,7 +92,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
    * @return property userAccessToken value
    */
   public UserAccessToken userAccessToken() {
-    return (prefs.getString("defaultBean", null)!=null) ? (UserAccessToken)readObj(prefs.getString("userAccessToken", null), UserAccessToken.class): null;
+    return (prefs.getString("userAccessToken", null)!=null) ? (UserAccessToken)readObj(prefs.getString("userAccessToken", null), UserAccessToken.class): null;
   }
 
   /**
