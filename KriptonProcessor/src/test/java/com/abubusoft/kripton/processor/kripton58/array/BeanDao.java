@@ -18,41 +18,41 @@ package com.abubusoft.kripton.processor.kripton58.array;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 
 @BindDao(BeanBean.class)
 public interface BeanDao {
 	
-	@BindSelect()
+	@BindSqlSelect()
 	BeanBean selectOne();	
 	
-	@BindSelect(where = "value=${value} and value2=${value2}")
+	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	BeanBean selectOne(BeanInner[] value, BeanInner[] value2);
 
-	@BindSelect(where = "value=${value} and value2=${value2}")
+	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(BeanInner[] value, BeanInner[] value2, ReadBeanListener<BeanBean> listener);	
 
-	@BindSelect(where = "value=${value} and value2=${value2}")
+	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(BeanInner[] value, BeanInner[] value2, ReadCursorListener listener);
 	
-	@BindSelect(where = "value=${value} and value2=${value2}")
+	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<BeanBean> selectList(BeanInner[] value, BeanInner[] value2);
 	
-	@BindUpdate(where = "id=${id} and value=${value} and value2=${value2}")
+	@BindSqlUpdate(where = "id=${id} and value=${value} and value2=${value2}")
 	long updateOne(long id, BeanInner[] value, BeanInner[] value2);
 	
-	@BindInsert()
+	@BindSqlInsert()
 	long insert(long id, BeanInner[] value, BeanInner[] value2);
 	
-	@BindInsert()
+	@BindSqlInsert()
 	long insert(BeanBean bean);
 	
-	@BindDelete(where = "value=${value} and value2=${value2}")
+	@BindSqlDelete(where = "value=${value} and value2=${value2}")
 	long delete(BeanInner[] value, BeanInner[] value2);
 	
 }

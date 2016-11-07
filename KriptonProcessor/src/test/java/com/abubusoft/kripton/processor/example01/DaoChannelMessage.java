@@ -16,12 +16,12 @@
 package com.abubusoft.kripton.processor.example01;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 
 @BindDao(ChannelMessage.class)
 public interface DaoChannelMessage {	
 	
-	@BindInsert
+	@BindSqlInsert
 	long insertBean(ChannelMessage bean);
 /*
 	@BindInsert

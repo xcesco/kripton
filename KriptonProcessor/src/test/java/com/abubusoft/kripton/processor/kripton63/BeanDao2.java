@@ -20,45 +20,45 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 
 @BindDao(Bean632.class)
 public interface BeanDao2 {
 	
-	@BindSelect()
+	@BindSqlSelect()
 	Bean632 selectOne();	
 
-	@BindSelect(where = "id = ${id}")
+	@BindSqlSelect(where = "id = ${id}")
 	void selectOne(int id, ReadBeanListener<Bean632> listener);
 
-	@BindSelect(where = "id = ${id}")
+	@BindSqlSelect(where = "id = ${id}")
 	void selectOne(long id, ReadCursorListener listener);
 
-	@BindSelect(where = "id = ${id}")
+	@BindSqlSelect(where = "id = ${id}")
 	List<Bean632> selectList(long id);
 	
-	@BindUpdate(where = "id=${value.id}")
+	@BindSqlUpdate(where = "id=${value.id}")
 	long updateOne(Bean632 value);
 	
-	@BindInsert()
+	@BindSqlInsert()
 	long insert(Bean632 bean);
 	
 	// BigDecimal
-	@BindInsert()
+	@BindSqlInsert()
 	long insert(HashSet<BigDecimal> valueBigDecimalSet);
 	
-	@BindSelect(where = "value=${valueBigDecimalSet}")
+	@BindSqlSelect(where = "value=${valueBigDecimalSet}")
 	Bean632 selectOne(HashSet<BigDecimal> valueBigDecimalSet);
 	
-	@BindDelete(where = "value=${valueBigDecimalSet}")
+	@BindSqlDelete(where = "value=${valueBigDecimalSet}")
 	long delete(HashSet<BigDecimal> valueBigDecimalSet);
 	
-	@BindUpdate(where = "value=${valueBigDecimalSet}")
+	@BindSqlUpdate(where = "value=${valueBigDecimalSet}")
 	long updateOne(HashSet<BigDecimal> valueBigDecimalSet);
 	
 	

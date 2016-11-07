@@ -15,10 +15,10 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.exceptions;
 
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 
@@ -27,8 +27,8 @@ public class MethodWithoutSupportedAnnotationException extends KriptonProcessorE
 	private static final long serialVersionUID = 8462705406839489618L;
 
 	public MethodWithoutSupportedAnnotationException(SQLDaoDefinition daoDefinition, ModelMethod method) {
-		super("Method '" + method.getName() + "' of DAO '" + daoDefinition.getName() + "' is not marked with any valid annotation (" +BindInsert.class.getSimpleName() + ", "
-				+ BindUpdate.class.getSimpleName() + ", " + BindDelete.class.getSimpleName() + ", " + BindSelect.class.getSimpleName() + ", "
+		super("Method '" + method.getName() + "' of DAO '" + daoDefinition.getName() + "' is not marked with any valid annotation (" +BindSqlInsert.class.getSimpleName() + ", "
+				+ BindSqlUpdate.class.getSimpleName() + ", " + BindSqlDelete.class.getSimpleName() + ", " + BindSqlSelect.class.getSimpleName() + ", "
 				+ ")");
 	}
 }

@@ -23,14 +23,14 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.annotation.BindInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.SQLiteInsertBuilder.InsertCodeGenerator;
+import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -46,8 +46,8 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		SQLEntity entity=daoDefinition.getEntity();
 		String sqlInsert;
 
-		List<SQLProperty> listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindInsert.class, methodBuilder, null);
-		CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindInsert.class, methodBuilder, null);
+		List<SQLProperty> listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlInsert.class, methodBuilder, null);
+		CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlInsert.class, methodBuilder, null);
 
 		ModelProperty primaryKey = entity.getPrimaryKey();
 

@@ -20,14 +20,14 @@ import java.util.List;
 import android.database.Cursor;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 @BindDao(Channel.class)
 public interface DaoChannel01 {
-	@BindSelect(where = "updateTime=${updateTimeB}")
+	@BindSqlSelect(where = "updateTime=${updateTimeB}")
 	List<Channel> select(long updateTimeA);
 	
-	@BindSelect(where = "updateTime=${updateTimeB}")
+	@BindSqlSelect(where = "updateTime=${updateTimeB}")
 	Cursor selectCursor(long updateTimeA);
 
 }

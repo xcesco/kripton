@@ -15,14 +15,14 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.kripton38;
 
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 public interface BaseDao<E> {
 
-	@BindSelect(where="id=${id}")
+	@BindSqlSelect(where="id=${id}")
 	E selectOne(long id);
 	
-	@BindUpdate(where="id=${id}")
+	@BindSqlUpdate(where="id=${id}")
 	long updateOne(String text, long id);
 }

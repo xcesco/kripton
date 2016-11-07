@@ -21,7 +21,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -42,7 +42,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
  *
  * @since 05/mag/2016
  */
-public abstract class SQLiteInsertBuilder {
+public abstract class SqlInsertBuilder {
 
 	public enum InsertType {
 			INSERT_BEAN(InsertBeanHelper.class, true),
@@ -108,7 +108,7 @@ public abstract class SQLiteInsertBuilder {
 			// method to insert raw data: no bean is used
 			insertResultType = InsertType.INSERT_RAW;
 
-			ModelAnnotation annotation = method.getAnnotation(BindInsert.class);
+			ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
 			
 			if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE).size()>0) {
 				throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_VALUE + " in this kind of query definition"));

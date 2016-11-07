@@ -155,7 +155,7 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	 *            parameter name to find
 	 * @return TypeMirror associated
 	 */
-	public TypeMirror findParameter(String name) {
+	public TypeMirror findParameterType(String name) {
 		for (Pair<String, TypeMirror> item : parameters) {
 			if (item.value0.equals(name)) {
 				return item.value1;

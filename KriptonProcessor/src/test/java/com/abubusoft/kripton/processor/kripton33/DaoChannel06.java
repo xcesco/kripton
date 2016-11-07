@@ -16,11 +16,11 @@
 package com.abubusoft.kripton.processor.kripton33;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 
 @BindDao(Channel.class)
 public interface DaoChannel06 {
-	@BindDelete(where = "updateTime=${bean.updateTimeA} and updateTime=${bean.updateTimeB}")
+	@BindSqlDelete(where = "updateTime=${bean.updateTimeA} and updateTime=${bean.updateTimeB}")
 	int delete(Channel bean);
 	
 	/*

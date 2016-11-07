@@ -18,41 +18,41 @@ package com.abubusoft.kripton.processor.kripton58.array;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 
 @BindDao(ByteBean.class)
 public interface ByteDao {
 	
-	@BindSelect()
+	@BindSqlSelect()
 	ByteBean selectOne();	
 	
-	@BindSelect(where = "value=${value} and value2=${value2}")
+	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	ByteBean selectOne(byte[] value, Byte[] value2);
 
-	@BindSelect(where = "value=${value} and value2=${value2}")
+	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(byte[] value, Byte[] value2, ReadBeanListener<ByteBean> listener);	
 
-	@BindSelect(where = "value=${value} and value2=${value2}")
+	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(byte[] value, Byte[] value2, ReadCursorListener listener);
 	
-	@BindSelect(where = "value=${value} and value2=${value2}")
+	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<ByteBean> selectList(byte[] value, Byte[] value2);
 	
-	@BindUpdate(where = "id=${id} and value=${value} and value2=${value2}")
+	@BindSqlUpdate(where = "id=${id} and value=${value} and value2=${value2}")
 	long updateOne(long id, byte[] value, Byte[] value2);
 	
-	@BindInsert()
+	@BindSqlInsert()
 	long insert(long id, byte[] value, Byte[] value2);
 	
-	@BindInsert()
+	@BindSqlInsert()
 	long insert(ByteBean bean);
 	
-	@BindDelete(where = "value=${value} and value2=${value2}")
+	@BindSqlDelete(where = "value=${value} and value2=${value2}")
 	long delete(byte[] value, Byte[] value2);
 	
 }

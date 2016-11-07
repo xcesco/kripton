@@ -61,7 +61,7 @@ public class SQLUtility {
 			while (matcher.find()) {
 				matcher.appendReplacement(buffer, "?");
 				paramName=matcher.group(1);				
-				paramType=method.findParameter(paramName);
+				paramType=method.findParameterTypeByAliasOrName(paramName);
 				
 				if (paramType==null)
 				{

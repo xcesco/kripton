@@ -18,9 +18,9 @@ package com.abubusoft.kripton.processor.kripton51.persistence;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.processor.kripton51.entities.MessageEntity;
 
 /**
@@ -30,15 +30,15 @@ import com.abubusoft.kripton.processor.kripton51.entities.MessageEntity;
 @BindDao(MessageEntity.class)
 public interface DaoMessage {
 
-    @BindSelect(where =" channelId = ${channelId}")
+    @BindSqlSelect(where =" channelId = ${channelId}")
     List<MessageEntity> selectByChannel(long channelId);
 
-    @BindUpdate(where=" id = ${bean.id}")
+    @BindSqlUpdate(where=" id = ${bean.id}")
     boolean updateById(MessageEntity bean);
 
-    @BindInsert
+    @BindSqlInsert
     void insert(MessageEntity bean);
 
-    @BindSelect(where =" uid = ${uid}")
+    @BindSqlSelect(where =" uid = ${uid}")
     MessageEntity selectByUid(String uid);
 }

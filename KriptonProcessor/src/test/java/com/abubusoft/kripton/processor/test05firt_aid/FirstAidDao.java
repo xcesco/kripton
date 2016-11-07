@@ -16,9 +16,9 @@
 package com.abubusoft.kripton.processor.test05firt_aid;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import java.util.List;
 
@@ -28,13 +28,13 @@ import java.util.List;
 @BindDao(value = FirstAid.class)
 public interface FirstAidDao {
 
-    @BindSelect(orderBy = "name")
+    @BindSqlSelect(orderBy = "name")
     List<FirstAid> selectAll();
 
-    @BindDelete(where="1=1")
+    @BindSqlDelete(where="1=1")
     int deleteAll();
 
-    @BindInsert
+    @BindSqlInsert
     int insert(FirstAid bean);
 
 }

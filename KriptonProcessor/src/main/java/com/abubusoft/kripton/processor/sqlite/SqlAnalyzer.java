@@ -41,7 +41,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
  * @author xcesco
  *
  */
-public class SQLAnalyzer {
+public class SqlAnalyzer {
 
 	private final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w._]*)\\s*\\}");
 
@@ -145,36 +145,38 @@ public class SQLAnalyzer {
 		TypeMirror rawNameType;
 		// analyze parametersName
 		String[] splittedName;
+		String effectiveName;
 		for (String rawName: paramNames)
 		{
 			splittedName=rawName.split("\\.");
 			
 			if (splittedName.length==1)
 			{
-				rawNameType = method.findParameter(rawName);
+				effectiveName=method.findParameterNameByAlias(rawName);
+				rawNameType = method.findParameterTypeByAliasOrName(effectiveName);
 				if (rawNameType==null)
 				{
-					throw new MethodParameterNotFoundException(method, rawName);
+					throw new MethodParameterNotFoundException(method, effectiveName);
 				}
-				paramGetters.add(rawName);
+				paramGetters.add(effectiveName);
 				paramTypeNames.add(rawNameType);
 				
-				usedMethodParameters.add(rawName);
+				usedMethodParameters.add(effectiveName);
 			} else if (splittedName.length==2) {
 				//TODO verify
-				if (method.findParameter(splittedName[0])==null)
+				if (method.findParameterTypeByAliasOrName(splittedName[0])==null)
 				{
 					throw new MethodParameterNotFoundException(method, splittedName[0]);
 				}
 				
-				if (TypeUtility.isEquals(TypeUtility.typeName(method.findParameter(splittedName[0])), entity) && entity.contains(splittedName[1]))
+				if (TypeUtility.isEquals(TypeUtility.typeName(method.findParameterTypeByAliasOrName(splittedName[0])), entity) && entity.contains(splittedName[1]))
 				{				
 					// there are nested property invocation
-					paramGetters.add(splittedName[0]+"."+getter(entity.findByName(splittedName[1])));
+					paramGetters.add(method.findParameterNameByAlias(splittedName[0])+"."+getter(entity.findByName(splittedName[1])));
 					usedBeanPropertyNames.add(splittedName[1]);
 					paramTypeNames.add(entity.findByName(splittedName[1]).getPropertyType());
 					
-					usedMethodParameters.add(splittedName[0]);
+					usedMethodParameters.add(method.findParameterNameByAlias(splittedName[0]));
 				} else {
 					throw (new PropertyInAnnotationNotFoundException(method, splittedName[1]));
 				}

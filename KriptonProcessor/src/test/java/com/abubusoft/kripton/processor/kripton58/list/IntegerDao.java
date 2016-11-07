@@ -18,40 +18,40 @@ package com.abubusoft.kripton.processor.kripton58.list;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 
 @BindDao(IntegerBean.class)
 public interface IntegerDao {
-	@BindSelect()
+	@BindSqlSelect()
 	IntegerBean selectOne();	
 	
-	@BindSelect(where = "value=${value}")
+	@BindSqlSelect(where = "value=${value}")
 	IntegerBean selectOne(List<Integer> value);
 
-	@BindSelect(where = "value=${value}")
+	@BindSqlSelect(where = "value=${value}")
 	void selectOne(List<Integer> value, ReadBeanListener<IntegerBean> listener);
 	
-	@BindSelect(where = "value=${value}")
+	@BindSqlSelect(where = "value=${value}")
 	void selectOne(List<Integer> value, ReadCursorListener listener);
 	
-	@BindSelect(where = "value=${value}")
+	@BindSqlSelect(where = "value=${value}")
 	List<IntegerBean> selectList(List<Integer> value);
 	
-	@BindUpdate(where = "id=${id} and value=${paramValue}")
+	@BindSqlUpdate(where = "id=${id} and value=${paramValue}")
 	long updateOne(List<Integer> value, long id, List<Integer> paramValue);
 	
-	@BindInsert()
+	@BindSqlInsert()
 	long insert(long id, List<Integer> value);
 	
-	@BindInsert()
+	@BindSqlInsert()
 	long insert(IntegerBean bean);
 	
-	@BindDelete(where="value=${paramValue}")
+	@BindSqlDelete(where="value=${paramValue}")
 	long delete(List<Integer> paramValue);
 	
 }

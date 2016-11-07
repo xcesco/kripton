@@ -14,7 +14,7 @@ import java.util.List;
  * </p>
  *  @see Channel
  *  @see DaoChannel
- *  @see Channel$Table
+ *  @see ChannelTable
  */
 public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   public DaoChannelImpl(BindDummy01DataSource dataSet) {
@@ -49,10 +49,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <p>Select query is:</p>
    * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE 1=1</pre>
-   *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
    *
    * <p>Projected column are:</p>
    *
@@ -101,11 +97,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${updateTimeA}</pre>
+   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <p>Its parameters are:</p>
    *
-   * <pre>[updateTimeA]</pre>
+   * <ul>
+   * 	<li>Param <strong>a</strong> is binded to method parameter <strong>updateTimeA</strong></li>
+   * </ul>
    *
    * <p>Projected column are:</p>
    *
@@ -155,24 +153,26 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <p>Select query is:</p>
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${channel.updateTime}</pre>
+   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${value.updateTime}</pre>
    *
    * <p>Its parameters are:</p>
    *
-   * <pre>[channel.updateTime]</pre>
+   * <ul>
+   * 	<li>Param <strong>value.updateTime</strong> is binded to method parameter <strong>value.updateTime</strong></li>
+   * </ul>
    *
    * <p>Projected column are:</p>
    *
    * <pre>[uid, owner_uid, update_time, name, id]</pre>
    *
-   * @param channel
+   * @param input
    *
    * @return list of bean or empty list.
    */
   @Override
-  public List<Channel> select(Channel channel) {
+  public List<Channel> select(Channel input) {
     // build where condition
-    String[] args={String.valueOf(channel.getUpdateTime())};
+    String[] args={String.valueOf(input.getUpdateTime())};
 
     Logger.info(StringUtil.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
@@ -205,32 +205,5 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     cursor.close();
 
     return resultList;
-  }
-
-  /**
-   * <p>Select query is:</p>
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${channel.updateTime}</pre>
-   *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[channel.updateTime]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[uid, owner_uid, update_time, name, id]</pre>
-   *
-   * @param channel
-   *
-   * @return cursor. Closing the cursor is delegated to the calling code.
-   */
-  @Override
-  public Cursor selectCursor(Channel channel) {
-    // build where condition
-    String[] args={String.valueOf(channel.getUpdateTime())};
-
-    Logger.info(StringUtil.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    return cursor;
   }
 }

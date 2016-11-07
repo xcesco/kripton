@@ -16,8 +16,8 @@
 package com.abubusoft.kripton.processor.kripton41;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 @BindDao(Bean01.class)
 public interface DaoBeanInsertOK  {
@@ -26,7 +26,7 @@ public interface DaoBeanInsertOK  {
 	Boolean selectDistance(long id, double value);*/
 	
 	
-	@BindInsert
+	@BindSqlInsert
 	boolean insertDistance(long id, Double value);
 	/*
 	@BindUpdate

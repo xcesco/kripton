@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.example02;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 /**
  * Created by 908099 on 10/05/2016.
@@ -26,6 +26,6 @@ import com.abubusoft.kripton.android.annotation.BindSelect;
 @BindDao(ChannelMessage.class)
 public interface DaoChannelMessage {
 
-    @BindSelect(where="1=1")
+    @BindSqlSelect(where="1=1")
     List<ChannelMessage> selectAll();
 }

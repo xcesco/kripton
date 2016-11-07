@@ -18,10 +18,10 @@ package com.abubusoft.kripton.processor.kripton41;
 import android.database.Cursor;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 @BindDao(Bean01.class)
 public interface DaoBeanUpdateERR  {
@@ -34,7 +34,7 @@ public interface DaoBeanUpdateERR  {
 	boolean insertDistance(Long id, double value);
 	*/
 	
-	@BindUpdate
+	@BindSqlUpdate
 	boolean updateDistance(long id, Double value, long test);
 	/*
 	@BindDelete

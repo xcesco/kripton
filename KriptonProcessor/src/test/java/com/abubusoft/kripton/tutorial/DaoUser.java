@@ -18,27 +18,27 @@ package com.abubusoft.kripton.tutorial;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 @BindDao(User.class)
 public interface DaoUser {
 
-	@BindInsert
+	@BindSqlInsert
 	public long insert(User bean);
 	
-	@BindUpdate
+	@BindSqlUpdate
 	public long update(User bean);
 	
-	@BindDelete(where="id=${id}")
+	@BindSqlDelete(where="id=${id}")
 	public long delete(long id);
 	
-	@BindSelect(where="id=${id}")
+	@BindSqlSelect(where="id=${id}")
 	public User selectById(long id);
 	
-	@BindSelect(where =" name=${name}")
+	@BindSqlSelect(where =" name=${name}")
 	public List<User> selectById(String name);
 	
 }

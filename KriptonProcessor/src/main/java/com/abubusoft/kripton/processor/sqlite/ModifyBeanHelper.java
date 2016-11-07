@@ -25,13 +25,13 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.SQLiteModifyBuilder.ModifyCodeGenerator;
+import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -61,15 +61,15 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		SQLDaoDefinition daoDefinition = method.getParent();
 
 		String beanNameParameter = method.getParameters().get(0).value0;
-		SQLAnalyzer analyzer = new SQLAnalyzer();
+		SqlAnalyzer analyzer = new SqlAnalyzer();
 
 		String whereCondition;
 
 		if (updateMode) {
-			whereCondition = method.getAnnotation(BindUpdate.class)
+			whereCondition = method.getAnnotation(BindSqlUpdate.class)
 					.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		} else {
-			whereCondition = method.getAnnotation(BindDelete.class)
+			whereCondition = method.getAnnotation(BindSqlDelete.class)
 					.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		}
 
@@ -82,12 +82,12 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		List<SQLProperty> listUsedProperty;
 		if (updateMode) {
 			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method,
-					BindUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
-			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindUpdate.class,
+					BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class,
 					methodBuilder, analyzer.getUsedBeanPropertyNames());
 		} else {
 			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method,
-					BindDelete.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+					BindSqlDelete.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 		}
 		// build javadoc
 		String sqlModify = buildJavadoc(methodBuilder, updateMode, method, beanNameParameter, whereCondition,
@@ -125,7 +125,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 * @param analyzer
 	 */
 	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
-			SQLAnalyzer analyzer) {
+			SqlAnalyzer analyzer) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 

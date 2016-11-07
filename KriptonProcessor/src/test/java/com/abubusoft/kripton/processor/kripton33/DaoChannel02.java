@@ -18,11 +18,11 @@ package com.abubusoft.kripton.processor.kripton33;
 import android.database.Cursor;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 @BindDao(Channel.class)
 public interface DaoChannel02 {
-	@BindSelect(where = "updateTime=${updateTimeA} and updateTime=${updateTimeB}")
+	@BindSqlSelect(where = "updateTime=${updateTimeA} and updateTime=${updateTimeB}")
 	Cursor select(long updateTimeA);
 	
 	/*

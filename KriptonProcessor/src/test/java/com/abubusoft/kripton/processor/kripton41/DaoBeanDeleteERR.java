@@ -16,7 +16,7 @@
 package com.abubusoft.kripton.processor.kripton41;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 
 @BindDao(Bean01.class)
 public interface DaoBeanDeleteERR  {
@@ -32,7 +32,7 @@ public interface DaoBeanDeleteERR  {
 	@BindUpdate
 	boolean updateDistance(long id, Double value, long test);*/
 	
-	@BindDelete
+	@BindSqlDelete
 	boolean deleteDistance(long id, double value);
 	
 	

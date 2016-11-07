@@ -21,8 +21,8 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -43,7 +43,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
  *
  * @since 05/mag/2016
  */
-public abstract class SQLiteModifyBuilder {
+public abstract class SqlModifyBuilder {
 
 	public enum ModifyType {
 			UPDATE_BEAN(ModifyBeanHelper.class, true),
@@ -116,7 +116,7 @@ public abstract class SQLiteModifyBuilder {
 			
 			if (updateMode)
 			{
-				annotation= method.getAnnotation(BindUpdate.class);
+				annotation= method.getAnnotation(BindSqlUpdate.class);
 				
 				if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE).size()>0) {
 					throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_VALUE + " in this kind of query definition"));
@@ -127,7 +127,7 @@ public abstract class SQLiteModifyBuilder {
 				}
 				
 			} else {
-				annotation= method.getAnnotation(BindDelete.class);
+				annotation= method.getAnnotation(BindSqlDelete.class);
 			}
 			
 			// check if there is only one parameter

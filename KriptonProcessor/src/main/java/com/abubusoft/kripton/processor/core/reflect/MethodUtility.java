@@ -38,7 +38,7 @@ import javax.lang.model.util.Elements;
 import android.database.Cursor;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
@@ -51,7 +51,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoun
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.CodeBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.PropertyList;
-import com.abubusoft.kripton.processor.sqlite.SQLAnalyzer;
+import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder;
 import com.abubusoft.kripton.processor.sqlite.SelectStatementBuilder;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
@@ -223,14 +223,14 @@ public abstract class MethodUtility {
 		}
 
 		// take field list
-		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSelect.class, selectResultType.isMapFields(), null);
+		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectResultType.isMapFields(), null);
 		String fieldStatement = fieldList.value0;
 		// List<SQLProperty> fields = fieldList.value1;
 		String tableStatement = daoDefinition.getEntity().getTableName();
 
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
-		ModelAnnotation annotation = method.getAnnotation(BindSelect.class);
+		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_DISTINCT));
 
 		// parameters
@@ -239,7 +239,7 @@ public abstract class MethodUtility {
 		List<TypeMirror> paramTypeNames = new ArrayList<TypeMirror>();
 		Set<String> usedMethodParameters = new HashSet<String>();
 
-		SQLAnalyzer analyzer = new SQLAnalyzer();
+		SqlAnalyzer analyzer = new SqlAnalyzer();
 
 		String whereSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		analyzer.execute(elementUtils, method, whereSQL);

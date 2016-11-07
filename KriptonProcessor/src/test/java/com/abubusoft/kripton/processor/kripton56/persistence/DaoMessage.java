@@ -16,7 +16,7 @@
 package com.abubusoft.kripton.processor.kripton56.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.processor.kripton56.entities.MessageEntity;
 import com.abubusoft.kripton.processor.kripton56.entities.OwnerType;
 
@@ -27,6 +27,6 @@ import com.abubusoft.kripton.processor.kripton56.entities.OwnerType;
 @BindDao(MessageEntity.class)
 public interface DaoMessage {
 
-	@BindUpdate(where=" id = ${id}")
+	@BindSqlUpdate(where=" id = ${id}")
 	boolean updateById(long id, OwnerType ownerType);
 }

@@ -50,7 +50,7 @@ import com.squareup.javapoet.TypeSpec;
  */
 public class BindTableGenerator extends AbstractBuilder implements ModelElementVisitor<SQLEntity, SQLProperty> {
 
-	public static final String SUFFIX = "$Table";
+	public static final String SUFFIX = "Table";
 	
 	private Converter<String, String> columnNameConverter;
 

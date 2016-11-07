@@ -20,27 +20,28 @@ import java.util.List;
 import android.database.Cursor;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 @BindDao(Channel.class)
 public interface DaoChannel {
 
-	@BindInsert
-	long insertContact(String ownerUid);
+	@BindSqlInsert
+	long insertContact(@BindSqlParam("b") String ownerUid);
 
-    @BindSelect
+    @BindSqlSelect
     List<Channel> selectAll();
 	
-    @BindSelect(where="updateTime=${updateTimeA}")
-    List<Channel> select(long updateTimeA);
-    
-    @BindSelect(where="updateTime=${channel.updateTime}")
-    List<Channel> select(Channel channel);
-    
-    @BindSelect(where="updateTime=${channel.updateTime}")
+    @BindSqlSelect(where="updateTime=${a}")
+    List<Channel> select(@BindSqlParam("a") long updateTimeA);
+  
+    @BindSqlSelect(where="updateTime=${value.updateTime}")
+    List<Channel> select(@BindSqlParam("value") Channel input);
+  /*  
+    @BindSqlSelect(where="updateTime=${channel.updateTime}")
     Cursor selectCursor(Channel channel);
-	
+	*/
 	/*
 	@SQLUpdateBean(where = "id=:id")
 	long updateContact(ChannelMessage bean, long id);

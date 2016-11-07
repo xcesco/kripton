@@ -35,11 +35,11 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindDelete;
-import com.abubusoft.kripton.android.annotation.BindInsert;
-import com.abubusoft.kripton.android.annotation.BindSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.android.annotation.BindUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
@@ -409,10 +409,10 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 						if //@formatter:off
 							(										
-								annotationClassName.equals(BindInsert.class.getCanonicalName())																				
-								|| annotationClassName.equals(BindUpdate.class.getCanonicalName())										
-								|| annotationClassName.equals(BindDelete.class.getCanonicalName())										
-								|| annotationClassName.equals(BindSelect.class.getCanonicalName())
+								annotationClassName.equals(BindSqlInsert.class.getCanonicalName())																				
+								|| annotationClassName.equals(BindSqlUpdate.class.getCanonicalName())										
+								|| annotationClassName.equals(BindSqlDelete.class.getCanonicalName())										
+								|| annotationClassName.equals(BindSqlSelect.class.getCanonicalName())
 							)	
 							//@formatter:on
 						{

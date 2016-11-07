@@ -9,7 +9,7 @@ import java.lang.String;
  * </p>
  *  @see Channel
  */
-public class Channel$Table {
+public class ChannelTable {
   /**
    * Costant represents name of table channel
    */
