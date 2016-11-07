@@ -21,7 +21,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton</artifactId>
-	<version>1.3.0-SNAPSHOT</version>
+	<version>1.3.0</version>
 	<url>https://github.com/xcesco/kripton</url>
 
 	<packaging>jar</packaging>
