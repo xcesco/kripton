@@ -281,7 +281,7 @@ public abstract class MethodUtility {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
 		// generate javadoc
-		JavadocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldStatement, selectResultType);
+		JavadocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldList, selectResultType);
 
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {

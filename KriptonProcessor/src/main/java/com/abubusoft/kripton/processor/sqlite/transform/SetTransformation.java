@@ -31,11 +31,7 @@ public class SetTransformation extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName != null) {
 			methodBuilder.addCode("$T.asByteArray($L." + getter(beanClass, property) + ")", ProcessorHelper.class, beanName);
-		} else {
-			generateWriteProperty(methodBuilder, property.getName());
-		}
 	}
 
 	@Override

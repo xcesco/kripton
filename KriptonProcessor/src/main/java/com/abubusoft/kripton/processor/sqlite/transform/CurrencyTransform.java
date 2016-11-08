@@ -29,36 +29,36 @@ import com.squareup.javapoet.MethodSpec.Builder;
  * @author bulldog
  *
  */
-class CurrencyTransform  extends AbstractCompileTimeTransform {
+class CurrencyTransform extends AbstractCompileTimeTransform {
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, CurrencyUtil.class, cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
+			String cursorName, String indexName) {
+		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName,
+				CurrencyUtil.class, cursorName, indexName);
 
 	}
 	/*
+	 * @Override public void generateRead(Builder methodBuilder, String
+	 * cursorName, String indexName) {
+	 * methodBuilder.addCode("$T.read($L.getString($L))", CurrencyUtil.class,
+	 * cursorName, indexName); }
+	 */
+
 	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$T.read($L.getString($L))", CurrencyUtil.class, cursorName, indexName);
-	}*/
-	
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName!=null)
-		{
-			methodBuilder.addCode("$T.write($L."+getter(beanClass, property)+")", CurrencyUtil.class, beanName);
-		} else {
-			generateWriteProperty(methodBuilder, property.getName());
-		}
-	}
-	
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.write($L)", CurrencyUtil.class, objectName);		
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property) {
+		methodBuilder.addCode("$T.write($L." + getter(beanClass, property) + ")", CurrencyUtil.class, beanName);
 	}
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+	public void generateWriteProperty(Builder methodBuilder, String objectName) {
+		methodBuilder.addCode("$T.write($L)", CurrencyUtil.class, objectName);
+	}
+
+	@Override
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
 	}
 
@@ -67,9 +67,9 @@ class CurrencyTransform  extends AbstractCompileTimeTransform {
 		return "TEXT";
 	}
 
-	/*@Override
-	public void generateDefaultValue(Builder methodBuilder) {
-		methodBuilder.addCode("null");
-	}*/
+	/*
+	 * @Override public void generateDefaultValue(Builder methodBuilder) {
+	 * methodBuilder.addCode("null"); }
+	 */
 
 }

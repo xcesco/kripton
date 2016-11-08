@@ -29,7 +29,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
@@ -37,6 +36,7 @@ import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerat
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
 import com.squareup.javapoet.MethodSpec;
@@ -66,9 +66,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		List<Pair<String, TypeMirror>> methodParams = method.getParameters();
 		List<Pair<String, TypeMirror>> updateableParams = new ArrayList<Pair<String, TypeMirror>>();
 		List<Pair<String, TypeMirror>> whereParams = new ArrayList<Pair<String, TypeMirror>>();
+		
+		String name;
 
 		for (Pair<String, TypeMirror> param : methodParams) {
-			if (where.value1.contains(param)) {
+			name=method.findParameterAliasByName(param.value0);
+			
+			if (where.value1.contains(new Pair<>(name, param.value1))) {
 				whereParams.add(param);
 			} else {
 				updateableParams.add(param);
@@ -81,9 +85,10 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addCode("contentValues.clear();\n");
 			
 			for (Pair<String, TypeMirror> item : updateableParams) {
-				ModelProperty property = entity.get(item.value0);
+				String resolvedParamName = method.findParameterAliasByName(item.value0);				
+				SQLProperty property = entity.get(resolvedParamName);
 				if (property == null)
-					throw (new PropertyNotFoundException(method, item.value0));
+					throw (new PropertyNotFoundException(method, resolvedParamName));
 
 				// check same type
 				TypeUtility.checkTypeCompatibility(method, item, property);
@@ -92,9 +97,10 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 				}
 				
-				//methodBuilder.addCode("contentValues.put($S, $L);\n", , item.value0);
+				// here it needed raw parameter name
 				methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));			
-				Transformer.java2ContentValues(methodBuilder, typeName(property.getElement().asType()),null , property);			
+				//Transformer.java2ContentValues(methodBuilder, typeName(property.getElement().asType()),null , property);
+				Transformer.java2ContentValues(methodBuilder, property.getElement().asType(),item.value0);
 				methodBuilder.addCode(");\n");
 				
 				
@@ -111,7 +117,8 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				String separator = "";
 				StringBuilder buffer = new StringBuilder();
 				for (Pair<String, TypeMirror> item : updateableParams) {
-					buffer.append(separator + item.value0);
+					String resolvedParamName = method.findParameterAliasByName(item.value0);
+					buffer.append(separator + resolvedParamName);
 					separator = ", ";
 				}
 				// in DELETE can not be updated fields
@@ -124,13 +131,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		}
 
 		// build where condition
-		generateWhereCondition(methodBuilder, where);
+		generateWhereCondition(methodBuilder,method, where);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("\n");
 
 		// generate javadoc
-		String sqlModify = generateJavaDoc(daoDefinition, methodBuilder, updateMode, whereCondition, where, methodParams, updateableParams);
+		String sqlModify = generateJavaDoc(daoDefinition, method, methodBuilder, updateMode, whereCondition, where, methodParams, updateableParams);
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
@@ -170,6 +177,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 	/**
 	 * @param daoDefinition
+	 * @param method 
 	 * @param methodBuilder
 	 * @param updateMode
 	 * @param whereCondition
@@ -177,7 +185,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 * @param methodParams
 	 * @param updateableParams
 	 */
-	public String generateJavaDoc(SQLDaoDefinition daoDefinition, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeMirror>>> where, List<Pair<String, TypeMirror>> methodParams,
+	public String generateJavaDoc(SQLDaoDefinition daoDefinition,  SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeMirror>>> where, List<Pair<String, TypeMirror>> methodParams,
 			List<Pair<String, TypeMirror>> updateableParams) {
 		String sqlResult;
 		StringBuilder buffer = new StringBuilder();
@@ -185,8 +193,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		String separator = "";
 		for (Pair<String, TypeMirror> param : updateableParams) {
-			buffer.append(separator + param.value0 + "=${" + param.value0 + "}");
-			bufferQuestion.append(separator + param.value0 + "='\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(param.value0) + "\"))+\"'");
+			String resolvedName=method.findParameterAliasByName(param.value0);
+			buffer.append(separator + param.value0 + "=${" + resolvedName  + "}");
+			bufferQuestion.append(separator + param.value0 + "='\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(resolvedName) + "\"))+\"'");
 
 			separator = ", ";
 		}
@@ -198,7 +207,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			// generate sql query
 			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), whereForLogging);
 
-			methodBuilder.addJavadoc("<p>Update query:</p>\n");
+			methodBuilder.addJavadoc("<p>Update SQL:</p>\n");
 			methodBuilder.addJavadoc("<pre>UPDATE $L SET $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), buffer.toString(), whereCondition);
 		} else {
 			// generate sql query
@@ -225,25 +234,27 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 	/**
 	 * @param methodBuilder
+	 * @param method 
 	 * @param where
 	 */
-	public void generateWhereCondition(MethodSpec.Builder methodBuilder, Pair<String, List<Pair<String, TypeMirror>>> where) {
+	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeMirror>>> where) {
 		boolean nullable;
 		
 		methodBuilder.addCode("String[] whereConditions={");
 		String separator = "";
 		for (Pair<String, TypeMirror> item : where.value1) {
+			String resolvedParamName = method.findParameterNameByAlias(item.value0);
 			methodBuilder.addCode(separator);
 
 			nullable = isNullable(typeName(item.value1));
 
 			if (nullable) {
-				methodBuilder.addCode("($L==null?null:", item.value0);
+				methodBuilder.addCode("($L==null?null:", resolvedParamName);
 			}
 						
 			// check for string conversion
-			TypeUtility.beginStringConversion(methodBuilder, item.value1);			
-			Transformer.java2ContentValues(methodBuilder, item.value1, item.value0);
+			TypeUtility.beginStringConversion(methodBuilder, item.value1);				
+			Transformer.java2ContentValues(methodBuilder, item.value1, resolvedParamName);
 			// check for string conversion
 			TypeUtility.endStringConversion(methodBuilder, item.value1);
 			

@@ -21,9 +21,12 @@ import java.util.List;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.Version;
+import com.abubusoft.kripton.processor.sqlite.PropertyList;
 import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectResultType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -42,21 +45,45 @@ public abstract class JavadocUtility {
 		}
 	}
 
-	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, String sql, List<String> sqlParams, SQLiteModelMethod method, ModelAnnotation annotation, String fieldStatement, SelectResultType selectResultType) {
-		methodBuilder.addJavadoc("<p>Select query is:</p>\n", annotation.getSimpleName());
+	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, String sql, List<String> sqlParams, SQLiteModelMethod method, ModelAnnotation annotation, PropertyList fieldList, SelectResultType selectResultType) {
+		methodBuilder.addJavadoc("<p>Select SQL:</p>\n", annotation.getSimpleName());
 		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sql);
 
 		if (sqlParams.size() > 0) {
-			methodBuilder.addJavadoc("<p>Its parameters are:</p>\n\n");
+			methodBuilder.addJavadoc("<p>Query's parameters are:</p>\n");
 			methodBuilder.addJavadoc("<ul>");
 			String separator = "\n";
 			for (String param : sqlParams) {
-				methodBuilder.addJavadoc(separator + "\t<li>Param <strong>$L</strong> is binded to method parameter <strong>$L</strong></li>", param, method.findParameterNameByAlias(param));
+				methodBuilder.addJavadoc(separator + "\t<li>Param <strong>$L</strong> is binded to method's parameter <strong>$L</strong></li>", param, method.findParameterNameByAlias(param));
 			}
 			methodBuilder.addJavadoc("\n</ul>\n\n");
 		}
-		methodBuilder.addJavadoc("<p>Projected column are:</p>\n\n");
-		methodBuilder.addJavadoc("<pre>[$L]</pre>\n\n", fieldStatement);
+		
+		// there will be alway some projected column
+		{			
+			methodBuilder.addJavadoc("<p>Projected columns are:</p>\n");
+			methodBuilder.addJavadoc("<ul>\n");
+			int i=0;
+			String[] columnList=fieldList.value0.split(",");
+			for (String column: columnList)
+			{
+				methodBuilder.addJavadoc("\t<li>");
+				methodBuilder.addJavadoc("<strong>$L</strong>", column.trim());
+				
+				// display field info only it exists
+				if (fieldList.value1.get(i)!=null)
+				{
+					SQLProperty attribute = fieldList.value1.get(i);
+					methodBuilder.addJavadoc(" is associated to bean's property <strong>$L</strong>", attribute.name);
+				}
+				methodBuilder.addJavadoc("</li>\n");
+				i++;
+			}
+			methodBuilder.addJavadoc("</ul>\n\n");
+			
+		
+		//methodBuilder.addJavadoc("<pre>[$L]</pre>\n\n", fieldList.value0);
+		}
 
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {

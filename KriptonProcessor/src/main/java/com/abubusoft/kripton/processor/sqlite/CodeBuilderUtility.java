@@ -46,7 +46,7 @@ import com.squareup.javapoet.TypeName;
 public class CodeBuilderUtility {
 
 	/**
-	 * Generate code necessary to put bean properties in content values map. Return primary key
+	 * Generate code necessary to put bean properties in content values map. Returns the primary key
 	 * 
 	 * @param elementUtils
 	 * @param daoDefinition

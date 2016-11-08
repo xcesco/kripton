@@ -19,39 +19,39 @@ public class WrappedCompileTimeTransform<U> extends AbstractCompileTimeTransform
 
 	private Class<U> utilClazz;
 
-	public WrappedCompileTimeTransform(Class<U> utilClazz)
-	{
-		this.utilClazz=utilClazz;
+	public WrappedCompileTimeTransform(Class<U> utilClazz) {
+		this.utilClazz = utilClazz;
 	}
-	
+
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, utilClazz, cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
+			String cursorName, String indexName) {
+		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, utilClazz,
+				cursorName, indexName);
 
 	}
-	
-	/*@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$T.read($L.getString($L))", utilClazz, cursorName, indexName);
-	}*/
-	
+
+	/*
+	 * @Override public void generateRead(Builder methodBuilder, String
+	 * cursorName, String indexName) {
+	 * methodBuilder.addCode("$T.read($L.getString($L))", utilClazz, cursorName,
+	 * indexName); }
+	 */
+
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName!=null)
-		{
-			methodBuilder.addCode("$T.write($L."+getter(beanClass, property)+")", utilClazz, beanName);
-		} else {
-			generateWriteProperty(methodBuilder, property.getName());
-		}
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property) {
+		methodBuilder.addCode("$T.write($L." + getter(beanClass, property) + ")", utilClazz, beanName);
 	}
-	
+
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.write($L)", utilClazz, objectName);		
+		methodBuilder.addCode("$T.write($L)", utilClazz, objectName);
 	}
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
 	}
 
@@ -60,9 +60,9 @@ public class WrappedCompileTimeTransform<U> extends AbstractCompileTimeTransform
 		return "TEXT";
 	}
 
-	/*@Override
-	public void generateDefaultValue(Builder methodBuilder) {
-		methodBuilder.addCode("null");
-	}*/
+	/*
+	 * @Override public void generateDefaultValue(Builder methodBuilder) {
+	 * methodBuilder.addCode("null"); }
+	 */
 
 }

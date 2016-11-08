@@ -57,32 +57,40 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName != null) {
-			methodBuilder.addCode("$T.asByteArray($T.asList($L." + getter(beanClass, property) + ", $T.class))", ProcessorHelper.class, CollectionUtility.class, beanName, ArrayList.class);
-		} else {
-			generateWriteProperty(methodBuilder, property.getName());
-		}
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property) {
+		methodBuilder.addCode("$T.asByteArray($T.asList($L." + getter(beanClass, property) + ", $T.class))",
+				ProcessorHelper.class, CollectionUtility.class, beanName, ArrayList.class);
 	}
 
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.asByteArray($T.asList($L, $T.class))", ProcessorHelper.class, CollectionUtility.class, objectName, ArrayList.class);
+		methodBuilder.addCode("$T.asByteArray($T.asList($L, $T.class))", ProcessorHelper.class, CollectionUtility.class,
+				objectName, ArrayList.class);
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
+			String cursorName, String indexName) {
 		if (primitive) {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.as$LTypeArray($T.asList($L.TYPE, $L.getBlob($L)))"), beanName, CollectionUtility.class, primitiveType(), ProcessorHelper.class, primitiveType(), cursorName,
-					indexName);
+			methodBuilder.addCode(
+					"$L." + setter(beanClass, property, "$T.as$LTypeArray($T.asList($L.TYPE, $L.getBlob($L)))"),
+					beanName, CollectionUtility.class, primitiveType(), ProcessorHelper.class, primitiveType(),
+					cursorName, indexName);
 		} else if (TypeUtility.isString(clazz)) {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asStringArray($T.asList(String.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, ProcessorHelper.class, cursorName, indexName);
+			methodBuilder.addCode(
+					"$L." + setter(beanClass, property, "$T.asStringArray($T.asList(String.class, $L.getBlob($L)))"),
+					beanName, CollectionUtility.class, ProcessorHelper.class, cursorName, indexName);
 		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)) {
 			String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.as$LArray($T.asList($L.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, name, ProcessorHelper.class, name, cursorName, indexName);
+			methodBuilder.addCode(
+					"$L." + setter(beanClass, property, "$T.as$LArray($T.asList($L.class, $L.getBlob($L)))"), beanName,
+					CollectionUtility.class, name, ProcessorHelper.class, name, cursorName, indexName);
 		} else {
 			String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asArray($T.asList($L.class, $L.getBlob($L)))"), beanName, CollectionUtility.class, ProcessorHelper.class, name, cursorName, indexName);
+			methodBuilder.addCode(
+					"$L." + setter(beanClass, property, "$T.asArray($T.asList($L.class, $L.getBlob($L)))"), beanName,
+					CollectionUtility.class, ProcessorHelper.class, name, cursorName, indexName);
 		}
 	}
 
@@ -103,21 +111,24 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 	}
 
 	/*
-	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		if (primitive) {
-			methodBuilder.addCode("$T.asList($T.TYPE, $L.getBlob($L))", CollectionUtility.class, ProcessorHelper.class, clazz, cursorName, indexName);
-		} else
-			methodBuilder.addCode("$T.asList($T.class, $L.getBlob($L))", CollectionUtility.class, ProcessorHelper.class, clazz, cursorName, indexName);
-	}*/
+	 * @Override public void generateRead(Builder methodBuilder, String
+	 * cursorName, String indexName) { if (primitive) {
+	 * methodBuilder.addCode("$T.asList($T.TYPE, $L.getBlob($L))",
+	 * CollectionUtility.class, ProcessorHelper.class, clazz, cursorName,
+	 * indexName); } else
+	 * methodBuilder.addCode("$T.asList($T.class, $L.getBlob($L))",
+	 * CollectionUtility.class, ProcessorHelper.class, clazz, cursorName,
+	 * indexName); }
+	 */
 
-	/*@Override
-	public void generateDefaultValue(Builder methodBuilder) {
-		methodBuilder.addCode("null");
-	}*/
+	/*
+	 * @Override public void generateDefaultValue(Builder methodBuilder) {
+	 * methodBuilder.addCode("null"); }
+	 */
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
 	}
 

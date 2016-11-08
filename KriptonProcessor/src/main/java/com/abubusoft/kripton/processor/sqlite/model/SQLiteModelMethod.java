@@ -41,14 +41,16 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element) {
 		super(element);
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
-		this.parameterAlias=new HashMap<>();
+		this.parameterAlias2NameField=new HashMap<>();
+		this.parameterNameField2Alias=new HashMap<>();
 		
 		for (VariableElement p : element.getParameters()) {
 			BindSqlParam paramAlias=p.getAnnotation(BindSqlParam.class);
 			if (paramAlias!=null && StringUtility.hasText(paramAlias.value()))
 			{
 				String alias=paramAlias.value();
-				parameterAlias.put(alias, p.getSimpleName().toString());
+				parameterAlias2NameField.put(alias, p.getSimpleName().toString());
+				parameterNameField2Alias.put(p.getSimpleName().toString(), alias);
 			}					
 		}
 		
@@ -62,9 +64,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @return TypeMirror associated
 	 */
 	public TypeMirror findParameterTypeByAliasOrName(String name) {
-		if (parameterAlias.containsKey(name))
+		if (parameterAlias2NameField.containsKey(name))
 		{
-			return findParameterType(parameterAlias.get(name));
+			return findParameterType(parameterAlias2NameField.get(name));
 		}
 		
 		return findParameterType(name);
@@ -78,12 +80,39 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @return TypeMirror associated
 	 */
 	public String findParameterNameByAlias(String nameOrAlias) {
-		if (parameterAlias.containsKey(nameOrAlias))
+		String[] arrays=nameOrAlias.split("\\.");
+		String prefix="";
+		
+		if (arrays.length==2)
 		{
-			return parameterAlias.get(nameOrAlias);
+			nameOrAlias=arrays[0];
+			prefix="."+arrays[1];
+			
 		}
 		
-		return nameOrAlias;
+		if (parameterAlias2NameField.containsKey(nameOrAlias))
+		{
+			return parameterAlias2NameField.get(nameOrAlias)+prefix;
+		}
+		
+		return nameOrAlias+prefix;
+	}
+	
+	/**
+	 * Retrieve for a method's parameter its alias, used to work with queries.
+	 * If no alias is present, name will be used.  
+	 *  
+	 * @param name
+	 * @return
+	 */
+	public String findParameterAliasByName(String name)
+	{
+		if (parameterNameField2Alias.containsKey(name))
+		{
+			return parameterNameField2Alias.get(name);
+		}
+		
+		return name;
 	}
 
 	@Override
@@ -91,6 +120,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		visitor.visit(this);
 	}
 	
-	protected Map<String, String> parameterAlias;
+	protected Map<String, String> parameterAlias2NameField;
+	
+	protected Map<String, String> parameterNameField2Alias;
 		
 }

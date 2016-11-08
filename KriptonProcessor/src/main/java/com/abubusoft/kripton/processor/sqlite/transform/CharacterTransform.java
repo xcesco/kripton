@@ -38,12 +38,9 @@ class CharacterTransform extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName != null) {
-			methodBuilder.addCode("(int)$L." + getter(beanClass, property), beanName);
-		} else {
-			generateWriteProperty(methodBuilder, property.getName());
-		}
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property) {
+		methodBuilder.addCode("(int)$L." + getter(beanClass, property), beanName);
 	}
 
 	@Override
@@ -52,8 +49,10 @@ class CharacterTransform extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "(char)$L.getInt($L)"), beanName, cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
+			String cursorName, String indexName) {
+		methodBuilder.addCode("$L." + setter(beanClass, property, "(char)$L.getInt($L)"), beanName, cursorName,
+				indexName);
 	}
 
 	@Override
@@ -69,7 +68,8 @@ class CharacterTransform extends AbstractCompileTimeTransform {
 	protected String defaultValue;
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property, String cursorName, String indexName) {
 
 		methodBuilder.addCode("$L." + setter(beanClass, property, "0"), beanName);
 	}

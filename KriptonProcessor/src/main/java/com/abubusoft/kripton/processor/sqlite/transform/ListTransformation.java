@@ -17,24 +17,22 @@ import com.squareup.javapoet.TypeName;
 
 public class ListTransformation extends AbstractCompileTimeTransform {
 
-	static Converter<String, String> nc=CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-	
+	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+
 	private ParameterizedTypeName listTypeName;
 
 	private TypeName rawTypeName;
 
 	public ListTransformation(ParameterizedTypeName clazz) {
 		this.listTypeName = clazz;
-		this.rawTypeName=listTypeName.typeArguments.get(0);
+		this.rawTypeName = listTypeName.typeArguments.get(0);
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanName != null) {
-			methodBuilder.addCode("$T.asByteArray($L." + getter(beanClass, property) + ")", ProcessorHelper.class, beanName);
-		} else {
-			generateWriteProperty(methodBuilder, property.getName());
-		}
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property) {
+		methodBuilder.addCode("$T.asByteArray($L." + getter(beanClass, property) + ")", ProcessorHelper.class,
+				beanName);
 	}
 
 	@Override
@@ -42,19 +40,20 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 		methodBuilder.addCode("$T.asByteArray($L)", ProcessorHelper.class, objectName);
 	}
 
-	
-	@Override	
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		String name=nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".")+1));
-		
-		Class<?> listClazz=defineListClass(listTypeName);
-		
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
+	@Override
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
+			String cursorName, String indexName) {
+		String name = nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".") + 1));
+
+		Class<?> listClazz = defineListClass(listTypeName);
+
+		methodBuilder.addCode(
+				"$L." + setter(beanClass, property, "$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L))"),
+				beanName, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
 	}
 
 	private Class<?> defineListClass(ParameterizedTypeName listTypeName) {
-		if (listTypeName.toString().startsWith(List.class.getCanonicalName()))
-		{
+		if (listTypeName.toString().startsWith(List.class.getCanonicalName())) {
 			// it's a list
 			return ArrayList.class;
 		}
@@ -66,23 +65,28 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 		}
 	}
 
-/*
-	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		String name=nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".")+1));	
-		
-		Class<?> listClazz=defineListClass(listTypeName);
-		
-		methodBuilder.addCode("$T.asCollection(new $T<$L>(),$T.class, $L.getBlob($L))", CollectionUtility.class, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
-	}*/
+	/*
+	 * @Override public void generateRead(Builder methodBuilder, String
+	 * cursorName, String indexName) { String
+	 * name=nc.convert(rawTypeName.toString().substring(rawTypeName.toString().
+	 * lastIndexOf(".")+1));
+	 * 
+	 * Class<?> listClazz=defineListClass(listTypeName);
+	 * 
+	 * methodBuilder.
+	 * addCode("$T.asCollection(new $T<$L>(),$T.class, $L.getBlob($L))",
+	 * CollectionUtility.class, ProcessorHelper.class, listClazz, name, name,
+	 * cursorName, indexName); }
+	 */
 
-	/*@Override
-	public void generateDefaultValue(Builder methodBuilder) {
-		methodBuilder.addCode("null");
-	}*/
+	/*
+	 * @Override public void generateDefaultValue(Builder methodBuilder) {
+	 * methodBuilder.addCode("null"); }
+	 */
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
 	}
 
