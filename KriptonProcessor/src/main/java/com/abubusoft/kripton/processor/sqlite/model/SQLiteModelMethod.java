@@ -24,7 +24,6 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
-import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.utils.StringUtility;
 
