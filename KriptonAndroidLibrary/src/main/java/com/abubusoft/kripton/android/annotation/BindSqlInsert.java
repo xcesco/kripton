@@ -53,7 +53,7 @@ import java.lang.annotation.Target;
  * <h2>Case 1 - Method use a bean type parameter</h2>
  * 
  * <p>
- * It's possible define a INSERT query with annotation {@link BindInsert}. It is possibile to define query parameter simply using method parameter with same name of the bean property.
+ * It's possible define a INSERT query with annotation {@link BindSqlInsert}. It is possibile to define query parameter simply using method parameter with same name of the bean property.
  * </p>
  * 
  * <pre>
@@ -98,7 +98,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface BindInsert {
+public @interface BindSqlInsert {
 
 	/**
 	 * <p>

@@ -30,7 +30,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * <p>
  * Supported query is:
  * <ul>
- * 	<li><code>INSERT</code>: with {@link BindInsert} annotation</li>
+ * 	<li><code>INSERT</code>: with {@link BindSqlInsert} annotation</li>
  *  <li><code>UPDATE</code></li>
  *  <li><code>SELECT</code></li>
  *  <li><code>DELETE</code></li>

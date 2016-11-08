@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface BindUpdate {
+public @interface BindSqlUpdate {
 
 	/**
 	 * properties to include into UPDATE command
