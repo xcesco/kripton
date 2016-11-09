@@ -92,8 +92,6 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		}
 	}
 
-	protected String name;
-
 	protected List<ModelAnnotation> annotations;
 
 	/**

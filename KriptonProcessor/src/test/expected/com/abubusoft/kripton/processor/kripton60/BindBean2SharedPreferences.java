@@ -83,7 +83,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Bean2 read() {
     Bean2 bean=new Bean2();
-    bean.setId((prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null);
+    bean.setId((prefs!=null && prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null);
     bean.setValueBean((prefs.getString("valueBean", null)!=null) ? (Bean2)readObj(prefs.getString("valueBean", null), Bean2.class): null);
     bean.setValueBeanArray((prefs.getString("valueBeanArray", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<Bean2>(), Bean2.class, prefs.getString("valueBeanArray", null))): null);
     bean.setValueBigDecimal((prefs.getString("valueBigDecimal", null)!=null) ? new BigDecimal(prefs.getString("valueBigDecimal", "0")): null);
@@ -102,7 +102,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.setValueCurrency((prefs.getString("valueCurrency", null)!=null) ? CurrencyUtil.read(prefs.getString("valueCurrency", null)): null);
     bean.setValueDate((prefs.getString("valueDate", null)!=null) ? DateUtil.read(prefs.getString("valueDate", null)): null);
     bean.setValueDouble((prefs.getString("valueDouble", null)!=null) ? Double.valueOf(prefs.getString("valueDouble", "0")): null);
-    bean.setValueDoubleType((prefs.getString("valueDoubleType", null)!=null) ? Double.valueOf(prefs.getString("valueDoubleType", "0")): null);
+    bean.setValueDoubleType((prefs!=null && prefs.getString("valueDoubleType", null)!=null) ? Double.valueOf(prefs.getString("valueDoubleType", "0")): null);
     bean.setValueEnumType((prefs.getString("valueEnumType", null)!=null) ? EnumType.valueOf(prefs.getString("valueEnumType", null)): null);
     bean.setValueFloat(prefs.getFloat("valueFloat", (bean.getValueFloat()==null?0F:bean.getValueFloat())));
     bean.setValueFloatType(prefs.getFloat("valueFloatType", bean.getValueFloatType()));
@@ -112,7 +112,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.setValueLong((prefs.getString("valueLong", null)!=null) ? Long.valueOf(prefs.getString("valueLong", "0")): null);
     bean.setValueLongArray((prefs.getString("valueLongArray", null)!=null) ? CollectionUtility.asLongArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongArray", null))): null);
     bean.setValueLongList((prefs.getString("valueLongList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null);
-    bean.setValueLongType((prefs.getString("valueLongType", null)!=null) ? Long.valueOf(prefs.getString("valueLongType", "0")): null);
+    bean.setValueLongType((prefs!=null && prefs.getString("valueLongType", null)!=null) ? Long.valueOf(prefs.getString("valueLongType", "0")): null);
     bean.setValueLongTypeArray((prefs.getString("valueLongTypeArray", null)!=null) ? CollectionUtility.asLongTypeArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongTypeArray", null))): null);
     bean.setValueShort((short)prefs.getInt("valueShort", (short)(bean.getValueShort()==null?(short)0:bean.getValueShort())));
     bean.setValueShortType((short)prefs.getInt("valueShortType", (short)bean.getValueShortType()));
@@ -184,7 +184,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property id value
    */
   public long id() {
-    return (prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
+    return (prefs!=null && prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
   }
 
   /**
@@ -355,7 +355,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueDoubleType value
    */
   public double valueDoubleType() {
-    return (prefs.getString("valueDoubleType", null)!=null) ? Double.valueOf(prefs.getString("valueDoubleType", "0")): null;
+    return (prefs!=null && prefs.getString("valueDoubleType", null)!=null) ? Double.valueOf(prefs.getString("valueDoubleType", "0")): null;
   }
 
   /**

@@ -21,8 +21,8 @@ import java.util.List;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -33,11 +33,13 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 public abstract class JavadocUtility {
 	/**
+	 * 
 	 * @param builder
 	 * 
 	 */
@@ -96,10 +98,12 @@ public abstract class JavadocUtility {
 			if (beanTypeName.equals(TypeName.get(item.value1)))
 			{						
 				methodBuilder.addJavadoc("\tis used as $L\n", "${" + method.findParameterAliasByName(item.value0) + "}");				
-			} else if (TypeUtility.isTypeIncludedIn(TypeName.get(item.value1), OnReadBeanListener.class)) {
-				methodBuilder.addJavadoc("\tis listener \n");
+			} else if (TypeUtility.isTypeEquals(TypeName.get(item.value1), ParameterizedTypeName.get(TypeUtility.className(OnReadBeanListener.class), beanTypeName))) {
+				methodBuilder.addJavadoc("\tis the $T listener\n",beanTypeName);
+			} else if (TypeUtility.isTypeEquals(TypeName.get(item.value1), TypeUtility.className(OnReadCursorListener.class))) {
+				methodBuilder.addJavadoc("\tis the cursor listener\n",beanTypeName);
 			} else {
-				methodBuilder.addJavadoc("\tis -----\n");
+				methodBuilder.addJavadoc("\tis binded to $L\n","${"+method.findParameterAliasByName(item.value0) +"}");
 			}
 		}
 

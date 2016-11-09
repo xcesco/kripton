@@ -47,6 +47,10 @@ public class TypeUtility {
 
 		return false;
 	}
+	
+	public static boolean isTypeEquals(TypeName value, TypeName value2) {		
+		return value.equals(value2);
+	}
 
 	public static boolean isTypePrimitive(TypeName value) {
 		return isTypeIncludedIn(value, Byte.TYPE, Character.TYPE, Boolean.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE);
