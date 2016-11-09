@@ -84,8 +84,8 @@ public class BindSecurityDataSource extends AbstractDataSource implements BindSe
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",User$Table.CREATE_TABLE_SQL);
-    database.execSQL(User$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    database.execSQL(UserTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindSecurityDataSource extends AbstractDataSource implements BindSe
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",User$Table.DROP_TABLE_SQL);
-    database.execSQL(User$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",UserTable.DROP_TABLE_SQL);
+    database.execSQL(UserTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",User$Table.CREATE_TABLE_SQL);
-    database.execSQL(User$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    database.execSQL(UserTable.CREATE_TABLE_SQL);
   }
 
   /**

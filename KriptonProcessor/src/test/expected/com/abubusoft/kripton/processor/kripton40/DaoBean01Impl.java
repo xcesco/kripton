@@ -10,9 +10,10 @@ import com.abubusoft.kripton.common.StringUtil;
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBean01</code>
  * </p>
+ *
  *  @see Bean01
  *  @see DaoBean01
- *  @see Bean01$Table
+ *  @see Bean01Table
  */
 public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   public DaoBean01Impl(BindDummy01DataSource dataSet) {
@@ -20,16 +21,19 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, text]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
+   * </ul>
    *
    * @param id
    *
@@ -63,13 +67,23 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean01 SET text=${text} WHERE id=${id}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * 	<dt>text</dt><dd>is mapped to parameter <strong>text</strong></dd>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
    * @param text
-   * 	used as updated field
+   * 	is used as updated field <strong>text</strong>
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    *
    * @return number of updated records
    */

@@ -10,9 +10,10 @@ import com.abubusoft.kripton.processor.kripton56.entities.OwnerType;
  * <p>
  * DAO implementation for entity <code>MessageEntity</code>, based on interface <code>DaoMessage</code>
  * </p>
+ *
  *  @see com.abubusoft.kripton.processor.kripton56.entities.MessageEntity
  *  @see DaoMessage
- *  @see com.abubusoft.kripton.processor.kripton56.entities.MessageEntity$Table
+ *  @see com.abubusoft.kripton.processor.kripton56.entities.MessageEntityTable
  */
 public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   public DaoMessageImpl(BindWhisperDataSource dataSet) {
@@ -20,15 +21,26 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE message SET ownerType=${ownerType} WHERE  id = ${id}</pre>
    *
-   * @param id
-   * 	used in where condition
-   * @param ownerType
-   * 	used as updated field
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * 	<dt>ownerType</dt><dd>is mapped to parameter <strong>ownerType</strong></dd>
+   * </dl>
    *
-   * @return true if record is updated */
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param ownerType
+   * 	is used as updated field <strong>ownerType</strong>
+   *
+   * @return <code>true</code> if record is updated, <code>false</code> otherwise
+   */
   @Override
   public boolean updateById(long id, OwnerType ownerType) {
     ContentValues contentValues=contentValues();

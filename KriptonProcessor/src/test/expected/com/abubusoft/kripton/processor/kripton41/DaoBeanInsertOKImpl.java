@@ -9,9 +9,10 @@ import com.abubusoft.kripton.common.StringUtil;
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBeanInsertOK</code>
  * </p>
+ *
  *  @see Bean01
  *  @see DaoBeanInsertOK
- *  @see Bean01$Table
+ *  @see Bean01Table
  */
 public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK {
   public DaoBeanInsertOKImpl(BindDummy04DataSource dataSet) {
@@ -19,14 +20,21 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean01 (id, value) VALUES (${id}, ${value})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>id</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used as updated field and in where condition
+   * 	is binded to column <strong>id</strong>
    * @param value
-   * 	used as updated field and in where condition
-   * @return true if record is inserted
+   * 	is binded to column <strong>value</strong>
+   *
+   * @return <code>true</code> if record is inserted, <code>false</code> otherwise
    */
   @Override
   public boolean insertDistance(long id, Double value) {

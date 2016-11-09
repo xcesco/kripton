@@ -84,8 +84,8 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",IntegerBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(IntegerBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",IntegerBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(IntegerBeanTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",IntegerBean$Table.DROP_TABLE_SQL);
-    database.execSQL(IntegerBean$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",IntegerBeanTable.DROP_TABLE_SQL);
+    database.execSQL(IntegerBeanTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",IntegerBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(IntegerBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",IntegerBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(IntegerBeanTable.CREATE_TABLE_SQL);
   }
 
   /**

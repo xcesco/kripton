@@ -84,8 +84,8 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",Bean01$Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean01$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean01Table.CREATE_TABLE_SQL);
+    database.execSQL(Bean01Table.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",Bean01$Table.DROP_TABLE_SQL);
-    database.execSQL(Bean01$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",Bean01Table.DROP_TABLE_SQL);
+    database.execSQL(Bean01Table.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",Bean01$Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean01$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean01Table.CREATE_TABLE_SQL);
+    database.execSQL(Bean01Table.CREATE_TABLE_SQL);
   }
 
   /**

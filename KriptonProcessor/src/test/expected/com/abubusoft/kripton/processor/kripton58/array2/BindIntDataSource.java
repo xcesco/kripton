@@ -84,8 +84,8 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",IntBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(IntBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",IntBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(IntBeanTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",IntBean$Table.DROP_TABLE_SQL);
-    database.execSQL(IntBean$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",IntBeanTable.DROP_TABLE_SQL);
+    database.execSQL(IntBeanTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",IntBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(IntBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",IntBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(IntBeanTable.CREATE_TABLE_SQL);
   }
 
   /**

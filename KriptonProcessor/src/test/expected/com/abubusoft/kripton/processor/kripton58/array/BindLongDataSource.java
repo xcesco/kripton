@@ -84,8 +84,8 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",LongBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(LongBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",LongBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(LongBeanTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",LongBean$Table.DROP_TABLE_SQL);
-    database.execSQL(LongBean$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",LongBeanTable.DROP_TABLE_SQL);
+    database.execSQL(LongBeanTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",LongBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(LongBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",LongBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(LongBeanTable.CREATE_TABLE_SQL);
   }
 
   /**

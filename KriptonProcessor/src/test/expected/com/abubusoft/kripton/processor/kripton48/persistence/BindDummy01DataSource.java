@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
-import com.abubusoft.kripton.processor.kripton48.entities.Bean01$Table;
+import com.abubusoft.kripton.processor.kripton48.entities.Bean01Table;
 import java.lang.Override;
 import java.lang.String;
 
@@ -85,8 +85,8 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",Bean01$Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean01$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean01Table.CREATE_TABLE_SQL);
+    database.execSQL(Bean01Table.CREATE_TABLE_SQL);
   }
 
   /**
@@ -95,12 +95,12 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",Bean01$Table.DROP_TABLE_SQL);
-    database.execSQL(Bean01$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",Bean01Table.DROP_TABLE_SQL);
+    database.execSQL(Bean01Table.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",Bean01$Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean01$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean01Table.CREATE_TABLE_SQL);
+    database.execSQL(Bean01Table.CREATE_TABLE_SQL);
   }
 
   /**

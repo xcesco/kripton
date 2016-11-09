@@ -13,9 +13,10 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>Bean01Entity</code>, based on interface <code>DaoBean01</code>
  * </p>
+ *
  *  @see Bean01Entity
  *  @see DaoBean01
- *  @see com.abubusoft.kripton.processor.kripton49.entities.Bean01Entity$Table
+ *  @see com.abubusoft.kripton.processor.kripton49.entities.Bean01EntityTable
  */
 public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   public DaoBean01Impl(BindDummy01DataSource dataSet) {
@@ -23,16 +24,19 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, text]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
+   * </ul>
    *
    * @param id
    *
@@ -66,16 +70,19 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, text]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
+   * </ul>
    *
    * @param id
    *
@@ -114,13 +121,23 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean01 SET text=${text} WHERE id=${id}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * 	<dt>text</dt><dd>is mapped to parameter <strong>text</strong></dd>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
    * @param text
-   * 	used as updated field
+   * 	is used as updated field <strong>text</strong>
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    *
    * @return number of updated records
    */
@@ -145,8 +162,13 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    * <p>Delete query:</p>
    * <pre>DELETE bean01 WHERE id=${id}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    *
    * @return number of deleted records
    */
@@ -160,12 +182,18 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean01 (id) VALUES (${id})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>id</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>id</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertOne(Long id) {
@@ -185,13 +213,20 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean01 (text) VALUES (${bean.text})</pre>
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>text</dt><dd>is mapped to <strong>bean.text</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertOne(Bean01Entity bean) {

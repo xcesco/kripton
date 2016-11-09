@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import com.abubusoft.kripton.processor.example01.SQLiteProcessorTest;
 import com.abubusoft.kripton.processor.kripton33.TestKripton33;
 import com.abubusoft.kripton.processor.kripton38.TestKripton38;
 import com.abubusoft.kripton.processor.kripton40.TestKripton40;
@@ -44,7 +45,8 @@ import com.abubusoft.kripton.processor.test05firt_aid.TestFirstAid;
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
-		{ TestDatabase01.class, 
+		{ TestDatabase01.class,
+			SQLiteProcessorTest.class,
 			TestDao01.class, 
 			Test03.class, 
 			TestKripton33.class, TestKripton38.class, TestKripton40.class, TestKripton41.class, 

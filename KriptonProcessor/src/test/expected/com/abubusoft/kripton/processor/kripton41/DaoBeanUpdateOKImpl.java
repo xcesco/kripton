@@ -9,9 +9,10 @@ import com.abubusoft.kripton.common.StringUtil;
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBeanUpdateOK</code>
  * </p>
+ *
  *  @see Bean01
  *  @see DaoBeanUpdateOK
- *  @see Bean01$Table
+ *  @see Bean01Table
  */
 public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK {
   public DaoBeanUpdateOKImpl(BindDummy06DataSource dataSet) {
@@ -19,17 +20,29 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean01 SET id=${id}, value=${value} WHERE id=${test}</pre>
    *
-   * @param id
-   * 	used as updated field
-   * @param value
-   * 	used as updated field
-   * @param test
-   * 	used in where condition
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * 	<dt>id</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * </dl>
    *
-   * @return true if record is updated */
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${test}</dt><dd>is mapped to parameter <strong>test</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as updated field <strong>id</strong>
+   * @param value
+   * 	is used as updated field <strong>value</strong>
+   * @param test
+   * 	is used as where parameter <strong>${test}</strong>
+   *
+   * @return <code>true</code> if record is updated, <code>false</code> otherwise
+   */
   @Override
   public boolean updateDistance(long id, Double value, long test) {
     ContentValues contentValues=contentValues();

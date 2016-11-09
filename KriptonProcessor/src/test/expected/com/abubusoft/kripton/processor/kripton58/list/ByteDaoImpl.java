@@ -17,9 +17,10 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>ByteBean</code>, based on interface <code>ByteDao</code>
  * </p>
+ *
  *  @see ByteBean
  *  @see ByteDao
- *  @see ByteBean$Table
+ *  @see ByteBeanTable
  */
 public class ByteDaoImpl extends AbstractDao implements ByteDao {
   public ByteDaoImpl(BindByteDataSource dataSet) {
@@ -27,16 +28,15 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM byte_bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
+   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
+   * </ul>
    *
    *
    * @return selected bean or <code>null</code>.
@@ -71,16 +71,20 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM byte_bean WHERE value=${value}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
+   * </ul>
    *
-   * <pre>[value]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
+   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
+   * </ul>
    *
    * @param value
    *
@@ -116,16 +120,20 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM byte_bean WHERE value=${value}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
+   * </ul>
    *
-   * <pre>[value]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
+   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
+   * </ul>
    *
    * @param value
    * @param listener
@@ -172,16 +180,20 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM byte_bean WHERE value=${value}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
+   * </ul>
    *
-   * <pre>[value]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong></li>
+   * 	<li><strong>value</strong></li>
+   * 	<li><strong>value2</strong></li>
+   * </ul>
    *
    * @param value
    * @param listener
@@ -212,16 +224,20 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM byte_bean WHERE value=${value}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
+   * </ul>
    *
-   * <pre>[value]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
+   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
+   * </ul>
    *
    * @param value
    *
@@ -262,15 +278,26 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE byte_bean SET value=${value} WHERE id=${id} and value=${paramValue}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>${paramValue}</dt><dd>is mapped to parameter <strong>paramValue</strong></dd>
+   * </dl>
+   *
    * @param value
-   * 	used as updated field
+   * 	is used as updated field <strong>value</strong>
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    * @param paramValue
-   * 	used in where condition
+   * 	is used as where parameter <strong>${paramValue}</strong>
    *
    * @return number of updated records
    */
@@ -292,14 +319,21 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO byte_bean (id, value) VALUES (${id}, ${value})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>id</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used as updated field and in where condition
+   * 	is binded to column <strong>id</strong>
    * @param value
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(long id, List<Byte> value) {
@@ -321,13 +355,21 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO byte_bean (value, value2) VALUES (${bean.value}, ${bean.value2})</pre>
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>value</dt><dd>is mapped to <strong>bean.value</strong></dd>
+   * 	<dt>value2</dt><dd>is mapped to <strong>bean.value2</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(ByteBean bean) {
@@ -358,8 +400,13 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
    * <p>Delete query:</p>
    * <pre>DELETE byte_bean WHERE value=${paramValue}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${paramValue}</dt><dd>is mapped to parameter <strong>paramValue</strong></dd>
+   * </dl>
+   *
    * @param paramValue
-   * 	used in where condition
+   * 	is used as where parameter <strong>${paramValue}</strong>
    *
    * @return number of deleted records
    */

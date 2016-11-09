@@ -84,8 +84,8 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",CharBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(CharBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",CharBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(CharBeanTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",CharBean$Table.DROP_TABLE_SQL);
-    database.execSQL(CharBean$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",CharBeanTable.DROP_TABLE_SQL);
+    database.execSQL(CharBeanTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",CharBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(CharBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",CharBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(CharBeanTable.CREATE_TABLE_SQL);
   }
 
   /**

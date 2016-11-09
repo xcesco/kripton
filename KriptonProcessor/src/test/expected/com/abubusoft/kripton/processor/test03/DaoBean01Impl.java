@@ -13,9 +13,10 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBean01</code>
  * </p>
+ *
  *  @see Bean01
  *  @see DaoBean01
- *  @see Bean01$Table
+ *  @see Bean01Table
  */
 public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   public DaoBean01Impl(BindDummy01DataSource dataSet) {
@@ -23,16 +24,18 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[lista, id, message_date, message_text, bean_list, value]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>lista</strong> is associated to bean's property <strong>lista</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>message_date</strong> is associated to bean's property <strong>messageDate</strong></li>
+   * 	<li><strong>message_text</strong> is associated to bean's property <strong>messageText</strong></li>
+   * 	<li><strong>bean_list</strong> is associated to bean's property <strong>beanList</strong></li>
+   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
+   * </ul>
    *
    *
    * @return list of bean or empty list.

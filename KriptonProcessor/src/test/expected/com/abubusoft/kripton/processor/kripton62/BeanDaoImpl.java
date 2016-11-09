@@ -18,9 +18,10 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>Bean</code>, based on interface <code>BeanDao</code>
  * </p>
+ *
  *  @see Bean
  *  @see BeanDao
- *  @see Bean$Table
+ *  @see BeanTable
  */
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public BeanDaoImpl(BindBeanDataSource dataSet) {
@@ -28,16 +29,23 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value_byte_set</strong> is associated to bean's property <strong>valueByteSet</strong></li>
+   * 	<li><strong>value_short_set</strong> is associated to bean's property <strong>valueShortSet</strong></li>
+   * 	<li><strong>value_integer_set</strong> is associated to bean's property <strong>valueIntegerSet</strong></li>
+   * 	<li><strong>value_string_set</strong> is associated to bean's property <strong>valueStringSet</strong></li>
+   * 	<li><strong>value_character_set</strong> is associated to bean's property <strong>valueCharacterSet</strong></li>
+   * 	<li><strong>value_float_set</strong> is associated to bean's property <strong>valueFloatSet</strong></li>
+   * 	<li><strong>value_double_set</strong> is associated to bean's property <strong>valueDoubleSet</strong></li>
+   * 	<li><strong>value_big_decimal_set</strong> is associated to bean's property <strong>valueBigDecimalSet</strong></li>
+   * 	<li><strong>value_bean_set</strong> is associated to bean's property <strong>valueBeanSet</strong></li>
+   * 	<li><strong>value_enum_type_set</strong> is associated to bean's property <strong>valueEnumTypeSet</strong></li>
+   * </ul>
    *
    *
    * @return selected bean or <code>null</code>.
@@ -88,16 +96,28 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value_byte_set</strong> is associated to bean's property <strong>valueByteSet</strong></li>
+   * 	<li><strong>value_short_set</strong> is associated to bean's property <strong>valueShortSet</strong></li>
+   * 	<li><strong>value_integer_set</strong> is associated to bean's property <strong>valueIntegerSet</strong></li>
+   * 	<li><strong>value_string_set</strong> is associated to bean's property <strong>valueStringSet</strong></li>
+   * 	<li><strong>value_character_set</strong> is associated to bean's property <strong>valueCharacterSet</strong></li>
+   * 	<li><strong>value_float_set</strong> is associated to bean's property <strong>valueFloatSet</strong></li>
+   * 	<li><strong>value_double_set</strong> is associated to bean's property <strong>valueDoubleSet</strong></li>
+   * 	<li><strong>value_big_decimal_set</strong> is associated to bean's property <strong>valueBigDecimalSet</strong></li>
+   * 	<li><strong>value_bean_set</strong> is associated to bean's property <strong>valueBeanSet</strong></li>
+   * 	<li><strong>value_enum_type_set</strong> is associated to bean's property <strong>valueEnumTypeSet</strong></li>
+   * </ul>
    *
    * @param id
    * @param listener
@@ -168,16 +188,28 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong></li>
+   * 	<li><strong>value_byte_set</strong></li>
+   * 	<li><strong>value_short_set</strong></li>
+   * 	<li><strong>value_integer_set</strong></li>
+   * 	<li><strong>value_string_set</strong></li>
+   * 	<li><strong>value_character_set</strong></li>
+   * 	<li><strong>value_float_set</strong></li>
+   * 	<li><strong>value_double_set</strong></li>
+   * 	<li><strong>value_big_decimal_set</strong></li>
+   * 	<li><strong>value_bean_set</strong></li>
+   * 	<li><strong>value_enum_type_set</strong></li>
+   * </ul>
    *
    * @param id
    * @param listener
@@ -208,16 +240,28 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value_byte_set</strong> is associated to bean's property <strong>valueByteSet</strong></li>
+   * 	<li><strong>value_short_set</strong> is associated to bean's property <strong>valueShortSet</strong></li>
+   * 	<li><strong>value_integer_set</strong> is associated to bean's property <strong>valueIntegerSet</strong></li>
+   * 	<li><strong>value_string_set</strong> is associated to bean's property <strong>valueStringSet</strong></li>
+   * 	<li><strong>value_character_set</strong> is associated to bean's property <strong>valueCharacterSet</strong></li>
+   * 	<li><strong>value_float_set</strong> is associated to bean's property <strong>valueFloatSet</strong></li>
+   * 	<li><strong>value_double_set</strong> is associated to bean's property <strong>valueDoubleSet</strong></li>
+   * 	<li><strong>value_big_decimal_set</strong> is associated to bean's property <strong>valueBigDecimalSet</strong></li>
+   * 	<li><strong>value_bean_set</strong> is associated to bean's property <strong>valueBeanSet</strong></li>
+   * 	<li><strong>value_enum_type_set</strong> is associated to bean's property <strong>valueEnumTypeSet</strong></li>
+   * </ul>
    *
    * @param id
    *
@@ -278,7 +322,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <pre>UPDATE bean SET value_byte_set=${value.valueByteSet}, value_short_set=${value.valueShortSet}, value_integer_set=${value.valueIntegerSet}, value_string_set=${value.valueStringSet}, value_character_set=${value.valueCharacterSet}, value_float_set=${value.valueFloatSet}, value_double_set=${value.valueDoubleSet}, value_big_decimal_set=${value.valueBigDecimalSet}, value_bean_set=${value.valueBeanSet}, value_enum_type_set=${value.valueEnumTypeSet} WHERE id=${value.id}</pre>
    *
    * @param value
-   * 	used as updated field and in where condition
+   * 	is used as where parameter ${value}
    *
    * @return number of updated records
    */
@@ -355,13 +399,29 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES (${bean.valueByteSet}, ${bean.valueShortSet}, ${bean.valueIntegerSet}, ${bean.valueStringSet}, ${bean.valueCharacterSet}, ${bean.valueFloatSet}, ${bean.valueDoubleSet}, ${bean.valueBigDecimalSet}, ${bean.valueBeanSet}, ${bean.valueEnumTypeSet})</pre>
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>bean.valueByteSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is mapped to <strong>bean.valueShortSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>bean.valueIntegerSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is mapped to <strong>bean.valueStringSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is mapped to <strong>bean.valueCharacterSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is mapped to <strong>bean.valueFloatSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is mapped to <strong>bean.valueDoubleSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>bean.valueBigDecimalSet</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is mapped to <strong>bean.valueBeanSet</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>bean.valueEnumTypeSet</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(Bean bean) {
@@ -437,12 +497,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_big_decimal_set) VALUES (${valueBigDecimalSet})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueBigDecimalSet</dt><dd>is mapped to parameter <strong>valueBigDecimalSet</strong></dd>
+   * </dl>
+   *
    * @param valueBigDecimalSet
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_big_decimal_set</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(HashSet<BigDecimal> valueBigDecimalSet) {
@@ -462,16 +528,28 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=${valueBigDecimalSet}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueBigDecimalSet</strong> is binded to method's parameter <strong>valueBigDecimalSet</strong></li>
+   * </ul>
    *
-   * <pre>[valueBigDecimalSet]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value_byte_set</strong> is associated to bean's property <strong>valueByteSet</strong></li>
+   * 	<li><strong>value_short_set</strong> is associated to bean's property <strong>valueShortSet</strong></li>
+   * 	<li><strong>value_integer_set</strong> is associated to bean's property <strong>valueIntegerSet</strong></li>
+   * 	<li><strong>value_string_set</strong> is associated to bean's property <strong>valueStringSet</strong></li>
+   * 	<li><strong>value_character_set</strong> is associated to bean's property <strong>valueCharacterSet</strong></li>
+   * 	<li><strong>value_float_set</strong> is associated to bean's property <strong>valueFloatSet</strong></li>
+   * 	<li><strong>value_double_set</strong> is associated to bean's property <strong>valueDoubleSet</strong></li>
+   * 	<li><strong>value_big_decimal_set</strong> is associated to bean's property <strong>valueBigDecimalSet</strong></li>
+   * 	<li><strong>value_bean_set</strong> is associated to bean's property <strong>valueBeanSet</strong></li>
+   * 	<li><strong>value_enum_type_set</strong> is associated to bean's property <strong>valueEnumTypeSet</strong></li>
+   * </ul>
    *
    * @param valueBigDecimalSet
    *
@@ -526,8 +604,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE value=${valueBigDecimalSet}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to parameter <strong>valueBigDecimalSet</strong></dd>
+   * </dl>
+   *
    * @param valueBigDecimalSet
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBigDecimalSet}</strong>
    *
    * @return number of deleted records
    */
@@ -541,11 +624,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE value=${valueBigDecimalSet}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to parameter <strong>valueBigDecimalSet</strong></dd>
+   * </dl>
+   *
    * @param valueBigDecimalSet
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBigDecimalSet}</strong>
    *
    * @return number of updated records
    */

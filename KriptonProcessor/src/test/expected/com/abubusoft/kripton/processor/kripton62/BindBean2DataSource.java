@@ -84,8 +84,8 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",Bean2$Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean2$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean2Table.CREATE_TABLE_SQL);
+    database.execSQL(Bean2Table.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",Bean2$Table.DROP_TABLE_SQL);
-    database.execSQL(Bean2$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",Bean2Table.DROP_TABLE_SQL);
+    database.execSQL(Bean2Table.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",Bean2$Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean2$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean2Table.CREATE_TABLE_SQL);
+    database.execSQL(Bean2Table.CREATE_TABLE_SQL);
   }
 
   /**

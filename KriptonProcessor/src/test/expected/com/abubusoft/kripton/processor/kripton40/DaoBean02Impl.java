@@ -9,9 +9,10 @@ import com.abubusoft.kripton.common.StringUtil;
  * <p>
  * DAO implementation for entity <code>Bean02</code>, based on interface <code>DaoBean02</code>
  * </p>
+ *
  *  @see Bean02
  *  @see DaoBean02
- *  @see Bean02$Table
+ *  @see Bean02Table
  */
 public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   public DaoBean02Impl(BindDummy02DataSource dataSet) {
@@ -19,16 +20,19 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, text FROM bean02 WHERE id=${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, text]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
+   * </ul>
    *
    * @param id
    *
@@ -65,8 +69,13 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
    * <p>Delete query:</p>
    * <pre>DELETE bean02 WHERE id=${id}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    *
    * @return number of deleted records
    */

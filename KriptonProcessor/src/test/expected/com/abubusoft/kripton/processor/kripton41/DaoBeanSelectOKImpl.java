@@ -9,9 +9,10 @@ import com.abubusoft.kripton.common.StringUtil;
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBeanSelectOK</code>
  * </p>
+ *
  *  @see Bean01
  *  @see DaoBeanSelectOK
- *  @see Bean01$Table
+ *  @see Bean01Table
  */
 public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK {
   public DaoBeanSelectOKImpl(BindDummy02DataSource dataSet) {
@@ -19,16 +20,19 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT count(*)>1 FROM bean01 WHERE id=${id} and value=${value}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
+   * </ul>
    *
-   * <pre>[id, value]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[count(*)>1]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>count(*)>1</strong></li>
+   * </ul>
    *
    * @param id
    * @param value

@@ -15,9 +15,10 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>MessageEntity</code>, based on interface <code>DaoMessage</code>
  * </p>
+ *
  *  @see MessageEntity
  *  @see DaoMessage
- *  @see com.abubusoft.kripton.processor.kripton51.entities.MessageEntity$Table
+ *  @see com.abubusoft.kripton.processor.kripton51.entities.MessageEntityTable
  */
 public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   public DaoMessageImpl(BindWhisperDataSource dataSet) {
@@ -25,16 +26,26 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channelId = ${channelId}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>channelId</strong> is binded to method's parameter <strong>channelId</strong></li>
+   * </ul>
    *
-   * <pre>[channelId]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>channel_id</strong> is associated to bean's property <strong>channelId</strong></li>
+   * 	<li><strong>owner_type</strong> is associated to bean's property <strong>ownerType</strong></li>
+   * 	<li><strong>face_uid</strong> is associated to bean's property <strong>faceUid</strong></li>
+   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
+   * 	<li><strong>owner_uid</strong> is associated to bean's property <strong>ownerUid</strong></li>
+   * 	<li><strong>channel_uid</strong> is associated to bean's property <strong>channelUid</strong></li>
+   * 	<li><strong>update_time</strong> is associated to bean's property <strong>updateTime</strong></li>
+   * 	<li><strong>type</strong> is associated to bean's property <strong>type</strong></li>
+   * </ul>
    *
    * @param channelId
    *
@@ -91,9 +102,9 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    * <pre>UPDATE message SET channel_id=${bean.channelId}, owner_type=${bean.ownerType}, face_uid=${bean.faceUid}, text=${bean.text}, owner_uid=${bean.ownerUid}, channel_uid=${bean.channelUid}, update_time=${bean.updateTime}, type=${bean.type} WHERE id = ${bean.id}</pre>
    *
    * @param bean
-   * 	used as updated field and in where condition
+   * 	is used as where parameter ${bean}
    *
-   * @return true if record is updated
+   * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
   @Override
   public boolean updateById(MessageEntity bean) {
@@ -148,12 +159,27 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO message (channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES (${bean.channelId}, ${bean.ownerType}, ${bean.faceUid}, ${bean.text}, ${bean.ownerUid}, ${bean.channelUid}, ${bean.updateTime}, ${bean.type})</pre>
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>channel_id</dt><dd>is mapped to <strong>bean.channelId</strong></dd>
+   * 	<dt>owner_type</dt><dd>is mapped to <strong>bean.ownerType</strong></dd>
+   * 	<dt>face_uid</dt><dd>is mapped to <strong>bean.faceUid</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>bean.text</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>bean.ownerUid</strong></dd>
+   * 	<dt>channel_uid</dt><dd>is mapped to <strong>bean.channelUid</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>bean.updateTime</strong></dd>
+   * 	<dt>type</dt><dd>is mapped to <strong>bean.type</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	used as updated field and in where condition
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   *
    */
   @Override
   public void insert(MessageEntity bean) {
@@ -207,16 +233,26 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ${uid}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>uid</strong> is binded to method's parameter <strong>uid</strong></li>
+   * </ul>
    *
-   * <pre>[uid]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>channel_id</strong> is associated to bean's property <strong>channelId</strong></li>
+   * 	<li><strong>owner_type</strong> is associated to bean's property <strong>ownerType</strong></li>
+   * 	<li><strong>face_uid</strong> is associated to bean's property <strong>faceUid</strong></li>
+   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
+   * 	<li><strong>owner_uid</strong> is associated to bean's property <strong>ownerUid</strong></li>
+   * 	<li><strong>channel_uid</strong> is associated to bean's property <strong>channelUid</strong></li>
+   * 	<li><strong>update_time</strong> is associated to bean's property <strong>updateTime</strong></li>
+   * 	<li><strong>type</strong> is associated to bean's property <strong>type</strong></li>
+   * </ul>
    *
    * @param uid
    *

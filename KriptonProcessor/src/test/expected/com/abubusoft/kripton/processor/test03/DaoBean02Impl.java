@@ -10,9 +10,10 @@ import com.abubusoft.kripton.common.StringUtil;
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBean02</code>
  * </p>
+ *
  *  @see Bean01
  *  @see DaoBean02
- *  @see Bean01$Table
+ *  @see Bean01Table
  */
 public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   public DaoBean02Impl(BindDummy02DataSource dataSet) {
@@ -20,13 +21,24 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES (${bean.lista}, ${bean.messageDate}, ${bean.messageText}, ${bean.beanList}, ${bean.value})</pre>
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>lista</dt><dd>is mapped to <strong>bean.lista</strong></dd>
+   * 	<dt>message_date</dt><dd>is mapped to <strong>bean.messageDate</strong></dd>
+   * 	<dt>message_text</dt><dd>is mapped to <strong>bean.messageText</strong></dd>
+   * 	<dt>bean_list</dt><dd>is mapped to <strong>bean.beanList</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>bean.value</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(Bean01 bean) {
@@ -64,14 +76,21 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean01 (value, message_date) VALUES (${value}, ${messageDate})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * 	<dt>messageDate</dt><dd>is mapped to parameter <strong>messageDate</strong></dd>
+   * </dl>
+   *
    * @param value
-   * 	used as updated field and in where condition
+   * 	is binded to column <strong>value</strong>
    * @param messageDate
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>message_date</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(long value, long messageDate) {
@@ -92,8 +111,13 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
    * <p>Delete query:</p>
    * <pre>DELETE bean01 WHERE id=${id}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    *
    * @return number of deleted records
    */
@@ -107,11 +131,11 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL Delete used:</p>
    * <pre>DELETE bean01 WHERE id=${bean.id}</pre>
    *
    * @param bean
-   * 	used as updated field and in where condition
+   * 	is used as where parameter ${bean}
    *
    * @return number of deleted records
    */
@@ -125,13 +149,23 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean01 SET value=${value} WHERE id>${id}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
    * @param value
-   * 	used as updated field
+   * 	is used as updated field <strong>value</strong>
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    *
    * @return number of updated records
    */
@@ -153,7 +187,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
    * <pre>UPDATE bean01 SET lista=${bean.lista}, message_date=${bean.messageDate}, message_text=${bean.messageText}, bean_list=${bean.beanList}, value=${bean.value} WHERE value=${bean.value}</pre>
    *
    * @param bean
-   * 	used as updated field and in where condition
+   * 	is used as where parameter ${bean}
    *
    * @return number of updated records
    */

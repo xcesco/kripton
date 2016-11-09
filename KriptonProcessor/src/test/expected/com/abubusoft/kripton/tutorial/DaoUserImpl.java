@@ -12,9 +12,10 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>User</code>, based on interface <code>DaoUser</code>
  * </p>
+ *
  *  @see User
  *  @see DaoUser
- *  @see User$Table
+ *  @see UserTable
  */
 public class DaoUserImpl extends AbstractDao implements DaoUser {
   public DaoUserImpl(BindSecurityDataSource dataSet) {
@@ -22,13 +23,23 @@ public class DaoUserImpl extends AbstractDao implements DaoUser {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO user (email, name, surname, username) VALUES (${bean.email}, ${bean.name}, ${bean.surname}, ${bean.username})</pre>
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>email</dt><dd>is mapped to <strong>bean.email</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>bean.surname</strong></dd>
+   * 	<dt>username</dt><dd>is mapped to <strong>bean.username</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(User bean) {
@@ -72,7 +83,7 @@ public class DaoUserImpl extends AbstractDao implements DaoUser {
    * <pre>UPDATE user SET email=${bean.email}, name=${bean.name}, surname=${bean.surname}, username=${bean.username} WHERE 1=1</pre>
    *
    * @param bean
-   * 	used as updated field and in where condition
+   * 	is used as where parameter ${bean}
    *
    * @return number of updated records
    */
@@ -116,8 +127,13 @@ public class DaoUserImpl extends AbstractDao implements DaoUser {
    * <p>Delete query:</p>
    * <pre>DELETE user WHERE id=${id}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    *
    * @return number of deleted records
    */
@@ -131,16 +147,22 @@ public class DaoUserImpl extends AbstractDao implements DaoUser {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, email, name, surname, username FROM user WHERE id=${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, email, name, surname, username]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>email</strong> is associated to bean's property <strong>email</strong></li>
+   * 	<li><strong>name</strong> is associated to bean's property <strong>name</strong></li>
+   * 	<li><strong>surname</strong> is associated to bean's property <strong>surname</strong></li>
+   * 	<li><strong>username</strong> is associated to bean's property <strong>username</strong></li>
+   * </ul>
    *
    * @param id
    *
@@ -180,16 +202,22 @@ public class DaoUserImpl extends AbstractDao implements DaoUser {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, email, name, surname, username FROM user WHERE name=${name}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>name</strong> is binded to method's parameter <strong>name</strong></li>
+   * </ul>
    *
-   * <pre>[name]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, email, name, surname, username]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>email</strong> is associated to bean's property <strong>email</strong></li>
+   * 	<li><strong>name</strong> is associated to bean's property <strong>name</strong></li>
+   * 	<li><strong>surname</strong> is associated to bean's property <strong>surname</strong></li>
+   * 	<li><strong>username</strong> is associated to bean's property <strong>username</strong></li>
+   * </ul>
    *
    * @param name
    *

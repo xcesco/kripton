@@ -84,8 +84,8 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",FloatBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(FloatBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",FloatBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(FloatBeanTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",FloatBean$Table.DROP_TABLE_SQL);
-    database.execSQL(FloatBean$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",FloatBeanTable.DROP_TABLE_SQL);
+    database.execSQL(FloatBeanTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",FloatBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(FloatBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",FloatBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(FloatBeanTable.CREATE_TABLE_SQL);
   }
 
   /**

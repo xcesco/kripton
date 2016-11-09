@@ -18,9 +18,10 @@ import java.util.List;
  * <p>
  * DAO implementation for entity <code>LongBean</code>, based on interface <code>LongDao</code>
  * </p>
+ *
  *  @see LongBean
  *  @see LongDao
- *  @see LongBean$Table
+ *  @see LongBeanTable
  */
 public class LongDaoImpl extends AbstractDao implements LongDao {
   public LongDaoImpl(BindLongDataSource dataSet) {
@@ -28,16 +29,15 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM long_bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
+   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
+   * </ul>
    *
    *
    * @return selected bean or <code>null</code>.
@@ -72,16 +72,21 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value} and value2=${value2}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
+   * 	<li>Param <strong>value2</strong> is binded to method's parameter <strong>value2</strong></li>
+   * </ul>
    *
-   * <pre>[value, value2]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
+   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
+   * </ul>
    *
    * @param value
    * @param value2
@@ -118,16 +123,21 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value} and value2=${value2}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
+   * 	<li>Param <strong>value2</strong> is binded to method's parameter <strong>value2</strong></li>
+   * </ul>
    *
-   * <pre>[value, value2]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
+   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
+   * </ul>
    *
    * @param value
    * @param value2
@@ -175,16 +185,21 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value} and value2=${value2}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
+   * 	<li>Param <strong>value2</strong> is binded to method's parameter <strong>value2</strong></li>
+   * </ul>
    *
-   * <pre>[value, value2]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong></li>
+   * 	<li><strong>value</strong></li>
+   * 	<li><strong>value2</strong></li>
+   * </ul>
    *
    * @param value
    * @param value2
@@ -216,16 +231,21 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value} and value2=${value2}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
+   * 	<li>Param <strong>value2</strong> is binded to method's parameter <strong>value2</strong></li>
+   * </ul>
    *
-   * <pre>[value, value2]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[id, value, value2]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
+   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
+   * </ul>
    *
    * @param value
    * @param value2
@@ -267,15 +287,26 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE long_bean SET  WHERE id=${id} and value=${value} and value2=${value2}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>${value}</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * 	<dt>${value2}</dt><dd>is mapped to parameter <strong>value2</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    * @param value
-   * 	used in where condition
+   * 	is used as where parameter <strong>${value}</strong>
    * @param value2
-   * 	used in where condition
+   * 	is used as where parameter <strong>${value2}</strong>
    *
    * @return number of updated records
    */
@@ -292,16 +323,24 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO long_bean (id, value, value2) VALUES (${id}, ${value}, ${value2})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>id</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * 	<dt>value2</dt><dd>is mapped to parameter <strong>value2</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used as updated field and in where condition
+   * 	is binded to column <strong>id</strong>
    * @param value
-   * 	used as updated field and in where condition
+   * 	is binded to column <strong>value</strong>
    * @param value2
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value2</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(long id, long[] value, Long[] value2) {
@@ -329,13 +368,21 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO long_bean (value, value2) VALUES (${bean.value}, ${bean.value2})</pre>
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>value</dt><dd>is mapped to <strong>bean.value</strong></dd>
+   * 	<dt>value2</dt><dd>is mapped to <strong>bean.value2</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(LongBean bean) {
@@ -366,10 +413,16 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    * <p>Delete query:</p>
    * <pre>DELETE long_bean WHERE value=${value} and value2=${value2}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${value}</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * 	<dt>${value2}</dt><dd>is mapped to parameter <strong>value2</strong></dd>
+   * </dl>
+   *
    * @param value
-   * 	used in where condition
+   * 	is used as where parameter <strong>${value}</strong>
    * @param value2
-   * 	used in where condition
+   * 	is used as where parameter <strong>${value2}</strong>
    *
    * @return number of deleted records
    */

@@ -84,8 +84,8 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",BeanBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",BeanBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(BeanBeanTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",BeanBean$Table.DROP_TABLE_SQL);
-    database.execSQL(BeanBean$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",BeanBeanTable.DROP_TABLE_SQL);
+    database.execSQL(BeanBeanTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",BeanBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",BeanBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(BeanBeanTable.CREATE_TABLE_SQL);
   }
 
   /**

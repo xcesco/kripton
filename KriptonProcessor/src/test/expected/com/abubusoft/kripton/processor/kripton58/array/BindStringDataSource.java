@@ -84,8 +84,8 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",StringBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(StringBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",StringBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(StringBeanTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,12 +94,12 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",StringBean$Table.DROP_TABLE_SQL);
-    database.execSQL(StringBean$Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",StringBeanTable.DROP_TABLE_SQL);
+    database.execSQL(StringBeanTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",StringBean$Table.CREATE_TABLE_SQL);
-    database.execSQL(StringBean$Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",StringBeanTable.CREATE_TABLE_SQL);
+    database.execSQL(StringBeanTable.CREATE_TABLE_SQL);
   }
 
   /**

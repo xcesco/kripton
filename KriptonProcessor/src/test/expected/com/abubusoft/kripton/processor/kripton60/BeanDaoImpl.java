@@ -38,9 +38,10 @@ import java.util.TimeZone;
  * <p>
  * DAO implementation for entity <code>Bean</code>, based on interface <code>BeanDao</code>
  * </p>
+ *
  *  @see Bean
  *  @see BeanDao
- *  @see Bean$Table
+ *  @see BeanTable
  */
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public BeanDaoImpl(BindBeanDataSource dataSet) {
@@ -48,16 +49,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -88,16 +86,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -128,16 +123,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_byte_type FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_byte_type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_byte_type</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -168,16 +160,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_byte FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_byte]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_byte</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -208,16 +197,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_short_type FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_short_type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_short_type</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -248,16 +234,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_short FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_short]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_short</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -288,16 +271,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_int_type FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_int_type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_int_type</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -328,16 +308,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_int FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_int]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_int</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -368,16 +345,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_string FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_string]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_string</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -408,16 +382,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_char_type FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_char_type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_char_type</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -448,16 +419,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_char FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_char]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_char</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -488,16 +456,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_float_type FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_float_type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_float_type</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -528,16 +493,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_float FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_float]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_float</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -568,16 +530,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_long_type FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_long_type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_long_type</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -608,16 +567,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_long FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_long]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_long</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -648,16 +604,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_double_type FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_double_type]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_double_type</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -688,16 +641,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_double FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_double]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_double</strong></li>
+   * </ul>
    *
    *
    * @return single value extracted with query.
@@ -728,16 +678,54 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE 1=1</pre>
    *
-   * <p>Its parameters are:</p>
-   *
-   * <pre>[]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    *
    * @return selected bean or <code>null</code>.
@@ -850,16 +838,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param id
    * @param listener
@@ -1023,16 +1054,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong></li>
+   * 	<li><strong>value_bool</strong></li>
+   * 	<li><strong>value_byte_type</strong></li>
+   * 	<li><strong>value_byte</strong></li>
+   * 	<li><strong>value_short_type</strong></li>
+   * 	<li><strong>value_short</strong></li>
+   * 	<li><strong>value_int_type</strong></li>
+   * 	<li><strong>value_int</strong></li>
+   * 	<li><strong>value_string</strong></li>
+   * 	<li><strong>value_char_type</strong></li>
+   * 	<li><strong>value_char</strong></li>
+   * 	<li><strong>value_float_type</strong></li>
+   * 	<li><strong>value_float</strong></li>
+   * 	<li><strong>value_big_integer</strong></li>
+   * 	<li><strong>value_big_decimal</strong></li>
+   * 	<li><strong>value_enum_type</strong></li>
+   * 	<li><strong>value_long_type</strong></li>
+   * 	<li><strong>value_long</strong></li>
+   * 	<li><strong>value_double_type</strong></li>
+   * 	<li><strong>value_double</strong></li>
+   * 	<li><strong>value_locale</strong></li>
+   * 	<li><strong>value_calendar</strong></li>
+   * 	<li><strong>value_date</strong></li>
+   * 	<li><strong>value_url</strong></li>
+   * 	<li><strong>value_time</strong></li>
+   * 	<li><strong>value_currency</strong></li>
+   * 	<li><strong>value_time_zone</strong></li>
+   * 	<li><strong>value_time_list</strong></li>
+   * 	<li><strong>value_strin_list</strong></li>
+   * 	<li><strong>value_long_list</strong></li>
+   * 	<li><strong>value_byte_array</strong></li>
+   * 	<li><strong>value_long_type_array</strong></li>
+   * 	<li><strong>value_long_array</strong></li>
+   * 	<li><strong>value_bean_array</strong></li>
+   * 	<li><strong>value_string_array</strong></li>
+   * 	<li><strong>value_char_list</strong></li>
+   * 	<li><strong>value_char_type_array</strong></li>
+   * 	<li><strong>value_char_array</strong></li>
+   * 	<li><strong>value_map_string_bean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong></li>
+   * 	<li><strong>value_set_string</strong></li>
+   * 	<li><strong>id</strong></li>
+   * </ul>
    *
    * @param id
    * @param listener
@@ -1063,16 +1137,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ${id}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
+   * </ul>
    *
-   * <pre>[id]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param id
    *
@@ -1195,7 +1312,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <pre>UPDATE bean SET value_bool_type=${value.valueBoolType}, value_bool=${value.valueBool}, value_byte_type=${value.valueByteType}, value_byte=${value.valueByte}, value_short_type=${value.valueShortType}, value_short=${value.valueShort}, value_int_type=${value.valueIntType}, value_int=${value.valueInt}, value_string=${value.valueString}, value_char_type=${value.valueCharType}, value_char=${value.valueChar}, value_float_type=${value.valueFloatType}, value_float=${value.valueFloat}, value_big_integer=${value.valueBigInteger}, value_big_decimal=${value.valueBigDecimal}, value_enum_type=${value.valueEnumType}, value_long_type=${value.valueLongType}, value_long=${value.valueLong}, value_double_type=${value.valueDoubleType}, value_double=${value.valueDouble}, value_locale=${value.valueLocale}, value_calendar=${value.valueCalendar}, value_date=${value.valueDate}, value_url=${value.valueUrl}, value_time=${value.valueTime}, value_currency=${value.valueCurrency}, value_time_zone=${value.valueTimeZone}, value_time_list=${value.valueTimeList}, value_strin_list=${value.valueStrinList}, value_long_list=${value.valueLongList}, value_byte_array=${value.valueByteArray}, value_long_type_array=${value.valueLongTypeArray}, value_long_array=${value.valueLongArray}, value_bean_array=${value.valueBeanArray}, value_string_array=${value.valueStringArray}, value_char_list=${value.valueCharList}, value_char_type_array=${value.valueCharTypeArray}, value_char_array=${value.valueCharArray}, value_map_string_bean=${value.valueMapStringBean}, value_linked_map_string_bean=${value.valueLinkedMapStringBean}, value_set_string=${value.valueSetString} WHERE id=${value.id}</pre>
    *
    * @param value
-   * 	used as updated field and in where condition
+   * 	is used as where parameter ${value}
    *
    * @return number of updated records
    */
@@ -1426,13 +1543,60 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${bean.valueBoolType}, ${bean.valueBool}, ${bean.valueByteType}, ${bean.valueByte}, ${bean.valueShortType}, ${bean.valueShort}, ${bean.valueIntType}, ${bean.valueInt}, ${bean.valueString}, ${bean.valueCharType}, ${bean.valueChar}, ${bean.valueFloatType}, ${bean.valueFloat}, ${bean.valueBigInteger}, ${bean.valueBigDecimal}, ${bean.valueEnumType}, ${bean.valueLongType}, ${bean.valueLong}, ${bean.valueDoubleType}, ${bean.valueDouble}, ${bean.valueLocale}, ${bean.valueCalendar}, ${bean.valueDate}, ${bean.valueUrl}, ${bean.valueTime}, ${bean.valueCurrency}, ${bean.valueTimeZone}, ${bean.valueTimeList}, ${bean.valueStrinList}, ${bean.valueLongList}, ${bean.valueByteArray}, ${bean.valueLongTypeArray}, ${bean.valueLongArray}, ${bean.valueBeanArray}, ${bean.valueStringArray}, ${bean.valueCharList}, ${bean.valueCharTypeArray}, ${bean.valueCharArray}, ${bean.valueMapStringBean}, ${bean.valueLinkedMapStringBean}, ${bean.valueSetString})</pre>
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>value_bool_type</dt><dd>is mapped to <strong>bean.valueBoolType</strong></dd>
+   * 	<dt>value_bool</dt><dd>is mapped to <strong>bean.valueBool</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is mapped to <strong>bean.valueByteType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is mapped to <strong>bean.valueByte</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is mapped to <strong>bean.valueShortType</strong></dd>
+   * 	<dt>value_short</dt><dd>is mapped to <strong>bean.valueShort</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is mapped to <strong>bean.valueIntType</strong></dd>
+   * 	<dt>value_int</dt><dd>is mapped to <strong>bean.valueInt</strong></dd>
+   * 	<dt>value_string</dt><dd>is mapped to <strong>bean.valueString</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is mapped to <strong>bean.valueCharType</strong></dd>
+   * 	<dt>value_char</dt><dd>is mapped to <strong>bean.valueChar</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is mapped to <strong>bean.valueFloatType</strong></dd>
+   * 	<dt>value_float</dt><dd>is mapped to <strong>bean.valueFloat</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is mapped to <strong>bean.valueBigInteger</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is mapped to <strong>bean.valueBigDecimal</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is mapped to <strong>bean.valueEnumType</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is mapped to <strong>bean.valueLongType</strong></dd>
+   * 	<dt>value_long</dt><dd>is mapped to <strong>bean.valueLong</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is mapped to <strong>bean.valueDoubleType</strong></dd>
+   * 	<dt>value_double</dt><dd>is mapped to <strong>bean.valueDouble</strong></dd>
+   * 	<dt>value_locale</dt><dd>is mapped to <strong>bean.valueLocale</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is mapped to <strong>bean.valueCalendar</strong></dd>
+   * 	<dt>value_date</dt><dd>is mapped to <strong>bean.valueDate</strong></dd>
+   * 	<dt>value_url</dt><dd>is mapped to <strong>bean.valueUrl</strong></dd>
+   * 	<dt>value_time</dt><dd>is mapped to <strong>bean.valueTime</strong></dd>
+   * 	<dt>value_currency</dt><dd>is mapped to <strong>bean.valueCurrency</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is mapped to <strong>bean.valueTimeZone</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is mapped to <strong>bean.valueTimeList</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is mapped to <strong>bean.valueStrinList</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is mapped to <strong>bean.valueLongList</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is mapped to <strong>bean.valueByteArray</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is mapped to <strong>bean.valueLongTypeArray</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is mapped to <strong>bean.valueLongArray</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is mapped to <strong>bean.valueBeanArray</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is mapped to <strong>bean.valueStringArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is mapped to <strong>bean.valueCharList</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is mapped to <strong>bean.valueCharTypeArray</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is mapped to <strong>bean.valueCharArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is mapped to <strong>bean.valueMapStringBean</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is mapped to <strong>bean.valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is mapped to <strong>bean.valueSetString</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(Bean bean) {
@@ -1662,12 +1826,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_big_decimal) VALUES (${valueBigDecimal})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueBigDecimal</dt><dd>is mapped to parameter <strong>valueBigDecimal</strong></dd>
+   * </dl>
+   *
    * @param valueBigDecimal
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_big_decimal</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(BigDecimal valueBigDecimal) {
@@ -1687,16 +1857,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueBigDecimal</strong> is binded to method's parameter <strong>valueBigDecimal</strong></li>
+   * </ul>
    *
-   * <pre>[valueBigDecimal]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueBigDecimal
    *
@@ -1813,8 +2026,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBigDecimal}</dt><dd>is mapped to parameter <strong>valueBigDecimal</strong></dd>
+   * </dl>
+   *
    * @param valueBigDecimal
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBigDecimal}</strong>
    *
    * @return number of deleted records
    */
@@ -1828,11 +2046,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBigDecimal}</dt><dd>is mapped to parameter <strong>valueBigDecimal</strong></dd>
+   * </dl>
+   *
    * @param valueBigDecimal
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBigDecimal}</strong>
    *
    * @return number of updated records
    */
@@ -1849,13 +2076,23 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET valueSetString=${valueSetString} WHERE id=${id}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * 	<dt>valueSetString</dt><dd>is mapped to parameter <strong>valueSetString</strong></dd>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
+   *
    * @param id
-   * 	used in where condition
+   * 	is used as where parameter <strong>${id}</strong>
    * @param valueSetString
-   * 	used as updated field
+   * 	is used as updated field <strong>valueSetString</strong>
    *
    * @return number of updated records
    */
@@ -1877,12 +2114,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_big_integer) VALUES (${valueBigInteger})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueBigInteger</dt><dd>is mapped to parameter <strong>valueBigInteger</strong></dd>
+   * </dl>
+   *
    * @param valueBigInteger
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_big_integer</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(BigInteger valueBigInteger) {
@@ -1902,16 +2145,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueBigDecimal</strong> is binded to method's parameter <strong>valueBigDecimal</strong></li>
+   * </ul>
    *
-   * <pre>[valueBigDecimal]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueBigDecimal
    *
@@ -2028,8 +2314,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBigDecimal}</dt><dd>is mapped to parameter <strong>valueBigDecimal</strong></dd>
+   * </dl>
+   *
    * @param valueBigDecimal
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBigDecimal}</strong>
    *
    * @return number of deleted records
    */
@@ -2043,11 +2334,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBigDecimal}</dt><dd>is mapped to parameter <strong>valueBigDecimal</strong></dd>
+   * </dl>
+   *
    * @param valueBigDecimal
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBigDecimal}</strong>
    *
    * @return number of updated records
    */
@@ -2064,12 +2364,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_bool_type) VALUES (${valueBoolType})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueBoolType</dt><dd>is mapped to parameter <strong>valueBoolType</strong></dd>
+   * </dl>
+   *
    * @param valueBoolType
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_bool_type</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(boolean valueBoolType) {
@@ -2085,16 +2391,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBoolType=${valueBoolType}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueBoolType</strong> is binded to method's parameter <strong>valueBoolType</strong></li>
+   * </ul>
    *
-   * <pre>[valueBoolType]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueBoolType
    *
@@ -2211,8 +2560,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueBoolType=${valueBoolType}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBoolType}</dt><dd>is mapped to parameter <strong>valueBoolType</strong></dd>
+   * </dl>
+   *
    * @param valueBoolType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBoolType}</strong>
    *
    * @return number of deleted records
    */
@@ -2226,11 +2580,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueBoolType=${valueBoolType}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBoolType}</dt><dd>is mapped to parameter <strong>valueBoolType</strong></dd>
+   * </dl>
+   *
    * @param valueBoolType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBoolType}</strong>
    *
    * @return number of updated records
    */
@@ -2247,12 +2610,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_bool) VALUES (${valueBool})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueBool</dt><dd>is mapped to parameter <strong>valueBool</strong></dd>
+   * </dl>
+   *
    * @param valueBool
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_bool</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insert(Boolean valueBool) {
@@ -2272,16 +2641,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBool=${valueBool}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueBool</strong> is binded to method's parameter <strong>valueBool</strong></li>
+   * </ul>
    *
-   * <pre>[valueBool]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueBool
    *
@@ -2398,8 +2810,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueBool=${valueBool}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBool}</dt><dd>is mapped to parameter <strong>valueBool</strong></dd>
+   * </dl>
+   *
    * @param valueBool
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBool}</strong>
    *
    * @return number of deleted records
    */
@@ -2413,11 +2830,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueBool=${valueBool}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBool}</dt><dd>is mapped to parameter <strong>valueBool</strong></dd>
+   * </dl>
+   *
    * @param valueBool
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBool}</strong>
    *
    * @return number of updated records
    */
@@ -2434,12 +2860,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_byte_type) VALUES (${valueByteType})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueByteType</dt><dd>is mapped to parameter <strong>valueByteType</strong></dd>
+   * </dl>
+   *
    * @param valueByteType
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_byte_type</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertByteType(byte valueByteType) {
@@ -2455,16 +2887,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueByteType=${valueByteType}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueByteType</strong> is binded to method's parameter <strong>valueByteType</strong></li>
+   * </ul>
    *
-   * <pre>[valueByteType]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueByteType
    *
@@ -2581,8 +3056,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueByteType=${valueByteType}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueByteType}</dt><dd>is mapped to parameter <strong>valueByteType</strong></dd>
+   * </dl>
+   *
    * @param valueByteType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueByteType}</strong>
    *
    * @return number of deleted records
    */
@@ -2596,11 +3076,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueByteType=${valueByteType}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueByteType}</dt><dd>is mapped to parameter <strong>valueByteType</strong></dd>
+   * </dl>
+   *
    * @param valueByteType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueByteType}</strong>
    *
    * @return number of updated records
    */
@@ -2617,12 +3106,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_byte) VALUES (${valueByte})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueByte</dt><dd>is mapped to parameter <strong>valueByte</strong></dd>
+   * </dl>
+   *
    * @param valueByte
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_byte</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertByte(Byte valueByte) {
@@ -2642,16 +3137,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueByte=${valueByte}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueByte</strong> is binded to method's parameter <strong>valueByte</strong></li>
+   * </ul>
    *
-   * <pre>[valueByte]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueByte
    *
@@ -2768,8 +3306,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueByte=${valueByte}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueByte}</dt><dd>is mapped to parameter <strong>valueByte</strong></dd>
+   * </dl>
+   *
    * @param valueByte
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueByte}</strong>
    *
    * @return number of deleted records
    */
@@ -2783,11 +3326,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueByte=${valueByte}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueByte}</dt><dd>is mapped to parameter <strong>valueByte</strong></dd>
+   * </dl>
+   *
    * @param valueByte
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueByte}</strong>
    *
    * @return number of updated records
    */
@@ -2804,12 +3356,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_char_type) VALUES (${valueCharType})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueCharType</dt><dd>is mapped to parameter <strong>valueCharType</strong></dd>
+   * </dl>
+   *
    * @param valueCharType
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_char_type</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertCharType(char valueCharType) {
@@ -2825,16 +3383,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueCharType=${valueCharType}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueCharType</strong> is binded to method's parameter <strong>valueCharType</strong></li>
+   * </ul>
    *
-   * <pre>[valueCharType]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueCharType
    *
@@ -2951,8 +3552,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueCharType=${valueCharType}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueCharType}</dt><dd>is mapped to parameter <strong>valueCharType</strong></dd>
+   * </dl>
+   *
    * @param valueCharType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueCharType}</strong>
    *
    * @return number of deleted records
    */
@@ -2966,11 +3572,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueCharType=${valueCharType}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueCharType}</dt><dd>is mapped to parameter <strong>valueCharType</strong></dd>
+   * </dl>
+   *
    * @param valueCharType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueCharType}</strong>
    *
    * @return number of updated records
    */
@@ -2987,12 +3602,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_char) VALUES (${valueChar})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueChar</dt><dd>is mapped to parameter <strong>valueChar</strong></dd>
+   * </dl>
+   *
    * @param valueChar
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_char</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertChar(Character valueChar) {
@@ -3012,16 +3633,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueCharType=${valueChar}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueChar</strong> is binded to method's parameter <strong>valueChar</strong></li>
+   * </ul>
    *
-   * <pre>[valueChar]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueChar
    *
@@ -3138,8 +3802,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueCharType=${valueChar}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueChar}</dt><dd>is mapped to parameter <strong>valueChar</strong></dd>
+   * </dl>
+   *
    * @param valueChar
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueChar}</strong>
    *
    * @return number of deleted records
    */
@@ -3153,11 +3822,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueCharType=${valueChar}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueChar}</dt><dd>is mapped to parameter <strong>valueChar</strong></dd>
+   * </dl>
+   *
    * @param valueChar
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueChar}</strong>
    *
    * @return number of updated records
    */
@@ -3174,12 +3852,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_short_type) VALUES (${valueShortType})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueShortType</dt><dd>is mapped to parameter <strong>valueShortType</strong></dd>
+   * </dl>
+   *
    * @param valueShortType
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_short_type</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertShortType(short valueShortType) {
@@ -3195,16 +3879,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueShortType=${valueShortType}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueShortType</strong> is binded to method's parameter <strong>valueShortType</strong></li>
+   * </ul>
    *
-   * <pre>[valueShortType]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueShortType
    *
@@ -3321,8 +4048,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueShortType=${valueShortType}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueShortType}</dt><dd>is mapped to parameter <strong>valueShortType</strong></dd>
+   * </dl>
+   *
    * @param valueShortType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueShortType}</strong>
    *
    * @return number of deleted records
    */
@@ -3336,11 +4068,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueShortType=${valueShortType}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueShortType}</dt><dd>is mapped to parameter <strong>valueShortType</strong></dd>
+   * </dl>
+   *
    * @param valueShortType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueShortType}</strong>
    *
    * @return number of updated records
    */
@@ -3357,12 +4098,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_short) VALUES (${valueShort})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueShort</dt><dd>is mapped to parameter <strong>valueShort</strong></dd>
+   * </dl>
+   *
    * @param valueShort
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_short</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertShort(Short valueShort) {
@@ -3382,16 +4129,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueShort=${valueShort}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueShort</strong> is binded to method's parameter <strong>valueShort</strong></li>
+   * </ul>
    *
-   * <pre>[valueShort]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueShort
    *
@@ -3508,8 +4298,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueShort=${valueShort}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueShort}</dt><dd>is mapped to parameter <strong>valueShort</strong></dd>
+   * </dl>
+   *
    * @param valueShort
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueShort}</strong>
    *
    * @return number of deleted records
    */
@@ -3523,11 +4318,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueShort=${valueShort}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueShort}</dt><dd>is mapped to parameter <strong>valueShort</strong></dd>
+   * </dl>
+   *
    * @param valueShort
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueShort}</strong>
    *
    * @return number of updated records
    */
@@ -3544,12 +4348,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_int_type) VALUES (${valueIntType})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueIntType</dt><dd>is mapped to parameter <strong>valueIntType</strong></dd>
+   * </dl>
+   *
    * @param valueIntType
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_int_type</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertIntType(int valueIntType) {
@@ -3565,16 +4375,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueIntType=${valueIntType}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueIntType</strong> is binded to method's parameter <strong>valueIntType</strong></li>
+   * </ul>
    *
-   * <pre>[valueIntType]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueIntType
    *
@@ -3691,8 +4544,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueIntType=${valueIntType}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueIntType}</dt><dd>is mapped to parameter <strong>valueIntType</strong></dd>
+   * </dl>
+   *
    * @param valueIntType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueIntType}</strong>
    *
    * @return number of deleted records
    */
@@ -3706,11 +4564,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueIntType=${valueIntType}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueIntType}</dt><dd>is mapped to parameter <strong>valueIntType</strong></dd>
+   * </dl>
+   *
    * @param valueIntType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueIntType}</strong>
    *
    * @return number of updated records
    */
@@ -3727,12 +4594,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_int) VALUES (${valueInt})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueInt</dt><dd>is mapped to parameter <strong>valueInt</strong></dd>
+   * </dl>
+   *
    * @param valueInt
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_int</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertInt(Integer valueInt) {
@@ -3752,16 +4625,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueInt=${valueInt}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueInt</strong> is binded to method's parameter <strong>valueInt</strong></li>
+   * </ul>
    *
-   * <pre>[valueInt]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueInt
    *
@@ -3878,8 +4794,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueInt=${valueInt}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueInt}</dt><dd>is mapped to parameter <strong>valueInt</strong></dd>
+   * </dl>
+   *
    * @param valueInt
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueInt}</strong>
    *
    * @return number of deleted records
    */
@@ -3893,11 +4814,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueInt=${valueInt}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueInt}</dt><dd>is mapped to parameter <strong>valueInt</strong></dd>
+   * </dl>
+   *
    * @param valueInt
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueInt}</strong>
    *
    * @return number of updated records
    */
@@ -3914,12 +4844,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_long_type) VALUES (${valueLongType})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueLongType</dt><dd>is mapped to parameter <strong>valueLongType</strong></dd>
+   * </dl>
+   *
    * @param valueLongType
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_long_type</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertLongType(long valueLongType) {
@@ -3935,16 +4871,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLongType=${valueLongType}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueLongType</strong> is binded to method's parameter <strong>valueLongType</strong></li>
+   * </ul>
    *
-   * <pre>[valueLongType]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueLongType
    *
@@ -4061,8 +5040,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueLongType=${valueLongType}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLongType}</dt><dd>is mapped to parameter <strong>valueLongType</strong></dd>
+   * </dl>
+   *
    * @param valueLongType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLongType}</strong>
    *
    * @return number of deleted records
    */
@@ -4076,11 +5060,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueLongType=${valueLongType}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLongType}</dt><dd>is mapped to parameter <strong>valueLongType</strong></dd>
+   * </dl>
+   *
    * @param valueLongType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLongType}</strong>
    *
    * @return number of updated records
    */
@@ -4097,12 +5090,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_long) VALUES (${valueLong})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueLong</dt><dd>is mapped to parameter <strong>valueLong</strong></dd>
+   * </dl>
+   *
    * @param valueLong
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_long</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertLong(Long valueLong) {
@@ -4122,16 +5121,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLong=${valueLong}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueLong</strong> is binded to method's parameter <strong>valueLong</strong></li>
+   * </ul>
    *
-   * <pre>[valueLong]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueLong
    *
@@ -4248,8 +5290,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueLong=${valueLong}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLong}</dt><dd>is mapped to parameter <strong>valueLong</strong></dd>
+   * </dl>
+   *
    * @param valueLong
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLong}</strong>
    *
    * @return number of deleted records
    */
@@ -4263,11 +5310,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueLong=${valueLong}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLong}</dt><dd>is mapped to parameter <strong>valueLong</strong></dd>
+   * </dl>
+   *
    * @param valueLong
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLong}</strong>
    *
    * @return number of updated records
    */
@@ -4284,12 +5340,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_float_type) VALUES (${valueFloatType})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueFloatType</dt><dd>is mapped to parameter <strong>valueFloatType</strong></dd>
+   * </dl>
+   *
    * @param valueFloatType
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_float_type</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertFloatType(float valueFloatType) {
@@ -4305,16 +5367,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueFloatType=${valueFloatType}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueFloatType</strong> is binded to method's parameter <strong>valueFloatType</strong></li>
+   * </ul>
    *
-   * <pre>[valueFloatType]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueFloatType
    *
@@ -4431,8 +5536,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueFloatType=${valueFloatType}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueFloatType}</dt><dd>is mapped to parameter <strong>valueFloatType</strong></dd>
+   * </dl>
+   *
    * @param valueFloatType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueFloatType}</strong>
    *
    * @return number of deleted records
    */
@@ -4446,11 +5556,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueFloatType=${valueFloatType}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueFloatType}</dt><dd>is mapped to parameter <strong>valueFloatType</strong></dd>
+   * </dl>
+   *
    * @param valueFloatType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueFloatType}</strong>
    *
    * @return number of updated records
    */
@@ -4467,12 +5586,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_float) VALUES (${valueFloat})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueFloat</dt><dd>is mapped to parameter <strong>valueFloat</strong></dd>
+   * </dl>
+   *
    * @param valueFloat
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_float</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertFloat(Float valueFloat) {
@@ -4492,16 +5617,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueFloat=${valueFloat}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueFloat</strong> is binded to method's parameter <strong>valueFloat</strong></li>
+   * </ul>
    *
-   * <pre>[valueFloat]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueFloat
    *
@@ -4618,8 +5786,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueFloat=${valueFloat}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueFloat}</dt><dd>is mapped to parameter <strong>valueFloat</strong></dd>
+   * </dl>
+   *
    * @param valueFloat
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueFloat}</strong>
    *
    * @return number of deleted records
    */
@@ -4633,11 +5806,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueFloat=${valueFloat}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueFloat}</dt><dd>is mapped to parameter <strong>valueFloat</strong></dd>
+   * </dl>
+   *
    * @param valueFloat
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueFloat}</strong>
    *
    * @return number of updated records
    */
@@ -4654,12 +5836,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_double_type) VALUES (${valueDoubleType})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueDoubleType</dt><dd>is mapped to parameter <strong>valueDoubleType</strong></dd>
+   * </dl>
+   *
    * @param valueDoubleType
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_double_type</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertDoubleType(double valueDoubleType) {
@@ -4675,16 +5863,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueDoubleType=${valueDoubleType}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueDoubleType</strong> is binded to method's parameter <strong>valueDoubleType</strong></li>
+   * </ul>
    *
-   * <pre>[valueDoubleType]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueDoubleType
    *
@@ -4801,8 +6032,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueDoubleType=${valueDoubleType}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueDoubleType}</dt><dd>is mapped to parameter <strong>valueDoubleType</strong></dd>
+   * </dl>
+   *
    * @param valueDoubleType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueDoubleType}</strong>
    *
    * @return number of deleted records
    */
@@ -4816,11 +6052,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueDoubleType=${valueDoubleType}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueDoubleType}</dt><dd>is mapped to parameter <strong>valueDoubleType</strong></dd>
+   * </dl>
+   *
    * @param valueDoubleType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueDoubleType}</strong>
    *
    * @return number of updated records
    */
@@ -4837,12 +6082,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_double) VALUES (${valueDouble})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueDouble</dt><dd>is mapped to parameter <strong>valueDouble</strong></dd>
+   * </dl>
+   *
    * @param valueDouble
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_double</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertDouble(Double valueDouble) {
@@ -4862,16 +6113,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueDouble=${valueDouble}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueDouble</strong> is binded to method's parameter <strong>valueDouble</strong></li>
+   * </ul>
    *
-   * <pre>[valueDouble]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueDouble
    *
@@ -4988,8 +6282,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueDouble=${valueDouble}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueDouble}</dt><dd>is mapped to parameter <strong>valueDouble</strong></dd>
+   * </dl>
+   *
    * @param valueDouble
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueDouble}</strong>
    *
    * @return number of deleted records
    */
@@ -5003,11 +6302,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueDouble=${valueDouble}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueDouble}</dt><dd>is mapped to parameter <strong>valueDouble</strong></dd>
+   * </dl>
+   *
    * @param valueDouble
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueDouble}</strong>
    *
    * @return number of updated records
    */
@@ -5024,12 +6332,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_string) VALUES (${valueString})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueString</dt><dd>is mapped to parameter <strong>valueString</strong></dd>
+   * </dl>
+   *
    * @param valueString
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_string</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertString(String valueString) {
@@ -5049,16 +6363,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueString=${valueString}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueString</strong> is binded to method's parameter <strong>valueString</strong></li>
+   * </ul>
    *
-   * <pre>[valueString]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueString
    *
@@ -5175,8 +6532,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueString=${valueString}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueString}</dt><dd>is mapped to parameter <strong>valueString</strong></dd>
+   * </dl>
+   *
    * @param valueString
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueString}</strong>
    *
    * @return number of deleted records
    */
@@ -5190,11 +6552,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueString=${valueString}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueString}</dt><dd>is mapped to parameter <strong>valueString</strong></dd>
+   * </dl>
+   *
    * @param valueString
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueString}</strong>
    *
    * @return number of updated records
    */
@@ -5211,12 +6582,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_date) VALUES (${valueDate})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueDate</dt><dd>is mapped to parameter <strong>valueDate</strong></dd>
+   * </dl>
+   *
    * @param valueDate
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_date</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertDate(Date valueDate) {
@@ -5236,16 +6613,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueDate=${valueDate}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueDate</strong> is binded to method's parameter <strong>valueDate</strong></li>
+   * </ul>
    *
-   * <pre>[valueDate]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueDate
    *
@@ -5362,8 +6782,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueDate=${valueDate}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueDate}</dt><dd>is mapped to parameter <strong>valueDate</strong></dd>
+   * </dl>
+   *
    * @param valueDate
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueDate}</strong>
    *
    * @return number of deleted records
    */
@@ -5377,11 +6802,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueDate=${valueDate}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueDate}</dt><dd>is mapped to parameter <strong>valueDate</strong></dd>
+   * </dl>
+   *
    * @param valueDate
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueDate}</strong>
    *
    * @return number of updated records
    */
@@ -5398,12 +6832,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_calendar) VALUES (${valueCalendar})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueCalendar</dt><dd>is mapped to parameter <strong>valueCalendar</strong></dd>
+   * </dl>
+   *
    * @param valueCalendar
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_calendar</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertCalendar(Calendar valueCalendar) {
@@ -5423,16 +6863,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueCalendar=${valueCalendar}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueCalendar</strong> is binded to method's parameter <strong>valueCalendar</strong></li>
+   * </ul>
    *
-   * <pre>[valueCalendar]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueCalendar
    *
@@ -5549,8 +7032,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueCalendar=${valueCalendar}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueCalendar}</dt><dd>is mapped to parameter <strong>valueCalendar</strong></dd>
+   * </dl>
+   *
    * @param valueCalendar
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueCalendar}</strong>
    *
    * @return number of deleted records
    */
@@ -5564,11 +7052,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueCalendar=${valueCalendar}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueCalendar}</dt><dd>is mapped to parameter <strong>valueCalendar</strong></dd>
+   * </dl>
+   *
    * @param valueCalendar
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueCalendar}</strong>
    *
    * @return number of updated records
    */
@@ -5585,12 +7082,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_locale) VALUES (${valueLocale})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueLocale</dt><dd>is mapped to parameter <strong>valueLocale</strong></dd>
+   * </dl>
+   *
    * @param valueLocale
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_locale</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertLocale(Locale valueLocale) {
@@ -5610,16 +7113,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLocale=${valueLocale}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueLocale</strong> is binded to method's parameter <strong>valueLocale</strong></li>
+   * </ul>
    *
-   * <pre>[valueLocale]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueLocale
    *
@@ -5736,8 +7282,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueLocale=${valueLocale}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLocale}</dt><dd>is mapped to parameter <strong>valueLocale</strong></dd>
+   * </dl>
+   *
    * @param valueLocale
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLocale}</strong>
    *
    * @return number of deleted records
    */
@@ -5751,11 +7302,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueLocale=${valueLocale}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLocale}</dt><dd>is mapped to parameter <strong>valueLocale</strong></dd>
+   * </dl>
+   *
    * @param valueLocale
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLocale}</strong>
    *
    * @return number of updated records
    */
@@ -5772,12 +7332,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_url) VALUES (${valueUrl})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueUrl</dt><dd>is mapped to parameter <strong>valueUrl</strong></dd>
+   * </dl>
+   *
    * @param valueUrl
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_url</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertURL(URL valueUrl) {
@@ -5797,16 +7363,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueUrl=${valueUrl}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueUrl</strong> is binded to method's parameter <strong>valueUrl</strong></li>
+   * </ul>
    *
-   * <pre>[valueUrl]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueUrl
    *
@@ -5923,8 +7532,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueUrl=${valueUrl}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueUrl}</dt><dd>is mapped to parameter <strong>valueUrl</strong></dd>
+   * </dl>
+   *
    * @param valueUrl
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueUrl}</strong>
    *
    * @return number of deleted records
    */
@@ -5938,11 +7552,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueUrl=${valueUrl}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueUrl}</dt><dd>is mapped to parameter <strong>valueUrl</strong></dd>
+   * </dl>
+   *
    * @param valueUrl
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueUrl}</strong>
    *
    * @return number of updated records
    */
@@ -5959,12 +7582,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_time) VALUES (${valueTime})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueTime</dt><dd>is mapped to parameter <strong>valueTime</strong></dd>
+   * </dl>
+   *
    * @param valueTime
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_time</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertTime(Time valueTime) {
@@ -5984,16 +7613,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueTime=${valueTime}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueTime</strong> is binded to method's parameter <strong>valueTime</strong></li>
+   * </ul>
    *
-   * <pre>[valueTime]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueTime
    *
@@ -6110,8 +7782,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueTime=${valueTime}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueTime}</dt><dd>is mapped to parameter <strong>valueTime</strong></dd>
+   * </dl>
+   *
    * @param valueTime
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueTime}</strong>
    *
    * @return number of deleted records
    */
@@ -6125,11 +7802,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueTime=${valueTime}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueTime}</dt><dd>is mapped to parameter <strong>valueTime</strong></dd>
+   * </dl>
+   *
    * @param valueTime
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueTime}</strong>
    *
    * @return number of updated records
    */
@@ -6146,12 +7832,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_currency) VALUES (${valueCurrency})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueCurrency</dt><dd>is mapped to parameter <strong>valueCurrency</strong></dd>
+   * </dl>
+   *
    * @param valueCurrency
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_currency</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertCurrency(Currency valueCurrency) {
@@ -6171,16 +7863,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueCurrency=${valueCurrency}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueCurrency</strong> is binded to method's parameter <strong>valueCurrency</strong></li>
+   * </ul>
    *
-   * <pre>[valueCurrency]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueCurrency
    *
@@ -6297,8 +8032,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueCurrency=${valueCurrency}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueCurrency}</dt><dd>is mapped to parameter <strong>valueCurrency</strong></dd>
+   * </dl>
+   *
    * @param valueCurrency
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueCurrency}</strong>
    *
    * @return number of deleted records
    */
@@ -6312,11 +8052,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueCurrency=${valueCurrency}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueCurrency}</dt><dd>is mapped to parameter <strong>valueCurrency</strong></dd>
+   * </dl>
+   *
    * @param valueCurrency
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueCurrency}</strong>
    *
    * @return number of updated records
    */
@@ -6333,12 +8082,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_time_zone) VALUES (${valueTimeZone})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueTimeZone</dt><dd>is mapped to parameter <strong>valueTimeZone</strong></dd>
+   * </dl>
+   *
    * @param valueTimeZone
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_time_zone</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertTimeZone(TimeZone valueTimeZone) {
@@ -6358,16 +8113,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueTimeZone=${valueTimeZone}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueTimeZone</strong> is binded to method's parameter <strong>valueTimeZone</strong></li>
+   * </ul>
    *
-   * <pre>[valueTimeZone]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueTimeZone
    *
@@ -6484,8 +8282,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueTimeZone=${valueTimeZone}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueTimeZone}</dt><dd>is mapped to parameter <strong>valueTimeZone</strong></dd>
+   * </dl>
+   *
    * @param valueTimeZone
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueTimeZone}</strong>
    *
    * @return number of deleted records
    */
@@ -6499,11 +8302,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueTimeZone=${valueTimeZone}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueTimeZone}</dt><dd>is mapped to parameter <strong>valueTimeZone</strong></dd>
+   * </dl>
+   *
    * @param valueTimeZone
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueTimeZone}</strong>
    *
    * @return number of updated records
    */
@@ -6520,12 +8332,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_enum_type) VALUES (${valueEnumType})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueEnumType</dt><dd>is mapped to parameter <strong>valueEnumType</strong></dd>
+   * </dl>
+   *
    * @param valueEnumType
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_enum_type</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertEnumType(EnumType valueEnumType) {
@@ -6545,16 +8363,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueEnumType=${valueEnumType}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueEnumType</strong> is binded to method's parameter <strong>valueEnumType</strong></li>
+   * </ul>
    *
-   * <pre>[valueEnumType]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueEnumType
    *
@@ -6671,8 +8532,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueEnumType=${valueEnumType}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueEnumType}</dt><dd>is mapped to parameter <strong>valueEnumType</strong></dd>
+   * </dl>
+   *
    * @param valueEnumType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueEnumType}</strong>
    *
    * @return number of deleted records
    */
@@ -6686,11 +8552,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueEnumType=${valueEnumType}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueEnumType}</dt><dd>is mapped to parameter <strong>valueEnumType</strong></dd>
+   * </dl>
+   *
    * @param valueEnumType
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueEnumType}</strong>
    *
    * @return number of updated records
    */
@@ -6707,12 +8582,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_bean_array) VALUES (${valueBeanArray})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueBeanArray</dt><dd>is mapped to parameter <strong>valueBeanArray</strong></dd>
+   * </dl>
+   *
    * @param valueBeanArray
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_bean_array</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertArrayBeanType(Bean[] valueBeanArray) {
@@ -6732,16 +8613,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBeanArray=${valueBeanArray}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueBeanArray</strong> is binded to method's parameter <strong>valueBeanArray</strong></li>
+   * </ul>
    *
-   * <pre>[valueBeanArray]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueBeanArray
    *
@@ -6858,8 +8782,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueBeanArray=${valueBeanArray}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBeanArray}</dt><dd>is mapped to parameter <strong>valueBeanArray</strong></dd>
+   * </dl>
+   *
    * @param valueBeanArray
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBeanArray}</strong>
    *
    * @return number of deleted records
    */
@@ -6873,11 +8802,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueBeanArray=${valueBeanArray}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueBeanArray}</dt><dd>is mapped to parameter <strong>valueBeanArray</strong></dd>
+   * </dl>
+   *
    * @param valueBeanArray
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueBeanArray}</strong>
    *
    * @return number of updated records
    */
@@ -6894,12 +8832,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_long_type_array) VALUES (${valueLongTypeArray})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueLongTypeArray</dt><dd>is mapped to parameter <strong>valueLongTypeArray</strong></dd>
+   * </dl>
+   *
    * @param valueLongTypeArray
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_long_type_array</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertArrayLongType(long[] valueLongTypeArray) {
@@ -6919,16 +8863,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueLongTypeArray</strong> is binded to method's parameter <strong>valueLongTypeArray</strong></li>
+   * </ul>
    *
-   * <pre>[valueLongTypeArray]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueLongTypeArray
    *
@@ -7045,8 +9032,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLongTypeArray}</dt><dd>is mapped to parameter <strong>valueLongTypeArray</strong></dd>
+   * </dl>
+   *
    * @param valueLongTypeArray
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLongTypeArray}</strong>
    *
    * @return number of deleted records
    */
@@ -7060,11 +9052,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLongTypeArray}</dt><dd>is mapped to parameter <strong>valueLongTypeArray</strong></dd>
+   * </dl>
+   *
    * @param valueLongTypeArray
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLongTypeArray}</strong>
    *
    * @return number of updated records
    */
@@ -7081,12 +9082,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_long_array) VALUES (${valueLongArray})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueLongArray</dt><dd>is mapped to parameter <strong>valueLongArray</strong></dd>
+   * </dl>
+   *
    * @param valueLongArray
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_long_array</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertArrayLong(Long[] valueLongArray) {
@@ -7106,16 +9113,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLongArray=${valueLongArray}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueLongArray</strong> is binded to method's parameter <strong>valueLongArray</strong></li>
+   * </ul>
    *
-   * <pre>[valueLongArray]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueLongArray
    *
@@ -7232,8 +9282,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueLongArray=${valueLongArray}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLongArray}</dt><dd>is mapped to parameter <strong>valueLongArray</strong></dd>
+   * </dl>
+   *
    * @param valueLongArray
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLongArray}</strong>
    *
    * @return number of deleted records
    */
@@ -7247,11 +9302,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueLongArray=${valueLongArray}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLongArray}</dt><dd>is mapped to parameter <strong>valueLongArray</strong></dd>
+   * </dl>
+   *
    * @param valueLongArray
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLongArray}</strong>
    *
    * @return number of updated records
    */
@@ -7268,12 +9332,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Insert query:</p>
+   * <p>SQL Insert used:</p>
    * <pre>INSERT INTO bean (value_long_list) VALUES (${valueLongList})</pre>
    *
+   * <p><strong>Inserted fields:</strong></p>
+   * <dl>
+   * 	<dt>valueLongList</dt><dd>is mapped to parameter <strong>valueLongList</strong></dd>
+   * </dl>
+   *
    * @param valueLongList
-   * 	used as updated field and in where condition
-   * @return id of inserted record
+   * 	is binded to column <strong>value_long_list</strong>
+   *
+   * @return <strong>id</strong> of inserted record
    */
   @Override
   public long insertListLong(LinkedList<Long> valueLongList) {
@@ -7293,16 +9363,59 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select query is:</p>
+   * <p>Select SQL:</p>
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLongList=${valueLongList}</pre>
    *
-   * <p>Its parameters are:</p>
+   * <p>Query's parameters are:</p>
+   * <ul>
+   * 	<li>Param <strong>valueLongList</strong> is binded to method's parameter <strong>valueLongList</strong></li>
+   * </ul>
    *
-   * <pre>[valueLongList]</pre>
-   *
-   * <p>Projected column are:</p>
-   *
-   * <pre>[value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id]</pre>
+   * <p>Projected columns are:</p>
+   * <ul>
+   * 	<li><strong>value_bool_type</strong> is associated to bean's property <strong>valueBoolType</strong></li>
+   * 	<li><strong>value_bool</strong> is associated to bean's property <strong>valueBool</strong></li>
+   * 	<li><strong>value_byte_type</strong> is associated to bean's property <strong>valueByteType</strong></li>
+   * 	<li><strong>value_byte</strong> is associated to bean's property <strong>valueByte</strong></li>
+   * 	<li><strong>value_short_type</strong> is associated to bean's property <strong>valueShortType</strong></li>
+   * 	<li><strong>value_short</strong> is associated to bean's property <strong>valueShort</strong></li>
+   * 	<li><strong>value_int_type</strong> is associated to bean's property <strong>valueIntType</strong></li>
+   * 	<li><strong>value_int</strong> is associated to bean's property <strong>valueInt</strong></li>
+   * 	<li><strong>value_string</strong> is associated to bean's property <strong>valueString</strong></li>
+   * 	<li><strong>value_char_type</strong> is associated to bean's property <strong>valueCharType</strong></li>
+   * 	<li><strong>value_char</strong> is associated to bean's property <strong>valueChar</strong></li>
+   * 	<li><strong>value_float_type</strong> is associated to bean's property <strong>valueFloatType</strong></li>
+   * 	<li><strong>value_float</strong> is associated to bean's property <strong>valueFloat</strong></li>
+   * 	<li><strong>value_big_integer</strong> is associated to bean's property <strong>valueBigInteger</strong></li>
+   * 	<li><strong>value_big_decimal</strong> is associated to bean's property <strong>valueBigDecimal</strong></li>
+   * 	<li><strong>value_enum_type</strong> is associated to bean's property <strong>valueEnumType</strong></li>
+   * 	<li><strong>value_long_type</strong> is associated to bean's property <strong>valueLongType</strong></li>
+   * 	<li><strong>value_long</strong> is associated to bean's property <strong>valueLong</strong></li>
+   * 	<li><strong>value_double_type</strong> is associated to bean's property <strong>valueDoubleType</strong></li>
+   * 	<li><strong>value_double</strong> is associated to bean's property <strong>valueDouble</strong></li>
+   * 	<li><strong>value_locale</strong> is associated to bean's property <strong>valueLocale</strong></li>
+   * 	<li><strong>value_calendar</strong> is associated to bean's property <strong>valueCalendar</strong></li>
+   * 	<li><strong>value_date</strong> is associated to bean's property <strong>valueDate</strong></li>
+   * 	<li><strong>value_url</strong> is associated to bean's property <strong>valueUrl</strong></li>
+   * 	<li><strong>value_time</strong> is associated to bean's property <strong>valueTime</strong></li>
+   * 	<li><strong>value_currency</strong> is associated to bean's property <strong>valueCurrency</strong></li>
+   * 	<li><strong>value_time_zone</strong> is associated to bean's property <strong>valueTimeZone</strong></li>
+   * 	<li><strong>value_time_list</strong> is associated to bean's property <strong>valueTimeList</strong></li>
+   * 	<li><strong>value_strin_list</strong> is associated to bean's property <strong>valueStrinList</strong></li>
+   * 	<li><strong>value_long_list</strong> is associated to bean's property <strong>valueLongList</strong></li>
+   * 	<li><strong>value_byte_array</strong> is associated to bean's property <strong>valueByteArray</strong></li>
+   * 	<li><strong>value_long_type_array</strong> is associated to bean's property <strong>valueLongTypeArray</strong></li>
+   * 	<li><strong>value_long_array</strong> is associated to bean's property <strong>valueLongArray</strong></li>
+   * 	<li><strong>value_bean_array</strong> is associated to bean's property <strong>valueBeanArray</strong></li>
+   * 	<li><strong>value_string_array</strong> is associated to bean's property <strong>valueStringArray</strong></li>
+   * 	<li><strong>value_char_list</strong> is associated to bean's property <strong>valueCharList</strong></li>
+   * 	<li><strong>value_char_type_array</strong> is associated to bean's property <strong>valueCharTypeArray</strong></li>
+   * 	<li><strong>value_char_array</strong> is associated to bean's property <strong>valueCharArray</strong></li>
+   * 	<li><strong>value_map_string_bean</strong> is associated to bean's property <strong>valueMapStringBean</strong></li>
+   * 	<li><strong>value_linked_map_string_bean</strong> is associated to bean's property <strong>valueLinkedMapStringBean</strong></li>
+   * 	<li><strong>value_set_string</strong> is associated to bean's property <strong>valueSetString</strong></li>
+   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
+   * </ul>
    *
    * @param valueLongList
    *
@@ -7419,8 +9532,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <p>Delete query:</p>
    * <pre>DELETE bean WHERE valueLongList=${valueLongList}</pre>
    *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLongList}</dt><dd>is mapped to parameter <strong>valueLongList</strong></dd>
+   * </dl>
+   *
    * @param valueLongList
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLongList}</strong>
    *
    * @return number of deleted records
    */
@@ -7434,11 +9552,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update used:</p>
    * <pre>UPDATE bean SET  WHERE valueLongList=${valueLongList}</pre>
    *
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${valueLongList}</dt><dd>is mapped to parameter <strong>valueLongList</strong></dd>
+   * </dl>
+   *
    * @param valueLongList
-   * 	used in where condition
+   * 	is used as where parameter <strong>${valueLongList}</strong>
    *
    * @return number of updated records
    */
