@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.CalendarUtil;
 import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.CurrencyUtil;
@@ -896,7 +896,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectOne(int id, ReadBeanListener<Bean> listener) {
+  public void selectOne(int id, OnReadBeanListener<Bean> listener) {
     // build where condition
     String[] args={String.valueOf(id)};
 
@@ -1112,7 +1112,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectOne(long id, ReadCursorListener listener) {
+  public void selectOne(long id, OnReadCursorListener listener) {
     // build where condition
     String[] args={String.valueOf(id)};
 

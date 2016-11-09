@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.DateUtil;
 import com.abubusoft.kripton.common.StringUtil;
 import java.util.Date;
@@ -323,7 +323,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * @param listener
    */
   @Override
-  public void selectCursorListener(Long id, ReadCursorListener listener) {
+  public void selectCursorListener(Long id, OnReadCursorListener listener) {
     // build where condition
     String[] args={(id==null?null:String.valueOf(id))};
 
@@ -370,7 +370,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * @param listener
    */
   @Override
-  public void selectBeanListener(Long id, ReadBeanListener<Bean05> listener) {
+  public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
     // build where condition
     String[] args={(id==null?null:String.valueOf(id))};
 
@@ -442,7 +442,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * @param listener
    */
   @Override
-  public void selectOne(Long id, ReadCursorListener listener) {
+  public void selectOne(Long id, OnReadCursorListener listener) {
     // build where condition
     String[] args={(id==null?null:String.valueOf(id))};
 
@@ -489,7 +489,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * @param listener
    */
   @Override
-  public void selectOne(long id, ReadBeanListener<Bean05> listener) {
+  public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
     // build where condition
     String[] args={String.valueOf(id)};
 

@@ -121,7 +121,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 				separator = ", ";
 			}
 
-			methodBuilder.addJavadoc("<p>SQL Insert used:</p>\n");
+			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
 			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");						
@@ -130,11 +130,11 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
 
 			// list of inserted fields
-			methodBuilder.addJavadoc("<p><strong>Inserted fields:</strong></p>\n");
+			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
 				methodBuilder.addJavadoc("\t<dt>$L</dt>",daoDefinition.getColumnNameConverter().convert(property.getName()));
-				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L.$L</strong></dd>\n",method.findParameterAliasByName(method.getParameters().get(0).value0), method.findParameterNameByAlias(property.getName()));				
+				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n","${"+method.findParameterAliasByName(method.getParameters().get(0).value0)+"."+method.findParameterNameByAlias(property.getName())+"}");				
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 			

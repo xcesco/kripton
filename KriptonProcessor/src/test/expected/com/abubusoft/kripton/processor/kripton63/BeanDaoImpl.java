@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtil;
 import java.util.HashMap;
@@ -94,7 +94,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectOne(int id, ReadBeanListener<Bean63> listener) {
+  public void selectOne(int id, OnReadBeanListener<Bean63> listener) {
     // build where condition
     String[] args={String.valueOf(id)};
 
@@ -158,7 +158,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectOne(long id, ReadCursorListener listener) {
+  public void selectOne(long id, OnReadCursorListener listener) {
     // build where condition
     String[] args={String.valueOf(id)};
 
@@ -599,7 +599,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, ReadBeanListener<Bean63> listener) {
+  public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadBeanListener<Bean63> listener) {
     // build where condition
     String[] args={(valueMapEnumByte==null?null:String.valueOf(ProcessorHelper.asByteArray(valueMapEnumByte)))};
 
@@ -663,7 +663,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, ReadCursorListener listener) {
+  public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadCursorListener listener) {
     // build where condition
     String[] args={(valueMapEnumByte==null?null:String.valueOf(ProcessorHelper.asByteArray(valueMapEnumByte)))};
 

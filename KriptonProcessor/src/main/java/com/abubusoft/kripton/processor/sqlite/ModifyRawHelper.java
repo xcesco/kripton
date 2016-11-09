@@ -27,6 +27,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -193,6 +194,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		String sqlResult;
 		StringBuilder buffer = new StringBuilder();
 		StringBuilder bufferQuestion = new StringBuilder();
+		Converter<String, String> columnConverter = daoDefinition.getColumnNameConverter();
 
 		String separator = "";
 		for (Pair<String, TypeMirror> param : updateableParams) {
@@ -207,29 +209,28 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		String whereForLogging = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
 
 		if (updateMode) {
-			// generate sql query
-			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), whereForLogging);
-
-			methodBuilder.addJavadoc("<p>SQL Update used:</p>\n");
+			methodBuilder.addJavadoc("<p>SQL update:</p>\n");
 			methodBuilder.addJavadoc("<pre>UPDATE $L SET $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), buffer.toString(), whereCondition);
 			
 			// list of updated fields
 			methodBuilder.addJavadoc("\n");
-			methodBuilder.addJavadoc("<p><strong>Updated fields:</strong></p>\n");
+			methodBuilder.addJavadoc("<p><strong>Updated columns:</strong></p>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeMirror> property : updateableParams) {
 				String resolvedName = method.findParameterAliasByName(property.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", resolvedName);
-				methodBuilder.addJavadoc("<dd>is mapped to parameter <strong>$L</strong></dd>\n", property.value0);
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", columnConverter.convert(resolvedName));
+				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n","${"+resolvedName+"}", property.value0);
 			}
 			methodBuilder.addJavadoc("</dl>\n");
 			
+			// generate sql query
+			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), whereForLogging);
 		} else {
+			methodBuilder.addJavadoc("<p>SQL delete:</p>\n");
+			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), whereCondition);
+			
 			// generate sql query
 			sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getEntity().getTableName(), whereForLogging);
-
-			methodBuilder.addJavadoc("<p>Delete query:</p>\n");
-			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), whereCondition);
 		}
 
 		// list of where parameter
@@ -239,7 +240,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		for (Pair<String, TypeMirror> property : where.value1) {
 			String rawName = method.findParameterNameByAlias(property.value0);
 			methodBuilder.addJavadoc("\t<dt>$L</dt>", "${"+property.value0+"}");
-			methodBuilder.addJavadoc("<dd>is mapped to parameter <strong>$L</strong></dd>\n", rawName);
+			methodBuilder.addJavadoc("<dd>is mapped to method's parameter <strong>$L</strong></dd>\n", rawName);
 		}
 		methodBuilder.addJavadoc("</dl>\n\n");
 

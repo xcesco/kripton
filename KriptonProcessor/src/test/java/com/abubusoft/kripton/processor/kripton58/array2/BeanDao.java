@@ -22,8 +22,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 @BindDao(BeanBean.class)
 public interface BeanDao {
@@ -35,10 +35,10 @@ public interface BeanDao {
 	BeanBean selectOne(BeanInner[] value, BeanInner[] value2);
 
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
-	void selectOne(BeanInner[] value, BeanInner[] value2, ReadBeanListener<BeanBean> listener);	
+	void selectOne(BeanInner[] value, BeanInner[] value2, OnReadBeanListener<BeanBean> listener);	
 
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
-	void selectOne(BeanInner[] value, BeanInner[] value2, ReadCursorListener listener);
+	void selectOne(BeanInner[] value, BeanInner[] value2, OnReadCursorListener listener);
 	
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<BeanBean> selectList(BeanInner[] value, BeanInner[] value2);

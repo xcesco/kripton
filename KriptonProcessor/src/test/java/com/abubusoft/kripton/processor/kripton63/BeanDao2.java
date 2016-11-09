@@ -24,8 +24,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 @BindDao(Bean632.class)
 public interface BeanDao2 {
@@ -34,10 +34,10 @@ public interface BeanDao2 {
 	Bean632 selectOne();	
 
 	@BindSqlSelect(where = "id = ${id}")
-	void selectOne(int id, ReadBeanListener<Bean632> listener);
+	void selectOne(int id, OnReadBeanListener<Bean632> listener);
 
 	@BindSqlSelect(where = "id = ${id}")
-	void selectOne(long id, ReadCursorListener listener);
+	void selectOne(long id, OnReadCursorListener listener);
 
 	@BindSqlSelect(where = "id = ${id}")
 	List<Bean632> selectList(long id);

@@ -141,7 +141,7 @@ public abstract class SqlModifyBuilder {
 			
 			if (method.getParameters().size()>1)
 			{
-				throw (new InvalidMethodSignException(method, " aspected only one parameter of "+daoDefinition.getEntityClassName()+" type"));
+				throw (new InvalidMethodSignException(method, " expected only one parameter of "+daoDefinition.getEntityClassName()+" type"));
 			}
 		} else {
 			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));

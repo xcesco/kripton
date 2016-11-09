@@ -39,8 +39,8 @@ import android.database.Cursor;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.JavadocUtility;
@@ -166,8 +166,8 @@ public abstract class MethodUtility {
 		TypeMirror returnType = method.getReturnClass();
 		TypeName returnTypeName = typeName(returnType);
 
-		LiteralType readBeanListener = LiteralType.of(ReadBeanListener.class.getCanonicalName(), entity.getName());
-		LiteralType readCursorListener = LiteralType.of(ReadCursorListener.class);
+		LiteralType readBeanListener = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
+		LiteralType readCursorListener = LiteralType.of(OnReadCursorListener.class);
 
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
@@ -351,12 +351,12 @@ public abstract class MethodUtility {
 		{
 			switch (selectResultType) {
 			case LISTENER_CURSOR: {
-				LiteralType readCursorListenerToExclude = LiteralType.of(ReadCursorListener.class);
+				LiteralType readCursorListenerToExclude = LiteralType.of(OnReadCursorListener.class);
 				checkUnusedParameters(method, usedMethodParameters, readCursorListenerToExclude);
 			}
 				break;
 			case LISTENER_BEAN: {
-				LiteralType readBeanListenerToExclude = LiteralType.of(ReadBeanListener.class.getCanonicalName(), entity.getName());
+				LiteralType readBeanListenerToExclude = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
 				checkUnusedParameters(method, usedMethodParameters, readBeanListenerToExclude);
 			}
 				break;

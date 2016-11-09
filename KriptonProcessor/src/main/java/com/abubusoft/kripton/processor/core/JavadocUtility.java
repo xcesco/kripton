@@ -20,12 +20,15 @@ import java.util.List;
 
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.Version;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.PropertyList;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectResultType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
@@ -46,50 +49,58 @@ public abstract class JavadocUtility {
 	}
 
 	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, String sql, List<String> sqlParams, SQLiteModelMethod method, ModelAnnotation annotation, PropertyList fieldList, SelectResultType selectResultType) {
-		methodBuilder.addJavadoc("<p>Select SQL:</p>\n", annotation.getSimpleName());
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sql);
-
-		if (sqlParams.size() > 0) {
-			methodBuilder.addJavadoc("<p>Query's parameters are:</p>\n");
-			methodBuilder.addJavadoc("<ul>");
-			String separator = "\n";
-			for (String param : sqlParams) {
-				methodBuilder.addJavadoc(separator + "\t<li>Param <strong>$L</strong> is binded to method's parameter <strong>$L</strong></li>", param, method.findParameterNameByAlias(param));
-			}
-			methodBuilder.addJavadoc("\n</ul>\n\n");
-		}
+		SQLDaoDefinition daoDefinition = method.getParent();
+		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 		
+		methodBuilder.addJavadoc("<h2>Select SQL:</h2>\n<p>\n", annotation.getSimpleName());
+		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sql);
+				
 		// there will be alway some projected column
 		{			
-			methodBuilder.addJavadoc("<p>Projected columns are:</p>\n");
-			methodBuilder.addJavadoc("<ul>\n");
+			methodBuilder.addJavadoc("<h2>Projected columns:</h2>\n<p>\n");
+			methodBuilder.addJavadoc("<dl>\n");
 			int i=0;
 			String[] columnList=fieldList.value0.split(",");
 			for (String column: columnList)
-			{
-				methodBuilder.addJavadoc("\t<li>");
-				methodBuilder.addJavadoc("<strong>$L</strong>", column.trim());
-				
+			{							
 				// display field info only it exists
 				if (fieldList.value1.get(i)!=null)
 				{
+					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.trim());
 					SQLProperty attribute = fieldList.value1.get(i);
-					methodBuilder.addJavadoc(" is associated to bean's property <strong>$L</strong>", attribute.name);
+					methodBuilder.addJavadoc("<dd>is associated to bean's property <strong>$L</strong></dd>", attribute.name);
+				} else {
+					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.trim());
+					methodBuilder.addJavadoc("<dd>no bean's property is associated</dd>");
 				}
-				methodBuilder.addJavadoc("</li>\n");
+				methodBuilder.addJavadoc("\n");
 				i++;
 			}
-			methodBuilder.addJavadoc("</ul>\n\n");
-			
+			methodBuilder.addJavadoc("</dl>\n\n");
+		}
 		
-		//methodBuilder.addJavadoc("<pre>[$L]</pre>\n\n", fieldList.value0);
+		if (sqlParams.size() > 0) {
+			methodBuilder.addJavadoc("<h2>Query's parameters:</h2>\n<p>\n");
+			methodBuilder.addJavadoc("<dl>\n");			
+			for (String param : sqlParams) {
+				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is binded to method's parameter <strong>$L</strong></dd>\n", "${"+param+"}", method.findParameterNameByAlias(param));
+			}
+			methodBuilder.addJavadoc("</dl>\n\n");
 		}
 
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
-
+		
 			methodBuilder.addJavadoc("@param $L\n", parameterSpec.name);
+			if (beanTypeName.equals(TypeName.get(item.value1)))
+			{						
+				methodBuilder.addJavadoc("\tis used as $L\n", "${" + method.findParameterAliasByName(item.value0) + "}");				
+			} else if (TypeUtility.isTypeIncludedIn(TypeName.get(item.value1), OnReadBeanListener.class)) {
+				methodBuilder.addJavadoc("\tis listener \n");
+			} else {
+				methodBuilder.addJavadoc("\tis -----\n");
+			}
 		}
 
 		switch (selectResultType) {

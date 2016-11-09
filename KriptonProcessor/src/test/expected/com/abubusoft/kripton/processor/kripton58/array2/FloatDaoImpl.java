@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtil;
@@ -144,7 +144,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    * @param listener
    */
   @Override
-  public void selectOne(float[] value, Float[] value2, ReadBeanListener<FloatBean> listener) {
+  public void selectOne(float[] value, Float[] value2, OnReadBeanListener<FloatBean> listener) {
     // build where condition
     String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
@@ -206,7 +206,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    * @param listener
    */
   @Override
-  public void selectOne(float[] value, Float[] value2, ReadCursorListener listener) {
+  public void selectOne(float[] value, Float[] value2, OnReadCursorListener listener) {
     // build where condition
     String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 

@@ -23,8 +23,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 @BindDao(Bean05.class)
 public interface DaoBean05 {
@@ -46,16 +46,16 @@ public interface DaoBean05 {
 	Long selectCount(String text);
 	
 	@BindSqlSelect(where="pk=${id}")
-	void selectCursorListener(Long id, ReadCursorListener listener);
+	void selectCursorListener(Long id, OnReadCursorListener listener);
 	
 	@BindSqlSelect(where="pk=${id}")
-	void selectBeanListener(Long id, ReadBeanListener<Bean05> listener);
+	void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener);
 
 	@BindSqlSelect(where="pk=${id}")
-	void selectOne(Long id, ReadCursorListener listener);
+	void selectOne(Long id, OnReadCursorListener listener);
 
 	@BindSqlSelect(where="pk=${id}")
-	void selectOne(long id, ReadBeanListener<Bean05> listener);
+	void selectOne(long id, OnReadBeanListener<Bean05> listener);
 
 	@BindSqlInsert
 	long insertRaw(String text, byte[] content, Date creationTime);

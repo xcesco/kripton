@@ -25,7 +25,7 @@ import java.util.List;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -57,7 +57,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 		SQLDaoDefinition daoDefinition=method.getParent();
 		SQLEntity entity=daoDefinition.getEntity();
 		
-		LiteralType listenerType = LiteralType.of(ReadBeanListener.class, entity.getElement());
+		LiteralType listenerType = LiteralType.of(OnReadBeanListener.class, entity.getElement());
 		List<SQLProperty> fields = fieldList.value1;
 		TypeName entityClass = typeName(entity.getElement());
 
@@ -135,8 +135,6 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
-		//methodBuilder.nextControlFlow("catch(Throwable e)");
-		//methodBuilder.addCode("throw (e);\n");
 		methodBuilder.nextControlFlow("finally");
 		methodBuilder.beginControlFlow("if (cursor!=null)\n");
 		methodBuilder.addCode("cursor.close();\n");

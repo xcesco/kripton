@@ -21,6 +21,7 @@ import javax.lang.model.util.Elements;
 import android.content.ContentValues;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -110,6 +111,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
+		Converter<String, String> columnConverter = daoDefinition.getColumnNameConverter();
 
 		String sqlInsert;
 		{
@@ -121,33 +123,33 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				String separator = "";
 				for (Pair<String, TypeMirror> item : method.getParameters()) {
 					String resolvedParamName = method.findParameterAliasByName(item.value0);
-					bufferName.append(separator + daoDefinition.getColumnNameConverter().convert(resolvedParamName));
+					bufferName.append(separator + columnConverter.convert(resolvedParamName));
 					bufferValue.append(separator + "${" + resolvedParamName + "}");
 
 					// here it needed raw parameter name
-					bufferQuestion.append(separator + "'\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(resolvedParamName) + "\"))+\"'");
+					bufferQuestion.append(separator + "'\"+StringUtil.checkSize(contentValues.get(\"" + columnConverter.convert(resolvedParamName) + "\"))+\"'");
 					separator = ", ";
 				}
 			}
 
-			methodBuilder.addJavadoc("<p>SQL Insert used:</p>\n");
+			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
 			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
 			methodBuilder.addJavadoc("\n");
 			
 			// list of inserted fields
-			methodBuilder.addJavadoc("<p><strong>Inserted fields:</strong></p>\n");
+			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeMirror> property : method.getParameters()) {
 				String resolvedName=method.findParameterAliasByName(property.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>",resolvedName);
-				methodBuilder.addJavadoc("<dd>is mapped to parameter <strong>$L</strong></dd>\n",property.value0);				
+				methodBuilder.addJavadoc("\t<dt>$L</dt>",columnConverter.convert(resolvedName));
+				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n","${"+resolvedName+"}", property.value0);				
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 
 			{								
 				for (Pair<String, TypeMirror> param : method.getParameters()) {
 					methodBuilder.addJavadoc("@param $L\n", param.value0);
-					methodBuilder.addJavadoc("\tis binded to column <strong>$L</strong>\n", daoDefinition.getColumnNameConverter().convert(method.findParameterAliasByName(param.value0)));
+					methodBuilder.addJavadoc("\tis binded to column <strong>$L</strong>\n", columnConverter.convert(method.findParameterAliasByName(param.value0)));
 				}				
 			}
 

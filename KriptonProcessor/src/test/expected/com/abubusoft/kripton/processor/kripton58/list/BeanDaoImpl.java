@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtil;
 import java.nio.charset.StandardCharsets;
@@ -139,7 +139,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectOne(List<BeanBean> value, ReadBeanListener<BeanBean> listener) {
+  public void selectOne(List<BeanBean> value, OnReadBeanListener<BeanBean> listener) {
     // build where condition
     String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
 
@@ -199,7 +199,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @param listener
    */
   @Override
-  public void selectOne(List<BeanBean> value, ReadCursorListener listener) {
+  public void selectOne(List<BeanBean> value, OnReadCursorListener listener) {
     // build where condition
     String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
 

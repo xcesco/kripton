@@ -26,8 +26,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.sqlite.ReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.ReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 @BindDao(Bean63.class)
 public interface BeanDao {
@@ -36,10 +36,10 @@ public interface BeanDao {
 	Bean63 selectOne();	
 
 	@BindSqlSelect(where = "id = ${id}")
-	void selectOne(int id, ReadBeanListener<Bean63> listener);
+	void selectOne(int id, OnReadBeanListener<Bean63> listener);
 
 	@BindSqlSelect(where = "id = ${id}")
-	void selectOne(long id, ReadCursorListener listener);
+	void selectOne(long id, OnReadCursorListener listener);
 
 	@BindSqlSelect(where = "id = ${id}")
 	List<Bean63> selectList(long id);
@@ -74,10 +74,10 @@ public interface BeanDao {
 	Cursor selectCursorOne(HashMap<EnumType, Byte> valueMapEnumByte);
 	
 	@BindSqlSelect(where = "value=${valueMapEnumByte}")
-	void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, ReadBeanListener<Bean63> listener);
+	void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadBeanListener<Bean63> listener);
 	
 	@BindSqlSelect(where = "value=${valueMapEnumByte}")
-	void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, ReadCursorListener listener);
+	void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadCursorListener listener);
 	
 	@BindSqlDelete(where = "value=${valueMapEnumByte}")
 	long delete(HashMap<EnumType, Byte> valueMapEnumByte);

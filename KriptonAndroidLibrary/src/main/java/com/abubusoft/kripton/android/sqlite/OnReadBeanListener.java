@@ -28,7 +28,7 @@ package com.abubusoft.kripton.android.sqlite;
  *
  * @since 17/mag/2016
  */
-public interface ReadBeanListener<E> {
+public interface OnReadBeanListener<E> {
 
 	/**
 	 * This event is fired for each row of resultset after cursor values are converted in a bean. The bean is reused.

@@ -28,7 +28,7 @@ import android.database.Cursor;
  *
  * @since 17/mag/2016
  */
-public interface ReadCursorListener {
+public interface OnReadCursorListener {
 
 	/**
 	 * This event is fired for each row of resultset.

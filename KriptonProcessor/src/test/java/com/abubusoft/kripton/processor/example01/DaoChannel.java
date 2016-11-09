@@ -25,11 +25,32 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
 @BindDao(Channel.class)
 public interface DaoChannel {
+
+	
+	// delete
+	
+	@BindSqlUpdate(where="id=${value.id} and id=${value.id}")
+	int updateContactBean1(@BindSqlParam("value") Channel bean);
+	
 /*
-	// raw insert
+	@BindSqlDelete(where="ownerUid=${value.id}")
+	boolean deleteContactBean1(@BindSqlParam("value") Channel channel);
+	
+	@BindSqlDelete(where="ownerUid=${value.id}")
+	boolean deleteContactBean2(Channel value);		
+	
+	@BindSqlDelete(where="ownerUid=${ownerUid} and id=${id}")
+	long deleteContactRaw1(@BindSqlParam("ownerUid") String b, @BindSqlParam("id") long dummy);
+	
+	@BindSqlDelete(where="ownerUid=${ownerUid} and id=${id}")
+	boolean deleteContactRaw2(String ownerUid, long id);
+	
+	
+	// insert	
 	@BindSqlInsert
 	long insertRaw1(@BindSqlParam("ownerUid") String b, @BindSqlParam("id") long azz);
 	
@@ -44,8 +65,11 @@ public interface DaoChannel {
 	
 	@BindSqlInsert
 	boolean insertBean2(@BindSqlParam("arg") Channel bean);
-*/
+	*/
+	
 	/*
+
+	
 	@BindSqlUpdate(where = "id=${dummy}")
 	long updateContactRaw1(@BindSqlParam("id") long glu,@BindSqlParam("dummy") long aid);
 	
@@ -54,39 +78,34 @@ public interface DaoChannel {
 	
 	@BindSqlUpdate(where="id=${test}")
 	boolean updateContactRaw3(@BindSqlParam("ownerUid") String app, @BindSqlParam("test") long id);
-	*/
 	
 	@BindSqlUpdate(where="id=${id}")
 	int updateContactRaw4(String ownerUid, long id);
 	
+	
 	@BindSqlUpdate(where="id=${bean.id}")
-	int updateContactBean1(Channel bean);
+	int updateContactBean1(@BindSqlParam("bean") Channel value);
+	*/
 	
 	/*
-	
-	@BindSqlDelete(where="ownerUid=${ownerUid}")
-	long deleteContactRaw1(@BindSqlParam("ownerUid") String b);
-	
-	@BindSqlDelete(where="ownerUid=${ownerUid}")
-	boolean deleteContactRaw2(String ownerUid);*/
-	
-	@BindSqlDelete(where="ownerUid=${channel.id}")
-	boolean deleteContactBean1(Channel channel);
-	
-	@BindSqlDelete(where="ownerUid=${channel.id}")
-	boolean deleteContactBean2(@BindSqlParam("channel") Channel value);
-
-//    @BindSqlSelect
-//    List<Channel> selectAll();
-//	
-//    @BindSqlSelect(where="updateTime=${a}")
-//    List<Channel> select(@BindSqlParam("a") long updateTimeA);
-  
+	@BindSqlUpdate(where="id=${bean.id}")
+	int updateContactBean(Channel bean);
+	*/
 	
 	/*
-	@BindSqlSelect(value="count(*)",where="updateTime=${godo.updateTime}")
-    long selectCount(@BindSqlParam("godo") Channel input);
+    @BindSqlSelect
+    List<Channel> selectAll();
 	
+    @BindSqlSelect(where="updateTime=${a}")
+    List<Channel> selectRaw1(@BindSqlParam("a") long updateTimeA);  	
+	
+	@BindSqlSelect(value="count(*)",where="updateTime=${bean.updateTime}")
+    long selectBean1(@BindSqlParam("bean") Channel value);
+	*/
+	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
+    void selectBean2(@BindSqlParam("bean") Channel value, OnReadBeanListener<Channel> listener);
+	
+	/*
 	@BindSqlSelect(value={"id","ownerUid"}, where="updateTime=${input.updateTime}")
 	List<Channel> selectId(Channel input);
 	
