@@ -134,7 +134,7 @@ public class SqlAnalyzer {
 			while (matcher.find()) {
 				ModelProperty property = entity.findByName(matcher.group(1));
 				if (property != null) {
-					matcher.appendReplacement(buffer, SQLUtility.getColumnName(matcher.group(1)));
+					matcher.appendReplacement(buffer, SqlUtility.getColumnName(matcher.group(1)));
 				}
 
 			}

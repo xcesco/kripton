@@ -31,7 +31,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
-public class SQLUtility {
+public class SqlUtility {
 	private static final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w\\.]*)\\s*\\}");
 
 	private static final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");

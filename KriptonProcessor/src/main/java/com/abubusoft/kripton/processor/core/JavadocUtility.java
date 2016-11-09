@@ -25,7 +25,7 @@ import com.abubusoft.kripton.common.StringUtil;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.sqlite.PropertyList;
-import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectResultType;
+import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectResultType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;

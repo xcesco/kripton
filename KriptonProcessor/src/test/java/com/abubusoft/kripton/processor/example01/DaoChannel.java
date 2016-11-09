@@ -28,15 +28,53 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 @BindDao(Channel.class)
 public interface DaoChannel {
-
+/*
+	// raw insert
 	@BindSqlInsert
-	long insertContact(@BindSqlParam("ownerUid") String b, @BindSqlParam("id") long azz);
+	long insertRaw1(@BindSqlParam("ownerUid") String b, @BindSqlParam("id") long azz);
+	
+	@BindSqlInsert
+	boolean insertRaw2(@BindSqlParam("ownerUid") String b, long id);
+	
+	@BindSqlInsert
+	int insertRaw3(String ownerUid, long id);
+	
+	@BindSqlInsert
+	int insertBean1(Channel bean);
+	
+	@BindSqlInsert
+	boolean insertBean2(@BindSqlParam("arg") Channel bean);
+*/
+	/*
+	@BindSqlUpdate(where = "id=${dummy}")
+	long updateContactRaw1(@BindSqlParam("id") long glu,@BindSqlParam("dummy") long aid);
+	
+	@BindSqlUpdate(where = "id=${dummy}")
+	long updateContactRaw2(long id,long dummy);
 	
 	@BindSqlUpdate(where="id=${test}")
-	long updateContact(@BindSqlParam("ownerUid") String app, @BindSqlParam("test") long id);
+	boolean updateContactRaw3(@BindSqlParam("ownerUid") String app, @BindSqlParam("test") long id);
+	*/
 	
-	@BindSqlDelete(where="ownerUid=${pap}")
-	long deleteContact(@BindSqlParam("pap") String b);
+	@BindSqlUpdate(where="id=${id}")
+	int updateContactRaw4(String ownerUid, long id);
+	
+	@BindSqlUpdate(where="id=${bean.id}")
+	int updateContactBean1(Channel bean);
+	
+	/*
+	
+	@BindSqlDelete(where="ownerUid=${ownerUid}")
+	long deleteContactRaw1(@BindSqlParam("ownerUid") String b);
+	
+	@BindSqlDelete(where="ownerUid=${ownerUid}")
+	boolean deleteContactRaw2(String ownerUid);*/
+	
+	@BindSqlDelete(where="ownerUid=${channel.id}")
+	boolean deleteContactBean1(Channel channel);
+	
+	@BindSqlDelete(where="ownerUid=${channel.id}")
+	boolean deleteContactBean2(@BindSqlParam("channel") Channel value);
 
 //    @BindSqlSelect
 //    List<Channel> selectAll();
@@ -62,8 +100,7 @@ public interface DaoChannel {
     Cursor selectCursor(Channel channel);
 	*/
 	/*
-	@BindSqlUpdate(where = "id=${dummy}")
-	long updateContact(long id,@BindSqlParam("dummy") long aid);*/
+	*/
 	/*
 	@SQLSelectBean(where = "")
 	ChannelMessage selectBean();*/

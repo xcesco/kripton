@@ -26,7 +26,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator;
+import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -70,7 +70,7 @@ public class SelectBeanHelper implements SelectCodeGenerator {
 			int i = 0;
 			for (ModelProperty item : fields) {
 				methodBuilder.addCode("int index" + (i++) + "=");
-				methodBuilder.addCode("cursor.getColumnIndex($S)", SQLUtility.getColumnName(item));
+				methodBuilder.addCode("cursor.getColumnIndex($S)", SqlUtility.getColumnName(item));
 				methodBuilder.addCode(";\n");
 			}
 		}

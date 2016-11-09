@@ -85,7 +85,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		// javadoc for class
 		builder.addJavadoc("<p>");
 		builder.addJavadoc("\nDAO implementation for entity <code>$L</code>, based on interface <code>$L</code>\n", value.getEntity().getSimpleName(), value.getElement().getSimpleName().toString());
-		builder.addJavadoc("</p>\n");
+		builder.addJavadoc("</p>\n\n");
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getEntityClassName()));
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getElement().getQualifiedName().toString()));

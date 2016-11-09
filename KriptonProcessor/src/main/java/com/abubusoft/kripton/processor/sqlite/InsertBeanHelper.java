@@ -109,7 +109,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		String sqlInsert;
 		// generate javadoc and result
 		{
-			String beanNameParameter = method.getParameters().get(0).value0;
+			String beanNameParameter = method.findParameterAliasByName(method.getParameters().get(0).value0);
 			StringBuilder bufferName = new StringBuilder();
 			StringBuilder bufferValue = new StringBuilder();
 			StringBuilder bufferQuestion = new StringBuilder();
@@ -121,32 +121,30 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 				separator = ", ";
 			}
 
-			methodBuilder.addJavadoc("<p>Insert query:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
+			methodBuilder.addJavadoc("<p>SQL Insert used:</p>\n");
+			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");						
 
 			// generate sql query
 			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
 
+			// list of inserted fields
+			methodBuilder.addJavadoc("<p><strong>Inserted fields:</strong></p>\n");
+			methodBuilder.addJavadoc("<dl>\n");
+			for (SQLProperty property : listUsedProperty) {
+				methodBuilder.addJavadoc("\t<dt>$L</dt>",daoDefinition.getColumnNameConverter().convert(property.getName()));
+				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L.$L</strong></dd>\n",method.findParameterAliasByName(method.getParameters().get(0).value0), method.findParameterNameByAlias(property.getName()));				
+			}
+			methodBuilder.addJavadoc("</dl>\n\n");
+			
 			// update bean have only one parameter: the bean to update
 			for (Pair<String, TypeMirror> param : method.getParameters()) {
 				methodBuilder.addJavadoc("@param $L", param.value0);
-				methodBuilder.addJavadoc("\n\tused as updated field and in where condition\n");
+				methodBuilder.addJavadoc("\n\tis mapped to parameter <strong>$L</strong>\n", method.findParameterAliasByName(param.value0));
 			}
-
-			if (returnType == TypeName.VOID) {
-			} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
-				methodBuilder.addJavadoc("@return true if record is inserted");
-				methodBuilder.addJavadoc("\n");
-			} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
-				methodBuilder.addJavadoc("@return id of inserted record");
-				methodBuilder.addJavadoc("\n");
-			} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
-				methodBuilder.addJavadoc("@return id of inserted record");
-				methodBuilder.addJavadoc("\n");
-			}
-
+			
+			InsertRawHelper.generateJavaDocReturnType(methodBuilder, returnType);			
 		}
 		return sqlInsert;
 	}

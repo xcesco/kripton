@@ -9,6 +9,7 @@ import com.abubusoft.kripton.common.StringUtil;
  * <p>
  * DAO implementation for entity <code>Channel</code>, based on interface <code>DaoChannel</code>
  * </p>
+ *
  *  @see Channel
  *  @see DaoChannel
  *  @see ChannelTable
@@ -19,83 +20,117 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>Insert SQL:</p>
-   * <pre>INSERT INTO channel (owner_uid, id) VALUES (${ownerUid}, ${id})</pre>
+   * <p>SQL Update used:</p>
+   * <pre>UPDATE channel SET ownerUid=${ownerUid} WHERE id=${id}</pre>
    *
-   * <p>Insert's parameters are:</p>
-   * <ul>
-   * 	<li>Method's param <strong>b</strong> is binded to column <strong>owner_uid</strong></li>
-   * 	<li>Method's param <strong>azz</strong> is binded to column <strong>id</strong></li>
-   * </ul>
+   * <p><strong>Updated fields:</strong></p>
+   * <dl>
+   * 	<dt>ownerUid</dt><dd>is mapped to parameter <strong>ownerUid</strong></dd>
+   * </dl>
    *
-   * @param b
-   * 	used as inserted field
-   * @param azz
-   * 	used as inserted field
-   * @return id of inserted record
-   */
-  @Override
-  public long insertContact(String b, long azz) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    if (b!=null) {
-      contentValues.put("owner_uid", b);
-    } else {
-      contentValues.putNull("owner_uid");
-    }
-
-    contentValues.put("id", azz);
-
-    // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtil.checkSize(contentValues.get("b"))+"', '"+StringUtil.checkSize(contentValues.get("azz"))+"')"));
-    long result = database().insert("channel", null, contentValues);
-    return result;
-  }
-
-  /**
-   * <p>Update SQL:</p>
-   * <pre>UPDATE channel SET app=${ownerUid} WHERE id=${test}</pre>
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * </dl>
    *
-   * @param app
-   * 	used as updated field
+   * @param ownerUid
+   * 	is used as updated field <strong>ownerUid</strong>
    * @param id
-   * 	used as updated field
+   * 	is used as where parameter <strong>${id}</strong>
    *
    * @return number of updated records
    */
   @Override
-  public long updateContact(String app, long id) {
+  public int updateContactRaw4(String ownerUid, long id) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-    if (app!=null) {
-      contentValues.put("owner_uid", app);
+    if (ownerUid!=null) {
+      contentValues.put("owner_uid", ownerUid);
     } else {
       contentValues.putNull("owner_uid");
     }
 
     String[] whereConditions={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE channel SET app='"+StringUtil.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s"), (Object[])whereConditions);
+    Logger.info(StringUtil.formatSQL("UPDATE channel SET ownerUid='"+StringUtil.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s"), (Object[])whereConditions);
     int result = database().update("channel", contentValues, "id=?", whereConditions);
     return result;
   }
 
   /**
-   * <p>Delete query:</p>
-   * <pre>DELETE channel WHERE ownerUid=${pap}</pre>
+   * <p>Update query:</p>
+   * <pre>UPDATE channel SET uid=${bean.uid}, owner_uid=${bean.ownerUid}, update_time=${bean.updateTime}, name=${bean.name} WHERE id=${bean.id}</pre>
    *
-   * @param b
-   * 	used as updated field
+   * @param bean
+   * 	is used as where parameter ${bean}
    *
-   * @return number of deleted records
+   * @return number of updated records
    */
   @Override
-  public long deleteContact(String b) {
-    String[] whereConditions={(b==null?null:b)};
+  public int updateContactBean1(Channel bean) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
 
-    Logger.info(StringUtil.formatSQL("DELETE channel WHERE ownerUid=%s"), (Object[])whereConditions);
-    int result = database().delete("channel", "owner_uid=?", whereConditions);
+    if (bean.getUid()!=null) {
+      contentValues.put("uid", bean.getUid());
+    } else {
+      contentValues.putNull("uid");
+    }
+
+    if (bean.getOwnerUid()!=null) {
+      contentValues.put("owner_uid", bean.getOwnerUid());
+    } else {
+      contentValues.putNull("owner_uid");
+    }
+
+    contentValues.put("update_time", bean.getUpdateTime());
+
+    if (bean.getName()!=null) {
+      contentValues.put("name", bean.getName());
+    } else {
+      contentValues.putNull("name");
+    }
+
+    String[] whereConditions={String.valueOf(bean.getId())};
+
+    Logger.info(StringUtil.formatSQL("UPDATE channel SET uid='"+StringUtil.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtil.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtil.checkSize(contentValues.get("update_time"))+"', name='"+StringUtil.checkSize(contentValues.get("name"))+"' WHERE id=%s"), (Object[])whereConditions);
+    int result = database().update("channel", contentValues, "id=?", whereConditions);
     return result;
+  }
+
+  /**
+   * <p>SQL Delete used:</p>
+   * <pre>DELETE channel WHERE ownerUid=${channel.id}</pre>
+   *
+   * @param channel
+   * 	is used as where parameter ${channel}
+   *
+   * @return <code>true</code> if record is deleted, <code>false</code> otherwise
+   */
+  @Override
+  public boolean deleteContactBean1(Channel channel) {
+    String[] whereConditions={String.valueOf(channel.getId())};
+
+    Logger.info(StringUtil.formatSQL("owner_uid=%s"), (Object[])whereConditions);
+    int result = database().delete("channel", "owner_uid=?", whereConditions);
+    return result!=0;
+  }
+
+  /**
+   * <p>SQL Delete used:</p>
+   * <pre>DELETE channel WHERE ownerUid=${channel.id}</pre>
+   *
+   * @param value
+   * 	is used as where parameter ${channel}
+   *
+   * @return <code>true</code> if record is deleted, <code>false</code> otherwise
+   */
+  @Override
+  public boolean deleteContactBean2(Channel value) {
+    String[] whereConditions={String.valueOf(value.getId())};
+
+    Logger.info(StringUtil.formatSQL("owner_uid=%s"), (Object[])whereConditions);
+    int result = database().delete("channel", "owner_uid=?", whereConditions);
+    return result!=0;
   }
 }

@@ -173,18 +173,24 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		if (returnType == TypeName.VOID) {
 
 		} else if (isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
+			methodBuilder.addJavadoc("\n");
 			if (updateMode)
-				methodBuilder.addJavadoc("\n@return true if record is updated\n");
+				methodBuilder.addJavadoc("@return <code>true</code> if record is updated, <code>false</code> otherwise");
 			else
-				methodBuilder.addJavadoc("\n@return true if record is deleted\n");
+				methodBuilder.addJavadoc("@return <code>true</code> if record is deleted, <code>false</code> otherwise");
+			methodBuilder.addJavadoc("\n");
+			
 			methodBuilder.addCode("return result!=0;\n");
 		} else if (isTypeIncludedIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE,
 				Short.class)) {
+			methodBuilder.addJavadoc("\n");
 			if (updateMode) {
-				methodBuilder.addJavadoc("\n@return number of updated records\n");
+				methodBuilder.addJavadoc("@return number of updated records");
 			} else {
-				methodBuilder.addJavadoc("\n@return number of deleted records\n");
+				methodBuilder.addJavadoc("@return number of deleted records");
 			}
+			methodBuilder.addJavadoc("\n");
+			
 			methodBuilder.addCode("return result;\n");
 		} else {
 			// more than one listener found
@@ -224,7 +230,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		}
 
 		if (updateMode) {
-			String where = SQLUtility.replaceParametersWithQuestion(whereCondition, "%s");
+			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
 			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(),
 					bufferQuestion.toString(), where);
 
@@ -232,11 +238,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<pre>UPDATE $L SET $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(),
 					buffer.toString(), whereCondition);
 		} else {
-			String where = SQLUtility.replaceParametersWithQuestion(whereCondition, "%s");
+			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
 			sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getEntity().getTableName(),
 					bufferQuestion.toString(), where);
 
-			methodBuilder.addJavadoc("<p>Delete query:</p>\n");
+			methodBuilder.addJavadoc("<p>SQL Delete used:</p>\n");
 			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(),
 					whereCondition);
 		}
@@ -245,7 +251,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		// update bean have only one parameter: the bean to update
 		for (Pair<String, TypeMirror> param : method.getParameters()) {
 			methodBuilder.addJavadoc("@param $L", param.value0);
-			methodBuilder.addJavadoc("\n\tused as updated field and in where condition\n");
+			methodBuilder.addJavadoc("\n\tis used as where parameter $L\n", "${"+method.findParameterAliasByName(param.value0)+"}");
 		}
 
 		return sqlResult;

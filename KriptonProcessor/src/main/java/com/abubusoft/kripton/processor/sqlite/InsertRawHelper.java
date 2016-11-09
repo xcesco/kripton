@@ -38,8 +38,7 @@ import com.squareup.javapoet.TypeName;
 public class InsertRawHelper implements InsertCodeGenerator {
 
 	@Override
-	public String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields,
-			SQLiteModelMethod method, TypeName returnType) {
+	public String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -66,15 +65,13 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				// it use raw method param's name
 				methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 			}
-			methodBuilder.addCode("contentValues.put($S, ",
-					daoDefinition.getColumnNameConverter().convert(property.getName()));
+			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
 			// it does not need to be converted in string
 			Transformer.java2ContentValues(methodBuilder, item.value1, item.value0);
 			methodBuilder.addCode(");\n");
 			if (nullable) {
 				methodBuilder.nextControlFlow("else");
-				methodBuilder.addCode("contentValues.putNull($S);\n",
-						daoDefinition.getColumnNameConverter().convert(propertyName));
+				methodBuilder.addCode("contentValues.putNull($S);\n", daoDefinition.getColumnNameConverter().convert(propertyName));
 				methodBuilder.endControlFlow();
 			}
 			methodBuilder.addCode("\n");
@@ -87,19 +84,15 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		// define return value
 		if (returnType == TypeName.VOID) {
-			methodBuilder.addCode("database().insert($S, null, contentValues);\n",
-					daoDefinition.getEntity().getTableName());
+			methodBuilder.addCode("database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
-			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n",
-					daoDefinition.getEntity().getTableName());
+			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
 			methodBuilder.addCode("return result!=-1;\n");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
-			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n",
-					daoDefinition.getEntity().getTableName());
+			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
 			methodBuilder.addCode("return result;\n");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
-			methodBuilder.addCode("int result = (int)database().insert($S, null, contentValues);\n",
-					daoDefinition.getEntity().getTableName());
+			methodBuilder.addCode("int result = (int)database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
 			methodBuilder.addCode("return result;\n");
 		} else {
 			// more than one listener found
@@ -132,51 +125,57 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					bufferValue.append(separator + "${" + resolvedParamName + "}");
 
 					// here it needed raw parameter name
-					bufferQuestion.append(separator + "'\"+StringUtil.checkSize(contentValues.get(\""
-							+ daoDefinition.getColumnNameConverter().convert(item.value0) + "\"))+\"'");
+					bufferQuestion.append(separator + "'\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(resolvedParamName) + "\"))+\"'");
 					separator = ", ";
 				}
 			}
 
-			methodBuilder.addJavadoc("<p>Insert SQL:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n",
-					daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
+			methodBuilder.addJavadoc("<p>SQL Insert used:</p>\n");
+			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
 			methodBuilder.addJavadoc("\n");
+			
+			// list of inserted fields
+			methodBuilder.addJavadoc("<p><strong>Inserted fields:</strong></p>\n");
+			methodBuilder.addJavadoc("<dl>\n");
+			for (Pair<String, TypeMirror> property : method.getParameters()) {
+				String resolvedName=method.findParameterAliasByName(property.value0);
+				methodBuilder.addJavadoc("\t<dt>$L</dt>",resolvedName);
+				methodBuilder.addJavadoc("<dd>is mapped to parameter <strong>$L</strong></dd>\n",property.value0);				
+			}
+			methodBuilder.addJavadoc("</dl>\n\n");
 
-			{
-				methodBuilder.addJavadoc("<p>Insert's parameters are:</p>\n");
-				methodBuilder.addJavadoc("<ul>");
-				String separator = "\n";
+			{								
 				for (Pair<String, TypeMirror> param : method.getParameters()) {
-					methodBuilder.addJavadoc(
-							separator
-									+ "\t<li>Method's param <strong>$L</strong> is binded to column <strong>$L</strong></li>",
-							param.value0, daoDefinition.getColumnNameConverter().convert(method.findParameterAliasByName(param.value0)));
-				}
-				methodBuilder.addJavadoc("\n</ul>\n\n");
+					methodBuilder.addJavadoc("@param $L\n", param.value0);
+					methodBuilder.addJavadoc("\tis binded to column <strong>$L</strong>\n", daoDefinition.getColumnNameConverter().convert(method.findParameterAliasByName(param.value0)));
+				}				
 			}
 
 			// generate sql query
-			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getEntity().getTableName(),
-					bufferName.toString(), bufferQuestion.toString());
+			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
 
-			// update bean have only one parameter: the bean to update
-			for (Pair<String, TypeMirror> param : method.getParameters()) {
-				methodBuilder.addJavadoc("@param $L", param.value0);
-				methodBuilder.addJavadoc("\n\tused as inserted field\n");
-			}
-
-			if (returnType == TypeName.VOID) {
-			} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
-				methodBuilder.addJavadoc("@return true if record is inserted");
-			} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
-				methodBuilder.addJavadoc("@return id of inserted record");
-			} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
-				methodBuilder.addJavadoc("@return id of inserted record");
-			}
-			methodBuilder.addJavadoc("\n");
+			generateJavaDocReturnType(methodBuilder, returnType);
 		}
 		return sqlInsert;
+	}
+
+	/**
+	 * Generate javadoc about return type of method
+	 * 
+	 * @param methodBuilder
+	 * @param returnType
+	 */
+	public static void generateJavaDocReturnType(MethodSpec.Builder methodBuilder, TypeName returnType) {
+		methodBuilder.addJavadoc("\n");
+		if (returnType == TypeName.VOID) {
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
+			methodBuilder.addJavadoc("@return <code>true</code> if record is inserted, <code>false</code> otherwise");
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
+			methodBuilder.addJavadoc("@return <strong>id</strong> of inserted record");
+		} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
+			methodBuilder.addJavadoc("@return <strong>id</strong> of inserted record");
+		}
+		methodBuilder.addJavadoc("\n");
 	}
 
 }

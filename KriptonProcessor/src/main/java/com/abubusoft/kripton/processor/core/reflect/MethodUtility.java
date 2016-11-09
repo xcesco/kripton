@@ -52,7 +52,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.CodeBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.PropertyList;
 import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
-import com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder;
+import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder;
 import com.abubusoft.kripton.processor.sqlite.SelectStatementBuilder;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -160,7 +160,7 @@ public abstract class MethodUtility {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
-		SQLiteSelectBuilder.SelectResultType selectResultType = null;
+		SqlSelectBuilder.SelectResultType selectResultType = null;
 
 		// if true, field must be associate to ben attributes
 		TypeMirror returnType = method.getReturnClass();
@@ -172,9 +172,9 @@ public abstract class MethodUtility {
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
 			if (hasParameterOfType(method, readCursorListener)) {
-				selectResultType = SQLiteSelectBuilder.SelectResultType.LISTENER_CURSOR;
+				selectResultType = SqlSelectBuilder.SelectResultType.LISTENER_CURSOR;
 			} else if (hasParameterOfType(method, readBeanListener)) {
-				selectResultType = SQLiteSelectBuilder.SelectResultType.LISTENER_BEAN;
+				selectResultType = SqlSelectBuilder.SelectResultType.LISTENER_BEAN;
 			}
 
 			if (selectResultType == null) {
@@ -183,7 +183,7 @@ public abstract class MethodUtility {
 
 		} else if (TypeUtility.isTypeIncludedIn(returnTypeName, Cursor.class)) {
 			// return Cursor (no listener)
-			selectResultType = SQLiteSelectBuilder.SelectResultType.CURSOR;
+			selectResultType = SqlSelectBuilder.SelectResultType.CURSOR;
 		} else if (returnTypeName instanceof ParameterizedTypeName) {
 			ClassName listClazzName = ((ParameterizedTypeName) returnTypeName).rawType;
 
@@ -195,10 +195,10 @@ public abstract class MethodUtility {
 					TypeName elementName = ((ParameterizedTypeName) returnTypeName).typeArguments.get(0);
 					if (TypeUtility.isSameType(list.get(0), entity.getName().toString())) {
 						// entity list
-						selectResultType = SQLiteSelectBuilder.SelectResultType.LIST_BEAN;
+						selectResultType = SqlSelectBuilder.SelectResultType.LIST_BEAN;
 					} else if (TypeUtility.isByteArray(elementName) || TypeUtility.isTypePrimitive(elementName) || TypeUtility.isTypeWrappedPrimitive(elementName) || TypeUtility.isTypeIncludedIn(elementName, String.class)) {
 						// scalar list
-						selectResultType = SQLiteSelectBuilder.SelectResultType.LIST_SCALAR;
+						selectResultType = SqlSelectBuilder.SelectResultType.LIST_SCALAR;
 					}
 				} else {
 					// error
@@ -208,10 +208,10 @@ public abstract class MethodUtility {
 			}
 		} else if (TypeUtility.isEquals(returnTypeName, entity)) {
 			// return one element (no listener)
-			selectResultType = SQLiteSelectBuilder.SelectResultType.BEAN;
+			selectResultType = SqlSelectBuilder.SelectResultType.BEAN;
 		} else if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class) || TypeUtility.isByteArray(returnTypeName)) {
 			// return single value string, int, long, short, double, float, String (no listener)
-			selectResultType = SQLiteSelectBuilder.SelectResultType.SCALAR;
+			selectResultType = SqlSelectBuilder.SelectResultType.SCALAR;
 		} else if (TypeUtility.isArray(returnTypeName))
 		{
 			// array return type is not supported.

@@ -60,18 +60,18 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			whereCondition = method.getAnnotation(BindSqlDelete.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		}
 
-		Pair<String, List<Pair<String, TypeMirror>>> where = SQLUtility.extractParametersFromString(whereCondition, method, daoDefinition.getColumnNameConverter(), entity);
+		Pair<String, List<Pair<String, TypeMirror>>> where = SqlUtility.extractParametersFromString(whereCondition, method, daoDefinition.getColumnNameConverter(), entity);
 
 		// defines which parameter is used like update field and which is used in where condition.
 		List<Pair<String, TypeMirror>> methodParams = method.getParameters();
 		List<Pair<String, TypeMirror>> updateableParams = new ArrayList<Pair<String, TypeMirror>>();
 		List<Pair<String, TypeMirror>> whereParams = new ArrayList<Pair<String, TypeMirror>>();
-		
+
 		String name;
 
 		for (Pair<String, TypeMirror> param : methodParams) {
-			name=method.findParameterAliasByName(param.value0);
-			
+			name = method.findParameterAliasByName(param.value0);
+
 			if (where.value1.contains(new Pair<>(name, param.value1))) {
 				whereParams.add(param);
 			} else {
@@ -83,27 +83,26 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			// clear contentValues
 			methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 			methodBuilder.addCode("contentValues.clear();\n");
-			
+
 			for (Pair<String, TypeMirror> item : updateableParams) {
-				String resolvedParamName = method.findParameterAliasByName(item.value0);				
+				String resolvedParamName = method.findParameterAliasByName(item.value0);
 				SQLProperty property = entity.get(resolvedParamName);
 				if (property == null)
 					throw (new PropertyNotFoundException(method, resolvedParamName));
 
 				// check same type
 				TypeUtility.checkTypeCompatibility(method, item, property);
-				
+
 				if (TypeUtility.isNullable(method, item, property)) {
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 				}
-				
+
 				// here it needed raw parameter name
-				methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));			
-				//Transformer.java2ContentValues(methodBuilder, typeName(property.getElement().asType()),null , property);
-				Transformer.java2ContentValues(methodBuilder, property.getElement().asType(),item.value0);
+				methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
+				// Transformer.java2ContentValues(methodBuilder, typeName(property.getElement().asType()),null , property);
+				Transformer.java2ContentValues(methodBuilder, property.getElement().asType(), item.value0);
 				methodBuilder.addCode(");\n");
-				
-				
+
 				if (TypeUtility.isNullable(method, item, property)) {
 					methodBuilder.nextControlFlow("else");
 					methodBuilder.addCode("contentValues.putNull($S);\n", daoDefinition.getColumnNameConverter().convert(property.getName()));
@@ -131,7 +130,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		}
 
 		// build where condition
-		generateWhereCondition(methodBuilder,method, where);
+		generateWhereCondition(methodBuilder, method, where);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("\n");
@@ -154,30 +153,34 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		// define return value
 		if (returnType == TypeName.VOID) {
 
-		} else if (isIn(returnType, Boolean.TYPE, Boolean.class)) {
-			if (updateMode) {
-				methodBuilder.addJavadoc("\n@return true if record is updated");
-			} else {
-				methodBuilder.addJavadoc("\n@return true if record is deleted");
-			}
-			methodBuilder.addCode("return result!=0;\n");
-		} else if (isIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
-			if (updateMode) {
-				methodBuilder.addJavadoc("\n@return number of updated records\n");
-			} else {
-				methodBuilder.addJavadoc("\n@return number of deleted records\n");
-			}
-			methodBuilder.addCode("return result;\n");
 		} else {
-			// more than one listener found
-			throw (new InvalidMethodSignException(method, "invalid return type"));
+			methodBuilder.addJavadoc("\n");
+			if (isIn(returnType, Boolean.TYPE, Boolean.class)) {
+				if (updateMode) {
+					methodBuilder.addJavadoc("@return <code>true</code> if record is updated, <code>false</code> otherwise");
+				} else {
+					methodBuilder.addJavadoc("@return <code>true</code> if record is deleted, <code>false</code> otherwise");
+				}
+				methodBuilder.addCode("return result!=0;\n");
+			} else if (isIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
+				if (updateMode) {
+					methodBuilder.addJavadoc("@return number of updated records");
+				} else {
+					methodBuilder.addJavadoc("@return number of deleted records");
+				}
+				
+				methodBuilder.addCode("return result;\n");
+			} else {
+				// more than one listener found
+				throw (new InvalidMethodSignException(method, "invalid return type"));
+			}
+			methodBuilder.addJavadoc("\n");
 		}
-
 	}
 
 	/**
 	 * @param daoDefinition
-	 * @param method 
+	 * @param method
 	 * @param methodBuilder
 	 * @param updateMode
 	 * @param whereCondition
@@ -185,30 +188,42 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 * @param methodParams
 	 * @param updateableParams
 	 */
-	public String generateJavaDoc(SQLDaoDefinition daoDefinition,  SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeMirror>>> where, List<Pair<String, TypeMirror>> methodParams,
-			List<Pair<String, TypeMirror>> updateableParams) {
+	public String generateJavaDoc(SQLDaoDefinition daoDefinition, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeMirror>>> where,
+			List<Pair<String, TypeMirror>> methodParams, List<Pair<String, TypeMirror>> updateableParams) {
 		String sqlResult;
 		StringBuilder buffer = new StringBuilder();
 		StringBuilder bufferQuestion = new StringBuilder();
 
 		String separator = "";
 		for (Pair<String, TypeMirror> param : updateableParams) {
-			String resolvedName=method.findParameterAliasByName(param.value0);
-			buffer.append(separator + param.value0 + "=${" + resolvedName  + "}");
-			bufferQuestion.append(separator + param.value0 + "='\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(resolvedName) + "\"))+\"'");
+			String resolvedName = method.findParameterAliasByName(param.value0);
+			buffer.append(separator + resolvedName + "=${" + resolvedName + "}");
+			bufferQuestion.append(separator + resolvedName + "='\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(resolvedName) + "\"))+\"'");
 
 			separator = ", ";
 		}
 
 		// used for logging
-		String whereForLogging = SQLUtility.replaceParametersWithQuestion(whereCondition, "%s");
+		String whereForLogging = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
 
 		if (updateMode) {
 			// generate sql query
 			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), whereForLogging);
 
-			methodBuilder.addJavadoc("<p>Update SQL:</p>\n");
+			methodBuilder.addJavadoc("<p>SQL Update used:</p>\n");
 			methodBuilder.addJavadoc("<pre>UPDATE $L SET $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), buffer.toString(), whereCondition);
+			
+			// list of updated fields
+			methodBuilder.addJavadoc("\n");
+			methodBuilder.addJavadoc("<p><strong>Updated fields:</strong></p>\n");
+			methodBuilder.addJavadoc("<dl>\n");
+			for (Pair<String, TypeMirror> property : updateableParams) {
+				String resolvedName = method.findParameterAliasByName(property.value0);
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", resolvedName);
+				methodBuilder.addJavadoc("<dd>is mapped to parameter <strong>$L</strong></dd>\n", property.value0);
+			}
+			methodBuilder.addJavadoc("</dl>\n");
+			
 		} else {
 			// generate sql query
 			sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getEntity().getTableName(), whereForLogging);
@@ -217,14 +232,25 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), whereCondition);
 		}
 
+		// list of where parameter
+		methodBuilder.addJavadoc("\n");
+		methodBuilder.addJavadoc("<p><strong>Where parameters:</strong></p>\n");
+		methodBuilder.addJavadoc("<dl>\n");
+		for (Pair<String, TypeMirror> property : where.value1) {
+			String rawName = method.findParameterNameByAlias(property.value0);
+			methodBuilder.addJavadoc("\t<dt>$L</dt>", "${"+property.value0+"}");
+			methodBuilder.addJavadoc("<dd>is mapped to parameter <strong>$L</strong></dd>\n", rawName);
+		}
+		methodBuilder.addJavadoc("</dl>\n\n");
+
 		if (methodParams.size() > 0) {
-			methodBuilder.addJavadoc("\n");
 			for (Pair<String, TypeMirror> param : methodParams) {
+				String resolvedName = method.findParameterAliasByName(param.value0);
 				methodBuilder.addJavadoc("@param $L", param.value0);
-				if (where.value1.contains(param)) {
-					methodBuilder.addJavadoc("\n\tused in where condition\n");
+				if (where.value1.contains(new Pair<>(resolvedName, param.value1))) {
+					methodBuilder.addJavadoc("\n\tis used as where parameter <strong>$L</strong>\n", "${"+resolvedName+"}");
 				} else {
-					methodBuilder.addJavadoc("\n\tused as updated field\n");
+					methodBuilder.addJavadoc("\n\tis used as updated field <strong>$L</strong>\n", resolvedName);
 				}
 			}
 		}
@@ -234,12 +260,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 	/**
 	 * @param methodBuilder
-	 * @param method 
+	 * @param method
 	 * @param where
 	 */
 	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeMirror>>> where) {
 		boolean nullable;
-		
+
 		methodBuilder.addCode("String[] whereConditions={");
 		String separator = "";
 		for (Pair<String, TypeMirror> item : where.value1) {
@@ -251,13 +277,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			if (nullable) {
 				methodBuilder.addCode("($L==null?null:", resolvedParamName);
 			}
-						
+
 			// check for string conversion
-			TypeUtility.beginStringConversion(methodBuilder, item.value1);				
+			TypeUtility.beginStringConversion(methodBuilder, item.value1);
 			Transformer.java2ContentValues(methodBuilder, item.value1, resolvedParamName);
 			// check for string conversion
 			TypeUtility.endStringConversion(methodBuilder, item.value1);
-			
+
 			if (nullable) {
 				methodBuilder.addCode(")");
 			}

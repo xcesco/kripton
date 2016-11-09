@@ -27,7 +27,7 @@ import com.squareup.javapoet.MethodSpec;
  *
  * @since 05/mag/2016
  */
-public abstract class SQLiteSelectBuilder {
+public abstract class SqlSelectBuilder {
 
 	public enum SelectResultType {
 			LISTENER_BEAN(SelectBeanListenerHelper.class, true),
