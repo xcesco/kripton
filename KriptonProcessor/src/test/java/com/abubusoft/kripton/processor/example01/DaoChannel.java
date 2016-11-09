@@ -32,6 +32,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 @BindDao(Channel.class)
 public interface DaoChannel {
+	
 	// delete
 	@BindSqlDelete(where="ownerUid=${value.id}")
 	boolean deleteContactBean1(@BindSqlParam("value") Channel channel);
@@ -89,7 +90,7 @@ public interface DaoChannel {
     List<Channel> selectAll();
 
     @BindSqlSelect(where="updateTime=${a}")
-    List<Channel> selectRaw1(@BindSqlParam("a") long updateTimeA);  	
+    List<Channel> selectRaw1(@BindSqlParam("a") long updateTimeA);  	        
 	
 	@BindSqlSelect(where="updateTime=${a}")
     Cursor selectRaw2(@BindSqlParam("a") long updateTimeA);
@@ -99,6 +100,9 @@ public interface DaoChannel {
 	
 	@BindSqlSelect(where="updateTime=${a}")
     void selectRaw4(@BindSqlParam("a") long updateTimeA, OnReadCursorListener listener);
+	
+	@BindSqlSelect(where="updateTime=${a}")
+    Set<Channel> selectRaw5(@BindSqlParam("a") long updateTimeA);
 
 	@BindSqlSelect(value="count(*)",where="updateTime=${bean.updateTime}")
     long selectBean1(@BindSqlParam("bean") Channel value);
@@ -120,6 +124,9 @@ public interface DaoChannel {
 	
 	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
     Set<Channel> selectBean7(@BindSqlParam("bean") Channel value);
+	
+	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
+    List<Long> selectBean8(@BindSqlParam("bean") Channel value);
 	
 		
 }

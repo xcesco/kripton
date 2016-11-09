@@ -29,15 +29,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE 1=1</pre>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
+   * </dl>
    *
    *
    * @return selected bean or <code>null</code>.
@@ -72,24 +74,29 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value} and value2=${value2}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
-   * 	<li>Param <strong>value2</strong> is binded to method's parameter <strong>value2</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
+   * </dl>
    *
    * @param value
+   * 	is binded to ${value}
    * @param value2
+   * 	is binded to ${value2}
    *
    * @return selected bean or <code>null</code>.
    */
@@ -123,25 +130,31 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value} and value2=${value2}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
-   * 	<li>Param <strong>value2</strong> is binded to method's parameter <strong>value2</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
+   * </dl>
    *
    * @param value
+   * 	is binded to ${value}
    * @param value2
+   * 	is binded to ${value2}
    * @param listener
+   * 	is the BeanBean listener
    */
   @Override
   public void selectOne(BeanInner[] value, BeanInner[] value2, OnReadBeanListener<BeanBean> listener) {
@@ -152,7 +165,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     BeanBean resultBean=new BeanBean();
-
     try {
       if (cursor.moveToFirst()) {
 
@@ -185,25 +197,31 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value} and value2=${value2}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
-   * 	<li>Param <strong>value2</strong> is binded to method's parameter <strong>value2</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value2</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong></li>
-   * 	<li><strong>value</strong></li>
-   * 	<li><strong>value2</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
+   * </dl>
    *
    * @param value
+   * 	is binded to ${value}
    * @param value2
+   * 	is binded to ${value2}
    * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectOne(BeanInner[] value, BeanInner[] value2, OnReadCursorListener listener) {
@@ -231,26 +249,31 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value} and value2=${value2}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>value</strong> is binded to method's parameter <strong>value</strong></li>
-   * 	<li>Param <strong>value2</strong> is binded to method's parameter <strong>value2</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value2</strong> is associated to bean's property <strong>value2</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
+   * </dl>
    *
    * @param value
+   * 	is binded to ${value}
    * @param value2
+   * 	is binded to ${value2}
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<BeanBean> selectList(BeanInner[] value, BeanInner[] value2) {
@@ -287,18 +310,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>SQL Update used:</p>
+   * <p>SQL update:</p>
    * <pre>UPDATE bean_bean SET  WHERE id=${id} and value=${value} and value2=${value2}</pre>
    *
-   * <p><strong>Updated fields:</strong></p>
+   * <p><strong>Updated columns:</strong></p>
    * <dl>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
-   * 	<dt>${value}</dt><dd>is mapped to parameter <strong>value</strong></dd>
-   * 	<dt>${value2}</dt><dd>is mapped to parameter <strong>value2</strong></dd>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>${value}</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
+   * 	<dt>${value2}</dt><dd>is mapped to method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param id
@@ -323,14 +346,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean_bean (id, value, value2) VALUES (${id}, ${value}, ${value2})</pre>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to parameter <strong>id</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
-   * 	<dt>value2</dt><dd>is mapped to parameter <strong>value2</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
+   * 	<dt>value2</dt><dd>is binded to query's parameter <strong>${value2}</strong> and method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param id
@@ -368,15 +391,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean_bean (value, value2) VALUES (${bean.value}, ${bean.value2})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to <strong>bean.value</strong></dd>
-   * 	<dt>value2</dt><dd>is mapped to <strong>bean.value2</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
+   * 	<dt>value2</dt><dd>is mapped to <strong>${bean.value2}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -410,13 +433,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE bean_bean WHERE value=${value} and value2=${value2}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${value}</dt><dd>is mapped to parameter <strong>value</strong></dd>
-   * 	<dt>${value2}</dt><dd>is mapped to parameter <strong>value2</strong></dd>
+   * 	<dt>${value}</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
+   * 	<dt>${value2}</dt><dd>is mapped to method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param value

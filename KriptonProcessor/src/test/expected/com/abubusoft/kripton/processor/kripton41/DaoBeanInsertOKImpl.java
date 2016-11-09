@@ -20,13 +20,13 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean01 (id, value) VALUES (${id}, ${value})</pre>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to parameter <strong>id</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param id

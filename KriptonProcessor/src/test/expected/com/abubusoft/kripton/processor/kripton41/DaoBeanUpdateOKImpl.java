@@ -20,18 +20,18 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
   }
 
   /**
-   * <p>SQL Update used:</p>
+   * <p>SQL update:</p>
    * <pre>UPDATE bean01 SET id=${id}, value=${value} WHERE id=${test}</pre>
    *
-   * <p><strong>Updated fields:</strong></p>
+   * <p><strong>Updated columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to parameter <strong>id</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${test}</dt><dd>is mapped to parameter <strong>test</strong></dd>
+   * 	<dt>${test}</dt><dd>is mapped to method's parameter <strong>test</strong></dd>
    * </dl>
    *
    * @param id

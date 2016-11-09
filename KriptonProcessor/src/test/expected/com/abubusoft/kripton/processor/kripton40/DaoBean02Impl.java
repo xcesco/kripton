@@ -20,21 +20,25 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, text FROM bean02 WHERE id=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    *
    * @return selected bean or <code>null</code>.
    */
@@ -66,12 +70,12 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE bean02 WHERE id=${id}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id

@@ -27,25 +27,29 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>pk</strong> is associated to bean's property <strong>pk</strong></li>
-   * 	<li><strong>number</strong> is associated to bean's property <strong>number</strong></li>
-   * 	<li><strong>bean_type</strong> is associated to bean's property <strong>beanType</strong></li>
-   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
-   * 	<li><strong>content</strong> is associated to bean's property <strong>content</strong></li>
-   * 	<li><strong>creation_time</strong> is associated to bean's property <strong>creationTime</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    *
    * @return selected bean or <code>null</code>.
    */
@@ -85,26 +89,30 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${bean.pk} and prova=${bean.text}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>bean.pk</strong> is binded to method's parameter <strong>bean.pk</strong></li>
-   * 	<li>Param <strong>bean.text</strong> is binded to method's parameter <strong>bean.text</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>pk</strong> is associated to bean's property <strong>pk</strong></li>
-   * 	<li><strong>number</strong> is associated to bean's property <strong>number</strong></li>
-   * 	<li><strong>bean_type</strong> is associated to bean's property <strong>beanType</strong></li>
-   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
-   * 	<li><strong>content</strong> is associated to bean's property <strong>content</strong></li>
-   * 	<li><strong>creation_time</strong> is associated to bean's property <strong>creationTime</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${bean.pk}</dt><dd>is binded to method's parameter <strong>bean.pk</strong></dd>
+   * 	<dt>${bean.text}</dt><dd>is binded to method's parameter <strong>bean.text</strong></dd>
+   * </dl>
    *
    * @param bean
+   * 	is used as ${bean}
    *
    * @return selected bean or <code>null</code>.
    */
@@ -144,27 +152,31 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>pk</strong> is associated to bean's property <strong>pk</strong></li>
-   * 	<li><strong>number</strong> is associated to bean's property <strong>number</strong></li>
-   * 	<li><strong>bean_type</strong> is associated to bean's property <strong>beanType</strong></li>
-   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
-   * 	<li><strong>content</strong> is associated to bean's property <strong>content</strong></li>
-   * 	<li><strong>creation_time</strong> is associated to bean's property <strong>creationTime</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<Bean05> selectAll(long id) {
@@ -207,22 +219,26 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT pk FROM ws_bean WHERE text = ${text}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>text</strong> is binded to method's parameter <strong>text</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>pk</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>pk</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${text}</dt><dd>is binded to method's parameter <strong>text</strong></dd>
+   * </dl>
    *
    * @param text
+   * 	is binded to ${text}
    *
-   * @return list of single value extracted with query.
+   * @return collection of single value extracted with query.
    */
   @Override
   public List<Long> selectPK(String text) {
@@ -258,20 +274,24 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT count(*) FROM ws_bean WHERE text = ${text}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>text</strong> is binded to method's parameter <strong>text</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>count(*)</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${text}</dt><dd>is binded to method's parameter <strong>text</strong></dd>
+   * </dl>
    *
    * @param text
+   * 	is binded to ${text}
    *
    * @return single value extracted with query.
    */
@@ -301,26 +321,31 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>pk</dt><dd>no bean's property is associated</dd>
+   * 	<dt>number</dt><dd>no bean's property is associated</dd>
+   * 	<dt>bean_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>text</dt><dd>no bean's property is associated</dd>
+   * 	<dt>content</dt><dd>no bean's property is associated</dd>
+   * 	<dt>creation_time</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>pk</strong></li>
-   * 	<li><strong>number</strong></li>
-   * 	<li><strong>bean_type</strong></li>
-   * 	<li><strong>text</strong></li>
-   * 	<li><strong>content</strong></li>
-   * 	<li><strong>creation_time</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectCursorListener(Long id, OnReadCursorListener listener) {
@@ -348,26 +373,31 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>pk</strong> is associated to bean's property <strong>pk</strong></li>
-   * 	<li><strong>number</strong> is associated to bean's property <strong>number</strong></li>
-   * 	<li><strong>bean_type</strong> is associated to bean's property <strong>beanType</strong></li>
-   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
-   * 	<li><strong>content</strong> is associated to bean's property <strong>content</strong></li>
-   * 	<li><strong>creation_time</strong> is associated to bean's property <strong>creationTime</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    * @param listener
+   * 	is the Bean05 listener
    */
   @Override
   public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
@@ -378,7 +408,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean05 resultBean=new Bean05();
-
     try {
       if (cursor.moveToFirst()) {
 
@@ -420,26 +449,31 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>pk</dt><dd>no bean's property is associated</dd>
+   * 	<dt>number</dt><dd>no bean's property is associated</dd>
+   * 	<dt>bean_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>text</dt><dd>no bean's property is associated</dd>
+   * 	<dt>content</dt><dd>no bean's property is associated</dd>
+   * 	<dt>creation_time</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>pk</strong></li>
-   * 	<li><strong>number</strong></li>
-   * 	<li><strong>bean_type</strong></li>
-   * 	<li><strong>text</strong></li>
-   * 	<li><strong>content</strong></li>
-   * 	<li><strong>creation_time</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectOne(Long id, OnReadCursorListener listener) {
@@ -467,26 +501,31 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>pk</strong> is associated to bean's property <strong>pk</strong></li>
-   * 	<li><strong>number</strong> is associated to bean's property <strong>number</strong></li>
-   * 	<li><strong>bean_type</strong> is associated to bean's property <strong>beanType</strong></li>
-   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
-   * 	<li><strong>content</strong> is associated to bean's property <strong>content</strong></li>
-   * 	<li><strong>creation_time</strong> is associated to bean's property <strong>creationTime</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    * @param listener
+   * 	is the Bean05 listener
    */
   @Override
   public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
@@ -497,7 +536,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean05 resultBean=new Bean05();
-
     try {
       if (cursor.moveToFirst()) {
 
@@ -539,14 +577,14 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO ws_bean (text, content, creation_time) VALUES (${text}, ${content}, ${creationTime})</pre>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>text</dt><dd>is mapped to parameter <strong>text</strong></dd>
-   * 	<dt>content</dt><dd>is mapped to parameter <strong>content</strong></dd>
-   * 	<dt>creationTime</dt><dd>is mapped to parameter <strong>creationTime</strong></dd>
+   * 	<dt>text</dt><dd>is binded to query's parameter <strong>${text}</strong> and method's parameter <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is binded to query's parameter <strong>${creationTime}</strong> and method's parameter <strong>creationTime</strong></dd>
    * </dl>
    *
    * @param text
@@ -588,18 +626,18 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO ws_bean (number, bean_type, text, content, creation_time) VALUES (${bean.number}, ${bean.beanType}, ${bean.text}, ${bean.content}, ${bean.creationTime})</pre>
    *
    * <p><code>bean.pk</code> is automatically updated because it is the primary key</p>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>number</dt><dd>is mapped to <strong>bean.number</strong></dd>
-   * 	<dt>bean_type</dt><dd>is mapped to <strong>bean.beanType</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>bean.text</strong></dd>
-   * 	<dt>content</dt><dd>is mapped to <strong>bean.content</strong></dd>
-   * 	<dt>creation_time</dt><dd>is mapped to <strong>bean.creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
+   * 	<dt>bean_type</dt><dd>is mapped to <strong>${bean.beanType}</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
+   * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
+   * 	<dt>creation_time</dt><dd>is mapped to <strong>${bean.creationTime}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -645,11 +683,27 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update:</p>
    * <pre>UPDATE ws_bean SET number=${bean.number}, bean_type=${bean.beanType}, text=${bean.text}, content=${bean.content}, creation_time=${bean.creationTime} WHERE pk=${bean.pk} and text=${bean.text} and creationTime=${bean.creationTime}</pre>
    *
+   * <p><strong>Updated columns:</strong></p>
+   * <dl>
+   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
+   * 	<dt>bean_type</dt><dd>is mapped to <strong>${bean.beanType}</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
+   * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
+   * 	<dt>creation_time</dt><dd>is mapped to <strong>${bean.creationTime}</strong></dd>
+   * </dl>
+   *
+   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <dl>
+   * 	<dt>${bean.pk}</dt><dd>is mapped to method's parameter <strong>bean.pk</strong></dd>
+   * 	<dt>${bean.text}</dt><dd>is mapped to method's parameter <strong>bean.text</strong></dd>
+   * 	<dt>${bean.creationTime}</dt><dd>is mapped to method's parameter <strong>bean.creationTime</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	is used as where parameter ${bean}
+   * 	is used as ${bean}
    *
    * @return number of updated records
    */
@@ -692,20 +746,20 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL Update used:</p>
+   * <p>SQL update:</p>
    * <pre>UPDATE ws_bean SET content=${content}, text=${text} WHERE pk=${uid} and creationTime=${valido} and creationTime=${validoIn}</pre>
    *
-   * <p><strong>Updated fields:</strong></p>
+   * <p><strong>Updated columns:</strong></p>
    * <dl>
-   * 	<dt>content</dt><dd>is mapped to parameter <strong>content</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to parameter <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
+   * 	<dt>text</dt><dd>is binded to query's parameter <strong>${text}</strong> and method's parameter <strong>text</strong></dd>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${uid}</dt><dd>is mapped to parameter <strong>uid</strong></dd>
-   * 	<dt>${valido}</dt><dd>is mapped to parameter <strong>valido</strong></dd>
-   * 	<dt>${validoIn}</dt><dd>is mapped to parameter <strong>validoIn</strong></dd>
+   * 	<dt>${uid}</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
+   * 	<dt>${valido}</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
+   * 	<dt>${validoIn}</dt><dd>is mapped to method's parameter <strong>validoIn</strong></dd>
    * </dl>
    *
    * @param content
@@ -744,11 +798,18 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL Delete used:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE ws_bean WHERE pk=${bean.pk} and text=${bean.text} and creationTime=${bean.creationTime}</pre>
    *
+   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <dl>
+   * 	<dt>${bean.pk}</dt><dd>is mapped to method's parameter <strong>bean.pk</strong></dd>
+   * 	<dt>${bean.text}</dt><dd>is mapped to method's parameter <strong>bean.text</strong></dd>
+   * 	<dt>${bean.creationTime}</dt><dd>is mapped to method's parameter <strong>bean.creationTime</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	is used as where parameter ${bean}
+   * 	is used as ${bean}
    *
    * @return number of deleted records
    */
@@ -762,14 +823,14 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE ws_bean WHERE pk=${uid} and creationTime=${valido} and creationTime=${validoIn}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${uid}</dt><dd>is mapped to parameter <strong>uid</strong></dd>
-   * 	<dt>${valido}</dt><dd>is mapped to parameter <strong>valido</strong></dd>
-   * 	<dt>${validoIn}</dt><dd>is mapped to parameter <strong>validoIn</strong></dd>
+   * 	<dt>${uid}</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
+   * 	<dt>${valido}</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
+   * 	<dt>${validoIn}</dt><dd>is mapped to method's parameter <strong>validoIn</strong></dd>
    * </dl>
    *
    * @param uid
@@ -791,12 +852,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE ws_bean WHERE pk=${id}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
@@ -814,11 +875,16 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL Delete used:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE ws_bean WHERE pk=${va.pk}</pre>
    *
+   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <dl>
+   * 	<dt>${va.pk}</dt><dd>is mapped to method's parameter <strong>va.pk</strong></dd>
+   * </dl>
+   *
    * @param va
-   * 	is used as where parameter ${va}
+   * 	is used as ${va}
    *
    * @return number of deleted records
    */
@@ -832,20 +898,24 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT content FROM ws_bean WHERE pk=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>content</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>content</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    *
    * @return single value extracted with query.
    */

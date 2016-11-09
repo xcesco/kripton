@@ -21,18 +21,18 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES (${bean.lista}, ${bean.messageDate}, ${bean.messageText}, ${bean.beanList}, ${bean.value})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>lista</dt><dd>is mapped to <strong>bean.lista</strong></dd>
-   * 	<dt>message_date</dt><dd>is mapped to <strong>bean.messageDate</strong></dd>
-   * 	<dt>message_text</dt><dd>is mapped to <strong>bean.messageText</strong></dd>
-   * 	<dt>bean_list</dt><dd>is mapped to <strong>bean.beanList</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to <strong>bean.value</strong></dd>
+   * 	<dt>lista</dt><dd>is mapped to <strong>${bean.lista}</strong></dd>
+   * 	<dt>message_date</dt><dd>is mapped to <strong>${bean.messageDate}</strong></dd>
+   * 	<dt>message_text</dt><dd>is mapped to <strong>${bean.messageText}</strong></dd>
+   * 	<dt>bean_list</dt><dd>is mapped to <strong>${bean.beanList}</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -76,13 +76,13 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean01 (value, message_date) VALUES (${value}, ${messageDate})</pre>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
-   * 	<dt>messageDate</dt><dd>is mapped to parameter <strong>messageDate</strong></dd>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
+   * 	<dt>message_date</dt><dd>is binded to query's parameter <strong>${messageDate}</strong> and method's parameter <strong>messageDate</strong></dd>
    * </dl>
    *
    * @param value
@@ -108,12 +108,12 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE bean01 WHERE id=${id}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
@@ -131,11 +131,16 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>SQL Delete used:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE bean01 WHERE id=${bean.id}</pre>
    *
+   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <dl>
+   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	is used as where parameter ${bean}
+   * 	is used as ${bean}
    *
    * @return number of deleted records
    */
@@ -149,17 +154,17 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>SQL Update used:</p>
+   * <p>SQL update:</p>
    * <pre>UPDATE bean01 SET value=${value} WHERE id>${id}</pre>
    *
-   * <p><strong>Updated fields:</strong></p>
+   * <p><strong>Updated columns:</strong></p>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param value
@@ -183,11 +188,25 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update:</p>
    * <pre>UPDATE bean01 SET lista=${bean.lista}, message_date=${bean.messageDate}, message_text=${bean.messageText}, bean_list=${bean.beanList}, value=${bean.value} WHERE value=${bean.value}</pre>
    *
+   * <p><strong>Updated columns:</strong></p>
+   * <dl>
+   * 	<dt>lista</dt><dd>is mapped to <strong>${bean.lista}</strong></dd>
+   * 	<dt>message_date</dt><dd>is mapped to <strong>${bean.messageDate}</strong></dd>
+   * 	<dt>message_text</dt><dd>is mapped to <strong>${bean.messageText}</strong></dd>
+   * 	<dt>bean_list</dt><dd>is mapped to <strong>${bean.beanList}</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
+   * </dl>
+   *
+   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <dl>
+   * 	<dt>${bean.value}</dt><dd>is mapped to method's parameter <strong>bean.value</strong></dd>
+   * </dl>
+   *
    * @param bean
-   * 	is used as where parameter ${bean}
+   * 	is used as ${bean}
    *
    * @return number of updated records
    */

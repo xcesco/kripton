@@ -2,13 +2,12 @@ package com.abubusoft.kripton.processor.example01;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.StringUtil;
-
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -660,7 +659,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<Channel> selectAll() {
@@ -724,7 +723,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * @param updateTimeA
    * 	is binded to ${a}
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<Channel> selectRaw1(long updateTimeA) {
@@ -836,7 +835,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Channel resultBean=new Channel();
-
     try {
       if (cursor.moveToFirst()) {
 
@@ -928,6 +926,70 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    * <p>
+   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${a}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
+   * </dl>
+   *
+   * @param updateTimeA
+   * 	is binded to ${a}
+   *
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public Set<Channel> selectRaw5(long updateTimeA) {
+    // build where condition
+    String[] args={String.valueOf(updateTimeA)};
+
+    Logger.info(StringUtil.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    HashSet<Channel> resultList=new HashSet<Channel>();
+    Channel resultBean=null;
+
+    if (cursor.moveToFirst()) {
+
+      int index0=cursor.getColumnIndex("uid");
+      int index1=cursor.getColumnIndex("owner_uid");
+      int index2=cursor.getColumnIndex("update_time");
+      int index3=cursor.getColumnIndex("name");
+      int index4=cursor.getColumnIndex("id");
+
+      do
+       {
+        resultBean=new Channel();
+
+        if (!cursor.isNull(index0)) { resultBean.setUid(cursor.getString(index0)); }
+        if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
+        if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
+
+        resultList.add(resultBean);
+      } while (cursor.moveToNext());
+    }
+    cursor.close();
+
+    return resultList;
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT count(*) FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
@@ -1003,7 +1065,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Channel resultBean=new Channel();
-
     try {
       if (cursor.moveToFirst()) {
 
@@ -1180,10 +1241,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * @param value
    * 	is used as ${bean}
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
-  public Set<Channel> selectBean7(Channel value) {
+  public ArrayList<Channel> selectBean6(Channel value) {
     // build where condition
     String[] args={String.valueOf(value.getUpdateTime())};
 
@@ -1191,7 +1252,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Set<Channel> resultList=new HashSet<Channel>();
+    ArrayList<Channel> resultList=new ArrayList<Channel>();
     Channel resultBean=null;
 
     if (cursor.moveToFirst()) {
@@ -1209,6 +1270,113 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
     cursor.close();
 
+    return resultList;
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   * <p>
+   * <pre>SELECT update_time FROM channel WHERE updateTime=${bean.updateTime}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * </dl>
+   *
+   * @param value
+   * 	is used as ${bean}
+   *
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public Set<Channel> selectBean7(Channel value) {
+    // build where condition
+    String[] args={String.valueOf(value.getUpdateTime())};
+
+    Logger.info(StringUtil.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    HashSet<Channel> resultList=new HashSet<Channel>();
+    Channel resultBean=null;
+
+    if (cursor.moveToFirst()) {
+
+      int index0=cursor.getColumnIndex("update_time");
+
+      do
+       {
+        resultBean=new Channel();
+
+        if (!cursor.isNull(index0)) { resultBean.setUpdateTime(cursor.getLong(index0)); }
+
+        resultList.add(resultBean);
+      } while (cursor.moveToNext());
+    }
+    cursor.close();
+
+    return resultList;
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   * <p>
+   * <pre>SELECT update_time FROM channel WHERE updateTime=${bean.updateTime}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>update_time</dt><dd>no bean's property is associated</dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * </dl>
+   *
+   * @param value
+   * 	is used as ${bean}
+   *
+   * @return collection of single value extracted with query.
+   */
+  @Override
+  public List<Long> selectBean8(Channel value) {
+    // build where condition
+    String[] args={String.valueOf(value.getUpdateTime())};
+
+    Logger.info(StringUtil.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    LinkedList<Long> resultList=new LinkedList<Long>();
+
+
+    try {
+      if (cursor.moveToFirst()) {
+
+        do
+         {
+          if (!cursor.isNull(0)) {
+            resultList.add(cursor.getLong(0));
+          } else {
+            resultList.add(null);
+          }
+        } while (cursor.moveToNext());
+      }
+    } finally {
+      if (cursor!=null)
+       {
+        cursor.close();
+      }
+    }
     return resultList;
   }
 }

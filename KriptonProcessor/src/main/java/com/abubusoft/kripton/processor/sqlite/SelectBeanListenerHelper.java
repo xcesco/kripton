@@ -73,7 +73,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 
 		String listenerName = MethodUtility.getNameParameterOfType(method, listenerType);
 
-		methodBuilder.addCode("$T resultBean=new $T();\n", entityClass, entityClass);
+		methodBuilder.addCode("$T resultBean=new $T();", entityClass, entityClass);
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");

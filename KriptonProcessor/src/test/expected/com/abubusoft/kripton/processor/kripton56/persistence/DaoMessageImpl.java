@@ -21,17 +21,17 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   }
 
   /**
-   * <p>SQL Update used:</p>
+   * <p>SQL update:</p>
    * <pre>UPDATE message SET ownerType=${ownerType} WHERE  id = ${id}</pre>
    *
-   * <p><strong>Updated fields:</strong></p>
+   * <p><strong>Updated columns:</strong></p>
    * <dl>
-   * 	<dt>ownerType</dt><dd>is mapped to parameter <strong>ownerType</strong></dd>
+   * 	<dt>owner_type</dt><dd>is binded to query's parameter <strong>${ownerType}</strong> and method's parameter <strong>ownerType</strong></dd>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id

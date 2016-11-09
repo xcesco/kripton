@@ -28,16 +28,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE 1=1</pre>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value_map_string_byte</strong> is associated to bean's property <strong>valueMapStringByte</strong></li>
-   * 	<li><strong>value_map_enum_byte</strong> is associated to bean's property <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
    *
    * @return selected bean or <code>null</code>.
@@ -74,24 +76,29 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value_map_string_byte</strong> is associated to bean's property <strong>valueMapStringByte</strong></li>
-   * 	<li><strong>value_map_enum_byte</strong> is associated to bean's property <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    * @param listener
+   * 	is the Bean63 listener
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean63> listener) {
@@ -102,7 +109,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean63 resultBean=new Bean63();
-
     try {
       if (cursor.moveToFirst()) {
 
@@ -138,24 +144,29 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_map_string_byte</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong></li>
-   * 	<li><strong>value</strong></li>
-   * 	<li><strong>value_map_string_byte</strong></li>
-   * 	<li><strong>value_map_enum_byte</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
@@ -183,25 +194,29 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value_map_string_byte</strong> is associated to bean's property <strong>valueMapStringByte</strong></li>
-   * 	<li><strong>value_map_enum_byte</strong> is associated to bean's property <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<Bean63> selectList(long id) {
@@ -240,11 +255,23 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update:</p>
    * <pre>UPDATE bean63 SET value=${value.value}, value_map_string_byte=${value.valueMapStringByte}, value_map_enum_byte=${value.valueMapEnumByte} WHERE id=${value.id}</pre>
    *
+   * <p><strong>Updated columns:</strong></p>
+   * <dl>
+   * 	<dt>value</dt><dd>is mapped to <strong>${value.value}</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is mapped to <strong>${value.valueMapStringByte}</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is mapped to <strong>${value.valueMapEnumByte}</strong></dd>
+   * </dl>
+   *
+   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <dl>
+   * 	<dt>${value.id}</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
+   * </dl>
+   *
    * @param value
-   * 	is used as where parameter ${value}
+   * 	is used as ${value}
    *
    * @return number of updated records
    */
@@ -279,16 +306,16 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean63 (value, value_map_string_byte, value_map_enum_byte) VALUES (${bean.value}, ${bean.valueMapStringByte}, ${bean.valueMapEnumByte})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to <strong>bean.value</strong></dd>
-   * 	<dt>value_map_string_byte</dt><dd>is mapped to <strong>bean.valueMapStringByte</strong></dd>
-   * 	<dt>value_map_enum_byte</dt><dd>is mapped to <strong>bean.valueMapEnumByte</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is mapped to <strong>${bean.valueMapStringByte}</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is mapped to <strong>${bean.valueMapEnumByte}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -328,12 +355,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean63 (value_map_string_byte) VALUES (${valueMapStringByte})</pre>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>valueMapStringByte</dt><dd>is mapped to parameter <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is binded to query's parameter <strong>${valueMapStringByte}</strong> and method's parameter <strong>valueMapStringByte</strong></dd>
    * </dl>
    *
    * @param valueMapStringByte
@@ -359,23 +386,27 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapStringByte}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>valueMapStringByte</strong> is binded to method's parameter <strong>valueMapStringByte</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value_map_string_byte</strong> is associated to bean's property <strong>valueMapStringByte</strong></li>
-   * 	<li><strong>value_map_enum_byte</strong> is associated to bean's property <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${valueMapStringByte}</dt><dd>is binded to method's parameter <strong>valueMapStringByte</strong></dd>
+   * </dl>
    *
    * @param valueMapStringByte
+   * 	is binded to ${valueMapStringByte}
    *
    * @return selected bean or <code>null</code>.
    */
@@ -411,12 +442,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE bean63 WHERE value=${valueMapStringByte}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${valueMapStringByte}</dt><dd>is mapped to parameter <strong>valueMapStringByte</strong></dd>
+   * 	<dt>${valueMapStringByte}</dt><dd>is mapped to method's parameter <strong>valueMapStringByte</strong></dd>
    * </dl>
    *
    * @param valueMapStringByte
@@ -434,16 +465,16 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>SQL Update used:</p>
+   * <p>SQL update:</p>
    * <pre>UPDATE bean63 SET  WHERE value=${valueMapStringByte}</pre>
    *
-   * <p><strong>Updated fields:</strong></p>
+   * <p><strong>Updated columns:</strong></p>
    * <dl>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${valueMapStringByte}</dt><dd>is mapped to parameter <strong>valueMapStringByte</strong></dd>
+   * 	<dt>${valueMapStringByte}</dt><dd>is mapped to method's parameter <strong>valueMapStringByte</strong></dd>
    * </dl>
    *
    * @param valueMapStringByte
@@ -464,12 +495,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean63 (value_map_enum_byte) VALUES (${valueMapEnumByte})</pre>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>valueMapEnumByte</dt><dd>is mapped to parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is binded to query's parameter <strong>${valueMapEnumByte}</strong> and method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param valueMapEnumByte
@@ -495,23 +526,27 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>valueMapEnumByte</strong> is binded to method's parameter <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value_map_string_byte</strong> is associated to bean's property <strong>valueMapStringByte</strong></li>
-   * 	<li><strong>value_map_enum_byte</strong> is associated to bean's property <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
    * @param valueMapEnumByte
+   * 	is binded to ${valueMapEnumByte}
    *
    * @return selected bean or <code>null</code>.
    */
@@ -547,23 +582,27 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>valueMapEnumByte</strong> is binded to method's parameter <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_map_string_byte</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong></li>
-   * 	<li><strong>value</strong></li>
-   * 	<li><strong>value_map_string_byte</strong></li>
-   * 	<li><strong>value_map_enum_byte</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
    * @param valueMapEnumByte
+   * 	is binded to ${valueMapEnumByte}
    *
    * @return cursor. Closing the cursor is delegated to the calling code.
    */
@@ -579,24 +618,29 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>valueMapEnumByte</strong> is binded to method's parameter <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * 	<li><strong>value_map_string_byte</strong> is associated to bean's property <strong>valueMapStringByte</strong></li>
-   * 	<li><strong>value_map_enum_byte</strong> is associated to bean's property <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
    * @param valueMapEnumByte
+   * 	is binded to ${valueMapEnumByte}
    * @param listener
+   * 	is the Bean63 listener
    */
   @Override
   public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadBeanListener<Bean63> listener) {
@@ -607,7 +651,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean63 resultBean=new Bean63();
-
     try {
       if (cursor.moveToFirst()) {
 
@@ -643,24 +686,29 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>valueMapEnumByte</strong> is binded to method's parameter <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_map_string_byte</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong></li>
-   * 	<li><strong>value</strong></li>
-   * 	<li><strong>value_map_string_byte</strong></li>
-   * 	<li><strong>value_map_enum_byte</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
    * @param valueMapEnumByte
+   * 	is binded to ${valueMapEnumByte}
    * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadCursorListener listener) {
@@ -688,12 +736,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE bean63 WHERE value=${valueMapEnumByte}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${valueMapEnumByte}</dt><dd>is mapped to parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>${valueMapEnumByte}</dt><dd>is mapped to method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param valueMapEnumByte
@@ -711,16 +759,16 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>SQL Update used:</p>
+   * <p>SQL update:</p>
    * <pre>UPDATE bean63 SET  WHERE value=${valueMapEnumByte}</pre>
    *
-   * <p><strong>Updated fields:</strong></p>
+   * <p><strong>Updated columns:</strong></p>
    * <dl>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${valueMapEnumByte}</dt><dd>is mapped to parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>${valueMapEnumByte}</dt><dd>is mapped to method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param valueMapEnumByte
@@ -741,16 +789,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT value_map_enum_byte FROM bean63 WHERE 1=1</pre>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>value_map_enum_byte</strong> is associated to bean's property <strong>valueMapEnumByte</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
+   * </dl>
    *
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<Bean63> selectMapEnumByteOne() {
@@ -783,16 +833,18 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT value_map_enum_byte FROM bean63 WHERE 1=1</pre>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>value_map_enum_byte</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
    *
-   * @return list of single value extracted with query.
+   * @return collection of single value extracted with query.
    */
   @Override
   public List<String> selectMapEnumByteOneString() {

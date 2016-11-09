@@ -186,24 +186,30 @@ public abstract class MethodUtility {
 			selectResultType = SqlSelectBuilder.SelectResultType.CURSOR;
 		} else if (returnTypeName instanceof ParameterizedTypeName) {
 			ClassName listClazzName = ((ParameterizedTypeName) returnTypeName).rawType;
+			
+			try {
+				Class<?> listClazz=Class.forName(listClazzName.toString());
+				
+				if (Collection.class.isAssignableFrom(listClazz))
+				{
+					// return List (no listener)
+					List<TypeName> list = ((ParameterizedTypeName) returnTypeName).typeArguments;
 
-			if (TypeUtility.isTypeIncludedIn(listClazzName, List.class, Collection.class)) {
-				// return List (no listener)
-				List<TypeName> list = ((ParameterizedTypeName) returnTypeName).typeArguments;
-
-				if (list.size() == 1) {
-					TypeName elementName = ((ParameterizedTypeName) returnTypeName).typeArguments.get(0);
-					if (TypeUtility.isSameType(list.get(0), entity.getName().toString())) {
-						// entity list
-						selectResultType = SqlSelectBuilder.SelectResultType.LIST_BEAN;
-					} else if (TypeUtility.isByteArray(elementName) || TypeUtility.isTypePrimitive(elementName) || TypeUtility.isTypeWrappedPrimitive(elementName) || TypeUtility.isTypeIncludedIn(elementName, String.class)) {
-						// scalar list
-						selectResultType = SqlSelectBuilder.SelectResultType.LIST_SCALAR;
-					}
-				} else {
-					// error
+					if (list.size() == 1) {
+						TypeName elementName = ((ParameterizedTypeName) returnTypeName).typeArguments.get(0);
+						if (TypeUtility.isSameType(list.get(0), entity.getName().toString())) {
+							// entity list
+							selectResultType = SqlSelectBuilder.SelectResultType.LIST_BEAN;
+						} else if (TypeUtility.isByteArray(elementName) || TypeUtility.isTypePrimitive(elementName) || TypeUtility.isTypeWrappedPrimitive(elementName) || TypeUtility.isTypeIncludedIn(elementName, String.class)) {
+							// scalar list
+							selectResultType = SqlSelectBuilder.SelectResultType.LIST_SCALAR;
+						}
+					} else {
+						// error
+					}					
 				}
-			} else {
+			} catch(Exception e)
+			{
 				// error
 			}
 		} else if (TypeUtility.isEquals(returnTypeName, entity)) {

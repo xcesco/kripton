@@ -24,21 +24,25 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    *
    * @return selected bean or <code>null</code>.
    */
@@ -70,23 +74,27 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>text</strong> is associated to bean's property <strong>text</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<Bean01Entity> selectById(Long id) {
@@ -121,17 +129,17 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>SQL Update used:</p>
+   * <p>SQL update:</p>
    * <pre>UPDATE bean01 SET text=${text} WHERE id=${id}</pre>
    *
-   * <p><strong>Updated fields:</strong></p>
+   * <p><strong>Updated columns:</strong></p>
    * <dl>
-   * 	<dt>text</dt><dd>is mapped to parameter <strong>text</strong></dd>
+   * 	<dt>text</dt><dd>is binded to query's parameter <strong>${text}</strong> and method's parameter <strong>text</strong></dd>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param text
@@ -159,12 +167,12 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE bean01 WHERE id=${id}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
@@ -182,12 +190,12 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean01 (id) VALUES (${id})</pre>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to parameter <strong>id</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
@@ -213,14 +221,14 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean01 (text) VALUES (${bean.text})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>text</dt><dd>is mapped to <strong>bean.text</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
    * </dl>
    *
    * @param bean

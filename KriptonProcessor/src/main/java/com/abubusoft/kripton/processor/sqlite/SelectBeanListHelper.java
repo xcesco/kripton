@@ -22,14 +22,15 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -69,12 +70,7 @@ public class SelectBeanListHelper<ElementUtils> implements SelectCodeGenerator {
 		TypeName entityClass = typeName(entity.getElement());
 		ClassName listClazzName = returnListName.rawType;
 
-		if (TypeUtility.isTypeIncludedIn(listClazzName.toString(), List.class, Collection.class, Iterable.class)) {
-			// there is an interface as result
-			collectionClass = typeName(LinkedList.class);
-		} else {
-			collectionClass = listClazzName;
-		}
+		collectionClass=defineCollection(listClazzName);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass, entityClass);
@@ -123,6 +119,29 @@ public class SelectBeanListHelper<ElementUtils> implements SelectCodeGenerator {
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("return resultList;\n");
+	}
+
+	static TypeName defineCollection(ClassName listClazzName) {
+		try {
+			Class<?> clazz = Class.forName(listClazzName.toString());
+			
+			if (clazz.isAssignableFrom(Collection.class))
+			{
+				clazz=LinkedList.class;
+			} else if (clazz.isAssignableFrom(List.class))
+			{
+				clazz=LinkedList.class;
+			} if (clazz.isAssignableFrom(Set.class))
+			{
+				clazz=HashSet.class;
+			}
+			
+			return typeName(clazz);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 }

@@ -23,37 +23,39 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid WHERE 1=1 ORDER BY name</pre>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>uid</strong> is associated to bean's property <strong>uid</strong></li>
-   * 	<li><strong>description</strong> is associated to bean's property <strong>description</strong></li>
-   * 	<li><strong>info</strong> is associated to bean's property <strong>info</strong></li>
-   * 	<li><strong>longitude</strong> is associated to bean's property <strong>longitude</strong></li>
-   * 	<li><strong>latitude</strong> is associated to bean's property <strong>latitude</strong></li>
-   * 	<li><strong>address</strong> is associated to bean's property <strong>address</strong></li>
-   * 	<li><strong>address2</strong> is associated to bean's property <strong>address2</strong></li>
-   * 	<li><strong>city</strong> is associated to bean's property <strong>city</strong></li>
-   * 	<li><strong>phone</strong> is associated to bean's property <strong>phone</strong></li>
-   * 	<li><strong>total_patient_count</strong> is associated to bean's property <strong>totalPatientCount</strong></li>
-   * 	<li><strong>white_waiting_patients</strong> is associated to bean's property <strong>whiteWaitingPatients</strong></li>
-   * 	<li><strong>white_visiting_patients</strong> is associated to bean's property <strong>whiteVisitingPatients</strong></li>
-   * 	<li><strong>white_average_waiting_time</strong> is associated to bean's property <strong>whiteAverageWaitingTime</strong></li>
-   * 	<li><strong>green_waiting_patients</strong> is associated to bean's property <strong>greenWaitingPatients</strong></li>
-   * 	<li><strong>green_visiting_patients</strong> is associated to bean's property <strong>greenVisitingPatients</strong></li>
-   * 	<li><strong>green_average_waiting_time</strong> is associated to bean's property <strong>greenAverageWaitingTime</strong></li>
-   * 	<li><strong>yellow_waiting_patients</strong> is associated to bean's property <strong>yellowWaitingPatients</strong></li>
-   * 	<li><strong>yellow_visiting_patients</strong> is associated to bean's property <strong>yellowVisitingPatients</strong></li>
-   * 	<li><strong>yellow_average_waiting_time</strong> is associated to bean's property <strong>yellowAverageWaitingTime</strong></li>
-   * 	<li><strong>red_waiting_patients</strong> is associated to bean's property <strong>redWaitingPatients</strong></li>
-   * 	<li><strong>red_average_waiting_time</strong> is associated to bean's property <strong>redAverageWaitingTime</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>description</dt><dd>is associated to bean's property <strong>description</strong></dd>
+   * 	<dt>info</dt><dd>is associated to bean's property <strong>info</strong></dd>
+   * 	<dt>longitude</dt><dd>is associated to bean's property <strong>longitude</strong></dd>
+   * 	<dt>latitude</dt><dd>is associated to bean's property <strong>latitude</strong></dd>
+   * 	<dt>address</dt><dd>is associated to bean's property <strong>address</strong></dd>
+   * 	<dt>address2</dt><dd>is associated to bean's property <strong>address2</strong></dd>
+   * 	<dt>city</dt><dd>is associated to bean's property <strong>city</strong></dd>
+   * 	<dt>phone</dt><dd>is associated to bean's property <strong>phone</strong></dd>
+   * 	<dt>total_patient_count</dt><dd>is associated to bean's property <strong>totalPatientCount</strong></dd>
+   * 	<dt>white_waiting_patients</dt><dd>is associated to bean's property <strong>whiteWaitingPatients</strong></dd>
+   * 	<dt>white_visiting_patients</dt><dd>is associated to bean's property <strong>whiteVisitingPatients</strong></dd>
+   * 	<dt>white_average_waiting_time</dt><dd>is associated to bean's property <strong>whiteAverageWaitingTime</strong></dd>
+   * 	<dt>green_waiting_patients</dt><dd>is associated to bean's property <strong>greenWaitingPatients</strong></dd>
+   * 	<dt>green_visiting_patients</dt><dd>is associated to bean's property <strong>greenVisitingPatients</strong></dd>
+   * 	<dt>green_average_waiting_time</dt><dd>is associated to bean's property <strong>greenAverageWaitingTime</strong></dd>
+   * 	<dt>yellow_waiting_patients</dt><dd>is associated to bean's property <strong>yellowWaitingPatients</strong></dd>
+   * 	<dt>yellow_visiting_patients</dt><dd>is associated to bean's property <strong>yellowVisitingPatients</strong></dd>
+   * 	<dt>yellow_average_waiting_time</dt><dd>is associated to bean's property <strong>yellowAverageWaitingTime</strong></dd>
+   * 	<dt>red_waiting_patients</dt><dd>is associated to bean's property <strong>redWaitingPatients</strong></dd>
+   * 	<dt>red_average_waiting_time</dt><dd>is associated to bean's property <strong>redAverageWaitingTime</strong></dd>
+   * </dl>
    *
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<FirstAid> selectAll() {
@@ -128,7 +130,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE first_aid WHERE 1=1</pre>
    *
    * <p><strong>Where parameters:</strong></p>
@@ -148,34 +150,34 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO first_aid (uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time) VALUES (${bean.uid}, ${bean.description}, ${bean.info}, ${bean.longitude}, ${bean.latitude}, ${bean.address}, ${bean.address2}, ${bean.city}, ${bean.phone}, ${bean.totalPatientCount}, ${bean.whiteWaitingPatients}, ${bean.whiteVisitingPatients}, ${bean.whiteAverageWaitingTime}, ${bean.greenWaitingPatients}, ${bean.greenVisitingPatients}, ${bean.greenAverageWaitingTime}, ${bean.yellowWaitingPatients}, ${bean.yellowVisitingPatients}, ${bean.yellowAverageWaitingTime}, ${bean.redWaitingPatients}, ${bean.redAverageWaitingTime})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>uid</dt><dd>is mapped to <strong>bean.uid</strong></dd>
-   * 	<dt>description</dt><dd>is mapped to <strong>bean.description</strong></dd>
-   * 	<dt>info</dt><dd>is mapped to <strong>bean.info</strong></dd>
-   * 	<dt>longitude</dt><dd>is mapped to <strong>bean.longitude</strong></dd>
-   * 	<dt>latitude</dt><dd>is mapped to <strong>bean.latitude</strong></dd>
-   * 	<dt>address</dt><dd>is mapped to <strong>bean.address</strong></dd>
-   * 	<dt>address2</dt><dd>is mapped to <strong>bean.address2</strong></dd>
-   * 	<dt>city</dt><dd>is mapped to <strong>bean.city</strong></dd>
-   * 	<dt>phone</dt><dd>is mapped to <strong>bean.phone</strong></dd>
-   * 	<dt>total_patient_count</dt><dd>is mapped to <strong>bean.totalPatientCount</strong></dd>
-   * 	<dt>white_waiting_patients</dt><dd>is mapped to <strong>bean.whiteWaitingPatients</strong></dd>
-   * 	<dt>white_visiting_patients</dt><dd>is mapped to <strong>bean.whiteVisitingPatients</strong></dd>
-   * 	<dt>white_average_waiting_time</dt><dd>is mapped to <strong>bean.whiteAverageWaitingTime</strong></dd>
-   * 	<dt>green_waiting_patients</dt><dd>is mapped to <strong>bean.greenWaitingPatients</strong></dd>
-   * 	<dt>green_visiting_patients</dt><dd>is mapped to <strong>bean.greenVisitingPatients</strong></dd>
-   * 	<dt>green_average_waiting_time</dt><dd>is mapped to <strong>bean.greenAverageWaitingTime</strong></dd>
-   * 	<dt>yellow_waiting_patients</dt><dd>is mapped to <strong>bean.yellowWaitingPatients</strong></dd>
-   * 	<dt>yellow_visiting_patients</dt><dd>is mapped to <strong>bean.yellowVisitingPatients</strong></dd>
-   * 	<dt>yellow_average_waiting_time</dt><dd>is mapped to <strong>bean.yellowAverageWaitingTime</strong></dd>
-   * 	<dt>red_waiting_patients</dt><dd>is mapped to <strong>bean.redWaitingPatients</strong></dd>
-   * 	<dt>red_average_waiting_time</dt><dd>is mapped to <strong>bean.redAverageWaitingTime</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
+   * 	<dt>description</dt><dd>is mapped to <strong>${bean.description}</strong></dd>
+   * 	<dt>info</dt><dd>is mapped to <strong>${bean.info}</strong></dd>
+   * 	<dt>longitude</dt><dd>is mapped to <strong>${bean.longitude}</strong></dd>
+   * 	<dt>latitude</dt><dd>is mapped to <strong>${bean.latitude}</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
+   * 	<dt>address2</dt><dd>is mapped to <strong>${bean.address2}</strong></dd>
+   * 	<dt>city</dt><dd>is mapped to <strong>${bean.city}</strong></dd>
+   * 	<dt>phone</dt><dd>is mapped to <strong>${bean.phone}</strong></dd>
+   * 	<dt>total_patient_count</dt><dd>is mapped to <strong>${bean.totalPatientCount}</strong></dd>
+   * 	<dt>white_waiting_patients</dt><dd>is mapped to <strong>${bean.whiteWaitingPatients}</strong></dd>
+   * 	<dt>white_visiting_patients</dt><dd>is mapped to <strong>${bean.whiteVisitingPatients}</strong></dd>
+   * 	<dt>white_average_waiting_time</dt><dd>is mapped to <strong>${bean.whiteAverageWaitingTime}</strong></dd>
+   * 	<dt>green_waiting_patients</dt><dd>is mapped to <strong>${bean.greenWaitingPatients}</strong></dd>
+   * 	<dt>green_visiting_patients</dt><dd>is mapped to <strong>${bean.greenVisitingPatients}</strong></dd>
+   * 	<dt>green_average_waiting_time</dt><dd>is mapped to <strong>${bean.greenAverageWaitingTime}</strong></dd>
+   * 	<dt>yellow_waiting_patients</dt><dd>is mapped to <strong>${bean.yellowWaitingPatients}</strong></dd>
+   * 	<dt>yellow_visiting_patients</dt><dd>is mapped to <strong>${bean.yellowVisitingPatients}</strong></dd>
+   * 	<dt>yellow_average_waiting_time</dt><dd>is mapped to <strong>${bean.yellowAverageWaitingTime}</strong></dd>
+   * 	<dt>red_waiting_patients</dt><dd>is mapped to <strong>${bean.redWaitingPatients}</strong></dd>
+   * 	<dt>red_average_waiting_time</dt><dd>is mapped to <strong>${bean.redAverageWaitingTime}</strong></dd>
    * </dl>
    *
    * @param bean

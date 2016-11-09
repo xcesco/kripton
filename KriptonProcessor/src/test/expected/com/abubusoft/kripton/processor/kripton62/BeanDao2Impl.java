@@ -29,23 +29,25 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE 1=1</pre>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value_byte_set</strong> is associated to bean's property <strong>valueByteSet</strong></li>
-   * 	<li><strong>value_short_set</strong> is associated to bean's property <strong>valueShortSet</strong></li>
-   * 	<li><strong>value_integer_set</strong> is associated to bean's property <strong>valueIntegerSet</strong></li>
-   * 	<li><strong>value_string_set</strong> is associated to bean's property <strong>valueStringSet</strong></li>
-   * 	<li><strong>value_character_set</strong> is associated to bean's property <strong>valueCharacterSet</strong></li>
-   * 	<li><strong>value_float_set</strong> is associated to bean's property <strong>valueFloatSet</strong></li>
-   * 	<li><strong>value_double_set</strong> is associated to bean's property <strong>valueDoubleSet</strong></li>
-   * 	<li><strong>value_big_decimal_set</strong> is associated to bean's property <strong>valueBigDecimalSet</strong></li>
-   * 	<li><strong>value_bean_set</strong> is associated to bean's property <strong>valueBeanSet</strong></li>
-   * 	<li><strong>value_enum_type_set</strong> is associated to bean's property <strong>valueEnumTypeSet</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
+   * </dl>
    *
    *
    * @return selected bean or <code>null</code>.
@@ -96,31 +98,36 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value_byte_set</strong> is associated to bean's property <strong>valueByteSet</strong></li>
-   * 	<li><strong>value_short_set</strong> is associated to bean's property <strong>valueShortSet</strong></li>
-   * 	<li><strong>value_integer_set</strong> is associated to bean's property <strong>valueIntegerSet</strong></li>
-   * 	<li><strong>value_string_set</strong> is associated to bean's property <strong>valueStringSet</strong></li>
-   * 	<li><strong>value_character_set</strong> is associated to bean's property <strong>valueCharacterSet</strong></li>
-   * 	<li><strong>value_float_set</strong> is associated to bean's property <strong>valueFloatSet</strong></li>
-   * 	<li><strong>value_double_set</strong> is associated to bean's property <strong>valueDoubleSet</strong></li>
-   * 	<li><strong>value_big_decimal_set</strong> is associated to bean's property <strong>valueBigDecimalSet</strong></li>
-   * 	<li><strong>value_bean_set</strong> is associated to bean's property <strong>valueBeanSet</strong></li>
-   * 	<li><strong>value_enum_type_set</strong> is associated to bean's property <strong>valueEnumTypeSet</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    * @param listener
+   * 	is the Bean2 listener
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean2> listener) {
@@ -131,7 +138,6 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean2 resultBean=new Bean2();
-
     try {
       if (cursor.moveToFirst()) {
 
@@ -188,31 +194,36 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_byte_set</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_short_set</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_integer_set</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_string_set</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_character_set</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_float_set</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_double_set</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_big_decimal_set</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_bean_set</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_enum_type_set</dt><dd>no bean's property is associated</dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong></li>
-   * 	<li><strong>value_byte_set</strong></li>
-   * 	<li><strong>value_short_set</strong></li>
-   * 	<li><strong>value_integer_set</strong></li>
-   * 	<li><strong>value_string_set</strong></li>
-   * 	<li><strong>value_character_set</strong></li>
-   * 	<li><strong>value_float_set</strong></li>
-   * 	<li><strong>value_double_set</strong></li>
-   * 	<li><strong>value_big_decimal_set</strong></li>
-   * 	<li><strong>value_bean_set</strong></li>
-   * 	<li><strong>value_enum_type_set</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
@@ -240,32 +251,36 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ${id}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>id</strong> is binded to method's parameter <strong>id</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value_byte_set</strong> is associated to bean's property <strong>valueByteSet</strong></li>
-   * 	<li><strong>value_short_set</strong> is associated to bean's property <strong>valueShortSet</strong></li>
-   * 	<li><strong>value_integer_set</strong> is associated to bean's property <strong>valueIntegerSet</strong></li>
-   * 	<li><strong>value_string_set</strong> is associated to bean's property <strong>valueStringSet</strong></li>
-   * 	<li><strong>value_character_set</strong> is associated to bean's property <strong>valueCharacterSet</strong></li>
-   * 	<li><strong>value_float_set</strong> is associated to bean's property <strong>valueFloatSet</strong></li>
-   * 	<li><strong>value_double_set</strong> is associated to bean's property <strong>valueDoubleSet</strong></li>
-   * 	<li><strong>value_big_decimal_set</strong> is associated to bean's property <strong>valueBigDecimalSet</strong></li>
-   * 	<li><strong>value_bean_set</strong> is associated to bean's property <strong>valueBeanSet</strong></li>
-   * 	<li><strong>value_enum_type_set</strong> is associated to bean's property <strong>valueEnumTypeSet</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
    *
    * @param id
+   * 	is binded to ${id}
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<Bean2> selectList(long id) {
@@ -318,11 +333,30 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>Update query:</p>
+   * <p>SQL Update:</p>
    * <pre>UPDATE bean2 SET value_byte_set=${value.valueByteSet}, value_short_set=${value.valueShortSet}, value_integer_set=${value.valueIntegerSet}, value_string_set=${value.valueStringSet}, value_character_set=${value.valueCharacterSet}, value_float_set=${value.valueFloatSet}, value_double_set=${value.valueDoubleSet}, value_big_decimal_set=${value.valueBigDecimalSet}, value_bean_set=${value.valueBeanSet}, value_enum_type_set=${value.valueEnumTypeSet} WHERE id=${value.id}</pre>
    *
+   * <p><strong>Updated columns:</strong></p>
+   * <dl>
+   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${value.valueByteSet}</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is mapped to <strong>${value.valueShortSet}</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${value.valueIntegerSet}</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is mapped to <strong>${value.valueStringSet}</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is mapped to <strong>${value.valueCharacterSet}</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is mapped to <strong>${value.valueFloatSet}</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is mapped to <strong>${value.valueDoubleSet}</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>${value.valueBigDecimalSet}</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is mapped to <strong>${value.valueBeanSet}</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>${value.valueEnumTypeSet}</strong></dd>
+   * </dl>
+   *
+   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <dl>
+   * 	<dt>${value.id}</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
+   * </dl>
+   *
    * @param value
-   * 	is used as where parameter ${value}
+   * 	is used as ${value}
    *
    * @return number of updated records
    */
@@ -399,23 +433,23 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean2 (value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES (${bean.valueByteSet}, ${bean.valueShortSet}, ${bean.valueIntegerSet}, ${bean.valueStringSet}, ${bean.valueCharacterSet}, ${bean.valueFloatSet}, ${bean.valueDoubleSet}, ${bean.valueBigDecimalSet}, ${bean.valueBeanSet}, ${bean.valueEnumTypeSet})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>bean.valueByteSet</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is mapped to <strong>bean.valueShortSet</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>bean.valueIntegerSet</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is mapped to <strong>bean.valueStringSet</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is mapped to <strong>bean.valueCharacterSet</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is mapped to <strong>bean.valueFloatSet</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is mapped to <strong>bean.valueDoubleSet</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>bean.valueBigDecimalSet</strong></dd>
-   * 	<dt>value_bean_set</dt><dd>is mapped to <strong>bean.valueBeanSet</strong></dd>
-   * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>bean.valueEnumTypeSet</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${bean.valueByteSet}</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is mapped to <strong>${bean.valueShortSet}</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${bean.valueIntegerSet}</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is mapped to <strong>${bean.valueStringSet}</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is mapped to <strong>${bean.valueCharacterSet}</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is mapped to <strong>${bean.valueFloatSet}</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is mapped to <strong>${bean.valueDoubleSet}</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>${bean.valueBigDecimalSet}</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is mapped to <strong>${bean.valueBeanSet}</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>${bean.valueEnumTypeSet}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -497,12 +531,12 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>SQL Insert used:</p>
+   * <p>SQL insert:</p>
    * <pre>INSERT INTO bean2 (value_big_decimal_set) VALUES (${valueBigDecimalSet})</pre>
    *
-   * <p><strong>Inserted fields:</strong></p>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>valueBigDecimalSet</dt><dd>is mapped to parameter <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is binded to query's parameter <strong>${valueBigDecimalSet}</strong> and method's parameter <strong>valueBigDecimalSet</strong></dd>
    * </dl>
    *
    * @param valueBigDecimalSet
@@ -528,30 +562,34 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE value=${valueBigDecimalSet}</pre>
    *
-   * <p>Query's parameters are:</p>
-   * <ul>
-   * 	<li>Param <strong>valueBigDecimalSet</strong> is binded to method's parameter <strong>valueBigDecimalSet</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
+   * </dl>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>value_byte_set</strong> is associated to bean's property <strong>valueByteSet</strong></li>
-   * 	<li><strong>value_short_set</strong> is associated to bean's property <strong>valueShortSet</strong></li>
-   * 	<li><strong>value_integer_set</strong> is associated to bean's property <strong>valueIntegerSet</strong></li>
-   * 	<li><strong>value_string_set</strong> is associated to bean's property <strong>valueStringSet</strong></li>
-   * 	<li><strong>value_character_set</strong> is associated to bean's property <strong>valueCharacterSet</strong></li>
-   * 	<li><strong>value_float_set</strong> is associated to bean's property <strong>valueFloatSet</strong></li>
-   * 	<li><strong>value_double_set</strong> is associated to bean's property <strong>valueDoubleSet</strong></li>
-   * 	<li><strong>value_big_decimal_set</strong> is associated to bean's property <strong>valueBigDecimalSet</strong></li>
-   * 	<li><strong>value_bean_set</strong> is associated to bean's property <strong>valueBeanSet</strong></li>
-   * 	<li><strong>value_enum_type_set</strong> is associated to bean's property <strong>valueEnumTypeSet</strong></li>
-   * </ul>
+   * <h2>Query's parameters:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>${valueBigDecimalSet}</dt><dd>is binded to method's parameter <strong>valueBigDecimalSet</strong></dd>
+   * </dl>
    *
    * @param valueBigDecimalSet
+   * 	is binded to ${valueBigDecimalSet}
    *
    * @return selected bean or <code>null</code>.
    */
@@ -601,12 +639,12 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE bean2 WHERE value=${valueBigDecimalSet}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to parameter <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to method's parameter <strong>valueBigDecimalSet</strong></dd>
    * </dl>
    *
    * @param valueBigDecimalSet
@@ -624,16 +662,16 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>SQL Update used:</p>
+   * <p>SQL update:</p>
    * <pre>UPDATE bean2 SET  WHERE value=${valueBigDecimalSet}</pre>
    *
-   * <p><strong>Updated fields:</strong></p>
+   * <p><strong>Updated columns:</strong></p>
    * <dl>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to parameter <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to method's parameter <strong>valueBigDecimalSet</strong></dd>
    * </dl>
    *
    * @param valueBigDecimalSet

@@ -115,10 +115,10 @@ public abstract class JavadocUtility {
 			methodBuilder.addJavadoc("\n@return cursor. Closing the cursor is delegated to the calling code.\n");
 			break;
 		case LIST_BEAN:
-			methodBuilder.addJavadoc("\n@return list of bean or empty list.\n");
+			methodBuilder.addJavadoc("\n@return collection of bean or empty collection.\n");
 			break;
 		case LIST_SCALAR:
-			methodBuilder.addJavadoc("\n@return list of single value extracted with query.\n");
+			methodBuilder.addJavadoc("\n@return collection of single value extracted with query.\n");
 			break;
 		case LISTENER_BEAN:
 		case LISTENER_CURSOR:

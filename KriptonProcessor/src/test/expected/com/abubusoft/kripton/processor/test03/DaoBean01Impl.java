@@ -24,21 +24,23 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>Select SQL:</p>
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1</pre>
    *
-   * <p>Projected columns are:</p>
-   * <ul>
-   * 	<li><strong>lista</strong> is associated to bean's property <strong>lista</strong></li>
-   * 	<li><strong>id</strong> is associated to bean's property <strong>id</strong></li>
-   * 	<li><strong>message_date</strong> is associated to bean's property <strong>messageDate</strong></li>
-   * 	<li><strong>message_text</strong> is associated to bean's property <strong>messageText</strong></li>
-   * 	<li><strong>bean_list</strong> is associated to bean's property <strong>beanList</strong></li>
-   * 	<li><strong>value</strong> is associated to bean's property <strong>value</strong></li>
-   * </ul>
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>lista</dt><dd>is associated to bean's property <strong>lista</strong></dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>message_date</dt><dd>is associated to bean's property <strong>messageDate</strong></dd>
+   * 	<dt>message_text</dt><dd>is associated to bean's property <strong>messageText</strong></dd>
+   * 	<dt>bean_list</dt><dd>is associated to bean's property <strong>beanList</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * </dl>
    *
    *
-   * @return list of bean or empty list.
+   * @return collection of bean or empty collection.
    */
   @Override
   public List<Bean01> listAll() {

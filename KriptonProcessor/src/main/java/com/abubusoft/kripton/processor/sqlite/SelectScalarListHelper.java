@@ -69,14 +69,9 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 
 		TypeName collectionClass;		
 		ClassName listClazzName = returnListName.rawType;
-
-		if (TypeUtility.isTypeIncludedIn(listClazzName.toString(), List.class, Collection.class, Iterable.class)) {
-			// there is an interface as result
-			collectionClass = typeName(LinkedList.class);
-		} else {
-			collectionClass = listClazzName;
-		}
 		TypeName elementName = returnListName.typeArguments.get(0);
+		
+		collectionClass=SelectBeanListHelper.defineCollection(listClazzName);
 		
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, elementName, collectionClass, elementName);		

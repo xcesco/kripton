@@ -19,12 +19,12 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
   }
 
   /**
-   * <p>Delete query:</p>
+   * <p>SQL delete:</p>
    * <pre>DELETE bean01 WHERE id=${value}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
-   * 	<dt>${value}</dt><dd>is mapped to parameter <strong>value</strong></dd>
+   * 	<dt>${value}</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
