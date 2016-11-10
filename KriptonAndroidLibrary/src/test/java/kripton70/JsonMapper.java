@@ -31,10 +31,8 @@ public abstract class JsonMapper<E> {
 	protected static ShortConverter shortMapper=new ShortConverter();	
 	protected static IntegerConverter integerMapper=new IntegerConverter();
 	protected static FloatConverter floatMapper=new FloatConverter();
-	protected static DoubleConverter doubleMapper=new DoubleConverter();
-	
-	protected static LongConverter longMapper=new LongConverter();
-	
+	protected static DoubleConverter doubleMapper=new DoubleConverter();	
+	protected static LongConverter longMapper=new LongConverter();	
 	protected static StringConverter stringMapper=new StringConverter();
 
 	 /**
