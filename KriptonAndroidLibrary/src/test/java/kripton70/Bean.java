@@ -1,0 +1,47 @@
+package kripton70;
+
+import kripton70.typeconverters.ByteConverter;
+import kripton70.typeconverters.CharacterConverter;
+import kripton70.typeconverters.DoubleConverter;
+import kripton70.typeconverters.FloatConverter;
+import kripton70.typeconverters.IntegerConverter;
+import kripton70.typeconverters.ShortConverter;
+
+import com.abubusoft.kripton.annotation.BindType;
+
+@BindType
+public class Bean {
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Bean other = (Bean) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	public long id;
+	
+	public String description;
+		
+}
