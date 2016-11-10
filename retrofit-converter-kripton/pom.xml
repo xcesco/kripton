@@ -6,7 +6,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>retrofit-converter-kripton</artifactId>
-	<version>1.4.0</version>
+	<version>1.5.0-SNAPSHOT</version>
 	<url>https://github.com/xcesco/kripton</url>
 
 	<packaging>jar</packaging>
@@ -18,7 +18,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
 		<!-- dependencies -->
-		<kripton-android-library.version>1.4.0</kripton-android-library.version>
+		<kripton-android-library.version>1.5.0-SNAPSHOT</kripton-android-library.version>
 		<retrofit.version>2.1.0</retrofit.version>
 	</properties>
 
