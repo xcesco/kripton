@@ -6,24 +6,30 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+import kripton70.core.BinderGenerator;
+import kripton70.core.BinderParser;
+
 public class ByteConverter implements TypeConverter<Byte> {
 
 	@Override
-	public Byte parse(JsonParser jsonParser, boolean onlyText) throws IOException {
-		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
+	public Byte parse(BinderParser parser, boolean onlyText) throws IOException {
+		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else if (onlyText){
-			return Byte.valueOf(jsonParser.getText());
+			return Byte.valueOf(parser.getText());
 		} else {
-			return jsonParser.getByteValue();
+			return parser.getByteValue();
 			
 		}
 	}
 
 	@Override
-	public void serialize(Byte value, String fieldName, boolean writeFieldNameForObject, JsonGenerator jsonGenerator) throws IOException {
-		jsonGenerator.writeFieldName(fieldName);
-		jsonGenerator.writeNumber(value);
+	public void serialize(Byte value, String fieldName, boolean writeFieldNameForObject, BinderGenerator generator) throws IOException {
+		generator.writeFieldName(fieldName);
+		generator.writeNumber(value);
+		
 	}
+
+	
 
 }

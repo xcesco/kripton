@@ -6,23 +6,27 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+import kripton70.core.BinderGenerator;
+import kripton70.core.BinderParser;
+
 public class ShortConverter implements TypeConverter<Short> {
 
 	@Override
-	public Short parse(JsonParser jsonParser, boolean onlyText) throws IOException {
-		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
+	public Short parse(BinderParser parser, boolean onlyText) throws IOException {
+		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else if (onlyText) {
-			return Short.valueOf(jsonParser.getText());
+			return Short.valueOf(parser.getText());
 		} else {
-			return jsonParser.getShortValue();			
+			return parser.getShortValue();			
 		}
 	}
 
 	@Override
-	public void serialize(Short value, String fieldName, boolean writeFieldNameForObject, JsonGenerator jsonGenerator) throws IOException {
-		jsonGenerator.writeFieldName(fieldName);
-		jsonGenerator.writeNumber(value);
+	public void serialize(Short value, String fieldName, boolean writeFieldNameForObject, BinderGenerator generator) throws IOException {
+		generator.writeFieldName(fieldName);
+		generator.writeNumber(value);
+		
 	}
 
 }

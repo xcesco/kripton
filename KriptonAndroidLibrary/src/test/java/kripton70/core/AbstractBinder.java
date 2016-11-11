@@ -1,0 +1,351 @@
+package kripton70.core;
+
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+
+import kripton70.NoSuchMapperException;
+import util.SimpleArrayMap;
+
+public abstract class AbstractBinder implements Binder2 {
+
+	private static final Map<Class, JsonMapper> OBJECT_MAPPERS = new ConcurrentHashMap<Class, JsonMapper>();
+
+	static {
+		// OBJECT_MAPPERS.put(String.class, new String$JsonMapper());
+		// OBJECT_MAPPERS.put(Integer.class, new IntegerMapper());
+		// OBJECT_MAPPERS.put(Long.class, new
+		// kripton70.internal.Long.JsonMapper());
+		/*
+		 * OBJECT_MAPPERS.put(Float.class, new FloatMapper());
+		 * OBJECT_MAPPERS.put(Double.class, new DoubleMapper());
+		 * OBJECT_MAPPERS.put(Boolean.class, new BooleanMapper());
+		 * OBJECT_MAPPERS.put(Object.class, new ObjectMapper());
+		 * OBJECT_MAPPERS.put(List.class, LIST_MAPPER);
+		 * OBJECT_MAPPERS.put(ArrayList.class, LIST_MAPPER);
+		 * OBJECT_MAPPERS.put(Map.class, MAP_MAPPER);
+		 * OBJECT_MAPPERS.put(HashMap.class, MAP_MAPPER);
+		 */
+	}
+
+	public abstract BinderType getSupportedFormat();
+
+	public abstract JsonFactory createInnerFactory();
+
+	public AbstractBinder() {
+		innerFactory = createInnerFactory();
+	}
+
+	public JsonFactory innerFactory;
+	
+	//-------------
+	/**
+	 * Parse an object from an InputStream.
+	 *
+	 * @param is
+	 *            The InputStream, most likely from your networking library.
+	 * @param jsonObjectClass
+	 *            The @JsonObject class to parse the InputStream into
+	 */
+	public <E> E parse(InputStream is, Class<E> jsonObjectClass) throws IOException {
+		return mapperFor(jsonObjectClass).parse(is);
+	}
+
+	/**
+	 * Parse an object from a String. Note: parsing from an InputStream should be preferred over parsing from a String if possible.
+	 *
+	 * @param jsonString
+	 *            The JSON string being parsed.
+	 * @param jsonObjectClass
+	 *            The @JsonObject class to parse the InputStream into
+	 */
+	public <E> E parse(String jsonString, Class<E> jsonObjectClass) throws IOException {
+		return mapperFor(jsonObjectClass).parse(jsonString);
+	}
+
+	/**
+	 * Parse a parameterized object from an InputStream.
+	 *
+	 * @param is
+	 *            The InputStream, most likely from your networking library.
+	 * @param jsonObjectType
+	 *            The ParameterizedType describing the object. Ex: LoganSquare.parse(is, new ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { });
+	 */
+	public <E> E parse(InputStream is, ParameterizedType<E> jsonObjectType) throws IOException {
+		return mapperFor(jsonObjectType).parse(is);
+	}
+
+	/**
+	 * Parse a parameterized object from a String. Note: parsing from an InputStream should be preferred over parsing from a String if possible.
+	 *
+	 * @param jsonString
+	 *            The JSON string being parsed.
+	 * @param jsonObjectType
+	 *            The ParameterizedType describing the object. Ex: LoganSquare.parse(is, new ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { });
+	 */
+	public <E> E parse(String jsonString, ParameterizedType<E> jsonObjectType) throws IOException {
+		return mapperFor(jsonObjectType).parse(jsonString);
+	}
+
+	/**
+	 * Parse a list of objects from an InputStream.
+	 *
+	 * @param is
+	 *            The inputStream, most likely from your networking library.
+	 * @param jsonObjectClass
+	 *            The @JsonObject class to parse the InputStream into
+	 */
+	public <E> List<E> parseList(InputStream is, Class<E> jsonObjectClass) throws IOException {
+		return mapperFor(jsonObjectClass).parseList(is);
+	}
+
+	/**
+	 * Parse a list of objects from a String. Note: parsing from an InputStream should be preferred over parsing from a String if possible.
+	 *
+	 * @param jsonString
+	 *            The JSON string being parsed.
+	 * @param jsonObjectClass
+	 *            The @JsonObject class to parse the InputStream into
+	 */
+	public <E> List<E> parseList(String jsonString, Class<E> jsonObjectClass) throws IOException {
+		return mapperFor(jsonObjectClass).parseList(jsonString);
+	}
+
+	/**
+	 * Serialize an object to a JSON String.
+	 *
+	 * @param object
+	 *            The object to serialize.
+	 */
+	@SuppressWarnings("unchecked")
+	public <E> String serialize(E object) throws IOException {
+		return mapperFor((Class<E>) object.getClass()).serialize(object);
+	}
+
+	/**
+	 * Serialize an object to an OutputStream.
+	 *
+	 * @param object
+	 *            The object to serialize.
+	 * @param os
+	 *            The OutputStream being written to.
+	 */
+	public <E> void serialize(E object, OutputStream os) throws IOException {
+		mapperFor((Class<E>) object.getClass()).serialize(object, os);
+	}
+
+	/**
+	 * Serialize a parameterized object to a JSON String.
+	 *
+	 * @param object
+	 *            The object to serialize.
+	 * @param parameterizedType
+	 *            The ParameterizedType describing the object. Ex: LoganSquare.serialize(object, new ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { });
+	 */
+	public <E> String serialize(E object, ParameterizedType<E> parameterizedType) throws IOException {
+		return mapperFor(parameterizedType).serialize(object);
+	}
+
+	/**
+	 * Serialize a parameterized object to an OutputStream.
+	 *
+	 * @param object
+	 *            The object to serialize.
+	 * @param parameterizedType
+	 *            The ParameterizedType describing the object. Ex: LoganSquare.serialize(object, new ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { }, os);
+	 * @param os
+	 *            The OutputStream being written to.
+	 */
+	@SuppressWarnings("unchecked")
+	public <E> void serialize(E object, ParameterizedType<E> parameterizedType, OutputStream os) throws IOException {
+		mapperFor(parameterizedType).serialize(object, os);
+	}
+
+	/**
+	 * Serialize a list of objects to a JSON String.
+	 *
+	 * @param list
+	 *            The list of objects to serialize.
+	 * @param jsonObjectClass
+	 *            The @JsonObject class of the list elements
+	 */
+	public <E> String serialize(List<E> list, Class<E> jsonObjectClass) throws IOException {
+		return mapperFor(jsonObjectClass).serialize(list);
+	}
+
+	/**
+	 * Serialize a list of objects to an OutputStream.
+	 *
+	 * @param list
+	 *            The list of objects to serialize.
+	 * @param os
+	 *            The OutputStream to which the list should be serialized
+	 * @param jsonObjectClass
+	 *            The @JsonObject class of the list elements
+	 */
+	public <E> void serialize(List<E> list, OutputStream os, Class<E> jsonObjectClass) throws IOException {
+		mapperFor(jsonObjectClass).serialize(list, os);
+	}
+
+	public <E> JsonMapper<E> mapperFor(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JsonMapper> partialMappers) throws NoSuchMapperException {
+		JsonMapper<E> mapper = getMapper(type, partialMappers);
+		if (mapper == null) {
+			throw new NoSuchMapperException(type.rawType);
+		} else {
+			return mapper;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	static <E> JsonMapper<E> getMapper(Class<E> cls) {
+		JsonMapper<E> mapper = OBJECT_MAPPERS.get(cls);
+		if (mapper == null) {
+			// The only way the mapper wouldn't already be loaded into OBJECT_MAPPERS is if it was compiled separately, but let's handle it anyway
+			try {
+				Class<?> mapperClass = Class.forName(cls.getName() + Constants.MAPPER_CLASS_SUFFIX);
+				mapper = (JsonMapper<E>) mapperClass.newInstance();
+				//mapper.
+				OBJECT_MAPPERS.put(cls, mapper);
+			} catch (Exception ignored) {
+			}
+		}
+		return mapper;
+	}
+
+	private static <E> JsonMapper<E> getMapper(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JsonMapper> partialMappers) {
+		/*
+		if (type.typeParameters.size() == 0) {
+			return getMapper((Class<E>) type.rawType);
+		}
+
+		if (partialMappers == null) {
+			partialMappers = new SimpleArrayMap<ParameterizedType, JsonMapper>();
+		}
+
+		if (partialMappers.containsKey(type)) {
+			return partialMappers.get(type);
+		} else if (PARAMETERIZED_OBJECT_MAPPERS.containsKey(type)) {
+			return PARAMETERIZED_OBJECT_MAPPERS.get(type);
+		} else {
+			try {
+				Class<?> mapperClass = Class.forName(type.rawType.getName() + Constants.MAPPER_CLASS_SUFFIX);
+				Constructor constructor = mapperClass.getDeclaredConstructors()[0];
+				Object[] args = new Object[2 + type.typeParameters.size()];
+				args[0] = type;
+				args[args.length - 1] = partialMappers;
+				for (int i = 0; i < type.typeParameters.size(); i++) {
+					args[i + 1] = type.typeParameters.get(i);
+				}
+				JsonMapper<E> mapper = (JsonMapper<E>) constructor.newInstance(args);
+				PARAMETERIZED_OBJECT_MAPPERS.put(type, mapper);
+				return mapper;
+			} catch (Exception ignored) {
+				return null;
+			}
+		}*/
+		
+		return null;
+	}
+
+	/**
+	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
+	 *
+	 * @param type
+	 *            The ParameterizedType for which the JsonMapper should be fetched.
+	 */
+	public <E> JsonMapper<E> mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
+		return mapperFor(type, null);
+	}
+
+	/**
+	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
+	 *
+	 * @param cls
+	 *            The class for which the JsonMapper should be fetched.
+	 */
+	public static <T> JsonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException {
+		JsonMapper<T> mapper = getMapper(cls);
+
+		if (mapper == null) {
+			throw new NoSuchMapperException(cls);
+		} else {
+			return mapper;
+		}
+	}
+	
+	
+	public BinderGenerator createGenerator(DataOutput out) throws IOException {
+		return createGenerator(out, JsonEncoding.UTF8);
+	}
+
+	public BinderGenerator createGenerator(OutputStream out) throws IOException {
+		return createGenerator(out, JsonEncoding.UTF8);
+	}
+
+	public BinderGenerator createGenerator(Writer writer) throws IOException {
+		return new BinderGenerator(innerFactory.createGenerator(writer), getSupportedFormat());
+	}
+
+	public BinderGenerator createGenerator(DataOutput out, JsonEncoding encoding) throws IOException {
+		return new BinderGenerator(innerFactory.createGenerator(out, encoding), getSupportedFormat());
+	}
+
+	public BinderGenerator createGenerator(File file, JsonEncoding encoding) throws IOException {
+		return innerFactory.createGenerator(file, encoding);
+	}
+
+	public BinderGenerator createGenerator(File file) throws IOException {
+		return createGenerator(file, JsonEncoding.UTF8);
+	}
+
+	public BinderGenerator createGenerator(OutputStream out, JsonEncoding encoding) throws IOException {
+		return innerFactory.createGenerator(out, encoding);
+	}
+
+	public JsonBinderGeneratorParser createParser(byte[] data) throws IOException {
+		return innerFactory.createParser(data);
+	}
+
+	public JsonParser createParser(char[] content) throws IOException {
+		return innerFactory.createParser(content);
+	}
+
+	public JsonParser createParser(DataInput in) throws IOException {
+		return innerFactory.createParser(in);
+	}
+
+	public JsonParser createParser(File file) throws IOException {
+		return innerFactory.createParser(file);
+	}
+
+	public JsonParser createParser(InputStream in) throws IOException {
+		return innerFactory.createParser(in);
+	}
+
+	public JsonParser createParser(Reader reader) throws IOException {
+		return innerFactory.createParser(reader);
+	}
+
+	public JsonParser createParser(String content) throws IOException {
+		return innerFactory.createParser(content);
+	}
+
+	public JsonParser createParser(URL url) throws IOException {
+		return innerFactory.createParser(url);
+	}
+	
+}

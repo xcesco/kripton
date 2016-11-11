@@ -5,6 +5,9 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import kripton70.core.BinderType;
+import kripton70.core.KriptonLibrary2;
+
 public class Kripton70Test {
 
 	@Test
@@ -20,10 +23,10 @@ public class Kripton70Test {
 		bean.valueBean.id=25;
 		bean.valueBean.description="hello";
 		
-		String output=KriptonLibrary2.serialize(bean);
+		String output=KriptonLibrary2.getBinder(BinderType.JSON).serialize(bean);
 		System.out.println(output);
 		
-		Bean bean2=KriptonLibrary2.parse(output, Bean.class);
+		Bean bean2=KriptonLibrary2.getBinder(BinderType.JSON).parse(output, Bean.class);
 		
 		Assert.assertTrue(bean2.equals(bean));
 		

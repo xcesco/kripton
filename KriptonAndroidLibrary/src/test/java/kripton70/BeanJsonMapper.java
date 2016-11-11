@@ -6,6 +6,11 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+import kripton70.core.BinderGenerator;
+import kripton70.core.BinderParser;
+import kripton70.core.JsonMapper;
+import kripton70.core.KriptonLibrary2;
+
 public final class BeanJsonMapper extends JsonMapper<Bean> {
     //private static final JsonMapper<Object> COM_BLUELINELABS_LOGANSQUARE_INTERNAL_OBJECTMAPPERS_OBJECTMAPPER = LoganSquare.mapperFor(Object.class);
 
@@ -13,44 +18,30 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
 
     @Override
     public Bean parse(JsonParser jsonParser) throws IOException {
-        Bean instance = new Bean();
-        if (jsonParser.getCurrentToken() == null) {
-            jsonParser.nextToken();
-        }
-        if (jsonParser.getCurrentToken() != JsonToken.START_OBJECT) {
-            jsonParser.skipChildren();
-            return null;
-        }
-        while (jsonParser.nextToken() != JsonToken.END_OBJECT) {
-            String fieldName = jsonParser.getCurrentName();
-            jsonParser.nextToken();
-            parseField(instance, fieldName, jsonParser);
-            jsonParser.skipChildren();
-        }
-        return instance;
+        
     }
 
     @Override
-    public void parseField(Bean instance, String fieldName, JsonParser jsonParser) throws IOException {
+    public void parseField(Bean instance, String fieldName, BinderParser parser) throws IOException {
     	switch(fieldName)
     	{
     	case "id":
-    		instance.id=longMapper.parse(jsonParser);
+    		instance.id=longMapper.parse(parser);
     		break;
     	case "description":
-    		instance.description=stringMapper.parse(jsonParser);
+    		instance.description=stringMapper.parse(parser);
     		break;
     	case "valueByteType":
-    		instance.valueByteType=byteMapper.parse(jsonParser);
+    		instance.valueByteType=byteMapper.parse(parser);
     		break;
     	case "valueShortType":
-    		instance.valueShortType=shortMapper.parse(jsonParser);
+    		instance.valueShortType=shortMapper.parse(parser);
     		break;
     	case "valueCharType":
-    		instance.valueCharType=characterMapper.parse(jsonParser);
+    		instance.valueCharType=characterMapper.parse(parser);
     		break;
     	case "valueBean":
-    		instance.valueBean=((JsonMapper<Bean>) KriptonLibrary2.mapperFor(Bean.class)).parse(jsonParser);
+    		instance.valueBean=((JsonMapper<Bean>) KriptonLibrary2.mapperFor(Bean.class)).parse(parser);
     		break;
     	default:
     		break;
@@ -255,6 +246,37 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
             jsonGenerator.writeEndObject();
         }*/
     }
+
+	@Override
+	public Bean parse(BinderParser parser) throws IOException {
+		Bean instance = new Bean();
+        if (parser.getCurrentToken() == null) {
+        	parser.nextToken();
+        }
+        if (parser.getCurrentToken() != JsonToken.START_OBJECT) {
+        	parser.skipChildren();
+            return null;
+        }
+        while (parser.nextToken() != JsonToken.END_OBJECT) {
+            String fieldName = parser.getCurrentName();
+            parser.nextToken();
+            parseField(instance, fieldName, parser);
+            parser.skipChildren();
+        }
+        return instance;
+	}
+
+	@Override
+	public void parseField(Bean instance, String fieldName) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void serialize(Bean object, BinderGenerator generator, boolean writeStartAndEnd) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
 
     /*
     private static final TypeConverter<Date> getjava_util_Date_type_converter() {
