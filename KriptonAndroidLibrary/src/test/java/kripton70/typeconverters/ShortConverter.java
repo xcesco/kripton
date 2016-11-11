@@ -9,12 +9,13 @@ import com.fasterxml.jackson.core.JsonToken;
 public class ShortConverter implements TypeConverter<Short> {
 
 	@Override
-	public Short parse(JsonParser jsonParser) throws IOException {
+	public Short parse(JsonParser jsonParser, boolean onlyText) throws IOException {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
-		} else {
-			//return jsonParser.getShortValue();
+		} else if (onlyText) {
 			return Short.valueOf(jsonParser.getText());
+		} else {
+			return jsonParser.getShortValue();			
 		}
 	}
 

@@ -15,8 +15,9 @@ public interface TypeConverter<T> {
 	 *
 	 * @param jsonParser
 	 *            The JsonParser that is pre-configured for this field.
+	 * 
 	 */
-	T parse(JsonParser jsonParser) throws IOException;
+	T parse(JsonParser jsonParser, boolean onlyText) throws IOException;
 
 	/**
 	 * Called to serialize an object of type T to JSON using the JsonGenerator and field name.

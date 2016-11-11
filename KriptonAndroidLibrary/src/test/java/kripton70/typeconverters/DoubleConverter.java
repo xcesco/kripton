@@ -9,9 +9,11 @@ import com.fasterxml.jackson.core.JsonToken;
 public class DoubleConverter implements TypeConverter<Double> {
 
 	@Override
-	public Double parse(JsonParser jsonParser) throws IOException {
+	public Double parse(JsonParser jsonParser, boolean onlyText) throws IOException {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
+		} else if (onlyText){
+			return Double.valueOf(jsonParser.getText());
 		} else {
 			return jsonParser.getDoubleValue();
 		}

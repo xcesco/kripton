@@ -9,7 +9,7 @@ import com.fasterxml.jackson.core.JsonToken;
 public class CharacterConverter implements TypeConverter<Character> {
 
 	@Override
-	public Character parse(JsonParser jsonParser) throws IOException {
+	public Character parse(JsonParser jsonParser, boolean onlyText) throws IOException {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else {

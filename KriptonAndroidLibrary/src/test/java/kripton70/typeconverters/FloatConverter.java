@@ -9,9 +9,11 @@ import com.fasterxml.jackson.core.JsonToken;
 public class FloatConverter implements TypeConverter<Float> {
 
 	@Override
-	public Float parse(JsonParser jsonParser) throws IOException {
+	public Float parse(JsonParser jsonParser, boolean onlyText) throws IOException {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
+		} else if (onlyText){
+			return Float.valueOf(jsonParser.getText());
 		} else {
 			return jsonParser.getFloatValue();
 		}

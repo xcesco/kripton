@@ -9,9 +9,11 @@ import com.fasterxml.jackson.core.JsonToken;
 public class BooleanConverter implements TypeConverter<Boolean> {
 
 	@Override
-	public Boolean parse(JsonParser jsonParser) throws IOException {
+	public Boolean parse(JsonParser jsonParser, boolean onlyText) throws IOException {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
+		} else if (onlyText) {
+			return Boolean.valueOf(jsonParser.getText());
 		} else {
 			return jsonParser.getBooleanValue();
 		}

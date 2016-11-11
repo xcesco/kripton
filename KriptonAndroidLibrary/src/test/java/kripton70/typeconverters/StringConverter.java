@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.JsonParser;
 public class StringConverter implements TypeConverter<String>  {
 
 	@Override
-	public String parse(JsonParser jsonParser) throws IOException {
+	public String parse(JsonParser jsonParser, boolean onlyText) throws IOException {
 		return jsonParser.getText();
 	}
 

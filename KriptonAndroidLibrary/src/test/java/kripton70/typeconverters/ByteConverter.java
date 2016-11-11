@@ -9,12 +9,14 @@ import com.fasterxml.jackson.core.JsonToken;
 public class ByteConverter implements TypeConverter<Byte> {
 
 	@Override
-	public Byte parse(JsonParser jsonParser) throws IOException {
+	public Byte parse(JsonParser jsonParser, boolean onlyText) throws IOException {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
-		} else {
-			//return jsonParser.getByteValue();
+		} else if (onlyText){
 			return Byte.valueOf(jsonParser.getText());
+		} else {
+			return jsonParser.getByteValue();
+			
 		}
 	}
 

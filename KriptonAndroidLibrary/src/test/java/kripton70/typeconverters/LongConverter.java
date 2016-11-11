@@ -9,12 +9,13 @@ import com.fasterxml.jackson.core.JsonToken;
 public class LongConverter implements TypeConverter<Long> {
 
 	@Override
-	public Long parse(JsonParser jsonParser) throws IOException {
+	public Long parse(JsonParser jsonParser, boolean onlyText) throws IOException {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
-		} else {
+		} else if (onlyText){
 			return Long.valueOf(jsonParser.getText());
-			//return jsonParser.getLongValue();
+		} else {
+			return jsonParser.getLongValue();
 		}
 	}
 
