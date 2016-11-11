@@ -44,7 +44,8 @@ public class KriptonLibrary2 {
 	/**
 	 * The JsonFactory that should be used throughout the entire app.
 	 * */
-	public static final JsonFactory JSON_FACTORY = new JavaPropsFactory(); //new YAMLFactory();//new JsonFactory();
+	public static final JsonFactory JSON_FACTORY = /*new JavaPropsFactory();*/ new YAMLFactory();//new JsonFactory();
+	//public static final JsonFactory JSON_FACTORY = new JsonFactory();
 
 	/**
 	 * Parse an object from an InputStream.
@@ -220,32 +221,6 @@ public class KriptonLibrary2 {
 		mapperFor(jsonObjectClass).serialize(list, os);
 	}
 
-	/**
-	 * Serialize a map of objects to a JSON String.
-	 *
-	 * @param map
-	 *            The map of objects to serialize.
-	 * @param jsonObjectClass
-	 *            The @JsonObject class of the list elements
-	 */
-	public static <E> String serialize(Map<String, E> map, Class<E> jsonObjectClass) throws IOException {
-		return mapperFor(jsonObjectClass).serialize(map);
-	}
-
-	/**
-	 * Serialize a map of objects to an OutputStream.
-	 *
-	 * @param map
-	 *            The map of objects to serialize.
-	 * @param os
-	 *            The OutputStream to which the list should be serialized
-	 * @param jsonObjectClass
-	 *            The @JsonObject class of the list elements
-	 */
-	public static <E> void serialize(Map<String, E> map, OutputStream os, Class<E> jsonObjectClass) throws IOException {
-		mapperFor(jsonObjectClass).serialize(map, os);
-	}
-
 	public static <E> JsonMapper<E> mapperFor(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JsonMapper> partialMappers) throws NoSuchMapperException {
 		JsonMapper<E> mapper = getMapper(type, partialMappers);
 		if (mapper == null) {
@@ -312,7 +287,6 @@ public class KriptonLibrary2 {
 	 * @param type
 	 *            The ParameterizedType for which the JsonMapper should be fetched.
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> JsonMapper<E> mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
 		return mapperFor(type, null);
 	}
@@ -323,8 +297,8 @@ public class KriptonLibrary2 {
 	 * @param cls
 	 *            The class for which the JsonMapper should be fetched.
 	 */
-	public static <E> JsonMapper<E> mapperFor(Class<E> cls) throws NoSuchMapperException {
-		JsonMapper<E> mapper = getMapper(cls);
+	public static <T> JsonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException {
+		JsonMapper<T> mapper = getMapper(cls);
 
 		if (mapper == null) {
 			throw new NoSuchMapperException(cls);

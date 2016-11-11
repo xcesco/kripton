@@ -40,6 +40,18 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
     	case "description":
     		instance.description=stringMapper.parse(jsonParser);
     		break;
+    	case "valueByteType":
+    		instance.valueByteType=byteMapper.parse(jsonParser);
+    		break;
+    	case "valueShortType":
+    		instance.valueShortType=shortMapper.parse(jsonParser);
+    		break;
+    	case "valueCharType":
+    		instance.valueCharType=characterMapper.parse(jsonParser);
+    		break;
+    	case "valueBean":
+    		instance.valueBean=((JsonMapper<Bean>) KriptonLibrary2.mapperFor(Bean.class)).parse(jsonParser);
+    		break;
     	default:
     		break;
     	}
@@ -127,7 +139,8 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
         }*/
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void serialize(Bean object, JsonGenerator jsonGenerator, boolean writeStartAndEnd) throws IOException {
     	if (writeStartAndEnd) {
     		jsonGenerator.writeStartObject();
@@ -140,6 +153,23 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
     	if (object.description != null) {
             stringMapper.serialize(object.description, "description", true, jsonGenerator);
         }
+    	
+    	// field valueByteType
+		byteMapper.serialize(object.valueByteType,"valueByteType", true, jsonGenerator);
+		
+		// field valueShortType
+		shortMapper.serialize(object.valueShortType,"valueShortType", true, jsonGenerator);
+		
+		// field valueCharType
+		characterMapper.serialize(object.valueCharType,"valueCharType", true, jsonGenerator);
+		
+		// field bean
+		if (object.valueBean!=null)
+		{						
+			jsonGenerator.writeFieldName("valueBean");
+			((JsonMapper<Bean>) KriptonLibrary2.mapperFor(object.valueBean.getClass())).serialize(object.valueBean, jsonGenerator, true);
+		}		
+    	
     	
     	if (writeStartAndEnd) {
             jsonGenerator.writeEndObject();

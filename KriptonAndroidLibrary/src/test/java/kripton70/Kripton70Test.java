@@ -13,6 +13,13 @@ public class Kripton70Test {
 		Bean bean=new Bean();
 		bean.id=25;
 		bean.description="hello";
+		bean.valueByteType=12;
+		bean.valueCharType='a';
+		bean.valueShortType=13;
+		bean.valueBean=new Bean();
+		bean.valueBean.id=25;
+		bean.valueBean.description="hello";
+		
 		String output=KriptonLibrary2.serialize(bean);
 		System.out.println(output);
 		

@@ -18,6 +18,10 @@ public class Bean {
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((valueBean == null) ? 0 : valueBean.hashCode());
+		result = prime * result + valueByteType;
+		result = prime * result + valueCharType;
+		result = prime * result + valueShortType;
 		return result;
 	}
 
@@ -37,11 +41,30 @@ public class Bean {
 			return false;
 		if (id != other.id)
 			return false;
+		if (valueBean == null) {
+			if (other.valueBean != null)
+				return false;
+		} else if (!valueBean.equals(other.valueBean))
+			return false;
+		if (valueByteType != other.valueByteType)
+			return false;
+		if (valueCharType != other.valueCharType)
+			return false;
+		if (valueShortType != other.valueShortType)
+			return false;
 		return true;
 	}
 
 	public long id;
 	
 	public String description;
+	
+	public byte valueByteType;
+	
+	public short valueShortType;
+	
+	public char valueCharType;
+	
+	public Bean valueBean;
 		
 }

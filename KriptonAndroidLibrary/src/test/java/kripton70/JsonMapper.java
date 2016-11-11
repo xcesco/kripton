@@ -19,7 +19,6 @@ import kripton70.typeconverters.ShortConverter;
 import kripton70.typeconverters.StringConverter;
 
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonFactory.Feature;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -294,49 +293,5 @@ public abstract class JsonMapper<E> {
             }
         }
         jsonGenerator.writeEndArray();
-    }
-
-    /**
-     * Serialize a list of objects to a JSON String.
-     *
-     * @param map The map of objects to serialize.
-     */
-    public String serialize(Map<String, E> map) throws IOException {
-        StringWriter sw = new StringWriter();
-        JsonGenerator jsonGenerator = KriptonLibrary2.JSON_FACTORY.createGenerator(sw);
-        serialize(map, jsonGenerator);
-        jsonGenerator.close();
-        return sw.toString();
-    }
-
-    /**
-     * Serialize a list of objects to an OutputStream.
-     *
-     * @param map The map of objects to serialize.
-     * @param os The OutputStream to which the list should be serialized
-     */
-    public void serialize(Map<String, E> map, OutputStream os) throws IOException {
-        JsonGenerator jsonGenerator = KriptonLibrary2.JSON_FACTORY.createGenerator(os);
-        serialize(map, jsonGenerator);
-        jsonGenerator.close();
-    }
-
-    /**
-     * Serialize a list of objects to a JsonGenerator.
-     *
-     * @param map The map of objects to serialize.
-     * @param jsonGenerator The JsonGenerator to which the list should be serialized
-     */
-    public void serialize(Map<String, E> map, JsonGenerator jsonGenerator) throws IOException {
-        jsonGenerator.writeStartObject();
-        for (Map.Entry<String, E> entry : map.entrySet()) {
-            jsonGenerator.writeFieldName(entry.getKey());
-            if (entry.getValue() == null) {
-                jsonGenerator.writeNull();
-            } else {
-                serialize(entry.getValue(), jsonGenerator, true);
-            }
-        }
-        jsonGenerator.writeEndObject();
     }
 }
