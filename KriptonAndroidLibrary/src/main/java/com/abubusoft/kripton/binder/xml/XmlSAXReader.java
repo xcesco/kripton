@@ -47,6 +47,7 @@ import com.abubusoft.kripton.common.TypeReflector;
 public class XmlSAXReader implements BinderReader {
 
 	private static SAXParserFactory spf;
+	
 	private BinderOptions format;
 
 	/**

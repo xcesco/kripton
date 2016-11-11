@@ -13,7 +13,8 @@ public class ShortConverter implements TypeConverter<Short> {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else {
-			return jsonParser.getShortValue();
+			//return jsonParser.getShortValue();
+			return Short.valueOf(jsonParser.getText());
 		}
 	}
 

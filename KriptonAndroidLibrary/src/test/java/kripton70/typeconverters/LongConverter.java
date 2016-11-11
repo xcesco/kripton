@@ -13,7 +13,8 @@ public class LongConverter implements TypeConverter<Long> {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else {
-			return jsonParser.getLongValue();
+			return Long.valueOf(jsonParser.getText());
+			//return jsonParser.getLongValue();
 		}
 	}
 

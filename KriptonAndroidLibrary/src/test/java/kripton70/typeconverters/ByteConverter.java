@@ -13,7 +13,8 @@ public class ByteConverter implements TypeConverter<Byte> {
 		if (jsonParser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else {
-			return jsonParser.getByteValue();
+			//return jsonParser.getByteValue();
+			return Byte.valueOf(jsonParser.getText());
 		}
 	}
 

@@ -44,7 +44,8 @@ public class KriptonLibrary2 {
 	/**
 	 * The JsonFactory that should be used throughout the entire app.
 	 * */
-	public static final JsonFactory JSON_FACTORY = /*new JavaPropsFactory();*/ new YAMLFactory();//new JsonFactory();
+	//public static final JsonFactory JSON_FACTORY = /*new JavaPropsFactory();*/ new YAMLFactory();//new JsonFactory();
+	public static final JsonFactory JSON_FACTORY = new JavaPropsFactory();
 	//public static final JsonFactory JSON_FACTORY = new JsonFactory();
 
 	/**
