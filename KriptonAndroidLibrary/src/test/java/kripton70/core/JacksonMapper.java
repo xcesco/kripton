@@ -11,7 +11,7 @@ import com.fasterxml.jackson.core.JsonToken;
 
 import kripton70.Bean;
 
-public abstract class JsonMapper<E> extends AbstractMapper<E> {
+public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 
 	/**
 	 * Parse a single field from a pre-configured JsonParser object into a T

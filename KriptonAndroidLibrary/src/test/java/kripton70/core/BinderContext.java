@@ -191,7 +191,7 @@ public interface BinderContext {
 	 * @param type
 	 *            The ParameterizedType for which the JsonMapper should be fetched.
 	 */
-	<T> JsonMapper<T> mapperFor(ParameterizedType<T> type) throws NoSuchMapperException;
+	<T> JacksonMapper<T> mapperFor(ParameterizedType<T> type) throws NoSuchMapperException;
 
 	/**
 	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
@@ -199,5 +199,5 @@ public interface BinderContext {
 	 * @param cls
 	 *            The class for which the JsonMapper should be fetched.
 	 */
-	<T> JsonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException;
+	<T> JacksonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException;
 }

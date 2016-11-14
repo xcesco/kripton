@@ -21,7 +21,7 @@ import util.SimpleArrayMap;
 
 public abstract class AbstractBinder implements BinderContext {
 
-	private static final Map<Class, JsonMapper> OBJECT_MAPPERS = new ConcurrentHashMap<Class, JsonMapper>();
+	private static final Map<Class, JacksonMapper> OBJECT_MAPPERS = new ConcurrentHashMap<Class, JacksonMapper>();
 
 	static {
 		// OBJECT_MAPPERS.put(String.class, new String$JsonMapper());
@@ -199,8 +199,8 @@ public abstract class AbstractBinder implements BinderContext {
 		mapperFor(jsonObjectClass).serialize(this, list, os);
 	}
 
-	public <E> JsonMapper<E> mapperFor(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JsonMapper> partialMappers) throws NoSuchMapperException {
-		JsonMapper<E> mapper = getMapper(type, partialMappers);
+	public <E> JacksonMapper<E> mapperFor(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JacksonMapper> partialMappers) throws NoSuchMapperException {
+		JacksonMapper<E> mapper = getMapper(type, partialMappers);
 		if (mapper == null) {
 			throw new NoSuchMapperException(type.rawType);
 		} else {
@@ -209,13 +209,13 @@ public abstract class AbstractBinder implements BinderContext {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E> JsonMapper<E> getMapper(Class<E> cls) {
-		JsonMapper<E> mapper = OBJECT_MAPPERS.get(cls);
+	public <E> JacksonMapper<E> getMapper(Class<E> cls) {
+		JacksonMapper<E> mapper = OBJECT_MAPPERS.get(cls);
 		if (mapper == null) {
 			// The only way the mapper wouldn't already be loaded into OBJECT_MAPPERS is if it was compiled separately, but let's handle it anyway
 			try {
-				Class<?> mapperClass = Class.forName(cls.getName() + Constants.MAPPER_CLASS_SUFFIX);
-				mapper = (JsonMapper<E>) mapperClass.newInstance();
+				Class<?> mapperClass = Class.forName(cls.getName() + KriptonLibrary2.MAPPER_CLASS_SUFFIX);
+				mapper = (JacksonMapper<E>) mapperClass.newInstance();
 				//mapper.
 				OBJECT_MAPPERS.put(cls, mapper);
 			} catch (Exception ignored) {
@@ -224,7 +224,7 @@ public abstract class AbstractBinder implements BinderContext {
 		return mapper;
 	}
 
-	private static <E> JsonMapper<E> getMapper(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JsonMapper> partialMappers) {
+	private static <E> JacksonMapper<E> getMapper(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JacksonMapper> partialMappers) {
 		/*
 		if (type.typeParameters.size() == 0) {
 			return getMapper((Class<E>) type.rawType);
@@ -265,7 +265,7 @@ public abstract class AbstractBinder implements BinderContext {
 	 * @param type
 	 *            The ParameterizedType for which the JsonMapper should be fetched.
 	 */
-	public <E> JsonMapper<E> mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
+	public <E> JacksonMapper<E> mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
 		return mapperFor(type, null);
 	}
 
@@ -275,8 +275,8 @@ public abstract class AbstractBinder implements BinderContext {
 	 * @param cls
 	 *            The class for which the JsonMapper should be fetched.
 	 */
-	public <T> JsonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException {
-		JsonMapper<T> mapper = getMapper(cls);
+	public <T> JacksonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException {
+		JacksonMapper<T> mapper = getMapper(cls);
 
 		if (mapper == null) {
 			throw new NoSuchMapperException(cls);

@@ -9,6 +9,8 @@ import kripton70.contexts.BinderJsonContext;
 
 public abstract class KriptonLibrary2 {
 	
+	public static final String MAPPER_CLASS_SUFFIX = "JsonMapper";
+	
 	public static void registryBinder(BinderContext factory)
 	{
 		binders.put(factory.getSupportedFormat(), factory);

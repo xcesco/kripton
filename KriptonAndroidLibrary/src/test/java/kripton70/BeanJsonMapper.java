@@ -5,9 +5,9 @@ import java.io.IOException;
 import kripton70.core.BinderContext;
 import kripton70.core.BinderGenerator;
 import kripton70.core.BinderParser;
-import kripton70.core.JsonMapper;
+import kripton70.core.JacksonMapper;
 
-public final class BeanJsonMapper extends JsonMapper<Bean> {
+public final class BeanJsonMapper extends JacksonMapper<Bean> {
     //private static final JsonMapper<Object> COM_BLUELINELABS_LOGANSQUARE_INTERNAL_OBJECTMAPPERS_OBJECTMAPPER = LoganSquare.mapperFor(Object.class);
 
     //private static TypeConverter<Date> java_util_Date_type_converter;	
@@ -32,7 +32,7 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
     		instance.valueCharType=characterMapper.parse(parser);
     		break;
     	case "valueBean":
-    		instance.valueBean=((JsonMapper<Bean>) context.mapperFor(Bean.class)).parse(context, parser);
+    		instance.valueBean=((JacksonMapper<Bean>) context.mapperFor(Bean.class)).parse(context, parser);
     		break;
     	default:
     		break;
@@ -152,7 +152,7 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
 		if (object.valueBean!=null)
 		{						
 			jsonGenerator.writeFieldName("valueBean");
-			((JsonMapper<Bean>) context.mapperFor(object.valueBean.getClass())).serialize(context, object.valueBean, jsonGenerator, true);
+			((JacksonMapper<Bean>) context.mapperFor(object.valueBean.getClass())).serialize(context, object.valueBean, jsonGenerator, true);
 		}		
     	
     	
