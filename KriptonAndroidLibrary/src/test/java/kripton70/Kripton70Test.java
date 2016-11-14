@@ -33,7 +33,7 @@ public class Kripton70Test {
 		bean.valueBean.id=25;
 		bean.valueBean.description="hello";
 		
-		BinderType type = BinderType.YAML;
+		BinderType type = BinderType.JSON;
 		
 		String output=KriptonLibrary2.getBinder(type).serialize(bean);
 		System.out.println(output);

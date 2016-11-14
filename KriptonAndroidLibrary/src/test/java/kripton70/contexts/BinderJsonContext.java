@@ -21,7 +21,7 @@ public class BinderJsonContext extends AbstractBinderContext {
 	@Override
 	public JsonFactory createInnerFactory()
 	{
-		return new YAMLFactory();
+		return new JsonFactory();
 	}
 	
 }

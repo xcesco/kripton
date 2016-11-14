@@ -1,7 +1,7 @@
 package kripton70.contexts;
 
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import kripton70.core.AbstractBinderContext;
 import kripton70.core.BinderType;
@@ -21,7 +21,7 @@ public class BinderYamlContext extends AbstractBinderContext {
 	@Override
 	public JsonFactory createInnerFactory()
 	{
-		return new JavaPropsFactory();
+		return new YAMLFactory();
 	}
 	
 }
