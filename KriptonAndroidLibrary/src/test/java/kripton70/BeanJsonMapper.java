@@ -156,7 +156,7 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 		}
 		
 		// field string list
-		{
+		if (object.valueStringList!=null) {
 			serializer.writeFieldName("valueStringList");
 			serializer.writeStartArray();
 			
@@ -167,7 +167,6 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 			serializer.writeEndArray();
 			
 		}
-		//valueStringList
     	
     	
     	if (writeStartAndEnd) {

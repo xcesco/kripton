@@ -52,7 +52,7 @@ public interface Binder2Jackson extends Binder2 {
 	 * @param type
 	 *            The ParameterizedType for which the JsonMapper should be fetched.
 	 */
-	<E> JacksonMapper<E> mapperFor(ParameterizedType<E> type) throws NoSuchMapperException;
+	<E, M extends JacksonMapper<E>> M mapperFor(ParameterizedType<E> type) throws NoSuchMapperException;
 
 	/**
 	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
@@ -60,7 +60,7 @@ public interface Binder2Jackson extends Binder2 {
 	 * @param cls
 	 *            The class for which the JsonMapper should be fetched.
 	 */
-	<T> JacksonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException;
+	<E, M extends JacksonMapper<E>> M mapperFor(Class<E> cls) throws NoSuchMapperException;
 
 	<T> T parse(InputStream is);
 }

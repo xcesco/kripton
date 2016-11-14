@@ -1,6 +1,7 @@
 package kripton70;
 
 import java.util.List;
+import java.util.Map;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
@@ -66,5 +67,9 @@ public class Bean {
 	public Bean valueBean;
 	
 	public List<String> valueStringList;
+	
+	public String[] valueStringArray;
+	
+	public Map<String, String> valueStringMap;
 		
 }

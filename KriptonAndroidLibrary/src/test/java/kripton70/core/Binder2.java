@@ -142,5 +142,4 @@ public interface Binder2 {
 	 */
 	<E> void serialize(List<E> list, OutputStream os, Class<E> jsonObjectClass) throws IOException;
 
-	<E> JacksonMapper<E> mapperFor(Class<E> clazz);
 }

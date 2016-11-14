@@ -266,8 +266,9 @@ public abstract class AbstractBinder implements BinderContext {
 	 * @param type
 	 *            The ParameterizedType for which the JsonMapper should be fetched.
 	 */
-	public <E> JacksonMapper<E> mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
-		return mapperFor(type, null);
+	@SuppressWarnings("unchecked")
+	public <E, M extends JacksonMapper<E>> M mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
+		return (M) mapperFor(type, null);
 	}
 
 	/**
@@ -276,8 +277,9 @@ public abstract class AbstractBinder implements BinderContext {
 	 * @param cls
 	 *            The class for which the JsonMapper should be fetched.
 	 */
-	public <T> JacksonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException {
-		JacksonMapper<T> mapper = getMapper(cls);
+	public <T, M extends JacksonMapper<T>> M mapperFor(Class<T> cls) throws NoSuchMapperException {
+		@SuppressWarnings("unchecked")
+		M mapper = (M) getMapper(cls);
 
 		if (mapper == null) {
 			throw new NoSuchMapperException(cls);
