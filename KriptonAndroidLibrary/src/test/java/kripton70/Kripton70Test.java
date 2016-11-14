@@ -2,6 +2,7 @@ package kripton70;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,11 +32,21 @@ public class Kripton70Test {
 		bean.valueCharType='a';
 		bean.valueShortType=13;
 		bean.valueStringList=new ArrayList<>();
-		bean.valueStringList.add("hello");
+		bean.valueStringList.add("hello1");
+		bean.valueStringList.add("hello2");
+		bean.valueStringList.add("hello3");
+		
+		bean.valueStringArray=new String[2];
+		bean.valueStringArray[0]="arrayString0";
+		bean.valueStringArray[1]="arrayString1";
+		
+		bean.valueStringMap=new HashMap<>();
+		bean.valueStringMap.put("aa", "bb");
+		bean.valueStringMap.put("cc", "dd");
+		
 		bean.valueBean=new Bean();
 		bean.valueBean.id=25;
 		bean.valueBean.description="hello";
-		
 		
 		BinderType type = BinderType.JSON;
 		

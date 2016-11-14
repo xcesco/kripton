@@ -24,6 +24,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<android-maven-plugin.version>4.2.0</android-maven-plugin.version>
 		<jackson.version>2.8.3</jackson.version>
+		<woodstox.version>5.0.3</woodstox.version>
 		<roboletric.version>3.1</roboletric.version>
 
 		<junit.version>4.12</junit.version>
@@ -94,11 +95,18 @@
 <!-- 		</dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
-		<!-- <dependency> -->
-		<!-- <groupId>com.fasterxml.jackson.dataformat</groupId> -->
-		<!-- <artifactId>jackson-dataformat-xml</artifactId> -->
-		<!-- <version>${jackson.version}</version> -->
-		<!-- </dependency> -->
+<!-- 		<dependency> -->
+<!-- 		<groupId>com.fasterxml.jackson.dataformat</groupId> -->
+<!-- 		<artifactId>jackson-dataformat-xml</artifactId> -->
+<!-- 		<version>${jackson.version}</version> -->
+<!-- 		</dependency> -->
+		
+		<!-- https://github.com/FasterXML/woodstox/ -->
+		<dependency>
+			<groupId>com.fasterxml.woodstox</groupId>
+    		<artifactId>woodstox-core</artifactId>
+    		<version>${woodstox.version}</version>
+    	</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
 		<!-- <dependency> -->

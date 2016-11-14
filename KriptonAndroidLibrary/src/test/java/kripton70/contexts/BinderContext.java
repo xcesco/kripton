@@ -23,9 +23,55 @@ import kripton70.core.ParameterizedType;
 
 public interface BinderContext {
 
-	BinderType getSupportedFormat();
+	BinderSerializer createGenerator(File file) throws IOException;
+
+	BinderSerializer createGenerator(File file, JsonEncoding encoding) throws IOException;
+
+	BinderSerializer createGenerator(OutputStream out) throws IOException;
+
+	BinderSerializer createGenerator(OutputStream out, JsonEncoding encoding) throws IOException;
+
+	BinderSerializer createGenerator(Writer writer) throws IOException;
 
 	JsonFactory createInnerFactory();
+
+	BinderParser createParser(byte[] data) throws IOException;
+
+	BinderParser createParser(char[] content) throws IOException;
+
+	BinderParser createParser(DataInput in) throws IOException;
+
+	BinderParser createParser(File file) throws IOException;
+
+	BinderParser createParser(InputStream in) throws IOException;
+
+	BinderParser createParser(Reader reader) throws IOException;
+
+	BinderParser createParser(String content) throws IOException;
+
+	BinderParser createParser(URL url) throws IOException;
+	
+	BinderSerializer createSerializer(DataOutput out) throws IOException;
+	
+	BinderSerializer createSerializer(DataOutput out, JsonEncoding encoding) throws IOException;
+	
+	BinderType getSupportedFormat();
+
+	/**
+	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
+	 *
+	 * @param cls
+	 *            The class for which the JsonMapper should be fetched.
+	 */
+	<T, M extends JacksonMapper<T>> M mapperFor(Class<T> cls) throws NoSuchMapperException;
+
+	/**
+	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
+	 *
+	 * @param type
+	 *            The ParameterizedType for which the JsonMapper should be fetched.
+	 */
+	<T, M extends JacksonMapper<T>> M mapperFor(ParameterizedType<T> type) throws NoSuchMapperException;
 
 	/**
 	 * Parse an object from an InputStream.
@@ -38,17 +84,6 @@ public interface BinderContext {
 	<E> E parse(InputStream is, Class<E> jsonObjectClass) throws IOException;
 
 	/**
-	 * Parse an object from a String. Note: parsing from an InputStream should
-	 * be preferred over parsing from a String if possible.
-	 *
-	 * @param jsonString
-	 *            The JSON string being parsed.
-	 * @param jsonObjectClass
-	 *            The @JsonObject class to parse the InputStream into
-	 */
-	<E> E parse(String jsonString, Class<E> jsonObjectClass) throws IOException;
-
-	/**
 	 * Parse a parameterized object from an InputStream.
 	 *
 	 * @param is
@@ -59,6 +94,17 @@ public interface BinderContext {
 	 *            ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { });
 	 */
 	<E> E parse(InputStream is, ParameterizedType<E> jsonObjectType) throws IOException;
+
+	/**
+	 * Parse an object from a String. Note: parsing from an InputStream should
+	 * be preferred over parsing from a String if possible.
+	 *
+	 * @param jsonString
+	 *            The JSON string being parsed.
+	 * @param jsonObjectClass
+	 *            The @JsonObject class to parse the InputStream into
+	 */
+	<E> E parse(String jsonString, Class<E> jsonObjectClass) throws IOException;
 
 	/**
 	 * Parse a parameterized object from a String. Note: parsing from an
@@ -159,50 +205,4 @@ public interface BinderContext {
 	 *            The @JsonObject class of the list elements
 	 */
 	<E> void serialize(List<E> list, OutputStream os, Class<E> jsonObjectClass) throws IOException;
-	
-	BinderSerializer createSerializer(DataOutput out) throws IOException;
-	
-	BinderSerializer createGenerator(OutputStream out) throws IOException;
-	
-	BinderSerializer createGenerator(Writer writer) throws IOException;
-
-	BinderSerializer createSerializer(DataOutput out, JsonEncoding encoding) throws IOException;
-
-	BinderSerializer createGenerator(File file, JsonEncoding encoding) throws IOException;
-
-	BinderSerializer createGenerator(File file) throws IOException;
-
-	BinderSerializer createGenerator(OutputStream out, JsonEncoding encoding) throws IOException;
-
-	BinderParser createParser(byte[] data) throws IOException;
-
-	BinderParser createParser(char[] content) throws IOException;
-
-	BinderParser createParser(DataInput in) throws IOException;
-
-	BinderParser createParser(File file) throws IOException;
-
-	BinderParser createParser(InputStream in) throws IOException;
-
-	BinderParser createParser(Reader reader) throws IOException;
-
-	BinderParser createParser(String content) throws IOException;
-
-	BinderParser createParser(URL url) throws IOException;
-
-	/**
-	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
-	 *
-	 * @param type
-	 *            The ParameterizedType for which the JsonMapper should be fetched.
-	 */
-	<T, M extends JacksonMapper<T>> M mapperFor(ParameterizedType<T> type) throws NoSuchMapperException;
-
-	/**
-	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
-	 *
-	 * @param cls
-	 *            The class for which the JsonMapper should be fetched.
-	 */
-	<T, M extends JacksonMapper<T>> M mapperFor(Class<T> cls) throws NoSuchMapperException;
 }

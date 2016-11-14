@@ -200,7 +200,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 		mapperFor(jsonObjectClass).serialize(this, list, os);
 	}
 
-	public <E> JacksonMapper<E> mapperFor(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JacksonMapper> partialMappers) throws NoSuchMapperException {
+	public <E> JacksonMapper<E> mapperFor(ParameterizedType<E> type, @SuppressWarnings("rawtypes") SimpleArrayMap<ParameterizedType, JacksonMapper> partialMappers) throws NoSuchMapperException {
 		JacksonMapper<E> mapper = getMapper(type, partialMappers);
 		if (mapper == null) {
 			throw new NoSuchMapperException(type.rawType);
@@ -266,6 +266,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 * @param type
 	 *            The ParameterizedType for which the JsonMapper should be fetched.
 	 */
+	@SuppressWarnings("unchecked")
 	public <E, M extends JacksonMapper<E>> M mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
 		return (M) mapperFor(type, null);
 	}

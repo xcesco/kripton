@@ -200,6 +200,7 @@ public abstract class AbstractBinder implements BinderContext {
 		mapperFor(jsonObjectClass).serialize(this, list, os);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public <E> JacksonMapper<E> mapperFor(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JacksonMapper> partialMappers) throws NoSuchMapperException {
 		JacksonMapper<E> mapper = getMapper(type, partialMappers);
 		if (mapper == null) {

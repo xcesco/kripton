@@ -13,7 +13,7 @@ import java.net.URL;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 
-public abstract class AbstractJacksonBinder extends AbstractBinder implements Binder2Jackson {
+public abstract class AbstractJacksonBinder extends AbstractBinder {
 	public abstract JsonFactory createInnerFactory();
 	
 	public AbstractJacksonBinder() {
