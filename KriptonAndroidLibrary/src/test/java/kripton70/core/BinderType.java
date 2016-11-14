@@ -2,9 +2,9 @@ package kripton70.core;
 
 public enum BinderType {
 	JSON(false),
-	PROPERTIES(false),
+	PROPERTIES(true),
 	XML(false),
-	YAML(false);	
+	YAML(true);	
 	
 	private BinderType(boolean value)
 	{

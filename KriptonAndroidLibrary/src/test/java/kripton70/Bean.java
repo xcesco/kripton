@@ -8,6 +8,8 @@ import kripton70.typeconverters.IntegerConverter;
 import kripton70.typeconverters.ShortConverter;
 
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.binder.xml.XmlType;
 
 @BindType
 public class Bean {
@@ -55,10 +57,11 @@ public class Bean {
 		return true;
 	}
 
+	@BindXml(XmlType.ATTRIBUTE)
 	public long id;
-	
+		
 	public String description;
-	
+		
 	public byte valueByteType;
 	
 	public short valueShortType;

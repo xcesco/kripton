@@ -13,17 +13,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-
 import kripton70.NoSuchMapperException;
 import util.SimpleArrayMap;
 
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
+
 public abstract class AbstractBinder implements Binder2 {
 
-	private static final Map<Class, JsonMapper> OBJECT_MAPPERS = new ConcurrentHashMap<Class, JsonMapper>();
+	private final Map<Class, JsonMapper> OBJECT_MAPPERS = new ConcurrentHashMap<Class, JsonMapper>();
 
 	static {
 		// OBJECT_MAPPERS.put(String.class, new String$JsonMapper());
@@ -43,14 +41,6 @@ public abstract class AbstractBinder implements Binder2 {
 	}
 
 	public abstract BinderType getSupportedFormat();
-
-	public abstract JsonFactory createInnerFactory();
-
-	public AbstractBinder() {
-		innerFactory = createInnerFactory();
-	}
-
-	public JsonFactory innerFactory;
 	
 	//-------------
 	/**
@@ -145,7 +135,7 @@ public abstract class AbstractBinder implements Binder2 {
 	 *            The OutputStream being written to.
 	 */
 	public <E> void serialize(E object, OutputStream os) throws IOException {
-		mapperFor((Class<E>) object.getClass()).serialize(object, os);
+		((JsonMapper<E>)mapperFor(object.getClass())).serialize(object, os);
 	}
 
 	/**
@@ -211,20 +201,38 @@ public abstract class AbstractBinder implements Binder2 {
 	}
 
 	@SuppressWarnings("unchecked")
-	static <E> JsonMapper<E> getMapper(Class<E> cls) {
+	<E> JsonMapper<E> getMapper(Class<E> cls) {
 		JsonMapper<E> mapper = OBJECT_MAPPERS.get(cls);
 		if (mapper == null) {
 			// The only way the mapper wouldn't already be loaded into OBJECT_MAPPERS is if it was compiled separately, but let's handle it anyway
 			try {
 				Class<?> mapperClass = Class.forName(cls.getName() + Constants.MAPPER_CLASS_SUFFIX);
 				mapper = (JsonMapper<E>) mapperClass.newInstance();
-				//mapper.
+				mapper.binder=this;
 				OBJECT_MAPPERS.put(cls, mapper);
 			} catch (Exception ignored) {
 			}
 		}
 		return mapper;
 	}
+	
+	/**
+	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
+	 *
+	 * @param cls
+	 *            The class for which the JsonMapper should be fetched.
+	 */
+	@Override
+	public <T> JsonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException {
+		JsonMapper<T> mapper = getMapper(cls);
+
+		if (mapper == null) {
+			throw new NoSuchMapperException(cls);
+		} else {
+			return mapper;
+		}
+	}
+	
 
 	private static <E> JsonMapper<E> getMapper(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, JsonMapper> partialMappers) {
 		/*
@@ -269,83 +277,6 @@ public abstract class AbstractBinder implements Binder2 {
 	 */
 	public <E> JsonMapper<E> mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
 		return mapperFor(type, null);
-	}
-
-	/**
-	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
-	 *
-	 * @param cls
-	 *            The class for which the JsonMapper should be fetched.
-	 */
-	public static <T> JsonMapper<T> mapperFor(Class<T> cls) throws NoSuchMapperException {
-		JsonMapper<T> mapper = getMapper(cls);
-
-		if (mapper == null) {
-			throw new NoSuchMapperException(cls);
-		} else {
-			return mapper;
-		}
-	}
-	
-	
-	public BinderGenerator createGenerator(DataOutput out) throws IOException {
-		return createGenerator(out, JsonEncoding.UTF8);
-	}
-
-	public BinderGenerator createGenerator(OutputStream out) throws IOException {
-		return createGenerator(out, JsonEncoding.UTF8);
-	}
-
-	public BinderGenerator createGenerator(Writer writer) throws IOException {
-		return new BinderGenerator(innerFactory.createGenerator(writer), getSupportedFormat());
-	}
-
-	public BinderGenerator createGenerator(DataOutput out, JsonEncoding encoding) throws IOException {
-		return new BinderGenerator(innerFactory.createGenerator(out, encoding), getSupportedFormat());
-	}
-
-	public BinderGenerator createGenerator(File file, JsonEncoding encoding) throws IOException {
-		return innerFactory.createGenerator(file, encoding);
-	}
-
-	public BinderGenerator createGenerator(File file) throws IOException {
-		return createGenerator(file, JsonEncoding.UTF8);
-	}
-
-	public BinderGenerator createGenerator(OutputStream out, JsonEncoding encoding) throws IOException {
-		return innerFactory.createGenerator(out, encoding);
-	}
-
-	public JsonBinderGeneratorParser createParser(byte[] data) throws IOException {
-		return innerFactory.createParser(data);
-	}
-
-	public JsonParser createParser(char[] content) throws IOException {
-		return innerFactory.createParser(content);
-	}
-
-	public JsonParser createParser(DataInput in) throws IOException {
-		return innerFactory.createParser(in);
-	}
-
-	public JsonParser createParser(File file) throws IOException {
-		return innerFactory.createParser(file);
-	}
-
-	public JsonParser createParser(InputStream in) throws IOException {
-		return innerFactory.createParser(in);
-	}
-
-	public JsonParser createParser(Reader reader) throws IOException {
-		return innerFactory.createParser(reader);
-	}
-
-	public JsonParser createParser(String content) throws IOException {
-		return innerFactory.createParser(content);
-	}
-
-	public JsonParser createParser(URL url) throws IOException {
-		return innerFactory.createParser(url);
 	}
 	
 }

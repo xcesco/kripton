@@ -10,10 +10,10 @@ import kripton70.core.BinderParser;
 public class BooleanConverter implements TypeConverter<Boolean> {
 
 	@Override
-	public Boolean parse(BinderParser parser, boolean onlyText) throws IOException {
+	public Boolean parse(BinderParser parser) throws IOException {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
-		} else if (onlyText) {
+		} else if (parser.onlyText) {
 			return Boolean.valueOf(parser.getText());
 		} else {
 			return parser.getBooleanValue();

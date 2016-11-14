@@ -5,16 +5,16 @@ import java.util.Map;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-public class KriptonLibrary2 {
+public abstract class KriptonLibrary2 {
 	
-	public void registryBinder(Binder2 factory)
+	public static void registryBinder(Binder2Json factory)
 	{
 		binders.put(factory.getSupportedFormat(), factory);
 	}
 	
-	private static final Map<BinderType, Binder2> binders=new HashMap<>();
+	private static final Map<BinderType, Binder2Json> binders=new HashMap<>();
 	
-	{
+	static {
 		registryBinder(new Binder2JsonImpl());
 	}
 	

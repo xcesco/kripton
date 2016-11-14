@@ -10,10 +10,10 @@ import kripton70.core.BinderParser;
 public class LongConverter implements TypeConverter<Long> {
 
 	@Override
-	public Long parse(BinderParser parser, boolean onlyText) throws IOException {
+	public Long parse(BinderParser parser) throws IOException {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
-		} else if (onlyText){
+		} else if (parser.onlyText){
 			return Long.valueOf(parser.getText());
 		} else {
 			return parser.getLongValue();

@@ -2,28 +2,18 @@ package kripton70;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-
 import kripton70.core.BinderGenerator;
 import kripton70.core.BinderParser;
 import kripton70.core.JsonMapper;
-import kripton70.core.KriptonLibrary2;
 
 public final class BeanJsonMapper extends JsonMapper<Bean> {
     //private static final JsonMapper<Object> COM_BLUELINELABS_LOGANSQUARE_INTERNAL_OBJECTMAPPERS_OBJECTMAPPER = LoganSquare.mapperFor(Object.class);
 
     //private static TypeConverter<Date> java_util_Date_type_converter;	
 
-    @Override
-    public Bean parse(JsonParser jsonParser) throws IOException {
-        
-    }
-
-    @Override
-    public void parseField(Bean instance, String fieldName, BinderParser parser) throws IOException {
-    	switch(fieldName)
+	@Override
+	public void parseField(BinderParser parser, Bean instance, String fieldName) throws IOException {
+		switch(fieldName)
     	{
     	case "id":
     		instance.id=longMapper.parse(parser);
@@ -40,8 +30,8 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
     	case "valueCharType":
     		instance.valueCharType=characterMapper.parse(parser);
     		break;
-    	case "valueBean":
-    		instance.valueBean=((JsonMapper<Bean>) KriptonLibrary2.mapperFor(Bean.class)).parse(parser);
+    	case "valueBean":    		
+    		instance.valueBean=binder.mapperFor(Bean.class).parse(parser);    		
     		break;
     	default:
     		break;
@@ -128,42 +118,42 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
         } else if ("test_string".equals(fieldName)){
             instance.testString = jsonParser.getValueAsString(null);
         }*/
-    }
+		
+	}
 
-    @SuppressWarnings("unchecked")
 	@Override
-    public void serialize(Bean object, JsonGenerator jsonGenerator, boolean writeStartAndEnd) throws IOException {
-    	if (writeStartAndEnd) {
-    		jsonGenerator.writeStartObject();
+	public void serialize(Bean object, BinderGenerator generator, boolean writeStartAndEnd) throws IOException {
+		if (writeStartAndEnd) {
+			generator.writeStartObject();
     	}
     	
     	// field id
-    	longMapper.serialize(object.id, "id", true, jsonGenerator);
+    	longMapper.serialize(object.id, "id", true, generator);
     	
     	// field description
     	if (object.description != null) {
-            stringMapper.serialize(object.description, "description", true, jsonGenerator);
+            stringMapper.serialize(object.description, "description", true, generator);
         }
     	
     	// field valueByteType
-		byteMapper.serialize(object.valueByteType,"valueByteType", true, jsonGenerator);
+		byteMapper.serialize(object.valueByteType,"valueByteType", true, generator);
 		
 		// field valueShortType
-		shortMapper.serialize(object.valueShortType,"valueShortType", true, jsonGenerator);
+		shortMapper.serialize(object.valueShortType,"valueShortType", true, generator);
 		
 		// field valueCharType
-		characterMapper.serialize(object.valueCharType,"valueCharType", true, jsonGenerator);
+		characterMapper.serialize(object.valueCharType,"valueCharType", true, generator);
 		
 		// field bean
 		if (object.valueBean!=null)
 		{						
-			jsonGenerator.writeFieldName("valueBean");
-			((JsonMapper<Bean>) KriptonLibrary2.mapperFor(object.valueBean.getClass())).serialize(object.valueBean, jsonGenerator, true);
+			generator.writeFieldName("valueBean");
+			binder.mapperFor(Bean.class).serialize(object.valueBean, generator, true);
 		}		
     	
     	
     	if (writeStartAndEnd) {
-            jsonGenerator.writeEndObject();
+    		generator.writeEndObject();
         }
     	
     	/*
@@ -245,37 +235,12 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
         if (writeStartAndEnd) {
             jsonGenerator.writeEndObject();
         }*/
-    }
-
-	@Override
-	public Bean parse(BinderParser parser) throws IOException {
-		Bean instance = new Bean();
-        if (parser.getCurrentToken() == null) {
-        	parser.nextToken();
-        }
-        if (parser.getCurrentToken() != JsonToken.START_OBJECT) {
-        	parser.skipChildren();
-            return null;
-        }
-        while (parser.nextToken() != JsonToken.END_OBJECT) {
-            String fieldName = parser.getCurrentName();
-            parser.nextToken();
-            parseField(instance, fieldName, parser);
-            parser.skipChildren();
-        }
-        return instance;
-	}
-
-	@Override
-	public void parseField(Bean instance, String fieldName) throws IOException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void serialize(Bean object, BinderGenerator generator, boolean writeStartAndEnd) throws IOException {
-		// TODO Auto-generated method stub
-		
+	protected Bean createInstance() {
+		return new Bean();
 	}
 
     /*

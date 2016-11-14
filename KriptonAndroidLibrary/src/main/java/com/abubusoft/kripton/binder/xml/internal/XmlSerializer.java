@@ -244,61 +244,7 @@ public interface XmlSerializer {
      */
     XmlSerializer endTag (String namespace, String name)
         throws IOException, IllegalArgumentException, IllegalStateException;
-    
-    
-    //    /**
-    //     * Writes a start tag with the given namespace and name.
-    //     * <br />If there is no prefix defined (prefix == null) for the given namespace,
-    //     * a prefix will be defined automatically.
-    //     * <br />If explicit prefixes is passed (prefix != null) then it will be used
-    //      *and namespace declared if not already declared or
-    //     * throw IllegalStateException the same prefix was already set on this
-    //     * element (setPrefix()) and was bound to different namespace.
-    //     * <br />If namespace is null then prefix must be null too or IllegalStateException is thrown.
-    //     * <br />If namespace is null then no namespace prefix is printed but just name.
-    //     * <br />If namespace is empty string then serializer will make sure that
-    //     * default empty namespace is declared (in XML 1.0 xmlns='')
-    //     * or throw IllegalStateException if default namespace is already bound
-    //     * to non-empty string.
-    //     */
-    //    XmlSerializer startTag (String prefix, String namespace, String name)
-    //        throws IOException, IllegalArgumentException, IllegalStateException;
-    //
-    //    /**
-    //     * Write an attribute. Calls to attribute() MUST follow a call to
-    //     * startTag() immediately.
-    //     * <br />If there is no prefix defined (prefix == null) for the given namespace,
-    //     * a prefix will be defined automatically.
-    //     * <br />If explicit prefixes is passed (prefix != null) then it will be used
-    //     * and namespace declared if not already declared or
-    //     * throw IllegalStateException the same prefix was already set on this
-    //     * element (setPrefix()) and was bound to different namespace.
-    //     * <br />If namespace is null then prefix must be null too or IllegalStateException is thrown.
-    //     * <br />If namespace is null then no namespace prefix is printed but just name.
-    //     * <br />If namespace is empty string then serializer will make sure that
-    //     * default empty namespace is declared (in XML 1.0 xmlns='')
-    //     * or throw IllegalStateException if default namespace is already bound
-    //     * to non-empty string.
-    //     */
-    //    XmlSerializer attribute (String prefix, String namespace, String name, String value)
-    //        throws IOException, IllegalArgumentException, IllegalStateException;
-    //
-    //    /**
-    //     * Write end tag. Repetition of namespace, prefix, and name is just for avoiding errors.
-    //     * <br />If namespace or name arguments are different from corresponding startTag call
-    //     * then IllegalArgumentException is thrown, if prefix argument is not null and is different
-    //     * from corresponding starTag then IllegalArgumentException is thrown.
-    //     * <br />If namespace is null then prefix must be null too or IllegalStateException is thrown.
-    //     * <br />If namespace is null then no namespace prefix is printed but just name.
-    //     * <br />If namespace is empty string then serializer will make sure that
-    //     * default empty namespace is declared (in XML 1.0 xmlns='').
-    //     * <p><b>Background:</b> in kXML endTag had no arguments, and non matching tags were
-    //     *  very difficult to find...</p>
-    //     */
-    // ALEK: This is really optional as prefix in end tag MUST correspond to start tag but good for error checking
-    //    XmlSerializer endTag (String prefix, String namespace, String name)
-    //        throws IOException, IllegalArgumentException, IllegalStateException;
-    
+ 
     /**
      * Writes text, where special XML chars are escaped automatically
      */

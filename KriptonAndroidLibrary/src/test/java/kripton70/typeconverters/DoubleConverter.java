@@ -10,10 +10,10 @@ import kripton70.core.BinderParser;
 public class DoubleConverter implements TypeConverter<Double> {
 
 	@Override
-	public Double parse(BinderParser parser, boolean onlyText) throws IOException {
+	public Double parse(BinderParser parser) throws IOException {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
-		} else if (onlyText){
+		} else if (parser.onlyText){
 			return Double.valueOf(parser.getText());
 		} else {
 			return parser.getDoubleValue();

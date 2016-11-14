@@ -8,7 +8,7 @@ import kripton70.core.BinderParser;
 public class StringConverter implements TypeConverter<String>  {
 
 	@Override
-	public String parse(BinderParser parser, boolean onlyText) throws IOException {
+	public String parse(BinderParser parser) throws IOException {
 		return parser.getText();
 	}
 

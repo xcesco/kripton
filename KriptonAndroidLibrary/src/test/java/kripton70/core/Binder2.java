@@ -1,26 +1,13 @@
 package kripton70.core;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Reader;
-import java.io.Writer;
-import java.net.URL;
 import java.util.List;
-
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
 
 public interface Binder2 {
 
 	BinderType getSupportedFormat();
-
-	JsonFactory createInnerFactory();
 
 	/**
 	 * Parse an object from an InputStream.
@@ -154,35 +141,6 @@ public interface Binder2 {
 	 *            The @JsonObject class of the list elements
 	 */
 	<E> void serialize(List<E> list, OutputStream os, Class<E> jsonObjectClass) throws IOException;
-	
-	BinderGenerator createGenerator(DataOutput out) throws IOException;
-	
-	BinderGenerator createGenerator(OutputStream out) throws IOException;
-	
-	BinderGenerator createGenerator(Writer writer) throws IOException;
 
-	BinderGenerator createGenerator(DataOutput out, JsonEncoding encoding) throws IOException;
-
-	BinderGenerator createGenerator(File file, JsonEncoding encoding) throws IOException;
-
-	BinderGenerator createGenerator(File file) throws IOException;
-
-	BinderGenerator createGenerator(OutputStream out, JsonEncoding encoding) throws IOException;
-
-	BinderParser createParser(byte[] data) throws IOException;
-
-	BinderParser createParser(char[] content) throws IOException;
-
-	BinderParser createParser(DataInput in) throws IOException;
-
-	BinderParser createParser(File file) throws IOException;
-
-	BinderParser createParser(InputStream in) throws IOException;
-
-	BinderGenerator createParser(Reader reader) throws IOException;
-
-	BinderGenerator createParser(String content) throws IOException;
-
-	BinderGenerator createParser(URL url) throws IOException;
-
+	<E> JsonMapper<E> mapperFor(Class<E> clazz);
 }

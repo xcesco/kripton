@@ -9,7 +9,7 @@ import kripton70.core.BinderParser;
 
 public class CharacterConverter implements TypeConverter<Character> {
 	@Override
-	public Character parse(BinderParser parser, boolean onlyText) throws IOException {
+	public Character parse(BinderParser parser) throws IOException {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else {
