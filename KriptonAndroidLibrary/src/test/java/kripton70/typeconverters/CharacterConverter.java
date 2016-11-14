@@ -18,7 +18,7 @@ public class CharacterConverter implements TypeConverter<Character> {
 	}
 
 	@Override
-	public void serialize(Character value, String fieldName, boolean writeFieldNameForObject, BinderGenerator generator) throws IOException {
+	public void serialize(BinderGenerator generator, boolean writeFieldNameForObject, String fieldName, Character value) throws IOException {
 		generator.writeFieldName(fieldName);
 		generator.writeString(String.valueOf(value));
 		

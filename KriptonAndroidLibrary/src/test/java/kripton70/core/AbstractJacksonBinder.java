@@ -31,15 +31,15 @@ public abstract class AbstractJacksonBinder extends AbstractBinder implements Bi
 	}
 
 	public BinderGenerator createGenerator(Writer writer) throws IOException {
-		return new BinderGenerator(innerFactory.createGenerator(writer), getSupportedFormat());
+		return new BinderGenerator(this, innerFactory.createGenerator(writer), getSupportedFormat());
 	}
 
 	public BinderGenerator createGenerator(DataOutput out, JsonEncoding encoding) throws IOException {
-		return new BinderGenerator(innerFactory.createGenerator(out, encoding), getSupportedFormat());
+		return new BinderGenerator(this, innerFactory.createGenerator(out, encoding), getSupportedFormat());
 	}
 
 	public BinderGenerator createGenerator(File file, JsonEncoding encoding) throws IOException {
-		return new BinderGenerator(innerFactory.createGenerator(file, encoding), getSupportedFormat());
+		return new BinderGenerator(this, innerFactory.createGenerator(file, encoding), getSupportedFormat());
 	}
 
 	public BinderGenerator createGenerator(File file) throws IOException {
@@ -47,39 +47,39 @@ public abstract class AbstractJacksonBinder extends AbstractBinder implements Bi
 	}
 
 	public BinderGenerator createGenerator(OutputStream out, JsonEncoding encoding) throws IOException {
-		return new BinderGenerator(innerFactory.createGenerator(out, encoding), getSupportedFormat());
+		return new BinderGenerator(this, innerFactory.createGenerator(out, encoding), getSupportedFormat());
 	}
 
 	public BinderParser createParser(byte[] data) throws IOException {
-		return new BinderParser(innerFactory.createParser(data), getSupportedFormat());
+		return new BinderParser(this, innerFactory.createParser(data), getSupportedFormat());
 	}
 
 	public BinderParser createParser(char[] content) throws IOException {
-		return new BinderParser(innerFactory.createParser(content), getSupportedFormat());
+		return new BinderParser(this, innerFactory.createParser(content), getSupportedFormat());
 	}
 
 	public BinderParser createParser(DataInput in) throws IOException {
-		return new BinderParser(innerFactory.createParser(in), getSupportedFormat());
+		return new BinderParser(this, innerFactory.createParser(in), getSupportedFormat());
 	}
 
 	public BinderParser createParser(File file) throws IOException {
-		return new BinderParser(innerFactory.createParser(file), getSupportedFormat());
+		return new BinderParser(this, innerFactory.createParser(file), getSupportedFormat());
 	}
 
 	public BinderParser createParser(InputStream in) throws IOException {
-		return new BinderParser(innerFactory.createParser(in), getSupportedFormat());
+		return new BinderParser(this, innerFactory.createParser(in), getSupportedFormat());
 	}
 
 	public BinderParser createParser(Reader reader) throws IOException {
-		return new BinderParser(innerFactory.createParser(reader), getSupportedFormat());
+		return new BinderParser(this, innerFactory.createParser(reader), getSupportedFormat());
 	}
 
 	public BinderParser createParser(String content) throws IOException {
-		return new BinderParser(innerFactory.createParser(content), getSupportedFormat());
+		return new BinderParser(this, innerFactory.createParser(content), getSupportedFormat());
 	}
 
 	public BinderParser createParser(URL url) throws IOException {
-		return new BinderParser(innerFactory.createParser(url), getSupportedFormat());
+		return new BinderParser(this, innerFactory.createParser(url), getSupportedFormat());
 	}
 
 }

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import kripton70.NoSuchMapperException;
 import util.SimpleArrayMap;
 
-public abstract class AbstractBinder implements BinderContext {
+public abstract class AbstractBinderContext implements BinderContext {
 
 	private static final Map<Class, JsonMapper> OBJECT_MAPPERS = new ConcurrentHashMap<Class, JsonMapper>();
 
@@ -44,7 +44,7 @@ public abstract class AbstractBinder implements BinderContext {
 
 	public abstract JsonFactory createInnerFactory();
 
-	public AbstractBinder() {
+	public AbstractBinderContext() {
 		innerFactory = createInnerFactory();
 	}
 

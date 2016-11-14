@@ -2,6 +2,7 @@ package kripton70;
 
 import java.io.IOException;
 
+import kripton70.core.BinderContext;
 import kripton70.core.BinderGenerator;
 import kripton70.core.BinderParser;
 import kripton70.core.JsonMapper;
@@ -10,10 +11,10 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
     //private static final JsonMapper<Object> COM_BLUELINELABS_LOGANSQUARE_INTERNAL_OBJECTMAPPERS_OBJECTMAPPER = LoganSquare.mapperFor(Object.class);
 
     //private static TypeConverter<Date> java_util_Date_type_converter;	
-
-	@Override
-	public void parseField(BinderParser parser, Bean instance, String fieldName) throws IOException {
-		switch(fieldName)
+	
+    @Override
+    public void parseField(BinderContext context, Bean instance, String fieldName, BinderParser parser) throws IOException {
+    	switch(fieldName)
     	{
     	case "id":
     		instance.id=longMapper.parse(parser);
@@ -30,8 +31,8 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
     	case "valueCharType":
     		instance.valueCharType=characterMapper.parse(parser);
     		break;
-    	case "valueBean":    		
-    		instance.valueBean=binder.mapperFor(Bean.class).parse(parser);    		
+    	case "valueBean":
+    		instance.valueBean=((JsonMapper<Bean>) context.mapperFor(Bean.class)).parse(context, parser);
     		break;
     	default:
     		break;
@@ -118,42 +119,45 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
         } else if ("test_string".equals(fieldName)){
             instance.testString = jsonParser.getValueAsString(null);
         }*/
-		
-	}
+    }
+    
+    //public void parseField(Bean instance, String fieldName, BinderParser parser) throws IOException
 
+    @SuppressWarnings("unchecked")
 	@Override
-	public void serialize(Bean object, BinderGenerator generator, boolean writeStartAndEnd) throws IOException {
-		if (writeStartAndEnd) {
-			generator.writeStartObject();
+    public void serialize(BinderContext context, Bean object, BinderGenerator jsonGenerator, boolean writeStartAndEnd) throws IOException {
+    	if (writeStartAndEnd) {
+    		jsonGenerator.writeStartObject();
     	}
     	
+    	
     	// field id
-    	longMapper.serialize(object.id, "id", true, generator);
+    	longMapper.serialize(jsonGenerator, true, "id", object.id);
     	
     	// field description
     	if (object.description != null) {
-            stringMapper.serialize(object.description, "description", true, generator);
+            stringMapper.serialize(jsonGenerator, true, "description", object.description);
         }
     	
     	// field valueByteType
-		byteMapper.serialize(object.valueByteType,"valueByteType", true, generator);
+		byteMapper.serialize(jsonGenerator,true, "valueByteType", object.valueByteType);
 		
 		// field valueShortType
-		shortMapper.serialize(object.valueShortType,"valueShortType", true, generator);
+		shortMapper.serialize(jsonGenerator,true, "valueShortType", object.valueShortType);
 		
 		// field valueCharType
-		characterMapper.serialize(object.valueCharType,"valueCharType", true, generator);
+		characterMapper.serialize(jsonGenerator,true, "valueCharType", object.valueCharType);
 		
 		// field bean
 		if (object.valueBean!=null)
 		{						
-			generator.writeFieldName("valueBean");
-			binder.mapperFor(Bean.class).serialize(object.valueBean, generator, true);
+			jsonGenerator.writeFieldName("valueBean");
+			((JsonMapper<Bean>) context.mapperFor(object.valueBean.getClass())).serialize(context, object.valueBean, jsonGenerator, true);
 		}		
     	
     	
     	if (writeStartAndEnd) {
-    		generator.writeEndObject();
+            jsonGenerator.writeEndObject();
         }
     	
     	/*
@@ -235,14 +239,14 @@ public final class BeanJsonMapper extends JsonMapper<Bean> {
         if (writeStartAndEnd) {
             jsonGenerator.writeEndObject();
         }*/
-		
-	}
+    }
 
 	@Override
 	protected Bean createInstance() {
 		return new Bean();
 	}
 
+	
     /*
     private static final TypeConverter<Date> getjava_util_Date_type_converter() {
         if (java_util_Date_type_converter == null) {

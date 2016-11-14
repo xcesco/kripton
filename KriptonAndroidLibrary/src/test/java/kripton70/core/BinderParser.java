@@ -7,15 +7,19 @@ import com.fasterxml.jackson.core.JsonToken;
 
 public class BinderParser {
 
-	public BinderParser(JsonParser parser, BinderType binderType)
+	public BinderParser(BinderContext context, JsonParser parser, BinderType supportedFormat)
 	{
 		this.parser=parser;
-		this.onlyText=binderType.onlyText;
+		this.onlyText=supportedFormat.onlyText;
 	}
 	
 	public JsonParser parser;
 	
 	public boolean onlyText;
+
+	public boolean isOnlyText() {
+		return onlyText;
+	}
 
 	public JsonToken getCurrentToken() {
 		return parser.getCurrentToken();

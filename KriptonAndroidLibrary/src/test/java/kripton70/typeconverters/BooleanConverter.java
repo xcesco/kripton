@@ -21,7 +21,7 @@ public class BooleanConverter implements TypeConverter<Boolean> {
 	}
 
 	@Override
-	public void serialize(Boolean value, String fieldName, boolean writeFieldNameForObject, BinderGenerator generator) throws IOException {
+	public void serialize(BinderGenerator generator, boolean writeFieldNameForObject, String fieldName, Boolean value) throws IOException {
 		generator.writeFieldName(fieldName);
 		generator.writeBoolean(value);		
 	}

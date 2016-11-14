@@ -9,8 +9,7 @@ import kripton70.typeconverters.LongConverter;
 import kripton70.typeconverters.ShortConverter;
 import kripton70.typeconverters.StringConverter;
 
-public abstract class AbstractMapper {
-	
+public abstract class AbstractMapper<E> {	
 	protected static ByteConverter byteMapper=new ByteConverter();
 	protected static CharacterConverter characterMapper=new CharacterConverter();
 	protected static ShortConverter shortMapper=new ShortConverter();	
@@ -20,7 +19,7 @@ public abstract class AbstractMapper {
 	protected static LongConverter longMapper=new LongConverter();	
 	protected static StringConverter stringMapper=new StringConverter();
 	
-	protected Binder2Json binder;
+	protected BinderContext binderFactory;
 	
 	
 }

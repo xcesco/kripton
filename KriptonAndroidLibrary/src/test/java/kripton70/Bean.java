@@ -1,12 +1,5 @@
 package kripton70;
 
-import kripton70.typeconverters.ByteConverter;
-import kripton70.typeconverters.CharacterConverter;
-import kripton70.typeconverters.DoubleConverter;
-import kripton70.typeconverters.FloatConverter;
-import kripton70.typeconverters.IntegerConverter;
-import kripton70.typeconverters.ShortConverter;
-
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;

@@ -5,17 +5,19 @@ import java.util.Map;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+import kripton70.contexts.BinderJsonContext;
+
 public abstract class KriptonLibrary2 {
 	
-	public static void registryBinder(Binder2Json factory)
+	public static void registryBinder(BinderContext factory)
 	{
 		binders.put(factory.getSupportedFormat(), factory);
 	}
 	
-	private static final Map<BinderType, Binder2Json> binders=new HashMap<>();
+	private static final Map<BinderType, BinderContext> binders=new HashMap<>();
 	
 	static {
-		registryBinder(new Binder2JsonImpl());
+		registryBinder(new BinderJsonContext());
 	}
 	
 //	private static final ListMapper LIST_MAPPER = new ListMapper();
@@ -39,12 +41,20 @@ public abstract class KriptonLibrary2 {
 	//public static final JsonFactory JSON_FACTORY = new JsonFactory();
 	
 
-	public static Binder2 getBinder(BinderType format) {
-		Binder2 binder=binders.get(format);
+	public static BinderContext getBinder(BinderType format) {
+		BinderContext binder=binders.get(format);
 		
 		if (binder==null) throw new KriptonRuntimeException(String.format("%s format is not supported", format));
 		
 		return binder;
 	}
+
+	/*public static <T> String serialize(BinderType type, T bean) throws IOException {
+		return getBinder(type).serialize(bean);
+	}
+
+	public static Bean parse(BinderType type, String output, Class<Bean> clazz) throws IOException {
+		return getBinder(type).parse(output,clazz);
+	}*/
 
 }

@@ -21,7 +21,7 @@ public class DoubleConverter implements TypeConverter<Double> {
 	}
 
 	@Override
-	public void serialize(Double value, String fieldName, boolean writeFieldNameForObject, BinderGenerator generator) throws IOException {
+	public void serialize(BinderGenerator generator, boolean writeFieldNameForObject, String fieldName, Double value) throws IOException {
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);
 		

@@ -1,17 +1,20 @@
-package kripton70.core;
+package kripton70.contexts;
 
 import com.fasterxml.jackson.core.JsonFactory;
+
+import kripton70.core.AbstractBinderContext;
+import kripton70.core.BinderType;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class Binder2JsonImpl extends AbstractJacksonBinder {
+public class BinderPropertiesContext extends AbstractBinderContext {
 
 	@Override
 	public BinderType getSupportedFormat()
 	{
-		return BinderType.JSON;
+		return BinderType.PROPERTIES;
 	}
 	
 	@Override
