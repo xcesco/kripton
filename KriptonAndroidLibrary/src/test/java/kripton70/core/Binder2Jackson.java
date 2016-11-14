@@ -11,27 +11,24 @@ import java.io.Writer;
 import java.net.URL;
 
 import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
 
 import kripton70.NoSuchMapperException;
 
-public interface Binder2Json extends Binder2 {
-	
-	JsonFactory createInnerFactory();
-	
-	BinderGenerator createGenerator(DataOutput out) throws IOException;
-	
-	BinderGenerator createGenerator(OutputStream out) throws IOException;
-	
-	BinderGenerator createGenerator(Writer writer) throws IOException;
+public interface Binder2Jackson extends Binder2 {
 
-	BinderGenerator createGenerator(DataOutput out, JsonEncoding encoding) throws IOException;
+	BinderSerializer createSerializer(DataOutput out) throws IOException;
+	
+	BinderSerializer createSerializer(OutputStream out) throws IOException;
+	
+	BinderSerializer createSerializer(Writer writer) throws IOException;
 
-	BinderGenerator createGenerator(File file, JsonEncoding encoding) throws IOException;
+	BinderSerializer createSerializer(DataOutput out, JsonEncoding encoding) throws IOException;
 
-	BinderGenerator createGenerator(File file) throws IOException;
+	BinderSerializer createSerializer(File file, JsonEncoding encoding) throws IOException;
 
-	BinderGenerator createGenerator(OutputStream out, JsonEncoding encoding) throws IOException;
+	BinderSerializer createSerializer(File file) throws IOException;
+
+	BinderSerializer createSerializer(OutputStream out, JsonEncoding encoding) throws IOException;
 
 	BinderParser createParser(byte[] data) throws IOException;
 

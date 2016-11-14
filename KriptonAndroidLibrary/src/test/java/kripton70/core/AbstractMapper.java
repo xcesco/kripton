@@ -1,5 +1,6 @@
 package kripton70.core;
 
+import kripton70.contexts.BinderContext;
 import kripton70.typeconverters.ByteConverter;
 import kripton70.typeconverters.CharacterConverter;
 import kripton70.typeconverters.DoubleConverter;

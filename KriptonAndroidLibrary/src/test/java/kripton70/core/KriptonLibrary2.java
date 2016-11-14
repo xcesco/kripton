@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+import kripton70.contexts.BinderContext;
 import kripton70.contexts.BinderJsonContext;
 
 public abstract class KriptonLibrary2 {

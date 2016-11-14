@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonToken;
 
-import kripton70.core.BinderGenerator;
+import kripton70.core.BinderSerializer;
 import kripton70.core.BinderParser;
 
 public class CharacterConverter implements TypeConverter<Character> {
@@ -18,7 +18,7 @@ public class CharacterConverter implements TypeConverter<Character> {
 	}
 
 	@Override
-	public void serialize(BinderGenerator generator, boolean writeFieldNameForObject, String fieldName, Character value) throws IOException {
+	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Character value) throws IOException {
 		generator.writeFieldName(fieldName);
 		generator.writeString(String.valueOf(value));
 		

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonToken;
 
-import kripton70.core.BinderGenerator;
+import kripton70.core.BinderSerializer;
 import kripton70.core.BinderParser;
 
 public class BooleanConverter implements TypeConverter<Boolean> {
@@ -21,7 +21,7 @@ public class BooleanConverter implements TypeConverter<Boolean> {
 	}
 
 	@Override
-	public void serialize(BinderGenerator generator, boolean writeFieldNameForObject, String fieldName, Boolean value) throws IOException {
+	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Boolean value) throws IOException {
 		generator.writeFieldName(fieldName);
 		generator.writeBoolean(value);		
 	}

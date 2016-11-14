@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonToken;
 
-import kripton70.Bean;
+import kripton70.contexts.BinderContext;
 
 public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 
@@ -39,7 +39,7 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	 *            writeEndObject() should be called after serializing. False if
 	 *            not.
 	 */
-	public abstract void serialize(BinderContext context, E object, BinderGenerator generator, boolean writeStartAndEnd) throws IOException;
+	public abstract void serialize(BinderContext context, E object, BinderSerializer generator, boolean writeStartAndEnd) throws IOException;
 
 	/**
 	 * Parse an object from an InputStream.
@@ -171,7 +171,7 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	 *            The OutputStream being written to.
 	 */
 	public void serialize(BinderContext context, E object, OutputStream os) throws IOException {
-		BinderGenerator jsonGenerator = context.createGenerator(os);
+		BinderSerializer jsonGenerator = context.createGenerator(os);
 		serialize(context, object, jsonGenerator, true);
 		jsonGenerator.close();
 	}
@@ -184,7 +184,7 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	 */
 	public String serialize(BinderContext context, List<E> list) throws IOException {
 		StringWriter sw = new StringWriter();
-		BinderGenerator jsonGenerator = context.createGenerator(sw);
+		BinderSerializer jsonGenerator = context.createGenerator(sw);
 		serialize(context, list, jsonGenerator);
 		jsonGenerator.close();
 		return sw.toString();
@@ -199,7 +199,7 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	 *            The OutputStream to which the list should be serialized
 	 */
 	public void serialize(BinderContext context, List<E> list, OutputStream os) throws IOException {
-		BinderGenerator jsonGenerator = context.createGenerator(os);
+		BinderSerializer jsonGenerator = context.createGenerator(os);
 		serialize(context, list, jsonGenerator);
 		jsonGenerator.close();
 	}
@@ -212,7 +212,7 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	 * @param jsonGenerator
 	 *            The JsonGenerator to which the list should be serialized
 	 */
-	public void serialize(BinderContext context, List<E> list, BinderGenerator jsonGenerator) throws IOException {
+	public void serialize(BinderContext context, List<E> list, BinderSerializer jsonGenerator) throws IOException {
 		jsonGenerator.writeStartArray();
 		for (E object : list) {
 			if (object != null) {
@@ -259,7 +259,7 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	public String serialize(BinderContext context, E object) throws IOException {
 		StringWriter sw = new StringWriter();
 
-		BinderGenerator jsonGenerator = context.createGenerator(sw);
+		BinderSerializer jsonGenerator = context.createGenerator(sw);
 		serialize(context, object, jsonGenerator, true);
 		jsonGenerator.close();
 		return sw.toString();

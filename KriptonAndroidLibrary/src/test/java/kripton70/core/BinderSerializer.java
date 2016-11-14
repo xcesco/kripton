@@ -4,11 +4,13 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 
-public class BinderGenerator {
+import kripton70.contexts.BinderContext;
+
+public class BinderSerializer {
 	
 	protected BinderContext context;
 
-	public BinderGenerator(BinderContext context, JsonGenerator generator, BinderType supportedFormat) {
+	public BinderSerializer(BinderContext context, JsonGenerator generator, BinderType supportedFormat) {
 		this.generator=generator;
 		this.onlyText=supportedFormat.onlyText;
 		this.context=context;

@@ -1,4 +1,4 @@
-package kripton70.core;
+package kripton70.contexts;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -15,6 +15,11 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 
 import kripton70.NoSuchMapperException;
+import kripton70.core.BinderSerializer;
+import kripton70.core.BinderParser;
+import kripton70.core.BinderType;
+import kripton70.core.JacksonMapper;
+import kripton70.core.ParameterizedType;
 
 public interface BinderContext {
 
@@ -155,19 +160,19 @@ public interface BinderContext {
 	 */
 	<E> void serialize(List<E> list, OutputStream os, Class<E> jsonObjectClass) throws IOException;
 	
-	BinderGenerator createGenerator(DataOutput out) throws IOException;
+	BinderSerializer createSerializer(DataOutput out) throws IOException;
 	
-	BinderGenerator createGenerator(OutputStream out) throws IOException;
+	BinderSerializer createGenerator(OutputStream out) throws IOException;
 	
-	BinderGenerator createGenerator(Writer writer) throws IOException;
+	BinderSerializer createGenerator(Writer writer) throws IOException;
 
-	BinderGenerator createGenerator(DataOutput out, JsonEncoding encoding) throws IOException;
+	BinderSerializer createSerializer(DataOutput out, JsonEncoding encoding) throws IOException;
 
-	BinderGenerator createGenerator(File file, JsonEncoding encoding) throws IOException;
+	BinderSerializer createGenerator(File file, JsonEncoding encoding) throws IOException;
 
-	BinderGenerator createGenerator(File file) throws IOException;
+	BinderSerializer createGenerator(File file) throws IOException;
 
-	BinderGenerator createGenerator(OutputStream out, JsonEncoding encoding) throws IOException;
+	BinderSerializer createGenerator(OutputStream out, JsonEncoding encoding) throws IOException;
 
 	BinderParser createParser(byte[] data) throws IOException;
 

@@ -2,8 +2,8 @@ package kripton70;
 
 import java.io.IOException;
 
-import kripton70.core.BinderContext;
-import kripton70.core.BinderGenerator;
+import kripton70.contexts.BinderContext;
+import kripton70.core.BinderSerializer;
 import kripton70.core.BinderParser;
 import kripton70.core.JacksonMapper;
 
@@ -125,39 +125,46 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 
     @SuppressWarnings("unchecked")
 	@Override
-    public void serialize(BinderContext context, Bean object, BinderGenerator jsonGenerator, boolean writeStartAndEnd) throws IOException {
+    public void serialize(BinderContext context, Bean object, BinderSerializer generator, boolean writeStartAndEnd) throws IOException {
     	if (writeStartAndEnd) {
-    		jsonGenerator.writeStartObject();
+    		generator.writeStartObject();
     	}
     	
     	
     	// field id
-    	longMapper.serialize(jsonGenerator, true, "id", object.id);
+    	longMapper.serialize(generator, true, "id", object.id);
     	
     	// field description
     	if (object.description != null) {
-            stringMapper.serialize(jsonGenerator, true, "description", object.description);
+            stringMapper.serialize(generator, true, "description", object.description);
         }
     	
     	// field valueByteType
-		byteMapper.serialize(jsonGenerator,true, "valueByteType", object.valueByteType);
+		byteMapper.serialize(generator,true, "valueByteType", object.valueByteType);
 		
 		// field valueShortType
-		shortMapper.serialize(jsonGenerator,true, "valueShortType", object.valueShortType);
+		shortMapper.serialize(generator,true, "valueShortType", object.valueShortType);
 		
 		// field valueCharType
-		characterMapper.serialize(jsonGenerator,true, "valueCharType", object.valueCharType);
+		characterMapper.serialize(generator,true, "valueCharType", object.valueCharType);
 		
 		// field bean
 		if (object.valueBean!=null)
 		{						
-			jsonGenerator.writeFieldName("valueBean");
-			((JacksonMapper<Bean>) context.mapperFor(object.valueBean.getClass())).serialize(context, object.valueBean, jsonGenerator, true);
-		}		
+			generator.writeFieldName("valueBean");
+			((JacksonMapper<Bean>) context.mapperFor(object.valueBean.getClass())).serialize(context, object.valueBean, generator, true);
+		}
+		
+		// field string list
+		{
+			//generator.w
+			
+		}
+		//valueStringList
     	
     	
     	if (writeStartAndEnd) {
-            jsonGenerator.writeEndObject();
+            generator.writeEndObject();
         }
     	
     	/*

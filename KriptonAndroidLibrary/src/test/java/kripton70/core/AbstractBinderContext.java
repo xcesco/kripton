@@ -17,6 +17,7 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 
 import kripton70.NoSuchMapperException;
+import kripton70.contexts.BinderContext;
 import util.SimpleArrayMap;
 
 public abstract class AbstractBinderContext implements BinderContext {
@@ -286,32 +287,32 @@ public abstract class AbstractBinderContext implements BinderContext {
 	}
 	
 	
-	public BinderGenerator createGenerator(DataOutput out) throws IOException {
+	public BinderSerializer createSerializer(DataOutput out) throws IOException {
+		return createSerializer(out, JsonEncoding.UTF8);
+	}
+
+	public BinderSerializer createGenerator(OutputStream out) throws IOException {
 		return createGenerator(out, JsonEncoding.UTF8);
 	}
 
-	public BinderGenerator createGenerator(OutputStream out) throws IOException {
-		return createGenerator(out, JsonEncoding.UTF8);
+	public BinderSerializer createGenerator(Writer writer) throws IOException {
+		return new BinderSerializer(this, innerFactory.createGenerator(writer), getSupportedFormat());
 	}
 
-	public BinderGenerator createGenerator(Writer writer) throws IOException {
-		return new BinderGenerator(this, innerFactory.createGenerator(writer), getSupportedFormat());
+	public BinderSerializer createSerializer(DataOutput out, JsonEncoding encoding) throws IOException {
+		return new BinderSerializer(this, innerFactory.createGenerator(out, encoding), getSupportedFormat());
 	}
 
-	public BinderGenerator createGenerator(DataOutput out, JsonEncoding encoding) throws IOException {
-		return new BinderGenerator(this, innerFactory.createGenerator(out, encoding), getSupportedFormat());
+	public BinderSerializer createGenerator(File file, JsonEncoding encoding) throws IOException {
+		return new BinderSerializer(this, innerFactory.createGenerator(file, encoding), getSupportedFormat());
 	}
 
-	public BinderGenerator createGenerator(File file, JsonEncoding encoding) throws IOException {
-		return new BinderGenerator(this, innerFactory.createGenerator(file, encoding), getSupportedFormat());
-	}
-
-	public BinderGenerator createGenerator(File file) throws IOException {
+	public BinderSerializer createGenerator(File file) throws IOException {
 		return createGenerator(file, JsonEncoding.UTF8);
 	}
 
-	public BinderGenerator createGenerator(OutputStream out, JsonEncoding encoding) throws IOException {
-		return new BinderGenerator(this, innerFactory.createGenerator(out, encoding), getSupportedFormat());
+	public BinderSerializer createGenerator(OutputStream out, JsonEncoding encoding) throws IOException {
+		return new BinderSerializer(this, innerFactory.createGenerator(out, encoding), getSupportedFormat());
 	}
 
 	public BinderParser createParser(byte[] data) throws IOException {

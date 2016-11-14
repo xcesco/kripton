@@ -1,5 +1,7 @@
 package kripton70;
 
+import java.util.List;
+
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;
@@ -62,5 +64,7 @@ public class Bean {
 	public char valueCharType;
 	
 	public Bean valueBean;
+	
+	public List<String> valueStringList;
 		
 }

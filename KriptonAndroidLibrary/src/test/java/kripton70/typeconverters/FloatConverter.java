@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonToken;
 
-import kripton70.core.BinderGenerator;
+import kripton70.core.BinderSerializer;
 import kripton70.core.BinderParser;
 
 public class FloatConverter implements TypeConverter<Float> {
@@ -21,7 +21,7 @@ public class FloatConverter implements TypeConverter<Float> {
 	}
 
 	@Override
-	public void serialize(BinderGenerator generator, boolean writeFieldNameForObject, String fieldName, Float value) throws IOException {
+	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Float value) throws IOException {
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);
 	}
