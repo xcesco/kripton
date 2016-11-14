@@ -25,6 +25,7 @@ public class Kripton70Test {
 	@Test
 	public void test() throws IOException
 	{
+		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
 		Bean bean=new Bean();
 		bean.id=25;
 		bean.description="hello";
