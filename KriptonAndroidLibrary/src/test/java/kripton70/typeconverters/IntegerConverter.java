@@ -22,6 +22,7 @@ public class IntegerConverter implements TypeConverter<Integer> {
 
 	@Override
 	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Integer value) throws IOException {
+		if (writeFieldNameForObject)
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);
 		

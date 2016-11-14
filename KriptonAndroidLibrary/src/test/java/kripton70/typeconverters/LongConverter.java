@@ -22,6 +22,7 @@ public class LongConverter implements TypeConverter<Long> {
 
 	@Override
 	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Long value) throws IOException {
+		if (writeFieldNameForObject)
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);
 	}

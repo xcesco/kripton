@@ -22,6 +22,7 @@ public class FloatConverter implements TypeConverter<Float> {
 
 	@Override
 	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Float value) throws IOException {
+		if (writeFieldNameForObject)
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);
 	}

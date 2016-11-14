@@ -1,6 +1,7 @@
 package kripton70;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,9 +30,12 @@ public class Kripton70Test {
 		bean.valueByteType=12;
 		bean.valueCharType='a';
 		bean.valueShortType=13;
+		bean.valueStringList=new ArrayList<>();
+		bean.valueStringList.add("hello");
 		bean.valueBean=new Bean();
 		bean.valueBean.id=25;
 		bean.valueBean.description="hello";
+		
 		
 		BinderType type = BinderType.JSON;
 		

@@ -22,6 +22,7 @@ public class ShortConverter implements TypeConverter<Short> {
 
 	@Override
 	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Short value) throws IOException {
+		if (writeFieldNameForObject)
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);
 		

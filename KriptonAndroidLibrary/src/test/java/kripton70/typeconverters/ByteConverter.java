@@ -23,6 +23,7 @@ public class ByteConverter implements TypeConverter<Byte> {
 
 	@Override
 	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Byte value) throws IOException {
+		if (writeFieldNameForObject)
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);
 		

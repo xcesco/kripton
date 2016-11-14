@@ -14,7 +14,8 @@ public class StringConverter implements TypeConverter<String> {
 
 	@Override
 	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, String value) throws IOException {
-		generator.writeFieldName(fieldName);
+		if (writeFieldNameForObject)
+			generator.writeFieldName(fieldName);
 		generator.writeString(value);
 	}
 }

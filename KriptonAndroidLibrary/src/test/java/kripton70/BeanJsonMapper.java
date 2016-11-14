@@ -125,46 +125,53 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 
     @SuppressWarnings("unchecked")
 	@Override
-    public void serialize(BinderContext context, Bean object, BinderSerializer generator, boolean writeStartAndEnd) throws IOException {
+    public void serialize(BinderContext context, Bean object, BinderSerializer serializer, boolean writeStartAndEnd) throws IOException {
     	if (writeStartAndEnd) {
-    		generator.writeStartObject();
+    		serializer.writeStartObject();
     	}
     	
     	
     	// field id
-    	longMapper.serialize(generator, true, "id", object.id);
+    	longMapper.serialize(serializer, true, "id", object.id);
     	
     	// field description
     	if (object.description != null) {
-            stringMapper.serialize(generator, true, "description", object.description);
+            stringMapper.serialize(serializer, true, "description", object.description);
         }
     	
     	// field valueByteType
-		byteMapper.serialize(generator,true, "valueByteType", object.valueByteType);
+		byteMapper.serialize(serializer,true, "valueByteType", object.valueByteType);
 		
 		// field valueShortType
-		shortMapper.serialize(generator,true, "valueShortType", object.valueShortType);
+		shortMapper.serialize(serializer,true, "valueShortType", object.valueShortType);
 		
 		// field valueCharType
-		characterMapper.serialize(generator,true, "valueCharType", object.valueCharType);
+		characterMapper.serialize(serializer,true, "valueCharType", object.valueCharType);
 		
 		// field bean
 		if (object.valueBean!=null)
 		{						
-			generator.writeFieldName("valueBean");
-			((JacksonMapper<Bean>) context.mapperFor(object.valueBean.getClass())).serialize(context, object.valueBean, generator, true);
+			serializer.writeFieldName("valueBean");
+			((JacksonMapper<Bean>) context.mapperFor(object.valueBean.getClass())).serialize(context, object.valueBean, serializer, true);
 		}
 		
 		// field string list
 		{
-			//generator.w
+			serializer.writeFieldName("valueStringList");
+			serializer.writeStartArray();
+			
+			for (int i=0; i<object.valueStringList.size();i++)
+			{
+				stringMapper.serialize(serializer, false, null, object.valueStringList.get(i));				
+			}
+			serializer.writeEndArray();
 			
 		}
 		//valueStringList
     	
     	
     	if (writeStartAndEnd) {
-            generator.writeEndObject();
+            serializer.writeEndObject();
         }
     	
     	/*

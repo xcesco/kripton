@@ -32,14 +32,14 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	 *
 	 * @param object
 	 *            The object to serialize.
-	 * @param generator
+	 * @param serializer
 	 *            The pre-configured JsonGenerator being written to.
 	 * @param writeStartAndEnd
 	 *            True if writeStartObject() should be called before and
 	 *            writeEndObject() should be called after serializing. False if
 	 *            not.
 	 */
-	public abstract void serialize(BinderContext context, E object, BinderSerializer generator, boolean writeStartAndEnd) throws IOException;
+	public abstract void serialize(BinderContext context, E object, BinderSerializer serializer, boolean writeStartAndEnd) throws IOException;
 
 	/**
 	 * Parse an object from an InputStream.
@@ -184,9 +184,9 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	 */
 	public String serialize(BinderContext context, List<E> list) throws IOException {
 		StringWriter sw = new StringWriter();
-		BinderSerializer jsonGenerator = context.createGenerator(sw);
-		serialize(context, list, jsonGenerator);
-		jsonGenerator.close();
+		BinderSerializer serializer = context.createGenerator(sw);
+		serialize(context, list, serializer);
+		serializer.close();
 		return sw.toString();
 	}
 
@@ -259,9 +259,9 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	public String serialize(BinderContext context, E object) throws IOException {
 		StringWriter sw = new StringWriter();
 
-		BinderSerializer jsonGenerator = context.createGenerator(sw);
-		serialize(context, object, jsonGenerator, true);
-		jsonGenerator.close();
+		BinderSerializer serializer = context.createGenerator(sw);
+		serialize(context, object, serializer, true);
+		serializer.close();
 		return sw.toString();
 	}
 }
