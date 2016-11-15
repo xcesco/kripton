@@ -1,38 +1,37 @@
 package kripton70.core;
 
-import java.io.IOException;
 
 public interface BinderSerializer {
 
-	void close() throws IOException;
+	void close();
 
 	boolean isOnlyText();
 
-	void writeBoolean(Boolean value) throws IOException;
+	void writeBoolean(Boolean value);
 
-	void writeEndArray() throws IOException;
+	void writeEndArray();
 
-	void writeEndObject() throws IOException;
+	void writeEndObject();
 
-	void writeFieldName(String fieldName) throws IOException;
+	void writeFieldName(String fieldName);
 
-	void writeNull() throws IOException;
+	void writeNull();
 
-	void writeNumber(Byte value) throws IOException;
+	void writeNumber(Byte value);
 
-	void writeNumber(Double value) throws IOException;
+	void writeNumber(Double value);
 
-	void writeNumber(Float value) throws IOException;
+	void writeNumber(Float value);
 
-	void writeNumber(Integer value) throws IOException;
+	void writeNumber(Integer value);
 
-	void writeNumber(Long value) throws IOException;
+	void writeNumber(Long value);
 
-	void writeNumber(Short value) throws IOException;
+	void writeNumber(Short value);
 
-	void writeStartArray() throws IOException;
+	void writeStartArray();
 
-	void writeStartObject() throws IOException;
+	void writeStartObject();
 
-	void writeString(String value) throws IOException;
+	void writeString(String value);
 }

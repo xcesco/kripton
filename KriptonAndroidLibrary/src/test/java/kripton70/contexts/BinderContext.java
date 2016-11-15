@@ -6,11 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.URL;
 import java.util.List;
-
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
 
 import kripton70.NoSuchMapperException;
 import kripton70.core.BinderParser;
@@ -18,6 +14,9 @@ import kripton70.core.BinderSerializer;
 import kripton70.core.BinderType;
 import kripton70.core.JacksonMapper;
 import kripton70.core.ParameterizedType;
+
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
 
 public interface BinderContext {
 

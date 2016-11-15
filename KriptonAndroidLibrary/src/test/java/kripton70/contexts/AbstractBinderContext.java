@@ -4,14 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Reader;
-import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
 
 import kripton70.NoSuchMapperException;
 import kripton70.core.BinderSerializer;
@@ -20,6 +15,8 @@ import kripton70.core.JacksonMapper;
 import kripton70.core.KriptonLibrary2;
 import kripton70.core.ParameterizedType;
 import util.SimpleArrayMap;
+
+import com.fasterxml.jackson.core.JsonEncoding;
 
 public abstract class AbstractBinderContext implements BinderContext {
 
@@ -69,21 +66,13 @@ public abstract class AbstractBinderContext implements BinderContext {
 		return null;
 	}
 
-	
-
-	
-
 	public BinderSerializer createSerializer(File file) throws IOException {
 		return createSerializer(file, JsonEncoding.UTF8);
 	}
 
-	
-
 	public BinderSerializer createSerializer(OutputStream out) throws IOException {
 		return createSerializer(out, JsonEncoding.UTF8);
 	}
-
-	
 
 	@SuppressWarnings("unchecked")
 	public <E, M extends JacksonMapper<E>> M getMapper(Class<E> cls) {

@@ -1,19 +1,17 @@
 package kripton70.persistence;
 
-import java.io.IOException;
-
-import org.codehaus.stax2.XMLStreamWriter2;
-
-import com.fasterxml.jackson.core.JsonGenerator;
+import javax.xml.stream.XMLStreamException;
 
 import kripton70.contexts.BinderContext;
 import kripton70.core.BinderSerializer;
 import kripton70.core.BinderType;
 
+import org.codehaus.stax2.XMLStreamWriter2;
+
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+
 public class XmlSerializer implements BinderSerializer {
 	protected BinderContext context;
-
-	JsonGenerator jacksonSerializer;
 
 	public boolean onlyText;
 	
@@ -25,8 +23,13 @@ public class XmlSerializer implements BinderSerializer {
 		this.context=context;
 	}
 	
-	public void close() throws IOException {
-		jacksonSerializer.close();
+	public void close() {
+		try {
+			xmlSerializer.close();
+		} catch (XMLStreamException e) {			
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
@@ -34,69 +37,138 @@ public class XmlSerializer implements BinderSerializer {
 		return onlyText;
 	}
 
-	public void writeBoolean(Boolean value) throws IOException {
-		jacksonSerializer.writeBoolean(value);
+	public void writeBoolean(Boolean value) {
+		try {
+			xmlSerializer.writeBoolean(value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 	}
 
-	public void writeEndArray() throws IOException {
-		jacksonSerializer.writeEndArray();
+	public void writeEndArray() {
+		try {
+			xmlSerializer.writeEndElement();
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeEndObject() throws IOException {
-		jacksonSerializer.writeEndObject();
+	public void writeEndObject() {
+		try {
+			xmlSerializer.writeEndElement();
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeFieldName(String fieldName) throws IOException {
-		jacksonSerializer.writeFieldName(fieldName);			
+	public void writeFieldName(String fieldName) {
+		try {
+			xmlSerializer.writeStartElement(fieldName);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}			
 	}
 
-	public void writeNull() throws IOException {
-		jacksonSerializer.writeNull();
+	public void writeNull(String fieldName) {
+		try {
+			xmlSerializer.writeEmptyElement(fieldName);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}	
+	}
+
+	public void writeNumber(Byte value) {
+		try {
+			xmlSerializer.writeInt(value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}					
+	}
+
+	public void writeNumber(Double value) {
+		try {
+			xmlSerializer.writeDouble(value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Byte value) throws IOException {
-		jacksonSerializer.writeNumber(value);				
-	}
-
-	public void writeNumber(Double value) throws IOException {
-		jacksonSerializer.writeNumber(value);
+	public void writeNumber(Float value) {
+		try {
+			xmlSerializer.writeFloat(value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Float value) throws IOException {
-		jacksonSerializer.writeNumber(value);
+	public void writeNumber(Integer value) {
+		try {
+			xmlSerializer.writeInt(value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Integer value) throws IOException {
-		jacksonSerializer.writeNumber(value);
+	public void writeNumber(Long value) {
+		try {
+			xmlSerializer.writeLong(value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Long value) throws IOException {
-		jacksonSerializer.writeNumber(value);
+	public void writeNumber(Short value) {
+		try {
+			xmlSerializer.writeInt(value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
+	}
+
+	public void writeStartArray(String fieldName) {
+		try {
+			xmlSerializer.writeStartElement(fieldName);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Short value) throws IOException {
-		jacksonSerializer.writeNumber(value);
-	}
-
-	public void writeStartArray() throws IOException {
-		jacksonSerializer.writeStartArray();
+	public void writeStartObject(String fieldName) {
+		try {
+			xmlSerializer.writeStartElement(fieldName);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeStartObject() throws IOException {
-		jacksonSerializer.writeStartObject();
-		
-	}
-
-	public void writeString(String value) throws IOException {
-		jacksonSerializer.writeString(value);
+	public void writeString(String value) {
+		try {
+			xmlSerializer.writeCharacters(value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 }

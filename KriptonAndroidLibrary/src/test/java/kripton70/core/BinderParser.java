@@ -35,7 +35,7 @@ public class BinderParser {
 		return jacksonParser.getBooleanValue();
 	}
 
-	public Byte getByteValue() throws IOException {
+	public Byte getByteValue() throws IOException {		
 		return jacksonParser.getByteValue();
 	}
 

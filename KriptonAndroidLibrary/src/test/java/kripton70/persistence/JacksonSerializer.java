@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.codehaus.stax2.XMLStreamWriter2;
 
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import kripton70.contexts.BinderContext;
@@ -25,8 +26,13 @@ public class JacksonSerializer implements BinderSerializer  {
 		this.context=context;
 	}
 
-	public void close() throws IOException {
-		jacksonSerializer.close();
+	public void close() {
+		try {
+			jacksonSerializer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
@@ -34,69 +40,139 @@ public class JacksonSerializer implements BinderSerializer  {
 		return onlyText;
 	}
 
-	public void writeBoolean(Boolean value) throws IOException {
-		jacksonSerializer.writeBoolean(value);
+	public void writeBoolean(Boolean value) {
+		try {
+			jacksonSerializer.writeBoolean(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 	}
 
-	public void writeEndArray() throws IOException {
-		jacksonSerializer.writeEndArray();
+	public void writeEndArray() {
+		try {
+			jacksonSerializer.writeEndArray();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeEndObject() throws IOException {
-		jacksonSerializer.writeEndObject();
+	public void writeEndObject() {
+		try {
+			jacksonSerializer.writeEndObject();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeFieldName(String fieldName) throws IOException {
-		jacksonSerializer.writeFieldName(fieldName);			
+	public void writeFieldName(String fieldName) {
+		try {
+			jacksonSerializer.writeFieldName(fieldName);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}			
 	}
 
-	public void writeNull() throws IOException {
-		jacksonSerializer.writeNull();
+	public void writeNull() {
+		try {
+			jacksonSerializer.writeNull();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Byte value) throws IOException {
-		jacksonSerializer.writeNumber(value);				
+	public void writeNumber(Byte value) {
+		try {
+			jacksonSerializer.writeNumber(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}			
 	}
 
-	public void writeNumber(Double value) throws IOException {
-		jacksonSerializer.writeNumber(value);
+	public void writeNumber(Double value) {
+		try {
+			jacksonSerializer.writeNumber(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Float value) throws IOException {
-		jacksonSerializer.writeNumber(value);
+	public void writeNumber(Float value) {
+		try {
+			jacksonSerializer.writeNumber(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Integer value) throws IOException {
-		jacksonSerializer.writeNumber(value);
+	public void writeNumber(Integer value) {
+		try {
+			jacksonSerializer.writeNumber(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Long value) throws IOException {
-		jacksonSerializer.writeNumber(value);
+	public void writeNumber(Long value) {
+		try {
+			jacksonSerializer.writeNumber(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeNumber(Short value) throws IOException {
-		jacksonSerializer.writeNumber(value);
+	public void writeNumber(Short value) {
+		try {
+			jacksonSerializer.writeNumber(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 	}
 
-	public void writeStartArray() throws IOException {
-		jacksonSerializer.writeStartArray();
+	public void writeStartArray() {
+		try {
+			jacksonSerializer.writeStartArray();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeStartObject() throws IOException {
-		jacksonSerializer.writeStartObject();
+	public void writeStartObject() {
+		try {
+			jacksonSerializer.writeStartObject();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 
-	public void writeString(String value) throws IOException {
-		jacksonSerializer.writeString(value);
+	public void writeString(String value) {
+		try {
+			jacksonSerializer.writeString(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 		
 	}
 }

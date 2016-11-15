@@ -7,20 +7,14 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonToken;
-
 import kripton70.contexts.BinderContext;
+
+import com.fasterxml.jackson.core.JsonToken;
 
 public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 
 	protected abstract E createInstance();
 
-	/**
-	 * Parse an object from a pre-configured JsonParser object.
-	 *
-	 * @param jsonParser
-	 *            The pre-configured JsonParser
-	 */
 	public E parse(BinderContext context, BinderParser parser) throws IOException {
 		E instance = createInstance(); 
 		if (parser.getCurrentToken() == null) {
@@ -215,7 +209,9 @@ public abstract class JacksonMapper<E> extends AbstractMapper<E> {
 	 */
 	public void serialize(BinderContext context, List<E> list, BinderSerializer serializer) throws IOException {
 		serializer.writeStartArray();
-		for (E object : list) {
+		E object;
+		for (int i=0; i<list.size();i++) {
+			object=list.get(0);
 			if (object != null) {
 				serialize(context, object, serializer, true);
 			} else {

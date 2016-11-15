@@ -13,22 +13,19 @@ public class ByteConverter implements TypeConverter<Byte> {
 	public Byte parse(BinderParser parser) throws IOException {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
-		} else if (parser.onlyText){
+		} else if (parser.onlyText) {
 			return Byte.valueOf(parser.getText());
 		} else {
 			return parser.getByteValue();
-			
+
 		}
 	}
 
 	@Override
 	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Byte value) throws IOException {
 		if (writeFieldNameForObject)
-		generator.writeFieldName(fieldName);
+			generator.writeFieldName(fieldName);
 		generator.writeNumber(value);
-		
 	}
-
-	
 
 }
