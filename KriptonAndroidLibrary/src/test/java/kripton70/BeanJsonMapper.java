@@ -43,8 +43,7 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 			if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
 				ArrayList<String> collection = new ArrayList<String>();
 				while (parser.nextToken() != JsonToken.END_ARRAY) {
-					String value = stringMapper.parse(parser);
-					collection.add(value);
+					collection.add(stringMapper.parse(parser));
 				}
 				instance.valueStringList = collection;
 			}
@@ -53,8 +52,7 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 			if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
 				ArrayList<String> collection = new ArrayList<String>();
 				while (parser.nextToken() != JsonToken.END_ARRAY) {
-					String value = stringMapper.parse(parser);
-					collection.add(value);
+					collection.add(stringMapper.parse(parser));
 				}
 				instance.valueStringArray = collection.toArray(new String[collection.size()]);
 			}
@@ -135,7 +133,6 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 	// public void parseField(Bean instance, String fieldName, BinderParser
 	// parser) throws IOException
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void serialize(BinderContext context, Bean object, BinderSerializer serializer, boolean writeStartAndEnd) throws IOException {
 		if (writeStartAndEnd) {
@@ -162,7 +159,7 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 		// field bean
 		if (object.valueBean != null) {
 			serializer.writeFieldName("valueBean");
-			((JacksonMapper<Bean>) context.mapperFor(object.valueBean.getClass())).serialize(context, object.valueBean, serializer, true);
+			context.mapperFor(Bean.class).serialize(context, object.valueBean, serializer, true);
 		}
 
 		// field string list

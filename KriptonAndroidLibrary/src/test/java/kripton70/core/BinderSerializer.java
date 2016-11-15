@@ -2,97 +2,37 @@ package kripton70.core;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonGenerator;
+public interface BinderSerializer {
 
-import kripton70.contexts.BinderContext;
+	void close() throws IOException;
 
-public class BinderSerializer {
-	
-	protected BinderContext context;
+	boolean isOnlyText();
 
-	public BinderSerializer(BinderContext context, JsonGenerator generator, BinderType supportedFormat) {
-		this.generator=generator;
-		this.onlyText=supportedFormat.onlyText;
-		this.context=context;
-	}
+	void writeBoolean(Boolean value) throws IOException;
 
-	public boolean isOnlyText() {
-		return onlyText;
-	}
+	void writeEndArray() throws IOException;
 
-	public JsonGenerator generator;
-	
-	public boolean onlyText;
+	void writeEndObject() throws IOException;
 
-	public void writeFieldName(String fieldName) throws IOException {
-		generator.writeFieldName(fieldName);			
-	}
+	void writeFieldName(String fieldName) throws IOException;
 
-	public void writeBoolean(Boolean value) throws IOException {
-		generator.writeBoolean(value);
-	}
+	void writeNull() throws IOException;
 
-	public void writeNumber(Byte value) throws IOException {
-		generator.writeNumber(value);
-		
-	}
+	void writeNumber(Byte value) throws IOException;
 
-	public void writeString(String value) throws IOException {
-		generator.writeString(value);
-		
-	}
+	void writeNumber(Double value) throws IOException;
 
-	public void writeNumber(Double value) throws IOException {
-		generator.writeNumber(value);
-		
-	}
+	void writeNumber(Float value) throws IOException;
 
-	public void writeNumber(Float value) throws IOException {
-		generator.writeNumber(value);
-		
-	}
+	void writeNumber(Integer value) throws IOException;
 
-	public void writeNumber(Integer value) throws IOException {
-		generator.writeNumber(value);
-		
-	}
+	void writeNumber(Long value) throws IOException;
 
-	public void writeNumber(Long value) throws IOException {
-		generator.writeNumber(value);
-		
-	}
+	void writeNumber(Short value) throws IOException;
 
-	public void writeNumber(Short value) throws IOException {
-		generator.writeNumber(value);
-	}
+	void writeStartArray() throws IOException;
 
-	public void close() throws IOException {
-		generator.close();
-		
-	}
+	void writeStartObject() throws IOException;
 
-	public void writeStartArray() throws IOException {
-		generator.writeStartArray();
-		
-	}
-
-	public void writeNull() throws IOException {
-		generator.writeNull();
-		
-	}
-
-	public void writeEndArray() throws IOException {
-		generator.writeEndArray();
-		
-	}
-
-	public void writeStartObject() throws IOException {
-		generator.writeStartObject();
-		
-	}
-
-	public void writeEndObject() throws IOException {
-		generator.writeEndObject();
-		
-	}
+	void writeString(String value) throws IOException;
 }

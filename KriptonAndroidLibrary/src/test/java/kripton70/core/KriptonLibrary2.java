@@ -6,7 +6,7 @@ import java.util.Map;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import kripton70.contexts.BinderContext;
-import kripton70.contexts.BinderJsonContext;
+import kripton70.contexts.JsonBinderContext;
 
 public abstract class KriptonLibrary2 {
 	
@@ -20,7 +20,7 @@ public abstract class KriptonLibrary2 {
 	private static final Map<BinderType, BinderContext> binders=new HashMap<>();
 	
 	static {
-		registryBinder(new BinderJsonContext());
+		registryBinder(new JsonBinderContext());
 	}
 	
 //	private static final ListMapper LIST_MAPPER = new ListMapper();

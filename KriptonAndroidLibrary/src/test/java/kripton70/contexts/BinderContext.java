@@ -1,7 +1,5 @@
 package kripton70.contexts;
 
-import java.io.DataInput;
-import java.io.DataOutput;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,31 +13,27 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 
 import kripton70.NoSuchMapperException;
-import kripton70.core.BinderSerializer;
 import kripton70.core.BinderParser;
+import kripton70.core.BinderSerializer;
 import kripton70.core.BinderType;
 import kripton70.core.JacksonMapper;
 import kripton70.core.ParameterizedType;
 
 public interface BinderContext {
 
-	BinderSerializer createGenerator(File file) throws IOException;
+	BinderSerializer createSerializer(File file) throws IOException;
 
-	BinderSerializer createGenerator(File file, JsonEncoding encoding) throws IOException;
+	BinderSerializer createSerializer(File file, JsonEncoding encoding) throws IOException;
 
-	BinderSerializer createGenerator(OutputStream out) throws IOException;
+	BinderSerializer createSerializer(OutputStream out) throws IOException;
 
-	BinderSerializer createGenerator(OutputStream out, JsonEncoding encoding) throws IOException;
+	BinderSerializer createSerializer(OutputStream out, JsonEncoding encoding) throws IOException;
 
-	BinderSerializer createGenerator(Writer writer) throws IOException;
+	BinderSerializer createSerializer(Writer writer) throws IOException;
 
 	JsonFactory createInnerFactory();
 
 	BinderParser createParser(byte[] data) throws IOException;
-
-	BinderParser createParser(char[] content) throws IOException;
-
-	BinderParser createParser(DataInput in) throws IOException;
 
 	BinderParser createParser(File file) throws IOException;
 
@@ -49,12 +43,6 @@ public interface BinderContext {
 
 	BinderParser createParser(String content) throws IOException;
 
-	BinderParser createParser(URL url) throws IOException;
-	
-	BinderSerializer createSerializer(DataOutput out) throws IOException;
-	
-	BinderSerializer createSerializer(DataOutput out, JsonEncoding encoding) throws IOException;
-	
 	BinderType getSupportedFormat();
 
 	/**

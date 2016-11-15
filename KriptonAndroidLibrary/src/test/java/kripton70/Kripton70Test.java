@@ -1,6 +1,16 @@
 package kripton70;
 
 import java.io.IOException;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+
+import org.codehaus.stax2.XMLOutputFactory2;
+import org.codehaus.stax2.XMLStreamReader2;
+import org.codehaus.stax2.XMLStreamWriter2;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,8 +18,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import kripton70.contexts.BinderPropertiesContext;
-import kripton70.contexts.BinderYamlContext;
+import kripton70.contexts.PropertiesBinderContext;
+import kripton70.contexts.YamlBinderContext;
 import kripton70.core.BinderType;
 import kripton70.core.KriptonLibrary2;
 
@@ -18,8 +28,8 @@ public class Kripton70Test {
 	@Before
 	public void setup()
 	{
-		KriptonLibrary2.registryBinder(new BinderYamlContext());
-		KriptonLibrary2.registryBinder(new BinderPropertiesContext());
+		KriptonLibrary2.registryBinder(new YamlBinderContext());
+		KriptonLibrary2.registryBinder(new PropertiesBinderContext());
 	}
 
 	@Test
@@ -60,5 +70,37 @@ public class Kripton70Test {
 		
 		System.out.println(output);
 		
+	}
+	
+	@Test
+	public void testXml() throws XMLStreamException
+	{
+		XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) XMLOutputFactory.newFactory();
+        
+        XMLStreamWriter2 serializer = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(System.out);
+         
+        serializer.writeStartDocument();
+         
+        serializer.writeStartElement("employee");
+        	serializer.writeAttribute("loca", String.valueOf(12));        	
+            serializer.writeStartElement("id");
+                serializer.writeCharacters("1");
+            serializer.writeEndElement();
+             
+            serializer.writeStartElement("name");
+                serializer.writeCharacters("Alba");
+            serializer.writeEndElement();
+             
+            serializer.writeStartElement("salary");
+                serializer.writeCharacters("100");
+            serializer.writeEndElement();
+            //escaping special character '&'
+            serializer.writeStartElement("address");
+                serializer.writeCharacters("Beth & Cathy Rd, Dessert Street, Elephant County");
+            serializer.writeEndElement();
+        serializer.writeEndElement();
+        
+        serializer.writeEndDocument();
+        serializer.flush();
 	}
 }
