@@ -19,7 +19,7 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 	// private static TypeConverter<Date> java_util_Date_type_converter;
 
 	@Override
-	public void parseField(BinderContext context, Bean instance, String fieldName, BinderParser parser) throws IOException {
+	public void parseField(BinderContext context, Bean instance, String fieldName, BinderParser parser) {
 		switch (fieldName) {
 		case "id":
 			instance.id = longMapper.parse(parser);
@@ -131,16 +131,17 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 	}
 
 	// public void parseField(Bean instance, String fieldName, BinderParser
-	// parser) throws IOException
+	// parser)
 
 	@Override
-	public void serialize(BinderContext context, Bean object, BinderSerializer serializer, boolean writeStartAndEnd) throws IOException {
+	public void serialize(BinderContext context, Bean object, BinderSerializer serializer, boolean writeStartAndEnd) {
 		if (writeStartAndEnd) {
-			serializer.writeStartObject();
+			serializer.writeStartObject("bean");
 		}
 
 		// field id
-		longMapper.serialize(serializer, true, "id", object.id);
+		serializer.writeAttribute("id", true, object.id);
+		//longMapper.serialize(serializer, true, "id", object.id);
 
 		// field description
 		if (object.description != null) {
@@ -164,8 +165,8 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 
 		// field string list
 		if (object.valueStringList != null) {
-			serializer.writeFieldName("valueStringList");
-			serializer.writeStartArray();
+			//serializer.writeFieldName("valueStringList");
+			serializer.writeStartArray("valueStringList");
 
 			for (int i = 0; i < object.valueStringList.size(); i++) {
 				stringMapper.serialize(serializer, false, null, object.valueStringList.get(i));
@@ -175,8 +176,8 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 
 		// field string array
 		if (object.valueStringArray != null) {
-			serializer.writeFieldName("valueStringArray");
-			serializer.writeStartArray();
+			//serializer.writeFieldName("valueStringArray");
+			serializer.writeStartArray("valueStringArray");
 
 			for (int i = 0; i < object.valueStringArray.length; i++) {
 				stringMapper.serialize(serializer, false, null, object.valueStringArray[i]);
@@ -187,9 +188,8 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 		// field string map
 		if (object.valueStringMap != null) {
 			Map<String, String> map = object.valueStringMap;
-			serializer.writeFieldName("valueStringMap");
-
-			serializer.writeStartArray();
+			//serializer.writeFieldName("valueStringMap");
+			serializer.writeStartArray("valueStringMap");
 			for (Map.Entry<String, String> entry : map.entrySet()) {
 				serializer.writeStartObject();
 
@@ -271,7 +271,7 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 	}
 
 	@Override
-	protected Bean createInstance() {
+	public Bean createInstance() {
 		return new Bean();
 	}
 

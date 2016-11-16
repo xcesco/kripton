@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.JsonToken;
 public class ByteConverter implements TypeConverter<Byte> {
 
 	@Override
-	public Byte parse(BinderParser parser) throws IOException {
+	public Byte parse(BinderParser parser) {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else if (parser.onlyText) {
@@ -22,7 +22,7 @@ public class ByteConverter implements TypeConverter<Byte> {
 	}
 
 	@Override
-	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Byte value) throws IOException {
+	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Byte value) {
 		if (writeFieldNameForObject)
 			generator.writeFieldName(fieldName);
 		generator.writeNumber(value);

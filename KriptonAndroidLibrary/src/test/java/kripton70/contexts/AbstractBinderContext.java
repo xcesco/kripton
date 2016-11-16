@@ -1,7 +1,6 @@
 package kripton70.contexts;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -66,11 +65,11 @@ public abstract class AbstractBinderContext implements BinderContext {
 		return null;
 	}
 
-	public BinderSerializer createSerializer(File file) throws IOException {
+	public BinderSerializer createSerializer(File file) {
 		return createSerializer(file, JsonEncoding.UTF8);
 	}
 
-	public BinderSerializer createSerializer(OutputStream out) throws IOException {
+	public BinderSerializer createSerializer(OutputStream out) {
 		return createSerializer(out, JsonEncoding.UTF8);
 	}
 
@@ -142,7 +141,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 * @param jsonObjectClass
 	 *            The @JsonObject class to parse the InputStream into
 	 */
-	public <E> E parse(InputStream is, Class<E> jsonObjectClass) throws IOException {
+	public <E> E parse(InputStream is, Class<E> jsonObjectClass) {
 		return mapperFor(jsonObjectClass).parse(this, is);
 	}
 
@@ -156,7 +155,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 *            LoganSquare.parse(is, new
 	 *            ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { });
 	 */
-	public <E> E parse(InputStream is, ParameterizedType<E> jsonObjectType) throws IOException {
+	public <E> E parse(InputStream is, ParameterizedType<E> jsonObjectType) {
 		return mapperFor(jsonObjectType).parse(this, is);
 	}
 
@@ -169,7 +168,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 * @param jsonObjectClass
 	 *            The @JsonObject class to parse the InputStream into
 	 */
-	public <E> E parse(String jsonString, Class<E> jsonObjectClass) throws IOException {
+	public <E> E parse(String jsonString, Class<E> jsonObjectClass) {
 		return mapperFor(jsonObjectClass).parse(this, jsonString);
 	}
 
@@ -184,7 +183,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 *            LoganSquare.parse(is, new
 	 *            ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { });
 	 */
-	public <E> E parse(String jsonString, ParameterizedType<E> jsonObjectType) throws IOException {
+	public <E> E parse(String jsonString, ParameterizedType<E> jsonObjectType) {
 		return mapperFor(jsonObjectType).parse(this, jsonString);
 	}
 
@@ -196,7 +195,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 * @param jsonObjectClass
 	 *            The @JsonObject class to parse the InputStream into
 	 */
-	public <E> List<E> parseList(InputStream is, Class<E> jsonObjectClass) throws IOException {
+	public <E> List<E> parseList(InputStream is, Class<E> jsonObjectClass) {
 		return mapperFor(jsonObjectClass).parseList(this, is);
 	}
 
@@ -209,7 +208,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 * @param jsonObjectClass
 	 *            The @JsonObject class to parse the InputStream into
 	 */
-	public <E> List<E> parseList(String jsonString, Class<E> jsonObjectClass) throws IOException {
+	public <E> List<E> parseList(String jsonString, Class<E> jsonObjectClass) {
 		return mapperFor(jsonObjectClass).parseList(this, jsonString);
 	}
 
@@ -220,7 +219,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 *            The object to serialize.
 	 */
 	@SuppressWarnings("unchecked")
-	public <E> String serialize(E object) throws IOException {
+	public <E> String serialize(E object) {
 		return mapperFor((Class<E>) object.getClass()).serialize(this, object);
 	}
 
@@ -233,7 +232,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 *            The OutputStream being written to.
 	 */
 	@SuppressWarnings("unchecked")
-	public <E> void serialize(E object, OutputStream os) throws IOException {
+	public <E> void serialize(E object, OutputStream os) {
 		mapperFor((Class<E>) object.getClass()).serialize(this, object, os);
 	}
 
@@ -247,7 +246,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 *            LoganSquare.serialize(object, new
 	 *            ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { });
 	 */
-	public <E> String serialize(E object, ParameterizedType<E> parameterizedType) throws IOException {
+	public <E> String serialize(E object, ParameterizedType<E> parameterizedType) {
 		return mapperFor(parameterizedType).serialize(this, object);
 	}
 
@@ -263,7 +262,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 * @param os
 	 *            The OutputStream being written to.
 	 */
-	public <E> void serialize(E object, ParameterizedType<E> parameterizedType, OutputStream os) throws IOException {
+	public <E> void serialize(E object, ParameterizedType<E> parameterizedType, OutputStream os) {
 		mapperFor(parameterizedType).serialize(this, object, os);
 	}
 
@@ -275,7 +274,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 * @param jsonObjectClass
 	 *            The @JsonObject class of the list elements
 	 */
-	public <E> String serialize(List<E> list, Class<E> jsonObjectClass) throws IOException {
+	public <E> String serialize(List<E> list, Class<E> jsonObjectClass) {
 		return mapperFor(jsonObjectClass).serialize(this, list);
 	}
 
@@ -289,7 +288,7 @@ public abstract class AbstractBinderContext implements BinderContext {
 	 * @param jsonObjectClass
 	 *            The @JsonObject class of the list elements
 	 */
-	public <E> void serialize(List<E> list, OutputStream os, Class<E> jsonObjectClass) throws IOException {
+	public <E> void serialize(List<E> list, OutputStream os, Class<E> jsonObjectClass) {
 		mapperFor(jsonObjectClass).serialize(this, list, os);
 	}
 

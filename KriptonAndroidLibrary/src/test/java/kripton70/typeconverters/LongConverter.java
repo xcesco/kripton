@@ -10,7 +10,7 @@ import kripton70.core.BinderParser;
 public class LongConverter implements TypeConverter<Long> {
 
 	@Override
-	public Long parse(BinderParser parser) throws IOException {
+	public Long parse(BinderParser parser) {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else if (parser.onlyText){
@@ -21,7 +21,7 @@ public class LongConverter implements TypeConverter<Long> {
 	}
 
 	@Override
-	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Long value) throws IOException {
+	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Long value) {
 		if (writeFieldNameForObject)
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);

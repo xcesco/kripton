@@ -74,6 +74,15 @@ public class XmlSerializer implements BinderSerializer {
 			throw new KriptonRuntimeException(e);
 		}			
 	}
+	
+	public void writeAttribute(String fieldName, String value) {
+		try {
+			xmlSerializer.writeAttribute(fieldName, value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}			
+	}
 
 	public void writeNull(String fieldName) {
 		try {
@@ -165,6 +174,32 @@ public class XmlSerializer implements BinderSerializer {
 	public void writeString(String value) {
 		try {
 			xmlSerializer.writeCharacters(value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
+		
+	}
+
+	@Override
+	public void writeStartArray() {
+		throw new KriptonRuntimeException("Not supported");
+	}
+
+	@Override
+	public void writeNull() {
+		throw new KriptonRuntimeException("Not supported");		
+	}
+
+	@Override
+	public void writeStartObject() {
+		throw new KriptonRuntimeException("Not supported");
+	}
+
+	@Override
+	public void writeAttribute(String name, boolean writeName, long value) {
+		try {
+			xmlSerializer.writeAttribute(name, String.valueOf(value));
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

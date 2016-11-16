@@ -9,7 +9,7 @@ import kripton70.core.BinderParser;
 
 public class CharacterConverter implements TypeConverter<Character> {
 	@Override
-	public Character parse(BinderParser parser) throws IOException {
+	public Character parse(BinderParser parser) {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else {
@@ -18,7 +18,7 @@ public class CharacterConverter implements TypeConverter<Character> {
 	}
 
 	@Override
-	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Character value) throws IOException {
+	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Character value) {
 		if (writeFieldNameForObject)
 		generator.writeFieldName(fieldName);
 		generator.writeString(String.valueOf(value));

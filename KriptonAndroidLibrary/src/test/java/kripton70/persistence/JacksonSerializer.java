@@ -175,4 +175,33 @@ public class JacksonSerializer implements BinderSerializer  {
 		}
 		
 	}
+
+	@Override
+	public void writeAttribute(String fieldName, String value) {
+		throw new KriptonRuntimeException("Not supported");
+		
+	}
+
+	@Override
+	public void writeNull(String fieldName) {
+		throw new KriptonRuntimeException("Not supported");
+		
+	}
+
+	@Override
+	public void writeStartArray(String fieldName) {
+		throw new KriptonRuntimeException("Not supported");
+		
+	}
+
+	@Override
+	public void writeStartObject(String fieldName) {
+		throw new KriptonRuntimeException("Not supported");		
+	}
+
+	@Override
+	public void writeAttribute(String name, boolean writeFieldNameForObject, long value) {
+		// TODO Auto-generated method stub
+		
+	}
 }

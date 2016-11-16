@@ -10,7 +10,7 @@ import kripton70.core.BinderParser;
 public class FloatConverter implements TypeConverter<Float> {
 
 	@Override
-	public Float parse(BinderParser parser) throws IOException {
+	public Float parse(BinderParser parser) {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else if (parser.onlyText){
@@ -21,7 +21,7 @@ public class FloatConverter implements TypeConverter<Float> {
 	}
 
 	@Override
-	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Float value) throws IOException {
+	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Float value) {
 		if (writeFieldNameForObject)
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);

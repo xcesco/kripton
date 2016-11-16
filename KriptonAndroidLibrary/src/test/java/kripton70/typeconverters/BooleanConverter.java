@@ -10,7 +10,7 @@ import kripton70.core.BinderParser;
 public class BooleanConverter implements TypeConverter<Boolean> {
 
 	@Override
-	public Boolean parse(BinderParser parser) throws IOException {
+	public Boolean parse(BinderParser parser) {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else if (parser.onlyText) {
@@ -21,7 +21,7 @@ public class BooleanConverter implements TypeConverter<Boolean> {
 	}
 
 	@Override
-	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Boolean value) throws IOException {
+	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Boolean value) {
 		if (writeFieldNameForObject)
 			generator.writeFieldName(fieldName);
 		generator.writeBoolean(value);

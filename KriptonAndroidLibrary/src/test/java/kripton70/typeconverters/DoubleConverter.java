@@ -10,7 +10,7 @@ import kripton70.core.BinderParser;
 public class DoubleConverter implements TypeConverter<Double> {
 
 	@Override
-	public Double parse(BinderParser parser) throws IOException {
+	public Double parse(BinderParser parser) {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else if (parser.onlyText){
@@ -21,7 +21,7 @@ public class DoubleConverter implements TypeConverter<Double> {
 	}
 
 	@Override
-	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Double value) throws IOException {
+	public void serialize(BinderSerializer generator, boolean writeFieldNameForObject, String fieldName, Double value) {
 		if (writeFieldNameForObject)
 		generator.writeFieldName(fieldName);
 		generator.writeNumber(value);

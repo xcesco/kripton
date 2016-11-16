@@ -4,8 +4,12 @@ package kripton70.core;
 public interface BinderSerializer {
 
 	void close();
-
+	
 	boolean isOnlyText();
+
+	void writeAttribute(String name, boolean writeFieldNameForObject, long value);
+
+	void writeAttribute(String fieldName, String value);
 
 	void writeBoolean(Boolean value);
 
@@ -16,6 +20,8 @@ public interface BinderSerializer {
 	void writeFieldName(String fieldName);
 
 	void writeNull();
+
+	void writeNull(String fieldName);
 
 	void writeNumber(Byte value);
 
@@ -31,7 +37,11 @@ public interface BinderSerializer {
 
 	void writeStartArray();
 
+	void writeStartArray(String fieldName);
+
 	void writeStartObject();
+
+	void writeStartObject(String fieldName);
 
 	void writeString(String value);
 }
