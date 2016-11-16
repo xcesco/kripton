@@ -7,13 +7,12 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 
-import kripton70.core.BinderParser;
-import kripton70.core.BinderSerializer;
-import kripton70.persistence.JacksonSerializer;
-
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
+
+import kripton70.persistence.JacksonParser;
+import kripton70.persistence.JacksonSerializer;
 
 public abstract class AbstractJacksonBinderContext extends AbstractBinderContext {
 	public JsonFactory innerFactory;
@@ -24,45 +23,45 @@ public abstract class AbstractJacksonBinderContext extends AbstractBinderContext
 	
 	public abstract JsonFactory createInnerFactory();
 	
-	public BinderParser createParser(byte[] data) {
+	public JacksonParser createParser(byte[] data) {
 		try {
-			return new BinderParser(this, innerFactory.createParser(data), getSupportedFormat());
+			return new JacksonParser(this, innerFactory.createParser(data), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public BinderParser createParser(File file) {
+	public JacksonParser createParser(File file) {
 		try {
-			return new BinderParser(this, innerFactory.createParser(file), getSupportedFormat());
+			return new JacksonParser(this, innerFactory.createParser(file), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public BinderParser createParser(InputStream in) {
+	public JacksonParser createParser(InputStream in) {
 		try {
-			return new BinderParser(this, innerFactory.createParser(in), getSupportedFormat());
+			return new JacksonParser(this, innerFactory.createParser(in), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public BinderParser createParser(Reader reader) {
+	public JacksonParser createParser(Reader reader) {
 		try {
-			return new BinderParser(this, innerFactory.createParser(reader), getSupportedFormat());
+			return new JacksonParser(this, innerFactory.createParser(reader), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public BinderParser createParser(String content) {
+	public JacksonParser createParser(String content) {
 		try {
-			return new BinderParser(this, innerFactory.createParser(content), getSupportedFormat());
+			return new JacksonParser(this, innerFactory.createParser(content), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

@@ -7,9 +7,12 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonToken;
 
 import kripton70.contexts.BinderContext;
-import kripton70.core.BinderSerializer;
-import kripton70.core.BinderParser;
 import kripton70.core.JacksonMapper;
+import kripton70.persistence.JacksonParser;
+import kripton70.persistence.JacksonSerializer;
+import kripton70.persistence.Visitor;
+import kripton70.persistence.XmlParser;
+import kripton70.persistence.XmlSerializer;
 
 public final class BeanJsonMapper extends JacksonMapper<Bean> {
 	// private static final JsonMapper<Object>
@@ -19,13 +22,13 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 	// private static TypeConverter<Date> java_util_Date_type_converter;
 
 	@Override
-	public void parseField(BinderContext context, Bean instance, String fieldName, BinderParser parser) {
+	public void parseField(BinderContext context, Bean instance, String fieldName, JacksonParser parser) {
 		switch (fieldName) {
 		case "id":
 			instance.id = longMapper.parse(parser);
 			break;
 		case "description":
-			instance.description = stringMapper.parse(parser);
+			instance.description = parser.getString();
 			break;
 		case "valueByteType":
 			instance.valueByteType = byteMapper.parse(parser);
@@ -135,79 +138,7 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 
 	@Override
 	public void serialize(BinderContext context, Bean object, BinderSerializer serializer, boolean writeStartAndEnd) {
-		if (writeStartAndEnd) {
-			serializer.writeStartObject("bean");
-		}
-
-		// field id
-		serializer.writeAttribute("id", true, object.id);
-		//longMapper.serialize(serializer, true, "id", object.id);
-
-		// field description
-		if (object.description != null) {
-			stringMapper.serialize(serializer, true, "description", object.description);
-		}
-
-		// field valueByteType
-		byteMapper.serialize(serializer, true, "valueByteType", object.valueByteType);
-
-		// field valueShortType
-		shortMapper.serialize(serializer, true, "valueShortType", object.valueShortType);
-
-		// field valueCharType
-		characterMapper.serialize(serializer, true, "valueCharType", object.valueCharType);
-
-		// field bean
-		if (object.valueBean != null) {
-			serializer.writeFieldName("valueBean");
-			context.mapperFor(Bean.class).serialize(context, object.valueBean, serializer, true);
-		}
-
-		// field string list
-		if (object.valueStringList != null) {
-			//serializer.writeFieldName("valueStringList");
-			serializer.writeStartArray("valueStringList");
-
-			for (int i = 0; i < object.valueStringList.size(); i++) {
-				stringMapper.serialize(serializer, false, null, object.valueStringList.get(i));
-			}
-			serializer.writeEndArray();
-		}
-
-		// field string array
-		if (object.valueStringArray != null) {
-			//serializer.writeFieldName("valueStringArray");
-			serializer.writeStartArray("valueStringArray");
-
-			for (int i = 0; i < object.valueStringArray.length; i++) {
-				stringMapper.serialize(serializer, false, null, object.valueStringArray[i]);
-			}
-			serializer.writeEndArray();
-		}
-
-		// field string map
-		if (object.valueStringMap != null) {
-			Map<String, String> map = object.valueStringMap;
-			//serializer.writeFieldName("valueStringMap");
-			serializer.writeStartArray("valueStringMap");
-			for (Map.Entry<String, String> entry : map.entrySet()) {
-				serializer.writeStartObject();
-
-				serializer.writeFieldName("key");
-				stringMapper.serialize(serializer, false, null, entry.getKey());
-				if (entry.getValue() != null) {
-					serializer.writeFieldName("value");
-					stringMapper.serialize(serializer, false, null, entry.getValue());
-				}
-
-				serializer.writeEndObject();
-			}
-			serializer.writeEndArray();
-		}
-
-		if (writeStartAndEnd) {
-			serializer.writeEndObject();
-		}
+		
 
 		/*
 		 * if (writeStartAndEnd) { jsonGenerator.writeStartObject(); } if
@@ -273,6 +204,102 @@ public final class BeanJsonMapper extends JacksonMapper<Bean> {
 	@Override
 	public Bean createInstance() {
 		return new Bean();
+	}
+
+	@Override
+	public void visit(BinderContext context, Bean object, JacksonSerializer jacksonSerializer, boolean writeStartAndEnd) {
+		if (writeStartAndEnd) {
+			jacksonSerializer.writeStartObject("bean");
+		}
+
+		// field id
+		jacksonSerializer.writeAttribute("id", true, object.id);
+		//longMapper.serialize(serializer, true, "id", object.id);
+
+		// field description
+		if (object.description != null) {
+			stringMapper.serialize(jacksonSerializer, true, "description", object.description);
+		}
+
+		// field valueByteType
+		byteMapper.serialize(jacksonSerializer, true, "valueByteType", object.valueByteType);
+
+		// field valueShortType
+		shortMapper.serialize(jacksonSerializer, true, "valueShortType", object.valueShortType);
+
+		// field valueCharType
+		characterMapper.serialize(serializer, true, "valueCharType", object.valueCharType);
+
+		// field bean
+		if (object.valueBean != null) {
+			serializer.writeFieldName("valueBean");
+			context.mapperFor(Bean.class).serialize(context, object.valueBean, serializer, true);
+		}
+
+		// field string list
+		if (object.valueStringList != null) {
+			//serializer.writeFieldName("valueStringList");
+			serializer.writeStartArray("valueStringList");
+
+			for (int i = 0; i < object.valueStringList.size(); i++) {
+				stringMapper.serialize(serializer, false, null, object.valueStringList.get(i));
+			}
+			serializer.writeEndArray();
+		}
+
+		// field string array
+		if (object.valueStringArray != null) {
+			//serializer.writeFieldName("valueStringArray");
+			serializer.writeStartArray("valueStringArray");
+
+			for (int i = 0; i < object.valueStringArray.length; i++) {
+				stringMapper.serialize(serializer, false, null, object.valueStringArray[i]);
+			}
+			serializer.writeEndArray();
+		}
+
+		// field string map
+		if (object.valueStringMap != null) {
+			Map<String, String> map = object.valueStringMap;
+			//serializer.writeFieldName("valueStringMap");
+			serializer.writeStartArray("valueStringMap");
+			for (Map.Entry<String, String> entry : map.entrySet()) {
+				serializer.writeStartObject();
+
+				serializer.writeFieldName("key");
+				stringMapper.serialize(serializer, false, null, entry.getKey());
+				if (entry.getValue() != null) {
+					serializer.writeFieldName("value");
+					stringMapper.serialize(serializer, false, null, entry.getValue());
+				}
+
+				serializer.writeEndObject();
+			}
+			serializer.writeEndArray();
+		}
+
+		if (writeStartAndEnd) {
+			serializer.writeEndObject();
+		}
+		
+	}
+
+	@Override
+	public void visit(BinderContext context, Bean object, XmlSerializer xmlSerializer, boolean writeStartAndEnd) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(BinderContext context, Bean object, JacksonParser jacksonParser, boolean writeStartAndEnd) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(BinderContext context, Bean object, XmlParser xmlParser, boolean writeStartAndEnd) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/*

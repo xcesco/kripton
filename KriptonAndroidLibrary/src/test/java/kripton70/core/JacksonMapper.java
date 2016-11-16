@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kripton70.contexts.BinderContext;
+import kripton70.contexts.BinderSerializer;
+import kripton70.persistence.JacksonParser;
+import kripton70.persistence.JacksonSerializer;
+import kripton70.persistence.Visitable;
+import kripton70.persistence.Visitor;
 import kripton70.typeconverters.ByteConverter;
 import kripton70.typeconverters.CharacterConverter;
 import kripton70.typeconverters.DoubleConverter;
@@ -18,7 +23,7 @@ import kripton70.typeconverters.StringConverter;
 
 import com.fasterxml.jackson.core.JsonToken;
 
-public abstract class JacksonMapper<E> implements BinderMapper<E> {
+public abstract class JacksonMapper<E> implements BinderMapper<E>, Visitor<E> {
 	
 	protected static ByteConverter byteMapper=new ByteConverter();
 	protected static CharacterConverter characterMapper=new CharacterConverter();
@@ -31,7 +36,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 
 	public abstract E createInstance();
 
-	public E parse(BinderContext context, BinderParser parser) {
+	public E parse(BinderContext context, JacksonParser parser) {
 		E instance = createInstance(); 
 		if (parser.getCurrentToken() == null) {
 			parser.nextToken();
@@ -57,7 +62,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 *            The byte array being parsed.
 	 */
 	public E parse(BinderContext context, byte[] byteArray) {
-		BinderParser parser = context.createParser(byteArray);
+		JacksonParser parser = context.createParser(byteArray);
 		parser.nextToken();
 		return parse(context, parser);
 	}
@@ -69,7 +74,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 *            The InputStream, most likely from your networking library.
 	 */
 	public E parse(BinderContext context, InputStream is) {
-		BinderParser parser = context.createParser(is);
+		JacksonParser parser = context.createParser(is);
 		parser.nextToken();
 		return parse(context, parser);
 	}
@@ -83,7 +88,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 *            The JSON string being parsed.
 	 */
 	public E parse(BinderContext context, String jsonString) {
-		BinderParser parser = context.createParser(jsonString);
+		JacksonParser parser = context.createParser(jsonString);
 		parser.nextToken();
 		return parse(context, parser);
 	}
@@ -100,7 +105,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 * @param parser
 	 *            The pre-configured JsonParser
 	 */
-	public abstract void parseField(BinderContext context, E instance, String fieldName, BinderParser parser);
+	public abstract void parseField(BinderContext context, E instance, String fieldName, JacksonParser parser);
 
 	/**
 	 * Parse a list of objects from a JsonParser.
@@ -108,7 +113,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 * @param parser
 	 *            The JsonParser, preconfigured to be at the START_ARRAY token.
 	 */
-	public List<E> parseList(BinderContext context, BinderParser parser){
+	public List<E> parseList(BinderContext context, JacksonParser parser){
 		List<E> list = new ArrayList<>();
 		if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
 			while (parser.nextToken() != JsonToken.END_ARRAY) {
@@ -127,7 +132,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 *            The inputStream, most likely from your networking library.
 	 */
 	public List<E> parseList(BinderContext context, byte[] byteArray) {
-		BinderParser parser = context.createParser(byteArray);
+		JacksonParser parser = context.createParser(byteArray);
 		parser.nextToken();
 		return parseList(context, parser);
 	}
@@ -139,7 +144,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 *            The inputStream, most likely from your networking library.
 	 */
 	public List<E> parseList(BinderContext context, InputStream is) {
-		BinderParser parser = context.createParser(is);
+		JacksonParser parser = context.createParser(is);
 		parser.nextToken();
 		return parseList(context, parser);
 	}
@@ -153,7 +158,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 *            The JSON string being parsed.
 	 */
 	public List<E> parseList(BinderContext context, String jsonString) {
-		BinderParser parser = context.createParser(jsonString);
+		JacksonParser parser = context.createParser(jsonString);
 		parser.nextToken();
 		return parseList(context, parser);
 	}
@@ -223,7 +228,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 * @param serializer
 	 *            The JsonGenerator to which the list should be serialized
 	 */
-	public void serialize(BinderContext context, List<E> list, BinderSerializer serializer) {
+	public void serialize(BinderContext context, List<E> list, JacksonSerializer serializer) {
 		serializer.writeStartArray();
 		E object;
 		for (int i=0; i<list.size();i++) {
@@ -246,7 +251,7 @@ public abstract class JacksonMapper<E> implements BinderMapper<E> {
 	 *            The OutputStream to which the list should be serialized
 	 */
 	public void serialize(BinderContext context, List<E> list, OutputStream os) {
-		BinderSerializer serializer = context.createSerializer(os);
+		JacksonSerializer serializer = context.createSerializer(os);
 		serialize(context, list, serializer);
 		serializer.close();
 	}

@@ -1,16 +1,14 @@
 package kripton70.typeconverters;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonToken;
 
 import kripton70.core.BinderSerializer;
-import kripton70.core.BinderParser;
-
-import com.fasterxml.jackson.core.JsonToken;
+import kripton70.persistence.JacksonParser;
 
 public class ByteConverter implements TypeConverter<Byte> {
 
 	@Override
-	public Byte parse(BinderParser parser) {
+	public Byte parse(JacksonParser parser) {
 		if (parser.getCurrentToken() == JsonToken.VALUE_NULL) {
 			return null;
 		} else if (parser.onlyText) {

@@ -7,15 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.fasterxml.jackson.core.JsonEncoding;
+
 import kripton70.NoSuchMapperException;
-import kripton70.core.BinderSerializer;
 import kripton70.core.BinderType;
 import kripton70.core.JacksonMapper;
 import kripton70.core.KriptonLibrary2;
 import kripton70.core.ParameterizedType;
 import util.SimpleArrayMap;
-
-import com.fasterxml.jackson.core.JsonEncoding;
 
 public abstract class AbstractBinderContext implements BinderContext {
 

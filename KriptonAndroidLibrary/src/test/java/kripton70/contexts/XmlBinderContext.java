@@ -15,9 +15,9 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 
-import kripton70.core.BinderParser;
 import kripton70.core.BinderSerializer;
 import kripton70.core.BinderType;
+import kripton70.persistence.JacksonParser;
 import kripton70.persistence.XmlSerializer;
 
 import org.codehaus.stax2.XMLOutputFactory2;
@@ -85,58 +85,58 @@ public class XmlBinderContext extends AbstractBinderContext {
 		}				
 	}
 	
-	public BinderParser createParser(byte[] data) {
+	public JacksonParser createParser(byte[] data) {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
 	    XMLInputFactory inputFactory = XMLInputFactory.newInstance();
         try {
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(inputStream);
-			return new BinderParser(this,xmlStreamReader, getSupportedFormat());
+			return new JacksonParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public BinderParser createParser(File file) {
+	public JacksonParser createParser(File file) {
         try {
         	FileInputStream inputStream = new FileInputStream(file);
     	    XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(inputStream);
-			return new BinderParser(this,xmlStreamReader, getSupportedFormat());
+			return new JacksonParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException | FileNotFoundException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public BinderParser createParser(InputStream in) {
+	public JacksonParser createParser(InputStream in) {
         try {
         	XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(in);
-			return new BinderParser(this,xmlStreamReader, getSupportedFormat());
+			return new JacksonParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public BinderParser createParser(Reader reader) {	    
+	public JacksonParser createParser(Reader reader) {	    
         try {
         	XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(reader);
-			return new BinderParser(this,xmlStreamReader, getSupportedFormat());
+			return new JacksonParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public BinderParser createParser(String content) {		
+	public JacksonParser createParser(String content) {		
         try {
         	ByteArrayInputStream inputStream = new ByteArrayInputStream(content.getBytes(JsonEncoding.UTF8.toString()));
     	    XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(inputStream);
-			return new BinderParser(this,xmlStreamReader, getSupportedFormat());
+			return new JacksonParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

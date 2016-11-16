@@ -3,26 +3,24 @@ package kripton70.persistence;
 import javax.xml.stream.XMLStreamException;
 
 import kripton70.contexts.BinderContext;
-import kripton70.core.BinderSerializer;
+import kripton70.contexts.BinderSerializer;
 import kripton70.core.BinderType;
 
 import org.codehaus.stax2.XMLStreamWriter2;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-public class XmlSerializer implements BinderSerializer {
+public class XmlSerializer implements BinderSerializer, Visitable {
 	protected BinderContext context;
 
-	public boolean onlyText;
-	
 	protected XMLStreamWriter2 xmlSerializer;
 
 	public XmlSerializer(BinderContext context, XMLStreamWriter2 xmlSerializer, BinderType supportedFormat) {
 		this.xmlSerializer=xmlSerializer;
-		this.onlyText=supportedFormat.onlyText;
 		this.context=context;
 	}
-	
+
+
 	public void close() {
 		try {
 			xmlSerializer.close();
@@ -34,7 +32,26 @@ public class XmlSerializer implements BinderSerializer {
 	}
 
 	public boolean isOnlyText() {
-		return onlyText;
+		return false;
+	}
+
+	public void writeAttribute(String name, boolean writeName, long value) {
+		try {
+			xmlSerializer.writeAttribute(name, String.valueOf(value));
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
+		
+	}
+
+	public void writeAttribute(String fieldName, String value) {
+		try {
+			xmlSerializer.writeAttribute(fieldName, value);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}			
 	}
 
 	public void writeBoolean(Boolean value) {
@@ -45,7 +62,7 @@ public class XmlSerializer implements BinderSerializer {
 			throw new KriptonRuntimeException(e);
 		}
 	}
-
+	
 	public void writeEndArray() {
 		try {
 			xmlSerializer.writeEndElement();
@@ -74,14 +91,9 @@ public class XmlSerializer implements BinderSerializer {
 			throw new KriptonRuntimeException(e);
 		}			
 	}
-	
-	public void writeAttribute(String fieldName, String value) {
-		try {
-			xmlSerializer.writeAttribute(fieldName, value);
-		} catch (XMLStreamException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}			
+
+	public void writeNull() {
+		throw new KriptonRuntimeException("Not supported");		
 	}
 
 	public void writeNull(String fieldName) {
@@ -151,6 +163,10 @@ public class XmlSerializer implements BinderSerializer {
 		}
 	}
 
+	public void writeStartArray() {
+		throw new KriptonRuntimeException("Not supported");
+	}
+
 	public void writeStartArray(String fieldName) {
 		try {
 			xmlSerializer.writeStartElement(fieldName);
@@ -159,6 +175,10 @@ public class XmlSerializer implements BinderSerializer {
 			throw new KriptonRuntimeException(e);
 		}
 		
+	}
+
+	public void writeStartObject() {
+		throw new KriptonRuntimeException("Not supported");
 	}
 
 	public void writeStartObject(String fieldName) {
@@ -170,6 +190,7 @@ public class XmlSerializer implements BinderSerializer {
 		}
 		
 	}
+	
 
 	public void writeString(String value) {
 		try {
@@ -177,33 +198,12 @@ public class XmlSerializer implements BinderSerializer {
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
-		}
-		
+		}		
 	}
 
-	@Override
-	public void writeStartArray() {
-		throw new KriptonRuntimeException("Not supported");
-	}
 
 	@Override
-	public void writeNull() {
-		throw new KriptonRuntimeException("Not supported");		
-	}
-
-	@Override
-	public void writeStartObject() {
-		throw new KriptonRuntimeException("Not supported");
-	}
-
-	@Override
-	public void writeAttribute(String name, boolean writeName, long value) {
-		try {
-			xmlSerializer.writeAttribute(name, String.valueOf(value));
-		} catch (XMLStreamException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
-		
+	public <E> void accept(BinderContext context, E bean, Visitor<E> visitor, boolean writeStartAndEnd) {
+			visitor.visit(context, bean, this, writeStartAndEnd, context.getSupportedFormat().onlyText);
 	}
 }

@@ -1,16 +1,15 @@
-package kripton70.core;
+package kripton70.persistence;
 
 import java.io.IOException;
-
-import org.codehaus.stax2.XMLStreamReader2;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
 import kripton70.contexts.BinderContext;
+import kripton70.core.BinderType;
 
-public class BinderParser {
+public class JacksonParser implements Visitable {
 
 	protected BinderContext context;
 
@@ -18,17 +17,9 @@ public class BinderParser {
 
 	public boolean onlyText;
 
-	protected XMLStreamReader2 xmlParser;
-
-	public BinderParser(BinderContext context, JsonParser parser, BinderType supportedFormat) {
+	public JacksonParser(BinderContext context, JsonParser parser, BinderType supportedFormat) {
 		this.jacksonParser = parser;
 		this.onlyText = supportedFormat.onlyText;
-	}
-
-	public BinderParser(BinderContext context, XMLStreamReader2 xmlStreamReader, BinderType supportedFormat) {
-		this.context = context;
-		this.onlyText = supportedFormat.onlyText;
-		this.xmlParser = xmlStreamReader;
 	}
 
 	public Boolean getBooleanValue() {
@@ -59,7 +50,7 @@ public class BinderParser {
 	}
 
 	public JsonToken getCurrentToken() {
-			return jacksonParser.getCurrentToken();
+		return jacksonParser.getCurrentToken();
 	}
 
 	public Double getDoubleValue() {
@@ -120,7 +111,7 @@ public class BinderParser {
 		return onlyText;
 	}
 
-	public JsonToken nextToken()  {
+	public JsonToken nextToken() {
 		try {
 			return jacksonParser.nextToken();
 		} catch (IOException e) {
@@ -136,5 +127,19 @@ public class BinderParser {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
+	}
+
+	public String getString() {
+		try {
+			return jacksonParser.getText();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
+	}
+
+	@Override
+	public <E> void accept(BinderContext context, E bean, Visitor<E> visitor, boolean writeStartAndEnd) {
+		visitor.visit(context, bean, this, writeStartAndEnd, context.getSupportedFormat().onlyText);
 	}
 }

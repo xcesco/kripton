@@ -7,14 +7,13 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
 
-import kripton70.core.BinderParser;
-import kripton70.core.BinderSerializer;
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
+
 import kripton70.core.BinderType;
 import kripton70.core.JacksonMapper;
 import kripton70.core.ParameterizedType;
-
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
+import kripton70.persistence.JacksonParser;
 
 public interface BinderContext {
 
@@ -30,15 +29,15 @@ public interface BinderContext {
 
 	JsonFactory createInnerFactory();
 
-	BinderParser createParser(byte[] data);
+	JacksonParser createParser(byte[] data);
 
-	BinderParser createParser(File file);
+	JacksonParser createParser(File file);
 
-	BinderParser createParser(InputStream in);
+	JacksonParser createParser(InputStream in);
 
-	BinderParser createParser(Reader reader);
+	JacksonParser createParser(Reader reader);
 
-	BinderParser createParser(String content);
+	JacksonParser createParser(String content);
 
 	BinderType getSupportedFormat();
 

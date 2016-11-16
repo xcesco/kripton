@@ -8,10 +8,10 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import kripton70.contexts.BinderContext;
-import kripton70.core.BinderSerializer;
+import kripton70.contexts.BinderSerializer;
 import kripton70.core.BinderType;
 
-public class JacksonSerializer implements BinderSerializer  {
+public class JacksonSerializer implements BinderSerializer, Visitable  {
 	protected BinderContext context;
 
 	JsonGenerator jacksonSerializer;
@@ -26,6 +26,7 @@ public class JacksonSerializer implements BinderSerializer  {
 		this.context=context;
 	}
 
+	
 	public void close() {
 		try {
 			jacksonSerializer.close();
@@ -38,6 +39,16 @@ public class JacksonSerializer implements BinderSerializer  {
 
 	public boolean isOnlyText() {
 		return onlyText;
+	}
+
+	public void writeAttribute(String name, boolean writeFieldNameForObject, long value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void writeAttribute(String fieldName, String value) {
+		throw new KriptonRuntimeException("Not supported");
+		
 	}
 
 	public void writeBoolean(Boolean value) {
@@ -85,6 +96,11 @@ public class JacksonSerializer implements BinderSerializer  {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
+		
+	}
+
+	public void writeNull(String fieldName) {
+		throw new KriptonRuntimeException("Not supported");
 		
 	}
 
@@ -156,6 +172,11 @@ public class JacksonSerializer implements BinderSerializer  {
 		
 	}
 
+	public void writeStartArray(String fieldName) {
+		throw new KriptonRuntimeException("Not supported");
+		
+	}
+
 	public void writeStartObject() {
 		try {
 			jacksonSerializer.writeStartObject();
@@ -164,6 +185,10 @@ public class JacksonSerializer implements BinderSerializer  {
 			throw new KriptonRuntimeException(e);
 		}
 		
+	}
+
+	public void writeStartObject(String fieldName) {
+		throw new KriptonRuntimeException("Not supported");		
 	}
 
 	public void writeString(String value) {
@@ -176,32 +201,14 @@ public class JacksonSerializer implements BinderSerializer  {
 		
 	}
 
-	@Override
-	public void writeAttribute(String fieldName, String value) {
-		throw new KriptonRuntimeException("Not supported");
-		
-	}
 
 	@Override
-	public void writeNull(String fieldName) {
-		throw new KriptonRuntimeException("Not supported");
-		
+	public <E> void accept(BinderContext context, E bean, Visitor<E> visitor, boolean writeStartAndEnd) {
+		visitor.visit(context, bean, this, writeStartAndEnd, context.getSupportedFormat().onlyText);
 	}
 
-	@Override
-	public void writeStartArray(String fieldName) {
-		throw new KriptonRuntimeException("Not supported");
-		
-	}
 
-	@Override
-	public void writeStartObject(String fieldName) {
-		throw new KriptonRuntimeException("Not supported");		
-	}
 
-	@Override
-	public void writeAttribute(String name, boolean writeFieldNameForObject, long value) {
-		// TODO Auto-generated method stub
-		
-	}
+
+
 }

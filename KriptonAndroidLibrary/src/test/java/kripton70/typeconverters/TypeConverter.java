@@ -1,7 +1,7 @@
 package kripton70.typeconverters;
 
-import kripton70.core.BinderParser;
 import kripton70.core.BinderSerializer;
+import kripton70.persistence.JacksonParser;
 
 /**
  * Implement this interface in order to create a way to custom parse and serialize @JsonFields
@@ -15,7 +15,7 @@ public interface TypeConverter<T> {
 	 *            The JsonParser that is pre-configured for this field.
 	 * 
 	 */
-	T parse(BinderParser parser);
+	T parse(JacksonParser parser);
 
 	/**
 	 * Called to serialize an object of type T to JSON using the JsonGenerator and field name.
