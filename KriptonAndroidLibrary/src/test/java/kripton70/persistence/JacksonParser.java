@@ -9,15 +9,13 @@ import com.fasterxml.jackson.core.JsonToken;
 import kripton70.contexts.BinderContext;
 import kripton70.core.BinderType;
 
-public class JacksonParser implements Visitable {
-
-	protected BinderContext context;
+public class JacksonParser implements BinderListParser {
 
 	public JsonParser jacksonParser;
 
 	public boolean onlyText;
 
-	public JacksonParser(BinderContext context, JsonParser parser, BinderType supportedFormat) {
+	public JacksonParser(JsonParser parser, BinderType supportedFormat) {
 		this.jacksonParser = parser;
 		this.onlyText = supportedFormat.onlyText;
 	}
@@ -138,8 +136,4 @@ public class JacksonParser implements Visitable {
 		}
 	}
 
-	@Override
-	public <E> void accept(BinderContext context, E bean, Visitor<E> visitor, boolean writeStartAndEnd) {
-		visitor.visit(context, bean, this, writeStartAndEnd, context.getSupportedFormat().onlyText);
-	}
 }

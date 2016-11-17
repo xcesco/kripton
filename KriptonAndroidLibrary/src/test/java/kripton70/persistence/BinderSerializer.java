@@ -1,4 +1,4 @@
-package kripton70.contexts;
+package kripton70.persistence;
 
 public interface BinderSerializer {
 

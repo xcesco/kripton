@@ -8,7 +8,7 @@ import kripton70.core.BinderType;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class JsonBinderContext extends AbstractJacksonBinderContext {
+public class JsonBinderContext extends JacksonContext {
 
 	@Override
 	public BinderType getSupportedFormat()

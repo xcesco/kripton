@@ -7,111 +7,92 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-
 import kripton70.core.BinderType;
-import kripton70.core.JacksonMapper;
 import kripton70.core.ParameterizedType;
-import kripton70.persistence.JacksonParser;
+import kripton70.persistence.BinderParser;
+import kripton70.persistence.BinderSerializer;
 
-public interface BinderContext {
+import com.fasterxml.jackson.core.JsonEncoding;
 
-	BinderSerializer createSerializer(File file);
+public interface BinderContext<S extends BinderSerializer, P extends BinderParser> {
 
-	BinderSerializer createSerializer(File file, JsonEncoding encoding);
+	P createParser(byte[] data);
 
-	BinderSerializer createSerializer(OutputStream out);
+	P createParser(File file);
 
-	BinderSerializer createSerializer(OutputStream out, JsonEncoding encoding);
+	P createParser(InputStream in);
 
-	BinderSerializer createSerializer(Writer writer);
+	P createParser(Reader reader);
 
-	JsonFactory createInnerFactory();
+	P createParser(String content);
 
-	JacksonParser createParser(byte[] data);
+	S createSerializer(File file);
 
-	JacksonParser createParser(File file);
+	S createSerializer(File file, JsonEncoding encoding);
 
-	JacksonParser createParser(InputStream in);
+	S createSerializer(OutputStream out);
 
-	JacksonParser createParser(Reader reader);
+	S createSerializer(OutputStream out, JsonEncoding encoding);
 
-	JacksonParser createParser(String content);
+	S createSerializer(Writer writer);
 
 	BinderType getSupportedFormat();
-
-	/**
-	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
-	 *
-	 * @param cls
-	 *            The class for which the JsonMapper should be fetched.
-	 */
-	<T, M extends JacksonMapper<T>> M mapperFor(Class<T> cls);
-
-	/**
-	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
-	 *
-	 * @param type
-	 *            The ParameterizedType for which the JsonMapper should be fetched.
-	 */
-	<T, M extends JacksonMapper<T>> M mapperFor(ParameterizedType<T> type);
 
 	/**
 	 * Parse an object from an InputStream.
 	 *
 	 * @param is
 	 *            The InputStream, most likely from your networking library.
-	 * @param jsonObjectClass
+	 * @param objectClazz
 	 *            The @JsonObject class to parse the InputStream into
 	 */
-	<E> E parse(InputStream is, Class<E> jsonObjectClass);
+	<E> E parse(InputStream is, Class<E> objectClazz);
 
 	/**
 	 * Parse a parameterized object from an InputStream.
 	 *
 	 * @param is
 	 *            The InputStream, most likely from your networking library.
-	 * @param jsonObjectType
+	 * @param objectType
 	 *            The ParameterizedType describing the object. Ex:
 	 *            LoganSquare.parse(is, new
 	 *            ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { });
 	 */
-	<E> E parse(InputStream is, ParameterizedType<E> jsonObjectType);
+	<E> E parse(InputStream is, ParameterizedType<E> objectType);
 
 	/**
 	 * Parse an object from a String. Note: parsing from an InputStream should
 	 * be preferred over parsing from a String if possible.
 	 *
-	 * @param jsonString
+	 * @param buffer
 	 *            The JSON string being parsed.
-	 * @param jsonObjectClass
+	 * @param objectClazz
 	 *            The @JsonObject class to parse the InputStream into
 	 */
-	<E> E parse(String jsonString, Class<E> jsonObjectClass);
+	<E> E parse(String buffer, Class<E> objectClazz);
 
 	/**
 	 * Parse a parameterized object from a String. Note: parsing from an
 	 * InputStream should be preferred over parsing from a String if possible.
 	 *
-	 * @param jsonString
+	 * @param buffer
 	 *            The JSON string being parsed.
-	 * @param jsonObjectType
+	 * @param objectType
 	 *            The ParameterizedType describing the object. Ex:
 	 *            LoganSquare.parse(is, new
 	 *            ParameterizedType&lt;MyModel&lt;OtherModel&gt;&gt;() { });
 	 */
-	<E> E parse(String jsonString, ParameterizedType<E> jsonObjectType);
+	<E> E parse(String buffer, ParameterizedType<E> objectType);
 
 	/**
 	 * Parse a list of objects from an InputStream.
 	 *
 	 * @param is
 	 *            The inputStream, most likely from your networking library.
-	 * @param jsonObjectClass
+	 * @param objectClazz
 	 *            The @JsonObject class to parse the InputStream into
 	 */
-	<E> List<E> parseList(InputStream is, Class<E> jsonObjectClass);
+	<E> List<E> parseList(InputStream is, Class<E> objectClazz);
 
 	/**
 	 * Parse a list of objects from a String. Note: parsing from an InputStream
@@ -119,10 +100,10 @@ public interface BinderContext {
 	 *
 	 * @param jsonString
 	 *            The JSON string being parsed.
-	 * @param jsonObjectClass
+	 * @param objectClazz
 	 *            The @JsonObject class to parse the InputStream into
 	 */
-	<E> List<E> parseList(String jsonString, Class<E> jsonObjectClass);
+	<E> List<E> parseList(String jsonString, Class<E> objectClazz);
 
 	/**
 	 * Serialize an object to a JSON String.
@@ -173,10 +154,10 @@ public interface BinderContext {
 	 *
 	 * @param list
 	 *            The list of objects to serialize.
-	 * @param jsonObjectClass
+	 * @param objectClazz
 	 *            The @JsonObject class of the list elements
 	 */
-	<E> String serialize(List<E> list, Class<E> jsonObjectClass);
+	<E> String serialize(List<E> list, Class<E> objectClazz);
 
 	/**
 	 * Serialize a list of objects to an OutputStream.
@@ -185,8 +166,8 @@ public interface BinderContext {
 	 *            The list of objects to serialize.
 	 * @param os
 	 *            The OutputStream to which the list should be serialized
-	 * @param jsonObjectClass
+	 * @param objectClazz
 	 *            The @JsonObject class of the list elements
 	 */
-	<E> void serialize(List<E> list, OutputStream os, Class<E> jsonObjectClass);
+	<E> void serialize(List<E> list, OutputStream os, Class<E> objectClazz);
 }

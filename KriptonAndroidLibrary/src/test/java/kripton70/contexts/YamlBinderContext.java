@@ -9,7 +9,7 @@ import kripton70.core.BinderType;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class YamlBinderContext extends AbstractJacksonBinderContext {
+public class YamlBinderContext extends JacksonContext {
 
 	@Override
 	public BinderType getSupportedFormat()

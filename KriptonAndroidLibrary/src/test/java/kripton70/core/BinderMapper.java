@@ -5,34 +5,52 @@ import java.io.OutputStream;
 import java.util.List;
 
 import kripton70.contexts.BinderContext;
+import kripton70.contexts.JacksonContext;
+import kripton70.contexts.XmlBinderContext;
+import kripton70.persistence.BinderParser;
+import kripton70.persistence.BinderSerializer;
 import kripton70.persistence.JacksonParser;
+import kripton70.persistence.JacksonSerializer;
+import kripton70.persistence.XmlParser;
+import kripton70.persistence.XmlSerializer;
 
 public interface BinderMapper<E> {
 	E createInstance();
 
-	E parse(BinderContext context, JacksonParser parser);
+	E parse(@SuppressWarnings("rawtypes") BinderContext context, byte[] byteArray);
+	
+	E parse(@SuppressWarnings("rawtypes") BinderContext context, BinderParser parser);
 
-	E parse(BinderContext context, byte[] byteArray);
+	E parse(@SuppressWarnings("rawtypes") BinderContext context, InputStream is);
 
-	E parse(BinderContext context, InputStream is);
+	E parse(@SuppressWarnings("rawtypes") BinderContext context, String jsonString);
 
-	E parse(BinderContext context, String jsonString);
+	List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, BinderParser parser);
 
-	void parseField(BinderContext context, E instance, String fieldName, JacksonParser parser);
+	List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, byte[] byteArray);
 
-	List<E> parseList(BinderContext context, JacksonParser parser);
+	List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, InputStream is);
 
-	List<E> parseList(BinderContext context, byte[] byteArray);
+	List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, String jsonString);
 
-	List<E> parseList(BinderContext context, InputStream is);
+	String serialize(@SuppressWarnings("rawtypes") BinderContext context, E object);
 
-	List<E> parseList(BinderContext context, String jsonString);
+	void serialize(@SuppressWarnings("rawtypes") BinderContext context, E object, OutputStream os);
 
-	String serialize(BinderContext context, E object);
+	String serialize(@SuppressWarnings("rawtypes") BinderContext context, List<E> list);
 
-	void serialize(BinderContext context, E object, OutputStream os);
+	void serialize(@SuppressWarnings("rawtypes") BinderContext context, List<E> list, OutputStream os);
+	
+	void serialize(JacksonContext context, E object, JacksonSerializer jacksonSerializer, boolean writeStartAndEnd);
+	
+	void serializeOnlyText(JacksonContext context, E object, JacksonSerializer jacksonSerializer, boolean writeStartAndEnd);
 
-	String serialize(BinderContext context, List<E> list);
+	void serialize(XmlBinderContext context, E object, XmlSerializer xmlSerializer, boolean writeStartAndEnd);
+	
+	void parse(JacksonContext context, E object, JacksonParser jacksonParser, boolean writeStartAndEnd);
+	
+	void parseOnlyText(JacksonContext context, E object, JacksonParser jacksonParser, boolean writeStartAndEnd);
 
-	void serialize(BinderContext context, List<E> list, OutputStream os);
+	void parse(XmlBinderContext context, E object, XmlParser xmlParser, boolean writeStartAndEnd);
+
 }

@@ -1,27 +1,23 @@
 package kripton70;
 
 import java.io.IOException;
-
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-
-import org.codehaus.stax2.XMLOutputFactory2;
-import org.codehaus.stax2.XMLStreamReader2;
-import org.codehaus.stax2.XMLStreamWriter2;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
 
 import kripton70.contexts.PropertiesBinderContext;
+import kripton70.contexts.XmlBinderContext;
 import kripton70.contexts.YamlBinderContext;
 import kripton70.core.BinderType;
 import kripton70.core.KriptonLibrary2;
+
+import org.codehaus.stax2.XMLOutputFactory2;
+import org.codehaus.stax2.XMLStreamWriter2;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class Kripton70Test {
 	
@@ -30,6 +26,7 @@ public class Kripton70Test {
 	{
 		KriptonLibrary2.registryBinder(new YamlBinderContext());
 		KriptonLibrary2.registryBinder(new PropertiesBinderContext());
+		KriptonLibrary2.registryBinder(new XmlBinderContext());
 	}
 
 	@Test

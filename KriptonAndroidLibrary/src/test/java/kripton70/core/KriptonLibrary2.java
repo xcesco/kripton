@@ -10,13 +10,14 @@ import kripton70.contexts.JsonBinderContext;
 
 public abstract class KriptonLibrary2 {
 	
-	public static final String MAPPER_CLASS_SUFFIX = "JsonMapper";
+	public static final String MAPPER_CLASS_SUFFIX = "KriptonMapper";
 	
-	public static void registryBinder(BinderContext factory)
+	public static void registryBinder(@SuppressWarnings("rawtypes") BinderContext factory)
 	{
 		binders.put(factory.getSupportedFormat(), factory);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private static final Map<BinderType, BinderContext> binders=new HashMap<>();
 	
 	static {
@@ -44,8 +45,8 @@ public abstract class KriptonLibrary2 {
 	//public static final JsonFactory JSON_FACTORY = new JsonFactory();
 	
 
-	public static BinderContext getBinder(BinderType format) {
-		BinderContext binder=binders.get(format);
+	public static BinderContext<?,?> getBinder(BinderType format) {
+		BinderContext<?,?> binder=binders.get(format);
 		
 		if (binder==null) throw new KriptonRuntimeException(String.format("%s format is not supported", format));
 		

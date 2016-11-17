@@ -10,13 +10,13 @@ import com.fasterxml.jackson.core.JsonToken;
 import kripton70.contexts.BinderContext;
 import kripton70.core.BinderType;
 
-public class XmlParser implements Visitable {
+public class XmlParser implements BinderParser, Visitable {
 
-	protected BinderContext context;
+	protected BinderContext<XmlSerializer, XmlParser> context;
 
 	protected XMLStreamReader2 xmlParser;
 
-	public XmlParser(BinderContext context, XMLStreamReader2 xmlStreamReader, BinderType supportedFormat) {
+	public XmlParser(BinderContext<XmlSerializer, XmlParser> context, XMLStreamReader2 xmlStreamReader, BinderType supportedFormat) {
 		this.context = context;
 		this.xmlParser = xmlStreamReader;
 	}
