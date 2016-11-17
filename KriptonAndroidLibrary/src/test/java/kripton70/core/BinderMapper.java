@@ -47,10 +47,10 @@ public interface BinderMapper<E> {
 
 	void serialize(XmlBinderContext context, E object, XmlSerializer xmlSerializer, boolean writeStartAndEnd);
 	
-	void parse(JacksonContext context, E object, JacksonParser jacksonParser, boolean writeStartAndEnd);
+	E parse(JacksonContext context, JacksonParser jacksonParser, boolean writeStartAndEnd);
 	
-	void parseOnlyText(JacksonContext context, E object, JacksonParser jacksonParser, boolean writeStartAndEnd);
+	E parseOnlyText(JacksonContext context, JacksonParser jacksonParser, boolean writeStartAndEnd);
 
-	void parse(XmlBinderContext context, E object, XmlParser xmlParser, boolean writeStartAndEnd);
+	E parse(XmlBinderContext context, XmlParser xmlParser, boolean writeStartAndEnd);
 
 }

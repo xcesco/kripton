@@ -31,17 +31,17 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	 */
 
 	public E parse(@SuppressWarnings("rawtypes") BinderContext context, BinderParser parser) {
-		E instance = createInstance();
+		E instance = null;
 
 		switch (context.getSupportedFormat()) {
 		case XML:
-			parse((XmlBinderContext) context, instance, (XmlParser) parser, true);
+			instance=parse((XmlBinderContext) context, (XmlParser) parser, true);
 			break;
 		default:
 			if (context.getSupportedFormat().onlyText)
-				parseOnlyText((JacksonContext) context, instance, (JacksonParser) parser, true);
+				instance=parseOnlyText((JacksonContext) context, (JacksonParser) parser, true);
 			else
-				parse((JacksonContext) context, instance, (JacksonParser) parser, true);
+				instance=parse((JacksonContext) context, (JacksonParser) parser, true);
 
 		}
 

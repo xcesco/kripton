@@ -130,7 +130,7 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 	}
 
 	@Override
-	public void parse(JacksonContext context, Bean object, JacksonParser jacksonParser, boolean writeStartAndEnd) {
+	public Bean parse(JacksonContext context, JacksonParser jacksonParser, boolean writeStartAndEnd) {
 		try {
 			jacksonParser.nextToken();
 
@@ -140,7 +140,7 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 			}
 			if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
 				jacksonParser.skipChildren();
-				return;
+				return instance;
 			}
 			while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
 				String fieldName = jacksonParser.getCurrentName();
@@ -184,10 +184,10 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 					}
 					break;
 				default:
-					break;
+					jacksonParser.skipChildren();
 				}
 			}
-			jacksonParser.skipChildren();
+			return instance;
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -196,7 +196,7 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 	}
 
 	@Override
-	public void parseOnlyText(JacksonContext context, Bean object, JacksonParser jacksonParser, boolean writeStartAndEnd) {
+	public Bean parseOnlyText(JacksonContext context, JacksonParser jacksonParser, boolean writeStartAndEnd) {
 		try {
 			jacksonParser.nextToken();
 
@@ -206,7 +206,7 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 			}
 			if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
 				jacksonParser.skipChildren();
-				return;
+				return instance;
 			}
 			while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
 				String fieldName = jacksonParser.getCurrentName();
@@ -229,7 +229,7 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 					instance.valueCharType = Character.valueOf(jacksonParser.getCharValue());
 					break;
 				case "valueBean":
-					instance.valueBean = context.mapperFor(Bean.class).parseOnlyText(context, object, jacksonParser, false);
+					instance.valueBean = context.mapperFor(Bean.class).parseOnlyText(context, jacksonParser, false);
 					break;
 				case "valueStringList":
 					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
@@ -250,10 +250,13 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 					}
 					break;
 				default:
+					jacksonParser.skipChildren();
 					break;
 				}
 			}
-			jacksonParser.skipChildren();
+			
+			
+			return instance;
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -262,8 +265,9 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 	}
 
 	@Override
-	public void parse(XmlBinderContext context, Bean object, XmlParser xmlParser, boolean writeStartAndEnd) {
+	public Bean parse(XmlBinderContext context, XmlParser xmlParser, boolean writeStartAndEnd) {
 		// TODO Auto-generated method stub
+		return null;
 
 	}
 
