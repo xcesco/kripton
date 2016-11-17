@@ -2,138 +2,69 @@ package kripton70.persistence;
 
 import java.io.IOException;
 
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import kripton70.core.BinderType;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-
-import kripton70.contexts.BinderContext;
-import kripton70.core.BinderType;
 
 public class JacksonParser implements BinderListParser {
 
 	public JsonParser jacksonParser;
 
-	public boolean onlyText;
-
 	public JacksonParser(JsonParser parser, BinderType supportedFormat) {
 		this.jacksonParser = parser;
-		this.onlyText = supportedFormat.onlyText;
 	}
 
-	public Boolean getBooleanValue() {
-		try {
-			return jacksonParser.getBooleanValue();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public Boolean getBooleanValue() throws IOException {
+		return jacksonParser.getBooleanValue();
 	}
 
-	public Byte getByteValue() {
-		try {
-			return jacksonParser.getByteValue();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public Byte getByteValue() throws IOException {
+		return jacksonParser.getByteValue();
 	}
 
-	public String getCurrentName() {
-		try {
-			return jacksonParser.getCurrentName();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public String getCurrentName() throws IOException {
+		return jacksonParser.getCurrentName();
 	}
 
 	public JsonToken getCurrentToken() {
 		return jacksonParser.getCurrentToken();
 	}
 
-	public Double getDoubleValue() {
-		try {
-			return jacksonParser.getDoubleValue();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public Double getDoubleValue() throws IOException {
+		return jacksonParser.getDoubleValue();
 	}
 
-	public Float getFloatValue() {
-		try {
+	public Float getFloatValue() throws IOException {
 			return jacksonParser.getFloatValue();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
 	}
 
-	public Integer getIntValue() {
-		try {
-			return jacksonParser.getIntValue();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public Integer getIntValue() throws IOException {
+		return jacksonParser.getIntValue();
 	}
 
-	public Long getLongValue() {
-		try {
-			return jacksonParser.getLongValue();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public Long getLongValue() throws IOException {
+		return jacksonParser.getLongValue();
 	}
 
-	public Short getShortValue() {
-		try {
-			return jacksonParser.getShortValue();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public Short getShortValue() throws IOException {
+		return jacksonParser.getShortValue();
 	}
 
-	public String getText() {
-		try {
-			return jacksonParser.getText();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public String getText() throws IOException {
+		return jacksonParser.getText();
 	}
 
-	public boolean isOnlyText() {
-		return onlyText;
+	public JsonToken nextToken() throws IOException {
+		return jacksonParser.nextToken();
 	}
 
-	public JsonToken nextToken() {
-		try {
-			return jacksonParser.nextToken();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public void skipChildren() throws IOException {
+		jacksonParser.skipChildren();
 	}
 
-	public void skipChildren() {
-		try {
-			jacksonParser.skipChildren();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
-	}
-
-	public String getString() {
-		try {
-			return jacksonParser.getText();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
-		}
+	public char getCharValue() throws IOException {
+		return (char)jacksonParser.getIntValue();
 	}
 
 }

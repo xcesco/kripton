@@ -1,6 +1,7 @@
 package kripton70;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -16,52 +17,11 @@ import org.robolectric.res.XmlLoader.XmlContext;
 
 import com.abubusoft.kripton.android.annotation.BindMapper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.fasterxml.jackson.core.JsonToken;
 
 @BindMapper
 public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 
-	// @Override
-	// public void parseField(BinderContext context, Bean instance, String fieldName, JacksonParser parser) {
-	// switch (fieldName) {
-	// case "id":
-	// instance.id = longMapper.parse(parser);
-	// break;
-	// case "description":
-	// instance.description = parser.getString();
-	// break;
-	// case "valueByteType":
-	// instance.valueByteType = byteMapper.parse(parser);
-	// break;
-	// case "valueShortType":
-	// instance.valueShortType = shortMapper.parse(parser);
-	// break;
-	// case "valueCharType":
-	// instance.valueCharType = characterMapper.parse(parser);
-	// break;
-	// case "valueBean":
-	// instance.valueBean = context.mapperFor(Bean.class).parse(context, parser);
-	// break;
-	// case "valueStringList":
-	// if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
-	// ArrayList<String> collection = new ArrayList<String>();
-	// while (parser.nextToken() != JsonToken.END_ARRAY) {
-	// collection.add(stringMapper.parse(parser));
-	// }
-	// instance.valueStringList = collection;
-	// }
-	// break;
-	// case "valueStringArray":
-	// if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
-	// ArrayList<String> collection = new ArrayList<String>();
-	// while (parser.nextToken() != JsonToken.END_ARRAY) {
-	// collection.add(stringMapper.parse(parser));
-	// }
-	// instance.valueStringArray = collection.toArray(new String[collection.size()]);
-	// }
-	// break;
-	// default:
-	// break;
-	// }
 	/*
 	 * if ("date".equals(fieldName)) { instance.date = getjava_util_Date_type_converter().parse(jsonParser); } else if ("intToIgnoreForSerialization".equals(fieldName)){ instance.intToIgnoreForSerialization = jsonParser.getValueAsInt(); }
 	 * else if ("object-array-with-dashes".equals(fieldName)) { if (jsonParser.getCurrentToken() == JsonToken.START_ARRAY) { List<Object> collection1 = new ArrayList<Object>(); while (jsonParser.nextToken() != JsonToken.END_ARRAY) { Object
@@ -98,7 +58,6 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 				jacksonSerializer.writeStartObject();
 
 			// field id
-
 			jacksonSerializer.writeFieldName("id");
 			jacksonSerializer.writeNumber(object.id);
 
@@ -113,7 +72,7 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw(new KriptonRuntimeException(e));
+			throw (new KriptonRuntimeException(e));
 		}
 	}
 
@@ -138,7 +97,7 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw(new KriptonRuntimeException(e));
+			throw (new KriptonRuntimeException(e));
 		}
 	}
 
@@ -172,13 +131,133 @@ public final class BeanKriptonMapper extends AbstractMapper<Bean> {
 
 	@Override
 	public void parse(JacksonContext context, Bean object, JacksonParser jacksonParser, boolean writeStartAndEnd) {
-		jacksonParser.nextToken();
+		try {
+			jacksonParser.nextToken();
+
+			Bean instance = createInstance();
+			if (jacksonParser.getCurrentToken() == null) {
+				jacksonParser.nextToken();
+			}
+			if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+				jacksonParser.skipChildren();
+				return;
+			}
+			while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
+				String fieldName = jacksonParser.getCurrentName();
+				jacksonParser.nextToken();
+				// field management
+				switch (fieldName) {
+				case "id":
+					instance.id = jacksonParser.getLongValue();
+					break;
+				case "description":
+					instance.description = jacksonParser.getText();
+					break;
+				case "valueByteType":
+					instance.valueByteType = jacksonParser.getByteValue();
+					break;
+				case "valueShortType":
+					instance.valueShortType = jacksonParser.getShortValue();
+					break;
+				case "valueCharType":
+					instance.valueCharType = jacksonParser.getCharValue();
+					break;
+				case "valueBean":
+					instance.valueBean = context.mapperFor(Bean.class).parse(context, jacksonParser);
+					break;
+				case "valueStringList":
+					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
+						ArrayList<String> collection = new ArrayList<String>();
+						while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+							collection.add(jacksonParser.getText());
+						}
+						instance.valueStringList = collection;
+					}
+					break;
+				case "valueStringArray":
+					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
+						ArrayList<String> collection = new ArrayList<String>();
+						while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+							collection.add(jacksonParser.getText());
+						}
+						instance.valueStringArray = collection.toArray(new String[collection.size()]);
+					}
+					break;
+				default:
+					break;
+				}
+			}
+			jacksonParser.skipChildren();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 
 	}
 
 	@Override
 	public void parseOnlyText(JacksonContext context, Bean object, JacksonParser jacksonParser, boolean writeStartAndEnd) {
-		jacksonParser.nextToken();
+		try {
+			jacksonParser.nextToken();
+
+			Bean instance = createInstance();
+			if (jacksonParser.getCurrentToken() == null) {
+				jacksonParser.nextToken();
+			}
+			if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+				jacksonParser.skipChildren();
+				return;
+			}
+			while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
+				String fieldName = jacksonParser.getCurrentName();
+				jacksonParser.nextToken();
+				// field management
+				switch (fieldName) {
+				case "id":
+					instance.id = Long.valueOf(jacksonParser.getText());
+					break;
+				case "description":
+					instance.description = jacksonParser.getText();
+					break;
+				case "valueByteType":
+					instance.valueByteType = Byte.valueOf(jacksonParser.getByteValue());
+					break;
+				case "valueShortType":
+					instance.valueShortType = Short.valueOf(jacksonParser.getShortValue());
+					break;
+				case "valueCharType":
+					instance.valueCharType = Character.valueOf(jacksonParser.getCharValue());
+					break;
+				case "valueBean":
+					instance.valueBean = context.mapperFor(Bean.class).parseOnlyText(context, object, jacksonParser, false);
+					break;
+				case "valueStringList":
+					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
+						ArrayList<String> collection = new ArrayList<String>();
+						while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+							collection.add(jacksonParser.getText());
+						}
+						instance.valueStringList = collection;
+					}
+					break;
+				case "valueStringArray":
+					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
+						ArrayList<String> collection = new ArrayList<String>();
+						while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+							collection.add(jacksonParser.getText());
+						}
+						instance.valueStringArray = collection.toArray(new String[collection.size()]);
+					}
+					break;
+				default:
+					break;
+				}
+			}
+			jacksonParser.skipChildren();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 
 	}
 

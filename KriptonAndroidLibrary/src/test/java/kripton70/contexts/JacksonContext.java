@@ -145,22 +145,26 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> String serialize(E object) {
+		if (object==null) return null;
 		return mapperFor((Class<E>)object.getClass()).serialize(this, object);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> void serialize(E object, OutputStream os) {
+		if (object==null) return;
 		mapperFor((Class<E>) object.getClass()).serialize(this, object, os);		
 	}
 
 	@Override
 	public <E> String serialize(E object, ParameterizedType<E> parameterizedType) {
+		if (object==null) return null;
 		return mapperFor(parameterizedType).serialize(this, object);
 	}
 
 	@Override
 	public <E> void serialize(E object, ParameterizedType<E> parameterizedType, OutputStream os) {
+		if (object==null) return;
 		mapperFor(parameterizedType).serialize(this, object, os);
 	}
 

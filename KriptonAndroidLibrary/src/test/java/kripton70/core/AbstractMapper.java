@@ -1,5 +1,6 @@
 package kripton70.core;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
@@ -22,100 +23,78 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonToken;
 
 public abstract class AbstractMapper<E> implements BinderMapper<E> {
-	
-	/*protected static ByteConverter byteMapper=new ByteConverter();
-	protected static CharacterConverter characterMapper=new CharacterConverter();
-	protected static ShortConverter shortMapper=new ShortConverter();	
-	protected static IntegerConverter integerMapper=new IntegerConverter();
-	protected static FloatConverter floatMapper=new FloatConverter();
-	protected static DoubleConverter doubleMapper=new DoubleConverter();	
-	protected static LongConverter longMapper=new LongConverter();	
-	protected static StringConverter stringMapper=new StringConverter();*/
+
+	/*
+	 * protected static ByteConverter byteMapper=new ByteConverter(); protected static CharacterConverter characterMapper=new CharacterConverter(); protected static ShortConverter shortMapper=new ShortConverter(); protected static
+	 * IntegerConverter integerMapper=new IntegerConverter(); protected static FloatConverter floatMapper=new FloatConverter(); protected static DoubleConverter doubleMapper=new DoubleConverter(); protected static LongConverter
+	 * longMapper=new LongConverter(); protected static StringConverter stringMapper=new StringConverter();
+	 */
 
 	public E parse(@SuppressWarnings("rawtypes") BinderContext context, BinderParser parser) {
-		E instance = createInstance(); 
-		
-		switch(context.getSupportedFormat())
-		{
+		E instance = createInstance();
+
+		switch (context.getSupportedFormat()) {
 		case XML:
-			parse((XmlBinderContext)context, instance, (XmlParser)parser, true);
+			parse((XmlBinderContext) context, instance, (XmlParser) parser, true);
 			break;
 		default:
 			if (context.getSupportedFormat().onlyText)
-				parseOnlyText((JacksonContext)context, instance, (JacksonParser)parser, true);
+				parseOnlyText((JacksonContext) context, instance, (JacksonParser) parser, true);
 			else
-				parse((JacksonContext)context, instance, (JacksonParser)parser, true);
-			
+				parse((JacksonContext) context, instance, (JacksonParser) parser, true);
+
 		}
-		
+
 		return instance;
-	}	
-		
+	}
+
 	public void serialize(@SuppressWarnings("rawtypes") BinderContext context, E object, BinderSerializer serializer, boolean writeStartAndEnd) {
-		switch(context.getSupportedFormat())
-		{
-		case XML:
-		{
+		switch (context.getSupportedFormat()) {
+		case XML: {
 			try {
-				XmlSerializer xmlSerializer=(XmlSerializer)serializer;
+				XmlSerializer xmlSerializer = (XmlSerializer) serializer;
 				xmlSerializer.writeStartDocument();
-				serialize((XmlBinderContext)context, object, xmlSerializer, true);
+				serialize((XmlBinderContext) context, object, xmlSerializer, true);
 				xmlSerializer.writeEndDocument();
 			} catch (XMLStreamException e) {
 				e.printStackTrace();
-				throw(new KriptonRuntimeException(e));
+				throw (new KriptonRuntimeException(e));
 			}
-			
+
 		}
 			break;
 		default:
 			if (context.getSupportedFormat().onlyText)
-				serializeOnlyText((JacksonContext)context, object, (JacksonSerializer)serializer, true);
+				serializeOnlyText((JacksonContext) context, object, (JacksonSerializer) serializer, true);
 			else
-				serialize((JacksonContext)context, object, (JacksonSerializer)serializer, true);
+				serialize((JacksonContext) context, object, (JacksonSerializer) serializer, true);
 		}
 	}
-	
+
 	@Override
 	public List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, BinderParser parser) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	/*
-	public E parse(BinderContext context, JacksonParser parser) {
-		E instance = createInstance(); 
-		if (parser.getCurrentToken() == null) {
-			parser.nextToken();
-		}
-		if (parser.getCurrentToken() != JsonToken.START_OBJECT) {
-			parser.skipChildren();
-			return null;
-		}
-		while (parser.nextToken() != JsonToken.END_OBJECT) {
-			String fieldName = parser.getCurrentName();
-			parser.nextToken();
-			parseField(context, instance, fieldName, parser);
-			parser.skipChildren();
-		}
-		return instance;
-	}
-	*/
+	 * public E parse(BinderContext context, JacksonParser parser) { E instance = createInstance(); if (parser.getCurrentToken() == null) { parser.nextToken(); } if (parser.getCurrentToken() != JsonToken.START_OBJECT) {
+	 * parser.skipChildren(); return null; } while (parser.nextToken() != JsonToken.END_OBJECT) { String fieldName = parser.getCurrentName(); parser.nextToken(); parseField(context, instance, fieldName, parser); parser.skipChildren(); }
+	 * return instance; }
+	 */
 
 	/**
-	 * Parse an object from a byte array. Note: parsing from an InputStream
-	 * should be preferred over parsing from a byte array if possible.
+	 * Parse an object from a byte array. Note: parsing from an InputStream should be preferred over parsing from a byte array if possible.
 	 *
 	 * @param byteArray
 	 *            The byte array being parsed.
 	 */
 	public E parse(@SuppressWarnings("rawtypes") BinderContext context, byte[] byteArray) {
 		BinderParser parser = context.createParser(byteArray);
-		//parser.nextToken();
+		// parser.nextToken();
 		return parse(context, parser);
-		//return null;
+		// return null;
 	}
-	
 
 	/**
 	 * Parse an object from an InputStream.
@@ -128,10 +107,8 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 		return parse(context, parser);
 	}
 
-
 	/**
-	 * Parse an object from a String. Note: parsing from an InputStream should
-	 * be preferred over parsing from a String if possible.
+	 * Parse an object from a String. Note: parsing from an InputStream should be preferred over parsing from a String if possible.
 	 *
 	 * @param buffer
 	 *            The JSON string being parsed.
@@ -146,27 +123,32 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	 *
 	 * @param parser
 	 *            The JsonParser, preconfigured to be at the START_ARRAY token.
+	 * @throws IOException
 	 */
-	public List<E> parseList(BinderContext context, JacksonParser parser){
-		List<E> list = new ArrayList<>();
-		if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
-			while (parser.nextToken() != JsonToken.END_ARRAY) {
-				list.add(parse(context, parser));
+	public List<E> parseList(BinderContext context, JacksonParser parser) {
+		try {
+			List<E> list = new ArrayList<>();
+			if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
+
+				while (parser.nextToken() != JsonToken.END_ARRAY) {
+					list.add(parse(context, parser));
+				}
 			}
+			return list;
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw(new KriptonRuntimeException(e));
 		}
-		return list;
 	}
 
 	/**
-	 * Parse a list of objects from a byte array. Note: parsing from an
-	 * InputStream should be preferred over parsing from a byte array if
-	 * possible.
+	 * Parse a list of objects from a byte array. Note: parsing from an InputStream should be preferred over parsing from a byte array if possible.
 	 *
 	 * @param byteArray
 	 *            The inputStream, most likely from your networking library.
 	 */
 	public List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, byte[] byteArray) {
-		BinderParser parser = context.createParser(byteArray);		
+		BinderParser parser = context.createParser(byteArray);
 		return parseList(context, parser);
 	}
 
@@ -181,10 +163,8 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 		return parseList(context, parser);
 	}
 
-
 	/**
-	 * Parse a list of objects from a String. Note: parsing from an InputStream
-	 * should be preferred over parsing from a String if possible.
+	 * Parse a list of objects from a String. Note: parsing from an InputStream should be preferred over parsing from a String if possible.
 	 *
 	 * @param buffer
 	 *            The JSON string being parsed.
@@ -209,7 +189,6 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 		return sw.toString();
 	}
 
-
 	/**
 	 * Serialize an object to an OutputStream.
 	 *
@@ -218,7 +197,7 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	 * @param os
 	 *            The OutputStream being written to.
 	 */
-	public void serialize(BinderContext context, E object, OutputStream os){
+	public void serialize(BinderContext context, E object, OutputStream os) {
 		BinderSerializer serializer = context.createSerializer(os);
 		serialize(context, object, serializer, true);
 		serializer.close();
@@ -233,7 +212,7 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	public String serialize(BinderContext context, List<E> list) {
 		StringWriter sw = new StringWriter();
 		BinderSerializer serializer = context.createSerializer(sw);
-		//serialize(context, list, serializer);
+		// serialize(context, list, serializer);
 		serializer.close();
 		return sw.toString();
 	}
@@ -249,8 +228,8 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	public void serialize(BinderContext context, List<E> list, JacksonSerializer serializer) {
 		serializer.writeStartArray();
 		E object;
-		for (int i=0; i<list.size();i++) {
-			object=list.get(0);
+		for (int i = 0; i < list.size(); i++) {
+			object = list.get(0);
 			if (object != null) {
 				serialize(context, object, serializer, true);
 			} else {
@@ -270,7 +249,7 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	 */
 	public void serialize(BinderContext context, List<E> list, OutputStream os) {
 		BinderSerializer serializer = context.createSerializer(os);
-		//serialize(context, list, serializer);
+		// serialize(context, list, serializer);
 		serializer.close();
 	}
 }
