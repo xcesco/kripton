@@ -10,7 +10,7 @@ import kripton70.contexts.JsonBinderContext;
 
 public abstract class KriptonLibrary2 {
 	
-	public static final String MAPPER_CLASS_SUFFIX = "KriptonMapper";
+	public static final String MAPPER_CLASS_SUFFIX = "BindMap";
 	
 	public static void registryBinder(@SuppressWarnings("rawtypes") BinderContext factory)
 	{

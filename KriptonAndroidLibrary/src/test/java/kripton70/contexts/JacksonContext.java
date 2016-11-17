@@ -10,14 +10,14 @@ import java.io.Writer;
 import java.util.List;
 
 import kripton70.core.ParameterizedType;
-import kripton70.persistence.JacksonParser;
-import kripton70.persistence.JacksonSerializer;
+import kripton70.persistence.JacksonWrapperParser;
+import kripton70.persistence.JacksonWrapperSerializer;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 
-public abstract class JacksonContext extends AbstractContext implements BinderContext<JacksonSerializer, JacksonParser> {
+public abstract class JacksonContext extends AbstractContext implements BinderContext<JacksonWrapperSerializer, JacksonWrapperParser> {
 
 	public JsonFactory innerFactory;
 
@@ -28,14 +28,14 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	public abstract JsonFactory createInnerFactory();
 
 	@Override
-	public JacksonParser createParser(byte[] data) {
+	public JacksonWrapperParser createParser(byte[] data) {
 		return createParser(new ByteArrayInputStream(data));
 	}
 
 	@Override
-	public JacksonParser createParser(File file) {
+	public JacksonWrapperParser createParser(File file) {
 		try {
-			return new JacksonParser(innerFactory.createParser(file), getSupportedFormat());
+			return new JacksonWrapperParser(innerFactory.createParser(file), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -43,9 +43,9 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	}
 
 	@Override
-	public JacksonParser createParser(InputStream in) {
+	public JacksonWrapperParser createParser(InputStream in) {
 		try {
-			return new JacksonParser(innerFactory.createParser(in), getSupportedFormat());
+			return new JacksonWrapperParser(innerFactory.createParser(in), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -53,9 +53,9 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	}
 
 	@Override
-	public JacksonParser createParser(Reader reader) {
+	public JacksonWrapperParser createParser(Reader reader) {
 		try {
-			return new JacksonParser(innerFactory.createParser(reader), getSupportedFormat());
+			return new JacksonWrapperParser(innerFactory.createParser(reader), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -63,9 +63,9 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	}
 
 	@Override
-	public JacksonParser createParser(String content) {
+	public JacksonWrapperParser createParser(String content) {
 		try {
-			return new JacksonParser(innerFactory.createParser(content), getSupportedFormat());
+			return new JacksonWrapperParser(innerFactory.createParser(content), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -73,14 +73,14 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	}
 
 	@Override
-	public JacksonSerializer createSerializer(File file) {
+	public JacksonWrapperSerializer createSerializer(File file) {
 		return createSerializer(file, JsonEncoding.UTF8);
 	}
 
 	@Override
-	public JacksonSerializer createSerializer(File file, JsonEncoding encoding) {
+	public JacksonWrapperSerializer createSerializer(File file, JsonEncoding encoding) {
 		try {
-			return new JacksonSerializer(innerFactory.createGenerator(file, encoding), getSupportedFormat());
+			return new JacksonWrapperSerializer(innerFactory.createGenerator(file, encoding), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -88,14 +88,14 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	}
 	
 	@Override
-	public JacksonSerializer createSerializer(OutputStream out) {
+	public JacksonWrapperSerializer createSerializer(OutputStream out) {
 		return createSerializer(out, JsonEncoding.UTF8);
 	}
 	
 	@Override
-	public JacksonSerializer createSerializer(OutputStream out, JsonEncoding encoding) {
+	public JacksonWrapperSerializer createSerializer(OutputStream out, JsonEncoding encoding) {
 		try {
-			return new JacksonSerializer(innerFactory.createGenerator(out, encoding), getSupportedFormat());
+			return new JacksonWrapperSerializer(innerFactory.createGenerator(out, encoding), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -103,9 +103,9 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	}
 
 	@Override
-	public JacksonSerializer createSerializer(Writer writer) {
+	public JacksonWrapperSerializer createSerializer(Writer writer) {
 		try {
-			return new JacksonSerializer(innerFactory.createGenerator(writer), getSupportedFormat());
+			return new JacksonWrapperSerializer(innerFactory.createGenerator(writer), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

@@ -9,12 +9,12 @@ import java.util.List;
 
 import kripton70.core.BinderType;
 import kripton70.core.ParameterizedType;
-import kripton70.persistence.BinderParser;
-import kripton70.persistence.BinderSerializer;
+import kripton70.persistence.ParserWrapper;
+import kripton70.persistence.SerializerWrapper;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 
-public interface BinderContext<S extends BinderSerializer, P extends BinderParser> {
+public interface BinderContext<S extends SerializerWrapper, P extends ParserWrapper> {
 
 	P createParser(byte[] data);
 

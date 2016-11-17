@@ -1,5 +1,5 @@
 package kripton70.persistence;
 
-public interface BinderParser {
+public interface ParserWrapper {
 
 }

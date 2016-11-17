@@ -1,6 +1,6 @@
 package kripton70.persistence;
 
 
-public interface BinderListSerializer extends BinderSerializer {
+public interface BinderListSerializer extends SerializerWrapper {
 
 }

@@ -18,8 +18,8 @@ import javax.xml.stream.XMLStreamException;
 
 import kripton70.core.BinderType;
 import kripton70.core.ParameterizedType;
-import kripton70.persistence.XmlParser;
-import kripton70.persistence.XmlSerializer;
+import kripton70.persistence.XmlWrapperParser;
+import kripton70.persistence.XmlWrapperSerializer;
 
 import org.codehaus.stax2.XMLOutputFactory2;
 import org.codehaus.stax2.XMLStreamReader2;
@@ -32,106 +32,106 @@ import com.fasterxml.jackson.core.JsonEncoding;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class XmlBinderContext extends AbstractContext implements BinderContext<XmlSerializer, XmlParser> {
+public class XmlBinderContext extends AbstractContext implements BinderContext<XmlWrapperSerializer, XmlWrapperParser> {
 
 	@Override
 	public BinderType getSupportedFormat() {
 		return BinderType.XML;
 	}
 
-	public XmlSerializer createSerializer(File file) {
+	public XmlWrapperSerializer createSerializer(File file) {
 		return createSerializer(file, JsonEncoding.UTF8);
 	}
 
-	public XmlSerializer createSerializer(File file, JsonEncoding encoding) {
+	public XmlWrapperSerializer createSerializer(File file, JsonEncoding encoding) {
 		XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) XMLOutputFactory.newFactory();
         try {
 			XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(new FileOutputStream(file), encoding.toString());
-			return new XmlSerializer(xmlStreamWriter, getSupportedFormat());
+			return new XmlWrapperSerializer(xmlStreamWriter, getSupportedFormat());
 		} catch (XMLStreamException | FileNotFoundException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public XmlSerializer createSerializer(OutputStream out) {
+	public XmlWrapperSerializer createSerializer(OutputStream out) {
 		return createSerializer(out, JsonEncoding.UTF8);
 	}
 
-	public XmlSerializer createSerializer(OutputStream out, JsonEncoding encoding) {
+	public XmlWrapperSerializer createSerializer(OutputStream out, JsonEncoding encoding) {
 		XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) XMLOutputFactory.newFactory();
         try {
 			XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(out, encoding.toString());
-			return new XmlSerializer(xmlStreamWriter, getSupportedFormat());
+			return new XmlWrapperSerializer(xmlStreamWriter, getSupportedFormat());
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public XmlSerializer createSerializer(Writer writer) {
+	public XmlWrapperSerializer createSerializer(Writer writer) {
 		XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) XMLOutputFactory.newFactory();
         try {
 			XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(writer, JsonEncoding.UTF8.toString());
-			return new XmlSerializer(xmlStreamWriter, getSupportedFormat());
+			return new XmlWrapperSerializer(xmlStreamWriter, getSupportedFormat());
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}				
 	}
 	
-	public XmlParser createParser(byte[] data) {
+	public XmlWrapperParser createParser(byte[] data) {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
 	    XMLInputFactory inputFactory = XMLInputFactory.newInstance();
         try {
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(inputStream);
-			return new XmlParser(this,xmlStreamReader, getSupportedFormat());
+			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public XmlParser createParser(File file) {
+	public XmlWrapperParser createParser(File file) {
         try {
         	FileInputStream inputStream = new FileInputStream(file);
     	    XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(inputStream);
-			return new XmlParser(this,xmlStreamReader, getSupportedFormat());
+			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException | FileNotFoundException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public XmlParser createParser(InputStream in) {
+	public XmlWrapperParser createParser(InputStream in) {
         try {
         	XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(in);
-			return new XmlParser(this,xmlStreamReader, getSupportedFormat());
+			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public XmlParser createParser(Reader reader) {	    
+	public XmlWrapperParser createParser(Reader reader) {	    
         try {
         	XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(reader);
-			return new XmlParser(this,xmlStreamReader, getSupportedFormat());
+			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public XmlParser createParser(String content) {		
+	public XmlWrapperParser createParser(String content) {		
         try {
         	ByteArrayInputStream inputStream = new ByteArrayInputStream(content.getBytes(JsonEncoding.UTF8.toString()));
     	    XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(inputStream);
-			return new XmlParser(this,xmlStreamReader, getSupportedFormat());
+			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
 		} catch (XMLStreamException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

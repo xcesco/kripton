@@ -1,6 +1,6 @@
 package kripton70.persistence;
 
-public interface BinderSerializer {
+public interface SerializerWrapper {
 
 	void close();
 

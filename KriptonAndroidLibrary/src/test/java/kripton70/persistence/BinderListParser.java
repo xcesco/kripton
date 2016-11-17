@@ -1,6 +1,6 @@
 package kripton70.persistence;
 
 
-public interface BinderListParser extends BinderParser {
+public interface BinderListParser extends ParserWrapper {
 
 }
