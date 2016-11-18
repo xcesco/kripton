@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 
-import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.BinderJsonWriter;
 import com.abubusoft.kripton.binder.json.JsonWriter;
 

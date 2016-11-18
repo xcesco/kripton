@@ -7,7 +7,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
 
-import com.abubusoft.kripton.binder2.core.BinderType;
+import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.binder2.persistence.ParserWrapper;
 import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;

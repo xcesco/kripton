@@ -17,8 +17,6 @@ package com.abubusoft.kripton.processor.core;
 
 import java.util.Map;
 
-import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
-
 public class ModelAnnotation {
 
 	/* (non-Javadoc)
@@ -64,9 +62,14 @@ public class ModelAnnotation {
 		this.attributes = attributes;
 	}
 
+	public String getAttribute(String attributeName) {
+		return attributes.get(attributeName);
+	}
+	
 	public String getAttribute(AnnotationAttributeType attribute) {
 		return attributes.get(attribute.getValue());
 	}
+
 
 	public String getSimpleName() {
 		return name.substring(name.lastIndexOf(".")+1);

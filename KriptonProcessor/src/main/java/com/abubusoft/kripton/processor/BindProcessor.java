@@ -35,6 +35,11 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
+import com.abubusoft.kripton.processor.bind.model.BindEntity;
+import com.abubusoft.kripton.processor.bind.model.BindModel;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
@@ -43,13 +48,6 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
-import com.abubusoft.kripton.processor.sharedprefs.BindSharedPreferencesBuilder;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefModel;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
-import com.abubusoft.kripton.processor.sharedprefs.transform.EnumTransform;
-import com.abubusoft.kripton.processor.sharedprefs.transform.SPTransformer;
-import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 
 /**
  * Annotation processor for json/xml/etc 
@@ -59,7 +57,7 @@ import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
  */
 public class BindProcessor extends BaseProcessor {
 
-	private PrefModel model;
+	private BindModel model;
 
 	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindSharedPreferences.class).build();
 	
@@ -95,25 +93,25 @@ public class BindProcessor extends BaseProcessor {
 				return true;
 			}
 
-			model = new PrefModel();
+			model = new BindModel();
 			int itemCounter = 0;
 
 			parseBindType(roundEnv);
 			for (Element item : globalBeanElements.values()) {
 				if (item.getKind() == ElementKind.ENUM) {
-					SPTransformer.register(typeName(item), new EnumTransform(typeName(item)));
+					//SPTransformer.register(typeName(item), new EnumTransform(typeName(item)));
 				}
 
 			}
 
 			// Put all @BindSharedPreferences elements in beanElements
-			for (Element item : roundEnv.getElementsAnnotatedWith(BindSharedPreferences.class)) {
+			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
 				if (item.getKind() != ElementKind.CLASS) {
 					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindSharedPreferences.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 
-				createSharedPreferences(item);
+				createBindMapper(item);
 
 				itemCounter++;
 			}
@@ -122,8 +120,8 @@ public class BindProcessor extends BaseProcessor {
 				warn("No class with %s annotation was found", BindSharedPreferences.class);
 			}
 
-			for (PrefEntity item : model.getEntities()) {
-				BindSharedPreferencesBuilder.generate(elementUtils, filer, item);
+			for (BindEntity item : model.getEntities()) {
+				BindTypeBuilder.generate(elementUtils, filer, item);
 			}
 
 		} catch (Exception e) {
@@ -139,11 +137,11 @@ public class BindProcessor extends BaseProcessor {
 		return true;
 	}
 
-	private String createSharedPreferences(Element sharedPreference) {
-		Element beanElement = sharedPreference;
+	private String createBindMapper(Element element) {
+		Element beanElement = element;
 		String result = beanElement.getSimpleName().toString();
 
-		final PrefEntity currentEntity = new PrefEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
+		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
@@ -158,16 +156,16 @@ public class BindProcessor extends BaseProcessor {
 
 		final boolean bindAllFields = temp1 && temp2;
 		{
-			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<PrefProperty>() {
+			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<BindProperty>() {
 
 				@Override
-				public PrefProperty createProperty(Element element) {
-					return new PrefProperty(element);
+				public BindProperty createProperty(Element element) {
+					return new BindProperty(element);
 				}
-			}, propertyAnnotationFilter, new PropertyCreatedListener<PrefProperty>() {
+			}, propertyAnnotationFilter, new PropertyCreatedListener<BindProperty>() {
 
 				@Override
-				public boolean onProperty(PrefProperty property) {
+				public boolean onProperty(BindProperty property) {
 					if (property.getPropertyType().isArray() || property.getPropertyType().isList()) {
 						property.setPreferenceType(PreferenceType.STRING);
 					} else {

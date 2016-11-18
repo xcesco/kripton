@@ -36,6 +36,7 @@ import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
@@ -49,7 +50,6 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefModel;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.abubusoft.kripton.processor.sharedprefs.transform.EnumTransform;
 import com.abubusoft.kripton.processor.sharedprefs.transform.SPTransformer;
-import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 
 /**
  * Annotation processor for shared preferences
@@ -173,12 +173,18 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 					} else {
 						if (property.isType(Boolean.TYPE, Boolean.class)) {
 							property.setPreferenceType(PreferenceType.BOOL);
+						} else if (property.isType(Short.TYPE, Short.class)) {
+							property.setPreferenceType(PreferenceType.INT);
+						} else if (property.isType(Character.TYPE, Character.class)) {
+							property.setPreferenceType(PreferenceType.STRING);						
 						} else if (property.isType(Integer.TYPE, Integer.class)) {
 							property.setPreferenceType(PreferenceType.INT);
 						} else if (property.isType(Long.TYPE, Long.class)) {
 							property.setPreferenceType(PreferenceType.LONG);
 						} else if (property.isType(Float.TYPE, Float.class)) {
 							property.setPreferenceType(PreferenceType.FLOAT);
+						} else if (property.isType(Double.TYPE, Double.class)) {
+							property.setPreferenceType(PreferenceType.STRING);
 						} else {
 							property.setPreferenceType(PreferenceType.STRING);
 						}

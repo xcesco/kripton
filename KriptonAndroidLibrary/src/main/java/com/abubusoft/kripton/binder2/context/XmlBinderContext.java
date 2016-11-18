@@ -20,7 +20,7 @@ import org.codehaus.stax2.XMLOutputFactory2;
 import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
-import com.abubusoft.kripton.binder2.core.BinderType;
+import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;

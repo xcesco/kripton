@@ -426,4 +426,8 @@ public class TypeUtility {
 	public static ClassName className(String packageName, String className) {
 		return classNameWithPrefix(packageName, className, "");
 	}
+
+	public static TypeName parameterizedTypeName(ClassName rawClass, TypeName paramClass) {
+		return ParameterizedTypeName.get(rawClass, paramClass);
+	}
 }

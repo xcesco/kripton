@@ -13,20 +13,20 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.PropertiesBinderContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
 import com.abubusoft.kripton.binder2.context.YamlBinderContext;
-import com.abubusoft.kripton.binder2.core.BinderType;
-import com.abubusoft.kripton.binder2.core.KriptonLibrary2;
 
 public class Kripton70Test {
 	
 	@Before
 	public void setup()
 	{
-		KriptonLibrary2.registryBinder(new YamlBinderContext());
-		KriptonLibrary2.registryBinder(new PropertiesBinderContext());
-		KriptonLibrary2.registryBinder(new XmlBinderContext());
+		KriptonBinder2.registryBinder(new YamlBinderContext());
+		KriptonBinder2.registryBinder(new PropertiesBinderContext());
+		KriptonBinder2.registryBinder(new XmlBinderContext());
 	}
 
 	@Test
@@ -76,10 +76,10 @@ public class Kripton70Test {
 		
 		BinderType type = BinderType.XML;
 		
-		String output=KriptonLibrary2.getBinder(type).serialize(bean);
+		String output=KriptonBinder2.getBinder(type).serialize(bean);
 		System.out.println(output);
 		
-		Bean bean2=KriptonLibrary2.getBinder(type).parse(output, Bean.class);
+		Bean bean2=KriptonBinder2.getBinder(type).parse(output, Bean.class);
 		
 		Assert.assertTrue(bean2.equals(bean));
 		

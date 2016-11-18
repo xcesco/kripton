@@ -6,9 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import kripton70.NoSuchMapperException;
 import util.SimpleArrayMap;
 
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.core.BinderMapper;
-import com.abubusoft.kripton.binder2.core.BinderType;
-import com.abubusoft.kripton.binder2.core.KriptonLibrary2;
 import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
@@ -107,7 +107,7 @@ public abstract class AbstractContext {
 			// OBJECT_MAPPERS is if it was compiled separately, but let's handle
 			// it anyway
 			try {
-				Class<E> mapperClass = (Class<E>) Class.forName(cls.getName() + KriptonLibrary2.MAPPER_CLASS_SUFFIX);
+				Class<E> mapperClass = (Class<E>) Class.forName(cls.getName() + KriptonBinder2.MAPPER_CLASS_SUFFIX);
 				mapper = (M) mapperClass.newInstance();
 				// mapper.
 				OBJECT_MAPPERS.put(cls, mapper);

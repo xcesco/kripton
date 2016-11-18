@@ -10,7 +10,6 @@ import com.abubusoft.kripton.binder2.context.XmlBinderContext;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.ParserWrapper;
-import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 

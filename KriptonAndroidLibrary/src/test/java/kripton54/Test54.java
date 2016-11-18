@@ -23,8 +23,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.BinderFactory.XmlReaderType;
+import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.KriptonBinder.XmlReaderType;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.exception.MappingException;
@@ -37,7 +37,7 @@ public class Test54 {
 	public void testWriteXmlNull() throws MappingException, WriterException
 	{
 		// write
-		BinderWriter writer=BinderFactory.getXmlWriter();
+		BinderWriter writer=KriptonBinder.getXmlWriter();
 		
 		writer.write(null);
 	}
@@ -48,7 +48,7 @@ public class Test54 {
 		InputStream stream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));// );
 		
 		// write
-		BinderReader reader=BinderFactory.getXmlReader();
+		BinderReader reader=KriptonBinder.getXmlReader();
 		
 		Bean result=reader.read(Bean.class, stream);
 		assertNull(result);
@@ -60,7 +60,7 @@ public class Test54 {
 		InputStream stream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));// );
 		
 		// write
-		BinderReader reader=BinderFactory.getXmlReader(XmlReaderType.DOM);
+		BinderReader reader=KriptonBinder.getXmlReader(XmlReaderType.DOM);
 		
 		Bean result=reader.read(Bean.class, stream);
 		assertNull(result);
@@ -72,7 +72,7 @@ public class Test54 {
 		InputStream stream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));// );
 		
 		// write
-		BinderReader reader=BinderFactory.getXmlReader(XmlReaderType.SAX);
+		BinderReader reader=KriptonBinder.getXmlReader(XmlReaderType.SAX);
 		
 		Bean result=reader.read(Bean.class, stream);
 		assertNull(result);
@@ -82,7 +82,7 @@ public class Test54 {
 	public void testWriteJsonNull() throws MappingException, WriterException
 	{
 		// write
-		BinderWriter writer=BinderFactory.getJsonWriter();
+		BinderWriter writer=KriptonBinder.getJsonWriter();
 		
 		writer.write(null);
 	}
@@ -93,7 +93,7 @@ public class Test54 {
 		InputStream stream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));// );
 		
 		// write
-		BinderReader reader=BinderFactory.getJsonReader();
+		BinderReader reader=KriptonBinder.getJsonReader();
 		
 		Bean result=reader.read(Bean.class, stream);
 		assertNull(result);

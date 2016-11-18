@@ -4,13 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
-
-import org.codehaus.stax2.XMLStreamReader2;
-import org.codehaus.stax2.XMLStreamWriter2;
 
 import com.abubusoft.kripton.binder2.context.BinderContext;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
@@ -22,20 +18,8 @@ import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.fasterxml.jackson.core.JsonToken;
 
 public abstract class AbstractMapper<E> implements BinderMapper<E> {
-
-	/*
-	 * protected static ByteConverter byteMapper=new ByteConverter(); protected
-	 * static CharacterConverter characterMapper=new CharacterConverter();
-	 * protected static ShortConverter shortMapper=new ShortConverter();
-	 * protected static IntegerConverter integerMapper=new IntegerConverter();
-	 * protected static FloatConverter floatMapper=new FloatConverter();
-	 * protected static DoubleConverter doubleMapper=new DoubleConverter();
-	 * protected static LongConverter longMapper=new LongConverter(); protected
-	 * static StringConverter stringMapper=new StringConverter();
-	 */
 
 	public E parse(@SuppressWarnings("rawtypes") BinderContext context, ParserWrapper parserWrapper) {
 		E instance = null;

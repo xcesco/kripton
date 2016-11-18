@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderJsonWriter;
 
@@ -16,7 +16,7 @@ import retrofit2.Retrofit;
 public final class KriptonJsonConverterFactory extends Converter.Factory {
 
 	public static KriptonJsonConverterFactory create() {
-		return create(BinderFactory.getJsonWriter(), BinderFactory.getJsonReader());
+		return create(KriptonBinder.getJsonWriter(), KriptonBinder.getJsonReader());
 	}
 
 	public static KriptonJsonConverterFactory create(BinderJsonWriter writer, BinderJsonReader reader) {

@@ -17,7 +17,7 @@ package com.abubusoft.kripton.android;
 
 import android.content.Context;
 
-import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
@@ -67,7 +67,7 @@ public class KriptonFileManager {
     	if (bean==null) return;
     	
     	if (writer==null)
-    		writer=BinderFactory.getJsonWriter(BinderOptions.build().indent(true));
+    		writer=KriptonBinder.getJsonWriter(BinderOptions.build().indent(true));
 
         try {
             writer.write(bean, KriptonLibrary.context().openFileOutput(bean.getClass().getSimpleName()+EXTENSION , Context.MODE_PRIVATE));
@@ -92,7 +92,7 @@ public class KriptonFileManager {
         if (file.exists())
         {   
         	if (reader==null)
-        		reader=BinderFactory.getJsonReader();
+        		reader=KriptonBinder.getJsonReader();
         	
             try {
                 bean=reader.read(clazz, KriptonLibrary.context().openFileInput(clazz.getSimpleName()+EXTENSION));

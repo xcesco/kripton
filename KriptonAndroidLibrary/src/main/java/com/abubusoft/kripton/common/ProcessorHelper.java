@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import com.abubusoft.kripton.BinderFactory;
+import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderJsonWriter;
 import com.abubusoft.kripton.BinderOptions;
@@ -156,7 +156,7 @@ public abstract class ProcessorHelper {
 
 				@Override
 				protected BinderJsonWriter initialValue() {
-					return BinderFactory.getJsonWriter(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+					return KriptonBinder.getJsonWriter(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 				}
 				
 			};			
@@ -277,7 +277,7 @@ public abstract class ProcessorHelper {
 
 				@Override
 				protected BinderJsonReader initialValue() {
-					return (BinderJsonReader) BinderFactory.getJsonReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+					return (BinderJsonReader) KriptonBinder.getJsonReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 				}
 				
 			};			

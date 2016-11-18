@@ -4,7 +4,7 @@ import javax.xml.stream.XMLStreamException;
 
 import org.codehaus.stax2.XMLStreamWriter2;
 
-import com.abubusoft.kripton.binder2.core.BinderType;
+import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public class XmlWrapperSerializer implements SerializerWrapper {

@@ -22,8 +22,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.BinderFactory.XmlReaderType;
+import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.KriptonBinder.XmlReaderType;
 import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderJsonWriter;
 import com.abubusoft.kripton.BinderReader;
@@ -54,7 +54,7 @@ public class Test61 {
 		list.add(new Bean(1, "ciao"));
 		list.add(new Bean(2, "ciao2"));
 
-		BinderJsonWriter writer = BinderFactory.getJsonWriter();
+		BinderJsonWriter writer = KriptonBinder.getJsonWriter();
 
 		String result = writer.writeCollection(list);
 
@@ -68,7 +68,7 @@ public class Test61 {
 		list[0] = new Bean(1, "ciao");
 		list[1] = new Bean(2, "ciao2");
 
-		BinderJsonWriter writer = BinderFactory.getJsonWriter();
+		BinderJsonWriter writer = KriptonBinder.getJsonWriter();
 
 		String result = writer.writeCollection(Arrays.asList(list));
 
@@ -82,7 +82,7 @@ public class Test61 {
 		list[0] = 1L;
 		list[1] = 2L;
 
-		BinderJsonWriter writer = BinderFactory.getJsonWriter();
+		BinderJsonWriter writer = KriptonBinder.getJsonWriter();
 
 		String result = writer.writeCollection(Arrays.asList(list));// CollectionUtils.convertArray(list, ArrayList.class));
 
@@ -96,13 +96,13 @@ public class Test61 {
 		list[0] = 1.1f;
 		list[1] = 2.2f;
 
-		BinderJsonWriter writer = BinderFactory.getJsonWriter();
+		BinderJsonWriter writer = KriptonBinder.getJsonWriter();
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
 		String middle = writer.writeCollection(CollectionUtility.asList(list, LinkedList.class));
 		System.out.println(middle);
 
-		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJsonReader();
+		BinderJsonReader reader = (BinderJsonReader) KriptonBinder.getJsonReader();
 		List<Float> result = reader.readList(Float.TYPE, middle);
 		System.out.println(result.toArray(new Float[result.size()]));
 	}
@@ -114,11 +114,11 @@ public class Test61 {
 		list[0] = 1L;
 		list[1] = 2L;
 
-		BinderJsonWriter writer = BinderFactory.getJsonWriter();
+		BinderJsonWriter writer = KriptonBinder.getJsonWriter();
 		String middle = writer.writeCollection(Arrays.asList(list));
 		System.out.println(middle);
 
-		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJsonReader();
+		BinderJsonReader reader = (BinderJsonReader) KriptonBinder.getJsonReader();
 		List<Long> result = reader.readList(Long.TYPE, middle);
 		System.out.println(result);
 	}
@@ -161,15 +161,15 @@ public class Test61 {
 
 	@Test
 	public void testWriteArrayPrestazione() throws MappingException, WriterException, ReaderException {
-		BinderJsonReader reader = (BinderJsonReader) BinderFactory.getJsonReader();
+		BinderJsonReader reader = (BinderJsonReader) KriptonBinder.getJsonReader();
 		ArrayList<Parent> result = reader.readCollection(new ArrayList<Parent>(),  Parent.class, input);
 		System.out.println(result);
 	}
 
 	@Test
 	public void testJsonObjectOrList() throws MappingException, WriterException, ReaderException {
-		JsonWriter writer = (JsonWriter) BinderFactory.getJsonWriter();
-		JsonReader reader = (JsonReader) BinderFactory.getJsonReader();
+		JsonWriter writer = (JsonWriter) KriptonBinder.getJsonWriter();
+		JsonReader reader = (JsonReader) KriptonBinder.getJsonReader();
 
 		Bean bean = new Bean();
 		bean.id = 235;
@@ -189,8 +189,8 @@ public class Test61 {
 	
 	@Test
 	public void testXmlWrite() throws MappingException, WriterException, ReaderException {
-		BinderWriter writer = BinderFactory.getXmlWriter();
-		BinderReader reader = BinderFactory.getXmlReader(XmlReaderType.DOM);
+		BinderWriter writer = KriptonBinder.getXmlWriter();
+		BinderReader reader = KriptonBinder.getXmlReader(XmlReaderType.DOM);
 
 		Bean bean = new Bean();
 		bean.id = 235;
@@ -215,7 +215,7 @@ public class Test61 {
 	@Test
 	public void testXmlRead1() throws MappingException, WriterException, ReaderException {
 		String input="<?xml version=\"1.0\" encoding=\"utf-8\"?><bean><text>test</text><valueStringList>inva</valueStringList><valueStringList>inva2</valueStringList></bean>";
-		BinderReader reader = BinderFactory.getXmlReader(XmlReaderType.DOM);
+		BinderReader reader = KriptonBinder.getXmlReader(XmlReaderType.DOM);
 
 		Bean bean = new Bean();
 		bean.id = 235;
@@ -235,7 +235,7 @@ public class Test61 {
 	@Test
 	public void testXmlRead2() throws MappingException, WriterException, ReaderException {
 		String input="<?xml version=\"1.0\" encoding=\"utf-8\"?><bean><text>test</text><valueStringList>inva</valueStringList><valueStringList>inva2</valueStringList></bean>";
-		BinderReader reader = BinderFactory.getXmlReader(XmlReaderType.SAX);
+		BinderReader reader = KriptonBinder.getXmlReader(XmlReaderType.SAX);
 
 		Bean bean = new Bean();
 		bean.id = 235;

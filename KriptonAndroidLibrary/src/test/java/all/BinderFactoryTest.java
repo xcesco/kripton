@@ -23,8 +23,8 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.abubusoft.kripton.BinderFactory;
-import com.abubusoft.kripton.BinderFactory.XmlReaderType;
+import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.KriptonBinder.XmlReaderType;
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderReader;
 import com.abubusoft.kripton.BinderWriter;
@@ -38,43 +38,43 @@ public class BinderFactoryTest {
 	@Test
 	public void test() {
 		{
-			BinderWriter writer1 = BinderFactory.getJsonWriter();
-			BinderWriter writer2 = BinderFactory.getJsonWriter(BinderOptions.build());
+			BinderWriter writer1 = KriptonBinder.getJsonWriter();
+			BinderWriter writer2 = KriptonBinder.getJsonWriter(BinderOptions.build());
 
 			assertReflectionEquals(writer1, writer2);
 		}
 
 		{
-			BinderWriter writer1 = BinderFactory.getXmlWriter();
-			BinderWriter writer2 = BinderFactory.getXmlWriter(BinderOptions.build());
+			BinderWriter writer1 = KriptonBinder.getXmlWriter();
+			BinderWriter writer2 = KriptonBinder.getXmlWriter(BinderOptions.build());
 
 			assertReflectionEquals(writer1, writer2);
 		}
 		
 		{
-			BinderReader reader1 = BinderFactory.getJsonReader();
-			BinderReader reader2 = BinderFactory.getJsonReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+			BinderReader reader1 = KriptonBinder.getJsonReader();
+			BinderReader reader2 = KriptonBinder.getJsonReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 
 			assertReflectionEquals(reader1, reader2);
 		}
 
 		{
-			BinderReader reader1 = BinderFactory.getXmlReader();
-			BinderReader reader2 = BinderFactory.getXmlReader(XmlReaderType.SAX, BinderOptions.build());
+			BinderReader reader1 = KriptonBinder.getXmlReader();
+			BinderReader reader2 = KriptonBinder.getXmlReader(XmlReaderType.SAX, BinderOptions.build());
 
 			assertReflectionEquals(reader1, reader2);
 		}
 		
 		{
-			BinderReader reader1 = BinderFactory.getXmlReader();
-			BinderReader reader2 = BinderFactory.getXmlReader(XmlReaderType.DOM, BinderOptions.build());
+			BinderReader reader1 = KriptonBinder.getXmlReader();
+			BinderReader reader2 = KriptonBinder.getXmlReader(XmlReaderType.DOM, BinderOptions.build());
 
 			Assert.assertNotEquals(reader1, reader2);
 		}
 		
 		{
-			BinderReader reader1 = BinderFactory.getXmlReader();
-			BinderReader reader2 = BinderFactory.getXmlReader(XmlReaderType.SAX, BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+			BinderReader reader1 = KriptonBinder.getXmlReader();
+			BinderReader reader2 = KriptonBinder.getXmlReader(XmlReaderType.SAX, BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
 
 			assertReflectionEquals(reader1, reader2);
 		}

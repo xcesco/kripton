@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.binder2.context;
 
-import com.abubusoft.kripton.binder2.core.BinderType;
+import com.abubusoft.kripton.binder2.BinderType;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
 
