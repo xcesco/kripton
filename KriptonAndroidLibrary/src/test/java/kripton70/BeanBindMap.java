@@ -94,7 +94,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 
 			// field valueString
 			if (object.valueString != null)
-				jacksonSerializer.writeStringField("valueString", object.valueString);
+				jacksonSerializer.writeStringField("valueString",  StringEscapeUtils.escapeXml10(object.valueString));
 
 			// field valueByte
 			if (object.valueByte != null)
