@@ -169,8 +169,8 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 	public void serializeOnXml(XmlBinderContext context, Bean object, XmlWrapperSerializer wrapper, int currentEventType) {
 		try {
 			XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
-			
-			if (currentEventType==0)
+
+			if (currentEventType == 0)
 				xmlSerializer.writeStartElement("bean");
 
 			// field id (attribute)
@@ -183,7 +183,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 			xmlSerializer.writeStartElement("valueByteType");
 			xmlSerializer.writeInt(object.valueByteType);
 			xmlSerializer.writeEndElement();
-			
+
 			// field valueByte
 			if (object.valueByte != null) {
 				xmlSerializer.writeStartElement("valueByte");
@@ -206,7 +206,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 				// xmlSerializer.writeEndElement();
 			}
 
-			if (currentEventType==0)
+			if (currentEventType == 0)
 				xmlSerializer.writeEndElement();
 
 		} catch (XMLStreamException e) {
@@ -400,51 +400,50 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 		try {
 			XMLStreamReader2 xmlParser = wrapper.xmlParser;
 			Bean instance = createInstance();
-			int eventType=currentEventType;
+			int eventType = currentEventType;
 			String currentTag = null;
-			String attributeName=null;
-			String attributeValue=null;
-			
-			if (currentEventType==0)
-			{
-				eventType=xmlParser.next();
+			String attributeName = null;
+			String attributeValue = null;
+
+			if (currentEventType == 0) {
+				eventType = xmlParser.next();
 			} else {
-				currentTag="bean";
+				// object tag
+				currentTag = "bean";
 			}
-						
-			do {				 
+
+			do {
 				switch (eventType) {
 				case XMLEvent.START_ELEMENT:
 					// start and inner bean
-					if (currentTag==null)
-					{
+					if (currentTag == null) {
 						currentTag = xmlParser.getName().toString();
-					} 
+					}
 					switch (currentTag) {
 					case "bean":
-						// current object
+						// object tag
 						int attributes = xmlParser.getAttributeCount();
 						for (int i = 0; i < attributes; i++) {
 							System.out.println(String.format("tag %s attribute %s value '%s'", currentTag, xmlParser.getAttributeLocalName(i), StringEscapeUtils.unescapeXml(xmlParser.getAttributeValue(i))));
-							attributeName=xmlParser.getAttributeLocalName(i);
-							attributeValue=StringEscapeUtils.unescapeXml(xmlParser.getAttributeValue(i));
-							
+							attributeName = xmlParser.getAttributeLocalName(i);
+							attributeValue = StringEscapeUtils.unescapeXml(xmlParser.getAttributeValue(i));
+
 							// attributes
-							switch(attributeName)
-							{
+							switch (attributeName) {
 							case "id":
-								instance.id=Long.valueOf(attributeValue);
+								instance.id = Long.valueOf(attributeValue);
 								break;
 							case "name":
-								instance.name=attributeValue;
+								instance.name = attributeValue;
 								break;
-							default: break;
+							default:
+								break;
 							}
 						}
 						break;
 					case "valueBean":
 						// field valueBean
-						instance.valueBean=context.mapperFor(Bean.class).parseOnXml(context, wrapper, eventType);
+						instance.valueBean = context.mapperFor(Bean.class).parseOnXml(context, wrapper, eventType);
 						break;
 					default:
 						break;
@@ -452,21 +451,22 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 
 					break;
 				case XMLEvent.END_ELEMENT:
-					currentTag=null;
+					currentTag = null;
 					break;
 				case XMLEvent.CDATA:
 				case XMLEvent.CHARACTERS:
-					// element value
+					// element values
 					System.out.println(String.format("tag %s value '%s'", currentTag, StringEscapeUtils.unescapeXml(xmlParser.getText())));
-					
+
 					// put on instance cdata
-					instance.content=StringEscapeUtils.unescapeXml(xmlParser.getText());
+					instance.content = StringEscapeUtils.unescapeXml(xmlParser.getText());
 					break;
 				default:
 					break;
 
 				}
-				if (xmlParser.hasNext()) eventType=xmlParser.next();
+				if (xmlParser.hasNext())
+					eventType = xmlParser.next();
 			} while (xmlParser.hasNext());
 
 			return instance;
@@ -535,8 +535,4 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 	 */
 	// }
 
-	/*
-	 * private static final TypeConverter<Date> getjava_util_Date_type_converter() { if (java_util_Date_type_converter == null) { java_util_Date_type_converter = LoganSquare.typeConverterFor(Date.class); } return
-	 * java_util_Date_type_converter; }
-	 */
 }
