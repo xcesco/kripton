@@ -1,12 +1,11 @@
-package kripton70.core;
+package com.abubusoft.kripton.binder2.core;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import com.abubusoft.kripton.binder2.context.BinderContext;
+import com.abubusoft.kripton.binder2.context.JsonBinderContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-
-import kripton70.contexts.BinderContext;
-import kripton70.contexts.JsonBinderContext;
 
 public abstract class KriptonLibrary2 {
 	

@@ -10,19 +10,18 @@ import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
 import com.abubusoft.kripton.android.annotation.BindMap;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.context.XmlBinderContext;
+import com.abubusoft.kripton.binder2.core.AbstractMapper;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-
-import kripton70.contexts.JacksonContext;
-import kripton70.contexts.XmlBinderContext;
-import kripton70.core.AbstractMapper;
-import kripton70.persistence.JacksonWrapperParser;
-import kripton70.persistence.JacksonWrapperSerializer;
-import kripton70.persistence.XmlWrapperParser;
-import kripton70.persistence.XmlWrapperSerializer;
 
 @BindMap
 public final class BeanBindMap extends AbstractMapper<Bean> {

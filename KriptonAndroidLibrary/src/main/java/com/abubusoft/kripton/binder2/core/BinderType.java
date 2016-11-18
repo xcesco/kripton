@@ -1,4 +1,4 @@
-package kripton70.core;
+package com.abubusoft.kripton.binder2.core;
 
 public enum BinderType {
 	JSON(false),

@@ -1,26 +1,24 @@
-package kripton70.contexts;
+package com.abubusoft.kripton.binder2.context;
 
+import com.abubusoft.kripton.binder2.core.BinderType;
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-
-import kripton70.core.BinderType;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class YamlBinderContext extends JacksonContext {
+public class JsonBinderContext extends JacksonContext {
 
 	@Override
 	public BinderType getSupportedFormat()
 	{
-		return BinderType.YAML;
+		return BinderType.JSON;
 	}
 	
 	@Override
 	public JsonFactory createInnerFactory()
 	{
-		return new YAMLFactory();
+		return new JsonFactory();
 	}
 	
 }

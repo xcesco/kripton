@@ -1,4 +1,4 @@
-package kripton70.core;
+package com.abubusoft.kripton.binder2.core;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,16 +12,15 @@ import javax.xml.stream.XMLStreamException;
 import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
-import kripton70.contexts.BinderContext;
-import kripton70.contexts.JacksonContext;
-import kripton70.contexts.XmlBinderContext;
-import kripton70.persistence.ParserWrapper;
-import kripton70.persistence.SerializerWrapper;
-import kripton70.persistence.JacksonWrapperParser;
-import kripton70.persistence.JacksonWrapperSerializer;
-import kripton70.persistence.XmlWrapperParser;
-import kripton70.persistence.XmlWrapperSerializer;
-
+import com.abubusoft.kripton.binder2.context.BinderContext;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.context.XmlBinderContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.binder2.persistence.ParserWrapper;
+import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
+import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonToken;
 

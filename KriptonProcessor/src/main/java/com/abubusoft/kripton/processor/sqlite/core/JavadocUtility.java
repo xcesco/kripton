@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.core;
+package com.abubusoft.kripton.processor.sqlite.core;
 
 import java.util.Date;
 import java.util.List;
@@ -25,6 +25,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.Version;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.PropertyList;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectResultType;
@@ -70,7 +71,7 @@ public abstract class JavadocUtility {
 				{
 					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.trim());
 					SQLProperty attribute = fieldList.value1.get(i);
-					methodBuilder.addJavadoc("<dd>is associated to bean's property <strong>$L</strong></dd>", attribute.name);
+					methodBuilder.addJavadoc("<dd>is associated to bean's property <strong>$L</strong></dd>", attribute.getName());
 				} else {
 					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.trim());
 					methodBuilder.addJavadoc("<dd>no bean's property is associated</dd>");

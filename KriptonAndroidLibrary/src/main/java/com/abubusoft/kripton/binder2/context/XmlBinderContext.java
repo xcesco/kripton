@@ -1,4 +1,4 @@
-package kripton70.contexts;
+package com.abubusoft.kripton.binder2.context;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -16,15 +16,14 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 
-import kripton70.core.BinderType;
-import kripton70.core.ParameterizedType;
-import kripton70.persistence.XmlWrapperParser;
-import kripton70.persistence.XmlWrapperSerializer;
-
 import org.codehaus.stax2.XMLOutputFactory2;
 import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
+import com.abubusoft.kripton.binder2.core.BinderType;
+import com.abubusoft.kripton.binder2.core.ParameterizedType;
+import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonEncoding;
 

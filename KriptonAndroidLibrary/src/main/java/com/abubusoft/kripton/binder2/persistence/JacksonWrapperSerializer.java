@@ -1,12 +1,11 @@
-package kripton70.persistence;
+package com.abubusoft.kripton.binder2.persistence;
 
 import java.io.IOException;
 
+import com.abubusoft.kripton.binder2.context.BinderContext;
+import com.abubusoft.kripton.binder2.core.BinderType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
-
-import kripton70.contexts.BinderContext;
-import kripton70.core.BinderType;
 
 public class JacksonWrapperSerializer implements BinderListSerializer {
 	protected BinderContext<?, ?> context;

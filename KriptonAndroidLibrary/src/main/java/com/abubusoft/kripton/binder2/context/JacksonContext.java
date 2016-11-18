@@ -1,4 +1,4 @@
-package kripton70.contexts;
+package com.abubusoft.kripton.binder2.context;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -9,10 +9,9 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
 
-import kripton70.core.ParameterizedType;
-import kripton70.persistence.JacksonWrapperParser;
-import kripton70.persistence.JacksonWrapperSerializer;
-
+import com.abubusoft.kripton.binder2.core.ParameterizedType;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;

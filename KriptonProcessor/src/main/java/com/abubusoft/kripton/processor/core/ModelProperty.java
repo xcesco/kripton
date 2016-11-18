@@ -190,7 +190,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 	
 	@Override
-	public void accept(ModelElementVisitor visitor) throws Exception {
+	public void accept(@SuppressWarnings("rawtypes") ModelElementVisitor visitor) throws Exception {
 		visitor.visit(this);		
 	}
 

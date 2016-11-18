@@ -1,11 +1,10 @@
-package kripton70.persistence;
+package com.abubusoft.kripton.binder2.persistence;
 
 import javax.xml.stream.XMLStreamException;
 
-import kripton70.core.BinderType;
-
 import org.codehaus.stax2.XMLStreamWriter2;
 
+import com.abubusoft.kripton.binder2.core.BinderType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public class XmlWrapperSerializer implements SerializerWrapper {

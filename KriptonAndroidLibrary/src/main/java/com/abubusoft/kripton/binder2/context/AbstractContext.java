@@ -1,15 +1,15 @@
-package kripton70.contexts;
+package com.abubusoft.kripton.binder2.context;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import kripton70.NoSuchMapperException;
-import kripton70.core.BinderMapper;
-import kripton70.core.BinderType;
-import kripton70.core.KriptonLibrary2;
-import kripton70.core.ParameterizedType;
 import util.SimpleArrayMap;
 
+import com.abubusoft.kripton.binder2.core.BinderMapper;
+import com.abubusoft.kripton.binder2.core.BinderType;
+import com.abubusoft.kripton.binder2.core.KriptonLibrary2;
+import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public abstract class AbstractContext {

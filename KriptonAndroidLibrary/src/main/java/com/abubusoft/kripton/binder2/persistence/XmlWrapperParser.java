@@ -1,9 +1,9 @@
-package kripton70.persistence;
+package com.abubusoft.kripton.binder2.persistence;
 
 import org.codehaus.stax2.XMLStreamReader2;
 
-import kripton70.contexts.BinderContext;
-import kripton70.core.BinderType;
+import com.abubusoft.kripton.binder2.context.BinderContext;
+import com.abubusoft.kripton.binder2.core.BinderType;
 
 public class XmlWrapperParser implements ParserWrapper {
 

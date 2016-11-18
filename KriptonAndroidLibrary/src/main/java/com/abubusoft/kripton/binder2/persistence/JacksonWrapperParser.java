@@ -1,8 +1,7 @@
-package kripton70.persistence;
+package com.abubusoft.kripton.binder2.persistence;
 
+import com.abubusoft.kripton.binder2.core.BinderType;
 import com.fasterxml.jackson.core.JsonParser;
-
-import kripton70.core.BinderType;
 
 public class JacksonWrapperParser implements BinderListParser {
 

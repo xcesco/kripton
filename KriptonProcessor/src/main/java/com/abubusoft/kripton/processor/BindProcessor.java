@@ -52,12 +52,12 @@ import com.abubusoft.kripton.processor.sharedprefs.transform.SPTransformer;
 import com.abubusoft.kripton.processor.sqlite.model.AnnotationAttributeType;
 
 /**
- * Annotation processor for shared preferences
+ * Annotation processor for json/xml/etc 
  * 
  * @author xcesco
  *
  */
-public class BindSharedPreferencesProcessor extends BaseProcessor {
+public class BindProcessor extends BaseProcessor {
 
 	private PrefModel model;
 

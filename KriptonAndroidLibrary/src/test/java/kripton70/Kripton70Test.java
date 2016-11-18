@@ -7,17 +7,17 @@ import java.util.HashMap;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 
-import kripton70.contexts.PropertiesBinderContext;
-import kripton70.contexts.XmlBinderContext;
-import kripton70.contexts.YamlBinderContext;
-import kripton70.core.BinderType;
-import kripton70.core.KriptonLibrary2;
-
 import org.codehaus.stax2.XMLOutputFactory2;
 import org.codehaus.stax2.XMLStreamWriter2;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.abubusoft.kripton.binder2.context.PropertiesBinderContext;
+import com.abubusoft.kripton.binder2.context.XmlBinderContext;
+import com.abubusoft.kripton.binder2.context.YamlBinderContext;
+import com.abubusoft.kripton.binder2.core.BinderType;
+import com.abubusoft.kripton.binder2.core.KriptonLibrary2;
 
 public class Kripton70Test {
 	
