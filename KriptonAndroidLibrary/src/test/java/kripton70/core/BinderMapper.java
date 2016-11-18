@@ -45,12 +45,12 @@ public interface BinderMapper<E> {
 	
 	void serializeOnJacksonAsString(JacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer, boolean writeStartAndEnd);
 
-	void serializeOnXml(XmlBinderContext context, E object, XmlWrapperSerializer xmlSerializer, boolean writeStartAndEnd);
+	void serializeOnXml(XmlBinderContext context, E object, XmlWrapperSerializer xmlSerializer, int currentEventType);
 	
-	E parseOnJackson(JacksonContext context, JacksonWrapperParser jacksonParser);
+	E parseOnJackson(JacksonContext context, JacksonWrapperParser jacksonParser, boolean writeStartAndEnd);
 	
-	E parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser jacksonParser);
+	E parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser jacksonParser, boolean writeStartAndEnd);
 
-	E parseOnXml(XmlBinderContext context, XmlWrapperParser xmlParser);
+	E parseOnXml(XmlBinderContext context, XmlWrapperParser xmlParser, int currentEventType);
 
 }

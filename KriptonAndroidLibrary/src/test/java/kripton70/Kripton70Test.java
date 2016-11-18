@@ -35,7 +35,9 @@ public class Kripton70Test {
 		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
 		Bean bean=new Bean();
 		bean.id=25;
-		bean.valueString="hello";
+		bean.name="\"hello===ciao\"";
+		bean.valueString="<hello===ciao]]>";
+		bean.content="<hello===ciao]]>";
 		
 		bean.valueByteType=12;
 		bean.valueCharType='a';
@@ -53,6 +55,10 @@ public class Kripton70Test {
 		bean.valueFloat=13.0f;
 		bean.valueDouble=13.0;
 		
+		bean.valueBean=new Bean();
+		bean.valueBean.id=25;
+		bean.valueBean.valueString="hello";
+		
 		/*bean.valueStringList=new ArrayList<>();
 		bean.valueStringList.add("hello1");
 		bean.valueStringList.add("hello2");
@@ -66,9 +72,7 @@ public class Kripton70Test {
 		bean.valueStringMap.put("aa", "bb");
 		bean.valueStringMap.put("cc", "dd");
 		
-		bean.valueBean=new Bean();
-		bean.valueBean.id=25;
-		bean.valueBean.valueString="hello";*/
+		*/
 		
 		BinderType type = BinderType.XML;
 		

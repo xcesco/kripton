@@ -43,13 +43,13 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 
 		switch (context.getSupportedFormat()) {
 		case XML:
-			instance = parseOnXml((XmlBinderContext) context, (XmlWrapperParser) parserWrapper);
+			instance = parseOnXml((XmlBinderContext) context, (XmlWrapperParser) parserWrapper, 0);
 			break;
 		default:
 			if (context.getSupportedFormat().onlyText)
-				instance = parseOnJacksonAsString((JacksonContext) context, (JacksonWrapperParser) parserWrapper);
+				instance = parseOnJacksonAsString((JacksonContext) context, (JacksonWrapperParser) parserWrapper, true);
 			else
-				instance = parseOnJackson((JacksonContext) context, (JacksonWrapperParser) parserWrapper);
+				instance = parseOnJackson((JacksonContext) context, (JacksonWrapperParser) parserWrapper, true);
 
 		}
 
@@ -63,7 +63,7 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 			try {
 				XmlWrapperSerializer wrapper = ((XmlWrapperSerializer) serializerWrapper);
 				wrapper.xmlSerializer.writeStartDocument();
-				serializeOnXml((XmlBinderContext) context, object, wrapper, true);
+				serializeOnXml((XmlBinderContext) context, object, wrapper, 0);
 				wrapper.xmlSerializer.writeEndDocument();
 			} catch (XMLStreamException e) {
 				e.printStackTrace();
