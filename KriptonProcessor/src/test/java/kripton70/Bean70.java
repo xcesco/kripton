@@ -10,7 +10,7 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 @BindTypeXml("root")
 public class Bean70 {
 	
-	@BindXml("name")
+	@BindXml(value="name", xmlType=XmlType.ATTRIBUTE)
 	public long id;
 	
 	@Bind(order=40)
@@ -24,6 +24,7 @@ public class Bean70 {
 	public Boolean valueBool1;
 	
 	@Bind(order=3)
+	@BindXml(xmlType=XmlType.VALUE)
 	public String valueString;
 	
 /*

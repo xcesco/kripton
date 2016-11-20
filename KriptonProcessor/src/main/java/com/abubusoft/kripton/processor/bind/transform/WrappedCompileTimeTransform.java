@@ -4,11 +4,8 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -29,7 +26,8 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 	protected boolean nullable;
 	
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
+	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		/*
 		if (add) {
 						
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
@@ -41,12 +39,12 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 		
 		if (add) {
 			methodBuilder.addCode((property.isFieldWithSetter()?")":""));
-		}
+		}*/
 	}
 
 
 	@Override
-	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
 		if (beanClass!=null)
 		{			
 			if (nullable)
@@ -78,14 +76,14 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 
 
 	@Override
-	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
-	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// TODO Auto-generated method stub
 		
 	}

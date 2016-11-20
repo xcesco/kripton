@@ -47,7 +47,8 @@ public class MapTransformation extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
+	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		/*
 		Class<?> mapClazz = defineMapClass(listTypeName);
 
 		if (add) {
@@ -60,11 +61,11 @@ public class MapTransformation extends AbstractBindTransform {
 
 		if (add) {
 			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
-		}
+		}*/
 	}
 
 	@Override
-	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
 		if (beanClass != null) {
 			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 			methodBuilder.addCode("$L.putString($S,$T.asString($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
@@ -82,13 +83,13 @@ public class MapTransformation extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// TODO Auto-generated method stub
 		
 	}

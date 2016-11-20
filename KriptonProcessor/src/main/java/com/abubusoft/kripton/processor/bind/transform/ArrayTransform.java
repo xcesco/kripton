@@ -16,18 +16,14 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import java.util.ArrayList;
 
-import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -55,33 +51,12 @@ public class ArrayTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
-		String primitiveName=primitiveType(name);
-
-		if (add) {
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
-		}
-
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
+	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		
-		if (primitive)
-		{		
-			methodBuilder.addCode("$T.as$LTypeArray($T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, primitiveName, helperClazz, ArrayList.class, primitiveName, primitiveName, preferenceName, property.getName());
-		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)){
-			methodBuilder.addCode("$T.as$LArray($T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, primitiveName, helperClazz, ArrayList.class, name, name, preferenceName, property.getName());
-		} else {
-			methodBuilder.addCode("$T.asArray($T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, helperClazz, ArrayList.class, name, name, preferenceName, property.getName());
-		}
-		methodBuilder.addCode(": null");
-
-		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
-		}
 	}
 
 	@Override
-	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
 		if (beanClass != null) {
 			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 
@@ -117,13 +92,13 @@ public class ArrayTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// TODO Auto-generated method stub
 		
 	}

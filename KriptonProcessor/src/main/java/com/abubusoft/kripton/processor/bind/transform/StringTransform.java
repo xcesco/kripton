@@ -16,13 +16,13 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a Java String object
@@ -36,7 +36,8 @@ public class StringTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnXml(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnXml(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		XmlType xmlType = property.xmlInfo.xmlType;
 		methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 
 		switch (xmlType) {
@@ -49,10 +50,10 @@ public class StringTransform extends AbstractBindTransform {
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			break;
 		case VALUE:
-			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L))", serializerName, property.xmlInfo.tagName, StringEscapeUtils.class, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L))", serializerName, StringEscapeUtils.class, beanName, getter(beanClass, property));
 			break;
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L.writeCData($T.escapeXml10($L.$L))", serializerName, property.xmlInfo.tagName, StringEscapeUtils.class, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeCData($T.escapeXml10($L.$L))", serializerName, StringEscapeUtils.class, beanName, getter(beanClass, property));
 			break;
 		}
 
@@ -61,20 +62,39 @@ public class StringTransform extends AbstractBindTransform {
 	}
 	
 	@Override
-	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 		methodBuilder.addStatement("$L.writeStringField($S, $L.$L)", serializerName, property.jacksonName, beanName, getter(beanClass, property));
 		methodBuilder.endControlFlow();
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		// TODO Auto-generated method stub
+	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		XmlType xmlType = property.xmlInfo.xmlType;
+		
+		switch (xmlType) {
+		case ATTRIBUTE:
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"attributeValue"), beanName);
+			break;/*
+		case TAG:
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tagName);
+			methodBuilder.addStatement("$L.write$L($L.$L)", serializerName, XML_TYPE, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+			break;
+		case VALUE:			
+			methodBuilder.addStatement("$L.write$L($L.$L)", serializerName, property.xmlInfo.tagName, XML_TYPE, beanName, getter(beanClass, property));
+			break;
+		case VALUE_CDATA:
+			methodBuilder.addStatement("$L.writeCData(String.valueOf($L.$L))", serializerName, property.xmlInfo.tagName, beanName, getter(beanClass, property));
+			break;*/
+		default:
+			break;
+		}
 
 	}
 
 	@Override
-	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 		methodBuilder.addStatement("$L.writeStringField($S, $L.$L)", serializerName, property.jacksonName, beanName, getter(beanClass, property));
 		methodBuilder.endControlFlow();
