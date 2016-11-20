@@ -35,19 +35,19 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 public class Bean02 {
 
 	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	private Date birthday;
 	
 	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	private String name;
 
 	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	private String surname;
 	
 	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	private int[] tickets;
 
 	public int[] getTickets() {

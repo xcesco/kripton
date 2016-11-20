@@ -92,11 +92,11 @@ public class Bean1 implements Serializable {
 	private Date birthday;
 	
 	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	private String name;
 
 	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	private String surname;
 	
 	@Bind(value="f1")

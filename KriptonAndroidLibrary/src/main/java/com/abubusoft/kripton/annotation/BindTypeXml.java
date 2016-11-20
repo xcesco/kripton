@@ -40,7 +40,7 @@ public @interface BindTypeXml {
     public String value() default "";
     
     /**
-     * Default namespace of the root XML element. Not used in JSON
+     * Default namespace of the root XML element.
      * 
      * @return namespace
      */

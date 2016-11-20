@@ -75,7 +75,7 @@ public class Bean0 {
 	private Date birthday;
 	
 	@Bind
-	@BindXml(value=XmlType.VALUE_CDATA)
+	@BindXml(xmlType=XmlType.VALUE_CDATA)
 	private String name;
 
 	@Bind

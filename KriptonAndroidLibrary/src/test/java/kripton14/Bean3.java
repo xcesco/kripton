@@ -43,7 +43,7 @@ public class Bean3 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@BindXml(value=XmlType.ATTRIBUTE)
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	Set<Bean0> set;
 
 }

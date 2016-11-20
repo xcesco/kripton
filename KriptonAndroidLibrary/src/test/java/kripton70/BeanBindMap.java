@@ -180,7 +180,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 
 			// field valueByteType
 			xmlSerializer.writeStartElement("valueByteType");
-			xmlSerializer.writeInt(object.valueByteType);
+			xmlSerializer.writeLong(object.valueByteType);
 			xmlSerializer.writeEndElement();
 
 			// field valueByte

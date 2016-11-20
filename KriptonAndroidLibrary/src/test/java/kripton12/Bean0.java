@@ -27,7 +27,7 @@ public class Bean0<T, E> {
 	protected T genericElement;
 	
 	@Bind
-	@BindXml(value=XmlType.ATTRIBUTE)
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	protected E genericAttribute;
 	
 	@Bind(elementName="item")

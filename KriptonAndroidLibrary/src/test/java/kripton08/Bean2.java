@@ -24,7 +24,7 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 public class Bean2 extends Bean0 {
 
 	@Bind
-	@BindXml(value=XmlType.VALUE)
+	@BindXml(xmlType=XmlType.VALUE)
 	String bla="Bean0";
 	
 

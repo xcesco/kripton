@@ -32,7 +32,16 @@ import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface BindXml {
+public @interface BindXml {	
+	
+	
+	/**
+	 * Customized name of xml element.
+	 * 
+	 * @return
+	 * 		Name of xml element
+	 */
+	String value() default "";
 	
 	/**
 	 * 
@@ -46,7 +55,7 @@ public @interface BindXml {
 	 * 
 	 * @return Type of binding. Default is by TAG.
 	 */
-	public XmlType value() default XmlType.TAG;
+	XmlType xmlType() default XmlType.TAG;
 
 	/**
 	 * Type of mapping of element of a map. <strong>Valid only for
@@ -55,6 +64,6 @@ public @interface BindXml {
 	 * 
 	 * @return Type of mapping of element of a map
 	 */
-	public MapEntryType mapEntryStrategy() default MapEntryType.ELEMENTS;
+	MapEntryType mapEntryStrategy() default MapEntryType.ELEMENTS;
 
 }
