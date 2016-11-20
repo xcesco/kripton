@@ -15,22 +15,18 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-
 /**
  * Transformer between a string and a Java Float object
  * 
  * @author bulldog
  *
  */
-public class FloatTransform extends PrimitiveSPTransform {
-	
-	public FloatTransform(boolean nullable)
-	{
+public class FloatTransform extends PrimitiveBindTransform {
+
+	public FloatTransform(boolean nullable) {
 		super(nullable);
-		SIMPLE_TYPE="";
-		PREFS_CONVERT="";
-		PREFS_TYPE="Float";
-		PREFS_DEFAULT_VALUE="0F";
+		XML_TYPE = "Float";
+		JSON_TYPE = "Number";
 	}
 
 }

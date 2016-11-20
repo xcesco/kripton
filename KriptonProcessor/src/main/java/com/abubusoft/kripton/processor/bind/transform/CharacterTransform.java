@@ -15,22 +15,18 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-
 /**
  * Transformer between a string and a Java Character object
  * 
  * @author bulldog
  *
  */
-class CharacterTransform extends PrimitiveSPTransform {
-	
-	public CharacterTransform(boolean nullable)
-	{
+class CharacterTransform extends PrimitiveBindTransform {
+
+	public CharacterTransform(boolean nullable) {
 		super(nullable);
-		SIMPLE_TYPE="(char)";
-		PREFS_CONVERT="(char)";
-		PREFS_TYPE="Int";
-		PREFS_DEFAULT_VALUE="(char)0";
+		XML_TYPE = "Int";
+		JSON_TYPE = "String";
 	}
 
 }

@@ -6,15 +6,17 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.HashSet;
 import java.util.Set;
 
+import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class SetTransformation extends AbstractSPTransform {
+public class SetTransformation extends AbstractBindTransform {
 
 	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
@@ -66,7 +68,7 @@ public class SetTransformation extends AbstractSPTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
 		if (beanClass != null) {
 			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 			methodBuilder.addCode("$L.putString($S,$T.asString($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
@@ -81,6 +83,18 @@ public class SetTransformation extends AbstractSPTransform {
 			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
 		}
 
+	}
+
+	@Override
+	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -31,9 +31,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -44,12 +44,12 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public abstract class SPTransformer {
+public abstract class BindTransformer {
 
 	/**
 	 * cache for transform
 	 */
-	private static final Map<TypeName, SPTransform> cache = new ConcurrentHashMap<TypeName, SPTransform>();
+	private static final Map<TypeName, BindTransform> cache = new ConcurrentHashMap<TypeName, BindTransform>();
 
 
 	/**
@@ -62,7 +62,7 @@ public abstract class SPTransformer {
 	 *            a class implementing @see
 	 *            org.abubu.elio.binder.transform.Transformable interface.
 	 */
-	public static void register(TypeName type, SPTransform transform) {
+	public static void register(TypeName type, BindTransform transform) {
 		cache.put(type, transform);
 	}
 
@@ -71,7 +71,7 @@ public abstract class SPTransformer {
 	 * 
 	 * @return transform
 	 */
-	public static SPTransform lookup(PrefProperty property) {
+	public static BindTransform lookup(BindProperty property) {
 		TypeMirror typeMirror=property.getElement().asType();
 		
 		TypeName typeName;
@@ -91,8 +91,8 @@ public abstract class SPTransformer {
 	 * @param typeName
 	 * @return transform
 	 */
-	public static SPTransform lookup(TypeName typeName) {
-		SPTransform transform = cache.get(typeName);
+	public static BindTransform lookup(TypeName typeName) {
+		BindTransform transform = cache.get(typeName);
 
 		if (transform != null) {
 			return transform;
@@ -106,7 +106,7 @@ public abstract class SPTransformer {
 		return transform;
 	}
 
-	private static SPTransform getTransform(TypeName typeName) {				
+	private static BindTransform getTransform(TypeName typeName) {				
 		if (typeName.isPrimitive()) {
 			return getPrimitiveTransform(typeName);
 		}
@@ -156,7 +156,7 @@ public abstract class SPTransformer {
 		return new BindObjectTransform();
 	}
 
-	private static SPTransform getSqlTransform(TypeName typeName) {
+	private static BindTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
 			return new TimeTransform();
 		}
@@ -164,7 +164,7 @@ public abstract class SPTransformer {
 		return null;
 	}
 
-	private static SPTransform getNetTransform(TypeName typeName) {
+	private static BindTransform getNetTransform(TypeName typeName) {
 		if (URL.class.getName().equals(typeName.toString())) {
 			return new UrlTransform();
 		}
@@ -172,7 +172,7 @@ public abstract class SPTransformer {
 		return null;
 	}
 
-	private static SPTransform getMathTransform(TypeName typeName) {
+	private static BindTransform getMathTransform(TypeName typeName) {
 		if (BigDecimal.class.getName().equals(typeName.toString())) {
 			return new BigDecimalTransform();
 		} else if (BigInteger.class.getName().equals(typeName.toString())) {
@@ -188,7 +188,7 @@ public abstract class SPTransformer {
 	 * @param type
 	 * @return
 	 */
-	private static SPTransform getPrimitiveTransform(TypeName type) {
+	private static BindTransform getPrimitiveTransform(TypeName type) {
 
 		if (Integer.TYPE.toString().equals(type.toString())) {
 			return new IntegerTransform(false);
@@ -223,7 +223,7 @@ public abstract class SPTransformer {
 	 * @param type
 	 * @return
 	 */
-	private static SPTransform getLanguageTransform(TypeName type) {
+	private static BindTransform getLanguageTransform(TypeName type) {
 		String typeName = type.toString();
 		
 		if (Integer.class.getCanonicalName().equals(typeName)) {
@@ -263,7 +263,7 @@ public abstract class SPTransformer {
 	 * @return
 	 */
 
-	private static SPTransform getUtilTransform(TypeName type) {
+	private static BindTransform getUtilTransform(TypeName type) {
 		String typeName = type.toString();
 
 		// Integer.class.getCanonicalName().equals(typeName)

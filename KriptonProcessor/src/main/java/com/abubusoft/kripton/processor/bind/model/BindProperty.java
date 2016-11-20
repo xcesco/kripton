@@ -17,28 +17,27 @@ package com.abubusoft.kripton.processor.bind.model;
 
 import javax.lang.model.element.Element;
 
-import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
+import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 
 public class BindProperty extends ModelProperty {
 
 	public BindProperty(Element element) {
 		super(element);
+		
+		xmlInfo=new XmlInfo();
 	}
+	public XmlInfo xmlInfo;
 	
-	/**
-	 * kind of preference associated
-	 */
-	protected PreferenceType preferenceType;
+	public int order;
 
-	public PreferenceType getPreferenceType() {
-		return preferenceType;
+	public String jacksonName;
+
+	public class XmlInfo {
+		public String tagName;
+		public XmlType xmlType;
+		public MapEntryType mapEntryType;
 	}
-
-	public void setPreferenceType(PreferenceType preferenceType) {
-		this.preferenceType = preferenceType;
-	}
-
-
 
 }

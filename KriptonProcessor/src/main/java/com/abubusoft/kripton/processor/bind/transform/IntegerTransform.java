@@ -23,15 +23,12 @@ package com.abubusoft.kripton.processor.bind.transform;
  * @author bulldog
  *
  */
-public class IntegerTransform extends PrimitiveSPTransform {
-	
-	public IntegerTransform(boolean nullable)
-	{
+public class IntegerTransform extends PrimitiveBindTransform {
+
+	public IntegerTransform(boolean nullable) {
 		super(nullable);
-		SIMPLE_TYPE="(int)";
-		PREFS_CONVERT="(int)";
-		PREFS_TYPE="Int";
-		PREFS_DEFAULT_VALUE="0";
+		XML_TYPE = "Int";
+		JSON_TYPE = "Number";
 	}
 
 }

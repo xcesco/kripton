@@ -22,14 +22,13 @@ package com.abubusoft.kripton.processor.bind.transform;
  * @author bulldog
  *
  */
-class ByteTransform extends PrimitiveSPTransform {
-	
-	public ByteTransform(boolean nullable)
-	{
+class ByteTransform extends PrimitiveBindTransform {
+
+	public ByteTransform(boolean nullable) {
 		super(nullable);
-		SIMPLE_TYPE="(byte)";
-		PREFS_CONVERT="(int)";
-		PREFS_TYPE="Int";
-		PREFS_DEFAULT_VALUE="(byte)0";
+		XML_TYPE = "Int";
+		JSON_TYPE = "Number";
 	}
+
+	protected String defaultValue;
 }

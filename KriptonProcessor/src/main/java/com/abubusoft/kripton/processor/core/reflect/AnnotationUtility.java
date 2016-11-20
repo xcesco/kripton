@@ -32,12 +32,12 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelWithAnnotation;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 
 public class AnnotationUtility {
 
@@ -192,12 +192,45 @@ public class AnnotationUtility {
 
 			@Override
 			public void onFound(String value) {
-				result.value = AnnotationUtility.extractAsArrayOfString(value).get(0);
+				List<String> list = AnnotationUtility.extractAsArrayOfString(value);
+				
+				if (list.size()>0)
+					result.value = list.get(0);
+				else
+					result.value=value;
 			}
 		});
 
 		return result.value;
 	}
+	
+	/**
+	 * Estract from an annotation of a property the attribute value specified
+	 * 
+	 * @param elementUtils
+	 * @param property
+	 *            property to analyze
+	 * @param annotationClass
+	 *            annotation to analyze
+	 * @param attributeName
+	 *            attribute name to analyze
+	 * @return attribute value as list of string
+	 */
+	public static String extractAsEnumerationValue(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
+		final Result<String> result = new Result<String>();
+
+		extractAttributeValue(elementUtils, item, annotationClass.getName(), attribute, new OnAttributeFoundListener() {
+
+			@Override
+			public void onFound(String value) {
+				if (value.indexOf(".")>=0)
+					result.value = value.substring(value.lastIndexOf(".") + 1);				
+			}
+		});
+
+		return result.value;
+	}
+
 
 	static class Result<T> {
 		T value;
@@ -394,6 +427,7 @@ public class AnnotationUtility {
 
 	public static int extractAsInt(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
 		final Result<Integer> result = new Result<Integer>();
+		result.value=0;
 
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
 

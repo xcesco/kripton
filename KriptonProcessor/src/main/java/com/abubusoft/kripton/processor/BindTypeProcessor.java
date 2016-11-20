@@ -18,8 +18,6 @@
  */
 package com.abubusoft.kripton.processor;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -32,9 +30,14 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
-import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindTypeXml;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
+import com.abubusoft.kripton.common.CaseFormat;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindModel;
@@ -46,36 +49,33 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
-import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 
 /**
- * Annotation processor for json/xml/etc 
+ * Annotation processor for json/xml/etc
  * 
  * @author xcesco
  *
  */
-public class BindProcessor extends BaseProcessor {
+public class BindTypeProcessor extends BaseProcessor {
 
 	private BindModel model;
 
 	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindSharedPreferences.class).build();
-	
+
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindPreference.class).build();
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes
-	 * ()
+	 * @see javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes ()
 	 */
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
 
 		annotations.add(BindType.class.getCanonicalName());
-		annotations.add(BindSharedPreferences.class.getCanonicalName());
 
 		return annotations;
 	}
@@ -99,7 +99,7 @@ public class BindProcessor extends BaseProcessor {
 			parseBindType(roundEnv);
 			for (Element item : globalBeanElements.values()) {
 				if (item.getKind() == ElementKind.ENUM) {
-					//SPTransformer.register(typeName(item), new EnumTransform(typeName(item)));
+					// SPTransformer.register(typeName(item), new EnumTransform(typeName(item)));
 				}
 
 			}
@@ -138,23 +138,24 @@ public class BindProcessor extends BaseProcessor {
 	}
 
 	private String createBindMapper(Element element) {
+		final Converter<String, String> typeNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		Element beanElement = element;
 		String result = beanElement.getSimpleName().toString();
 
 		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
 
-		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
-
-		boolean temp1 = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
-		boolean temp2 = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindSharedPreferences.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
-
-		if (!temp1 && temp2) {
-			String msg = String.format("In class '%s', inconsistent value of attribute 'allFields' in annotations '%s' and '%s'", currentEntity.getSimpleName(), BindType.class.getSimpleName(),
-					BindSharedPreferences.class.getSimpleName());
-			throw (new IncompatibleAttributesInAnnotationException(msg));
+		// tag name
+		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindTypeXml.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		if (StringUtility.hasText(tagName)) {
+			currentEntity.xmlInfo.tagName = tagName;
+		} else {
+			currentEntity.xmlInfo.tagName = typeNameConverter.convert(beanElement.getSimpleName().toString());
 		}
 
-		final boolean bindAllFields = temp1 && temp2;
+		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
+
+		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
+
 		{
 			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<BindProperty>() {
 
@@ -166,34 +167,44 @@ public class BindProcessor extends BaseProcessor {
 
 				@Override
 				public boolean onProperty(BindProperty property) {
-					if (property.getPropertyType().isArray() || property.getPropertyType().isList()) {
-						property.setPreferenceType(PreferenceType.STRING);
-					} else {
-						if (property.isType(Boolean.TYPE, Boolean.class)) {
-							property.setPreferenceType(PreferenceType.BOOL);
-						} else if (property.isType(Integer.TYPE, Integer.class)) {
-							property.setPreferenceType(PreferenceType.INT);
-						} else if (property.isType(Long.TYPE, Long.class)) {
-							property.setPreferenceType(PreferenceType.LONG);
-						} else if (property.isType(Float.TYPE, Float.class)) {
-							property.setPreferenceType(PreferenceType.FLOAT);
-						} else {
-							property.setPreferenceType(PreferenceType.STRING);
-						}
-					}
+					/*
+					 * if (property.getPropertyType().isArray() || property.getPropertyType().isList()) { property.setPreferenceType(PreferenceType.STRING); } else { if (property.isType(Boolean.TYPE, Boolean.class)) {
+					 * property.setPreferenceType(PreferenceType.BOOL); } else if (property.isType(Integer.TYPE, Integer.class)) { property.setPreferenceType(PreferenceType.INT); } else if (property.isType(Long.TYPE, Long.class)) {
+					 * property.setPreferenceType(PreferenceType.LONG); } else if (property.isType(Float.TYPE, Float.class)) { property.setPreferenceType(PreferenceType.FLOAT); } else { property.setPreferenceType(PreferenceType.STRING); } }
+					 */
 
-					if (!bindAllFields && !property.hasAnnotation(Bind.class) && !property.hasAnnotation(BindPreference.class)) {
+					if (!bindAllFields && !property.hasAnnotation(Bind.class)) {
 						// skip field
 						return false;
 					}
 
-					if (bindAllFields || property.hasAnnotation(Bind.class) || property.hasAnnotation(BindPreference.class)) {
-
-						ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
+					if (bindAllFields || property.hasAnnotation(Bind.class) || property.hasAnnotation(BindXml.class)) {						
+						ModelAnnotation annotationBindXml = property.getAnnotation(BindXml.class);
 						// if field disable, skip property definition
-						if (annotation != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false) {
+						if (annotationBindXml != null && (AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindXml, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false)) {
 							return false;
 						}
+						
+						// set the order
+						int order = AnnotationUtility.extractAsInt(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_ORDER);
+						property.jacksonName=typeNameConverter.convert(property.getName());
+						property.order=order;
+						
+
+						String tempName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+						if (StringUtility.hasText(tempName)) {
+							property.xmlInfo.tagName = tempName;
+						} else {
+							property.xmlInfo.tagName = typeNameConverter.convert(property.getName());
+						}
+						
+						String xmlType=AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_XML_TYPE);
+						if (xmlType==null) xmlType=XmlType.TAG.toString();
+						property.xmlInfo.xmlType=XmlType.valueOf(xmlType);
+						
+						String mapEntryType=AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_MAP_ENTRY_STRATEGY);
+						if (mapEntryType==null) mapEntryType=MapEntryType.ELEMENTS.toString();
+						property.xmlInfo.mapEntryType=MapEntryType.valueOf(mapEntryType);
 
 						return true;
 					}

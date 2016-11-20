@@ -22,15 +22,11 @@ package com.abubusoft.kripton.processor.bind.transform;
  * @author bulldog
  *
  */
-class BooleanTransform extends PrimitiveSPTransform {
-	
-	public BooleanTransform(boolean nullable)
-	{
-		super(nullable);
-		SIMPLE_TYPE="(boolean)";
-		PREFS_CONVERT="(boolean)";
-		PREFS_TYPE="Boolean";
-		PREFS_DEFAULT_VALUE="false";
-	}
+class BooleanTransform extends PrimitiveBindTransform {
 
+	public BooleanTransform(boolean nullable) {
+		super(nullable);
+		XML_TYPE = "Boolean";
+		JSON_TYPE = "Boolean";		
+	}
 }

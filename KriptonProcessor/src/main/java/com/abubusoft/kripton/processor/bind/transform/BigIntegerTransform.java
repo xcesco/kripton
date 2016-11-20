@@ -20,6 +20,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import java.math.BigInteger;
 
+import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -30,7 +32,7 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-class BigIntegerTransform extends AbstractSPTransform {
+class BigIntegerTransform extends AbstractBindTransform {
 	
 	public BigIntegerTransform()
 	{
@@ -59,7 +61,7 @@ class BigIntegerTransform extends AbstractSPTransform {
 
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
 		if (beanClass!=null)
 		{
 			if (nullable)
@@ -87,6 +89,20 @@ class BigIntegerTransform extends AbstractSPTransform {
 			}
 		}
 			
+	}
+
+
+	@Override
+	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

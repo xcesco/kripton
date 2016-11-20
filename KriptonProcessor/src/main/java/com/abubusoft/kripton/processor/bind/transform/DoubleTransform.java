@@ -15,12 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
-
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
-import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a Java Double object
@@ -28,64 +22,12 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public class DoubleTransform extends AbstractSPTransform {
-	
-	public DoubleTransform(boolean nullable)
-	{
-		this.nullable=nullable;
-		defaultValue="0";
-	}
-	
-	protected boolean nullable;
-	
-	protected String defaultValue;
-	
-	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		if (add) {
-						
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
-		}
-		
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.valueOf($L.getString($S, $S))",  Double.class, preferenceName, property.getName(), defaultValue);
-		methodBuilder.addCode(": null");
-		
-		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter()?")":""));
-		}
-	}
+public class DoubleTransform extends PrimitiveBindTransform {
 
-
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanClass!=null)
-		{			
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L." + getter(beanClass, property)+"!=null) ", beanName);
-			}
-			methodBuilder.addCode("$L.putString($S,String.valueOf($L." + getter(beanClass, property) + "))", editorName, property.getName(), beanName);
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
-		} else {
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L!=null) ", beanName);
-			}
-			methodBuilder.addCode("$L.putString($S,String.valueOf($L))", editorName, property.getName(), beanName);
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
-		}
-			
+	public DoubleTransform(boolean nullable) {
+		super(nullable);
+		XML_TYPE = "Double";
+		JSON_TYPE = "Number";
 	}
 
 }

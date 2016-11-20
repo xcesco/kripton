@@ -18,9 +18,11 @@ package com.abubusoft.kripton.processor.bind.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.common.Base64Util;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -32,7 +34,7 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public class ByteArrayTransform extends AbstractSPTransform {
+public class ByteArrayTransform extends AbstractBindTransform {
 
 	public ByteArrayTransform() {
 		this.utilClazz = Base64Util.class;
@@ -62,7 +64,7 @@ public class ByteArrayTransform extends AbstractSPTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
 		if (beanClass != null) {
 			if (nullable) {
 				methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
@@ -85,6 +87,18 @@ public class ByteArrayTransform extends AbstractSPTransform {
 			}
 		}
 
+	}
+
+	@Override
+	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

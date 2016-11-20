@@ -25,8 +25,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jsr305.version>3.0.1</jsr305.version>
 		<guava.version>19.0</guava.version>
-		<jackson.version>2.8.2</jackson.version>
-		<jackson-cbor.version>2.8.2</jackson-cbor.version>
+		<jackson.version>2.8.3</jackson.version>
+		<woodstox.version>5.0.3</woodstox.version>		
 		<javapoet.version>1.7.0</javapoet.version>
 		<junit.version>4.12</junit.version>
 		<unitilsVersion>3.4.2</unitilsVersion>
@@ -179,6 +179,32 @@
 			<artifactId>robolectric</artifactId>
 			<version>${robolectric.version}</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-properties</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		
+		<!-- https://github.com/FasterXML/woodstox/ -->
+		<dependency>
+			<groupId>com.fasterxml.woodstox</groupId>
+    		<artifactId>woodstox-core</artifactId>
+    		<version>${woodstox.version}</version>
+    	</dependency>
 
 	</dependencies>
 

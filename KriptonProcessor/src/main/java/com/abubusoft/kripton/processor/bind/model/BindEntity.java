@@ -23,8 +23,14 @@ public class BindEntity extends ModelClass<BindProperty> {
 
 	public BindEntity(String name, TypeElement beanElement) {
 		super(name, beanElement);
-		
-	}
 
+		xmlInfo = new XmlInfo();
+	}
+	
+	public XmlInfo xmlInfo;
+
+	public class XmlInfo {
+		public String tagName;
+	}
 
 }

@@ -15,21 +15,18 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-
 /**
  * Transformer between a string and a Java Short object
  * 
  * @author bulldog
  *
  */
-public class ShortTransform extends PrimitiveSPTransform {
-	
-	public ShortTransform(boolean nullable)
-	{
+public class ShortTransform extends PrimitiveBindTransform {
+
+	public ShortTransform(boolean nullable) {
 		super(nullable);
-		SIMPLE_TYPE="(short)";
-		PREFS_CONVERT="(int)";
-		PREFS_TYPE="Int";
-		PREFS_DEFAULT_VALUE="(short)0";
+		XML_TYPE = "Int";
+		JSON_TYPE = "Number";
 	}
+
 }

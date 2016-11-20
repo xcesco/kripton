@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
+import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -26,10 +28,14 @@ import com.squareup.javapoet.TypeName;
  * @author xcesco
  *
  */
-public interface SPTransform {
+public interface BindTransform {
 
 	void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add);
 	
-	void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property);
+	void generateSerializeOnXml(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType);
+	
+	void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType);
+	
+	void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType);
 
 }

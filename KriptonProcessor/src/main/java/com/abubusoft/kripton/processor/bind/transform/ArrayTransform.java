@@ -20,10 +20,12 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import java.util.ArrayList;
 
+import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -35,7 +37,7 @@ import com.squareup.javapoet.TypeName;
  * @author xcesco
  *
  */
-public class ArrayTransform extends AbstractSPTransform {
+public class ArrayTransform extends AbstractBindTransform {
 
 	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
@@ -79,7 +81,7 @@ public class ArrayTransform extends AbstractSPTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
 		if (beanClass != null) {
 			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 
@@ -112,5 +114,17 @@ public class ArrayTransform extends AbstractSPTransform {
 		if ("Int".equals(value)) value="Integer";
 		
 		return value;
+	}
+
+	@Override
+	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
 	}
 }

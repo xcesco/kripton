@@ -46,7 +46,7 @@ import com.abubusoft.testing.compile.CompileTester.GenerationClause;
 import com.abubusoft.testing.compile.CompileTester.SuccessfulCompilationClause;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
-import com.abubusoft.kripton.processor.BindProcessor;
+import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.BindSharedPreferencesProcessor;
 import com.abubusoft.testing.compile.JavaFileObjects;
 
@@ -199,7 +199,7 @@ public class BaseProcessorTest {
 	
 	protected long buildBindProcessorTest(Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException
 	{
-		return buildTest(BindProcessor.class, classesToTest);
+		return buildTest(BindTypeProcessor.class, classesToTest);
 	}
 	
 	protected long buildDataSourceProcessorTest(Class<?> ... classesToTest) throws IOException, InstantiationException, IllegalAccessException

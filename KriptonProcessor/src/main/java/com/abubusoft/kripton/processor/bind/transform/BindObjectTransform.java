@@ -18,6 +18,8 @@ package com.abubusoft.kripton.processor.bind.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -28,7 +30,7 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public class BindObjectTransform extends AbstractSPTransform {
+public class BindObjectTransform extends AbstractBindTransform {
 
 	protected Class<?> utilClazz;
 
@@ -52,7 +54,7 @@ public class BindObjectTransform extends AbstractSPTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
 		if (beanClass != null) {
 			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 
@@ -71,5 +73,17 @@ public class BindObjectTransform extends AbstractSPTransform {
 			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
 		}
 
+	}
+
+	@Override
+	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, XmlType xmlType) {
+		// TODO Auto-generated method stub
+		
 	}
 }

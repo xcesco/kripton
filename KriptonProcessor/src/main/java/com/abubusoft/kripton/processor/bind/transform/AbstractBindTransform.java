@@ -23,6 +23,6 @@ package com.abubusoft.kripton.processor.bind.transform;
  * @author xcesco
  *
  */
-public abstract class AbstractSPTransform implements SPTransform {
+public abstract class AbstractBindTransform implements BindTransform {
 
 }

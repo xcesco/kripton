@@ -1,11 +1,30 @@
 package kripton70;
 
+import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindTypeXml;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.binder.xml.XmlType;
 
 @BindType
-public class Bean {
+@BindTypeXml("root")
+public class Bean70 {
 	
+	@BindXml("name")
 	public long id;
+	
+	@Bind(order=40)
+	@BindXml(value="nameaa", xmlType=XmlType.ATTRIBUTE)
+	public boolean valueBoolType;
+	
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
+	public Boolean valueBool2;
+	
+	@Bind(order=4)
+	public Boolean valueBool1;
+	
+	@Bind(order=3)
+	public String valueString;
 	
 /*
 	@BindXml(XmlType.ATTRIBUTE)

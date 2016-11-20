@@ -22,18 +22,18 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 @BindType
 public class Restaurant {
 
-	@BindXml(XmlType.ATTRIBUTE)
+	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public long id;
 			
-	@BindXml(XmlType.ATTRIBUTE)
+	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public String name;
 	
-	@BindXml(XmlType.VALUE_CDATA)
+	@BindXml(xmlType = XmlType.VALUE_CDATA)
 	public String address;
 		
-	@BindXml(XmlType.ATTRIBUTE)
+	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public Double longitude;
 	
-	@BindXml(XmlType.ATTRIBUTE)
+	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public Double latitude;
 }
