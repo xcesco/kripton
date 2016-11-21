@@ -20,11 +20,10 @@ package com.abubusoft.kripton.processor.bind;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.Stack;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -33,13 +32,11 @@ import javax.lang.model.util.Elements;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 
-import org.codehaus.plexus.component.composition.SetterComponentComposer;
 import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
 import com.abubusoft.kripton.android.annotation.BindMap;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
@@ -55,6 +52,7 @@ import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
+import com.abubusoft.kripton.processor.bind.transform.ObjectTransform;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -93,7 +91,9 @@ public class BindTypeBuilder {
 		boolean needSuffix = true;
 		if (beanClassName.endsWith(SUFFIX)) {
 			needSuffix = false;
-			// String msg = String.format("Class %s must have a name with suffix \"%s\" to be used with @%s", beanClassName, SUFFIX, BindSharedPreferences.class.getSimpleName());
+			// String msg = String.format("Class %s must have a name with suffix
+			// \"%s\" to be used with @%s", beanClassName, SUFFIX,
+			// BindSharedPreferences.class.getSimpleName());
 			// throw (new InvalidNameException(msg));
 		}
 
@@ -105,12 +105,10 @@ public class BindTypeBuilder {
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindType.class, packageName, className);
-		//@formatter:off
-		builder = TypeSpec.classBuilder(className)
-				.addAnnotation(BindMap.class)
-				.addModifiers(Modifier.PUBLIC)
+		// @formatter:off
+		builder = TypeSpec.classBuilder(className).addAnnotation(BindMap.class).addModifiers(Modifier.PUBLIC)
 				.superclass(TypeUtility.parameterizedTypeName(className(AbstractMapper.class), typeName(item.getElement().asType())));
-		//@formatter:on
+		// @formatter:on
 		builder.addJavadoc("This class is the shared preference binder defined for $T\n\n", item.getElement());
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc("@see $T\n", item.getElement());
@@ -176,7 +174,8 @@ public class BindTypeBuilder {
 	 * @param item
 	 */
 	public static void generateCreateInstance(BindEntity item) {
-		MethodSpec.Builder method = MethodSpec.methodBuilder("createInstance").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addJavadoc("create new object instance\n").returns(typeName(item.getElement()));
+		MethodSpec.Builder method = MethodSpec.methodBuilder("createInstance").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addJavadoc("create new object instance\n")
+				.returns(typeName(item.getElement()));
 		method.addStatement("return new $T()", typeName(item.getElement()));
 		builder.addMethod(method.build());
 	}
@@ -191,50 +190,51 @@ public class BindTypeBuilder {
 	 */
 	private static void generateParseOnXml(BindEntity item) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnXml").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addParameter(typeName(XmlBinderContext.class), "context")
-				.addParameter(typeName(XmlWrapperParser.class), "wrapper").addParameter(typeName(Integer.TYPE), "currentEventType").addJavadoc("create new object instance\n").returns(typeName(item.getElement()));
+				.addParameter(typeName(XmlWrapperParser.class), "wrapper").addParameter(typeName(Integer.TYPE), "currentEventType").addJavadoc("create new object instance\n")
+				.returns(typeName(item.getElement()));
 
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.addStatement("$T xmlParser = wrapper.xmlParser", XMLStreamReader2.class);
 		methodBuilder.addStatement("$T instance = createInstance()", item.getElement());
 		methodBuilder.addStatement("int eventType = currentEventType");
-		methodBuilder.addStatement("String currentTag = null");
-		methodBuilder.addStatement("String attributeName = null");
-		methodBuilder.addStatement("String attributeValue = null");
 
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (currentEventType == 0)");
 		methodBuilder.addStatement("eventType = xmlParser.next()");
-		methodBuilder.nextControlFlow("else");
-		methodBuilder.addStatement("currentTag = $S", item.xmlInfo.tagName);
 		methodBuilder.endControlFlow();
+		methodBuilder.addStatement("String currentTag = xmlParser.getName().toString()");
 
-		methodBuilder.beginControlFlow("do");
+		methodBuilder.addStatement("$T<String> elementNameStack = new $T<>()", Stack.class, Stack.class);
+		methodBuilder.addStatement("elementNameStack.push(currentTag)");
 
-		//@formatter:off
+		generateParseOnXmlAttributes(methodBuilder, item);
+
+		methodBuilder.addCode("\n");
+		methodBuilder.addCode("//sub-elements\n");
+		methodBuilder.beginControlFlow("while (xmlParser.hasNext() && !elementNameStack.isEmpty())");
+		methodBuilder.addStatement("eventType = xmlParser.next()");
+
 		methodBuilder.beginControlFlow("switch(eventType)$>");
-			methodBuilder.addCode("case $T.START_ELEMENT:\n$>", XMLEvent.class);
-			generateParserOnXmlStartElement(methodBuilder, "instance", "xmlParser", item);
-			methodBuilder.addStatement("$<$<break");
-			
-			methodBuilder.addCode("case $T.END_ELEMENT:\n$>", XMLEvent.class);
-			methodBuilder.addStatement("currentTag=null");
-			methodBuilder.addStatement("$<break");
-			
-			methodBuilder.addCode("case $T.CDATA:\n", XMLEvent.class);
-			methodBuilder.addCode("case $T.CHARACTERS:\n$>", XMLEvent.class);
-			generateParserOnXmlCharacters(methodBuilder, "instance", "xmlParser", item);					
-			methodBuilder.addStatement("$<break");
-			
-			methodBuilder.addCode("default:\n$>");
-			methodBuilder.addStatement("$<break");
+		methodBuilder.addCode("case $T.START_ELEMENT:\n$>", XMLEvent.class);
+		generateParserOnXmlStartElement(methodBuilder, "instance", "xmlParser", item);
+		methodBuilder.addStatement("$<break");
+
+		methodBuilder.addCode("case $T.END_ELEMENT:\n$>", XMLEvent.class);
+		generateParserOnXmlEndElement(methodBuilder, "instance", "xmlParser", item);
+		methodBuilder.addStatement("$<break");
+
+		methodBuilder.addCode("case $T.CDATA:\n", XMLEvent.class);
+		methodBuilder.addCode("case $T.CHARACTERS:\n$>", XMLEvent.class);
+		generateParserOnXmlCharacters(methodBuilder, "instance", "xmlParser", item);
+		methodBuilder.addStatement("$<break");
+
+		methodBuilder.addCode("default:\n$>");
+		methodBuilder.addStatement("$<break");
 		methodBuilder.addCode("$<");
 		methodBuilder.endControlFlow();
-		//@formatter:on
+		// @formatter:on
 
-		methodBuilder.beginControlFlow("if (xmlParser.hasNext())");
-		methodBuilder.addStatement("eventType = xmlParser.next()");
 		methodBuilder.endControlFlow();
-		methodBuilder.endControlFlow("while (xmlParser.hasNext())");
 
 		methodBuilder.addStatement("return instance");
 		methodBuilder.nextControlFlow("catch($T e)", typeName(XMLStreamException.class));
@@ -245,65 +245,167 @@ public class BindTypeBuilder {
 		builder.addMethod(methodBuilder.build());
 	}
 
-	private static void generateParserOnXmlStartElement(MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
+	private static void generateParserOnXmlEndElement(MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
+		/*
 		BindTransform bindTransform;
-		methodBuilder.beginControlFlow("if (currentTag==null)");
-		methodBuilder.addStatement("currentTag = $L.getName().toString()", parserName);
-		
-		// switch for tag elements
-		//@formatter:off
-		methodBuilder.beginControlFlow("switch(currentTag)$>");
-			methodBuilder.addCode("case $S:\n$>", entity.xmlInfo.tagName);
-			methodBuilder.addCode("// tag root of entity\n");
-			methodBuilder.addStatement("int attributes = xmlParser.getAttributeCount();");
-			methodBuilder.beginControlFlow("for (int i = 0; i < attributes; i++)");
-				methodBuilder.addStatement("attributeName = xmlParser.getAttributeLocalName(i)");
-				methodBuilder.addStatement("attributeValue = $T.unescapeXml(xmlParser.getAttributeValue(i))", StringEscapeUtils.class);				
-				methodBuilder.beginControlFlow("switch(attributeName)$>");
-				
-				{
-					for (BindProperty property : entity.getCollection()) {
-						if (property.xmlInfo.xmlType!=XmlType.ATTRIBUTE) continue;
-						
-						methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName);
-						
-						bindTransform = BindTransformer.lookup(property);
-						methodBuilder.addCode("// field $L\n", property.getName());					
-						bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property);
-						
-						methodBuilder.addStatement("$<break");
-					}
-				}
-				
-				methodBuilder.addCode("default:\n$>");
-				methodBuilder.addStatement("$<break");
-				methodBuilder.endControlFlow();
-				
-				methodBuilder.endControlFlow();			
-			methodBuilder.addStatement("$<break");
-			
-			// for each elements 
-			{
-				for (BindProperty item : entity.getCollection()) {
-					if (item.xmlInfo.xmlType!=XmlType.TAG) continue;
-					
-					//if (Transformer.isTransformable(item.getPropertyType())) continue;
-					
-					methodBuilder.addCode("case $S:\n$>", item.xmlInfo.tagName);
-					methodBuilder.addCode("// property $L\n", item.getName());
-					
-					//methodBuilder.addStatement("$L."+setter(typeName(entity.getElement().asType()), item , "attributeValue"), instanceName);//, instanceName,  = context.mapperFor(Bean.class).parseOnXml(context, wrapper, eventType);");
-					methodBuilder.addStatement("$<break");			
+
+		int count = 0;
+		// count property to manage
+		{
+			// for each elements
+			for (BindProperty property : entity.getCollection()) {
+				if (property.xmlInfo.xmlType != XmlType.TAG)
+					continue;
+
+				bindTransform = BindTransformer.lookup(property);
+
+				// here we manage only property of bean type
+				if (bindTransform != null && !(bindTransform instanceof ObjectTransform)) {
+					count++;
 				}
 			}
-						
+		}
+
+		if (count > 0) {
+			methodBuilder.addStatement("currentTag = elementNameStack.pop()");
+			methodBuilder.beginControlFlow("switch(currentTag)$>");
+
+			for (BindProperty property : entity.getCollection()) {
+				if (property.xmlInfo.xmlType != XmlType.TAG)
+					continue;
+
+				bindTransform = BindTransformer.lookup(property);
+				if (bindTransform instanceof ObjectTransform)
+					continue;
+
+				methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName);
+				methodBuilder.addCode("// property $L\n", property.getName());
+				methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
+				bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property);
+				methodBuilder.endControlFlow();
+
+				methodBuilder.addStatement("$<break");
+			}
+			
+			methodBuilder.addCode("default:\n$>");
+			methodBuilder.addStatement("$<break$<");
+			methodBuilder.endControlFlow();
+		}*/
+
+	}
+
+	private static void generateParseOnXmlAttributes(MethodSpec.Builder methodBuilder, BindEntity entity) {
+		BindTransform bindTransform;
+
+		int count = 0;
+		// count property to manage
+		{
+			// for each elements
+			for (BindProperty property : entity.getCollection()) {
+				if (property.xmlInfo.xmlType != XmlType.ATTRIBUTE)
+					continue;
+
+				count++;
+			}
+		}
+
+		if (count>0)
+		{
+		// @formatter:off
+		methodBuilder.addCode("\n// attributes \n");
+		methodBuilder.addStatement("String attributeName = null");
+		methodBuilder.addStatement("String attributeValue = null");
+
+		methodBuilder.addStatement("int attributes = xmlParser.getAttributeCount();");
+		methodBuilder.beginControlFlow("for (int i = 0; i < attributes; i++)");
+		methodBuilder.addStatement("attributeName = xmlParser.getAttributeLocalName(i)");
+		methodBuilder.addStatement("attributeValue = $T.unescapeXml(xmlParser.getAttributeValue(i))", StringEscapeUtils.class);
+		methodBuilder.beginControlFlow("switch(attributeName)$>");
+
+		for (BindProperty property : entity.getCollection()) {
+			if (property.xmlInfo.xmlType != XmlType.ATTRIBUTE)
+				continue;
+
+			methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName);
+
+			bindTransform = BindTransformer.lookup(property);
+			methodBuilder.addCode("// field $L\n", property.getName());
+			bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property);
+
+			methodBuilder.addStatement("$<break");
+		}
+
+		methodBuilder.addCode("default:\n$>");
+		methodBuilder.addStatement("$<break$<");
+		methodBuilder.endControlFlow();
+
+		methodBuilder.endControlFlow();
+		// @formatter:on
+		} else {
+			methodBuilder.addCode("// No attributes found\n");
+		}
+	}
+
+	private static void generateParserOnXmlStartElement(MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
+		BindTransform bindTransform;		
+		// start and inner bean
+		methodBuilder.addStatement("currentTag = xmlParser.getName().toString()");
+		methodBuilder.addStatement("elementNameStack.push(currentTag)");
+
+		int count = 0;
+		// count property to manage
+		{
+			// for each elements
+			for (BindProperty property : entity.getCollection()) {
+				if (property.xmlInfo.xmlType != XmlType.TAG)
+					continue;
+
+				bindTransform = BindTransformer.lookup(property);
+
+				// here we manage only property of bean type
+				if (bindTransform != null) {
+					count++;
+				}
+			}
+		}
+
+		if (count > 0) {
+			// switch for tag elements
+			// @formatter:off
+			methodBuilder.beginControlFlow("switch(currentTag)$>");
+
+			// for each elements
+			for (BindProperty property : entity.getCollection()) {
+				if (property.xmlInfo.xmlType != XmlType.TAG)
+					continue;
+
+				bindTransform = BindTransformer.lookup(property);
+
+				// here we manage only property of bean type
+				if (bindTransform != null) {
+					methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName);
+					methodBuilder.addCode("// property $L\n", property.getName());
+
+					methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
+						bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property);					
+						if (bindTransform instanceof ObjectTransform)
+						{
+							methodBuilder.addStatement("currentTag = elementNameStack.pop()");
+						}
+					methodBuilder.endControlFlow();
+					
+					methodBuilder.addStatement("$<break");
+				}
+			}
+
 			methodBuilder.addCode("default:\n$>");
 			methodBuilder.addStatement("$<break");
-		methodBuilder.endControlFlow();
-		//@formatter:on
-		
-		methodBuilder.endControlFlow();
-		
+			methodBuilder.endControlFlow();
+		} else {
+			methodBuilder.addCode("// No property to manage here\n");
+		}
+		// @formatter:on
+
 	}
 
 	/**
@@ -317,38 +419,37 @@ public class BindTypeBuilder {
 			if (property.xmlInfo.xmlType != XmlType.VALUE && property.xmlInfo.xmlType != XmlType.VALUE_CDATA)
 				continue;
 
-			methodBuilder.addCode("// property $L\n", property.getName());
-			methodBuilder.addStatement("$L.$L = StringEscapeUtils.unescapeXml($L.getText())", instanceName, property.getName(), parserName);
+			methodBuilder.beginControlFlow("if (elementNameStack.size()==1)");
+				methodBuilder.addCode("// property $L\n", property.getName());
+				methodBuilder.addStatement("$L.$L = StringEscapeUtils.unescapeXml($L.getText())", instanceName, property.getName(), parserName);
+			methodBuilder.endControlFlow();
 		}
 	}
 
 	private static void generateParseOnJackson(BindEntity entity) {
 		MethodSpec.Builder method = MethodSpec.methodBuilder("parseOnJackson").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addParameter(typeName(JacksonContext.class), "context")
-				.addParameter(typeName(JacksonWrapperParser.class), "wrapper").addParameter(typeName(Boolean.TYPE), "readStartAndEnd").addJavadoc("create new object instance\n").returns(typeName(entity.getElement()));
+				.addParameter(typeName(JacksonWrapperParser.class), "wrapper").addParameter(typeName(Boolean.TYPE), "readStartAndEnd").addJavadoc("create new object instance\n")
+				.returns(typeName(entity.getElement()));
 		method.addStatement("return new $T()", typeName(entity.getElement()));
 		builder.addMethod(method.build());
 
 	}
 
 	private static void generateParseOnJacksonAsString(BindEntity item) {
-		MethodSpec.Builder method = MethodSpec.methodBuilder("parseOnJacksonAsString").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addParameter(typeName(JacksonContext.class), "context")
-				.addParameter(typeName(JacksonWrapperParser.class), "wrapper").addParameter(typeName(Boolean.TYPE), "readStartAndEnd").addJavadoc("create new object instance\n").returns(typeName(item.getElement()));
+		MethodSpec.Builder method = MethodSpec.methodBuilder("parseOnJacksonAsString").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
+				.addParameter(typeName(JacksonContext.class), "context").addParameter(typeName(JacksonWrapperParser.class), "wrapper").addParameter(typeName(Boolean.TYPE), "readStartAndEnd")
+				.addJavadoc("create new object instance\n").returns(typeName(item.getElement()));
 		method.addStatement("return new $T()", typeName(item.getElement()));
 		builder.addMethod(method.build());
 
 	}
 
 	private static void generateSerializeOnJackson(BindEntity entity) {
-		//@formatter:off
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJackson")
-				.addModifiers(Modifier.PUBLIC)
-				.addJavadoc("reset shared preferences\n")
-				.addParameter(typeName(JacksonContext.class), "context")
-				.addParameter(typeName(entity.getElement()), "object")
-				.addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
-				.addParameter(typeName(Boolean.TYPE), "writeStartAndEnd")
-				.returns(Void.TYPE);
-		//@formatter:on
+		// @formatter:off
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJackson").addModifiers(Modifier.PUBLIC).addJavadoc("reset shared preferences\n")
+				.addParameter(typeName(JacksonContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
+				.addParameter(typeName(Boolean.TYPE), "writeStartAndEnd").returns(Void.TYPE);
+		// @formatter:on
 
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.addStatement("$T jacksonSerializer = wrapper.jacksonGenerator", className(JsonGenerator.class));
@@ -383,16 +484,11 @@ public class BindTypeBuilder {
 	}
 
 	private static void generateSerializeOnJacksonAsString(BindEntity entity) {
-		//@formatter:off
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJacksonAsString")
-				.addModifiers(Modifier.PUBLIC)
-				.addJavadoc("reset shared preferences\n")
-				.addParameter(typeName(JacksonContext.class), "context")
-				.addParameter(typeName(entity.getElement()), "object")
-				.addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
-				.addParameter(typeName(Boolean.TYPE), "writeStartAndEnd")
-				.returns(Void.TYPE);
-		//@formatter:on
+		// @formatter:off
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJacksonAsString").addModifiers(Modifier.PUBLIC).addJavadoc("reset shared preferences\n")
+				.addParameter(typeName(JacksonContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
+				.addParameter(typeName(Boolean.TYPE), "writeStartAndEnd").returns(Void.TYPE);
+		// @formatter:on
 
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.addStatement("$T jacksonSerializer = wrapper.jacksonGenerator", className(JsonGenerator.class));
@@ -428,8 +524,9 @@ public class BindTypeBuilder {
 	}
 
 	private static void generateSerializeOnXml(BindEntity entity) {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnXml").addModifiers(Modifier.PUBLIC).addJavadoc("reset shared preferences\n").addParameter(typeName(XmlBinderContext.class), "context")
-				.addParameter(typeName(entity.getElement()), "object").addParameter(typeName(XmlWrapperSerializer.class), "wrapper").addParameter(typeName(Integer.TYPE), "currentEventType").returns(Void.TYPE);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnXml").addModifiers(Modifier.PUBLIC).addJavadoc("reset shared preferences\n")
+				.addParameter(typeName(XmlBinderContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(XmlWrapperSerializer.class), "wrapper")
+				.addParameter(typeName(Integer.TYPE), "currentEventType").returns(Void.TYPE);
 
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.addStatement("$T xmlSerializer = wrapper.xmlSerializer", className(XMLStreamWriter2.class));

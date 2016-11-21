@@ -19,7 +19,7 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 @BindType
 public class Bean {
 
-	@BindXml(xmlType = XmlType.ATTRIBUTE)
+	@BindXml(xmlType = XmlType.TAG)
 	public long id;
 	
 	@BindXml(xmlType = XmlType.ATTRIBUTE)

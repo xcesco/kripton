@@ -27,8 +27,10 @@ public class IntegerTransform extends PrimitiveBindTransform {
 
 	public IntegerTransform(boolean nullable) {
 		super(nullable);
-		XML_TYPE = "Int";
+		
+		XML_TYPE = "Integer";		
 		JSON_TYPE = "Number";
+		
 	}
 
 }

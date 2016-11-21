@@ -25,31 +25,55 @@ public class TestKripton70 extends BaseProcessorTest {
 	}
 
 	@Test
-	public void test() throws IOException, InstantiationException, IllegalAccessException
+	public void testBeanElement70() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(Bean70.class);
+		buildBindProcessorTest(BeanElement70.class);
+	}
+	
+	@Test
+	public void testBeanAttribute70() throws IOException, InstantiationException, IllegalAccessException
+	{
+		buildBindProcessorTest(BeanAttribute70.class);
 	}
 	
 	@Test
 	public void testCompiled() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(Bean70.class);
+		buildBindProcessorTest(BeanElement70.class);
 		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
 		
 		Assert.assertNotNull(new Bean70BindMap());
 		
-		Bean70 bean=new Bean70();
+		BeanElement70 bean=new BeanElement70();
 		bean.id=25;
 		bean.valueBoolType=true;
-		bean.valueBool2=true;
-		bean.valueString="\"benvenuto\"}\ncome va";
+		bean.valueByteType=45;
+		bean.valueCharType='a';
+		bean.valueShortType=25;
+		bean.valueIntType=12;
+		bean.valueLongType=56;
+		bean.valueFloatType=1f;
+		bean.valueDoubleType=20;
+		bean.valueBool=true;
+		bean.setValueByte((byte) 45);
+		bean.valueChar='a';
+		bean.valueShort=25;
+		bean.valueInt=12;
+		bean.valueLong=56L;
+		bean.valueFloat=1f;
+		bean.valueDouble=20.0;
+		bean.valueString="hello!";
+	/*	bean.valueBool2=true;
+		bean.valueAttributeString="\"benvenuto\"}\ncome va";
+		bean.valueCDataString="this CDATA";
+		bean.valueElementString="this element";*/
 		
 		BinderType type = BinderType.XML;
 		
 		String output=KriptonBinder2.getBinder(type).serialize(bean);
 		System.out.println(output);
 		
-		Bean70 bean2=KriptonBinder2.getBinder(type).parse(output, Bean70.class);
+		BeanElement70 bean2=KriptonBinder2.getBinder(type).parse(output, BeanElement70.class);
 		
 		Assert.assertTrue(bean2.equals(bean));
 		

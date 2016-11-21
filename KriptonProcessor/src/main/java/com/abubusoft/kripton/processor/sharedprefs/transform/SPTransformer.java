@@ -153,7 +153,7 @@ public abstract class SPTransformer {
 			return getSqlTransform(typeName);
 		}
 				
-		return new BindObjectTransform();
+		return new ObjectTransform();
 	}
 
 	private static SPTransform getSqlTransform(TypeName typeName) {

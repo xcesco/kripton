@@ -13,6 +13,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import java.io.IOException;
 import java.lang.Override;
+import java.util.Stack;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 import org.codehaus.stax2.XMLStreamReader2;
@@ -21,22 +22,22 @@ import org.codehaus.stax2.XMLStreamWriter2;
 /**
  * This class is the shared preference binder defined for Bean70
  *
- * @see Bean70
+ * @see BeanElement70
  */
 @BindMap
-public class Bean70BindMap extends AbstractMapper<Bean70> {
+public class Bean70BindMap extends AbstractMapper<BeanElement70> {
   /**
    * create new object instance
    */
   @Override
-  public Bean70 createInstance() {
-    return new Bean70();
+  public BeanElement70 createInstance() {
+    return new BeanElement70();
   }
 
   /**
    * reset shared preferences
    */
-  public void serializeOnJackson(JacksonContext context, Bean70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+  public void serializeOnJackson(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       if (writeStartAndEnd) {
@@ -46,26 +47,77 @@ public class Bean70BindMap extends AbstractMapper<Bean70> {
       // Serialized Field:
 
       // field id
-      jacksonSerializer.writeNumberField("id", object.id);
+      jacksonSerializer.writeNumberField("id", object.getId());
 
-      // field valueBool2
-      if (object.valueBool2!=null)  {
-        jacksonSerializer.writeBooleanField("valueBool2", object.valueBool2);
-      }
-
-      // field valueString
-      if (object.valueString!=null)  {
-        jacksonSerializer.writeStringField("valueString", object.valueString);
-      }
-
-      // field valueBool1
-      if (object.valueBool1!=null)  {
-        jacksonSerializer.writeBooleanField("valueBool1", object.valueBool1);
+      // field valueBool
+      if (object.valueBool!=null)  {
+        jacksonSerializer.writeBooleanField("valueBool", object.valueBool);
       }
 
       // field valueBoolType
       jacksonSerializer.writeBooleanField("valueBoolType", object.valueBoolType);
 
+      // field valueByte
+      if (object.getValueByte()!=null)  {
+        jacksonSerializer.writeNumberField("valueByte", object.getValueByte());
+      }
+
+      // field valueByteType
+      jacksonSerializer.writeNumberField("valueByteType", object.valueByteType);
+
+      // field valueChar
+      if (object.valueChar!=null)  {
+        jacksonSerializer.writeNumberField("valueChar", object.valueChar);
+      }
+
+      // field valueCharType
+      jacksonSerializer.writeNumberField("valueCharType", object.valueCharType);
+
+      // field valueDouble
+      if (object.valueDouble!=null)  {
+        jacksonSerializer.writeNumberField("valueDouble", object.valueDouble);
+      }
+
+      // field valueDoubleType
+      jacksonSerializer.writeNumberField("valueDoubleType", object.valueDoubleType);
+
+      // field valueFloat
+      if (object.valueFloat!=null)  {
+        jacksonSerializer.writeNumberField("valueFloat", object.valueFloat);
+      }
+
+      // field valueFloatType
+      jacksonSerializer.writeNumberField("valueFloatType", object.valueFloatType);
+
+      // field valueInt
+      if (object.valueInt!=null)  {
+        jacksonSerializer.writeNumberField("valueInt", object.valueInt);
+      }
+
+      // field valueIntType
+      jacksonSerializer.writeNumberField("valueIntType", object.valueIntType);
+
+      // field valueLong
+      if (object.valueLong!=null)  {
+        jacksonSerializer.writeNumberField("valueLong", object.valueLong);
+      }
+
+      // field valueLongType
+      jacksonSerializer.writeNumberField("valueLongType", object.valueLongType);
+
+      // field valueShort
+      if (object.valueShort!=null)  {
+        jacksonSerializer.writeNumberField("valueShort", object.valueShort);
+      }
+
+      // field valueShortType
+      jacksonSerializer.writeNumberField("valueShortType", object.valueShortType);
+
+      // field valueString
+      if (object.valueString!=null)  {
+        jacksonSerializer.writeStringField("valueString", object.valueString);
+      }
+
       if (writeStartAndEnd) {
         jacksonSerializer.writeEndObject();
       }
@@ -78,7 +130,7 @@ public class Bean70BindMap extends AbstractMapper<Bean70> {
   /**
    * reset shared preferences
    */
-  public void serializeOnJacksonAsString(JacksonContext context, Bean70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+  public void serializeOnJacksonAsString(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       if (writeStartAndEnd) {
@@ -88,25 +140,76 @@ public class Bean70BindMap extends AbstractMapper<Bean70> {
       // Serialized Field:
 
       // field id
-      jacksonSerializer.writeStringField("id", String.valueOf(object.id));
+      jacksonSerializer.writeStringField("id", String.valueOf(object.getId()));
 
-      // field valueBool2
-      if (object.valueBool2!=null)  {
-        jacksonSerializer.writeStringField("valueBool2", String.valueOf(object.valueBool2));
+      // field valueBool
+      if (object.valueBool!=null)  {
+        jacksonSerializer.writeStringField("valueBool", String.valueOf(object.valueBool));
       }
+
+      // field valueBoolType
+      jacksonSerializer.writeStringField("valueBoolType", String.valueOf(object.valueBoolType));
+
+      // field valueByte
+      if (object.getValueByte()!=null)  {
+        jacksonSerializer.writeStringField("valueByte", String.valueOf(object.getValueByte()));
+      }
+
+      // field valueByteType
+      jacksonSerializer.writeStringField("valueByteType", String.valueOf(object.valueByteType));
+
+      // field valueChar
+      if (object.valueChar!=null)  {
+        jacksonSerializer.writeStringField("valueChar", String.valueOf(object.valueChar));
+      }
+
+      // field valueCharType
+      jacksonSerializer.writeStringField("valueCharType", String.valueOf(object.valueCharType));
+
+      // field valueDouble
+      if (object.valueDouble!=null)  {
+        jacksonSerializer.writeStringField("valueDouble", String.valueOf(object.valueDouble));
+      }
+
+      // field valueDoubleType
+      jacksonSerializer.writeStringField("valueDoubleType", String.valueOf(object.valueDoubleType));
+
+      // field valueFloat
+      if (object.valueFloat!=null)  {
+        jacksonSerializer.writeStringField("valueFloat", String.valueOf(object.valueFloat));
+      }
+
+      // field valueFloatType
+      jacksonSerializer.writeStringField("valueFloatType", String.valueOf(object.valueFloatType));
+
+      // field valueInt
+      if (object.valueInt!=null)  {
+        jacksonSerializer.writeStringField("valueInt", String.valueOf(object.valueInt));
+      }
+
+      // field valueIntType
+      jacksonSerializer.writeStringField("valueIntType", String.valueOf(object.valueIntType));
+
+      // field valueLong
+      if (object.valueLong!=null)  {
+        jacksonSerializer.writeStringField("valueLong", String.valueOf(object.valueLong));
+      }
+
+      // field valueLongType
+      jacksonSerializer.writeStringField("valueLongType", String.valueOf(object.valueLongType));
+
+      // field valueShort
+      if (object.valueShort!=null)  {
+        jacksonSerializer.writeStringField("valueShort", String.valueOf(object.valueShort));
+      }
+
+      // field valueShortType
+      jacksonSerializer.writeStringField("valueShortType", String.valueOf(object.valueShortType));
 
       // field valueString
       if (object.valueString!=null)  {
         jacksonSerializer.writeStringField("valueString", object.valueString);
       }
-
-      // field valueBool1
-      if (object.valueBool1!=null)  {
-        jacksonSerializer.writeStringField("valueBool1", String.valueOf(object.valueBool1));
-      }
-
-      // field valueBoolType
-      jacksonSerializer.writeStringField("valueBoolType", String.valueOf(object.valueBoolType));
 
       if (writeStartAndEnd) {
         jacksonSerializer.writeEndObject();
@@ -120,7 +223,7 @@ public class Bean70BindMap extends AbstractMapper<Bean70> {
   /**
    * reset shared preferences
    */
-  public void serializeOnXml(XmlBinderContext context, Bean70 object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(XmlBinderContext context, BeanElement70 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -130,26 +233,111 @@ public class Bean70BindMap extends AbstractMapper<Bean70> {
       // Persisted fields:
 
       // field id
-      xmlSerializer.writeAttribute("name", String.valueOf(object.id));
+      xmlSerializer.writeStartElement("name");
+      xmlSerializer.writeLong(object.getId());
+      xmlSerializer.writeEndElement();
 
-      // field valueBool2
-      if (object.valueBool2!=null)  {
-        xmlSerializer.writeAttribute("valueBool2", String.valueOf(object.valueBool2));
-      }
-
-      // field valueBoolType
-      xmlSerializer.writeAttribute("nameaa", String.valueOf(object.valueBoolType));
-
-      // field valueBool1
-      if (object.valueBool1!=null)  {
-        xmlSerializer.writeStartElement("valueBool1");
-        xmlSerializer.writeBoolean(object.valueBool1);
+      // field valueBool
+      if (object.valueBool!=null)  {
+        xmlSerializer.writeStartElement("valueBool");
+        xmlSerializer.writeBoolean(object.valueBool);
         xmlSerializer.writeEndElement();
       }
 
+      // field valueBoolType
+      xmlSerializer.writeStartElement("valueBoolType");
+      xmlSerializer.writeBoolean(object.valueBoolType);
+      xmlSerializer.writeEndElement();
+
+      // field valueByte
+      if (object.getValueByte()!=null)  {
+        xmlSerializer.writeStartElement("valueByte");
+        xmlSerializer.writeInt(object.getValueByte());
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueByteType
+      xmlSerializer.writeStartElement("valueByteType");
+      xmlSerializer.writeInt(object.valueByteType);
+      xmlSerializer.writeEndElement();
+
+      // field valueChar
+      if (object.valueChar!=null)  {
+        xmlSerializer.writeStartElement("valueChar");
+        xmlSerializer.writeInt(object.valueChar);
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueCharType
+      xmlSerializer.writeStartElement("valueCharType");
+      xmlSerializer.writeInt(object.valueCharType);
+      xmlSerializer.writeEndElement();
+
+      // field valueDouble
+      if (object.valueDouble!=null)  {
+        xmlSerializer.writeStartElement("valueDouble");
+        xmlSerializer.writeDouble(object.valueDouble);
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueDoubleType
+      xmlSerializer.writeStartElement("valueDoubleType");
+      xmlSerializer.writeDouble(object.valueDoubleType);
+      xmlSerializer.writeEndElement();
+
+      // field valueFloat
+      if (object.valueFloat!=null)  {
+        xmlSerializer.writeStartElement("valueFloat");
+        xmlSerializer.writeFloat(object.valueFloat);
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueFloatType
+      xmlSerializer.writeStartElement("valueFloatType");
+      xmlSerializer.writeFloat(object.valueFloatType);
+      xmlSerializer.writeEndElement();
+
+      // field valueInt
+      if (object.valueInt!=null)  {
+        xmlSerializer.writeStartElement("valueInt");
+        xmlSerializer.writeInt(object.valueInt);
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueIntType
+      xmlSerializer.writeStartElement("valueIntType");
+      xmlSerializer.writeInt(object.valueIntType);
+      xmlSerializer.writeEndElement();
+
+      // field valueLong
+      if (object.valueLong!=null)  {
+        xmlSerializer.writeStartElement("valueLong");
+        xmlSerializer.writeLong(object.valueLong);
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueLongType
+      xmlSerializer.writeStartElement("valueLongType");
+      xmlSerializer.writeLong(object.valueLongType);
+      xmlSerializer.writeEndElement();
+
+      // field valueShort
+      if (object.valueShort!=null)  {
+        xmlSerializer.writeStartElement("valueShort");
+        xmlSerializer.writeInt(object.valueShort);
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueShortType
+      xmlSerializer.writeStartElement("valueShortType");
+      xmlSerializer.writeInt(object.valueShortType);
+      xmlSerializer.writeEndElement();
+
       // field valueString
       if (object.valueString!=null)  {
+        xmlSerializer.writeStartElement("valueString");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.valueString));
+        xmlSerializer.writeEndElement();
       }
 
     } catch(XMLStreamException e) {
@@ -162,89 +350,165 @@ public class Bean70BindMap extends AbstractMapper<Bean70> {
    * create new object instance
    */
   @Override
-  public Bean70 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
-    return new Bean70();
+  public BeanElement70 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+    return new BeanElement70();
   }
 
   /**
    * create new object instance
    */
   @Override
-  public Bean70 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
-    return new Bean70();
+  public BeanElement70 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+    return new BeanElement70();
   }
 
   /**
    * create new object instance
    */
   @Override
-  public Bean70 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public BeanElement70 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XMLStreamReader2 xmlParser = wrapper.xmlParser;
-      Bean70 instance = createInstance();
+      BeanElement70 instance = createInstance();
       int eventType = currentEventType;
-      String currentTag = null;
-      String attributeName = null;
-      String attributeValue = null;
 
       if (currentEventType == 0) {
         eventType = xmlParser.next();
-      } else {
-        currentTag = "root";
       }
-      do {
+      String currentTag = xmlParser.getName().toString();
+      Stack<String> elementNameStack = new Stack<>();
+      elementNameStack.push(currentTag);
+      // No attributes found
+
+      //sub-elements
+      while (xmlParser.hasNext() && !elementNameStack.isEmpty()) {
+        eventType = xmlParser.next();
         switch(eventType) {
             case XMLEvent.START_ELEMENT:
-              if (currentTag==null) {
-                currentTag = xmlParser.getName().toString();
-                switch(currentTag) {
-                    case "root":
-                      // tag root of entity
-                      int attributes = xmlParser.getAttributeCount();;
-                      for (int i = 0; i < attributes; i++) {
-                        attributeName = xmlParser.getAttributeLocalName(i);
-                        attributeValue = StringEscapeUtils.unescapeXml(xmlParser.getAttributeValue(i));
-                        switch(attributeName) {
-                            case "name":
-                              // field id
-                              instance.id=Long.valueOf(attributeValue);
-                            break;
-                            case "valueBool2":
-                              // field valueBool2
-                              instance.valueBool2=Boolean.valueOf(attributeValue);
-                            break;
-                            case "nameaa":
-                              // field valueBoolType
-                              instance.valueBoolType=Boolean.valueOf(attributeValue);
-                            break;
-                            default:
-                            break;
-                          }
-                        }
-                      break;
-                      case "valueBool1":
-                        // property valueBool1
-                      break;
-                      default:
-                      break;
+              currentTag = xmlParser.getName().toString();
+              elementNameStack.push(currentTag);
+              switch(currentTag) {
+                  case "name":
+                    // property id
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.setId(xmlParser.getElementAsLong());
                     }
-                  }
+                  break;
+                  case "valueBool":
+                    // property valueBool
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueBool=xmlParser.getElementAsBoolean();
+                    }
+                  break;
+                  case "valueBoolType":
+                    // property valueBoolType
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueBoolType=xmlParser.getElementAsBoolean();
+                    }
+                  break;
+                  case "valueByte":
+                    // property valueByte
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.setValueByte((byte)xmlParser.getElementAsInt());
+                    }
+                  break;
+                  case "valueByteType":
+                    // property valueByteType
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueByteType=(byte)xmlParser.getElementAsInt();
+                    }
+                  break;
+                  case "valueChar":
+                    // property valueChar
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueChar=(char)xmlParser.getElementAsInt();
+                    }
+                  break;
+                  case "valueCharType":
+                    // property valueCharType
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueCharType=(char)xmlParser.getElementAsInt();
+                    }
+                  break;
+                  case "valueDouble":
+                    // property valueDouble
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueDouble=xmlParser.getElementAsDouble();
+                    }
+                  break;
+                  case "valueDoubleType":
+                    // property valueDoubleType
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueDoubleType=xmlParser.getElementAsDouble();
+                    }
+                  break;
+                  case "valueFloat":
+                    // property valueFloat
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueFloat=xmlParser.getElementAsFloat();
+                    }
+                  break;
+                  case "valueFloatType":
+                    // property valueFloatType
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueFloatType=xmlParser.getElementAsFloat();
+                    }
+                  break;
+                  case "valueInt":
+                    // property valueInt
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueInt=xmlParser.getElementAsInt();
+                    }
+                  break;
+                  case "valueIntType":
+                    // property valueIntType
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueIntType=xmlParser.getElementAsInt();
+                    }
+                  break;
+                  case "valueLong":
+                    // property valueLong
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueLong=xmlParser.getElementAsLong();
+                    }
+                  break;
+                  case "valueLongType":
+                    // property valueLongType
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueLongType=xmlParser.getElementAsLong();
+                    }
+                  break;
+                  case "valueShort":
+                    // property valueShort
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueShort=(short)xmlParser.getElementAsInt();
+                    }
+                  break;
+                  case "valueShortType":
+                    // property valueShortType
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueShortType=(short)xmlParser.getElementAsInt();
+                    }
+                  break;
+                  case "valueString":
+                    // property valueString
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueString=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                    }
+                  break;
+                  default:
+                  break;
+                }
               break;
               case XMLEvent.END_ELEMENT:
-                currentTag=null;
               break;
               case XMLEvent.CDATA:
               case XMLEvent.CHARACTERS:
-                // property valueString
-                instance.valueString = StringEscapeUtils.unescapeXml(xmlParser.getText());
               break;
               default:
               break;
           }
-          if (xmlParser.hasNext()) {
-            eventType = xmlParser.next();
-          }
-        } while (xmlParser.hasNext());
+        }
         return instance;
       } catch(XMLStreamException e) {
         e.printStackTrace();

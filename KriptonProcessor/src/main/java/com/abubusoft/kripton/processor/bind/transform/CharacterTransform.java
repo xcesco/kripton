@@ -22,11 +22,15 @@ package com.abubusoft.kripton.processor.bind.transform;
  *
  */
 class CharacterTransform extends PrimitiveBindTransform {
+	
+	public final static String CHAR_CAST_CONST="(char)";
 
 	public CharacterTransform(boolean nullable) {
 		super(nullable);
-		XML_TYPE = "Int";
-		JSON_TYPE = "String";
+		
+		XML_TYPE = "Integer";		
+		XML_CAST_TYPE=CHAR_CAST_CONST;		
+		JSON_TYPE = "Number";
 	}
 
 }

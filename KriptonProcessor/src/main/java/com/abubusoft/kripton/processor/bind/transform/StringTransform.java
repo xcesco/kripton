@@ -75,13 +75,12 @@ public class StringTransform extends AbstractBindTransform {
 		switch (xmlType) {
 		case ATTRIBUTE:
 			methodBuilder.addStatement("$L."+setter(beanClass, property,"attributeValue"), beanName);
-			break;/*
-		case TAG:
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tagName);
-			methodBuilder.addStatement("$L.write$L($L.$L)", serializerName, XML_TYPE, beanName, getter(beanClass, property));
-			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			break;
-		case VALUE:			
+		case TAG:
+			//instance.content = StringEscapeUtils.unescapeXml(xmlParser.getText());
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.unescapeXml($L.getElementText())"), beanName, StringEscapeUtils.class,parserName);			
+			break;
+		/*case VALUE:			
 			methodBuilder.addStatement("$L.write$L($L.$L)", serializerName, property.xmlInfo.tagName, XML_TYPE, beanName, getter(beanClass, property));
 			break;
 		case VALUE_CDATA:

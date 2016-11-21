@@ -153,7 +153,7 @@ public abstract class BindTransformer {
 			return getSqlTransform(typeName);
 		}
 				
-		return new BindObjectTransform();
+		return new ObjectTransform();
 	}
 
 	private static BindTransform getSqlTransform(TypeName typeName) {

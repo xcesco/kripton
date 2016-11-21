@@ -26,9 +26,10 @@ class ByteTransform extends PrimitiveBindTransform {
 
 	public ByteTransform(boolean nullable) {
 		super(nullable);
-		XML_TYPE = "Int";
+		
+		XML_TYPE = "Byte";	
+		XML_CAST_TYPE="(byte)";
 		JSON_TYPE = "Number";
 	}
 
-	protected String defaultValue;
 }

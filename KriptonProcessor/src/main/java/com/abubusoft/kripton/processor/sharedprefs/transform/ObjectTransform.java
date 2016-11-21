@@ -28,11 +28,11 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public class BindObjectTransform extends AbstractSPTransform {
+public class ObjectTransform extends AbstractSPTransform {
 
 	protected Class<?> utilClazz;
 
-	public BindObjectTransform() {
+	public ObjectTransform() {
 	}
 
 	@Override

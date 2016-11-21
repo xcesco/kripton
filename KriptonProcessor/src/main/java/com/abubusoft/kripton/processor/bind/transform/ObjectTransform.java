@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -27,15 +27,19 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public class BindObjectTransform extends AbstractBindTransform {
+public class ObjectTransform extends AbstractBindTransform {
 
 	protected Class<?> utilClazz;
 
-	public BindObjectTransform() {
+	public ObjectTransform() {
 	}
 
 	@Override
-	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {	
+	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {		
+		
+		//instance.valueBean = context.mapperFor(Bean.class).parseOnXml(context, wrapper, eventType);
+		methodBuilder.addStatement("$L."+setter(beanClass, property,"context.mapperFor($T.class).parseOnXml(context, wrapper, eventType)"), beanName, property.getElement().asType());
+		
 		/*if (add) {
 
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
@@ -52,7 +56,7 @@ public class BindObjectTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
-		if (beanClass != null) {
+		/*if (beanClass != null) {
 			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 
 			methodBuilder.addCode("$L.putString($S,writeObj($L." + getter(beanClass, property) + "))", editorName, property.getName(), beanName);
@@ -68,7 +72,7 @@ public class BindObjectTransform extends AbstractBindTransform {
 			methodBuilder.addCode(";");
 			methodBuilder.addCode(" else ");
 			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-		}
+		}*/
 
 	}
 
