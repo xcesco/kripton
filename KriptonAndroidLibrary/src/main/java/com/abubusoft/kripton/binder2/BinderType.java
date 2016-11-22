@@ -4,7 +4,7 @@ public enum BinderType {
 	JSON(false),
 	PROPERTIES(true),
 	XML(false),
-	YAML(true);	
+	YAML(false);	
 	
 	private BinderType(boolean value)
 	{

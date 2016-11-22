@@ -109,4 +109,9 @@ public class ArrayTransform extends AbstractBindTransform {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		
+	}
 }

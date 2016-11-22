@@ -22,24 +22,24 @@ import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
 /**
- * This class is the shared preference binder defined for BeanElement70
+ * This class is the shared preference binder defined for BeanAttribute70
  *
- * @see BeanElement70
+ * @see BeanAttribute70
  */
 @BindMap
-public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
+public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
   /**
    * create new object instance
    */
   @Override
-  public BeanElement70 createInstance() {
-    return new BeanElement70();
+  public BeanAttribute70 createInstance() {
+    return new BeanAttribute70();
   }
 
   /**
    * reset shared preferences
    */
-  public void serializeOnJackson(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+  public void serializeOnJackson(JacksonContext context, BeanAttribute70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       if (writeStartAndEnd) {
@@ -60,8 +60,8 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       jacksonSerializer.writeBooleanField("valueBoolType", object.valueBoolType);
 
       // field valueByte
-      if (object.valueByte!=null)  {
-        jacksonSerializer.writeNumberField("valueByte", object.valueByte);
+      if (object.getValueByte()!=null)  {
+        jacksonSerializer.writeNumberField("valueByte", object.getValueByte());
       }
 
       // field valueByteType
@@ -74,9 +74,6 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueCharType
       jacksonSerializer.writeNumberField("valueCharType", object.valueCharType);
-
-      // field valueContentBoolType
-      jacksonSerializer.writeNumberField("valueContentBoolType", object.valueContentBoolType);
 
       // field valueDouble
       if (object.valueDouble!=null)  {
@@ -135,7 +132,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
   /**
    * reset shared preferences
    */
-  public void serializeOnJacksonAsString(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+  public void serializeOnJacksonAsString(JacksonContext context, BeanAttribute70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       if (writeStartAndEnd) {
@@ -156,8 +153,8 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       jacksonSerializer.writeStringField("valueBoolType", String.valueOf(object.valueBoolType));
 
       // field valueByte
-      if (object.valueByte!=null)  {
-        jacksonSerializer.writeStringField("valueByte", String.valueOf(object.valueByte));
+      if (object.getValueByte()!=null)  {
+        jacksonSerializer.writeStringField("valueByte", String.valueOf(object.getValueByte()));
       }
 
       // field valueByteType
@@ -165,14 +162,11 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueChar
       if (object.valueChar!=null)  {
-        jacksonSerializer.writeStringField("valueChar", String.valueOf((int)object.valueChar));
+        jacksonSerializer.writeStringField("valueChar", String.valueOf(object.valueChar));
       }
 
       // field valueCharType
-      jacksonSerializer.writeStringField("valueCharType", String.valueOf((int)object.valueCharType));
-
-      // field valueContentBoolType
-      jacksonSerializer.writeStringField("valueContentBoolType", String.valueOf(object.valueContentBoolType));
+      jacksonSerializer.writeStringField("valueCharType", String.valueOf(object.valueCharType));
 
       // field valueDouble
       if (object.valueDouble!=null)  {
@@ -231,7 +225,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
   /**
    * reset shared preferences
    */
-  public void serializeOnXml(XmlBinderContext context, BeanElement70 object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(XmlBinderContext context, BeanAttribute70 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -258,9 +252,9 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       xmlSerializer.writeEndElement();
 
       // field valueByte
-      if (object.valueByte!=null)  {
+      if (object.getValueByte()!=null)  {
         xmlSerializer.writeStartElement("valueByte");
-        xmlSerializer.writeInt(object.valueByte);
+        xmlSerializer.writeInt(object.getValueByte());
         xmlSerializer.writeEndElement();
       }
 
@@ -348,9 +342,6 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueContentBoolType
-      xmlSerializer.writeCData(String.valueOf(object.valueContentBoolType));
-
     } catch(XMLStreamException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -361,10 +352,10 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
    * create new object instance
    */
   @Override
-  public BeanElement70 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+  public BeanAttribute70 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      BeanElement70 instance = createInstance();
+      BeanAttribute70 instance = createInstance();
       String fieldName;
       if (jacksonParser.getCurrentToken() == null) {
         jacksonParser.nextToken();
@@ -396,7 +387,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueByte":
               // field valueByte
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueByte=jacksonParser.getByteValue();
+                instance.setValueByte(jacksonParser.getByteValue());
               }
             break;
             case "valueByteType":
@@ -469,10 +460,6 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
                 instance.valueString=jacksonParser.getText();
               }
             break;
-            case "valueContentBoolType":
-              // field valueContentBoolType
-              instance.valueContentBoolType=jacksonParser.getShortValue();
-            break;
             default:
               jacksonParser.skipChildren();
             break;}
@@ -488,10 +475,10 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
    * create new object instance
    */
   @Override
-  public BeanElement70 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+  public BeanAttribute70 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      BeanElement70 instance = createInstance();
+      BeanAttribute70 instance = createInstance();
       String fieldName;
       if (jacksonParser.getCurrentToken() == null) {
         jacksonParser.nextToken();
@@ -523,7 +510,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueByte":
               // field valueByte
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueByte=Byte.valueOf(jacksonParser.getText());
+                instance.setValueByte(Byte.valueOf(jacksonParser.getText()));
               }
             break;
             case "valueByteType":
@@ -596,10 +583,6 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
                 instance.valueString=jacksonParser.getText();
               }
             break;
-            case "valueContentBoolType":
-              // field valueContentBoolType
-              instance.valueContentBoolType=Short.valueOf(jacksonParser.getText());
-            break;
             default:
               jacksonParser.skipChildren();
             break;}
@@ -615,10 +598,10 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
    * create new object instance
    */
   @Override
-  public BeanElement70 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public BeanAttribute70 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XMLStreamReader2 xmlParser = wrapper.xmlParser;
-      BeanElement70 instance = createInstance();
+      BeanAttribute70 instance = createInstance();
       int eventType = currentEventType;
 
       if (currentEventType == 0) {
@@ -635,6 +618,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
         switch(eventType) {
             case XMLEvent.START_ELEMENT:
               currentTag = xmlParser.getName().toString();
+              elementNameStack.push(currentTag);
               switch(currentTag) {
                   case "name":
                     // property id
@@ -657,7 +641,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
                   case "valueByte":
                     // property valueByte
                     if (!xmlParser.isEmptyElement()) {
-                      instance.valueByte=(byte)xmlParser.getElementAsInt();
+                      instance.setValueByte((byte)xmlParser.getElementAsInt());
                     }
                   break;
                   case "valueByteType":
@@ -745,7 +729,6 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
                     }
                   break;
                   default:
-                    xmlParser.skipElement();
                   break;
                 }
               break;
@@ -754,11 +737,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
               break;
               case XMLEvent.CDATA:
               case XMLEvent.CHARACTERS:
-                if (elementNameStack.size()==1 && xmlParser.hasText()) {
-                  // property valueContentBoolType
-                  instance.valueContentBoolType=(short)Integer.parseInt(xmlParser.getText());
-                }
-              break;
+                // no property is binded to VALUE o CDATA break;
               default:
               break;
           }

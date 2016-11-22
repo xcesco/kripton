@@ -353,7 +353,7 @@ public class BindTypeBuilder {
 		BindTransform bindTransform;		
 		// start and inner bean
 		methodBuilder.addStatement("currentTag = xmlParser.getName().toString()");
-		methodBuilder.addStatement("elementNameStack.push(currentTag)");
+		//methodBuilder.addStatement("elementNameStack.push(currentTag)");
 
 		int count = 0;
 		// count property to manage
@@ -402,6 +402,8 @@ public class BindTypeBuilder {
 			}
 
 			methodBuilder.addCode("default:\n$>");
+			methodBuilder.addStatement("$L.skipElement()", parserName);
+			
 			methodBuilder.addStatement("$<break");
 			methodBuilder.endControlFlow();
 		} else {
@@ -418,15 +420,17 @@ public class BindTypeBuilder {
 	 * @param entity
 	 */
 	private static void generateParserOnXmlCharacters(MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {		
+		BindTransform bindTransform;
 		int count=0;
 		for (BindProperty property : entity.getCollection()) {
 			if (property.xmlInfo.xmlType != XmlType.VALUE && property.xmlInfo.xmlType != XmlType.VALUE_CDATA)
 				continue;
 
 			count++;
-			methodBuilder.beginControlFlow("if (elementNameStack.size()==1)");
-				methodBuilder.addCode("// property $L\n", property.getName());
-				methodBuilder.addStatement("$L.$L = StringEscapeUtils.unescapeXml($L.getText())", instanceName, property.getName(), parserName);
+			methodBuilder.beginControlFlow("if (elementNameStack.size()==1 && $L.hasText())", parserName);
+				methodBuilder.addCode("// property $L\n", property.getName());				
+				bindTransform = BindTransformer.lookup(property);								
+				bindTransform.generateParseOnXml(methodBuilder, parserName, typeName(property.getPropertyType()), "instance", property);
 			methodBuilder.endControlFlow();
 		}
 		
@@ -484,93 +488,8 @@ public class BindTypeBuilder {
 		
 				methodBuilder.addCode("$<");				
 				methodBuilder.endControlFlow();
-				
-				/*
-				switch (fieldName) {
-				case "id":
-					instance.id = jacksonParser.getLongValue();
-					break;
-				case "valueString":
-					instance.valueString = jacksonParser.getText();
-					break;
-
-				case "valueByteType":
-					instance.valueByteType = jacksonParser.getByteValue();
-					break;
-				case "valueCharType":
-					instance.valueCharType = jacksonParser.getText().charAt(0);
-					break;
-				case "valueShortType":
-					instance.valueShortType = jacksonParser.getShortValue();
-					break;
-				case "valueIntType":
-					instance.valueIntType = jacksonParser.getIntValue();
-					break;
-				case "valueLongType":
-					instance.valueLongType = jacksonParser.getLongValue();
-					break;
-				case "valueFloatType":
-					instance.valueFloatType = jacksonParser.getFloatValue();
-					break;
-				case "valueDoubleType":
-					instance.valueDoubleType = jacksonParser.getDoubleValue();
-					break;
-
-				case "valueByte":
-					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
-						instance.valueByte = jacksonParser.getByteValue();
-					break;
-				case "valueChar":
-					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
-						instance.valueChar = jacksonParser.getText().charAt(0);
-					break;
-				case "valueShort":
-					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
-						instance.valueShort = jacksonParser.getShortValue();
-					break;
-				case "valueInt":
-					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
-						instance.valueInt = jacksonParser.getIntValue();
-					break;
-				case "valueLong":
-					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
-						instance.valueLong = jacksonParser.getLongValue();
-					break;
-				case "valueFloat":
-					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
-						instance.valueFloat = jacksonParser.getFloatValue();
-					break;
-				case "valueDouble":
-					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
-						instance.valueDouble = jacksonParser.getDoubleValue();
-					break;
-
-				case "valueBean":
-					instance.valueBean = context.mapperFor(Bean.class).parse(context, wrapper);
-					break;
-				case "valueStringList":
-					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
-						ArrayList<String> collection = new ArrayList<String>();
-						while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-							collection.add(jacksonParser.getText());
-						}
-						instance.valueStringList = collection;
-					}
-					break;
-				case "valueStringArray":
-					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
-						ArrayList<String> collection = new ArrayList<String>();
-						while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-							collection.add(jacksonParser.getText());
-						}
-						instance.valueStringArray = collection.toArray(new String[collection.size()]);
-					}
-					break;
-				default:
-					jacksonParser.skipChildren();
-				}
-			}*/
-				methodBuilder.endControlFlow();
+								
+			methodBuilder.endControlFlow();
 				
 		methodBuilder.addStatement("return instance");
 		methodBuilder.nextControlFlow("catch ($T e)",IOException.class);
@@ -581,18 +500,63 @@ public class BindTypeBuilder {
 
 	}
 
-	private static void generateParseOnJacksonAsString(BindEntity item) {
+	private static void generateParseOnJacksonAsString(BindEntity entity) {
 		// @formatter:off
-		MethodSpec.Builder method = MethodSpec.methodBuilder("parseOnJacksonAsString")
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJacksonAsString")
 				.addJavadoc("create new object instance\n")
 				.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
 				.addParameter(typeName(JacksonContext.class), "context")
 				.addParameter(typeName(JacksonWrapperParser.class), "wrapper")
 				.addParameter(typeName(Boolean.TYPE), "readStartAndEnd")
-				.returns(typeName(item.getElement()));
+				.returns(typeName(entity.getElement()));
 		// @formatter:on
-		method.addStatement("return new $T()", typeName(item.getElement()));
-		builder.addMethod(method.build());
+		
+		methodBuilder.beginControlFlow("try");
+		methodBuilder.addStatement("$T jacksonParser = wrapper.jacksonParser", JsonParser.class);
+		methodBuilder.addStatement("$T instance = createInstance()", entity.getElement());
+		methodBuilder.addStatement("String fieldName");
+		
+		methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() == null)");
+			methodBuilder.addStatement("jacksonParser.nextToken()");
+		methodBuilder.endControlFlow();
+		
+		methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() != $T.START_OBJECT)", JsonToken.class);
+			methodBuilder.addStatement("jacksonParser.skipChildren()");
+			methodBuilder.addStatement("return instance");
+		methodBuilder.endControlFlow();
+		
+		methodBuilder.beginControlFlow("while (jacksonParser.nextToken() != $T.END_OBJECT)", JsonToken.class);
+			methodBuilder.addStatement("fieldName = jacksonParser.getCurrentName()");
+			methodBuilder.addStatement("jacksonParser.nextToken()");				
+			
+			methodBuilder.addCode("\n// Parse fields:\n");
+			methodBuilder.beginControlFlow("switch (fieldName)$>");								
+			
+			BindTransform bindTransform;
+			for (BindProperty item : entity.getCollection()) {
+				bindTransform = BindTransformer.lookup(item);
+
+				methodBuilder.addCode("case $S:\n$>", item.getName());
+				methodBuilder.addCode("// field $L\n", item.getName());					
+				bindTransform.generateParseOnJacksonAsString(methodBuilder, "jacksonParser", typeName(item.getPropertyType()), "instance", item);
+				methodBuilder.addCode("$<break;\n");
+			}
+			
+			methodBuilder.addCode("default:$>\n");
+			methodBuilder.addStatement("jacksonParser.skipChildren()");
+			methodBuilder.addCode("$<break;");
+	
+			methodBuilder.addCode("$<");				
+			methodBuilder.endControlFlow();
+							
+		methodBuilder.endControlFlow();
+			
+	methodBuilder.addStatement("return instance");
+	methodBuilder.nextControlFlow("catch ($T e)",IOException.class);
+	methodBuilder.addStatement("e.printStackTrace()");
+	methodBuilder.addStatement("throw new $T(e)", KriptonRuntimeException.class);
+	methodBuilder.endControlFlow();
+	builder.addMethod(methodBuilder.build());
 
 	}
 

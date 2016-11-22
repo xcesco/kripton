@@ -96,4 +96,8 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 		
 	}
 
+	@Override
+	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		
+	}
 }

@@ -79,15 +79,12 @@ public class StringTransform extends AbstractBindTransform {
 			methodBuilder.addStatement("$L."+setter(beanClass, property,"attributeValue"), beanName);
 			break;
 		case TAG:
-			//instance.content = StringEscapeUtils.unescapeXml(xmlParser.getText());
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.unescapeXml($L.getElementText())"), beanName, StringEscapeUtils.class,parserName);			
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.unescapeXml($L.getElementText())"), beanName, StringEscapeUtils.class,parserName);
 			break;
-		/*case VALUE:			
-			methodBuilder.addStatement("$L.write$L($L.$L)", serializerName, property.xmlInfo.tagName, XML_TYPE, beanName, getter(beanClass, property));
-			break;
+		case VALUE:
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L.writeCData(String.valueOf($L.$L))", serializerName, property.xmlInfo.tagName, beanName, getter(beanClass, property));
-			break;*/
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.unescapeXml($L.getText())"), beanName, StringEscapeUtils.class,parserName);			
+			break;
 		default:
 			break;
 		}
@@ -108,5 +105,11 @@ public class StringTransform extends AbstractBindTransform {
 		methodBuilder.endControlFlow();
 		
 	}
-
+	
+	@Override
+	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.getText()"), beanName, parserName);
+		methodBuilder.endControlFlow();
+	}
 }

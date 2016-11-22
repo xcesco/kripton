@@ -39,7 +39,7 @@ public class TestKripton70 extends BaseProcessorTest {
 	@Test
 	public void testBeanElement70Compiled() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanElement70.class);
+		//buildBindProcessorTest(BeanElement70.class);
 		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
 		
 		Assert.assertNotNull(new BeanElement70BindMap());
@@ -63,9 +63,12 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueDoubleType=24.0;
 		bean.valueDouble=24.0;
 		bean.valueString="\"ciao";
+		bean.valueContentBoolType=44;
 		
-		//serializeAndParse(bean, BinderType.XML);
-		serializeAndParse(bean, BinderType.JSON);
+		serializeAndParse(bean, BinderType.XML);
+		//serializeAndParse(bean, BinderType.JSON);
+		//serializeAndParse(bean, BinderType.YAML);
+		//serializeAndParse(bean, BinderType.PROPERTIES);
 	}
 	
 	@Test
@@ -97,8 +100,8 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueString="hello!";
 		
 		//serializeAndParse(bean, BinderType.XML);
-		serializeAndParse(bean, BinderType.JSON);
-	
+		//serializeAndParse(bean, BinderType.JSON);
+		serializeAndParse(bean, BinderType.YAML);
 	}
 
 	/**

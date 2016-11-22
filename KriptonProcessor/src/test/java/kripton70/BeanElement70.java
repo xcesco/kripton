@@ -21,6 +21,8 @@ public class BeanElement70 {
 		this.id = id;
 	}
 	
+	@BindXml(xmlType=XmlType.VALUE_CDATA)
+	public short valueContentBoolType;
 	
 	public boolean valueBoolType;
 	
