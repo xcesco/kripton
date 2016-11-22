@@ -76,7 +76,9 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       jacksonSerializer.writeNumberField("valueCharType", object.valueCharType);
 
       // field valueContentBoolType
-      jacksonSerializer.writeNumberField("valueContentBoolType", object.valueContentBoolType);
+      if (object.valueContentBoolType!=null)  {
+        jacksonSerializer.writeNumberField("valueContentBoolType", object.valueContentBoolType);
+      }
 
       // field valueDouble
       if (object.valueDouble!=null)  {
@@ -172,7 +174,9 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       jacksonSerializer.writeStringField("valueCharType", String.valueOf((int)object.valueCharType));
 
       // field valueContentBoolType
-      jacksonSerializer.writeStringField("valueContentBoolType", String.valueOf(object.valueContentBoolType));
+      if (object.valueContentBoolType!=null)  {
+        jacksonSerializer.writeStringField("valueContentBoolType", String.valueOf(object.valueContentBoolType));
+      }
 
       // field valueDouble
       if (object.valueDouble!=null)  {
@@ -349,7 +353,9 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       }
 
       // field valueContentBoolType
-      xmlSerializer.writeCData(String.valueOf(object.valueContentBoolType));
+      if (object.valueContentBoolType!=null)  {
+        xmlSerializer.writeCData(String.valueOf(object.valueContentBoolType));
+      }
 
     } catch(XMLStreamException e) {
       e.printStackTrace();
@@ -471,7 +477,9 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             break;
             case "valueContentBoolType":
               // field valueContentBoolType
-              instance.valueContentBoolType=jacksonParser.getShortValue();
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueContentBoolType=jacksonParser.getIntValue();
+              }
             break;
             default:
               jacksonParser.skipChildren();
@@ -598,7 +606,9 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             break;
             case "valueContentBoolType":
               // field valueContentBoolType
-              instance.valueContentBoolType=Short.valueOf(jacksonParser.getText());
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueContentBoolType=Integer.valueOf(jacksonParser.getText());
+              }
             break;
             default:
               jacksonParser.skipChildren();
@@ -756,7 +766,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
               case XMLEvent.CHARACTERS:
                 if (elementNameStack.size()==1 && xmlParser.hasText()) {
                   // property valueContentBoolType
-                  instance.valueContentBoolType=(short)Integer.parseInt(xmlParser.getText());
+                  instance.valueContentBoolType=Integer.valueOf(xmlParser.getText());
                 }
               break;
               default:

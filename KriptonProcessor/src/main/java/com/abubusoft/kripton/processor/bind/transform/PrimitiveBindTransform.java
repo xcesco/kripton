@@ -69,9 +69,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			break;
 		case VALUE:			
 		case VALUE_CDATA:			
-			//methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.unescapeXml($L.getText())"), beanName, StringEscapeUtils.class,parserName);
-			//Integer.parseInt(xmlParser.getText())
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$L $L.getText()"), beanName, XML_CAST_TYPE, parserName, XML_TYPE);
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.valueOf($L.getText())"), beanName, XML_UTILITY_TYPE, parserName);
 			break;
 		default:
 			break;

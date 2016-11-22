@@ -22,7 +22,7 @@ public class BeanElement70 {
 	}
 	
 	@BindXml(xmlType=XmlType.VALUE_CDATA)
-	public short valueContentBoolType;
+	public Integer valueContentBoolType;
 	
 	public boolean valueBoolType;
 	
