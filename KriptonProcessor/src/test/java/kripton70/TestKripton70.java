@@ -46,14 +46,18 @@ public class TestKripton70 extends BaseProcessorTest {
 		
 		BeanElement70 bean=new BeanElement70();
 		bean.id=25;
+		bean.valueBean=new BeanElement70();
+		bean.valueBean.id=45;
 		bean.valueBoolType=true;
 		bean.valueBool=true;
 		bean.valueByteType=4;
 		bean.valueByte=8;
+		
 		bean.valueShortType=25;
 		bean.valueShort=25;
 		bean.valueCharType='a';
 		bean.valueChar='a';
+		
 		bean.valueIntType=12;
 		bean.valueInt=12;
 		bean.valueLongType=24;
@@ -62,13 +66,15 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueFloat=24f;
 		bean.valueDoubleType=24.0;
 		bean.valueDouble=24.0;
+		
 		bean.valueString="\"ciao";
+		
 		bean.valueContentBoolType=44;
 		
 		serializeAndParse(bean, BinderType.XML);
-		//serializeAndParse(bean, BinderType.JSON);
-		//serializeAndParse(bean, BinderType.YAML);
-		//serializeAndParse(bean, BinderType.PROPERTIES);
+		serializeAndParse(bean, BinderType.JSON);
+		serializeAndParse(bean, BinderType.YAML);
+		serializeAndParse(bean, BinderType.PROPERTIES);
 	}
 	
 	@Test

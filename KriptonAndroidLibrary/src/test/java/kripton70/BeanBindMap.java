@@ -105,13 +105,13 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 	}
 
 	@Override
-	public void serializeOnJackson(JacksonContext context, Bean object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+	public void serializeOnJackson(JacksonContext context, Bean object, JacksonWrapperSerializer wrapper) {
 
 		try {
 			JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
 
-			if (writeStartAndEnd)
-				jacksonSerializer.writeStartObject();
+			// write begin object
+			jacksonSerializer.writeStartObject();
 
 			// field id
 			jacksonSerializer.writeNumberField("id", object.id);
@@ -175,11 +175,11 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 			// field bean
 			if (object.valueBean != null) {
 				jacksonSerializer.writeFieldName("bean");
-				context.mapperFor(Bean.class).serializeOnJackson(context, object.valueBean, wrapper, true);
+				context.mapperFor(Bean.class).serializeOnJackson(context, object.valueBean, wrapper);
 			}
 
-			if (writeStartAndEnd)
-				jacksonSerializer.writeEndObject();
+			// write end object
+			jacksonSerializer.writeEndObject();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -188,11 +188,11 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 	}
 
 	@Override
-	public void serializeOnJacksonAsString(JacksonContext context, Bean object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+	public void serializeOnJacksonAsString(JacksonContext context, Bean object, JacksonWrapperSerializer wrapper) {
 		try {
 			JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
-			if (writeStartAndEnd)
-				jacksonSerializer.writeStartObject();
+			// write begin object
+			jacksonSerializer.writeStartObject();
 
 			// field id
 			jacksonSerializer.writeFieldName("id");
@@ -201,11 +201,11 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 			// field bean
 			if (object.valueBean != null) {
 				jacksonSerializer.writeFieldName("bean");
-				context.mapperFor(Bean.class).serializeOnJacksonAsString(context, object.valueBean, wrapper, true);
+				context.mapperFor(Bean.class).serializeOnJacksonAsString(context, object.valueBean, wrapper);
 			}
 
-			if (writeStartAndEnd)
-				jacksonSerializer.writeEndObject();
+			// write end object
+			jacksonSerializer.writeEndObject();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -265,7 +265,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 	}
 
 	@Override
-	public Bean parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+	public Bean parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
 		try {
 			JsonParser jacksonParser = wrapper.jacksonParser;
 			jacksonParser.nextToken();
@@ -342,7 +342,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 					break;
 
 				case "valueBean":
-					instance.valueBean = context.mapperFor(Bean.class).parse(context, wrapper);
+					instance.valueBean = context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
 					break;
 				case "valueStringList":
 					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
@@ -375,7 +375,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 	}
 
 	@Override
-	public Bean parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+	public Bean parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
 		try {
 			JsonParser jacksonParser = wrapper.jacksonParser;
 			jacksonParser.nextToken();
@@ -409,7 +409,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 					instance.valueCharType = Character.valueOf(jacksonParser.getText().charAt(0));
 					break;
 				case "valueBean":
-					instance.valueBean = context.mapperFor(Bean.class).parseOnJacksonAsString(context, wrapper, false);
+					instance.valueBean = context.mapperFor(Bean.class).parseOnJacksonAsString(context, wrapper);
 					break;
 				case "valueStringList":
 					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {

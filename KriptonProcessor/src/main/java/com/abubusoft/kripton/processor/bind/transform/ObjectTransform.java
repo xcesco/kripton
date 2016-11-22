@@ -15,11 +15,14 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import javax.xml.stream.events.XMLEvent;
+
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -37,66 +40,47 @@ public class ObjectTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {		
-		
-		//instance.valueBean = context.mapperFor(Bean.class).parseOnXml(context, wrapper, eventType);
 		methodBuilder.addStatement("$L."+setter(beanClass, property,"context.mapperFor($T.class).parseOnXml(context, wrapper, eventType)"), beanName, property.getElement().asType());
-		
-		/*if (add) {
-
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
-		}
-
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("($T)readObj($L.getString($S, null), $T.class)", property.getPropertyType().getName(), preferenceName, property.getName(), property.getPropertyType().getName());
-		methodBuilder.addCode(": null");
-
-		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
-		}*/
 	}
 
 	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
-		/*if (beanClass != null) {
-			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
-
-			methodBuilder.addCode("$L.putString($S,writeObj($L." + getter(beanClass, property) + "))", editorName, property.getName(), beanName);
-
-			methodBuilder.addCode(";");
-			methodBuilder.addCode(" else ");
-			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-		} else {
-			methodBuilder.addCode("if ($L!=null) ", beanName);
-
-			methodBuilder.addCode("$L.putString($S,writeObj($L))", editorName, property.getName(), beanName);
-
-			methodBuilder.addCode(";");
-			methodBuilder.addCode(" else ");
-			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-		}*/
-
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {		
+		//@formatter:off
+		methodBuilder.beginControlFlow("if ($L.$L!=null) ", beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tagName);
+			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnXml(context, $L.$L, wrapper, $L)", beanClass, beanName, getter(beanClass, property), XMLEvent.START_ELEMENT);
+			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+		methodBuilder.endControlFlow();
+		//@formatter:on
 	}
 
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
+		//@formatter:off
+		methodBuilder.beginControlFlow("if ($L.$L!=null) ", beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonName);
+			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L.$L, wrapper)", beanClass, beanName,getter(beanClass, property));
+		methodBuilder.endControlFlow();
+		//@formatter:on
 	}
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
+		//@formatter:off
+		methodBuilder.beginControlFlow("if ($L.$L!=null) ", beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonName);
+			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJacksonAsString(context, $L.$L, wrapper)", beanClass, beanName,getter(beanClass, property));
+		methodBuilder.endControlFlow();
+		//@formatter:on
 	}
 
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
+		methodBuilder.addStatement("$L."+setter(beanClass, property,"context.mapperFor($T.class).parseOnJackson(context, wrapper)"), beanName, beanClass);
 	}
 	
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		
+		methodBuilder.addStatement("$L."+setter(beanClass, property,"context.mapperFor($T.class).parseOnJacksonAsString(context, wrapper)"), beanName, beanClass);		
 	}
 }

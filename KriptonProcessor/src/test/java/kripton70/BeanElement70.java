@@ -26,7 +26,7 @@ public class BeanElement70 {
 	
 	public boolean valueBoolType;
 	
-	public Boolean valueBool;
+	public Boolean valueBool;	
 	
 	public byte valueByteType;
 	
@@ -58,46 +58,7 @@ public class BeanElement70 {
 	
 	public String valueString;
 	
-	/*	
-	
-	public byte valueByteType;
-	
-	
-	
-	
-	
-	public long valueLongType;
-	
-	public float valueFloatType;
-	
-	public double valueDoubleType;
-	
-	
-	
-	public Short valueShort;
-	
-	private Byte valueByte;
-	
-	public Byte getValueByte() {
-		return valueByte;
-	}
-
-	public void setValueByte(Byte valueByte) {
-		this.valueByte = valueByte;
-	}
-
-	public Character valueChar;
-	
-	public Integer valueInt;
-	
-	public Long valueLong;
-	
-	public Float valueFloat;
-	
-	public Double valueDouble;
-	
-	
-	public String valueString;*/
+	public BeanElement70 valueBean;
 	
 	/*
 	@BindXml(xmlType=XmlType.ATTRIBUTE)

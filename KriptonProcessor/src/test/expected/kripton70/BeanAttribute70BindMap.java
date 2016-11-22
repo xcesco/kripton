@@ -39,12 +39,11 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
   /**
    * reset shared preferences
    */
-  public void serializeOnJackson(JacksonContext context, BeanAttribute70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+  @Override
+  public void serializeOnJackson(JacksonContext context, BeanAttribute70 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
-      if (writeStartAndEnd) {
-        jacksonSerializer.writeStartObject();
-      }
+      jacksonSerializer.writeStartObject();
 
       // Serialized Field:
 
@@ -120,9 +119,7 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
         jacksonSerializer.writeStringField("valueString", object.valueString);
       }
 
-      if (writeStartAndEnd) {
-        jacksonSerializer.writeEndObject();
-      }
+      jacksonSerializer.writeEndObject();
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -132,12 +129,11 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
   /**
    * reset shared preferences
    */
-  public void serializeOnJacksonAsString(JacksonContext context, BeanAttribute70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+  @Override
+  public void serializeOnJacksonAsString(JacksonContext context, BeanAttribute70 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
-      if (writeStartAndEnd) {
-        jacksonSerializer.writeStartObject();
-      }
+      jacksonSerializer.writeStartObject();
 
       // Serialized Field:
 
@@ -162,11 +158,11 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
 
       // field valueChar
       if (object.valueChar!=null)  {
-        jacksonSerializer.writeStringField("valueChar", String.valueOf(object.valueChar));
+        jacksonSerializer.writeStringField("valueChar", String.valueOf((int)object.valueChar));
       }
 
       // field valueCharType
-      jacksonSerializer.writeStringField("valueCharType", String.valueOf(object.valueCharType));
+      jacksonSerializer.writeStringField("valueCharType", String.valueOf((int)object.valueCharType));
 
       // field valueDouble
       if (object.valueDouble!=null)  {
@@ -213,9 +209,7 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
         jacksonSerializer.writeStringField("valueString", object.valueString);
       }
 
-      if (writeStartAndEnd) {
-        jacksonSerializer.writeEndObject();
-      }
+      jacksonSerializer.writeEndObject();
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -225,6 +219,7 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
   /**
    * reset shared preferences
    */
+  @Override
   public void serializeOnXml(XmlBinderContext context, BeanAttribute70 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
@@ -352,7 +347,7 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
    * create new object instance
    */
   @Override
-  public BeanAttribute70 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+  public BeanAttribute70 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       BeanAttribute70 instance = createInstance();
@@ -475,7 +470,7 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
    * create new object instance
    */
   @Override
-  public BeanAttribute70 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+  public BeanAttribute70 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       BeanAttribute70 instance = createInstance();
@@ -618,7 +613,6 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
         switch(eventType) {
             case XMLEvent.START_ELEMENT:
               currentTag = xmlParser.getName().toString();
-              elementNameStack.push(currentTag);
               switch(currentTag) {
                   case "name":
                     // property id
@@ -729,6 +723,7 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
                     }
                   break;
                   default:
+                    xmlParser.skipElement();
                   break;
                 }
               break;

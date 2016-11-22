@@ -30,9 +30,9 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 			break;
 		default:
 			if (context.getSupportedFormat().onlyText)
-				instance = parseOnJacksonAsString((JacksonContext) context, (JacksonWrapperParser) parserWrapper, true);
+				instance = parseOnJacksonAsString((JacksonContext) context, (JacksonWrapperParser) parserWrapper);
 			else
-				instance = parseOnJackson((JacksonContext) context, (JacksonWrapperParser) parserWrapper, true);
+				instance = parseOnJackson((JacksonContext) context, (JacksonWrapperParser) parserWrapper);
 
 		}
 
@@ -55,9 +55,9 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 			break;
 		default:
 			if (context.getSupportedFormat().onlyText)
-				serializeOnJacksonAsString((JacksonContext) context, object, (JacksonWrapperSerializer) serializerWrapper, true);
+				serializeOnJacksonAsString((JacksonContext) context, object, (JacksonWrapperSerializer) serializerWrapper);
 			else
-				serializeOnJackson((JacksonContext) context, object, (JacksonWrapperSerializer) serializerWrapper, true);
+				serializeOnJackson((JacksonContext) context, object, (JacksonWrapperSerializer) serializerWrapper);
 		}
 	}
 

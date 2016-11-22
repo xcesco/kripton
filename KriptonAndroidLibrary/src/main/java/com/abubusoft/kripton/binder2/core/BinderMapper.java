@@ -40,15 +40,15 @@ public interface BinderMapper<E> {
 
 	void serialize(@SuppressWarnings("rawtypes") BinderContext context, List<E> list, OutputStream os);
 	
-	void serializeOnJackson(JacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer, boolean writeStartAndEnd);
+	void serializeOnJackson(JacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer);
 	
-	void serializeOnJacksonAsString(JacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer, boolean writeStartAndEnd);
+	void serializeOnJacksonAsString(JacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer);
 
 	void serializeOnXml(XmlBinderContext context, E object, XmlWrapperSerializer xmlSerializer, int currentEventType);
 	
-	E parseOnJackson(JacksonContext context, JacksonWrapperParser jacksonParser, boolean writeStartAndEnd);
+	E parseOnJackson(JacksonContext context, JacksonWrapperParser jacksonParser);
 	
-	E parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser jacksonParser, boolean writeStartAndEnd);
+	E parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser jacksonParser);
 
 	E parseOnXml(XmlBinderContext context, XmlWrapperParser xmlParser, int currentEventType);
 

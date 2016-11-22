@@ -39,12 +39,11 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
   /**
    * reset shared preferences
    */
-  public void serializeOnJackson(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+  @Override
+  public void serializeOnJackson(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
-      if (writeStartAndEnd) {
-        jacksonSerializer.writeStartObject();
-      }
+      jacksonSerializer.writeStartObject();
 
       // Serialized Field:
 
@@ -125,9 +124,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
         jacksonSerializer.writeStringField("valueString", object.valueString);
       }
 
-      if (writeStartAndEnd) {
-        jacksonSerializer.writeEndObject();
-      }
+      jacksonSerializer.writeEndObject();
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -137,12 +134,11 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
   /**
    * reset shared preferences
    */
-  public void serializeOnJacksonAsString(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper, boolean writeStartAndEnd) {
+  @Override
+  public void serializeOnJacksonAsString(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
-      if (writeStartAndEnd) {
-        jacksonSerializer.writeStartObject();
-      }
+      jacksonSerializer.writeStartObject();
 
       // Serialized Field:
 
@@ -223,9 +219,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
         jacksonSerializer.writeStringField("valueString", object.valueString);
       }
 
-      if (writeStartAndEnd) {
-        jacksonSerializer.writeEndObject();
-      }
+      jacksonSerializer.writeEndObject();
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -235,6 +229,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
   /**
    * reset shared preferences
    */
+  @Override
   public void serializeOnXml(XmlBinderContext context, BeanElement70 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
@@ -367,7 +362,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
    * create new object instance
    */
   @Override
-  public BeanElement70 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+  public BeanElement70 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       BeanElement70 instance = createInstance();
@@ -496,7 +491,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
    * create new object instance
    */
   @Override
-  public BeanElement70 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
+  public BeanElement70 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       BeanElement70 instance = createInstance();
