@@ -1,6 +1,13 @@
 package kripton70;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Currency;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,6 +52,15 @@ public class TestKripton70 extends BaseProcessorTest {
 		Assert.assertNotNull(new BeanElement70BindMap());
 		
 		BeanElement70 bean=new BeanElement70();
+		bean.valueCalendar=Calendar.getInstance();
+		bean.valueCurrency=Currency.getInstance(Locale.ITALY);
+		bean.valueDate=new Date();
+		bean.valueLocale=Locale.ITALY;
+		bean.valueTime=new Time(0);
+		bean.valueTimeZone=TimeZone.getDefault();
+		bean.valueUrl=new URL("http://github.com");
+		
+		/*
 		bean.id=25;
 		bean.valueBean=new BeanElement70();
 		bean.valueBean.id=45;
@@ -66,6 +82,7 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueFloat=24f;
 		bean.valueDoubleType=24.0;
 		bean.valueDouble=24.0;
+		*/
 		
 		//bean.valueString="\"ciao";
 		

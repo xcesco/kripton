@@ -34,9 +34,6 @@ import com.squareup.javapoet.TypeName;
  */
 public class StringTransform extends AbstractBindTransform {
 
-	public StringTransform() {
-	}
-
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;

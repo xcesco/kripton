@@ -337,6 +337,9 @@ public class BeanAttribute70BindMap extends AbstractMapper<BeanAttribute70> {
         xmlSerializer.writeEndElement();
       }
 
+      if (currentEventType == 0) {
+        xmlSerializer.writeEndElement();
+      }
     } catch(XMLStreamException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));

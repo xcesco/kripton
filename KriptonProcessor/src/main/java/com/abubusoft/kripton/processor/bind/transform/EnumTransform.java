@@ -16,12 +16,8 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
