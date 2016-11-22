@@ -29,12 +29,4 @@ public class BindModel {
 		entities.add(item);
 	}
 
-
-	public void clear() {
-		entities.clear();
-	}
-
-	public int count() {
-		return entities.size();
-	}
 }

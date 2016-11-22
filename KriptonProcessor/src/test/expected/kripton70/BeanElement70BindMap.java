@@ -50,6 +50,12 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field id
       jacksonSerializer.writeNumberField("id", object.getId());
 
+      // field valueBean
+      if (object.valueBean!=null)  {
+        jacksonSerializer.writeFieldName("valueBean");
+        context.mapperFor(BeanElement70.class).serializeOnJackson(context, object.valueBean, wrapper);
+      }
+
       // field valueBool
       if (object.valueBool!=null)  {
         jacksonSerializer.writeBooleanField("valueBool", object.valueBool);
@@ -144,6 +150,12 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field id
       jacksonSerializer.writeStringField("id", String.valueOf(object.getId()));
+
+      // field valueBean
+      if (object.valueBean!=null)  {
+        jacksonSerializer.writeFieldName("valueBean");
+        context.mapperFor(BeanElement70.class).serializeOnJacksonAsString(context, object.valueBean, wrapper);
+      }
 
       // field valueBool
       if (object.valueBool!=null)  {
@@ -243,6 +255,13 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       xmlSerializer.writeStartElement("name");
       xmlSerializer.writeLong(object.getId());
       xmlSerializer.writeEndElement();
+
+      // field valueBean
+      if (object.valueBean!=null)  {
+        xmlSerializer.writeStartElement("valueBean");
+        context.mapperFor(BeanElement70.class).serializeOnXml(context, object.valueBean, wrapper, 1);
+        xmlSerializer.writeEndElement();
+      }
 
       // field valueBool
       if (object.valueBool!=null)  {
@@ -352,6 +371,9 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
         xmlSerializer.writeCData(String.valueOf(object.valueContentBoolType));
       }
 
+      if (currentEventType == 0) {
+        xmlSerializer.writeEndElement();
+      }
     } catch(XMLStreamException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -383,6 +405,10 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "id":
               // field id
               instance.setId(jacksonParser.getLongValue());
+            break;
+            case "valueBean":
+              // field valueBean
+              instance.valueBean=context.mapperFor(BeanElement70.class).parseOnJackson(context, wrapper);
             break;
             case "valueBool":
               // field valueBool
@@ -512,6 +538,10 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "id":
               // field id
               instance.setId(Long.valueOf(jacksonParser.getText()));
+            break;
+            case "valueBean":
+              // field valueBean
+              instance.valueBean=context.mapperFor(BeanElement70.class).parseOnJacksonAsString(context, wrapper);
             break;
             case "valueBool":
               // field valueBool
@@ -645,6 +675,12 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
                     // property id
                     if (!xmlParser.isEmptyElement()) {
                       instance.setId(xmlParser.getElementAsLong());
+                    }
+                  break;
+                  case "valueBean":
+                    // property valueBean
+                    if (!xmlParser.isEmptyElement()) {
+                      instance.valueBean=context.mapperFor(BeanElement70.class).parseOnXml(context, wrapper, eventType);
                     }
                   break;
                   case "valueBool":

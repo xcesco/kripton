@@ -61,6 +61,11 @@ public class BeanElement70 {
 	public BeanElement70 valueBean;
 	
 	/*
+	@Bind(order=3)
+	@BindXml(xmlType=XmlType.VALUE_CDATA)
+	public String valueCDataString;
+	*/
+	/*
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Boolean valueBool2;
 	
@@ -75,9 +80,7 @@ public class BeanElement70 {
 	@BindXml(xmlType=XmlType.TAG)
 	public String valueElementString;
 	
-	@Bind(order=3)
-	@BindXml(xmlType=XmlType.VALUE_CDATA)
-	public String valueCDataString;
+	
 	
 	public Bean valueBean;*/
 	

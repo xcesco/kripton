@@ -386,10 +386,7 @@ public class BindTypeBuilder {
 					methodBuilder.addCode("// property $L\n", property.getName());
 
 					methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
-					bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property);
-					if (bindTransform instanceof ObjectTransform) {
-						methodBuilder.addStatement("currentTag = elementNameStack.pop()");
-					}
+					bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property);					
 					methodBuilder.endControlFlow();
 
 					methodBuilder.addStatement("$<break");
@@ -668,6 +665,11 @@ public class BindTypeBuilder {
 			bindTransform.generateSerializeOnXml(methodBuilder, "xmlSerializer", item.getPropertyType().getName(), "object", item);
 			methodBuilder.addCode("\n");
 		}
+		
+		methodBuilder.beginControlFlow("if (currentEventType == 0)");
+			methodBuilder.addStatement("xmlSerializer.writeEndElement()");
+		methodBuilder.endControlFlow();
+
 
 		methodBuilder.nextControlFlow("catch($T e)", typeName(XMLStreamException.class));
 		methodBuilder.addStatement("e.printStackTrace()");
