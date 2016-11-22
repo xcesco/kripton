@@ -27,6 +27,10 @@ class BooleanTransform extends PrimitiveBindTransform {
 	public BooleanTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Boolean";
-		JSON_TYPE = "Boolean";		
+		XML_UTILITY_TYPE="Boolean";
+		
+		JSON_TYPE = "Boolean";
+		JSON_PARSER_METHOD="getBooleanValue";
+		
 	}
 }

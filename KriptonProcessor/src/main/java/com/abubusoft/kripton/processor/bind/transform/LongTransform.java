@@ -24,6 +24,10 @@ class LongTransform extends PrimitiveBindTransform {
 	public LongTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Long";
+		XML_UTILITY_TYPE="Long";
+		
 		JSON_TYPE = "Number";
+		JSON_PARSER_METHOD="getLongValue";
+		
 	}
 }

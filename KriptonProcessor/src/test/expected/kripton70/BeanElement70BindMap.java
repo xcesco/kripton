@@ -11,6 +11,8 @@ import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import java.io.IOException;
 import java.lang.Override;
 import java.util.Stack;
@@ -20,12 +22,12 @@ import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
 /**
- * This class is the shared preference binder defined for Bean70
+ * This class is the shared preference binder defined for BeanElement70
  *
  * @see BeanElement70
  */
 @BindMap
-public class Bean70BindMap extends AbstractMapper<BeanElement70> {
+public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
   /**
    * create new object instance
    */
@@ -58,8 +60,8 @@ public class Bean70BindMap extends AbstractMapper<BeanElement70> {
       jacksonSerializer.writeBooleanField("valueBoolType", object.valueBoolType);
 
       // field valueByte
-      if (object.getValueByte()!=null)  {
-        jacksonSerializer.writeNumberField("valueByte", object.getValueByte());
+      if (object.valueByte!=null)  {
+        jacksonSerializer.writeNumberField("valueByte", object.valueByte);
       }
 
       // field valueByteType
@@ -151,8 +153,8 @@ public class Bean70BindMap extends AbstractMapper<BeanElement70> {
       jacksonSerializer.writeStringField("valueBoolType", String.valueOf(object.valueBoolType));
 
       // field valueByte
-      if (object.getValueByte()!=null)  {
-        jacksonSerializer.writeStringField("valueByte", String.valueOf(object.getValueByte()));
+      if (object.valueByte!=null)  {
+        jacksonSerializer.writeStringField("valueByte", String.valueOf(object.valueByte));
       }
 
       // field valueByteType
@@ -250,9 +252,9 @@ public class Bean70BindMap extends AbstractMapper<BeanElement70> {
       xmlSerializer.writeEndElement();
 
       // field valueByte
-      if (object.getValueByte()!=null)  {
+      if (object.valueByte!=null)  {
         xmlSerializer.writeStartElement("valueByte");
-        xmlSerializer.writeInt(object.getValueByte());
+        xmlSerializer.writeInt(object.valueByte);
         xmlSerializer.writeEndElement();
       }
 
@@ -351,7 +353,122 @@ public class Bean70BindMap extends AbstractMapper<BeanElement70> {
    */
   @Override
   public BeanElement70 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper, boolean readStartAndEnd) {
-    return new BeanElement70();
+    try {
+      JsonParser jacksonParser = wrapper.jacksonParser;
+      BeanElement70 instance = createInstance();
+      String fieldName;
+      if (jacksonParser.getCurrentToken() == null) {
+        jacksonParser.nextToken();
+      }
+      if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+        jacksonParser.skipChildren();
+        return instance;
+      }
+      while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
+        fieldName = jacksonParser.getCurrentName();
+        jacksonParser.nextToken();
+
+        // Parse fields:
+        switch (fieldName) {
+            case "id":
+              // field id
+              instance.setId(jacksonParser.getLongValue());
+            break;
+            case "valueBool":
+              // field valueBool
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueBool=jacksonParser.getBooleanValue();
+              }
+            break;
+            case "valueBoolType":
+              // field valueBoolType
+              instance.valueBoolType=jacksonParser.getBooleanValue();
+            break;
+            case "valueByte":
+              // field valueByte
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueByte=jacksonParser.getByteValue();
+              }
+            break;
+            case "valueByteType":
+              // field valueByteType
+              instance.valueByteType=jacksonParser.getByteValue();
+            break;
+            case "valueChar":
+              // field valueChar
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueChar=Character.valueOf((char)jacksonParser.getIntValue());
+              }
+            break;
+            case "valueCharType":
+              // field valueCharType
+              instance.valueCharType=Character.valueOf((char)jacksonParser.getIntValue());
+            break;
+            case "valueDouble":
+              // field valueDouble
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueDouble=jacksonParser.getDoubleValue();
+              }
+            break;
+            case "valueDoubleType":
+              // field valueDoubleType
+              instance.valueDoubleType=jacksonParser.getDoubleValue();
+            break;
+            case "valueFloat":
+              // field valueFloat
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueFloat=jacksonParser.getFloatValue();
+              }
+            break;
+            case "valueFloatType":
+              // field valueFloatType
+              instance.valueFloatType=jacksonParser.getFloatValue();
+            break;
+            case "valueInt":
+              // field valueInt
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueInt=jacksonParser.getIntValue();
+              }
+            break;
+            case "valueIntType":
+              // field valueIntType
+              instance.valueIntType=jacksonParser.getIntValue();
+            break;
+            case "valueLong":
+              // field valueLong
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueLong=jacksonParser.getLongValue();
+              }
+            break;
+            case "valueLongType":
+              // field valueLongType
+              instance.valueLongType=jacksonParser.getLongValue();
+            break;
+            case "valueShort":
+              // field valueShort
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueShort=jacksonParser.getShortValue();
+              }
+            break;
+            case "valueShortType":
+              // field valueShortType
+              instance.valueShortType=jacksonParser.getShortValue();
+            break;
+            case "valueString":
+              // field valueString
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueString=jacksonParser.getText();
+              }
+            break;
+            default:
+              jacksonParser.skipChildren();
+            break;}
+      }
+      return instance;
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new KriptonRuntimeException(e);
+    }
   }
 
   /**
@@ -409,7 +526,7 @@ public class Bean70BindMap extends AbstractMapper<BeanElement70> {
                   case "valueByte":
                     // property valueByte
                     if (!xmlParser.isEmptyElement()) {
-                      instance.setValueByte((byte)xmlParser.getElementAsInt());
+                      instance.valueByte=(byte)xmlParser.getElementAsInt();
                     }
                   break;
                   case "valueByteType":
@@ -501,10 +618,11 @@ public class Bean70BindMap extends AbstractMapper<BeanElement70> {
                 }
               break;
               case XMLEvent.END_ELEMENT:
+                currentTag = elementNameStack.pop();
               break;
               case XMLEvent.CDATA:
               case XMLEvent.CHARACTERS:
-              break;
+                // no property is binded to VALUE o CDATA break;
               default:
               break;
           }

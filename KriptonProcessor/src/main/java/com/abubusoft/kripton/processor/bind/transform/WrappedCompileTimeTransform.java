@@ -7,6 +7,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -26,7 +27,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 	protected boolean nullable;
 	
 	@Override
-	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		/*
 		if (add) {
 						
@@ -44,7 +45,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 
 
 	@Override
-	public void generateSerializeOnXml(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
 		if (beanClass!=null)
 		{			
 			if (nullable)
@@ -76,14 +77,21 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 
 
 	@Override
-	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
-	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		// TODO Auto-generated method stub
 		
 	}

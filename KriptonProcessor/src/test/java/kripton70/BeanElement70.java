@@ -10,28 +10,6 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 @BindTypeXml("root")
 public class BeanElement70 {
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BeanElement70 other = (BeanElement70) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
 	@BindXml(value="name", xmlType=XmlType.TAG)
 	protected long id;
 	
@@ -43,15 +21,48 @@ public class BeanElement70 {
 		this.id = id;
 	}
 	
+	
 	public boolean valueBoolType;
 	
-	public short valueShortType;
+	public Boolean valueBool;
 	
 	public byte valueByteType;
 	
+	public Byte valueByte;
+	
+	public short valueShortType;
+	
+	public Short valueShort;
+	
 	public char valueCharType;
 	
+	public Character valueChar;
+	
 	public int valueIntType;
+	
+	public Integer valueInt;
+	
+	public long valueLongType;
+	
+	public Long valueLong;
+	
+	public float valueFloatType;
+	
+	public Float valueFloat;
+	
+	public double valueDoubleType;
+	
+	public Double valueDouble;
+	
+	public String valueString;
+	
+	/*	
+	
+	public byte valueByteType;
+	
+	
+	
+	
 	
 	public long valueLongType;
 	
@@ -59,7 +70,7 @@ public class BeanElement70 {
 	
 	public double valueDoubleType;
 	
-	public Boolean valueBool;
+	
 	
 	public Short valueShort;
 	
@@ -84,7 +95,7 @@ public class BeanElement70 {
 	public Double valueDouble;
 	
 	
-	public String valueString;
+	public String valueString;*/
 	
 	/*
 	@BindXml(xmlType=XmlType.ATTRIBUTE)

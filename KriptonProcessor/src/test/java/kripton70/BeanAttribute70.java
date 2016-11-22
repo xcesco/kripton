@@ -7,7 +7,7 @@ import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;
 
 @BindType
-@BindTypeXml
+@BindTypeXml("root")
 public class BeanAttribute70 {
 	
 	@Override
@@ -32,7 +32,7 @@ public class BeanAttribute70 {
 		return true;
 	}
 
-	@BindXml(value="name", xmlType=XmlType.ATTRIBUTE)
+	@BindXml(value="name", xmlType=XmlType.TAG)
 	protected long id;
 	
 	public long getId() {
@@ -43,37 +43,26 @@ public class BeanAttribute70 {
 		this.id = id;
 	}
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public boolean valueBoolType;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public short valueShortType;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public byte valueByteType;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public char valueCharType;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public int valueIntType;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public long valueLongType;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public float valueFloatType;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public double valueDoubleType;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Boolean valueBool;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Short valueShort;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	private Byte valueByte;
 	
 	public Byte getValueByte() {
@@ -84,22 +73,103 @@ public class BeanAttribute70 {
 		this.valueByte = valueByte;
 	}
 
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Character valueChar;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Integer valueInt;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Long valueLong;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Float valueFloat;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Double valueDouble;
 	
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
+	
 	public String valueString;
 	
+	/*
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
+	public Boolean valueBool2;
+	
+	@Bind(order=4)
+	public Boolean valueBool1;
+	
+	@Bind(order=3)
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
+	public String valueAttributeString;
+	
+	@Bind(order=3)
+	@BindXml(xmlType=XmlType.TAG)
+	public String valueElementString;
+	
+	@Bind(order=3)
+	@BindXml(xmlType=XmlType.VALUE_CDATA)
+	public String valueCDataString;
+	
+	public Bean valueBean;*/
+	
+/*
+	@BindXml(XmlType.ATTRIBUTE)
+	public String name;
+	
+	@BindXml(XmlType.VALUE_CDATA)
+	public String content;
+		
+	public String valueString;
+		
+	public byte valueByteType;
+	
+	public short valueShortType;
+	
+	public char valueCharType;
+	
+	public int valueIntType;
+	
+	public long valueLongType;
+	
+	public float valueFloatType;
+	
+	public double valueDoubleType;
+	
+	public Byte valueByte;
+	
+	public Short valueShort;
+	
+	public Character valueChar;
+	
+	public Integer valueInt;
+	
+	public Long valueLong;
+	
+	public Float valueFloat;
+	
+	public Double valueDouble;
+	
+	public BigDecimal valueBigDecimal;
+	
+	public BigInteger valueBigInteger;
+	
+	public Calendar valueCalendar;
+	
+	public Currency valueCurrency;
+	
+	public Date valueDate;
+	
+	public EnumBeanType valueEnumBean;
+	
+	public Locale valueLocale;
+	
+	public Time valueTime;
+	
+	public TimeZone valueTimeZone;
+	
+	public URL valueUrl;
+	
+	
+	
+	public List<String> valueStringList;
+	
+	public String[] valueStringArray;
+	
+	public Map<String, String> valueStringMap;
+		*/
 }

@@ -21,7 +21,9 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -36,7 +38,7 @@ public class StringTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnXml(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 		methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 
@@ -62,14 +64,14 @@ public class StringTransform extends AbstractBindTransform {
 	}
 	
 	@Override
-	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 		methodBuilder.addStatement("$L.writeStringField($S, $L.$L)", serializerName, property.jacksonName, beanName, getter(beanClass, property));
 		methodBuilder.endControlFlow();
 	}
 
 	@Override
-	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 		
 		switch (xmlType) {
@@ -93,10 +95,18 @@ public class StringTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 		methodBuilder.addStatement("$L.writeStringField($S, $L.$L)", serializerName, property.jacksonName, beanName, getter(beanClass, property));
 		methodBuilder.endControlFlow();
+	}
+
+	@Override
+	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.getText()"), beanName, parserName);
+		methodBuilder.endControlFlow();
+		
 	}
 
 }

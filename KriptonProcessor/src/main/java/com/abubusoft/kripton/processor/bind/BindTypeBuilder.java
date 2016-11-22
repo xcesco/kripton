@@ -59,6 +59,8 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -246,6 +248,7 @@ public class BindTypeBuilder {
 	}
 
 	private static void generateParserOnXmlEndElement(MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
+		methodBuilder.addStatement("currentTag = elementNameStack.pop()");
 		/*
 		BindTransform bindTransform;
 
@@ -414,31 +417,180 @@ public class BindTypeBuilder {
 	 * @param methodBuilder
 	 * @param entity
 	 */
-	private static void generateParserOnXmlCharacters(MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
+	private static void generateParserOnXmlCharacters(MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {		
+		int count=0;
 		for (BindProperty property : entity.getCollection()) {
 			if (property.xmlInfo.xmlType != XmlType.VALUE && property.xmlInfo.xmlType != XmlType.VALUE_CDATA)
 				continue;
 
+			count++;
 			methodBuilder.beginControlFlow("if (elementNameStack.size()==1)");
 				methodBuilder.addCode("// property $L\n", property.getName());
 				methodBuilder.addStatement("$L.$L = StringEscapeUtils.unescapeXml($L.getText())", instanceName, property.getName(), parserName);
 			methodBuilder.endControlFlow();
 		}
+		
+		if (count==0)
+		{
+			methodBuilder.addCode("// no property is binded to VALUE o CDATA ");
+		}
 	}
 
 	private static void generateParseOnJackson(BindEntity entity) {
-		MethodSpec.Builder method = MethodSpec.methodBuilder("parseOnJackson").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addParameter(typeName(JacksonContext.class), "context")
-				.addParameter(typeName(JacksonWrapperParser.class), "wrapper").addParameter(typeName(Boolean.TYPE), "readStartAndEnd").addJavadoc("create new object instance\n")
+		// @formatter:off
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJackson")
+				.addJavadoc("create new object instance\n")
+				.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
+				.addParameter(typeName(JacksonContext.class), "context")
+				.addParameter(typeName(JacksonWrapperParser.class), "wrapper")
+				.addParameter(typeName(Boolean.TYPE), "readStartAndEnd")				
 				.returns(typeName(entity.getElement()));
-		method.addStatement("return new $T()", typeName(entity.getElement()));
-		builder.addMethod(method.build());
+		// @formatter:on
+		
+		methodBuilder.beginControlFlow("try");
+			methodBuilder.addStatement("$T jacksonParser = wrapper.jacksonParser", JsonParser.class);
+			methodBuilder.addStatement("$T instance = createInstance()", entity.getElement());
+			methodBuilder.addStatement("String fieldName");
+			
+			methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() == null)");
+				methodBuilder.addStatement("jacksonParser.nextToken()");
+			methodBuilder.endControlFlow();
+			
+			methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() != $T.START_OBJECT)", JsonToken.class);
+				methodBuilder.addStatement("jacksonParser.skipChildren()");
+				methodBuilder.addStatement("return instance");
+			methodBuilder.endControlFlow();
+			
+			methodBuilder.beginControlFlow("while (jacksonParser.nextToken() != $T.END_OBJECT)", JsonToken.class);
+				methodBuilder.addStatement("fieldName = jacksonParser.getCurrentName()");
+				methodBuilder.addStatement("jacksonParser.nextToken()");				
+				
+				methodBuilder.addCode("\n// Parse fields:\n");
+				methodBuilder.beginControlFlow("switch (fieldName)$>");								
+				
+				BindTransform bindTransform;
+				for (BindProperty item : entity.getCollection()) {
+					bindTransform = BindTransformer.lookup(item);
+
+					methodBuilder.addCode("case $S:\n$>", item.getName());
+					methodBuilder.addCode("// field $L\n", item.getName());					
+					bindTransform.generateParseOnJackson(methodBuilder, "jacksonParser", typeName(item.getPropertyType()), "instance", item);
+					methodBuilder.addCode("$<break;\n");
+				}
+				
+				methodBuilder.addCode("default:$>\n");
+				methodBuilder.addStatement("jacksonParser.skipChildren()");
+				methodBuilder.addCode("$<break;");
+		
+				methodBuilder.addCode("$<");				
+				methodBuilder.endControlFlow();
+				
+				/*
+				switch (fieldName) {
+				case "id":
+					instance.id = jacksonParser.getLongValue();
+					break;
+				case "valueString":
+					instance.valueString = jacksonParser.getText();
+					break;
+
+				case "valueByteType":
+					instance.valueByteType = jacksonParser.getByteValue();
+					break;
+				case "valueCharType":
+					instance.valueCharType = jacksonParser.getText().charAt(0);
+					break;
+				case "valueShortType":
+					instance.valueShortType = jacksonParser.getShortValue();
+					break;
+				case "valueIntType":
+					instance.valueIntType = jacksonParser.getIntValue();
+					break;
+				case "valueLongType":
+					instance.valueLongType = jacksonParser.getLongValue();
+					break;
+				case "valueFloatType":
+					instance.valueFloatType = jacksonParser.getFloatValue();
+					break;
+				case "valueDoubleType":
+					instance.valueDoubleType = jacksonParser.getDoubleValue();
+					break;
+
+				case "valueByte":
+					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
+						instance.valueByte = jacksonParser.getByteValue();
+					break;
+				case "valueChar":
+					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
+						instance.valueChar = jacksonParser.getText().charAt(0);
+					break;
+				case "valueShort":
+					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
+						instance.valueShort = jacksonParser.getShortValue();
+					break;
+				case "valueInt":
+					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
+						instance.valueInt = jacksonParser.getIntValue();
+					break;
+				case "valueLong":
+					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
+						instance.valueLong = jacksonParser.getLongValue();
+					break;
+				case "valueFloat":
+					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
+						instance.valueFloat = jacksonParser.getFloatValue();
+					break;
+				case "valueDouble":
+					if (jacksonParser.getCurrentToken() != JsonToken.VALUE_NULL)
+						instance.valueDouble = jacksonParser.getDoubleValue();
+					break;
+
+				case "valueBean":
+					instance.valueBean = context.mapperFor(Bean.class).parse(context, wrapper);
+					break;
+				case "valueStringList":
+					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
+						ArrayList<String> collection = new ArrayList<String>();
+						while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+							collection.add(jacksonParser.getText());
+						}
+						instance.valueStringList = collection;
+					}
+					break;
+				case "valueStringArray":
+					if (jacksonParser.getCurrentToken() == JsonToken.START_ARRAY) {
+						ArrayList<String> collection = new ArrayList<String>();
+						while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+							collection.add(jacksonParser.getText());
+						}
+						instance.valueStringArray = collection.toArray(new String[collection.size()]);
+					}
+					break;
+				default:
+					jacksonParser.skipChildren();
+				}
+			}*/
+				methodBuilder.endControlFlow();
+				
+		methodBuilder.addStatement("return instance");
+		methodBuilder.nextControlFlow("catch ($T e)",IOException.class);
+		methodBuilder.addStatement("e.printStackTrace()");
+		methodBuilder.addStatement("throw new $T(e)", KriptonRuntimeException.class);
+		methodBuilder.endControlFlow();
+		builder.addMethod(methodBuilder.build());
 
 	}
 
 	private static void generateParseOnJacksonAsString(BindEntity item) {
-		MethodSpec.Builder method = MethodSpec.methodBuilder("parseOnJacksonAsString").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(JacksonContext.class), "context").addParameter(typeName(JacksonWrapperParser.class), "wrapper").addParameter(typeName(Boolean.TYPE), "readStartAndEnd")
-				.addJavadoc("create new object instance\n").returns(typeName(item.getElement()));
+		// @formatter:off
+		MethodSpec.Builder method = MethodSpec.methodBuilder("parseOnJacksonAsString")
+				.addJavadoc("create new object instance\n")
+				.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
+				.addParameter(typeName(JacksonContext.class), "context")
+				.addParameter(typeName(JacksonWrapperParser.class), "wrapper")
+				.addParameter(typeName(Boolean.TYPE), "readStartAndEnd")
+				.returns(typeName(item.getElement()));
+		// @formatter:on
 		method.addStatement("return new $T()", typeName(item.getElement()));
 		builder.addMethod(method.build());
 

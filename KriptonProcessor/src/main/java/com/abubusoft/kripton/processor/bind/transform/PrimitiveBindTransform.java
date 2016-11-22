@@ -20,7 +20,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
+import com.fasterxml.jackson.core.JsonToken;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -31,6 +32,8 @@ import com.squareup.javapoet.TypeName;
  */
 abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	
+	
+
 	public PrimitiveBindTransform(boolean nullable)
 	{
 		this.nullable=nullable;
@@ -39,21 +42,25 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	protected boolean nullable;
 	
 	protected String XML_TYPE;
+	protected String XML_UTILITY_TYPE;
+	protected String XML_CAST_TYPE="";	
+	
 	protected String JSON_TYPE;
-	protected String XML_CAST_TYPE="";
-
+	protected String JSON_PARSER_METHOD;
+	
 
 	@Override
-	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
+			String nullValue=nullable?"null": "\'\\0\'";			
 			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE))
 			{
-				methodBuilder.addStatement("$L."+setter(beanClass, property,"attributeValue.length()>0 ? attributeValue.charAt(0) : \'\\0\'"), beanName);
+				methodBuilder.addStatement("$L."+setter(beanClass, property,"attributeValue.length()>0 ? attributeValue.charAt(0) : $L"), beanName, nullValue);
 			} else {
-				methodBuilder.addStatement("$L."+setter(beanClass, property,"$L$L.valueOf(attributeValue)"), beanName, XML_CAST_TYPE, XML_TYPE);
+				methodBuilder.addStatement("$L."+setter(beanClass, property,"$L$L.valueOf(attributeValue)"), beanName, XML_CAST_TYPE, XML_UTILITY_TYPE);
 			}
 			break;
 		case TAG:
@@ -69,7 +76,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnXml(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 		if (nullable) {
 			methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
@@ -98,7 +105,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	}
 	
 	@Override
-	public void generateSerializeOnJackson(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		if (nullable) {
 			methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 		}
@@ -111,7 +118,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	}
 	
 	@Override
-	public void generateSerializeOnJacksonAsString(Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		if (nullable) {
 			methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
 		}
@@ -119,6 +126,26 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 		methodBuilder.addStatement("$L.writeStringField($S, String.valueOf($L.$L))", serializerName, property.jacksonName, beanName, getter(beanClass, property));
 				
 		if (nullable) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateParseOnJackson(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {				
+		if (nullable)
+		{
+			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		}
+		
+		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE))
+		{
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"Character.valueOf((char)$L.$L())"), beanName, parserName, JSON_PARSER_METHOD);
+		} else {
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.$L()"), beanName, parserName, JSON_PARSER_METHOD);
+		}
+		
+		if (nullable)
+		{
 			methodBuilder.endControlFlow();
 		}
 	}

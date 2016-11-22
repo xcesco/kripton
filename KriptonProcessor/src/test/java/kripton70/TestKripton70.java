@@ -37,14 +37,46 @@ public class TestKripton70 extends BaseProcessorTest {
 	}
 	
 	@Test
-	public void testCompiled() throws IOException, InstantiationException, IllegalAccessException
+	public void testBeanElement70Compiled() throws IOException, InstantiationException, IllegalAccessException
 	{
 		buildBindProcessorTest(BeanElement70.class);
 		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
 		
-		Assert.assertNotNull(new Bean70BindMap());
+		Assert.assertNotNull(new BeanElement70BindMap());
 		
 		BeanElement70 bean=new BeanElement70();
+		bean.id=25;
+		bean.valueBoolType=true;
+		bean.valueBool=true;
+		bean.valueByteType=4;
+		bean.valueByte=8;
+		bean.valueShortType=25;
+		bean.valueShort=25;
+		bean.valueCharType='a';
+		bean.valueChar='a';
+		bean.valueIntType=12;
+		bean.valueInt=12;
+		bean.valueLongType=24;
+		bean.valueLong=24L;
+		bean.valueFloatType=24f;
+		bean.valueFloat=24f;
+		bean.valueDoubleType=24.0;
+		bean.valueDouble=24.0;
+		bean.valueString="\"ciao";
+		
+		//serializeAndParse(bean, BinderType.XML);
+		serializeAndParse(bean, BinderType.JSON);
+	}
+	
+	@Test
+	public void testBeanAttribute70Compiled() throws IOException, InstantiationException, IllegalAccessException
+	{
+		buildBindProcessorTest(BeanAttribute70.class);
+		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
+		
+		Assert.assertNotNull(new BeanElement70BindMap());
+		
+		BeanAttribute70 bean=new BeanAttribute70();
 		bean.id=25;
 		bean.valueBoolType=true;
 		bean.valueByteType=45;
@@ -63,22 +95,26 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueFloat=1f;
 		bean.valueDouble=20.0;
 		bean.valueString="hello!";
-	/*	bean.valueBool2=true;
-		bean.valueAttributeString="\"benvenuto\"}\ncome va";
-		bean.valueCDataString="this CDATA";
-		bean.valueElementString="this element";*/
 		
-		BinderType type = BinderType.XML;
-		
-		String output=KriptonBinder2.getBinder(type).serialize(bean);
-		System.out.println(output);
-		
-		BeanElement70 bean2=KriptonBinder2.getBinder(type).parse(output, BeanElement70.class);
-		
-		Assert.assertTrue(bean2.equals(bean));
-		
-		System.out.println(output);
+		//serializeAndParse(bean, BinderType.XML);
+		serializeAndParse(bean, BinderType.JSON);
 	
+	}
+
+	/**
+	 * @param bean
+	 * @param type
+	 */
+	public void serializeAndParse(Object bean, BinderType type) {
+		String output1=KriptonBinder2.getBinder(type).serialize(bean);
+		System.out.println(output1);
+		
+		Object bean2=KriptonBinder2.getBinder(type).parse(output1, bean.getClass());				
+		
+		String output2=KriptonBinder2.getBinder(type).serialize(bean2);
+		System.out.println(output2);
+		
+		Assert.assertTrue(output1.equals(output2));
 	}
 	
 	
