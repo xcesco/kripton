@@ -93,14 +93,14 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"new $T($T.read(attributeValue))"), beanName, NUMBER_CLAZZ, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"new $T($T.read(attributeValue))"), NUMBER_CLAZZ, parserName);
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"new $T($T.unescapeXml($L.getElementText()))"), beanName, NUMBER_CLAZZ, StringEscapeUtils.class, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"new $T($T.unescapeXml($L.getElementText()))"), NUMBER_CLAZZ, StringEscapeUtils.class, parserName);
 			break;
 		case VALUE:
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"new $T($T.unescapeXml($L.getText()))"), beanName, NUMBER_CLAZZ, StringEscapeUtils.class, parserName);			
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"new $T($T.unescapeXml($L.getText()))"), NUMBER_CLAZZ, StringEscapeUtils.class, parserName);			
 			break;
 		default:
 			break;
@@ -128,7 +128,7 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		methodBuilder.addStatement("$L."+setter(beanClass, property," new $T($L.getText())"), beanName, NUMBER_CLAZZ, parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property," new $T($L.getText())"), NUMBER_CLAZZ, parserName);
 		
 		if (property.isNullable())
 		{
@@ -143,7 +143,7 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		methodBuilder.addStatement("$L."+setter(beanClass, property,"new $T($L.getText())"), beanName, NUMBER_CLAZZ, parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"new $T($L.getText())"), NUMBER_CLAZZ, parserName);
 		
 		if (property.isNullable())
 		{

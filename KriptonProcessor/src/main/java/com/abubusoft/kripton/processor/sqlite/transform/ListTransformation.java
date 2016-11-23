@@ -48,8 +48,8 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 		Class<?> listClazz = defineListClass(listTypeName);
 
 		methodBuilder.addCode(
-				"$L." + setter(beanClass, property, "$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L))"),
-				beanName, ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
+				setter(beanClass, beanName, property, "$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L))"),
+				ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
 	}
 
 	private Class<?> defineListClass(ParameterizedTypeName listTypeName) {
@@ -87,7 +87,7 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
+		methodBuilder.addCode("$L." + setter(beanClass, beanName, property, "null"));
 	}
 
 	@Override

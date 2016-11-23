@@ -74,14 +74,14 @@ public class StringTransform extends AbstractBindTransform {
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"attributeValue"), beanName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"attributeValue"));
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.unescapeXml($L.getElementText())"), beanName, StringEscapeUtils.class,parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.unescapeXml($L.getElementText())"), StringEscapeUtils.class,parserName);
 			break;
 		case VALUE:
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.unescapeXml($L.getText())"), beanName, StringEscapeUtils.class,parserName);			
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.unescapeXml($L.getText())"), StringEscapeUtils.class,parserName);			
 			break;
 		default:
 			break;
@@ -99,7 +99,7 @@ public class StringTransform extends AbstractBindTransform {
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.getText()"), beanName, parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.getText()"), parserName);
 		methodBuilder.endControlFlow();
 		
 	}
@@ -107,7 +107,7 @@ public class StringTransform extends AbstractBindTransform {
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.getText()"), beanName, parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.getText()"), parserName);
 		methodBuilder.endControlFlow();
 	}
 }

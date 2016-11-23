@@ -371,7 +371,7 @@ public class BindTypeBuilder {
 					methodBuilder.addCode("// property $L\n", property.getName());
 
 					methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
-					bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property);					
+					bindTransform.generateParseOnXml(methodBuilder, "xmlParser", property.getPropertyType().getName(), "instance", property);					
 					methodBuilder.endControlFlow();
 
 					methodBuilder.addStatement("$<break");

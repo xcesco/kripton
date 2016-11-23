@@ -74,22 +74,22 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 			String cursorName, String indexName) {
 		if (primitive) {
 			methodBuilder.addCode(
-					"$L." + setter(beanClass, property, "$T.as$LTypeArray($T.asList($L.TYPE, $L.getBlob($L)))"),
-					beanName, CollectionUtility.class, primitiveType(), ProcessorHelper.class, primitiveType(),
+					setter(beanClass, beanName, property, "$T.as$LTypeArray($T.asList($L.TYPE, $L.getBlob($L)))"),
+					CollectionUtility.class, primitiveType(), ProcessorHelper.class, primitiveType(),
 					cursorName, indexName);
 		} else if (TypeUtility.isString(clazz)) {
 			methodBuilder.addCode(
-					"$L." + setter(beanClass, property, "$T.asStringArray($T.asList(String.class, $L.getBlob($L)))"),
-					beanName, CollectionUtility.class, ProcessorHelper.class, cursorName, indexName);
+					setter(beanClass, beanName, property, "$T.asStringArray($T.asList(String.class, $L.getBlob($L)))"),
+					CollectionUtility.class, ProcessorHelper.class, cursorName, indexName);
 		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)) {
 			String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
 			methodBuilder.addCode(
-					"$L." + setter(beanClass, property, "$T.as$LArray($T.asList($L.class, $L.getBlob($L)))"), beanName,
+					setter(beanClass, beanName, property, "$T.as$LArray($T.asList($L.class, $L.getBlob($L)))"), 
 					CollectionUtility.class, name, ProcessorHelper.class, name, cursorName, indexName);
 		} else {
 			String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
 			methodBuilder.addCode(
-					"$L." + setter(beanClass, property, "$T.asArray($T.asList($L.class, $L.getBlob($L)))"), beanName,
+					setter(beanClass, beanName, property, "$T.asArray($T.asList($L.class, $L.getBlob($L)))"),
 					CollectionUtility.class, ProcessorHelper.class, name, cursorName, indexName);
 		}
 	}
@@ -129,7 +129,7 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
 	@Override

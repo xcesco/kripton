@@ -1,16 +1,8 @@
-package kripton70;
+package kripton71;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.URL;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,7 +16,7 @@ import com.abubusoft.kripton.binder2.context.YamlBinderContext;
 
 import base.BaseProcessorTest;
 
-public class TestKripton70 extends BaseProcessorTest {
+public class TestKripton71 extends BaseProcessorTest {
 	
 	@Before
 	public void setup()
@@ -35,34 +27,41 @@ public class TestKripton70 extends BaseProcessorTest {
 	}
 
 	@Test
-	public void testBeanElement70() throws IOException, InstantiationException, IllegalAccessException
+	public void testBeanElement71() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
+		buildBindProcessorTest(BeanElement71.class, BeanEnum71.class);
 	}
 	
 	@Test
-	public void testBeanAttribute70() throws IOException, InstantiationException, IllegalAccessException
+	public void testBeanAttribute71() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanAttribute70.class, BeanEnum.class);
+		buildBindProcessorTest(BeanAttribute71.class, BeanEnum71.class);
 	}
 	
 	@Test
-	public void testBeanElement70Compiled() throws IOException, InstantiationException, IllegalAccessException
+	public void testBeanElement71Compiled() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
+		//buildBindProcessorTest(BeanElement71.class, BeanEnum71.class);
 		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
 		
-		Assert.assertNotNull(new BeanElement70BindMap());
+		Assert.assertNotNull(new BeanElement71BindMap());
 		
-		BeanElement70 bean=new BeanElement70();
+		BeanElement71 bean=new BeanElement71();
+
 		
-		bean.valueBigDecimal=BigDecimal.valueOf(11.0);
-		bean.valueBigInteger=BigInteger.valueOf(10);
+		//bean.valueEnum=BeanEnum.VALUE_2;
+		//bean.valueStringList=new ArrayList<String>();
+		//bean.valueStringList.add("hello1");
 		
+		//bean.valueBigDecimalList=new ArrayList<>();
+		//bean.valueBigDecimalList.add(BigDecimal.valueOf(1));
 		
-		bean.valueEnum=BeanEnum.VALUE_2;
+		bean.valueDoubleList=new ArrayList<>();
+		bean.valueDoubleList.add(23.0);
+		bean.valueDoubleList.add(null);
+		bean.valueDoubleList.add(56.0);
 		
-		
+		/*
 		bean.valueCalendar=Calendar.getInstance();
 		bean.valueCurrency=Currency.getInstance(Locale.ITALY);
 		bean.valueDate=new Date();
@@ -70,9 +69,9 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueTime=new Time(0);
 		bean.valueTimeZone=TimeZone.getDefault();
 		bean.valueUrl=new URL("http://github.com");
+		*/
 		
-		
-		
+		/*
 		bean.id=25;
 		bean.valueBean=new BeanElement70();
 		bean.valueBean.id=45;
@@ -94,9 +93,9 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueFloat=24f;
 		bean.valueDoubleType=24.0;
 		bean.valueDouble=24.0;
+		*/
 		
-		
-		bean.valueString="\"ciao";
+		//bean.valueString="\"ciao";
 		
 		//bean.valueCDataString="qq";
 		
@@ -107,14 +106,14 @@ public class TestKripton70 extends BaseProcessorTest {
 	}
 	
 	@Test
-	public void testBeanAttribute70Compiled() throws IOException, InstantiationException, IllegalAccessException
+	public void testBeanAttribute71Compiled() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanAttribute70.class);
+		buildBindProcessorTest(BeanAttribute71.class);
 		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
 		
-		Assert.assertNotNull(new BeanElement70BindMap());
+		Assert.assertNotNull(new BeanElement71BindMap());
 		
-		BeanAttribute70 bean=new BeanAttribute70();
+		BeanAttribute71 bean=new BeanAttribute71();
 		bean.id=25;
 		bean.valueBoolType=true;
 		bean.valueByteType=45;

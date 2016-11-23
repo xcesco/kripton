@@ -51,8 +51,7 @@ class CharacterTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
 			String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "(char)$L.getInt($L)"), beanName, cursorName,
-				indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "(char)$L.getInt($L)"), cursorName, indexName);
 	}
 
 	@Override
@@ -71,7 +70,7 @@ class CharacterTransform extends AbstractCompileTimeTransform {
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property, String cursorName, String indexName) {
 
-		methodBuilder.addCode("$L." + setter(beanClass, property, "0"), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "0"));
 	}
 
 	@Override

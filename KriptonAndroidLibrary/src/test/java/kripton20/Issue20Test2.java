@@ -37,7 +37,7 @@ public class Issue20Test2 {
 	@BindTypeXml
 	public class Bean2
 	{
-		@BindXml(elementTagValue="test")
+		@BindXml(elementTag="test")
 		public String value;
 	}
 	

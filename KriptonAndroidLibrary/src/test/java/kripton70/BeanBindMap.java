@@ -525,6 +525,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 			// sub-elements
 			while (xmlParser.hasNext() && !elementNameStack.isEmpty()) {
 				eventType = xmlParser.next();
+								
 				switch (eventType) {
 				case XMLEvent.START_ELEMENT:
 					// start and inner bean

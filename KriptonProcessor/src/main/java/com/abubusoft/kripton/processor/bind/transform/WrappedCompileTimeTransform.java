@@ -79,14 +79,14 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.read(attributeValue)"), beanName, utilClazz);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.read(attributeValue)"), utilClazz);
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.read($T.unescapeXml($L.getElementText()))"), beanName, utilClazz, StringEscapeUtils.class, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.read($T.unescapeXml($L.getElementText()))"), utilClazz, StringEscapeUtils.class, parserName);
 			break;
 		case VALUE:
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.read($T.unescapeXml($L.getText()))"), beanName, utilClazz, StringEscapeUtils.class, parserName);			
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.read($T.unescapeXml($L.getText()))"), utilClazz, StringEscapeUtils.class, parserName);			
 			break;
 		default:
 			break;
@@ -114,7 +114,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		methodBuilder.addStatement("$L."+setter(beanClass, property," $T.read($L.getText())"), beanName, utilClazz, parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property," $T.read($L.getText())"), utilClazz, parserName);
 		
 		if (property.isNullable())
 		{
@@ -129,7 +129,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.read($L.getText())"), beanName, utilClazz, parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.read($L.getText())"), utilClazz, parserName);
 		if (property.isNullable())
 		{
 			methodBuilder.endControlFlow();

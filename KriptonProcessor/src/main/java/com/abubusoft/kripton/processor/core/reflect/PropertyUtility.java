@@ -205,7 +205,11 @@ public class PropertyUtility {
 		}
 	}
 	
-	public static String setter(TypeName beanClass, ModelProperty property, String value) {
+	public static String setter(TypeName beanClass, String beanName, ModelProperty property, String value) {
+		return beanName+(beanClass!=null ? "."+setter(beanClass, property, value): "="+value);
+	}
+	
+	private static String setter(TypeName beanClass, ModelProperty property, String value) {
 		if (property.isPublicField())
 			return property.getName()+"="+value;
 		else if (property.isFieldWithSetter()) {

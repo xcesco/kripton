@@ -43,7 +43,7 @@ public class MapTransformation extends AbstractCompileTimeTransform {
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		Class<?> mapClazz=defineMapClass(mapTypeName);
 		
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asMap(new $T<$T,$T>(), $T.class, $T.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, mapClazz, keyTypeName, valueTypeName, keyTypeName, valueTypeName, cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.asMap(new $T<$T,$T>(), $T.class, $T.class, $L.getBlob($L))"), ProcessorHelper.class, mapClazz, keyTypeName, valueTypeName, keyTypeName, valueTypeName, cursorName, indexName);
 	}
 
 	private Class<?> defineMapClass(ParameterizedTypeName typeName) {
@@ -78,7 +78,7 @@ public class MapTransformation extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
 	@Override

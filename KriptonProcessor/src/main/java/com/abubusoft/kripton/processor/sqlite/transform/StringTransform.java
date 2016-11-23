@@ -31,7 +31,7 @@ public class StringTransform  extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getString($L)"), beanName,cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getString($L)"), cursorName, indexName);
 	}
 	
 	@Override
@@ -41,7 +41,7 @@ public class StringTransform  extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(beanClass, property, "null"), beanName);
+		methodBuilder.addCode("$L."+setter(beanClass, beanName, property, "null"));
 	}
 	
 	@Override

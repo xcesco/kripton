@@ -58,13 +58,13 @@ class BooleanTransform extends AbstractCompileTimeTransform {
 	
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getInt($L)==0?false:true"), beanName,cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getInt($L)==0?false:true"),cursorName, indexName);
 	}
 	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(beanClass, property, defaultValue), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, defaultValue));
 	}
 
 }

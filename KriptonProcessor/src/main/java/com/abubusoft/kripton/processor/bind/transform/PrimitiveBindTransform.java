@@ -58,17 +58,17 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			String nullValue=nullable?"null": "\'\\0\'";			
 			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE))
 			{
-				methodBuilder.addStatement("$L."+setter(beanClass, property,"attributeValue.length()>0 ? attributeValue.charAt(0) : $L"), beanName, nullValue);
+				methodBuilder.addStatement(setter(beanClass, beanName, property,"attributeValue.length()>0 ? attributeValue.charAt(0) : $L"), nullValue);
 			} else {
-				methodBuilder.addStatement("$L."+setter(beanClass, property,"$L$L.valueOf(attributeValue)"), beanName, XML_CAST_TYPE, XML_UTILITY_TYPE);
+				methodBuilder.addStatement(setter(beanClass, beanName, property,"$L$L.valueOf(attributeValue)"), XML_CAST_TYPE, XML_UTILITY_TYPE);
 			}
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$L$L.getElementAs$L()"), beanName, XML_CAST_TYPE, parserName, XML_TYPE);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$L$L.getElementAs$L()"), XML_CAST_TYPE, parserName, XML_TYPE);
 			break;
 		case VALUE:			
 		case VALUE_CDATA:			
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.valueOf($L.getText())"), beanName, XML_UTILITY_TYPE, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
 			break;
 		default:
 			break;
@@ -144,9 +144,9 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 		
 		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE))
 		{
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"Character.valueOf((char)$L.$L())"), beanName, parserName, JSON_PARSER_METHOD);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"Character.valueOf((char)$L.$L())"), parserName, JSON_PARSER_METHOD);
 		} else {
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.$L()"), beanName, parserName, JSON_PARSER_METHOD);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.$L()"), parserName, JSON_PARSER_METHOD);
 		}
 		
 		if (nullable && property.isNullable())
@@ -164,9 +164,9 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 		
 		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE))
 		{
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"Character.valueOf((char)(int)Integer.valueOf($L.getText()))"), beanName, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"Character.valueOf((char)(int)Integer.valueOf($L.getText()))"), parserName);
 		} else {
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.valueOf($L.getText())"), beanName, XML_UTILITY_TYPE, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
 		}
 		
 		if (nullable && property.isNullable())

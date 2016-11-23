@@ -47,7 +47,7 @@ public class EnumTransform extends AbstractCompileTimeTransform {
 	
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
-		methodBuilder.addCode("$L."+setter(beanClass, property, "$T.valueOf($L.getString($L))"), beanName, property.getPropertyType().getName(),cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.valueOf($L.getString($L))"), property.getPropertyType().getName(),cursorName, indexName);
 	}
 	
 	@Override
@@ -63,7 +63,7 @@ public class EnumTransform extends AbstractCompileTimeTransform {
 	
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(beanClass, property, "null"), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 	
 	@Override

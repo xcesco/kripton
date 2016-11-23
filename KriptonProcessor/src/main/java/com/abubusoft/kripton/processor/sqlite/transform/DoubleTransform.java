@@ -31,7 +31,7 @@ public class DoubleTransform  extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {				
-		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getDouble($L)"), beanName,cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getDouble($L)"), cursorName, indexName);
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class DoubleTransform  extends AbstractCompileTimeTransform {
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(beanClass, property, defaultValue), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, defaultValue));
 	}
 
 	@Override

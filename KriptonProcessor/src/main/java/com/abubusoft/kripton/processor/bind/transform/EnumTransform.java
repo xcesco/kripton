@@ -82,14 +82,14 @@ public class EnumTransform extends AbstractBindTransform {
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.valueOf($T.read(attributeValue))"), beanName, typeName, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.valueOf($T.read(attributeValue))"), typeName, parserName);
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.valueOf($T.unescapeXml($L.getElementText()))"), beanName, typeName, StringEscapeUtils.class, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.valueOf($T.unescapeXml($L.getElementText()))"), typeName, StringEscapeUtils.class, parserName);
 			break;
 		case VALUE:
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.valueOf($T.unescapeXml($L.getText()))"), beanName, typeName, StringEscapeUtils.class, parserName);			
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.valueOf($T.unescapeXml($L.getText()))"), typeName, StringEscapeUtils.class, parserName);			
 			break;
 		default:
 			break;
@@ -107,7 +107,7 @@ public class EnumTransform extends AbstractBindTransform {
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement("$L."+setter(beanClass, property," $T.valueOf($L.getText())"), beanName, typeName, parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property," $T.valueOf($L.getText())"), typeName, parserName);
 		methodBuilder.endControlFlow();
 		
 	}
@@ -115,7 +115,7 @@ public class EnumTransform extends AbstractBindTransform {
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.valueOf($L.getText())"), beanName, typeName, parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.valueOf($L.getText())"), typeName, parserName);
 		methodBuilder.endControlFlow();
 	}
 		

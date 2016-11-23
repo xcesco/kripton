@@ -40,7 +40,7 @@ class ByteTransform  extends AbstractCompileTimeTransform {
 	 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
-		methodBuilder.addCode("$L."+setter(beanClass, property, "(byte)$L.getInt($L)"), beanName,cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "(byte)$L.getInt($L)"), cursorName, indexName);
 	}
 	
 	
@@ -60,7 +60,7 @@ class ByteTransform  extends AbstractCompileTimeTransform {
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(beanClass, property, "0"), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "0"));
 	}
 	
 	@Override

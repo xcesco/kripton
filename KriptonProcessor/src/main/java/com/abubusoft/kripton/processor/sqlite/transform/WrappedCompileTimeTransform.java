@@ -26,7 +26,7 @@ public class WrappedCompileTimeTransform<U> extends AbstractCompileTimeTransform
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
 			String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName, utilClazz,
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), utilClazz,
 				cursorName, indexName);
 
 	}
@@ -52,7 +52,7 @@ public class WrappedCompileTimeTransform<U> extends AbstractCompileTimeTransform
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
 	@Override

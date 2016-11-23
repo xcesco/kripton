@@ -31,7 +31,7 @@ public class FloatTransform  extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L."+setter(beanClass, property, "$L.getFloat($L)"), beanName,cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getFloat($L)"), cursorName, indexName);
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class FloatTransform  extends AbstractCompileTimeTransform {
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
 		
-		methodBuilder.addCode("$L."+setter(beanClass, property, defaultValue), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, defaultValue));
 	}
 	
 	@Override

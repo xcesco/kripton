@@ -34,8 +34,7 @@ class CurrencyTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
 			String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "$T.read($L.getString($L))"), beanName,
-				CurrencyUtil.class, cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), CurrencyUtil.class, cursorName, indexName);
 
 	}
 	/*
@@ -59,7 +58,7 @@ class CurrencyTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
+		methodBuilder.addCode("$L." + setter(beanClass, beanName, property, "null"));
 	}
 
 	@Override

@@ -1,101 +1,93 @@
 package kripton70;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.URL;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Currency;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.binder.xml.XmlType;
 
 @BindType("root")
 public class BeanElement70 {
 	
-	/*
-	
-	@BindXml(value="name", xmlType=XmlType.TAG)
+	@Bind("name")
+	@BindXml(xmlType=XmlType.TAG)
 	protected long id;
 	
-	public long getId() {
-		return id;
-	}
+	public BeanElement70 valueBean;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+	public BigDecimal valueBigDecimal;
 	
-	@BindXml(xmlType=XmlType.VALUE_CDATA)
-	public Integer valueContentBoolType;
+	public BigInteger valueBigInteger;
 	
-	public boolean valueBoolType;
+	public Boolean valueBool;
 	
-	public Boolean valueBool;	
-	
-	public byte valueByteType;
+	public boolean valueBoolType;	
 	
 	public Byte valueByte;
 	
-	public short valueShortType;
+	public byte valueByteType;
 	
-	public Short valueShort;
-	
-	public char valueCharType;
+	public Calendar valueCalendar;
 	
 	public Character valueChar;
 	
-	public int valueIntType;
+	public char valueCharType;
 	
-	public Integer valueInt;
-	
-	public long valueLongType;
-	
-	public Long valueLong;
-	
-	public float valueFloatType;
-	
-	public Float valueFloat;
-	
-	public double valueDoubleType;
-	
-	public Double valueDouble;
-	
-	public String valueString;
-	
-	public BeanElement70 valueBean;
-	
-	*/
-	/*
-	public Calendar valueCalendar;
+	@BindXml(xmlType=XmlType.VALUE_CDATA)
+	public Integer valueContentBoolType;
 	
 	public Currency valueCurrency;
 	
 	public Date valueDate;
 	
+	public Double valueDouble;
+	
+	public double valueDoubleType;
+	
+	public BeanEnum valueEnum;
+	
+	public Float valueFloat;
+	
+	public float valueFloatType;
+	
+	public Integer valueInt;
+	
+	public int valueIntType;
+	
 	public Locale valueLocale;
+	
+	public Long valueLong;
+	
+	public long valueLongType;
+	
+	public Short valueShort;
+	
+	public short valueShortType;
+	
+	public String valueString;
 	
 	public Time valueTime;
 	
 	public TimeZone valueTimeZone;
 	
 	public URL valueUrl;
-	*/
-
-	/*
-	public BigDecimal valueBigDecimal;
 	
-	public BigInteger valueBigInteger;
+	public long getId() {
+		return id;
+	}
 	
-	
-	public BeanEnum valueEnum;
-	*/
-	
-	@Bind(value="list", elementName="item")
-	@BindXml(elementTag="item")
-	public List<String> valueStringList;
-/*	
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 	
-	
-	public String[] valueStringArray;
-	
-	public Map<String, String> valueStringMap;
-		*/
 }

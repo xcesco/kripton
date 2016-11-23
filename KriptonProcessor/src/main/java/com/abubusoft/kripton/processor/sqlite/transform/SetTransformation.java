@@ -44,9 +44,9 @@ public class SetTransformation extends AbstractCompileTimeTransform {
 		Class<?> setClazz = defineSetClass(listTypeName);
 
 		if (TypeUtility.isTypeWrappedPrimitive(rawTypeName)) {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asCollection(new $T<$L>(), $T.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, setClazz, rawTypeName, rawTypeName, cursorName, indexName);
+			methodBuilder.addCode(setter(beanClass, beanName, property, "$T.asCollection(new $T<$L>(), $T.class, $L.getBlob($L))"), ProcessorHelper.class, setClazz, rawTypeName, rawTypeName, cursorName, indexName);
 		} else {
-			methodBuilder.addCode("$L." + setter(beanClass, property, "$T.asCollection(new $T<$T>(), $T.class, $L.getBlob($L))"), beanName, ProcessorHelper.class, setClazz, rawTypeName, rawTypeName, cursorName, indexName);
+			methodBuilder.addCode(setter(beanClass, beanName, property, "$T.asCollection(new $T<$T>(), $T.class, $L.getBlob($L))"), ProcessorHelper.class, setClazz, rawTypeName, rawTypeName, cursorName, indexName);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class SetTransformation extends AbstractCompileTimeTransform {
 
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode("$L." + setter(beanClass, property, "null"), beanName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
 	@Override

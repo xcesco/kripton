@@ -1,15 +1,19 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.stream.events.XMLEvent;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -45,24 +49,36 @@ public class ListTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		methodBuilder.addStatement("$T<$T> list=new $T<>()", ArrayList.class, TypeUtility.className(property.getPropertyType().getComposedValue()), ArrayList.class);
+		methodBuilder.addStatement("$T item", TypeUtility.className(property.getPropertyType().getComposedValue()));
+			
+		BindTransform transform=BindTransformer.lookup(rawTypeName);
+		BindProperty elementProperty=BindProperty.builder(rawTypeName, property).build();
 		
-		
-		/*
-		//String name = nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".") + 1));
-		Class<?> listClazz = defineListClass(listTypeName);
-
-		if (add) {
-
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
+		if (!property.xmlInfo.isWrappedCollection())
+		{
+			methodBuilder.addCode("// add first element\n");
+			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
+			methodBuilder.addStatement("list.add(item)");
 		}
-
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.asCollection(new $T<$T>(), $T.class, $L.getString($S, null))", utilClazz, listClazz, rawTypeName, rawTypeName, preferenceName, property.getName());
-		methodBuilder.addCode(": null");
-
-		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
-		}*/
+		
+		methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && !$L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tag);
+			
+		
+			methodBuilder.beginControlFlow("if (xmlParser.getName().toString().equals($S))", property.xmlInfo.tagElement);
+			methodBuilder.beginControlFlow("if (xmlParser.isEmptyElement())
+            {
+          	  item=xmlParser.getElementAsDouble();
+            } else {
+          	  item=null;
+            }
+			
+				transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
+				methodBuilder.addStatement("list.add(item)");
+			methodBuilder.endControlFlow();
+		methodBuilder.endControlFlow();
+    	                 	
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "list"));			
 	}
 
 	@Override
