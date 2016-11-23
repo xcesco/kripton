@@ -37,7 +37,7 @@ public class StringTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {	
 		if (property.isNullable())
-		methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
+			methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
 
 		XmlType xmlType = property.xmlInfo.xmlType;
 		switch (xmlType) {
@@ -57,7 +57,8 @@ public class StringTransform extends AbstractBindTransform {
 			break;
 		}
 
-		methodBuilder.endControlFlow();
+		if (property.isNullable())
+			methodBuilder.endControlFlow();
 	}
 	
 	@Override

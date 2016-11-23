@@ -2,7 +2,9 @@ package kripton70;
 
 import java.util.List;
 
+import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
 
 @BindType("root")
 public class BeanElement70 {
@@ -84,6 +86,9 @@ public class BeanElement70 {
 	
 	public BeanEnum valueEnum;
 	*/
+	
+	@Bind(value="list", elementName="item")
+	@BindXml(elementTag="item")
 	public List<String> valueStringList;
 /*	
 	

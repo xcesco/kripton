@@ -78,7 +78,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		if (nullable) {
+		if (nullable && property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
@@ -99,27 +99,27 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			break;
 		}
 				
-		if (nullable) {
+		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
 	}
 	
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (nullable) {
+		if (nullable && property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 				
 		methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonName, getter(beanName, beanClass, property));
 				
-		if (nullable) {
+		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
 	}
 	
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (nullable) {
+		if (nullable && property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
@@ -130,14 +130,14 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.addStatement("$L.writeStringField($S, String.valueOf($L))", serializerName, property.jacksonName, getter(beanName, beanClass, property));
 		}
 				
-		if (nullable) {
+		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
 	}
 
 	@Override
 	public void generateParseOnJackson(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {				
-		if (nullable)
+		if (nullable && property.isNullable())
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
@@ -149,7 +149,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.$L()"), beanName, parserName, JSON_PARSER_METHOD);
 		}
 		
-		if (nullable)
+		if (nullable && property.isNullable())
 		{
 			methodBuilder.endControlFlow();
 		}
@@ -157,7 +157,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		if (nullable)
+		if (nullable && property.isNullable())
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
@@ -169,7 +169,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.addStatement("$L."+setter(beanClass, property,"$L.valueOf($L.getText())"), beanName, XML_UTILITY_TYPE, parserName);
 		}
 		
-		if (nullable)
+		if (nullable && property.isNullable())
 		{
 			methodBuilder.endControlFlow();
 		}

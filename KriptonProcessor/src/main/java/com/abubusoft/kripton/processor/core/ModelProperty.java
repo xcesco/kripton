@@ -79,10 +79,12 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	public ModelProperty(Element element) {
-		super(element.getSimpleName().toString(), element);
+		super((element!=null) ? element.getSimpleName().toString() :null, element);
 		
-		this.propertyType=new ModelType(element.asType());
-		setPublicField(element.getModifiers().contains(Modifier.PUBLIC));
+		if (element!=null) {
+			this.propertyType=new ModelType(element.asType());
+			setPublicField(element.getModifiers().contains(Modifier.PUBLIC));
+		}
 		this.annotations = new ArrayList<ModelAnnotation>();
 	}
 	

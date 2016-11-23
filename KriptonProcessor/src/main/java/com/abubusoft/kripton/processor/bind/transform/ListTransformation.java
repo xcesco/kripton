@@ -73,24 +73,25 @@ public class ListTransformation extends AbstractBindTransform {
 			
 			if (property.xmlInfo.isWrappedCollection())
 			{
+				methodBuilder.addCode("// write wrapper tag\n");
 				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
 			}
 			
 			BindTransform transform=BindTransformer.lookup(rawTypeName);
-			BindProperty elementProperty=BindProperty.builder(rawTypeName).build();
+			BindProperty elementProperty=BindProperty.builder(rawTypeName, property).build();
 			
 			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
 				methodBuilder.addStatement("item=$L.get(i)", getter(beanName, beanClass, property));
 				methodBuilder.beginControlFlow("if (item==null)");
 					methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.tagElement);
 				methodBuilder.nextControlFlow("else");
-					transform.generateSerializeOnXml(methodBuilder, serializerName, null, "item", PropertyUtility. elementProperty);
+					transform.generateSerializeOnXml(methodBuilder, serializerName, null, "item", elementProperty);
 				methodBuilder.endControlFlow();
 			methodBuilder.endControlFlow();
 			
 			if (property.xmlInfo.isWrappedCollection())
 			{
-				methodBuilder.addStatement("$L.writeEndElement()");
+				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			}
 			
 			

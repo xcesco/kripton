@@ -8,6 +8,7 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -93,13 +94,19 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       if (object.valueStringList!=null)  {
         int n=object.valueStringList.size();
         String item;
+        // write wrapper tag
+        xmlSerializer.writeStartElement("list");
         for (int i=0; i<n; i++) {
           item=object.valueStringList.get(i);
           if (item==null) {
-            xmlSerializer.writeEmptyElement("valueStringList");
+            xmlSerializer.writeEmptyElement("item");
           } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item));
+            xmlSerializer.writeEndElement();
           }
         }
+        xmlSerializer.writeEndElement();
       }
 
       if (currentEventType == 0) {
@@ -208,7 +215,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case XMLEvent.START_ELEMENT:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
-                  case "valueStringList":
+                  case "list":
                     // property valueStringList
                     if (!xmlParser.isEmptyElement()) {
                     }

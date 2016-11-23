@@ -30,7 +30,11 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));		
+		
+		if (property.isNullable())
+		{
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
 		switch (xmlType) {
 		case ATTRIBUTE:
 			methodBuilder.addStatement("$L.writeAttribute($S, $T.write($L))", serializerName, property.xmlInfo.tag, utilClazz, getter(beanName, beanClass, property));
@@ -48,15 +52,25 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 			break;
 		}
 
-		methodBuilder.endControlFlow();
+		if (property.isNullable())
+		{
+			methodBuilder.endControlFlow();
+		}
 
 	}
 	
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		if (property.isNullable())
+		{
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
 		methodBuilder.addStatement("$L.writeStringField($S, $T.write($L))", serializerName, property.jacksonName, utilClazz, getter(beanName, beanClass, property));
-		methodBuilder.endControlFlow();
+		
+		if (property.isNullable())
+		{
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	@Override
@@ -82,24 +96,44 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		if (property.isNullable())
+		{
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
 		methodBuilder.addStatement("$L.writeStringField($S, $T.write($L))", serializerName, property.jacksonName, utilClazz, getter(beanName, beanClass, property));
-		methodBuilder.endControlFlow();
+		
+		if (property.isNullable())
+		{
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		if (property.isNullable())
+		{
+			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		}
 		methodBuilder.addStatement("$L."+setter(beanClass, property," $T.read($L.getText())"), beanName, utilClazz, parserName);
-		methodBuilder.endControlFlow();
+		
+		if (property.isNullable())
+		{
+			methodBuilder.endControlFlow();
+		}
 		
 	}
 	
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		if (property.isNullable())
+		{
+			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		}
 		methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.read($L.getText())"), beanName, utilClazz, parserName);
-		methodBuilder.endControlFlow();
+		if (property.isNullable())
+		{
+			methodBuilder.endControlFlow();
+		}
 	}
 	
 }

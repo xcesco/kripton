@@ -20,8 +20,6 @@ import javax.lang.model.element.Element;
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.utils.StringUtility;
-import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 public class BindProperty extends ModelProperty {
@@ -29,6 +27,7 @@ public class BindProperty extends ModelProperty {
 	public BindProperty(Element element) {
 		super(element);
 		
+		nullable=true;
 		xmlInfo=new XmlInfo();
 	}
 	public XmlInfo xmlInfo;
@@ -36,6 +35,12 @@ public class BindProperty extends ModelProperty {
 	public int order;
 
 	public String jacksonName;
+
+	public boolean nullable;
+
+	public boolean isNullable() {
+		return nullable;
+	}
 
 	public class XmlInfo {
 		/**
@@ -68,22 +73,35 @@ public class BindProperty extends ModelProperty {
 
 	}
 
-	public static BindPropertyBuilder builder(TypeName rawTypeName) {
-		return new BindPropertyBuilder(rawTypeName);
+	public static BindPropertyBuilder builder(TypeName rawTypeName, BindProperty property) {
+		return new BindPropertyBuilder(rawTypeName, property);
 	}
 	
 	public static class BindPropertyBuilder
 	{		
-		public BindPropertyBuilder(TypeName rawTypeName) {
+		public BindPropertyBuilder(TypeName rawTypeName, BindProperty property) {
 			this.rawTypeName=rawTypeName;
+			this.parentProperty=property;
 		}
 
 		public BindProperty build()
 		{
-			return new BindProperty(null);
+			BindProperty property=new BindProperty(null);
+			
+			property.jacksonName=parentProperty.jacksonName;
+			property.order=parentProperty.order;
+			
+			property.xmlInfo.xmlType=XmlType.TAG;
+			property.xmlInfo.tag=parentProperty.xmlInfo.tagElement;
+			property.xmlInfo.tagElement=null;
+			property.nullable=false;
+			
+			return property;
 		}
 		
 		protected TypeName rawTypeName;
+		
+		protected BindProperty parentProperty;
 	}
 
 }
