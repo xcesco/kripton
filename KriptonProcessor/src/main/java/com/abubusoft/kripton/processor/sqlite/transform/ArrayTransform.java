@@ -59,8 +59,8 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property) {
-		methodBuilder.addCode("$T.asByteArray($T.asList($L." + getter(beanClass, property) + ", $T.class))",
-				ProcessorHelper.class, CollectionUtility.class, beanName, ArrayList.class);
+		methodBuilder.addCode("$T.asByteArray($T.asList($L, $T.class))",
+				ProcessorHelper.class, CollectionUtility.class, getter(beanName, beanClass, property), ArrayList.class);
 	}
 
 	@Override

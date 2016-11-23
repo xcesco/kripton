@@ -20,6 +20,7 @@ import javax.lang.model.element.Element;
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 
 public class BindProperty extends ModelProperty {
 
@@ -35,9 +36,34 @@ public class BindProperty extends ModelProperty {
 	public String jacksonName;
 
 	public class XmlInfo {
-		public String tagName;
+		/**
+		 * tag name used for item or collection (if element is a collection)
+		 */
+		public String tag;
+		
+		/**
+		 * tag name for collection's element
+		 */
+		public String tagElement;
+		
 		public XmlType xmlType;
+		
 		public MapEntryType mapEntryType;
+
+		public boolean wrappedCollection;
+		
+		/**
+		 * If true, this element is a collection with a tag for collection and a tag for each element 
+		 * 
+		 * @return
+		 * 		true if this element is a wrapped collection
+		 */
+		public boolean isWrappedCollection()
+		{
+			return wrappedCollection;
+		}
+		
+
 	}
 
 }

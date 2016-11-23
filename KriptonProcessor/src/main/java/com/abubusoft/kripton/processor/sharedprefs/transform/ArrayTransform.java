@@ -81,9 +81,9 @@ public class ArrayTransform extends AbstractSPTransform {
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
 		if (beanClass != null) {
-			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
+			methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
 
-			methodBuilder.addCode("$L.putString($S,$T.asString($T.asList($L." + getter(beanClass, property) + ", $T.class)))", editorName, property.getName(), helperClazz, CollectionUtility.class,beanName, ArrayList.class);
+			methodBuilder.addCode("$L.putString($S,$T.asString($T.asList($L, $T.class)))", editorName, property.getName(), helperClazz, CollectionUtility.class,getter(beanName, beanClass, property), ArrayList.class);
 
 			methodBuilder.addCode(";");
 			methodBuilder.addCode(" else ");

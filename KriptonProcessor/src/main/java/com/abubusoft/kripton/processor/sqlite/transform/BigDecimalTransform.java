@@ -42,7 +42,7 @@ class BigDecimalTransform extends AbstractCompileTimeTransform {
 	
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
-		methodBuilder.addCode("$L."+getter(beanClass, property)+".toPlainString()", beanName);
+		methodBuilder.addCode("$L.toPlainString()", getter(beanName, beanClass, property));
 	}
 
 	@Override

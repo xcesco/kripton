@@ -69,8 +69,8 @@ public class SetTransformation extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
 		if (beanClass != null) {
-			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
-			methodBuilder.addCode("$L.putString($S,$T.asString($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
+			methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.addCode("$L.putString($S,$T.asString($L))", editorName, property.getName(), utilClazz, getter(beanName, beanClass, property));
 			methodBuilder.addCode(";");
 			methodBuilder.addCode(" else ");
 			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());

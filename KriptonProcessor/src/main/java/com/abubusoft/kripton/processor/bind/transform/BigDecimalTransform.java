@@ -15,12 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-
-import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
+import java.math.BigDecimal;
 
 /**
  * Transformer between a string and a java.math.BigDecimal object
@@ -28,89 +23,13 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-class BigDecimalTransform extends AbstractBindTransform {
+class BigDecimalTransform extends AbstractNumberTransform {
 	
 	public BigDecimalTransform()
 	{
-		this.nullable=true;
-		defaultValue="0";
+		METHOD_TO_CONVERT="toPlainString";		
+		NUMBER_CLAZZ=BigDecimal.class;
+		
 	}
 	
-	protected boolean nullable;
-	
-	protected String defaultValue;
-	
-	@Override
-	public void generateParseOnXml(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		/*
-		if (add) {
-						
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
-		}
-		
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("new $T($L.getString($S, $S))",  BigDecimal.class, preferenceName, property.getName(), defaultValue);
-		methodBuilder.addCode(": null");
-		
-		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter()?")":""));
-		}*/
-	}
-
-
-	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
-		if (beanClass!=null)
-		{
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L." + getter(beanClass, property)+"!=null) ", beanName);
-			}
-			methodBuilder.addCode("$L.putString($S,$L." + getter(beanClass, property) + ".toPlainString() )", editorName, property.getName(), beanName);
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
-		} else {
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L!=null) ", beanName);
-			}
-			methodBuilder.addCode("$L.putString($S,$L.toPlainString())", editorName, property.getName(), beanName);
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
-		}
-			
-	}
-
-
-	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		
-	}
 }

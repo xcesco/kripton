@@ -63,9 +63,9 @@ public class DoubleTransform extends AbstractSPTransform {
 		{			
 			if (nullable)
 			{
-				methodBuilder.addCode("if ($L." + getter(beanClass, property)+"!=null) ", beanName);
+				methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
 			}
-			methodBuilder.addCode("$L.putString($S,String.valueOf($L." + getter(beanClass, property) + "))", editorName, property.getName(), beanName);
+			methodBuilder.addCode("$L.putString($S,String.valueOf($L))", editorName, property.getName(), getter(beanName, beanClass, property));
 			if (nullable)
 			{
 				methodBuilder.addCode(";");

@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.lang.annotation.Annotation;
@@ -235,7 +236,7 @@ public class CodeBuilderUtility {
 
 			if (TypeUtility.isNullable(item))
 			{
-				methodBuilder.beginControlFlow("if ($L."+PropertyUtility.getter(entityClassName, item)+"!=null)", entityName);
+				methodBuilder.beginControlFlow("if ($L!=null)", getter(entityName, entityClassName, item));
 			}
 			
 			// add property to list of used properties

@@ -2,12 +2,10 @@ package kripton70;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindTypeXml;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;
 
-@BindType
-@BindTypeXml("root")
+@BindType("root")
 public class BeanAttribute70 {
 	
 	@Override
@@ -32,7 +30,8 @@ public class BeanAttribute70 {
 		return true;
 	}
 
-	@BindXml(value="name", xmlType=XmlType.TAG)
+	@Bind("name")
+	@BindXml(xmlType=XmlType.TAG)
 	protected long id;
 	
 	public long getId() {

@@ -30,21 +30,21 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		methodBuilder.beginControlFlow("if ($L.$L!=null) ", beanName, getter(beanClass, property));		
+		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $T.write($L.$L))", serializerName, property.xmlInfo.tagName, utilClazz, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeAttribute($S, $T.write($L))", serializerName, property.xmlInfo.tag, utilClazz, getter(beanName, beanClass, property));
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tagName);
-			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write($L.$L)))", serializerName, StringEscapeUtils.class, utilClazz, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write($L)))", serializerName, StringEscapeUtils.class, utilClazz, getter(beanName, beanClass, property));
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			break;
 		case VALUE:
-			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write($L.$L)))", serializerName, StringEscapeUtils.class, utilClazz, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write($L)))", serializerName, StringEscapeUtils.class, utilClazz, getter(beanName, beanClass, property));
 			break;
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L.writeCData($T.escapeXml10($T.write($L.$L)))", serializerName, StringEscapeUtils.class, utilClazz, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeCData($T.escapeXml10($T.write($L)))", serializerName, StringEscapeUtils.class, utilClazz, getter(beanName, beanClass, property));
 			break;
 		}
 
@@ -54,8 +54,8 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 	
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L.$L!=null) ", beanName, getter(beanClass, property));
-		methodBuilder.addStatement("$L.writeStringField($S, $T.write($L.$L))", serializerName, property.jacksonName, utilClazz, beanName, getter(beanClass, property));
+		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		methodBuilder.addStatement("$L.writeStringField($S, $T.write($L))", serializerName, property.jacksonName, utilClazz, getter(beanName, beanClass, property));
 		methodBuilder.endControlFlow();
 	}
 
@@ -82,8 +82,8 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L.$L!=null) ", beanName, getter(beanClass, property));
-		methodBuilder.addStatement("$L.writeStringField($S, $T.write($L.$L))", serializerName, property.jacksonName, utilClazz, beanName, getter(beanClass, property));
+		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		methodBuilder.addStatement("$L.writeStringField($S, $T.write($L))", serializerName, property.jacksonName, utilClazz, getter(beanName, beanClass, property));
 		methodBuilder.endControlFlow();
 	}
 

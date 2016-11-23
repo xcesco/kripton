@@ -35,35 +35,35 @@ import com.squareup.javapoet.TypeName;
 public class StringTransform extends AbstractBindTransform {
 
 	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		XmlType xmlType = property.xmlInfo.xmlType;
-		methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {	
+		if (property.isNullable())
+		methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
 
+		XmlType xmlType = property.xmlInfo.xmlType;
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $L.$L)", serializerName, property.xmlInfo.tagName, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeAttribute($S, $L)", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property));
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tagName);
-			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L))", serializerName, StringEscapeUtils.class, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			break;
 		case VALUE:
-			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L))", serializerName, StringEscapeUtils.class, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
 			break;
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L.writeCData($T.escapeXml10($L.$L))", serializerName, StringEscapeUtils.class, beanName, getter(beanClass, property));
+			methodBuilder.addStatement("$L.writeCData($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
 			break;
 		}
 
 		methodBuilder.endControlFlow();
-
 	}
 	
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
-		methodBuilder.addStatement("$L.writeStringField($S, $L.$L)", serializerName, property.jacksonName, beanName, getter(beanClass, property));
+		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
 		methodBuilder.endControlFlow();
 	}
 
@@ -90,8 +90,8 @@ public class StringTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
-		methodBuilder.addStatement("$L.writeStringField($S, $L.$L)", serializerName, property.jacksonName, beanName, getter(beanClass, property));
+		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
 		methodBuilder.endControlFlow();
 	}
 

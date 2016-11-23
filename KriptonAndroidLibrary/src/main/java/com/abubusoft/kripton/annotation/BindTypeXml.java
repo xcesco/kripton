@@ -31,13 +31,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindTypeXml {
-
-	/**
-	 * Name of the root XML/JSON element
-	 * 
-	 * @return name
-	 */
-    public String value() default "";
     
     /**
      * Default namespace of the root XML element.

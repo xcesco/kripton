@@ -32,6 +32,14 @@ import java.lang.annotation.Target;
 public @interface BindType {
 	
 	/**
+	 * Name of the element. For XML it's the tag name. For JSON it has no use. For Property format it's the name of property 
+	 * 
+	 * @return name
+	 */
+    public String value() default "";
+
+	
+	/**
 	 * All fields are binded, for each kind of binding.
 	 * 
 	 * @return

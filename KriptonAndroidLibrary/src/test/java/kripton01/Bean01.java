@@ -22,6 +22,7 @@ import java.util.Date;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
 
 
 
@@ -41,7 +42,8 @@ public class Bean01 {
 	@Bind
 	private String surname;
 	
-	@Bind(elementName="ticket")
+	@Bind
+	@BindXml(elementTag="ticket")
 	private int[] tickets;
 
 	public int[] getTickets() {

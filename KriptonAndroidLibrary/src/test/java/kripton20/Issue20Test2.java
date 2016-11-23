@@ -20,6 +20,7 @@ import org.junit.Test;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindTypeXml;
+import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.exception.MappingException;
 
@@ -36,7 +37,7 @@ public class Issue20Test2 {
 	@BindTypeXml
 	public class Bean2
 	{
-		@Bind(elementName="test")
+		@BindXml(elementTagValue="test")
 		public String value;
 	}
 	

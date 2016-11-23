@@ -65,9 +65,9 @@ class BigDecimalTransform extends AbstractSPTransform {
 		{
 			if (nullable)
 			{
-				methodBuilder.addCode("if ($L." + getter(beanClass, property)+"!=null) ", beanName);
+				methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
 			}
-			methodBuilder.addCode("$L.putString($S,$L." + getter(beanClass, property) + ".toPlainString() )", editorName, property.getName(), beanName);
+			methodBuilder.addCode("$L.putString($S,$L.toPlainString() )", editorName, property.getName(), getter(beanName, beanClass, property));
 			if (nullable)
 			{
 				methodBuilder.addCode(";");

@@ -52,9 +52,6 @@ import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
-import com.abubusoft.kripton.processor.bind.transform.ObjectTransform;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
@@ -100,17 +97,19 @@ public class BindTypeBuilder {
 		}
 
 		String className = PREFIX + beanClassName + (needSuffix ? SUFFIX : "");
-		ModelAnnotation annotation = item.getAnnotation(BindType.class);
-		String bindTypeName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_NAME);
+		//ModelAnnotation annotation = item.getAnnotation(BindType.class);
+		//String bindTypeName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
 
 		PackageElement pkg = elementUtils.getPackageOf(item.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindType.class, packageName, className);
-		// @formatter:off
-		builder = TypeSpec.classBuilder(className).addAnnotation(BindMap.class).addModifiers(Modifier.PUBLIC)
+		//@formatter:off
+		builder = TypeSpec.classBuilder(className)
+				.addAnnotation(BindMap.class)
+				.addModifiers(Modifier.PUBLIC)
 				.superclass(TypeUtility.parameterizedTypeName(className(AbstractMapper.class), typeName(item.getElement().asType())));
-		// @formatter:on
+		//@formatter:on
 		builder.addJavadoc("This class is the shared preference binder defined for $T\n\n", item.getElement());
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc("@see $T\n", item.getElement());
@@ -150,7 +149,7 @@ public class BindTypeBuilder {
 				if (c1 != 0)
 					return c1;
 
-				return lhs.xmlInfo.tagName.compareTo(rhs.xmlInfo.tagName);
+				return lhs.xmlInfo.tag.compareTo(rhs.xmlInfo.tag);
 			}
 		});
 
@@ -176,8 +175,7 @@ public class BindTypeBuilder {
 	 * @param item
 	 */
 	public static void generateCreateInstance(BindEntity item) {
-		MethodSpec.Builder method = MethodSpec.methodBuilder("createInstance").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addJavadoc("create new object instance\n")
-				.returns(typeName(item.getElement()));
+		MethodSpec.Builder method = MethodSpec.methodBuilder("createInstance").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addJavadoc("create new object instance\n").returns(typeName(item.getElement()));
 		method.addStatement("return new $T()", typeName(item.getElement()));
 		builder.addMethod(method.build());
 	}
@@ -259,37 +257,24 @@ public class BindTypeBuilder {
 		/*
 		 * BindTransform bindTransform;
 		 * 
-		 * int count = 0; // count property to manage { // for each elements for
-		 * (BindProperty property : entity.getCollection()) { if
-		 * (property.xmlInfo.xmlType != XmlType.TAG) continue;
+		 * int count = 0; // count property to manage { // for each elements for (BindProperty property : entity.getCollection()) { if (property.xmlInfo.xmlType != XmlType.TAG) continue;
 		 * 
 		 * bindTransform = BindTransformer.lookup(property);
 		 * 
-		 * // here we manage only property of bean type if (bindTransform !=
-		 * null && !(bindTransform instanceof ObjectTransform)) { count++; } } }
+		 * // here we manage only property of bean type if (bindTransform != null && !(bindTransform instanceof ObjectTransform)) { count++; } } }
 		 * 
-		 * if (count > 0) {
-		 * methodBuilder.addStatement("currentTag = elementNameStack.pop()");
-		 * methodBuilder.beginControlFlow("switch(currentTag)$>");
+		 * if (count > 0) { methodBuilder.addStatement("currentTag = elementNameStack.pop()"); methodBuilder.beginControlFlow("switch(currentTag)$>");
 		 * 
-		 * for (BindProperty property : entity.getCollection()) { if
-		 * (property.xmlInfo.xmlType != XmlType.TAG) continue;
+		 * for (BindProperty property : entity.getCollection()) { if (property.xmlInfo.xmlType != XmlType.TAG) continue;
 		 * 
-		 * bindTransform = BindTransformer.lookup(property); if (bindTransform
-		 * instanceof ObjectTransform) continue;
+		 * bindTransform = BindTransformer.lookup(property); if (bindTransform instanceof ObjectTransform) continue;
 		 * 
-		 * methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName);
-		 * methodBuilder.addCode("// property $L\n", property.getName());
-		 * methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
-		 * bindTransform.generateParseOnXml(methodBuilder, "xmlParser",
-		 * typeName(property.getPropertyType()), "instance", property);
-		 * methodBuilder.endControlFlow();
+		 * methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName); methodBuilder.addCode("// property $L\n", property.getName()); methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
+		 * bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property); methodBuilder.endControlFlow();
 		 * 
 		 * methodBuilder.addStatement("$<break"); }
 		 * 
-		 * methodBuilder.addCode("default:\n$>");
-		 * methodBuilder.addStatement("$<break$<");
-		 * methodBuilder.endControlFlow(); }
+		 * methodBuilder.addCode("default:\n$>"); methodBuilder.addStatement("$<break$<"); methodBuilder.endControlFlow(); }
 		 */
 
 	}
@@ -325,7 +310,7 @@ public class BindTypeBuilder {
 				if (property.xmlInfo.xmlType != XmlType.ATTRIBUTE)
 					continue;
 
-				methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName);
+				methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tag);
 
 				bindTransform = BindTransformer.lookup(property);
 				methodBuilder.addCode("// field $L\n", property.getName());
@@ -382,7 +367,7 @@ public class BindTypeBuilder {
 
 				// here we manage only property of bean type
 				if (bindTransform != null) {
-					methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName);
+					methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tag);
 					methodBuilder.addCode("// property $L\n", property.getName());
 
 					methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
@@ -665,11 +650,10 @@ public class BindTypeBuilder {
 			bindTransform.generateSerializeOnXml(methodBuilder, "xmlSerializer", item.getPropertyType().getName(), "object", item);
 			methodBuilder.addCode("\n");
 		}
-		
-		methodBuilder.beginControlFlow("if (currentEventType == 0)");
-			methodBuilder.addStatement("xmlSerializer.writeEndElement()");
-		methodBuilder.endControlFlow();
 
+		methodBuilder.beginControlFlow("if (currentEventType == 0)");
+		methodBuilder.addStatement("xmlSerializer.writeEndElement()");
+		methodBuilder.endControlFlow();
 
 		methodBuilder.nextControlFlow("catch($T e)", typeName(XMLStreamException.class));
 		methodBuilder.addStatement("e.printStackTrace()");

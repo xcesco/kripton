@@ -58,8 +58,8 @@ public class EnumTransform extends AbstractSPTransform {
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
 		if (beanClass != null) {
-			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
-			methodBuilder.addCode("$L.putString($S,$L." + getter(beanClass, property) + ".toString() )", editorName, property.getName(), beanName);
+			methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.addCode("$L.putString($S,$L.toString() )", editorName, property.getName(), getter(beanName, beanClass, property));
 			methodBuilder.addCode(";");
 			methodBuilder.addCode(" else ");
 			methodBuilder.addCode("$L.putString($S, $L)", editorName, property.getName(), defaultValue);

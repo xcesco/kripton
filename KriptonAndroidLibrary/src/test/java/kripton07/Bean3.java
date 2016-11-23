@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
 
 
 
@@ -79,10 +80,8 @@ public class Bean3 extends Bean0 {
 	@Bind
 	private String surname;
 	
-	@Bind(elementName="ticket") List<SubBean03> tickets;
-	
-
-	
+	@BindXml(elementTag="ticket")
+	List<SubBean03> tickets;
 
 	public Date getBirthday() {
 		return birthday;

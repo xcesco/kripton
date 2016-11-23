@@ -66,9 +66,9 @@ public class ByteArrayTransform extends AbstractBindTransform {
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
 		if (beanClass != null) {
 			if (nullable) {
-				methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
+				methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
 			}
-			methodBuilder.addCode("$L.putString($S,$T.encode($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
+			methodBuilder.addCode("$L.putString($S,$T.encode($L))", editorName, property.getName(), utilClazz, getter(beanName, beanClass, property));
 			if (nullable) {
 				methodBuilder.addCode(";");
 				methodBuilder.addCode(" else ");

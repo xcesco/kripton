@@ -1,21 +1,10 @@
 package kripton70;
 
-import java.net.URL;
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.List;
 
-import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindTypeXml;
-import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder.xml.XmlType;
 
-@BindType
-@BindTypeXml("root")
+@BindType("root")
 public class BeanElement70 {
 	
 	/*
@@ -71,7 +60,7 @@ public class BeanElement70 {
 	public BeanElement70 valueBean;
 	
 	*/
-	
+	/*
 	public Calendar valueCalendar;
 	
 	public Currency valueCurrency;
@@ -85,26 +74,20 @@ public class BeanElement70 {
 	public TimeZone valueTimeZone;
 	
 	public URL valueUrl;
-	
-/*
-	
+	*/
+
+	/*
 	public BigDecimal valueBigDecimal;
 	
 	public BigInteger valueBigInteger;
 	
 	
-	
-	
-	
-	
-	
-	public EnumBeanType valueEnumBean;
-	
-	
-	
-	
-	
+	public BeanEnum valueEnum;
+	*/
 	public List<String> valueStringList;
+/*	
+	
+	
 	
 	public String[] valueStringArray;
 	

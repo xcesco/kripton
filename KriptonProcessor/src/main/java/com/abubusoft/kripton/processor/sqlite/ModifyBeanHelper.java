@@ -131,7 +131,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			nullable = TypeUtility.isNullable(property);
 
 			if (nullable) {
-				methodBuilder.addCode("($L." + getter(beanClass, property) + "==null?null:", beanParamName);
+				methodBuilder.addCode("($L==null?null:", getter(beanParamName, beanClass, property));
 			}
 
 			// check for string conversion

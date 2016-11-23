@@ -1,8 +1,11 @@
 package kripton70;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -34,24 +37,35 @@ public class TestKripton70 extends BaseProcessorTest {
 	@Test
 	public void testBeanElement70() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanElement70.class);
+		buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
 	}
 	
 	@Test
 	public void testBeanAttribute70() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanAttribute70.class);
+		buildBindProcessorTest(BeanAttribute70.class, BeanEnum.class);
 	}
 	
 	@Test
 	public void testBeanElement70Compiled() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanElement70.class);
+		buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
 		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
 		
 		Assert.assertNotNull(new BeanElement70BindMap());
 		
 		BeanElement70 bean=new BeanElement70();
+
+		/*
+		bean.valueBigDecimal=BigDecimal.valueOf(11.0);
+		bean.valueBigInteger=BigInteger.valueOf(10);
+		*/
+		
+		//bean.valueEnum=BeanEnum.VALUE_2;
+		bean.valueStringList=new ArrayList<String>();
+		bean.valueStringList.add("hello1");
+		
+		/*
 		bean.valueCalendar=Calendar.getInstance();
 		bean.valueCurrency=Currency.getInstance(Locale.ITALY);
 		bean.valueDate=new Date();
@@ -59,6 +73,7 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueTime=new Time(0);
 		bean.valueTimeZone=TimeZone.getDefault();
 		bean.valueUrl=new URL("http://github.com");
+		*/
 		
 		/*
 		bean.id=25;

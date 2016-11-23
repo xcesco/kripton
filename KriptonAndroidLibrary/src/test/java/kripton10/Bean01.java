@@ -50,7 +50,7 @@ public class Bean01 {
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	private String surname;
 	
-	@Bind(elementName="ticket")
+	@BindXml(elementTagValue="ticket")
 	private int[] tickets;
 
 	public int[] getTickets() {

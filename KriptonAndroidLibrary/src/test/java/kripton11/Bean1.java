@@ -34,8 +34,8 @@ import com.abubusoft.kripton.binder.xml.XmlType;
  *
  */
 
-@BindType
-@BindTypeXml(value="name1", namespace="hello")
+@BindType("name1")
+@BindTypeXml(namespace="hello")
 public class Bean1 implements Serializable {
 
 	private static final long serialVersionUID = 3113613163524431347L;

@@ -50,9 +50,9 @@ abstract class PrimitiveSPTransform extends AbstractSPTransform {
 		}
 
 		if (nullable){
-			methodBuilder.addCode(SIMPLE_TYPE+"$L.get"+PREFS_TYPE+"($S, "+SIMPLE_TYPE+"($L.$L==null?"+PREFS_DEFAULT_VALUE+":$L.$L))", preferenceName, property.getName(), beanName, getter(beanClass, property), beanName, getter(beanClass, property));
+			methodBuilder.addCode(SIMPLE_TYPE+"$L.get"+PREFS_TYPE+"($S, "+SIMPLE_TYPE+"($L==null?"+PREFS_DEFAULT_VALUE+":$L))", preferenceName, property.getName(), getter(beanName, beanClass, property), getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addCode(SIMPLE_TYPE+"$L.get"+PREFS_TYPE+"($S, "+SIMPLE_TYPE+"$L.$L)", preferenceName, property.getName(), beanName, getter(beanClass, property));
+			methodBuilder.addCode(SIMPLE_TYPE+"$L.get"+PREFS_TYPE+"($S, "+SIMPLE_TYPE+"$L)", preferenceName, property.getName(), getter(beanName, beanClass, property));
 		}
 
 		if (add) {
@@ -66,9 +66,9 @@ abstract class PrimitiveSPTransform extends AbstractSPTransform {
 		{
 			if (nullable)
 			{
-				methodBuilder.addCode("if ($L." + getter(beanClass, property)+"!=null) ", beanName);
+				methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
 			}
-			methodBuilder.addCode("$L.put"+PREFS_TYPE+"($S,"+PREFS_CONVERT+"$L." + getter(beanClass, property) + " )", editorName, property.getName(), beanName);
+			methodBuilder.addCode("$L.put"+PREFS_TYPE+"($S,"+PREFS_CONVERT+"$L)", editorName, property.getName(), getter(beanName, beanClass, property));
 		} else {
 			if (nullable)
 			{

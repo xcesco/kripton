@@ -54,7 +54,8 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_MAP_KEY_NAME("mapKeyName"),
 	ATTRIBUTE_MAP_VALUE_NAME("mapValueName"),
 	ATTRIBUTE_MAP_ENTRY_STRATEGY("mapEntryStrategy"),
-	ATTRIBUTE_XML_TYPE("xmlType")
+	ATTRIBUTE_XML_TYPE("xmlType"), 
+	ATTRIBUTE_XML_ELEMENT_TAG("elementTag"),
 	;
 	
 	

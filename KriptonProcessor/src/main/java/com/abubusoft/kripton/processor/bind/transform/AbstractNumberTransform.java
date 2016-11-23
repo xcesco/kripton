@@ -18,31 +18,27 @@ package com.abubusoft.kripton.processor.bind.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import java.math.BigDecimal;
+
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;
-import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
-/**
- * Transformer between a string and a Java5 Enum object
- * 
- * @author bulldog
- * 
- */
-public class EnumTransform extends AbstractBindTransform {
-
-	private TypeName typeName;
-
-	public EnumTransform(TypeName typeName) {
-		this.typeName = typeName;
-		
-		METHOD_TO_CONVERT="toString";				
+abstract class AbstractNumberTransform extends AbstractBindTransform {
+	
+	public AbstractNumberTransform()
+	{		
+		METHOD_TO_CONVERT="toPlainString";		
+		NUMBER_CLAZZ=BigDecimal.class;
 	}
-
+	
 	protected String METHOD_TO_CONVERT;
+	
+	protected Class<?> NUMBER_CLAZZ;
 	
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
@@ -82,14 +78,14 @@ public class EnumTransform extends AbstractBindTransform {
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.valueOf($T.read(attributeValue))"), beanName, typeName, parserName);
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"new $T($T.read(attributeValue))"), beanName, NUMBER_CLAZZ, parserName);
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.valueOf($T.unescapeXml($L.getElementText()))"), beanName, typeName, StringEscapeUtils.class, parserName);
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"new $T($T.unescapeXml($L.getElementText()))"), beanName, NUMBER_CLAZZ, StringEscapeUtils.class, parserName);
 			break;
 		case VALUE:
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.valueOf($T.unescapeXml($L.getText()))"), beanName, typeName, StringEscapeUtils.class, parserName);			
+			methodBuilder.addStatement("$L."+setter(beanClass, property,"new $T($T.unescapeXml($L.getText()))"), beanName, NUMBER_CLAZZ, StringEscapeUtils.class, parserName);			
 			break;
 		default:
 			break;
@@ -107,7 +103,7 @@ public class EnumTransform extends AbstractBindTransform {
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement("$L."+setter(beanClass, property," $T.valueOf($L.getText())"), beanName, typeName, parserName);
+		methodBuilder.addStatement("$L."+setter(beanClass, property," new $T($L.getText())"), beanName, NUMBER_CLAZZ, parserName);
 		methodBuilder.endControlFlow();
 		
 	}
@@ -115,8 +111,7 @@ public class EnumTransform extends AbstractBindTransform {
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement("$L."+setter(beanClass, property,"$T.valueOf($L.getText())"), beanName, typeName, parserName);
+		methodBuilder.addStatement("$L."+setter(beanClass, property,"new $T($L.getText())"), beanName, NUMBER_CLAZZ, parserName);
 		methodBuilder.endControlFlow();
 	}
-		
 }

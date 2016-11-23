@@ -64,9 +64,9 @@ class BigIntegerTransform extends AbstractSPTransform {
 		{
 			if (nullable)
 			{
-				methodBuilder.addCode("if ($L.$L!=null) ", beanName, getter(beanClass, property));
+				methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
 			}
-			methodBuilder.addCode("$L.putString($S,$L." + getter(beanClass, property) + ".toString() )", editorName, property.getName(), beanName);
+			methodBuilder.addCode("$L.putString($S,$L.toString() )", editorName, property.getName(), getter(beanName, beanClass, property));
 			if (nullable)
 			{
 				methodBuilder.addCode(";");

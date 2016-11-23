@@ -42,6 +42,8 @@ import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindModel;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
+import com.abubusoft.kripton.processor.bind.transform.EnumTransform;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -51,6 +53,8 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.utils.StringUtility;
+
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 /**
  * Annotation processor for json/xml/etc
@@ -99,18 +103,20 @@ public class BindTypeProcessor extends BaseProcessor {
 			parseBindType(roundEnv);
 			for (Element item : globalBeanElements.values()) {
 				if (item.getKind() == ElementKind.ENUM) {
-					// SPTransformer.register(typeName(item), new EnumTransform(typeName(item)));
+					BindTransformer.register(typeName(item), new EnumTransform(typeName(item)));
 				}
 
 			}
 
 			// Put all @BindSharedPreferences elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
-				if (item.getKind() != ElementKind.CLASS) {
-					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindSharedPreferences.class.getSimpleName());
+				if (item.getKind() != ElementKind.CLASS && item.getKind() != ElementKind.ENUM) {
+					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindType.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
-
+				
+				if (item.getKind() == ElementKind.ENUM) continue;
+				
 				createBindMapper(item);
 
 				itemCounter++;
@@ -145,7 +151,7 @@ public class BindTypeProcessor extends BaseProcessor {
 		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
 
 		// tag name
-		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindTypeXml.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindType.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 		if (StringUtility.hasText(tagName)) {
 			currentEntity.xmlInfo.tagName = tagName;
 		} else {
@@ -191,11 +197,21 @@ public class BindTypeProcessor extends BaseProcessor {
 						property.order=order;
 						
 
-						String tempName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+						String tempName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 						if (StringUtility.hasText(tempName)) {
-							property.xmlInfo.tagName = tempName;
+							property.xmlInfo.tag = tempName;
 						} else {
-							property.xmlInfo.tagName = typeNameConverter.convert(property.getName());
+							property.xmlInfo.tag = typeNameConverter.convert(property.getName());
+						}
+						
+						// define element tag name
+						String tempElementName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_XML_ELEMENT_TAG);
+						if (StringUtility.hasText(tempElementName)) {
+							property.xmlInfo.tagElement = tempElementName;
+							property.xmlInfo.wrappedCollection=true;
+						} else {
+							property.xmlInfo.tagElement = property.xmlInfo.tag;
+							property.xmlInfo.wrappedCollection=false;
 						}
 						
 						String xmlType=AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_XML_TYPE);

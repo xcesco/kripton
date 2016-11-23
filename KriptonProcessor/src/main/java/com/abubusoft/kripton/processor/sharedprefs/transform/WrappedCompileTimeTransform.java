@@ -49,9 +49,9 @@ public class WrappedCompileTimeTransform extends AbstractSPTransform {
 		{			
 			if (nullable)
 			{
-				methodBuilder.addCode("if ($L." + getter(beanClass, property)+"!=null) ", beanName);
+				methodBuilder.addCode("if ($L!=null) ", beanName, getter(beanName, beanClass, property));
 			}
-			methodBuilder.addCode("$L.putString($S,$T.write($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
+			methodBuilder.addCode("$L.putString($S,$T.write($L))", editorName, property.getName(), utilClazz, getter(beanName, beanClass, property));
 			if (nullable)
 			{
 				methodBuilder.addCode(";");

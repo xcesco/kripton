@@ -48,7 +48,7 @@ class CurrencyTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property) {
-		methodBuilder.addCode("$T.write($L." + getter(beanClass, property) + ")", CurrencyUtil.class, beanName);
+		methodBuilder.addCode("$T.write($L)", CurrencyUtil.class, getter(beanName, beanClass, property));
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class ShortTransform  extends AbstractCompileTimeTransform {
 	
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
-		methodBuilder.addCode("(int)$L."+getter(beanClass, property), beanName);
+		methodBuilder.addCode("(int)$L", getter(beanName, beanClass, property));
 	}
 	
 	@Override

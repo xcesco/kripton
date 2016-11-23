@@ -30,6 +30,6 @@ public class Bean0<T, E> {
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	protected E genericAttribute;
 	
-	@Bind(elementName="item")
+	@BindXml(elementTag="item")
 	protected List<E> genericListAttribute;
 }

@@ -1,19 +1,17 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
+import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
@@ -47,6 +45,8 @@ public class ListTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		
+		
 		/*
 		//String name = nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".") + 1));
 		Class<?> listClazz = defineListClass(listTypeName);
@@ -66,21 +66,59 @@ public class ListTransformation extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
-		if (beanClass != null) {
-			methodBuilder.addCode("if ($L." + getter(beanClass, property) + "!=null) ", beanName);
-			methodBuilder.addCode("$L.putString($S,$T.asString($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
-			methodBuilder.addCode(";");
-			methodBuilder.addCode(" else ");
-			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-		} else {
-			methodBuilder.addCode("if ($L!=null) ", beanName);
-			methodBuilder.addCode("$L.putString($S,$T.asString($L))", editorName, property.getName(), utilClazz, beanName);
-			methodBuilder.addCode(";");
-			methodBuilder.addCode(" else ");
-			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-		}
-
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$T item", rawTypeName);
+			
+			if (property.xmlInfo.isWrappedCollection())
+			{
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			}
+			
+			BindTransform transform=BindTransformer.lookup(rawTypeName);
+			
+			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
+				methodBuilder.addStatement("item=$L.get(i)", getter(beanName, beanClass, property));
+				methodBuilder.beginControlFlow("if (item==null)");
+					methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.tagElement);
+				methodBuilder.nextControlFlow("else");
+					transform.generateSerializeOnXml(methodBuilder, serializerName, beanClass, beanName, PropertyUtility. property);
+				methodBuilder.endControlFlow();
+			methodBuilder.endControlFlow();
+			
+			if (property.xmlInfo.isWrappedCollection())
+			{
+				methodBuilder.addStatement("$L.writeEndElement()");
+			}
+			
+			
+//			methodBuilder.addCode("$L.putString($S,$T.asString($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
+//			methodBuilder.addCode(";");
+//			methodBuilder.addCode(" else ");
+//			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
+			methodBuilder.endControlFlow();
+/*
+			if (object.valueStringList!=null)
+			{
+				String item;				
+								
+				//xmlSerializer.writeStartElement("valueStringList");				
+				for (int i=0; i<object.valueStringList.size();i++)
+				{
+					item=object.valueStringList.get(i);
+					
+					if (item==null)
+					{
+						xmlSerializer.writeEmptyElement("item");
+					} else {
+						xmlSerializer.writeStartElement("valueStringList");						
+							xmlSerializer.writeCharacters(item);
+						xmlSerializer.writeEndElement();
+					}
+				}
+				//xmlSerializer.writeEndElement();
+			}*/
 	}
 
 	@Override

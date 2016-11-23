@@ -187,7 +187,10 @@ public class PropertyUtility {
 		} else {
 			throw new PropertyVisibilityException("Property "+property.getName()+" of class "+beanClass+" can not be read");
 		}
-
+	}
+	
+	public static String getter(String beanName, TypeName beanClass, ModelProperty property) {
+		return beanName+"."+getter(beanClass, property);
 	}
 
 	public static String setter(TypeName beanClass, ModelProperty property) {

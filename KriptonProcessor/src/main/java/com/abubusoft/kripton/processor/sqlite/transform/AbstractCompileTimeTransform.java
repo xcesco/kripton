@@ -34,7 +34,7 @@ public abstract class AbstractCompileTimeTransform implements Transform {
 	
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		methodBuilder.addCode("$L."+getter(beanClass, property), beanName);
+		methodBuilder.addCode("$L", getter(beanName, beanClass, property));
 	}
 
 	@Override

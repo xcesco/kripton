@@ -41,7 +41,7 @@ public class WrappedCompileTimeTransform<U> extends AbstractCompileTimeTransform
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property) {
-		methodBuilder.addCode("$T.write($L." + getter(beanClass, property) + ")", utilClazz, beanName);
+		methodBuilder.addCode("$T.write($L)", utilClazz, getter(beanName, beanClass, property));
 	}
 
 	@Override

@@ -181,17 +181,19 @@ public class MappingSchema {
 		if (bindType == null && bindTypeXml != null) {
 			throw new MappingException("Class " + type.getName() + " need @BindType annotation, because it uses @BindTypeXml or @BindTable");
 		}
+		
+		if (bindType!=null && !StringUtil.isEmpty(bindType.value())) {
+			rootElementSchema.xmlInfo.setName(bindType.value());
+		} else {
+			rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
+		}
+		
 		// BindTypeXml
 		if (bindTypeXml != null) {
 			if (!type.isAnnotationPresent(BindType.class))
 				throw (new MappingException("The annotation @BindTypeXml annotation can not be used without @BinType in class definition " + type.getName()));
-
+			
 			BindTypeXml xre = type.getAnnotation(BindTypeXml.class);
-			if (StringUtil.isEmpty(xre.value())) {
-				rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
-			} else {
-				rootElementSchema.xmlInfo.setName(xre.value());
-			}
 			String namespace = StringUtil.isEmpty(xre.namespace()) ? null : xre.namespace();
 			rootElementSchema.xmlInfo.setNamespace(namespace);
 		} else {

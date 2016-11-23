@@ -43,7 +43,7 @@ class BigIntegerTransform extends AbstractCompileTimeTransform {
 	
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
-		methodBuilder.addCode("$L."+getter(beanClass, property)+".toString()", beanName);
+		methodBuilder.addCode("$L.toString()", getter(beanName, beanClass, property));
 	}
 
 	@Override
