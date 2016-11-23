@@ -77,13 +77,14 @@ public class ListTransformation extends AbstractBindTransform {
 			}
 			
 			BindTransform transform=BindTransformer.lookup(rawTypeName);
+			BindProperty elementProperty=PropertyUtility.buildProperty(rawTypeName);
 			
 			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
 				methodBuilder.addStatement("item=$L.get(i)", getter(beanName, beanClass, property));
 				methodBuilder.beginControlFlow("if (item==null)");
 					methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.tagElement);
 				methodBuilder.nextControlFlow("else");
-					transform.generateSerializeOnXml(methodBuilder, serializerName, beanClass, beanName, PropertyUtility. property);
+					transform.generateSerializeOnXml(methodBuilder, serializerName, null, "item", PropertyUtility. elementProperty);
 				methodBuilder.endControlFlow();
 			methodBuilder.endControlFlow();
 			
