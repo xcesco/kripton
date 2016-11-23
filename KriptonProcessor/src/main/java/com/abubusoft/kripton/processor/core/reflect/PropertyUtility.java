@@ -177,7 +177,7 @@ public class PropertyUtility {
 		return true;
 	}
 	
-	public static String getter(TypeName beanClass, ModelProperty property) {
+	static String getter(TypeName beanClass, ModelProperty property) {
 		if (property.isPublicField())
 			return property.getName();
 
@@ -191,7 +191,7 @@ public class PropertyUtility {
 	}
 	
 	public static String getter(String beanName, TypeName beanClass, ModelProperty property) {
-		return beanName+"."+getter(beanClass, property);
+		return beanName+(beanClass!=null ? "."+getter(beanClass, property) : "");
 	}
 
 	public static String setter(TypeName beanClass, ModelProperty property) {

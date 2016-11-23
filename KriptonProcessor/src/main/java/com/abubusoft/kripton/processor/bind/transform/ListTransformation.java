@@ -77,7 +77,7 @@ public class ListTransformation extends AbstractBindTransform {
 			}
 			
 			BindTransform transform=BindTransformer.lookup(rawTypeName);
-			BindProperty elementProperty=PropertyUtility.buildProperty(rawTypeName);
+			BindProperty elementProperty=BindProperty.builder(rawTypeName).build();
 			
 			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
 				methodBuilder.addStatement("item=$L.get(i)", getter(beanName, beanClass, property));

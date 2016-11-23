@@ -21,6 +21,8 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.utils.StringUtility;
+import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 public class BindProperty extends ModelProperty {
 
@@ -64,6 +66,24 @@ public class BindProperty extends ModelProperty {
 		}
 		
 
+	}
+
+	public static BindPropertyBuilder builder(TypeName rawTypeName) {
+		return new BindPropertyBuilder(rawTypeName);
+	}
+	
+	public static class BindPropertyBuilder
+	{		
+		public BindPropertyBuilder(TypeName rawTypeName) {
+			this.rawTypeName=rawTypeName;
+		}
+
+		public BindProperty build()
+		{
+			return new BindProperty(null);
+		}
+		
+		protected TypeName rawTypeName;
 	}
 
 }
