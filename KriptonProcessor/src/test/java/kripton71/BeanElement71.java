@@ -28,6 +28,7 @@ public class BeanElement71 {
 //	@BindXml(elementTag="item")
 //	public List<Float> valueFloatList;
 //	
+	@BindXml(elementTag="item")
 	public List<Double> valueDoubleList;
 	
 //	@BindXml(elementTag="item")

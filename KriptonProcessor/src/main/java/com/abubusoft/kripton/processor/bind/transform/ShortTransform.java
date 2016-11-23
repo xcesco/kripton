@@ -29,6 +29,11 @@ public class ShortTransform extends PrimitiveBindTransform {
 		XML_UTILITY_TYPE="Short";
 		XML_CAST_TYPE="(short)";
 		
+		if (!nullable)
+		{
+			DEFAULT_VALUE="(short)0";
+		}
+		
 		JSON_TYPE = "Number";
 		JSON_PARSER_METHOD="getShortValue";
 		

@@ -49,7 +49,7 @@ public class ListTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.addStatement("$T<$T> list=new $T<>()", ArrayList.class, TypeUtility.className(property.getPropertyType().getComposedValue()), ArrayList.class);
+		methodBuilder.addStatement("$T<$T> list=new $T<>()", defineListClass(listTypeName), TypeUtility.className(property.getPropertyType().getComposedValue()), defineListClass(listTypeName));
 		methodBuilder.addStatement("$T item", TypeUtility.className(property.getPropertyType().getComposedValue()));
 			
 		BindTransform transform=BindTransformer.lookup(rawTypeName);
@@ -58,7 +58,12 @@ public class ListTransformation extends AbstractBindTransform {
 		if (!property.xmlInfo.isWrappedCollection())
 		{
 			methodBuilder.addCode("// add first element\n");
+			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
+				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+				methodBuilder.addStatement("$L.skipElement()", parserName);				
+			methodBuilder.nextControlFlow("else");
 			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
+			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("list.add(item)");
 		}
 		
@@ -66,14 +71,12 @@ public class ListTransformation extends AbstractBindTransform {
 			
 		
 			methodBuilder.beginControlFlow("if (xmlParser.getName().toString().equals($S))", property.xmlInfo.tagElement);
-			methodBuilder.beginControlFlow("if (xmlParser.isEmptyElement())
-            {
-          	  item=xmlParser.getElementAsDouble();
-            } else {
-          	  item=null;
-            }
-			
-				transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
+				methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
+					methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+					methodBuilder.addStatement("$L.skipElement()", parserName);				
+				methodBuilder.nextControlFlow("else");
+					transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
+				methodBuilder.endControlFlow();
 				methodBuilder.addStatement("list.add(item)");
 			methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();

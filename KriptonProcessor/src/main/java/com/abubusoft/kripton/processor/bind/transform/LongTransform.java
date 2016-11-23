@@ -26,6 +26,11 @@ class LongTransform extends PrimitiveBindTransform {
 		XML_TYPE = "Long";
 		XML_UTILITY_TYPE="Long";
 		
+		if (!nullable)
+		{
+			DEFAULT_VALUE="0L";
+		}
+		
 		JSON_TYPE = "Number";
 		JSON_PARSER_METHOD="getLongValue";
 		

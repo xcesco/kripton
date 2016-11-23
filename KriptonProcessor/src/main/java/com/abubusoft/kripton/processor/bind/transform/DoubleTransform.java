@@ -29,6 +29,11 @@ public class DoubleTransform extends PrimitiveBindTransform {
 		XML_TYPE = "Double";
 		XML_UTILITY_TYPE="Double";
 		
+		if (!nullable)
+		{
+			DEFAULT_VALUE="0.0";
+		}
+		
 		JSON_TYPE = "Number";
 		JSON_PARSER_METHOD="getDoubleValue";
 	}

@@ -31,6 +31,11 @@ class ByteTransform extends PrimitiveBindTransform {
 		XML_CAST_TYPE="(byte)";
 		XML_UTILITY_TYPE="Byte";
 		
+		if (!nullable)
+		{
+			DEFAULT_VALUE="(byte)0";
+		}
+		
 		JSON_TYPE = "Number";
 		JSON_PARSER_METHOD="getByteValue";
 	}

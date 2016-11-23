@@ -94,16 +94,19 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
       if (object.valueDoubleList!=null)  {
         int n=object.valueDoubleList.size();
         Double item;
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueDoubleList");
         for (int i=0; i<n; i++) {
           item=object.valueDoubleList.get(i);
           if (item==null) {
-            xmlSerializer.writeEmptyElement("valueDoubleList");
+            xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueDoubleList");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeDouble(item);
             xmlSerializer.writeEndElement();
           }
         }
+        xmlSerializer.writeEndElement();
       }
 
       if (currentEventType == 0) {
@@ -217,16 +220,13 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                     if (!xmlParser.isEmptyElement()) {
                       ArrayList<Double> list=new ArrayList<>();
                       Double item;
-                      // add first element
-                      item=xmlParser.getElementAsDouble();
-                      list.add(item);
                       while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueDoubleList")) {
-                        if (xmlParser.getName().toString().equals("valueDoubleList")) {
-                          if (xmlParser.isEmptyElement())
-                          {
-                        	  item=xmlParser.getElementAsDouble();
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.skipElement();
                           } else {
-                        	  item=null;
+                            item=xmlParser.getElementAsDouble();
                           }
                           list.add(item);
                         }

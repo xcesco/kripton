@@ -28,6 +28,11 @@ public class FloatTransform extends PrimitiveBindTransform {
 		XML_TYPE = "Float";
 		XML_UTILITY_TYPE="Float";
 		
+		if (!nullable)
+		{
+			DEFAULT_VALUE="0f";
+		}
+		
 		JSON_TYPE = "Number";
 		JSON_PARSER_METHOD="getFloatValue";
 	}

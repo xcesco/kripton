@@ -24,5 +24,7 @@ package com.abubusoft.kripton.processor.bind.transform;
  *
  */
 public abstract class AbstractBindTransform implements BindTransform {
+	
+	protected String DEFAULT_VALUE="null";
 
 }

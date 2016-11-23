@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -29,10 +28,8 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property) {
-		methodBuilder.addCode("$T.asByteArray($L)", ProcessorHelper.class,
-				getter(beanName, beanClass, property));
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+		methodBuilder.addCode("$T.asByteArray($L)", ProcessorHelper.class, getter(beanName, beanClass, property));
 	}
 
 	@Override
@@ -41,15 +38,12 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
-			String cursorName, String indexName) {
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		String name = nc.convert(rawTypeName.toString().substring(rawTypeName.toString().lastIndexOf(".") + 1));
 
 		Class<?> listClazz = defineListClass(listTypeName);
 
-		methodBuilder.addCode(
-				setter(beanClass, beanName, property, "$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L))"),
-				ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L))"), ProcessorHelper.class, listClazz, name, name, cursorName, indexName);
 	}
 
 	private Class<?> defineListClass(ParameterizedTypeName listTypeName) {
@@ -65,28 +59,8 @@ public class ListTransformation extends AbstractCompileTimeTransform {
 		}
 	}
 
-	/*
-	 * @Override public void generateRead(Builder methodBuilder, String
-	 * cursorName, String indexName) { String
-	 * name=nc.convert(rawTypeName.toString().substring(rawTypeName.toString().
-	 * lastIndexOf(".")+1));
-	 * 
-	 * Class<?> listClazz=defineListClass(listTypeName);
-	 * 
-	 * methodBuilder.
-	 * addCode("$T.asCollection(new $T<$L>(),$T.class, $L.getBlob($L))",
-	 * CollectionUtility.class, ProcessorHelper.class, listClazz, name, name,
-	 * cursorName, indexName); }
-	 */
-
-	/*
-	 * @Override public void generateDefaultValue(Builder methodBuilder) {
-	 * methodBuilder.addCode("null"); }
-	 */
-
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode("$L." + setter(beanClass, beanName, property, "null"));
 	}
 

@@ -32,6 +32,11 @@ class CharacterTransform extends PrimitiveBindTransform {
 		XML_CAST_TYPE=CHAR_CAST_CONST;	
 		XML_UTILITY_TYPE="Character";
 		
+		if (!nullable)
+		{
+			DEFAULT_VALUE="''";
+		}
+		
 		JSON_TYPE = "Number";
 		JSON_PARSER_METHOD="getIntValue";
 	}
