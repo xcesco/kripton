@@ -63,18 +63,20 @@ public class SetTransformation extends AbstractBindTransform {
 			methodBuilder.addCode("// add first element\n");
 			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-				//methodBuilder.addStatement("$L.skipElement()", parserName);				
+				methodBuilder.addStatement("$L.skipElement()", parserName);				
 			methodBuilder.nextControlFlow("else");
 			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("collection.add(item)");
 			
-			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT)", parserName);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tag);
 		}
 				methodBuilder.beginControlFlow("if ($L.getName().toString().equals($S))", parserName, property.xmlInfo.tagElement);
 					methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 						methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-						//methodBuilder.addStatement("$L.skipElement()", parserName);				
+						if (property.xmlInfo.isWrappedCollection()) {
+							methodBuilder.addStatement("$L.skipElement()", parserName);
+						}				
 					methodBuilder.nextControlFlow("else");
 						transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
 					methodBuilder.endControlFlow();

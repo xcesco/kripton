@@ -41,7 +41,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
   public BeanElement72 createInstance() {
     return new BeanElement72();
   }
-
+ 
   /**
    * reset shared preferences
    */
@@ -443,7 +443,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                         if (xmlParser.getName().toString().equals("valueDoubleSet")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
-                            xmlParser.skipElement();
                           } else {
                             item=PrimitiveUtil.readDouble(xmlParser.getElementAsDouble(), null);
                           }

@@ -63,7 +63,7 @@ public class ListTransformation extends AbstractBindTransform {
 			methodBuilder.addCode("// add first element\n");
 			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-				//methodBuilder.addStatement("$L.skipElement()", parserName);				
+				methodBuilder.addStatement("$L.skipElement()", parserName);
 			methodBuilder.nextControlFlow("else");
 			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
 			methodBuilder.endControlFlow();
@@ -74,7 +74,9 @@ public class ListTransformation extends AbstractBindTransform {
 				methodBuilder.beginControlFlow("if ($L.getName().toString().equals($S))", parserName, property.xmlInfo.tagElement);
 					methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 						methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-						//methodBuilder.addStatement("$L.skipElement()", parserName);				
+						if (property.xmlInfo.isWrappedCollection()) {
+							methodBuilder.addStatement("$L.skipElement()", parserName);
+						}
 					methodBuilder.nextControlFlow("else");
 						transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
 					methodBuilder.endControlFlow();

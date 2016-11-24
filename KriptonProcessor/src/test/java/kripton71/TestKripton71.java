@@ -45,6 +45,7 @@ public class TestKripton71 extends BaseProcessorTest {
 		bean.valueBeanList.add(new BeanElement71("hello"));				
 		
 		bean.valueBigDecimalList=new LinkedList<>();
+		bean.valueBigDecimalList.add(null);
 		bean.valueBigDecimalList.add(BigDecimal.ONE);
 		bean.valueBigDecimalList.add(BigDecimal.TEN);
 		bean.valueBigDecimalList.add(null);		
@@ -54,6 +55,7 @@ public class TestKripton71 extends BaseProcessorTest {
 		bean.valueBigIntegerList.add(BigInteger.ZERO);
 		bean.valueBigIntegerList.add(BigInteger.ONE);
 		bean.valueBigIntegerList.add(BigInteger.TEN);
+		bean.valueBigIntegerList.add(null);
 		
 		bean.valueByteList=null;
 		
@@ -85,6 +87,8 @@ public class TestKripton71 extends BaseProcessorTest {
 		
 
 		bean.valueStringList=new ArrayList<>();
+		
+		bean.zalueStringFinal="final";
 		
 		serializeAndParse(bean, BinderType.XML);
 		serializeAndParse(bean, BinderType.JSON);
