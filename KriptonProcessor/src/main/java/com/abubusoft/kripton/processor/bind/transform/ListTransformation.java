@@ -6,14 +6,12 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.stream.events.XMLEvent;
-
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -34,7 +32,7 @@ public class ListTransformation extends AbstractBindTransform {
 		this.rawTypeName = listTypeName.typeArguments.get(0);
 	}
 
-	private Class<?> defineListClass(ParameterizedTypeName listTypeName) {
+	private Class<?> defineCollectionClass(ParameterizedTypeName listTypeName) {
 		if (listTypeName.toString().startsWith(List.class.getCanonicalName())) {
 			// it's a list
 			return ArrayList.class;
@@ -49,14 +47,17 @@ public class ListTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.addStatement("$T<$T> list=new $T<>()", defineListClass(listTypeName), TypeUtility.className(property.getPropertyType().getComposedValue()), defineListClass(listTypeName));
+		//@formatter:off
+		methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(listTypeName), TypeUtility.className(property.getPropertyType().getComposedValue()), defineCollectionClass(listTypeName));
 		methodBuilder.addStatement("$T item", TypeUtility.className(property.getPropertyType().getComposedValue()));
 			
 		BindTransform transform=BindTransformer.lookup(rawTypeName);
 		BindProperty elementProperty=BindProperty.builder(rawTypeName, property).build();
-		
-		if (!property.xmlInfo.isWrappedCollection())
-		{
+						
+		if (property.xmlInfo.isWrappedCollection())
+		{					
+			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && !$L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tag);
+		} else {
 			methodBuilder.addCode("// add first element\n");
 			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
@@ -64,24 +65,23 @@ public class ListTransformation extends AbstractBindTransform {
 			methodBuilder.nextControlFlow("else");
 			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
 			methodBuilder.endControlFlow();
-			methodBuilder.addStatement("list.add(item)");
-		}
-		
-		methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && !$L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tag);
+			methodBuilder.addStatement("collection.add(item)");
 			
-		
-			methodBuilder.beginControlFlow("if (xmlParser.getName().toString().equals($S))", property.xmlInfo.tagElement);
-				methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
-					methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-					methodBuilder.addStatement("$L.skipElement()", parserName);				
-				methodBuilder.nextControlFlow("else");
-					transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
-				methodBuilder.endControlFlow();
-				methodBuilder.addStatement("list.add(item)");
+			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT)", parserName);
+		}
+				methodBuilder.beginControlFlow("if ($L.getName().toString().equals($S))", parserName, property.xmlInfo.tagElement);
+					methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
+						methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+						methodBuilder.addStatement("$L.skipElement()", parserName);				
+					methodBuilder.nextControlFlow("else");
+						transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
+					methodBuilder.endControlFlow();
+					methodBuilder.addStatement("collection.add(item)");
+				methodBuilder.endControlFlow();			
 			methodBuilder.endControlFlow();
-		methodBuilder.endControlFlow();
     	                 	
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "list"));			
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));			
+		//@formatter:on
 	}
 
 	@Override
@@ -112,57 +112,109 @@ public class ListTransformation extends AbstractBindTransform {
 			{
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			}
-			
-			
-//			methodBuilder.addCode("$L.putString($S,$T.asString($L." + getter(beanClass, property) + "))", editorName, property.getName(), utilClazz, beanName);
-//			methodBuilder.addCode(";");
-//			methodBuilder.addCode(" else ");
-//			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
+						
 			methodBuilder.endControlFlow();
-/*
-			if (object.valueStringList!=null)
-			{
-				String item;				
-								
-				//xmlSerializer.writeStartElement("valueStringList");				
-				for (int i=0; i<object.valueStringList.size();i++)
-				{
-					item=object.valueStringList.get(i);
-					
-					if (item==null)
-					{
-						xmlSerializer.writeEmptyElement("item");
-					} else {
-						xmlSerializer.writeStartElement("valueStringList");						
-							xmlSerializer.writeCharacters(item);
-						xmlSerializer.writeEndElement();
-					}
-				}
-				//xmlSerializer.writeEndElement();
-			}*/
 	}
 
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
+		//@formatter:off
+		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$T item", rawTypeName);
 		
+			BindTransform transform=BindTransformer.lookup(rawTypeName);
+			BindProperty elementProperty=BindProperty.builder(rawTypeName, property).build();
+		
+			methodBuilder.addCode("// write wrapper tag\n");
+			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);
+			methodBuilder.addStatement("$L.writeStartArray()", serializerName);
+		
+			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
+				methodBuilder.addStatement("item=$L.get(i)", getter(beanName, beanClass, property));
+				methodBuilder.beginControlFlow("if (item==null)");
+					methodBuilder.addStatement("$L.writeNull()", serializerName);
+				methodBuilder.nextControlFlow("else");
+					transform.generateSerializeOnJackson(methodBuilder, serializerName, null, "item", elementProperty);
+				methodBuilder.endControlFlow();
+			methodBuilder.endControlFlow();
+		
+	        methodBuilder.addStatement("$L.writeEndArray()", serializerName);
+		methodBuilder.endControlFlow();
+		//@formatter:on
 	}
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
+		//@formatter:off
+		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$T item", rawTypeName);
+		
+			BindTransform transform=BindTransformer.lookup(rawTypeName);
+			BindProperty elementProperty=BindProperty.builder(rawTypeName, property).build();
+		
+			methodBuilder.addCode("// write wrapper tag\n");
+			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);
+			methodBuilder.addStatement("$L.writeStartArray()", serializerName);
+		
+			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
+				methodBuilder.addStatement("item=$L.get(i)", getter(beanName, beanClass, property));
+				methodBuilder.beginControlFlow("if (item==null)");
+					methodBuilder.addStatement("$L.writeNull()", serializerName);
+				methodBuilder.nextControlFlow("else");
+					transform.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item", elementProperty);
+				methodBuilder.endControlFlow();
+			methodBuilder.endControlFlow();
+		
+	        methodBuilder.addStatement("$L.writeEndArray()", serializerName);
+		methodBuilder.endControlFlow();
+		//@formatter:on
 		
 	}
 
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
+		methodBuilder.beginControlFlow("if ($L.getCurrentToken()==$T.START_ARRAY)", parserName, JsonToken.class); 
+			methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(listTypeName), TypeUtility.className(property.getPropertyType().getComposedValue()), defineCollectionClass(listTypeName));
+			methodBuilder.addStatement("$T item=$L", rawTypeName, DEFAULT_VALUE);
+				
+			BindTransform transform=BindTransformer.lookup(rawTypeName);
+			BindProperty elementProperty=BindProperty.builder(rawTypeName, property).build();
+						
+			methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
+				methodBuilder.beginControlFlow("if ($L.getCurrentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);				
+					methodBuilder.addStatement("item=$L", DEFAULT_VALUE);									
+				methodBuilder.nextControlFlow("else");
+					transform.generateParseOnJackson(methodBuilder, parserName, null, "item", elementProperty);
+				methodBuilder.endControlFlow();
+				methodBuilder.addStatement("collection.add(item)");				
+			methodBuilder.endControlFlow();
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));		
+			
+		methodBuilder.endControlFlow();
 	}
 	
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		methodBuilder.beginControlFlow("if ($L.getCurrentToken()==$T.START_ARRAY)", parserName, JsonToken.class); 
+		methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(listTypeName), TypeUtility.className(property.getPropertyType().getComposedValue()), defineCollectionClass(listTypeName));
+		methodBuilder.addStatement("$T item=$L", rawTypeName, DEFAULT_VALUE);
+			
+		BindTransform transform=BindTransformer.lookup(rawTypeName);
+		BindProperty elementProperty=BindProperty.builder(rawTypeName, property).build();
+					
+		methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
+			methodBuilder.beginControlFlow("if ($L.getCurrentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);				
+				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);									
+			methodBuilder.nextControlFlow("else");
+				transform.generateParseOnJacksonAsString(methodBuilder, parserName, null, "item", elementProperty);
+			methodBuilder.endControlFlow();
+			methodBuilder.addStatement("collection.add(item)");				
+		methodBuilder.endControlFlow();
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));		
 		
+		methodBuilder.endControlFlow();
 	}
 
 }

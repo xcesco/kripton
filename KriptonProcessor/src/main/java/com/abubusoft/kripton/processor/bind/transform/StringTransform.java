@@ -35,7 +35,83 @@ import com.squareup.javapoet.TypeName;
 public class StringTransform extends AbstractBindTransform {
 
 	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {	
+	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		}
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getText()"), parserName);
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+
+	}
+
+	@Override
+	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getText()"), parserName);
+		methodBuilder.endControlFlow();
+	}
+
+	@Override
+	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		XmlType xmlType = property.xmlInfo.xmlType;
+
+		switch (xmlType) {
+		case ATTRIBUTE:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "attributeValue"));
+			break;
+		case TAG:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.unescapeXml($L.getElementText())"), StringEscapeUtils.class, parserName);
+			break;
+		case VALUE:
+		case VALUE_CDATA:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.unescapeXml($L.getText())"), StringEscapeUtils.class, parserName);
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	@Override
+	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.isElementInCollection()) {
+			// we need to write only value
+			methodBuilder.addStatement("$L.writeString($L)", serializerName, getter(beanName, beanClass, property));
+		} else {
+			methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
+		}
+
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.isElementInCollection()) {
+			// we need to write only value
+			methodBuilder.addStatement("$L.writeString($L)", serializerName, getter(beanName, beanClass, property));
+		} else {
+			methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
+		}
+
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		if (property.isNullable())
 			methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
 
@@ -59,55 +135,5 @@ public class StringTransform extends AbstractBindTransform {
 
 		if (property.isNullable())
 			methodBuilder.endControlFlow();
-	}
-	
-	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
-		methodBuilder.endControlFlow();
-	}
-
-	@Override
-	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		XmlType xmlType = property.xmlInfo.xmlType;
-		
-		switch (xmlType) {
-		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"attributeValue"));
-			break;
-		case TAG:
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.unescapeXml($L.getElementText())"), StringEscapeUtils.class,parserName);
-			break;
-		case VALUE:
-		case VALUE_CDATA:
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.unescapeXml($L.getText())"), StringEscapeUtils.class,parserName);			
-			break;
-		default:
-			break;
-		}
-
-	}
-
-	@Override
-	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
-		methodBuilder.endControlFlow();
-	}
-
-	@Override
-	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.getText()"), parserName);
-		methodBuilder.endControlFlow();
-		
-	}
-	
-	@Override
-	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.getText()"), parserName);
-		methodBuilder.endControlFlow();
 	}
 }

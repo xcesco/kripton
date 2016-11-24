@@ -29,26 +29,105 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
 abstract class AbstractNumberTransform extends AbstractBindTransform {
-	
-	public AbstractNumberTransform()
-	{		
-		METHOD_TO_CONVERT="toPlainString";		
-		NUMBER_CLAZZ=BigDecimal.class;
-	}
-	
+
 	protected String METHOD_TO_CONVERT;
-	
+
 	protected Class<?> NUMBER_CLAZZ;
-	
+
+	public AbstractNumberTransform() {
+		METHOD_TO_CONVERT = "toPlainString";
+		NUMBER_CLAZZ = BigDecimal.class;
+	}
+
+	@Override
+	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		}
+		methodBuilder.addStatement(setter(beanClass, beanName, property, " new $T($L.getText())"), NUMBER_CLAZZ, parserName);
+
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+
+	}
+
+	@Override
+	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		}
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "new $T($L.getText())"), NUMBER_CLAZZ, parserName);
+
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		XmlType xmlType = property.xmlInfo.xmlType;
+
+		switch (xmlType) {
+		case ATTRIBUTE:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "new $T($T.read(attributeValue))"), NUMBER_CLAZZ, parserName);
+			break;
+		case TAG:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "new $T($T.unescapeXml($L.getElementText()))"), NUMBER_CLAZZ, StringEscapeUtils.class, parserName);
+			break;
+		case VALUE:
+		case VALUE_CDATA:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "new $T($T.unescapeXml($L.getText()))"), NUMBER_CLAZZ, StringEscapeUtils.class, parserName);
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	@Override
+	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.isElementInCollection()) {
+			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+		} else {
+			methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.jacksonName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+		}
+
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.isElementInCollection()) {
+			// we need to write only value
+			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+		} else {
+			methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.jacksonName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+		}
+
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		
-		if (property.isNullable())
-		{
+
+		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
-		
+
 		switch (xmlType) {
 		case ATTRIBUTE:
 			methodBuilder.addStatement("$L.writeAttribute($S, $L.$L())", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
@@ -66,88 +145,9 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable())
-		{
+		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
 
-	}
-	
-	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (property.isNullable())
-		{
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		}
-		methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.jacksonName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-		
-		if (property.isNullable())
-		{
-			methodBuilder.endControlFlow();
-		}
-	}
-
-	@Override
-	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		XmlType xmlType = property.xmlInfo.xmlType;
-		
-		switch (xmlType) {
-		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"new $T($T.read(attributeValue))"), NUMBER_CLAZZ, parserName);
-			break;
-		case TAG:
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"new $T($T.unescapeXml($L.getElementText()))"), NUMBER_CLAZZ, StringEscapeUtils.class, parserName);
-			break;
-		case VALUE:
-		case VALUE_CDATA:
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"new $T($T.unescapeXml($L.getText()))"), NUMBER_CLAZZ, StringEscapeUtils.class, parserName);			
-			break;
-		default:
-			break;
-		}
-
-	}
-
-	@Override
-	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (property.isNullable())
-		{
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		}
-		methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.jacksonName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-		
-		if (property.isNullable())
-		{
-			methodBuilder.endControlFlow();
-		}
-	}
-
-	@Override
-	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		if (property.isNullable())
-		{
-			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		}
-		methodBuilder.addStatement(setter(beanClass, beanName, property," new $T($L.getText())"), NUMBER_CLAZZ, parserName);
-		
-		if (property.isNullable())
-		{
-			methodBuilder.endControlFlow();
-		}
-		
-	}
-	
-	@Override
-	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		if (property.isNullable())
-		{
-			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		}
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"new $T($L.getText())"), NUMBER_CLAZZ, parserName);
-		
-		if (property.isNullable())
-		{
-			methodBuilder.endControlFlow();
-		}
 	}
 }

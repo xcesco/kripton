@@ -46,41 +46,71 @@ public class ObjectTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {		
 		//@formatter:off
-		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		if (property.isNullable())
+		{
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+		
 			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
 			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnXml(context, $L, wrapper, $L)", beanClass, getter(beanName, beanClass, property), XMLEvent.START_ELEMENT);
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
-		methodBuilder.endControlFlow();
+			
+		if (property.isNullable())
+		{
+			methodBuilder.endControlFlow();
+		}
 		//@formatter:on
 	}
 
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off
+		if (property.isNullable())
+		{
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+		
+		if (!property.isElementInCollection())
+		{
 			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonName);
+		}
 			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)", beanClass, getter(beanName, beanClass, property));
+			
+		if (property.isNullable())
+		{
 		methodBuilder.endControlFlow();
+		}
 		//@formatter:on
 	}
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off
+		if (property.isNullable())
+		{
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+		
+		if (!property.isElementInCollection())
+		{
 			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonName);
+		}
 			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)", beanClass, getter(beanName, beanClass, property));
+			
+		if (property.isNullable())
+		{
 		methodBuilder.endControlFlow();
+		}
 		//@formatter:on
 	}
 
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJackson(context, wrapper)"), beanName, beanClass);
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJackson(context, wrapper)"), beanClass);
 	}
 	
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJacksonAsString(context, wrapper)"), beanName, beanClass);		
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJacksonAsString(context, wrapper)"), beanClass);		
 	}
 }

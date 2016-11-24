@@ -28,6 +28,7 @@ public class BindProperty extends ModelProperty {
 		super(element);
 		
 		nullable=true;
+		elementInCollection=false;
 		xmlInfo=new XmlInfo();
 	}
 	public XmlInfo xmlInfo;
@@ -38,8 +39,13 @@ public class BindProperty extends ModelProperty {
 
 	public boolean nullable;
 
+	/**
+	 * if true, means property is to write into a collection
+	 */
+	public boolean elementInCollection;
+
 	public boolean isNullable() {
-		return nullable;
+		return !elementInCollection;
 	}
 
 	public class XmlInfo {
@@ -90,11 +96,10 @@ public class BindProperty extends ModelProperty {
 			
 			property.jacksonName=parentProperty.jacksonName;
 			property.order=parentProperty.order;
-			
+			property.elementInCollection=true;
 			property.xmlInfo.xmlType=XmlType.TAG;
 			property.xmlInfo.tag=parentProperty.xmlInfo.tagElement;
 			property.xmlInfo.tagElement=null;
-			property.nullable=false;
 			
 			return property;
 		}
@@ -102,6 +107,10 @@ public class BindProperty extends ModelProperty {
 		protected TypeName rawTypeName;
 		
 		protected BindProperty parentProperty;
+	}
+
+	public boolean isElementInCollection() {
+		return elementInCollection;
 	}
 
 }

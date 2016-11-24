@@ -31,48 +31,43 @@ import com.squareup.javapoet.TypeName;
  *
  */
 abstract class PrimitiveBindTransform extends AbstractBindTransform {
-	
-	
 
-	public PrimitiveBindTransform(boolean nullable)
-	{
-		this.nullable=nullable;
+	public PrimitiveBindTransform(boolean nullable) {
+		this.nullable = nullable;
 	}
-	
+
 	protected boolean nullable;
-	
+
 	protected String XML_TYPE;
 	protected String XML_UTILITY_TYPE;
-	protected String XML_CAST_TYPE="";	
-	
+	protected String XML_CAST_TYPE = "";
+
 	protected String JSON_TYPE;
 	protected String JSON_PARSER_METHOD;
-	
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		
+
 		switch (xmlType) {
 		case ATTRIBUTE:
-			String nullValue=nullable?"null": "\'\\0\'";			
-			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE))
-			{
-				methodBuilder.addStatement(setter(beanClass, beanName, property,"attributeValue.length()>0 ? attributeValue.charAt(0) : $L"), nullValue);
+			String nullValue = nullable ? "null" : "\'\\0\'";
+			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "attributeValue.length()>0 ? attributeValue.charAt(0) : $L"), nullValue);
 			} else {
-				methodBuilder.addStatement(setter(beanClass, beanName, property,"$L$L.valueOf(attributeValue)"), XML_CAST_TYPE, XML_UTILITY_TYPE);
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$L.valueOf(attributeValue)"), XML_CAST_TYPE, XML_UTILITY_TYPE);
 			}
 			break;
 		case TAG:
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"$L$L.getElementAs$L()"), XML_CAST_TYPE, parserName, XML_TYPE);
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$L.getElementAs$L()"), XML_CAST_TYPE, parserName, XML_TYPE);
 			break;
-		case VALUE:			
-		case VALUE_CDATA:			
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
+		case VALUE:
+		case VALUE_CDATA:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
 			break;
 		default:
 			break;
-		}			
+		}
 	}
 
 	@Override
@@ -81,7 +76,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 		if (nullable && property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
-		
+
 		switch (xmlType) {
 		case ATTRIBUTE:
 			methodBuilder.addStatement("$L.writeAttribute($S, String.valueOf($L))", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property));
@@ -91,86 +86,92 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			break;
-		case VALUE:			
+		case VALUE:
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, property.xmlInfo.tag, XML_TYPE, getter(beanName, beanClass, property));
 			break;
 		case VALUE_CDATA:
 			methodBuilder.addStatement("$L.writeCData(String.valueOf($L))", serializerName, getter(beanName, beanClass, property));
 			break;
 		}
-				
-		if (nullable && property.isNullable()) {
-			methodBuilder.endControlFlow();
-		}
-	}
-	
-	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (nullable && property.isNullable()) {
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		}
-				
-		methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonName, getter(beanName, beanClass, property));
-				
-		if (nullable && property.isNullable()) {
-			methodBuilder.endControlFlow();
-		}
-	}
-	
-	@Override
-	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (nullable && property.isNullable()) {
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		}
-		
-		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE))
-		{
-			methodBuilder.addStatement("$L.writeStringField($S, String.valueOf((int)$L))", serializerName, property.jacksonName, getter(beanName, beanClass, property));
-		} else {
-			methodBuilder.addStatement("$L.writeStringField($S, String.valueOf($L))", serializerName, property.jacksonName, getter(beanName, beanClass, property));
-		}
-				
+
 		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
 	}
 
 	@Override
-	public void generateParseOnJackson(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {				
-		if (nullable && property.isNullable())
-		{
+	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		if (nullable && property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.isElementInCollection()) {
+			// we need to write only value
+			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
+		} else {
+			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonName, getter(beanName, beanClass, property));
+		}
+
+		if (nullable && property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		if (nullable && property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.isElementInCollection()) {
+			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+				methodBuilder.addStatement("$L.writeString(String.valueOf((int)$L))", serializerName, getter(beanName, beanClass, property));
+			} else {
+				methodBuilder.addStatement("$L.writeString(String.valueOf($L))", serializerName, getter(beanName, beanClass, property));
+			}
+		} else {
+			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+				methodBuilder.addStatement("$L.writeStringField($S, String.valueOf((int)$L))", serializerName, property.jacksonName, getter(beanName, beanClass, property));
+			} else {
+				methodBuilder.addStatement("$L.writeStringField($S, String.valueOf($L))", serializerName, property.jacksonName, getter(beanName, beanClass, property));
+			}
+		}
+
+		if (nullable && property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateParseOnJackson(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		if (nullable && property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		
-		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE))
-		{
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"Character.valueOf((char)$L.$L())"), parserName, JSON_PARSER_METHOD);
+
+		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)$L.$L())"), parserName, JSON_PARSER_METHOD);
 		} else {
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.$L()"), parserName, JSON_PARSER_METHOD);
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.$L()"), parserName, JSON_PARSER_METHOD);
 		}
-		
-		if (nullable && property.isNullable())
-		{
+
+		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
 	}
 
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		if (nullable && property.isNullable())
-		{
+		if (nullable && property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		
-		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE))
-		{
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"Character.valueOf((char)(int)Integer.valueOf($L.getText()))"), parserName);
+
+		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)(int)Integer.valueOf($L.getText()))"), parserName);
 		} else {
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
 		}
-		
-		if (nullable && property.isNullable())
-		{
+
+		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
 	}
