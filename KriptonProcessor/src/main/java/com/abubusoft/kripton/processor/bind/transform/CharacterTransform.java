@@ -28,13 +28,15 @@ class CharacterTransform extends PrimitiveBindTransform {
 	public CharacterTransform(boolean nullable) {
 		super(nullable);
 		
+		PRIMITIVE_UTILITY_TYPE="Character";
+		
 		XML_TYPE = "Int";		
 		XML_CAST_TYPE=CHAR_CAST_CONST;	
-		XML_UTILITY_TYPE="Character";
+		
 		
 		if (!nullable)
 		{
-			DEFAULT_VALUE="''";
+			DEFAULT_VALUE="'\0'";
 		}
 		
 		JSON_TYPE = "Number";

@@ -46,8 +46,10 @@ public class SetTransformation extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {				
 		//@formatter:off
+		methodBuilder.beginControlFlow("");
+		
 		methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(listTypeName), TypeUtility.className(property.getPropertyType().getComposedValue()), defineCollectionClass(listTypeName));
 		methodBuilder.addStatement("$T item", TypeUtility.className(property.getPropertyType().getComposedValue()));
 			
@@ -61,7 +63,7 @@ public class SetTransformation extends AbstractBindTransform {
 			methodBuilder.addCode("// add first element\n");
 			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-				methodBuilder.addStatement("$L.skipElement()", parserName);				
+				//methodBuilder.addStatement("$L.skipElement()", parserName);				
 			methodBuilder.nextControlFlow("else");
 			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
 			methodBuilder.endControlFlow();
@@ -72,7 +74,7 @@ public class SetTransformation extends AbstractBindTransform {
 				methodBuilder.beginControlFlow("if ($L.getName().toString().equals($S))", parserName, property.xmlInfo.tagElement);
 					methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 						methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-						methodBuilder.addStatement("$L.skipElement()", parserName);				
+						//methodBuilder.addStatement("$L.skipElement()", parserName);				
 					methodBuilder.nextControlFlow("else");
 						transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
 					methodBuilder.endControlFlow();
@@ -80,14 +82,16 @@ public class SetTransformation extends AbstractBindTransform {
 				methodBuilder.endControlFlow();			
 			methodBuilder.endControlFlow();
     	                 	
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));			
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
+			
+		methodBuilder.endControlFlow();
 		//@formatter:on
 	}
 
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
+			//methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
 			//methodBuilder.addStatement("$T item", rawTypeName);
 			
 			if (property.xmlInfo.isWrappedCollection())
@@ -120,7 +124,7 @@ public class SetTransformation extends AbstractBindTransform {
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
+			//methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
 			//methodBuilder.addStatement("$T item", rawTypeName);
 		
 			BindTransform transform=BindTransformer.lookup(rawTypeName);
@@ -148,7 +152,7 @@ public class SetTransformation extends AbstractBindTransform {
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
+			//methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
 			//methodBuilder.addStatement("$T item", rawTypeName);
 		
 			BindTransform transform=BindTransformer.lookup(rawTypeName);

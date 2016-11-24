@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import java.math.BigDecimal;
+import com.abubusoft.kripton.common.BigDecimalUtil;
 
 /**
  * Transformer between a string and a java.math.BigDecimal object
@@ -27,8 +27,7 @@ class BigDecimalTransform extends AbstractNumberTransform {
 	
 	public BigDecimalTransform()
 	{
-		METHOD_TO_CONVERT="toPlainString";		
-		NUMBER_CLAZZ=BigDecimal.class;
+		NUMBER_UTIL_CLAZZ=BigDecimalUtil.class;
 		
 	}
 	

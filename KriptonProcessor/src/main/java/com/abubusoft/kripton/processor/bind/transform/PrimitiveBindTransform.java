@@ -19,6 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.common.PrimitiveUtil;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
@@ -39,7 +40,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	protected boolean nullable;
 
 	protected String XML_TYPE;
-	protected String XML_UTILITY_TYPE;
+	protected String PRIMITIVE_UTILITY_TYPE;
 	protected String XML_CAST_TYPE = "";
 
 	protected String JSON_TYPE;
@@ -50,20 +51,23 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 		XmlType xmlType = property.xmlInfo.xmlType;
 
 		switch (xmlType) {
-		case ATTRIBUTE:
-			String nullValue = nullable ? "null" : "\'\\0\'";
+		case ATTRIBUTE:			
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L(attributeValue, $L)"),XML_CAST_TYPE, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, DEFAULT_VALUE);
+			/*String nullValue = nullable ? "null" : "\'\\0\'";
 			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
 				methodBuilder.addStatement(setter(beanClass, beanName, property, "attributeValue.length()>0 ? attributeValue.charAt(0) : $L"), nullValue);
 			} else {
 				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$L.valueOf(attributeValue)"), XML_CAST_TYPE, XML_UTILITY_TYPE);
-			}
+			}*/
 			break;
 		case TAG:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$L.getElementAs$L()"), XML_CAST_TYPE, parserName, XML_TYPE);
+			//methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$L.getElementAs$L()"), XML_CAST_TYPE, parserName, XML_TYPE);
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getElementAs$L(), $L)"),XML_CAST_TYPE, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, parserName, XML_TYPE, DEFAULT_VALUE);
 			break;
 		case VALUE:
 		case VALUE_CDATA:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
+			//methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getText(), $L)"),XML_CAST_TYPE, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
 			break;
 		default:
 			break;
@@ -79,18 +83,20 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, String.valueOf($L))", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L($L))", serializerName, property.xmlInfo.tag, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 			break;
 		case TAG:
+			// value don't need to be converted into string
 			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			break;
 		case VALUE:
+			// value don't need to be converted into string
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, property.xmlInfo.tag, XML_TYPE, getter(beanName, beanClass, property));
 			break;
 		case VALUE_CDATA:
-			methodBuilder.addStatement("$L.writeCData(String.valueOf($L))", serializerName, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeCData($T.write$L($L))", serializerName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 			break;
 		}
 
@@ -106,7 +112,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 		}
 
 		if (property.isElementInCollection()) {
-			// we need to write only value
+			// value don't need to be converted into string
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
 		} else {
 			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonName, getter(beanName, beanClass, property));
@@ -124,17 +130,17 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 		}
 
 		if (property.isElementInCollection()) {
-			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
-				methodBuilder.addStatement("$L.writeString(String.valueOf((int)$L))", serializerName, getter(beanName, beanClass, property));
-			} else {
-				methodBuilder.addStatement("$L.writeString(String.valueOf($L))", serializerName, getter(beanName, beanClass, property));
-			}
+			//if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+				//methodBuilder.addStatement("$L.writeString(String.valueOf((int)$L))", serializerName, getter(beanName, beanClass, property));
+			//} else {				
+				methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+			//}
 		} else {
-			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
-				methodBuilder.addStatement("$L.writeStringField($S, String.valueOf((int)$L))", serializerName, property.jacksonName, getter(beanName, beanClass, property));
-			} else {
-				methodBuilder.addStatement("$L.writeStringField($S, String.valueOf($L))", serializerName, property.jacksonName, getter(beanName, beanClass, property));
-			}
+			//if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+				//methodBuilder.addStatement("$L.writeStringField($S, String.valueOf((int)$L))", serializerName, property.jacksonName, PrimitiveUtil.class, XML_UTILITY_TYPE, getter(beanName, beanClass, property));
+			//} else {
+				methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.jacksonName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+			//}
 		}
 
 		if (nullable && property.isNullable()) {
@@ -165,11 +171,11 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
 
-		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)(int)Integer.valueOf($L.getText()))"), parserName);
-		} else {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
-		}
+		//if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+			//methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)(int)Integer.valueOf($L.getText()))"), parserName);
+		//} else {
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read$L($L.getText(), $L)"), PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
+		//}
 
 		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();

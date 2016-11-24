@@ -18,6 +18,8 @@
  */
 package com.abubusoft.kripton.processor;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -32,7 +34,6 @@ import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindTypeXml;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
@@ -53,8 +54,6 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.utils.StringUtility;
-
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 /**
  * Annotation processor for json/xml/etc
@@ -117,7 +116,7 @@ public class BindTypeProcessor extends BaseProcessor {
 				
 				if (item.getKind() == ElementKind.ENUM) continue;
 				
-				createBindMapper(item);
+				analyzeBindedClass(item);
 
 				itemCounter++;
 			}
@@ -143,7 +142,7 @@ public class BindTypeProcessor extends BaseProcessor {
 		return true;
 	}
 
-	private String createBindMapper(Element element) {
+	private String analyzeBindedClass(Element element) {
 		final Converter<String, String> typeNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		Element beanElement = element;
 		String result = beanElement.getSimpleName().toString();
@@ -172,13 +171,7 @@ public class BindTypeProcessor extends BaseProcessor {
 			}, propertyAnnotationFilter, new PropertyCreatedListener<BindProperty>() {
 
 				@Override
-				public boolean onProperty(BindProperty property) {
-					/*
-					 * if (property.getPropertyType().isArray() || property.getPropertyType().isList()) { property.setPreferenceType(PreferenceType.STRING); } else { if (property.isType(Boolean.TYPE, Boolean.class)) {
-					 * property.setPreferenceType(PreferenceType.BOOL); } else if (property.isType(Integer.TYPE, Integer.class)) { property.setPreferenceType(PreferenceType.INT); } else if (property.isType(Long.TYPE, Long.class)) {
-					 * property.setPreferenceType(PreferenceType.LONG); } else if (property.isType(Float.TYPE, Float.class)) { property.setPreferenceType(PreferenceType.FLOAT); } else { property.setPreferenceType(PreferenceType.STRING); } }
-					 */
-
+				public boolean onProperty(BindProperty property) {					
 					if (!bindAllFields && !property.hasAnnotation(Bind.class)) {
 						// skip field
 						return false;
@@ -188,6 +181,12 @@ public class BindTypeProcessor extends BaseProcessor {
 						ModelAnnotation annotationBindXml = property.getAnnotation(BindXml.class);
 						// if field disable, skip property definition
 						if (annotationBindXml != null && (AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindXml, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false)) {
+							return false;
+						}
+						
+						ModelAnnotation annotationBind = property.getAnnotation(Bind.class);
+						// if field disable, skip property definition
+						if (annotationBind != null && (AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBind, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false)) {
 							return false;
 						}
 						

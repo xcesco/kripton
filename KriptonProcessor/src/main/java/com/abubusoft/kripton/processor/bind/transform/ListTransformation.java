@@ -48,6 +48,8 @@ public class ListTransformation extends AbstractBindTransform {
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off
+		methodBuilder.beginControlFlow("");
+		
 		methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(listTypeName), TypeUtility.className(property.getPropertyType().getComposedValue()), defineCollectionClass(listTypeName));
 		methodBuilder.addStatement("$T item", TypeUtility.className(property.getPropertyType().getComposedValue()));
 			
@@ -61,18 +63,18 @@ public class ListTransformation extends AbstractBindTransform {
 			methodBuilder.addCode("// add first element\n");
 			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-				methodBuilder.addStatement("$L.skipElement()", parserName);				
+				//methodBuilder.addStatement("$L.skipElement()", parserName);				
 			methodBuilder.nextControlFlow("else");
 			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("collection.add(item)");
 			
-			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT)", parserName);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tag);
 		}
 				methodBuilder.beginControlFlow("if ($L.getName().toString().equals($S))", parserName, property.xmlInfo.tagElement);
 					methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 						methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-						methodBuilder.addStatement("$L.skipElement()", parserName);				
+						//methodBuilder.addStatement("$L.skipElement()", parserName);				
 					methodBuilder.nextControlFlow("else");
 						transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
 					methodBuilder.endControlFlow();
@@ -80,7 +82,9 @@ public class ListTransformation extends AbstractBindTransform {
 				methodBuilder.endControlFlow();			
 			methodBuilder.endControlFlow();
     	                 	
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));			
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));		
+			
+			methodBuilder.endControlFlow();
 		//@formatter:on
 	}
 

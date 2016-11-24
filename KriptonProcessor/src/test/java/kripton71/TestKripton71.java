@@ -1,6 +1,8 @@
 package kripton71;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -8,13 +10,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import base.BaseProcessorTest;
-
 import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.PropertiesBinderContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
 import com.abubusoft.kripton.binder2.context.YamlBinderContext;
+
+import base.BaseProcessorTest;
 
 public class TestKripton71 extends BaseProcessorTest {
 	
@@ -35,75 +37,54 @@ public class TestKripton71 extends BaseProcessorTest {
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException
 	{
-		//buildBindProcessorTest(BeanElement71.class, BeanEnum71.class);
-		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
-		
 		Assert.assertNotNull(new BeanElement71BindMap());
 		
 		BeanElement71 bean=new BeanElement71();
-
+			
+		bean.valueBeanList=new LinkedList<>();
+		bean.valueBeanList.add(new BeanElement71("hello"));				
 		
-		//bean.valueEnum=BeanEnum.VALUE_2;
-		//bean.valueStringList=new ArrayList<String>();
-		//bean.valueStringList.add("hello1");
+		bean.valueBigDecimalList=new LinkedList<>();
+		bean.valueBigDecimalList.add(BigDecimal.ONE);
+		bean.valueBigDecimalList.add(BigDecimal.TEN);
+		bean.valueBigDecimalList.add(null);		
 		
-		//bean.valueBigDecimalList=new ArrayList<>();
-		//bean.valueBigDecimalList.add(BigDecimal.valueOf(1));
+		bean.valueBigIntegerList=new LinkedList<>();
+		bean.valueBigIntegerList.add(null);
+		bean.valueBigIntegerList.add(BigInteger.ZERO);
+		bean.valueBigIntegerList.add(BigInteger.ONE);
+		bean.valueBigIntegerList.add(BigInteger.TEN);
 		
-//		bean.valueDoubleList=new ArrayList<>();
-//		bean.valueDoubleList.add(1.0);
-//		bean.valueDoubleList.add(null);
-//		bean.valueDoubleList.add(null);
-//		bean.valueDoubleList.add(2.0);
-//		bean.valueDoubleList.add(3.0);
+		bean.valueByteList=null;
 		
-		bean.valueStringList=new ArrayList<>();
-		bean.valueStringList.add("hello1");
-		bean.valueStringList.add(null);
-		bean.valueStringList.add("hello2");
+		bean.valueCharacterList=new ArrayList<>();
+		bean.valueCharacterList.add(null);
+		
+		bean.valueDoubleList=new ArrayList<>();		
 		
 		bean.valueEnumList=new LinkedList<>();
-		bean.valueEnumList.add(BeanEnum71.VALUE_1);
 		bean.valueEnumList.add(null);
+		bean.valueEnumList.add(BeanEnum71.VALUE_1);
 		bean.valueEnumList.add(BeanEnum71.VALUE_2);
+				
+		bean.valueFloatList=new ArrayList<>();
+		bean.valueFloatList.add(1f);
+		bean.valueFloatList.add(2f);
 		
-		/*
-		bean.valueCalendar=Calendar.getInstance();
-		bean.valueCurrency=Currency.getInstance(Locale.ITALY);
-		bean.valueDate=new Date();
-		bean.valueLocale=Locale.ITALY;
-		bean.valueTime=new Time(0);
-		bean.valueTimeZone=TimeZone.getDefault();
-		bean.valueUrl=new URL("http://github.com");
-		*/
+		bean.setValueIntList(new ArrayList<Integer>());
+		bean.getValueIntList().add(1);
+		bean.getValueIntList().add(2);
 		
-		/*
-		bean.id=25;
-		bean.valueBean=new BeanElement70();
-		bean.valueBean.id=45;
-		bean.valueBoolType=true;
-		bean.valueBool=true;
-		bean.valueByteType=4;
-		bean.valueByte=8;
+		bean.valueLongList=new ArrayList<>();
+		bean.valueLongList.add(null);
+		bean.valueLongList.add(null);
+
+		bean.valueShortList=new LinkedList<>();
+		bean.valueShortList.add((short)1);
+		bean.valueShortList.add((short)2);
 		
-		bean.valueShortType=25;
-		bean.valueShort=25;
-		bean.valueCharType='a';
-		bean.valueChar='a';
-		
-		bean.valueIntType=12;
-		bean.valueInt=12;
-		bean.valueLongType=24;
-		bean.valueLong=24L;
-		bean.valueFloatType=24f;
-		bean.valueFloat=24f;
-		bean.valueDoubleType=24.0;
-		bean.valueDouble=24.0;
-		*/
-		
-		//bean.valueString="\"ciao";
-		
-		//bean.valueCDataString="qq";
+
+		bean.valueStringList=new ArrayList<>();
 		
 		serializeAndParse(bean, BinderType.XML);
 		serializeAndParse(bean, BinderType.JSON);

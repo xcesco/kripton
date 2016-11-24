@@ -196,7 +196,13 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 					}
 
 					if (bindAllFields || property.hasAnnotation(Bind.class) || property.hasAnnotation(BindPreference.class)) {
-
+						ModelAnnotation annotationBind = property.getAnnotation(Bind.class);
+						if (annotationBind != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBind, AnnotationAttributeType.ATTRIBUTE_ENABLED)==false)
+						{
+							return false;
+						}
+						
+						
 						ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
 						// if field disable, skip property definition
 						if (annotation != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false) {

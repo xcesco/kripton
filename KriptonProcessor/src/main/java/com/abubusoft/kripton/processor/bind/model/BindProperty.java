@@ -20,6 +20,7 @@ import javax.lang.model.element.Element;
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.ModelType;
 import com.squareup.javapoet.TypeName;
 
 public class BindProperty extends ModelProperty {
@@ -94,6 +95,7 @@ public class BindProperty extends ModelProperty {
 		{
 			BindProperty property=new BindProperty(null);
 			
+			property.propertyType=new ModelType(rawTypeName);
 			property.jacksonName=parentProperty.jacksonName;
 			property.order=parentProperty.order;
 			property.elementInCollection=true;

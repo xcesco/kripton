@@ -38,6 +38,11 @@ public class ModelType extends LiteralType {
 		super(type.toString());		
 		this.name=TypeName.get(type);
 	}
+	
+	public ModelType(TypeName typeName) {
+		super(typeName.toString());		
+		this.name=typeName;
+	}
 
 	
 	public boolean isEquals(String value)

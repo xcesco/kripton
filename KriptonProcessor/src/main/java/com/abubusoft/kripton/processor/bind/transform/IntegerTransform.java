@@ -29,7 +29,7 @@ public class IntegerTransform extends PrimitiveBindTransform {
 		super(nullable);
 		
 		XML_TYPE = "Int";		
-		XML_UTILITY_TYPE="Integer";
+		PRIMITIVE_UTILITY_TYPE="Integer";
 		
 		if (!nullable)
 		{

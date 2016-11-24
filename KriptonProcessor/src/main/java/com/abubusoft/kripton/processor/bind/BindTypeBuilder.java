@@ -314,7 +314,7 @@ public class BindTypeBuilder {
 
 				bindTransform = BindTransformer.lookup(property);
 				methodBuilder.addCode("// field $L\n", property.getName());
-				bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property);
+				bindTransform.generateParseOnXml(methodBuilder, "xmlParser", property.getPropertyType().getName(), "instance", property);
 
 				methodBuilder.addStatement("$<break");
 			}
@@ -370,9 +370,9 @@ public class BindTypeBuilder {
 					methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tag);
 					methodBuilder.addCode("// property $L\n", property.getName());
 
-					methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
+					//methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
 					bindTransform.generateParseOnXml(methodBuilder, "xmlParser", property.getPropertyType().getName(), "instance", property);					
-					methodBuilder.endControlFlow();
+					//methodBuilder.endControlFlow();
 
 					methodBuilder.addStatement("$<break");
 				}
@@ -407,7 +407,7 @@ public class BindTypeBuilder {
 			methodBuilder.beginControlFlow("if (elementNameStack.size()==1 && $L.hasText())", parserName);
 			methodBuilder.addCode("// property $L\n", property.getName());
 			bindTransform = BindTransformer.lookup(property);
-			bindTransform.generateParseOnXml(methodBuilder, parserName, typeName(property.getPropertyType()), "instance", property);
+			bindTransform.generateParseOnXml(methodBuilder, parserName, property.getPropertyType().getName(), "instance", property);
 			methodBuilder.endControlFlow();
 		}
 

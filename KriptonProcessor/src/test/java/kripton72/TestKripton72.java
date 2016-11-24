@@ -1,15 +1,10 @@
-package kripton70;
+package kripton72;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.URL;
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +18,7 @@ import com.abubusoft.kripton.binder2.context.YamlBinderContext;
 
 import base.BaseProcessorTest;
 
-public class TestKripton70 extends BaseProcessorTest {
+public class TestKripton72 extends BaseProcessorTest {
 	
 	@Before
 	public void setup()
@@ -36,32 +31,51 @@ public class TestKripton70 extends BaseProcessorTest {
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
+		buildBindProcessorTest(BeanElement72.class, BeanEnum72.class);
 	}
-	
-	@Test
-	public void testBeanAttribute70() throws IOException, InstantiationException, IllegalAccessException
-	{
-		buildBindProcessorTest(BeanAttribute70.class, BeanEnum.class);
-	}
-	
+		
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException
 	{
-		//buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
+		//buildBindProcessorTest(BeanElement71.class, BeanEnum71.class);
 		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
 		
-		Assert.assertNotNull(new BeanElement70BindMap());
+		Assert.assertNotNull(new BeanElement72BindMap());
 		
-		BeanElement70 bean=new BeanElement70();
+		BeanElement72 bean=new BeanElement72();
+
 		
-		bean.valueBigDecimal=BigDecimal.valueOf(11.0);
-		bean.valueBigInteger=BigInteger.valueOf(10);
+		//bean.valueEnum=BeanEnum.VALUE_2;
 		
+		//bean.valueStringList=new ArrayList<String>();
+//bean.valueStringList.add("hello1");
 		
-		bean.valueEnum=BeanEnum.VALUE_2;
+		//bean.valueBigDecimalList=new ArrayList<>();
+		//bean.valueBigDecimalList.add(BigDecimal.valueOf(1));
 		
+//		bean.valueDoubleList=new ArrayList<>();
+//		bean.valueDoubleList.add(1.0);
+//		bean.valueDoubleList.add(null);
+//		bean.valueDoubleList.add(null);
+//		bean.valueDoubleList.add(2.0);
+//		bean.valueDoubleList.add(3.0);
 		
+		bean.valueStringSet=new HashSet<>();
+		bean.valueStringSet.add("hello1");
+		bean.valueStringSet.add(null);
+		bean.valueStringSet.add("hello2");
+		
+		bean.valueEnumSet=new LinkedHashSet<>();
+		bean.valueEnumSet.add(BeanEnum72.VALUE_1);
+		bean.valueEnumSet.add(null);
+		bean.valueEnumSet.add(BeanEnum72.VALUE_2);
+		
+		bean.valueDoubleSet=new HashSet<>();
+		bean.valueDoubleSet.add(34.0);
+		bean.valueDoubleSet.add(null);
+		bean.valueDoubleSet.add(36.0);
+		
+		/*
 		bean.valueCalendar=Calendar.getInstance();
 		bean.valueCurrency=Currency.getInstance(Locale.ITALY);
 		bean.valueDate=new Date();
@@ -69,9 +83,9 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueTime=new Time(0);
 		bean.valueTimeZone=TimeZone.getDefault();
 		bean.valueUrl=new URL("http://github.com");
+		*/
 		
-		
-		
+		/*
 		bean.id=25;
 		bean.valueBean=new BeanElement70();
 		bean.valueBean.id=45;
@@ -93,9 +107,9 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueFloat=24f;
 		bean.valueDoubleType=24.0;
 		bean.valueDouble=24.0;
+		*/
 		
-		
-		bean.valueString="\"ciao";
+		//bean.valueString="\"ciao";
 		
 		//bean.valueCDataString="qq";
 		
@@ -103,39 +117,6 @@ public class TestKripton70 extends BaseProcessorTest {
 		serializeAndParse(bean, BinderType.JSON);
 		serializeAndParse(bean, BinderType.YAML);
 		serializeAndParse(bean, BinderType.PROPERTIES);
-	}
-	
-	@Test
-	public void testBeanAttribute70Compiled() throws IOException, InstantiationException, IllegalAccessException
-	{
-		buildBindProcessorTest(BeanAttribute70.class);
-		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
-		
-		Assert.assertNotNull(new BeanElement70BindMap());
-		
-		BeanAttribute70 bean=new BeanAttribute70();
-		bean.id=25;
-		bean.valueBoolType=true;
-		bean.valueByteType=45;
-		bean.valueCharType='a';
-		bean.valueShortType=25;
-		bean.valueIntType=12;
-		bean.valueLongType=56;
-		bean.valueFloatType=1f;
-		bean.valueDoubleType=20;
-		bean.valueBool=true;
-		bean.setValueByte((byte) 45);
-		bean.valueChar='a';
-		bean.valueShort=25;
-		bean.valueInt=12;
-		bean.valueLong=56L;
-		bean.valueFloat=1f;
-		bean.valueDouble=20.0;
-		bean.valueString="hello!";
-		
-		//serializeAndParse(bean, BinderType.XML);
-		//serializeAndParse(bean, BinderType.JSON);
-		serializeAndParse(bean, BinderType.YAML);
 	}
 
 	/**

@@ -26,7 +26,7 @@ public class ShortTransform extends PrimitiveBindTransform {
 	public ShortTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Int";
-		XML_UTILITY_TYPE="Short";
+		PRIMITIVE_UTILITY_TYPE="Short";
 		XML_CAST_TYPE="(short)";
 		
 		if (!nullable)

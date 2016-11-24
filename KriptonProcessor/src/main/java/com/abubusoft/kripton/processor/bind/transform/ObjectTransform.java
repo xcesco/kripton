@@ -40,7 +40,7 @@ public class ObjectTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {		
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnXml(context, wrapper, eventType)"), property.getElement().asType());
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnXml(context, wrapper, eventType)"), property.getPropertyType().getName());
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class ObjectTransform extends AbstractBindTransform {
 		}
 		
 			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
-			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnXml(context, $L, wrapper, $L)", beanClass, getter(beanName, beanClass, property), XMLEvent.START_ELEMENT);
+			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnXml(context, $L, wrapper, $L)", property.getPropertyType().getName(), getter(beanName, beanClass, property), XMLEvent.START_ELEMENT);
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			
 		if (property.isNullable())
@@ -74,7 +74,7 @@ public class ObjectTransform extends AbstractBindTransform {
 		{
 			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonName);
 		}
-			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)", beanClass, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
 			
 		if (property.isNullable())
 		{
@@ -95,7 +95,7 @@ public class ObjectTransform extends AbstractBindTransform {
 		{
 			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonName);
 		}
-			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)", beanClass, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
 			
 		if (property.isNullable())
 		{
@@ -106,11 +106,11 @@ public class ObjectTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJackson(context, wrapper)"), beanClass);
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJackson(context, wrapper)"), property.getPropertyType().getName());
 	}
 	
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJacksonAsString(context, wrapper)"), beanClass);		
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJacksonAsString(context, wrapper)"), property.getPropertyType().getName());		
 	}
 }

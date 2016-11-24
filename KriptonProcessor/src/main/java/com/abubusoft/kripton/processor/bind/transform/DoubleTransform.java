@@ -27,7 +27,7 @@ public class DoubleTransform extends PrimitiveBindTransform {
 	public DoubleTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Double";
-		XML_UTILITY_TYPE="Double";
+		PRIMITIVE_UTILITY_TYPE="Double";
 		
 		if (!nullable)
 		{

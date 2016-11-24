@@ -26,8 +26,10 @@ class BooleanTransform extends PrimitiveBindTransform {
 
 	public BooleanTransform(boolean nullable) {
 		super(nullable);
+		
+		PRIMITIVE_UTILITY_TYPE="Boolean";
+		
 		XML_TYPE = "Boolean";
-		XML_UTILITY_TYPE="Boolean";
 		
 		if (!nullable)
 		{

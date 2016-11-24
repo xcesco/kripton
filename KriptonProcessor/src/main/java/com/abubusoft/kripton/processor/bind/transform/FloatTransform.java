@@ -26,7 +26,7 @@ public class FloatTransform extends PrimitiveBindTransform {
 	public FloatTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Float";
-		XML_UTILITY_TYPE="Float";
+		PRIMITIVE_UTILITY_TYPE="Float";
 		
 		if (!nullable)
 		{

@@ -24,7 +24,7 @@ class LongTransform extends PrimitiveBindTransform {
 	public LongTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Long";
-		XML_UTILITY_TYPE="Long";
+		PRIMITIVE_UTILITY_TYPE="Long";
 		
 		if (!nullable)
 		{

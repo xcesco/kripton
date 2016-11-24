@@ -136,11 +136,11 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			model.schemaClear();
 
 			parseBindType(roundEnv);
+			
 			for (Element item : globalBeanElements.values()) {
 				if (item.getKind() == ElementKind.ENUM) {
 					Transformer.register(typeName(item), new EnumTransform(typeName(item)));
 				}
-
 			}
 
 			// Put all @BindTable elements in beanElements
@@ -280,6 +280,12 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					if (!bindAllFields && (property.getAnnotation(Bind.class) == null && property.getAnnotation(BindColumn.class) != null)) {
 						String msg = String.format("In class '%s', property '%s' needs '%s' annotation", currentEntity.getSimpleName(), property.getName(), Bind.class.getSimpleName());
 						throw (new NoAnnotationFoundException(msg));
+					}
+					
+					ModelAnnotation annotationBind = property.getAnnotation(Bind.class);
+					if (AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBind, AnnotationAttributeType.ATTRIBUTE_ENABLED)==false)
+					{
+						return false;
 					}
 					
 					if (bindAllFields || (property.getAnnotation(Bind.class)) != null) {
