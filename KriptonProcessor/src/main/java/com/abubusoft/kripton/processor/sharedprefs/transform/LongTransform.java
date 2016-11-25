@@ -15,74 +15,18 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
-
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
-import com.squareup.javapoet.TypeName;
-
 /**
  *
  */
-class LongTransform extends AbstractSPTransform {
+class LongTransform extends PrimitiveSPTransform {
 	
 	public LongTransform(boolean nullable)
 	{
-		this.nullable=nullable;
-		defaultValue="0";
-	}
-	
-	protected boolean nullable;
-	
-	protected String defaultValue;
-	
-	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		if (add) {
-						
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
-		}
-		
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.valueOf($L.getString($S, $S))",  Long.class, preferenceName, property.getName(), defaultValue);
-		methodBuilder.addCode(": null");
-		
-		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter()?")":""));
-		}
-	}
-
-
-	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
-		if (beanClass!=null)
-		{			
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
-			}
-			methodBuilder.addCode("$L.putString($S,String.valueOf($L))", editorName, property.getName(), getter(beanName, beanClass, property));
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
-		} else {
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L!=null) ", beanName);
-			}
-			methodBuilder.addCode("$L.putString($S,String.valueOf($L))", editorName, property.getName(), beanName);
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
-		}
-			
+		super(nullable);
+		SIMPLE_TYPE="";
+		PREFS_CONVERT="";
+		PREFS_TYPE="Long";
+		PREFS_DEFAULT_VALUE="0L";
 	}
 
 }

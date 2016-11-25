@@ -18,6 +18,7 @@ package base;
 import kripton70.TestKripton70;
 import kripton71.TestKripton71;
 import kripton72.TestKripton72;
+import kripton73.TestKripton73;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -28,7 +29,8 @@ import org.junit.runners.Suite;
 		{ 
 		TestKripton70.class,
 		TestKripton71.class,
-		TestKripton72.class
+		TestKripton72.class,
+		TestKripton73.class
 		 })
 //@formatter:on
 public class BindTypeProcessorSuiteTest {

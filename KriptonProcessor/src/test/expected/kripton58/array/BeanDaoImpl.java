@@ -64,8 +64,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       resultBean=new BeanBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index1))); }
-      if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index2))); }
+      if (!cursor.isNull(index1)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index1)); resultBean.value=CollectionUtility.asArray(collection, new BeanInner[collection.size()]); }
+      if (!cursor.isNull(index2)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index2)); resultBean.value2=CollectionUtility.asArray(collection, new BeanInner[collection.size()]); }
 
     }
     cursor.close();
@@ -120,8 +120,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       resultBean=new BeanBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index1))); }
-      if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index2))); }
+      if (!cursor.isNull(index1)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index1)); resultBean.value=CollectionUtility.asArray(collection, new BeanInner[collection.size()]); }
+      if (!cursor.isNull(index2)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index2)); resultBean.value2=CollectionUtility.asArray(collection, new BeanInner[collection.size()]); }
 
     }
     cursor.close();
@@ -182,8 +182,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.value=CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index1))); }
-          if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index2))); }
+          if (!cursor.isNull(index1)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index1)); resultBean.value=CollectionUtility.asArray(collection, new BeanInner[collection.size()]); }
+          if (!cursor.isNull(index2)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index2)); resultBean.value2=CollectionUtility.asArray(collection, new BeanInner[collection.size()]); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -298,8 +298,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         resultBean=new BeanBean();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.value=CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index1))); }
-        if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtility.asArray(ProcessorHelper.asList(BeanInner.class, cursor.getBlob(index2))); }
+        if (!cursor.isNull(index1)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index1)); resultBean.value=CollectionUtility.asArray(collection, new BeanInner[collection.size()]); }
+        if (!cursor.isNull(index2)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index2)); resultBean.value2=CollectionUtility.asArray(collection, new BeanInner[collection.size()]); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());

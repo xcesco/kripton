@@ -857,7 +857,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -1072,7 +1072,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
           if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
           if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-          if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+          if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
           if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
           if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
           if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -1338,7 +1338,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
         if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
         if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-        if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+        if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
         if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
         if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
         if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -2109,7 +2109,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -2401,7 +2401,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -2651,7 +2651,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -2905,7 +2905,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -3155,7 +3155,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -3409,7 +3409,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -3659,7 +3659,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -3913,7 +3913,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -4163,7 +4163,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -4417,7 +4417,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -4667,7 +4667,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -4921,7 +4921,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -5171,7 +5171,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -5425,7 +5425,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -5675,7 +5675,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -5929,7 +5929,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -6179,7 +6179,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -6433,7 +6433,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -6687,7 +6687,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -6941,7 +6941,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -7195,7 +7195,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -7449,7 +7449,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -7703,7 +7703,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -7957,7 +7957,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -8211,7 +8211,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -8465,7 +8465,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -8719,7 +8719,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -8973,7 +8973,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -9227,7 +9227,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -9481,7 +9481,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
@@ -9735,7 +9735,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=CollectionUtility.asArray(ProcessorHelper.asList(Bean.class, cursor.getBlob(index33))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
       if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
       if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }

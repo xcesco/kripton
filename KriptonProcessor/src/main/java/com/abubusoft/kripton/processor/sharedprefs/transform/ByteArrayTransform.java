@@ -50,6 +50,8 @@ public class ByteArrayTransform extends AbstractSPTransform {
 		if (add) {
 
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
+		} else {
+			methodBuilder.addCode("return ");
 		}
 
 		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
@@ -59,6 +61,8 @@ public class ByteArrayTransform extends AbstractSPTransform {
 		if (add) {
 			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
 		}
+		
+		methodBuilder.addCode(";");
 	}
 
 	@Override

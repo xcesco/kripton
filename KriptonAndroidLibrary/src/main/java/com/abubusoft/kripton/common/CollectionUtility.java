@@ -1,5 +1,6 @@
 package com.abubusoft.kripton.common;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -423,9 +424,8 @@ public class CollectionUtility {
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <E>  E[] asArray(List<E> input) {
-		return (E[]) input.toArray();
+	public static <E>  E[] asArray(List<E> input, E[] newArray) {
+		return input.toArray(newArray);
 	}
 	
 	public static Float[] asFloatArray(List<Float> input) {

@@ -177,7 +177,7 @@ public abstract class ProcessorHelper {
 	 */
 	public static <E> List<E> asList(Class<E> clazz, byte[] input)
 	{		
-		return asList(clazz, input);
+		return asList(clazz, new String(input));
 	}
 	
 	/**

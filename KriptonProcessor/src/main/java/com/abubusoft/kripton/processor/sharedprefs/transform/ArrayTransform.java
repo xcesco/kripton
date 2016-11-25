@@ -26,6 +26,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -56,26 +57,37 @@ public class ArrayTransform extends AbstractSPTransform {
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
 		String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
 		String primitiveName=primitiveType(name);
+		
+		methodBuilder.beginControlFlow("");
+		
+		// temp variable
+		String tempPreferenceName="temp"+nc.convert(property.getName());
+		
+		methodBuilder.addCode("// read $L\n",property.getName());
+		methodBuilder.addStatement("String $L=$L.getString($S, null)", tempPreferenceName, preferenceName, property.getName());
+		methodBuilder.addStatement("$T<$T> collection=$T.asCollection(new $T<$T>(), $T.class, $L)",ArrayList.class, clazz.box(), helperClazz, ArrayList.class, clazz.box(), clazz.box(), tempPreferenceName);
 
 		if (add) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
+		} else {
+			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
+		methodBuilder.addCode("($T.hasText($L)) ? ", StringUtility.class, tempPreferenceName);
 		
-		if (primitive)
-		{		
-			methodBuilder.addCode("$T.as$LTypeArray($T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, primitiveName, helperClazz, ArrayList.class, primitiveName, primitiveName, preferenceName, property.getName());
-		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)){
-			methodBuilder.addCode("$T.as$LArray($T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, primitiveName, helperClazz, ArrayList.class, name, name, preferenceName, property.getName());
-		} else {
-			methodBuilder.addCode("$T.asArray($T.asCollection(new $T<$L>(), $L.class, $L.getString($S, null)))", CollectionUtility.class, helperClazz, ArrayList.class, name, name, preferenceName, property.getName());
+		if (TypeUtility.isTypePrimitive(clazz) || TypeUtility.isTypeWrappedPrimitive(clazz)){
+			methodBuilder.addCode("$T.as$L$LArray(collection)", CollectionUtility.class, primitiveName, (primitive ? "Type" :""));
+		} else {			
+			methodBuilder.addCode("$T.asArray(collection, new $L[collection.size()])", CollectionUtility.class, clazz);
 		}
 		methodBuilder.addCode(": null");
 
 		if (add) {
 			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
-		}
+		} 
+		
+		methodBuilder.addCode(";\n");		
+		methodBuilder.endControlFlow();
 	}
 
 	@Override

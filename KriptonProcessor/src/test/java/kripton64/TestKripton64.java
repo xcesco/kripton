@@ -67,7 +67,12 @@ public class TestKripton64 extends BaseProcessorTest {
 	}
 	
 	@Test
-	public void testSqlite() throws IOException, InstantiationException, IllegalAccessException {
+	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(BeanDataSource.class, BeanDao.class, Bean.class, EnumType.class);
+	}
+	
+	@Test
+	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
 		//Context context=Robolectric.
 		BindBeanDataSource dataSource=BindBeanDataSource.instance();
 		dataSource.openWritableDatabase();
@@ -119,13 +124,17 @@ public class TestKripton64 extends BaseProcessorTest {
 		BinderJsonReader reader=KriptonBinder.getJsonReader();
 		HashMap<String, Bean> map = reader.readMap(new HashMap<String, Bean>(), String.class, Bean.class, buffer);
 		
-		String buffer2=writer.writeMap(map);
-		
+		String buffer2=writer.writeMap(map);		
 		Assert.assertEquals(buffer, buffer2);				
+	}
+	
+	@Test
+	public void testCompileSharedPreferences() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(Bean.class, EnumType.class);
 	}
 
 	@Test
-	public void testSharedFields() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRunSharedPreferences() throws IOException, InstantiationException, IllegalAccessException {
 		BindBeanSharedPreferences shared = BindBeanSharedPreferences.instance();
 		
 		shared.registerOnSharedPreferenceChangeListener(new OnSharedPreferenceChangeListener() {

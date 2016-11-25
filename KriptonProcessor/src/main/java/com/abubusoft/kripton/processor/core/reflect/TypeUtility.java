@@ -430,4 +430,15 @@ public class TypeUtility {
 	public static TypeName parameterizedTypeName(ClassName rawClass, TypeName paramClass) {
 		return ParameterizedTypeName.get(rawClass, paramClass);
 	}
+
+	/**
+	 * Return simple name of class
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static String simpleName(TypeName clazz) {
+		return clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1);
+	}
+
 }

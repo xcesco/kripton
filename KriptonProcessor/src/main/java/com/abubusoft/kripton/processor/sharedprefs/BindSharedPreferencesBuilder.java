@@ -318,116 +318,42 @@ public class BindSharedPreferencesBuilder {
 
 	private static void generateReadMethod(PrefEntity entity) {
 		// read method
-		MethodSpec.Builder method = MethodSpec.methodBuilder("read")
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("read")
 				.addModifiers(Modifier.PUBLIC)
 				.addJavadoc("read bean entirely\n\n")
 				.addJavadoc("@return read bean\n")
 				.returns(typeName(entity.getName()));
-		method.addStatement("$T bean=new $T()", typeName(entity.getName()), typeName(entity.getName()));
+		methodBuilder.addStatement("$T bean=new $T()", typeName(entity.getName()), typeName(entity.getName()));
 		
 		SPTransform transform;
 		
 		for (PrefProperty item : entity.getCollection()) {
-			// method.addCode("// get $L property ($L)\n", item.getName(), item.getPreferenceType());
 			transform=SPTransformer.lookup(item);
-			transform.generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "bean", item, true);
-			method.addCode(";\n");
-			/*
-			switch (item.getPreferenceType()) {
-			case STRING:
-				if (item.getPropertyType().isArray()) {
-					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "string2array(prefs.getString($S, null), bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				} else if (item.getPropertyType().isList()) {
-					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "string2list(prefs.getString($S, null), bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-			//	} else if (item.getPropertyType().isEnum()) {
-
-				} else if (item.getPropertyType().isSameType(String.class)) {
-					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getString($S, bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				} else {
-					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "($T)readObj(prefs.getString($S, null), $T.class)"), typeName(item.getPropertyType().getRawType()), item.getName(), typeName(item
-							.getPropertyType().getRawType()));
-					method.beginControlFlow("if (bean." + PropertyUtility.getter(typeName(entity.getElement()), item) + "==null) ");
-					method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "defaultBean.$L"), PropertyUtility.getter(typeName(entity.getElement()), item));
-					method.endControlFlow();
-				}
-
-				break;
-			case BOOL:
-				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getBoolean($S,bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				break;
-			case FLOAT:
-				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getFloat($S,bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				break;
-			case INT:
-				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getInt($S,bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				break;
-			case LONG:
-				method.addStatement("bean." + PropertyUtility.setter(typeName(entity.getElement()), item, "prefs.getLong($S,bean.$L)"), item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				break;
-			default:
-				break;
-			}*/
-
+			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "bean", item, true);
+			methodBuilder.addCode("\n");
 		}
 
-		method.addCode("\n");
-		method.addStatement("return bean");
-		builder.addMethod(method.build());
+		methodBuilder.addCode("\n");
+		methodBuilder.addStatement("return bean");
+		builder.addMethod(methodBuilder.build());
 	}
 
 	private static void generateSingleReadMethod(PrefEntity entity) {
 		// read method
-		
 		SPTransform transform;
 
 		for (PrefProperty item : entity.getCollection()) {
-			MethodSpec.Builder method = MethodSpec.methodBuilder(item.getName())
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(item.getName())
 					.addModifiers(Modifier.PUBLIC)
 					.addJavadoc("read property $L\n\n", item.getName())
 					.addJavadoc("@return property $L value\n", item.getName())
 					.returns(item.getPropertyType().getName());
-
-			method.addCode("return ");
+			
 			transform = SPTransformer.lookup(item);
-			transform.generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "defaultBean", item, false);
-			method.addCode(";\n");
-			/*
-			switch (item.getPreferenceType()) {
-			case STRING:
-				if (item.getPropertyType().isArray()) {
-					method.addStatement("return string2array(prefs.getString($S, null), defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				} else if (item.getPropertyType().isList()) {
-					method.addStatement("return string2list(prefs.getString($S, null), defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				//} else if (item.getPropertyType().isEnum()) {
-
-				} else if (item.getPropertyType().isSameType(String.class)) {
-					method.addStatement("return prefs.getString($S, defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				} else {
-					TypeName type = typeName(item.getPropertyType().getRawType());
-					method.addStatement("$T temp=($T)readObj(prefs.getString($S, null), $T.class)", type, type, item.getName(), type);
-					method.beginControlFlow("if (temp!=null) ");
-					method.addStatement("return temp");
-					method.endControlFlow();
-					method.addStatement("return defaultBean.$L", PropertyUtility.getter(typeName(entity.getElement()), item));
-				}
-				break;
-			case BOOL:
-				method.addStatement("return prefs.getBoolean($S,defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				break;
-			case FLOAT:
-				method.addStatement("return prefs.getFloat($S,defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				break;
-			case INT:
-				method.addStatement("return prefs.getInt($S,defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				break;
-			case LONG:
-				method.addStatement("return prefs.getLong($S,defaultBean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-				break;
-			default:
-				break;
-			}*/
-
-			builder.addMethod(method.build());
+			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "defaultBean", item, false);			
+			methodBuilder.addCode("\n");
+			
+			builder.addMethod(methodBuilder.build());
 		}
 
 	}

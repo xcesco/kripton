@@ -14,6 +14,7 @@ import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.TimeUtil;
 import com.abubusoft.kripton.common.TimeZoneUtil;
 import com.abubusoft.kripton.common.UrlUtil;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import java.lang.Boolean;
 import java.lang.Byte;
 import java.lang.Character;
@@ -83,9 +84,15 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Bean2 read() {
     Bean2 bean=new Bean2();
-    bean.setId((prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null);
+    bean.setId(prefs.getLong("id", bean.getId()));
     bean.setValueBean((prefs.getString("valueBean", null)!=null) ? (Bean2)readObj(prefs.getString("valueBean", null), Bean2.class): null);
-    bean.setValueBeanArray((prefs.getString("valueBeanArray", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<Bean2>(), Bean2.class, prefs.getString("valueBeanArray", null))): null);
+     {
+      // read valueBeanArray
+      String tempValueBeanArray=prefs.getString("valueBeanArray", null);
+      ArrayList<Bean2> collection=ProcessorHelper.asCollection(new ArrayList<Bean2>(), Bean2.class, tempValueBeanArray);
+      bean.setValueBeanArray((StringUtility.hasText(tempValueBeanArray)) ? CollectionUtility.asArray(collection, new kripton60.Bean2[collection.size()]): null);
+    }
+
     bean.setValueBigDecimal((prefs.getString("valueBigDecimal", null)!=null) ? new BigDecimal(prefs.getString("valueBigDecimal", "0")): null);
     bean.setValueBigInteger((prefs.getString("valueBigInteger", null)!=null) ? new BigInteger(prefs.getString("valueBigInteger", "0")): null);
     bean.setValueBool((boolean)prefs.getBoolean("valueBool", (boolean)(bean.getValueBool()==null?false:bean.getValueBool())));
@@ -95,10 +102,25 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.setValueByteType((byte)prefs.getInt("valueByteType", (byte)bean.getValueByteType()));
     bean.setValueCalendar((prefs.getString("valueCalendar", null)!=null) ? CalendarUtil.read(prefs.getString("valueCalendar", null)): null);
     bean.setValueChar((char)prefs.getInt("valueChar", (char)(bean.getValueChar()==null?(char)0:bean.getValueChar())));
-    bean.setValueCharArray((prefs.getString("valueCharArray", null)!=null) ? CollectionUtility.asCharacterArray(ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, prefs.getString("valueCharArray", null))): null);
-    bean.setValueCharList((prefs.getString("valueCharList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null);
+     {
+      // read valueCharArray
+      String tempValueCharArray=prefs.getString("valueCharArray", null);
+      ArrayList<Character> collection=ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, tempValueCharArray);
+      bean.setValueCharArray((StringUtility.hasText(tempValueCharArray)) ? CollectionUtility.asCharacterArray(collection): null);
+    }
+
+     {
+      bean.setValueCharList((prefs.getString("valueCharList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null);
+    }
+
     bean.setValueCharType((char)prefs.getInt("valueCharType", (char)bean.getValueCharType()));
-    bean.setValueCharTypeArray((prefs.getString("valueCharTypeArray", null)!=null) ? CollectionUtility.asCharacterTypeArray(ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, prefs.getString("valueCharTypeArray", null))): null);
+     {
+      // read valueCharTypeArray
+      String tempValueCharTypeArray=prefs.getString("valueCharTypeArray", null);
+      ArrayList<Character> collection=ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, tempValueCharTypeArray);
+      bean.setValueCharTypeArray((StringUtility.hasText(tempValueCharTypeArray)) ? CollectionUtility.asCharacterTypeArray(collection): null);
+    }
+
     bean.setValueCurrency((prefs.getString("valueCurrency", null)!=null) ? CurrencyUtil.read(prefs.getString("valueCurrency", null)): null);
     bean.setValueDate((prefs.getString("valueDate", null)!=null) ? DateUtil.read(prefs.getString("valueDate", null)): null);
     bean.setValueDouble((prefs.getString("valueDouble", null)!=null) ? Double.valueOf(prefs.getString("valueDouble", "0")): null);
@@ -109,18 +131,45 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.setValueInt((int)prefs.getInt("valueInt", (int)(bean.getValueInt()==null?0:bean.getValueInt())));
     bean.setValueIntType((int)prefs.getInt("valueIntType", (int)bean.getValueIntType()));
     bean.setValueLocale((prefs.getString("valueLocale", null)!=null) ? LocaleUtil.read(prefs.getString("valueLocale", null)): null);
-    bean.setValueLong((prefs.getString("valueLong", null)!=null) ? Long.valueOf(prefs.getString("valueLong", "0")): null);
-    bean.setValueLongArray((prefs.getString("valueLongArray", null)!=null) ? CollectionUtility.asLongArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongArray", null))): null);
-    bean.setValueLongList((prefs.getString("valueLongList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null);
-    bean.setValueLongType((prefs.getString("valueLongType", null)!=null) ? Long.valueOf(prefs.getString("valueLongType", "0")): null);
-    bean.setValueLongTypeArray((prefs.getString("valueLongTypeArray", null)!=null) ? CollectionUtility.asLongTypeArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongTypeArray", null))): null);
+    bean.setValueLong(prefs.getLong("valueLong", (bean.getValueLong()==null?0L:bean.getValueLong())));
+     {
+      // read valueLongArray
+      String tempValueLongArray=prefs.getString("valueLongArray", null);
+      ArrayList<Long> collection=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, tempValueLongArray);
+      bean.setValueLongArray((StringUtility.hasText(tempValueLongArray)) ? CollectionUtility.asLongArray(collection): null);
+    }
+
+     {
+      bean.setValueLongList((prefs.getString("valueLongList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null);
+    }
+
+    bean.setValueLongType(prefs.getLong("valueLongType", bean.getValueLongType()));
+     {
+      // read valueLongTypeArray
+      String tempValueLongTypeArray=prefs.getString("valueLongTypeArray", null);
+      ArrayList<Long> collection=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, tempValueLongTypeArray);
+      bean.setValueLongTypeArray((StringUtility.hasText(tempValueLongTypeArray)) ? CollectionUtility.asLongTypeArray(collection): null);
+    }
+
     bean.setValueShort((short)prefs.getInt("valueShort", (short)(bean.getValueShort()==null?(short)0:bean.getValueShort())));
     bean.setValueShortType((short)prefs.getInt("valueShortType", (short)bean.getValueShortType()));
     bean.setValueString(prefs.getString("valueString", bean.getValueString()));
-    bean.setValueStringArray((prefs.getString("valueStringArray", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("valueStringArray", null))): null);
-    bean.setValueStrinList((prefs.getString("valueStrinList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null);
+     {
+      // read valueStringArray
+      String tempValueStringArray=prefs.getString("valueStringArray", null);
+      ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempValueStringArray);
+      bean.setValueStringArray((StringUtility.hasText(tempValueStringArray)) ? CollectionUtility.asArray(collection, new java.lang.String[collection.size()]): null);
+    }
+
+     {
+      bean.setValueStrinList((prefs.getString("valueStrinList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null);
+    }
+
     bean.setValueTime((prefs.getString("valueTime", null)!=null) ? TimeUtil.read(prefs.getString("valueTime", null)): null);
-    bean.setValueTimeList((prefs.getString("valueTimeList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null);
+     {
+      bean.setValueTimeList((prefs.getString("valueTimeList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null);
+    }
+
     bean.setValueTimeZone((prefs.getString("valueTimeZone", null)!=null) ? TimeZoneUtil.read(prefs.getString("valueTimeZone", null)): null);
     bean.setValueUrl((prefs.getString("valueUrl", null)!=null) ? UrlUtil.read(prefs.getString("valueUrl", null)): null);
 
@@ -134,11 +183,11 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Bean2 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("id",String.valueOf(bean.getId()));
+    editor.putLong("id",bean.getId());
     if (bean.getValueBean()!=null) editor.putString("valueBean",writeObj(bean.getValueBean())); else editor.putString("valueBean", null);
     if (bean.getValueBeanArray()!=null) editor.putString("valueBeanArray",ProcessorHelper.asString(CollectionUtility.asList(bean.getValueBeanArray(), ArrayList.class))); else editor.putString("valueBeanArray", null);
-    if (bean.getValueBigDecimal()!=null) editor.putString("valueBigDecimal",bean.getValueBigDecimal().toPlainString() ); else editor.putString("valueBigDecimal", null);
-    if (bean.getValueBigInteger()!=null) editor.putString("valueBigInteger",bean.getValueBigInteger().toString() ); else editor.putString("valueBigInteger", null);
+    if (bean.getValueBigDecimal()!=null) editor.putString("valueBigDecimal",bean.getValueBigDecimal().toPlainString() ); else editor.putString("valueBigDecimal", null);;
+    if (bean.getValueBigInteger()!=null) editor.putString("valueBigInteger",bean.getValueBigInteger().toString() ); else editor.putString("valueBigInteger", null);;
     if (bean.getValueBool()!=null) editor.putBoolean("valueBool",(boolean)bean.getValueBool());
     editor.putBoolean("valueBoolType",(boolean)bean.isValueBoolType());
     if (bean.getValueByte()!=null) editor.putInt("valueByte",(int)bean.getValueByte());
@@ -160,10 +209,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     if (bean.getValueInt()!=null) editor.putInt("valueInt",(int)bean.getValueInt());
     editor.putInt("valueIntType",(int)bean.getValueIntType());
     if (bean.getValueLocale()!=null) editor.putString("valueLocale",LocaleUtil.write(bean.getValueLocale())); else editor.putString("valueLocale", null);
-    if (bean.getValueLong()!=null) editor.putString("valueLong",String.valueOf(bean.getValueLong())); else editor.putString("valueLong", null);
+    if (bean.getValueLong()!=null) editor.putLong("valueLong",bean.getValueLong());
     if (bean.getValueLongArray()!=null) editor.putString("valueLongArray",ProcessorHelper.asString(CollectionUtility.asList(bean.getValueLongArray(), ArrayList.class))); else editor.putString("valueLongArray", null);
     if (bean.getValueLongList()!=null) editor.putString("valueLongList",ProcessorHelper.asString(bean.getValueLongList())); else editor.putString("valueLongList", null);
-    editor.putString("valueLongType",String.valueOf(bean.getValueLongType()));
+    editor.putLong("valueLongType",bean.getValueLongType());
     if (bean.getValueLongTypeArray()!=null) editor.putString("valueLongTypeArray",ProcessorHelper.asString(CollectionUtility.asList(bean.getValueLongTypeArray(), ArrayList.class))); else editor.putString("valueLongTypeArray", null);
     if (bean.getValueShort()!=null) editor.putInt("valueShort",(int)bean.getValueShort());
     editor.putInt("valueShortType",(int)bean.getValueShortType());
@@ -184,7 +233,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property id value
    */
   public long id() {
-    return (prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
+    return prefs.getLong("id", defaultBean.getId());
   }
 
   /**
@@ -202,7 +251,13 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueBeanArray value
    */
   public Bean2[] valueBeanArray() {
-    return (prefs.getString("valueBeanArray", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<Bean2>(), Bean2.class, prefs.getString("valueBeanArray", null))): null;
+     {
+      // read valueBeanArray
+      String tempValueBeanArray=prefs.getString("valueBeanArray", null);
+      ArrayList<Bean2> collection=ProcessorHelper.asCollection(new ArrayList<Bean2>(), Bean2.class, tempValueBeanArray);
+      return (StringUtility.hasText(tempValueBeanArray)) ? CollectionUtility.asArray(collection, new kripton60.Bean2[collection.size()]): null;
+    }
+
   }
 
   /**
@@ -292,7 +347,13 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueCharArray value
    */
   public Character[] valueCharArray() {
-    return (prefs.getString("valueCharArray", null)!=null) ? CollectionUtility.asCharacterArray(ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, prefs.getString("valueCharArray", null))): null;
+     {
+      // read valueCharArray
+      String tempValueCharArray=prefs.getString("valueCharArray", null);
+      ArrayList<Character> collection=ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, tempValueCharArray);
+      return (StringUtility.hasText(tempValueCharArray)) ? CollectionUtility.asCharacterArray(collection): null;
+    }
+
   }
 
   /**
@@ -301,7 +362,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueCharList value
    */
   public LinkedList<Character> valueCharList() {
-    return (prefs.getString("valueCharList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null;
+     {
+      return (prefs.getString("valueCharList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null;
+    }
+
   }
 
   /**
@@ -319,7 +383,13 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueCharTypeArray value
    */
   public char[] valueCharTypeArray() {
-    return (prefs.getString("valueCharTypeArray", null)!=null) ? CollectionUtility.asCharacterTypeArray(ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, prefs.getString("valueCharTypeArray", null))): null;
+     {
+      // read valueCharTypeArray
+      String tempValueCharTypeArray=prefs.getString("valueCharTypeArray", null);
+      ArrayList<Character> collection=ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, tempValueCharTypeArray);
+      return (StringUtility.hasText(tempValueCharTypeArray)) ? CollectionUtility.asCharacterTypeArray(collection): null;
+    }
+
   }
 
   /**
@@ -418,7 +488,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueLong value
    */
   public Long valueLong() {
-    return (prefs.getString("valueLong", null)!=null) ? Long.valueOf(prefs.getString("valueLong", "0")): null;
+    return prefs.getLong("valueLong", (defaultBean.getValueLong()==null?0L:defaultBean.getValueLong()));
   }
 
   /**
@@ -427,7 +497,13 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueLongArray value
    */
   public Long[] valueLongArray() {
-    return (prefs.getString("valueLongArray", null)!=null) ? CollectionUtility.asLongArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongArray", null))): null;
+     {
+      // read valueLongArray
+      String tempValueLongArray=prefs.getString("valueLongArray", null);
+      ArrayList<Long> collection=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, tempValueLongArray);
+      return (StringUtility.hasText(tempValueLongArray)) ? CollectionUtility.asLongArray(collection): null;
+    }
+
   }
 
   /**
@@ -436,7 +512,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueLongList value
    */
   public LinkedList<Long> valueLongList() {
-    return (prefs.getString("valueLongList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null;
+     {
+      return (prefs.getString("valueLongList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null;
+    }
+
   }
 
   /**
@@ -445,7 +524,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueLongType value
    */
   public long valueLongType() {
-    return (prefs.getString("valueLongType", null)!=null) ? Long.valueOf(prefs.getString("valueLongType", "0")): null;
+    return prefs.getLong("valueLongType", defaultBean.getValueLongType());
   }
 
   /**
@@ -454,7 +533,13 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueLongTypeArray value
    */
   public long[] valueLongTypeArray() {
-    return (prefs.getString("valueLongTypeArray", null)!=null) ? CollectionUtility.asLongTypeArray(ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, prefs.getString("valueLongTypeArray", null))): null;
+     {
+      // read valueLongTypeArray
+      String tempValueLongTypeArray=prefs.getString("valueLongTypeArray", null);
+      ArrayList<Long> collection=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, tempValueLongTypeArray);
+      return (StringUtility.hasText(tempValueLongTypeArray)) ? CollectionUtility.asLongTypeArray(collection): null;
+    }
+
   }
 
   /**
@@ -490,7 +575,13 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueStringArray value
    */
   public String[] valueStringArray() {
-    return (prefs.getString("valueStringArray", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("valueStringArray", null))): null;
+     {
+      // read valueStringArray
+      String tempValueStringArray=prefs.getString("valueStringArray", null);
+      ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempValueStringArray);
+      return (StringUtility.hasText(tempValueStringArray)) ? CollectionUtility.asArray(collection, new java.lang.String[collection.size()]): null;
+    }
+
   }
 
   /**
@@ -499,7 +590,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueStrinList value
    */
   public LinkedList<String> valueStrinList() {
-    return (prefs.getString("valueStrinList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null;
+     {
+      return (prefs.getString("valueStrinList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null;
+    }
+
   }
 
   /**
@@ -517,7 +611,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueTimeList value
    */
   public List<Time> valueTimeList() {
-    return (prefs.getString("valueTimeList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null;
+     {
+      return (prefs.getString("valueTimeList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null;
+    }
+
   }
 
   /**
@@ -559,7 +656,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
      * modifier for property id
      */
     public BindEditor putId(long value) {
-      editor.putString("id",String.valueOf(value));
+      editor.putLong("id",value);
       return this;
     }
 
@@ -583,7 +680,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBigDecimal
      */
     public BindEditor putValueBigDecimal(BigDecimal value) {
-      if (value!=null) editor.putString("valueBigDecimal",value.toPlainString()); else editor.putString("valueBigDecimal", null);
+      if (value!=null) editor.putString("valueBigDecimal",value.toPlainString()); else editor.putString("valueBigDecimal", null);;
       return this;
     }
 
@@ -591,7 +688,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBigInteger
      */
     public BindEditor putValueBigInteger(BigInteger value) {
-      if (value!=null) editor.putString("valueBigInteger",value.toString()); else editor.putString("valueBigInteger", null);
+      if (value!=null) editor.putString("valueBigInteger",value.toString()); else editor.putString("valueBigInteger", null);;
       return this;
     }
 
@@ -767,7 +864,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueLong
      */
     public BindEditor putValueLong(Long value) {
-      if (value!=null) editor.putString("valueLong",String.valueOf(value)); else editor.putString("valueLong", null);
+      if (value!=null) editor.putLong("valueLong",value);
       return this;
     }
 
@@ -791,7 +888,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueLongType
      */
     public BindEditor putValueLongType(long value) {
-      editor.putString("valueLongType",String.valueOf(value));
+      editor.putLong("valueLongType",value);
       return this;
     }
 

@@ -47,6 +47,8 @@ abstract class PrimitiveSPTransform extends AbstractSPTransform {
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
 		if (add) {						
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
+		} else {
+			methodBuilder.addCode("return ");
 		}
 
 		if (nullable){
@@ -57,7 +59,9 @@ abstract class PrimitiveSPTransform extends AbstractSPTransform {
 
 		if (add) {
 			methodBuilder.addCode((property.isFieldWithSetter()?")":""));
-		}
+		} 
+		
+		methodBuilder.addCode(";");
 	}
 
 	@Override

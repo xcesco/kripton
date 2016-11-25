@@ -960,6 +960,8 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       if (currentEventType == 0) {
         eventType = xmlParser.next();
+      } else {
+        eventType = xmlParser.getEventType();
       }
       String currentTag = xmlParser.getName().toString();
       Stack<String> elementNameStack = new Stack<>();

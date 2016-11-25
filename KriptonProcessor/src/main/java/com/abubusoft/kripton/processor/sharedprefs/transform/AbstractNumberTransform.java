@@ -18,39 +18,42 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import java.math.BigInteger;
+
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 /**
- * Transformer between a string and a Java Double object
+ * Transformer between a string and a java.math.BigInteger object
  * 
  * @author bulldog
  *
  */
-public class DoubleTransform extends AbstractSPTransform {
+abstract class AbstractNumberTransform extends AbstractSPTransform {
 	
-	public DoubleTransform(boolean nullable)
+	protected String METHOD_CONVERSION;
+	protected Class<?> clazz;
+
+	public AbstractNumberTransform()
 	{
-		this.nullable=nullable;
 		defaultValue="0";
+		clazz=BigInteger.class;
+		METHOD_CONVERSION="toString";
 	}
-	
-	protected boolean nullable;
 	
 	protected String defaultValue;
 	
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
 		if (add) {
-						
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter()?"(":"=")+"", beanName);
+			methodBuilder.addCode("$L.$L" + (property.isFieldWithSetter()?"(":"=")+"", beanName, setter(beanClass, property));
 		} else {
 			methodBuilder.addCode("return ");
 		}
 		
 		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.valueOf($L.getString($S, $S))",  Double.class, preferenceName, property.getName(), defaultValue);
+		methodBuilder.addCode("new $T($L.getString($S, $S))",  clazz, preferenceName, property.getName(), defaultValue);
 		methodBuilder.addCode(": null");
 		
 		if (add) {
@@ -64,30 +67,17 @@ public class DoubleTransform extends AbstractSPTransform {
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
 		if (beanClass!=null)
-		{			
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
-			}
-			methodBuilder.addCode("$L.putString($S,String.valueOf($L))", editorName, property.getName(), getter(beanName, beanClass, property));
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
+		{
+			methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.addCode("$L.putString($S,$L.$L() );", editorName, property.getName(), getter(beanName, beanClass, property), METHOD_CONVERSION);			
+			methodBuilder.addCode(" else ");
+			methodBuilder.addCode("$L.putString($S, null);", editorName, property.getName());
+
 		} else {
-			if (nullable)
-			{
-				methodBuilder.addCode("if ($L!=null) ", beanName);
-			}
-			methodBuilder.addCode("$L.putString($S,String.valueOf($L))", editorName, property.getName(), beanName);
-			if (nullable)
-			{
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
+			methodBuilder.addCode("if ($L!=null) ", beanName);
+			methodBuilder.addCode("$L.putString($S,$L.$L());", editorName, property.getName(), beanName, METHOD_CONVERSION);			
+			methodBuilder.addCode(" else ");
+			methodBuilder.addCode("$L.putString($S, null);", editorName, property.getName());
 		}
 			
 	}

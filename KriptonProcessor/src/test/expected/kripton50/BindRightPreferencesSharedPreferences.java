@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import java.lang.Long;
 import java.lang.String;
 import java.util.ArrayList;
@@ -62,10 +63,19 @@ public class BindRightPreferencesSharedPreferences extends AbstractSharedPrefere
     bean.setDescription(prefs.getString("description", bean.getDescription()));
     bean.valueFloat=prefs.getFloat("valueFloat", bean.valueFloat);
     bean.valueBoolean=(boolean)prefs.getBoolean("valueBoolean", (boolean)bean.valueBoolean);
-    bean.setStringArray((prefs.getString("stringArray", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringArray", null))): null);
-    bean.stringList=(prefs.getString("stringList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
+     {
+      // read stringArray
+      String tempStringArray=prefs.getString("stringArray", null);
+      ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempStringArray);
+      bean.setStringArray((StringUtility.hasText(tempStringArray)) ? CollectionUtility.asArray(collection, new java.lang.String[collection.size()]): null);
+    }
+
+     {
+      bean.stringList=(prefs.getString("stringList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
+    }
+
     bean.valueInt=(int)prefs.getInt("valueInt", (int)bean.valueInt);
-    bean.valueLong=(prefs.getString("valueLong", null)!=null) ? Long.valueOf(prefs.getString("valueLong", "0")): null;
+    bean.valueLong=prefs.getLong("valueLong", (bean.valueLong==null?0L:bean.valueLong));
 
     return bean;
   }
@@ -84,7 +94,7 @@ public class BindRightPreferencesSharedPreferences extends AbstractSharedPrefere
     if (bean.getStringArray()!=null) editor.putString("stringArray",ProcessorHelper.asString(CollectionUtility.asList(bean.getStringArray(), ArrayList.class))); else editor.putString("stringArray", null);
     if (bean.stringList!=null) editor.putString("stringList",ProcessorHelper.asString(bean.stringList)); else editor.putString("stringList", null);
     editor.putInt("valueInt",(int)bean.valueInt);
-    if (bean.valueLong!=null) editor.putString("valueLong",String.valueOf(bean.valueLong)); else editor.putString("valueLong", null);
+    if (bean.valueLong!=null) editor.putLong("valueLong",bean.valueLong);
 
     editor.commit();
   }
@@ -131,7 +141,13 @@ public class BindRightPreferencesSharedPreferences extends AbstractSharedPrefere
    * @return property stringArray value
    */
   public String[] stringArray() {
-    return (prefs.getString("stringArray", null)!=null) ? CollectionUtility.asArray(ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringArray", null))): null;
+     {
+      // read stringArray
+      String tempStringArray=prefs.getString("stringArray", null);
+      ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempStringArray);
+      return (StringUtility.hasText(tempStringArray)) ? CollectionUtility.asArray(collection, new java.lang.String[collection.size()]): null;
+    }
+
   }
 
   /**
@@ -140,7 +156,10 @@ public class BindRightPreferencesSharedPreferences extends AbstractSharedPrefere
    * @return property stringList value
    */
   public List<String> stringList() {
-    return (prefs.getString("stringList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
+     {
+      return (prefs.getString("stringList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
+    }
+
   }
 
   /**
@@ -158,7 +177,7 @@ public class BindRightPreferencesSharedPreferences extends AbstractSharedPrefere
    * @return property valueLong value
    */
   public Long valueLong() {
-    return (prefs.getString("valueLong", null)!=null) ? Long.valueOf(prefs.getString("valueLong", "0")): null;
+    return prefs.getLong("valueLong", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
   }
 
   /**
@@ -238,7 +257,7 @@ public class BindRightPreferencesSharedPreferences extends AbstractSharedPrefere
      * modifier for property valueLong
      */
     public BindEditor putValueLong(Long value) {
-      if (value!=null) editor.putString("valueLong",String.valueOf(value)); else editor.putString("valueLong", null);
+      if (value!=null) editor.putLong("valueLong",value);
       return this;
     }
   }

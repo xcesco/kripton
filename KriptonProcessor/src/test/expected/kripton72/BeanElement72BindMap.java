@@ -1180,6 +1180,8 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       if (currentEventType == 0) {
         eventType = xmlParser.next();
+      } else {
+        eventType = xmlParser.getEventType();
       }
       String currentTag = xmlParser.getName().toString();
       Stack<String> elementNameStack = new Stack<>();
@@ -1290,15 +1292,13 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                       }
                       collection.add(item);
                       while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("valueEnumSet")) {
-                        if (xmlParser.getName().toString().equals("valueEnumSet")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=BeanEnum72.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
-                          }
-                          collection.add(item);
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=BeanEnum72.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                         }
+                        collection.add(item);
                       }
                       instance.valueEnumSet=collection;
                       read=false;
@@ -1413,15 +1413,13 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                       }
                       collection.add(item);
                       while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("valueBigDecimalSet")) {
-                        if (xmlParser.getName().toString().equals("valueBigDecimalSet")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=BigDecimalUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
-                          }
-                          collection.add(item);
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=BigDecimalUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                         }
+                        collection.add(item);
                       }
                       instance.valueBigDecimalSet=collection;
                       read=false;

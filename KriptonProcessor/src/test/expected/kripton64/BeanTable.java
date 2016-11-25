@@ -9,7 +9,7 @@ import java.lang.String;
  * </p>
  *  @see Bean
  */
-public class Bean$Table {
+public class BeanTable {
   /**
    * Costant represents name of table bean
    */

@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import java.lang.Byte;
-import java.lang.Long;
 import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +57,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public Bean63 read() {
     Bean63 bean=new Bean63();
-    bean.id=(prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
+    bean.id=prefs.getLong("id", bean.id);
     bean.value=prefs.getString("value", bean.value);
     bean.valueMapStringByte=(prefs.getString("valueMapStringByte", null)!=null) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, prefs.getString("valueMapStringByte", null)): null;
     bean.valueMapEnumByte=(prefs.getString("valueMapEnumByte", null)!=null) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, prefs.getString("valueMapEnumByte", null)): null;
@@ -73,7 +72,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Bean63 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("id",String.valueOf(bean.id));
+    editor.putLong("id",bean.id);
     editor.putString("value",bean.value);
     if (bean.valueMapStringByte!=null) editor.putString("valueMapStringByte",ProcessorHelper.asString(bean.valueMapStringByte)); else editor.putString("valueMapStringByte", null);
     if (bean.valueMapEnumByte!=null) editor.putString("valueMapEnumByte",ProcessorHelper.asString(bean.valueMapEnumByte)); else editor.putString("valueMapEnumByte", null);
@@ -87,7 +86,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property id value
    */
   public long id() {
-    return (prefs.getString("id", null)!=null) ? Long.valueOf(prefs.getString("id", "0")): null;
+    return prefs.getLong("id", defaultBean.id);
   }
 
   /**
@@ -138,7 +137,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
      * modifier for property id
      */
     public BindEditor putId(long value) {
-      editor.putString("id",String.valueOf(value));
+      editor.putLong("id",value);
       return this;
     }
 

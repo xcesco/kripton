@@ -8,7 +8,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 public class SetTransformation extends AbstractCollectionTransform {
 
 	public SetTransformation(ParameterizedTypeName clazz) {
-		super(clazz, false);
+		super(clazz, CollectionType.SET);
 	}
 	
 	protected Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName) {

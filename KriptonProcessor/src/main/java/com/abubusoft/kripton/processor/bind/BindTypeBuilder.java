@@ -208,7 +208,9 @@ public class BindTypeBuilder {
 
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (currentEventType == 0)");
-		methodBuilder.addStatement("eventType = xmlParser.next()");
+		methodBuilder.addStatement("eventType = xmlParser.next()");		
+		methodBuilder.nextControlFlow("else");
+		methodBuilder.addStatement("eventType = xmlParser.getEventType()");
 		methodBuilder.endControlFlow();
 		methodBuilder.addStatement("String currentTag = xmlParser.getName().toString()");
 

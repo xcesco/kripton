@@ -57,41 +57,32 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property) {
-		methodBuilder.addCode("$T.asByteArray($T.asList($L, $T.class))",
-				ProcessorHelper.class, CollectionUtility.class, getter(beanName, beanClass, property), ArrayList.class);
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+		methodBuilder.addCode("$T.asByteArray($T.asList($L, $T.class))", ProcessorHelper.class, CollectionUtility.class, getter(beanName, beanClass, property), ArrayList.class);
 	}
 
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.asByteArray($T.asList($L, $T.class))", ProcessorHelper.class, CollectionUtility.class,
-				objectName, ArrayList.class);
+		methodBuilder.addCode("$T.asByteArray($T.asList($L, $T.class))", ProcessorHelper.class, CollectionUtility.class, objectName, ArrayList.class);
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
-			String cursorName, String indexName) {
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		if (primitive) {
-			methodBuilder.addCode(
-					setter(beanClass, beanName, property, "$T.as$LTypeArray($T.asList($L.TYPE, $L.getBlob($L)))"),
-					CollectionUtility.class, primitiveType(), ProcessorHelper.class, primitiveType(),
-					cursorName, indexName);
+			methodBuilder.addCode(setter(beanClass, beanName, property, "$T.as$LTypeArray($T.asList($L.TYPE, $L.getBlob($L)))"), CollectionUtility.class, primitiveType(), ProcessorHelper.class,
+					primitiveType(), cursorName, indexName);
 		} else if (TypeUtility.isString(clazz)) {
-			methodBuilder.addCode(
-					setter(beanClass, beanName, property, "$T.asStringArray($T.asList(String.class, $L.getBlob($L)))"),
-					CollectionUtility.class, ProcessorHelper.class, cursorName, indexName);
+			methodBuilder.addCode(setter(beanClass, beanName, property, "$T.asStringArray($T.asList(String.class, $L.getBlob($L)))"), CollectionUtility.class, ProcessorHelper.class, cursorName,
+					indexName);
 		} else if (TypeUtility.isTypeWrappedPrimitive(clazz)) {
-			String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
-			methodBuilder.addCode(
-					setter(beanClass, beanName, property, "$T.as$LArray($T.asList($L.class, $L.getBlob($L)))"), 
-					CollectionUtility.class, name, ProcessorHelper.class, name, cursorName, indexName);
+			String name = nc.convert(TypeUtility.simpleName(clazz));
+			methodBuilder.addCode(setter(beanClass, beanName, property, "$T.as$LArray($T.asList($L.class, $L.getBlob($L)))"), CollectionUtility.class, name, ProcessorHelper.class, name, cursorName,
+					indexName);
 		} else {
 			String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
-			methodBuilder.addCode(
-					setter(beanClass, beanName, property, "$T.asArray($T.asList($L.class, $L.getBlob($L)))"),
-					CollectionUtility.class, ProcessorHelper.class, name, cursorName, indexName);
-		}
+			methodBuilder.addCode("$T<$L> collection=$T.asCollection(new $T<$L>(), $L.class, $L.getBlob($L)); ", ArrayList.class, name, ProcessorHelper.class, ArrayList.class, name, name, cursorName, indexName);
+			methodBuilder.addCode(setter(beanClass, beanName, property, "$T.asArray(collection, new $L[collection.size()])"), CollectionUtility.class, name);
+		}		
 	}
 
 	/**
@@ -127,8 +118,7 @@ public class ArrayTransform extends AbstractCompileTimeTransform {
 	 */
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
