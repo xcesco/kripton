@@ -3,7 +3,6 @@ package com.abubusoft.kripton.binder2.context;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import kripton70.NoSuchMapperException;
 import util.SimpleArrayMap;
 
 import com.abubusoft.kripton.binder2.BinderType;
@@ -11,6 +10,7 @@ import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.core.BinderMapper;
 import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.exception.NoSuchMapperException;
 
 public abstract class AbstractContext {
 
