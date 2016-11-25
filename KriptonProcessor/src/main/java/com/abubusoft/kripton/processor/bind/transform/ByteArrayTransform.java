@@ -16,98 +16,121 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.common.Base64Util;
-import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
+import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-
 /**
- * Transformer between a base64 encoded string and a byte[]
+ * Transformer between a string and a Java String object
  * 
  * @author bulldog
  *
  */
 public class ByteArrayTransform extends AbstractBindTransform {
 
-	public ByteArrayTransform() {
-		this.utilClazz = Base64Util.class;
-		this.nullable = true;
+	@Override
+	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		}
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getBinaryValue()"), parserName);
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+
 	}
 
-	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-
-	protected Class<?> utilClazz;
-	
-	protected boolean nullable;
+	@Override
+	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getBinaryValue()"), parserName);
+		methodBuilder.endControlFlow();
+	}
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		/*
-		if (add) {
+		XmlType xmlType = property.xmlInfo.xmlType;
 
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
-		}
-
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.decode($L.getString($S, null))", utilClazz, preferenceName, property.getName());
-		methodBuilder.addCode(": null");
-
-		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
-		}*/
-	}
-
-	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
-		if (beanClass != null) {
-			if (nullable) {
-				methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
-			}
-			methodBuilder.addCode("$L.putString($S,$T.encode($L))", editorName, property.getName(), utilClazz, getter(beanName, beanClass, property));
-			if (nullable) {
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
-		} else {
-			if (nullable) {
-				methodBuilder.addCode("if ($L!=null) ", beanName);
-			}
-			methodBuilder.addCode("$L.putString($S,$T.encode($L))", editorName, property.getName(), utilClazz, beanName);
-			if (nullable) {
-				methodBuilder.addCode(";");
-				methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-			}
+		switch (xmlType) {
+		case ATTRIBUTE:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getAttributeAsBinary()"), parserName);
+			break;
+		case TAG:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getElementAsBinary()"), parserName);
+			break;
+		case VALUE:
+		case VALUE_CDATA:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getElementAsBinary()"), parserName);
+			break;
+		default:
+			break;
 		}
 
 	}
 
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.isElementInCollection()) {
+			// we need to write only value
+			methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
+		} else {
+			methodBuilder.addStatement("$L.writeBinaryField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
+		}
+
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
+		if (property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.isElementInCollection()) {
+			// we need to write only value
+			methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
+		} else {
+			methodBuilder.addStatement("$L.writeBinaryField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
+		}
+
+		if (property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	@Override
-	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable())
+			methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
 
-	@Override
-	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		
+		XmlType xmlType = property.xmlInfo.xmlType;
+		switch (xmlType) {
+		case ATTRIBUTE:
+			methodBuilder.addStatement("$L.writeAttribute($S, $L)", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property));
+			break;
+		case TAG:
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			methodBuilder.addStatement("$L.writeBinary($L, 0, $L.length)", serializerName, getter(beanName, beanClass, property), getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+			break;
+		case VALUE:
+		case VALUE_CDATA:
+			methodBuilder.addStatement("$L.writeBinary($L, 0, $L.length)", serializerName, getter(beanName, beanClass, property), getter(beanName, beanClass, property));
+			break;
+		}
+
+		if (property.isNullable())
+			methodBuilder.endControlFlow();
 	}
 }
