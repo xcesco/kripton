@@ -46,46 +46,34 @@ public class TestKripton72 extends BaseProcessorTest {
 		
 		bean.valueBigDecimalSet=new HashSet<BigDecimal>();
 		bean.valueBigDecimalSet.add(null);
-		//bean.valueBigDecimalSet.add(BigDecimal.ONE);
-		//bean.valueBigDecimalSet.add(BigDecimal.TEN);
 		
 		bean.valueBigIntegerSet=new HashSet<BigInteger>();
 		bean.valueBigIntegerSet.add(BigInteger.ZERO);
-		//bean.valueBigIntegerSet.add(BigInteger.ONE);
-		//bean.valueBigIntegerSet.add(BigInteger.TEN);
-		//bean.valueBigIntegerSet.add(null);
 		
 		bean.valueByteSet=null;
 		
 		bean.valueCharacterSet=new HashSet<Character>();
-		//bean.valueCharacterSet.add(null);
 		bean.valueCharacterSet.add('a');
 		
 		bean.valueDoubleSet=new TreeSet<Double>();		
 		
 		bean.valueEnumSet=new HashSet<BeanEnum72>();
-		//bean.valueEnumSet.add(null);
 		bean.valueEnumSet.add(BeanEnum72.VALUE_1);
-		//bean.valueEnumSet.add(BeanEnum72.VALUE_2);
 				
 		bean.valueFloatSet=new HashSet<Float>();
 		bean.valueFloatSet.add(1f);
-		//bean.valueFloatSet.add(2f);
 		
 		bean.setValueIntSet(new HashSet<Integer>());
 		bean.getValueIntSet().add(1);
-		//bean.getValueIntSet().add(2);
 		
 		bean.valueLongSet=new HashSet<Long>();
 		bean.valueLongSet.add(null);
 
 		bean.valueShortSet=new HashSet<Short>();
 		bean.valueShortSet.add((short)1);
-		//bean.valueShortSet.add((short)2);
 
 		bean.valueStringSet=new HashSet<String>();
 		bean.valueStringSet.add("check1");
-		//bean.valueStringSet.add("check2");
 		
 		bean.zalueStringFinal="final";
 		
