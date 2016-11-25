@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -28,11 +27,6 @@ public class ArrayTransform extends AbstractCollectionTransform {
 
 	public ArrayTransform(TypeName componentTypeName, boolean primitive) {
 		super(componentTypeName, CollectionType.ARRAY);
-	}
-
-	@Override
-	protected Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName) {
-		return null;
 	}
 
 }

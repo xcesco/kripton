@@ -139,7 +139,6 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueFloatType
       jacksonSerializer.writeNumberField("valueFloatType", object.valueFloatType);
 
-      
       // field valueInt
       if (object.valueInt!=null)  {
         jacksonSerializer.writeNumberField("valueInt", object.valueInt);
@@ -208,7 +207,6 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
 
-      
       // Serialized Field:
 
       // field valueBean
@@ -312,7 +310,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueLongType
       jacksonSerializer.writeStringField("valueLongType", PrimitiveUtil.writeLong(object.valueLongType));
-      
+
       // field valueShort
       if (object.valueShort!=null)  {
         jacksonSerializer.writeStringField("valueShort", PrimitiveUtil.writeShort(object.valueShort));
@@ -574,7 +572,6 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       String fieldName;
       if (jacksonParser.getCurrentToken() == null) {
         jacksonParser.nextToken();
-                
       }
       if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
         jacksonParser.skipChildren();
@@ -960,8 +957,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       BeanElement70 instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
-            
-      
+
       if (currentEventType == 0) {
         eventType = xmlParser.next();
       } else {

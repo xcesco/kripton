@@ -7,6 +7,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
@@ -55,8 +56,21 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 		// for now, it supports only parameterized type with 1 argument 
 		this.elementTypeName = clazz;
 	}
+	
+	protected Class<?> collectionClazz=List.class;
+	protected Class<?> defaultClazz=ArrayList.class;		
 
-	protected abstract Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName);
+	protected Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName) {
+		if (collectionTypeName.toString().startsWith(collectionClazz.getCanonicalName())) { 
+			return defaultClazz;
+		}
+		try {
+			return Class.forName(collectionTypeName.rawType.toString());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	@Override
 	public void generateParseOnJackson(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {

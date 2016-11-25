@@ -9,18 +9,9 @@ public class SetTransformation extends AbstractCollectionTransform {
 
 	public SetTransformation(ParameterizedTypeName clazz) {
 		super(clazz, CollectionType.SET);
+		collectionClazz=Set.class;
+		defaultClazz=HashSet.class;
 	}
 	
-	protected Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName) {
-		if (collectionTypeName.toString().startsWith(Set.class.getCanonicalName())) {
-			// it's a list
-			return HashSet.class;
-		}
-		try {
-			return Class.forName(collectionTypeName.rawType.toString());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+	
 }

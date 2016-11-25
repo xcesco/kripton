@@ -9,18 +9,8 @@ public class ListTransformation extends AbstractCollectionTransform {
 
 	public ListTransformation(ParameterizedTypeName clazz) {
 		super(clazz, CollectionType.LIST);
+		collectionClazz=List.class;
+		defaultClazz=ArrayList.class;
 	}
-	
-	protected Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName) {
-		if (collectionTypeName.toString().startsWith(List.class.getCanonicalName())) {
-			// it's a list
-			return ArrayList.class;
-		}
-		try {
-			return Class.forName(collectionTypeName.rawType.toString());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+
 }
