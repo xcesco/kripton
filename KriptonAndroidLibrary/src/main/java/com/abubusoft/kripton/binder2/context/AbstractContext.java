@@ -3,12 +3,10 @@ package com.abubusoft.kripton.binder2.context;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import util.SimpleArrayMap;
-
 import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.core.BinderMapper;
-import com.abubusoft.kripton.binder2.core.ParameterizedType;
+//import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
 
@@ -38,18 +36,13 @@ public abstract class AbstractContext {
 		M mapper = getMapper(cls);
 
 		if (mapper == null) {
-			throw new NoSuchMapperException(cls);
+			throw new NoSuchMapperException(cls, getSupportedFormat());
 		} else {
 			return mapper;
 		}
 	}
 
-	/**
-	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
-	 *
-	 * @param type
-	 *            The ParameterizedType for which the JsonMapper should be fetched.
-	 */
+/*
 	@SuppressWarnings("unchecked")
 	public <E, M extends BinderMapper<E>> M mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
 		return (M) mapperFor(type, null);
@@ -58,12 +51,13 @@ public abstract class AbstractContext {
 	public <E, M extends BinderMapper<E>> M mapperFor(ParameterizedType<E> type, @SuppressWarnings("rawtypes") SimpleArrayMap<ParameterizedType, BinderMapper> partialMappers) throws NoSuchMapperException {
 		M mapper = getMapper(type, partialMappers);
 		if (mapper == null) {
-			throw new NoSuchMapperException(type.rawType);
+			throw new NoSuchMapperException(type.rawType, getSupportedFormat());
 		} else {
 			return mapper;
 		}
 	}
-
+*/
+	/*
 	public static <E, M extends BinderMapper<E>> M getMapper(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, BinderMapper> partialMappers) {
 		//
 		// if (type.typeParameters.size() == 0) {
@@ -97,7 +91,7 @@ public abstract class AbstractContext {
 		// }
 		//
 		return null;
-	}
+	}*/
 
 	@SuppressWarnings("unchecked")
 	public <E, M extends BinderMapper<E>> M getMapper(Class<E> cls) {

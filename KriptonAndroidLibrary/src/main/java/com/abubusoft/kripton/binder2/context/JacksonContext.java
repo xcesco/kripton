@@ -116,20 +116,20 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 		return mapperFor(objectClazz).parse(this, is);
 	}
 
-	@Override
+/*	@Override
 	public <E> E parse(InputStream is, ParameterizedType<E> objectType) {
 		return mapperFor(objectType).parse(this, is);
-	}
+	}*/
 
 	@Override
 	public <E> E parse(String buffer, Class<E> objectClazz) {
 		return mapperFor(objectClazz).parse(this, buffer);
 	}
 
-	@Override
+	/*@Override
 	public <E> E parse(String buffer, ParameterizedType<E> objectType) {
 		return mapperFor(objectType).parse(this, buffer);
-	}
+	}*/
 
 	@Override
 	public <E> List<E> parseList(InputStream is, Class<E> objectClazz) {
@@ -155,7 +155,7 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 		mapperFor((Class<E>) object.getClass()).serialize(this, object, os);		
 	}
 
-	@Override
+/*	@Override
 	public <E> String serialize(E object, ParameterizedType<E> parameterizedType) {
 		if (object==null) return null;
 		return mapperFor(parameterizedType).serialize(this, object);
@@ -165,7 +165,7 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	public <E> void serialize(E object, ParameterizedType<E> parameterizedType, OutputStream os) {
 		if (object==null) return;
 		mapperFor(parameterizedType).serialize(this, object, os);
-	}
+	}*/
 
 	@Override
 	public <E> String serialize(List<E> list, Class<E> objectClazz) {
