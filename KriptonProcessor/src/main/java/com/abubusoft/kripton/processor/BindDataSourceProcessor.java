@@ -283,7 +283,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					}
 					
 					ModelAnnotation annotationBind = property.getAnnotation(Bind.class);
-					if (AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBind, AnnotationAttributeType.ATTRIBUTE_ENABLED)==false)
+					if (annotationBind!=null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBind, AnnotationAttributeType.ATTRIBUTE_ENABLED)==false)
 					{
 						return false;
 					}

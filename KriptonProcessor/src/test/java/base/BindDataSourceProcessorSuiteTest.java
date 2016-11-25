@@ -38,6 +38,8 @@ import kripton62.TestKripton62;
 import kripton63.TestKripton63;
 import kripton64.TestKripton64;
 import kripton70.TestKripton70;
+import kripton71.TestKripton71;
+import kripton72.TestKripton72;
 import test01.TestDatabase01;
 import test02.TestDao01;
 import test03.Test03;
@@ -59,6 +61,8 @@ import test05firt_aid.TestFirstAid;
 			TestKripton63.class,
 			TestKripton64.class,
 			TestKripton70.class,
+			TestKripton71.class,
+			TestKripton72.class,
 		TestFirstAid.class })
 //@formatter:on
 public class BindDataSourceProcessorSuiteTest {

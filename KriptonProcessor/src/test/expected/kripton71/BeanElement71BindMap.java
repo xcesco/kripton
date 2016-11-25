@@ -10,15 +10,26 @@ import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.common.BigDecimalUtil;
 import com.abubusoft.kripton.common.BigIntegerUtil;
+import com.abubusoft.kripton.common.PrimitiveUtil;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.io.IOException;
+import java.lang.Byte;
+import java.lang.Character;
+import java.lang.Double;
+import java.lang.Float;
+import java.lang.Integer;
+import java.lang.Long;
 import java.lang.Override;
+import java.lang.Short;
+import java.lang.String;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 import javax.xml.stream.XMLStreamException;
@@ -52,15 +63,167 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
 
       // Serialized Field:
 
+      // field name
+      if (object.name!=null)  {
+        jacksonSerializer.writeStringField("name", object.name);
+      }
+
+      // field valueBeanList
+      if (object.valueBeanList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueBeanList");
+        jacksonSerializer.writeStartArray();
+        for (BeanElement71 item: object.valueBeanList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            context.mapperFor(BeanElement71.class).serializeOnJackson(context, item, wrapper);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueByteList
+      if (object.valueByteList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueByteList");
+        jacksonSerializer.writeStartArray();
+        for (Byte item: object.valueByteList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueCharacterList
+      if (object.valueCharacterList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueCharacterList");
+        jacksonSerializer.writeStartArray();
+        for (Character item: object.valueCharacterList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueDoubleList
+      if (object.valueDoubleList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueDoubleList");
+        jacksonSerializer.writeStartArray();
+        for (Double item: object.valueDoubleList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueEnumList
+      if (object.valueEnumList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueEnumList");
+        jacksonSerializer.writeStartArray();
+        for (BeanEnum71 item: object.valueEnumList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item.toString());
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueFloatList
+      if (object.valueFloatList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueFloatList");
+        jacksonSerializer.writeStartArray();
+        for (Float item: object.valueFloatList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueIntList
+      if (object.getValueIntList()!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueIntList");
+        jacksonSerializer.writeStartArray();
+        for (Integer item: object.getValueIntList()) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueLongList
+      if (object.valueLongList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueLongList");
+        jacksonSerializer.writeStartArray();
+        for (Long item: object.valueLongList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueShortList
+      if (object.valueShortList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueShortList");
+        jacksonSerializer.writeStartArray();
+        for (Short item: object.valueShortList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueStringList
+      if (object.valueStringList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueStringList");
+        jacksonSerializer.writeStartArray();
+        for (String item: object.valueStringList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
       // field valueBigDecimalList
       if (object.valueBigDecimalList!=null)  {
-        int n=object.valueBigDecimalList.size();
-        BigDecimal item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigDecimalList");
         jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueBigDecimalList.get(i);
+        for (BigDecimal item: object.valueBigDecimalList) {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
@@ -72,13 +235,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
 
       // field valueBigIntegerList
       if (object.valueBigIntegerList!=null)  {
-        int n=object.valueBigIntegerList.size();
-        BigInteger item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigIntegerList");
         jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueBigIntegerList.get(i);
+        for (BigInteger item: object.valueBigIntegerList) {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
@@ -111,15 +271,167 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
 
       // Serialized Field:
 
+      // field name
+      if (object.name!=null)  {
+        jacksonSerializer.writeStringField("name", object.name);
+      }
+
+      // field valueBeanList
+      if (object.valueBeanList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueBeanList");
+        jacksonSerializer.writeStartArray();
+        for (BeanElement71 item: object.valueBeanList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            context.mapperFor(BeanElement71.class).serializeOnJacksonAsString(context, item, wrapper);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueByteList
+      if (object.valueByteList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueByteList");
+        jacksonSerializer.writeStartArray();
+        for (Byte item: object.valueByteList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(PrimitiveUtil.writeByte(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueCharacterList
+      if (object.valueCharacterList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueCharacterList");
+        jacksonSerializer.writeStartArray();
+        for (Character item: object.valueCharacterList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(PrimitiveUtil.writeCharacter(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueDoubleList
+      if (object.valueDoubleList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueDoubleList");
+        jacksonSerializer.writeStartArray();
+        for (Double item: object.valueDoubleList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(PrimitiveUtil.writeDouble(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueEnumList
+      if (object.valueEnumList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueEnumList");
+        jacksonSerializer.writeStartArray();
+        for (BeanEnum71 item: object.valueEnumList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item.toString());
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueFloatList
+      if (object.valueFloatList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueFloatList");
+        jacksonSerializer.writeStartArray();
+        for (Float item: object.valueFloatList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(PrimitiveUtil.writeFloat(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueIntList
+      if (object.getValueIntList()!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueIntList");
+        jacksonSerializer.writeStartArray();
+        for (Integer item: object.getValueIntList()) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(PrimitiveUtil.writeInteger(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueLongList
+      if (object.valueLongList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueLongList");
+        jacksonSerializer.writeStartArray();
+        for (Long item: object.valueLongList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(PrimitiveUtil.writeLong(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueShortList
+      if (object.valueShortList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueShortList");
+        jacksonSerializer.writeStartArray();
+        for (Short item: object.valueShortList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(PrimitiveUtil.writeShort(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
+      // field valueStringList
+      if (object.valueStringList!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueStringList");
+        jacksonSerializer.writeStartArray();
+        for (String item: object.valueStringList) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+
       // field valueBigDecimalList
       if (object.valueBigDecimalList!=null)  {
-        int n=object.valueBigDecimalList.size();
-        BigDecimal item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigDecimalList");
         jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueBigDecimalList.get(i);
+        for (BigDecimal item: object.valueBigDecimalList) {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
@@ -131,13 +443,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
 
       // field valueBigIntegerList
       if (object.valueBigIntegerList!=null)  {
-        int n=object.valueBigIntegerList.size();
-        BigInteger item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigIntegerList");
         jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueBigIntegerList.get(i);
+        for (BigInteger item: object.valueBigIntegerList) {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
@@ -172,12 +481,175 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
 
       // Persisted fields:
 
+      // field name
+      if (object.name!=null) {
+        xmlSerializer.writeStartElement("name");
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueBeanList
+      if (object.valueBeanList!=null)  {
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueBeanList");
+        for (BeanElement71 item: object.valueBeanList) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            context.mapperFor(BeanElement71.class).serializeOnXml(context, item, wrapper, 1);
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueByteList
+      if (object.valueByteList!=null)  {
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueByteList");
+        for (Byte item: object.valueByteList) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeInt(item);
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueCharacterList
+      if (object.valueCharacterList!=null)  {
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueCharacterList");
+        for (Character item: object.valueCharacterList) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeInt(item);
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueDoubleList
+      if (object.valueDoubleList!=null)  {
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueDoubleList");
+        for (Double item: object.valueDoubleList) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeDouble(item);
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueEnumList
+      if (object.valueEnumList!=null)  {
+        for (BeanEnum71 item: object.valueEnumList) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("valueEnumList");
+          } else {
+            if (item!=null)  {
+              xmlSerializer.writeStartElement("valueEnumList");
+              xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.toString()));
+              xmlSerializer.writeEndElement();
+            }
+          }
+        }
+      }
+
+      // field valueFloatList
+      if (object.valueFloatList!=null)  {
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueFloatList");
+        for (Float item: object.valueFloatList) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeFloat(item);
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueIntList
+      if (object.getValueIntList()!=null)  {
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueIntList");
+        for (Integer item: object.getValueIntList()) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeInt(item);
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueLongList
+      if (object.valueLongList!=null)  {
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueLongList");
+        for (Long item: object.valueLongList) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeLong(item);
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueShortList
+      if (object.valueShortList!=null)  {
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueShortList");
+        for (Short item: object.valueShortList) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeInt(item);
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueStringList
+      if (object.valueStringList!=null)  {
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueStringList");
+        for (String item: object.valueStringList) {
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item));
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
       // field valueBigDecimalList
       if (object.valueBigDecimalList!=null)  {
-        int n=object.valueBigDecimalList.size();
-        BigDecimal item;
-        for (int i=0; i<n; i++) {
-          item=object.valueBigDecimalList.get(i);
+        for (BigDecimal item: object.valueBigDecimalList) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueBigDecimalList");
           } else {
@@ -190,12 +662,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
 
       // field valueBigIntegerList
       if (object.valueBigIntegerList!=null)  {
-        int n=object.valueBigIntegerList.size();
-        BigInteger item;
         // write wrapper tag
         xmlSerializer.writeStartElement("valueBigIntegerList");
-        for (int i=0; i<n; i++) {
-          item=object.valueBigIntegerList.get(i);
+        for (BigInteger item: object.valueBigIntegerList) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
@@ -245,6 +714,172 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
 
         // Parse fields:
         switch (fieldName) {
+            case "name":
+              // field name
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.name=jacksonParser.getText();
+              }
+            break;
+            case "valueBeanList":
+              // field valueBeanList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                LinkedList<BeanElement71> collection=new LinkedList<>();
+                BeanElement71 item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=context.mapperFor(BeanElement71.class).parseOnJackson(context, wrapper);
+                  }
+                  collection.add(item);
+                }
+                instance.valueBeanList=collection;
+              }
+            break;
+            case "valueByteList":
+              // field valueByteList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Byte> collection=new ArrayList<>();
+                Byte item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=jacksonParser.getByteValue();
+                  }
+                  collection.add(item);
+                }
+                instance.valueByteList=collection;
+              }
+            break;
+            case "valueCharacterList":
+              // field valueCharacterList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Character> collection=new ArrayList<>();
+                Character item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=Character.valueOf((char)jacksonParser.getIntValue());
+                  }
+                  collection.add(item);
+                }
+                instance.valueCharacterList=collection;
+              }
+            break;
+            case "valueDoubleList":
+              // field valueDoubleList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Double> collection=new ArrayList<>();
+                Double item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=jacksonParser.getDoubleValue();
+                  }
+                  collection.add(item);
+                }
+                instance.valueDoubleList=collection;
+              }
+            break;
+            case "valueEnumList":
+              // field valueEnumList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                LinkedList<BeanEnum71> collection=new LinkedList<>();
+                BeanEnum71 item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=StringUtility.hasText(jacksonParser.getText())?BeanEnum71.valueOf(jacksonParser.getText()):null;
+                  }
+                  collection.add(item);
+                }
+                instance.valueEnumList=collection;
+              }
+            break;
+            case "valueFloatList":
+              // field valueFloatList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Float> collection=new ArrayList<>();
+                Float item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=jacksonParser.getFloatValue();
+                  }
+                  collection.add(item);
+                }
+                instance.valueFloatList=collection;
+              }
+            break;
+            case "valueIntList":
+              // field valueIntList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Integer> collection=new ArrayList<>();
+                Integer item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=jacksonParser.getIntValue();
+                  }
+                  collection.add(item);
+                }
+                instance.setValueIntList(collection);
+              }
+            break;
+            case "valueLongList":
+              // field valueLongList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Long> collection=new ArrayList<>();
+                Long item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=jacksonParser.getLongValue();
+                  }
+                  collection.add(item);
+                }
+                instance.valueLongList=collection;
+              }
+            break;
+            case "valueShortList":
+              // field valueShortList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Short> collection=new ArrayList<>();
+                Short item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=jacksonParser.getShortValue();
+                  }
+                  collection.add(item);
+                }
+                instance.valueShortList=collection;
+              }
+            break;
+            case "valueStringList":
+              // field valueStringList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<String> collection=new ArrayList<>();
+                String item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=jacksonParser.getText();
+                  }
+                  collection.add(item);
+                }
+                instance.valueStringList=collection;
+              }
+            break;
             case "valueBigDecimalList":
               // field valueBigDecimalList
               if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
@@ -316,6 +951,174 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
 
         // Parse fields:
         switch (fieldName) {
+            case "name":
+              // field name
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.name=jacksonParser.getText();
+              }
+            break;
+            case "valueBeanList":
+              // field valueBeanList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                LinkedList<BeanElement71> collection=new LinkedList<>();
+                BeanElement71 item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=context.mapperFor(BeanElement71.class).parseOnJacksonAsString(context, wrapper);
+                  }
+                  collection.add(item);
+                }
+                instance.valueBeanList=collection;
+              }
+            break;
+            case "valueByteList":
+              // field valueByteList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Byte> collection=new ArrayList<>();
+                Byte item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=PrimitiveUtil.readByte(jacksonParser.getText(), null);
+                  }
+                  collection.add(item);
+                }
+                instance.valueByteList=collection;
+              }
+            break;
+            case "valueCharacterList":
+              // field valueCharacterList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Character> collection=new ArrayList<>();
+                Character item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=PrimitiveUtil.readCharacter(jacksonParser.getText(), null);
+                  }
+                  collection.add(item);
+                }
+                instance.valueCharacterList=collection;
+              }
+            break;
+            case "valueDoubleList":
+              // field valueDoubleList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Double> collection=new ArrayList<>();
+                Double item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=PrimitiveUtil.readDouble(jacksonParser.getText(), null);
+                  }
+                  collection.add(item);
+                }
+                instance.valueDoubleList=collection;
+              }
+            break;
+            case "valueEnumList":
+              // field valueEnumList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                LinkedList<BeanEnum71> collection=new LinkedList<>();
+                BeanEnum71 item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=StringUtility.hasText(jacksonParser.getText())?BeanEnum71.valueOf(jacksonParser.getText()):null;
+                  }
+                  collection.add(item);
+                }
+                instance.valueEnumList=collection;
+              }
+            break;
+            case "valueFloatList":
+              // field valueFloatList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Float> collection=new ArrayList<>();
+                Float item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=PrimitiveUtil.readFloat(jacksonParser.getText(), null);
+                  }
+                  collection.add(item);
+                }
+                instance.valueFloatList=collection;
+              }
+            break;
+            case "valueIntList":
+              // field valueIntList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Integer> collection=new ArrayList<>();
+                Integer item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                  }
+                  collection.add(item);
+                }
+                instance.setValueIntList(collection);
+              }
+            break;
+            case "valueLongList":
+              // field valueLongList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Long> collection=new ArrayList<>();
+                Long item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=PrimitiveUtil.readLong(jacksonParser.getText(), null);
+                  }
+                  collection.add(item);
+                }
+                instance.valueLongList=collection;
+              }
+            break;
+            case "valueShortList":
+              // field valueShortList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Short> collection=new ArrayList<>();
+                Short item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=PrimitiveUtil.readShort(jacksonParser.getText(), null);
+                  }
+                  collection.add(item);
+                }
+                instance.valueShortList=collection;
+              }
+            break;
+            case "valueStringList":
+              // field valueStringList
+              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+                ArrayList<String> collection=new ArrayList<>();
+                String item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=jacksonParser.getText();
+                    }
+                  }
+                  collection.add(item);
+                }
+                instance.valueStringList=collection;
+              }
+            break;
             case "valueBigDecimalList":
               // field valueBigDecimalList
               if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
@@ -374,6 +1177,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
       XMLStreamReader2 xmlParser = wrapper.xmlParser;
       BeanElement71 instance = createInstance();
       int eventType = currentEventType;
+      boolean read=true;
 
       if (currentEventType == 0) {
         eventType = xmlParser.next();
@@ -385,11 +1189,217 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
 
       //sub-elements
       while (xmlParser.hasNext() && !elementNameStack.isEmpty()) {
-        eventType = xmlParser.next();
+        if (read) {
+          eventType = xmlParser.next();
+        }
+        read=true;
         switch(eventType) {
             case XMLEvent.START_ELEMENT:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
+                  case "name":
+                    // property name
+                    instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                  break;
+                  case "valueBeanList":
+                    // property valueBeanList
+                     {
+                      LinkedList<BeanElement71> collection=new LinkedList<>();
+                      BeanElement71 item;
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueBeanList")) {
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=context.mapperFor(BeanElement71.class).parseOnXml(context, wrapper, eventType);
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.valueBeanList=collection;
+                    }
+                  break;
+                  case "valueByteList":
+                    // property valueByteList
+                     {
+                      ArrayList<Byte> collection=new ArrayList<>();
+                      Byte item;
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueByteList")) {
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=(byte)PrimitiveUtil.readByte(xmlParser.getElementAsInt(), null);
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.valueByteList=collection;
+                    }
+                  break;
+                  case "valueCharacterList":
+                    // property valueCharacterList
+                     {
+                      ArrayList<Character> collection=new ArrayList<>();
+                      Character item;
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueCharacterList")) {
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=(char)PrimitiveUtil.readCharacter(xmlParser.getElementAsInt(), null);
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.valueCharacterList=collection;
+                    }
+                  break;
+                  case "valueDoubleList":
+                    // property valueDoubleList
+                     {
+                      ArrayList<Double> collection=new ArrayList<>();
+                      Double item;
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueDoubleList")) {
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=PrimitiveUtil.readDouble(xmlParser.getElementAsDouble(), null);
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.valueDoubleList=collection;
+                    }
+                  break;
+                  case "valueEnumList":
+                    // property valueEnumList
+                     {
+                      LinkedList<BeanEnum71> collection=new LinkedList<>();
+                      BeanEnum71 item;
+                      // add first element
+                      if (xmlParser.isEmptyElement()) {
+                        item=null;
+                        xmlParser.nextTag();
+                      } else {
+                        item=BeanEnum71.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                      }
+                      collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("valueEnumList")) {
+                        if (xmlParser.getName().toString().equals("valueEnumList")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=BeanEnum71.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.valueEnumList=collection;
+                      read=false;
+                    }
+                  break;
+                  case "valueFloatList":
+                    // property valueFloatList
+                     {
+                      ArrayList<Float> collection=new ArrayList<>();
+                      Float item;
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueFloatList")) {
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=PrimitiveUtil.readFloat(xmlParser.getElementAsFloat(), null);
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.valueFloatList=collection;
+                    }
+                  break;
+                  case "valueIntList":
+                    // property valueIntList
+                     {
+                      ArrayList<Integer> collection=new ArrayList<>();
+                      Integer item;
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueIntList")) {
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=PrimitiveUtil.readInteger(xmlParser.getElementAsInt(), null);
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.setValueIntList(collection);
+                    }
+                  break;
+                  case "valueLongList":
+                    // property valueLongList
+                     {
+                      ArrayList<Long> collection=new ArrayList<>();
+                      Long item;
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueLongList")) {
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=PrimitiveUtil.readLong(xmlParser.getElementAsLong(), null);
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.valueLongList=collection;
+                    }
+                  break;
+                  case "valueShortList":
+                    // property valueShortList
+                     {
+                      ArrayList<Short> collection=new ArrayList<>();
+                      Short item;
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueShortList")) {
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=(short)PrimitiveUtil.readShort(xmlParser.getElementAsInt(), null);
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.valueShortList=collection;
+                    }
+                  break;
+                  case "valueStringList":
+                    // property valueStringList
+                     {
+                      ArrayList<String> collection=new ArrayList<>();
+                      String item;
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueStringList")) {
+                        if (xmlParser.getName().toString().equals("item")) {
+                          if (xmlParser.isEmptyElement()) {
+                            item=null;
+                            xmlParser.nextTag();
+                          } else {
+                            item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                          }
+                          collection.add(item);
+                        }
+                      }
+                      instance.valueStringList=collection;
+                    }
+                  break;
                   case "valueBigDecimalList":
                     // property valueBigDecimalList
                      {
@@ -398,7 +1408,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                       // add first element
                       if (xmlParser.isEmptyElement()) {
                         item=null;
-                        xmlParser.skipElement();
+                        xmlParser.nextTag();
                       } else {
                         item=BigDecimalUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                       }
@@ -407,6 +1417,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                         if (xmlParser.getName().toString().equals("valueBigDecimalList")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
+                            xmlParser.nextTag();
                           } else {
                             item=BigDecimalUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                           }
@@ -414,6 +1425,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                         }
                       }
                       instance.valueBigDecimalList=collection;
+                      read=false;
                     }
                   break;
                   case "valueBigIntegerList":
@@ -425,7 +1437,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
-                            xmlParser.skipElement();
+                            xmlParser.nextTag();
                           } else {
                             item=BigIntegerUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                           }

@@ -61,6 +61,7 @@ public class TestKripton71 extends BaseProcessorTest {
 		
 		bean.valueCharacterList=new ArrayList<>();
 		bean.valueCharacterList.add(null);
+		bean.valueCharacterList.add('a');
 		
 		bean.valueDoubleList=new ArrayList<>();		
 		
@@ -84,9 +85,10 @@ public class TestKripton71 extends BaseProcessorTest {
 		bean.valueShortList=new LinkedList<>();
 		bean.valueShortList.add((short)1);
 		bean.valueShortList.add((short)2);
-		
 
 		bean.valueStringList=new ArrayList<>();
+		bean.valueStringList.add("check1");
+		bean.valueStringList.add("check2");
 		
 		bean.zalueStringFinal="final";
 		

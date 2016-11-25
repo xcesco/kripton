@@ -956,6 +956,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       XMLStreamReader2 xmlParser = wrapper.xmlParser;
       BeanElement70 instance = createInstance();
       int eventType = currentEventType;
+      boolean read=true;
 
       if (currentEventType == 0) {
         eventType = xmlParser.next();
@@ -967,7 +968,10 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       //sub-elements
       while (xmlParser.hasNext() && !elementNameStack.isEmpty()) {
-        eventType = xmlParser.next();
+        if (read) {
+          eventType = xmlParser.next();
+        }
+        read=true;
         switch(eventType) {
             case XMLEvent.START_ELEMENT:
               currentTag = xmlParser.getName().toString();

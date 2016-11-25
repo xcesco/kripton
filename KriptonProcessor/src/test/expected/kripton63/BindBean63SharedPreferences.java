@@ -74,7 +74,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   public void write(Bean63 bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putString("id",String.valueOf(bean.id));
-    editor.putString("value",bean.value );
+    editor.putString("value",bean.value);
     if (bean.valueMapStringByte!=null) editor.putString("valueMapStringByte",ProcessorHelper.asString(bean.valueMapStringByte)); else editor.putString("valueMapStringByte", null);
     if (bean.valueMapEnumByte!=null) editor.putString("valueMapEnumByte",ProcessorHelper.asString(bean.valueMapEnumByte)); else editor.putString("valueMapEnumByte", null);
 

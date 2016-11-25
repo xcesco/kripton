@@ -77,13 +77,13 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
    */
   public void write(AppPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("name",bean.name );
-    editor.putString("description",bean.getDescription() );
-    editor.putFloat("valueFloat",bean.valueFloat );
-    editor.putBoolean("valueBoolean",(boolean)bean.valueBoolean );
+    editor.putString("name",bean.name);
+    editor.putString("description",bean.getDescription());
+    editor.putFloat("valueFloat",bean.valueFloat);
+    editor.putBoolean("valueBoolean",(boolean)bean.valueBoolean);
     if (bean.getStringArray()!=null) editor.putString("stringArray",ProcessorHelper.asString(CollectionUtility.asList(bean.getStringArray(), ArrayList.class))); else editor.putString("stringArray", null);
     if (bean.stringList!=null) editor.putString("stringList",ProcessorHelper.asString(bean.stringList)); else editor.putString("stringList", null);
-    editor.putInt("valueInt",(int)bean.valueInt );
+    editor.putInt("valueInt",(int)bean.valueInt);
     if (bean.valueLong!=null) editor.putString("valueLong",String.valueOf(bean.valueLong)); else editor.putString("valueLong", null);
 
     editor.commit();

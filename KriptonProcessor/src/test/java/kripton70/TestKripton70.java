@@ -40,28 +40,15 @@ public class TestKripton70 extends BaseProcessorTest {
 	}
 	
 	@Test
-	public void testBeanAttribute70() throws IOException, InstantiationException, IllegalAccessException
-	{
-		buildBindProcessorTest(BeanAttribute70.class, BeanEnum.class);
-	}
-	
-	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException
 	{
-		//buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
-		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
-		
 		Assert.assertNotNull(new BeanElement70BindMap());
 		
 		BeanElement70 bean=new BeanElement70();
 		
 		bean.valueBigDecimal=BigDecimal.valueOf(11.0);
 		bean.valueBigInteger=BigInteger.valueOf(10);
-		
-		
 		bean.valueEnum=BeanEnum.VALUE_2;
-		
-		
 		bean.valueCalendar=Calendar.getInstance();
 		bean.valueCurrency=Currency.getInstance(Locale.ITALY);
 		bean.valueDate=new Date();
@@ -69,9 +56,6 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueTime=new Time(0);
 		bean.valueTimeZone=TimeZone.getDefault();
 		bean.valueUrl=new URL("http://github.com");
-		
-		
-		
 		bean.id=25;
 		bean.valueBean=new BeanElement70();
 		bean.valueBean.id=45;
@@ -79,12 +63,10 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueBool=true;
 		bean.valueByteType=4;
 		bean.valueByte=8;
-		
 		bean.valueShortType=25;
 		bean.valueShort=25;
 		bean.valueCharType='a';
 		bean.valueChar='a';
-		
 		bean.valueIntType=12;
 		bean.valueInt=12;
 		bean.valueLongType=24;
@@ -93,49 +75,12 @@ public class TestKripton70 extends BaseProcessorTest {
 		bean.valueFloat=24f;
 		bean.valueDoubleType=24.0;
 		bean.valueDouble=24.0;
-		
-		
 		bean.valueString="\"ciao";
-		
-		//bean.valueCDataString="qq";
 		
 		serializeAndParse(bean, BinderType.XML);
 		serializeAndParse(bean, BinderType.JSON);
 		serializeAndParse(bean, BinderType.YAML);
 		serializeAndParse(bean, BinderType.PROPERTIES);
-	}
-	
-	@Test
-	public void testBeanAttribute70Compiled() throws IOException, InstantiationException, IllegalAccessException
-	{
-		buildBindProcessorTest(BeanAttribute70.class);
-		//http://www.studytrails.com/java/xml/woodstox/java-xml-stax-woodstox-basic-parsing/
-		
-		Assert.assertNotNull(new BeanElement70BindMap());
-		
-		BeanAttribute70 bean=new BeanAttribute70();
-		bean.id=25;
-		bean.valueBoolType=true;
-		bean.valueByteType=45;
-		bean.valueCharType='a';
-		bean.valueShortType=25;
-		bean.valueIntType=12;
-		bean.valueLongType=56;
-		bean.valueFloatType=1f;
-		bean.valueDoubleType=20;
-		bean.valueBool=true;
-		bean.setValueByte((byte) 45);
-		bean.valueChar='a';
-		bean.valueShort=25;
-		bean.valueInt=12;
-		bean.valueLong=56L;
-		bean.valueFloat=1f;
-		bean.valueDouble=20.0;
-		bean.valueString="hello!";
-		
-		//serializeAndParse(bean, BinderType.XML);
-		//serializeAndParse(bean, BinderType.JSON);
-		serializeAndParse(bean, BinderType.YAML);
 	}
 
 	/**

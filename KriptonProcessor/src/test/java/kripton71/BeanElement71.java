@@ -10,7 +10,7 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 
-@BindType(allFields=false)
+@BindType
 public class BeanElement71 {
 	
 	public BeanElement71()

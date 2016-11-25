@@ -204,6 +204,7 @@ public class BindTypeBuilder {
 		methodBuilder.addStatement("$T xmlParser = wrapper.xmlParser", XMLStreamReader2.class);
 		methodBuilder.addStatement("$T instance = createInstance()", item.getElement());
 		methodBuilder.addStatement("int eventType = currentEventType");
+		methodBuilder.addStatement("boolean read=true");
 
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (currentEventType == 0)");
@@ -219,7 +220,12 @@ public class BindTypeBuilder {
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("//sub-elements\n");
 		methodBuilder.beginControlFlow("while (xmlParser.hasNext() && !elementNameStack.isEmpty())");
-		methodBuilder.addStatement("eventType = xmlParser.next()");
+		//methodBuilder.beginControlFlow("while (xmlParser.hasNext())");
+		
+		methodBuilder.beginControlFlow("if (read)");
+				methodBuilder.addStatement("eventType = xmlParser.next()");
+		methodBuilder.endControlFlow();
+		methodBuilder.addStatement("read=true");
 
 		methodBuilder.beginControlFlow("switch(eventType)$>");
 		methodBuilder.addCode("case $T.START_ELEMENT:\n$>", XMLEvent.class);
@@ -334,7 +340,7 @@ public class BindTypeBuilder {
 		BindTransform bindTransform;
 		// start and inner bean
 		methodBuilder.addStatement("currentTag = xmlParser.getName().toString()");
-		// methodBuilder.addStatement("elementNameStack.push(currentTag)");
+		//methodBuilder.addStatement("elementNameStack.push(currentTag)");
 
 		int count = 0;
 		// count property to manage

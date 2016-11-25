@@ -68,9 +68,9 @@ public class BindSecurityPreferencesSharedPreferences extends AbstractSharedPref
    */
   public void write(SecurityPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("fcmId",bean.fcmId );
+    editor.putString("fcmId",bean.fcmId);
     if (bean.authorizationToken!=null) editor.putString("authorizationToken",writeObj(bean.authorizationToken)); else editor.putString("authorizationToken", null);
-    editor.putString("deviceUid",bean.deviceUid );
+    editor.putString("deviceUid",bean.deviceUid);
     if (bean.userIdentity!=null) editor.putString("userIdentity",writeObj(bean.userIdentity)); else editor.putString("userIdentity", null);
 
     editor.commit();

@@ -141,19 +141,19 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public void write(Bean bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putBoolean("valueBoolType",(boolean)bean.valueBoolType );
-    if (bean.valueBool!=null) editor.putBoolean("valueBool",(boolean)bean.valueBool );
-    editor.putInt("valueByteType",(int)bean.valueByteType );
-    if (bean.valueByte!=null) editor.putInt("valueByte",(int)bean.valueByte );
-    editor.putInt("valueShortType",(int)bean.valueShortType );
-    if (bean.valueShort!=null) editor.putInt("valueShort",(int)bean.valueShort );
-    editor.putInt("valueIntType",(int)bean.valueIntType );
-    if (bean.valueInt!=null) editor.putInt("valueInt",(int)bean.valueInt );
-    editor.putString("valueString",bean.valueString );
-    editor.putInt("valueCharType",(char)bean.valueCharType );
-    if (bean.valueChar!=null) editor.putInt("valueChar",(char)bean.valueChar );
-    editor.putFloat("valueFloatType",bean.valueFloatType );
-    if (bean.valueFloat!=null) editor.putFloat("valueFloat",bean.valueFloat );
+    editor.putBoolean("valueBoolType",(boolean)bean.valueBoolType);
+    if (bean.valueBool!=null) editor.putBoolean("valueBool",(boolean)bean.valueBool);
+    editor.putInt("valueByteType",(int)bean.valueByteType);
+    if (bean.valueByte!=null) editor.putInt("valueByte",(int)bean.valueByte);
+    editor.putInt("valueShortType",(int)bean.valueShortType);
+    if (bean.valueShort!=null) editor.putInt("valueShort",(int)bean.valueShort);
+    editor.putInt("valueIntType",(int)bean.valueIntType);
+    if (bean.valueInt!=null) editor.putInt("valueInt",(int)bean.valueInt);
+    editor.putString("valueString",bean.valueString);
+    editor.putInt("valueCharType",(char)bean.valueCharType);
+    if (bean.valueChar!=null) editor.putInt("valueChar",(char)bean.valueChar);
+    editor.putFloat("valueFloatType",bean.valueFloatType);
+    if (bean.valueFloat!=null) editor.putFloat("valueFloat",bean.valueFloat);
     if (bean.valueBigInteger!=null) editor.putString("valueBigInteger",bean.valueBigInteger.toString() ); else editor.putString("valueBigInteger", null);
     if (bean.valueBigDecimal!=null) editor.putString("valueBigDecimal",bean.valueBigDecimal.toPlainString() ); else editor.putString("valueBigDecimal", null);
     if (bean.valueEnumType!=null) editor.putString("valueEnumType",bean.valueEnumType.toString() ); else editor.putString("valueEnumType", null);

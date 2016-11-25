@@ -71,7 +71,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
    */
   public void write(AppPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("name",bean.name );
+    editor.putString("name",bean.name);
     if (bean.userAccessToken!=null) editor.putString("userAccessToken",writeObj(bean.userAccessToken)); else editor.putString("userAccessToken", null);
 
     editor.commit();
