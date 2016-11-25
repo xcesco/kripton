@@ -25,7 +25,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 	protected boolean useForEach;
 
 	public AbstractCollectionTransform(ParameterizedTypeName clazz, boolean useForEach) {
-		this.useForEach=true;
+		this.useForEach=useForEach;
 
 		this.collectionTypeName = clazz;
 		this.elementTypeName = collectionTypeName.typeArguments.get(0);
