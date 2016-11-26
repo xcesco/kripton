@@ -31,13 +31,12 @@ import all.IssueBaseTest;
  * @author xcesco
  *
  */
-public class Issue7Test4 extends IssueBaseTest<Bean5> {
-
+public class Issue7Test4 extends IssueBaseTest<Bean4> {
 
 	@Before
 	public void setup()
 	{
-		beanInput=new Bean5();
+		beanInput=new Bean4();
 		
 		beanInput.setName("Tonj");
 		beanInput.setSurname("Manero");
@@ -51,5 +50,6 @@ public class Issue7Test4 extends IssueBaseTest<Bean5> {
 		array.add(4);
 		beanInput.tickets=array;
 	}
-
+	
+	
 }

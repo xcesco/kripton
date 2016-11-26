@@ -31,12 +31,12 @@ import kripton04.Issue4Test2;
 import kripton05.Issue5Test1;
 import kripton05.Issue5Test2;
 import kripton06.Issue6Test0;
-import kripton07.Issue7Test0;
 import kripton07.Issue7Test1;
 import kripton07.Issue7Test2;
 import kripton07.Issue7Test3;
 import kripton07.Issue7Test4;
 import kripton07.Issue7Test5;
+import kripton07.Issue7Test6;
 import kripton08.Issue8Test1;
 import kripton08.Issue8Test2;
 import kripton08.Issue8Test3;
@@ -81,7 +81,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	Issue4Test0.class,Issue4Test1.class,Issue4Test2.class,
 	                  Issue5Test1.class,Issue5Test2.class,
 	Issue6Test0.class,
-	Issue7Test0.class, Issue7Test1.class , Issue7Test2.class, Issue7Test3.class, Issue7Test4.class, Issue7Test5.class,
+	Issue7Test1.class, Issue7Test2.class , Issue7Test3.class, Issue7Test4.class, Issue7Test5.class, Issue7Test6.class,
 	                   Issue8Test1.class , Issue8Test2.class, Issue8Test3.class, Issue8Test4.class,
 	                   Issue10Test1.class , Issue10Test2.class, Issue10Test3.class,
 	                   Issue11Test1.class,

@@ -49,7 +49,7 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_FIELD_TYPE("fieldType"),
 	ATTRIBUTE_ENABLED("enabled"),
 	
-	ATTRIBUTE_ELEMENT_NAME("elementName"),
+	//ATTRIBUTE_ELEMENT_NAME("elementName"),
 	ATTRIBUTE_ORDER("order"),	
 	ATTRIBUTE_MAP_KEY_NAME("mapKeyName"),
 	ATTRIBUTE_MAP_VALUE_NAME("mapValueName"),

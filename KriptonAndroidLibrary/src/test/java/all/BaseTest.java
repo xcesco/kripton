@@ -31,5 +31,5 @@ public class BaseTest {
 		
 	}
 	
-	protected Logger logger = Logger.getAnonymousLogger();
+	protected Logger logger = Logger.getGlobal();
 }

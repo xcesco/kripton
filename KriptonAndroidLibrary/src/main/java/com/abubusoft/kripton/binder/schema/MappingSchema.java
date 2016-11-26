@@ -402,10 +402,15 @@ public class MappingSchema {
 				order = Bind.DEFAULT_ORDER;
 
 				if (bindAnnotation != null) {
-					nameFromAnnotation = bindAnnotation.value();
-					elementNameFromAnnotation = bindAnnotation.elementName();
+					nameFromAnnotation = bindAnnotation.value();					
 					order = bindAnnotation.order();
 				}
+				
+				if (bindXmlAnnotation!=null)
+				{
+					elementNameFromAnnotation = bindXmlAnnotation.elementTag();	
+				}
+				
 				counters.elementSchemaCount++;
 
 				ElementSchema elementSchema = new ElementSchema();

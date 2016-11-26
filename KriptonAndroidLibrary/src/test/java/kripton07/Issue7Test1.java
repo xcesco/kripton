@@ -26,17 +26,16 @@ import org.junit.Before;
 
 import all.IssueBaseTest;
 
-
 /**
  * @author xcesco
  *
  */
-public class Issue7Test1 extends IssueBaseTest<Bean2> {
+public class Issue7Test1 extends IssueBaseTest<Bean1> {
 
 	@Before
 	public void setup()
 	{
-		beanInput=new Bean2();
+		beanInput=new Bean1();
 		
 		beanInput.setName("Tonj");
 		beanInput.setSurname("Manero");
@@ -44,6 +43,7 @@ public class Issue7Test1 extends IssueBaseTest<Bean2> {
 		Calendar calendar=Calendar.getInstance();
 		calendar.set(1965, 6, 12);
 		beanInput.setBirthday(calendar.getTime());
+		
 		List<Integer> array=new ArrayList<Integer>();
 		array.add(1);
 		array.add(2);

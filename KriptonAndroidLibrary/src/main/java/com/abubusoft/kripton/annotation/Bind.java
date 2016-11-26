@@ -49,6 +49,7 @@ public @interface Bind {
 	/**
 	 * true if this field must be persisted 
 	 * @return
+	 * 		true if field is enabled
 	 */
 	public boolean enabled() default true;
 	
@@ -66,7 +67,7 @@ public @interface Bind {
 	 * 
 	 * @return name of elements of collection. default is ""
 	 */
-	public String elementName() default "";
+	//public String elementName() default "";
 
 	/**
 	 * name of element rapresents key of a map. <b>Used only by map type.</b>
