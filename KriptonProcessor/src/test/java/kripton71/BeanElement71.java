@@ -10,7 +10,7 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 
-@BindType
+@BindType(allFields=false)
 public class BeanElement71 {
 	
 	public BeanElement71()
@@ -25,13 +25,13 @@ public class BeanElement71 {
 	
 	public String name;
 	
+	@Bind(enabled=true)
 	@BindXml(elementTag="item")
 	public LinkedList<BeanElement71> valueBeanList;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	public LinkedList<BigDecimal> valueBigDecimalList;
-	
-	@Bind(enabled=true)
+		
 	@BindXml(elementTag="item")
 	public LinkedList<BigInteger> valueBigIntegerList;
 	
