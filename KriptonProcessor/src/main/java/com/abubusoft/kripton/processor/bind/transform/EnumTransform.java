@@ -48,7 +48,7 @@ public class EnumTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		if (property.isNullable() && !property.isElementInCollection()) {
+		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		switch (xmlType) {
@@ -68,7 +68,7 @@ public class EnumTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable() && !property.isElementInCollection()) {
+		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.endControlFlow();
 		}
 
@@ -81,10 +81,10 @@ public class EnumTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
-//		if (property.isElementInCollection())
-//		{
-//			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-//		} else 
+		if (property.isInCollection())
+		{
+			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+		} else 
 		{
 			methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.jacksonName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
 		}

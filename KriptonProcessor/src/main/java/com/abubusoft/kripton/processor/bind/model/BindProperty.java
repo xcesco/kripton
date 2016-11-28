@@ -19,7 +19,6 @@ import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
-import com.abubusoft.kripton.processor.bind.model.BindProperty.BindPropertyBuilder;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.squareup.javapoet.TypeName;
@@ -37,6 +36,14 @@ public class BindProperty extends ModelProperty {
 		private String tag;
 
 		private boolean nullable;
+		
+		protected boolean inCollection;
+
+		public BindPropertyBuilder inCollection(boolean inCollection) {
+			this.inCollection = inCollection;
+			
+			return this;
+		}
 
 		public BindPropertyBuilder(TypeName rawTypeName, BindProperty property) {
 			this.rawTypeName=rawTypeName;
@@ -44,6 +51,7 @@ public class BindProperty extends ModelProperty {
 			this.nullable=property.nullable;
 			this.xmlType=property.xmlInfo.xmlType;
 			this.tag=property.xmlInfo.tag;
+			this.inCollection=true;
 		}
 		
 		public BindProperty build()
@@ -52,7 +60,7 @@ public class BindProperty extends ModelProperty {
 			
 			property.propertyType=new ModelType(rawTypeName);
 			property.order=parentProperty.order;
-			property.elementInCollection=true;
+			property.inCollection=inCollection;
 			property.jacksonName=tag;
 			property.xmlInfo.xmlType=this.xmlType;
 			property.xmlInfo.tag=tag;
@@ -116,7 +124,7 @@ public class BindProperty extends ModelProperty {
 	/**
 	 * if true, means property is to write into a collection
 	 */
-	public boolean elementInCollection;
+	public boolean inCollection;
 
 	public String jacksonName;
 
@@ -134,12 +142,12 @@ public class BindProperty extends ModelProperty {
 		super(element);
 		
 		nullable=true;
-		elementInCollection=false;
+		inCollection=false;
 		xmlInfo=new XmlInfo();
 	}
 	
-	public boolean isElementInCollection() {
-		return elementInCollection;
+	public boolean isInCollection() {
+		return inCollection;
 	}
 
 	public boolean isNullable() {

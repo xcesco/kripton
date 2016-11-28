@@ -91,11 +91,12 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
-//		if (property.isElementInCollection()) {
-//			methodBuilder.addStatement("$L.writeString($T.write($L))", serializerName, NUMBER_UTIL_CLAZZ, getter(beanName, beanClass, property));
-//		} else {
+		// in a collection we need to insert only value, not field name
+		if (property.isInCollection()) {
+			methodBuilder.addStatement("$L.writeString($T.write($L))", serializerName, NUMBER_UTIL_CLAZZ, getter(beanName, beanClass, property));
+		} else {
 			methodBuilder.addStatement("$L.writeStringField($S, $T.write($L))", serializerName, property.jacksonName, NUMBER_UTIL_CLAZZ, getter(beanName, beanClass, property));
-		//}
+		}
 
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
@@ -111,7 +112,7 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 
-		if (property.isNullable() && !property.isElementInCollection()) {
+		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
@@ -132,7 +133,7 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable() && !property.isElementInCollection()) {
+		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.endControlFlow();
 		}
 

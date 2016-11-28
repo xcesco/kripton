@@ -200,11 +200,12 @@ public class MapTransformation extends AbstractBindTransform {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		
+			// fields are in objects, no in collection
 			BindTransform transformKey=BindTransformer.lookup(keyTypeName);
-			BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
+			BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).inCollection(false).elementName(property.mapKeyName).build();
 			
 			BindTransform transformValue=BindTransformer.lookup(valueTypeName);
-			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
+			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).inCollection(false).elementName(property.mapValueName).build();
 		
 			methodBuilder.addCode("// write wrapper tag\n");
 			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);

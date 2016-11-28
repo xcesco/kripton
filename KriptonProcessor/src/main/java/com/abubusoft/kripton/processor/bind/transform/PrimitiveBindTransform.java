@@ -81,7 +81,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		if (nullable && property.isNullable() && !property.isElementInCollection()) {
+		if (nullable && property.isNullable() && !property.isInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
@@ -104,7 +104,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (nullable && property.isNullable() && !property.isElementInCollection()) {
+		if (nullable && property.isNullable() && !property.isInCollection()) {
 			methodBuilder.endControlFlow();
 		}
 	}
@@ -115,12 +115,13 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
-//		if (property.isElementInCollection()) {
-//			// value don't need to be converted into string
-//			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
-//		} else {
+		// in a collection we need to insert only value, not field name
+		if (property.isInCollection()) {
+			// value don't need to be converted into string
+			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
+		} else {
 			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonName, getter(beanName, beanClass, property));
-		//}
+		}
 
 		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();
@@ -133,11 +134,12 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
-//		if (property.isElementInCollection()) {
-//			methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
-//		} else {
+		// in a collection we need to insert only value, not field name
+		if (property.isInCollection()) {
+			methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+		} else {
 			methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.jacksonName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
-		//}
+		}
 
 		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();

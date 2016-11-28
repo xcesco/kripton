@@ -79,12 +79,13 @@ public class ByteArrayTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
-//		if (property.isElementInCollection()) {
-//			// we need to write only value
-//			methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
-//		} else {
+		// in a collection we need to insert only value, not field name
+		if (property.isInCollection()) {
+			// we need to write only value
+			methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
+		} else {
 			methodBuilder.addStatement("$L.writeBinaryField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
-//		}
+		}
 
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
@@ -100,7 +101,7 @@ public class ByteArrayTransform extends AbstractBindTransform {
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 		
-		if (property.isNullable() && !property.isElementInCollection()) {
+		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
 		}
 		
@@ -119,7 +120,7 @@ public class ByteArrayTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable() && !property.isElementInCollection()) {
+		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.endControlFlow();
 		}
 	}

@@ -254,7 +254,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			}
 				
 				methodBuilder.beginControlFlow("if (item==null)");
-					methodBuilder.addStatement("$L.writeNullField($S)", serializerName, elementProperty.jacksonName);
+					methodBuilder.addStatement("$L.writeNull()", serializerName);
 				methodBuilder.nextControlFlow("else");
 					if (onString)
 					{

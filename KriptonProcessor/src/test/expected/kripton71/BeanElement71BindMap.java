@@ -73,10 +73,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueBigIntegerList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueBigIntegerList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueBigIntegerList", BigIntegerUtil.write(item));
+              jacksonSerializer.writeString(BigIntegerUtil.write(item));
             }
           }
         }
@@ -93,10 +93,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueByteList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueByteList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumberField("valueByteList", item);
+              jacksonSerializer.writeNumber(item);
             }
           }
         }
@@ -113,10 +113,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueCharacterList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueCharacterList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumberField("valueCharacterList", item);
+              jacksonSerializer.writeNumber(item);
             }
           }
         }
@@ -133,10 +133,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueDoubleList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueDoubleList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumberField("valueDoubleList", item);
+              jacksonSerializer.writeNumber(item);
             }
           }
         }
@@ -153,10 +153,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueEnumList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueEnumList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueEnumList", item.toString());
+              jacksonSerializer.writeString(item.toString());
             }
           }
         }
@@ -173,10 +173,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueFloatList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueFloatList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumberField("valueFloatList", item);
+              jacksonSerializer.writeNumber(item);
             }
           }
         }
@@ -193,10 +193,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.getValueIntList().get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueIntList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumberField("valueIntList", item);
+              jacksonSerializer.writeNumber(item);
             }
           }
         }
@@ -213,10 +213,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueLongList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueLongList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumberField("valueLongList", item);
+              jacksonSerializer.writeNumber(item);
             }
           }
         }
@@ -233,10 +233,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueShortList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueShortList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumberField("valueShortList", item);
+              jacksonSerializer.writeNumber(item);
             }
           }
         }
@@ -253,10 +253,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueStringList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueStringList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueStringList", item);
+              jacksonSerializer.writeString(item);
             }
           }
         }
@@ -273,10 +273,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueBeanList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueBeanList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeFieldName("valueBeanList");
               context.mapperFor(BeanElement71.class).serializeOnJackson(context, item, wrapper);
             }
           }
@@ -294,10 +293,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueBigDecimalList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueBigDecimalList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueBigDecimalList", BigDecimalUtil.write(item));
+              jacksonSerializer.writeString(BigDecimalUtil.write(item));
             }
           }
         }
@@ -337,10 +336,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueBigIntegerList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueBigIntegerList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueBigIntegerList", BigIntegerUtil.write(item));
+              jacksonSerializer.writeString(BigIntegerUtil.write(item));
             }
           }
         }
@@ -357,10 +356,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueByteList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueByteList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueByteList", PrimitiveUtil.writeByte(item));
+              jacksonSerializer.writeString(PrimitiveUtil.writeByte(item));
             }
           }
         }
@@ -377,10 +376,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueCharacterList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueCharacterList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueCharacterList", PrimitiveUtil.writeCharacter(item));
+              jacksonSerializer.writeString(PrimitiveUtil.writeCharacter(item));
             }
           }
         }
@@ -397,10 +396,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueDoubleList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueDoubleList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueDoubleList", PrimitiveUtil.writeDouble(item));
+              jacksonSerializer.writeString(PrimitiveUtil.writeDouble(item));
             }
           }
         }
@@ -417,10 +416,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueEnumList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueEnumList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueEnumList", item.toString());
+              jacksonSerializer.writeString(item.toString());
             }
           }
         }
@@ -437,10 +436,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueFloatList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueFloatList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueFloatList", PrimitiveUtil.writeFloat(item));
+              jacksonSerializer.writeString(PrimitiveUtil.writeFloat(item));
             }
           }
         }
@@ -457,10 +456,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.getValueIntList().get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueIntList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueIntList", PrimitiveUtil.writeInteger(item));
+              jacksonSerializer.writeString(PrimitiveUtil.writeInteger(item));
             }
           }
         }
@@ -477,10 +476,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueLongList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueLongList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueLongList", PrimitiveUtil.writeLong(item));
+              jacksonSerializer.writeString(PrimitiveUtil.writeLong(item));
             }
           }
         }
@@ -497,10 +496,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueShortList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueShortList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueShortList", PrimitiveUtil.writeShort(item));
+              jacksonSerializer.writeString(PrimitiveUtil.writeShort(item));
             }
           }
         }
@@ -517,10 +516,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueStringList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueStringList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueStringList", item);
+              jacksonSerializer.writeString(item);
             }
           }
         }
@@ -537,10 +536,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueBeanList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueBeanList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeFieldName("valueBeanList");
               context.mapperFor(BeanElement71.class).serializeOnJacksonAsString(context, item, wrapper);
             }
           }
@@ -558,10 +556,10 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
         for (int i=0; i<n; i++) {
           item=object.valueBigDecimalList.get(i);
           if (item==null) {
-            jacksonSerializer.writeNullField("valueBigDecimalList");
+            jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeStringField("valueBigDecimalList", BigDecimalUtil.write(item));
+              jacksonSerializer.writeString(BigDecimalUtil.write(item));
             }
           }
         }

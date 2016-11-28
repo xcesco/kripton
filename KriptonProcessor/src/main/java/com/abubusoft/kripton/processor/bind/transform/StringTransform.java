@@ -79,12 +79,12 @@ public class StringTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
-//		if (property.isElementInCollection()) {
-//			// we need to write only value
-//			methodBuilder.addStatement("$L.writeString($L)", serializerName, getter(beanName, beanClass, property));
-//		} else {
+		if (property.isInCollection()) {
+			// we need to write only value
+			methodBuilder.addStatement("$L.writeString($L)", serializerName, getter(beanName, beanClass, property));
+		} else {
 			methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));
-		//}
+		}
 
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
@@ -98,7 +98,7 @@ public class StringTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (!property.isElementInCollection()) {
+		if (!property.isInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
 		}
 
@@ -120,7 +120,7 @@ public class StringTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (!property.isElementInCollection()) {
+		if (!property.isInCollection()) {
 			methodBuilder.endControlFlow();
 		}
 	}
