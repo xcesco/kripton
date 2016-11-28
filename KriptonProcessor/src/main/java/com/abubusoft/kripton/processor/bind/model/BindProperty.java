@@ -21,6 +21,7 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 public class BindProperty extends ModelProperty {
@@ -45,6 +46,8 @@ public class BindProperty extends ModelProperty {
 			return this;
 		}
 
+		private boolean inCollection;
+
 		public BindPropertyBuilder(TypeName rawTypeName, BindProperty property) {
 			this.rawTypeName=rawTypeName;
 			this.parentProperty=property;
@@ -60,7 +63,11 @@ public class BindProperty extends ModelProperty {
 			
 			property.propertyType=new ModelType(rawTypeName);
 			property.order=parentProperty.order;
+<<<<<<< HEAD
 			property.inCollection=inCollection;
+=======
+			property.inCollection=this.inCollection;
+>>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton
 			property.jacksonName=tag;
 			property.xmlInfo.xmlType=this.xmlType;
 			property.xmlInfo.tag=tag;
@@ -83,6 +90,11 @@ public class BindProperty extends ModelProperty {
 
 		public BindPropertyBuilder nullable(boolean value) {
 			this.nullable=value;
+			return this;
+		}
+
+		public BindPropertyBuilder inCollection(boolean value) {
+			this.inCollection=value;
 			return this;
 		}
 	}

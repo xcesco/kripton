@@ -83,9 +83,15 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
+<<<<<<< HEAD
 		if (property.isInCollection())
 		{
 			// we need to write only value			
+=======
+		// we need to write only value
+		if (property.isInCollection())
+		{
+>>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton
 			methodBuilder.addStatement("$L.writeString($T.write($L))", serializerName, utilClazz, getter(beanName, beanClass, property));
 		} else {		
 			methodBuilder.addStatement("$L.writeStringField($S, $T.write($L))", serializerName, property.jacksonName, utilClazz, getter(beanName, beanClass, property));

@@ -79,9 +79,14 @@ public class ByteArrayTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
+<<<<<<< HEAD
 		// in a collection we need to insert only value, not field name
 		if (property.isInCollection()) {
 			// we need to write only value
+=======
+		// if in collection, we need to write only the value
+		if (property.isInCollection()) {
+>>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton
 			methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
 		} else {
 			methodBuilder.addStatement("$L.writeBinaryField($S, $L)", serializerName, property.jacksonName, getter(beanName, beanClass, property));

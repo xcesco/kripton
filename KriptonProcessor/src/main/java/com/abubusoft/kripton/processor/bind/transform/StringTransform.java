@@ -21,10 +21,9 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.fasterxml.jackson.core.JsonToken;
-import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 /**

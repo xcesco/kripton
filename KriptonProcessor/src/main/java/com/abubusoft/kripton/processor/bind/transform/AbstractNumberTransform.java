@@ -91,7 +91,11 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
+<<<<<<< HEAD
 		// in a collection we need to insert only value, not field name
+=======
+		// if in collection, we need to write only the value
+>>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton
 		if (property.isInCollection()) {
 			methodBuilder.addStatement("$L.writeString($T.write($L))", serializerName, NUMBER_UTIL_CLAZZ, getter(beanName, beanClass, property));
 		} else {

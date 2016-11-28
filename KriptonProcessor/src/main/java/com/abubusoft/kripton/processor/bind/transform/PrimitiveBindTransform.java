@@ -115,9 +115,14 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
+<<<<<<< HEAD
 		// in a collection we need to insert only value, not field name
 		if (property.isInCollection()) {
 			// value don't need to be converted into string
+=======
+		// we need to write only value
+		if (property.isInCollection()) {
+>>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
 		} else {
 			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonName, getter(beanName, beanClass, property));
@@ -134,7 +139,11 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
+<<<<<<< HEAD
 		// in a collection we need to insert only value, not field name
+=======
+		// we need to write only value
+>>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton
 		if (property.isInCollection()) {
 			methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 		} else {

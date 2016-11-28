@@ -95,7 +95,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			methodBuilder.addStatement("$T item=$L", elementTypeName, DEFAULT_VALUE);
 
 			BindTransform transform=BindTransformer.lookup(elementTypeName);
-			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).build();
+			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).build();
 
 			methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
 				methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
@@ -148,7 +148,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 		methodBuilder.addStatement("$T item", elementTypeName);
 			
 		BindTransform transform=BindTransformer.lookup(elementTypeName);
-		BindProperty elementProperty=BindProperty.builder(elementTypeName, property).build();
+		BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).build();
 						
 		if (property.xmlInfo.isWrappedCollection())
 		{					
@@ -237,7 +237,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			}
 		
 			BindTransform transform=BindTransformer.lookup(elementTypeName);
-			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).build();
+			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).build();
 		
 			methodBuilder.addCode("// write wrapper tag\n");
 			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);
@@ -291,7 +291,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			}
 			
 			BindTransform transform=BindTransformer.lookup(elementTypeName);
-			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).elementName(property.xmlInfo.tagElement).build();
+			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).elementName(property.xmlInfo.tagElement).build();
 			
 			switch(collectionType)
 			{
