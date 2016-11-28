@@ -346,9 +346,9 @@ public class XmlPullWriter implements BinderWriter {
 			}
 
 			// value 
-			if (Transformer.isPrimitive(type.valueClazz)) {
-				String value = Transformer.write(source.getValue(), type.valueClazz);
-				if (!StringUtil.isEmpty(value)) {
+			if (Transformer.isPrimitive(type.valueClazz)) {				
+				if (source.getValue()!=null) {
+					String value = Transformer.write(source.getValue(), type.valueClazz);
 					serializer.startTag(namespace, valueName);
 					switch (es.getXmlInfo().type) {
 					case TAG:

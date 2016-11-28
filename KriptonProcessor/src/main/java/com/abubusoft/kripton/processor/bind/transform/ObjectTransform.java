@@ -98,20 +98,25 @@ public class ObjectTransform extends AbstractBindTransform {
 		}
 		//@formatter:on
 	}
-
-	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		
+	void generateSerializeInternal(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		if (property.isNullable())
 		{
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
-		if (!property.isElementInCollection())
-		{
+//		if (!property.isElementInCollection())
+//		{
 			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonName);
-		}
+//		}
+		if (onString)
+		{
+			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
+		} else
+		{
 			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
+		}
 			
 		if (property.isNullable())
 		{
@@ -121,24 +126,13 @@ public class ObjectTransform extends AbstractBindTransform {
 	}
 
 	@Override
+	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		generateSerializeInternal(methodBuilder, serializerName, beanClass, beanName, property, false);
+	}
+
+	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		//@formatter:off
-		if (property.isNullable())
-		{
-		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		}
-		
-		if (!property.isElementInCollection())
-		{
-			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonName);
-		}
-			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
-			
-		if (property.isNullable())
-		{
-		methodBuilder.endControlFlow();
-		}
-		//@formatter:on
+		generateSerializeInternal(methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
 
 	@Override

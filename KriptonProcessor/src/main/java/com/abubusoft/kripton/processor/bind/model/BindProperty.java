@@ -34,7 +34,7 @@ public class BindProperty extends ModelProperty {
 
 		protected XmlType xmlType;
 
-		private String xmlTag;
+		private String tag;
 
 		private boolean nullable;
 
@@ -43,7 +43,7 @@ public class BindProperty extends ModelProperty {
 			this.parentProperty=property;
 			this.nullable=property.nullable;
 			this.xmlType=property.xmlInfo.xmlType;
-			this.xmlTag=property.xmlInfo.tag;
+			this.tag=property.xmlInfo.tag;
 		}
 		
 		public BindProperty build()
@@ -51,11 +51,11 @@ public class BindProperty extends ModelProperty {
 			BindProperty property=new BindProperty(null);
 			
 			property.propertyType=new ModelType(rawTypeName);
-			property.jacksonName=parentProperty.jacksonName;
 			property.order=parentProperty.order;
 			property.elementInCollection=true;
+			property.jacksonName=tag;
 			property.xmlInfo.xmlType=this.xmlType;
-			property.xmlInfo.tag=xmlTag;
+			property.xmlInfo.tag=tag;
 			property.xmlInfo.tagElement=null;
 			property.nullable=this.nullable;
 			
@@ -68,9 +68,8 @@ public class BindProperty extends ModelProperty {
 			return this;
 		}
 		
-		public BindPropertyBuilder xmlTag(String xmlTag) {
-			this.xmlTag = xmlTag;
-			
+		public BindPropertyBuilder elementName(String elementTag) {
+			this.tag = elementTag;	
 			return this;
 		}
 

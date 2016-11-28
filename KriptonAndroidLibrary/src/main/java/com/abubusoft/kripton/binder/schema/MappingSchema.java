@@ -425,7 +425,7 @@ public class MappingSchema {
 
 				// if elementName is defined, use it on wrapperName and
 				// elementName like name
-				if (!StringUtil.isEmpty(elementNameFromAnnotation)) {
+				if (StringUtil.hasText(elementNameFromAnnotation)) {
 					// invertiamo i nomi
 					elementSchema.setWrapperName(elementNameFromAnnotation);
 
@@ -439,8 +439,14 @@ public class MappingSchema {
 				
 				elementSchema.setField(field);
 				// put in set of used names
-				checkAlreadyUsed(elementSchema.getName(), usedNames, "Bind");
-				checkAlreadyUsed(elementSchema.getWrapperName(), usedNames, "Bind");
+				if (StringUtil.hasText(elementSchema.getWrapperName()))
+				{
+					checkAlreadyUsed(elementSchema.getWrapperName(), usedNames, "Bind");
+				} else {
+					checkAlreadyUsed(elementSchema.getName(), usedNames, "Bind");
+				}
+				//
+				
 
 				// manage collections
 				boolean collection = false;

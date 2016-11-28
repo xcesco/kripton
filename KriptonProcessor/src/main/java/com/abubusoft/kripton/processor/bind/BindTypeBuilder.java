@@ -46,7 +46,6 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
@@ -442,11 +441,11 @@ public class BindTypeBuilder {
 		methodBuilder.addStatement("$T instance = createInstance()", entity.getElement());
 		methodBuilder.addStatement("String fieldName");
 
-		methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() == null)");
+		methodBuilder.beginControlFlow("if (jacksonParser.currentToken() == null)");
 		methodBuilder.addStatement("jacksonParser.nextToken()");
 		methodBuilder.endControlFlow();
 
-		methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() != $T.START_OBJECT)", JsonToken.class);
+		methodBuilder.beginControlFlow("if (jacksonParser.currentToken() != $T.START_OBJECT)", JsonToken.class);
 		methodBuilder.addStatement("jacksonParser.skipChildren()");
 		methodBuilder.addStatement("return instance");
 		methodBuilder.endControlFlow();

@@ -12,6 +12,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -54,10 +55,10 @@ public class MapTransformation extends AbstractBindTransform {
 		
 		methodBuilder.addStatement("$T<$T, $T> collection=new $T<>()", defineMapClass(mapTypeName), keyTypeName, valueTypeName, defineMapClass(mapTypeName));
 		BindTransform transformKey=BindTransformer.lookup(keyTypeName);
-		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).xmlTag(property.mapKeyName).build();
+		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
 		
 		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
-		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).xmlTag(property.mapValueName).build();
+		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
 		
 		methodBuilder.addStatement("$T key", elementKeyProperty.getPropertyType().getName());
 		methodBuilder.addStatement("$T value", elementValueProperty.getPropertyType().getName());
@@ -150,10 +151,10 @@ public class MapTransformation extends AbstractBindTransform {
 		
 		BindTransform transformKey=BindTransformer.lookup(keyTypeName);
 		// key can not be null
-		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).xmlTag(property.mapKeyName).build();
+		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
 		
 		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
-		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).xmlTag(property.mapValueName).build();
+		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
 		
 		methodBuilder.beginControlFlow("for ($T<$T, $T> item: $L.entrySet())", Entry.class, keyTypeName, valueTypeName, getter(beanName, beanClass, property));		
 		
@@ -172,7 +173,6 @@ public class MapTransformation extends AbstractBindTransform {
 			transformValue.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
 		}
 		
-		
 		methodBuilder.addStatement("$<$L.writeEndElement()", serializerName);		
 		methodBuilder.endControlFlow();
 				
@@ -188,25 +188,118 @@ public class MapTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
-		
+		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, false);		
 	}
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
+		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, true);		
+	}
+	
+	void generateSerializeOnJacksonInternal(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+		//@formatter:off
+		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		
+			BindTransform transformKey=BindTransformer.lookup(keyTypeName);
+			BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
+			
+			BindTransform transformValue=BindTransformer.lookup(valueTypeName);
+			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
+		
+			methodBuilder.addCode("// write wrapper tag\n");
+			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);
+			methodBuilder.addStatement("$L.writeStartArray()", serializerName);
+			
+			methodBuilder.beginControlFlow("for ($T<$T, $T> item: $L.entrySet())", Entry.class, keyTypeName, valueTypeName, getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeStartObject()", serializerName);
+			
+				if (onString)
+				{
+					transformKey.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
+				} else {
+					transformKey.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
+				}
+			
+				if (elementValueProperty.isNullable())
+				{
+					methodBuilder.beginControlFlow("if (item.getValue()==null)");
+						methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.mapValueName);
+					methodBuilder.nextControlFlow("else");
+					if (onString)
+					{
+						transformValue.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);	
+					} else {
+						transformValue.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
+					}						
+					methodBuilder.endControlFlow();
+				} else {
+					transformValue.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
+				}
+			
+				methodBuilder.addStatement("$L.writeEndObject()", serializerName);
+					
+			methodBuilder.endControlFlow();
+		
+	        methodBuilder.addStatement("$L.writeEndArray()", serializerName);
+		methodBuilder.endControlFlow();
+		//@formatter:on
 	}
 
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO Auto-generated method stub
+		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, false);
 		
 	}
 	
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, true);
+	}
+	
+	public void generateParseOnJacksonInternal(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+		//@formatter:off
+		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);		
+		methodBuilder.addStatement("$T<$T, $T> collection=new $T<>()", defineMapClass(mapTypeName), keyTypeName, valueTypeName, defineMapClass(mapTypeName));
+		BindTransform transformKey=BindTransformer.lookup(keyTypeName);
+		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).nullable(false).build();
 		
+		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
+		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).nullable(false).build();
+		
+		methodBuilder.addStatement("$T key=$L", elementKeyProperty.getPropertyType().getName(), DEFAULT_VALUE);
+		methodBuilder.addStatement("$T value=$L", elementValueProperty.getPropertyType().getName(), DEFAULT_VALUE);
+			
+		methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
+			// key
+			methodBuilder.addStatement("$L.nextValue()", parserName);
+			if (onString)
+			{
+				transformKey.generateParseOnJacksonAsString(methodBuilder, parserName, null, "key", elementKeyProperty);
+			} else {
+				transformKey.generateParseOnJackson(methodBuilder, parserName, null, "key", elementKeyProperty);
+			}
+			
+			// value
+			methodBuilder.addStatement("$L.nextValue()", parserName);
+			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
+				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
+			methodBuilder.nextControlFlow("else");
+			if (onString)
+			{
+				transformValue.generateParseOnJacksonAsString(methodBuilder, parserName, null, "value", elementValueProperty);
+			} else {
+				transformValue.generateParseOnJackson(methodBuilder, parserName, null, "value", elementValueProperty);
+			}
+			methodBuilder.endControlFlow();
+			methodBuilder.addStatement("collection.put(key, value)");
+			methodBuilder.addStatement("$L.nextToken()", parserName);
+		methodBuilder.endControlFlow();
+			
+							
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
+
+		methodBuilder.endControlFlow();
+		//@formatter:on
 	}
 
 }

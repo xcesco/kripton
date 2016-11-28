@@ -218,11 +218,11 @@ public class BindTypeProcessor extends BaseProcessor {
 						property.xmlInfo.xmlType=XmlType.valueOf(xmlType);
 						
 						// map info
-						String mapKeyName=AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_MAP_KEY_NAME);
+						String mapKeyName=AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_MAP_KEY_NAME);
 						if (!StringUtility.hasText(mapKeyName)) mapKeyName=Bind.MAP_KEY_DEFAULT;
 						property.mapKeyName=mapKeyName;
 						
-						String mapValueName=AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_MAP_VALUE_NAME);
+						String mapValueName=AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_MAP_VALUE_NAME);
 						if (!StringUtility.hasText(mapValueName)) mapValueName=Bind.MAP_VALUE_DEFAULT;
 						property.mapValueName=mapValueName;
 						

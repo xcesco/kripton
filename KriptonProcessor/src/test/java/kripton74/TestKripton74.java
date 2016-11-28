@@ -3,12 +3,9 @@ package kripton74;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import base.BaseProcessorTest;
 
 import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderWriter;
@@ -18,6 +15,8 @@ import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.PropertiesBinderContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
 import com.abubusoft.kripton.binder2.context.YamlBinderContext;
+
+import base.BaseProcessorTest;
 
 public class TestKripton74 extends BaseProcessorTest {
 
@@ -38,10 +37,10 @@ public class TestKripton74 extends BaseProcessorTest {
 		bean.valueMapIntByteArray=new HashMap<>();
 		byte[] a=new byte[23];
 		bean.valueMapIntByteArray.put(20, null);
-		bean.valueMapIntByteArray.put(23, a);
+		//bean.valueMapIntByteArray.put(23, a);
 		bean.valueMapIntByteArray.put(27, null);
 		
-		bean.valueString="hello";
+		//bean.valueString="hello";
 
 		return bean;
 	}
@@ -57,12 +56,14 @@ public class TestKripton74 extends BaseProcessorTest {
 	public void testCompatibility() throws IOException, InstantiationException, IllegalAccessException {
 		BeanElement74 bean = createBean();
 		{
-			BinderWriter writer = KriptonBinder.getXmlWriter(BinderOptions.build().indent(true));
+			BinderWriter writer = KriptonBinder.getXmlWriter(BinderOptions.build().indent(false));
 			System.out.println(writer.write(bean));
 		}
+		serializeAndParse(bean, BinderType.XML);
+		
 		{
 			BinderWriter writer = KriptonBinder.getJsonWriter();
-			//System.out.println(writer.write(bean));
+		//	System.out.println(writer.write(bean));
 		}
 	}
 

@@ -74,9 +74,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (BeanElement72 item: object.valueBeanSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueBeanSet");
           } else {
             if (item!=null)  {
+              jacksonSerializer.writeFieldName("valueBeanSet");
               context.mapperFor(BeanElement72.class).serializeOnJackson(context, item, wrapper);
             }
           }
@@ -91,10 +92,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Byte item: object.valueByteSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueByteSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumber(item);
+              jacksonSerializer.writeNumberField("valueByteSet", item);
             }
           }
         }
@@ -108,10 +109,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Character item: object.valueCharacterSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueCharacterSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumber(item);
+              jacksonSerializer.writeNumberField("valueCharacterSet", item);
             }
           }
         }
@@ -125,10 +126,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Double item: object.valueDoubleSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueDoubleSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumber(item);
+              jacksonSerializer.writeNumberField("valueDoubleSet", item);
             }
           }
         }
@@ -142,10 +143,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (BeanEnum72 item: object.valueEnumSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueEnumSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(item.toString());
+              jacksonSerializer.writeStringField("valueEnumSet", item.toString());
             }
           }
         }
@@ -159,10 +160,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Float item: object.valueFloatSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueFloatSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumber(item);
+              jacksonSerializer.writeNumberField("valueFloatSet", item);
             }
           }
         }
@@ -176,10 +177,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Integer item: object.getValueIntSet()) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueIntSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumber(item);
+              jacksonSerializer.writeNumberField("valueIntSet", item);
             }
           }
         }
@@ -193,10 +194,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Long item: object.valueLongSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueLongSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumber(item);
+              jacksonSerializer.writeNumberField("valueLongSet", item);
             }
           }
         }
@@ -210,10 +211,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Short item: object.valueShortSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueShortSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumber(item);
+              jacksonSerializer.writeNumberField("valueShortSet", item);
             }
           }
         }
@@ -227,10 +228,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (String item: object.valueStringSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueStringSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(item);
+              jacksonSerializer.writeStringField("valueStringSet", item);
             }
           }
         }
@@ -244,10 +245,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (BigDecimal item: object.valueBigDecimalSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueBigDecimalSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(BigDecimalUtil.write(item));
+              jacksonSerializer.writeStringField("valueBigDecimalSet", BigDecimalUtil.write(item));
             }
           }
         }
@@ -261,10 +262,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (BigInteger item: object.valueBigIntegerSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueBigIntegerSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(BigIntegerUtil.write(item));
+              jacksonSerializer.writeStringField("valueBigIntegerSet", BigIntegerUtil.write(item));
             }
           }
         }
@@ -306,9 +307,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (BeanElement72 item: object.valueBeanSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueBeanSet");
           } else {
             if (item!=null)  {
+              jacksonSerializer.writeFieldName("valueBeanSet");
               context.mapperFor(BeanElement72.class).serializeOnJacksonAsString(context, item, wrapper);
             }
           }
@@ -323,10 +325,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Byte item: object.valueByteSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueByteSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtil.writeByte(item));
+              jacksonSerializer.writeStringField("valueByteSet", PrimitiveUtil.writeByte(item));
             }
           }
         }
@@ -340,10 +342,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Character item: object.valueCharacterSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueCharacterSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtil.writeCharacter(item));
+              jacksonSerializer.writeStringField("valueCharacterSet", PrimitiveUtil.writeCharacter(item));
             }
           }
         }
@@ -357,10 +359,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Double item: object.valueDoubleSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueDoubleSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtil.writeDouble(item));
+              jacksonSerializer.writeStringField("valueDoubleSet", PrimitiveUtil.writeDouble(item));
             }
           }
         }
@@ -374,10 +376,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (BeanEnum72 item: object.valueEnumSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueEnumSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(item.toString());
+              jacksonSerializer.writeStringField("valueEnumSet", item.toString());
             }
           }
         }
@@ -391,10 +393,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Float item: object.valueFloatSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueFloatSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtil.writeFloat(item));
+              jacksonSerializer.writeStringField("valueFloatSet", PrimitiveUtil.writeFloat(item));
             }
           }
         }
@@ -408,10 +410,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Integer item: object.getValueIntSet()) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueIntSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtil.writeInteger(item));
+              jacksonSerializer.writeStringField("valueIntSet", PrimitiveUtil.writeInteger(item));
             }
           }
         }
@@ -425,10 +427,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Long item: object.valueLongSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueLongSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtil.writeLong(item));
+              jacksonSerializer.writeStringField("valueLongSet", PrimitiveUtil.writeLong(item));
             }
           }
         }
@@ -442,10 +444,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (Short item: object.valueShortSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueShortSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtil.writeShort(item));
+              jacksonSerializer.writeStringField("valueShortSet", PrimitiveUtil.writeShort(item));
             }
           }
         }
@@ -459,10 +461,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (String item: object.valueStringSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueStringSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(item);
+              jacksonSerializer.writeStringField("valueStringSet", item);
             }
           }
         }
@@ -476,10 +478,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (BigDecimal item: object.valueBigDecimalSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueBigDecimalSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(BigDecimalUtil.write(item));
+              jacksonSerializer.writeStringField("valueBigDecimalSet", BigDecimalUtil.write(item));
             }
           }
         }
@@ -493,10 +495,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
         jacksonSerializer.writeStartArray();
         for (BigInteger item: object.valueBigIntegerSet) {
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueBigIntegerSet");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(BigIntegerUtil.write(item));
+              jacksonSerializer.writeStringField("valueBigIntegerSet", BigIntegerUtil.write(item));
             }
           }
         }
@@ -543,7 +545,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueBeanSet");
+            xmlSerializer.writeStartElement("item");
             context.mapperFor(BeanElement72.class).serializeOnXml(context, item, wrapper, 1);
             xmlSerializer.writeEndElement();
           }
@@ -559,7 +561,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueByteSet");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeInt(item);
             xmlSerializer.writeEndElement();
           }
@@ -575,7 +577,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueCharacterSet");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeInt(item);
             xmlSerializer.writeEndElement();
           }
@@ -591,7 +593,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueDoubleSet");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeDouble(item);
             xmlSerializer.writeEndElement();
           }
@@ -620,7 +622,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueFloatSet");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeFloat(item);
             xmlSerializer.writeEndElement();
           }
@@ -636,7 +638,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueIntSet");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeInt(item);
             xmlSerializer.writeEndElement();
           }
@@ -652,7 +654,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueLongSet");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeLong(item);
             xmlSerializer.writeEndElement();
           }
@@ -668,7 +670,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueShortSet");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeInt(item);
             xmlSerializer.writeEndElement();
           }
@@ -684,7 +686,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueStringSet");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item));
             xmlSerializer.writeEndElement();
           }
@@ -713,7 +715,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("valueBigIntegerSet");
+            xmlSerializer.writeStartElement("item");
             xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(BigIntegerUtil.write(item)));
             xmlSerializer.writeEndElement();
           }
@@ -746,10 +748,10 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       JsonParser jacksonParser = wrapper.jacksonParser;
       BeanElement72 instance = createInstance();
       String fieldName;
-      if (jacksonParser.getCurrentToken() == null) {
+      if (jacksonParser.currentToken() == null) {
         jacksonParser.nextToken();
       }
-      if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+      if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
         jacksonParser.skipChildren();
         return instance;
       }
@@ -767,11 +769,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueBeanSet":
               // field valueBeanSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BeanElement72> collection=new HashSet<>();
                 BeanElement72 item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     item=context.mapperFor(BeanElement72.class).parseOnJackson(context, wrapper);
@@ -783,11 +785,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueByteSet":
               // field valueByteSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Byte> collection=new HashSet<>();
                 Byte item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -801,11 +803,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueCharacterSet":
               // field valueCharacterSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Character> collection=new HashSet<>();
                 Character item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -819,11 +821,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueDoubleSet":
               // field valueDoubleSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Double> collection=new HashSet<>();
                 Double item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -837,15 +839,16 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueEnumSet":
               // field valueEnumSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BeanEnum72> collection=new HashSet<>();
                 BeanEnum72 item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                      item=StringUtility.hasText(jacksonParser.getText())?BeanEnum72.valueOf(jacksonParser.getText()):null;
+                      String tempEnum=jacksonParser.getText();
+                      item=StringUtility.hasText(tempEnum)?BeanEnum72.valueOf(tempEnum):null;
                     }
                   }
                   collection.add(item);
@@ -855,11 +858,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueFloatSet":
               // field valueFloatSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Float> collection=new HashSet<>();
                 Float item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -873,11 +876,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueIntSet":
               // field valueIntSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Integer> collection=new HashSet<>();
                 Integer item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -891,11 +894,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueLongSet":
               // field valueLongSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Long> collection=new HashSet<>();
                 Long item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -909,11 +912,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueShortSet":
               // field valueShortSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Short> collection=new HashSet<>();
                 Short item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -927,11 +930,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueStringSet":
               // field valueStringSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<String> collection=new HashSet<>();
                 String item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -945,11 +948,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueBigDecimalSet":
               // field valueBigDecimalSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BigDecimal> collection=new HashSet<>();
                 BigDecimal item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -963,11 +966,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueBigIntegerSet":
               // field valueBigIntegerSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BigInteger> collection=new HashSet<>();
                 BigInteger item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1026,11 +1029,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueBeanSet":
               // field valueBeanSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BeanElement72> collection=new HashSet<>();
                 BeanElement72 item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     item=context.mapperFor(BeanElement72.class).parseOnJacksonAsString(context, wrapper);
@@ -1042,11 +1045,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueByteSet":
               // field valueByteSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Byte> collection=new HashSet<>();
                 Byte item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1060,11 +1063,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueCharacterSet":
               // field valueCharacterSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Character> collection=new HashSet<>();
                 Character item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1078,11 +1081,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueDoubleSet":
               // field valueDoubleSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Double> collection=new HashSet<>();
                 Double item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1096,15 +1099,16 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueEnumSet":
               // field valueEnumSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BeanEnum72> collection=new HashSet<>();
                 BeanEnum72 item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                      item=StringUtility.hasText(jacksonParser.getText())?BeanEnum72.valueOf(jacksonParser.getText()):null;
+                      String tempEnum=jacksonParser.getText();
+                      item=StringUtility.hasText(tempEnum)?BeanEnum72.valueOf(tempEnum):null;
                     }
                   }
                   collection.add(item);
@@ -1114,11 +1118,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueFloatSet":
               // field valueFloatSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Float> collection=new HashSet<>();
                 Float item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1132,11 +1136,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueIntSet":
               // field valueIntSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Integer> collection=new HashSet<>();
                 Integer item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1150,11 +1154,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueLongSet":
               // field valueLongSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Long> collection=new HashSet<>();
                 Long item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1168,11 +1172,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueShortSet":
               // field valueShortSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Short> collection=new HashSet<>();
                 Short item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1186,11 +1190,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueStringSet":
               // field valueStringSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<String> collection=new HashSet<>();
                 String item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1204,11 +1208,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueBigDecimalSet":
               // field valueBigDecimalSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BigDecimal> collection=new HashSet<>();
                 BigDecimal item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1222,11 +1226,11 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             break;
             case "valueBigIntegerSet":
               // field valueBigIntegerSet
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BigInteger> collection=new HashSet<>();
                 BigInteger item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -1297,16 +1301,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<BeanElement72> collection=new HashSet<>();
                       BeanElement72 item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=context.mapperFor(BeanElement72.class).parseOnXml(context, wrapper, eventType);
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=context.mapperFor(BeanElement72.class).parseOnXml(context, wrapper, eventType);
                         }
+                        collection.add(item);
                       }
                       instance.valueBeanSet=collection;
                     }
@@ -1316,16 +1318,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<Byte> collection=new HashSet<>();
                       Byte item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=(byte)PrimitiveUtil.readByte(xmlParser.getElementAsInt(), null);
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=(byte)PrimitiveUtil.readByte(xmlParser.getElementAsInt(), null);
                         }
+                        collection.add(item);
                       }
                       instance.valueByteSet=collection;
                     }
@@ -1335,16 +1335,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<Character> collection=new HashSet<>();
                       Character item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=(char)PrimitiveUtil.readCharacter(xmlParser.getElementAsInt(), null);
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=(char)PrimitiveUtil.readCharacter(xmlParser.getElementAsInt(), null);
                         }
+                        collection.add(item);
                       }
                       instance.valueCharacterSet=collection;
                     }
@@ -1354,16 +1352,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<Double> collection=new HashSet<>();
                       Double item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=PrimitiveUtil.readDouble(xmlParser.getElementAsDouble(), null);
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=PrimitiveUtil.readDouble(xmlParser.getElementAsDouble(), null);
                         }
+                        collection.add(item);
                       }
                       instance.valueDoubleSet=collection;
                     }
@@ -1399,16 +1395,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<Float> collection=new HashSet<>();
                       Float item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=PrimitiveUtil.readFloat(xmlParser.getElementAsFloat(), null);
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=PrimitiveUtil.readFloat(xmlParser.getElementAsFloat(), null);
                         }
+                        collection.add(item);
                       }
                       instance.valueFloatSet=collection;
                     }
@@ -1418,16 +1412,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<Integer> collection=new HashSet<>();
                       Integer item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=PrimitiveUtil.readInteger(xmlParser.getElementAsInt(), null);
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=PrimitiveUtil.readInteger(xmlParser.getElementAsInt(), null);
                         }
+                        collection.add(item);
                       }
                       instance.setValueIntSet(collection);
                     }
@@ -1437,16 +1429,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<Long> collection=new HashSet<>();
                       Long item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=PrimitiveUtil.readLong(xmlParser.getElementAsLong(), null);
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=PrimitiveUtil.readLong(xmlParser.getElementAsLong(), null);
                         }
+                        collection.add(item);
                       }
                       instance.valueLongSet=collection;
                     }
@@ -1456,16 +1446,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<Short> collection=new HashSet<>();
                       Short item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=(short)PrimitiveUtil.readShort(xmlParser.getElementAsInt(), null);
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=(short)PrimitiveUtil.readShort(xmlParser.getElementAsInt(), null);
                         }
+                        collection.add(item);
                       }
                       instance.valueShortSet=collection;
                     }
@@ -1475,16 +1463,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<String> collection=new HashSet<>();
                       String item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                         }
+                        collection.add(item);
                       }
                       instance.valueStringSet=collection;
                     }
@@ -1520,16 +1506,14 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                      {
                       HashSet<BigInteger> collection=new HashSet<>();
                       BigInteger item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
-                        if (xmlParser.getName().toString().equals("item")) {
-                          if (xmlParser.isEmptyElement()) {
-                            item=null;
-                            xmlParser.nextTag();
-                          } else {
-                            item=BigIntegerUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
-                          }
-                          collection.add(item);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=BigIntegerUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                         }
+                        collection.add(item);
                       }
                       instance.valueBigIntegerSet=collection;
                     }

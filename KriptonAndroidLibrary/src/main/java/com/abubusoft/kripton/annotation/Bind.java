@@ -74,7 +74,7 @@ public @interface Bind {
 	 * 
 	 * @return
 	 * 		name of map key. Default is {@link #MAP_KEY_DEFAULT}
-	 */
+	 */				  
 	public String mapKeyName() default MAP_KEY_DEFAULT;
 
 	/**

@@ -115,12 +115,12 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
-		if (property.isElementInCollection()) {
-			// value don't need to be converted into string
-			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
-		} else {
+//		if (property.isElementInCollection()) {
+//			// value don't need to be converted into string
+//			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
+//		} else {
 			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonName, getter(beanName, beanClass, property));
-		}
+		//}
 
 		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();
@@ -133,19 +133,11 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
-		if (property.isElementInCollection()) {
-			//if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
-				//methodBuilder.addStatement("$L.writeString(String.valueOf((int)$L))", serializerName, getter(beanName, beanClass, property));
-			//} else {				
-				methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
-			//}
-		} else {
-			//if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
-				//methodBuilder.addStatement("$L.writeStringField($S, String.valueOf((int)$L))", serializerName, property.jacksonName, PrimitiveUtil.class, XML_UTILITY_TYPE, getter(beanName, beanClass, property));
-			//} else {
-				methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.jacksonName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
-			//}
-		}
+//		if (property.isElementInCollection()) {
+//			methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+//		} else {
+			methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.jacksonName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+		//}
 
 		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();

@@ -66,10 +66,10 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
         for (int i=0; i<n; i++) {
           item=object.valueByteArray[i];
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueByteArray");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeNumber(item);
+              jacksonSerializer.writeNumberField("valueByteArray", item);
             }
           }
         }
@@ -114,10 +114,10 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
         for (int i=0; i<n; i++) {
           item=object.valueByteArray[i];
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeNullField("valueByteArray");
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtil.writeByte(item));
+              jacksonSerializer.writeStringField("valueByteArray", PrimitiveUtil.writeByte(item));
             }
           }
         }
@@ -197,10 +197,10 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
       JsonParser jacksonParser = wrapper.jacksonParser;
       BeanElement75 instance = createInstance();
       String fieldName;
-      if (jacksonParser.getCurrentToken() == null) {
+      if (jacksonParser.currentToken() == null) {
         jacksonParser.nextToken();
       }
-      if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+      if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
         jacksonParser.skipChildren();
         return instance;
       }
@@ -218,11 +218,11 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
             break;
             case "valueByteArray":
               // field valueByteArray
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Byte> collection=new ArrayList<>();
                 Byte item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -281,11 +281,11 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
             break;
             case "valueByteArray":
               // field valueByteArray
-              if (jacksonParser.getCurrentToken()==JsonToken.START_ARRAY) {
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Byte> collection=new ArrayList<>();
                 Byte item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {

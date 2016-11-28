@@ -81,10 +81,10 @@ public class EnumTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
-		if (property.isElementInCollection())
-		{
-			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-		} else 
+//		if (property.isElementInCollection())
+//		{
+//			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+//		} else 
 		{
 			methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.jacksonName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
 		}
@@ -118,22 +118,7 @@ public class EnumTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (property.isNullable())
-		{
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		}
-		
-		if (property.isElementInCollection())
-		{
-			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-		} else {
-			methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.jacksonName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-		}
-		
-		if (property.isNullable())
-		{
-			methodBuilder.endControlFlow();
-		}
+		generateSerializeOnJackson(methodBuilder, serializerName, beanClass, beanName, property);
 	}
 
 	@Override
@@ -141,30 +126,19 @@ public class EnumTransform extends AbstractBindTransform {
 		if (property.isNullable())
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
+		} else {
+			methodBuilder.beginControlFlow("");
 		}
 		
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.hasText($L.getText())?$T.valueOf($L.getText()):null"), StringUtility.class, parserName,typeName, parserName);
+		methodBuilder.addStatement("String tempEnum=$L.getText()", parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.hasText(tempEnum)?$T.valueOf(tempEnum):null"), StringUtility.class, typeName);
 		
-		if (property.isNullable())
-		{
-			methodBuilder.endControlFlow();
-		}
-		
+		methodBuilder.endControlFlow();
 	}
 	
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		if (property.isNullable())
-		{
-			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		}
-		
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.hasText($L.getText())?$T.valueOf($L.getText()):null"), StringUtility.class, parserName,typeName, parserName);
-		
-		if (property.isNullable())
-		{
-			methodBuilder.endControlFlow();
-		}
+		generateParseOnJackson(methodBuilder, parserName, beanClass, beanName, property);
 	}
 		
 }

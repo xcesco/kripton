@@ -11,6 +11,7 @@ import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.common.PrimitiveUtil;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -58,10 +59,65 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
       }
 
       // field valueMapEnumBean
+      if (object.valueMapEnumBean!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueMapEnumBean");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<BeanEnum74, BeanElement74> item: object.valueMapEnumBean.entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeStringField("k", item.getKey().toString());
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("v");
+          } else {
+            if (item.getValue()!=null)  {
+              jacksonSerializer.writeFieldName("v");
+              context.mapperFor(BeanElement74.class).serializeOnJackson(context, item.getValue(), wrapper);
+            }
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      }
 
       // field valueMapIntByteArray
+      if (object.valueMapIntByteArray!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueMapIntByteArray");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeNumberField("k", item.getKey());
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("v");
+          } else {
+            if (item.getValue()!=null)  {
+              jacksonSerializer.writeBinaryField("v", item.getValue());
+            }
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      }
 
       // field valueMapStringInteger
+      if (object.valueMapStringInteger!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueMapStringInteger");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<String, Integer> item: object.valueMapStringInteger.entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeStringField("k", item.getKey());
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("v");
+          } else {
+            if (item.getValue()!=null)  {
+              jacksonSerializer.writeNumberField("v", item.getValue());
+            }
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      }
 
       jacksonSerializer.writeEndObject();
     } catch(IOException e) {
@@ -87,10 +143,65 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
       }
 
       // field valueMapEnumBean
+      if (object.valueMapEnumBean!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueMapEnumBean");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<BeanEnum74, BeanElement74> item: object.valueMapEnumBean.entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeStringField("k", item.getKey().toString());
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("v");
+          } else {
+            if (item.getValue()!=null)  {
+              jacksonSerializer.writeFieldName("v");
+              context.mapperFor(BeanElement74.class).serializeOnJacksonAsString(context, item.getValue(), wrapper);
+            }
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      }
 
       // field valueMapIntByteArray
+      if (object.valueMapIntByteArray!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueMapIntByteArray");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeStringField("k", PrimitiveUtil.writeInteger(item.getKey()));
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("v");
+          } else {
+            if (item.getValue()!=null)  {
+              jacksonSerializer.writeBinaryField("v", item.getValue());
+            }
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      }
 
       // field valueMapStringInteger
+      if (object.valueMapStringInteger!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueMapStringInteger");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<String, Integer> item: object.valueMapStringInteger.entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeStringField("k", item.getKey());
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("v");
+          } else {
+            if (item.getValue()!=null)  {
+              jacksonSerializer.writeStringField("v", PrimitiveUtil.writeInteger(item.getValue()));
+            }
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      }
 
       jacksonSerializer.writeEndObject();
     } catch(IOException e) {
@@ -125,13 +236,13 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
         xmlSerializer.writeStartElement("valueMapEnumBean");
         for (Map.Entry<BeanEnum74, BeanElement74> item: object.valueMapEnumBean.entrySet()) {
           xmlSerializer.writeStartElement("item");
-            xmlSerializer.writeStartElement("key");
+            xmlSerializer.writeStartElement("k");
             xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.getKey().toString()));
             xmlSerializer.writeEndElement();
             if (item.getValue()==null) {
-              xmlSerializer.writeEmptyElement("value");
+              xmlSerializer.writeEmptyElement("v");
             } else {
-              xmlSerializer.writeStartElement("value");
+              xmlSerializer.writeStartElement("v");
               context.mapperFor(BeanElement74.class).serializeOnXml(context, item.getValue(), wrapper, 1);
               xmlSerializer.writeEndElement();
             }
@@ -144,13 +255,13 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
       if (object.valueMapIntByteArray!=null)  {
         for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
           xmlSerializer.writeStartElement("valueMapIntByteArray");
-            xmlSerializer.writeStartElement("key");
+            xmlSerializer.writeStartElement("k");
             xmlSerializer.writeInt(item.getKey());
             xmlSerializer.writeEndElement();
             if (item.getValue()==null) {
-              xmlSerializer.writeEmptyElement("value");
+              xmlSerializer.writeEmptyElement("v");
             } else {
-              xmlSerializer.writeStartElement("value");
+              xmlSerializer.writeStartElement("v");
               xmlSerializer.writeBinary(item.getValue(), 0, item.getValue().length);
               xmlSerializer.writeEndElement();
             }
@@ -163,14 +274,14 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
         // write wrapper tag
         xmlSerializer.writeStartElement("valueMapStringInteger");
         for (Map.Entry<String, Integer> item: object.valueMapStringInteger.entrySet()) {
-          xmlSerializer.writeStartElement("item");
-            xmlSerializer.writeStartElement("key");
+          xmlSerializer.writeStartElement("rutto");
+            xmlSerializer.writeStartElement("k");
             xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.getKey()));
             xmlSerializer.writeEndElement();
             if (item.getValue()==null) {
-              xmlSerializer.writeEmptyElement("value");
+              xmlSerializer.writeEmptyElement("v");
             } else {
-              xmlSerializer.writeStartElement("value");
+              xmlSerializer.writeStartElement("v");
               xmlSerializer.writeInt(item.getValue());
               xmlSerializer.writeEndElement();
             }
@@ -197,10 +308,10 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
       JsonParser jacksonParser = wrapper.jacksonParser;
       BeanElement74 instance = createInstance();
       String fieldName;
-      if (jacksonParser.getCurrentToken() == null) {
+      if (jacksonParser.currentToken() == null) {
         jacksonParser.nextToken();
       }
-      if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+      if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
         jacksonParser.skipChildren();
         return instance;
       }
@@ -218,12 +329,69 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
             break;
             case "valueMapEnumBean":
               // field valueMapEnumBean
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                HashMap<BeanEnum74, BeanElement74> collection=new HashMap<>();
+                BeanEnum74 key=null;
+                BeanElement74 value=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  jacksonParser.nextValue();
+                   {
+                    String tempEnum=jacksonParser.getText();
+                    key=StringUtility.hasText(tempEnum)?BeanEnum74.valueOf(tempEnum):null;
+                  }
+                  jacksonParser.nextValue();
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                    value=null;
+                  } else {
+                    value=context.mapperFor(BeanElement74.class).parseOnJackson(context, wrapper);
+                  }
+                  collection.put(key, value);
+                  jacksonParser.nextToken();
+                }
+                instance.valueMapEnumBean=collection;
+              }
             break;
             case "valueMapIntByteArray":
               // field valueMapIntByteArray
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                HashMap<Integer, byte[]> collection=new HashMap<>();
+                Integer key=null;
+                byte[] value=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  jacksonParser.nextValue();
+                  key=jacksonParser.getIntValue();
+                  jacksonParser.nextValue();
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                    value=null;
+                  } else {
+                    value=jacksonParser.getBinaryValue();
+                  }
+                  collection.put(key, value);
+                  jacksonParser.nextToken();
+                }
+                instance.valueMapIntByteArray=collection;
+              }
             break;
             case "valueMapStringInteger":
               // field valueMapStringInteger
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                HashMap<String, Integer> collection=new HashMap<>();
+                String key=null;
+                Integer value=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  jacksonParser.nextValue();
+                  key=jacksonParser.getText();
+                  jacksonParser.nextValue();
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                    value=null;
+                  } else {
+                    value=jacksonParser.getIntValue();
+                  }
+                  collection.put(key, value);
+                  jacksonParser.nextToken();
+                }
+                instance.valueMapStringInteger=collection;
+              }
             break;
             default:
               jacksonParser.skipChildren();
@@ -266,12 +434,73 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
             break;
             case "valueMapEnumBean":
               // field valueMapEnumBean
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                HashMap<BeanEnum74, BeanElement74> collection=new HashMap<>();
+                BeanEnum74 key=null;
+                BeanElement74 value=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  jacksonParser.nextValue();
+                   {
+                    String tempEnum=jacksonParser.getText();
+                    key=StringUtility.hasText(tempEnum)?BeanEnum74.valueOf(tempEnum):null;
+                  }
+                  jacksonParser.nextValue();
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                    value=null;
+                  } else {
+                    value=context.mapperFor(BeanElement74.class).parseOnJacksonAsString(context, wrapper);
+                  }
+                  collection.put(key, value);
+                  jacksonParser.nextToken();
+                }
+                instance.valueMapEnumBean=collection;
+              }
             break;
             case "valueMapIntByteArray":
               // field valueMapIntByteArray
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                HashMap<Integer, byte[]> collection=new HashMap<>();
+                Integer key=null;
+                byte[] value=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  jacksonParser.nextValue();
+                  key=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                  jacksonParser.nextValue();
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                    value=null;
+                  } else {
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      value=jacksonParser.getBinaryValue();
+                    }
+                  }
+                  collection.put(key, value);
+                  jacksonParser.nextToken();
+                }
+                instance.valueMapIntByteArray=collection;
+              }
             break;
             case "valueMapStringInteger":
               // field valueMapStringInteger
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                HashMap<String, Integer> collection=new HashMap<>();
+                String key=null;
+                Integer value=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  jacksonParser.nextValue();
+                  if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                    key=jacksonParser.getText();
+                  }
+                  jacksonParser.nextValue();
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                    value=null;
+                  } else {
+                    value=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                  }
+                  collection.put(key, value);
+                  jacksonParser.nextToken();
+                }
+                instance.valueMapStringInteger=collection;
+              }
             break;
             default:
               jacksonParser.skipChildren();
@@ -384,7 +613,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                       HashMap<String, Integer> collection=new HashMap<>();
                       String key;
                       Integer value;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("rutto")) {
                         xmlParser.nextTag();
                         key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                         xmlParser.nextTag();

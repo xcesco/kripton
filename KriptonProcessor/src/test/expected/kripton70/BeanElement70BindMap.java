@@ -570,10 +570,10 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       JsonParser jacksonParser = wrapper.jacksonParser;
       BeanElement70 instance = createInstance();
       String fieldName;
-      if (jacksonParser.getCurrentToken() == null) {
+      if (jacksonParser.currentToken() == null) {
         jacksonParser.nextToken();
       }
-      if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+      if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
         jacksonParser.skipChildren();
         return instance;
       }
@@ -660,7 +660,8 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueEnum":
               // field valueEnum
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueEnum=StringUtility.hasText(jacksonParser.getText())?BeanEnum.valueOf(jacksonParser.getText()):null;
+                String tempEnum=jacksonParser.getText();
+                instance.valueEnum=StringUtility.hasText(tempEnum)?BeanEnum.valueOf(tempEnum):null;
               }
             break;
             case "valueFloat":
@@ -853,7 +854,8 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueEnum":
               // field valueEnum
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueEnum=StringUtility.hasText(jacksonParser.getText())?BeanEnum.valueOf(jacksonParser.getText()):null;
+                String tempEnum=jacksonParser.getText();
+                instance.valueEnum=StringUtility.hasText(tempEnum)?BeanEnum.valueOf(tempEnum):null;
               }
             break;
             case "valueFloat":

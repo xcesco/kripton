@@ -84,7 +84,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 	
 	public void generateParseOnJacksonInternal(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
-		methodBuilder.beginControlFlow("if ($L.getCurrentToken()==$T.START_ARRAY)", parserName, JsonToken.class);
+		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);
 			if (collectionType==CollectionType.ARRAY)
 			{
 				methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName, ArrayList.class);
@@ -98,7 +98,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).build();
 
 			methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
-				methodBuilder.beginControlFlow("if ($L.getCurrentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
+				methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
 					methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
 				methodBuilder.nextControlFlow("else");
 				if (onString)
@@ -134,12 +134,16 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 		//@formatter:off
 		methodBuilder.beginControlFlow("");
 		
-		if (collectionType==CollectionType.ARRAY)
+		switch(collectionType)
 		{
+		case ARRAY:
 			methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName, ArrayList.class);
-		} else {
+			break;
+		case LIST:
+		case SET:
 			methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName, defineCollectionClass(collectionTypeName));
-		}
+			break;
+		}		
 				
 		methodBuilder.addStatement("$T item", elementTypeName);
 			
@@ -148,8 +152,10 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 						
 		if (property.xmlInfo.isWrappedCollection())
 		{					
-			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && !$L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tagElement);
+			// with wrap element
+			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tagElement);
 		} else {
+			// no wrap element
 			methodBuilder.addCode("// add first element\n");
 			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
 				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
@@ -162,44 +168,48 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tag);
 		}
 		
-		if (property.xmlInfo.isWrappedCollection())
+//		if (property.xmlInfo.isWrappedCollection())
+//		{
+//			// with wrap element
+//			methodBuilder.beginControlFlow("if ($L.getName().toString().equals($S))", parserName, property.xmlInfo.tagElement);
+//		}
+		
+		// for all
+		methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
+			methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+			methodBuilder.addStatement("$L.nextTag()", parserName);						
+		methodBuilder.nextControlFlow("else");
+			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
+		methodBuilder.endControlFlow();
+		methodBuilder.addStatement("collection.add(item)");
+		
+//		if (property.xmlInfo.isWrappedCollection())
+//		{
+//			// with wrap element
+//			methodBuilder.endControlFlow();
+//		}
+		methodBuilder.endControlFlow();
+	                 	
+		if (collectionType==CollectionType.ARRAY)
 		{
-				methodBuilder.beginControlFlow("if ($L.getName().toString().equals($S))", parserName, property.xmlInfo.tagElement);
-		}
-					methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
-						methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-						methodBuilder.addStatement("$L.nextTag()", parserName);						
-					methodBuilder.nextControlFlow("else");
-						transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
-					methodBuilder.endControlFlow();
-					methodBuilder.addStatement("collection.add(item)");
-		if (property.xmlInfo.isWrappedCollection())
-		{
-				methodBuilder.endControlFlow();
-		}
-			methodBuilder.endControlFlow();
-    	                 	
-			if (collectionType==CollectionType.ARRAY)
+			if (TypeUtility.isTypePrimitive(elementTypeName))
 			{
-				if (TypeUtility.isTypePrimitive(elementTypeName))
-				{
-					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"), CollectionUtility.class, elementTypeName.box());
-				} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
-					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtility.class, elementTypeName);
-				} else {
-					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"), CollectionUtility.class, elementTypeName);
-				}				
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"), CollectionUtility.class, elementTypeName.box());
+			} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtility.class, elementTypeName);
 			} else {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
-			}
-			
-			if (!property.xmlInfo.isWrappedCollection())
-			{
-				methodBuilder.addStatement("read=false");
-			}
-			
-			
-			methodBuilder.endControlFlow();
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"), CollectionUtility.class, elementTypeName);
+			}				
+		} else {
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
+		}
+		
+		if (!property.xmlInfo.isWrappedCollection())
+		{
+			methodBuilder.addStatement("read=false");
+		}
+		
+		methodBuilder.endControlFlow();
 		//@formatter:on
 	}
 	
@@ -244,7 +254,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			}
 				
 				methodBuilder.beginControlFlow("if (item==null)");
-					methodBuilder.addStatement("$L.writeNull()", serializerName);
+					methodBuilder.addStatement("$L.writeNullField($S)", serializerName, elementProperty.jacksonName);
 				methodBuilder.nextControlFlow("else");
 					if (onString)
 					{
@@ -281,17 +291,21 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			}
 			
 			BindTransform transform=BindTransformer.lookup(elementTypeName);
-			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).build();
+			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).elementName(property.xmlInfo.tagElement).build();
 			
-			if (collectionType==CollectionType.SET)
+			switch(collectionType)
 			{
-				methodBuilder.beginControlFlow("for ($T item: $L)", elementTypeName, getter(beanName, beanClass, property));				
-			} else if (collectionType==CollectionType.LIST) {
+			case SET:
+				methodBuilder.beginControlFlow("for ($T item: $L)", elementTypeName, getter(beanName, beanClass, property));
+				break;
+			case LIST:
 				methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
 				methodBuilder.addStatement("item=$L.get(i)", getter(beanName, beanClass, property));
-			} else if (collectionType==CollectionType.ARRAY) {
+				break;
+			case ARRAY:
 				methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
 				methodBuilder.addStatement("item=$L[i]", getter(beanName, beanClass, property));
+				break;
 			}
 				
 			if (property.isNullable())
