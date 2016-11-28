@@ -83,13 +83,13 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
-//		if (property.isElementInCollection())
-//		{
-//			// we need to write only value			
-//			methodBuilder.addStatement("$L.writeString($T.write($L))", serializerName, utilClazz, getter(beanName, beanClass, property));
-//		} else {		
+		// we need to write only value
+		if (property.isInCollection())
+		{
+			methodBuilder.addStatement("$L.writeString($T.write($L))", serializerName, utilClazz, getter(beanName, beanClass, property));
+		} else {		
 			methodBuilder.addStatement("$L.writeStringField($S, $T.write($L))", serializerName, property.jacksonName, utilClazz, getter(beanName, beanClass, property));
-		//}
+		}
 		
 		if (property.isNullable())
 		{
@@ -106,7 +106,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 		
-		if (property.isNullable() && !property.isElementInCollection())
+		if (property.isNullable() && !property.isInCollection())
 		{
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
@@ -127,7 +127,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable() && !property.isElementInCollection())
+		if (property.isNullable() && !property.isInCollection())
 		{
 			methodBuilder.endControlFlow();
 		}

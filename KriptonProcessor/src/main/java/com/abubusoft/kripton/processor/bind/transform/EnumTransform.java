@@ -48,7 +48,7 @@ public class EnumTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		if (property.isNullable() && !property.isElementInCollection()) {
+		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		switch (xmlType) {
@@ -68,7 +68,7 @@ public class EnumTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable() && !property.isElementInCollection()) {
+		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.endControlFlow();
 		}
 

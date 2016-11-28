@@ -55,7 +55,7 @@ public class MapTransformation extends AbstractBindTransform {
 		
 		methodBuilder.addStatement("$T<$T, $T> collection=new $T<>()", defineMapClass(mapTypeName), keyTypeName, valueTypeName, defineMapClass(mapTypeName));
 		BindTransform transformKey=BindTransformer.lookup(keyTypeName);
-		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
+		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).inCollection(true).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
 		
 		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
 		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
@@ -151,10 +151,12 @@ public class MapTransformation extends AbstractBindTransform {
 		
 		BindTransform transformKey=BindTransformer.lookup(keyTypeName);
 		// key can not be null
-		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
-		
+		// not in collection, it's included in an element 
+		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).inCollection(false).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
+				
 		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
-		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
+		// not in collection, it's included in an element
+		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).inCollection(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
 		
 		methodBuilder.beginControlFlow("for ($T<$T, $T> item: $L.entrySet())", Entry.class, keyTypeName, valueTypeName, getter(beanName, beanClass, property));		
 		
@@ -201,10 +203,10 @@ public class MapTransformation extends AbstractBindTransform {
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		
 			BindTransform transformKey=BindTransformer.lookup(keyTypeName);
-			BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
+			BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).inCollection(false).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
 			
 			BindTransform transformValue=BindTransformer.lookup(valueTypeName);
-			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
+			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).inCollection(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
 		
 			methodBuilder.addCode("// write wrapper tag\n");
 			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);
@@ -261,10 +263,10 @@ public class MapTransformation extends AbstractBindTransform {
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);		
 		methodBuilder.addStatement("$T<$T, $T> collection=new $T<>()", defineMapClass(mapTypeName), keyTypeName, valueTypeName, defineMapClass(mapTypeName));
 		BindTransform transformKey=BindTransformer.lookup(keyTypeName);
-		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).nullable(false).build();
+		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).inCollection(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).nullable(false).build();
 		
 		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
-		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).nullable(false).build();
+		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).inCollection(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).nullable(false).build();
 		
 		methodBuilder.addStatement("$T key=$L", elementKeyProperty.getPropertyType().getName(), DEFAULT_VALUE);
 		methodBuilder.addStatement("$T value=$L", elementValueProperty.getPropertyType().getName(), DEFAULT_VALUE);

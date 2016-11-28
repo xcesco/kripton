@@ -70,7 +70,7 @@ public class ObjectTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {		
 		//@formatter:off
-		if (property.isNullable() && !property.isElementInCollection())
+		if (property.isNullable() && !property.isInCollection())
 		{
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
@@ -92,7 +92,7 @@ public class ObjectTransform extends AbstractBindTransform {
 				methodBuilder.addStatement("$L.writeBinary(buffer, 0, buffer.length)", serializerName);
 				break;
 		}
-		if (property.isNullable() && !property.isElementInCollection())
+		if (property.isNullable() && !property.isInCollection())
 		{
 			methodBuilder.endControlFlow();
 		}
@@ -106,10 +106,10 @@ public class ObjectTransform extends AbstractBindTransform {
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
-//		if (!property.isElementInCollection())
-//		{
+		if (!property.isInCollection())
+		{
 			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonName);
-//		}
+		}
 		if (onString)
 		{
 			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
