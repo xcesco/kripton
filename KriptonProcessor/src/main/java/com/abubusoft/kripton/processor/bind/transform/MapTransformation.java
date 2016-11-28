@@ -204,18 +204,10 @@ public class MapTransformation extends AbstractBindTransform {
 		
 			// fields are in objects, no in collection
 			BindTransform transformKey=BindTransformer.lookup(keyTypeName);
-<<<<<<< HEAD
 			BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).inCollection(false).elementName(property.mapKeyName).build();
-=======
-			BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).inCollection(false).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).build();
->>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton
 			
 			BindTransform transformValue=BindTransformer.lookup(valueTypeName);
-<<<<<<< HEAD
 			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).inCollection(false).elementName(property.mapValueName).build();
-=======
-			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).inCollection(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
->>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton
 		
 			methodBuilder.addCode("// write wrapper tag\n");
 			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);

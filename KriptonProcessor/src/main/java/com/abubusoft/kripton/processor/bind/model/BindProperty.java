@@ -46,8 +46,6 @@ public class BindProperty extends ModelProperty {
 			return this;
 		}
 
-		private boolean inCollection;
-
 		public BindPropertyBuilder(TypeName rawTypeName, BindProperty property) {
 			this.rawTypeName=rawTypeName;
 			this.parentProperty=property;
@@ -63,11 +61,7 @@ public class BindProperty extends ModelProperty {
 			
 			property.propertyType=new ModelType(rawTypeName);
 			property.order=parentProperty.order;
-<<<<<<< HEAD
-			property.inCollection=inCollection;
-=======
 			property.inCollection=this.inCollection;
->>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton
 			property.jacksonName=tag;
 			property.xmlInfo.xmlType=this.xmlType;
 			property.xmlInfo.tag=tag;
@@ -93,10 +87,6 @@ public class BindProperty extends ModelProperty {
 			return this;
 		}
 
-		public BindPropertyBuilder inCollection(boolean value) {
-			this.inCollection=value;
-			return this;
-		}
 	}
 	public class XmlInfo {
 		public MapEntryType mapEntryType;
