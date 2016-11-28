@@ -15,16 +15,6 @@ public abstract class AbstractContext {
 	@SuppressWarnings("rawtypes")
 	private static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
 
-	static {
-		// OBJECT_MAPPERS.put(String.class, new String$JsonMapper());
-		// OBJECT_MAPPERS.put(Integer.class, new IntegerMapper());
-		// OBJECT_MAPPERS.put(Long.class, new
-		// kripton70.internal.Long.JsonMapper());
-		/*
-		 * OBJECT_MAPPERS.put(Float.class, new FloatMapper()); OBJECT_MAPPERS.put(Double.class, new DoubleMapper()); OBJECT_MAPPERS.put(Boolean.class, new BooleanMapper()); OBJECT_MAPPERS.put(Object.class, new ObjectMapper());
-		 * OBJECT_MAPPERS.put(List.class, LIST_MAPPER); OBJECT_MAPPERS.put(ArrayList.class, LIST_MAPPER); OBJECT_MAPPERS.put(Map.class, MAP_MAPPER); OBJECT_MAPPERS.put(HashMap.class, MAP_MAPPER);
-		 */
-	}
 
 	/**
 	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.

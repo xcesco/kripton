@@ -20,6 +20,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import javax.xml.stream.events.XMLEvent;
 
+import kripton70.BeanAttribute70;
+
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -39,23 +41,58 @@ public class ObjectTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {		
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnXml(context, wrapper, eventType)"), property.getPropertyType().getName());
+	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		switch(property.xmlInfo.xmlType)
+		{
+			case ATTRIBUTE:
+				//context.mapperFor(BeanAttribute70.class).parse(context, xmlParser.getAttributeAsBinary(attributeIndex));
+				methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parse(context, $L.getAttributeAsBinary(attributeIndex))"), property.getPropertyType().getName(), parserName);
+				//methodBuilder.addStatement("$L.writeBinaryAttribute(null, null, $S, context.mapperFor($T.class).serialize(context, $L).getBytes())", serializerName, property.xmlInfo.tag, property.getPropertyType().getName(), getter(beanName, beanClass, property));
+				break;
+			case TAG:
+//				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+//				methodBuilder.addStatement("context.mapperFor($T.class).serializeOnXml(context, $L, wrapper, $L)", property.getPropertyType().getName(), getter(beanName, beanClass, property), XMLEvent.START_ELEMENT);
+//				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+				methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnXml(context, wrapper, eventType)"), property.getPropertyType().getName());
+				break;
+			case VALUE:
+			case VALUE_CDATA:				
+//				methodBuilder.addStatement("byte[] buffer=context.mapperFor($T.class).serialize(context, $L).getBytes()",property.getPropertyType().getName(), getter(beanName, beanClass, property));
+//				methodBuilder.addStatement("$L.writeBinaryAttribute(null, null, $S, buffer)", serializerName, property.xmlInfo.tag);
+				
+				methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parse(context, $L.getElementAsBinary())"), property.getPropertyType().getName(), parserName);
+				break;
+		}
+		//methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnXml(context, wrapper, eventType)"), property.getPropertyType().getName());
+		
 	}
 
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {		
 		//@formatter:off
-		if (property.isNullable())
+		if (property.isNullable() && !property.isElementInCollection())
 		{
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
-			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnXml(context, $L, wrapper, $L)", property.getPropertyType().getName(), getter(beanName, beanClass, property), XMLEvent.START_ELEMENT);
-			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
-			
-		if (property.isNullable())
+		switch(property.xmlInfo.xmlType)
+		{
+			case ATTRIBUTE:
+				methodBuilder.addStatement("$L.writeBinaryAttribute(null, null, $S, context.mapperFor($T.class).serialize(context, $L).getBytes())", serializerName, property.xmlInfo.tag, property.getPropertyType().getName(), getter(beanName, beanClass, property));
+				//xmlSerializer.writeBinaryAttribute(null, null, localName, context.mapperFor(BeanAttribute70.class).serialize(context, object.valueBean).getBytes());
+				break;
+			case TAG:
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+				methodBuilder.addStatement("context.mapperFor($T.class).serializeOnXml(context, $L, wrapper, $L)", property.getPropertyType().getName(), getter(beanName, beanClass, property), XMLEvent.START_ELEMENT);
+				methodBuilder.addStatement("$L.writeEndElement()", serializerName);				
+				break;
+			case VALUE:
+			case VALUE_CDATA:				
+				methodBuilder.addStatement("byte[] buffer=context.mapperFor($T.class).serialize(context, $L).getBytes()",property.getPropertyType().getName(), getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeBinary(buffer, 0, buffer.length)", serializerName);
+				break;
+		}
+		if (property.isNullable() && !property.isElementInCollection())
 		{
 			methodBuilder.endControlFlow();
 		}

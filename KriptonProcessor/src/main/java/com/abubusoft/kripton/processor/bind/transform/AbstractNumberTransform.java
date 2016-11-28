@@ -30,9 +30,11 @@ import com.squareup.javapoet.TypeName;
 abstract class AbstractNumberTransform extends AbstractBindTransform {
 
 	protected Class<?> NUMBER_UTIL_CLAZZ;
+	protected String ATTRIBUTE_METHOD;
 
 	public AbstractNumberTransform() {
 		NUMBER_UTIL_CLAZZ = BigDecimalUtil.class;
+		
 	}
 
 	@Override
@@ -68,7 +70,7 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read($T.unescapeXml($L.read(attributeValue)))"), NUMBER_UTIL_CLAZZ, StringEscapeUtils.class, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getAttributeAs$L(attributeIndex)"), parserName, ATTRIBUTE_METHOD);
 			break;
 		case TAG:
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read($T.unescapeXml($L.getElementText()))"), NUMBER_UTIL_CLAZZ, StringEscapeUtils.class, parserName);
@@ -122,18 +124,18 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 
-		if (property.isNullable()) {
+		if (property.isNullable() && !property.isElementInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $T.escapeXml10($T.write($L)))", serializerName, property.xmlInfo.tag, StringEscapeUtils.class, NUMBER_UTIL_CLAZZ, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.write$LAttribute(null, null,$S, $L)", serializerName, ATTRIBUTE_METHOD, property.xmlInfo.tag, getter(beanName, beanClass, property));
 			break;
 		case TAG:
 			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
 			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write($L)))", serializerName, StringEscapeUtils.class, NUMBER_UTIL_CLAZZ, getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+			methodBuilder.addStatement("$L.writeEndElement()", serializerName);			
 			break;
 		case VALUE:
 			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write($L)))", serializerName, StringEscapeUtils.class, NUMBER_UTIL_CLAZZ, getter(beanName, beanClass, property));
@@ -143,7 +145,7 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable()) {
+		if (property.isNullable() && !property.isElementInCollection()) {
 			methodBuilder.endControlFlow();
 		}
 

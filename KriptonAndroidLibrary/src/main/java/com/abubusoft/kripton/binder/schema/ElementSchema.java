@@ -119,7 +119,7 @@ public class ElementSchema extends AbstractSchema {
 		mapInfo.mapClazz = mapType;
 		mapInfo.entryStrategy = policy;
 
-		if (policy == MapEntryType.ATTRIBUTES) {
+		if (policy == MapEntryType.ATTRIBUTE) {
 			if (!Transformer.isPrimitive(keyType))
 				throw new MappingException("Can not use type " + keyType.getSimpleName() + " as key of map field " + fieldName);
 			if (!Transformer.isPrimitive(valueType))

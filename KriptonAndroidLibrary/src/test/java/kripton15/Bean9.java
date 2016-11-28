@@ -13,30 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package base;
+/**
+ * 
+ */
+package kripton15;
 
-import kripton70.TestKripton70;
-import kripton71.TestKripton71;
-import kripton72.TestKripton72;
-import kripton73.TestKripton73;
-import kripton74.TestKripton74;
-import kripton75.TestKripton75;
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestKripton70.class,
-		TestKripton71.class,
-		TestKripton72.class,
-		TestKripton73.class,
-		TestKripton74.class,
-		TestKripton75.class
-		 })
-//@formatter:on
-public class BindTypeProcessorSuiteTest {
+
+
+/**
+ * @author xcesco
+ *
+ */
+@BindType
+public class Bean9 implements Serializable {
+
+	public Bean9()
+	{
+		map=new LinkedHashMap<Integer, String>();
+	}
+
+
+	private static final long serialVersionUID = 3113613163524431347L;
+
+	@Bind(mapKeyName="k", mapValueName="v")
+	@BindXml(elementTag="item")
+	Map<Integer, String> map;
 
 }

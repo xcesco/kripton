@@ -22,4 +22,8 @@ public class PropertiesBinderContext extends JacksonContext {
 		return new JavaPropsFactory();
 	}
 	
+	@Override
+	public <E> E parse(byte[] is, Class<E> objectClazz) {
+		return mapperFor(objectClazz).parse(this, is);
+	}
 }

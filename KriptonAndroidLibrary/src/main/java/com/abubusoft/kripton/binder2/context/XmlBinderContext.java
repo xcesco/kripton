@@ -199,4 +199,9 @@ public class XmlBinderContext extends AbstractContext implements BinderContext<X
 		mapperFor(objectClazz).serialize(this, list, os);
 	}
 
+	@Override
+	public <E> E parse(byte[] is, Class<E> objectClazz) {
+		return mapperFor(objectClazz).parse(this, is);
+	}
+
 }

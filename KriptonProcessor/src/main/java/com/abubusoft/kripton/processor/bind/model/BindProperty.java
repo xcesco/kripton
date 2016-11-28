@@ -19,37 +19,69 @@ import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
+import com.abubusoft.kripton.processor.bind.model.BindProperty.BindPropertyBuilder;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.squareup.javapoet.TypeName;
 
 public class BindProperty extends ModelProperty {
 
-	public BindProperty(Element element) {
-		super(element);
+	public static class BindPropertyBuilder
+	{				
+		protected BindProperty parentProperty;
+
+		protected TypeName rawTypeName;
+
+		protected XmlType xmlType;
+
+		private String xmlTag;
+
+		private boolean nullable;
+
+		public BindPropertyBuilder(TypeName rawTypeName, BindProperty property) {
+			this.rawTypeName=rawTypeName;
+			this.parentProperty=property;
+			this.nullable=property.nullable;
+			this.xmlType=property.xmlInfo.xmlType;
+			this.xmlTag=property.xmlInfo.tag;
+		}
 		
-		nullable=true;
-		elementInCollection=false;
-		xmlInfo=new XmlInfo();
+		public BindProperty build()
+		{
+			BindProperty property=new BindProperty(null);
+			
+			property.propertyType=new ModelType(rawTypeName);
+			property.jacksonName=parentProperty.jacksonName;
+			property.order=parentProperty.order;
+			property.elementInCollection=true;
+			property.xmlInfo.xmlType=this.xmlType;
+			property.xmlInfo.tag=xmlTag;
+			property.xmlInfo.tagElement=null;
+			property.nullable=this.nullable;
+			
+			return property;
+		}
+		
+		public BindPropertyBuilder xmlType(XmlType xmlType) {
+			this.xmlType = xmlType;
+			
+			return this;
+		}
+		
+		public BindPropertyBuilder xmlTag(String xmlTag) {
+			this.xmlTag = xmlTag;
+			
+			return this;
+		}
+
+		public BindPropertyBuilder nullable(boolean value) {
+			this.nullable=value;
+			return this;
+		}
 	}
-	public XmlInfo xmlInfo;
-	
-	public int order;
-
-	public String jacksonName;
-
-	public boolean nullable;
-
-	/**
-	 * if true, means property is to write into a collection
-	 */
-	public boolean elementInCollection;
-
-	public boolean isNullable() {
-		return !elementInCollection;
-	}
-
 	public class XmlInfo {
+		public MapEntryType mapEntryType;
+		
 		/**
 		 * tag name used for item or collection (if element is a collection)
 		 */
@@ -60,11 +92,9 @@ public class BindProperty extends ModelProperty {
 		 */
 		public String tagElement;
 		
-		public XmlType xmlType;
-		
-		public MapEntryType mapEntryType;
-
 		public boolean wrappedCollection;
+
+		public XmlType xmlType;
 		
 		/**
 		 * If true, this element is a collection with a tag for collection and a tag for each element 
@@ -79,40 +109,42 @@ public class BindProperty extends ModelProperty {
 		
 
 	}
-
+	
 	public static BindPropertyBuilder builder(TypeName rawTypeName, BindProperty property) {
 		return new BindPropertyBuilder(rawTypeName, property);
 	}
-	
-	public static class BindPropertyBuilder
-	{		
-		public BindPropertyBuilder(TypeName rawTypeName, BindProperty property) {
-			this.rawTypeName=rawTypeName;
-			this.parentProperty=property;
-		}
 
-		public BindProperty build()
-		{
-			BindProperty property=new BindProperty(null);
-			
-			property.propertyType=new ModelType(rawTypeName);
-			property.jacksonName=parentProperty.jacksonName;
-			property.order=parentProperty.order;
-			property.elementInCollection=true;
-			property.xmlInfo.xmlType=XmlType.TAG;
-			property.xmlInfo.tag=parentProperty.xmlInfo.tagElement;
-			property.xmlInfo.tagElement=null;
-			
-			return property;
-		}
+	/**
+	 * if true, means property is to write into a collection
+	 */
+	public boolean elementInCollection;
+
+	public String jacksonName;
+
+	public boolean nullable;
+
+	public int order;
+
+	public XmlInfo xmlInfo;
+
+	public String mapKeyName;
+
+	public String mapValueName;
+
+	public BindProperty(Element element) {
+		super(element);
 		
-		protected TypeName rawTypeName;
-		
-		protected BindProperty parentProperty;
+		nullable=true;
+		elementInCollection=false;
+		xmlInfo=new XmlInfo();
 	}
-
+	
 	public boolean isElementInCollection() {
 		return elementInCollection;
+	}
+
+	public boolean isNullable() {
+		return nullable;
 	}
 
 }

@@ -80,9 +80,7 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	 */
 	public E parse(@SuppressWarnings("rawtypes") BinderContext context, byte[] byteArray) {
 		ParserWrapper parser = context.createParser(byteArray);
-		// parser.nextToken();
 		return parse(context, parser);
-		// return null;
 	}
 
 	/**

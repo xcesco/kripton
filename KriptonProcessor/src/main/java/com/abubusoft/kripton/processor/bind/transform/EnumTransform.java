@@ -48,7 +48,9 @@ public class EnumTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));		
+		if (property.isNullable() && !property.isElementInCollection()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
 		switch (xmlType) {
 		case ATTRIBUTE:
 			methodBuilder.addStatement("$L.writeAttribute($S, $L.$L())", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
@@ -56,7 +58,7 @@ public class EnumTransform extends AbstractBindTransform {
 		case TAG:
 			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
 			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L()))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+			methodBuilder.addStatement("$L.writeEndElement()", serializerName);						
 			break;
 		case VALUE:
 			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L()))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
@@ -66,7 +68,9 @@ public class EnumTransform extends AbstractBindTransform {
 			break;
 		}
 
-		methodBuilder.endControlFlow();
+		if (property.isNullable() && !property.isElementInCollection()) {
+			methodBuilder.endControlFlow();
+		}
 
 	}
 	
@@ -97,9 +101,9 @@ public class EnumTransform extends AbstractBindTransform {
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.valueOf($T.read(attributeValue))"), typeName, parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.valueOf($L.getAttributeValue(attributeIndex))"), typeName, parserName);
 			break;
-		case TAG:
+		case TAG:			
 			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.valueOf($T.unescapeXml($L.getElementText()))"), typeName, StringEscapeUtils.class, parserName);
 			break;
 		case VALUE:

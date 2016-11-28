@@ -5,15 +5,15 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
@@ -22,16 +22,16 @@ public class MapTransformation extends AbstractBindTransform {
 	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	protected Class<?> utilClazz;
-	private ParameterizedTypeName listTypeName;
+	private ParameterizedTypeName mapTypeName;
 	private TypeName keyTypeName;
 	private TypeName valueTypeName;
 
 	public MapTransformation(ParameterizedTypeName clazz) {
 		this.utilClazz = ProcessorHelper.class;
 
-		this.listTypeName = clazz;
-		this.keyTypeName = listTypeName.typeArguments.get(0);
-		this.valueTypeName = listTypeName.typeArguments.get(1);
+		this.mapTypeName = clazz;
+		this.keyTypeName = mapTypeName.typeArguments.get(0);
+		this.valueTypeName = mapTypeName.typeArguments.get(1);
 	}
 
 	private Class<?> defineMapClass(ParameterizedTypeName mapTypeName) {
@@ -49,37 +49,140 @@ public class MapTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		/*
-		Class<?> mapClazz = defineMapClass(listTypeName);
-
-		if (add) {
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
+		//@formatter:off
+		methodBuilder.beginControlFlow("");
+		
+		methodBuilder.addStatement("$T<$T, $T> collection=new $T<>()", defineMapClass(mapTypeName), keyTypeName, valueTypeName, defineMapClass(mapTypeName));
+		BindTransform transformKey=BindTransformer.lookup(keyTypeName);
+		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).xmlTag(property.mapKeyName).build();
+		
+		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
+		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).xmlTag(property.mapValueName).build();
+		
+		methodBuilder.addStatement("$T key", elementKeyProperty.getPropertyType().getName());
+		methodBuilder.addStatement("$T value", elementValueProperty.getPropertyType().getName());
+				
+		if (property.xmlInfo.mapEntryType==MapEntryType.ATTRIBUTE)
+		{
+			methodBuilder.addStatement("int attributeIndex");
 		}
 
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.asMap(new $T<$T, $T>(), $T.class, $T.class, $L.getString($S, null))", utilClazz, mapClazz, keyTypeName, valueTypeName, keyTypeName, valueTypeName, preferenceName, property.getName());
-		methodBuilder.addCode(": null");
-
-		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
-		}*/
+		
+		if (property.xmlInfo.isWrappedCollection())
+		{					
+			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tagElement);
+		} else {
+			methodBuilder.addCode("// add first element\n");			
+			switch (property.xmlInfo.mapEntryType)
+			{
+			case TAG:
+				methodBuilder.addStatement("$L.nextTag()", parserName);
+				transformKey.generateParseOnXml(methodBuilder, parserName, null, "key", elementKeyProperty);
+				methodBuilder.addStatement("$L.nextTag()", parserName);
+				methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);
+					methodBuilder.addStatement("value=null");
+					methodBuilder.addStatement("$L.nextTag()", parserName);
+				methodBuilder.nextControlFlow("else");
+					transformValue.generateParseOnXml(methodBuilder, parserName, null, "value", elementValueProperty);
+				methodBuilder.endControlFlow();
+				methodBuilder.addStatement("$L.nextTag()", parserName);
+				break;
+			case ATTRIBUTE:
+				methodBuilder.addStatement("attributeIndex=$L.getAttributeIndex(null, $S)", parserName, property.mapKeyName);
+				transformKey.generateParseOnXml(methodBuilder, parserName, null, "key", elementKeyProperty);
+				methodBuilder.addStatement("attributeIndex=$L.getAttributeIndex(null, $S)", parserName, property.mapValueName);
+				transformValue.generateParseOnXml(methodBuilder, parserName, null, "value", elementValueProperty);
+				break;
+			}
+			
+			methodBuilder.addStatement("collection.put(key, value)");
+			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tagElement);
+		}
+		
+		switch (property.xmlInfo.mapEntryType)
+		{
+		case TAG:
+			methodBuilder.addStatement("$L.nextTag()", parserName);
+			transformKey.generateParseOnXml(methodBuilder, parserName, null, "key", elementKeyProperty);
+			methodBuilder.addStatement("$L.nextTag()", parserName);
+			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);
+				methodBuilder.addStatement("value=null");		
+				methodBuilder.addStatement("$L.nextTag()", parserName);
+			methodBuilder.nextControlFlow("else");
+				transformValue.generateParseOnXml(methodBuilder, parserName, null, "value", elementValueProperty);
+				//methodBuilder.addStatement("$L.nextTag()", parserName);
+			methodBuilder.endControlFlow();
+			methodBuilder.addStatement("$L.nextTag()", parserName);
+			break;
+		case ATTRIBUTE:
+			methodBuilder.addStatement("attributeIndex=$L.getAttributeIndex(null, $S)", parserName, property.mapKeyName);
+			transformKey.generateParseOnXml(methodBuilder, parserName, null, "key", elementKeyProperty);
+			methodBuilder.addStatement("attributeIndex=$L.getAttributeIndex(null, $S)", parserName, property.mapValueName);
+			transformValue.generateParseOnXml(methodBuilder, parserName, null, "value", elementValueProperty);
+			break;
+		}
+		
+		
+			methodBuilder.addStatement("collection.put(key, value)");			
+		methodBuilder.endControlFlow();
+		
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));			
+		
+		if (!property.xmlInfo.isWrappedCollection())
+		{
+			methodBuilder.addStatement("read=false");
+		}
+			methodBuilder.endControlFlow();
+		//@formatter:on
 	}
 
 	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String editorName, TypeName beanClass, String beanName, BindProperty property) {
-//		if (beanClass != null) {
-//			methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
-//			methodBuilder.addCode("$L.putString($S,$T.asString($L))", editorName, property.getName(), utilClazz, getter(beanName, beanClass, property));
-//			methodBuilder.addCode(";");
-//			methodBuilder.addCode(" else ");
-//			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-//		} else {
-//			methodBuilder.addCode("if ($L!=null) ", beanName);
-//			methodBuilder.addCode("$L.putString($S,$T.asString($L))", editorName, property.getName(), utilClazz, beanName);
-//			methodBuilder.addCode(";");
-//			methodBuilder.addCode(" else ");
-//			methodBuilder.addCode("$L.putString($S, null)", editorName, property.getName());
-//		}
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		//@formatter:off
+		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+				
+		if (property.xmlInfo.isWrappedCollection())
+		{
+			methodBuilder.addCode("// write wrapper tag\n");
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+		}
+		
+		
+		BindTransform transformKey=BindTransformer.lookup(keyTypeName);
+		// key can not be null
+		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).xmlTag(property.mapKeyName).build();
+		
+		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
+		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).xmlTag(property.mapValueName).build();
+		
+		methodBuilder.beginControlFlow("for ($T<$T, $T> item: $L.entrySet())", Entry.class, keyTypeName, valueTypeName, getter(beanName, beanClass, property));		
+		
+		methodBuilder.addStatement("$L.writeStartElement($S)$>", serializerName, property.xmlInfo.tagElement);
+						
+		transformKey.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
+		
+		if (elementValueProperty.isNullable())
+		{
+			methodBuilder.beginControlFlow("if (item.getValue()==null)");
+				methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.mapValueName);
+			methodBuilder.nextControlFlow("else");
+				transformValue.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
+			methodBuilder.endControlFlow();
+		} else {
+			transformValue.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
+		}
+		
+		
+		methodBuilder.addStatement("$<$L.writeEndElement()", serializerName);		
+		methodBuilder.endControlFlow();
+				
+		if (property.xmlInfo.isWrappedCollection())
+		{
+			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+		}
+					
+		methodBuilder.endControlFlow();
+		//@formatter:on
 
 	}
 

@@ -79,17 +79,17 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
       resultBean=new Bean2();
 
-      if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setValueByteSet(ProcessorHelper.asCollection(new HashSet<java.lang.Byte>(), Byte.class, cursor.getBlob(index1))); }
-      if (!cursor.isNull(index2)) { resultBean.setValueShortSet(ProcessorHelper.asCollection(new HashSet<java.lang.Short>(), Short.class, cursor.getBlob(index2))); }
-      if (!cursor.isNull(index3)) { resultBean.setValueIntegerSet(ProcessorHelper.asCollection(new LinkedHashSet<java.lang.Integer>(), Integer.class, cursor.getBlob(index3))); }
-      if (!cursor.isNull(index4)) { resultBean.setValueStringSet(ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index4))); }
-      if (!cursor.isNull(index5)) { resultBean.setValueCharacterSet(ProcessorHelper.asCollection(new HashSet<java.lang.Character>(), Character.class, cursor.getBlob(index5))); }
-      if (!cursor.isNull(index6)) { resultBean.setValueFloatSet(ProcessorHelper.asCollection(new HashSet<java.lang.Float>(), Float.class, cursor.getBlob(index6))); }
-      if (!cursor.isNull(index7)) { resultBean.setValueDoubleSet(ProcessorHelper.asCollection(new HashSet<java.lang.Double>(), Double.class, cursor.getBlob(index7))); }
-      if (!cursor.isNull(index8)) { resultBean.setValueBigDecimalSet(ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, cursor.getBlob(index8))); }
-      if (!cursor.isNull(index9)) { resultBean.setValueBeanSet(ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, cursor.getBlob(index9))); }
-      if (!cursor.isNull(index10)) { resultBean.setValueEnumTypeSet(ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, cursor.getBlob(index10))); }
+      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+      if (!cursor.isNull(index1)) { resultBean.valueByteSet=ProcessorHelper.asCollection(new HashSet<java.lang.Byte>(), Byte.class, cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.valueShortSet=ProcessorHelper.asCollection(new HashSet<java.lang.Short>(), Short.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index3)) { resultBean.valueIntegerSet=ProcessorHelper.asCollection(new LinkedHashSet<java.lang.Integer>(), Integer.class, cursor.getBlob(index3)); }
+      if (!cursor.isNull(index4)) { resultBean.valueStringSet=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index4)); }
+      if (!cursor.isNull(index5)) { resultBean.valueCharacterSet=ProcessorHelper.asCollection(new HashSet<java.lang.Character>(), Character.class, cursor.getBlob(index5)); }
+      if (!cursor.isNull(index6)) { resultBean.valueFloatSet=ProcessorHelper.asCollection(new HashSet<java.lang.Float>(), Float.class, cursor.getBlob(index6)); }
+      if (!cursor.isNull(index7)) { resultBean.valueDoubleSet=ProcessorHelper.asCollection(new HashSet<java.lang.Double>(), Double.class, cursor.getBlob(index7)); }
+      if (!cursor.isNull(index8)) { resultBean.valueBigDecimalSet=ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, cursor.getBlob(index8)); }
+      if (!cursor.isNull(index9)) { resultBean.valueBeanSet=ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, cursor.getBlob(index9)); }
+      if (!cursor.isNull(index10)) { resultBean.valueEnumTypeSet=ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, cursor.getBlob(index10)); }
 
     }
     cursor.close();
@@ -157,30 +157,30 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
         do
          {
           // reset mapping
-          resultBean.setId(0L);
-          resultBean.setValueByteSet(null);
-          resultBean.setValueShortSet(null);
-          resultBean.setValueIntegerSet(null);
-          resultBean.setValueStringSet(null);
-          resultBean.setValueCharacterSet(null);
-          resultBean.setValueFloatSet(null);
-          resultBean.setValueDoubleSet(null);
-          resultBean.setValueBigDecimalSet(null);
-          resultBean.setValueBeanSet(null);
-          resultBean.setValueEnumTypeSet(null);
+          resultBean.id=0L;
+          resultBean.valueByteSet=null;
+          resultBean.valueShortSet=null;
+          resultBean.valueIntegerSet=null;
+          resultBean.valueStringSet=null;
+          resultBean.valueCharacterSet=null;
+          resultBean.valueFloatSet=null;
+          resultBean.valueDoubleSet=null;
+          resultBean.valueBigDecimalSet=null;
+          resultBean.valueBeanSet=null;
+          resultBean.valueEnumTypeSet=null;
 
           // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-          if (!cursor.isNull(index1)) { resultBean.setValueByteSet(ProcessorHelper.asCollection(new HashSet<java.lang.Byte>(), Byte.class, cursor.getBlob(index1))); }
-          if (!cursor.isNull(index2)) { resultBean.setValueShortSet(ProcessorHelper.asCollection(new HashSet<java.lang.Short>(), Short.class, cursor.getBlob(index2))); }
-          if (!cursor.isNull(index3)) { resultBean.setValueIntegerSet(ProcessorHelper.asCollection(new LinkedHashSet<java.lang.Integer>(), Integer.class, cursor.getBlob(index3))); }
-          if (!cursor.isNull(index4)) { resultBean.setValueStringSet(ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index4))); }
-          if (!cursor.isNull(index5)) { resultBean.setValueCharacterSet(ProcessorHelper.asCollection(new HashSet<java.lang.Character>(), Character.class, cursor.getBlob(index5))); }
-          if (!cursor.isNull(index6)) { resultBean.setValueFloatSet(ProcessorHelper.asCollection(new HashSet<java.lang.Float>(), Float.class, cursor.getBlob(index6))); }
-          if (!cursor.isNull(index7)) { resultBean.setValueDoubleSet(ProcessorHelper.asCollection(new HashSet<java.lang.Double>(), Double.class, cursor.getBlob(index7))); }
-          if (!cursor.isNull(index8)) { resultBean.setValueBigDecimalSet(ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, cursor.getBlob(index8))); }
-          if (!cursor.isNull(index9)) { resultBean.setValueBeanSet(ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, cursor.getBlob(index9))); }
-          if (!cursor.isNull(index10)) { resultBean.setValueEnumTypeSet(ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, cursor.getBlob(index10))); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.valueByteSet=ProcessorHelper.asCollection(new HashSet<java.lang.Byte>(), Byte.class, cursor.getBlob(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.valueShortSet=ProcessorHelper.asCollection(new HashSet<java.lang.Short>(), Short.class, cursor.getBlob(index2)); }
+          if (!cursor.isNull(index3)) { resultBean.valueIntegerSet=ProcessorHelper.asCollection(new LinkedHashSet<java.lang.Integer>(), Integer.class, cursor.getBlob(index3)); }
+          if (!cursor.isNull(index4)) { resultBean.valueStringSet=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index4)); }
+          if (!cursor.isNull(index5)) { resultBean.valueCharacterSet=ProcessorHelper.asCollection(new HashSet<java.lang.Character>(), Character.class, cursor.getBlob(index5)); }
+          if (!cursor.isNull(index6)) { resultBean.valueFloatSet=ProcessorHelper.asCollection(new HashSet<java.lang.Float>(), Float.class, cursor.getBlob(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.valueDoubleSet=ProcessorHelper.asCollection(new HashSet<java.lang.Double>(), Double.class, cursor.getBlob(index7)); }
+          if (!cursor.isNull(index8)) { resultBean.valueBigDecimalSet=ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, cursor.getBlob(index8)); }
+          if (!cursor.isNull(index9)) { resultBean.valueBeanSet=ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, cursor.getBlob(index9)); }
+          if (!cursor.isNull(index10)) { resultBean.valueEnumTypeSet=ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, cursor.getBlob(index10)); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -312,17 +312,17 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
        {
         resultBean=new Bean2();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setValueByteSet(ProcessorHelper.asCollection(new HashSet<java.lang.Byte>(), Byte.class, cursor.getBlob(index1))); }
-        if (!cursor.isNull(index2)) { resultBean.setValueShortSet(ProcessorHelper.asCollection(new HashSet<java.lang.Short>(), Short.class, cursor.getBlob(index2))); }
-        if (!cursor.isNull(index3)) { resultBean.setValueIntegerSet(ProcessorHelper.asCollection(new LinkedHashSet<java.lang.Integer>(), Integer.class, cursor.getBlob(index3))); }
-        if (!cursor.isNull(index4)) { resultBean.setValueStringSet(ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index4))); }
-        if (!cursor.isNull(index5)) { resultBean.setValueCharacterSet(ProcessorHelper.asCollection(new HashSet<java.lang.Character>(), Character.class, cursor.getBlob(index5))); }
-        if (!cursor.isNull(index6)) { resultBean.setValueFloatSet(ProcessorHelper.asCollection(new HashSet<java.lang.Float>(), Float.class, cursor.getBlob(index6))); }
-        if (!cursor.isNull(index7)) { resultBean.setValueDoubleSet(ProcessorHelper.asCollection(new HashSet<java.lang.Double>(), Double.class, cursor.getBlob(index7))); }
-        if (!cursor.isNull(index8)) { resultBean.setValueBigDecimalSet(ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, cursor.getBlob(index8))); }
-        if (!cursor.isNull(index9)) { resultBean.setValueBeanSet(ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, cursor.getBlob(index9))); }
-        if (!cursor.isNull(index10)) { resultBean.setValueEnumTypeSet(ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, cursor.getBlob(index10))); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.valueByteSet=ProcessorHelper.asCollection(new HashSet<java.lang.Byte>(), Byte.class, cursor.getBlob(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.valueShortSet=ProcessorHelper.asCollection(new HashSet<java.lang.Short>(), Short.class, cursor.getBlob(index2)); }
+        if (!cursor.isNull(index3)) { resultBean.valueIntegerSet=ProcessorHelper.asCollection(new LinkedHashSet<java.lang.Integer>(), Integer.class, cursor.getBlob(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.valueStringSet=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index4)); }
+        if (!cursor.isNull(index5)) { resultBean.valueCharacterSet=ProcessorHelper.asCollection(new HashSet<java.lang.Character>(), Character.class, cursor.getBlob(index5)); }
+        if (!cursor.isNull(index6)) { resultBean.valueFloatSet=ProcessorHelper.asCollection(new HashSet<java.lang.Float>(), Float.class, cursor.getBlob(index6)); }
+        if (!cursor.isNull(index7)) { resultBean.valueDoubleSet=ProcessorHelper.asCollection(new HashSet<java.lang.Double>(), Double.class, cursor.getBlob(index7)); }
+        if (!cursor.isNull(index8)) { resultBean.valueBigDecimalSet=ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, cursor.getBlob(index8)); }
+        if (!cursor.isNull(index9)) { resultBean.valueBeanSet=ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, cursor.getBlob(index9)); }
+        if (!cursor.isNull(index10)) { resultBean.valueEnumTypeSet=ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, cursor.getBlob(index10)); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -365,67 +365,67 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    if (value.getValueByteSet()!=null) {
-      contentValues.put("value_byte_set", ProcessorHelper.asByteArray(value.getValueByteSet()));
+    if (value.valueByteSet!=null) {
+      contentValues.put("value_byte_set", ProcessorHelper.asByteArray(value.valueByteSet));
     } else {
       contentValues.putNull("value_byte_set");
     }
 
-    if (value.getValueShortSet()!=null) {
-      contentValues.put("value_short_set", ProcessorHelper.asByteArray(value.getValueShortSet()));
+    if (value.valueShortSet!=null) {
+      contentValues.put("value_short_set", ProcessorHelper.asByteArray(value.valueShortSet));
     } else {
       contentValues.putNull("value_short_set");
     }
 
-    if (value.getValueIntegerSet()!=null) {
-      contentValues.put("value_integer_set", ProcessorHelper.asByteArray(value.getValueIntegerSet()));
+    if (value.valueIntegerSet!=null) {
+      contentValues.put("value_integer_set", ProcessorHelper.asByteArray(value.valueIntegerSet));
     } else {
       contentValues.putNull("value_integer_set");
     }
 
-    if (value.getValueStringSet()!=null) {
-      contentValues.put("value_string_set", ProcessorHelper.asByteArray(value.getValueStringSet()));
+    if (value.valueStringSet!=null) {
+      contentValues.put("value_string_set", ProcessorHelper.asByteArray(value.valueStringSet));
     } else {
       contentValues.putNull("value_string_set");
     }
 
-    if (value.getValueCharacterSet()!=null) {
-      contentValues.put("value_character_set", ProcessorHelper.asByteArray(value.getValueCharacterSet()));
+    if (value.valueCharacterSet!=null) {
+      contentValues.put("value_character_set", ProcessorHelper.asByteArray(value.valueCharacterSet));
     } else {
       contentValues.putNull("value_character_set");
     }
 
-    if (value.getValueFloatSet()!=null) {
-      contentValues.put("value_float_set", ProcessorHelper.asByteArray(value.getValueFloatSet()));
+    if (value.valueFloatSet!=null) {
+      contentValues.put("value_float_set", ProcessorHelper.asByteArray(value.valueFloatSet));
     } else {
       contentValues.putNull("value_float_set");
     }
 
-    if (value.getValueDoubleSet()!=null) {
-      contentValues.put("value_double_set", ProcessorHelper.asByteArray(value.getValueDoubleSet()));
+    if (value.valueDoubleSet!=null) {
+      contentValues.put("value_double_set", ProcessorHelper.asByteArray(value.valueDoubleSet));
     } else {
       contentValues.putNull("value_double_set");
     }
 
-    if (value.getValueBigDecimalSet()!=null) {
-      contentValues.put("value_big_decimal_set", ProcessorHelper.asByteArray(value.getValueBigDecimalSet()));
+    if (value.valueBigDecimalSet!=null) {
+      contentValues.put("value_big_decimal_set", ProcessorHelper.asByteArray(value.valueBigDecimalSet));
     } else {
       contentValues.putNull("value_big_decimal_set");
     }
 
-    if (value.getValueBeanSet()!=null) {
-      contentValues.put("value_bean_set", ProcessorHelper.asByteArray(value.getValueBeanSet()));
+    if (value.valueBeanSet!=null) {
+      contentValues.put("value_bean_set", ProcessorHelper.asByteArray(value.valueBeanSet));
     } else {
       contentValues.putNull("value_bean_set");
     }
 
-    if (value.getValueEnumTypeSet()!=null) {
-      contentValues.put("value_enum_type_set", ProcessorHelper.asByteArray(value.getValueEnumTypeSet()));
+    if (value.valueEnumTypeSet!=null) {
+      contentValues.put("value_enum_type_set", ProcessorHelper.asByteArray(value.valueEnumTypeSet));
     } else {
       contentValues.putNull("value_enum_type_set");
     }
 
-    String[] whereConditions={String.valueOf(value.getId())};
+    String[] whereConditions={String.valueOf(value.id)};
 
     Logger.info(StringUtil.formatSQL("UPDATE bean2 SET value_byte_set='"+StringUtil.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtil.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtil.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtil.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtil.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtil.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtil.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtil.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtil.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtil.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id=%s"), (Object[])whereConditions);
     int result = database().update("bean2", contentValues, "id=?", whereConditions);
@@ -462,62 +462,62 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    if (bean.getValueByteSet()!=null) {
-      contentValues.put("value_byte_set", ProcessorHelper.asByteArray(bean.getValueByteSet()));
+    if (bean.valueByteSet!=null) {
+      contentValues.put("value_byte_set", ProcessorHelper.asByteArray(bean.valueByteSet));
     } else {
       contentValues.putNull("value_byte_set");
     }
 
-    if (bean.getValueShortSet()!=null) {
-      contentValues.put("value_short_set", ProcessorHelper.asByteArray(bean.getValueShortSet()));
+    if (bean.valueShortSet!=null) {
+      contentValues.put("value_short_set", ProcessorHelper.asByteArray(bean.valueShortSet));
     } else {
       contentValues.putNull("value_short_set");
     }
 
-    if (bean.getValueIntegerSet()!=null) {
-      contentValues.put("value_integer_set", ProcessorHelper.asByteArray(bean.getValueIntegerSet()));
+    if (bean.valueIntegerSet!=null) {
+      contentValues.put("value_integer_set", ProcessorHelper.asByteArray(bean.valueIntegerSet));
     } else {
       contentValues.putNull("value_integer_set");
     }
 
-    if (bean.getValueStringSet()!=null) {
-      contentValues.put("value_string_set", ProcessorHelper.asByteArray(bean.getValueStringSet()));
+    if (bean.valueStringSet!=null) {
+      contentValues.put("value_string_set", ProcessorHelper.asByteArray(bean.valueStringSet));
     } else {
       contentValues.putNull("value_string_set");
     }
 
-    if (bean.getValueCharacterSet()!=null) {
-      contentValues.put("value_character_set", ProcessorHelper.asByteArray(bean.getValueCharacterSet()));
+    if (bean.valueCharacterSet!=null) {
+      contentValues.put("value_character_set", ProcessorHelper.asByteArray(bean.valueCharacterSet));
     } else {
       contentValues.putNull("value_character_set");
     }
 
-    if (bean.getValueFloatSet()!=null) {
-      contentValues.put("value_float_set", ProcessorHelper.asByteArray(bean.getValueFloatSet()));
+    if (bean.valueFloatSet!=null) {
+      contentValues.put("value_float_set", ProcessorHelper.asByteArray(bean.valueFloatSet));
     } else {
       contentValues.putNull("value_float_set");
     }
 
-    if (bean.getValueDoubleSet()!=null) {
-      contentValues.put("value_double_set", ProcessorHelper.asByteArray(bean.getValueDoubleSet()));
+    if (bean.valueDoubleSet!=null) {
+      contentValues.put("value_double_set", ProcessorHelper.asByteArray(bean.valueDoubleSet));
     } else {
       contentValues.putNull("value_double_set");
     }
 
-    if (bean.getValueBigDecimalSet()!=null) {
-      contentValues.put("value_big_decimal_set", ProcessorHelper.asByteArray(bean.getValueBigDecimalSet()));
+    if (bean.valueBigDecimalSet!=null) {
+      contentValues.put("value_big_decimal_set", ProcessorHelper.asByteArray(bean.valueBigDecimalSet));
     } else {
       contentValues.putNull("value_big_decimal_set");
     }
 
-    if (bean.getValueBeanSet()!=null) {
-      contentValues.put("value_bean_set", ProcessorHelper.asByteArray(bean.getValueBeanSet()));
+    if (bean.valueBeanSet!=null) {
+      contentValues.put("value_bean_set", ProcessorHelper.asByteArray(bean.valueBeanSet));
     } else {
       contentValues.putNull("value_bean_set");
     }
 
-    if (bean.getValueEnumTypeSet()!=null) {
-      contentValues.put("value_enum_type_set", ProcessorHelper.asByteArray(bean.getValueEnumTypeSet()));
+    if (bean.valueEnumTypeSet!=null) {
+      contentValues.put("value_enum_type_set", ProcessorHelper.asByteArray(bean.valueEnumTypeSet));
     } else {
       contentValues.putNull("value_enum_type_set");
     }
@@ -525,7 +525,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log
     Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean2 (value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES ('"+StringUtil.checkSize(contentValues.get("value_byte_set"))+"', '"+StringUtil.checkSize(contentValues.get("value_short_set"))+"', '"+StringUtil.checkSize(contentValues.get("value_integer_set"))+"', '"+StringUtil.checkSize(contentValues.get("value_string_set"))+"', '"+StringUtil.checkSize(contentValues.get("value_character_set"))+"', '"+StringUtil.checkSize(contentValues.get("value_float_set"))+"', '"+StringUtil.checkSize(contentValues.get("value_double_set"))+"', '"+StringUtil.checkSize(contentValues.get("value_big_decimal_set"))+"', '"+StringUtil.checkSize(contentValues.get("value_bean_set"))+"', '"+StringUtil.checkSize(contentValues.get("value_enum_type_set"))+"')"));
     long result = database().insert("bean2", null, contentValues);
-    bean.setId(result);
+    bean.id=result;
 
     return result;
   }
@@ -620,17 +620,17 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
       resultBean=new Bean2();
 
-      if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setValueByteSet(ProcessorHelper.asCollection(new HashSet<java.lang.Byte>(), Byte.class, cursor.getBlob(index1))); }
-      if (!cursor.isNull(index2)) { resultBean.setValueShortSet(ProcessorHelper.asCollection(new HashSet<java.lang.Short>(), Short.class, cursor.getBlob(index2))); }
-      if (!cursor.isNull(index3)) { resultBean.setValueIntegerSet(ProcessorHelper.asCollection(new LinkedHashSet<java.lang.Integer>(), Integer.class, cursor.getBlob(index3))); }
-      if (!cursor.isNull(index4)) { resultBean.setValueStringSet(ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index4))); }
-      if (!cursor.isNull(index5)) { resultBean.setValueCharacterSet(ProcessorHelper.asCollection(new HashSet<java.lang.Character>(), Character.class, cursor.getBlob(index5))); }
-      if (!cursor.isNull(index6)) { resultBean.setValueFloatSet(ProcessorHelper.asCollection(new HashSet<java.lang.Float>(), Float.class, cursor.getBlob(index6))); }
-      if (!cursor.isNull(index7)) { resultBean.setValueDoubleSet(ProcessorHelper.asCollection(new HashSet<java.lang.Double>(), Double.class, cursor.getBlob(index7))); }
-      if (!cursor.isNull(index8)) { resultBean.setValueBigDecimalSet(ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, cursor.getBlob(index8))); }
-      if (!cursor.isNull(index9)) { resultBean.setValueBeanSet(ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, cursor.getBlob(index9))); }
-      if (!cursor.isNull(index10)) { resultBean.setValueEnumTypeSet(ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, cursor.getBlob(index10))); }
+      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+      if (!cursor.isNull(index1)) { resultBean.valueByteSet=ProcessorHelper.asCollection(new HashSet<java.lang.Byte>(), Byte.class, cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.valueShortSet=ProcessorHelper.asCollection(new HashSet<java.lang.Short>(), Short.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index3)) { resultBean.valueIntegerSet=ProcessorHelper.asCollection(new LinkedHashSet<java.lang.Integer>(), Integer.class, cursor.getBlob(index3)); }
+      if (!cursor.isNull(index4)) { resultBean.valueStringSet=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index4)); }
+      if (!cursor.isNull(index5)) { resultBean.valueCharacterSet=ProcessorHelper.asCollection(new HashSet<java.lang.Character>(), Character.class, cursor.getBlob(index5)); }
+      if (!cursor.isNull(index6)) { resultBean.valueFloatSet=ProcessorHelper.asCollection(new HashSet<java.lang.Float>(), Float.class, cursor.getBlob(index6)); }
+      if (!cursor.isNull(index7)) { resultBean.valueDoubleSet=ProcessorHelper.asCollection(new HashSet<java.lang.Double>(), Double.class, cursor.getBlob(index7)); }
+      if (!cursor.isNull(index8)) { resultBean.valueBigDecimalSet=ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, cursor.getBlob(index8)); }
+      if (!cursor.isNull(index9)) { resultBean.valueBeanSet=ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, cursor.getBlob(index9)); }
+      if (!cursor.isNull(index10)) { resultBean.valueEnumTypeSet=ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, cursor.getBlob(index10)); }
 
     }
     cursor.close();

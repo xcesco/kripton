@@ -71,7 +71,8 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
     }
 
      {
-      bean.stringList=(prefs.getString("stringList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
+      String temp=prefs.getString("stringList", null);
+      bean.stringList=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, temp): null;
     }
 
     bean.valueInt=(int)prefs.getInt("valueInt", (int)bean.valueInt);
@@ -157,7 +158,8 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
    */
   public List<String> stringList() {
      {
-      return (prefs.getString("stringList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, prefs.getString("stringList", null)): null;
+      String temp=prefs.getString("stringList", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, temp): null;
     }
 
   }

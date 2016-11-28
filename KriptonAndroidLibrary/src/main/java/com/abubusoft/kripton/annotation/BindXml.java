@@ -64,6 +64,6 @@ public @interface BindXml {
 	 * 
 	 * @return Type of mapping of element of a map
 	 */
-	MapEntryType mapEntryStrategy() default MapEntryType.ELEMENTS;
+	MapEntryType mapEntryType() default MapEntryType.TAG;
 
 }

@@ -972,6 +972,8 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       while (xmlParser.hasNext() && !elementNameStack.isEmpty()) {
         if (read) {
           eventType = xmlParser.next();
+        } else {
+          eventType = xmlParser.getEventType();
         }
         read=true;
         switch(eventType) {

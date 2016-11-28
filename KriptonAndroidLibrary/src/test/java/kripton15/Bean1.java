@@ -45,7 +45,7 @@ public class Bean1 implements Serializable {
 	private static final long serialVersionUID = 3113613163524431347L;
 	
 	@Bind
-	@BindXml(mapEntryStrategy=MapEntryType.ELEMENTS)
+	@BindXml(mapEntryType=MapEntryType.TAG)
 	Map<String, String> map;
 
 }

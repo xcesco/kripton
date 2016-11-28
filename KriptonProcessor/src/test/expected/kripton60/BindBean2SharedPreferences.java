@@ -110,7 +110,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
      {
-      bean.setValueCharList((prefs.getString("valueCharList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null);
+      String temp=prefs.getString("valueCharList", null);
+      bean.setValueCharList(StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, temp): null);
     }
 
     bean.setValueCharType((char)prefs.getInt("valueCharType", (char)bean.getValueCharType()));
@@ -140,7 +141,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
      {
-      bean.setValueLongList((prefs.getString("valueLongList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null);
+      String temp=prefs.getString("valueLongList", null);
+      bean.setValueLongList(StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, temp): null);
     }
 
     bean.setValueLongType(prefs.getLong("valueLongType", bean.getValueLongType()));
@@ -162,12 +164,14 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
      {
-      bean.setValueStrinList((prefs.getString("valueStrinList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null);
+      String temp=prefs.getString("valueStrinList", null);
+      bean.setValueStrinList(StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, temp): null);
     }
 
     bean.setValueTime((prefs.getString("valueTime", null)!=null) ? TimeUtil.read(prefs.getString("valueTime", null)): null);
      {
-      bean.setValueTimeList((prefs.getString("valueTimeList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null);
+      String temp=prefs.getString("valueTimeList", null);
+      bean.setValueTimeList(StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, temp): null);
     }
 
     bean.setValueTimeZone((prefs.getString("valueTimeZone", null)!=null) ? TimeZoneUtil.read(prefs.getString("valueTimeZone", null)): null);
@@ -363,7 +367,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public LinkedList<Character> valueCharList() {
      {
-      return (prefs.getString("valueCharList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, prefs.getString("valueCharList", null)): null;
+      String temp=prefs.getString("valueCharList", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, temp): null;
     }
 
   }
@@ -513,7 +518,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public LinkedList<Long> valueLongList() {
      {
-      return (prefs.getString("valueLongList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, prefs.getString("valueLongList", null)): null;
+      String temp=prefs.getString("valueLongList", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, temp): null;
     }
 
   }
@@ -591,7 +597,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public LinkedList<String> valueStrinList() {
      {
-      return (prefs.getString("valueStrinList", null)!=null) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, prefs.getString("valueStrinList", null)): null;
+      String temp=prefs.getString("valueStrinList", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, temp): null;
     }
 
   }
@@ -612,7 +619,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public List<Time> valueTimeList() {
      {
-      return (prefs.getString("valueTimeList", null)!=null) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, prefs.getString("valueTimeList", null)): null;
+      String temp=prefs.getString("valueTimeList", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, temp): null;
     }
 
   }

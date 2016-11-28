@@ -47,7 +47,7 @@ abstract class AbstractNumberTransform extends AbstractSPTransform {
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
 		if (add) {
-			methodBuilder.addCode("$L.$L" + (property.isFieldWithSetter()?"(":"=")+"", beanName, setter(beanClass, property));
+			methodBuilder.addCode("$L.$L" + (!property.isPublicOrPackageField()?"(":"=")+"", beanName, setter(beanClass, property));
 		} else {
 			methodBuilder.addCode("return ");
 		}
@@ -57,7 +57,7 @@ abstract class AbstractNumberTransform extends AbstractSPTransform {
 		methodBuilder.addCode(": null");
 		
 		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter()?")":""));
+			methodBuilder.addCode((!property.isPublicOrPackageField()?")":""));
 		}
 		
 		methodBuilder.addCode(";");

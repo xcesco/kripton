@@ -21,6 +21,7 @@ class BigIntegerTransform extends AbstractNumberTransform {
 
 	public BigIntegerTransform() {
 		NUMBER_UTIL_CLAZZ = BigIntegerUtil.class;
+		ATTRIBUTE_METHOD="Integer";
 	}
 
 }

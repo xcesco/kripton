@@ -80,7 +80,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(BeanElement71.class).serializeOnJackson(context, item, wrapper);
+            if (item!=null)  {
+              context.mapperFor(BeanElement71.class).serializeOnJackson(context, item, wrapper);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -98,7 +100,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeNumber(item);
+            if (item!=null)  {
+              jacksonSerializer.writeNumber(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -116,7 +120,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeNumber(item);
+            if (item!=null)  {
+              jacksonSerializer.writeNumber(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -134,7 +140,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeNumber(item);
+            if (item!=null)  {
+              jacksonSerializer.writeNumber(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -152,7 +160,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(item.toString());
+            if (item!=null)  {
+              jacksonSerializer.writeString(item.toString());
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -170,7 +180,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeNumber(item);
+            if (item!=null)  {
+              jacksonSerializer.writeNumber(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -188,7 +200,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeNumber(item);
+            if (item!=null)  {
+              jacksonSerializer.writeNumber(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -206,7 +220,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeNumber(item);
+            if (item!=null)  {
+              jacksonSerializer.writeNumber(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -224,7 +240,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeNumber(item);
+            if (item!=null)  {
+              jacksonSerializer.writeNumber(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -242,7 +260,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(item);
+            if (item!=null)  {
+              jacksonSerializer.writeString(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -260,7 +280,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(BigDecimalUtil.write(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(BigDecimalUtil.write(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -278,7 +300,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(BigIntegerUtil.write(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(BigIntegerUtil.write(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -324,7 +348,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(BeanElement71.class).serializeOnJacksonAsString(context, item, wrapper);
+            if (item!=null)  {
+              context.mapperFor(BeanElement71.class).serializeOnJacksonAsString(context, item, wrapper);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -342,7 +368,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(PrimitiveUtil.writeByte(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(PrimitiveUtil.writeByte(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -360,7 +388,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(PrimitiveUtil.writeCharacter(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(PrimitiveUtil.writeCharacter(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -378,7 +408,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(PrimitiveUtil.writeDouble(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(PrimitiveUtil.writeDouble(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -396,7 +428,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(item.toString());
+            if (item!=null)  {
+              jacksonSerializer.writeString(item.toString());
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -414,7 +448,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(PrimitiveUtil.writeFloat(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(PrimitiveUtil.writeFloat(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -432,7 +468,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(PrimitiveUtil.writeInteger(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(PrimitiveUtil.writeInteger(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -450,7 +488,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(PrimitiveUtil.writeLong(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(PrimitiveUtil.writeLong(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -468,7 +508,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(PrimitiveUtil.writeShort(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(PrimitiveUtil.writeShort(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -486,7 +528,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(item);
+            if (item!=null)  {
+              jacksonSerializer.writeString(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -504,7 +548,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(BigDecimalUtil.write(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(BigDecimalUtil.write(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -522,7 +568,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(BigIntegerUtil.write(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(BigIntegerUtil.write(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -571,7 +619,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueBeanList");
             context.mapperFor(BeanElement71.class).serializeOnXml(context, item, wrapper, 1);
             xmlSerializer.writeEndElement();
           }
@@ -590,7 +638,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueByteList");
             xmlSerializer.writeInt(item);
             xmlSerializer.writeEndElement();
           }
@@ -609,7 +657,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueCharacterList");
             xmlSerializer.writeInt(item);
             xmlSerializer.writeEndElement();
           }
@@ -628,7 +676,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueDoubleList");
             xmlSerializer.writeDouble(item);
             xmlSerializer.writeEndElement();
           }
@@ -645,11 +693,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueEnumList");
           } else {
-            if (item!=null)  {
-              xmlSerializer.writeStartElement("valueEnumList");
-              xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.toString()));
-              xmlSerializer.writeEndElement();
-            }
+            xmlSerializer.writeStartElement("valueEnumList");
+            xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.toString()));
+            xmlSerializer.writeEndElement();
           }
         }
       }
@@ -665,7 +711,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueFloatList");
             xmlSerializer.writeFloat(item);
             xmlSerializer.writeEndElement();
           }
@@ -684,7 +730,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueIntList");
             xmlSerializer.writeInt(item);
             xmlSerializer.writeEndElement();
           }
@@ -703,7 +749,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueLongList");
             xmlSerializer.writeLong(item);
             xmlSerializer.writeEndElement();
           }
@@ -722,7 +768,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueShortList");
             xmlSerializer.writeInt(item);
             xmlSerializer.writeEndElement();
           }
@@ -741,7 +787,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueStringList");
             xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item));
             xmlSerializer.writeEndElement();
           }
@@ -776,7 +822,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
           if (item==null) {
             xmlSerializer.writeEmptyElement("item");
           } else {
-            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeStartElement("valueBigIntegerList");
             xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(BigIntegerUtil.write(item)));
             xmlSerializer.writeEndElement();
           }
@@ -853,7 +899,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=jacksonParser.getByteValue();
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=jacksonParser.getByteValue();
+                    }
                   }
                   collection.add(item);
                 }
@@ -869,7 +917,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=Character.valueOf((char)jacksonParser.getIntValue());
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=Character.valueOf((char)jacksonParser.getIntValue());
+                    }
                   }
                   collection.add(item);
                 }
@@ -885,7 +935,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=jacksonParser.getDoubleValue();
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=jacksonParser.getDoubleValue();
+                    }
                   }
                   collection.add(item);
                 }
@@ -901,7 +953,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=StringUtility.hasText(jacksonParser.getText())?BeanEnum71.valueOf(jacksonParser.getText()):null;
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=StringUtility.hasText(jacksonParser.getText())?BeanEnum71.valueOf(jacksonParser.getText()):null;
+                    }
                   }
                   collection.add(item);
                 }
@@ -917,7 +971,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=jacksonParser.getFloatValue();
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=jacksonParser.getFloatValue();
+                    }
                   }
                   collection.add(item);
                 }
@@ -933,7 +989,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=jacksonParser.getIntValue();
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=jacksonParser.getIntValue();
+                    }
                   }
                   collection.add(item);
                 }
@@ -949,7 +1007,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=jacksonParser.getLongValue();
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=jacksonParser.getLongValue();
+                    }
                   }
                   collection.add(item);
                 }
@@ -965,7 +1025,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=jacksonParser.getShortValue();
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=jacksonParser.getShortValue();
+                    }
                   }
                   collection.add(item);
                 }
@@ -981,7 +1043,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=jacksonParser.getText();
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=jacksonParser.getText();
+                    }
                   }
                   collection.add(item);
                 }
@@ -997,7 +1061,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=BigDecimalUtil.read(jacksonParser.getText());
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=BigDecimalUtil.read(jacksonParser.getText());
+                    }
                   }
                   collection.add(item);
                 }
@@ -1013,7 +1079,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=BigIntegerUtil.read(jacksonParser.getText());
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=BigIntegerUtil.read(jacksonParser.getText());
+                    }
                   }
                   collection.add(item);
                 }
@@ -1090,7 +1158,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=PrimitiveUtil.readByte(jacksonParser.getText(), null);
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=PrimitiveUtil.readByte(jacksonParser.getText(), null);
+                    }
                   }
                   collection.add(item);
                 }
@@ -1106,7 +1176,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=PrimitiveUtil.readCharacter(jacksonParser.getText(), null);
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=PrimitiveUtil.readCharacter(jacksonParser.getText(), null);
+                    }
                   }
                   collection.add(item);
                 }
@@ -1122,7 +1194,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=PrimitiveUtil.readDouble(jacksonParser.getText(), null);
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=PrimitiveUtil.readDouble(jacksonParser.getText(), null);
+                    }
                   }
                   collection.add(item);
                 }
@@ -1138,7 +1212,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=StringUtility.hasText(jacksonParser.getText())?BeanEnum71.valueOf(jacksonParser.getText()):null;
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=StringUtility.hasText(jacksonParser.getText())?BeanEnum71.valueOf(jacksonParser.getText()):null;
+                    }
                   }
                   collection.add(item);
                 }
@@ -1154,7 +1230,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=PrimitiveUtil.readFloat(jacksonParser.getText(), null);
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=PrimitiveUtil.readFloat(jacksonParser.getText(), null);
+                    }
                   }
                   collection.add(item);
                 }
@@ -1170,7 +1248,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                    }
                   }
                   collection.add(item);
                 }
@@ -1186,7 +1266,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=PrimitiveUtil.readLong(jacksonParser.getText(), null);
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=PrimitiveUtil.readLong(jacksonParser.getText(), null);
+                    }
                   }
                   collection.add(item);
                 }
@@ -1202,7 +1284,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=PrimitiveUtil.readShort(jacksonParser.getText(), null);
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=PrimitiveUtil.readShort(jacksonParser.getText(), null);
+                    }
                   }
                   collection.add(item);
                 }
@@ -1236,7 +1320,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=BigDecimalUtil.read(jacksonParser.getText());
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=BigDecimalUtil.read(jacksonParser.getText());
+                    }
                   }
                   collection.add(item);
                 }
@@ -1252,7 +1338,9 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=BigIntegerUtil.read(jacksonParser.getText());
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=BigIntegerUtil.read(jacksonParser.getText());
+                    }
                   }
                   collection.add(item);
                 }
@@ -1301,6 +1389,8 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
       while (xmlParser.hasNext() && !elementNameStack.isEmpty()) {
         if (read) {
           eventType = xmlParser.next();
+        } else {
+          eventType = xmlParser.getEventType();
         }
         read=true;
         switch(eventType) {
@@ -1316,7 +1406,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       LinkedList<BeanElement71> collection=new LinkedList<>();
                       BeanElement71 item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueBeanList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
@@ -1335,7 +1425,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       ArrayList<Byte> collection=new ArrayList<>();
                       Byte item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueByteList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
@@ -1354,7 +1444,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       ArrayList<Character> collection=new ArrayList<>();
                       Character item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueCharacterList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
@@ -1373,7 +1463,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       ArrayList<Double> collection=new ArrayList<>();
                       Double item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueDoubleList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
@@ -1418,7 +1508,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       ArrayList<Float> collection=new ArrayList<>();
                       Float item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueFloatList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
@@ -1437,7 +1527,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       ArrayList<Integer> collection=new ArrayList<>();
                       Integer item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueIntList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
@@ -1456,7 +1546,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       ArrayList<Long> collection=new ArrayList<>();
                       Long item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueLongList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
@@ -1475,7 +1565,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       ArrayList<Short> collection=new ArrayList<>();
                       Short item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueShortList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
@@ -1494,7 +1584,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       ArrayList<String> collection=new ArrayList<>();
                       String item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueStringList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;
@@ -1539,7 +1629,7 @@ public class BeanElement71BindMap extends AbstractMapper<BeanElement71> {
                      {
                       LinkedList<BigInteger> collection=new LinkedList<>();
                       BigInteger item;
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("valueBigIntegerList")) {
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && !xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.getName().toString().equals("item")) {
                           if (xmlParser.isEmptyElement()) {
                             item=null;

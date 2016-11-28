@@ -225,7 +225,9 @@ public class BindTypeBuilder {
 		//methodBuilder.beginControlFlow("while (xmlParser.hasNext())");
 		
 		methodBuilder.beginControlFlow("if (read)");
-				methodBuilder.addStatement("eventType = xmlParser.next()");
+			methodBuilder.addStatement("eventType = xmlParser.next()");
+		methodBuilder.nextControlFlow("else");
+			methodBuilder.addStatement("eventType = xmlParser.getEventType()");
 		methodBuilder.endControlFlow();
 		methodBuilder.addStatement("read=true");
 
@@ -306,12 +308,12 @@ public class BindTypeBuilder {
 			// @formatter:off
 			methodBuilder.addCode("\n// attributes \n");
 			methodBuilder.addStatement("String attributeName = null");
-			methodBuilder.addStatement("String attributeValue = null");
+			//methodBuilder.addStatement("String attributeValue = null");
 
-			methodBuilder.addStatement("int attributes = xmlParser.getAttributeCount();");
-			methodBuilder.beginControlFlow("for (int i = 0; i < attributes; i++)");
-			methodBuilder.addStatement("attributeName = xmlParser.getAttributeLocalName(i)");
-			methodBuilder.addStatement("attributeValue = $T.unescapeXml(xmlParser.getAttributeValue(i))", StringEscapeUtils.class);
+			methodBuilder.addStatement("int attributesCount = xmlParser.getAttributeCount();");
+			methodBuilder.beginControlFlow("for (int attributeIndex = 0; attributeIndex < attributesCount; attributeIndex++)");
+			methodBuilder.addStatement("attributeName = xmlParser.getAttributeLocalName(attributeIndex)");
+			//methodBuilder.addStatement("attributeValue = $T.unescapeXml(xmlParser.getAttributeValue(attributeIndex))", StringEscapeUtils.class);
 			methodBuilder.beginControlFlow("switch(attributeName)$>");
 
 			for (BindProperty property : entity.getCollection()) {

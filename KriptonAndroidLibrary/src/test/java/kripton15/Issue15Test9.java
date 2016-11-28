@@ -13,30 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package base;
+/**
+ * 
+ */
+package kripton15;
 
-import kripton70.TestKripton70;
-import kripton71.TestKripton71;
-import kripton72.TestKripton72;
-import kripton73.TestKripton73;
-import kripton74.TestKripton74;
-import kripton75.TestKripton75;
+import org.junit.Before;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import all.IssueBaseTest;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestKripton70.class,
-		TestKripton71.class,
-		TestKripton72.class,
-		TestKripton73.class,
-		TestKripton74.class,
-		TestKripton75.class
-		 })
-//@formatter:on
-public class BindTypeProcessorSuiteTest {
+
+/**
+ * Test array of objects
+ * 
+ * @author xcesco
+ *
+ */
+public class Issue15Test9 extends IssueBaseTest<Bean9> {
+
+	@Before
+	public void setup()
+	{
+		beanInput=new Bean9();
+		
+		beanInput.map.put(1, "content1");
+		beanInput.map.put(2, "content2");
+		
+	}
 
 }

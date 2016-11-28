@@ -22,4 +22,9 @@ public class YamlBinderContext extends JacksonContext {
 		return new YAMLFactory();
 	}
 	
+	@Override
+	public <E> E parse(byte[] is, Class<E> objectClazz) {
+		return mapperFor(objectClazz).parse(this, is);
+	}
+	
 }

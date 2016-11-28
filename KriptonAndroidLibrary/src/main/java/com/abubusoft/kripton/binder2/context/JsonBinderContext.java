@@ -21,4 +21,9 @@ public class JsonBinderContext extends JacksonContext {
 		return new JsonFactory();
 	}
 	
+	@Override
+	public <E> E parse(byte[] is, Class<E> objectClazz) {
+		return mapperFor(objectClazz).parse(this, is);
+	}
+	
 }

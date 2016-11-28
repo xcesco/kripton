@@ -49,7 +49,7 @@ public class MapTransformation extends AbstractSPTransform {
 		Class<?> mapClazz = defineMapClass(listTypeName);
 
 		if (add) {
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
+			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
@@ -59,7 +59,7 @@ public class MapTransformation extends AbstractSPTransform {
 		methodBuilder.addCode(": null");
 
 		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
+			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		}
 		
 		methodBuilder.addCode(";");

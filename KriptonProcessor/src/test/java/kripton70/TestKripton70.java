@@ -38,6 +38,12 @@ public class TestKripton70 extends BaseProcessorTest {
 	{
 		buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
 	}
+/*	
+	@Test
+	public void testCompileAttribute() throws IOException, InstantiationException, IllegalAccessException
+	{
+		buildBindProcessorTest(BeanAttribute70.class, BeanEnum.class);
+	}*/
 	
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException
@@ -82,6 +88,50 @@ public class TestKripton70 extends BaseProcessorTest {
 		serializeAndParse(bean, BinderType.YAML);
 		serializeAndParse(bean, BinderType.PROPERTIES);
 	}
+	/*
+	@Test
+	public void testRunAttribute() throws IOException, InstantiationException, IllegalAccessException
+	{
+		Assert.assertNotNull(new BeanAttribute70BindMap());
+		
+		BeanAttribute70 bean=new BeanAttribute70();
+		
+		bean.valueBigDecimal=BigDecimal.valueOf(11.0);
+		bean.valueBigInteger=BigInteger.valueOf(10);
+		bean.valueEnum=BeanEnum.VALUE_2;
+		bean.valueCalendar=Calendar.getInstance();
+		bean.valueCurrency=Currency.getInstance(Locale.ITALY);
+		bean.valueDate=new Date();
+		bean.valueLocale=Locale.ITALY;
+		bean.valueTime=new Time(0);
+		bean.valueTimeZone=TimeZone.getDefault();
+		bean.valueUrl=new URL("http://github.com");
+		bean.id=25;
+		bean.valueBean=new BeanAttribute70();
+		bean.valueBean.id=45;
+		bean.valueBoolType=true;
+		bean.valueBool=true;
+		bean.valueByteType=4;
+		bean.valueByte=8;
+		bean.valueShortType=25;
+		bean.valueShort=25;
+		bean.valueCharType='a';
+		bean.valueChar='a';
+		bean.valueIntType=12;
+		bean.valueInt=12;
+		bean.valueLongType=24;
+		bean.valueLong=24L;
+		bean.valueFloatType=24f;
+		bean.valueFloat=24f;
+		bean.valueDoubleType=24.0;
+		bean.valueDouble=24.0;
+		bean.valueString="\"ciao";
+		
+		serializeAndParse(bean, BinderType.XML);
+		serializeAndParse(bean, BinderType.JSON);
+		serializeAndParse(bean, BinderType.YAML);
+		serializeAndParse(bean, BinderType.PROPERTIES);
+	}*/
 
 	/**
 	 * @param bean

@@ -43,7 +43,7 @@ public class EnumTransform extends AbstractSPTransform {
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
 		if (add) {
 
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
+			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
@@ -53,7 +53,7 @@ public class EnumTransform extends AbstractSPTransform {
 		methodBuilder.addCode(": null");
 
 		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
+			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		}
 		
 		methodBuilder.addCode(";");

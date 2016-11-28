@@ -68,7 +68,9 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeNumber(item);
+            if (item!=null)  {
+              jacksonSerializer.writeNumber(item);
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -114,7 +116,9 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(PrimitiveUtil.writeByte(item));
+            if (item!=null)  {
+              jacksonSerializer.writeString(PrimitiveUtil.writeByte(item));
+            }
           }
         }
         jacksonSerializer.writeEndArray();
@@ -221,7 +225,9 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=jacksonParser.getByteValue();
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=jacksonParser.getByteValue();
+                    }
                   }
                   collection.add(item);
                 }
@@ -282,7 +288,9 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
                   if (jacksonParser.getCurrentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=PrimitiveUtil.readByte(jacksonParser.getText(), null);
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      item=PrimitiveUtil.readByte(jacksonParser.getText(), null);
+                    }
                   }
                   collection.add(item);
                 }
@@ -331,6 +339,8 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
       while (xmlParser.hasNext() && !elementNameStack.isEmpty()) {
         if (read) {
           eventType = xmlParser.next();
+        } else {
+          eventType = xmlParser.getEventType();
         }
         read=true;
         switch(eventType) {

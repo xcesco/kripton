@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import java.lang.Byte;
 import java.lang.Character;
 import java.lang.Double;
@@ -64,45 +65,55 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Bean2 read() {
     Bean2 bean=new Bean2();
-    bean.setId(prefs.getLong("id", bean.getId()));
+    bean.id=prefs.getLong("id", bean.id);
      {
-      bean.setValueByteSet((prefs.getString("valueByteSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, prefs.getString("valueByteSet", null)): null);
+      String temp=prefs.getString("valueByteSet", null);
+      bean.valueByteSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, temp): null;
     }
 
      {
-      bean.setValueShortSet((prefs.getString("valueShortSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, prefs.getString("valueShortSet", null)): null);
+      String temp=prefs.getString("valueShortSet", null);
+      bean.valueShortSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, temp): null;
     }
 
      {
-      bean.setValueIntegerSet((prefs.getString("valueIntegerSet", null)!=null) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, prefs.getString("valueIntegerSet", null)): null);
+      String temp=prefs.getString("valueIntegerSet", null);
+      bean.valueIntegerSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, temp): null;
     }
 
      {
-      bean.setValueStringSet((prefs.getString("valueStringSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, prefs.getString("valueStringSet", null)): null);
+      String temp=prefs.getString("valueStringSet", null);
+      bean.valueStringSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
     }
 
      {
-      bean.setValueCharacterSet((prefs.getString("valueCharacterSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, prefs.getString("valueCharacterSet", null)): null);
+      String temp=prefs.getString("valueCharacterSet", null);
+      bean.valueCharacterSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, temp): null;
     }
 
      {
-      bean.setValueFloatSet((prefs.getString("valueFloatSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, prefs.getString("valueFloatSet", null)): null);
+      String temp=prefs.getString("valueFloatSet", null);
+      bean.valueFloatSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, temp): null;
     }
 
      {
-      bean.setValueDoubleSet((prefs.getString("valueDoubleSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, prefs.getString("valueDoubleSet", null)): null);
+      String temp=prefs.getString("valueDoubleSet", null);
+      bean.valueDoubleSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, temp): null;
     }
 
      {
-      bean.setValueBigDecimalSet((prefs.getString("valueBigDecimalSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, prefs.getString("valueBigDecimalSet", null)): null);
+      String temp=prefs.getString("valueBigDecimalSet", null);
+      bean.valueBigDecimalSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, temp): null;
     }
 
      {
-      bean.setValueBeanSet((prefs.getString("valueBeanSet", null)!=null) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, prefs.getString("valueBeanSet", null)): null);
+      String temp=prefs.getString("valueBeanSet", null);
+      bean.valueBeanSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, temp): null;
     }
 
      {
-      bean.setValueEnumTypeSet((prefs.getString("valueEnumTypeSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, prefs.getString("valueEnumTypeSet", null)): null);
+      String temp=prefs.getString("valueEnumTypeSet", null);
+      bean.valueEnumTypeSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, temp): null;
     }
 
 
@@ -116,17 +127,17 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Bean2 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putLong("id",bean.getId());
-    if (bean.getValueByteSet()!=null) editor.putString("valueByteSet",ProcessorHelper.asString(bean.getValueByteSet())); else editor.putString("valueByteSet", null);
-    if (bean.getValueShortSet()!=null) editor.putString("valueShortSet",ProcessorHelper.asString(bean.getValueShortSet())); else editor.putString("valueShortSet", null);
-    if (bean.getValueIntegerSet()!=null) editor.putString("valueIntegerSet",ProcessorHelper.asString(bean.getValueIntegerSet())); else editor.putString("valueIntegerSet", null);
-    if (bean.getValueStringSet()!=null) editor.putString("valueStringSet",ProcessorHelper.asString(bean.getValueStringSet())); else editor.putString("valueStringSet", null);
-    if (bean.getValueCharacterSet()!=null) editor.putString("valueCharacterSet",ProcessorHelper.asString(bean.getValueCharacterSet())); else editor.putString("valueCharacterSet", null);
-    if (bean.getValueFloatSet()!=null) editor.putString("valueFloatSet",ProcessorHelper.asString(bean.getValueFloatSet())); else editor.putString("valueFloatSet", null);
-    if (bean.getValueDoubleSet()!=null) editor.putString("valueDoubleSet",ProcessorHelper.asString(bean.getValueDoubleSet())); else editor.putString("valueDoubleSet", null);
-    if (bean.getValueBigDecimalSet()!=null) editor.putString("valueBigDecimalSet",ProcessorHelper.asString(bean.getValueBigDecimalSet())); else editor.putString("valueBigDecimalSet", null);
-    if (bean.getValueBeanSet()!=null) editor.putString("valueBeanSet",ProcessorHelper.asString(bean.getValueBeanSet())); else editor.putString("valueBeanSet", null);
-    if (bean.getValueEnumTypeSet()!=null) editor.putString("valueEnumTypeSet",ProcessorHelper.asString(bean.getValueEnumTypeSet())); else editor.putString("valueEnumTypeSet", null);
+    editor.putLong("id",bean.id);
+    if (bean.valueByteSet!=null) editor.putString("valueByteSet",ProcessorHelper.asString(bean.valueByteSet)); else editor.putString("valueByteSet", null);
+    if (bean.valueShortSet!=null) editor.putString("valueShortSet",ProcessorHelper.asString(bean.valueShortSet)); else editor.putString("valueShortSet", null);
+    if (bean.valueIntegerSet!=null) editor.putString("valueIntegerSet",ProcessorHelper.asString(bean.valueIntegerSet)); else editor.putString("valueIntegerSet", null);
+    if (bean.valueStringSet!=null) editor.putString("valueStringSet",ProcessorHelper.asString(bean.valueStringSet)); else editor.putString("valueStringSet", null);
+    if (bean.valueCharacterSet!=null) editor.putString("valueCharacterSet",ProcessorHelper.asString(bean.valueCharacterSet)); else editor.putString("valueCharacterSet", null);
+    if (bean.valueFloatSet!=null) editor.putString("valueFloatSet",ProcessorHelper.asString(bean.valueFloatSet)); else editor.putString("valueFloatSet", null);
+    if (bean.valueDoubleSet!=null) editor.putString("valueDoubleSet",ProcessorHelper.asString(bean.valueDoubleSet)); else editor.putString("valueDoubleSet", null);
+    if (bean.valueBigDecimalSet!=null) editor.putString("valueBigDecimalSet",ProcessorHelper.asString(bean.valueBigDecimalSet)); else editor.putString("valueBigDecimalSet", null);
+    if (bean.valueBeanSet!=null) editor.putString("valueBeanSet",ProcessorHelper.asString(bean.valueBeanSet)); else editor.putString("valueBeanSet", null);
+    if (bean.valueEnumTypeSet!=null) editor.putString("valueEnumTypeSet",ProcessorHelper.asString(bean.valueEnumTypeSet)); else editor.putString("valueEnumTypeSet", null);
 
     editor.commit();
   }
@@ -137,7 +148,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property id value
    */
   public long id() {
-    return prefs.getLong("id", defaultBean.getId());
+    return prefs.getLong("id", defaultBean.id);
   }
 
   /**
@@ -147,7 +158,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Set<Byte> valueByteSet() {
      {
-      return (prefs.getString("valueByteSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, prefs.getString("valueByteSet", null)): null;
+      String temp=prefs.getString("valueByteSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, temp): null;
     }
 
   }
@@ -159,7 +171,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<Short> valueShortSet() {
      {
-      return (prefs.getString("valueShortSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, prefs.getString("valueShortSet", null)): null;
+      String temp=prefs.getString("valueShortSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, temp): null;
     }
 
   }
@@ -171,7 +184,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public LinkedHashSet<Integer> valueIntegerSet() {
      {
-      return (prefs.getString("valueIntegerSet", null)!=null) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, prefs.getString("valueIntegerSet", null)): null;
+      String temp=prefs.getString("valueIntegerSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, temp): null;
     }
 
   }
@@ -183,7 +197,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<String> valueStringSet() {
      {
-      return (prefs.getString("valueStringSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, prefs.getString("valueStringSet", null)): null;
+      String temp=prefs.getString("valueStringSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
     }
 
   }
@@ -195,7 +210,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Set<Character> valueCharacterSet() {
      {
-      return (prefs.getString("valueCharacterSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, prefs.getString("valueCharacterSet", null)): null;
+      String temp=prefs.getString("valueCharacterSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, temp): null;
     }
 
   }
@@ -207,7 +223,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<Float> valueFloatSet() {
      {
-      return (prefs.getString("valueFloatSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, prefs.getString("valueFloatSet", null)): null;
+      String temp=prefs.getString("valueFloatSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, temp): null;
     }
 
   }
@@ -219,7 +236,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<Double> valueDoubleSet() {
      {
-      return (prefs.getString("valueDoubleSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, prefs.getString("valueDoubleSet", null)): null;
+      String temp=prefs.getString("valueDoubleSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, temp): null;
     }
 
   }
@@ -231,7 +249,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<BigDecimal> valueBigDecimalSet() {
      {
-      return (prefs.getString("valueBigDecimalSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, prefs.getString("valueBigDecimalSet", null)): null;
+      String temp=prefs.getString("valueBigDecimalSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, temp): null;
     }
 
   }
@@ -243,7 +262,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public LinkedHashSet<Bean> valueBeanSet() {
      {
-      return (prefs.getString("valueBeanSet", null)!=null) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, prefs.getString("valueBeanSet", null)): null;
+      String temp=prefs.getString("valueBeanSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, temp): null;
     }
 
   }
@@ -255,7 +275,8 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<EnumType> valueEnumTypeSet() {
      {
-      return (prefs.getString("valueEnumTypeSet", null)!=null) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, prefs.getString("valueEnumTypeSet", null)): null;
+      String temp=prefs.getString("valueEnumTypeSet", null);
+      return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, temp): null;
     }
 
   }

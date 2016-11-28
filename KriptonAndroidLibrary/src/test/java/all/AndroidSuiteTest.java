@@ -50,6 +50,7 @@ import kripton13.Issue13Test1;
 import kripton14.Issue14Test1;
 import kripton14.Issue14Test2;
 import kripton15.Issue15Test1;
+import kripton15.Issue15Test10;
 import kripton15.Issue15Test2;
 import kripton15.Issue15Test3;
 import kripton15.Issue15Test4;
@@ -57,6 +58,7 @@ import kripton15.Issue15Test5;
 import kripton15.Issue15Test6;
 import kripton15.Issue15Test7;
 import kripton15.Issue15Test8;
+import kripton15.Issue15Test9;
 import kripton20.Issue20Test1;
 import kripton20.Issue20Test2;
 import kripton54.Test54;
@@ -88,7 +90,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	                   Issue12Test1.class,
 	                   Issue13Test1.class,
 	                   Issue14Test1.class,Issue14Test2.class,	                   
-	                   Issue15Test1.class,Issue15Test2.class, Issue15Test3.class, Issue15Test4.class,Issue15Test5.class, Issue15Test6.class,Issue15Test7.class, Issue15Test8.class,
+	                   Issue15Test1.class,Issue15Test2.class, Issue15Test3.class, Issue15Test4.class,Issue15Test5.class, Issue15Test6.class,Issue15Test7.class, Issue15Test8.class,Issue15Test9.class,Issue15Test10.class,
 	                   Issue20Test1.class,Issue20Test2.class,
 	   Test54.class,
 	   Test55.class,

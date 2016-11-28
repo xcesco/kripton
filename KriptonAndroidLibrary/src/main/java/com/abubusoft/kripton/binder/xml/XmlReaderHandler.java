@@ -146,7 +146,7 @@ class XmlReaderHandler extends DefaultHandler {
 							}
 
 							switch (schema.getMapInfo().entryStrategy) {
-							case ATTRIBUTES: {
+							case ATTRIBUTE: {
 								MapEntryImpl mapPolicy = new MapEntryImpl();
 								mapPolicy.set(map, schema.getMapInfo());
 
@@ -161,7 +161,7 @@ class XmlReaderHandler extends DefaultHandler {
 							}
 								// exit, DO NOT PUSH OBJECT!
 								return;
-							case ELEMENTS: {
+							case TAG: {
 								MapEntryImpl mapPolicy = new MapEntryImpl();
 								mapPolicy.set(map, schema.getMapInfo());
 

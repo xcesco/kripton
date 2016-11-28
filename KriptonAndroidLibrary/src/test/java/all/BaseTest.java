@@ -19,6 +19,8 @@
 package all;
 
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.StreamHandler;
 
 /**
  * @author xcesco
@@ -32,4 +34,8 @@ public class BaseTest {
 	}
 	
 	protected Logger logger = Logger.getGlobal();
+	
+	{
+		logger.addHandler(new StreamHandler(System.out, new SimpleFormatter()));
+	}
 }

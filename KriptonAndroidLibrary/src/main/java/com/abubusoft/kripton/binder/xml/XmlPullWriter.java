@@ -318,7 +318,7 @@ public class XmlPullWriter implements BinderWriter {
 		String valueName = es.getMapInfo().valueName;
 
 		switch (es.getMapInfo().entryStrategy) {
-		case ELEMENTS:
+		case TAG:
 			// key
 			if (Transformer.isPrimitive(type.keyClazz)) {
 				String value = Transformer.write(source.getKey(), type.keyClazz);
@@ -373,7 +373,7 @@ public class XmlPullWriter implements BinderWriter {
 				
 			}
 			break;
-		case ATTRIBUTES:
+		case ATTRIBUTE:
 		// key
 		{
 			String value = Transformer.write(source.getKey(), type.keyClazz);

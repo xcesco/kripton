@@ -1,8 +1,6 @@
 package kripton74;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.HashMap;
 
 import org.apache.commons.collections.map.HashedMap;
@@ -10,6 +8,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import base.BaseProcessorTest;
+
+import com.abubusoft.kripton.BinderOptions;
 import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.binder2.BinderType;
@@ -18,17 +19,29 @@ import com.abubusoft.kripton.binder2.context.PropertiesBinderContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
 import com.abubusoft.kripton.binder2.context.YamlBinderContext;
 
-import all.BinderFactoryTest;
-import base.BaseProcessorTest;
-
 public class TestKripton74 extends BaseProcessorTest {
 
 	public BeanElement74 createBean() {
 		BeanElement74 bean = new BeanElement74();
+		
+		BeanElement74 bean1 = new BeanElement74();
+		bean1.valueString="nice to meet you";
 
 		bean.valueMapStringInteger = new HashMap<>();
 		bean.valueMapStringInteger.put("key1", 10);
 		bean.valueMapStringInteger.put("key2", 20);
+		
+		bean.valueMapEnumBean=new HashMap<>();
+		bean.valueMapEnumBean.put(BeanEnum74.VALUE_1, bean1);		
+		bean.valueMapEnumBean.put(BeanEnum74.VALUE_2, null);
+		
+		bean.valueMapIntByteArray=new HashMap<>();
+		byte[] a=new byte[23];
+		bean.valueMapIntByteArray.put(20, null);
+		bean.valueMapIntByteArray.put(23, a);
+		bean.valueMapIntByteArray.put(27, null);
+		
+		bean.valueString="hello";
 
 		return bean;
 	}
@@ -44,18 +57,18 @@ public class TestKripton74 extends BaseProcessorTest {
 	public void testCompatibility() throws IOException, InstantiationException, IllegalAccessException {
 		BeanElement74 bean = createBean();
 		{
-			BinderWriter writer = KriptonBinder.getXmlWriter();
-			//System.out.println(writer.write(bean));
+			BinderWriter writer = KriptonBinder.getXmlWriter(BinderOptions.build().indent(true));
+			System.out.println(writer.write(bean));
 		}
 		{
 			BinderWriter writer = KriptonBinder.getJsonWriter();
-			System.out.println(writer.write(bean));
+			//System.out.println(writer.write(bean));
 		}
 	}
 
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(BeanElement74.class);
+		buildBindProcessorTest(BeanElement74.class, BeanEnum74.class);
 	}
 
 	@Test

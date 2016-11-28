@@ -38,6 +38,8 @@ public interface BinderContext<S extends SerializerWrapper, P extends ParserWrap
 	BinderType getSupportedFormat();
 
 	<E> E parse(InputStream is, Class<E> objectClazz);
+	
+	<E> E parse(byte[] is, Class<E> objectClazz);
 
 //	<E> E parse(InputStream is, ParameterizedType<E> objectType);
 

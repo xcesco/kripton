@@ -64,7 +64,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
 
 		if (primaryKey != null) {
-			if (primaryKey.isPublicField()) {
+			if (primaryKey.isPublicOrPackageField()) {
 				methodBuilder.addCode("$L.$L=result;\n", method.getParameters().get(0).value0, primaryKey.getName());
 			} else {
 				methodBuilder.addCode("$L.$L(result);\n", method.getParameters().get(0).value0, PropertyUtility.setter(typeName(entity.getElement()), primaryKey));

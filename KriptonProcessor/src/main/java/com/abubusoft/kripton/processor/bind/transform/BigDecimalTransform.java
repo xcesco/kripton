@@ -28,6 +28,7 @@ class BigDecimalTransform extends AbstractNumberTransform {
 	public BigDecimalTransform()
 	{
 		NUMBER_UTIL_CLAZZ=BigDecimalUtil.class;
+		ATTRIBUTE_METHOD="Decimal";
 		
 	}
 	

@@ -122,7 +122,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 		
-		if (property.isNullable())
+		if (property.isNullable() && !property.isElementInCollection())
 		{
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
@@ -143,7 +143,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable())
+		if (property.isNullable() && !property.isElementInCollection())
 		{
 			methodBuilder.endControlFlow();
 		}

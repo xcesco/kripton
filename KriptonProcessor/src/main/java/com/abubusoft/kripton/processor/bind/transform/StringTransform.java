@@ -21,6 +21,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.MethodSpec;
@@ -59,7 +60,7 @@ public class StringTransform extends AbstractBindTransform {
 
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "attributeValue"));
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getAttributeValue(attributeIndex)"), parserName);
 			break;
 		case TAG:
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.unescapeXml($L.getElementText())"), StringEscapeUtils.class, parserName);
@@ -67,9 +68,7 @@ public class StringTransform extends AbstractBindTransform {
 		case VALUE:
 		case VALUE_CDATA:
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.unescapeXml($L.getText())"), StringEscapeUtils.class, parserName);
-			break;
-		default:
-			break;
+			break;		
 		}
 
 	}
@@ -112,8 +111,9 @@ public class StringTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (property.isNullable())
+		if (!property.isElementInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
+		}
 
 		XmlType xmlType = property.xmlInfo.xmlType;
 		switch (xmlType) {
@@ -133,7 +133,8 @@ public class StringTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable())
+		if (!property.isElementInCollection()) {
 			methodBuilder.endControlFlow();
+		}
 	}
 }

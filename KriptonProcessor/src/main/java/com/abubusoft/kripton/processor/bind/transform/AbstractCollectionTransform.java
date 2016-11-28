@@ -148,7 +148,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 						
 		if (property.xmlInfo.isWrappedCollection())
 		{					
-			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && !$L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tag);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && !$L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tagElement);
 		} else {
 			methodBuilder.addCode("// add first element\n");
 			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
@@ -294,11 +294,17 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 				methodBuilder.addStatement("item=$L[i]", getter(beanName, beanClass, property));
 			}
 				
+			if (property.isNullable())
+			{
 				methodBuilder.beginControlFlow("if (item==null)");
 					methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.tagElement);
 				methodBuilder.nextControlFlow("else");
 					transform.generateSerializeOnXml(methodBuilder, serializerName, null, "item", elementProperty);
 				methodBuilder.endControlFlow();
+			} else {
+				transform.generateSerializeOnXml(methodBuilder, serializerName, null, "item", elementProperty);
+			}
+				
 			methodBuilder.endControlFlow();
 			
 			if (property.xmlInfo.isWrappedCollection())

@@ -178,7 +178,7 @@ public class PropertyUtility {
 	}
 	
 	static String getter(TypeName beanClass, ModelProperty property) {
-		if (property.isPublicField())
+		if (property.isPublicOrPackageField())
 			return property.getName();
 
 		if (property.isFieldWithGetter()) {
@@ -195,7 +195,7 @@ public class PropertyUtility {
 	}
 
 	public static String setter(TypeName beanClass, ModelProperty property) {
-		if (property.isPublicField())
+		if (property.isPublicOrPackageField())
 		{
 			return property.getName();
 		} else if (property.isFieldWithSetter()) {
@@ -210,7 +210,7 @@ public class PropertyUtility {
 	}
 	
 	private static String setter(TypeName beanClass, ModelProperty property, String value) {
-		if (property.isPublicField())
+		if (property.isPublicOrPackageField())
 			return property.getName()+"="+value;
 		else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName())+"("+value+")";

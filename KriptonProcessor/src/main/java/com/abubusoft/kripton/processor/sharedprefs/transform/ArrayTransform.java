@@ -68,7 +68,7 @@ public class ArrayTransform extends AbstractSPTransform {
 		methodBuilder.addStatement("$T<$T> collection=$T.asCollection(new $T<$T>(), $T.class, $L)",ArrayList.class, clazz.box(), helperClazz, ArrayList.class, clazz.box(), clazz.box(), tempPreferenceName);
 
 		if (add) {
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
+			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
@@ -83,7 +83,7 @@ public class ArrayTransform extends AbstractSPTransform {
 		methodBuilder.addCode(": null");
 
 		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
+			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		} 
 		
 		methodBuilder.addCode(";\n");		

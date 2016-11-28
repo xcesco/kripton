@@ -7,6 +7,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -35,19 +36,20 @@ public abstract class AbstractCollectionTransform extends AbstractSPTransform {
 		Class<?> listClazz = defineCollectionClass(collectionTypeName);
 
 		methodBuilder.beginControlFlow("");
-
+		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getName());		
+		
 		if (add) {
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (property.isFieldWithSetter() ? "(" : "=") + "", beanName);
+			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.asCollection(new $T<$T>(), $T.class, $L.getString($S, null))", utilClazz, listClazz, itemTypeName, itemTypeName, preferenceName, property.getName());
+		methodBuilder.addCode("$T.hasText(temp) ? ", StringUtility.class);
+		methodBuilder.addCode("$T.asCollection(new $T<$T>(), $T.class, temp)", utilClazz, listClazz, itemTypeName, itemTypeName);
 		methodBuilder.addCode(": null");
 
 		if (add) {
-			methodBuilder.addCode((property.isFieldWithSetter() ? ")" : ""));
+			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		}
 
 		methodBuilder.addCode(";\n");

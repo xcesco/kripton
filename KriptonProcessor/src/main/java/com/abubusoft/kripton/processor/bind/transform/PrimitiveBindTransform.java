@@ -42,6 +42,8 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	protected String XML_TYPE;
 	protected String PRIMITIVE_UTILITY_TYPE;
 	protected String XML_CAST_TYPE = "";
+	protected String XML_ATTRIBUTE_METHOD_PRE;
+	protected String XML_ATTRIBUTE_METHOD_POST;
 
 	protected String JSON_TYPE;
 	protected String JSON_PARSER_METHOD;
@@ -51,8 +53,10 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 		XmlType xmlType = property.xmlInfo.xmlType;
 
 		switch (xmlType) {
-		case ATTRIBUTE:			
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L(attributeValue, $L)"),XML_CAST_TYPE, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, DEFAULT_VALUE);
+		case ATTRIBUTE:
+			
+			//methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getAttributeAs$L(attributeIndex, $L).$L()"),XML_CAST_TYPE, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, DEFAULT_VALUE);
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getAttributeAs$L(attributeIndex).$LValue()"),parserName, XML_ATTRIBUTE_METHOD_PRE, XML_ATTRIBUTE_METHOD_POST);
 			/*String nullValue = nullable ? "null" : "\'\\0\'";
 			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
 				methodBuilder.addStatement(setter(beanClass, beanName, property, "attributeValue.length()>0 ? attributeValue.charAt(0) : $L"), nullValue);
@@ -77,7 +81,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		if (nullable && property.isNullable()) {
+		if (nullable && property.isNullable() && !property.isElementInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
@@ -89,7 +93,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			// value don't need to be converted into string
 			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+			methodBuilder.addStatement("$L.writeEndElement()", serializerName);			
 			break;
 		case VALUE:
 			// value don't need to be converted into string
@@ -100,7 +104,7 @@ abstract class PrimitiveBindTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (nullable && property.isNullable()) {
+		if (nullable && property.isNullable() && !property.isElementInCollection()) {
 			methodBuilder.endControlFlow();
 		}
 	}

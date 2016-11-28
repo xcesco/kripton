@@ -327,14 +327,14 @@ public class XmlDOMReader implements BinderReader {
 							Object valueValue = null;
 
 							switch (mapInfo.entryStrategy) {
-							case ATTRIBUTES:
+							case ATTRIBUTE:
 								String key = childElement.getAttributeNS(null,  es.getMapInfo().keyName);
 								String value = childElement.getAttributeNS(null,  es.getMapInfo().valueName);
 
 								keyValue = Transformer.read(key, es.getMapInfo().keyClazz);
 								valueValue = Transformer.read(value, es.getMapInfo().valueClazz);
 								break;
-							case ELEMENTS:
+							case TAG:
 								int a = 0;
 								for (int j = 0; j < childElement.getChildNodes().getLength(); j++) {
 									if (childElement.getChildNodes().item(j).getNodeType() == Node.ELEMENT_NODE) {

@@ -18,13 +18,19 @@
  */
 package com.abubusoft.kripton.binder.xml.internal;
 
+import com.abubusoft.kripton.binder.xml.XmlType;
+
 /**
  * Mapping type of map entry
  * @author xcesco
  *
  */
 public enum MapEntryType {
-	ELEMENTS,
-	ATTRIBUTES
+	TAG,
+	ATTRIBUTE;
+
+	public XmlType toXmlType() {
+		return XmlType.valueOf(toString());
+	}
 }
 

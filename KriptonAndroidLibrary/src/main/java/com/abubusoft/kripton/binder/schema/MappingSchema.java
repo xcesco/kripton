@@ -447,7 +447,7 @@ public class MappingSchema {
 				collection = collection || handleList(field, elementSchema, customTransformer);
 				collection = collection || handleArray(field, elementSchema, customTransformer);
 				collection = collection || handleSet(field, elementSchema, customTransformer);
-				collection = collection || handleMap(field, elementSchema, bindAnnotation, bindXmlAnnotation != null ? bindXmlAnnotation.mapEntryStrategy() : MapEntryType.ELEMENTS, bindTransform);
+				collection = collection || handleMap(field, elementSchema, bindAnnotation, bindXmlAnnotation != null ? bindXmlAnnotation.mapEntryType() : MapEntryType.TAG, bindTransform);
 
 				if (!collection) {
 					if (DefaultCustomTransform.class.equals(customTransformer)) {

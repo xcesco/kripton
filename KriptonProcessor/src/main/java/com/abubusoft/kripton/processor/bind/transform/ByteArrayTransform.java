@@ -111,10 +111,12 @@ public class ByteArrayTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (property.isNullable())
-			methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
-
 		XmlType xmlType = property.xmlInfo.xmlType;
+		
+		if (property.isNullable() && !property.isElementInCollection()) {
+			methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
+		}
+		
 		switch (xmlType) {
 		case ATTRIBUTE:
 			methodBuilder.addStatement("$L.writeAttribute($S, $L)", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property));
@@ -130,7 +132,8 @@ public class ByteArrayTransform extends AbstractBindTransform {
 			break;
 		}
 
-		if (property.isNullable())
+		if (property.isNullable() && !property.isElementInCollection()) {
 			methodBuilder.endControlFlow();
+		}
 	}
 }
