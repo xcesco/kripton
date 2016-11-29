@@ -8,6 +8,7 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.common.Base64Util;
 import com.abubusoft.kripton.common.PrimitiveUtil;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -145,7 +146,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
           jacksonSerializer.writeStartObject();
           jacksonSerializer.writeStringField("k", item.getKey().toString());
           if (item.getValue()==null) {
-            jacksonSerializer.writeNullField("v");
+            jacksonSerializer.writeStringField("v", "");
           } else {
             jacksonSerializer.writeFieldName("v");
             context.mapperFor(BeanElement74.class).serializeOnJacksonAsString(context, item.getValue(), wrapper);
@@ -331,10 +332,6 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                 BeanElement74 value=null;
                 JsonToken current;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  current=jacksonParser.currentToken();
-                  while (current != JsonToken.FIELD_NAME) {
-                    current=jacksonParser.nextToken();
-                  }
                   jacksonParser.nextValue();
                    {
                     String tempEnum=jacksonParser.getText();
@@ -360,10 +357,6 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                 byte[] value=null;
                 JsonToken current;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  current=jacksonParser.currentToken();
-                  while (current != JsonToken.FIELD_NAME) {
-                    current=jacksonParser.nextToken();
-                  }
                   jacksonParser.nextValue();
                   key=jacksonParser.getIntValue();
                   jacksonParser.nextValue();
@@ -386,10 +379,6 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                 Integer value=null;
                 JsonToken current;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  current=jacksonParser.currentToken();
-                  while (current != JsonToken.FIELD_NAME) {
-                    current=jacksonParser.nextToken();
-                  }
                   jacksonParser.nextValue();
                   key=jacksonParser.getText();
                   jacksonParser.nextValue();
@@ -452,19 +441,26 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                 JsonToken current;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                   current=jacksonParser.currentToken();
-                  while (current != JsonToken.FIELD_NAME) {
-                    current=jacksonParser.nextToken();
-                  }
-                  jacksonParser.nextValue();
-                   {
-                    String tempEnum=jacksonParser.getText();
-                    key=StringUtility.hasText(tempEnum)?BeanEnum74.valueOf(tempEnum):null;
-                  }
-                  jacksonParser.nextValue();
-                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                    value=null;
-                  } else {
-                    value=context.mapperFor(BeanElement74.class).parseOnJacksonAsString(context, wrapper);
+                  for (int i=0; i<2 ;i++) {
+                    while (current != JsonToken.FIELD_NAME) {
+                      current=jacksonParser.nextToken();
+                    }
+                    jacksonParser.nextValue();
+                    switch(jacksonParser.getCurrentName()) {
+                    case "k":
+                       {
+                        String tempEnum=jacksonParser.getText();
+                        key=StringUtility.hasText(tempEnum)?BeanEnum74.valueOf(tempEnum):null;
+                      }
+                    break;
+                    case "v":
+                      if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                        value=null;
+                      } else {
+                        value=context.mapperFor(BeanElement74.class).parseOnJacksonAsString(context, wrapper);
+                      }
+                    break;
+                    }
                   }
                   collection.put(key, value);
                   jacksonParser.nextToken();
@@ -481,16 +477,23 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                 JsonToken current;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                   current=jacksonParser.currentToken();
-                  while (current != JsonToken.FIELD_NAME) {
-                    current=jacksonParser.nextToken();
-                  }
-                  jacksonParser.nextValue();
-                  key=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
-                  jacksonParser.nextValue();
-                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                    value=null;
-                  } else {
-                    value=jacksonParser.getBinaryValue();
+                  for (int i=0; i<2 ;i++) {
+                    while (current != JsonToken.FIELD_NAME) {
+                      current=jacksonParser.nextToken();
+                    }
+                    jacksonParser.nextValue();
+                    switch(jacksonParser.getCurrentName()) {
+                    case "k":
+                      key=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                    break;
+                    case "v":
+                      if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                        value=null;
+                      } else {
+                        value=Base64Util.decode(jacksonParser.getValueAsString());
+                      }
+                    break;
+                    }
                   }
                   collection.put(key, value);
                   jacksonParser.nextToken();
@@ -506,33 +509,29 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                 Integer value=null;
                 JsonToken current;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                	
-                	for (int i=0; i<2;i++)
-                	{
-                		current=jacksonParser.currentToken();
-                        while (current != JsonToken.FIELD_NAME) {
-                          current=jacksonParser.nextToken();
-                        }
-                        jacksonParser.nextValue();
-                        
-                        switch(jacksonParser.getCurrentName())
-                        {
-                        case "k":
-                      	  key=jacksonParser.getText();
-                        	break;
-                        case "v":
-                      	  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                                value=null;
-                              } else {
-                                value=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
-                              }
-                      	break;
-                        }
-                        
-                        	
-                	}
-                	collection.put(key, value);
-                    jacksonParser.nextToken();
+                  current=jacksonParser.currentToken();
+                  for (int i=0; i<2 ;i++) {
+                    while (current != JsonToken.FIELD_NAME) {
+                      current=jacksonParser.nextToken();
+                    }
+                    jacksonParser.nextValue();
+                    switch(jacksonParser.getCurrentName()) {
+                    case "k":
+                      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                        key=jacksonParser.getText();
+                      }
+                    break;
+                    case "v":
+                      if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                        value=null;
+                      } else {
+                        value=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                      }
+                    break;
+                    }
+                  }
+                  collection.put(key, value);
+                  jacksonParser.nextToken();
                 }
                 instance.valueMapStringInteger=collection;
               }

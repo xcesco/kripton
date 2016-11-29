@@ -19,6 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.common.Base64Util;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
@@ -43,12 +44,12 @@ public class ByteArrayTransform extends AbstractBindTransform {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-//		if (onString)
-//		{
-//			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getStringValue()"), parserName);
-//		} else {
+		if (onString)
+		{
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getValueAsString())"), Base64Util.class, parserName);
+		} else {
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getBinaryValue()"), parserName);
-	//	}
+		}
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}

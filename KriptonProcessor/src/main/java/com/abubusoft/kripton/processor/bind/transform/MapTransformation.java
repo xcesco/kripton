@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.PrimitiveUtil;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;
@@ -281,11 +282,41 @@ public class MapTransformation extends AbstractBindTransform {
 			
 		methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
 		
-			methodBuilder.addStatement("current=$L.currentToken()", parserName);
+		if (onString) {
+			methodBuilder.addStatement("current=$L.currentToken()", parserName);	
+			methodBuilder.beginControlFlow("for (int i=0; i<2 ;i++)");
+			
 			methodBuilder.beginControlFlow("while (current != $T.FIELD_NAME)",JsonToken.class);
 			methodBuilder.addStatement("current=$L.nextToken()", parserName);
 			methodBuilder.endControlFlow();
+			methodBuilder.addStatement("$L.nextValue()", parserName);
+			//
+			methodBuilder.addCode("switch(jacksonParser.getCurrentName()) {\n");
+			methodBuilder.addCode("case $S:$>\n", property.mapKeyName);
+			if (onString)
+			{
+				transformKey.generateParseOnJacksonAsString(methodBuilder, parserName, null, "key", elementKeyProperty);
+			} else {
+				transformKey.generateParseOnJackson(methodBuilder, parserName, null, "key", elementKeyProperty);
+			}
+			methodBuilder.addStatement("$<break");
+			methodBuilder.addCode("case $S:$>\n", property.mapValueName);
+			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
+				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
+			methodBuilder.nextControlFlow("else");
+				if (onString)
+				{
+					transformValue.generateParseOnJacksonAsString(methodBuilder, parserName, null, "value", elementValueProperty);
+				} else {
+					transformValue.generateParseOnJackson(methodBuilder, parserName, null, "value", elementValueProperty);
+				}
+			methodBuilder.endControlFlow();
+			methodBuilder.addStatement("$<break");
+			methodBuilder.addCode("}\n");
+			//
 			
+			methodBuilder.endControlFlow();
+		} else {
 			// key
 			methodBuilder.addStatement("$L.nextValue()", parserName);
 			if (onString)
@@ -307,6 +338,7 @@ public class MapTransformation extends AbstractBindTransform {
 				transformValue.generateParseOnJackson(methodBuilder, parserName, null, "value", elementValueProperty);
 			}
 			methodBuilder.endControlFlow();
+		}
 			methodBuilder.addStatement("collection.put(key, value)");
 			methodBuilder.addStatement("$L.nextToken()", parserName);
 		methodBuilder.endControlFlow();
