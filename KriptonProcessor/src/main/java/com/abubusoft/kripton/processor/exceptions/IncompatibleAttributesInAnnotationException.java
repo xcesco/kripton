@@ -22,6 +22,11 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 
 public class IncompatibleAttributesInAnnotationException extends KriptonProcessorException {
  
+	public IncompatibleAttributesInAnnotationException()
+	{
+		
+	}
+	
 	public IncompatibleAttributesInAnnotationException(String msg)
 	{
 		super(msg);

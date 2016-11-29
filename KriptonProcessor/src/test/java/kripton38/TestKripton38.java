@@ -21,6 +21,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
+import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
+
 import base.BaseProcessorTest;
 
 /**
@@ -74,8 +77,9 @@ public class TestKripton38 extends BaseProcessorTest {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@Test(expected=AssertionError.class)
-	public void test04() throws IOException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testErrorNoDaoElementsFound() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(NoDaoElementsFound.class);
 		buildDataSourceProcessorTest(Dummy04DataSource.class, DaoBean04.class, Bean04.class, BaseDao.class);
 	}
 	
@@ -91,8 +95,9 @@ public class TestKripton38 extends BaseProcessorTest {
 		buildDataSourceProcessorTest(Dummy05DataSource.class, DaoBean05.class, Bean05.class, BaseDao.class, BeanType.class);
 	}
 	
-	@Test(expected=AssertionError.class)
-	public void test06() throws IOException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testErrorMethodParameterNotFoundException() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(MethodParameterNotFoundException.class);
 		buildDataSourceProcessorTest(Dummy06DataSource.class, DaoBean06.class, Bean06.class, BaseDao.class, BeanType.class);
 	}
 

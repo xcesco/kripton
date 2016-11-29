@@ -15,16 +15,16 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;
 
-@BindType(value="root", allFields=true)
-public class BeanElement76 {
+@BindType(value="root", allFields=false)
+public class BeanValue76Object {
 	
 	//@Bind(enabled=true)
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
+	@BindXml(xmlType=XmlType.VALUE)
 	protected long id;
 	
-	//@Bind(enabled=true)
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
-	public BeanElement76 valueBean;
+	@Bind(enabled=true)
+	@BindXml(xmlType=XmlType.VALUE)
+	public BeanValue76Object valueBean;
 
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
@@ -54,87 +54,87 @@ public class BeanElement76 {
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Calendar valueCalendar;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Character valueChar;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public char valueCharType;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Integer valueContentBoolType;
 
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Currency valueCurrency;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Date valueDate;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Double valueDouble;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public double valueDoubleType;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public BeanEnum valueEnum;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Float valueFloat;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public float valueFloatType;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Integer valueInt;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public int valueIntType;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Locale valueLocale;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Long valueLong;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public long valueLongType;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Short valueShort;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public short valueShortType;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public String valueString;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Time valueTime;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public TimeZone valueTimeZone;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public URL valueUrl;
 	

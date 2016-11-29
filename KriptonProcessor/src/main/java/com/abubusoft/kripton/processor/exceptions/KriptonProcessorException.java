@@ -18,16 +18,39 @@
  */
 package com.abubusoft.kripton.processor.exceptions;
 
+import com.abubusoft.kripton.processor.BaseProcessor;
+
 /**
  * @author xcesco
  *
  */
-public class KriptonProcessorException extends RuntimeException {
+public abstract class KriptonProcessorException extends RuntimeException {
 
 	private static final long serialVersionUID = 2217746400887102609L;
 
+	public KriptonProcessorException() {
+		super();
+	}
+
 	public KriptonProcessorException(String message) {
 		super(message);
+	}
+
+	public String getErrorCode() {
+		if (BaseProcessor.DEVELOP_MODE)
+			return getClass().getSimpleName() + ": ";
+
+		return "";
+	}
+
+	/**
+	 * Returns the detail message string of this throwable.
+	 *
+	 * @return the detail message string of this {@code Throwable} instance
+	 *         (which may be {@code null}).
+	 */
+	public String getMessage() {
+		return getErrorCode() + super.getMessage();
 	}
 
 }

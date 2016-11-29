@@ -25,4 +25,7 @@ public class SQLPrimaryKeyNotFoundException extends KriptonProcessorException {
 	{
 		super("Bean '"+entity.getName()+"' does not have a primary key");
 	}
+	
+	public SQLPrimaryKeyNotFoundException() {
+	}
 }

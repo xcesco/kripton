@@ -38,12 +38,6 @@ public class TestKripton70 extends BaseProcessorTest {
 	{
 		buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
 	}
-/*	
-	@Test
-	public void testCompileAttribute() throws IOException, InstantiationException, IllegalAccessException
-	{
-		buildBindProcessorTest(BeanAttribute70.class, BeanEnum.class);
-	}*/
 	
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException

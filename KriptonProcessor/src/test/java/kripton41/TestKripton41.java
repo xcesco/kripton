@@ -21,6 +21,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+
 import base.BaseProcessorTest;
 
 /**
@@ -30,8 +32,9 @@ import base.BaseProcessorTest;
 @RunWith(JUnit4.class)
 public class TestKripton41 extends BaseProcessorTest {
 
-	@Test(expected=AssertionError.class)
-	public void testSelectError() throws IOException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testSelectErrorInvalidMethodSignException() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(InvalidMethodSignException.class);
 		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBeanSelectERR.class, Bean01.class, BaseDao.class);
 	}	
 	

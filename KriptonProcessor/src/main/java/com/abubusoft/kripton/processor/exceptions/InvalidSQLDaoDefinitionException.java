@@ -19,6 +19,11 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 
 public class InvalidSQLDaoDefinitionException extends KriptonProcessorException {
 
+	public InvalidSQLDaoDefinitionException()
+	{
+		
+	}
+	
 	private static final long serialVersionUID = 8462705406839489618L;
 
 	public InvalidSQLDaoDefinitionException(SQLDaoDefinition daoDefinition)

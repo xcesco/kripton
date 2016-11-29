@@ -25,7 +25,7 @@ public class TestKripton75 extends BaseProcessorTest {
 	}
 
 	@Test
-	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
+	public void testCompile() throws Throwable
 	{
 		buildBindProcessorTest(BeanElement75.class);
 	}

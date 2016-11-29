@@ -25,4 +25,8 @@ public class PropertyInAnnotationNotFoundException extends KriptonProcessorExcep
 	{
 		super(String.format("In class '%s', annotation of method '%s' uses field '%s' that does not exists in bean '%s'",  method.getParent().getName(), method.getName(), fieldName, method.getParent().getEntityClassName()));
 	}
+	
+	public PropertyInAnnotationNotFoundException() {
+	}
+
 }

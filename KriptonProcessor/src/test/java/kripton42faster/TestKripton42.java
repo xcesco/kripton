@@ -15,21 +15,13 @@
  *******************************************************************************/
 package kripton42faster;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-
-import javax.xml.namespace.QName;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.BinderOptions;
-import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 

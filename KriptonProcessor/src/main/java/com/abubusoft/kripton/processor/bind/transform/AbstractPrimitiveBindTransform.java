@@ -87,7 +87,8 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			break;
 		case VALUE:
 			// value don't need to be converted into string
-			methodBuilder.addStatement("$L.write$L($L)", serializerName, property.xmlInfo.tag, XML_TYPE, getter(beanName, beanClass, property));
+			//methodBuilder.addStatement("$L.write$L($L)", serializerName, property.xmlInfo.tag, XML_TYPE, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
 			break;
 		case VALUE_CDATA:
 			methodBuilder.addStatement("$L.writeCData($T.write$L($L))", serializerName, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));

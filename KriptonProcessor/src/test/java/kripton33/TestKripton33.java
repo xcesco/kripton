@@ -21,6 +21,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
+import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
+
 import base.BaseProcessorTest;
 
 /**
@@ -36,8 +39,9 @@ public class TestKripton33 extends BaseProcessorTest {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@Test(expected=AssertionError.class)
-	public void test01() throws IOException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testErrorMethodParameterNotFound01() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(MethodParameterNotFoundException.class);
 		buildDataSourceProcessorTest(Channel01DataSource.class, DaoChannel01.class, Channel.class);
 	}	
 	
@@ -47,8 +51,9 @@ public class TestKripton33 extends BaseProcessorTest {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@Test(expected=AssertionError.class)
-	public void test02() throws IOException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testErrorMethodParameterNotFound02() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(MethodParameterNotFoundException.class);
 		buildDataSourceProcessorTest(Channel02DataSource.class, DaoChannel02.class, Channel.class);
 	}
 	
@@ -58,8 +63,9 @@ public class TestKripton33 extends BaseProcessorTest {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@Test(expected=AssertionError.class)
-	public void test03() throws IOException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testErrorMethodParameterNotFound03() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(MethodParameterNotFoundException.class);
 		buildDataSourceProcessorTest(Channel03DataSource.class, DaoChannel03.class, Channel.class);
 	}
 	
@@ -69,8 +75,9 @@ public class TestKripton33 extends BaseProcessorTest {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@Test(expected=AssertionError.class)
-	public void test04() throws IOException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testErrorMethodParameterNotFound04() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(MethodParameterNotFoundException.class);
 		buildDataSourceProcessorTest(Channel04DataSource.class, DaoChannel04.class, Channel.class);
 	}
 	
@@ -80,8 +87,9 @@ public class TestKripton33 extends BaseProcessorTest {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@Test(expected=AssertionError.class)
-	public void test05() throws IOException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testErrorPropertyInAnnotationNotFoundException01() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(PropertyInAnnotationNotFoundException.class);
 		buildDataSourceProcessorTest(Channel05DataSource.class, DaoChannel05.class, Channel.class);
 	}
 	
@@ -91,8 +99,9 @@ public class TestKripton33 extends BaseProcessorTest {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@Test(expected=AssertionError.class)
-	public void test06() throws IOException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testErrorPropertyInAnnotationNotFoundException02() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(PropertyInAnnotationNotFoundException.class);
 		buildDataSourceProcessorTest(Channel06DataSource.class, DaoChannel06.class, Channel.class);
 	}
 

@@ -25,4 +25,7 @@ public class PropertyVisibilityException extends KriptonProcessorException {
 		super(msg);
 	}
 	
+	public PropertyVisibilityException() {
+	}
+	
 }

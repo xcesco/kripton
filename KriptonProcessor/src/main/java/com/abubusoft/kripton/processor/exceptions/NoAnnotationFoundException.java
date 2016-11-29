@@ -23,6 +23,11 @@ public class NoAnnotationFoundException extends KriptonProcessorException {
 		super(msg);
 	}
 	
+	public NoAnnotationFoundException()
+	{
+	}
+	
+	
 	private static final long serialVersionUID = -8862365033337349246L;
 
 }

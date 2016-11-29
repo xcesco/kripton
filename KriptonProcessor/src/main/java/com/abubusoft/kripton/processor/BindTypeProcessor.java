@@ -30,8 +30,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.android.annotation.BindPreference;
-import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
@@ -43,8 +41,10 @@ import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindModel;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.bind.transform.EnumTransform;
+import com.abubusoft.kripton.processor.bind.transform.ObjectTransform;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -52,6 +52,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.utils.StringUtility;
 
@@ -62,17 +63,34 @@ import com.abubusoft.kripton.processor.utils.StringUtility;
  *
  */
 public class BindTypeProcessor extends BaseProcessor {
+	
+	public class InnerCounter {
+		int counter; 
+		
+		public void inc()
+		{
+			counter++;
+		}
+		
+		public int value()
+		{
+			return counter;
+		}
+		
+	}
 
 	private BindModel model;
 
-	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindSharedPreferences.class).build();
+	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindType.class).build();
 
-	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindPreference.class).build();
+	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).build();
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes ()
+	 * @see
+	 * javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes
+	 * ()
 	 */
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {
@@ -113,16 +131,17 @@ public class BindTypeProcessor extends BaseProcessor {
 					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindType.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
-				
-				if (item.getKind() == ElementKind.ENUM) continue;
-				
+
+				if (item.getKind() == ElementKind.ENUM)
+					continue;
+
 				analyzeBindedClass(item);
 
 				itemCounter++;
 			}
 
 			if (itemCounter == 0) {
-				warn("No class with %s annotation was found", BindSharedPreferences.class);
+				warn("No class with %s annotation was found", BindType.class);
 			}
 
 			for (BindEntity item : model.getEntities()) {
@@ -143,8 +162,9 @@ public class BindTypeProcessor extends BaseProcessor {
 	}
 
 	private String analyzeBindedClass(Element element) {
+		final InnerCounter counterPropertyInValue=new InnerCounter();
 		final Converter<String, String> typeNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
-		Element beanElement = element;
+		final Element beanElement = element;
 		String result = beanElement.getSimpleName().toString();
 
 		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
@@ -171,30 +191,30 @@ public class BindTypeProcessor extends BaseProcessor {
 			}, propertyAnnotationFilter, new PropertyCreatedListener<BindProperty>() {
 
 				@Override
-				public boolean onProperty(BindProperty property) {					
+				public boolean onProperty(BindProperty property) {
+
 					if (!bindAllFields && !property.hasAnnotation(Bind.class)) {
 						// skip field
 						return false;
 					}
 
-					if (bindAllFields || property.hasAnnotation(Bind.class) || property.hasAnnotation(BindXml.class)) {						
+					if (bindAllFields || property.hasAnnotation(Bind.class) || property.hasAnnotation(BindXml.class)) {
 						ModelAnnotation annotationBindXml = property.getAnnotation(BindXml.class);
 						// if field disable, skip property definition
 						if (annotationBindXml != null && (AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindXml, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false)) {
 							return false;
 						}
-						
+
 						ModelAnnotation annotationBind = property.getAnnotation(Bind.class);
 						// if field disable, skip property definition
 						if (annotationBind != null && (AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBind, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false)) {
 							return false;
 						}
-						
+
 						// set the order
 						int order = AnnotationUtility.extractAsInt(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_ORDER);
-						property.jacksonName=typeNameConverter.convert(property.getName());
-						property.order=order;
-						
+						property.jacksonName = typeNameConverter.convert(property.getName());
+						property.order = order;
 
 						String tempName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 						if (StringUtility.hasText(tempName)) {
@@ -202,33 +222,98 @@ public class BindTypeProcessor extends BaseProcessor {
 						} else {
 							property.xmlInfo.tag = typeNameConverter.convert(property.getName());
 						}
-						
+
 						// define element tag name
 						String tempElementName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_XML_ELEMENT_TAG);
 						if (StringUtility.hasText(tempElementName)) {
 							property.xmlInfo.tagElement = tempElementName;
-							property.xmlInfo.wrappedCollection=true;
+							property.xmlInfo.wrappedCollection = true;
 						} else {
 							property.xmlInfo.tagElement = property.xmlInfo.tag;
-							property.xmlInfo.wrappedCollection=false;
+							property.xmlInfo.wrappedCollection = false;
 						}
-						
-						String xmlType=AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_XML_TYPE);
-						if (xmlType==null) xmlType=XmlType.TAG.toString();
-						property.xmlInfo.xmlType=XmlType.valueOf(xmlType);
-						
+
+						String xmlType = AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_XML_TYPE);
+						if (xmlType == null)
+							xmlType = XmlType.TAG.toString();
+						property.xmlInfo.xmlType = XmlType.valueOf(xmlType);
+
 						// map info
-						String mapKeyName=AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_MAP_KEY_NAME);
-						if (!StringUtility.hasText(mapKeyName)) mapKeyName=Bind.MAP_KEY_DEFAULT;
-						property.mapKeyName=mapKeyName;
-						
-						String mapValueName=AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_MAP_VALUE_NAME);
-						if (!StringUtility.hasText(mapValueName)) mapValueName=Bind.MAP_VALUE_DEFAULT;
-						property.mapValueName=mapValueName;
-						
-						String mapEntryType=AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_MAP_ENTRY_TYPE);
-						if (mapEntryType==null) mapEntryType=MapEntryType.TAG.toString();
-						property.xmlInfo.mapEntryType=MapEntryType.valueOf(mapEntryType);
+						String mapKeyName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_MAP_KEY_NAME);
+						if (!StringUtility.hasText(mapKeyName))
+							mapKeyName = Bind.MAP_KEY_DEFAULT;
+						property.mapKeyName = mapKeyName;
+
+						String mapValueName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_MAP_VALUE_NAME);
+						if (!StringUtility.hasText(mapValueName))
+							mapValueName = Bind.MAP_VALUE_DEFAULT;
+						property.mapValueName = mapValueName;
+
+						String mapEntryType = AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_MAP_ENTRY_TYPE);
+						if (mapEntryType == null)
+							mapEntryType = MapEntryType.TAG.toString();
+						property.xmlInfo.mapEntryType = MapEntryType.valueOf(mapEntryType);
+
+						if (property.xmlInfo.xmlType == XmlType.ATTRIBUTE) {
+							// check if property is a array
+							if (property.getPropertyType().isArray()) {
+								String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
+								throw (new IncompatibleAttributesInAnnotationException(msg));
+							}
+
+							// check if property is a collection
+							if (property.getPropertyType().isCollection()) {
+								String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
+								throw (new IncompatibleAttributesInAnnotationException(msg));
+							}
+
+							// check if property is a map
+							if (property.getPropertyType().isMap()) {
+								String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
+								throw (new IncompatibleAttributesInAnnotationException(msg));
+							}
+							
+							BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
+							if (transform != null && transform instanceof ObjectTransform) {
+								String msg = String.format("In class '%s', property '%s' is an object and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
+								throw (new IncompatibleAttributesInAnnotationException(msg));
+							}
+						}
+
+						if (property.xmlInfo.xmlType == XmlType.VALUE || property.xmlInfo.xmlType == XmlType.VALUE_CDATA) {
+							// check if property is a array
+							if (property.getPropertyType().isArray()) {
+								String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
+								throw (new IncompatibleAttributesInAnnotationException(msg));
+							}
+
+							// check if property is a collection
+							if (property.getPropertyType().isCollection()) {
+								String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
+								throw (new IncompatibleAttributesInAnnotationException(msg));
+							}
+
+							// check if property is a map
+							if (property.getPropertyType().isMap()) {
+								String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
+								throw (new IncompatibleAttributesInAnnotationException(msg));
+							}
+
+							// TODO check objects
+							BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
+							if (transform != null && transform instanceof ObjectTransform) {
+								String msg = String.format("In class '%s', property '%s' is an object and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
+								throw (new IncompatibleAttributesInAnnotationException(msg));
+							}
+							
+							counterPropertyInValue.inc();
+							
+							if (counterPropertyInValue.value()>1)
+							{
+								String msg = String.format("In class '%s', property '%s' and other properties are mapped in a xml value, but only one property for class can be a xml value", beanElement.asType().toString(), property.getName());
+								throw (new IncompatibleAttributesInAnnotationException(msg));
+							}
+						}
 
 						return true;
 					}

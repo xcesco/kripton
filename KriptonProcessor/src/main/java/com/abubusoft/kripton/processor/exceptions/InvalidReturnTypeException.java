@@ -21,6 +21,11 @@ import com.squareup.javapoet.TypeName;
 
 public class InvalidReturnTypeException extends KriptonProcessorException {
 
+	public InvalidReturnTypeException()
+	{
+		
+	}
+	
 	private static final long serialVersionUID = -864898010888025423L;
 	
 	public InvalidReturnTypeException(SQLDaoDefinition daoDefinition, ModelMethod method, TypeName foundReturnType, TypeName aspectedReturnType)

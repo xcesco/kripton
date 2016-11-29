@@ -34,23 +34,23 @@ import org.codehaus.stax2.XMLStreamWriter2;
 /**
  * This class is the shared preference binder defined for BeanElement76
  *
- * @see BeanElement76
+ * @see BeanAttribute76
  */
 @BindMap
-public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
+public class BeanElement76BindMap extends AbstractMapper<BeanAttribute76> {
   /**
    * create new object instance
    */
   @Override
-  public BeanElement76 createInstance() {
-    return new BeanElement76();
+  public BeanAttribute76 createInstance() {
+    return new BeanAttribute76();
   }
 
   /**
    * reset shared preferences
    */
   @Override
-  public void serializeOnJackson(JacksonContext context, BeanElement76 object, JacksonWrapperSerializer wrapper) {
+  public void serializeOnJackson(JacksonContext context, BeanAttribute76 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -63,7 +63,7 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
       // field valueBean
       if (object.valueBean!=null)  {
         jacksonSerializer.writeFieldName("valueBean");
-        context.mapperFor(BeanElement76.class).serializeOnJackson(context, object.valueBean, wrapper);
+        context.mapperFor(BeanAttribute76.class).serializeOnJackson(context, object.valueBean, wrapper);
       }
 
       // field valueBigDecimal
@@ -201,7 +201,7 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJacksonAsString(JacksonContext context, BeanElement76 object, JacksonWrapperSerializer wrapper) {
+  public void serializeOnJacksonAsString(JacksonContext context, BeanAttribute76 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -214,7 +214,7 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
       // field valueBean
       if (object.valueBean!=null)  {
         jacksonSerializer.writeFieldName("valueBean");
-        context.mapperFor(BeanElement76.class).serializeOnJacksonAsString(context, object.valueBean, wrapper);
+        context.mapperFor(BeanAttribute76.class).serializeOnJacksonAsString(context, object.valueBean, wrapper);
       }
 
       // field valueBigDecimal
@@ -352,7 +352,7 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(XmlBinderContext context, BeanElement76 object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(XmlBinderContext context, BeanAttribute76 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -366,7 +366,7 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
 
       // field valueBean
       if (object.valueBean!=null)  {
-        xmlSerializer.writeBinaryAttribute(null, null, "valueBean", context.mapperFor(BeanElement76.class).serialize(context, object.valueBean).getBytes());
+        xmlSerializer.writeBinaryAttribute(null, null, "valueBean", context.mapperFor(BeanAttribute76.class).serialize(context, object.valueBean).getBytes());
       }
 
       // field valueBigDecimal
@@ -506,10 +506,10 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
    * create new object instance
    */
   @Override
-  public BeanElement76 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
+  public BeanAttribute76 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      BeanElement76 instance = createInstance();
+      BeanAttribute76 instance = createInstance();
       String fieldName;
       if (jacksonParser.currentToken() == null) {
         jacksonParser.nextToken();
@@ -531,7 +531,7 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
             case "valueBean":
               // field valueBean
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                instance.valueBean=context.mapperFor(BeanElement76.class).parseOnJackson(context, wrapper);
+                instance.valueBean=context.mapperFor(BeanAttribute76.class).parseOnJackson(context, wrapper);
               }
             break;
             case "valueBigDecimal":
@@ -702,10 +702,10 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
    * create new object instance
    */
   @Override
-  public BeanElement76 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
+  public BeanAttribute76 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      BeanElement76 instance = createInstance();
+      BeanAttribute76 instance = createInstance();
       String fieldName;
       if (jacksonParser.getCurrentToken() == null) {
         jacksonParser.nextToken();
@@ -727,7 +727,7 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
             case "valueBean":
               // field valueBean
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                instance.valueBean=context.mapperFor(BeanElement76.class).parseOnJacksonAsString(context, wrapper);
+                instance.valueBean=context.mapperFor(BeanAttribute76.class).parseOnJacksonAsString(context, wrapper);
               }
             break;
             case "valueBigDecimal":
@@ -898,10 +898,10 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
    * create new object instance
    */
   @Override
-  public BeanElement76 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public BeanAttribute76 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XMLStreamReader2 xmlParser = wrapper.xmlParser;
-      BeanElement76 instance = createInstance();
+      BeanAttribute76 instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
 
@@ -926,7 +926,7 @@ public class BeanElement76BindMap extends AbstractMapper<BeanElement76> {
             break;
             case "valueBean":
               // field valueBean
-              instance.valueBean=context.mapperFor(BeanElement76.class).parse(context, xmlParser.getAttributeAsBinary(attributeIndex));
+              instance.valueBean=context.mapperFor(BeanAttribute76.class).parse(context, xmlParser.getAttributeAsBinary(attributeIndex));
             break;
             case "valueBigDecimal":
               // field valueBigDecimal

@@ -30,5 +30,8 @@ public class PropertyNotFoundException extends KriptonProcessorException {
 	{		
 		super(String.format("in class '%s' method '%s' uses field '%s' that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName, method.getParent().getEntitySimplyClassName()));
 	}
+	
+	public PropertyNotFoundException() {
+	}
 		
 }

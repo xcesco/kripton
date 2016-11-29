@@ -26,4 +26,7 @@ public class SQLPrimaryKeyNotValidTypeException extends KriptonProcessorExceptio
 	{
 		super("Bean '"+entity.getName()+"' have "+property.getName()+" as primary key but it is not Long or long type field");
 	}
+	
+	public SQLPrimaryKeyNotValidTypeException() {
+	}
 }
