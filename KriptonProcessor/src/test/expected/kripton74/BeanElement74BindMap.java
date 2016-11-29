@@ -506,22 +506,33 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                 Integer value=null;
                 JsonToken current;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  current=jacksonParser.currentToken();
-                  while (current != JsonToken.FIELD_NAME) {
-                    current=jacksonParser.nextToken();
-                  }
-                  jacksonParser.nextValue();
-                  if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                    key=jacksonParser.getText();
-                  }
-                  jacksonParser.nextValue();
-                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                    value=null;
-                  } else {
-                    value=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
-                  }
-                  collection.put(key, value);
-                  jacksonParser.nextToken();
+                	
+                	for (int i=0; i<2;i++)
+                	{
+                		current=jacksonParser.currentToken();
+                        while (current != JsonToken.FIELD_NAME) {
+                          current=jacksonParser.nextToken();
+                        }
+                        jacksonParser.nextValue();
+                        
+                        switch(jacksonParser.getCurrentName())
+                        {
+                        case "k":
+                      	  key=jacksonParser.getText();
+                        	break;
+                        case "v":
+                      	  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                                value=null;
+                              } else {
+                                value=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                              }
+                      	break;
+                        }
+                        
+                        	
+                	}
+                	collection.put(key, value);
+                    jacksonParser.nextToken();
                 }
                 instance.valueMapStringInteger=collection;
               }
