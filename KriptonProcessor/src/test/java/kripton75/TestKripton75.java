@@ -1,8 +1,6 @@
 package kripton75;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import org.junit.Assert;
 import org.junit.Before;
