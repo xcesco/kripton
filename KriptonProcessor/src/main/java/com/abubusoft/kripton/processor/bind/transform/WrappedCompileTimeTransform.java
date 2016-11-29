@@ -61,7 +61,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.read(attributeValue)"), utilClazz);
+			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.read($L.getAttributeValue(attributeIndex))"), utilClazz, parserName);
 			break;
 		case TAG:
 			methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.read($T.unescapeXml($L.getElementText()))"), utilClazz, StringEscapeUtils.class, parserName);

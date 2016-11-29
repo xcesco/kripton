@@ -35,7 +35,6 @@ class LongTransform extends AbstractPrimitiveBindTransform {
 		JSON_PARSER_METHOD="getLongValue";
 		
 		XML_ATTRIBUTE_METHOD_PRE="Integer";
-		XML_ATTRIBUTE_METHOD_POST="long";
-		
+		XML_ATTRIBUTE_METHOD_POST=".longValue()";				
 	}
 }

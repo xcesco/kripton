@@ -39,5 +39,8 @@ class BooleanTransform extends AbstractPrimitiveBindTransform {
 		JSON_TYPE = "Boolean";
 		JSON_PARSER_METHOD="getBooleanValue";
 		
+		XML_ATTRIBUTE_METHOD_PRE="Boolean";
+		XML_ATTRIBUTE_METHOD_POST="";
+		
 	}
 }

@@ -39,6 +39,9 @@ class ByteTransform extends AbstractPrimitiveBindTransform {
 		
 		JSON_TYPE = "Number";
 		JSON_PARSER_METHOD="getByteValue";
+		
+		XML_ATTRIBUTE_METHOD_PRE="Integer";
+		XML_ATTRIBUTE_METHOD_POST=".byteValue()";
 	}
 
 }

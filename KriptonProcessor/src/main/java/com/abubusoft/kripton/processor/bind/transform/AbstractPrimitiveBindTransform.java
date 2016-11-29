@@ -54,23 +54,13 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
 		switch (xmlType) {
 		case ATTRIBUTE:
-			
-			//methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getAttributeAs$L(attributeIndex, $L).$L()"),XML_CAST_TYPE, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, DEFAULT_VALUE);
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getAttributeAs$L(attributeIndex).$LValue()"),parserName, XML_ATTRIBUTE_METHOD_PRE, XML_ATTRIBUTE_METHOD_POST);
-			/*String nullValue = nullable ? "null" : "\'\\0\'";
-			if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "attributeValue.length()>0 ? attributeValue.charAt(0) : $L"), nullValue);
-			} else {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$L.valueOf(attributeValue)"), XML_CAST_TYPE, XML_UTILITY_TYPE);
-			}*/
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getAttributeValue(attributeIndex), $L)"),XML_CAST_TYPE, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
 			break;
 		case TAG:
-			//methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$L.getElementAs$L()"), XML_CAST_TYPE, parserName, XML_TYPE);
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getElementAs$L(), $L)"),XML_CAST_TYPE, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, parserName, XML_TYPE, DEFAULT_VALUE);
 			break;
 		case VALUE:
 		case VALUE_CDATA:
-			//methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.valueOf($L.getText())"), XML_UTILITY_TYPE, parserName);
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getText(), $L)"),XML_CAST_TYPE, PrimitiveUtil.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
 			break;
 		default:

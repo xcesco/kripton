@@ -43,6 +43,7 @@ import kripton72.TestKripton72;
 import kripton73.TestKripton73;
 import kripton74.TestKripton74;
 import kripton75.TestKripton75;
+import kripton76.TestKripton76;
 import test01.TestDatabase01;
 import test02.TestDao01;
 import test03.Test03;
@@ -69,6 +70,7 @@ import test05firt_aid.TestFirstAid;
 			TestKripton73.class,
 			TestKripton74.class,
 			TestKripton75.class,
+			TestKripton76.class,
 		TestFirstAid.class })
 //@formatter:on
 public class AllProcessorSuiteTest {
