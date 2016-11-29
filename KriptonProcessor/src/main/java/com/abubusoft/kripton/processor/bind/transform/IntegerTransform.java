@@ -23,7 +23,7 @@ package com.abubusoft.kripton.processor.bind.transform;
  * @author bulldog
  *
  */
-public class IntegerTransform extends PrimitiveBindTransform {
+public class IntegerTransform extends AbstractPrimitiveBindTransform {
 
 	public IntegerTransform(boolean nullable) {
 		super(nullable);

@@ -20,8 +20,6 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import javax.xml.stream.events.XMLEvent;
 
-import kripton70.BeanAttribute70;
-
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;

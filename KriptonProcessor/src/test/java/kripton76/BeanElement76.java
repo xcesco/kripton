@@ -1,4 +1,4 @@
-package kripton70;
+package kripton76;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -15,22 +15,19 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;
 
-@BindType(allFields=false)
-public class BeanAttribute70 {
-
-	// OK	
+@BindType("root")
+public class BeanElement76 {
+	
+	@Bind("name")
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	protected long id;
 	
-	@Bind(enabled=true)
-	@BindXml(xmlType=XmlType.VALUE)
-	public BeanAttribute70 valueBean;
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
+	public BeanElement76 valueBean;
 
-	// OK
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public BigDecimal valueBigDecimal;
-		
-	// OK
+	
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public BigInteger valueBigInteger;
 	
@@ -57,7 +54,7 @@ public class BeanAttribute70 {
 	
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Integer valueContentBoolType;
-	
+
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Currency valueCurrency;
 	

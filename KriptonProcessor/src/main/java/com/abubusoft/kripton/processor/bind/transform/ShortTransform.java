@@ -21,7 +21,7 @@ package com.abubusoft.kripton.processor.bind.transform;
  * @author bulldog
  *
  */
-public class ShortTransform extends PrimitiveBindTransform {
+public class ShortTransform extends AbstractPrimitiveBindTransform {
 
 	public ShortTransform(boolean nullable) {
 		super(nullable);

@@ -31,9 +31,9 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-abstract class PrimitiveBindTransform extends AbstractBindTransform {
+abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
-	public PrimitiveBindTransform(boolean nullable) {
+	public AbstractPrimitiveBindTransform(boolean nullable) {
 		this.nullable = nullable;
 	}
 

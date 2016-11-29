@@ -21,7 +21,7 @@ package com.abubusoft.kripton.processor.bind.transform;
  * @author bulldog
  *
  */
-class CharacterTransform extends PrimitiveBindTransform {
+class CharacterTransform extends AbstractPrimitiveBindTransform {
 	
 	public final static String CHAR_CAST_CONST="(char)";
 

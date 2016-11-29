@@ -21,7 +21,7 @@ package com.abubusoft.kripton.processor.bind.transform;
  * @author bulldog
  *
  */
-public class FloatTransform extends PrimitiveBindTransform {
+public class FloatTransform extends AbstractPrimitiveBindTransform {
 
 	public FloatTransform(boolean nullable) {
 		super(nullable);

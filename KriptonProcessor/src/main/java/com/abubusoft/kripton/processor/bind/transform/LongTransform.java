@@ -19,7 +19,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 /**
  *
  */
-class LongTransform extends PrimitiveBindTransform {
+class LongTransform extends AbstractPrimitiveBindTransform {
 
 	public LongTransform(boolean nullable) {
 		super(nullable);
