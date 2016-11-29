@@ -23,6 +23,7 @@ import javax.xml.stream.events.XMLEvent;
 import kripton70.BeanAttribute70;
 
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -137,11 +138,28 @@ public class ObjectTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		if (property.isNullable())
+		{
+			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT)", parserName, JsonToken.class);
+		}
 		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJackson(context, wrapper)"), property.getPropertyType().getName());
+		if (property.isNullable())
+		{
+			methodBuilder.endControlFlow();
+		}
 	}
 	
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		
+		if (property.isNullable())
+		{
+			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT)", parserName, JsonToken.class);
+		}		
 		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJacksonAsString(context, wrapper)"), property.getPropertyType().getName());		
+		if (property.isNullable())
+		{
+			methodBuilder.endControlFlow();
+		}
 	}
 }

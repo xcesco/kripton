@@ -585,7 +585,9 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
         switch (fieldName) {
             case "valueBean":
               // field valueBean
-              instance.valueBean=context.mapperFor(BeanElement70.class).parseOnJackson(context, wrapper);
+              if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+                instance.valueBean=context.mapperFor(BeanElement70.class).parseOnJackson(context, wrapper);
+              }
             break;
             case "valueBigDecimal":
               // field valueBigDecimal
@@ -779,7 +781,9 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
         switch (fieldName) {
             case "valueBean":
               // field valueBean
-              instance.valueBean=context.mapperFor(BeanElement70.class).parseOnJacksonAsString(context, wrapper);
+              if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+                instance.valueBean=context.mapperFor(BeanElement70.class).parseOnJacksonAsString(context, wrapper);
+              }
             break;
             case "valueBigDecimal":
               // field valueBigDecimal

@@ -774,7 +774,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=context.mapperFor(BeanElement72.class).parseOnJackson(context, wrapper);
+                    if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+                      item=context.mapperFor(BeanElement72.class).parseOnJackson(context, wrapper);
+                    }
                   }
                   collection.add(item);
                 }
@@ -1034,7 +1036,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=context.mapperFor(BeanElement72.class).parseOnJacksonAsString(context, wrapper);
+                    if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+                      item=context.mapperFor(BeanElement72.class).parseOnJacksonAsString(context, wrapper);
+                    }
                   }
                   collection.add(item);
                 }

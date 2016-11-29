@@ -31,6 +31,7 @@ public class TestKripton74 extends BaseProcessorTest {
 		bean.valueMapStringInteger.put("key2", 20);
 		
 		bean.valueMapEnumBean=new HashMap<>();
+		bean.valueMapEnumBean.put(BeanEnum74.VALUE_3, null);
 		bean.valueMapEnumBean.put(BeanEnum74.VALUE_1, bean1);		
 		bean.valueMapEnumBean.put(BeanEnum74.VALUE_2, null);
 		
@@ -74,6 +75,7 @@ public class TestKripton74 extends BaseProcessorTest {
 
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
+		
 		Assert.assertNotNull(new BeanElement74BindMap());
 
 		BeanElement74 bean = createBean();

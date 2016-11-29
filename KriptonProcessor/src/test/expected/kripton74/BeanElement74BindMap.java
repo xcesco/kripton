@@ -146,7 +146,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
           jacksonSerializer.writeStartObject();
           jacksonSerializer.writeStringField("k", item.getKey().toString());
           if (item.getValue()==null) {
-            jacksonSerializer.writeStringField("v", "");
+            jacksonSerializer.writeNullField("v");
           } else {
             jacksonSerializer.writeFieldName("v");
             context.mapperFor(BeanElement74.class).serializeOnJacksonAsString(context, item.getValue(), wrapper);
@@ -338,12 +338,12 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                     key=StringUtility.hasText(tempEnum)?BeanEnum74.valueOf(tempEnum):null;
                   }
                   jacksonParser.nextValue();
-                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                    value=null;
-                  } else {
+                  if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
                     value=context.mapperFor(BeanElement74.class).parseOnJackson(context, wrapper);
                   }
                   collection.put(key, value);
+                  key=null;
+                  value=null;
                   jacksonParser.nextToken();
                 }
                 instance.valueMapEnumBean=collection;
@@ -360,12 +360,12 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                   jacksonParser.nextValue();
                   key=jacksonParser.getIntValue();
                   jacksonParser.nextValue();
-                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                    value=null;
-                  } else {
+                  if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                     value=jacksonParser.getBinaryValue();
                   }
                   collection.put(key, value);
+                  key=null;
+                  value=null;
                   jacksonParser.nextToken();
                 }
                 instance.valueMapIntByteArray=collection;
@@ -382,12 +382,12 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                   jacksonParser.nextValue();
                   key=jacksonParser.getText();
                   jacksonParser.nextValue();
-                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                    value=null;
-                  } else {
+                  if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                     value=jacksonParser.getIntValue();
                   }
                   collection.put(key, value);
+                  key=null;
+                  value=null;
                   jacksonParser.nextToken();
                 }
                 instance.valueMapStringInteger=collection;
@@ -454,15 +454,15 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                       }
                     break;
                     case "v":
-                      if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                        value=null;
-                      } else {
+                      if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
                         value=context.mapperFor(BeanElement74.class).parseOnJacksonAsString(context, wrapper);
                       }
                     break;
                     }
                   }
                   collection.put(key, value);
+                  key=null;
+                  value=null;
                   jacksonParser.nextToken();
                 }
                 instance.valueMapEnumBean=collection;
@@ -487,15 +487,15 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                       key=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
                     break;
                     case "v":
-                      if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                        value=null;
-                      } else {
+                      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                         value=Base64Util.decode(jacksonParser.getValueAsString());
                       }
                     break;
                     }
                   }
                   collection.put(key, value);
+                  key=null;
+                  value=null;
                   jacksonParser.nextToken();
                 }
                 instance.valueMapIntByteArray=collection;
@@ -522,15 +522,15 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                       }
                     break;
                     case "v":
-                      if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-                        value=null;
-                      } else {
+                      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                         value=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
                       }
                     break;
                     }
                   }
                   collection.put(key, value);
+                  key=null;
+                  value=null;
                   jacksonParser.nextToken();
                 }
                 instance.valueMapStringInteger=collection;

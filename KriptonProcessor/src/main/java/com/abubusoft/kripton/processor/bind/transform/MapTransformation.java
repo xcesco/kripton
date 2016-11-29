@@ -274,7 +274,7 @@ public class MapTransformation extends AbstractBindTransform {
 		BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).inCollection(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapKeyName).nullable(false).build();
 		
 		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
-		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).inCollection(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).nullable(false).build();
+		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).inCollection(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).nullable(true).build();
 		
 		methodBuilder.addStatement("$T key=$L", elementKeyProperty.getPropertyType().getName(), DEFAULT_VALUE);
 		methodBuilder.addStatement("$T value=$L", elementValueProperty.getPropertyType().getName(), DEFAULT_VALUE);
@@ -283,6 +283,7 @@ public class MapTransformation extends AbstractBindTransform {
 		methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
 		
 		if (onString) {
+			// on string
 			methodBuilder.addStatement("current=$L.currentToken()", parserName);	
 			methodBuilder.beginControlFlow("for (int i=0; i<2 ;i++)");
 			
@@ -293,24 +294,18 @@ public class MapTransformation extends AbstractBindTransform {
 			//
 			methodBuilder.addCode("switch(jacksonParser.getCurrentName()) {\n");
 			methodBuilder.addCode("case $S:$>\n", property.mapKeyName);
-			if (onString)
-			{
-				transformKey.generateParseOnJacksonAsString(methodBuilder, parserName, null, "key", elementKeyProperty);
-			} else {
-				transformKey.generateParseOnJackson(methodBuilder, parserName, null, "key", elementKeyProperty);
-			}
+			
+			transformKey.generateParseOnJacksonAsString(methodBuilder, parserName, null, "key", elementKeyProperty);
+			
 			methodBuilder.addStatement("$<break");
 			methodBuilder.addCode("case $S:$>\n", property.mapValueName);
-			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
-				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
-			methodBuilder.nextControlFlow("else");
-				if (onString)
-				{
-					transformValue.generateParseOnJacksonAsString(methodBuilder, parserName, null, "value", elementValueProperty);
-				} else {
-					transformValue.generateParseOnJackson(methodBuilder, parserName, null, "value", elementValueProperty);
-				}
-			methodBuilder.endControlFlow();
+//			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
+//				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
+//			methodBuilder.nextControlFlow("else");
+			
+			transformValue.generateParseOnJacksonAsString(methodBuilder, parserName, null, "value", elementValueProperty);
+			
+			//methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$<break");
 			methodBuilder.addCode("}\n");
 			//
@@ -319,27 +314,22 @@ public class MapTransformation extends AbstractBindTransform {
 		} else {
 			// key
 			methodBuilder.addStatement("$L.nextValue()", parserName);
-			if (onString)
-			{
-				transformKey.generateParseOnJacksonAsString(methodBuilder, parserName, null, "key", elementKeyProperty);
-			} else {
-				transformKey.generateParseOnJackson(methodBuilder, parserName, null, "key", elementKeyProperty);
-			}
+			
+			transformKey.generateParseOnJackson(methodBuilder, parserName, null, "key", elementKeyProperty);
 			
 			// value
 			methodBuilder.addStatement("$L.nextValue()", parserName);
-			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
-				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
-			methodBuilder.nextControlFlow("else");
-			if (onString)
-			{
-				transformValue.generateParseOnJacksonAsString(methodBuilder, parserName, null, "value", elementValueProperty);
-			} else {
-				transformValue.generateParseOnJackson(methodBuilder, parserName, null, "value", elementValueProperty);
-			}
-			methodBuilder.endControlFlow();
+//			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
+//				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
+//			methodBuilder.nextControlFlow("else");
+			
+			transformValue.generateParseOnJackson(methodBuilder, parserName, null, "value", elementValueProperty);
+			
+			//methodBuilder.endControlFlow();
 		}
 			methodBuilder.addStatement("collection.put(key, value)");
+			methodBuilder.addStatement("key=$L", DEFAULT_VALUE);
+			methodBuilder.addStatement("value=$L" , DEFAULT_VALUE);
 			methodBuilder.addStatement("$L.nextToken()", parserName);
 		methodBuilder.endControlFlow();
 			

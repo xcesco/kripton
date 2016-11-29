@@ -8,6 +8,7 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.common.Base64Util;
 import com.abubusoft.kripton.common.CollectionUtility;
 import com.abubusoft.kripton.common.PrimitiveUtil;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -300,7 +301,7 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
             case "valueByteTypeArray":
               // field valueByteTypeArray
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueByteTypeArray=jacksonParser.getBinaryValue();
+                instance.valueByteTypeArray=Base64Util.decode(jacksonParser.getValueAsString());
               }
             break;
             default:
