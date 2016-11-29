@@ -23,7 +23,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<android-maven-plugin.version>4.2.0</android-maven-plugin.version>
-		<jackson.version>2.8.3</jackson.version>
+		<jackson.version>2.8.5</jackson.version>
 		<woodstox.version>5.0.3</woodstox.version>
 		<roboletric.version>3.1</roboletric.version>
 

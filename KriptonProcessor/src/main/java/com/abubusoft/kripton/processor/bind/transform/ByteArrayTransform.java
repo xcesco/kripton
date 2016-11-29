@@ -35,10 +35,20 @@ public class ByteArrayTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, false); 
+
+	}
+	
+	public void generateParseOnJacksonInternal(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getBinaryValue()"), parserName);
+//		if (onString)
+//		{
+//			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getStringValue()"), parserName);
+//		} else {
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getBinaryValue()"), parserName);
+	//	}
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
@@ -47,9 +57,7 @@ public class ByteArrayTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getBinaryValue()"), parserName);
-		methodBuilder.endControlFlow();
+		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, true); 
 	}
 
 	@Override

@@ -207,7 +207,7 @@ public class MapTransformation extends AbstractBindTransform {
 			BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).inCollection(false).elementName(property.mapKeyName).build();
 			
 			BindTransform transformValue=BindTransformer.lookup(valueTypeName);
-			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).inCollection(false).elementName(property.mapValueName).build();
+			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).inCollection(false).elementName(property.mapValueName).build();
 		
 			methodBuilder.addCode("// write wrapper tag\n");
 			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);
@@ -223,8 +223,9 @@ public class MapTransformation extends AbstractBindTransform {
 					transformKey.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
 				}
 			
-				if (elementValueProperty.isNullable())
-				{
+				// field is always nullable
+//				if (elementValueProperty.isNullable())
+//				{
 					methodBuilder.beginControlFlow("if (item.getValue()==null)");
 						methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.mapValueName);
 					methodBuilder.nextControlFlow("else");
@@ -235,9 +236,14 @@ public class MapTransformation extends AbstractBindTransform {
 						transformValue.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
 					}						
 					methodBuilder.endControlFlow();
-				} else {
-					transformValue.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
-				}
+//				} else {
+//					if (onString)
+//					{
+//						transformValue.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);	
+//					} else {
+//						transformValue.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
+//					}	
+//				}
 			
 				methodBuilder.addStatement("$L.writeEndObject()", serializerName);
 					
@@ -271,8 +277,15 @@ public class MapTransformation extends AbstractBindTransform {
 		
 		methodBuilder.addStatement("$T key=$L", elementKeyProperty.getPropertyType().getName(), DEFAULT_VALUE);
 		methodBuilder.addStatement("$T value=$L", elementValueProperty.getPropertyType().getName(), DEFAULT_VALUE);
+		methodBuilder.addStatement("$T current", JsonToken.class);
 			
 		methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
+		
+			methodBuilder.addStatement("current=$L.currentToken()", parserName);
+			methodBuilder.beginControlFlow("while (current != $T.FIELD_NAME)",JsonToken.class);
+			methodBuilder.addStatement("current=$L.nextToken()", parserName);
+			methodBuilder.endControlFlow();
+			
 			// key
 			methodBuilder.addStatement("$L.nextValue()", parserName);
 			if (onString)
