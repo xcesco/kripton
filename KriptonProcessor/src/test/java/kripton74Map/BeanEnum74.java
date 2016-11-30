@@ -1,4 +1,4 @@
-package kripton74;
+package kripton74Map;
 
 import com.abubusoft.kripton.annotation.BindType;
 

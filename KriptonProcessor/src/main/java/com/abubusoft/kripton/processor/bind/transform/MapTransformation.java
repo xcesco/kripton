@@ -314,18 +314,12 @@ public class MapTransformation extends AbstractBindTransform {
 		} else {
 			// key
 			methodBuilder.addStatement("$L.nextValue()", parserName);
-			
 			transformKey.generateParseOnJackson(methodBuilder, parserName, null, "key", elementKeyProperty);
 			
 			// value
 			methodBuilder.addStatement("$L.nextValue()", parserName);
-//			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
-//				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
-//			methodBuilder.nextControlFlow("else");
-			
 			transformValue.generateParseOnJackson(methodBuilder, parserName, null, "value", elementValueProperty);
 			
-			//methodBuilder.endControlFlow();
 		}
 			methodBuilder.addStatement("collection.put(key, value)");
 			methodBuilder.addStatement("key=$L", DEFAULT_VALUE);

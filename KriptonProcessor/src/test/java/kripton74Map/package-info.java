@@ -4,4 +4,4 @@
  * @author xcesco
  *
  */
-package kripton74;
+package kripton74Map;

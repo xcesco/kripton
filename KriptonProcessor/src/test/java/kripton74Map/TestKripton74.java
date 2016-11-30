@@ -1,7 +1,8 @@
-package kripton74;
+package kripton74Map;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,6 +13,7 @@ import com.abubusoft.kripton.BinderWriter;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.CborBinderContext;
 import com.abubusoft.kripton.binder2.context.PropertiesBinderContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
 import com.abubusoft.kripton.binder2.context.YamlBinderContext;
@@ -41,6 +43,10 @@ public class TestKripton74 extends BaseProcessorTest {
 		bean.valueMapIntByteArray.put(23, a);
 		bean.valueMapIntByteArray.put(27, null);
 		
+		bean.valueMapBeanLocale=new HashMap<>();
+		bean.valueMapBeanLocale.put(new BeanElement74(), Locale.CANADA);
+		bean.valueMapBeanLocale.put(new BeanElement74(), null);
+		
 		//bean.valueString="hello";
 
 		return bean;
@@ -51,6 +57,7 @@ public class TestKripton74 extends BaseProcessorTest {
 		KriptonBinder2.registryBinder(new YamlBinderContext());
 		KriptonBinder2.registryBinder(new PropertiesBinderContext());
 		KriptonBinder2.registryBinder(new XmlBinderContext());
+		KriptonBinder2.registryBinder(new CborBinderContext());
 	}
 
 	@Test
@@ -58,7 +65,7 @@ public class TestKripton74 extends BaseProcessorTest {
 		BeanElement74 bean = createBean();
 		{
 			BinderWriter writer = KriptonBinder.getXmlWriter(BinderOptions.build().indent(false));
-			System.out.println(writer.write(bean));
+			//System.out.println(writer.write(bean));
 		}
 		serializeAndParse(bean, BinderType.XML);
 		
@@ -75,31 +82,13 @@ public class TestKripton74 extends BaseProcessorTest {
 
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
-		
+		this.display=true;
 		Assert.assertNotNull(new BeanElement74BindMap());
 
 		BeanElement74 bean = createBean();
 
-		serializeAndParse(bean, BinderType.XML);
-		serializeAndParse(bean, BinderType.JSON);
-		serializeAndParse(bean, BinderType.YAML);
-		serializeAndParse(bean, BinderType.PROPERTIES);
+		check(bean);
 	}
 
-	/**
-	 * @param bean
-	 * @param type
-	 */
-	public void serializeAndParse(Object bean, BinderType type) {
-		String output1 = KriptonBinder2.getBinder(type).serialize(bean);
-		System.out.println(output1);
-
-		Object bean2 = KriptonBinder2.getBinder(type).parse(output1, bean.getClass());
-
-		String output2 = KriptonBinder2.getBinder(type).serialize(bean2);
-		System.out.println(output2);
-
-		Assert.assertTrue(output1.equals(output2));
-	}
 
 }

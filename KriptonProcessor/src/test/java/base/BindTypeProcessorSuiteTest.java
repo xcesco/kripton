@@ -19,8 +19,10 @@ import kripton70.TestKripton70;
 import kripton71.TestKripton71;
 import kripton72.TestKripton72;
 import kripton73.TestKripton73;
-import kripton74.TestKripton74;
+import kripton74Map.TestKripton74;
 import kripton75.TestKripton75;
+import kripton76.TestKripton76Attribute;
+import kripton76.TestKripton76Value;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -34,7 +36,9 @@ import org.junit.runners.Suite;
 		TestKripton72.class,
 		TestKripton73.class,
 		TestKripton74.class,
-		TestKripton75.class
+		TestKripton75.class,
+		TestKripton76Value.class,
+		TestKripton76Attribute.class,
 		 })
 //@formatter:on
 public class BindTypeProcessorSuiteTest {

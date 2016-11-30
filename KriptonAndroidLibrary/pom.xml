@@ -84,7 +84,7 @@
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-properties</artifactId>
+			<artifactId>jackson-dataformat-cbor</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
 		

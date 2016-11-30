@@ -15,10 +15,12 @@
  *******************************************************************************/
 package base;
 
-import static com.google.common.truth.Truth.assertAbout;
 import static com.abubusoft.testing.compile.JavaSourcesSubjectFactory.javaSources;
+import static com.google.common.truth.Truth.assertAbout;
+import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,18 +44,22 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
-import com.google.common.io.ByteStreams;
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.BindDataSourceProcessor;
+import com.abubusoft.kripton.processor.BindSharedPreferencesProcessor;
+import com.abubusoft.kripton.processor.BindTypeProcessor;
+import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.testing.compile.CompileTester.CompilationResultsConsumer;
 import com.abubusoft.testing.compile.CompileTester.GenerationClause;
 import com.abubusoft.testing.compile.CompileTester.SuccessfulCompilationClause;
-import com.abubusoft.kripton.processor.BaseProcessor;
-import com.abubusoft.kripton.processor.BindDataSourceProcessor;
-import com.abubusoft.kripton.processor.BindTypeProcessor;
-import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
-import com.abubusoft.kripton.processor.BindSharedPreferencesProcessor;
 import com.abubusoft.testing.compile.JavaFileObjects;
+import com.google.common.io.ByteStreams;
 
 public class BaseProcessorTest {
+	
+	protected boolean display=false;
 	
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
@@ -72,6 +78,70 @@ public class BaseProcessorTest {
 
 	public enum TestType {
 		GENERATE, COMPARE
+	}
+	
+	protected void check(Object bean) {
+		int xmlSize=serializeAndParse(bean, BinderType.XML);
+		int cborSize=serializeAndParseBinary(bean, BinderType.CBOR);
+		int jsonSize=serializeAndParse(bean, BinderType.JSON);
+		int yamlSize=serializeAndParse(bean, BinderType.YAML);
+		int propertySize=serializeAndParse(bean, BinderType.PROPERTIES);
+		
+		double cborPerc=cborSize*100.0/xmlSize;
+		double jsonPerc=jsonSize*100.0/xmlSize;
+		double yamlPerc=yamlSize*100.0/xmlSize;
+		double propertyPerc=propertySize*100.0/xmlSize;
+		
+		System.out.println(String.format("xml: %s, cbor: %s (%.0f%%), json: %s (%.0f%%), yaml: %s (%.0f%%), property: %s (%.0f%%)", xmlSize, cborSize, cborPerc, jsonSize, jsonPerc,yamlSize, yamlPerc, propertySize, propertyPerc));
+		
+	}
+	
+	/**
+	 * @param bean
+	 * @param type
+	 * @return 
+	 */
+	public int serializeAndParse(Object bean, BinderType type) {
+		String output1=KriptonBinder2.getBinder(type).serialize(bean);
+		if (display) System.out.println(output1);
+		
+		Object bean2=KriptonBinder2.getBinder(type).parse(output1, bean.getClass());				
+		
+		String output2=KriptonBinder2.getBinder(type).serialize(bean2);
+		if (display) System.out.println(output2);
+		
+		Assert.assertTrue(output1.length()==output2.length());		
+		assertEquals(bean, bean2);
+		
+		return output2.length();
+	}
+
+	public int serializeAndParseBinary(Object bean, BinderType type) {
+		MyByteArrayOutputStream bar = new MyByteArrayOutputStream();
+		KriptonBinder2.getBinder(type).serialize(bean, bar);
+		String value1=toString(bar.getBuf());
+
+		if (display) System.out.println(value1);
+		Object bean2 = KriptonBinder2.getBinder(type).parse(new ByteArrayInputStream(bar.getBuf()), bean.getClass());
+
+		MyByteArrayOutputStream bar2 = new MyByteArrayOutputStream();
+		KriptonBinder2.getBinder(type).serialize(bean2, bar2);
+		String value2=toString(bar2.getBuf());
+		if (display) System.out.println(value2);
+
+		Assert.assertTrue(value1.length()==value2.length());		
+		assertEquals(bean, bean2);
+		
+		return bar.getCount();
+	}
+	
+
+	String toString(byte[] input) {
+		StringBuilder buffer = new StringBuilder();
+		for (int j = 0; j < input.length; j++) {
+			buffer.append(String.format("%02X", input[j]));
+		}
+		return buffer.toString();
 	}
 
 	protected static Logger logger = Logger.getGlobal();

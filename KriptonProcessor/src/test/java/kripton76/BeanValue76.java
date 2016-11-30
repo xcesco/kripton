@@ -22,7 +22,7 @@ public class BeanValue76 {
 	@BindXml(xmlType=XmlType.VALUE)
 	protected long id;
 	
-	@Bind(enabled=true)
+	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.VALUE)
 	public BeanValue76 valueBean;
 

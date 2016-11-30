@@ -8,7 +8,6 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.common.PrimitiveUtil;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -47,15 +46,6 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
 
       // Serialized Field:
 
-      // field id
-      jacksonSerializer.writeNumberField("id", object.getId());
-
-      // field valueBean
-      if (object.valueBean!=null)  {
-        jacksonSerializer.writeFieldName("valueBean");
-        context.mapperFor(BeanValue76.class).serializeOnJackson(context, object.valueBean, wrapper);
-      }
-
       jacksonSerializer.writeEndObject();
     } catch(IOException e) {
       e.printStackTrace();
@@ -73,15 +63,6 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
       jacksonSerializer.writeStartObject();
 
       // Serialized Field:
-
-      // field id
-      jacksonSerializer.writeStringField("id", PrimitiveUtil.writeLong(object.getId()));
-
-      // field valueBean
-      if (object.valueBean!=null)  {
-        jacksonSerializer.writeFieldName("valueBean");
-        context.mapperFor(BeanValue76.class).serializeOnJacksonAsString(context, object.valueBean, wrapper);
-      }
 
       jacksonSerializer.writeEndObject();
     } catch(IOException e) {
@@ -102,15 +83,6 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
       }
 
       // Persisted fields:
-
-      // field id
-      xmlSerializer.writeLong(object.getId());
-
-      // field valueBean
-      if (object.valueBean!=null)  {
-        byte[] buffer=context.mapperFor(BeanValue76.class).serialize(context, object.valueBean).getBytes();
-        xmlSerializer.writeBinary(buffer, 0, buffer.length);
-      }
 
       if (currentEventType == 0) {
         xmlSerializer.writeEndElement();
@@ -143,16 +115,6 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
 
         // Parse fields:
         switch (fieldName) {
-            case "id":
-              // field id
-              instance.setId(jacksonParser.getLongValue());
-            break;
-            case "valueBean":
-              // field valueBean
-              if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                instance.valueBean=context.mapperFor(BeanValue76.class).parseOnJackson(context, wrapper);
-              }
-            break;
             default:
               jacksonParser.skipChildren();
             break;}
@@ -186,16 +148,6 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
 
         // Parse fields:
         switch (fieldName) {
-            case "id":
-              // field id
-              instance.setId(PrimitiveUtil.readLong(jacksonParser.getText(), 0L));
-            break;
-            case "valueBean":
-              // field valueBean
-              if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                instance.valueBean=context.mapperFor(BeanValue76.class).parseOnJacksonAsString(context, wrapper);
-              }
-            break;
             default:
               jacksonParser.skipChildren();
             break;}
@@ -246,15 +198,7 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
             break;
             case XMLEvent.CDATA:
             case XMLEvent.CHARACTERS:
-              if (elementNameStack.size()==1 && xmlParser.hasText()) {
-                // property id
-                instance.setId(PrimitiveUtil.readLong(xmlParser.getText(), 0L));
-              }
-              if (elementNameStack.size()==1 && xmlParser.hasText()) {
-                // property valueBean
-                instance.valueBean=context.mapperFor(BeanValue76.class).parse(context, xmlParser.getElementAsBinary());
-              }
-            break;
+              // no property is binded to VALUE o CDATA break;
             default:
             break;
         }

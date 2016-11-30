@@ -1,4 +1,4 @@
-package kripton74;
+package kripton74Map;
 
 import com.abubusoft.kripton.android.annotation.BindMap;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
@@ -9,6 +9,7 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.common.Base64Util;
+import com.abubusoft.kripton.common.LocaleUtil;
 import com.abubusoft.kripton.common.PrimitiveUtil;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -21,6 +22,7 @@ import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 import javax.xml.stream.XMLStreamException;
@@ -57,6 +59,25 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
       // field valueString
       if (object.valueString!=null)  {
         jacksonSerializer.writeStringField("valueString", object.valueString);
+      }
+
+      // field valueMapBeanLocale
+      if (object.valueMapBeanLocale!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueMapBeanLocale");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<BeanElement74, Locale> item: object.valueMapBeanLocale.entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeFieldName("k");
+          context.mapperFor(BeanElement74.class).serializeOnJackson(context, item.getKey(), wrapper);
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("v");
+          } else {
+            jacksonSerializer.writeStringField("v", LocaleUtil.write(item.getValue()));
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapEnumBean
@@ -135,6 +156,25 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
       // field valueString
       if (object.valueString!=null)  {
         jacksonSerializer.writeStringField("valueString", object.valueString);
+      }
+
+      // field valueMapBeanLocale
+      if (object.valueMapBeanLocale!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueMapBeanLocale");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<BeanElement74, Locale> item: object.valueMapBeanLocale.entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeFieldName("k");
+          context.mapperFor(BeanElement74.class).serializeOnJacksonAsString(context, item.getKey(), wrapper);
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("v");
+          } else {
+            jacksonSerializer.writeStringField("v", LocaleUtil.write(item.getValue()));
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapEnumBean
@@ -217,6 +257,26 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
         xmlSerializer.writeStartElement("valueString");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.valueString));
         xmlSerializer.writeEndElement();
+      }
+
+      // field valueMapBeanLocale
+      if (object.valueMapBeanLocale!=null)  {
+        for (Map.Entry<BeanElement74, Locale> item: object.valueMapBeanLocale.entrySet()) {
+          xmlSerializer.writeStartElement("valueMapBeanLocale");
+            xmlSerializer.writeStartElement("k");
+            context.mapperFor(BeanElement74.class).serializeOnXml(context, item.getKey(), wrapper, 1);
+            xmlSerializer.writeEndElement();
+            if (item.getValue()==null) {
+              xmlSerializer.writeEmptyElement("v");
+            } else {
+              if (item.getValue()!=null)  {
+                xmlSerializer.writeStartElement("v");
+                xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(LocaleUtil.write(item.getValue())));
+                xmlSerializer.writeEndElement();
+              }
+            }
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueMapEnumBean
@@ -322,6 +382,28 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
               // field valueString
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueString=jacksonParser.getText();
+              }
+            break;
+            case "valueMapBeanLocale":
+              // field valueMapBeanLocale
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                HashMap<BeanElement74, Locale> collection=new HashMap<>();
+                BeanElement74 key=null;
+                Locale value=null;
+                JsonToken current;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  jacksonParser.nextValue();
+                  key=context.mapperFor(BeanElement74.class).parseOnJackson(context, wrapper);
+                  jacksonParser.nextValue();
+                  if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                    value= LocaleUtil.read(jacksonParser.getText());
+                  }
+                  collection.put(key, value);
+                  key=null;
+                  value=null;
+                  jacksonParser.nextToken();
+                }
+                instance.valueMapBeanLocale=collection;
               }
             break;
             case "valueMapEnumBean":
@@ -430,6 +512,39 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
               // field valueString
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueString=jacksonParser.getText();
+              }
+            break;
+            case "valueMapBeanLocale":
+              // field valueMapBeanLocale
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                HashMap<BeanElement74, Locale> collection=new HashMap<>();
+                BeanElement74 key=null;
+                Locale value=null;
+                JsonToken current;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  current=jacksonParser.currentToken();
+                  for (int i=0; i<2 ;i++) {
+                    while (current != JsonToken.FIELD_NAME) {
+                      current=jacksonParser.nextToken();
+                    }
+                    jacksonParser.nextValue();
+                    switch(jacksonParser.getCurrentName()) {
+                    case "k":
+                      key=context.mapperFor(BeanElement74.class).parseOnJacksonAsString(context, wrapper);
+                    break;
+                    case "v":
+                      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                        value=LocaleUtil.read(jacksonParser.getText());
+                      }
+                    break;
+                    }
+                  }
+                  collection.put(key, value);
+                  key=null;
+                  value=null;
+                  jacksonParser.nextToken();
+                }
+                instance.valueMapBeanLocale=collection;
               }
             break;
             case "valueMapEnumBean":
@@ -583,6 +698,41 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                   case "valueString":
                     // property valueString
                     instance.valueString=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                  break;
+                  case "valueMapBeanLocale":
+                    // property valueMapBeanLocale
+                     {
+                      HashMap<BeanElement74, Locale> collection=new HashMap<>();
+                      BeanElement74 key;
+                      Locale value;
+                      // add first element
+                      xmlParser.nextTag();
+                      key=context.mapperFor(BeanElement74.class).parseOnXml(context, wrapper, eventType);
+                      xmlParser.nextTag();
+                      if (xmlParser.isEmptyElement()) {
+                        value=null;
+                        xmlParser.nextTag();
+                      } else {
+                        value=LocaleUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                      }
+                      xmlParser.nextTag();
+                      collection.put(key, value);
+                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("valueMapBeanLocale")) {
+                        xmlParser.nextTag();
+                        key=context.mapperFor(BeanElement74.class).parseOnXml(context, wrapper, eventType);
+                        xmlParser.nextTag();
+                        if (xmlParser.isEmptyElement()) {
+                          value=null;
+                          xmlParser.nextTag();
+                        } else {
+                          value=LocaleUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                        }
+                        xmlParser.nextTag();
+                        collection.put(key, value);
+                      }
+                      instance.valueMapBeanLocale=collection;
+                      read=false;
+                    }
                   break;
                   case "valueMapEnumBean":
                     // property valueMapEnumBean
