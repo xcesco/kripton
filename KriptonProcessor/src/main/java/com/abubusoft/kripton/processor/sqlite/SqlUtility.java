@@ -107,7 +107,7 @@ public class SqlUtility {
 		Pair<String, List< Pair<String, TypeMirror>>> result = new Pair<String, List< Pair<String, TypeMirror>>>();
 		result.value1 = new ArrayList< Pair<String, TypeMirror>>();
 
-		// replace placeholder ${ } with ?
+		// replace placeholder ${ } with replaceValue
 		{
 			Matcher matcher = PARAMETER.matcher(whereStatement);
 

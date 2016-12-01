@@ -32,75 +32,24 @@ import com.abubusoft.kripton.annotation.BindXml;
  * @author xcesco
  *
  */
-@BindType
+@BindType(allFields=false)
 public class BeanElement74 implements Serializable {
 
 	public BeanElement74()
 	{	
 	}
 
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((valueMapBeanLocale == null) ? 0 : valueMapBeanLocale.hashCode());
-		result = prime * result + ((valueMapEnumBean == null) ? 0 : valueMapEnumBean.hashCode());
-		result = prime * result + ((valueMapIntByteArray == null) ? 0 : valueMapIntByteArray.hashCode());
-		result = prime * result + ((valueMapStringInteger == null) ? 0 : valueMapStringInteger.hashCode());
-		result = prime * result + ((valueString == null) ? 0 : valueString.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BeanElement74 other = (BeanElement74) obj;
-		if (valueMapBeanLocale == null) {
-			if (other.valueMapBeanLocale != null)
-				return false;
-		} else if (!valueMapBeanLocale.equals(other.valueMapBeanLocale))
-			return false;
-		if (valueMapEnumBean == null) {
-			if (other.valueMapEnumBean != null)
-				return false;
-		} else if (!valueMapEnumBean.equals(other.valueMapEnumBean))
-			return false;
-		if (valueMapIntByteArray == null) {
-			if (other.valueMapIntByteArray != null)
-				return false;
-		} else if (!valueMapIntByteArray.equals(other.valueMapIntByteArray))
-			return false;
-		if (valueMapStringInteger == null) {
-			if (other.valueMapStringInteger != null)
-				return false;
-		} else if (!valueMapStringInteger.equals(other.valueMapStringInteger))
-			return false;
-		if (valueString == null) {
-			if (other.valueString != null)
-				return false;
-		} else if (!valueString.equals(other.valueString))
-			return false;
-		return true;
-	}
-
-
 	private static final long serialVersionUID = 3113613163524431347L;
 
-	@Bind(mapKeyName="k", mapValueName="v")
+	@Bind(enabled=false, mapKeyName="k", mapValueName="v")
 	@BindXml(elementTag="rutto")
 	public Map<String, Integer> valueMapStringInteger;
 	
-	@Bind(mapKeyName="k", mapValueName="v")
+	@Bind(enabled=false, mapKeyName="k", mapValueName="v")
 	@BindXml(elementTag="item")
 	public Map<BeanEnum74, BeanElement74> valueMapEnumBean;
 	
-	@Bind(mapKeyName="k", mapValueName="v")
+	@Bind(enabled=false, mapKeyName="k", mapValueName="v")
 	public Map<Integer, byte[]> valueMapIntByteArray;
 	
 	@Bind(mapKeyName="k", mapValueName="v")

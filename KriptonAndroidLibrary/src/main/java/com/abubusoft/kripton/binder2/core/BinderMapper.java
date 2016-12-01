@@ -40,9 +40,9 @@ public interface BinderMapper<E> {
 
 	void serialize(@SuppressWarnings("rawtypes") BinderContext context, List<E> list, OutputStream os);
 	
-	void serializeOnJackson(JacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer);
+	int serializeOnJackson(JacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer);
 	
-	void serializeOnJacksonAsString(JacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer);
+	int serializeOnJacksonAsString(JacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer);
 
 	void serializeOnXml(XmlBinderContext context, E object, XmlWrapperSerializer xmlSerializer, int currentEventType);
 	

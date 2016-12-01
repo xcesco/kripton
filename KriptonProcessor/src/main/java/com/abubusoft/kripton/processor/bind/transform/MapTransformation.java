@@ -203,6 +203,11 @@ public class MapTransformation extends AbstractBindTransform {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		
+			if (property.isProperty())
+			{
+				methodBuilder.addStatement("fieldCount++");
+			}
+		
 			// fields are in objects, no in collection
 			BindTransform transformKey=BindTransformer.lookup(keyTypeName);
 			BindProperty elementKeyProperty=BindProperty.builder(keyTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).inCollection(false).elementName(property.mapKeyName).build();

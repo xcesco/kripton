@@ -169,6 +169,15 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	protected boolean fieldWithSetter;
 	
 	protected boolean fieldWithIs;
+	
+	/**
+	 * if  true, property is defined in a class. If false property is map entry component or collection item.
+	 * @return
+	 */
+	public boolean isProperty()
+	{
+		return element!=null;
+	}
 
 	/**
 	 * @return the publicField

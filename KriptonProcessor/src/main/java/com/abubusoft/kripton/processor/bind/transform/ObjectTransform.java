@@ -68,7 +68,12 @@ public class ObjectTransform extends AbstractBindTransform {
 		//@formatter:off
 		if (property.isNullable())
 		{
-		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+		
+		if (property.isProperty())
+		{
+			methodBuilder.addStatement("fieldCount++");
 		}
 		
 		if (!property.isInCollection())
@@ -77,10 +82,15 @@ public class ObjectTransform extends AbstractBindTransform {
 		}
 		if (onString)
 		{
-			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
+			methodBuilder.beginControlFlow("if (context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)==0)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeNullField($S)",serializerName, property.jacksonName);
+			methodBuilder.endControlFlow();
 		} else
 		{
 			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
+			//methodBuilder.beginControlFlow("if (context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)==0)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
+			//methodBuilder.addStatement("$L.writeNullField($S)",serializerName, property.jacksonName);
+			//methodBuilder.endControlFlow();
 		}
 			
 		if (property.isNullable())
@@ -106,6 +116,7 @@ public class ObjectTransform extends AbstractBindTransform {
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT)", parserName, JsonToken.class);
 		}
+		
 		methodBuilder.addStatement(setter(beanClass, beanName, property,"context.mapperFor($T.class).parseOnJackson(context, wrapper)"), property.getPropertyType().getName());
 		if (property.isNullable())
 		{

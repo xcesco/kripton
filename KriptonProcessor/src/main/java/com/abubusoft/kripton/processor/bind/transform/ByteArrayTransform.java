@@ -43,7 +43,8 @@ public class ByteArrayTransform extends AbstractBindTransform {
 	public void generateParseOnJacksonInternal(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		}
+		}		
+		
 		if (onString)
 		{
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getValueAsString())"), Base64Util.class, parserName);
@@ -86,6 +87,11 @@ public class ByteArrayTransform extends AbstractBindTransform {
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+		
+		if (property.isProperty())
+		{
+			methodBuilder.addStatement("fieldCount++");
 		}
 
 		// in a collection we need to insert only value, not field name

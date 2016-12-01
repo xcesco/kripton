@@ -21,6 +21,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.math.BigInteger;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -45,22 +46,31 @@ abstract class AbstractNumberTransform extends AbstractSPTransform {
 	protected String defaultValue;
 	
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		if (add) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {
+		if (readAll) {
+			methodBuilder.beginControlFlow("");
+		}
+		
+		methodBuilder.addStatement("String temp=$L.getString($S, $S)", preferenceName, property.getName(), defaultValue);
+		if (readAll) {					
 			methodBuilder.addCode("$L.$L" + (!property.isPublicOrPackageField()?"(":"=")+"", beanName, setter(beanClass, property));
 		} else {
 			methodBuilder.addCode("return ");
 		}
 		
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("new $T($L.getString($S, $S))",  clazz, preferenceName, property.getName(), defaultValue);
+		methodBuilder.addCode("($L.hasText(temp)) ? ", StringUtility.class, preferenceName, property.getName());
+		methodBuilder.addCode("new $T(temp)",  clazz);
 		methodBuilder.addCode(": null");
 		
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField()?")":""));
 		}
 		
 		methodBuilder.addCode(";");
+		
+		if (readAll) {
+			methodBuilder.endControlFlow();
+		}
 	}
 
 

@@ -22,6 +22,7 @@ import com.abubusoft.kripton.common.Base64Util;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -46,23 +47,32 @@ public class ByteArrayTransform extends AbstractSPTransform {
 	protected boolean nullable;
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		if (add) {
-
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {
+		if (readAll) {
+			methodBuilder.beginControlFlow("");
+		}
+		
+		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getName());
+		
+		if (readAll) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.decode($L.getString($S, null))", utilClazz, preferenceName, property.getName());
+		methodBuilder.addCode("($L.hasText(temp) ? ", StringUtility.class);
+		methodBuilder.addCode("$T.decode(temp)", utilClazz, preferenceName, property.getName());
 		methodBuilder.addCode(": null");
 
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		}
 		
 		methodBuilder.addCode(";");
+		
+		if (readAll) {
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	@Override

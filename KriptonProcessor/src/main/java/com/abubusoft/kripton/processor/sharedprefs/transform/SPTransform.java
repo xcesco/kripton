@@ -28,7 +28,7 @@ import com.squareup.javapoet.TypeName;
  */
 public interface SPTransform {
 
-	void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add);
+	void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean singleRead);
 	
 	void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property);
 

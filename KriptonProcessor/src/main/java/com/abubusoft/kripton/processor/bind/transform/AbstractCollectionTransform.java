@@ -227,6 +227,10 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 	void generateSerializeOnJacksonInternal(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+			if (property.isProperty())
+			{
+				methodBuilder.addStatement("fieldCount++");
+			}
 		
 			if (collectionType==CollectionType.LIST) {
 				methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));

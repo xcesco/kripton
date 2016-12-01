@@ -105,6 +105,11 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		if (nullable && property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
+		
+		if (property.isProperty())
+		{
+			methodBuilder.addStatement("fieldCount++");
+		}
 
 		// in a collection we need to insert only value, not field name
 		if (property.isInCollection()) {

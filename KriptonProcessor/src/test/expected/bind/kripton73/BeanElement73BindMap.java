@@ -56,20 +56,23 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJackson(JacksonContext context, BeanElement73 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(JacksonContext context, BeanElement73 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       // field name
       if (object.name!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
       // field valueBeanArray
       if (object.valueBeanArray!=null)  {
+        fieldCount++;
         int n=object.valueBeanArray.length;
         BeanElement73 item;
         // write wrapper tag
@@ -90,6 +93,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueByteArray
       if (object.valueByteArray!=null)  {
+        fieldCount++;
         int n=object.valueByteArray.length;
         Byte item;
         // write wrapper tag
@@ -110,6 +114,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueCharacterArray
       if (object.valueCharacterArray!=null)  {
+        fieldCount++;
         int n=object.valueCharacterArray.length;
         Character item;
         // write wrapper tag
@@ -130,6 +135,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueDoubleArray
       if (object.valueDoubleArray!=null)  {
+        fieldCount++;
         int n=object.valueDoubleArray.length;
         Double item;
         // write wrapper tag
@@ -150,6 +156,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueEnumArray
       if (object.valueEnumArray!=null)  {
+        fieldCount++;
         int n=object.valueEnumArray.length;
         BeanEnum73 item;
         // write wrapper tag
@@ -170,6 +177,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueFloatArray
       if (object.valueFloatArray!=null)  {
+        fieldCount++;
         int n=object.valueFloatArray.length;
         Float item;
         // write wrapper tag
@@ -190,6 +198,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueIntArray
       if (object.getValueIntArray()!=null)  {
+        fieldCount++;
         int n=object.getValueIntArray().length;
         Integer item;
         // write wrapper tag
@@ -210,6 +219,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueLongArray
       if (object.valueLongArray!=null)  {
+        fieldCount++;
         int n=object.valueLongArray.length;
         Long item;
         // write wrapper tag
@@ -230,6 +240,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueShortArray
       if (object.valueShortArray!=null)  {
+        fieldCount++;
         int n=object.valueShortArray.length;
         Short item;
         // write wrapper tag
@@ -250,6 +261,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueStringArray
       if (object.valueStringArray!=null)  {
+        fieldCount++;
         int n=object.valueStringArray.length;
         String item;
         // write wrapper tag
@@ -270,6 +282,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueBigDecimalArray
       if (object.valueBigDecimalArray!=null)  {
+        fieldCount++;
         int n=object.valueBigDecimalArray.length;
         BigDecimal item;
         // write wrapper tag
@@ -290,6 +303,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueBigIntegerArray
       if (object.valueBigIntegerArray!=null)  {
+        fieldCount++;
         int n=object.valueBigIntegerArray.length;
         BigInteger item;
         // write wrapper tag
@@ -309,6 +323,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
       }
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -319,20 +334,23 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJacksonAsString(JacksonContext context, BeanElement73 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(JacksonContext context, BeanElement73 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       // field name
       if (object.name!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
       // field valueBeanArray
       if (object.valueBeanArray!=null)  {
+        fieldCount++;
         int n=object.valueBeanArray.length;
         BeanElement73 item;
         // write wrapper tag
@@ -344,7 +362,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
             jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              context.mapperFor(BeanElement73.class).serializeOnJacksonAsString(context, item, wrapper);
+              if (context.mapperFor(BeanElement73.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
+                jacksonSerializer.writeNullField("valueBeanArray");
+              }
             }
           }
         }
@@ -353,6 +373,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueByteArray
       if (object.valueByteArray!=null)  {
+        fieldCount++;
         int n=object.valueByteArray.length;
         Byte item;
         // write wrapper tag
@@ -373,6 +394,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueCharacterArray
       if (object.valueCharacterArray!=null)  {
+        fieldCount++;
         int n=object.valueCharacterArray.length;
         Character item;
         // write wrapper tag
@@ -393,6 +415,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueDoubleArray
       if (object.valueDoubleArray!=null)  {
+        fieldCount++;
         int n=object.valueDoubleArray.length;
         Double item;
         // write wrapper tag
@@ -413,6 +436,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueEnumArray
       if (object.valueEnumArray!=null)  {
+        fieldCount++;
         int n=object.valueEnumArray.length;
         BeanEnum73 item;
         // write wrapper tag
@@ -433,6 +457,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueFloatArray
       if (object.valueFloatArray!=null)  {
+        fieldCount++;
         int n=object.valueFloatArray.length;
         Float item;
         // write wrapper tag
@@ -453,6 +478,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueIntArray
       if (object.getValueIntArray()!=null)  {
+        fieldCount++;
         int n=object.getValueIntArray().length;
         Integer item;
         // write wrapper tag
@@ -473,6 +499,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueLongArray
       if (object.valueLongArray!=null)  {
+        fieldCount++;
         int n=object.valueLongArray.length;
         Long item;
         // write wrapper tag
@@ -493,6 +520,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueShortArray
       if (object.valueShortArray!=null)  {
+        fieldCount++;
         int n=object.valueShortArray.length;
         Short item;
         // write wrapper tag
@@ -513,6 +541,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueStringArray
       if (object.valueStringArray!=null)  {
+        fieldCount++;
         int n=object.valueStringArray.length;
         String item;
         // write wrapper tag
@@ -533,6 +562,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueBigDecimalArray
       if (object.valueBigDecimalArray!=null)  {
+        fieldCount++;
         int n=object.valueBigDecimalArray.length;
         BigDecimal item;
         // write wrapper tag
@@ -553,6 +583,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
 
       // field valueBigIntegerArray
       if (object.valueBigIntegerArray!=null)  {
+        fieldCount++;
         int n=object.valueBigIntegerArray.length;
         BigInteger item;
         // write wrapper tag
@@ -572,6 +603,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
       }
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));

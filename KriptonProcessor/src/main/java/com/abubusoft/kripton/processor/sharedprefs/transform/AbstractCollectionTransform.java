@@ -32,13 +32,15 @@ public abstract class AbstractCollectionTransform extends AbstractSPTransform {
 	protected abstract Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName);
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {
 		Class<?> listClazz = defineCollectionClass(collectionTypeName);
 
-		methodBuilder.beginControlFlow("");
+		if (readAll) {
+			methodBuilder.beginControlFlow("");
+		}
 		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getName());		
 		
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
@@ -48,12 +50,15 @@ public abstract class AbstractCollectionTransform extends AbstractSPTransform {
 		methodBuilder.addCode("$T.asCollection(new $T<$T>(), $T.class, temp)", utilClazz, listClazz, itemTypeName, itemTypeName);
 		methodBuilder.addCode(": null");
 
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		}
 
 		methodBuilder.addCode(";\n");
-		methodBuilder.endControlFlow();
+		
+		if (readAll) {
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	@Override

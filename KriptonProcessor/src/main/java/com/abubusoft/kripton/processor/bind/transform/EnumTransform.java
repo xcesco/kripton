@@ -81,6 +81,11 @@ public class EnumTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 		
+		if (property.isProperty())
+		{
+			methodBuilder.addStatement("fieldCount++");
+		}
+		
 		if (property.isInCollection())
 		{
 			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);

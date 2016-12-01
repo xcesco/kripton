@@ -2,6 +2,8 @@ package kripton64;
 
 import java.lang.String;
 
+import sqlite.kripton64.Bean;
+
 /**
  * <p>
  * Entity <code>Bean</code> is associated to table <code>bean</code>

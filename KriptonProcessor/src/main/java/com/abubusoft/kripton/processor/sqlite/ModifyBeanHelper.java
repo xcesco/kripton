@@ -239,7 +239,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			
 		} else {
 			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
-			sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), where);
+			//sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), where);
+			sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getEntity().getTableName(), where);
 
 			methodBuilder.addJavadoc("<p>SQL delete:</p>\n");
 			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), whereCondition);

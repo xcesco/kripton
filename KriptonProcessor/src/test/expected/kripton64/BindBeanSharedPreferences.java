@@ -2,6 +2,9 @@ package kripton64;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import sqlite.kripton64.Bean;
+import sqlite.kripton64.EnumType;
+
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.Base64Util;
@@ -151,7 +154,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       // read valueBeanArray
       String tempValueBeanArray=prefs.getString("valueBeanArray", null);
       ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, tempValueBeanArray);
-      bean.valueBeanArray=(StringUtility.hasText(tempValueBeanArray)) ? CollectionUtility.asArray(collection, new kripton64.Bean[collection.size()]): null;
+      bean.valueBeanArray=(StringUtility.hasText(tempValueBeanArray)) ? CollectionUtility.asArray(collection, new sqlite.kripton64.Bean[collection.size()]): null;
     }
 
      {
@@ -584,7 +587,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       // read valueBeanArray
       String tempValueBeanArray=prefs.getString("valueBeanArray", null);
       ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, tempValueBeanArray);
-      return (StringUtility.hasText(tempValueBeanArray)) ? CollectionUtility.asArray(collection, new kripton64.Bean[collection.size()]): null;
+      return (StringUtility.hasText(tempValueBeanArray)) ? CollectionUtility.asArray(collection, new sqlite.kripton64.Bean[collection.size()]): null;
     }
 
   }

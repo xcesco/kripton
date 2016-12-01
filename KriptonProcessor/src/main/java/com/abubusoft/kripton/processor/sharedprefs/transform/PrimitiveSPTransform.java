@@ -44,8 +44,8 @@ abstract class PrimitiveSPTransform extends AbstractSPTransform {
 
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		if (add) {						
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {
+		if (readAll) {						
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField()?"(":"=")+"", beanName);
 		} else {
 			methodBuilder.addCode("return ");
@@ -57,7 +57,7 @@ abstract class PrimitiveSPTransform extends AbstractSPTransform {
 			methodBuilder.addCode(SIMPLE_TYPE+"$L.get"+PREFS_TYPE+"($S, "+SIMPLE_TYPE+"$L)", preferenceName, property.getName(), getter(beanName, beanClass, property));
 		}
 
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField()?")":""));
 		} 
 		

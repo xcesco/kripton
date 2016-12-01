@@ -19,6 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -33,7 +34,13 @@ public class DoubleTransform extends AbstractSPTransform {
 	public DoubleTransform(boolean nullable)
 	{
 		this.nullable=nullable;
-		defaultValue="0";
+		
+		if (nullable)
+		{
+			defaultValue="\"0\"";
+		} else {
+			defaultValue="null";
+		}
 	}
 	
 	protected boolean nullable;
@@ -41,23 +48,32 @@ public class DoubleTransform extends AbstractSPTransform {
 	protected String defaultValue;
 	
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		if (add) {
-						
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {
+		if (readAll) {
+			methodBuilder.beginControlFlow("");
+		}
+		
+		methodBuilder.addStatement("String temp=$L.getString($S, $L)", preferenceName, property.getName(), defaultValue);
+		
+		if (readAll) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField()?"(":"=")+"", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
 		
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.valueOf($L.getString($S, $S))",  Double.class, preferenceName, property.getName(), defaultValue);
-		methodBuilder.addCode(": null");
+		methodBuilder.addCode("($L.hasText(temp)) ? ", StringUtility.class);
+		methodBuilder.addCode("$T.valueOf(temp)",  Double.class);
+		methodBuilder.addCode(": $L", defaultValue);
 		
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField()?")":""));
 		}
 		
 		methodBuilder.addCode(";");
+		
+		if (readAll) {
+			methodBuilder.endControlFlow();
+		}
 	}
 
 

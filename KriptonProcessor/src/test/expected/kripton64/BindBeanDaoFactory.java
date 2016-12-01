@@ -2,6 +2,10 @@ package kripton64;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 
+import sqlite.kripton64.Bean;
+import sqlite.kripton64.BeanDao;
+import sqlite.kripton64.BeanDataSource;
+
 /**
  * <p>
  * Represents dao factory interface for BeanDataSource.

@@ -90,6 +90,11 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
+		
+		if (property.isProperty())
+		{
+			methodBuilder.addStatement("fieldCount++");
+		}
 
 		// if in collection, we need to write only the value
 		if (property.isInCollection()) {

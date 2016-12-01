@@ -55,20 +55,23 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJackson(JacksonContext context, BeanElement72 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(JacksonContext context, BeanElement72 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       // field name
       if (object.name!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
       // field valueBeanSet
       if (object.valueBeanSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBeanSet");
         jacksonSerializer.writeStartArray();
@@ -86,6 +89,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueByteSet
       if (object.valueByteSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueByteSet");
         jacksonSerializer.writeStartArray();
@@ -103,6 +107,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueCharacterSet
       if (object.valueCharacterSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueCharacterSet");
         jacksonSerializer.writeStartArray();
@@ -120,6 +125,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueDoubleSet
       if (object.valueDoubleSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueDoubleSet");
         jacksonSerializer.writeStartArray();
@@ -137,6 +143,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueEnumSet
       if (object.valueEnumSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueEnumSet");
         jacksonSerializer.writeStartArray();
@@ -154,6 +161,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueFloatSet
       if (object.valueFloatSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueFloatSet");
         jacksonSerializer.writeStartArray();
@@ -171,6 +179,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueIntSet
       if (object.getValueIntSet()!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueIntSet");
         jacksonSerializer.writeStartArray();
@@ -188,6 +197,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueLongSet
       if (object.valueLongSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueLongSet");
         jacksonSerializer.writeStartArray();
@@ -205,6 +215,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueShortSet
       if (object.valueShortSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueShortSet");
         jacksonSerializer.writeStartArray();
@@ -222,6 +233,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueStringSet
       if (object.valueStringSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueStringSet");
         jacksonSerializer.writeStartArray();
@@ -239,6 +251,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueBigDecimalSet
       if (object.valueBigDecimalSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigDecimalSet");
         jacksonSerializer.writeStartArray();
@@ -256,6 +269,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueBigIntegerSet
       if (object.valueBigIntegerSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigIntegerSet");
         jacksonSerializer.writeStartArray();
@@ -273,10 +287,12 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field zalueStringFinal
       if (object.zalueStringFinal!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("zalueStringFinal", object.zalueStringFinal);
       }
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -287,20 +303,23 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJacksonAsString(JacksonContext context, BeanElement72 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(JacksonContext context, BeanElement72 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       // field name
       if (object.name!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
       // field valueBeanSet
       if (object.valueBeanSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBeanSet");
         jacksonSerializer.writeStartArray();
@@ -309,7 +328,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
             jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              context.mapperFor(BeanElement72.class).serializeOnJacksonAsString(context, item, wrapper);
+              if (context.mapperFor(BeanElement72.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
+                jacksonSerializer.writeNullField("valueBeanSet");
+              }
             }
           }
         }
@@ -318,6 +339,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueByteSet
       if (object.valueByteSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueByteSet");
         jacksonSerializer.writeStartArray();
@@ -335,6 +357,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueCharacterSet
       if (object.valueCharacterSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueCharacterSet");
         jacksonSerializer.writeStartArray();
@@ -352,6 +375,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueDoubleSet
       if (object.valueDoubleSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueDoubleSet");
         jacksonSerializer.writeStartArray();
@@ -369,6 +393,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueEnumSet
       if (object.valueEnumSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueEnumSet");
         jacksonSerializer.writeStartArray();
@@ -386,6 +411,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueFloatSet
       if (object.valueFloatSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueFloatSet");
         jacksonSerializer.writeStartArray();
@@ -403,6 +429,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueIntSet
       if (object.getValueIntSet()!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueIntSet");
         jacksonSerializer.writeStartArray();
@@ -420,6 +447,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueLongSet
       if (object.valueLongSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueLongSet");
         jacksonSerializer.writeStartArray();
@@ -437,6 +465,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueShortSet
       if (object.valueShortSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueShortSet");
         jacksonSerializer.writeStartArray();
@@ -454,6 +483,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueStringSet
       if (object.valueStringSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueStringSet");
         jacksonSerializer.writeStartArray();
@@ -471,6 +501,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueBigDecimalSet
       if (object.valueBigDecimalSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigDecimalSet");
         jacksonSerializer.writeStartArray();
@@ -488,6 +519,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field valueBigIntegerSet
       if (object.valueBigIntegerSet!=null)  {
+        fieldCount++;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigIntegerSet");
         jacksonSerializer.writeStartArray();
@@ -505,10 +537,12 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
 
       // field zalueStringFinal
       if (object.zalueStringFinal!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("zalueStringFinal", object.zalueStringFinal);
       }
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));

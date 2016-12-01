@@ -322,9 +322,11 @@ public class TypeUtility {
 	 * 
 	 */
 	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
-		TypeName typeName = typeName(typeMirror);
-		if (typeName == null && typeMirror instanceof ModelType) {
+		TypeName typeName;
+		if (typeMirror instanceof ModelType) {
 			typeName = ((ModelType) typeMirror).getName();
+		} else {
+			typeName = typeName(typeMirror);
 		}
 
 		if (isString(typeName)) {
@@ -356,9 +358,11 @@ public class TypeUtility {
 	 * 
 	 */
 	public static void endStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
-		TypeName typeName = typeName(typeMirror);
-		if (typeName == null && typeMirror instanceof ModelType) {
+		TypeName typeName;
+		if (typeMirror instanceof ModelType) {
 			typeName = ((ModelType) typeMirror).getName();
+		} else {
+			typeName = typeName(typeMirror);
 		}
 
 		if (isString(typeName)) {

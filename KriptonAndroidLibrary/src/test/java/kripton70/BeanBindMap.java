@@ -124,7 +124,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 	}
 
 	@Override
-	public void serializeOnJackson(JacksonContext context, Bean object, JacksonWrapperSerializer wrapper) {
+	public int serializeOnJackson(JacksonContext context, Bean object, JacksonWrapperSerializer wrapper) {
 
 		try {
 			JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
@@ -207,7 +207,7 @@ public final class BeanBindMap extends AbstractMapper<Bean> {
 	}
 
 	@Override
-	public void serializeOnJacksonAsString(JacksonContext context, Bean object, JacksonWrapperSerializer wrapper) {
+	public int serializeOnJacksonAsString(JacksonContext context, Bean object, JacksonWrapperSerializer wrapper) {
 		try {
 			JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
 			// write begin object

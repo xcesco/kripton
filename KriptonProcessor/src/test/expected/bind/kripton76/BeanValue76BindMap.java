@@ -39,14 +39,16 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJackson(JacksonContext context, BeanValue76 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(JacksonContext context, BeanValue76 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -57,14 +59,16 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJacksonAsString(JacksonContext context, BeanValue76 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(JacksonContext context, BeanValue76 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));

@@ -33,6 +33,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
+		
 		methodBuilder.addStatement(setter(beanClass, beanName, property," $T.read($L.getText())"), utilClazz, parserName);
 		
 		if (property.isNullable())
@@ -48,6 +49,7 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 		{
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
+		
 		methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.read($L.getText())"), utilClazz, parserName);
 		if (property.isNullable())
 		{
@@ -81,6 +83,11 @@ public class WrappedCompileTimeTransform extends AbstractBindTransform {
 		if (property.isNullable())
 		{
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+		
+		if (property.isProperty())
+		{
+			methodBuilder.addStatement("fieldCount++");
 		}
 		
 		if (property.isInCollection())

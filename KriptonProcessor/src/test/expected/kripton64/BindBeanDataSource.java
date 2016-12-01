@@ -2,6 +2,10 @@ package kripton64;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import sqlite.kripton64.Bean;
+import sqlite.kripton64.BeanDao;
+import sqlite.kripton64.BeanDataSource;
+
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;

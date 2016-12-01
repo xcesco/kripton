@@ -554,12 +554,13 @@ public class BindTypeBuilder {
 				.addParameter(typeName(JacksonContext.class), "context")
 				.addParameter(typeName(entity.getElement()), "object")
 				.addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
-				.returns(Void.TYPE);
+				.returns(Integer.TYPE);
 		// @formatter:on
 
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.addStatement("$T jacksonSerializer = wrapper.jacksonGenerator", className(JsonGenerator.class));
 		methodBuilder.addStatement("jacksonSerializer.writeStartObject()");
+		methodBuilder.addStatement("int fieldCount=0");
 
 		BindTransform bindTransform;
 
@@ -570,13 +571,14 @@ public class BindTypeBuilder {
 		for (BindProperty item : entity.getCollection()) {
 			bindTransform = BindTransformer.lookup(item);
 
-			methodBuilder.addCode("// field $L\n", item.getName());
+			methodBuilder.addCode("// field $L\n", item.getName());			
 			bindTransform.generateSerializeOnJackson(methodBuilder, "jacksonSerializer", item.getPropertyType().getName(), "object", item);
 			methodBuilder.addCode("\n");
 		}
 
 		methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
-
+		methodBuilder.addStatement("return fieldCount");
+		
 		methodBuilder.nextControlFlow("catch($T e)", typeName(IOException.class));
 		methodBuilder.addStatement("e.printStackTrace()");
 		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
@@ -594,12 +596,13 @@ public class BindTypeBuilder {
 				.addParameter(typeName(JacksonContext.class), "context")
 				.addParameter(typeName(entity.getElement()), "object")
 				.addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
-				.returns(Void.TYPE);
+				.returns(Integer.TYPE);
 		// @formatter:on
 
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.addStatement("$T jacksonSerializer = wrapper.jacksonGenerator", className(JsonGenerator.class));
 		methodBuilder.addStatement("jacksonSerializer.writeStartObject()");
+		methodBuilder.addStatement("int fieldCount=0");
 
 		BindTransform bindTransform;
 
@@ -617,6 +620,7 @@ public class BindTypeBuilder {
 
 		methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
 
+		methodBuilder.addStatement("return fieldCount");
 		methodBuilder.nextControlFlow("catch($T e)", typeName(IOException.class));
 		methodBuilder.addStatement("e.printStackTrace()");
 		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));

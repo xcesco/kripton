@@ -45,20 +45,23 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJackson(JacksonContext context, BeanElement75 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(JacksonContext context, BeanElement75 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       // field name
       if (object.name!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
       // field valueByteArray
       if (object.valueByteArray!=null)  {
+        fieldCount++;
         int n=object.valueByteArray.length;
         Byte item;
         // write wrapper tag
@@ -79,10 +82,12 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
 
       // field valueByteTypeArray
       if (object.valueByteTypeArray!=null)  {
+        fieldCount++;
         jacksonSerializer.writeBinaryField("valueByteTypeArray", object.valueByteTypeArray);
       }
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -93,20 +98,23 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJacksonAsString(JacksonContext context, BeanElement75 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(JacksonContext context, BeanElement75 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       // field name
       if (object.name!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
       // field valueByteArray
       if (object.valueByteArray!=null)  {
+        fieldCount++;
         int n=object.valueByteArray.length;
         Byte item;
         // write wrapper tag
@@ -127,10 +135,12 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
 
       // field valueByteTypeArray
       if (object.valueByteTypeArray!=null)  {
+        fieldCount++;
         jacksonSerializer.writeBinaryField("valueByteTypeArray", object.valueByteTypeArray);
       }
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));

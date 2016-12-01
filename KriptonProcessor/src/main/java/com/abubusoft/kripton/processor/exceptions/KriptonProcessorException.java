@@ -35,6 +35,10 @@ public abstract class KriptonProcessorException extends RuntimeException {
 	public KriptonProcessorException(String message) {
 		super(message);
 	}
+	
+	public KriptonProcessorException(ClassNotFoundException cause) {
+		super(cause);
+	}
 
 	public String getErrorCode() {
 		if (BaseProcessor.DEVELOP_MODE)

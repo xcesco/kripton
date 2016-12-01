@@ -2,6 +2,10 @@ package kripton64;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import sqlite.kripton64.Bean;
+import sqlite.kripton64.BeanDao;
+import sqlite.kripton64.EnumType;
+
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;

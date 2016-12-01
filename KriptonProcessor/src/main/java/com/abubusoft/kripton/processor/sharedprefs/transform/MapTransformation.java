@@ -10,6 +10,8 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -40,29 +42,38 @@ public class MapTransformation extends AbstractSPTransform {
 			return Class.forName(mapTypeName.rawType.toString());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return null;
+			throw new KriptonClassNotFoundException(e);			
 		}
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {
 		Class<?> mapClazz = defineMapClass(listTypeName);
+		
+		if (readAll) {
+			methodBuilder.beginControlFlow("");
+		}
+		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getName());
 
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.asMap(new $T<$T, $T>(), $T.class, $T.class, $L.getString($S, null))", utilClazz, mapClazz, keyTypeName, valueTypeName, keyTypeName, valueTypeName, preferenceName, property.getName());
+		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtility.class);
+		methodBuilder.addCode("$T.asMap(new $T<$T, $T>(), $T.class, $T.class, temp)", utilClazz, mapClazz, keyTypeName, valueTypeName, keyTypeName, valueTypeName);
 		methodBuilder.addCode(": null");
 
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		}
 		
 		methodBuilder.addCode(";");
+		
+		if (readAll) {
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	@Override

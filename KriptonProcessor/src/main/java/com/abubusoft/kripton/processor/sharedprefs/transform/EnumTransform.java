@@ -19,6 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -40,23 +41,32 @@ public class EnumTransform extends AbstractSPTransform {
 	protected String defaultValue;
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
-		if (add) {
-
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {		
+		if (readAll) {
+			methodBuilder.beginControlFlow("");
+		}
+		
+		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getName());
+		
+		if (readAll) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("($L.getString($S, null)!=null) ? ", preferenceName, property.getName());
-		methodBuilder.addCode("$T.valueOf($L.getString($S, $L))", typeName, preferenceName, property.getName(), defaultValue);
+		methodBuilder.addCode("($L.hasText(temp)) ? ", StringUtility.class);
+		methodBuilder.addCode("$T.valueOf(temp)", typeName, preferenceName);
 		methodBuilder.addCode(": null");
 
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		}
 		
 		methodBuilder.addCode(";");
+		
+		if (readAll) {
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	@Override

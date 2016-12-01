@@ -54,11 +54,13 @@ public class ArrayTransform extends AbstractSPTransform {
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean add) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {
 		String name = nc.convert(clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1));
 		String primitiveName=primitiveType(name);
 		
-		methodBuilder.beginControlFlow("");
+		if (readAll) {
+			methodBuilder.beginControlFlow("");
+		}
 		
 		// temp variable
 		String tempPreferenceName="temp"+nc.convert(property.getName());
@@ -67,7 +69,7 @@ public class ArrayTransform extends AbstractSPTransform {
 		methodBuilder.addStatement("String $L=$L.getString($S, null)", tempPreferenceName, preferenceName, property.getName());
 		methodBuilder.addStatement("$T<$T> collection=$T.asCollection(new $T<$T>(), $T.class, $L)",ArrayList.class, clazz.box(), helperClazz, ArrayList.class, clazz.box(), clazz.box(), tempPreferenceName);
 
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
@@ -82,12 +84,15 @@ public class ArrayTransform extends AbstractSPTransform {
 		}
 		methodBuilder.addCode(": null");
 
-		if (add) {
+		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		} 
 		
-		methodBuilder.addCode(";\n");		
-		methodBuilder.endControlFlow();
+		methodBuilder.addCode(";\n");
+		
+		if (readAll) {
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	@Override

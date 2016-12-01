@@ -51,147 +51,179 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJackson(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       // field valueBean
       if (object.valueBean!=null)  {
+        fieldCount++;
         jacksonSerializer.writeFieldName("valueBean");
         context.mapperFor(BeanElement70.class).serializeOnJackson(context, object.valueBean, wrapper);
       }
 
       // field valueBigDecimal
       if (object.valueBigDecimal!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtil.write(object.valueBigDecimal));
       }
 
       // field valueBigInteger
       if (object.valueBigInteger!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtil.write(object.valueBigInteger));
       }
 
       // field valueBool
       if (object.valueBool!=null)  {
+        fieldCount++;
         jacksonSerializer.writeBooleanField("valueBool", object.valueBool);
       }
 
       // field valueBoolType
+      fieldCount++;
       jacksonSerializer.writeBooleanField("valueBoolType", object.valueBoolType);
 
       // field valueByte
       if (object.valueByte!=null)  {
+        fieldCount++;
         jacksonSerializer.writeNumberField("valueByte", object.valueByte);
       }
 
       // field valueByteType
+      fieldCount++;
       jacksonSerializer.writeNumberField("valueByteType", object.valueByteType);
 
       // field valueCalendar
       if (object.valueCalendar!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueCalendar", CalendarUtil.write(object.valueCalendar));
       }
 
       // field valueChar
       if (object.valueChar!=null)  {
+        fieldCount++;
         jacksonSerializer.writeNumberField("valueChar", object.valueChar);
       }
 
       // field valueCharType
+      fieldCount++;
       jacksonSerializer.writeNumberField("valueCharType", object.valueCharType);
 
       // field valueContentBoolType
       if (object.valueContentBoolType!=null)  {
+        fieldCount++;
         jacksonSerializer.writeNumberField("valueContentBoolType", object.valueContentBoolType);
       }
 
       // field valueCurrency
       if (object.valueCurrency!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueCurrency", CurrencyUtil.write(object.valueCurrency));
       }
 
       // field valueDate
       if (object.valueDate!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueDate", DateUtil.write(object.valueDate));
       }
 
       // field valueDouble
       if (object.valueDouble!=null)  {
+        fieldCount++;
         jacksonSerializer.writeNumberField("valueDouble", object.valueDouble);
       }
 
       // field valueDoubleType
+      fieldCount++;
       jacksonSerializer.writeNumberField("valueDoubleType", object.valueDoubleType);
 
       // field valueEnum
       if (object.valueEnum!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueEnum", object.valueEnum.toString());
       }
 
       // field valueFloat
       if (object.valueFloat!=null)  {
+        fieldCount++;
         jacksonSerializer.writeNumberField("valueFloat", object.valueFloat);
       }
 
       // field valueFloatType
+      fieldCount++;
       jacksonSerializer.writeNumberField("valueFloatType", object.valueFloatType);
 
       // field valueInt
       if (object.valueInt!=null)  {
+        fieldCount++;
         jacksonSerializer.writeNumberField("valueInt", object.valueInt);
       }
 
       // field valueIntType
+      fieldCount++;
       jacksonSerializer.writeNumberField("valueIntType", object.valueIntType);
 
       // field valueLocale
       if (object.valueLocale!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueLocale", LocaleUtil.write(object.valueLocale));
       }
 
       // field valueLong
       if (object.valueLong!=null)  {
+        fieldCount++;
         jacksonSerializer.writeNumberField("valueLong", object.valueLong);
       }
 
       // field valueLongType
+      fieldCount++;
       jacksonSerializer.writeNumberField("valueLongType", object.valueLongType);
 
       // field valueShort
       if (object.valueShort!=null)  {
+        fieldCount++;
         jacksonSerializer.writeNumberField("valueShort", object.valueShort);
       }
 
       // field valueShortType
+      fieldCount++;
       jacksonSerializer.writeNumberField("valueShortType", object.valueShortType);
 
       // field valueString
       if (object.valueString!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueString", object.valueString);
       }
 
       // field valueTime
       if (object.valueTime!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueTime", TimeUtil.write(object.valueTime));
       }
 
       // field valueTimeZone
       if (object.valueTimeZone!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueTimeZone", TimeZoneUtil.write(object.valueTimeZone));
       }
 
       // field valueUrl
       if (object.valueUrl!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueUrl", UrlUtil.write(object.valueUrl));
       }
 
       // field id
+      fieldCount++;
       jacksonSerializer.writeNumberField("id", object.getId());
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
@@ -202,26 +234,32 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnJacksonAsString(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(JacksonContext context, BeanElement70 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
+      int fieldCount=0;
 
       // Serialized Field:
 
       // field valueBean
       if (object.valueBean!=null)  {
+        fieldCount++;
         jacksonSerializer.writeFieldName("valueBean");
-        context.mapperFor(BeanElement70.class).serializeOnJacksonAsString(context, object.valueBean, wrapper);
+        if (context.mapperFor(BeanElement70.class).serializeOnJacksonAsString(context, object.valueBean, wrapper)==0) {
+          jacksonSerializer.writeNullField("valueBean");
+        }
       }
 
       // field valueBigDecimal
       if (object.valueBigDecimal!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtil.write(object.valueBigDecimal));
       }
 
       // field valueBigInteger
       if (object.valueBigInteger!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtil.write(object.valueBigInteger));
       }
 
@@ -243,6 +281,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueCalendar
       if (object.valueCalendar!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueCalendar", CalendarUtil.write(object.valueCalendar));
       }
 
@@ -261,11 +300,13 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueCurrency
       if (object.valueCurrency!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueCurrency", CurrencyUtil.write(object.valueCurrency));
       }
 
       // field valueDate
       if (object.valueDate!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueDate", DateUtil.write(object.valueDate));
       }
 
@@ -279,6 +320,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueEnum
       if (object.valueEnum!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueEnum", object.valueEnum.toString());
       }
 
@@ -300,6 +342,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueLocale
       if (object.valueLocale!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueLocale", LocaleUtil.write(object.valueLocale));
       }
 
@@ -321,21 +364,25 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueString
       if (object.valueString!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueString", object.valueString);
       }
 
       // field valueTime
       if (object.valueTime!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueTime", TimeUtil.write(object.valueTime));
       }
 
       // field valueTimeZone
       if (object.valueTimeZone!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueTimeZone", TimeZoneUtil.write(object.valueTimeZone));
       }
 
       // field valueUrl
       if (object.valueUrl!=null)  {
+        fieldCount++;
         jacksonSerializer.writeStringField("valueUrl", UrlUtil.write(object.valueUrl));
       }
 
@@ -343,6 +390,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       jacksonSerializer.writeStringField("id", PrimitiveUtil.writeLong(object.getId()));
 
       jacksonSerializer.writeEndObject();
+      return fieldCount;
     } catch(IOException e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));

@@ -77,6 +77,11 @@ public class StringTransform extends AbstractBindTransform {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
+		
+		if (property.isProperty())
+		{
+			methodBuilder.addStatement("fieldCount++");
+		}
 
 		if (property.isInCollection()) {
 			// we need to write only value
