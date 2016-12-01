@@ -79,8 +79,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getInt(0)==0?false:true;
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -118,8 +117,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getInt(0)==0?false:true;
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -157,8 +155,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=(byte)cursor.getInt(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -196,8 +193,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=(byte)cursor.getInt(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -235,8 +231,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getShort(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -274,8 +269,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getShort(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -313,8 +307,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getInt(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -352,8 +345,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getInt(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -391,8 +383,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getString(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -430,8 +421,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=(char)cursor.getInt(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -469,8 +459,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=(char)cursor.getInt(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -508,8 +497,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getFloat(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -547,8 +535,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getFloat(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -586,8 +573,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getLong(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -625,8 +611,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getLong(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -664,8 +649,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getDouble(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -703,8 +687,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         result=cursor.getDouble(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -1086,8 +1069,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -1174,8 +1156,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }

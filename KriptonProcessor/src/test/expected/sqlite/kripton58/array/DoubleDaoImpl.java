@@ -189,8 +189,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -241,8 +240,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }

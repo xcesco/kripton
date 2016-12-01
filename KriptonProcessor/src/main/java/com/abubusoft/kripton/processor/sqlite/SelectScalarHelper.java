@@ -97,8 +97,8 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 		//methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("finally");
-		methodBuilder.beginControlFlow("if (cursor!=null)\n");
+		methodBuilder.nextControlFlow("finally");		
+		methodBuilder.beginControlFlow("if (!cursor.isClosed())");
 		methodBuilder.addCode("cursor.close();\n");
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();

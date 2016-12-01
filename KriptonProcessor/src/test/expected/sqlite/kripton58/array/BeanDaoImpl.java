@@ -189,8 +189,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -241,8 +240,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }

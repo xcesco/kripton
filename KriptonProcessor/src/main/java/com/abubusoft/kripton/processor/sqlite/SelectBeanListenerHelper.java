@@ -136,7 +136,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 
 		methodBuilder.endControlFlow();
 		methodBuilder.nextControlFlow("finally");
-		methodBuilder.beginControlFlow("if (cursor!=null)\n");
+		methodBuilder.beginControlFlow("if (!cursor.isClosed())");
 		methodBuilder.addCode("cursor.close();\n");
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();

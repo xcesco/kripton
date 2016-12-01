@@ -20,14 +20,9 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -102,8 +97,8 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 					methodBuilder.endControlFlow();
 				methodBuilder.endControlFlow("while (cursor.moveToNext())");
 			methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("finally");
-			methodBuilder.beginControlFlow("if (cursor!=null)\n");
+		methodBuilder.nextControlFlow("finally");			
+			methodBuilder.beginControlFlow("if (!cursor.isClosed())");
 				methodBuilder.addCode("cursor.close();\n");
 			methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();

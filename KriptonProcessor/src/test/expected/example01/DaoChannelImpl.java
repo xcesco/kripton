@@ -865,8 +865,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -916,8 +915,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -1026,8 +1024,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
         result=cursor.getLong(0);
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -1087,8 +1084,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -1134,8 +1130,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -1372,8 +1367,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }

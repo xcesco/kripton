@@ -182,8 +182,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -231,8 +230,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }

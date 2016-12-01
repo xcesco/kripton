@@ -61,8 +61,7 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
         result=cursor.getInt(0)==0?false:true;
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }

@@ -182,8 +182,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
@@ -231,8 +230,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
         } while (cursor.moveToNext());
       }
     } finally {
-      if (cursor!=null)
-       {
+      if (!cursor.isClosed()) {
         cursor.close();
       }
     }
