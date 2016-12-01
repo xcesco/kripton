@@ -454,25 +454,30 @@ public class BindTypeBuilder {
 		methodBuilder.addStatement("fieldName = jacksonParser.getCurrentName()");
 		methodBuilder.addStatement("jacksonParser.nextToken()");
 
-		methodBuilder.addCode("\n// Parse fields:\n");
-		methodBuilder.beginControlFlow("switch (fieldName)$>");
-
-		BindTransform bindTransform;
-		for (BindProperty item : entity.getCollection()) {
-			bindTransform = BindTransformer.lookup(item);
-
-			methodBuilder.addCode("case $S:\n$>", item.getName());
-			methodBuilder.addCode("// field $L\n", item.getName());
-			bindTransform.generateParseOnJackson(methodBuilder, "jacksonParser", item.getPropertyType().getName(), "instance", item);
-			methodBuilder.addCode("$<break;\n");
+		if (entity.getCollection().size()>0)
+		{
+			methodBuilder.addCode("\n// Parse fields:\n");
+			methodBuilder.beginControlFlow("switch (fieldName)$>");
+	
+			BindTransform bindTransform;
+			for (BindProperty item : entity.getCollection()) {
+				bindTransform = BindTransformer.lookup(item);
+	
+				methodBuilder.addCode("case $S:\n$>", item.getName());
+				methodBuilder.addCode("// field $L\n", item.getName());
+				bindTransform.generateParseOnJackson(methodBuilder, "jacksonParser", item.getPropertyType().getName(), "instance", item);
+				methodBuilder.addCode("$<break;\n");
+			}
+	
+			methodBuilder.addCode("default:$>\n");
+			methodBuilder.addStatement("jacksonParser.skipChildren()");
+			methodBuilder.addCode("$<break;");
+	
+			methodBuilder.addCode("$<");
+			methodBuilder.endControlFlow();
+		} else {
+			methodBuilder.addCode("\n// No field to parse\n");
 		}
-
-		methodBuilder.addCode("default:$>\n");
-		methodBuilder.addStatement("jacksonParser.skipChildren()");
-		methodBuilder.addCode("$<break;");
-
-		methodBuilder.addCode("$<");
-		methodBuilder.endControlFlow();
 
 		methodBuilder.endControlFlow();
 
@@ -514,25 +519,31 @@ public class BindTypeBuilder {
 		methodBuilder.addStatement("fieldName = jacksonParser.getCurrentName()");
 		methodBuilder.addStatement("jacksonParser.nextToken()");
 
-		methodBuilder.addCode("\n// Parse fields:\n");
-		methodBuilder.beginControlFlow("switch (fieldName)$>");
+		if (entity.getCollection().size()>0)
+		{
+			methodBuilder.addCode("\n// Parse fields:\n");
+			methodBuilder.beginControlFlow("switch (fieldName)$>");
+	
+			BindTransform bindTransform;
+			for (BindProperty item : entity.getCollection()) {
+				bindTransform = BindTransformer.lookup(item);
+	
+				methodBuilder.addCode("case $S:\n$>", item.getName());
+				methodBuilder.addCode("// field $L\n", item.getName());
+				bindTransform.generateParseOnJacksonAsString(methodBuilder, "jacksonParser", item.getPropertyType().getName(), "instance", item);
+				methodBuilder.addCode("$<break;\n");
+			}		
 
-		BindTransform bindTransform;
-		for (BindProperty item : entity.getCollection()) {
-			bindTransform = BindTransformer.lookup(item);
-
-			methodBuilder.addCode("case $S:\n$>", item.getName());
-			methodBuilder.addCode("// field $L\n", item.getName());
-			bindTransform.generateParseOnJacksonAsString(methodBuilder, "jacksonParser", item.getPropertyType().getName(), "instance", item);
-			methodBuilder.addCode("$<break;\n");
+			methodBuilder.addCode("default:$>\n");
+			methodBuilder.addStatement("jacksonParser.skipChildren()");
+			methodBuilder.addCode("$<break;");
+	
+			methodBuilder.addCode("$<");
+			methodBuilder.endControlFlow();
+			
+		} else {
+			methodBuilder.addCode("\n// No field to parse\n");
 		}
-
-		methodBuilder.addCode("default:$>\n");
-		methodBuilder.addStatement("jacksonParser.skipChildren()");
-		methodBuilder.addCode("$<break;");
-
-		methodBuilder.addCode("$<");
-		methodBuilder.endControlFlow();
 
 		methodBuilder.endControlFlow();
 

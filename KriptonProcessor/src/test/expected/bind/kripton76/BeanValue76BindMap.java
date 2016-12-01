@@ -117,11 +117,7 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
         fieldName = jacksonParser.getCurrentName();
         jacksonParser.nextToken();
 
-        // Parse fields:
-        switch (fieldName) {
-            default:
-              jacksonParser.skipChildren();
-            break;}
+        // No field to parse
       }
       return instance;
     } catch (IOException e) {
@@ -150,11 +146,7 @@ public class BeanValue76BindMap extends AbstractMapper<BeanValue76> {
         fieldName = jacksonParser.getCurrentName();
         jacksonParser.nextToken();
 
-        // Parse fields:
-        switch (fieldName) {
-            default:
-              jacksonParser.skipChildren();
-            break;}
+        // No field to parse
       }
       return instance;
     } catch (IOException e) {
