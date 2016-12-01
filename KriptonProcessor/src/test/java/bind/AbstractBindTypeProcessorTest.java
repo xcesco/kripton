@@ -29,18 +29,18 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 	}
 	
 	protected void check(Object bean) {
-		//int xmlSize=serializeAndParse(bean, BinderType.XML);
-		//int cborSize=serializeAndParseBinary(bean, BinderType.CBOR);
-		//int jsonSize=serializeAndParse(bean, BinderType.JSON);
-		//int yamlSize=serializeAndParse(bean, BinderType.YAML);
-		int propertySize=serializeAndParse(bean, BinderType.PROPERTIES);
+		int xmlSize=serializeAndParse(bean, BinderType.XML);
+		int cborSize=serializeAndParseBinary(bean, BinderType.CBOR);
+		int jsonSize=serializeAndParse(bean, BinderType.JSON);
+		int yamlSize=serializeAndParse(bean, BinderType.YAML);
+		int propertySize=serializeAndParseBinary(bean, BinderType.PROPERTIES);
 		
-		//double cborPerc=cborSize*100.0/xmlSize;
-		//double jsonPerc=jsonSize*100.0/xmlSize;
-		//double yamlPerc=yamlSize*100.0/xmlSize;
-		//double propertyPerc=propertySize*100.0/xmlSize;
+		double cborPerc=cborSize*100.0/xmlSize;
+		double jsonPerc=jsonSize*100.0/xmlSize;
+		double yamlPerc=yamlSize*100.0/xmlSize;
+		double propertyPerc=propertySize*100.0/xmlSize;
 		
-		//System.out.println(String.format("xml: %s, cbor: %s (%.0f%%), json: %s (%.0f%%), yaml: %s (%.0f%%), property: %s (%.0f%%)", xmlSize, cborSize, cborPerc, jsonSize, jsonPerc,yamlSize, yamlPerc, propertySize, propertyPerc));
+		System.out.println(String.format("xml: %s, cbor: %s (%.0f%%), json: %s (%.0f%%), yaml: %s (%.0f%%), property: %s (%.0f%%)", xmlSize, cborSize, cborPerc, jsonSize, jsonPerc,yamlSize, yamlPerc, propertySize, propertyPerc));
 		
 	}
 	
