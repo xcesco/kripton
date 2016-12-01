@@ -26,7 +26,7 @@ import java.io.Writer;
  * @author bulldog
  * 
  */
-public class Base64Util {
+public class Base64Utils {
     private static final char[] S_BASE64CHAR = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
         'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 

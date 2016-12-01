@@ -18,13 +18,12 @@ package com.abubusoft.kripton.common;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-public class CalendarUtil {
+public class DateUtils {
 
 	public static String FULL = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
@@ -35,21 +34,23 @@ public class CalendarUtil {
 	public static String SHORT = "yyyy-MM-dd";
 
 	public static String TIME_ZONE = "GMT";
+
+	public static Date read(String value) {
+		String pattern = getPattern(value);
+		Date date=null;
+		try {
+			date = ThreadLocalDateFormatter.parse(value, pattern);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+
+	public static String write(Date value) {
+		String text = ThreadLocalDateFormatter.format(value, FULL);
+		return text;
+	}
 	
-	public static Calendar read(String value) {
-		Date date=DateUtil.read(value);
-		
-		Calendar calendar=Calendar.getInstance();
-		calendar.setTime(date);
-		
-		return calendar;
-	}
-
-
-	public static String write(Calendar value) {
-		return DateUtil.write(value.getTime());
-	}
-
 	static String getPattern(String text) {
 		int length = text.length();
 
@@ -78,7 +79,7 @@ public class CalendarUtil {
 			DateFormat df = formatterMap.get(pattern);
 			if (null == df) {
 				df = new SimpleDateFormat(pattern);
-				TimeZone timeZoneGMT = TimeZone.getTimeZone(CalendarUtil.TIME_ZONE);
+				TimeZone timeZoneGMT = TimeZone.getTimeZone(DateUtils.TIME_ZONE);
 				df.setTimeZone(timeZoneGMT);
 				formatterMap.put(pattern, df);
 			}

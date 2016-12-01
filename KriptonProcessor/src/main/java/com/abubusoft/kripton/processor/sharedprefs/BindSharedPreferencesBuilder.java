@@ -36,7 +36,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
@@ -98,7 +98,7 @@ public class BindSharedPreferencesBuilder {
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc("@see $T\n", entity.getElement());
 
-		if (StringUtil.hasText(sharedPreferenceName)) {
+		if (StringUtils.hasText(sharedPreferenceName)) {
 			builder.addField(FieldSpec.builder(String.class, "SHARED_PREFERENCE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
 					.initializer("$S", converter.convert(entity.getSimpleName().toString()))
 					.addJavadoc("shared preferences name for $T\n", entity.getElement())
@@ -211,7 +211,7 @@ public class BindSharedPreferencesBuilder {
 				.build());
 		// instance
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance")
-				.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+				.addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED)
 				.addJavadoc("get instance of shared preferences\n")
 				.returns(className(className));
 
@@ -232,7 +232,7 @@ public class BindSharedPreferencesBuilder {
 			MethodSpec.Builder method = MethodSpec.constructorBuilder()
 					.addModifiers(Modifier.PRIVATE)
 					.addJavadoc("constructor\n");
-			if (StringUtil.hasText(sharedPreferenceName)) {
+			if (StringUtils.hasText(sharedPreferenceName)) {
 				method.addCode("// using name attribute of annotation @BindSharedPreferences as name\n");
 				method.addStatement("prefs=$T.context().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
 			} else {

@@ -5,7 +5,7 @@ import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.ProcessorHelper;
-import com.abubusoft.kripton.processor.utils.StringUtility;
+import com.abubusoft.kripton.common.StringUtils;
 import java.lang.Byte;
 import java.lang.String;
 import java.util.HashMap;
@@ -62,11 +62,11 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     bean.value=prefs.getString("value", bean.value);
      {
       String temp=prefs.getString("valueMapStringByte", null);
-      bean.valueMapStringByte=(StringUtility.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, temp): null;}
+      bean.valueMapStringByte=(StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, temp): null;}
 
      {
       String temp=prefs.getString("valueMapEnumByte", null);
-      bean.valueMapEnumByte=(StringUtility.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, temp): null;}
+      bean.valueMapEnumByte=(StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, temp): null;}
 
 
     return bean;
@@ -112,7 +112,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public Map<String, Byte> valueMapStringByte() {
     String temp=prefs.getString("valueMapStringByte", null);
-    return (StringUtility.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, temp): null;
+    return (StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, temp): null;
   }
 
   /**
@@ -122,13 +122,13 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public HashMap<EnumType, Byte> valueMapEnumByte() {
     String temp=prefs.getString("valueMapEnumByte", null);
-    return (StringUtility.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, temp): null;
+    return (StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, temp): null;
   }
 
   /**
    * get instance of shared preferences
    */
-  public static BindBean63SharedPreferences instance() {
+  public static synchronized BindBean63SharedPreferences instance() {
     if (instance==null) {
       instance=new BindBean63SharedPreferences();
     }

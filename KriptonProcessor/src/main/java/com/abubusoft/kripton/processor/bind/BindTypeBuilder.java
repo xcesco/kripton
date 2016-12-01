@@ -184,10 +184,10 @@ public class BindTypeBuilder {
 	 * Generate method to parse xml stream.
 	 * </p>
 	 * 
-	 * @param item
+	 * @param bean
 	 *            kind of object to manage
 	 */
-	private static void generateParseOnXml(BindEntity item) {
+	private static void generateParseOnXml(BindEntity bean) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnXml")
 				.addJavadoc("create new object instance\n")
@@ -196,12 +196,12 @@ public class BindTypeBuilder {
 				.addParameter(typeName(XmlBinderContext.class), "context")
 				.addParameter(typeName(XmlWrapperParser.class), "wrapper")
 				.addParameter(typeName(Integer.TYPE), "currentEventType")
-				.returns(typeName(item.getElement()));
+				.returns(typeName(bean.getElement()));
 		// @formatter:on
 
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.addStatement("$T xmlParser = wrapper.xmlParser", XMLStreamReader2.class);
-		methodBuilder.addStatement("$T instance = createInstance()", item.getElement());
+		methodBuilder.addStatement("$T instance = createInstance()", bean.getElement());
 		methodBuilder.addStatement("int eventType = currentEventType");
 		methodBuilder.addStatement("boolean read=true");
 
@@ -216,7 +216,7 @@ public class BindTypeBuilder {
 		methodBuilder.addStatement("$T<String> elementNameStack = new $T<>()", Stack.class, Stack.class);
 		methodBuilder.addStatement("elementNameStack.push(currentTag)");
 
-		generateParseOnXmlAttributes(methodBuilder, item);
+		generateParseOnXmlAttributes(methodBuilder, bean);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("//sub-elements\n");
@@ -232,16 +232,16 @@ public class BindTypeBuilder {
 
 		methodBuilder.beginControlFlow("switch(eventType)$>");
 		methodBuilder.addCode("case $T.START_ELEMENT:\n$>", XMLEvent.class);
-		generateParserOnXmlStartElement(methodBuilder, "instance", "xmlParser", item);
+		generateParserOnXmlStartElement(methodBuilder, "instance", "xmlParser", bean);
 		methodBuilder.addStatement("$<break");
 
 		methodBuilder.addCode("case $T.END_ELEMENT:\n$>", XMLEvent.class);
-		generateParserOnXmlEndElement(methodBuilder, "instance", "xmlParser", item);
+		generateParserOnXmlEndElement(methodBuilder, "instance", "xmlParser", bean);
 		methodBuilder.addStatement("$<break");
 
 		methodBuilder.addCode("case $T.CDATA:\n", XMLEvent.class);
 		methodBuilder.addCode("case $T.CHARACTERS:\n$>", XMLEvent.class);
-		generateParserOnXmlCharacters(methodBuilder, "instance", "xmlParser", item);
+		generateParserOnXmlCharacters(methodBuilder, "instance", "xmlParser", bean);
 		methodBuilder.addStatement("$<break");
 
 		methodBuilder.addCode("default:\n$>");

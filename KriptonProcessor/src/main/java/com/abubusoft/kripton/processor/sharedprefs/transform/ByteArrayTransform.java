@@ -18,11 +18,11 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.common.Base64Util;
+import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -36,7 +36,7 @@ import com.squareup.javapoet.TypeName;
 public class ByteArrayTransform extends AbstractSPTransform {
 
 	public ByteArrayTransform() {
-		this.utilClazz = Base64Util.class;
+		this.utilClazz = Base64Utils.class;
 		this.nullable = true;
 	}
 
@@ -60,15 +60,15 @@ public class ByteArrayTransform extends AbstractSPTransform {
 			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("($L.hasText(temp) ? ", StringUtility.class);
-		methodBuilder.addCode("$T.decode(temp)", utilClazz, preferenceName, property.getName());
+		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
+		methodBuilder.addCode("$T.decode(temp)", utilClazz);
 		methodBuilder.addCode(": null");
 
 		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		}
 		
-		methodBuilder.addCode(";");
+		methodBuilder.addCode(";\n");
 		
 		if (readAll) {
 			methodBuilder.endControlFlow();

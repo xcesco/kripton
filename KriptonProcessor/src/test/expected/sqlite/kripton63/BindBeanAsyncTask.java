@@ -74,9 +74,9 @@ public abstract class BindBeanAsyncTask<I, U, R> {
   public abstract void onFinish(R result);
 
   /**
-   * Override this method to display operation progress on UI-Thred
+   * Override this method to display operation progress on UI-Thread
    */
-  public void onProgressUpdate(R result) {
+  public void onProgressUpdate(U... update) {
   }
 
   /**
@@ -110,7 +110,7 @@ public abstract class BindBeanAsyncTask<I, U, R> {
 
       @Override
       public void onProgressUpdate(@SuppressWarnings("unchecked") U... values) {
-        onProgressUpdate(values);
+        BindBeanAsyncTask.this.onProgressUpdate(values);
       }
 
       @Override

@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
-import com.abubusoft.kripton.processor.utils.StringUtility;
+import com.abubusoft.kripton.common.StringUtils;
 import java.lang.String;
 
 /**
@@ -57,12 +57,12 @@ public class BindSecurityPreferencesSharedPreferences extends AbstractSharedPref
     bean.fcmId=prefs.getString("fcmId", bean.fcmId);
      {
       String temp=prefs.getString("authorizationToken", null);
-      bean.authorizationToken=(StringUtility.hasText(temp)) ? (DeviceAccessToken)readObj(temp, DeviceAccessToken.class): null;}
+      bean.authorizationToken=(StringUtils.hasText(temp)) ? (DeviceAccessToken)readObj(temp, DeviceAccessToken.class): null;}
 
     bean.deviceUid=prefs.getString("deviceUid", bean.deviceUid);
      {
       String temp=prefs.getString("userIdentity", null);
-      bean.userIdentity=(StringUtility.hasText(temp)) ? (UserIdentity)readObj(temp, UserIdentity.class): null;}
+      bean.userIdentity=(StringUtils.hasText(temp)) ? (UserIdentity)readObj(temp, UserIdentity.class): null;}
 
 
     return bean;
@@ -99,7 +99,7 @@ public class BindSecurityPreferencesSharedPreferences extends AbstractSharedPref
    */
   public DeviceAccessToken authorizationToken() {
     String temp=prefs.getString("authorizationToken", null);
-    return (StringUtility.hasText(temp)) ? (DeviceAccessToken)readObj(temp, DeviceAccessToken.class): null;
+    return (StringUtils.hasText(temp)) ? (DeviceAccessToken)readObj(temp, DeviceAccessToken.class): null;
   }
 
   /**
@@ -118,13 +118,13 @@ public class BindSecurityPreferencesSharedPreferences extends AbstractSharedPref
    */
   public UserIdentity userIdentity() {
     String temp=prefs.getString("userIdentity", null);
-    return (StringUtility.hasText(temp)) ? (UserIdentity)readObj(temp, UserIdentity.class): null;
+    return (StringUtils.hasText(temp)) ? (UserIdentity)readObj(temp, UserIdentity.class): null;
   }
 
   /**
    * get instance of shared preferences
    */
-  public static BindSecurityPreferencesSharedPreferences instance() {
+  public static synchronized BindSecurityPreferencesSharedPreferences instance() {
     if (instance==null) {
       instance=new BindSecurityPreferencesSharedPreferences();
     }

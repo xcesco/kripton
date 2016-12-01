@@ -2,7 +2,7 @@ package com.abubusoft.kripton.common;
 
 import java.util.Locale;
 
-public class LocaleUtil {
+public class LocaleUtils {
 
 	public static String write(Locale locale) {
 		return locale.toString();

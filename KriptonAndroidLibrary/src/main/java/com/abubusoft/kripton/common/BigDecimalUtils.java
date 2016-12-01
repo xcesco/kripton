@@ -2,10 +2,10 @@ package com.abubusoft.kripton.common;
 
 import java.math.BigDecimal;
 
-public class BigDecimalUtil {
+public class BigDecimalUtils {
 
 	public static BigDecimal read(String value) {
-		if (!StringUtil.hasText(value)) return null;
+		if (!StringUtils.hasText(value)) return null;
 		
 		return new BigDecimal(value);
 	}

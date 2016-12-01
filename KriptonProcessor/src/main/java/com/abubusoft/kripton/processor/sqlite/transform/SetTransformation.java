@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.CollectionUtility;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.core.ModelProperty;

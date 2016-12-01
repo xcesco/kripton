@@ -71,7 +71,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
   /**
    * instance
    */
-  public static BindByteDataSource instance() {
+  public static synchronized BindByteDataSource instance() {
     if (instance==null) {
       instance=new BindByteDataSource(KriptonLibrary.context());
     }

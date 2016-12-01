@@ -71,7 +71,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   /**
    * instance
    */
-  public static BindBean2DataSource instance() {
+  public static synchronized BindBean2DataSource instance() {
     if (instance==null) {
       instance=new BindBean2DataSource(KriptonLibrary.context());
     }

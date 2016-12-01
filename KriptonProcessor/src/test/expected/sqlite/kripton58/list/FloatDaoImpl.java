@@ -7,7 +7,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.ProcessorHelper;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -48,7 +48,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM float_bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM float_bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM float_bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -101,7 +101,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     // build where condition
     String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM float_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -154,7 +154,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     // build where condition
     String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM float_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     FloatBean resultBean=new FloatBean();
@@ -218,7 +218,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     // build where condition
     String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM float_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -267,7 +267,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     // build where condition
     String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM float_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -332,7 +332,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
 
     String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(ProcessorHelper.asByteArray(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE float_bean SET value='"+StringUtil.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE float_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditions);
     int result = database().update("float_bean", contentValues, "id=? and value=?", whereConditions);
     return result;
   }
@@ -368,7 +368,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO float_bean (id, value) VALUES ('"+StringUtil.checkSize(contentValues.get("id"))+"', '"+StringUtil.checkSize(contentValues.get("value"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO float_bean (id, value) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
     long result = database().insert("float_bean", null, contentValues);
     return result;
   }
@@ -408,7 +408,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO float_bean (value, value2) VALUES ('"+StringUtil.checkSize(contentValues.get("value"))+"', '"+StringUtil.checkSize(contentValues.get("value2"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO float_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("float_bean", null, contentValues);
     bean.id=result;
 
@@ -433,7 +433,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   public long delete(List<Float> paramValue) {
     String[] whereConditions={(paramValue==null?null:new String(ProcessorHelper.asByteArray(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("DELETE float_bean WHERE value=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE float_bean WHERE value=%s"), (Object[])whereConditions);
     int result = database().delete("float_bean", "value=?", whereConditions);
     return result;
   }

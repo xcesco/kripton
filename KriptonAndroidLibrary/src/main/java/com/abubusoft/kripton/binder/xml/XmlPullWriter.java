@@ -39,7 +39,7 @@ import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.internal.MXSerializer;
 import com.abubusoft.kripton.binder.xml.internal.XmlSerializer;
 import com.abubusoft.kripton.binder.xml.internal.XmlSerializerFactor;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 
 /**
  * BinderWriter implementation using kxml pull parser.
@@ -99,7 +99,7 @@ public class XmlPullWriter implements BinderWriter {
 			String namespace = res.xmlInfo.getNamespace();
 			String xmlName = res.xmlInfo.getName();
 
-			if (!StringUtil.isEmpty(namespace)) { // bind to default namespace
+			if (!StringUtils.isEmpty(namespace)) { // bind to default namespace
 				serializer.setPrefix("", namespace);
 			}
 
@@ -173,7 +173,7 @@ public class XmlPullWriter implements BinderWriter {
 			if (value != null) {
 				// String attValue = Transformer.write(value, field.getType());
 				String attValue = Transformer.write(value, as.getFieldType());
-				if (!StringUtil.isEmpty(attValue)) {
+				if (!StringUtils.isEmpty(attValue)) {
 					serializer.attribute(null, as.getName(), attValue);
 				}
 			}
@@ -191,7 +191,7 @@ public class XmlPullWriter implements BinderWriter {
 		Object value = field.get(source);
 		if (value != null) {
 			String text = Transformer.write(value, vs.getFieldType());
-			if (!StringUtil.isEmpty(text)) {
+			if (!StringUtils.isEmpty(text)) {
 				if (vs.getXmlInfo().type == XmlType.VALUE_CDATA) {
 					serializer.cdsect(text);
 				} else {
@@ -383,7 +383,7 @@ public class XmlPullWriter implements BinderWriter {
 			// value
 			{
 				String value = Transformer.write(source.getValue(), type.valueClazz);
-				if (!StringUtil.isEmpty(value)) {
+				if (!StringUtils.isEmpty(value)) {
 					serializer.attribute(namespace, valueName, value);
 				}
 			}
@@ -407,7 +407,7 @@ public class XmlPullWriter implements BinderWriter {
 		// primitives
 		if (Transformer.isPrimitive(type)) {
 			String value = Transformer.write(source, type);
-			if (StringUtil.isEmpty(value))
+			if (StringUtils.isEmpty(value))
 				return;
 
 			serializer.startTag(namespace, xmlName);

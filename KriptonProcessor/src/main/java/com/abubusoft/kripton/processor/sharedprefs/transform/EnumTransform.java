@@ -18,8 +18,8 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -54,15 +54,15 @@ public class EnumTransform extends AbstractSPTransform {
 			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("($L.hasText(temp)) ? ", StringUtility.class);
-		methodBuilder.addCode("$T.valueOf(temp)", typeName, preferenceName);
+		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
+		methodBuilder.addCode("$T.valueOf(temp)", typeName);
 		methodBuilder.addCode(": null");
 
 		if (readAll) {
 			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
 		}
 		
-		methodBuilder.addCode(";");
+		methodBuilder.addCode(";\n");
 		
 		if (readAll) {
 			methodBuilder.endControlFlow();

@@ -4,9 +4,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
-import com.abubusoft.kripton.common.CollectionUtility;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.ProcessorHelper;
-import com.abubusoft.kripton.processor.utils.StringUtility;
+import com.abubusoft.kripton.common.StringUtils;
 import java.lang.Long;
 import java.lang.String;
 import java.util.ArrayList;
@@ -67,12 +67,12 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
       // read stringArray
       String tempStringArray=prefs.getString("stringArray", null);
       ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempStringArray);
-      bean.setStringArray((StringUtility.hasText(tempStringArray)) ? CollectionUtility.asArray(collection, new java.lang.String[collection.size()]): null);
+      bean.setStringArray((StringUtils.hasText(tempStringArray)) ? CollectionUtils.asArray(collection, new java.lang.String[collection.size()]): null);
     }
 
      {
       String temp=prefs.getString("stringList", null);
-      bean.stringList=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, temp): null;
+      bean.stringList=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, temp): null;
     }
 
     bean.valueInt=(int)prefs.getInt("valueInt", (int)bean.valueInt);
@@ -92,7 +92,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
     editor.putString("description",bean.getDescription());
     editor.putFloat("valueFloat",bean.valueFloat);
     editor.putBoolean("valueBoolean",(boolean)bean.valueBoolean);
-    if (bean.getStringArray()!=null) editor.putString("stringArray",ProcessorHelper.asString(CollectionUtility.asList(bean.getStringArray(), ArrayList.class))); else editor.putString("stringArray", null);
+    if (bean.getStringArray()!=null) editor.putString("stringArray",ProcessorHelper.asString(CollectionUtils.asList(bean.getStringArray(), ArrayList.class))); else editor.putString("stringArray", null);
     if (bean.stringList!=null) editor.putString("stringList",ProcessorHelper.asString(bean.stringList)); else editor.putString("stringList", null);
     editor.putInt("valueInt",(int)bean.valueInt);
     if (bean.valueLong!=null) editor.putLong("valueLong",bean.valueLong);
@@ -145,7 +145,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
     // read stringArray
     String tempStringArray=prefs.getString("stringArray", null);
     ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempStringArray);
-    return (StringUtility.hasText(tempStringArray)) ? CollectionUtility.asArray(collection, new java.lang.String[collection.size()]): null;
+    return (StringUtils.hasText(tempStringArray)) ? CollectionUtils.asArray(collection, new java.lang.String[collection.size()]): null;
 
   }
 
@@ -156,7 +156,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
    */
   public List<String> stringList() {
     String temp=prefs.getString("stringList", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, temp): null;
 
   }
 
@@ -181,7 +181,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
   /**
    * get instance of shared preferences
    */
-  public static BindAppPreferencesSharedPreferences instance() {
+  public static synchronized BindAppPreferencesSharedPreferences instance() {
     if (instance==null) {
       instance=new BindAppPreferencesSharedPreferences();
     }
@@ -231,7 +231,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
      * modifier for property stringArray
      */
     public BindEditor putStringArray(String[] value) {
-      if (value!=null) editor.putString("stringArray",ProcessorHelper.asString(CollectionUtility.asList(value, ArrayList.class))); else editor.putString("stringArray", null);
+      if (value!=null) editor.putString("stringArray",ProcessorHelper.asString(CollectionUtils.asList(value, ArrayList.class))); else editor.putString("stringArray", null);
       return this;
     }
 

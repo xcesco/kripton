@@ -40,7 +40,7 @@ public class TestTutorial extends BaseProcessorTest {
 	{
 		buildSharedPreferencesProcessorTest(SecurityPreferences.class, User.class);
 		
-		final User bean=new User();
+		//final User bean=new User();
 		
 	//	BindSecurityPreferences security=BindSecurityPreferences.instance();
 //		security.edit().putUser(bean).commit();

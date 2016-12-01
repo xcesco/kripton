@@ -104,7 +104,7 @@ public class LiteralType implements TypeMirror {
 					composedType=matcher.group(GROUP_COMPOSED_INDEX);;
 				}
 
-				if (value.indexOf(".") >= 0) {
+				if (value!=null && value.indexOf(".") >= 0) {
 					// assert: JDK lang
 					rawType = value;
 

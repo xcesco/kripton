@@ -37,6 +37,7 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindModel;
@@ -54,7 +55,6 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 
 /**
  * Annotation processor for json/xml/etc
@@ -171,7 +171,7 @@ public class BindTypeProcessor extends BaseProcessor {
 
 		// tag name
 		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindType.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
-		if (StringUtility.hasText(tagName)) {
+		if (StringUtils.hasText(tagName)) {
 			currentEntity.xmlInfo.tagName = tagName;
 		} else {
 			currentEntity.xmlInfo.tagName = typeNameConverter.convert(beanElement.getSimpleName().toString());
@@ -217,7 +217,7 @@ public class BindTypeProcessor extends BaseProcessor {
 						property.order = order;
 
 						String tempName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
-						if (StringUtility.hasText(tempName)) {
+						if (StringUtils.hasText(tempName)) {
 							property.xmlInfo.tag = tempName;
 						} else {
 							property.xmlInfo.tag = typeNameConverter.convert(property.getName());
@@ -225,7 +225,7 @@ public class BindTypeProcessor extends BaseProcessor {
 
 						// define element tag name
 						String tempElementName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_XML_ELEMENT_TAG);
-						if (StringUtility.hasText(tempElementName)) {
+						if (StringUtils.hasText(tempElementName)) {
 							property.xmlInfo.tagElement = tempElementName;
 							property.xmlInfo.wrappedCollection = true;
 						} else {
@@ -240,12 +240,12 @@ public class BindTypeProcessor extends BaseProcessor {
 
 						// map info
 						String mapKeyName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_MAP_KEY_NAME);
-						if (!StringUtility.hasText(mapKeyName))
+						if (!StringUtils.hasText(mapKeyName))
 							mapKeyName = Bind.MAP_KEY_DEFAULT;
 						property.mapKeyName = mapKeyName;
 
 						String mapValueName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_MAP_VALUE_NAME);
-						if (!StringUtility.hasText(mapValueName))
+						if (!StringUtils.hasText(mapValueName))
 							mapValueName = Bind.MAP_VALUE_DEFAULT;
 						property.mapValueName = mapValueName;
 

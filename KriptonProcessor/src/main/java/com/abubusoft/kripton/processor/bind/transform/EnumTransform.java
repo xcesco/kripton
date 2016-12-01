@@ -19,9 +19,9 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -136,7 +136,7 @@ public class EnumTransform extends AbstractBindTransform {
 		}
 		
 		methodBuilder.addStatement("String tempEnum=$L.getText()", parserName);
-		methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.hasText(tempEnum)?$T.valueOf(tempEnum):null"), StringUtility.class, typeName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property,"$T.hasText(tempEnum)?$T.valueOf(tempEnum):null"), StringUtils.class, typeName);
 		
 		methodBuilder.endControlFlow();
 	}

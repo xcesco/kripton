@@ -32,6 +32,7 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 import com.squareup.javapoet.TypeVariableName;
@@ -119,8 +120,8 @@ public class BindAsyncTaskBuilder {
 		
 		builder.addMethod(MethodSpec.methodBuilder("onProgressUpdate")
 				.addModifiers(Modifier.PUBLIC)				
-				.addParameter(TypeUtility.typeName("R"), "result")
-				.addJavadoc("Override this method to display operation progress on UI-Thred\n")
+				.addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.typeName("U")), "update").build()).varargs()
+				.addJavadoc("Override this method to display operation progress on UI-Thread\n")
 				.build());
 
 		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute")				
@@ -159,7 +160,7 @@ public class BindAsyncTaskBuilder {
 						.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value","$S", "unchecked").build())
 						.build())
 				.varargs(true)
-				.addStatement("onProgressUpdate(values)")
+				.addStatement("$L.this.onProgressUpdate(values)", className)
 				.build());
 		
 		anonymous.addMethod(MethodSpec.methodBuilder("onPostExecute")

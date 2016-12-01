@@ -5,7 +5,7 @@ import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.ProcessorHelper;
-import com.abubusoft.kripton.processor.utils.StringUtility;
+import com.abubusoft.kripton.common.StringUtils;
 import java.lang.Byte;
 import java.lang.Character;
 import java.lang.Double;
@@ -68,52 +68,52 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     bean.id=prefs.getLong("id", bean.id);
      {
       String temp=prefs.getString("valueByteSet", null);
-      bean.valueByteSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, temp): null;
+      bean.valueByteSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, temp): null;
     }
 
      {
       String temp=prefs.getString("valueShortSet", null);
-      bean.valueShortSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, temp): null;
+      bean.valueShortSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, temp): null;
     }
 
      {
       String temp=prefs.getString("valueIntegerSet", null);
-      bean.valueIntegerSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, temp): null;
+      bean.valueIntegerSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, temp): null;
     }
 
      {
       String temp=prefs.getString("valueStringSet", null);
-      bean.valueStringSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
+      bean.valueStringSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
     }
 
      {
       String temp=prefs.getString("valueCharacterSet", null);
-      bean.valueCharacterSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, temp): null;
+      bean.valueCharacterSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, temp): null;
     }
 
      {
       String temp=prefs.getString("valueFloatSet", null);
-      bean.valueFloatSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, temp): null;
+      bean.valueFloatSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, temp): null;
     }
 
      {
       String temp=prefs.getString("valueDoubleSet", null);
-      bean.valueDoubleSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, temp): null;
+      bean.valueDoubleSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, temp): null;
     }
 
      {
       String temp=prefs.getString("valueBigDecimalSet", null);
-      bean.valueBigDecimalSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, temp): null;
+      bean.valueBigDecimalSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, temp): null;
     }
 
      {
       String temp=prefs.getString("valueBeanSet", null);
-      bean.valueBeanSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, temp): null;
+      bean.valueBeanSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, temp): null;
     }
 
      {
       String temp=prefs.getString("valueEnumTypeSet", null);
-      bean.valueEnumTypeSet=StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, temp): null;
+      bean.valueEnumTypeSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, temp): null;
     }
 
 
@@ -158,7 +158,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public Set<Byte> valueByteSet() {
     String temp=prefs.getString("valueByteSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, temp): null;
 
   }
 
@@ -169,7 +169,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<Short> valueShortSet() {
     String temp=prefs.getString("valueShortSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, temp): null;
 
   }
 
@@ -180,7 +180,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public LinkedHashSet<Integer> valueIntegerSet() {
     String temp=prefs.getString("valueIntegerSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, temp): null;
 
   }
 
@@ -191,7 +191,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<String> valueStringSet() {
     String temp=prefs.getString("valueStringSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
 
   }
 
@@ -202,7 +202,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public Set<Character> valueCharacterSet() {
     String temp=prefs.getString("valueCharacterSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, temp): null;
 
   }
 
@@ -213,7 +213,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<Float> valueFloatSet() {
     String temp=prefs.getString("valueFloatSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, temp): null;
 
   }
 
@@ -224,7 +224,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<Double> valueDoubleSet() {
     String temp=prefs.getString("valueDoubleSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, temp): null;
 
   }
 
@@ -235,7 +235,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<BigDecimal> valueBigDecimalSet() {
     String temp=prefs.getString("valueBigDecimalSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, temp): null;
 
   }
 
@@ -246,7 +246,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public LinkedHashSet<Bean> valueBeanSet() {
     String temp=prefs.getString("valueBeanSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, temp): null;
 
   }
 
@@ -257,14 +257,14 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<EnumType> valueEnumTypeSet() {
     String temp=prefs.getString("valueEnumTypeSet", null);
-    return StringUtility.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, temp): null;
+    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, temp): null;
 
   }
 
   /**
    * get instance of shared preferences
    */
-  public static BindBeanSharedPreferences instance() {
+  public static synchronized BindBeanSharedPreferences instance() {
     if (instance==null) {
       instance=new BindBeanSharedPreferences();
     }

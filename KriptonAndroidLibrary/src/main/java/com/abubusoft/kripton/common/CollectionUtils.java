@@ -12,7 +12,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class CollectionUtility {
+public class CollectionUtils {
 
 	public static <E extends List<Byte>> E asList(Byte[] array, Class<E> listType) {
 		E result;

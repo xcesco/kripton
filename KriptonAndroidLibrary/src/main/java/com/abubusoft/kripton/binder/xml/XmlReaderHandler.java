@@ -37,7 +37,7 @@ import com.abubusoft.kripton.binder.schema.SchemaArray;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.binder.xml.internal.MapEntry;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryImpl;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TypeReflector;
 
 /**
@@ -263,7 +263,7 @@ class XmlReaderHandler extends DefaultHandler {
 					MapEntry mapStrategy = (MapEntry) obj;
 
 					String xmlData = helper.textBuilder.toString();
-					if (!StringUtil.isEmpty(xmlData)) {
+					if (!StringUtils.isEmpty(xmlData)) {
 						Class<?> type;
 						Object value;
 
@@ -289,7 +289,7 @@ class XmlReaderHandler extends DefaultHandler {
 
 					Field field = schema.getField();
 					String xmlData = helper.textBuilder.toString();
-					if (!StringUtil.isEmpty(xmlData)) {
+					if (!StringUtils.isEmpty(xmlData)) {
 						if (ms.xmlInfo.isMapEntryStub()) {
 							MapEntry mapStrategy = (MapEntry) obj;
 							Class<?> type = null;
@@ -378,7 +378,7 @@ class XmlReaderHandler extends DefaultHandler {
 
 					Field field = vs.getField();
 					String xmlData = helper.textBuilder.toString();
-					if (!StringUtil.isEmpty(xmlData)) {
+					if (!StringUtils.isEmpty(xmlData)) {
 						Object value = Transformer.read(xmlData, vs.getFieldType());
 						if (vs.getXmlInfo().enabled) {
 							field.set(obj, value);

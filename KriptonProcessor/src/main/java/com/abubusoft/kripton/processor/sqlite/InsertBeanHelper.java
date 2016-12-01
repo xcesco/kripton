@@ -25,7 +25,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -58,7 +58,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 		if (daoDefinition.isLogEnabled()) {
 			methodBuilder.addCode("// log\n");
-			methodBuilder.addCode("$T.info($T.formatSQL(\"SQL: $L\"));\n", Logger.class, StringUtil.class, sqlInsert);
+			methodBuilder.addCode("$T.info($T.formatSQL(\"SQL: $L\"));\n", Logger.class, StringUtils.class, sqlInsert);
 		}
 
 		methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
@@ -117,7 +117,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			for (SQLProperty property : listUsedProperty) {
 				bufferName.append(separator + daoDefinition.getColumnNameConverter().convert(property.getName()));
 				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
-				bufferQuestion.append(separator + "'\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(property.getName()) + "\"))+\"'");
+				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(property.getName()) + "\"))+\"'");
 				separator = ", ";
 			}
 

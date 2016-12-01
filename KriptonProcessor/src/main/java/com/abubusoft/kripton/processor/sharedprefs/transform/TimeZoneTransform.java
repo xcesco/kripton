@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
-import com.abubusoft.kripton.common.TimeZoneUtil;
+import com.abubusoft.kripton.common.TimeZoneUtils;
 
 /**
  * Transformer between a string and a java.util.TimeZone object
@@ -26,7 +26,7 @@ import com.abubusoft.kripton.common.TimeZoneUtil;
 public class TimeZoneTransform extends WrappedCompileTimeTransform {
 
 	public TimeZoneTransform() {
-		super(TimeZoneUtil.class);
+		super(TimeZoneUtils.class);
 	}
 }
 

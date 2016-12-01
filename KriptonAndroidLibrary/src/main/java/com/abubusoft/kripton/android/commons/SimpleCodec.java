@@ -18,7 +18,7 @@
  */
 package com.abubusoft.kripton.android.commons;
 
-import com.abubusoft.kripton.common.Base64Util;
+import com.abubusoft.kripton.common.Base64Utils;
 
 
 
@@ -46,7 +46,7 @@ public abstract class SimpleCodec {
 
 		invertElement(source);
 
-		String result = Base64Util.encode(source);
+		String result = Base64Utils.encode(source);
 
 		return result;
 	}
@@ -60,7 +60,7 @@ public abstract class SimpleCodec {
 	 * @since 1.4
 	 */
 	public static String decode(String source) {
-		byte[] temp = Base64Util.decode(source);
+		byte[] temp = Base64Utils.decode(source);
 
 		invertElement(temp);
 		return new String(temp);

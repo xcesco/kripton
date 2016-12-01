@@ -8,7 +8,7 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.common.LocaleUtil;
+import com.abubusoft.kripton.common.LocaleUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -65,7 +65,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
           if (item.getValue()==null) {
             jacksonSerializer.writeNullField("v");
           } else {
-            jacksonSerializer.writeStringField("v", LocaleUtil.write(item.getValue()));
+            jacksonSerializer.writeStringField("v", LocaleUtils.write(item.getValue()));
           }
           jacksonSerializer.writeEndObject();
         }
@@ -107,7 +107,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
           if (item.getValue()==null) {
             jacksonSerializer.writeNullField("v");
           } else {
-            jacksonSerializer.writeStringField("v", LocaleUtil.write(item.getValue()));
+            jacksonSerializer.writeStringField("v", LocaleUtils.write(item.getValue()));
           }
           jacksonSerializer.writeEndObject();
         }
@@ -147,7 +147,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
             } else {
               if (item.getValue()!=null)  {
                 xmlSerializer.writeStartElement("v");
-                xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(LocaleUtil.write(item.getValue())));
+                xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(LocaleUtils.write(item.getValue())));
                 xmlSerializer.writeEndElement();
               }
             }
@@ -198,7 +198,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                   key=context.mapperFor(BeanElement74.class).parseOnJackson(context, wrapper);
                   jacksonParser.nextValue();
                   if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                    value= LocaleUtil.read(jacksonParser.getText());
+                    value= LocaleUtils.read(jacksonParser.getText());
                   }
                   collection.put(key, value);
                   key=null;
@@ -261,7 +261,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                     break;
                     case "v":
                       if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                        value=LocaleUtil.read(jacksonParser.getText());
+                        value=LocaleUtils.read(jacksonParser.getText());
                       }
                     break;
                     }
@@ -332,7 +332,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                         value=null;
                         xmlParser.nextTag();
                       } else {
-                        value=LocaleUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                        value=LocaleUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                       }
                       xmlParser.nextTag();
                       collection.put(key, value);
@@ -344,7 +344,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
                           value=null;
                           xmlParser.nextTag();
                         } else {
-                          value=LocaleUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                          value=LocaleUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                         }
                         xmlParser.nextTag();
                         collection.put(key, value);

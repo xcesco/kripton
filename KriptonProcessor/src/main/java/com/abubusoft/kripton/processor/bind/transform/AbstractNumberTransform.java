@@ -19,7 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.binder.xml.XmlType;
-import com.abubusoft.kripton.common.BigDecimalUtil;
+import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;
@@ -33,7 +33,7 @@ abstract class AbstractNumberTransform extends AbstractBindTransform {
 	protected String ATTRIBUTE_METHOD;
 
 	public AbstractNumberTransform() {
-		NUMBER_UTIL_CLAZZ = BigDecimalUtil.class;
+		NUMBER_UTIL_CLAZZ = BigDecimalUtils.class;
 		
 	}
 

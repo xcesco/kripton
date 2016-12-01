@@ -9,9 +9,9 @@ import java.util.Map;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -61,7 +61,7 @@ public class MapTransformation extends AbstractSPTransform {
 			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtility.class);
+		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
 		methodBuilder.addCode("$T.asMap(new $T<$T, $T>(), $T.class, $T.class, temp)", utilClazz, mapClazz, keyTypeName, valueTypeName, keyTypeName, valueTypeName);
 		methodBuilder.addCode(": null");
 

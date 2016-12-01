@@ -3,7 +3,7 @@ package sqlite.kripton56.persistence;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import sqlite.kripton56.entities.OwnerType;
 
 /**
@@ -53,7 +53,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     String[] whereConditions={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE message SET ownerType='"+StringUtil.checkSize(contentValues.get("owner_type"))+"' WHERE  id = %s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE message SET ownerType='"+StringUtils.checkSize(contentValues.get("owner_type"))+"' WHERE  id = %s"), (Object[])whereConditions);
     int result = database().update("message", contentValues, " id = ?", whereConditions);
     return result!=0;
   }

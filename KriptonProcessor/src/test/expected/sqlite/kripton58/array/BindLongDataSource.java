@@ -71,7 +71,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   /**
    * instance
    */
-  public static BindLongDataSource instance() {
+  public static synchronized BindLongDataSource instance() {
     if (instance==null) {
       instance=new BindLongDataSource(KriptonLibrary.context());
     }

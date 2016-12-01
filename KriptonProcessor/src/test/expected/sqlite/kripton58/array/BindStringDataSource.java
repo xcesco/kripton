@@ -71,7 +71,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   /**
    * instance
    */
-  public static BindStringDataSource instance() {
+  public static synchronized BindStringDataSource instance() {
     if (instance==null) {
       instance=new BindStringDataSource(KriptonLibrary.context());
     }

@@ -71,7 +71,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   /**
    * instance
    */
-  public static BindCharDataSource instance() {
+  public static synchronized BindCharDataSource instance() {
     if (instance==null) {
       instance=new BindCharDataSource(KriptonLibrary.context());
     }

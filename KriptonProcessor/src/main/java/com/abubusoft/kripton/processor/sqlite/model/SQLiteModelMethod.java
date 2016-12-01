@@ -24,8 +24,8 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
 	
@@ -46,7 +46,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		
 		for (VariableElement p : element.getParameters()) {
 			BindSqlParam paramAlias=p.getAnnotation(BindSqlParam.class);
-			if (paramAlias!=null && StringUtility.hasText(paramAlias.value()))
+			if (paramAlias!=null && StringUtils.hasText(paramAlias.value()))
 			{
 				String alias=paramAlias.value();
 				parameterAlias2NameField.put(alias, p.getSimpleName().toString());

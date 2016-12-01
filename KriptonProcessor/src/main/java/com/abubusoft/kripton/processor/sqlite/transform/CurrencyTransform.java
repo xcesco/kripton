@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.common.CurrencyUtil;
+import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -34,7 +34,7 @@ class CurrencyTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
 			String cursorName, String indexName) {
-		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), CurrencyUtil.class, cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), CurrencyUtils.class, cursorName, indexName);
 
 	}
 	/*
@@ -47,12 +47,12 @@ class CurrencyTransform extends AbstractCompileTimeTransform {
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property) {
-		methodBuilder.addCode("$T.write($L)", CurrencyUtil.class, getter(beanName, beanClass, property));
+		methodBuilder.addCode("$T.write($L)", CurrencyUtils.class, getter(beanName, beanClass, property));
 	}
 
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String objectName) {
-		methodBuilder.addCode("$T.write($L)", CurrencyUtil.class, objectName);
+		methodBuilder.addCode("$T.write($L)", CurrencyUtils.class, objectName);
 	}
 
 	@Override

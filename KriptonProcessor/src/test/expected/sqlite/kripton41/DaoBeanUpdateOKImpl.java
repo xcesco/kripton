@@ -3,7 +3,7 @@ package sqlite.kripton41;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 
 /**
  * <p>
@@ -56,7 +56,7 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
 
     String[] whereConditions={String.valueOf(test)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean01 SET id='"+StringUtil.checkSize(contentValues.get("id"))+"', value='"+StringUtil.checkSize(contentValues.get("value"))+"' WHERE id=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET id='"+StringUtils.checkSize(contentValues.get("id"))+"', value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s"), (Object[])whereConditions);
     int result = database().update("bean01", contentValues, "id=?", whereConditions);
     return result!=0;
   }

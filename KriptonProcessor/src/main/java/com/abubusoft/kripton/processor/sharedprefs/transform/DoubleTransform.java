@@ -18,8 +18,8 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -37,9 +37,9 @@ public class DoubleTransform extends AbstractSPTransform {
 		
 		if (nullable)
 		{
-			defaultValue="\"0\"";
+			defaultValue=null;
 		} else {
-			defaultValue="null";
+			defaultValue="0.0";
 		}
 	}
 	
@@ -53,7 +53,7 @@ public class DoubleTransform extends AbstractSPTransform {
 			methodBuilder.beginControlFlow("");
 		}
 		
-		methodBuilder.addStatement("String temp=$L.getString($S, $L)", preferenceName, property.getName(), defaultValue);
+		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getName());
 		
 		if (readAll) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField()?"(":"=")+"", beanName);
@@ -61,7 +61,7 @@ public class DoubleTransform extends AbstractSPTransform {
 			methodBuilder.addCode("return ");
 		}
 		
-		methodBuilder.addCode("($L.hasText(temp)) ? ", StringUtility.class);
+		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
 		methodBuilder.addCode("$T.valueOf(temp)",  Double.class);
 		methodBuilder.addCode(": $L", defaultValue);
 		
@@ -69,7 +69,7 @@ public class DoubleTransform extends AbstractSPTransform {
 			methodBuilder.addCode((!property.isPublicOrPackageField()?")":""));
 		}
 		
-		methodBuilder.addCode(";");
+		methodBuilder.addCode(";\n");
 		
 		if (readAll) {
 			methodBuilder.endControlFlow();

@@ -2,7 +2,7 @@ package com.abubusoft.kripton.common;
 
 import java.util.Currency;
 
-public class CurrencyUtil {
+public class CurrencyUtils {
 
 	public static String write(Currency currency) {
 		return currency.toString();		

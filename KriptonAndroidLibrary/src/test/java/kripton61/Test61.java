@@ -32,7 +32,7 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.binder.json.JsonReader;
 import com.abubusoft.kripton.binder.json.JsonWriter;
-import com.abubusoft.kripton.common.CollectionUtility;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
@@ -99,7 +99,7 @@ public class Test61 {
 		BinderJsonWriter writer = KriptonBinder.getJsonWriter();
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
 		//String middle = writer.writeList(CollectionUtility.toList(list, LinkedList.class));
-		String middle = writer.writeCollection(CollectionUtility.asList(list, LinkedList.class));
+		String middle = writer.writeCollection(CollectionUtils.asList(list, LinkedList.class));
 		System.out.println(middle);
 
 		BinderJsonReader reader = (BinderJsonReader) KriptonBinder.getJsonReader();

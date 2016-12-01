@@ -6,9 +6,9 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.common.CollectionUtility;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.ProcessorHelper;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -49,7 +49,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -65,7 +65,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
       if (!cursor.isNull(index1)) { resultBean.value=cursor.getBlob(index1); }
-      if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtility.asByteArray(ProcessorHelper.asList(Byte.class, cursor.getBlob(index2))); }
+      if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtils.asByteArray(ProcessorHelper.asList(Byte.class, cursor.getBlob(index2))); }
 
     }
     cursor.close();
@@ -103,9 +103,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public ByteBean selectOne(byte[] value, Byte[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -121,7 +121,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
       if (!cursor.isNull(index1)) { resultBean.value=cursor.getBlob(index1); }
-      if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtility.asByteArray(ProcessorHelper.asList(Byte.class, cursor.getBlob(index2))); }
+      if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtils.asByteArray(ProcessorHelper.asList(Byte.class, cursor.getBlob(index2))); }
 
     }
     cursor.close();
@@ -159,9 +159,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(byte[] value, Byte[] value2, OnReadBeanListener<ByteBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     ByteBean resultBean=new ByteBean();
@@ -183,7 +183,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
           if (!cursor.isNull(index1)) { resultBean.value=cursor.getBlob(index1); }
-          if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtility.asByteArray(ProcessorHelper.asList(Byte.class, cursor.getBlob(index2))); }
+          if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtils.asByteArray(ProcessorHelper.asList(Byte.class, cursor.getBlob(index2))); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -226,9 +226,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(byte[] value, Byte[] value2, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -278,9 +278,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public List<ByteBean> selectList(byte[] value, Byte[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -299,7 +299,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
         if (!cursor.isNull(index1)) { resultBean.value=cursor.getBlob(index1); }
-        if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtility.asByteArray(ProcessorHelper.asList(Byte.class, cursor.getBlob(index2))); }
+        if (!cursor.isNull(index2)) { resultBean.value2=CollectionUtils.asByteArray(ProcessorHelper.asList(Byte.class, cursor.getBlob(index2))); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -338,9 +338,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={String.valueOf(id), (value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={String.valueOf(id), (value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE byte_bean SET  WHERE id=%s and value=%s and value2=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE byte_bean SET  WHERE id=%s and value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().update("byte_bean", contentValues, "id=? and value=? and value2=?", whereConditions);
     return result;
   }
@@ -379,13 +379,13 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     }
 
     if (value2!=null) {
-      contentValues.put("value2", ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)));
+      contentValues.put("value2", ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)));
     } else {
       contentValues.putNull("value2");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO byte_bean (id, value, value2) VALUES ('"+StringUtil.checkSize(contentValues.get("id"))+"', '"+StringUtil.checkSize(contentValues.get("value"))+"', '"+StringUtil.checkSize(contentValues.get("value2"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO byte_bean (id, value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("byte_bean", null, contentValues);
     return result;
   }
@@ -419,13 +419,13 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     }
 
     if (bean.value2!=null) {
-      contentValues.put("value2", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.value2, ArrayList.class)));
+      contentValues.put("value2", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.value2, ArrayList.class)));
     } else {
       contentValues.putNull("value2");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO byte_bean (value, value2) VALUES ('"+StringUtil.checkSize(contentValues.get("value"))+"', '"+StringUtil.checkSize(contentValues.get("value2"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO byte_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("byte_bean", null, contentValues);
     bean.id=result;
 
@@ -451,9 +451,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
    */
   @Override
   public long delete(byte[] value, Byte[] value2) {
-    String[] whereConditions={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("DELETE byte_bean WHERE value=%s and value2=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE byte_bean WHERE value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().delete("byte_bean", "value=? and value2=?", whereConditions);
     return result;
   }

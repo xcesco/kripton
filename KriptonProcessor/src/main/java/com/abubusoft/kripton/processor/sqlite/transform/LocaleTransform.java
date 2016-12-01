@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import com.abubusoft.kripton.common.LocaleUtil;
+import com.abubusoft.kripton.common.LocaleUtils;
 
 /**
  * Transformer between a string and a java.util.Locale object
@@ -23,9 +23,9 @@ import com.abubusoft.kripton.common.LocaleUtil;
  * @author bulldog
  *
  */
-public class LocaleTransform extends WrappedCompileTimeTransform<LocaleUtil> {
+public class LocaleTransform extends WrappedCompileTimeTransform<LocaleUtils> {
 
 	public LocaleTransform() {
-		super(LocaleUtil.class);
+		super(LocaleUtils.class);
 	}
 }

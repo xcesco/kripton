@@ -41,7 +41,7 @@ import com.abubusoft.kripton.binder.schema.ElementSchema.MapInfo;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TypeReflector;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
@@ -80,7 +80,7 @@ public class JsonReader implements BinderJsonReader {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public <T> T read(Class<? extends T> type, String source) throws ReaderException, MappingException {
 		// if empty input, exit immediately
-		if (StringUtil.isEmpty(source)) {
+		if (StringUtils.isEmpty(source)) {
 			return null;
 		}
 
@@ -110,7 +110,7 @@ public class JsonReader implements BinderJsonReader {
 		}
 
 		try {
-			return this.read(type, StringUtil.reader2String(source));
+			return this.read(type, StringUtils.reader2String(source));
 		} catch (IOException e) {
 			throw new ReaderException("IO error!", e);
 		}
@@ -414,7 +414,7 @@ public class JsonReader implements BinderJsonReader {
 		}
 
 		try {
-			return this.readList(type, StringUtil.reader2String(source));
+			return this.readList(type, StringUtils.reader2String(source));
 		} catch (IOException e) {
 			throw new ReaderException("IO error!", e);
 		}
@@ -452,7 +452,7 @@ public class JsonReader implements BinderJsonReader {
 		}
 
 		try {
-			return this.readCollection(collection, type, StringUtil.reader2String(source));
+			return this.readCollection(collection, type, StringUtils.reader2String(source));
 		} catch (IOException e) {
 			throw new ReaderException("IO error!", e);
 		}
@@ -525,7 +525,7 @@ public class JsonReader implements BinderJsonReader {
 		}
 
 		try {
-			return this.readMap(map, keyType, valueType, StringUtil.reader2String(source));
+			return this.readMap(map, keyType, valueType, StringUtils.reader2String(source));
 		} catch (IOException e) {
 			throw new ReaderException("IO error!", e);
 		}

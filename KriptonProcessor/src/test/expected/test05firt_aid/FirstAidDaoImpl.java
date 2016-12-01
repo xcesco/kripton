@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid WHERE 1=1 ORDER BY name"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid WHERE 1=1 ORDER BY name"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid WHERE 1=1 ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -144,7 +144,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   public int deleteAll() {
     String[] whereConditions={};
 
-    Logger.info(StringUtil.formatSQL("DELETE first_aid WHERE 1=1"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE first_aid WHERE 1=1"), (Object[])whereConditions);
     int result = database().delete("first_aid", "1=1", whereConditions);
     return result;
   }
@@ -285,7 +285,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO first_aid (uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time) VALUES ('"+StringUtil.checkSize(contentValues.get("uid"))+"', '"+StringUtil.checkSize(contentValues.get("description"))+"', '"+StringUtil.checkSize(contentValues.get("info"))+"', '"+StringUtil.checkSize(contentValues.get("longitude"))+"', '"+StringUtil.checkSize(contentValues.get("latitude"))+"', '"+StringUtil.checkSize(contentValues.get("address"))+"', '"+StringUtil.checkSize(contentValues.get("address2"))+"', '"+StringUtil.checkSize(contentValues.get("city"))+"', '"+StringUtil.checkSize(contentValues.get("phone"))+"', '"+StringUtil.checkSize(contentValues.get("total_patient_count"))+"', '"+StringUtil.checkSize(contentValues.get("white_waiting_patients"))+"', '"+StringUtil.checkSize(contentValues.get("white_visiting_patients"))+"', '"+StringUtil.checkSize(contentValues.get("white_average_waiting_time"))+"', '"+StringUtil.checkSize(contentValues.get("green_waiting_patients"))+"', '"+StringUtil.checkSize(contentValues.get("green_visiting_patients"))+"', '"+StringUtil.checkSize(contentValues.get("green_average_waiting_time"))+"', '"+StringUtil.checkSize(contentValues.get("yellow_waiting_patients"))+"', '"+StringUtil.checkSize(contentValues.get("yellow_visiting_patients"))+"', '"+StringUtil.checkSize(contentValues.get("yellow_average_waiting_time"))+"', '"+StringUtil.checkSize(contentValues.get("red_waiting_patients"))+"', '"+StringUtil.checkSize(contentValues.get("red_average_waiting_time"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO first_aid (uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("description"))+"', '"+StringUtils.checkSize(contentValues.get("info"))+"', '"+StringUtils.checkSize(contentValues.get("longitude"))+"', '"+StringUtils.checkSize(contentValues.get("latitude"))+"', '"+StringUtils.checkSize(contentValues.get("address"))+"', '"+StringUtils.checkSize(contentValues.get("address2"))+"', '"+StringUtils.checkSize(contentValues.get("city"))+"', '"+StringUtils.checkSize(contentValues.get("phone"))+"', '"+StringUtils.checkSize(contentValues.get("total_patient_count"))+"', '"+StringUtils.checkSize(contentValues.get("white_waiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("white_visiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("white_average_waiting_time"))+"', '"+StringUtils.checkSize(contentValues.get("green_waiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("green_visiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("green_average_waiting_time"))+"', '"+StringUtils.checkSize(contentValues.get("yellow_waiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("yellow_visiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("yellow_average_waiting_time"))+"', '"+StringUtils.checkSize(contentValues.get("red_waiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("red_average_waiting_time"))+"')"));
     long result = database().insert("first_aid", null, contentValues);
     bean.id=result;
 

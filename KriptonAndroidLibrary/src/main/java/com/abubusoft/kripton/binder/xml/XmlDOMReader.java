@@ -49,7 +49,7 @@ import com.abubusoft.kripton.binder.schema.TypeElementSchema;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.binder.transform.Transformer;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TypeReflector;
 
 /**
@@ -150,7 +150,7 @@ public class XmlDOMReader implements BinderReader {
 		}
 
 		try {
-			return this.read(type, StringUtil.reader2String(source));
+			return this.read(type, StringUtils.reader2String(source));
 		} catch (IOException e) {
 			throw new ReaderException("IO error event converting reader to string!", e);
 		}
@@ -193,7 +193,7 @@ public class XmlDOMReader implements BinderReader {
 			for (String attrXmlName : asm.keySet()) {
 				ElementSchema as = asm.get(attrXmlName);
 				String attrValue = element.getAttributeNS(null, attrXmlName);
-				if (!StringUtil.isEmpty(attrValue)) {
+				if (!StringUtils.isEmpty(attrValue)) {
 					Field field = as.getField();
 					Object filedValue = Transformer.read(attrValue, as.getFieldType());
 					if (filedValue != null) {
@@ -212,7 +212,7 @@ public class XmlDOMReader implements BinderReader {
 		if (vs != null) {
 			Field field = vs.getField();
 			String text = element.getTextContent();
-			if (!StringUtil.isEmpty(text)) {
+			if (!StringUtils.isEmpty(text)) {
 				Object fieldValue = Transformer.read(text, vs.getFieldType());
 				if (fieldValue != null) {
 					field.set(obj, fieldValue);
@@ -275,7 +275,7 @@ public class XmlDOMReader implements BinderReader {
 							// primitive
 							if (Transformer.isPrimitive(parameterizedType)) {
 								String xmlValue = childElement.getTextContent();
-								if (!StringUtil.isEmpty(xmlValue)) {
+								if (!StringUtils.isEmpty(xmlValue)) {
 									Object fieldValue = Transformer.read(xmlValue, parameterizedType);
 									if (fieldValue != null) {
 										list.add(fieldValue);
@@ -300,7 +300,7 @@ public class XmlDOMReader implements BinderReader {
 							// primitive
 							if (Transformer.isPrimitive(setParameterizedType)) {
 								String xmlValue = childElement.getTextContent();
-								if (!StringUtil.isEmpty(xmlValue)) {
+								if (!StringUtils.isEmpty(xmlValue)) {
 									Object fieldValue = Transformer.read(xmlValue, setParameterizedType);
 									if (fieldValue != null) {
 										set.add(fieldValue);
@@ -386,7 +386,7 @@ public class XmlDOMReader implements BinderReader {
 							// primitive
 							if (Transformer.isPrimitive(arrayParameterizedType)) {
 								String xmlValue = childElement.getTextContent();
-								if (!StringUtil.isEmpty(xmlValue)) {
+								if (!StringUtils.isEmpty(xmlValue)) {
 									Object fieldValue = Transformer.read(xmlValue, arrayParameterizedType);
 									if (fieldValue != null) {
 										Array.set(array, index++, fieldValue);
@@ -406,7 +406,7 @@ public class XmlDOMReader implements BinderReader {
 							// primitive
 							if (Transformer.isPrimitive(fieldType)) {
 								String xmlValue = childElement.getTextContent();
-								if (!StringUtil.isEmpty(xmlValue)) {
+								if (!StringUtils.isEmpty(xmlValue)) {
 									Object fieldValue = Transformer.read(xmlValue, fieldType);
 									if (fieldValue != null) {
 										field.set(obj, fieldValue);
@@ -432,7 +432,7 @@ public class XmlDOMReader implements BinderReader {
 		// primitive
 		if (Transformer.isPrimitive(type)) {
 			String xmlValue = element.getTextContent();
-			if (!StringUtil.isEmpty(xmlValue)) {
+			if (!StringUtils.isEmpty(xmlValue)) {
 				Object fieldValue = Transformer.read(xmlValue, type);
 
 				return fieldValue;

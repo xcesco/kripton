@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import com.abubusoft.kripton.common.TimeUtil;
+import com.abubusoft.kripton.common.TimeUtils;
 
 /**
  * Transformer between a string and a custom Time object
@@ -23,9 +23,9 @@ import com.abubusoft.kripton.common.TimeUtil;
  * @author bulldog
  *
  */
-public class TimeTransform extends WrappedCompileTimeTransform<TimeUtil> {
+public class TimeTransform extends WrappedCompileTimeTransform<TimeUtils> {
 
 	public TimeTransform() {
-		super(TimeUtil.class);
+		super(TimeUtils.class);
 	}
 }

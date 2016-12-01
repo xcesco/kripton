@@ -20,11 +20,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import kripton64.BeanDaoImpl;
-import kripton64.BindBeanDaoFactory;
-import kripton64.BindBeanDataSource;
-import kripton64.BindBeanDataSource.Transaction;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,8 +29,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
-import base.BaseProcessorTest;
-
 import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderJsonWriter;
 import com.abubusoft.kripton.KriptonBinder;
@@ -43,6 +36,9 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
+
+import base.BaseProcessorTest;
+import sqlite.kripton64.BindBeanDataSource.Transaction;
 
 /**
  * @author xcesco

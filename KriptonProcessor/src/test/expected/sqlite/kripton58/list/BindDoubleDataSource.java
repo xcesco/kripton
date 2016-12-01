@@ -71,7 +71,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   /**
    * instance
    */
-  public static BindDoubleDataSource instance() {
+  public static synchronized BindDoubleDataSource instance() {
     if (instance==null) {
       instance=new BindDoubleDataSource(KriptonLibrary.context());
     }

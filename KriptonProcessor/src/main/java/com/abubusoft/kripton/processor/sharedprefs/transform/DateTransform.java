@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
-import com.abubusoft.kripton.common.DateUtil;
+import com.abubusoft.kripton.common.DateUtils;
 
 /**
  * Transformer between a string and a java.util.Date object
@@ -26,6 +26,6 @@ import com.abubusoft.kripton.common.DateUtil;
 class DateTransform extends WrappedCompileTimeTransform {
 
 	public DateTransform() {
-		super(DateUtil.class);
+		super(DateUtils.class);
 	}
 }

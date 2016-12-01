@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import com.abubusoft.kripton.common.TimeZoneUtil;
+import com.abubusoft.kripton.common.TimeZoneUtils;
 
 /**
  * Transformer between a string and a java.util.TimeZone object
@@ -23,10 +23,10 @@ import com.abubusoft.kripton.common.TimeZoneUtil;
  * @author bulldog
  *
  */
-public class TimeZoneTransform extends WrappedCompileTimeTransform<TimeZoneUtil> {
+public class TimeZoneTransform extends WrappedCompileTimeTransform<TimeZoneUtils> {
 
 	public TimeZoneTransform() {
-		super(TimeZoneUtil.class);
+		super(TimeZoneUtils.class);
 	}
 }
 

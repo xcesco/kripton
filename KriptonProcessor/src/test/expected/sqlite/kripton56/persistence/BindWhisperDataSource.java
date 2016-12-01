@@ -72,7 +72,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   /**
    * instance
    */
-  public static BindWhisperDataSource instance() {
+  public static synchronized BindWhisperDataSource instance() {
     if (instance==null) {
       instance=new BindWhisperDataSource(KriptonLibrary.context());
     }

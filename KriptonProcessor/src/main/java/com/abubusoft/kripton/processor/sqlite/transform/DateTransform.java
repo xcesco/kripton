@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import com.abubusoft.kripton.common.DateUtil;
+import com.abubusoft.kripton.common.DateUtils;
 
 /**
  * Transformer between a string and a java.util.Date object
@@ -23,9 +23,9 @@ import com.abubusoft.kripton.common.DateUtil;
  * @author bulldog
  *
  */
-class DateTransform extends WrappedCompileTimeTransform<DateUtil> {
+class DateTransform extends WrappedCompileTimeTransform<DateUtils> {
 
 	public DateTransform() {
-		super(DateUtil.class);
+		super(DateUtils.class);
 	}
 }

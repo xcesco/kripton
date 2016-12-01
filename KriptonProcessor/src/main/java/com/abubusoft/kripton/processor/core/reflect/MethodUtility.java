@@ -42,7 +42,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelType;
@@ -346,7 +346,7 @@ public abstract class MethodUtility {
 		methodBuilder.addCode("\n");
 
 		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"),(Object[])args);\n", Logger.class, StringUtil.class, sql.replaceAll("\\?", "\'%s\'"));
+			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"),(Object[])args);\n", Logger.class, StringUtils.class, sql.replaceAll("\\?", "\'%s\'"));
 		}
 		methodBuilder.addCode("$T cursor = database().rawQuery(\"$L\", args);\n", Cursor.class, sql);
 

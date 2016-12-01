@@ -71,7 +71,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   /**
    * instance
    */
-  public static BindFirstAidDataSource instance() {
+  public static synchronized BindFirstAidDataSource instance() {
     if (instance==null) {
       instance=new BindFirstAidDataSource(KriptonLibrary.context());
     }

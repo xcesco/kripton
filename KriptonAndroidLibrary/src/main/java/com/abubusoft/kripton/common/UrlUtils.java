@@ -3,7 +3,7 @@ package com.abubusoft.kripton.common;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class UrlUtil {
+public class UrlUtils {
 
 	public static String write(URL url) {
 		return url.toString();

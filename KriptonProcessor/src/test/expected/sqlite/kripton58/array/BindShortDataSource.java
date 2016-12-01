@@ -71,7 +71,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   /**
    * instance
    */
-  public static BindShortDataSource instance() {
+  public static synchronized BindShortDataSource instance() {
     if (instance==null) {
       instance=new BindShortDataSource(KriptonLibrary.context());
     }

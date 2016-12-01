@@ -8,19 +8,19 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.common.BigDecimalUtil;
-import com.abubusoft.kripton.common.BigIntegerUtil;
-import com.abubusoft.kripton.common.CalendarUtil;
-import com.abubusoft.kripton.common.CurrencyUtil;
-import com.abubusoft.kripton.common.DateUtil;
-import com.abubusoft.kripton.common.LocaleUtil;
-import com.abubusoft.kripton.common.PrimitiveUtil;
-import com.abubusoft.kripton.common.TimeUtil;
-import com.abubusoft.kripton.common.TimeZoneUtil;
-import com.abubusoft.kripton.common.UrlUtil;
+import com.abubusoft.kripton.common.BigDecimalUtils;
+import com.abubusoft.kripton.common.BigIntegerUtils;
+import com.abubusoft.kripton.common.CalendarUtils;
+import com.abubusoft.kripton.common.CurrencyUtils;
+import com.abubusoft.kripton.common.DateUtils;
+import com.abubusoft.kripton.common.LocaleUtils;
+import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.TimeUtils;
+import com.abubusoft.kripton.common.TimeZoneUtils;
+import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -69,13 +69,13 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueBigDecimal
       if (object.valueBigDecimal!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtil.write(object.valueBigDecimal));
+        jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtils.write(object.valueBigDecimal));
       }
 
       // field valueBigInteger
       if (object.valueBigInteger!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtil.write(object.valueBigInteger));
+        jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtils.write(object.valueBigInteger));
       }
 
       // field valueBool
@@ -101,7 +101,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueCalendar
       if (object.valueCalendar!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueCalendar", CalendarUtil.write(object.valueCalendar));
+        jacksonSerializer.writeStringField("valueCalendar", CalendarUtils.write(object.valueCalendar));
       }
 
       // field valueChar
@@ -123,13 +123,13 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueCurrency
       if (object.valueCurrency!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueCurrency", CurrencyUtil.write(object.valueCurrency));
+        jacksonSerializer.writeStringField("valueCurrency", CurrencyUtils.write(object.valueCurrency));
       }
 
       // field valueDate
       if (object.valueDate!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueDate", DateUtil.write(object.valueDate));
+        jacksonSerializer.writeStringField("valueDate", DateUtils.write(object.valueDate));
       }
 
       // field valueDouble
@@ -171,7 +171,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueLocale
       if (object.valueLocale!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueLocale", LocaleUtil.write(object.valueLocale));
+        jacksonSerializer.writeStringField("valueLocale", LocaleUtils.write(object.valueLocale));
       }
 
       // field valueLong
@@ -203,19 +203,19 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueTime
       if (object.valueTime!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueTime", TimeUtil.write(object.valueTime));
+        jacksonSerializer.writeStringField("valueTime", TimeUtils.write(object.valueTime));
       }
 
       // field valueTimeZone
       if (object.valueTimeZone!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueTimeZone", TimeZoneUtil.write(object.valueTimeZone));
+        jacksonSerializer.writeStringField("valueTimeZone", TimeZoneUtils.write(object.valueTimeZone));
       }
 
       // field valueUrl
       if (object.valueUrl!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueUrl", UrlUtil.write(object.valueUrl));
+        jacksonSerializer.writeStringField("valueUrl", UrlUtils.write(object.valueUrl));
       }
 
       // field id
@@ -254,69 +254,69 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueBigDecimal
       if (object.valueBigDecimal!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtil.write(object.valueBigDecimal));
+        jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtils.write(object.valueBigDecimal));
       }
 
       // field valueBigInteger
       if (object.valueBigInteger!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtil.write(object.valueBigInteger));
+        jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtils.write(object.valueBigInteger));
       }
 
       // field valueBool
       if (object.valueBool!=null)  {
-        jacksonSerializer.writeStringField("valueBool", PrimitiveUtil.writeBoolean(object.valueBool));
+        jacksonSerializer.writeStringField("valueBool", PrimitiveUtils.writeBoolean(object.valueBool));
       }
 
       // field valueBoolType
-      jacksonSerializer.writeStringField("valueBoolType", PrimitiveUtil.writeBoolean(object.valueBoolType));
+      jacksonSerializer.writeStringField("valueBoolType", PrimitiveUtils.writeBoolean(object.valueBoolType));
 
       // field valueByte
       if (object.valueByte!=null)  {
-        jacksonSerializer.writeStringField("valueByte", PrimitiveUtil.writeByte(object.valueByte));
+        jacksonSerializer.writeStringField("valueByte", PrimitiveUtils.writeByte(object.valueByte));
       }
 
       // field valueByteType
-      jacksonSerializer.writeStringField("valueByteType", PrimitiveUtil.writeByte(object.valueByteType));
+      jacksonSerializer.writeStringField("valueByteType", PrimitiveUtils.writeByte(object.valueByteType));
 
       // field valueCalendar
       if (object.valueCalendar!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueCalendar", CalendarUtil.write(object.valueCalendar));
+        jacksonSerializer.writeStringField("valueCalendar", CalendarUtils.write(object.valueCalendar));
       }
 
       // field valueChar
       if (object.valueChar!=null)  {
-        jacksonSerializer.writeStringField("valueChar", PrimitiveUtil.writeCharacter(object.valueChar));
+        jacksonSerializer.writeStringField("valueChar", PrimitiveUtils.writeCharacter(object.valueChar));
       }
 
       // field valueCharType
-      jacksonSerializer.writeStringField("valueCharType", PrimitiveUtil.writeCharacter(object.valueCharType));
+      jacksonSerializer.writeStringField("valueCharType", PrimitiveUtils.writeCharacter(object.valueCharType));
 
       // field valueContentBoolType
       if (object.valueContentBoolType!=null)  {
-        jacksonSerializer.writeStringField("valueContentBoolType", PrimitiveUtil.writeInteger(object.valueContentBoolType));
+        jacksonSerializer.writeStringField("valueContentBoolType", PrimitiveUtils.writeInteger(object.valueContentBoolType));
       }
 
       // field valueCurrency
       if (object.valueCurrency!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueCurrency", CurrencyUtil.write(object.valueCurrency));
+        jacksonSerializer.writeStringField("valueCurrency", CurrencyUtils.write(object.valueCurrency));
       }
 
       // field valueDate
       if (object.valueDate!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueDate", DateUtil.write(object.valueDate));
+        jacksonSerializer.writeStringField("valueDate", DateUtils.write(object.valueDate));
       }
 
       // field valueDouble
       if (object.valueDouble!=null)  {
-        jacksonSerializer.writeStringField("valueDouble", PrimitiveUtil.writeDouble(object.valueDouble));
+        jacksonSerializer.writeStringField("valueDouble", PrimitiveUtils.writeDouble(object.valueDouble));
       }
 
       // field valueDoubleType
-      jacksonSerializer.writeStringField("valueDoubleType", PrimitiveUtil.writeDouble(object.valueDoubleType));
+      jacksonSerializer.writeStringField("valueDoubleType", PrimitiveUtils.writeDouble(object.valueDoubleType));
 
       // field valueEnum
       if (object.valueEnum!=null)  {
@@ -326,41 +326,41 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueFloat
       if (object.valueFloat!=null)  {
-        jacksonSerializer.writeStringField("valueFloat", PrimitiveUtil.writeFloat(object.valueFloat));
+        jacksonSerializer.writeStringField("valueFloat", PrimitiveUtils.writeFloat(object.valueFloat));
       }
 
       // field valueFloatType
-      jacksonSerializer.writeStringField("valueFloatType", PrimitiveUtil.writeFloat(object.valueFloatType));
+      jacksonSerializer.writeStringField("valueFloatType", PrimitiveUtils.writeFloat(object.valueFloatType));
 
       // field valueInt
       if (object.valueInt!=null)  {
-        jacksonSerializer.writeStringField("valueInt", PrimitiveUtil.writeInteger(object.valueInt));
+        jacksonSerializer.writeStringField("valueInt", PrimitiveUtils.writeInteger(object.valueInt));
       }
 
       // field valueIntType
-      jacksonSerializer.writeStringField("valueIntType", PrimitiveUtil.writeInteger(object.valueIntType));
+      jacksonSerializer.writeStringField("valueIntType", PrimitiveUtils.writeInteger(object.valueIntType));
 
       // field valueLocale
       if (object.valueLocale!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueLocale", LocaleUtil.write(object.valueLocale));
+        jacksonSerializer.writeStringField("valueLocale", LocaleUtils.write(object.valueLocale));
       }
 
       // field valueLong
       if (object.valueLong!=null)  {
-        jacksonSerializer.writeStringField("valueLong", PrimitiveUtil.writeLong(object.valueLong));
+        jacksonSerializer.writeStringField("valueLong", PrimitiveUtils.writeLong(object.valueLong));
       }
 
       // field valueLongType
-      jacksonSerializer.writeStringField("valueLongType", PrimitiveUtil.writeLong(object.valueLongType));
+      jacksonSerializer.writeStringField("valueLongType", PrimitiveUtils.writeLong(object.valueLongType));
 
       // field valueShort
       if (object.valueShort!=null)  {
-        jacksonSerializer.writeStringField("valueShort", PrimitiveUtil.writeShort(object.valueShort));
+        jacksonSerializer.writeStringField("valueShort", PrimitiveUtils.writeShort(object.valueShort));
       }
 
       // field valueShortType
-      jacksonSerializer.writeStringField("valueShortType", PrimitiveUtil.writeShort(object.valueShortType));
+      jacksonSerializer.writeStringField("valueShortType", PrimitiveUtils.writeShort(object.valueShortType));
 
       // field valueString
       if (object.valueString!=null)  {
@@ -371,23 +371,23 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueTime
       if (object.valueTime!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueTime", TimeUtil.write(object.valueTime));
+        jacksonSerializer.writeStringField("valueTime", TimeUtils.write(object.valueTime));
       }
 
       // field valueTimeZone
       if (object.valueTimeZone!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueTimeZone", TimeZoneUtil.write(object.valueTimeZone));
+        jacksonSerializer.writeStringField("valueTimeZone", TimeZoneUtils.write(object.valueTimeZone));
       }
 
       // field valueUrl
       if (object.valueUrl!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueUrl", UrlUtil.write(object.valueUrl));
+        jacksonSerializer.writeStringField("valueUrl", UrlUtils.write(object.valueUrl));
       }
 
       // field id
-      jacksonSerializer.writeStringField("id", PrimitiveUtil.writeLong(object.getId()));
+      jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.getId()));
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
@@ -420,14 +420,14 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueBigDecimal
       if (object.valueBigDecimal!=null)  {
         xmlSerializer.writeStartElement("valueBigDecimal");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(BigDecimalUtil.write(object.valueBigDecimal)));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(BigDecimalUtils.write(object.valueBigDecimal)));
         xmlSerializer.writeEndElement();
       }
 
       // field valueBigInteger
       if (object.valueBigInteger!=null)  {
         xmlSerializer.writeStartElement("valueBigInteger");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(BigIntegerUtil.write(object.valueBigInteger)));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(BigIntegerUtils.write(object.valueBigInteger)));
         xmlSerializer.writeEndElement();
       }
 
@@ -458,7 +458,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueCalendar
       if (object.valueCalendar!=null)  {
         xmlSerializer.writeStartElement("valueCalendar");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(CalendarUtil.write(object.valueCalendar)));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(CalendarUtils.write(object.valueCalendar)));
         xmlSerializer.writeEndElement();
       }
 
@@ -477,14 +477,14 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueCurrency
       if (object.valueCurrency!=null)  {
         xmlSerializer.writeStartElement("valueCurrency");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(CurrencyUtil.write(object.valueCurrency)));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(CurrencyUtils.write(object.valueCurrency)));
         xmlSerializer.writeEndElement();
       }
 
       // field valueDate
       if (object.valueDate!=null)  {
         xmlSerializer.writeStartElement("valueDate");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtil.write(object.valueDate)));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtils.write(object.valueDate)));
         xmlSerializer.writeEndElement();
       }
 
@@ -534,7 +534,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueLocale
       if (object.valueLocale!=null)  {
         xmlSerializer.writeStartElement("valueLocale");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(LocaleUtil.write(object.valueLocale)));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(LocaleUtils.write(object.valueLocale)));
         xmlSerializer.writeEndElement();
       }
 
@@ -572,21 +572,21 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
       // field valueTime
       if (object.valueTime!=null)  {
         xmlSerializer.writeStartElement("valueTime");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(TimeUtil.write(object.valueTime)));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(TimeUtils.write(object.valueTime)));
         xmlSerializer.writeEndElement();
       }
 
       // field valueTimeZone
       if (object.valueTimeZone!=null)  {
         xmlSerializer.writeStartElement("valueTimeZone");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(TimeZoneUtil.write(object.valueTimeZone)));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(TimeZoneUtils.write(object.valueTimeZone)));
         xmlSerializer.writeEndElement();
       }
 
       // field valueUrl
       if (object.valueUrl!=null)  {
         xmlSerializer.writeStartElement("valueUrl");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(UrlUtil.write(object.valueUrl)));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(UrlUtils.write(object.valueUrl)));
         xmlSerializer.writeEndElement();
       }
 
@@ -597,7 +597,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
 
       // field valueContentBoolType
       if (object.valueContentBoolType!=null)  {
-        xmlSerializer.writeCData(PrimitiveUtil.writeInteger(object.valueContentBoolType));
+        xmlSerializer.writeCData(PrimitiveUtils.writeInteger(object.valueContentBoolType));
       }
 
       if (currentEventType == 0) {
@@ -640,13 +640,13 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueBigDecimal":
               // field valueBigDecimal
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueBigDecimal=BigDecimalUtil.read(jacksonParser.getText());
+                instance.valueBigDecimal=BigDecimalUtils.read(jacksonParser.getText());
               }
             break;
             case "valueBigInteger":
               // field valueBigInteger
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueBigInteger=BigIntegerUtil.read(jacksonParser.getText());
+                instance.valueBigInteger=BigIntegerUtils.read(jacksonParser.getText());
               }
             break;
             case "valueBool":
@@ -672,7 +672,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueCalendar":
               // field valueCalendar
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueCalendar= CalendarUtil.read(jacksonParser.getText());
+                instance.valueCalendar= CalendarUtils.read(jacksonParser.getText());
               }
             break;
             case "valueChar":
@@ -688,13 +688,13 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueCurrency":
               // field valueCurrency
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueCurrency= CurrencyUtil.read(jacksonParser.getText());
+                instance.valueCurrency= CurrencyUtils.read(jacksonParser.getText());
               }
             break;
             case "valueDate":
               // field valueDate
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDate= DateUtil.read(jacksonParser.getText());
+                instance.valueDate= DateUtils.read(jacksonParser.getText());
               }
             break;
             case "valueDouble":
@@ -711,7 +711,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
               // field valueEnum
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 String tempEnum=jacksonParser.getText();
-                instance.valueEnum=StringUtility.hasText(tempEnum)?BeanEnum.valueOf(tempEnum):null;
+                instance.valueEnum=StringUtils.hasText(tempEnum)?BeanEnum.valueOf(tempEnum):null;
               }
             break;
             case "valueFloat":
@@ -737,7 +737,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueLocale":
               // field valueLocale
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueLocale= LocaleUtil.read(jacksonParser.getText());
+                instance.valueLocale= LocaleUtils.read(jacksonParser.getText());
               }
             break;
             case "valueLong":
@@ -769,19 +769,19 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueTime":
               // field valueTime
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueTime= TimeUtil.read(jacksonParser.getText());
+                instance.valueTime= TimeUtils.read(jacksonParser.getText());
               }
             break;
             case "valueTimeZone":
               // field valueTimeZone
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueTimeZone= TimeZoneUtil.read(jacksonParser.getText());
+                instance.valueTimeZone= TimeZoneUtils.read(jacksonParser.getText());
               }
             break;
             case "valueUrl":
               // field valueUrl
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueUrl= UrlUtil.read(jacksonParser.getText());
+                instance.valueUrl= UrlUtils.read(jacksonParser.getText());
               }
             break;
             case "id":
@@ -836,125 +836,125 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueBigDecimal":
               // field valueBigDecimal
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueBigDecimal=BigDecimalUtil.read(jacksonParser.getText());
+                instance.valueBigDecimal=BigDecimalUtils.read(jacksonParser.getText());
               }
             break;
             case "valueBigInteger":
               // field valueBigInteger
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueBigInteger=BigIntegerUtil.read(jacksonParser.getText());
+                instance.valueBigInteger=BigIntegerUtils.read(jacksonParser.getText());
               }
             break;
             case "valueBool":
               // field valueBool
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueBool=PrimitiveUtil.readBoolean(jacksonParser.getText(), null);
+                instance.valueBool=PrimitiveUtils.readBoolean(jacksonParser.getText(), null);
               }
             break;
             case "valueBoolType":
               // field valueBoolType
-              instance.valueBoolType=PrimitiveUtil.readBoolean(jacksonParser.getText(), (boolean)false);
+              instance.valueBoolType=PrimitiveUtils.readBoolean(jacksonParser.getText(), (boolean)false);
             break;
             case "valueByte":
               // field valueByte
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueByte=PrimitiveUtil.readByte(jacksonParser.getText(), null);
+                instance.valueByte=PrimitiveUtils.readByte(jacksonParser.getText(), null);
               }
             break;
             case "valueByteType":
               // field valueByteType
-              instance.valueByteType=PrimitiveUtil.readByte(jacksonParser.getText(), (byte)0);
+              instance.valueByteType=PrimitiveUtils.readByte(jacksonParser.getText(), (byte)0);
             break;
             case "valueCalendar":
               // field valueCalendar
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueCalendar=CalendarUtil.read(jacksonParser.getText());
+                instance.valueCalendar=CalendarUtils.read(jacksonParser.getText());
               }
             break;
             case "valueChar":
               // field valueChar
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueChar=PrimitiveUtil.readCharacter(jacksonParser.getText(), null);
+                instance.valueChar=PrimitiveUtils.readCharacter(jacksonParser.getText(), null);
               }
             break;
             case "valueCharType":
               // field valueCharType
-              instance.valueCharType=PrimitiveUtil.readCharacter(jacksonParser.getText(), ' ');
+              instance.valueCharType=PrimitiveUtils.readCharacter(jacksonParser.getText(), ' ');
             break;
             case "valueCurrency":
               // field valueCurrency
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueCurrency=CurrencyUtil.read(jacksonParser.getText());
+                instance.valueCurrency=CurrencyUtils.read(jacksonParser.getText());
               }
             break;
             case "valueDate":
               // field valueDate
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDate=DateUtil.read(jacksonParser.getText());
+                instance.valueDate=DateUtils.read(jacksonParser.getText());
               }
             break;
             case "valueDouble":
               // field valueDouble
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDouble=PrimitiveUtil.readDouble(jacksonParser.getText(), null);
+                instance.valueDouble=PrimitiveUtils.readDouble(jacksonParser.getText(), null);
               }
             break;
             case "valueDoubleType":
               // field valueDoubleType
-              instance.valueDoubleType=PrimitiveUtil.readDouble(jacksonParser.getText(), 0.0);
+              instance.valueDoubleType=PrimitiveUtils.readDouble(jacksonParser.getText(), 0.0);
             break;
             case "valueEnum":
               // field valueEnum
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 String tempEnum=jacksonParser.getText();
-                instance.valueEnum=StringUtility.hasText(tempEnum)?BeanEnum.valueOf(tempEnum):null;
+                instance.valueEnum=StringUtils.hasText(tempEnum)?BeanEnum.valueOf(tempEnum):null;
               }
             break;
             case "valueFloat":
               // field valueFloat
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueFloat=PrimitiveUtil.readFloat(jacksonParser.getText(), null);
+                instance.valueFloat=PrimitiveUtils.readFloat(jacksonParser.getText(), null);
               }
             break;
             case "valueFloatType":
               // field valueFloatType
-              instance.valueFloatType=PrimitiveUtil.readFloat(jacksonParser.getText(), 0f);
+              instance.valueFloatType=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
             break;
             case "valueInt":
               // field valueInt
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueInt=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                instance.valueInt=PrimitiveUtils.readInteger(jacksonParser.getText(), null);
               }
             break;
             case "valueIntType":
               // field valueIntType
-              instance.valueIntType=PrimitiveUtil.readInteger(jacksonParser.getText(), 0);
+              instance.valueIntType=PrimitiveUtils.readInteger(jacksonParser.getText(), 0);
             break;
             case "valueLocale":
               // field valueLocale
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueLocale=LocaleUtil.read(jacksonParser.getText());
+                instance.valueLocale=LocaleUtils.read(jacksonParser.getText());
               }
             break;
             case "valueLong":
               // field valueLong
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueLong=PrimitiveUtil.readLong(jacksonParser.getText(), null);
+                instance.valueLong=PrimitiveUtils.readLong(jacksonParser.getText(), null);
               }
             break;
             case "valueLongType":
               // field valueLongType
-              instance.valueLongType=PrimitiveUtil.readLong(jacksonParser.getText(), 0L);
+              instance.valueLongType=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
             break;
             case "valueShort":
               // field valueShort
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueShort=PrimitiveUtil.readShort(jacksonParser.getText(), null);
+                instance.valueShort=PrimitiveUtils.readShort(jacksonParser.getText(), null);
               }
             break;
             case "valueShortType":
               // field valueShortType
-              instance.valueShortType=PrimitiveUtil.readShort(jacksonParser.getText(), (short)0);
+              instance.valueShortType=PrimitiveUtils.readShort(jacksonParser.getText(), (short)0);
             break;
             case "valueString":
               // field valueString
@@ -965,29 +965,29 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
             case "valueTime":
               // field valueTime
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueTime=TimeUtil.read(jacksonParser.getText());
+                instance.valueTime=TimeUtils.read(jacksonParser.getText());
               }
             break;
             case "valueTimeZone":
               // field valueTimeZone
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueTimeZone=TimeZoneUtil.read(jacksonParser.getText());
+                instance.valueTimeZone=TimeZoneUtils.read(jacksonParser.getText());
               }
             break;
             case "valueUrl":
               // field valueUrl
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueUrl=UrlUtil.read(jacksonParser.getText());
+                instance.valueUrl=UrlUtils.read(jacksonParser.getText());
               }
             break;
             case "id":
               // field id
-              instance.setId(PrimitiveUtil.readLong(jacksonParser.getText(), 0L));
+              instance.setId(PrimitiveUtils.readLong(jacksonParser.getText(), 0L));
             break;
             case "valueContentBoolType":
               // field valueContentBoolType
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueContentBoolType=PrimitiveUtil.readInteger(jacksonParser.getText(), null);
+                instance.valueContentBoolType=PrimitiveUtils.readInteger(jacksonParser.getText(), null);
               }
             break;
             default:
@@ -1040,55 +1040,55 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
                   break;
                   case "valueBigDecimal":
                     // property valueBigDecimal
-                    instance.valueBigDecimal=BigDecimalUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    instance.valueBigDecimal=BigDecimalUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "valueBigInteger":
                     // property valueBigInteger
-                    instance.valueBigInteger=BigIntegerUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    instance.valueBigInteger=BigIntegerUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "valueBool":
                     // property valueBool
-                    instance.valueBool=PrimitiveUtil.readBoolean(xmlParser.getElementAsBoolean(), null);
+                    instance.valueBool=PrimitiveUtils.readBoolean(xmlParser.getElementAsBoolean(), null);
                   break;
                   case "valueBoolType":
                     // property valueBoolType
-                    instance.valueBoolType=PrimitiveUtil.readBoolean(xmlParser.getElementAsBoolean(), (boolean)false);
+                    instance.valueBoolType=PrimitiveUtils.readBoolean(xmlParser.getElementAsBoolean(), (boolean)false);
                   break;
                   case "valueByte":
                     // property valueByte
-                    instance.valueByte=(byte)PrimitiveUtil.readByte(xmlParser.getElementAsInt(), null);
+                    instance.valueByte=(byte)PrimitiveUtils.readByte(xmlParser.getElementAsInt(), null);
                   break;
                   case "valueByteType":
                     // property valueByteType
-                    instance.valueByteType=(byte)PrimitiveUtil.readByte(xmlParser.getElementAsInt(), (byte)0);
+                    instance.valueByteType=(byte)PrimitiveUtils.readByte(xmlParser.getElementAsInt(), (byte)0);
                   break;
                   case "valueCalendar":
                     // property valueCalendar
-                    instance.valueCalendar=CalendarUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    instance.valueCalendar=CalendarUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "valueChar":
                     // property valueChar
-                    instance.valueChar=(char)PrimitiveUtil.readCharacter(xmlParser.getElementAsInt(), null);
+                    instance.valueChar=(char)PrimitiveUtils.readCharacter(xmlParser.getElementAsInt(), null);
                   break;
                   case "valueCharType":
                     // property valueCharType
-                    instance.valueCharType=(char)PrimitiveUtil.readCharacter(xmlParser.getElementAsInt(), ' ');
+                    instance.valueCharType=(char)PrimitiveUtils.readCharacter(xmlParser.getElementAsInt(), ' ');
                   break;
                   case "valueCurrency":
                     // property valueCurrency
-                    instance.valueCurrency=CurrencyUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    instance.valueCurrency=CurrencyUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "valueDate":
                     // property valueDate
-                    instance.valueDate=DateUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    instance.valueDate=DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "valueDouble":
                     // property valueDouble
-                    instance.valueDouble=PrimitiveUtil.readDouble(xmlParser.getElementAsDouble(), null);
+                    instance.valueDouble=PrimitiveUtils.readDouble(xmlParser.getElementAsDouble(), null);
                   break;
                   case "valueDoubleType":
                     // property valueDoubleType
-                    instance.valueDoubleType=PrimitiveUtil.readDouble(xmlParser.getElementAsDouble(), 0.0);
+                    instance.valueDoubleType=PrimitiveUtils.readDouble(xmlParser.getElementAsDouble(), 0.0);
                   break;
                   case "valueEnum":
                     // property valueEnum
@@ -1096,39 +1096,39 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
                   break;
                   case "valueFloat":
                     // property valueFloat
-                    instance.valueFloat=PrimitiveUtil.readFloat(xmlParser.getElementAsFloat(), null);
+                    instance.valueFloat=PrimitiveUtils.readFloat(xmlParser.getElementAsFloat(), null);
                   break;
                   case "valueFloatType":
                     // property valueFloatType
-                    instance.valueFloatType=PrimitiveUtil.readFloat(xmlParser.getElementAsFloat(), 0f);
+                    instance.valueFloatType=PrimitiveUtils.readFloat(xmlParser.getElementAsFloat(), 0f);
                   break;
                   case "valueInt":
                     // property valueInt
-                    instance.valueInt=PrimitiveUtil.readInteger(xmlParser.getElementAsInt(), null);
+                    instance.valueInt=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
                   break;
                   case "valueIntType":
                     // property valueIntType
-                    instance.valueIntType=PrimitiveUtil.readInteger(xmlParser.getElementAsInt(), 0);
+                    instance.valueIntType=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), 0);
                   break;
                   case "valueLocale":
                     // property valueLocale
-                    instance.valueLocale=LocaleUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    instance.valueLocale=LocaleUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "valueLong":
                     // property valueLong
-                    instance.valueLong=PrimitiveUtil.readLong(xmlParser.getElementAsLong(), null);
+                    instance.valueLong=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null);
                   break;
                   case "valueLongType":
                     // property valueLongType
-                    instance.valueLongType=PrimitiveUtil.readLong(xmlParser.getElementAsLong(), 0L);
+                    instance.valueLongType=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                   break;
                   case "valueShort":
                     // property valueShort
-                    instance.valueShort=(short)PrimitiveUtil.readShort(xmlParser.getElementAsInt(), null);
+                    instance.valueShort=(short)PrimitiveUtils.readShort(xmlParser.getElementAsInt(), null);
                   break;
                   case "valueShortType":
                     // property valueShortType
-                    instance.valueShortType=(short)PrimitiveUtil.readShort(xmlParser.getElementAsInt(), (short)0);
+                    instance.valueShortType=(short)PrimitiveUtils.readShort(xmlParser.getElementAsInt(), (short)0);
                   break;
                   case "valueString":
                     // property valueString
@@ -1136,19 +1136,19 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
                   break;
                   case "valueTime":
                     // property valueTime
-                    instance.valueTime=TimeUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    instance.valueTime=TimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "valueTimeZone":
                     // property valueTimeZone
-                    instance.valueTimeZone=TimeZoneUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    instance.valueTimeZone=TimeZoneUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "valueUrl":
                     // property valueUrl
-                    instance.valueUrl=UrlUtil.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    instance.valueUrl=UrlUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "name":
                     // property id
-                    instance.setId(PrimitiveUtil.readLong(xmlParser.getElementAsLong(), 0L));
+                    instance.setId(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
                   break;
                   default:
                     xmlParser.skipElement();
@@ -1162,7 +1162,7 @@ public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {
               case XMLEvent.CHARACTERS:
                 if (elementNameStack.size()==1 && xmlParser.hasText()) {
                   // property valueContentBoolType
-                  instance.valueContentBoolType=PrimitiveUtil.readInteger(xmlParser.getText(), null);
+                  instance.valueContentBoolType=PrimitiveUtils.readInteger(xmlParser.getText(), null);
                 }
               break;
               default:

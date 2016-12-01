@@ -2,10 +2,10 @@ package com.abubusoft.kripton.common;
 
 import java.math.BigInteger;
 
-public class BigIntegerUtil {
+public class BigIntegerUtils {
 
 	public static BigInteger read(String value) {
-		if (!StringUtil.hasText(value)) return null;
+		if (!StringUtils.hasText(value)) return null;
 		
 		return new BigInteger(value);
 	}

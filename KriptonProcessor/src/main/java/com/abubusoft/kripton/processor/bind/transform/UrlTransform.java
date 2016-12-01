@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import com.abubusoft.kripton.common.UrlUtil;
+import com.abubusoft.kripton.common.UrlUtils;
 
 /**
  * Transformer between a string and a java.net.URL object
@@ -26,6 +26,6 @@ import com.abubusoft.kripton.common.UrlUtil;
 public class UrlTransform extends WrappedCompileTimeTransform {
 
 	public UrlTransform() {
-		super(UrlUtil.class);
+		super(UrlUtils.class);
 	}
 }

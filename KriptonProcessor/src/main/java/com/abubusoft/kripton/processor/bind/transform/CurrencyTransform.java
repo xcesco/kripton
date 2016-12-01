@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import com.abubusoft.kripton.common.CurrencyUtil;
+import com.abubusoft.kripton.common.CurrencyUtils;
 
 /**
  * Transformer between a string and a java.util.Currency object
@@ -26,7 +26,7 @@ import com.abubusoft.kripton.common.CurrencyUtil;
 class CurrencyTransform extends WrappedCompileTimeTransform {
 
 	public CurrencyTransform() {
-		super(CurrencyUtil.class);
+		super(CurrencyUtils.class);
 	}
 }
 

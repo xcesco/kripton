@@ -1,8 +1,8 @@
 package com.abubusoft.kripton.common;
 
-public class PrimitiveUtil {
+public class PrimitiveUtils {
 	public static Boolean readBoolean(String value, Boolean defaultValue) {
-		if (!StringUtil.hasText(value)) return defaultValue;
+		if (!StringUtils.hasText(value)) return defaultValue;
 		
 		return Boolean.valueOf(value);
 	}	
@@ -13,7 +13,7 @@ public class PrimitiveUtil {
 	
 	
 	public static Byte readByte(String value, Byte defaultValue) {
-		if (!StringUtil.hasText(value)) return defaultValue;
+		if (!StringUtils.hasText(value)) return defaultValue;
 		
 		return Byte.valueOf(value);
 	}
@@ -23,7 +23,7 @@ public class PrimitiveUtil {
 	}
 	
 	public static Character readCharacter(String value, Character defaultValue) {
-		if (!StringUtil.hasText(value)) return defaultValue;
+		if (!StringUtils.hasText(value)) return defaultValue;
 		
 		return Character.valueOf((char)Integer.parseInt(value));
 	}
@@ -33,7 +33,7 @@ public class PrimitiveUtil {
 	}
 	
 	public static Short readShort(String value, Short defaultValue) {
-		if (!StringUtil.hasText(value)) return defaultValue;
+		if (!StringUtils.hasText(value)) return defaultValue;
 		
 		return Short.valueOf(value);
 	}
@@ -43,7 +43,7 @@ public class PrimitiveUtil {
 	}
 	
 	public static Integer readInteger(String value, Integer defaultValue) {
-		if (!StringUtil.hasText(value)) return defaultValue;
+		if (!StringUtils.hasText(value)) return defaultValue;
 		
 		return Integer.valueOf(value);
 	}
@@ -53,7 +53,7 @@ public class PrimitiveUtil {
 	}
 	
 	public static Long readLong(String value, Long defaultValue) {
-		if (!StringUtil.hasText(value)) return defaultValue;
+		if (!StringUtils.hasText(value)) return defaultValue;
 		
 		return Long.valueOf(value);
 	}
@@ -63,7 +63,7 @@ public class PrimitiveUtil {
 	}
 	
 	public static Float readFloat(String value, Float defaultValue) {
-		if (!StringUtil.hasText(value)) return defaultValue;
+		if (!StringUtils.hasText(value)) return defaultValue;
 		
 		return Float.valueOf(value);
 	}
@@ -73,7 +73,7 @@ public class PrimitiveUtil {
 	}
 	
 	public static Double readDouble(String value, Double defaultValue) {
-		if (!StringUtil.hasText(value)) return defaultValue;
+		if (!StringUtils.hasText(value)) return defaultValue;
 		
 		return Double.valueOf(value);
 	}

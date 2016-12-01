@@ -6,16 +6,16 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.common.CalendarUtil;
-import com.abubusoft.kripton.common.CollectionUtility;
-import com.abubusoft.kripton.common.CurrencyUtil;
-import com.abubusoft.kripton.common.DateUtil;
-import com.abubusoft.kripton.common.LocaleUtil;
+import com.abubusoft.kripton.common.CalendarUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
+import com.abubusoft.kripton.common.CurrencyUtils;
+import com.abubusoft.kripton.common.DateUtils;
+import com.abubusoft.kripton.common.LocaleUtils;
 import com.abubusoft.kripton.common.ProcessorHelper;
-import com.abubusoft.kripton.common.StringUtil;
-import com.abubusoft.kripton.common.TimeUtil;
-import com.abubusoft.kripton.common.TimeZoneUtil;
-import com.abubusoft.kripton.common.UrlUtil;
+import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.TimeUtils;
+import com.abubusoft.kripton.common.TimeZoneUtils;
+import com.abubusoft.kripton.common.UrlUtils;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
@@ -67,7 +67,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     boolean result=false;
@@ -106,7 +106,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Boolean result=null;
@@ -145,7 +145,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_byte_type FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_byte_type FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_byte_type FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     byte result=0;
@@ -184,7 +184,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_byte FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_byte FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_byte FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Byte result=null;
@@ -223,7 +223,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_short_type FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_short_type FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_short_type FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     short result=0;
@@ -262,7 +262,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_short FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_short FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_short FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Short result=null;
@@ -301,7 +301,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_int_type FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_int_type FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_int_type FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     int result=0;
@@ -340,7 +340,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_int FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_int FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_int FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Integer result=null;
@@ -379,7 +379,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_string FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_string FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_string FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     String result=null;
@@ -418,7 +418,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_char_type FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_char_type FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_char_type FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     char result=0;
@@ -457,7 +457,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_char FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_char FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_char FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Character result=null;
@@ -496,7 +496,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_float_type FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_float_type FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_float_type FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     float result=0f;
@@ -535,7 +535,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_float FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_float FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_float FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Float result=null;
@@ -574,7 +574,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_long_type FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_long_type FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_long_type FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     long result=0L;
@@ -613,7 +613,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_long FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_long FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_long FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Long result=null;
@@ -652,7 +652,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_double_type FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_double_type FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_double_type FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     double result=0;
@@ -691,7 +691,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_double FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_double FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_double FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Double result=null;
@@ -771,7 +771,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE 1=1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE 1=1"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -844,24 +844,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -941,7 +941,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean resultBean=new Bean();
@@ -1059,24 +1059,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
           if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
           if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-          if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-          if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-          if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-          if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-          if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-          if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-          if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+          if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+          if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+          if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+          if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+          if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+          if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+          if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
           if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
           if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
           if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
           if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-          if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-          if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-          if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-          if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+          if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+          if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+          if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+          if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
           if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-          if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-          if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+          if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+          if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
           if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
           if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
           if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -1161,7 +1161,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -1249,7 +1249,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -1325,24 +1325,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
         if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
         if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-        if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-        if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-        if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-        if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-        if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-        if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+        if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+        if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+        if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+        if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+        if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
         if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
         if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
         if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-        if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-        if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-        if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-        if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+        if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+        if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+        if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+        if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
         if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-        if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-        if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+        if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+        if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -1509,43 +1509,43 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (value.valueLocale!=null) {
-      contentValues.put("value_locale", LocaleUtil.write(value.valueLocale));
+      contentValues.put("value_locale", LocaleUtils.write(value.valueLocale));
     } else {
       contentValues.putNull("value_locale");
     }
 
     if (value.valueCalendar!=null) {
-      contentValues.put("value_calendar", CalendarUtil.write(value.valueCalendar));
+      contentValues.put("value_calendar", CalendarUtils.write(value.valueCalendar));
     } else {
       contentValues.putNull("value_calendar");
     }
 
     if (value.valueDate!=null) {
-      contentValues.put("value_date", DateUtil.write(value.valueDate));
+      contentValues.put("value_date", DateUtils.write(value.valueDate));
     } else {
       contentValues.putNull("value_date");
     }
 
     if (value.valueUrl!=null) {
-      contentValues.put("value_url", UrlUtil.write(value.valueUrl));
+      contentValues.put("value_url", UrlUtils.write(value.valueUrl));
     } else {
       contentValues.putNull("value_url");
     }
 
     if (value.valueTime!=null) {
-      contentValues.put("value_time", TimeUtil.write(value.valueTime));
+      contentValues.put("value_time", TimeUtils.write(value.valueTime));
     } else {
       contentValues.putNull("value_time");
     }
 
     if (value.valueCurrency!=null) {
-      contentValues.put("value_currency", CurrencyUtil.write(value.valueCurrency));
+      contentValues.put("value_currency", CurrencyUtils.write(value.valueCurrency));
     } else {
       contentValues.putNull("value_currency");
     }
 
     if (value.valueTimeZone!=null) {
-      contentValues.put("value_time_zone", TimeZoneUtil.write(value.valueTimeZone));
+      contentValues.put("value_time_zone", TimeZoneUtils.write(value.valueTimeZone));
     } else {
       contentValues.putNull("value_time_zone");
     }
@@ -1575,25 +1575,25 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (value.valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueLongTypeArray, ArrayList.class)));
+      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueLongTypeArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_long_type_array");
     }
 
     if (value.valueLongArray!=null) {
-      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueLongArray, ArrayList.class)));
+      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueLongArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_long_array");
     }
 
     if (value.valueBeanArray!=null) {
-      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueBeanArray, ArrayList.class)));
+      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueBeanArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_bean_array");
     }
 
     if (value.valueStringArray!=null) {
-      contentValues.put("value_string_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueStringArray, ArrayList.class)));
+      contentValues.put("value_string_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueStringArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_string_array");
     }
@@ -1605,13 +1605,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (value.valueCharTypeArray!=null) {
-      contentValues.put("value_char_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueCharTypeArray, ArrayList.class)));
+      contentValues.put("value_char_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueCharTypeArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_char_type_array");
     }
 
     if (value.valueCharArray!=null) {
-      contentValues.put("value_char_array", ProcessorHelper.asByteArray(CollectionUtility.asList(value.valueCharArray, ArrayList.class)));
+      contentValues.put("value_char_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueCharArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_char_array");
     }
@@ -1636,7 +1636,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(value.id)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET value_bool_type='"+StringUtil.checkSize(contentValues.get("value_bool_type"))+"', value_bool='"+StringUtil.checkSize(contentValues.get("value_bool"))+"', value_byte_type='"+StringUtil.checkSize(contentValues.get("value_byte_type"))+"', value_byte='"+StringUtil.checkSize(contentValues.get("value_byte"))+"', value_short_type='"+StringUtil.checkSize(contentValues.get("value_short_type"))+"', value_short='"+StringUtil.checkSize(contentValues.get("value_short"))+"', value_int_type='"+StringUtil.checkSize(contentValues.get("value_int_type"))+"', value_int='"+StringUtil.checkSize(contentValues.get("value_int"))+"', value_string='"+StringUtil.checkSize(contentValues.get("value_string"))+"', value_char_type='"+StringUtil.checkSize(contentValues.get("value_char_type"))+"', value_char='"+StringUtil.checkSize(contentValues.get("value_char"))+"', value_float_type='"+StringUtil.checkSize(contentValues.get("value_float_type"))+"', value_float='"+StringUtil.checkSize(contentValues.get("value_float"))+"', value_big_integer='"+StringUtil.checkSize(contentValues.get("value_big_integer"))+"', value_big_decimal='"+StringUtil.checkSize(contentValues.get("value_big_decimal"))+"', value_enum_type='"+StringUtil.checkSize(contentValues.get("value_enum_type"))+"', value_long_type='"+StringUtil.checkSize(contentValues.get("value_long_type"))+"', value_long='"+StringUtil.checkSize(contentValues.get("value_long"))+"', value_double_type='"+StringUtil.checkSize(contentValues.get("value_double_type"))+"', value_double='"+StringUtil.checkSize(contentValues.get("value_double"))+"', value_locale='"+StringUtil.checkSize(contentValues.get("value_locale"))+"', value_calendar='"+StringUtil.checkSize(contentValues.get("value_calendar"))+"', value_date='"+StringUtil.checkSize(contentValues.get("value_date"))+"', value_url='"+StringUtil.checkSize(contentValues.get("value_url"))+"', value_time='"+StringUtil.checkSize(contentValues.get("value_time"))+"', value_currency='"+StringUtil.checkSize(contentValues.get("value_currency"))+"', value_time_zone='"+StringUtil.checkSize(contentValues.get("value_time_zone"))+"', value_time_list='"+StringUtil.checkSize(contentValues.get("value_time_list"))+"', value_strin_list='"+StringUtil.checkSize(contentValues.get("value_strin_list"))+"', value_long_list='"+StringUtil.checkSize(contentValues.get("value_long_list"))+"', value_byte_array='"+StringUtil.checkSize(contentValues.get("value_byte_array"))+"', value_long_type_array='"+StringUtil.checkSize(contentValues.get("value_long_type_array"))+"', value_long_array='"+StringUtil.checkSize(contentValues.get("value_long_array"))+"', value_bean_array='"+StringUtil.checkSize(contentValues.get("value_bean_array"))+"', value_string_array='"+StringUtil.checkSize(contentValues.get("value_string_array"))+"', value_char_list='"+StringUtil.checkSize(contentValues.get("value_char_list"))+"', value_char_type_array='"+StringUtil.checkSize(contentValues.get("value_char_type_array"))+"', value_char_array='"+StringUtil.checkSize(contentValues.get("value_char_array"))+"', value_map_string_bean='"+StringUtil.checkSize(contentValues.get("value_map_string_bean"))+"', value_linked_map_string_bean='"+StringUtil.checkSize(contentValues.get("value_linked_map_string_bean"))+"', value_set_string='"+StringUtil.checkSize(contentValues.get("value_set_string"))+"' WHERE id=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET value_bool_type='"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"', value_bool='"+StringUtils.checkSize(contentValues.get("value_bool"))+"', value_byte_type='"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"', value_byte='"+StringUtils.checkSize(contentValues.get("value_byte"))+"', value_short_type='"+StringUtils.checkSize(contentValues.get("value_short_type"))+"', value_short='"+StringUtils.checkSize(contentValues.get("value_short"))+"', value_int_type='"+StringUtils.checkSize(contentValues.get("value_int_type"))+"', value_int='"+StringUtils.checkSize(contentValues.get("value_int"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"', value_char_type='"+StringUtils.checkSize(contentValues.get("value_char_type"))+"', value_char='"+StringUtils.checkSize(contentValues.get("value_char"))+"', value_float_type='"+StringUtils.checkSize(contentValues.get("value_float_type"))+"', value_float='"+StringUtils.checkSize(contentValues.get("value_float"))+"', value_big_integer='"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"', value_big_decimal='"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"', value_enum_type='"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"', value_long_type='"+StringUtils.checkSize(contentValues.get("value_long_type"))+"', value_long='"+StringUtils.checkSize(contentValues.get("value_long"))+"', value_double_type='"+StringUtils.checkSize(contentValues.get("value_double_type"))+"', value_double='"+StringUtils.checkSize(contentValues.get("value_double"))+"', value_locale='"+StringUtils.checkSize(contentValues.get("value_locale"))+"', value_calendar='"+StringUtils.checkSize(contentValues.get("value_calendar"))+"', value_date='"+StringUtils.checkSize(contentValues.get("value_date"))+"', value_url='"+StringUtils.checkSize(contentValues.get("value_url"))+"', value_time='"+StringUtils.checkSize(contentValues.get("value_time"))+"', value_currency='"+StringUtils.checkSize(contentValues.get("value_currency"))+"', value_time_zone='"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"', value_time_list='"+StringUtils.checkSize(contentValues.get("value_time_list"))+"', value_strin_list='"+StringUtils.checkSize(contentValues.get("value_strin_list"))+"', value_long_list='"+StringUtils.checkSize(contentValues.get("value_long_list"))+"', value_byte_array='"+StringUtils.checkSize(contentValues.get("value_byte_array"))+"', value_long_type_array='"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"', value_long_array='"+StringUtils.checkSize(contentValues.get("value_long_array"))+"', value_bean_array='"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"', value_string_array='"+StringUtils.checkSize(contentValues.get("value_string_array"))+"', value_char_list='"+StringUtils.checkSize(contentValues.get("value_char_list"))+"', value_char_type_array='"+StringUtils.checkSize(contentValues.get("value_char_type_array"))+"', value_char_array='"+StringUtils.checkSize(contentValues.get("value_char_array"))+"', value_map_string_bean='"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', value_linked_map_string_bean='"+StringUtils.checkSize(contentValues.get("value_linked_map_string_bean"))+"', value_set_string='"+StringUtils.checkSize(contentValues.get("value_set_string"))+"' WHERE id=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "id=?", whereConditions);
     return result;
   }
@@ -1791,43 +1791,43 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (bean.valueLocale!=null) {
-      contentValues.put("value_locale", LocaleUtil.write(bean.valueLocale));
+      contentValues.put("value_locale", LocaleUtils.write(bean.valueLocale));
     } else {
       contentValues.putNull("value_locale");
     }
 
     if (bean.valueCalendar!=null) {
-      contentValues.put("value_calendar", CalendarUtil.write(bean.valueCalendar));
+      contentValues.put("value_calendar", CalendarUtils.write(bean.valueCalendar));
     } else {
       contentValues.putNull("value_calendar");
     }
 
     if (bean.valueDate!=null) {
-      contentValues.put("value_date", DateUtil.write(bean.valueDate));
+      contentValues.put("value_date", DateUtils.write(bean.valueDate));
     } else {
       contentValues.putNull("value_date");
     }
 
     if (bean.valueUrl!=null) {
-      contentValues.put("value_url", UrlUtil.write(bean.valueUrl));
+      contentValues.put("value_url", UrlUtils.write(bean.valueUrl));
     } else {
       contentValues.putNull("value_url");
     }
 
     if (bean.valueTime!=null) {
-      contentValues.put("value_time", TimeUtil.write(bean.valueTime));
+      contentValues.put("value_time", TimeUtils.write(bean.valueTime));
     } else {
       contentValues.putNull("value_time");
     }
 
     if (bean.valueCurrency!=null) {
-      contentValues.put("value_currency", CurrencyUtil.write(bean.valueCurrency));
+      contentValues.put("value_currency", CurrencyUtils.write(bean.valueCurrency));
     } else {
       contentValues.putNull("value_currency");
     }
 
     if (bean.valueTimeZone!=null) {
-      contentValues.put("value_time_zone", TimeZoneUtil.write(bean.valueTimeZone));
+      contentValues.put("value_time_zone", TimeZoneUtils.write(bean.valueTimeZone));
     } else {
       contentValues.putNull("value_time_zone");
     }
@@ -1857,25 +1857,25 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (bean.valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueLongTypeArray, ArrayList.class)));
+      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueLongTypeArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_long_type_array");
     }
 
     if (bean.valueLongArray!=null) {
-      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueLongArray, ArrayList.class)));
+      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueLongArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_long_array");
     }
 
     if (bean.valueBeanArray!=null) {
-      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueBeanArray, ArrayList.class)));
+      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueBeanArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_bean_array");
     }
 
     if (bean.valueStringArray!=null) {
-      contentValues.put("value_string_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueStringArray, ArrayList.class)));
+      contentValues.put("value_string_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueStringArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_string_array");
     }
@@ -1887,13 +1887,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (bean.valueCharTypeArray!=null) {
-      contentValues.put("value_char_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueCharTypeArray, ArrayList.class)));
+      contentValues.put("value_char_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueCharTypeArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_char_type_array");
     }
 
     if (bean.valueCharArray!=null) {
-      contentValues.put("value_char_array", ProcessorHelper.asByteArray(CollectionUtility.asList(bean.valueCharArray, ArrayList.class)));
+      contentValues.put("value_char_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueCharArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_char_array");
     }
@@ -1917,7 +1917,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES ('"+StringUtil.checkSize(contentValues.get("value_bool_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_bool"))+"', '"+StringUtil.checkSize(contentValues.get("value_byte_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_byte"))+"', '"+StringUtil.checkSize(contentValues.get("value_short_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_short"))+"', '"+StringUtil.checkSize(contentValues.get("value_int_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_int"))+"', '"+StringUtil.checkSize(contentValues.get("value_string"))+"', '"+StringUtil.checkSize(contentValues.get("value_char_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_char"))+"', '"+StringUtil.checkSize(contentValues.get("value_float_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_float"))+"', '"+StringUtil.checkSize(contentValues.get("value_big_integer"))+"', '"+StringUtil.checkSize(contentValues.get("value_big_decimal"))+"', '"+StringUtil.checkSize(contentValues.get("value_enum_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_long_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_long"))+"', '"+StringUtil.checkSize(contentValues.get("value_double_type"))+"', '"+StringUtil.checkSize(contentValues.get("value_double"))+"', '"+StringUtil.checkSize(contentValues.get("value_locale"))+"', '"+StringUtil.checkSize(contentValues.get("value_calendar"))+"', '"+StringUtil.checkSize(contentValues.get("value_date"))+"', '"+StringUtil.checkSize(contentValues.get("value_url"))+"', '"+StringUtil.checkSize(contentValues.get("value_time"))+"', '"+StringUtil.checkSize(contentValues.get("value_currency"))+"', '"+StringUtil.checkSize(contentValues.get("value_time_zone"))+"', '"+StringUtil.checkSize(contentValues.get("value_time_list"))+"', '"+StringUtil.checkSize(contentValues.get("value_strin_list"))+"', '"+StringUtil.checkSize(contentValues.get("value_long_list"))+"', '"+StringUtil.checkSize(contentValues.get("value_byte_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_long_type_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_long_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_bean_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_string_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_char_list"))+"', '"+StringUtil.checkSize(contentValues.get("value_char_type_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_char_array"))+"', '"+StringUtil.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtil.checkSize(contentValues.get("value_linked_map_string_bean"))+"', '"+StringUtil.checkSize(contentValues.get("value_set_string"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_bool"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte"))+"', '"+StringUtils.checkSize(contentValues.get("value_short_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_short"))+"', '"+StringUtils.checkSize(contentValues.get("value_int_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_int"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_char"))+"', '"+StringUtils.checkSize(contentValues.get("value_float_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_float"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"', '"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long"))+"', '"+StringUtils.checkSize(contentValues.get("value_double_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_double"))+"', '"+StringUtils.checkSize(contentValues.get("value_locale"))+"', '"+StringUtils.checkSize(contentValues.get("value_calendar"))+"', '"+StringUtils.checkSize(contentValues.get("value_date"))+"', '"+StringUtils.checkSize(contentValues.get("value_url"))+"', '"+StringUtils.checkSize(contentValues.get("value_time"))+"', '"+StringUtils.checkSize(contentValues.get("value_currency"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_strin_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_string_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_linked_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"')"));
     long result = database().insert("bean", null, contentValues);
     bean.id=result;
 
@@ -1950,7 +1950,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_big_decimal) VALUES ('"+StringUtil.checkSize(contentValues.get("value_big_decimal"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_big_decimal) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -2023,7 +2023,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueBigDecimal==null?null:valueBigDecimal.toPlainString())};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -2096,24 +2096,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -2143,7 +2143,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long delete(BigDecimal valueBigDecimal) {
     String[] whereConditions={(valueBigDecimal==null?null:valueBigDecimal.toPlainString())};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueBigDecimal=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBigDecimal=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_big_decimal=?", whereConditions);
     return result;
   }
@@ -2173,7 +2173,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueBigDecimal==null?null:valueBigDecimal.toPlainString())};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueBigDecimal=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBigDecimal=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_big_decimal=?", whereConditions);
     return result;
   }
@@ -2211,7 +2211,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET valueSetString='"+StringUtil.checkSize(contentValues.get("value_set_string"))+"' WHERE id=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET valueSetString='"+StringUtils.checkSize(contentValues.get("value_set_string"))+"' WHERE id=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "id=?", whereConditions);
     return result;
   }
@@ -2242,7 +2242,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_big_integer) VALUES ('"+StringUtil.checkSize(contentValues.get("value_big_integer"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_big_integer) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -2315,7 +2315,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueBigDecimal==null?null:String.valueOf(valueBigDecimal.toString()))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -2388,24 +2388,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -2435,7 +2435,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long delete(BigInteger valueBigDecimal) {
     String[] whereConditions={(valueBigDecimal==null?null:String.valueOf(valueBigDecimal.toString()))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueBigDecimal=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBigDecimal=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_big_decimal=?", whereConditions);
     return result;
   }
@@ -2465,7 +2465,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueBigDecimal==null?null:String.valueOf(valueBigDecimal.toString()))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueBigDecimal=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBigDecimal=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_big_decimal=?", whereConditions);
     return result;
   }
@@ -2492,7 +2492,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_bool_type", valueBoolType);
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_bool_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_bool_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bool_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -2565,7 +2565,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueBoolType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -2638,24 +2638,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -2685,7 +2685,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long delete(boolean valueBoolType) {
     String[] whereConditions={String.valueOf(valueBoolType)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueBoolType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBoolType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_bool_type=?", whereConditions);
     return result;
   }
@@ -2715,7 +2715,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueBoolType)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueBoolType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBoolType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_bool_type=?", whereConditions);
     return result;
   }
@@ -2746,7 +2746,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_bool) VALUES ('"+StringUtil.checkSize(contentValues.get("value_bool"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bool) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -2819,7 +2819,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueBool==null?null:String.valueOf(valueBool))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -2892,24 +2892,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -2939,7 +2939,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long delete(Boolean valueBool) {
     String[] whereConditions={(valueBool==null?null:String.valueOf(valueBool))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueBool=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBool=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_bool=?", whereConditions);
     return result;
   }
@@ -2969,7 +2969,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueBool==null?null:String.valueOf(valueBool))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueBool=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBool=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_bool=?", whereConditions);
     return result;
   }
@@ -2996,7 +2996,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_byte_type", valueByteType);
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_byte_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_byte_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_byte_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -3069,7 +3069,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueByteType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -3142,24 +3142,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -3189,7 +3189,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteByteType(boolean valueByteType) {
     String[] whereConditions={String.valueOf(valueByteType)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueByteType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueByteType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_byte_type=?", whereConditions);
     return result;
   }
@@ -3219,7 +3219,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueByteType)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueByteType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueByteType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_byte_type=?", whereConditions);
     return result;
   }
@@ -3250,7 +3250,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_byte) VALUES ('"+StringUtil.checkSize(contentValues.get("value_byte"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -3323,7 +3323,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueByte==null?null:String.valueOf(valueByte))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -3396,24 +3396,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -3443,7 +3443,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteByte(Byte valueByte) {
     String[] whereConditions={(valueByte==null?null:String.valueOf(valueByte))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueByte=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueByte=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_byte=?", whereConditions);
     return result;
   }
@@ -3473,7 +3473,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueByte==null?null:String.valueOf(valueByte))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueByte=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueByte=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_byte=?", whereConditions);
     return result;
   }
@@ -3500,7 +3500,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_char_type", (int)valueCharType);
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_char_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_char_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_char_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -3573,7 +3573,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf((int)valueCharType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -3646,24 +3646,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -3693,7 +3693,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteCharType(char valueCharType) {
     String[] whereConditions={String.valueOf((int)valueCharType)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueCharType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueCharType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_char_type=?", whereConditions);
     return result;
   }
@@ -3723,7 +3723,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf((int)valueCharType)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueCharType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueCharType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_char_type=?", whereConditions);
     return result;
   }
@@ -3754,7 +3754,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_char) VALUES ('"+StringUtil.checkSize(contentValues.get("value_char"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_char) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -3827,7 +3827,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueChar==null?null:String.valueOf((int)valueChar))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -3900,24 +3900,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -3947,7 +3947,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteChar(Character valueChar) {
     String[] whereConditions={(valueChar==null?null:String.valueOf((int)valueChar))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueCharType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueCharType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_char_type=?", whereConditions);
     return result;
   }
@@ -3977,7 +3977,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueChar==null?null:String.valueOf((int)valueChar))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueCharType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueCharType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_char_type=?", whereConditions);
     return result;
   }
@@ -4004,7 +4004,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_short_type", (int)valueShortType);
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_short_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_short_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_short_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -4077,7 +4077,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf((int)valueShortType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -4150,24 +4150,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -4197,7 +4197,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteShortType(short valueShortType) {
     String[] whereConditions={String.valueOf((int)valueShortType)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueShortType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueShortType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_short_type=?", whereConditions);
     return result;
   }
@@ -4227,7 +4227,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf((int)valueShortType)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueShortType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueShortType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_short_type=?", whereConditions);
     return result;
   }
@@ -4258,7 +4258,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_short) VALUES ('"+StringUtil.checkSize(contentValues.get("value_short"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_short) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -4331,7 +4331,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueShort==null?null:String.valueOf((int)valueShort))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -4404,24 +4404,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -4451,7 +4451,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteShort(Short valueShort) {
     String[] whereConditions={(valueShort==null?null:String.valueOf((int)valueShort))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueShort=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueShort=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_short=?", whereConditions);
     return result;
   }
@@ -4481,7 +4481,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueShort==null?null:String.valueOf((int)valueShort))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueShort=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueShort=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_short=?", whereConditions);
     return result;
   }
@@ -4508,7 +4508,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_int_type", valueIntType);
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_int_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_int_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_int_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -4581,7 +4581,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueIntType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -4654,24 +4654,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -4701,7 +4701,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteIntType(int valueIntType) {
     String[] whereConditions={String.valueOf(valueIntType)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueIntType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueIntType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_int_type=?", whereConditions);
     return result;
   }
@@ -4731,7 +4731,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueIntType)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueIntType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueIntType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_int_type=?", whereConditions);
     return result;
   }
@@ -4762,7 +4762,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_int) VALUES ('"+StringUtil.checkSize(contentValues.get("value_int"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_int) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -4835,7 +4835,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueInt==null?null:String.valueOf(valueInt))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -4908,24 +4908,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -4955,7 +4955,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteInt(Integer valueInt) {
     String[] whereConditions={(valueInt==null?null:String.valueOf(valueInt))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueInt=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueInt=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_int=?", whereConditions);
     return result;
   }
@@ -4985,7 +4985,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueInt==null?null:String.valueOf(valueInt))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueInt=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueInt=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_int=?", whereConditions);
     return result;
   }
@@ -5012,7 +5012,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_long_type", valueLongType);
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_long_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_long_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -5085,7 +5085,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueLongType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -5158,24 +5158,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -5205,7 +5205,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteLongType(long valueLongType) {
     String[] whereConditions={String.valueOf(valueLongType)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueLongType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_long_type=?", whereConditions);
     return result;
   }
@@ -5235,7 +5235,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueLongType)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueLongType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_long_type=?", whereConditions);
     return result;
   }
@@ -5266,7 +5266,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_long) VALUES ('"+StringUtil.checkSize(contentValues.get("value_long"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -5339,7 +5339,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueLong==null?null:String.valueOf(valueLong))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -5412,24 +5412,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -5459,7 +5459,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteLong(Long valueLong) {
     String[] whereConditions={(valueLong==null?null:String.valueOf(valueLong))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueLong=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLong=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_long=?", whereConditions);
     return result;
   }
@@ -5489,7 +5489,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueLong==null?null:String.valueOf(valueLong))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueLong=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLong=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_long=?", whereConditions);
     return result;
   }
@@ -5516,7 +5516,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_float_type", valueFloatType);
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_float_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_float_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_float_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -5589,7 +5589,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueFloatType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -5662,24 +5662,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -5709,7 +5709,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteFloatType(float valueFloatType) {
     String[] whereConditions={String.valueOf(valueFloatType)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueFloatType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueFloatType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_float_type=?", whereConditions);
     return result;
   }
@@ -5739,7 +5739,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueFloatType)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueFloatType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueFloatType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_float_type=?", whereConditions);
     return result;
   }
@@ -5770,7 +5770,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_float) VALUES ('"+StringUtil.checkSize(contentValues.get("value_float"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_float) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -5843,7 +5843,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueFloat==null?null:String.valueOf(valueFloat))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -5916,24 +5916,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -5963,7 +5963,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteFloat(Float valueFloat) {
     String[] whereConditions={(valueFloat==null?null:String.valueOf(valueFloat))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueFloat=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueFloat=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_float=?", whereConditions);
     return result;
   }
@@ -5993,7 +5993,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueFloat==null?null:String.valueOf(valueFloat))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueFloat=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueFloat=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_float=?", whereConditions);
     return result;
   }
@@ -6020,7 +6020,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_double_type", valueDoubleType);
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_double_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_double_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_double_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -6093,7 +6093,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(valueDoubleType)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -6166,24 +6166,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -6213,7 +6213,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteDoubleType(double valueDoubleType) {
     String[] whereConditions={String.valueOf(valueDoubleType)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueDoubleType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueDoubleType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_double_type=?", whereConditions);
     return result;
   }
@@ -6243,7 +6243,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueDoubleType)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueDoubleType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueDoubleType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_double_type=?", whereConditions);
     return result;
   }
@@ -6274,7 +6274,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_double) VALUES ('"+StringUtil.checkSize(contentValues.get("value_double"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_double) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -6347,7 +6347,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueDouble==null?null:String.valueOf(valueDouble))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -6420,24 +6420,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -6467,7 +6467,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteDouble(Double valueDouble) {
     String[] whereConditions={(valueDouble==null?null:String.valueOf(valueDouble))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueDouble=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueDouble=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_double=?", whereConditions);
     return result;
   }
@@ -6497,7 +6497,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueDouble==null?null:String.valueOf(valueDouble))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueDouble=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueDouble=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_double=?", whereConditions);
     return result;
   }
@@ -6528,7 +6528,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_string) VALUES ('"+StringUtil.checkSize(contentValues.get("value_string"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -6601,7 +6601,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueString==null?null:valueString)};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_string='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_string='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_string=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -6674,24 +6674,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -6721,7 +6721,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteString(String valueString) {
     String[] whereConditions={(valueString==null?null:valueString)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueString=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueString=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_string=?", whereConditions);
     return result;
   }
@@ -6751,7 +6751,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueString==null?null:String.valueOf(valueString))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueString=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueString=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_string=?", whereConditions);
     return result;
   }
@@ -6776,13 +6776,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueDate!=null) {
-      contentValues.put("value_date", DateUtil.write(valueDate));
+      contentValues.put("value_date", DateUtils.write(valueDate));
     } else {
       contentValues.putNull("value_date");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_date) VALUES ('"+StringUtil.checkSize(contentValues.get("value_date"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_date) VALUES ('"+StringUtils.checkSize(contentValues.get("value_date"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -6853,9 +6853,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneDate(Date valueDate) {
     // build where condition
-    String[] args={(valueDate==null?null:String.valueOf(DateUtil.write(valueDate)))};
+    String[] args={(valueDate==null?null:String.valueOf(DateUtils.write(valueDate)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_date='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_date='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_date=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -6928,24 +6928,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -6973,9 +6973,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteDate(Date valueDate) {
-    String[] whereConditions={(valueDate==null?null:String.valueOf(DateUtil.write(valueDate)))};
+    String[] whereConditions={(valueDate==null?null:String.valueOf(DateUtils.write(valueDate)))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueDate=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueDate=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_date=?", whereConditions);
     return result;
   }
@@ -7003,9 +7003,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueDate==null?null:String.valueOf(DateUtil.write(valueDate)))};
+    String[] whereConditions={(valueDate==null?null:String.valueOf(DateUtils.write(valueDate)))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueDate=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueDate=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_date=?", whereConditions);
     return result;
   }
@@ -7030,13 +7030,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueCalendar!=null) {
-      contentValues.put("value_calendar", CalendarUtil.write(valueCalendar));
+      contentValues.put("value_calendar", CalendarUtils.write(valueCalendar));
     } else {
       contentValues.putNull("value_calendar");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_calendar) VALUES ('"+StringUtil.checkSize(contentValues.get("value_calendar"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_calendar) VALUES ('"+StringUtils.checkSize(contentValues.get("value_calendar"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -7107,9 +7107,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneCalendar(Calendar valueCalendar) {
     // build where condition
-    String[] args={(valueCalendar==null?null:String.valueOf(CalendarUtil.write(valueCalendar)))};
+    String[] args={(valueCalendar==null?null:String.valueOf(CalendarUtils.write(valueCalendar)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_calendar='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_calendar='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_calendar=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -7182,24 +7182,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -7227,9 +7227,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteCalendar(Date valueCalendar) {
-    String[] whereConditions={(valueCalendar==null?null:String.valueOf(DateUtil.write(valueCalendar)))};
+    String[] whereConditions={(valueCalendar==null?null:String.valueOf(DateUtils.write(valueCalendar)))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueCalendar=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueCalendar=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_calendar=?", whereConditions);
     return result;
   }
@@ -7257,9 +7257,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueCalendar==null?null:String.valueOf(CalendarUtil.write(valueCalendar)))};
+    String[] whereConditions={(valueCalendar==null?null:String.valueOf(CalendarUtils.write(valueCalendar)))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueCalendar=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueCalendar=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_calendar=?", whereConditions);
     return result;
   }
@@ -7284,13 +7284,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueLocale!=null) {
-      contentValues.put("value_locale", LocaleUtil.write(valueLocale));
+      contentValues.put("value_locale", LocaleUtils.write(valueLocale));
     } else {
       contentValues.putNull("value_locale");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_locale) VALUES ('"+StringUtil.checkSize(contentValues.get("value_locale"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_locale) VALUES ('"+StringUtils.checkSize(contentValues.get("value_locale"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -7361,9 +7361,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneLocale(Calendar valueLocale) {
     // build where condition
-    String[] args={(valueLocale==null?null:String.valueOf(CalendarUtil.write(valueLocale)))};
+    String[] args={(valueLocale==null?null:String.valueOf(CalendarUtils.write(valueLocale)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_locale='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_locale='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_locale=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -7436,24 +7436,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -7481,9 +7481,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteLocale(Date valueLocale) {
-    String[] whereConditions={(valueLocale==null?null:String.valueOf(DateUtil.write(valueLocale)))};
+    String[] whereConditions={(valueLocale==null?null:String.valueOf(DateUtils.write(valueLocale)))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueLocale=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLocale=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_locale=?", whereConditions);
     return result;
   }
@@ -7511,9 +7511,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueLocale==null?null:String.valueOf(LocaleUtil.write(valueLocale)))};
+    String[] whereConditions={(valueLocale==null?null:String.valueOf(LocaleUtils.write(valueLocale)))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueLocale=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLocale=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_locale=?", whereConditions);
     return result;
   }
@@ -7538,13 +7538,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueUrl!=null) {
-      contentValues.put("value_url", UrlUtil.write(valueUrl));
+      contentValues.put("value_url", UrlUtils.write(valueUrl));
     } else {
       contentValues.putNull("value_url");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_url) VALUES ('"+StringUtil.checkSize(contentValues.get("value_url"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_url) VALUES ('"+StringUtils.checkSize(contentValues.get("value_url"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -7615,9 +7615,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneURL(URL valueUrl) {
     // build where condition
-    String[] args={(valueUrl==null?null:String.valueOf(UrlUtil.write(valueUrl)))};
+    String[] args={(valueUrl==null?null:String.valueOf(UrlUtils.write(valueUrl)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_url='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_url='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_url=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -7690,24 +7690,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -7735,9 +7735,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteURL(URL valueUrl) {
-    String[] whereConditions={(valueUrl==null?null:String.valueOf(UrlUtil.write(valueUrl)))};
+    String[] whereConditions={(valueUrl==null?null:String.valueOf(UrlUtils.write(valueUrl)))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueUrl=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueUrl=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_url=?", whereConditions);
     return result;
   }
@@ -7765,9 +7765,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueUrl==null?null:String.valueOf(UrlUtil.write(valueUrl)))};
+    String[] whereConditions={(valueUrl==null?null:String.valueOf(UrlUtils.write(valueUrl)))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueUrl=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueUrl=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_url=?", whereConditions);
     return result;
   }
@@ -7792,13 +7792,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueTime!=null) {
-      contentValues.put("value_time", TimeUtil.write(valueTime));
+      contentValues.put("value_time", TimeUtils.write(valueTime));
     } else {
       contentValues.putNull("value_time");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_time) VALUES ('"+StringUtil.checkSize(contentValues.get("value_time"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_time) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -7869,9 +7869,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneTime(Time valueTime) {
     // build where condition
-    String[] args={(valueTime==null?null:String.valueOf(TimeUtil.write(valueTime)))};
+    String[] args={(valueTime==null?null:String.valueOf(TimeUtils.write(valueTime)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -7944,24 +7944,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -7989,9 +7989,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteTime(Time valueTime) {
-    String[] whereConditions={(valueTime==null?null:String.valueOf(TimeUtil.write(valueTime)))};
+    String[] whereConditions={(valueTime==null?null:String.valueOf(TimeUtils.write(valueTime)))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueTime=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueTime=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_time=?", whereConditions);
     return result;
   }
@@ -8019,9 +8019,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueTime==null?null:String.valueOf(TimeUtil.write(valueTime)))};
+    String[] whereConditions={(valueTime==null?null:String.valueOf(TimeUtils.write(valueTime)))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueTime=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueTime=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_time=?", whereConditions);
     return result;
   }
@@ -8046,13 +8046,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueCurrency!=null) {
-      contentValues.put("value_currency", CurrencyUtil.write(valueCurrency));
+      contentValues.put("value_currency", CurrencyUtils.write(valueCurrency));
     } else {
       contentValues.putNull("value_currency");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_currency) VALUES ('"+StringUtil.checkSize(contentValues.get("value_currency"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_currency) VALUES ('"+StringUtils.checkSize(contentValues.get("value_currency"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -8123,9 +8123,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneCurrencye(Currency valueCurrency) {
     // build where condition
-    String[] args={(valueCurrency==null?null:String.valueOf(CurrencyUtil.write(valueCurrency)))};
+    String[] args={(valueCurrency==null?null:String.valueOf(CurrencyUtils.write(valueCurrency)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_currency='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_currency='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_currency=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -8198,24 +8198,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -8243,9 +8243,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteCurrency(Currency valueCurrency) {
-    String[] whereConditions={(valueCurrency==null?null:String.valueOf(CurrencyUtil.write(valueCurrency)))};
+    String[] whereConditions={(valueCurrency==null?null:String.valueOf(CurrencyUtils.write(valueCurrency)))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueCurrency=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueCurrency=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_currency=?", whereConditions);
     return result;
   }
@@ -8273,9 +8273,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueCurrency==null?null:String.valueOf(CurrencyUtil.write(valueCurrency)))};
+    String[] whereConditions={(valueCurrency==null?null:String.valueOf(CurrencyUtils.write(valueCurrency)))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueCurrency=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueCurrency=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_currency=?", whereConditions);
     return result;
   }
@@ -8300,13 +8300,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueTimeZone!=null) {
-      contentValues.put("value_time_zone", TimeZoneUtil.write(valueTimeZone));
+      contentValues.put("value_time_zone", TimeZoneUtils.write(valueTimeZone));
     } else {
       contentValues.putNull("value_time_zone");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_time_zone) VALUES ('"+StringUtil.checkSize(contentValues.get("value_time_zone"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_time_zone) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -8377,9 +8377,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneTimeZone(TimeZone valueTimeZone) {
     // build where condition
-    String[] args={(valueTimeZone==null?null:String.valueOf(TimeZoneUtil.write(valueTimeZone)))};
+    String[] args={(valueTimeZone==null?null:String.valueOf(TimeZoneUtils.write(valueTimeZone)))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time_zone='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time_zone='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time_zone=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -8452,24 +8452,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -8497,9 +8497,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteTimeZone(TimeZone valueTimeZone) {
-    String[] whereConditions={(valueTimeZone==null?null:String.valueOf(TimeZoneUtil.write(valueTimeZone)))};
+    String[] whereConditions={(valueTimeZone==null?null:String.valueOf(TimeZoneUtils.write(valueTimeZone)))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueTimeZone=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueTimeZone=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_time_zone=?", whereConditions);
     return result;
   }
@@ -8527,9 +8527,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueTimeZone==null?null:String.valueOf(TimeZoneUtil.write(valueTimeZone)))};
+    String[] whereConditions={(valueTimeZone==null?null:String.valueOf(TimeZoneUtils.write(valueTimeZone)))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueTimeZone=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueTimeZone=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_time_zone=?", whereConditions);
     return result;
   }
@@ -8560,7 +8560,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_enum_type) VALUES ('"+StringUtil.checkSize(contentValues.get("value_enum_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_enum_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -8633,7 +8633,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueEnumType==null?null:String.valueOf(valueEnumType.toString()))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_enum_type='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_enum_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_enum_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -8706,24 +8706,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -8753,7 +8753,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteEnumType(EnumType valueEnumType) {
     String[] whereConditions={(valueEnumType==null?null:String.valueOf(valueEnumType.toString()))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueEnumType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueEnumType=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_enum_type=?", whereConditions);
     return result;
   }
@@ -8783,7 +8783,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueEnumType==null?null:String.valueOf(valueEnumType.toString()))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueEnumType=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueEnumType=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_enum_type=?", whereConditions);
     return result;
   }
@@ -8808,13 +8808,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueBeanArray!=null) {
-      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtility.asList(valueBeanArray, ArrayList.class)));
+      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtils.asList(valueBeanArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_bean_array");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_bean_array) VALUES ('"+StringUtil.checkSize(contentValues.get("value_bean_array"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bean_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -8885,9 +8885,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneArrayBeanType(Bean[] valueBeanArray) {
     // build where condition
-    String[] args={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -8960,24 +8960,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -9005,9 +9005,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteArrayBeanType(Bean[] valueBeanArray) {
-    String[] whereConditions={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueBeanArray=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBeanArray=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_bean_array=?", whereConditions);
     return result;
   }
@@ -9035,9 +9035,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueBeanArray=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBeanArray=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_bean_array=?", whereConditions);
     return result;
   }
@@ -9062,13 +9062,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongTypeArray, ArrayList.class)));
+      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongTypeArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_long_type_array");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_long_type_array) VALUES ('"+StringUtil.checkSize(contentValues.get("value_long_type_array"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_type_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -9139,9 +9139,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneArrayLongType(long[] valueLongTypeArray) {
     // build where condition
-    String[] args={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -9214,24 +9214,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -9259,9 +9259,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteArrayLongType(long[] valueLongTypeArray) {
-    String[] whereConditions={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_long_type_array=?", whereConditions);
     return result;
   }
@@ -9289,9 +9289,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_long_type_array=?", whereConditions);
     return result;
   }
@@ -9316,13 +9316,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueLongArray!=null) {
-      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongArray, ArrayList.class)));
+      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongArray, ArrayList.class)));
     } else {
       contentValues.putNull("value_long_array");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_long_array) VALUES ('"+StringUtil.checkSize(contentValues.get("value_long_array"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_array"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -9393,9 +9393,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneArrayLong(Long[] valueLongArray) {
     // build where condition
-    String[] args={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -9468,24 +9468,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -9513,9 +9513,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteArrayLong(Long[] valueLongArray) {
-    String[] whereConditions={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueLongArray=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongArray=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_long_array=?", whereConditions);
     return result;
   }
@@ -9543,9 +9543,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtility.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueLongArray=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongArray=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_long_array=?", whereConditions);
     return result;
   }
@@ -9576,7 +9576,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean (value_long_list) VALUES ('"+StringUtil.checkSize(contentValues.get("value_long_list"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_list) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_list"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -9649,7 +9649,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(valueLongList==null?null:new String(ProcessorHelper.asByteArray(valueLongList),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -9722,24 +9722,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index17)) { resultBean.valueLong=cursor.getLong(index17); }
       if (!cursor.isNull(index18)) { resultBean.valueDoubleType=cursor.getDouble(index18); }
       if (!cursor.isNull(index19)) { resultBean.valueDouble=cursor.getDouble(index19); }
-      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtil.read(cursor.getString(index20)); }
-      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtil.read(cursor.getString(index21)); }
-      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtil.read(cursor.getString(index22)); }
-      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtil.read(cursor.getString(index23)); }
-      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtil.read(cursor.getString(index24)); }
-      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtil.read(cursor.getString(index25)); }
-      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtil.read(cursor.getString(index26)); }
+      if (!cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(cursor.getString(index20)); }
+      if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
+      if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
+      if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
+      if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+      if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
+      if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtility.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtility.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtility.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtility.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
+      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
       if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtility.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtility.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
       if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
       if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
       if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
@@ -9769,7 +9769,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteListLong(LinkedList<Long> valueLongList) {
     String[] whereConditions={(valueLongList==null?null:new String(ProcessorHelper.asByteArray(valueLongList),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean WHERE valueLongList=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongList=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_long_list=?", whereConditions);
     return result;
   }
@@ -9799,7 +9799,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueLongList==null?null:new String(ProcessorHelper.asByteArray(valueLongList),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean SET  WHERE valueLongList=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongList=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_long_list=?", whereConditions);
     return result;
   }

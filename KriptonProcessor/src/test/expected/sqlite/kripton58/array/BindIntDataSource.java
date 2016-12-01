@@ -71,7 +71,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   /**
    * instance
    */
-  public static BindIntDataSource instance() {
+  public static synchronized BindIntDataSource instance() {
     if (instance==null) {
       instance=new BindIntDataSource(KriptonLibrary.context());
     }

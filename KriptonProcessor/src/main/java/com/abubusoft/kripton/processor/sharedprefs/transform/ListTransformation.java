@@ -3,6 +3,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
 import com.squareup.javapoet.ParameterizedTypeName;
 
 public class ListTransformation extends AbstractCollectionTransform {
@@ -20,7 +21,7 @@ public class ListTransformation extends AbstractCollectionTransform {
 			return Class.forName(collectionTypeName.rawType.toString());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return null;
+			throw new KriptonClassNotFoundException(e);			
 		}
 	}
 

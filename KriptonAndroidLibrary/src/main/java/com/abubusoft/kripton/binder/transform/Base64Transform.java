@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.binder.transform;
 
-import com.abubusoft.kripton.common.Base64Util;
+import com.abubusoft.kripton.common.Base64Utils;
 
 /**
  * Transformer between a base64 encoded string and a byte[]
@@ -26,11 +26,11 @@ import com.abubusoft.kripton.common.Base64Util;
 public class Base64Transform implements Transform<byte[]> {
 
 	public byte[] read(String value) throws Exception {
-		return Base64Util.decode(value);
+		return Base64Utils.decode(value);
 	}
 
 	public String write(byte[] value) throws Exception {
-		return Base64Util.encode(value);
+		return Base64Utils.encode(value);
 	}
 
 }

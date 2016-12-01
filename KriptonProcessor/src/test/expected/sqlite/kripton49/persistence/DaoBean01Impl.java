@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.kripton49.entities.Bean01Entity;
@@ -51,7 +51,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // build where condition
     String[] args={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -101,7 +101,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // build where condition
     String[] args={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -161,7 +161,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     String[] whereConditions={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean01 SET text='"+StringUtil.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditions);
     int result = database().update("bean01", contentValues, "id=?", whereConditions);
     return result;
   }
@@ -184,7 +184,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   public long deleteOne(Long id) {
     String[] whereConditions={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditions);
     int result = database().delete("bean01", "id=?", whereConditions);
     return result;
   }
@@ -215,7 +215,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean01 (id) VALUES ('"+StringUtil.checkSize(contentValues.get("id"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean01 (id) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     return result;
   }
@@ -248,7 +248,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean01 (text) VALUES ('"+StringUtil.checkSize(contentValues.get("text"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean01 (text) VALUES ('"+StringUtils.checkSize(contentValues.get("text"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     bean.setId(result);
 

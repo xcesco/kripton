@@ -1,7 +1,7 @@
 package sqlite.kripton38;
 
 import android.database.Cursor;
-import com.abubusoft.kripton.common.DateUtil;
+import com.abubusoft.kripton.common.DateUtils;
 import java.util.LinkedList;
 
 /**
@@ -93,7 +93,7 @@ public class BindBean05Cursor {
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2)));}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3));}
         if (index4>=0 && !cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4));}
-        if (index5>=0 && !cursor.isNull(index5)) { resultBean.setCreationTime(DateUtil.read(cursor.getString(index5)));}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5)));}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -126,7 +126,7 @@ public class BindBean05Cursor {
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2)));}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3));}
         if (index4>=0 && !cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4));}
-        if (index5>=0 && !cursor.isNull(index5)) { resultBean.setCreationTime(DateUtil.read(cursor.getString(index5)));}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5)));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

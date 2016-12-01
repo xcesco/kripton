@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
-import com.abubusoft.kripton.processor.utils.StringUtility;
+import com.abubusoft.kripton.common.StringUtils;
 import java.lang.String;
 
 /**
@@ -62,7 +62,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
     bean.name=prefs.getString("name", bean.name);
      {
       String temp=prefs.getString("userAccessToken", null);
-      bean.userAccessToken=(StringUtility.hasText(temp)) ? (UserAccessToken)readObj(temp, UserAccessToken.class): null;}
+      bean.userAccessToken=(StringUtils.hasText(temp)) ? (UserAccessToken)readObj(temp, UserAccessToken.class): null;}
 
 
     return bean;
@@ -97,13 +97,13 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
    */
   public UserAccessToken userAccessToken() {
     String temp=prefs.getString("userAccessToken", null);
-    return (StringUtility.hasText(temp)) ? (UserAccessToken)readObj(temp, UserAccessToken.class): null;
+    return (StringUtils.hasText(temp)) ? (UserAccessToken)readObj(temp, UserAccessToken.class): null;
   }
 
   /**
    * get instance of shared preferences
    */
-  public static BindAppPreferencesSharedPreferences instance() {
+  public static synchronized BindAppPreferencesSharedPreferences instance() {
     if (instance==null) {
       instance=new BindAppPreferencesSharedPreferences();
     }

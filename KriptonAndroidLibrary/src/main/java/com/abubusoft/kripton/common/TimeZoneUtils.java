@@ -2,7 +2,7 @@ package com.abubusoft.kripton.common;
 
 import java.util.TimeZone;
 
-public class TimeZoneUtil {
+public class TimeZoneUtils {
 	
 	public static String write(TimeZone value) {
 		return value.getID();		

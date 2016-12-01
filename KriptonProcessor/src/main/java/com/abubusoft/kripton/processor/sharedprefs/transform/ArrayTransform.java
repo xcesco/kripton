@@ -21,12 +21,12 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.ArrayList;
 
 import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.CollectionUtility;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -75,12 +75,12 @@ public class ArrayTransform extends AbstractSPTransform {
 			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("($T.hasText($L)) ? ", StringUtility.class, tempPreferenceName);
+		methodBuilder.addCode("($T.hasText($L)) ? ", StringUtils.class, tempPreferenceName);
 		
 		if (TypeUtility.isTypePrimitive(clazz) || TypeUtility.isTypeWrappedPrimitive(clazz)){
-			methodBuilder.addCode("$T.as$L$LArray(collection)", CollectionUtility.class, primitiveName, (primitive ? "Type" :""));
+			methodBuilder.addCode("$T.as$L$LArray(collection)", CollectionUtils.class, primitiveName, (primitive ? "Type" :""));
 		} else {			
-			methodBuilder.addCode("$T.asArray(collection, new $L[collection.size()])", CollectionUtility.class, clazz);
+			methodBuilder.addCode("$T.asArray(collection, new $L[collection.size()])", CollectionUtils.class, clazz);
 		}
 		methodBuilder.addCode(": null");
 
@@ -100,7 +100,7 @@ public class ArrayTransform extends AbstractSPTransform {
 		if (beanClass != null) {
 			methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
 
-			methodBuilder.addCode("$L.putString($S,$T.asString($T.asList($L, $T.class)))", editorName, property.getName(), helperClazz, CollectionUtility.class,getter(beanName, beanClass, property), ArrayList.class);
+			methodBuilder.addCode("$L.putString($S,$T.asString($T.asList($L, $T.class)))", editorName, property.getName(), helperClazz, CollectionUtils.class,getter(beanName, beanClass, property), ArrayList.class);
 
 			methodBuilder.addCode(";");
 			methodBuilder.addCode(" else ");
@@ -108,7 +108,7 @@ public class ArrayTransform extends AbstractSPTransform {
 		} else {
 			methodBuilder.addCode("if ($L!=null) ", beanName);
 
-			methodBuilder.addCode("$L.putString($S,$T.asString($T.asList($L, $T.class)))", editorName, property.getName(), helperClazz, CollectionUtility.class, beanName, ArrayList.class);
+			methodBuilder.addCode("$L.putString($S,$T.asString($T.asList($L, $T.class)))", editorName, property.getName(), helperClazz, CollectionUtils.class, beanName, ArrayList.class);
 
 			methodBuilder.addCode(";");
 			methodBuilder.addCode(" else ");

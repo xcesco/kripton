@@ -29,7 +29,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -39,7 +39,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
@@ -71,7 +70,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			whereCondition = method.getAnnotation(BindSqlDelete.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		}
 
-		if (StringUtility.hasText(whereCondition)) {
+		if (StringUtils.hasText(whereCondition)) {
 			whereCondition = whereCondition.trim();
 		}
 
@@ -94,12 +93,12 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtils.class, sqlModify);
 			}
 			methodBuilder.addCode("int result = database().update($S, contentValues, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement());
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, analyzer.getSQLStatement().replaceAll("\\?", "%s"));
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtils.class, analyzer.getSQLStatement().replaceAll("\\?", "%s"));
 			}
 			methodBuilder.addCode("int result = database().delete($S, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement());
 		}
@@ -214,7 +213,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 			bufferQuestion.append(separator);
 			bufferQuestion.append(columnNameConverter.convert(property.getName()) + "=");
-			bufferQuestion.append("'\"+StringUtil.checkSize(contentValues.get(\"" + columnNameConverter.convert(property.getName()) + "\"))+\"'");
+			bufferQuestion.append("'\"+StringUtils.checkSize(contentValues.get(\"" + columnNameConverter.convert(property.getName()) + "\"))+\"'");
 
 			separator = ", ";
 		}

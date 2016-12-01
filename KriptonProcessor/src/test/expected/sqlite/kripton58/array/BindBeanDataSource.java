@@ -71,7 +71,7 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   /**
    * instance
    */
-  public static BindBeanDataSource instance() {
+  public static synchronized BindBeanDataSource instance() {
     if (instance==null) {
       instance=new BindBeanDataSource(KriptonLibrary.context());
     }

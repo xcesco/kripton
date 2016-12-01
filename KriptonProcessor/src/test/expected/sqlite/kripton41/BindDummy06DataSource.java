@@ -71,7 +71,7 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
   /**
    * instance
    */
-  public static BindDummy06DataSource instance() {
+  public static synchronized BindDummy06DataSource instance() {
     if (instance==null) {
       instance=new BindDummy06DataSource(KriptonLibrary.context());
     }

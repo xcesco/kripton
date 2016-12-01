@@ -9,7 +9,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abubusoft.kripton.common.CollectionUtility;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.fasterxml.jackson.core.JsonToken;
@@ -115,11 +115,11 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			{
 				if (TypeUtility.isTypePrimitive(elementTypeName))
 				{
-					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$LTypeArray(collection)"), CollectionUtility.class, elementTypeName.box());
+					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$LTypeArray(collection)"), CollectionUtils.class, elementTypeName.box());
 				} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
-					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtility.class, elementTypeName);
+					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtils.class, elementTypeName);
 				} else {
-					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"), CollectionUtility.class, elementTypeName);
+					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"), CollectionUtils.class, elementTypeName);
 				}				
 			} else {				
 				methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
@@ -194,11 +194,11 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 		{
 			if (TypeUtility.isTypePrimitive(elementTypeName))
 			{
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"), CollectionUtility.class, elementTypeName.box());
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"), CollectionUtils.class, elementTypeName.box());
 			} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtility.class, elementTypeName);
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtils.class, elementTypeName);
 			} else {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"), CollectionUtility.class, elementTypeName);
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"), CollectionUtils.class, elementTypeName);
 			}				
 		} else {
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));

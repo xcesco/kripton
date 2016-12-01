@@ -27,7 +27,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderJsonWriter;
-import com.abubusoft.kripton.common.Base64Util;
+import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
@@ -47,7 +47,7 @@ public class AbstractSharedPreference {
 		String result=null;		
 		try {
 			result = objWriter.write(obj);
-			result=Base64Util.encode(result.getBytes());
+			result=Base64Utils.encode(result.getBytes());
 		} catch (MappingException e) {
 			e.printStackTrace();
 		} catch (WriterException e) {
@@ -66,7 +66,7 @@ public class AbstractSharedPreference {
 		E result=null;
 		String buffer;
 		try {
-			buffer=new String(Base64Util.decode(input));
+			buffer=new String(Base64Utils.decode(input));
 			result=objReader.read(clazz, buffer );
 		} catch (MappingException e) {
 			e.printStackTrace();

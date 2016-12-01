@@ -38,7 +38,7 @@ import com.abubusoft.kripton.binder.xml.internal.MapEntry;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.common.GenericClass;
 import com.abubusoft.kripton.common.LRUCache;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TypeReflector;
 import com.abubusoft.kripton.exception.MappingException;
 
@@ -182,10 +182,10 @@ public class MappingSchema {
 			throw new MappingException("Class " + type.getName() + " need @BindType annotation, because it uses @BindTypeXml or @BindTable");
 		}
 		
-		if (bindType!=null && !StringUtil.isEmpty(bindType.value())) {
+		if (bindType!=null && !StringUtils.isEmpty(bindType.value())) {
 			rootElementSchema.xmlInfo.setName(bindType.value());
 		} else {
-			rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
+			rootElementSchema.xmlInfo.setName(StringUtils.lowercaseFirstLetter(type.getSimpleName()));
 		}
 		
 		// BindTypeXml
@@ -194,11 +194,11 @@ public class MappingSchema {
 				throw (new MappingException("The annotation @BindTypeXml annotation can not be used without @BinType in class definition " + type.getName()));
 			
 			BindTypeXml xre = type.getAnnotation(BindTypeXml.class);
-			String namespace = StringUtil.isEmpty(xre.namespace()) ? null : xre.namespace();
+			String namespace = StringUtils.isEmpty(xre.namespace()) ? null : xre.namespace();
 			rootElementSchema.xmlInfo.setNamespace(namespace);
 		} else {
 			// if no BindTypeXml, use class name instead
-			rootElementSchema.xmlInfo.setName(StringUtil.lowercaseFirstLetter(type.getSimpleName()));
+			rootElementSchema.xmlInfo.setName(StringUtils.lowercaseFirstLetter(type.getSimpleName()));
 			rootElementSchema.xmlInfo.setNamespace(null);
 		}
 
@@ -331,7 +331,7 @@ public class MappingSchema {
 	 * @throws MappingException
 	 */
 	private void checkAlreadyUsed(String key, HashSet<String> usedStrings, String message) throws MappingException {
-		if (!StringUtil.hasText(key))
+		if (!StringUtils.hasText(key))
 			return;
 		// put in set of used names
 		if (usedStrings.contains(key)) {
@@ -417,7 +417,7 @@ public class MappingSchema {
 				elementSchema.order = order;
 				customTransformer = (Class<CustomTransform<?>>) (bindTransform == null ? DefaultCustomTransform.class : bindTransform.value());
 
-				if (StringUtil.isEmpty(nameFromAnnotation)) {
+				if (StringUtils.isEmpty(nameFromAnnotation)) {
 					elementSchema.setName(field.getName());
 				} else {
 					elementSchema.setName(nameFromAnnotation);
@@ -425,7 +425,7 @@ public class MappingSchema {
 
 				// if elementName is defined, use it on wrapperName and
 				// elementName like name
-				if (StringUtil.hasText(elementNameFromAnnotation)) {
+				if (StringUtils.hasText(elementNameFromAnnotation)) {
 					// invertiamo i nomi
 					elementSchema.setWrapperName(elementNameFromAnnotation);
 
@@ -439,7 +439,7 @@ public class MappingSchema {
 				
 				elementSchema.setField(field);
 				// put in set of used names
-				if (StringUtil.hasText(elementSchema.getWrapperName()))
+				if (StringUtils.hasText(elementSchema.getWrapperName()))
 				{
 					checkAlreadyUsed(elementSchema.getWrapperName(), usedNames, "Bind");
 				} else {
@@ -464,7 +464,7 @@ public class MappingSchema {
 					}
 					elementSchema.setFieldType(fieldType);
 
-					if (StringUtil.hasText(elementNameFromAnnotation)) {
+					if (StringUtils.hasText(elementNameFromAnnotation)) {
 						// this is not a collection
 						throw new MappingException("Attribute elementName is useless in @Bind for field '" + field.getName() + "' of class '" + type.getName() + "' is not a collection");
 					}

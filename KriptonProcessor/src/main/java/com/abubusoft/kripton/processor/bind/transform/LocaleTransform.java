@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import com.abubusoft.kripton.common.LocaleUtil;
+import com.abubusoft.kripton.common.LocaleUtils;
 
 /**
  * Transformer between a string and a java.util.Locale object
@@ -26,6 +26,6 @@ import com.abubusoft.kripton.common.LocaleUtil;
 public class LocaleTransform extends WrappedCompileTimeTransform {
 
 	public LocaleTransform() {
-		super(LocaleUtil.class);
+		super(LocaleUtils.class);
 	}
 }

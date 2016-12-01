@@ -17,7 +17,7 @@ package com.abubusoft.kripton.binder.transform;
 
 import javax.xml.namespace.QName;
 
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 
 
 public class QNameTransform implements Transform<QName> {
@@ -37,8 +37,8 @@ public class QNameTransform implements Transform<QName> {
 	public String write(QName value) throws Exception {
 		String localName = value.getLocalPart();
 		String prefix = value.getPrefix();
-		if (!StringUtil.isEmpty(localName)) {
-			if (!StringUtil.isEmpty(prefix)) {
+		if (!StringUtils.isEmpty(localName)) {
+			if (!StringUtils.isEmpty(prefix)) {
 				return prefix + ":" + localName;
 			} else {
 				return localName;

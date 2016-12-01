@@ -3,7 +3,7 @@ package sqlite.kripton41;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 
 /**
  * <p>
@@ -50,7 +50,7 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO bean01 (id, value) VALUES ('"+StringUtil.checkSize(contentValues.get("id"))+"', '"+StringUtil.checkSize(contentValues.get("value"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean01 (id, value) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     return result!=-1;
   }

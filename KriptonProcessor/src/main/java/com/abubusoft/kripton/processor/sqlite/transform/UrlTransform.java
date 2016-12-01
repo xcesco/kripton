@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import com.abubusoft.kripton.common.UrlUtil;
+import com.abubusoft.kripton.common.UrlUtils;
 
 /**
  * Transformer between a string and a java.net.URL object
@@ -23,10 +23,10 @@ import com.abubusoft.kripton.common.UrlUtil;
  * @author bulldog
  *
  */
-public class UrlTransform extends WrappedCompileTimeTransform<UrlUtil> {
+public class UrlTransform extends WrappedCompileTimeTransform<UrlUtils> {
 
 	public UrlTransform() {
-		super(UrlUtil.class);
+		super(UrlUtils.class);
 	}
 
 }

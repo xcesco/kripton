@@ -15,12 +15,12 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import com.abubusoft.kripton.common.BigIntegerUtil;
+import com.abubusoft.kripton.common.BigIntegerUtils;
 
 class BigIntegerTransform extends AbstractNumberTransform {
 
 	public BigIntegerTransform() {
-		NUMBER_UTIL_CLAZZ = BigIntegerUtil.class;
+		NUMBER_UTIL_CLAZZ = BigIntegerUtils.class;
 		ATTRIBUTE_METHOD="Integer";
 	}
 

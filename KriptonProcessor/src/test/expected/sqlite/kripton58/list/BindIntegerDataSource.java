@@ -71,7 +71,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   /**
    * instance
    */
-  public static BindIntegerDataSource instance() {
+  public static synchronized BindIntegerDataSource instance() {
     if (instance==null) {
       instance=new BindIntegerDataSource(KriptonLibrary.context());
     }

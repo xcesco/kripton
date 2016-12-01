@@ -6,8 +6,8 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.common.DateUtil;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.DateUtils;
+import com.abubusoft.kripton.common.StringUtils;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -80,7 +80,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
       if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
       if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-      if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtil.read(cursor.getString(index5))); }
+      if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
     }
     cursor.close();
@@ -121,7 +121,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={String.valueOf(bean.getPk()), (bean.getText()==null?null:bean.getText())};
 
-    Logger.info(StringUtil.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s' and prova='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s' and prova='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and prova=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -143,7 +143,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
       if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
       if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-      if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtil.read(cursor.getString(index5))); }
+      if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
     }
     cursor.close();
@@ -183,7 +183,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -208,7 +208,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
         if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
         if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
         if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtil.read(cursor.getString(index5))); }
+        if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -245,7 +245,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(text==null?null:text)};
 
-    Logger.info(StringUtil.formatSQL("SELECT pk FROM ws_bean WHERE text = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT pk FROM ws_bean WHERE text = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk FROM ws_bean WHERE text = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -300,7 +300,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(text==null?null:text)};
 
-    Logger.info(StringUtil.formatSQL("SELECT count(*) FROM ws_bean WHERE text = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT count(*) FROM ws_bean WHERE text = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT count(*) FROM ws_bean WHERE text = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Long result=null;
@@ -352,7 +352,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -404,7 +404,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean05 resultBean=new Bean05();
@@ -435,7 +435,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
           if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
           if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
           if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtil.read(cursor.getString(index5))); }
+          if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -480,7 +480,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtil.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -532,7 +532,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean05 resultBean=new Bean05();
@@ -563,7 +563,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
           if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
           if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
           if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtil.read(cursor.getString(index5))); }
+          if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -614,13 +614,13 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
 
     if (creationTime!=null) {
-      contentValues.put("creation_time", DateUtil.write(creationTime));
+      contentValues.put("creation_time", DateUtils.write(creationTime));
     } else {
       contentValues.putNull("creation_time");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO ws_bean (text, content, creation_time) VALUES ('"+StringUtil.checkSize(contentValues.get("text"))+"', '"+StringUtil.checkSize(contentValues.get("content"))+"', '"+StringUtil.checkSize(contentValues.get("creation_time"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO ws_bean (text, content, creation_time) VALUES ('"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("content"))+"', '"+StringUtils.checkSize(contentValues.get("creation_time"))+"')"));
     long result = database().insert("ws_bean", null, contentValues);
     return result;
   }
@@ -671,13 +671,13 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
 
     if (bean.getCreationTime()!=null) {
-      contentValues.put("creation_time", DateUtil.write(bean.getCreationTime()));
+      contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
     } else {
       contentValues.putNull("creation_time");
     }
 
     // log
-    Logger.info(StringUtil.formatSQL("SQL: INSERT INTO ws_bean (number, bean_type, text, content, creation_time) VALUES ('"+StringUtil.checkSize(contentValues.get("number"))+"', '"+StringUtil.checkSize(contentValues.get("bean_type"))+"', '"+StringUtil.checkSize(contentValues.get("text"))+"', '"+StringUtil.checkSize(contentValues.get("content"))+"', '"+StringUtil.checkSize(contentValues.get("creation_time"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO ws_bean (number, bean_type, text, content, creation_time) VALUES ('"+StringUtils.checkSize(contentValues.get("number"))+"', '"+StringUtils.checkSize(contentValues.get("bean_type"))+"', '"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("content"))+"', '"+StringUtils.checkSize(contentValues.get("creation_time"))+"')"));
     long result = database().insert("ws_bean", null, contentValues);
     bean.setPk(result);
   }
@@ -733,14 +733,14 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
 
     if (bean.getCreationTime()!=null) {
-      contentValues.put("creation_time", DateUtil.write(bean.getCreationTime()));
+      contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
     } else {
       contentValues.putNull("creation_time");
     }
 
-    String[] whereConditions={String.valueOf(bean.getPk()), (bean.getText()==null?null:bean.getText()), (bean.getCreationTime()==null?null:String.valueOf(DateUtil.write(bean.getCreationTime())))};
+    String[] whereConditions={String.valueOf(bean.getPk()), (bean.getText()==null?null:bean.getText()), (bean.getCreationTime()==null?null:String.valueOf(DateUtils.write(bean.getCreationTime())))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE ws_bean SET number='"+StringUtil.checkSize(contentValues.get("number"))+"', bean_type='"+StringUtil.checkSize(contentValues.get("bean_type"))+"', text='"+StringUtil.checkSize(contentValues.get("text"))+"', content='"+StringUtil.checkSize(contentValues.get("content"))+"', creation_time='"+StringUtil.checkSize(contentValues.get("creation_time"))+"' WHERE pk=%s and text=%s and creationTime=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE ws_bean SET number='"+StringUtils.checkSize(contentValues.get("number"))+"', bean_type='"+StringUtils.checkSize(contentValues.get("bean_type"))+"', text='"+StringUtils.checkSize(contentValues.get("text"))+"', content='"+StringUtils.checkSize(contentValues.get("content"))+"', creation_time='"+StringUtils.checkSize(contentValues.get("creation_time"))+"' WHERE pk=%s and text=%s and creationTime=%s"), (Object[])whereConditions);
     int result = database().update("ws_bean", contentValues, "pk=? and text=? and creation_time=?", whereConditions);
     return result;
   }
@@ -790,9 +790,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       contentValues.putNull("text");
     }
 
-    String[] whereConditions={String.valueOf(uid), (valido==null?null:String.valueOf(DateUtil.write(valido))), (validoIn==null?null:String.valueOf(DateUtil.write(validoIn)))};
+    String[] whereConditions={String.valueOf(uid), (valido==null?null:String.valueOf(DateUtils.write(valido))), (validoIn==null?null:String.valueOf(DateUtils.write(validoIn)))};
 
-    Logger.info(StringUtil.formatSQL("UPDATE ws_bean SET content='"+StringUtil.checkSize(contentValues.get("content"))+"', text='"+StringUtil.checkSize(contentValues.get("text"))+"' WHERE pk=%s and creationTime=%s and creationTime=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE ws_bean SET content='"+StringUtils.checkSize(contentValues.get("content"))+"', text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE pk=%s and creationTime=%s and creationTime=%s"), (Object[])whereConditions);
     int result = database().update("ws_bean", contentValues, "pk=? and creation_time=? and creation_time=?", whereConditions);
     return result;
   }
@@ -815,9 +815,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(Bean05 bean) {
-    String[] whereConditions={String.valueOf(bean.getPk()), (bean.getText()==null?null:bean.getText()), (bean.getCreationTime()==null?null:String.valueOf(DateUtil.write(bean.getCreationTime())))};
+    String[] whereConditions={String.valueOf(bean.getPk()), (bean.getText()==null?null:bean.getText()), (bean.getCreationTime()==null?null:String.valueOf(DateUtils.write(bean.getCreationTime())))};
 
-    Logger.info(StringUtil.formatSQL("pk=%s and text=%s and creation_time=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("pk=%s and text=%s and creation_time=%s"), (Object[])whereConditions);
     int result = database().delete("ws_bean", "pk=? and text=? and creation_time=?", whereConditions);
     return result;
   }
@@ -844,9 +844,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(long uid, Date validoIn, Date valido) {
-    String[] whereConditions={String.valueOf(uid), (valido==null?null:String.valueOf(DateUtil.write(valido))), (validoIn==null?null:String.valueOf(DateUtil.write(validoIn)))};
+    String[] whereConditions={String.valueOf(uid), (valido==null?null:String.valueOf(DateUtils.write(valido))), (validoIn==null?null:String.valueOf(DateUtils.write(validoIn)))};
 
-    Logger.info(StringUtil.formatSQL("DELETE ws_bean WHERE pk=%s and creationTime=%s and creationTime=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE ws_bean WHERE pk=%s and creationTime=%s and creationTime=%s"), (Object[])whereConditions);
     int result = database().delete("ws_bean", "pk=? and creation_time=? and creation_time=?", whereConditions);
     return result;
   }
@@ -869,7 +869,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   public long deleteOne(long id) {
     String[] whereConditions={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("DELETE ws_bean WHERE pk=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE ws_bean WHERE pk=%s"), (Object[])whereConditions);
     int result = database().delete("ws_bean", "pk=?", whereConditions);
     return result;
   }
@@ -892,7 +892,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   public long deleteBean(Bean05 va) {
     String[] whereConditions={String.valueOf(va.getPk())};
 
-    Logger.info(StringUtil.formatSQL("pk=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("pk=%s"), (Object[])whereConditions);
     int result = database().delete("ws_bean", "pk=?", whereConditions);
     return result;
   }
@@ -924,7 +924,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT content FROM ws_bean WHERE pk='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT content FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT content FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     byte[] result=null;

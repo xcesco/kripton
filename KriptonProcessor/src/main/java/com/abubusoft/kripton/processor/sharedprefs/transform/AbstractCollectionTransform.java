@@ -6,8 +6,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -46,7 +46,7 @@ public abstract class AbstractCollectionTransform extends AbstractSPTransform {
 			methodBuilder.addCode("return ");
 		}
 
-		methodBuilder.addCode("$T.hasText(temp) ? ", StringUtility.class);
+		methodBuilder.addCode("$T.hasText(temp) ? ", StringUtils.class);
 		methodBuilder.addCode("$T.asCollection(new $T<$T>(), $T.class, temp)", utilClazz, listClazz, itemTypeName, itemTypeName);
 		methodBuilder.addCode(": null");
 

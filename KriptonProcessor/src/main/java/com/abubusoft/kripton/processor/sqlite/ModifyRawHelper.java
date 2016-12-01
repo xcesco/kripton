@@ -29,7 +29,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -141,12 +141,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtils.class, sqlModify);
 			}
 			methodBuilder.addCode("int result = database().update($S, contentValues, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), where.value0);
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtil.class, sqlModify);
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtils.class, sqlModify);
 			}
 			methodBuilder.addCode("int result = database().delete($S, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), where.value0);
 		}
@@ -200,7 +200,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		for (Pair<String, TypeMirror> param : updateableParams) {
 			String resolvedName = method.findParameterAliasByName(param.value0);
 			buffer.append(separator + resolvedName + "=${" + resolvedName + "}");
-			bufferQuestion.append(separator + resolvedName + "='\"+StringUtil.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(resolvedName) + "\"))+\"'");
+			bufferQuestion.append(separator + resolvedName + "='\"+StringUtils.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(resolvedName) + "\"))+\"'");
 
 			separator = ", ";
 		}

@@ -3,7 +3,7 @@ package sqlite.kripton38;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 
 /**
  * <p>
@@ -47,7 +47,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, text FROM bean02 WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean02 WHERE id='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean02 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -87,7 +87,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   public long deleteOne(long id) {
     String[] whereConditions={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("DELETE bean02 WHERE id=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean02 WHERE id=%s"), (Object[])whereConditions);
     int result = database().delete("bean02", "id=?", whereConditions);
     return result;
   }

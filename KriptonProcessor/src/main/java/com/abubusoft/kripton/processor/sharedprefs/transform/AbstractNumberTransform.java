@@ -20,8 +20,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import java.math.BigInteger;
 
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.utils.StringUtility;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -58,7 +58,7 @@ abstract class AbstractNumberTransform extends AbstractSPTransform {
 			methodBuilder.addCode("return ");
 		}
 		
-		methodBuilder.addCode("($L.hasText(temp)) ? ", StringUtility.class, preferenceName, property.getName());
+		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
 		methodBuilder.addCode("new $T(temp)",  clazz);
 		methodBuilder.addCode(": null");
 		
@@ -66,7 +66,7 @@ abstract class AbstractNumberTransform extends AbstractSPTransform {
 			methodBuilder.addCode((!property.isPublicOrPackageField()?")":""));
 		}
 		
-		methodBuilder.addCode(";");
+		methodBuilder.addCode(";\n");
 		
 		if (readAll) {
 			methodBuilder.endControlFlow();

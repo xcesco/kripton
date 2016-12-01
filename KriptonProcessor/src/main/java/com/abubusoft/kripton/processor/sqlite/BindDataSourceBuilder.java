@@ -135,7 +135,7 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 		
 		{
 			// instance
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).returns(className(schemaName));
 	
 			methodBuilder.addJavadoc("instance\n");
 			methodBuilder.beginControlFlow("if (instance==null)");

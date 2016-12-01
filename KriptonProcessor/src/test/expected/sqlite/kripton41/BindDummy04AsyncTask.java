@@ -74,9 +74,9 @@ public abstract class BindDummy04AsyncTask<I, U, R> {
   public abstract void onFinish(R result);
 
   /**
-   * Override this method to display operation progress on UI-Thred
+   * Override this method to display operation progress on UI-Thread
    */
-  public void onProgressUpdate(R result) {
+  public void onProgressUpdate(U... update) {
   }
 
   /**
@@ -110,7 +110,7 @@ public abstract class BindDummy04AsyncTask<I, U, R> {
 
       @Override
       public void onProgressUpdate(@SuppressWarnings("unchecked") U... values) {
-        onProgressUpdate(values);
+        BindDummy04AsyncTask.this.onProgressUpdate(values);
       }
 
       @Override

@@ -71,7 +71,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   /**
    * instance
    */
-  public static BindFloatDataSource instance() {
+  public static synchronized BindFloatDataSource instance() {
     if (instance==null) {
       instance=new BindFloatDataSource(KriptonLibrary.context());
     }

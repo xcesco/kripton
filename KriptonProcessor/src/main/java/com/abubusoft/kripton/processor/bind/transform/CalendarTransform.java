@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-import com.abubusoft.kripton.common.CalendarUtil;
+import com.abubusoft.kripton.common.CalendarUtils;
 
 /**
  * Transformer between a string and a java.util.Calendar object
@@ -26,6 +26,6 @@ import com.abubusoft.kripton.common.CalendarUtil;
 public class CalendarTransform extends WrappedCompileTimeTransform {
 
 	public CalendarTransform() {
-		super(CalendarUtil.class);
+		super(CalendarUtils.class);
 	}
 }

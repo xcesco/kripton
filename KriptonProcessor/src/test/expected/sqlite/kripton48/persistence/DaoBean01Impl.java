@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import sqlite.kripton48.entities.Bean01;
 
 /**
@@ -49,7 +49,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -104,7 +104,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     String[] whereConditions={String.valueOf(id)};
 
-    Logger.info(StringUtil.formatSQL("UPDATE bean01 SET text='"+StringUtil.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditions);
     int result = database().update("bean01", contentValues, "id=?", whereConditions);
     return result;
   }

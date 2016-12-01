@@ -8,9 +8,9 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.common.Base64Util;
-import com.abubusoft.kripton.common.CollectionUtility;
-import com.abubusoft.kripton.common.PrimitiveUtil;
+import com.abubusoft.kripton.common.Base64Utils;
+import com.abubusoft.kripton.common.CollectionUtils;
+import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -126,7 +126,7 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
             jacksonSerializer.writeNull();
           } else {
             if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtil.writeByte(item));
+              jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
             }
           }
         }
@@ -242,7 +242,7 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
                   }
                   collection.add(item);
                 }
-                instance.valueByteArray=CollectionUtility.asByteArray(collection);
+                instance.valueByteArray=CollectionUtils.asByteArray(collection);
               }
             break;
             case "valueByteTypeArray":
@@ -300,18 +300,18 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
                     item=null;
                   } else {
                     if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                      item=PrimitiveUtil.readByte(jacksonParser.getText(), null);
+                      item=PrimitiveUtils.readByte(jacksonParser.getText(), null);
                     }
                   }
                   collection.add(item);
                 }
-                instance.valueByteArray=CollectionUtility.asByteArray(collection);
+                instance.valueByteArray=CollectionUtils.asByteArray(collection);
               }
             break;
             case "valueByteTypeArray":
               // field valueByteTypeArray
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueByteTypeArray=Base64Util.decode(jacksonParser.getValueAsString());
+                instance.valueByteTypeArray=Base64Utils.decode(jacksonParser.getValueAsString());
               }
             break;
             default:
@@ -372,7 +372,7 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=(byte)PrimitiveUtil.readByte(xmlParser.getElementAsInt(), null);
+                        item=(byte)PrimitiveUtils.readByte(xmlParser.getElementAsInt(), null);
                       }
                       collection.add(item);
                       while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("valueByteArray")) {
@@ -380,11 +380,11 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
                           item=null;
                           xmlParser.nextTag();
                         } else {
-                          item=(byte)PrimitiveUtil.readByte(xmlParser.getElementAsInt(), null);
+                          item=(byte)PrimitiveUtils.readByte(xmlParser.getElementAsInt(), null);
                         }
                         collection.add(item);
                       }
-                      instance.valueByteArray=CollectionUtility.asByteArray(collection);
+                      instance.valueByteArray=CollectionUtils.asByteArray(collection);
                       read=false;
                     }
                   break;

@@ -23,7 +23,7 @@ import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -80,7 +80,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		if (daoDefinition.isLogEnabled()) {
 			methodBuilder.addCode("// log\n");
-			methodBuilder.addCode("$T.info($T.formatSQL(\"SQL: $L\"));\n", Logger.class, StringUtil.class, sqlInsert);
+			methodBuilder.addCode("$T.info($T.formatSQL(\"SQL: $L\"));\n", Logger.class, StringUtils.class, sqlInsert);
 		}
 
 		// define return value
@@ -127,7 +127,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					bufferValue.append(separator + "${" + resolvedParamName + "}");
 
 					// here it needed raw parameter name
-					bufferQuestion.append(separator + "'\"+StringUtil.checkSize(contentValues.get(\"" + columnConverter.convert(resolvedParamName) + "\"))+\"'");
+					bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + columnConverter.convert(resolvedParamName) + "\"))+\"'");
 					separator = ", ";
 				}
 			}

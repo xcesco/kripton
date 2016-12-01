@@ -35,7 +35,7 @@ import com.abubusoft.kripton.binder.json.internal.JSONObject;
 import com.abubusoft.kripton.binder.schema.ElementSchema;
 import com.abubusoft.kripton.binder.schema.MappingSchema;
 import com.abubusoft.kripton.binder.transform.Transformer;
-import com.abubusoft.kripton.common.StringUtil;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.WriterException;
 
@@ -320,7 +320,7 @@ public class JsonWriter implements BinderJsonWriter {
 
 		String result = this.write(source);
 		try {
-			StringUtil.string2Writer(result, out);
+			StringUtils.string2Writer(result, out);
 		} catch (IOException e) {
 			throw new WriterException("IO error", e);
 		}

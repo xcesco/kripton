@@ -2,7 +2,7 @@ package com.abubusoft.kripton.common;
 
 import java.sql.Time;
 
-public class TimeUtil {
+public class TimeUtils {
 	
 	public static String write(Time value) {
 		return value.toString();
