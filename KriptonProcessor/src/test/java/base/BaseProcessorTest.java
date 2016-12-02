@@ -17,10 +17,8 @@ package base;
 
 import static com.abubusoft.testing.compile.JavaSourcesSubjectFactory.javaSources;
 import static com.google.common.truth.Truth.assertAbout;
-import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,8 +42,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
-import com.abubusoft.kripton.binder2.BinderType;
-import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.BindSharedPreferencesProcessor;
@@ -61,15 +57,17 @@ public class BaseProcessorTest {
 	
 	protected boolean display=false;
 	
+	final TestType testType = TestType.GENERATE;
+	
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
 	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(AssertionError.class);
-		expectedEx.expectMessage(clazzException.getSimpleName());
+		//expectedEx.expectMessage(clazzException.getSimpleName());
 	}
 
-	final TestType testType = TestType.GENERATE;
+	
 
 	@Before
 	public void before() {
@@ -79,8 +77,6 @@ public class BaseProcessorTest {
 	public enum TestType {
 		GENERATE, COMPARE
 	}
-	
-	
 
 	protected static Logger logger = Logger.getGlobal();
 

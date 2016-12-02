@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import org.junit.Assert;
 import org.junit.Before;
 import org.unitils.reflectionassert.ReflectionAssert;
+import org.unitils.reflectionassert.ReflectionComparatorMode;
 
 import base.BaseProcessorTest;
 import base.MyByteArrayOutputStream;
@@ -40,8 +41,7 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		double yamlPerc=yamlSize*100.0/xmlSize;
 		double propertyPerc=propertySize*100.0/xmlSize;
 		
-		System.out.println(String.format("xml: %s, cbor: %s (%.0f%%), json: %s (%.0f%%), yaml: %s (%.0f%%), property: %s (%.0f%%)", xmlSize, cborSize, cborPerc, jsonSize, jsonPerc,yamlSize, yamlPerc, propertySize, propertyPerc));
-		
+		System.out.println(String.format("xml: %s, cbor: %s (%.0f%%), json: %s (%.0f%%), yaml: %s (%.0f%%), property: %s (%.0f%%)", xmlSize, cborSize, cborPerc, jsonSize, jsonPerc,yamlSize, yamlPerc, propertySize, propertyPerc));	
 	}
 	
 	/**
@@ -59,7 +59,8 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		if (display) System.out.println(output2);
 		
 		Assert.assertTrue(type.toString(), output1.length()==output2.length());		
-		//ReflectionAssert.assertReflectionEquals(bean, bean2);
+		
+		ReflectionAssert.assertReflectionEquals(bean, bean2, ReflectionComparatorMode.LENIENT_ORDER);
 		
 		return output2.length();
 	}

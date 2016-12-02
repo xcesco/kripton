@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;
@@ -230,27 +229,23 @@ public class MapTransformation extends AbstractBindTransform {
 				}
 			
 				// field is always nullable
-//				if (elementValueProperty.isNullable())
-//				{
-					methodBuilder.beginControlFlow("if (item.getValue()==null)");
-						methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.mapValueName);
-					methodBuilder.nextControlFlow("else");
+				methodBuilder.beginControlFlow("if (item.getValue()==null)");
+				// KRITPON-38: in a collection, for null object we write "null" string
 					if (onString)
 					{
-						transformValue.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);	
+						methodBuilder.addStatement("$L.writeStringField($S, \"null\")",serializerName, property.mapValueName);
 					} else {
-						transformValue.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
-					}						
-					methodBuilder.endControlFlow();
-//				} else {
-//					if (onString)
-//					{
-//						transformValue.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);	
-//					} else {
-//						transformValue.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
-//					}	
-//				}
-			
+						methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.mapValueName);
+					}
+				methodBuilder.nextControlFlow("else");
+				if (onString)
+				{
+					transformValue.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);	
+				} else {
+					transformValue.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
+				}						
+				methodBuilder.endControlFlow();
+				
 				methodBuilder.addStatement("$L.writeEndObject()", serializerName);
 					
 			methodBuilder.endControlFlow();
@@ -283,7 +278,10 @@ public class MapTransformation extends AbstractBindTransform {
 		
 		methodBuilder.addStatement("$T key=$L", elementKeyProperty.getPropertyType().getName(), DEFAULT_VALUE);
 		methodBuilder.addStatement("$T value=$L", elementValueProperty.getPropertyType().getName(), DEFAULT_VALUE);
-		methodBuilder.addStatement("$T current", JsonToken.class);
+		if (onString) {
+			methodBuilder.addStatement("$T current", JsonToken.class);
+			methodBuilder.addStatement("String tempValue=null");
+		}
 			
 		methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
 		
@@ -304,13 +302,14 @@ public class MapTransformation extends AbstractBindTransform {
 			
 			methodBuilder.addStatement("$<break");
 			methodBuilder.addCode("case $S:$>\n", property.mapValueName);
-//			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
-//				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
-//			methodBuilder.nextControlFlow("else");
 			
-			transformValue.generateParseOnJacksonAsString(methodBuilder, parserName, null, "value", elementValueProperty);
+			methodBuilder.addStatement("tempValue=$L.getValueAsString()", parserName);
+			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_STRING && \"null\".equals(tempValue))", parserName, JsonToken.class);
+				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
+			methodBuilder.nextControlFlow("else");			
+				transformValue.generateParseOnJacksonAsString(methodBuilder, parserName, null, "value", elementValueProperty);			
+			methodBuilder.endControlFlow();
 			
-			//methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$<break");
 			methodBuilder.addCode("}\n");
 			//

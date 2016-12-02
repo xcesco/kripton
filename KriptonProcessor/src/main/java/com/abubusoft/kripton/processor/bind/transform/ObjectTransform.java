@@ -83,14 +83,13 @@ public class ObjectTransform extends AbstractBindTransform {
 		if (onString)
 		{
 			methodBuilder.beginControlFlow("if (context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)==0)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
+			//methodBuilder.addStatement("$L.writeNullField($S)",serializerName, property.jacksonName);
+			// KRITPON-38: in a collection, for null object we write 
 			methodBuilder.addStatement("$L.writeNullField($S)",serializerName, property.jacksonName);
 			methodBuilder.endControlFlow();
 		} else
 		{
-			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
-			//methodBuilder.beginControlFlow("if (context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)==0)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
-			//methodBuilder.addStatement("$L.writeNullField($S)",serializerName, property.jacksonName);
-			//methodBuilder.endControlFlow();
+			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));			
 		}
 			
 		if (property.isNullable())

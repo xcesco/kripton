@@ -39,7 +39,7 @@ public class TestKripton33 extends BaseProcessorTest {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@Test
+	@Test//(expected=MethodParameterNotFoundException.class)
 	public void testErrorMethodParameterNotFound01() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(MethodParameterNotFoundException.class);
 		buildDataSourceProcessorTest(Channel01DataSource.class, DaoChannel01.class, Channel.class);

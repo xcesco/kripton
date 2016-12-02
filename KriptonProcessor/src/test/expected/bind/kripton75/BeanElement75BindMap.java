@@ -72,9 +72,7 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            if (item!=null)  {
-              jacksonSerializer.writeNumber(item);
-            }
+            jacksonSerializer.writeNumber(item);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -123,11 +121,9 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
         for (int i=0; i<n; i++) {
           item=object.valueByteArray[i];
           if (item==null) {
-            jacksonSerializer.writeNull();
+            jacksonSerializer.writeString("null");
           } else {
-            if (item!=null)  {
-              jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
-            }
+            jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
           }
         }
         jacksonSerializer.writeEndArray();
@@ -236,9 +232,7 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                      item=jacksonParser.getByteValue();
-                    }
+                    item=jacksonParser.getByteValue();
                   }
                   collection.add(item);
                 }
@@ -295,13 +289,13 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Byte> collection=new ArrayList<>();
                 Byte item=null;
+                String tempValue=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                  tempValue=jacksonParser.getValueAsString();
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                     item=null;
                   } else {
-                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                      item=PrimitiveUtils.readByte(jacksonParser.getText(), null);
-                    }
+                    item=PrimitiveUtils.readByte(jacksonParser.getText(), null);
                   }
                   collection.add(item);
                 }

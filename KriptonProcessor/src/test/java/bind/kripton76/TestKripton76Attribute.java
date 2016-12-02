@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
@@ -24,7 +23,16 @@ public class TestKripton76Attribute extends AbstractBindTypeProcessorTest {
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
 	{
 		this.expectedException(IncompatibleAttributesInAnnotationException.class);
-		buildBindProcessorTest(BeanAttribute76.class, BeanEnum.class);
+		
+//		try {
+			buildBindProcessorTest(BeanAttribute76.class, BeanEnum.class);	
+//		} catch(AssertionError e)
+//		{
+//			System.out.println("["+e.getMessage()+"]");
+//			System.out.println("["+IncompatibleAttributesInAnnotationException.class.getSimpleName()+"]");
+//			System.out.println("["+e.getMessage()+"]".contains(IncompatibleAttributesInAnnotationException.class.getSimpleName()));
+//		}
+		
 	}
 	
 	//@Test
@@ -67,6 +75,7 @@ public class TestKripton76Attribute extends AbstractBindTypeProcessorTest {
 		
 		check(bean);
 	}
+	
 	@Test
 	public void testArrayOnXmlAttribute() throws Throwable
 	{

@@ -26,6 +26,7 @@ import bind.kripton74Map.TestKripton74;
 import bind.kripton75.TestKripton75;
 import bind.kripton76.TestKripton76Attribute;
 import bind.kripton76.TestKripton76Value;
+import bind.kripton78.TestKripton78;
 
 @RunWith(Suite.class)
 //@formatter:off
@@ -39,6 +40,7 @@ import bind.kripton76.TestKripton76Value;
 		TestKripton75.class,
 		TestKripton76Value.class,
 		TestKripton76Attribute.class,
+		TestKripton78.class
 		 })
 //@formatter:on
 public class BindTypeProcessorSuiteTest {

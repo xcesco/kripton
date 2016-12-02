@@ -33,7 +33,7 @@ public class TestKripton74 extends AbstractBindTypeProcessorTest {
 		
 		bean.valueMapIntByteArray=new HashMap<>();
 		byte[] a=new byte[23];
-		bean.valueMapIntByteArray.put(20, null);
+		bean.valueMapIntByteArray.put(20, new byte[0]);
 		bean.valueMapIntByteArray.put(23, a);
 		bean.valueMapIntByteArray.put(27, null);
 		

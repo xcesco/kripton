@@ -93,13 +93,24 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			}
 			
 			methodBuilder.addStatement("$T item=$L", elementTypeName, DEFAULT_VALUE);
+			
+			if (onString)
+			{
+				methodBuilder.addStatement("String tempValue=null");
+			}
 
 			BindTransform transform=BindTransformer.lookup(elementTypeName);
-			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).build();
+			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).nullable(false).build();
 
 			methodBuilder.beginControlFlow("while ($L.nextToken() != $T.END_ARRAY)", parserName, JsonToken.class);
-				methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
-					methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+				if (onString)
+				{
+					methodBuilder.addStatement("tempValue=$L.getValueAsString()", parserName);
+					methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_STRING && \"null\".equals(tempValue))", parserName, JsonToken.class);
+				} else {
+					methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
+				}
+				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
 				methodBuilder.nextControlFlow("else");
 				if (onString)
 				{
@@ -241,7 +252,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			}
 		
 			BindTransform transform=BindTransformer.lookup(elementTypeName);
-			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).build();
+			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).nullable(false).build();
 		
 			methodBuilder.addCode("// write wrapper tag\n");
 			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);
@@ -258,7 +269,13 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			}
 				
 				methodBuilder.beginControlFlow("if (item==null)");
-					methodBuilder.addStatement("$L.writeNull()", serializerName);
+					if (onString)
+					{
+						// KRIPTON-38: supporto for null value as string
+						methodBuilder.addStatement("$L.writeString(\"null\")", serializerName);
+					} else {
+						methodBuilder.addStatement("$L.writeNull()", serializerName);
+					}
 				methodBuilder.nextControlFlow("else");
 					if (onString)
 					{
