@@ -80,14 +80,14 @@ public class TypeUtility {
 	 * @param value
 	 * @return true if it is array []
 	 */
-	public static boolean isArray(TypeName arrayType, TypeName value) {
-		return value.toString().equals(arrayType + "[]");
-	}
-
-	public static boolean isArrayOfPrimitive(TypeName typeName) {
-		return isArray(TypeName.BOOLEAN, typeName) || isArray(TypeName.BYTE, typeName) || isArray(TypeName.CHAR, typeName) || isArray(TypeName.DOUBLE, typeName) || isArray(TypeName.FLOAT, typeName) || isArray(TypeName.INT, typeName)
-				|| isArray(TypeName.LONG, typeName) || isArray(TypeName.SHORT, typeName);
-	}
+//	public static boolean isArray(TypeName arrayType, TypeName value) {
+//		return value.toString().equals(arrayType + "[]");
+//	}
+//
+//	public static boolean isArrayOfPrimitive(TypeName typeName) {
+//		return isArray(TypeName.BOOLEAN, typeName) || isArray(TypeName.BYTE, typeName) || isArray(TypeName.CHAR, typeName) || isArray(TypeName.DOUBLE, typeName) || isArray(TypeName.FLOAT, typeName) || isArray(TypeName.INT, typeName)
+//				|| isArray(TypeName.LONG, typeName) || isArray(TypeName.SHORT, typeName);
+//	}
 
 	/**
 	 * Check if its type is String
@@ -122,9 +122,9 @@ public class TypeUtility {
 	 * @param generic
 	 * @return true if value is equals to className.
 	 */
-	public static boolean isEqualsToGeneric(TypeName value, TypeName rawType, TypeName generic) {
-		return isSameType(value, rawType + "<" + generic.toString() + ">");
-	}
+//	public static boolean isEqualsToGeneric(TypeName value, TypeName rawType, TypeName generic) {
+//		return isSameType(value, rawType + "<" + generic.toString() + ">");
+//	}
 
 	// com.abubusoft.kripton.android.sqlite.ReadBeanListener<com.abubusoft.kripton.processor.test03.Bean01>
 
@@ -173,16 +173,16 @@ public class TypeUtility {
 	 * @param className
 	 * @return class name generated
 	 */
-	public static ClassName classNameWithPrefix(String className, String prefix) {
-		String fullName=className+prefix;
-		
-		int lastIndex=fullName.lastIndexOf(".");
-		
-		String packageName=fullName.substring(0, lastIndex);
-		String clazzName=fullName.substring(lastIndex+1);
-		
-		return ClassName.get(packageName, clazzName);
-	}
+//	public static ClassName classNameWithPrefix(String className, String prefix) {
+//		String fullName=className+prefix;
+//		
+//		int lastIndex=fullName.lastIndexOf(".");
+//		
+//		String packageName=fullName.substring(0, lastIndex);
+//		String clazzName=fullName.substring(lastIndex+1);
+//		
+//		return ClassName.get(packageName, clazzName);
+//	}
 
 	/**
 	 * Convert a class in a classname
@@ -244,22 +244,22 @@ public class TypeUtility {
 		return TypeName.get(element.asType());
 	}
 
-	public static boolean isEnumType(Element element) {
-		return element.getKind() == ElementKind.ENUM;
-	}
+//	public static boolean isEnumType(Element element) {
+//		return element.getKind() == ElementKind.ENUM;
+//	}
 
-	public static boolean isTypeIncludedIn(String clazzName, Class<?>... set) {
-		String a;
-		for (Class<?> item : set) {
-			a = item.getCanonicalName();
-
-			if (clazzName.equals(a))
-				return true;
-		}
-
-		return false;
-
-	}
+//	public static boolean isTypeIncludedIn(String clazzName, Class<?>... set) {
+//		String a;
+//		for (Class<?> item : set) {
+//			a = item.getCanonicalName();
+//
+//			if (clazzName.equals(a))
+//				return true;
+//		}
+//
+//		return false;
+//
+//	}
 
 	public static boolean isNullable(ModelProperty property) {
 		return isNullable(property.getPropertyType().getName());

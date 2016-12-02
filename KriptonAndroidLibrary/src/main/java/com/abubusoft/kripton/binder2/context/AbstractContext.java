@@ -1,5 +1,6 @@
 package com.abubusoft.kripton.binder2.context;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -31,57 +32,50 @@ public abstract class AbstractContext {
 			return mapper;
 		}
 	}
-
-/*
-	@SuppressWarnings("unchecked")
-	public <E, M extends BinderMapper<E>> M mapperFor(ParameterizedType<E> type) throws NoSuchMapperException {
-		return (M) mapperFor(type, null);
-	}
 	
-	public <E, M extends BinderMapper<E>> M mapperFor(ParameterizedType<E> type, @SuppressWarnings("rawtypes") SimpleArrayMap<ParameterizedType, BinderMapper> partialMappers) throws NoSuchMapperException {
-		M mapper = getMapper(type, partialMappers);
+	public <E, M extends BinderMapper<E>> M mapperFor(ParameterizedType type) throws NoSuchMapperException {
+		M mapper = getMapper(type);
 		if (mapper == null) {
-			throw new NoSuchMapperException(type.rawType, getSupportedFormat());
+			throw new NoSuchMapperException(type.getRawType(), getSupportedFormat());
 		} else {
 			return mapper;
 		}
 	}
-*/
-	/*
-	public static <E, M extends BinderMapper<E>> M getMapper(ParameterizedType<E> type, SimpleArrayMap<ParameterizedType, BinderMapper> partialMappers) {
-		//
-		// if (type.typeParameters.size() == 0) {
-		// return getMapper((Class<E>) type.rawType);
-		// }
-		//
-		// if (partialMappers == null) {
-		// partialMappers = new SimpleArrayMap<ParameterizedType, JsonMapper>();
-		// }
-		//
-		// if (partialMappers.containsKey(type)) {
-		// return partialMappers.get(type);
-		// } else if (PARAMETERIZED_OBJECT_MAPPERS.containsKey(type)) {
-		// return PARAMETERIZED_OBJECT_MAPPERS.get(type);
-		// } else {
-		// try {
-		// Class<?> mapperClass = Class.forName(type.rawType.getName() + Constants.MAPPER_CLASS_SUFFIX);
-		// Constructor constructor = mapperClass.getDeclaredConstructors()[0];
-		// Object[] args = new Object[2 + type.typeParameters.size()];
-		// args[0] = type;
-		// args[args.length - 1] = partialMappers;
-		// for (int i = 0; i < type.typeParameters.size(); i++) {
-		// args[i + 1] = type.typeParameters.get(i);
-		// }
-		// JsonMapper<E> mapper = (JsonMapper<E>) constructor.newInstance(args);
-		// PARAMETERIZED_OBJECT_MAPPERS.put(type, mapper);
-		// return mapper;
-		// } catch (Exception ignored) {
-		// return null;
-		// }
-		// }
-		//
+
+	
+	public static <E, M extends BinderMapper<E>> M getMapper(ParameterizedType type) {		
+		 if (type.typeParameters.size() == 0) {
+		 return getMapper((Class<E>) type.rawType);
+		 }
+		
+		 if (partialMappers == null) {
+		 partialMappers = new SimpleArrayMap<ParameterizedType, JsonMapper>();
+		 }
+		
+		 if (partialMappers.containsKey(type)) {
+		 return partialMappers.get(type);
+		 } else if (PARAMETERIZED_OBJECT_MAPPERS.containsKey(type)) {
+		 return PARAMETERIZED_OBJECT_MAPPERS.get(type);
+		 } else {
+		 try {
+		 Class<?> mapperClass = Class.forName(type.rawType.getName() + Constants.MAPPER_CLASS_SUFFIX);
+		 Constructor constructor = mapperClass.getDeclaredConstructors()[0];
+		 Object[] args = new Object[2 + type.typeParameters.size()];
+		 args[0] = type;
+		 args[args.length - 1] = partialMappers;
+		 for (int i = 0; i < type.typeParameters.size(); i++) {
+		 args[i + 1] = type.typeParameters.get(i);
+		 }
+		 JsonMapper<E> mapper = (JsonMapper<E>) constructor.newInstance(args);
+		 PARAMETERIZED_OBJECT_MAPPERS.put(type, mapper);
+		 return mapper;
+		 } catch (Exception ignored) {
+		 return null;
+		 }
+		 }
+		
 		return null;
-	}*/
+	}
 
 	@SuppressWarnings("unchecked")
 	public <E, M extends BinderMapper<E>> M getMapper(Class<E> cls) {

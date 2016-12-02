@@ -50,21 +50,19 @@ public class ModelAnnotation {
 
 	protected Map<String, String> attributes;
 
-	/**
-	 * @return the attributes
-	 */
-	public Map<String, String> getAttributes() {
-		return attributes;
-	}
+
+//	public Map<String, String> getAttributes() {
+//		return attributes;
+//	}
 
 	public ModelAnnotation(String name, Map<String, String> attributes) {
 		this.name = name;
 		this.attributes = attributes;
 	}
 
-	public String getAttribute(String attributeName) {
-		return attributes.get(attributeName);
-	}
+//	public String getAttribute(String attributeName) {
+//		return attributes.get(attributeName);
+//	}
 	
 	public String getAttribute(AnnotationAttributeType attribute) {
 		return attributes.get(attribute.getValue());

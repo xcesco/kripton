@@ -7,11 +7,15 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.abubusoft.kripton.common.CollectionUtils;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
+import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -66,9 +70,9 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 		}
 		try {
 			return Class.forName(collectionTypeName.rawType.toString());
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {			
 			e.printStackTrace();
-			return null;
+			throw new KriptonClassNotFoundException(e);			
 		}
 	}
 
@@ -136,6 +140,35 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 				methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
 			}
 
+
+		if (onString)
+		{
+			// ELSE: check if empty string (== empty collection but not null)
+			methodBuilder.nextControlFlow("else if ($L.currentToken()==$T.VALUE_STRING && !$T.hasText($L.getValueAsString()))", parserName, JsonToken.class, StringUtils.class,parserName);
+			// create collection 
+			if (collectionType==CollectionType.ARRAY)
+			{
+				methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName, ArrayList.class);
+			} else {
+				methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName, defineCollectionClass(collectionTypeName));
+			}
+			// set collection
+			if (collectionType==CollectionType.ARRAY)
+			{
+				if (TypeUtility.isTypePrimitive(elementTypeName))
+				{
+					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$LTypeArray(collection)"), CollectionUtils.class, elementTypeName.box());
+				} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
+					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtils.class, elementTypeName);
+				} else {
+					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"), CollectionUtils.class, elementTypeName);
+				}				
+			} else {				
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
+			}
+			// END: we use the next endControlFlow
+		}
+		
 		methodBuilder.endControlFlow();
 		//@formatter:on
 	}
@@ -249,6 +282,8 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			} else if (collectionType==CollectionType.ARRAY) {
 				methodBuilder.addStatement("int n=$L.length", getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$T item", elementTypeName);
+			} else {
+				methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
 			}
 		
 			BindTransform transform=BindTransformer.lookup(elementTypeName);
@@ -256,6 +291,13 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 		
 			methodBuilder.addCode("// write wrapper tag\n");
 			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);
+			
+			if (onString)
+			{
+			// BEGIN - IF there are some elements
+			methodBuilder.beginControlFlow("if (n>0)");
+			}
+			
 			methodBuilder.addStatement("$L.writeStartArray()", serializerName);
 					
 			if (collectionType==CollectionType.SET) {			
@@ -288,6 +330,17 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			methodBuilder.endControlFlow();
 		
 	        methodBuilder.addStatement("$L.writeEndArray()", serializerName);
+	        
+	        if (onString)
+			{
+			// ELSE - IF there are some elements
+	        methodBuilder.nextControlFlow("else");
+	            // if collection has 0 elements, write an empty string
+	        	methodBuilder.addStatement("$L.writeString(\"\")", serializerName);	        
+			// END - IF there are some elements
+	        methodBuilder.endControlFlow();
+			}
+	        
 		methodBuilder.endControlFlow();
 		//@formatter:on
 	}

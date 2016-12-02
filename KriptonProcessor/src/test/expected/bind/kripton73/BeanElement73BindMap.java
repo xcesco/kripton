@@ -331,18 +331,22 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         BeanElement73 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBeanArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueBeanArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            if (context.mapperFor(BeanElement73.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
-              jacksonSerializer.writeNullField("valueBeanArray");
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueBeanArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              if (context.mapperFor(BeanElement73.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
+                jacksonSerializer.writeNullField("valueBeanArray");
+              }
             }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueByteArray
@@ -352,16 +356,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         Byte item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueByteArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueByteArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueByteArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueCharacterArray
@@ -371,16 +379,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         Character item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueCharacterArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueCharacterArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeCharacter(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueCharacterArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeCharacter(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueDoubleArray
@@ -390,16 +402,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         Double item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueDoubleArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueDoubleArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeDouble(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueDoubleArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeDouble(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueEnumArray
@@ -409,16 +425,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         BeanEnum73 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueEnumArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueEnumArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(item.toString());
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueEnumArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(item.toString());
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueFloatArray
@@ -428,16 +448,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         Float item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueFloatArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueFloatArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeFloat(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueFloatArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeFloat(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueIntArray
@@ -447,16 +471,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         Integer item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueIntArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.getValueIntArray()[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeInteger(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.getValueIntArray()[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeInteger(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueLongArray
@@ -466,16 +494,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         Long item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueLongArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueLongArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeLong(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueLongArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeLong(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueShortArray
@@ -485,16 +517,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         Short item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueShortArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueShortArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeShort(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueShortArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeShort(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueStringArray
@@ -504,16 +540,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         String item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueStringArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueStringArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(item);
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueStringArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(item);
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueBigDecimalArray
@@ -523,16 +563,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         BigDecimal item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigDecimalArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueBigDecimalArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(BigDecimalUtils.write(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueBigDecimalArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(BigDecimalUtils.write(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueBigIntegerArray
@@ -542,16 +586,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
         BigInteger item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigIntegerArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueBigIntegerArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(BigIntegerUtils.write(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueBigIntegerArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(BigIntegerUtils.write(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       jacksonSerializer.writeEndObject();
@@ -1091,6 +1139,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   collection.add(item);
                 }
                 instance.valueBeanArray=CollectionUtils.asArray(collection, new BeanElement73[collection.size()]);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<BeanElement73> collection=new ArrayList<>();
+                instance.valueBeanArray=CollectionUtils.asArray(collection, new BeanElement73[collection.size()]);
               }
             break;
             case "valueByteArray":
@@ -1108,6 +1159,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   }
                   collection.add(item);
                 }
+                instance.valueByteArray=CollectionUtils.asByteArray(collection);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Byte> collection=new ArrayList<>();
                 instance.valueByteArray=CollectionUtils.asByteArray(collection);
               }
             break;
@@ -1127,6 +1181,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   collection.add(item);
                 }
                 instance.valueCharacterArray=CollectionUtils.asCharacterArray(collection);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Character> collection=new ArrayList<>();
+                instance.valueCharacterArray=CollectionUtils.asCharacterArray(collection);
               }
             break;
             case "valueDoubleArray":
@@ -1144,6 +1201,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   }
                   collection.add(item);
                 }
+                instance.valueDoubleArray=CollectionUtils.asDoubleArray(collection);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Double> collection=new ArrayList<>();
                 instance.valueDoubleArray=CollectionUtils.asDoubleArray(collection);
               }
             break;
@@ -1166,6 +1226,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   collection.add(item);
                 }
                 instance.valueEnumArray=CollectionUtils.asArray(collection, new BeanEnum73[collection.size()]);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<BeanEnum73> collection=new ArrayList<>();
+                instance.valueEnumArray=CollectionUtils.asArray(collection, new BeanEnum73[collection.size()]);
               }
             break;
             case "valueFloatArray":
@@ -1183,6 +1246,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   }
                   collection.add(item);
                 }
+                instance.valueFloatArray=CollectionUtils.asFloatArray(collection);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Float> collection=new ArrayList<>();
                 instance.valueFloatArray=CollectionUtils.asFloatArray(collection);
               }
             break;
@@ -1202,6 +1268,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   collection.add(item);
                 }
                 instance.setValueIntArray(CollectionUtils.asIntegerArray(collection));
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Integer> collection=new ArrayList<>();
+                instance.setValueIntArray(CollectionUtils.asIntegerArray(collection));
               }
             break;
             case "valueLongArray":
@@ -1220,6 +1289,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   collection.add(item);
                 }
                 instance.valueLongArray=CollectionUtils.asLongArray(collection);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Long> collection=new ArrayList<>();
+                instance.valueLongArray=CollectionUtils.asLongArray(collection);
               }
             break;
             case "valueShortArray":
@@ -1237,6 +1309,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   }
                   collection.add(item);
                 }
+                instance.valueShortArray=CollectionUtils.asShortArray(collection);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Short> collection=new ArrayList<>();
                 instance.valueShortArray=CollectionUtils.asShortArray(collection);
               }
             break;
@@ -1258,6 +1333,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   collection.add(item);
                 }
                 instance.valueStringArray=CollectionUtils.asArray(collection, new String[collection.size()]);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<String> collection=new ArrayList<>();
+                instance.valueStringArray=CollectionUtils.asArray(collection, new String[collection.size()]);
               }
             break;
             case "valueBigDecimalArray":
@@ -1276,6 +1354,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   collection.add(item);
                 }
                 instance.valueBigDecimalArray=CollectionUtils.asArray(collection, new BigDecimal[collection.size()]);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<BigDecimal> collection=new ArrayList<>();
+                instance.valueBigDecimalArray=CollectionUtils.asArray(collection, new BigDecimal[collection.size()]);
               }
             break;
             case "valueBigIntegerArray":
@@ -1293,6 +1374,9 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   }
                   collection.add(item);
                 }
+                instance.valueBigIntegerArray=CollectionUtils.asArray(collection, new BigInteger[collection.size()]);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<BigInteger> collection=new ArrayList<>();
                 instance.valueBigIntegerArray=CollectionUtils.asArray(collection, new BigInteger[collection.size()]);
               }
             break;

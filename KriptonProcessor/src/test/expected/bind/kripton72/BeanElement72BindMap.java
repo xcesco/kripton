@@ -72,6 +72,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueBeanSet
       if (object.valueBeanSet!=null)  {
         fieldCount++;
+        int n=object.valueBeanSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBeanSet");
         jacksonSerializer.writeStartArray();
@@ -88,6 +89,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueByteSet
       if (object.valueByteSet!=null)  {
         fieldCount++;
+        int n=object.valueByteSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueByteSet");
         jacksonSerializer.writeStartArray();
@@ -104,6 +106,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueCharacterSet
       if (object.valueCharacterSet!=null)  {
         fieldCount++;
+        int n=object.valueCharacterSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueCharacterSet");
         jacksonSerializer.writeStartArray();
@@ -120,6 +123,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueDoubleSet
       if (object.valueDoubleSet!=null)  {
         fieldCount++;
+        int n=object.valueDoubleSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueDoubleSet");
         jacksonSerializer.writeStartArray();
@@ -136,6 +140,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueEnumSet
       if (object.valueEnumSet!=null)  {
         fieldCount++;
+        int n=object.valueEnumSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueEnumSet");
         jacksonSerializer.writeStartArray();
@@ -152,6 +157,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueFloatSet
       if (object.valueFloatSet!=null)  {
         fieldCount++;
+        int n=object.valueFloatSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueFloatSet");
         jacksonSerializer.writeStartArray();
@@ -168,6 +174,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueIntSet
       if (object.getValueIntSet()!=null)  {
         fieldCount++;
+        int n=object.getValueIntSet().size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueIntSet");
         jacksonSerializer.writeStartArray();
@@ -184,6 +191,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueLongSet
       if (object.valueLongSet!=null)  {
         fieldCount++;
+        int n=object.valueLongSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueLongSet");
         jacksonSerializer.writeStartArray();
@@ -200,6 +208,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueShortSet
       if (object.valueShortSet!=null)  {
         fieldCount++;
+        int n=object.valueShortSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueShortSet");
         jacksonSerializer.writeStartArray();
@@ -216,6 +225,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueStringSet
       if (object.valueStringSet!=null)  {
         fieldCount++;
+        int n=object.valueStringSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueStringSet");
         jacksonSerializer.writeStartArray();
@@ -232,6 +242,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueBigDecimalSet
       if (object.valueBigDecimalSet!=null)  {
         fieldCount++;
+        int n=object.valueBigDecimalSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigDecimalSet");
         jacksonSerializer.writeStartArray();
@@ -248,6 +259,7 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueBigIntegerSet
       if (object.valueBigIntegerSet!=null)  {
         fieldCount++;
+        int n=object.valueBigIntegerSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigIntegerSet");
         jacksonSerializer.writeStartArray();
@@ -296,195 +308,255 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueBeanSet
       if (object.valueBeanSet!=null)  {
         fieldCount++;
+        int n=object.valueBeanSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBeanSet");
-        jacksonSerializer.writeStartArray();
-        for (BeanElement72 item: object.valueBeanSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            if (context.mapperFor(BeanElement72.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
-              jacksonSerializer.writeNullField("valueBeanSet");
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (BeanElement72 item: object.valueBeanSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              if (context.mapperFor(BeanElement72.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
+                jacksonSerializer.writeNullField("valueBeanSet");
+              }
             }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueByteSet
       if (object.valueByteSet!=null)  {
         fieldCount++;
+        int n=object.valueByteSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueByteSet");
-        jacksonSerializer.writeStartArray();
-        for (Byte item: object.valueByteSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (Byte item: object.valueByteSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueCharacterSet
       if (object.valueCharacterSet!=null)  {
         fieldCount++;
+        int n=object.valueCharacterSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueCharacterSet");
-        jacksonSerializer.writeStartArray();
-        for (Character item: object.valueCharacterSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeCharacter(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (Character item: object.valueCharacterSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeCharacter(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueDoubleSet
       if (object.valueDoubleSet!=null)  {
         fieldCount++;
+        int n=object.valueDoubleSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueDoubleSet");
-        jacksonSerializer.writeStartArray();
-        for (Double item: object.valueDoubleSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeDouble(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (Double item: object.valueDoubleSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeDouble(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueEnumSet
       if (object.valueEnumSet!=null)  {
         fieldCount++;
+        int n=object.valueEnumSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueEnumSet");
-        jacksonSerializer.writeStartArray();
-        for (BeanEnum72 item: object.valueEnumSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(item.toString());
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (BeanEnum72 item: object.valueEnumSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(item.toString());
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueFloatSet
       if (object.valueFloatSet!=null)  {
         fieldCount++;
+        int n=object.valueFloatSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueFloatSet");
-        jacksonSerializer.writeStartArray();
-        for (Float item: object.valueFloatSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeFloat(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (Float item: object.valueFloatSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeFloat(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueIntSet
       if (object.getValueIntSet()!=null)  {
         fieldCount++;
+        int n=object.getValueIntSet().size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueIntSet");
-        jacksonSerializer.writeStartArray();
-        for (Integer item: object.getValueIntSet()) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeInteger(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (Integer item: object.getValueIntSet()) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeInteger(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueLongSet
       if (object.valueLongSet!=null)  {
         fieldCount++;
+        int n=object.valueLongSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueLongSet");
-        jacksonSerializer.writeStartArray();
-        for (Long item: object.valueLongSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeLong(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (Long item: object.valueLongSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeLong(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueShortSet
       if (object.valueShortSet!=null)  {
         fieldCount++;
+        int n=object.valueShortSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueShortSet");
-        jacksonSerializer.writeStartArray();
-        for (Short item: object.valueShortSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeShort(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (Short item: object.valueShortSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeShort(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueStringSet
       if (object.valueStringSet!=null)  {
         fieldCount++;
+        int n=object.valueStringSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueStringSet");
-        jacksonSerializer.writeStartArray();
-        for (String item: object.valueStringSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(item);
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (String item: object.valueStringSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(item);
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueBigDecimalSet
       if (object.valueBigDecimalSet!=null)  {
         fieldCount++;
+        int n=object.valueBigDecimalSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigDecimalSet");
-        jacksonSerializer.writeStartArray();
-        for (BigDecimal item: object.valueBigDecimalSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(BigDecimalUtils.write(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (BigDecimal item: object.valueBigDecimalSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(BigDecimalUtils.write(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueBigIntegerSet
       if (object.valueBigIntegerSet!=null)  {
         fieldCount++;
+        int n=object.valueBigIntegerSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigIntegerSet");
-        jacksonSerializer.writeStartArray();
-        for (BigInteger item: object.valueBigIntegerSet) {
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(BigIntegerUtils.write(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (BigInteger item: object.valueBigIntegerSet) {
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(BigIntegerUtils.write(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field zalueStringFinal
@@ -1007,6 +1079,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   collection.add(item);
                 }
                 instance.valueBeanSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<BeanElement72> collection=new HashSet<>();
+                instance.valueBeanSet=collection;
               }
             break;
             case "valueByteSet":
@@ -1024,6 +1099,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   }
                   collection.add(item);
                 }
+                instance.valueByteSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<Byte> collection=new HashSet<>();
                 instance.valueByteSet=collection;
               }
             break;
@@ -1043,6 +1121,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   collection.add(item);
                 }
                 instance.valueCharacterSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<Character> collection=new HashSet<>();
+                instance.valueCharacterSet=collection;
               }
             break;
             case "valueDoubleSet":
@@ -1060,6 +1141,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   }
                   collection.add(item);
                 }
+                instance.valueDoubleSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<Double> collection=new HashSet<>();
                 instance.valueDoubleSet=collection;
               }
             break;
@@ -1082,6 +1166,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   collection.add(item);
                 }
                 instance.valueEnumSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<BeanEnum72> collection=new HashSet<>();
+                instance.valueEnumSet=collection;
               }
             break;
             case "valueFloatSet":
@@ -1099,6 +1186,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   }
                   collection.add(item);
                 }
+                instance.valueFloatSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<Float> collection=new HashSet<>();
                 instance.valueFloatSet=collection;
               }
             break;
@@ -1118,6 +1208,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   collection.add(item);
                 }
                 instance.setValueIntSet(collection);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<Integer> collection=new HashSet<>();
+                instance.setValueIntSet(collection);
               }
             break;
             case "valueLongSet":
@@ -1136,6 +1229,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   collection.add(item);
                 }
                 instance.valueLongSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<Long> collection=new HashSet<>();
+                instance.valueLongSet=collection;
               }
             break;
             case "valueShortSet":
@@ -1153,6 +1249,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   }
                   collection.add(item);
                 }
+                instance.valueShortSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<Short> collection=new HashSet<>();
                 instance.valueShortSet=collection;
               }
             break;
@@ -1174,6 +1273,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   collection.add(item);
                 }
                 instance.valueStringSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<String> collection=new HashSet<>();
+                instance.valueStringSet=collection;
               }
             break;
             case "valueBigDecimalSet":
@@ -1192,6 +1294,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   collection.add(item);
                 }
                 instance.valueBigDecimalSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<BigDecimal> collection=new HashSet<>();
+                instance.valueBigDecimalSet=collection;
               }
             break;
             case "valueBigIntegerSet":
@@ -1209,6 +1314,9 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
                   }
                   collection.add(item);
                 }
+                instance.valueBigIntegerSet=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                HashSet<BigInteger> collection=new HashSet<>();
                 instance.valueBigIntegerSet=collection;
               }
             break;

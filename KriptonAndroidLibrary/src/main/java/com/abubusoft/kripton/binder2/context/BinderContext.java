@@ -5,10 +5,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import com.abubusoft.kripton.binder2.BinderType;
-//import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.binder2.persistence.ParserWrapper;
 import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
 import com.fasterxml.jackson.core.JsonEncoding;
@@ -57,7 +57,7 @@ public interface BinderContext<S extends SerializerWrapper, P extends ParserWrap
 
 	//<E> String serialize(E object, ParameterizedType<E> parameterizedType);
 
-	//<E> void serialize(E object, ParameterizedType<E> parameterizedType, OutputStream os);
+	<E> void serialize(E object, ParameterizedType parameterizedType, OutputStream os);
 
 	<E> String serialize(List<E> list, Class<E> objectClazz);
 

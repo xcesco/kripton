@@ -26,6 +26,7 @@ import bind.kripton74Map.TestKripton74;
 import bind.kripton75.TestKripton75;
 import bind.kripton76.TestKripton76Attribute;
 import bind.kripton76.TestKripton76Value;
+import bind.kripton77.TestKripton77;
 import bind.kripton78.TestKripton78;
 
 @RunWith(Suite.class)
@@ -40,6 +41,7 @@ import bind.kripton78.TestKripton78;
 		TestKripton75.class,
 		TestKripton76Value.class,
 		TestKripton76Attribute.class,
+		TestKripton77.class,
 		TestKripton78.class
 		 })
 //@formatter:on

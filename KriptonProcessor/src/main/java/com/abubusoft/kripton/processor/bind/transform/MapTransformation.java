@@ -215,9 +215,13 @@ public class MapTransformation extends AbstractBindTransform {
 			BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).nullable(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).inCollection(false).elementName(property.mapValueName).build();
 		
 			methodBuilder.addCode("// write wrapper tag\n");
+			
+			// BEGIN - if map has elements 
+			methodBuilder.beginControlFlow("if ($L.size()>0)",getter(beanName, beanClass, property));
+			
 			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonName);
 			methodBuilder.addStatement("$L.writeStartArray()", serializerName);
-			
+									
 			methodBuilder.beginControlFlow("for ($T<$T, $T> item: $L.entrySet())", Entry.class, keyTypeName, valueTypeName, getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeStartObject()", serializerName);
 			
@@ -251,6 +255,14 @@ public class MapTransformation extends AbstractBindTransform {
 			methodBuilder.endControlFlow();
 		
 	        methodBuilder.addStatement("$L.writeEndArray()", serializerName);
+	    
+			// ELSE - if map has elements
+	        methodBuilder.nextControlFlow("else");	        
+	        	methodBuilder.addStatement("$L.writeStringField($S, \"null\")",serializerName, property.jacksonName);
+	        
+			// END - if map has elements
+	        methodBuilder.endControlFlow();
+	        
 		methodBuilder.endControlFlow();
 		//@formatter:on
 	}

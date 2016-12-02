@@ -67,78 +67,94 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
       if (object.valueMapBeanLocale!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapBeanLocale");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<BeanElement74, Locale> item: object.valueMapBeanLocale.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeFieldName("k");
-          context.mapperFor(BeanElement74.class).serializeOnJackson(context, item.getKey(), wrapper);
-          if (item.getValue()==null) {
-            jacksonSerializer.writeNullField("v");
-          } else {
-            jacksonSerializer.writeStringField("v", LocaleUtils.write(item.getValue()));
+        if (object.valueMapBeanLocale.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapBeanLocale");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<BeanElement74, Locale> item: object.valueMapBeanLocale.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeFieldName("k");
+            context.mapperFor(BeanElement74.class).serializeOnJackson(context, item.getKey(), wrapper);
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("v");
+            } else {
+              jacksonSerializer.writeStringField("v", LocaleUtils.write(item.getValue()));
+            }
+            jacksonSerializer.writeEndObject();
           }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapBeanLocale", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapEnumBean
       if (object.valueMapEnumBean!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapEnumBean");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<BeanEnum74, BeanElement74> item: object.valueMapEnumBean.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeStringField("k", item.getKey().toString());
-          if (item.getValue()==null) {
-            jacksonSerializer.writeNullField("v");
-          } else {
-            jacksonSerializer.writeFieldName("v");
-            context.mapperFor(BeanElement74.class).serializeOnJackson(context, item.getValue(), wrapper);
+        if (object.valueMapEnumBean.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapEnumBean");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<BeanEnum74, BeanElement74> item: object.valueMapEnumBean.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("k", item.getKey().toString());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("v");
+            } else {
+              jacksonSerializer.writeFieldName("v");
+              context.mapperFor(BeanElement74.class).serializeOnJackson(context, item.getValue(), wrapper);
+            }
+            jacksonSerializer.writeEndObject();
           }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapEnumBean", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapIntByteArray
       if (object.valueMapIntByteArray!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapIntByteArray");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeNumberField("k", item.getKey());
-          if (item.getValue()==null) {
-            jacksonSerializer.writeNullField("v");
-          } else {
-            jacksonSerializer.writeBinaryField("v", item.getValue());
+        if (object.valueMapIntByteArray.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapIntByteArray");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeNumberField("k", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("v");
+            } else {
+              jacksonSerializer.writeBinaryField("v", item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
           }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapIntByteArray", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapStringInteger
       if (object.valueMapStringInteger!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapStringInteger");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<String, Integer> item: object.valueMapStringInteger.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeStringField("k", item.getKey());
-          if (item.getValue()==null) {
-            jacksonSerializer.writeNullField("v");
-          } else {
-            jacksonSerializer.writeNumberField("v", item.getValue());
+        if (object.valueMapStringInteger.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapStringInteger");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Integer> item: object.valueMapStringInteger.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("k", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("v");
+            } else {
+              jacksonSerializer.writeNumberField("v", item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
           }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapStringInteger", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       jacksonSerializer.writeEndObject();
@@ -171,82 +187,98 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
       if (object.valueMapBeanLocale!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapBeanLocale");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<BeanElement74, Locale> item: object.valueMapBeanLocale.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeFieldName("k");
-          if (context.mapperFor(BeanElement74.class).serializeOnJacksonAsString(context, item.getKey(), wrapper)==0) {
-            jacksonSerializer.writeNullField("k");
+        if (object.valueMapBeanLocale.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapBeanLocale");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<BeanElement74, Locale> item: object.valueMapBeanLocale.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeFieldName("k");
+            if (context.mapperFor(BeanElement74.class).serializeOnJacksonAsString(context, item.getKey(), wrapper)==0) {
+              jacksonSerializer.writeNullField("k");
+            }
+            if (item.getValue()==null) {
+              jacksonSerializer.writeStringField("v", "null");
+            } else {
+              jacksonSerializer.writeStringField("v", LocaleUtils.write(item.getValue()));
+            }
+            jacksonSerializer.writeEndObject();
           }
-          if (item.getValue()==null) {
-            jacksonSerializer.writeStringField("v", "null");
-          } else {
-            jacksonSerializer.writeStringField("v", LocaleUtils.write(item.getValue()));
-          }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapBeanLocale", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapEnumBean
       if (object.valueMapEnumBean!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapEnumBean");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<BeanEnum74, BeanElement74> item: object.valueMapEnumBean.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeStringField("k", item.getKey().toString());
-          if (item.getValue()==null) {
-            jacksonSerializer.writeStringField("v", "null");
-          } else {
-            jacksonSerializer.writeFieldName("v");
-            if (context.mapperFor(BeanElement74.class).serializeOnJacksonAsString(context, item.getValue(), wrapper)==0) {
-              jacksonSerializer.writeNullField("v");
+        if (object.valueMapEnumBean.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapEnumBean");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<BeanEnum74, BeanElement74> item: object.valueMapEnumBean.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("k", item.getKey().toString());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeStringField("v", "null");
+            } else {
+              jacksonSerializer.writeFieldName("v");
+              if (context.mapperFor(BeanElement74.class).serializeOnJacksonAsString(context, item.getValue(), wrapper)==0) {
+                jacksonSerializer.writeNullField("v");
+              }
             }
+            jacksonSerializer.writeEndObject();
           }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapEnumBean", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapIntByteArray
       if (object.valueMapIntByteArray!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapIntByteArray");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeStringField("k", PrimitiveUtils.writeInteger(item.getKey()));
-          if (item.getValue()==null) {
-            jacksonSerializer.writeStringField("v", "null");
-          } else {
-            jacksonSerializer.writeBinaryField("v", item.getValue());
+        if (object.valueMapIntByteArray.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapIntByteArray");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("k", PrimitiveUtils.writeInteger(item.getKey()));
+            if (item.getValue()==null) {
+              jacksonSerializer.writeStringField("v", "null");
+            } else {
+              jacksonSerializer.writeBinaryField("v", item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
           }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapIntByteArray", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapStringInteger
       if (object.valueMapStringInteger!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapStringInteger");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<String, Integer> item: object.valueMapStringInteger.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeStringField("k", item.getKey());
-          if (item.getValue()==null) {
-            jacksonSerializer.writeStringField("v", "null");
-          } else {
-            jacksonSerializer.writeStringField("v", PrimitiveUtils.writeInteger(item.getValue()));
+        if (object.valueMapStringInteger.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapStringInteger");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Integer> item: object.valueMapStringInteger.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("k", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeStringField("v", "null");
+            } else {
+              jacksonSerializer.writeStringField("v", PrimitiveUtils.writeInteger(item.getValue()));
+            }
+            jacksonSerializer.writeEndObject();
           }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapStringInteger", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       jacksonSerializer.writeEndObject();

@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.BinderContext;
+import com.abubusoft.kripton.binder2.context.JsonBinderContext;
 import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderJsonWriter;
 import com.abubusoft.kripton.BinderOptions;
@@ -21,20 +25,11 @@ import com.abubusoft.kripton.exception.WriterException;
  */
 public abstract class ProcessorHelper {
 	
-	/**
-	 * Json writer. It's need to write embedded field
-	 */
-	protected static ThreadLocal<BinderJsonWriter> objWriter;
-	
-	/**
-	 * json reader. It's need to read embedded field
-	 */
-	protected static ThreadLocal<BinderJsonReader> objReader;
-
+	protected static ThreadLocal<JsonBinderContext> binderContext;
 	
 	public static String asString(Collection<?> value)
 	{
-		BinderJsonWriter writer = getWriter();
+		BinderContext<?, ?> context = getBinderContext();
 		
 		String result;
 		try {
@@ -51,7 +46,7 @@ public abstract class ProcessorHelper {
 	
 	public static String asString(Map<?, ?> value)
 	{
-		BinderJsonWriter writer = getWriter();
+		BinderContext<?, ?> context = getBinderContext();
 		
 		String result;
 		try {
@@ -75,10 +70,11 @@ public abstract class ProcessorHelper {
 	 */
 	public static byte[] asByteArray(Collection<?> value)
 	{
-		BinderJsonWriter writer = getWriter();
+		JsonBinderContext context = getBinderContext();
 		
 		String result;
 		try {
+			context.createSerializer().
 			result = writer.writeCollection(value);
 			return result.getBytes(StandardCharsets.UTF_8);
 		} catch (MappingException e) {
@@ -92,7 +88,7 @@ public abstract class ProcessorHelper {
 	
 	public static byte[] asByteArray(Collection<?> value, Charset charset)
 	{
-		BinderJsonWriter writer = getWriter();
+		BinderContext<?, ?> context = getBinderContext();
 		
 		String result;
 		try {
@@ -116,7 +112,7 @@ public abstract class ProcessorHelper {
 	 */
 	public static byte[] asByteArray(Map<?, ?> value)
 	{
-		BinderJsonWriter writer = getWriter();
+		BinderContext<?, ?> context = getBinderContext();
 		
 		String result;
 		try {
@@ -133,7 +129,7 @@ public abstract class ProcessorHelper {
 	
 	public static byte[] asByteArray(Map<?, ?> value, Charset charset)
 	{
-		BinderJsonWriter writer = getWriter();
+		BinderContext<?, ?> context = getBinderContext();
 		
 		String result;
 		try {
@@ -146,24 +142,6 @@ public abstract class ProcessorHelper {
 		}
 		
 		return null;		
-	}
-
-
-	public static BinderJsonWriter getWriter() {
-		if (objWriter==null)
-		{
-			objWriter=new ThreadLocal<BinderJsonWriter>() {
-
-				@Override
-				protected BinderJsonWriter initialValue() {
-					return KriptonBinder.getJsonWriter(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
-				}
-				
-			};			
-		}
-		
-		BinderJsonWriter writer = objWriter.get();
-		return writer;
 	}
 	
 	/**
@@ -191,7 +169,7 @@ public abstract class ProcessorHelper {
 	 */
 	public static <E> List<E> asList(Class<E> clazz, String input)
 	{		
-		BinderJsonReader reader = getReader();
+		BinderContext<?, ?> context = getBinderContext();
 		
 		try {
 			List<E> result = reader.readCollection(new ArrayList<E>(),clazz, input);
@@ -234,7 +212,7 @@ public abstract class ProcessorHelper {
 	 */
 	public static <E, L extends Collection<E>> L asCollection(L collection, Class<E> clazz, String input)
 	{		
-		BinderJsonReader reader = getReader();
+		BinderContext<?, ?> context = getBinderContext();
 		
 		try {
 			L result = (L) reader.readCollection(collection, clazz, input);
@@ -255,7 +233,7 @@ public abstract class ProcessorHelper {
 	
 	public static <K, V, M extends Map<K, V>> M asMap(M map, Class<K> keyClazz, Class<V> valueClazz, String input)
 	{		
-		BinderJsonReader reader = getReader();
+		BinderContext<?, ?> context = getBinderContext();
 		
 		try {
 			M result = reader.readMap(map, keyClazz, valueClazz, input);
@@ -270,19 +248,19 @@ public abstract class ProcessorHelper {
 	}
 
 
-	public static BinderJsonReader getReader() {
-		if (objReader==null)
+	public synchronized static JsonBinderContext getBinderContext() {
+		if (binderContext==null)
 		{
-			objReader=new ThreadLocal<BinderJsonReader>() {
+			binderContext=new ThreadLocal<BinderContext<?,?>>() {
 
 				@Override
-				protected BinderJsonReader initialValue() {
-					return (BinderJsonReader) KriptonBinder.getJsonReader(BinderOptions.build().encoding(BinderOptions.ENCODING_UTF_8));
+				protected BinderContext<?,?> initialValue() {
+					return (JsonBinderContext)KriptonBinder2.getBinder(BinderType.JSON);
 				}
 				
 			};			
 		}
 		
-		return objReader.get();
+		return binderContext.get();
 	}
 }

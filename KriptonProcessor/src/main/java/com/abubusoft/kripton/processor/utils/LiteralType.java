@@ -179,9 +179,9 @@ public class LiteralType implements TypeMirror {
 		return of(rawType.getCanonicalName(), parametrizedType.getQualifiedName().toString());
 	}
 	
-	public static LiteralType of(Class<?> rawType, Class<?> parametrizedType) {
-		return of(rawType.getCanonicalName(), parametrizedType.getCanonicalName());
-	}
+//	public static LiteralType of(Class<?> rawType, Class<?> parametrizedType) {
+//		return of(rawType.getCanonicalName(), parametrizedType.getCanonicalName());
+//	}
 
 	public boolean isCollection() {
 		if (isResolved() && Collection.class.isAssignableFrom(resolvedRawType)) {
@@ -191,10 +191,10 @@ public class LiteralType implements TypeMirror {
 		return false;
 	}
 	
-	public boolean isComposed()
-	{
-		return isCollection() || isMap() || composedType!=null;
-	}
+//	public boolean isComposed()
+//	{
+//		return isCollection() || isMap() || composedType!=null;
+//	}
 
 
 	public boolean isList() {		
@@ -229,23 +229,23 @@ public class LiteralType implements TypeMirror {
 		return rawType;
 	}
 	
-	public boolean isComposedType(Class<?> clazz)	
-	{
-		return isComposedType(clazz.getName());
-	}
-	
-	public boolean isComposedType(String clazzName)
-	{
-		if (isComposed())
-		{
-			if (this.composedType.equals(clazzName))
-			{
-				return true;
-			}
-			return false;
-		}
-		return false;
-	}
+//	public boolean isComposedType(Class<?> clazz)	
+//	{
+//		return isComposedType(clazz.getName());
+//	}
+//	
+//	public boolean isComposedType(String clazzName)
+//	{
+//		if (isComposed())
+//		{
+//			if (this.composedType.equals(clazzName))
+//			{
+//				return true;
+//			}
+//			return false;
+//		}
+//		return false;
+//	}
 
 	@Override
 	public TypeKind getKind() {

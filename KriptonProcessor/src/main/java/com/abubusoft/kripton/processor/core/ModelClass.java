@@ -62,9 +62,9 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	/**
 	 * @return the annotations
 	 */
-	public List<ModelAnnotation> getAnnotations() {
-		return annotations;
-	}
+//	public List<ModelAnnotation> getAnnotations() {
+//		return annotations;
+//	}
 
 	public void addAnnotation(ModelAnnotation annotation) {
 		annotations.add(annotation);

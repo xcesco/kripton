@@ -50,32 +50,32 @@ public class ModelType extends LiteralType {
 		return TypeUtility.isSameType(this.name, value);
 	}
 	
-	public boolean isSameType(String ... value)
-	{
-		for (String item: value)
-		{
-			if (this.name.toString().equals(item))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+//	public boolean isSameType(String ... value)
+//	{
+//		for (String item: value)
+//		{
+//			if (this.name.toString().equals(item))
+//			{
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 	
-	public boolean isSameRawType(String ... value)
-	{
-		for (String item: value)
-		{
-			if (this.rawType.equals(item))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+//	public boolean isSameRawType(String ... value)
+//	{
+//		for (String item: value)
+//		{
+//			if (this.rawType.equals(item))
+//			{
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
-	public boolean isSameType(Class<?> clazz) {
-		return isSameType(clazz.getName());
-	}
+//	public boolean isSameType(Class<?> clazz) {
+//		return isSameType(clazz.getName());
+//	}
 
 }

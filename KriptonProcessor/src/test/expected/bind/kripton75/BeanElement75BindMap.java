@@ -11,6 +11,7 @@ import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -117,16 +118,20 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
         Byte item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueByteArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueByteArray[i];
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueByteArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueByteTypeArray
@@ -299,6 +304,9 @@ public class BeanElement75BindMap extends AbstractMapper<BeanElement75> {
                   }
                   collection.add(item);
                 }
+                instance.valueByteArray=CollectionUtils.asByteArray(collection);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Byte> collection=new ArrayList<>();
                 instance.valueByteArray=CollectionUtils.asByteArray(collection);
               }
             break;

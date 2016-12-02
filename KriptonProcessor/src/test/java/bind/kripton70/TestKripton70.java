@@ -18,7 +18,6 @@ import bind.AbstractBindTypeProcessorTest;
 
 public class TestKripton70 extends AbstractBindTypeProcessorTest {
 
-
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(BeanElement70.class, BeanEnum.class);

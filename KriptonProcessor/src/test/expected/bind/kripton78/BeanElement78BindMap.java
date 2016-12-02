@@ -10,6 +10,7 @@ import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -76,19 +77,23 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
       if (object.valueMapIntByteArray!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapIntByteArray");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeNumberField("k", item.getKey());
-          if (item.getValue()==null) {
-            jacksonSerializer.writeNullField("v");
-          } else {
-            jacksonSerializer.writeBinaryField("v", item.getValue());
+        if (object.valueMapIntByteArray.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapIntByteArray");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeNumberField("k", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("v");
+            } else {
+              jacksonSerializer.writeBinaryField("v", item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
           }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapIntByteArray", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       jacksonSerializer.writeEndObject();
@@ -118,35 +123,43 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
         byte[] item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueListByteArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=object.valueListByteArray.get(i);
-          if (item==null) {
-            jacksonSerializer.writeString("null");
-          } else {
-            jacksonSerializer.writeBinary(item);
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueListByteArray.get(i);
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeBinary(item);
+            }
           }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapIntByteArray
       if (object.valueMapIntByteArray!=null)  {
         fieldCount++;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("valueMapIntByteArray");
-        jacksonSerializer.writeStartArray();
-        for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
-          jacksonSerializer.writeStartObject();
-          jacksonSerializer.writeStringField("k", PrimitiveUtils.writeInteger(item.getKey()));
-          if (item.getValue()==null) {
-            jacksonSerializer.writeStringField("v", "null");
-          } else {
-            jacksonSerializer.writeBinaryField("v", item.getValue());
+        if (object.valueMapIntByteArray.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapIntByteArray");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("k", PrimitiveUtils.writeInteger(item.getKey()));
+            if (item.getValue()==null) {
+              jacksonSerializer.writeStringField("v", "null");
+            } else {
+              jacksonSerializer.writeBinaryField("v", item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
           }
-          jacksonSerializer.writeEndObject();
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeStringField("valueMapIntByteArray", "null");
         }
-        jacksonSerializer.writeEndArray();
       }
 
       jacksonSerializer.writeEndObject();
@@ -322,6 +335,9 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
                   }
                   collection.add(item);
                 }
+                instance.valueListByteArray=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<byte[]> collection=new ArrayList<>();
                 instance.valueListByteArray=collection;
               }
             break;

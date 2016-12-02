@@ -8,13 +8,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
-import bind.kripton74Map.BeanElement74BindMap;
 
 public class TestKripton78 extends AbstractBindTypeProcessorTest {
 
 	public BeanElement78 createBean() {
 		BeanElement78 bean = new BeanElement78();
-		
 				
 		bean.valueMapIntByteArray=new HashMap<>();
 		byte[] a=new byte[23];

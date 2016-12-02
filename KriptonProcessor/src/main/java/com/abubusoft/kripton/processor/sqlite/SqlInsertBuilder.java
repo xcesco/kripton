@@ -28,6 +28,8 @@ import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.KriptonInstantiationException;
+import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -65,11 +67,10 @@ public abstract class SqlInsertBuilder {
 			try {
 				this.mapFields = mapFields;
 				this.codeGenerator = codeGenerator.newInstance();
-			} catch (InstantiationException e) {
+			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
+				throw new KriptonInstantiationException(e);
+			} 
 		}
 
 		public String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, SQLiteModelMethod method,

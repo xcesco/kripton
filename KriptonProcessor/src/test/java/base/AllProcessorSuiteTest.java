@@ -26,6 +26,7 @@ import bind.kripton74Map.TestKripton74;
 import bind.kripton75.TestKripton75;
 import bind.kripton76.TestKripton76Attribute;
 import bind.kripton76.TestKripton76Value;
+import bind.kripton77.TestKripton77;
 import bind.kripton78.TestKripton78;
 import example01.SQLiteProcessorTest;
 import kripton42faster.TestKripton42;
@@ -74,6 +75,7 @@ import test05firt_aid.TestFirstAid;
 			TestKripton75.class,
 			TestKripton76Value.class,
 			TestKripton76Attribute.class,
+			TestKripton77.class,
 			TestKripton78.class,
 		TestFirstAid.class })
 //@formatter:on

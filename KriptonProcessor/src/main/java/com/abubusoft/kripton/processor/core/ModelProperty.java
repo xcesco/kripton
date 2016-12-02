@@ -187,15 +187,15 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	
-	public boolean isReadable()
-	{
-		return publicField || fieldWithGetter || fieldWithIs;
-	}
-	
-	public boolean isWritable()
-	{
-		return publicField || fieldWithSetter;
-	}
+//	public boolean isReadable()
+//	{
+//		return publicField || fieldWithGetter || fieldWithIs;
+//	}
+//	
+//	public boolean isWritable()
+//	{
+//		return publicField || fieldWithSetter;
+//	}
 	
 	@Override
 	public void accept(@SuppressWarnings("rawtypes") ModelElementVisitor visitor) throws Exception {

@@ -63,9 +63,9 @@ public class PropertyUtility {
 	 * @param entity
 	 * @param factoryProperty
 	 */
-	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils,  T entity, PropertyFactory<P> factoryProperty) {
-		buildProperties(elementUtils, entity, factoryProperty, null, null);
-	}
+//	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils,  T entity, PropertyFactory<P> factoryProperty) {
+//		buildProperties(elementUtils, entity, factoryProperty, null, null);
+//	}
 
 	/**
 	 * Given a model clazz, define its properties.
@@ -76,9 +76,9 @@ public class PropertyUtility {
 	 * @param propertyAnnotationFilter
 	 *            if null, no filter is applied to annotations
 	 */
-	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils,  T entity, PropertyFactory<P> factoryProperty,  AnnotationFilter propertyAnnotationFilter) {
-		buildProperties(elementUtils, entity, factoryProperty, propertyAnnotationFilter, null);
-	}
+//	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils,  T entity, PropertyFactory<P> factoryProperty,  AnnotationFilter propertyAnnotationFilter) {
+//		buildProperties(elementUtils, entity, factoryProperty, propertyAnnotationFilter, null);
+//	}
 
 	/**
 	 * Given a model clazz, define its properties. The listener allow to select which property include in class definition.

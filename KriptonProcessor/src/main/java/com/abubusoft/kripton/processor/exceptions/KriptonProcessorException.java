@@ -40,9 +40,17 @@ public abstract class KriptonProcessorException extends RuntimeException {
 		super(cause);
 	}
 
+	public KriptonProcessorException(InstantiationException cause) {
+		super(cause);
+	}
+
+	public KriptonProcessorException(ReflectiveOperationException cause) {
+		super(cause);
+	}
+
 	public String getErrorCode() {
 		if (BaseProcessor.DEVELOP_MODE)
-			return getClass().getSimpleName() + ": ";
+			return getClass().getName() + ": ";
 
 		return "";
 	}

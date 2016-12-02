@@ -81,8 +81,8 @@ public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends Mo
 		return false;
 	}
 	
-	public void clear()
-	{
-		collection.clear();
-	}
+//	public void clear()
+//	{
+//		collection.clear();
+//	}
 }

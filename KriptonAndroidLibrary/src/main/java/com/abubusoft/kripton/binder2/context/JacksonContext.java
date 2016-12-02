@@ -9,7 +9,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
 
-import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
