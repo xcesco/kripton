@@ -15,9 +15,12 @@ import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 
 public abstract class AbstractMapper<E> implements BinderMapper<E> {
 
+	@Override
 	public E parse(BinderContext context, ParserWrapper parserWrapper) {
 		E instance = null;
 
@@ -37,22 +40,36 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 		return instance;
 	}
 
-	public <L extends Collection<E>> L parseCollection(BinderContext context, ParserWrapper parser, L collection) {
-		// try {
-		// List<E> list = new ArrayList<>();
-		// if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
-		//
-		// while (parser.nextToken() != JsonToken.END_ARRAY) {
-		// list.add(parse(context, parser));
-		// }
-		// }
-		// return list;
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// throw(new KriptonRuntimeException(e));
-		// }
-		// TODO
-		return null;
+	@Override
+	public <L extends Collection<E>> L parseCollection(BinderContext context, ParserWrapper parserWrapper, L collection) {
+		switch (context.getSupportedFormat()) {
+		case XML: {
+			throw (new KriptonRuntimeException(context.getSupportedFormat() + " context does not support direct collection persistance"));
+		}
+		default: {
+			JacksonContext jacksonContext = (JacksonContext) context;
+			JacksonWrapperParser wrapperParser = (JacksonWrapperParser) parserWrapper;
+			JsonParser parser = wrapperParser.jacksonParser;
+
+			try {
+				collection.clear();
+				
+				if (context.getSupportedFormat().onlyText)
+					while (parser.nextToken()!=JsonToken.END_ARRAY) {
+						collection.add(parseOnJacksonAsString(jacksonContext, wrapperParser));
+					}
+				else
+					while (parser.nextToken()!=JsonToken.END_ARRAY) {
+						collection.add(parseOnJackson(jacksonContext, wrapperParser));
+					}
+				
+				return collection;
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw (new KriptonRuntimeException(e));
+			}
+		}
+		}
 	}
 
 	public void serialize(BinderContext context, E object, SerializerWrapper serializerWrapper, boolean writeStartAndEnd) {
@@ -84,10 +101,12 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 		}
 	}
 
+	@Override
 	public void serialize(BinderContext context, SerializerWrapper serializerWrapper, E object) {
 		serialize(context, object, serializerWrapper, true);
 	}
 
+	@Override
 	public void serializeCollection(BinderContext context, SerializerWrapper serializerWrapper, Collection<E> collection) {
 		switch (context.getSupportedFormat()) {
 		case XML: {
