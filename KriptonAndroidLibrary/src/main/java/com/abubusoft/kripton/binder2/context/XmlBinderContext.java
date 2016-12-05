@@ -8,12 +8,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.lang.reflect.ParameterizedType;
-import java.util.Collection;
-import java.util.List;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
@@ -24,7 +20,6 @@ import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
 import com.abubusoft.kripton.binder2.BinderType;
-import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -139,57 +134,7 @@ public class XmlBinderContext extends AbstractContext {
 	public BinderType getSupportedFormat() {
 		return BinderType.XML;
 	}
-
-	@Override
-	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, byte[] source) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, InputStream source) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, Reader source) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <E> List<E> parseList(Class<E> type, byte[] is) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <E> List<E> parseList(Class<E> type, InputStream source) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <E> List<E> parseList(Class<E> type, Reader source) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	@Override
-	public <E> String serializeCollection(Collection<E> collection, Class<E> objectClazz) {
-		StringWriter sw = new StringWriter();
 
-		SerializerWrapper serializer = createSerializer(sw);		
-		mapperFor((Class<E>)objectClazz).serializeCollection(this, serializer, collection);
-		serializer.close();
-		return sw.toString();		
-	}
-	@Override
-	public <E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream source) {		
-		SerializerWrapper serializer = createSerializer(source);		
-		mapperFor(objectClazz).serializeCollection(this, serializer, list);
-		serializer.close();		
-	}
 
 }

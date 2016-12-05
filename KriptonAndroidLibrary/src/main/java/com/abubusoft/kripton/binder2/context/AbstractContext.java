@@ -6,6 +6,9 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,7 +25,6 @@ public abstract class AbstractContext implements BinderContext  {
 
 	@SuppressWarnings("rawtypes")
 	private static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
-
 
 	/**
 	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
@@ -94,20 +96,6 @@ public abstract class AbstractContext implements BinderContext  {
 		
 		return result;
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public <E> byte[] serialize(E object) {
-		if (object==null) return null;
-		
-		StringWriter sw = new StringWriter();
-
-		SerializerWrapper serializer = createSerializer(sw);		
-		mapperFor((Class<E>)object.getClass()).serialize(this, serializer, object);
-		serializer.close();
-		
-		return sw.toString();
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -129,10 +117,116 @@ public abstract class AbstractContext implements BinderContext  {
 		serializer.close();		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public <E> void serialize(E object, ParameterizedType parameterizedType, OutputStream os) {
-		// TODO Auto-generated method stub
+	public <E> String serialize(E object) {
+		if (object==null) return null;
 		
+		StringWriter source=new StringWriter();
+		SerializerWrapper serializer=createSerializer(source);
+		mapperFor((Class<E>)object.getClass()).serialize(this, serializer, object);
+		serializer.close();		
+		
+		return source.toString();
+	}
+
+	@Override
+	public <E> void serialize(E object, ParameterizedType parameterizedType, OutputStream source) {
+		
+		
+	}
+
+	@Override
+	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, String source) {
+		if (collection==null || type==null) return null;
+		
+		ParserWrapper parser=createParser(source);
+		L result = mapperFor(type).parseCollection(this, parser, collection);
+		parser.close();		
+		
+		return result;
+	}
+
+	@Override
+	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, byte[] source) {
+		if (collection==null || type==null) return null;
+		
+		ParserWrapper parser=createParser(source);
+		L result = mapperFor(type).parseCollection(this, parser, collection);
+		parser.close();		
+		
+		return result;
+	}
+
+	@Override
+	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, InputStream source) {
+		if (collection==null || type==null) return null;
+		
+		ParserWrapper parser=createParser(source);
+		L result = mapperFor(type).parseCollection(this, parser, collection);
+		parser.close();		
+		
+		return result;
+	}
+
+	@Override
+	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, Reader source) {
+		if (collection==null || type==null) return null;
+		
+		ParserWrapper parser=createParser(source);
+		L result = mapperFor(type).parseCollection(this, parser, collection);
+		parser.close();		
+		
+		return result;
+	}
+
+	@Override
+	public <E> List<E> parseList(Class<E> type, byte[] source) {
+		return parseCollection(new ArrayList<E>(), type, source);
+	}
+
+	@Override
+	public <E> List<E> parseList(Class<E> type, String source) {
+		return parseCollection(new ArrayList<E>(), type, source);
+	}
+
+	@Override
+	public <E> List<E> parseList(Class<E> type, InputStream source) {
+		return parseCollection(new ArrayList<E>(), type, source);
+	}
+
+	@Override
+	public <E> List<E> parseList(Class<E> type, Reader source) {
+		return parseCollection(new ArrayList<E>(), type, source);
+	}
+
+	@Override
+	public <E> String serializeCollection(Collection<E> collection, Class<E> objectClazz) {
+		if (collection==null) return null;
+		
+		StringWriter sw = new StringWriter();
+		SerializerWrapper serializer = createSerializer(sw);		
+		mapperFor((Class<E>)objectClazz).serializeCollection(this, serializer, collection);
+		serializer.close();
+		return sw.toString();		
+	}
+	
+	@Override
+	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, OutputStream source) {
+		if (collection==null) return;
+		
+		SerializerWrapper serializer = createSerializer(source);		
+		mapperFor(objectClazz).serializeCollection(this, serializer, collection);
+		serializer.close();		
+	}
+	
+	@Override
+	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, File source) {
+		if (collection==null) return;
+		
+		SerializerWrapper serializer = createSerializer(source);		
+		mapperFor(objectClazz).serializeCollection(this, serializer, collection);
+		serializer.close();		
 	}
 
 	@SuppressWarnings("unchecked")

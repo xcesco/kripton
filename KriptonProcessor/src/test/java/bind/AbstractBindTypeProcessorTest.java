@@ -1,16 +1,13 @@
 package bind;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.unitils.reflectionassert.ReflectionAssert;
 import org.unitils.reflectionassert.ReflectionComparatorMode;
-
-import base.BaseProcessorTest;
-import base.MyByteArrayOutputStream;
 
 import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
@@ -18,6 +15,9 @@ import com.abubusoft.kripton.binder2.context.CborBinderContext;
 import com.abubusoft.kripton.binder2.context.PropertiesBinderContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
 import com.abubusoft.kripton.binder2.context.YamlBinderContext;
+
+import base.BaseProcessorTest;
+import base.MyByteArrayOutputStream;
 
 public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 
@@ -108,7 +108,7 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		String value1=toString(bar.getBuf());
 
 		if (display) System.out.println(value1);
-		Object bean2 = KriptonBinder2.getBinder(type).parseCollection(new ByteArrayInputStream(bar.getBuf()), clazz);
+		Object bean2 = KriptonBinder2.getBinder(type).parseCollection(new ArrayList<E>(), clazz, value1);
 //
 //		MyByteArrayOutputStream bar2 = new MyByteArrayOutputStream();
 //		KriptonBinder2.getBinder(type).serialize(bean2, bar2);

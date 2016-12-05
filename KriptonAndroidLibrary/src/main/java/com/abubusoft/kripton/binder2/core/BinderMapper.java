@@ -1,6 +1,5 @@
 package com.abubusoft.kripton.binder2.core;
 
-import java.io.OutputStream;
 import java.util.Collection;
 
 import com.abubusoft.kripton.binder2.context.BinderContext;
@@ -18,13 +17,13 @@ public interface BinderMapper<E> {
 
 	E parse(BinderContext context, ParserWrapper parser);
 	
-	E parseOnJackson(JacksonContext context, JacksonWrapperParser jacksonParser);
+	<L extends Collection<E>> L parseCollection(BinderContext context, ParserWrapper parser, L collection);
 	
+	E parseOnJackson(JacksonContext context, JacksonWrapperParser jacksonParser);
+
 	E parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser jacksonParser);
 
 	E parseOnXml(XmlBinderContext context, XmlWrapperParser xmlParser, int currentEventType);
-
-	<L extends Collection<E>> L parseCollection(BinderContext context, ParserWrapper parser, L collection);
 
 	void serialize(BinderContext context, SerializerWrapper serializerWrapper, E object);
 	
