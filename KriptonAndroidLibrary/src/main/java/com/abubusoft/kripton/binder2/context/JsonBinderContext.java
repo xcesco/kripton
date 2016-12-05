@@ -4,6 +4,7 @@ import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
 
 import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.persistence.ParserWrapper;
 import com.fasterxml.jackson.core.JsonFactory;
 
 /**
@@ -22,17 +23,6 @@ public class JsonBinderContext extends JacksonContext {
 	public JsonFactory createInnerFactory()
 	{
 		return new JsonFactory();
-	}
-	
-	@Override
-	public <E> E parse(byte[] is, Class<E> objectClazz) {
-		return mapperFor(objectClazz).parse(this, is);
-	}
-
-	@Override
-	public <E> void serialize(E object, ParameterizedType parameterizedType, OutputStream os) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

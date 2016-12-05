@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.List;
 
 import com.abubusoft.kripton.binder2.BinderType;
@@ -13,53 +14,64 @@ import com.abubusoft.kripton.binder2.persistence.ParserWrapper;
 import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
 import com.fasterxml.jackson.core.JsonEncoding;
 
-public interface BinderContext<S extends SerializerWrapper, P extends ParserWrapper> {
+public interface BinderContext {
 
-	P createParser(byte[] data);
+	ParserWrapper createParser(byte[] data);
 
-	P createParser(File file);
+	ParserWrapper createParser(File file);
 
-	P createParser(InputStream in);
+	ParserWrapper createParser(InputStream in);
 
-	P createParser(Reader reader);
+	ParserWrapper createParser(Reader reader);
 
-	P createParser(String content);
+	ParserWrapper createParser(String content);
 
-	S createSerializer(File file);
+	SerializerWrapper createSerializer(File file);
 
-	S createSerializer(File file, JsonEncoding encoding);
+	SerializerWrapper createSerializer(File file, JsonEncoding encoding);
 
-	S createSerializer(OutputStream out);
+	SerializerWrapper createSerializer(OutputStream out);
 
-	S createSerializer(OutputStream out, JsonEncoding encoding);
+	SerializerWrapper createSerializer(OutputStream out, JsonEncoding encoding);
 
-	S createSerializer(Writer writer);
+	SerializerWrapper createSerializer(Writer writer);
 
 	BinderType getSupportedFormat();
-
-	<E> E parse(InputStream is, Class<E> objectClazz);
 	
 	<E> E parse(byte[] is, Class<E> objectClazz);
 
-//	<E> E parse(InputStream is, ParameterizedType<E> objectType);
+	<E> E parse(File source, Class<E> objectClazz);
+	
+	<E> E parse(InputStream is, Class<E> objectClazz);
+	
+	<E> E parse(Reader source, Class<E> objectClazz);
 
 	<E> E parse(String buffer, Class<E> objectClazz);
+	
+	<L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, byte[] is);
+	
+	<L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, InputStream source);	
 
-	//<E> E parse(String buffer, ParameterizedType<E> objectType);
+	<L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, Reader source);
+	
+	<E> List<E> parseList(Class<E> type, byte[] is);
+	
+	<E> List<E> parseList(Class<E> type, InputStream source);	
 
-	<E> List<E> parseList(InputStream is, Class<E> objectClazz);
+	<E> List<E> parseList(Class<E> type, Reader source);
 
-	<E> List<E> parseList(String jsonString, Class<E> objectClazz);
+	//<E> String serialize(E object);
+	
+	<E> byte[] serialize(E object);
 
-	<E> String serialize(E object);
+	<E> void serialize(E object, File source);
 
 	<E> void serialize(E object, OutputStream os);
 
-	//<E> String serialize(E object, ParameterizedType<E> parameterizedType);
-
 	<E> void serialize(E object, ParameterizedType parameterizedType, OutputStream os);
+	
+	<E> String serializeCollection(Collection<E> list, Class<E> objectClazz);
+	
+	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream os);
 
-	<E> String serialize(List<E> list, Class<E> objectClazz);
-
-	<E> void serialize(List<E> list, OutputStream os, Class<E> objectClazz);
 }

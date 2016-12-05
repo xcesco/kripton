@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
-import java.util.List;
+import java.util.Collection;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -21,7 +21,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public abstract class AbstractMapper<E> implements BinderMapper<E> {
 
-	public E parse(@SuppressWarnings("rawtypes") BinderContext context, ParserWrapper parserWrapper) {
+	public E parse(BinderContext context, ParserWrapper parserWrapper) {
 		E instance = null;
 
 		switch (context.getSupportedFormat()) {
@@ -34,23 +34,34 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 			else
 				instance = parseOnJackson((JacksonContext) context, (JacksonWrapperParser) parserWrapper);
 
+			break;
 		}
 
 		return instance;
 	}
+	
+	public void serialize(BinderContext context, SerializerWrapper serializerWrapper, E object) {
+		serialize(context, object, serializerWrapper, true);
+	}
 
-	public void serialize(@SuppressWarnings("rawtypes") BinderContext context, E object, SerializerWrapper serializerWrapper, boolean writeStartAndEnd) {
+	public void serialize(BinderContext context, E object, SerializerWrapper serializerWrapper, boolean writeStartAndEnd) {
 
 		switch (context.getSupportedFormat()) {
 		case XML:
 			try {
 				XmlWrapperSerializer wrapper = ((XmlWrapperSerializer) serializerWrapper);
-				wrapper.xmlSerializer.writeStartDocument();
+
+				if (writeStartAndEnd) {
+					wrapper.xmlSerializer.writeStartDocument();
+				}
 				serializeOnXml((XmlBinderContext) context, object, wrapper, 0);
-				wrapper.xmlSerializer.writeEndDocument();
+
+				if (writeStartAndEnd) {
+					wrapper.xmlSerializer.writeEndDocument();
+				}
 			} catch (XMLStreamException e) {
 				e.printStackTrace();
-				throw(new KriptonRuntimeException(e));
+				throw (new KriptonRuntimeException(e));
 			}
 			break;
 		default:
@@ -58,27 +69,61 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 				serializeOnJacksonAsString((JacksonContext) context, object, (JacksonWrapperSerializer) serializerWrapper);
 			else
 				serializeOnJackson((JacksonContext) context, object, (JacksonWrapperSerializer) serializerWrapper);
+			break;
 		}
 	}
 
-	/*
-	 * public E parse(BinderContext context, JacksonParser parser) { E instance
-	 * = createInstance(); if (parser.getCurrentToken() == null) {
-	 * parser.nextToken(); } if (parser.getCurrentToken() !=
-	 * JsonToken.START_OBJECT) { parser.skipChildren(); return null; } while
-	 * (parser.nextToken() != JsonToken.END_OBJECT) { String fieldName =
-	 * parser.getCurrentName(); parser.nextToken(); parseField(context,
-	 * instance, fieldName, parser); parser.skipChildren(); } return instance; }
-	 */
+	public void serializeCollection(BinderContext context, Collection<E> collection, OutputStream os) {
+		SerializerWrapper serializer = context.createSerializer(os);
+		serializeCollection(context, serializer, collection);
+		serializer.close();
+	}
+
+	public String serializeCollection(BinderContext context, Collection<E> collection) {
+		StringWriter sw = new StringWriter();
+
+		SerializerWrapper serializer = context.createSerializer(sw);
+		serializeCollection(context, serializer, collection);
+		serializer.close();
+		return sw.toString();
+	}
+
+	public void serializeCollection(BinderContext context, SerializerWrapper serializerWrapper, Collection<E> collection) {
+		switch (context.getSupportedFormat()) {
+		case XML: {
+			throw (new KriptonRuntimeException(context.getSupportedFormat() + " context does not support direct collection persistance"));
+		}
+		default: {
+			JacksonContext jacksonContext = (JacksonContext) context;
+			JacksonWrapperSerializer wrapper = (JacksonWrapperSerializer) serializerWrapper;
+
+			try {
+				wrapper.jacksonGenerator.writeStartArray();
+				if (context.getSupportedFormat().onlyText)
+					for (E object : collection) {
+						serializeOnJacksonAsString(jacksonContext, object, wrapper);
+					}
+				else
+					for (E object : collection) {
+						serializeOnJackson(jacksonContext, object, wrapper);
+					}
+				wrapper.jacksonGenerator.writeEndArray();
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw (new KriptonRuntimeException(e));
+			}
+		}
+			break;
+		}
+	}
 
 	/**
-	 * Parse an object from a byte array. Note: parsing from an InputStream
-	 * should be preferred over parsing from a byte array if possible.
+	 * Parse an object from a byte array. Note: parsing from an InputStream should be preferred over parsing from a byte array if possible.
 	 *
 	 * @param byteArray
 	 *            The byte array being parsed.
 	 */
-	public E parse(@SuppressWarnings("rawtypes") BinderContext context, byte[] byteArray) {
+	public E parse(BinderContext context, byte[] byteArray) {
 		ParserWrapper parser = context.createParser(byteArray);
 		return parse(context, parser);
 	}
@@ -89,31 +134,23 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	 * @param is
 	 *            The InputStream, most likely from your networking library.
 	 */
-	public E parse(@SuppressWarnings("rawtypes") BinderContext context, InputStream is) {
+	public E parse(BinderContext context, InputStream is) {
 		ParserWrapper parser = context.createParser(is);
 		return parse(context, parser);
 	}
 
 	/**
-	 * Parse an object from a String. Note: parsing from an InputStream should
-	 * be preferred over parsing from a String if possible.
+	 * Parse an object from a String. Note: parsing from an InputStream should be preferred over parsing from a String if possible.
 	 *
 	 * @param buffer
 	 *            The JSON string being parsed.
 	 */
-	public E parse(@SuppressWarnings("rawtypes") BinderContext context, String buffer) {
+	public E parse(BinderContext context, String buffer) {
 		ParserWrapper parser = context.createParser(buffer);
 		return parse(context, parser);
 	}
 
-	/**
-	 * Parse a list of objects from a JsonParser.
-	 *
-	 * @param parser
-	 *            The JsonParser, preconfigured to be at the START_ARRAY token.
-	 * @throws IOException
-	 */
-	public List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, ParserWrapper parser) {
+	public <L extends Collection<E>> L parseCollection(BinderContext context, ParserWrapper parser, L collection) {
 		// try {
 		// List<E> list = new ArrayList<>();
 		// if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
@@ -132,48 +169,12 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	}
 
 	/**
-	 * Parse a list of objects from a byte array. Note: parsing from an
-	 * InputStream should be preferred over parsing from a byte array if
-	 * possible.
-	 *
-	 * @param byteArray
-	 *            The inputStream, most likely from your networking library.
-	 */
-	public List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, byte[] byteArray) {
-		ParserWrapper parser = context.createParser(byteArray);
-		return parseList(context, parser);
-	}
-
-	/**
-	 * Parse a list of objects from an InputStream.
-	 *
-	 * @param is
-	 *            The inputStream, most likely from your networking library.
-	 */
-	public List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, InputStream is) {
-		ParserWrapper parser = context.createParser(is);
-		return parseList(context, parser);
-	}
-
-	/**
-	 * Parse a list of objects from a String. Note: parsing from an InputStream
-	 * should be preferred over parsing from a String if possible.
-	 *
-	 * @param buffer
-	 *            The JSON string being parsed.
-	 */
-	public List<E> parseList(@SuppressWarnings("rawtypes") BinderContext context, String buffer) {
-		ParserWrapper parser = context.createParser(buffer);
-		return parseList(context, parser);
-	}
-
-	/**
 	 * Serialize an object to a JSON String.
 	 *
 	 * @param object
 	 *            The object to serialize.
 	 */
-	public String serialize(@SuppressWarnings("rawtypes") BinderContext context, E object) {
+	public String serialize(BinderContext context, E object) {
 		StringWriter sw = new StringWriter();
 
 		SerializerWrapper serializer = context.createSerializer(sw);
@@ -190,61 +191,10 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 	 * @param os
 	 *            The OutputStream being written to.
 	 */
-	public void serialize(@SuppressWarnings("rawtypes") BinderContext context, E object, OutputStream os) {
+	public void serialize(BinderContext context, E object, OutputStream os) {
 		SerializerWrapper serializer = context.createSerializer(os);
 		serialize(context, object, serializer, true);
 		serializer.close();
 	}
 
-	/**
-	 * Serialize a list of objects to a JSON String.
-	 *
-	 * @param list
-	 *            The list of objects to serialize.
-	 */
-	public String serialize(@SuppressWarnings("rawtypes") BinderContext context, List<E> list) {
-		StringWriter sw = new StringWriter();
-		SerializerWrapper serializer = context.createSerializer(sw);
-		// serialize(context, list, serializer);
-		serializer.close();
-		return sw.toString();
-	}
-
-	/**
-	 * Serialize a list of objects to a JsonGenerator.
-	 *
-	 * @param list
-	 *            The list of objects to serialize.
-	 * @param serializer
-	 *            The JsonGenerator to which the list should be serialized
-	 */
-	public void serialize(@SuppressWarnings("rawtypes") BinderContext context, List<E> list, JacksonWrapperSerializer serializer) {
-		// TODO
-		// serializer.writeStartArray();
-		// E object;
-		// for (int i = 0; i < list.size(); i++) {
-		// object = list.get(0);
-		// if (object != null) {
-		// serialize(context, object, serializer, true);
-		// } else {
-		// serializer.writeNull();
-		// }
-		// }
-		// serializer.writeEndArray();
-	}
-
-	/**
-	 * Serialize a list of objects to an OutputStream.
-	 *
-	 * @param list
-	 *            The list of objects to serialize.
-	 * @param os
-	 *            The OutputStream to which the list should be serialized
-	 */
-	public void serialize(@SuppressWarnings("rawtypes") BinderContext context, List<E> list, OutputStream os) {
-		SerializerWrapper serializer = context.createSerializer(os);
-		// TODO Auto-generated method stub
-		// serialize(context, list, serializer);
-		serializer.close();
-	}
 }

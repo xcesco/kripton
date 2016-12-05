@@ -1,4 +1,4 @@
-package bind.kripton71;
+package bind.kripton71List;
 
 import com.abubusoft.kripton.android.annotation.BindMap;
 import com.abubusoft.kripton.binder2.context.JacksonContext;

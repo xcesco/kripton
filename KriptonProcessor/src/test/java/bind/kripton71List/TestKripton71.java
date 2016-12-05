@@ -1,4 +1,4 @@
-package bind.kripton71;
+package bind.kripton71List;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
+import bind.kripton71List.BeanElement71BindMap;
 
 public class TestKripton71 extends AbstractBindTypeProcessorTest {
 

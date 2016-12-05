@@ -1,4 +1,4 @@
-package bind.kripton71;
+package bind.kripton71List;
 
 import com.abubusoft.kripton.annotation.BindType;
 

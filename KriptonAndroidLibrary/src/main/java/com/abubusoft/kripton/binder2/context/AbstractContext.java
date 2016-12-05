@@ -1,5 +1,10 @@
 package com.abubusoft.kripton.binder2.context;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -7,11 +12,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.core.BinderMapper;
+import com.abubusoft.kripton.binder2.persistence.ParserWrapper;
+import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
 //import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
 
-public abstract class AbstractContext {
+public abstract class AbstractContext implements BinderContext  {
 
 	@SuppressWarnings("rawtypes")
 	private static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
@@ -34,47 +41,98 @@ public abstract class AbstractContext {
 	}
 	
 	public <E, M extends BinderMapper<E>> M mapperFor(ParameterizedType type) throws NoSuchMapperException {
-		M mapper = getMapper(type);
+		@SuppressWarnings("unchecked")
+		M mapper = getMapper((Class<E>) type.getActualTypeArguments()[0]);
 		if (mapper == null) {
 			throw new NoSuchMapperException(type.getRawType(), getSupportedFormat());
 		} else {
 			return mapper;
 		}
 	}
-
 	
-	public static <E, M extends BinderMapper<E>> M getMapper(ParameterizedType type) {		
-		 if (type.typeParameters.size() == 0) {
-		 return getMapper((Class<E>) type.rawType);
-		 }
+	@Override
+	public <E> E parse(Reader source, Class<E> objectClazz) {
+		ParserWrapper parserWrapper=createParser(source);
+		E result=mapperFor(objectClazz).parse(this, parserWrapper);
+		parserWrapper.close();
 		
-		 if (partialMappers == null) {
-		 partialMappers = new SimpleArrayMap<ParameterizedType, JsonMapper>();
-		 }
+		return result;
+	}
+
+	@Override
+	public <E> E parse(InputStream source, Class<E> objectClazz) {
+		ParserWrapper parserWrapper=createParser(source);
+		E result=mapperFor(objectClazz).parse(this, parserWrapper);
+		parserWrapper.close();
 		
-		 if (partialMappers.containsKey(type)) {
-		 return partialMappers.get(type);
-		 } else if (PARAMETERIZED_OBJECT_MAPPERS.containsKey(type)) {
-		 return PARAMETERIZED_OBJECT_MAPPERS.get(type);
-		 } else {
-		 try {
-		 Class<?> mapperClass = Class.forName(type.rawType.getName() + Constants.MAPPER_CLASS_SUFFIX);
-		 Constructor constructor = mapperClass.getDeclaredConstructors()[0];
-		 Object[] args = new Object[2 + type.typeParameters.size()];
-		 args[0] = type;
-		 args[args.length - 1] = partialMappers;
-		 for (int i = 0; i < type.typeParameters.size(); i++) {
-		 args[i + 1] = type.typeParameters.get(i);
-		 }
-		 JsonMapper<E> mapper = (JsonMapper<E>) constructor.newInstance(args);
-		 PARAMETERIZED_OBJECT_MAPPERS.put(type, mapper);
-		 return mapper;
-		 } catch (Exception ignored) {
-		 return null;
-		 }
-		 }
+		return result;
+	}
+	
+	@Override
+	public <E> E parse(byte[] source, Class<E> objectClazz) {
+		ParserWrapper parserWrapper=createParser(source);
+		E result=mapperFor(objectClazz).parse(this, parserWrapper);
+		parserWrapper.close();
 		
-		return null;
+		return result;
+	}
+	
+	@Override
+	public <E> E parse(File source, Class<E> objectClazz) {
+		ParserWrapper parserWrapper=createParser(source);
+		E result=mapperFor(objectClazz).parse(this, parserWrapper);
+		parserWrapper.close();
+		
+		return result;
+	}
+
+	@Override
+	public <E> E parse(String source, Class<E> objectClazz) {
+		ParserWrapper parserWrapper=createParser(source);
+		E result=mapperFor(objectClazz).parse(this, parserWrapper);
+		parserWrapper.close();
+		
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> byte[] serialize(E object) {
+		if (object==null) return null;
+		
+		StringWriter sw = new StringWriter();
+
+		SerializerWrapper serializer = createSerializer(sw);		
+		mapperFor((Class<E>)object.getClass()).serialize(this, serializer, object);
+		serializer.close();
+		
+		return sw.toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> void serialize(E object, OutputStream source) {
+		if (object==null) return;
+		
+		SerializerWrapper serializer = createSerializer(source);		
+		mapperFor((Class<E>)object.getClass()).serialize(this, serializer, object);
+		serializer.close();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> void serialize(E object, File source) {
+		if (object==null) return;
+		
+		SerializerWrapper serializer=createSerializer(source);
+		mapperFor((Class<E>)object.getClass()).serialize(this, serializer, object);
+		serializer.close();		
+	}
+
+	@Override
+	public <E> void serialize(E object, ParameterizedType parameterizedType, OutputStream os) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@SuppressWarnings("unchecked")

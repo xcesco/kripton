@@ -8,7 +8,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 public class JacksonWrapperSerializer implements ListSerializerWrapper {
-	protected BinderContext<?, ?> context;
+	protected BinderContext context;
 
 	public JsonGenerator jacksonGenerator;
 

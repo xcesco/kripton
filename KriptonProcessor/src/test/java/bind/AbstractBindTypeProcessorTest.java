@@ -1,6 +1,8 @@
 package bind;
 
 import java.io.ByteArrayInputStream;
+import java.util.Collection;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,6 +46,24 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		System.out.println(String.format("xml: %s, cbor: %s (%.0f%%), json: %s (%.0f%%), yaml: %s (%.0f%%), property: %s (%.0f%%)", xmlSize, cborSize, cborPerc, jsonSize, jsonPerc,yamlSize, yamlPerc, propertySize, propertyPerc));	
 	}
 	
+	protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz) {
+		//int xmlSize=serializeAndParseCollection(collection, beanClazz, BinderType.XML);
+		int cborSize=serializeAndParseCollectionBinary(collection, beanClazz, BinderType.CBOR);
+		int jsonSize=serializeAndParseCollection(collection, beanClazz, BinderType.JSON);
+		int yamlSize=serializeAndParseCollection(collection, beanClazz, BinderType.YAML);
+		int propertySize=serializeAndParseCollection(collection, beanClazz, BinderType.PROPERTIES);
+		
+		int xmlSize=jsonSize;
+		
+		double cborPerc=cborSize*100.0/xmlSize;
+		double jsonPerc=jsonSize*100.0/xmlSize;
+		double yamlPerc=yamlSize*100.0/xmlSize;
+		double propertyPerc=propertySize*100.0/xmlSize;
+		
+		System.out.println(String.format("xml: %s, cbor: %s (%.0f%%), json: %s (%.0f%%), yaml: %s (%.0f%%), property: %s (%.0f%%)", xmlSize, cborSize, cborPerc, jsonSize, jsonPerc,yamlSize, yamlPerc, propertySize, propertyPerc));	
+	}
+
+
 	/**
 	 * @param bean
 	 * @param type
@@ -63,6 +83,43 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		ReflectionAssert.assertReflectionEquals(bean, bean2, ReflectionComparatorMode.LENIENT_ORDER);
 		
 		return output2.length();
+	}
+	
+	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) {
+		String output1=KriptonBinder2.getBinder(type).serializeCollection(list, clazz);
+		if (display) System.out.println(output1);
+		
+//		List<E> bean2=KriptonBinder2.getBinder(type).parseCollection(output1, clazz);				
+//		
+//		String output2=KriptonBinder2.getBinder(type).serializeCollection(bean2, clazz);
+//		if (display) System.out.println(output2);
+//		
+//		Assert.assertTrue(type.toString(), output1.length()==output2.length());		
+//		
+//		ReflectionAssert.assertReflectionEquals(list, bean2, ReflectionComparatorMode.LENIENT_ORDER);
+//		
+//		return output2.length();
+		return 0;
+	}
+	
+	public <E> int serializeAndParseCollectionBinary(Collection<E> list, Class<E> clazz, BinderType type) {
+		MyByteArrayOutputStream bar = new MyByteArrayOutputStream();
+		KriptonBinder2.getBinder(type).serializeCollection(list, clazz, bar);
+		String value1=toString(bar.getBuf());
+
+		if (display) System.out.println(value1);
+		Object bean2 = KriptonBinder2.getBinder(type).parseCollection(new ByteArrayInputStream(bar.getBuf()), clazz);
+//
+//		MyByteArrayOutputStream bar2 = new MyByteArrayOutputStream();
+//		KriptonBinder2.getBinder(type).serialize(bean2, bar2);
+//		String value2=toString(bar2.getBuf());
+//		if (display) System.out.println(value2);
+//
+//		Assert.assertTrue(value1.length()==value2.length());		
+//		//ReflectionAssert.assertReflectionEquals(type.toString(), bean, bean2);
+//		
+//		return bar.getCount();
+		return 0;
 	}
 
 	public int serializeAndParseBinary(Object bean, BinderType type) {

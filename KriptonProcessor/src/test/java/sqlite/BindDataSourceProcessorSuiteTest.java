@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import bind.kripton70.TestKripton70;
-import bind.kripton71.TestKripton71;
+import bind.kripton71List.TestKripton71;
 import bind.kripton72.TestKripton72;
 import bind.kripton73.TestKripton73;
 import example01.SQLiteProcessorTest;

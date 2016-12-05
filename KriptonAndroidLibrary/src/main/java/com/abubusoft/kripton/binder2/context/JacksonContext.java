@@ -7,15 +7,19 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.binder2.persistence.ParserWrapper;
+import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 
-public abstract class JacksonContext extends AbstractContext implements BinderContext<JacksonWrapperSerializer, JacksonWrapperParser> {
+public abstract class JacksonContext extends AbstractContext implements BinderContext {
 
 	public JsonFactory innerFactory;
 
@@ -84,12 +88,12 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 			throw new KriptonRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public JacksonWrapperSerializer createSerializer(OutputStream out) {
 		return createSerializer(out, JsonEncoding.UTF8);
 	}
-	
+
 	@Override
 	public JacksonWrapperSerializer createSerializer(OutputStream out, JsonEncoding encoding) {
 		try {
@@ -109,10 +113,35 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 			throw new KriptonRuntimeException(e);
 		}
 	}
+
+	@Override
+	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, byte[] is) {
+		JacksonWrapperParser wrappedParser = createParser(is);		
+		return mapperFor(type).parseCollection(this, wrappedParser, collection);
+	}
 	
 	@Override
-	public <E> E parse(InputStream is, Class<E> objectClazz) {
-		return mapperFor(objectClazz).parse(this, is);
+	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, InputStream source) {
+		JacksonWrapperParser wrappedParser = createParser(source);		
+		return mapperFor(type).parseCollection(this, wrappedParser, collection);
+	}
+	
+	@Override
+	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, Reader source) {
+		JacksonWrapperParser wrappedParser = createParser(source);		
+		return mapperFor(type).parseCollection(this, wrappedParser, collection);
+	}
+
+	@Override
+	public <E> List<E> parseList(Class<E> type, byte[] source) {
+		JacksonWrapperParser wrappedParser = createParser(source);		
+		return mapperFor(type).parseCollection(this, wrappedParser, new ArrayList<E>());
+	}
+	
+	@Override
+	public <E> List<E> parseList(Class<E> type, InputStream source) {
+		JacksonWrapperParser wrappedParser = createParser(source);		
+		return mapperFor(type).parseCollection(this, wrappedParser, new ArrayList<E>());
 	}
 
 /*	@Override
@@ -121,31 +150,11 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	}*/
 
 	@Override
-	public <E> E parse(String buffer, Class<E> objectClazz) {
-		return mapperFor(objectClazz).parse(this, buffer);
+	public <E> List<E> parseList(Class<E> type, Reader source) {
+		JacksonWrapperParser wrappedParser = createParser(source);		
+		return mapperFor(type).parseCollection(this, wrappedParser, new ArrayList<E>());
 	}
 
-	/*@Override
-	public <E> E parse(String buffer, ParameterizedType<E> objectType) {
-		return mapperFor(objectType).parse(this, buffer);
-	}*/
-
-	@Override
-	public <E> List<E> parseList(InputStream is, Class<E> objectClazz) {
-		return mapperFor(objectClazz).parseList(this, is);
-	}
-
-	@Override
-	public <E> List<E> parseList(String buffer, Class<E> objectClazz) {
-		return mapperFor(objectClazz).parseList(this, buffer);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public <E> String serialize(E object) {
-		if (object==null) return null;
-		return mapperFor((Class<E>)object.getClass()).serialize(this, object);
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -154,26 +163,14 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 		mapperFor((Class<E>) object.getClass()).serialize(this, object, os);		
 	}
 
-/*	@Override
-	public <E> String serialize(E object, ParameterizedType<E> parameterizedType) {
-		if (object==null) return null;
-		return mapperFor(parameterizedType).serialize(this, object);
+	@Override
+	public <E> String serializeCollection(Collection<E> list, Class<E> objectClazz) {
+		return mapperFor(objectClazz).serializeCollection(this, list);
 	}
 
 	@Override
-	public <E> void serialize(E object, ParameterizedType<E> parameterizedType, OutputStream os) {
-		if (object==null) return;
-		mapperFor(parameterizedType).serialize(this, object, os);
-	}*/
-
-	@Override
-	public <E> String serialize(List<E> list, Class<E> objectClazz) {
-		return mapperFor(objectClazz).serialize(this, list);
-	}
-
-	@Override
-	public <E> void serialize(List<E> list, OutputStream os, Class<E> objectClazz) {
-		mapperFor(objectClazz).serialize(this, list, os);
+	public <E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream os) {
+		mapperFor(objectClazz).serializeCollection(this, list, os);
 	}
 
 }
