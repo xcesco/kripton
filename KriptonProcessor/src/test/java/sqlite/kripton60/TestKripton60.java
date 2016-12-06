@@ -32,6 +32,7 @@ public class TestKripton60 extends BaseProcessorTest {
 
 	@Test
 	public void testFields() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(BeanDataSource.class, BeanDao.class, Bean.class, EnumType.class);
 		buildDataSourceProcessorTest(BeanDataSource.class, BeanDao.class, Bean.class, EnumType.class);
 	}
 

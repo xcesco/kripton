@@ -9,15 +9,15 @@ import org.junit.Before;
 import org.unitils.reflectionassert.ReflectionAssert;
 import org.unitils.reflectionassert.ReflectionComparatorMode;
 
+import base.BaseProcessorTest;
+import base.MyByteArrayOutputStream;
+
 import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.CborBinderContext;
 import com.abubusoft.kripton.binder2.context.PropertiesBinderContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
 import com.abubusoft.kripton.binder2.context.YamlBinderContext;
-
-import base.BaseProcessorTest;
-import base.MyByteArrayOutputStream;
 
 public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 
@@ -86,53 +86,51 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 	}
 	
 	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) {
-		String output1=KriptonBinder2.getBinder(type).serializeCollection(list, clazz);
-		if (display) System.out.println(output1);
+		String value1=KriptonBinder2.getBinder(type).serializeCollection(list, clazz);
+		Collection<E> list2 = KriptonBinder2.getBinder(type).parseCollection(new ArrayList<E>(), clazz, value1);
+
+		String value2=KriptonBinder2.getBinder(type).serializeCollection(list2, clazz);
 		
-//		List<E> bean2=KriptonBinder2.getBinder(type).parseCollection(output1, clazz);				
+		if (display) System.out.println(value1);
+		if (display) System.out.println(value2);
+//
+		Assert.assertTrue(value1.length()==value2.length());		
+		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
 //		
-//		String output2=KriptonBinder2.getBinder(type).serializeCollection(bean2, clazz);
-//		if (display) System.out.println(output2);
-//		
-//		Assert.assertTrue(type.toString(), output1.length()==output2.length());		
-//		
-//		ReflectionAssert.assertReflectionEquals(list, bean2, ReflectionComparatorMode.LENIENT_ORDER);
-//		
-//		return output2.length();
-		return 0;
+		return value1.length();
 	}
 	
 	public <E> int serializeAndParseCollectionBinary(Collection<E> list, Class<E> clazz, BinderType type) {
 		MyByteArrayOutputStream bar = new MyByteArrayOutputStream();
 		KriptonBinder2.getBinder(type).serializeCollection(list, clazz, bar);
-		String value1=toString(bar.getBuf());
+		String value1=toString(bar.getByteBuffer());
+		
+		Collection<E> list2 = KriptonBinder2.getBinder(type).parseCollection(new ArrayList<E>(), clazz, bar.getByteBufferCopy());
 
+		MyByteArrayOutputStream bar2 = new MyByteArrayOutputStream();
+		KriptonBinder2.getBinder(type).serializeCollection(list2, clazz, bar2);
+		String value2=toString(bar2.getByteBuffer());
+		
 		if (display) System.out.println(value1);
-		Object bean2 = KriptonBinder2.getBinder(type).parseCollection(new ArrayList<E>(), clazz, value1);
-//
-//		MyByteArrayOutputStream bar2 = new MyByteArrayOutputStream();
-//		KriptonBinder2.getBinder(type).serialize(bean2, bar2);
-//		String value2=toString(bar2.getBuf());
-//		if (display) System.out.println(value2);
-//
-//		Assert.assertTrue(value1.length()==value2.length());		
-//		//ReflectionAssert.assertReflectionEquals(type.toString(), bean, bean2);
+		if (display) System.out.println(value2);
+		
+		Assert.assertTrue(value1.length()==value2.length());		
+		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
 //		
-//		return bar.getCount();
-		return 0;
+		return bar.getCount();
 	}
 
 	public int serializeAndParseBinary(Object bean, BinderType type) {
 		MyByteArrayOutputStream bar = new MyByteArrayOutputStream();
 		KriptonBinder2.getBinder(type).serialize(bean, bar);
-		String value1=toString(bar.getBuf());
+		String value1=toString(bar.getByteBuffer());
 
 		if (display) System.out.println(value1);
-		Object bean2 = KriptonBinder2.getBinder(type).parse(new ByteArrayInputStream(bar.getBuf()), bean.getClass());
+		Object bean2 = KriptonBinder2.getBinder(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
 
 		MyByteArrayOutputStream bar2 = new MyByteArrayOutputStream();
 		KriptonBinder2.getBinder(type).serialize(bean2, bar2);
-		String value2=toString(bar2.getBuf());
+		String value2=toString(bar2.getByteBuffer());
 		if (display) System.out.println(value2);
 
 		Assert.assertTrue(value1.length()==value2.length());		

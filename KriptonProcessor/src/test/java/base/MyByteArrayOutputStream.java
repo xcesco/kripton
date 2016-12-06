@@ -2,6 +2,8 @@ package base;
 
 import java.io.ByteArrayOutputStream;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+
 public class MyByteArrayOutputStream extends ByteArrayOutputStream {
 	public MyByteArrayOutputStream() {
 	}
@@ -14,7 +16,11 @@ public class MyByteArrayOutputStream extends ByteArrayOutputStream {
 		return count;
 	}
 
-	public byte[] getBuf() {
+	public byte[] getByteBuffer() {
 		return buf;
+	}
+	
+	public byte[] getByteBufferCopy() {
+		return Arrays.copyOf(buf, buf.length);
 	}
 }

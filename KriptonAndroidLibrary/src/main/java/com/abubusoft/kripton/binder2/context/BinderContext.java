@@ -7,10 +7,11 @@ import java.io.Reader;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import com.abubusoft.kripton.binder2.BinderType;
 
-public interface BinderContext extends BinderBuilder {
+public interface BinderContext {
 
 	BinderType getSupportedFormat();
 	
@@ -53,5 +54,11 @@ public interface BinderContext extends BinderBuilder {
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream source);
 	
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, File source);
+	
+	<K, V> String serializeMap(Map<K, V> map, Class<K> keyClazz, Class<V> valueClazz);
+	
+	<K, V> void serializeMap(Map<K, V> map, Class<K> keyClazz, Class<V> valueClazz, OutputStream source);
+	
+	<K, V> void serializeMap(Map<K, V> map, Class<K> keyClazz, Class<V> valueClazz, File source);
 
 }

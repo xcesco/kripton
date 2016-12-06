@@ -17,6 +17,8 @@ import java.util.TimeZone;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.abubusoft.kripton.common.Processor2Helper;
+
 import bind.AbstractBindTypeProcessorTest;
 
 public class TestKripton80 extends AbstractBindTypeProcessorTest {
@@ -74,6 +76,18 @@ public class TestKripton80 extends AbstractBindTypeProcessorTest {
 		
 		checkCollection(list, BeanElement80.class);
 	}
+	
+	@Test
+	public void testProcessor() throws IOException, InstantiationException, IllegalAccessException {
+		List<BeanElement80> list=new ArrayList<>();
+		list.add(createBean());
+		list.add(createBean());
+		
+		//Processor2Helper.asString(list, )
+		list.getClass();
+	}
+	
+	
 
 
 }

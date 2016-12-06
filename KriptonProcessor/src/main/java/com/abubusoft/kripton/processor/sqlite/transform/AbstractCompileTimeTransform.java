@@ -20,7 +20,6 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 
-import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.squareup.javapoet.TypeName;

@@ -5,6 +5,8 @@ import java.util.Collection;
 
 import javax.xml.stream.XMLStreamException;
 
+import org.robolectric.util.Logger;
+
 import com.abubusoft.kripton.binder2.context.BinderContext;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
@@ -53,16 +55,25 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 
 			try {
 				collection.clear();
-				
+				int i=0;
+				if (parser.nextToken()!=JsonToken.START_ARRAY)
+				{
+					throw(new KriptonRuntimeException("Invalid input format"));
+				}
 				if (context.getSupportedFormat().onlyText)
+				{					
 					while (parser.nextToken()!=JsonToken.END_ARRAY) {
+						Logger.info("object %s", i++);
 						collection.add(parseOnJacksonAsString(jacksonContext, wrapperParser));
 					}
+				}
 				else
+				{
 					while (parser.nextToken()!=JsonToken.END_ARRAY) {
+						Logger.info("object %s", i++);
 						collection.add(parseOnJackson(jacksonContext, wrapperParser));
 					}
-				
+				}
 				return collection;
 			} catch (IOException e) {
 				e.printStackTrace();

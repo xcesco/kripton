@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
@@ -22,14 +21,11 @@ public class MapTransformation extends AbstractBindTransform {
 
 	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
-	protected Class<?> utilClazz;
 	private ParameterizedTypeName mapTypeName;
 	private TypeName keyTypeName;
 	private TypeName valueTypeName;
 
 	public MapTransformation(ParameterizedTypeName clazz) {
-		this.utilClazz = ProcessorHelper.class;
-
 		this.mapTypeName = clazz;
 		this.keyTypeName = mapTypeName.typeArguments.get(0);
 		this.valueTypeName = mapTypeName.typeArguments.get(1);

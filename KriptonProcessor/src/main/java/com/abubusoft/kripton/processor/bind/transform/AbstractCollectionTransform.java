@@ -7,7 +7,6 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import com.abubusoft.kripton.common.CollectionUtils;
@@ -15,7 +14,6 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
-import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -91,12 +89,12 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);
 			if (collectionType==CollectionType.ARRAY)
 			{
-				methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName, ArrayList.class);
+				methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName.box(), ArrayList.class);
 			} else {
-				methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName, defineCollectionClass(collectionTypeName));
+				methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName.box(), defineCollectionClass(collectionTypeName));
 			}
 			
-			methodBuilder.addStatement("$T item=$L", elementTypeName, DEFAULT_VALUE);
+			methodBuilder.addStatement("$T item=$L", elementTypeName.box(), DEFAULT_VALUE);
 			
 			if (onString)
 			{
@@ -130,7 +128,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			{
 				if (TypeUtility.isTypePrimitive(elementTypeName))
 				{
-					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$LTypeArray(collection)"), CollectionUtils.class, elementTypeName.box());
+					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"), CollectionUtils.class, elementTypeName.box());
 				} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
 					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtils.class, elementTypeName);
 				} else {
@@ -148,18 +146,18 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			// create collection 
 			if (collectionType==CollectionType.ARRAY)
 			{
-				methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName, ArrayList.class);
+				methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName.box(), ArrayList.class);
 			} else {
-				methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName, defineCollectionClass(collectionTypeName));
+				methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName.box(), defineCollectionClass(collectionTypeName));
 			}
 			// set collection
 			if (collectionType==CollectionType.ARRAY)
 			{
 				if (TypeUtility.isTypePrimitive(elementTypeName))
 				{
-					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$LTypeArray(collection)"), CollectionUtils.class, elementTypeName.box());
+					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"), CollectionUtils.class, elementTypeName.box());
 				} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
-					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtils.class, elementTypeName);
+					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"), CollectionUtils.class, elementTypeName.box());
 				} else {
 					methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"), CollectionUtils.class, elementTypeName);
 				}				
@@ -181,15 +179,15 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 		switch(collectionType)
 		{
 		case ARRAY:
-			methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName, ArrayList.class);
+			methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName.box(), ArrayList.class);
 			break;
 		case LIST:
 		case SET:
-			methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName, defineCollectionClass(collectionTypeName));
+			methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName.box(), defineCollectionClass(collectionTypeName));
 			break;
 		}		
 				
-		methodBuilder.addStatement("$T item", elementTypeName);
+		methodBuilder.addStatement("$T item", elementTypeName.box());
 			
 		BindTransform transform=BindTransformer.lookup(elementTypeName);
 		BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).build();
@@ -282,7 +280,7 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 			} else if (collectionType==CollectionType.ARRAY) {
 				methodBuilder.addStatement("int n=$L.length", getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$T item", elementTypeName);
-			} else {
+			} else if (onString){
 				methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
 			}
 		
@@ -309,7 +307,10 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 				methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
 				methodBuilder.addStatement("item=$L[i]", getter(beanName, beanClass, property));
 			}
-				
+			
+			// we have to write here this if because the internal if on serialization does not support else statement.
+			// We are in a collection, so we need to write null value too. In all other case, null value will be skipped.
+			if (!elementProperty.getPropertyType().isPrimitive()) {
 				methodBuilder.beginControlFlow("if (item==null)");
 					if (onString)
 					{
@@ -319,14 +320,17 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 						methodBuilder.addStatement("$L.writeNull()", serializerName);
 					}
 				methodBuilder.nextControlFlow("else");
+			}
 					if (onString)
 					{
 						transform.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item", elementProperty);
 					} else {
 						transform.generateSerializeOnJackson(methodBuilder, serializerName, null, "item", elementProperty);	
 					}
-					
+			if (!elementProperty.getPropertyType().isPrimitive()) {
 				methodBuilder.endControlFlow();
+			}
+				
 			methodBuilder.endControlFlow();
 		
 	        methodBuilder.addStatement("$L.writeEndArray()", serializerName);
@@ -381,8 +385,9 @@ public abstract class AbstractCollectionTransform extends AbstractBindTransform 
 				methodBuilder.addStatement("item=$L[i]", getter(beanName, beanClass, property));
 				break;
 			}
-				
-			if (property.isNullable())
+			
+			
+			if (!property.getPropertyType().isPrimitive())
 			{
 				methodBuilder.beginControlFlow("if (item==null)");
 					methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.tagElement);
