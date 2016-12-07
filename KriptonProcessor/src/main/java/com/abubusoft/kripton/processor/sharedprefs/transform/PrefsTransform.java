@@ -13,40 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.sharedprefs.model;
+package com.abubusoft.kripton.processor.sharedprefs.transform;
 
-import javax.lang.model.element.Element;
-
-import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
-import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
-public class PrefProperty extends ModelProperty {
+/**
+ * 
+ * Class implementing this interface can be used to generate code to read and write the property for a binded shared preferences
+ * 
+ * @author xcesco
+ *
+ */
+public interface PrefsTransform {
 
-	public PrefProperty(Element element) {
-		super(element);
-	}
+	void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean singleRead);
 	
-	/**
-	 * kind of preference associated
-	 */
-	protected PreferenceType preferenceType;
-	
-	/**
-	 * <p>
-	 * 		property definition to write method to manage
-	 * </p>
-	 */
-	public BindProperty bindProperty;
-		
-	public PreferenceType getPreferenceType() {
-		return preferenceType;
-	}
-
-	public void setPreferenceType(PreferenceType preferenceType) {
-		this.preferenceType = preferenceType;
-	}
-
-
+	void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property);
 
 }

@@ -22,6 +22,7 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -35,19 +36,31 @@ import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CaseFormat;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.bind.transform.BindTransform;
+import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
-import com.abubusoft.kripton.processor.sharedprefs.transform.SPTransform;
-import com.abubusoft.kripton.processor.sharedprefs.transform.SPTransformer;
+import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
+import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
@@ -74,14 +87,12 @@ public class BindSharedPreferencesBuilder {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		String beanClassName = entity.getSimpleName().toString();
 
-		boolean needSuffix=true;
+		boolean needSuffix = true;
 		if (beanClassName.endsWith(SUFFIX)) {
-			needSuffix=false;
-			//String msg = String.format("Class %s must have a name with suffix \"%s\" to be used with @%s", beanClassName, SUFFIX, BindSharedPreferences.class.getSimpleName());
-			//throw (new InvalidNameException(msg));
+			needSuffix = false;
 		}
 
-		String className = PREFIX + beanClassName + (needSuffix ? SUFFIX : "" );
+		String className = PREFIX + beanClassName + (needSuffix ? SUFFIX : "");
 		ModelAnnotation annotation = entity.getAnnotation(BindSharedPreferences.class);
 		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_NAME);
 
@@ -99,21 +110,14 @@ public class BindSharedPreferencesBuilder {
 		builder.addJavadoc("@see $T\n", entity.getElement());
 
 		if (StringUtils.hasText(sharedPreferenceName)) {
-			builder.addField(FieldSpec.builder(String.class, "SHARED_PREFERENCE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-					.initializer("$S", converter.convert(entity.getSimpleName().toString()))
-					.addJavadoc("shared preferences name for $T\n", entity.getElement())
-					.build());
+			builder.addField(FieldSpec.builder(String.class, "SHARED_PREFERENCE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$S", converter.convert(entity.getSimpleName().toString()))
+					.addJavadoc("shared preferences name for $T\n", entity.getElement()).build());
 		}
 
-		builder.addField(FieldSpec.builder(className(beanClassName), "defaultBean", Modifier.PRIVATE, Modifier.FINAL)
-				.addJavadoc("working instance of bean\n")
-				.build());
+		builder.addField(FieldSpec.builder(className(beanClassName), "defaultBean", Modifier.PRIVATE, Modifier.FINAL).addJavadoc("working instance of bean\n").build());
 
 		{
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("edit")
-					.addJavadoc("create an editor to modify shared preferences\n")
-					.returns(typeName("BindEditor"))
-					.addModifiers(Modifier.PUBLIC);
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("edit").addJavadoc("create an editor to modify shared preferences\n").returns(typeName("BindEditor")).addModifiers(Modifier.PUBLIC);
 			methodBuilder.addStatement("return new $T()", typeName("BindEditor"));
 			builder.addMethod(methodBuilder.build());
 		}
@@ -129,6 +133,8 @@ public class BindSharedPreferencesBuilder {
 		generateWriteMethod(entity);
 
 		generateSingleReadMethod(entity);
+		
+		generatePersistFieldMethods(entity);
 
 		generateInstance(className);
 
@@ -138,6 +144,89 @@ public class BindSharedPreferencesBuilder {
 		return className;
 	}
 
+	private static void generatePersistFieldMethods(PrefEntity entity) {
+		for (PrefProperty property: entity.getCollection())
+		{
+			if (property.bindProperty!=null)
+			{
+				generateSerializeField(property.bindProperty);
+				generateParseField(property.bindProperty);
+			}
+		}
+		
+	}
+
+	private static void generateSerializeField(BindProperty property) {	
+		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+		
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serialize"+format.convert(property.getName()))
+				.addJavadoc("write\n")
+				.addModifiers(Modifier.PROTECTED)
+				.addParameter(ParameterSpec.builder(typeName(property.getElement()), "value").build())
+				.returns(className(String.class));
+		
+		methodBuilder.beginControlFlow("if (value==null)");
+			methodBuilder.addStatement("return null");
+		methodBuilder.endControlFlow();
+		
+		methodBuilder.beginControlFlow("try");
+		methodBuilder.addStatement("$T writer=new $T()", StringWriter.class, StringWriter.class);
+		methodBuilder.addStatement("$T context=($T)$T.getBinder($T.JSON)", JacksonContext.class, JacksonContext.class, KriptonBinder2.class, BinderType.class);
+		methodBuilder.addStatement("$T wrapper=context.createSerializer(writer)", JacksonWrapperSerializer.class);
+		methodBuilder.addStatement("$T jacksonSerializer=wrapper.jacksonGenerator", JsonGenerator.class);
+		
+		String serializerName="jacksonSerializer";
+		BindTransform bindTransform = BindTransformer.lookup(property);
+		
+		methodBuilder.addStatement("int fieldCount=0");
+		
+		bindTransform.generateSerializeOnJackson(methodBuilder, serializerName, null, "value", property);
+				 
+		methodBuilder.addStatement("wrapper.close()");
+		methodBuilder.addStatement("return writer.toString()");
+		
+		methodBuilder.nextControlFlow("catch($T e)", IOException.class);
+		methodBuilder.addStatement("return null");
+		methodBuilder.endControlFlow();
+
+		builder.addMethod(methodBuilder.build());
+	}
+	
+	private static void generateParseField(BindProperty property) {	
+		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);		
+		
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parse"+format.convert(property.getName()))
+				.addJavadoc("parse\n")
+				.addModifiers(Modifier.PROTECTED)
+				.addParameter(ParameterSpec.builder(className(String.class), "input").build())
+				.returns(typeName(property.getElement()));
+		
+		methodBuilder.beginControlFlow("if (input==null)");
+			methodBuilder.addStatement("return null");
+		methodBuilder.endControlFlow();
+		
+		methodBuilder.beginControlFlow("try");
+		methodBuilder.addStatement("$T context=($T)$T.getBinder($T.JSON)", JacksonContext.class, JacksonContext.class, KriptonBinder2.class, BinderType.class);
+		methodBuilder.addStatement("$T wrapper=context.createParser(input)", JacksonWrapperParser.class);
+		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);
+		
+		String parserName="jacksonParser";
+		BindTransform bindTransform = BindTransformer.lookup(property);
+		
+		methodBuilder.addStatement("$T result=null", property.getPropertyType().getName());
+		
+		bindTransform.generateParseOnJackson(methodBuilder, parserName, null, "result", property);
+				 
+		methodBuilder.addStatement("return result");
+		
+		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
+		methodBuilder.addStatement("return null");
+		methodBuilder.endControlFlow();
+
+		builder.addMethod(methodBuilder.build());
+		
+	}
+
 	/**
 	 * create editor
 	 * 
@@ -145,53 +234,18 @@ public class BindSharedPreferencesBuilder {
 	 */
 	private static void generateEditor(PrefEntity entity) {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-		Builder innerClassBuilder = TypeSpec.classBuilder("BindEditor")
-				.addModifiers(Modifier.PUBLIC)
-				.addJavadoc("editor class for shared preferences\n")
-				.superclass(typeName("AbstractEditor"));
+		Builder innerClassBuilder = TypeSpec.classBuilder("BindEditor").addModifiers(Modifier.PUBLIC).addJavadoc("editor class for shared preferences\n").superclass(typeName("AbstractEditor"));
 		innerClassBuilder.addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).build());
 
-		SPTransform transform;
+		PrefsTransform transform;
 		// write method
 		for (PrefProperty item : entity.getCollection()) {
-			MethodSpec.Builder builder = MethodSpec.methodBuilder("put" + converter.convert(item.getName()))
-					.addModifiers(Modifier.PUBLIC)
-					.addParameter(typeName(item.getElement()), "value")
-					.addJavadoc("modifier for property $L\n", item.getName())
-					.returns(typeName("BindEditor"));
+			MethodSpec.Builder builder = MethodSpec.methodBuilder("put" + converter.convert(item.getName())).addModifiers(Modifier.PUBLIC).addParameter(typeName(item.getElement()), "value")
+					.addJavadoc("modifier for property $L\n", item.getName()).returns(typeName("BindEditor"));
 
-			transform = SPTransformer.lookup(item);
-			transform.generateWriteProperty(builder, "editor", null, "value", item); //generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "bean", item, true);
-			builder.addCode(";\n");
-			
-			/*
-			switch (item.getPreferenceType()) {
-			case STRING:
-				if (item.getPropertyType().isArray()) {
-					builder.addStatement("editor.putString($S, array2String(value))", item.getName());
-				} else if (item.getPropertyType().isList()) {
-					builder.addStatement("editor.putString($S, list2String(value))", item.getName());
-				} else if (item.getPropertyType().isSameType(String.class)) {
-					builder.addStatement("editor.putString($S, value)", item.getName());
-				} else {
-					builder.addStatement("editor.putString($S, writeObj(value))", item.getName());
-				}
-				break;
-			case BOOL:
-				builder.addStatement("editor.putBoolean($S, value)", item.getName());
-				break;
-			case FLOAT:
-				builder.addStatement("editor.putFloat($S, value)", item.getName());
-				break;
-			case INT:
-				builder.addStatement("editor.putInt($S, value)", item.getName());
-				break;
-			case LONG:
-				builder.addStatement("editor.putLong($S, value)", item.getName());
-				break;
-			default:
-				break;
-			}*/
+			transform = PrefsTransformer.lookup(item);
+			transform.generateWriteProperty(builder, "editor", null, "value", item); // generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "bean", item, true);
+			builder.addCode("\n");
 
 			builder.addStatement("return this");
 			innerClassBuilder.addMethod(builder.build());
@@ -206,14 +260,9 @@ public class BindSharedPreferencesBuilder {
 	 * @param className
 	 */
 	private static void generateInstance(String className) {
-		builder.addField(FieldSpec.builder(className(className), "instance", Modifier.PRIVATE, Modifier.STATIC)
-				.addJavadoc("instance of shared preferences\n")
-				.build());
+		builder.addField(FieldSpec.builder(className(className), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("instance of shared preferences\n").build());
 		// instance
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance")
-				.addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED)
-				.addJavadoc("get instance of shared preferences\n")
-				.returns(className(className));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).addJavadoc("get instance of shared preferences\n").returns(className(className));
 
 		methodBuilder.beginControlFlow("if (instance==null)");
 		methodBuilder.addCode("instance=new $L();\n", className(className));
@@ -228,107 +277,58 @@ public class BindSharedPreferencesBuilder {
 	 * @param beanClassName
 	 */
 	private static void generateConstructor(String sharedPreferenceName, String beanClassName) {
-		{
-			MethodSpec.Builder method = MethodSpec.constructorBuilder()
-					.addModifiers(Modifier.PRIVATE)
-					.addJavadoc("constructor\n");
-			if (StringUtils.hasText(sharedPreferenceName)) {
-				method.addCode("// using name attribute of annotation @BindSharedPreferences as name\n");
-				method.addStatement("prefs=$T.context().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
-			} else {
-				method.addCode("// no name specified, using default shared preferences\n");
-				method.addStatement("prefs=$T.getDefaultSharedPreferences($T.context())", PreferenceManager.class, KriptonLibrary.class);
-			}
-
-			// method.addStatement("converterMap=new $T<$T, $T>()", HashMap.class, String.class, Converter.class);
-			method.addStatement("defaultBean=new $T()", className(beanClassName));
-			builder.addMethod(method.build());
+		MethodSpec.Builder method = MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).addJavadoc("constructor\n");
+		if (StringUtils.hasText(sharedPreferenceName)) {
+			method.addCode("// using name attribute of annotation @BindSharedPreferences as name\n");
+			method.addStatement("prefs=$T.context().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
+		} else {
+			method.addCode("// no name specified, using default shared preferences\n");
+			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.context())", PreferenceManager.class, KriptonLibrary.class);
 		}
+
+		// method.addStatement("converterMap=new $T<$T, $T>()", HashMap.class, String.class, Converter.class);
+		method.addStatement("defaultBean=new $T()", className(beanClassName));
+		builder.addMethod(method.build());
 	}
 
 	private static void generateResetMethod(PrefEntity entity) {
-		{
-			// write method
-			MethodSpec.Builder method = MethodSpec.methodBuilder("reset")
-					.addModifiers(Modifier.PUBLIC)
-					.addJavadoc("reset shared preferences\n")
-					.returns(Void.TYPE);
-			method.addStatement("$T bean=new $T()", entity.getElement(), entity.getElement());
-			method.addStatement("write(bean)");
-			builder.addMethod(method.build());
-		}
+		// write method
+		MethodSpec.Builder method = MethodSpec.methodBuilder("reset").addModifiers(Modifier.PUBLIC).addJavadoc("reset shared preferences\n").returns(Void.TYPE);
+		method.addStatement("$T bean=new $T()", entity.getElement(), entity.getElement());
+		method.addStatement("write(bean)");
+		builder.addMethod(method.build());
 	}
 
 	/**
 	 * @param entity
 	 */
 	private static void generateWriteMethod(PrefEntity entity) {
-		{
-			// write method
-			MethodSpec.Builder method = MethodSpec.methodBuilder("write")
-					.addJavadoc("write bean entirely\n\n")
-					.addJavadoc("@param bean bean to entirely write\n")
-					.addModifiers(Modifier.PUBLIC)
-					.addParameter(typeName(entity.getName()), "bean")
-					.returns(Void.TYPE);
-			method.addStatement("$T editor=prefs.edit()", SharedPreferences.Editor.class);
-			
-			SPTransform transform;
-			for (PrefProperty item : entity.getCollection()) {
-				
-				transform = SPTransformer.lookup(item);
-				transform.generateWriteProperty(method, "editor", typeName(entity.getElement()), "bean", item); //generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "bean", item, true);
-				method.addCode(";\n");
-				
-				// method.addCode("// set $L property ($L)\n", item.getName(), item.getPreferenceType());
-				/*switch (item.getPreferenceType()) {
-				case STRING:
-					if (item.getPropertyType().isArray()) {
-						method.addStatement("editor.putString($S, array2String(bean.$L))", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-					} else if (item.getPropertyType().isList()) {
-						method.addStatement("editor.putString($S, list2String(bean.$L))", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-					} else if (item.getPropertyType().isSameType(String.class)) {
-						method.addStatement("editor.putString($S, bean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-					} else {
-						method.addStatement("editor.putString($S, writeObj(bean.$L))", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-					}
-					break;
-				case BOOL:
-					method.addStatement("editor.putBoolean($S, bean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-					break;
-				case FLOAT:
-					method.addStatement("editor.putFloat($S, bean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-					break;
-				case INT:
-					method.addStatement("editor.putInt($S, bean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-					break;
-				case LONG:
-					method.addStatement("editor.putLong($S, bean.$L)", item.getName(), PropertyUtility.getter(typeName(entity.getElement()), item));
-					break;
-				default:
-					break;
-				}*/
+		// write method
+		MethodSpec.Builder method = MethodSpec.methodBuilder("write").addJavadoc("write bean entirely\n\n").addJavadoc("@param bean bean to entirely write\n").addModifiers(Modifier.PUBLIC).addParameter(typeName(entity.getName()), "bean")
+				.returns(Void.TYPE);
+		method.addStatement("$T editor=prefs.edit()", SharedPreferences.Editor.class);
 
-			}
+		PrefsTransform transform;
+		for (PrefProperty item : entity.getCollection()) {
+
+			transform = PrefsTransformer.lookup(item);
+			transform.generateWriteProperty(method, "editor", typeName(entity.getElement()), "bean", item);
 			method.addCode("\n");
-			method.addStatement("editor.commit()");
-			builder.addMethod(method.build());
 		}
+		method.addCode("\n");
+		method.addStatement("editor.commit()");
+		builder.addMethod(method.build());
 	}
 
 	private static void generateReadMethod(PrefEntity entity) {
 		// read method
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("read")
-				.addModifiers(Modifier.PUBLIC)
-				.addJavadoc("read bean entirely\n\n")
-				.addJavadoc("@return read bean\n")
-				.returns(typeName(entity.getName()));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("read").addModifiers(Modifier.PUBLIC).addJavadoc("read bean entirely\n\n").addJavadoc("@return read bean\n").returns(typeName(entity.getName()));
 		methodBuilder.addStatement("$T bean=new $T()", typeName(entity.getName()), typeName(entity.getName()));
-		
-		SPTransform transform;
-		
+
+		PrefsTransform transform;
+
 		for (PrefProperty item : entity.getCollection()) {
-			transform=SPTransformer.lookup(item);
+			transform = PrefsTransformer.lookup(item);									
 			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "bean", item, true);
 			methodBuilder.addCode("\n");
 		}
@@ -340,19 +340,16 @@ public class BindSharedPreferencesBuilder {
 
 	private static void generateSingleReadMethod(PrefEntity entity) {
 		// read method
-		SPTransform transform;
+		PrefsTransform transform;
 
 		for (PrefProperty item : entity.getCollection()) {
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(item.getName())
-					.addModifiers(Modifier.PUBLIC)
-					.addJavadoc("read property $L\n\n", item.getName())
-					.addJavadoc("@return property $L value\n", item.getName())
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(item.getName()).addModifiers(Modifier.PUBLIC).addJavadoc("read property $L\n\n", item.getName()).addJavadoc("@return property $L value\n", item.getName())
 					.returns(item.getPropertyType().getName());
-			
-			transform = SPTransformer.lookup(item);
-			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "defaultBean", item, false);			
+
+			transform = PrefsTransformer.lookup(item);
+			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "defaultBean", item, false);
 			methodBuilder.addCode("\n");
-			
+
 			builder.addMethod(methodBuilder.build());
 		}
 

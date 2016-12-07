@@ -61,10 +61,13 @@ public class BindProperty extends ModelProperty {
 			property.propertyType=new ModelType(rawTypeName);
 			property.order=parentProperty.order;
 			property.inCollection=this.inCollection;
-			property.jacksonName=tag;
+			
+			property.jacksonInfo.jacksonName=tag;
+			
 			property.xmlInfo.xmlType=this.xmlType;
 			property.xmlInfo.tag=tag;
 			property.xmlInfo.tagElement=null;
+			
 			property.nullable=this.nullable;
 			
 			return property;
@@ -87,6 +90,12 @@ public class BindProperty extends ModelProperty {
 		}
 
 	}
+	
+	public class JacksonInfo {
+		
+		public String jacksonName;
+	}
+	
 	public class XmlInfo {
 		public MapEntryType mapEntryType;
 		
@@ -114,8 +123,6 @@ public class BindProperty extends ModelProperty {
 		{
 			return wrappedCollection;
 		}
-		
-
 	}
 	
 	public static BindPropertyBuilder builder(TypeName rawTypeName, BindProperty property) {
@@ -127,13 +134,15 @@ public class BindProperty extends ModelProperty {
 	 */
 	public boolean inCollection;
 
-	public String jacksonName;
-
 	public boolean nullable;
+	
+	public boolean bindedObject;
 
 	public int order;
 
 	public XmlInfo xmlInfo;
+	
+	public JacksonInfo jacksonInfo;
 
 	public String mapKeyName;
 
@@ -145,6 +154,7 @@ public class BindProperty extends ModelProperty {
 		nullable=true;
 		inCollection=false;
 		xmlInfo=new XmlInfo();
+		jacksonInfo=new JacksonInfo();
 	}
 	
 	public boolean isInCollection() {
@@ -154,5 +164,22 @@ public class BindProperty extends ModelProperty {
 	public boolean isNullable() {
 		return nullable;
 	}
+
+	public boolean isBindedObject() {
+		return bindedObject;
+	}	
+	
+	public boolean isBindedCollection() {
+		return propertyType.isCollection();
+	}
+	
+	public boolean isBindedArray() {
+		return propertyType.isArray();
+	}
+
+	public boolean isBindedMap() {
+		return propertyType.isMap();
+	}
+		
 
 }

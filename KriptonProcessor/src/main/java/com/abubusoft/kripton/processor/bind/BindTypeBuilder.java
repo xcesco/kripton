@@ -270,13 +270,13 @@ public class BindTypeBuilder {
 		 * 
 		 * bindTransform = BindTransformer.lookup(property);
 		 * 
-		 * // here we manage only property of bean type if (bindTransform != null && !(bindTransform instanceof ObjectTransform)) { count++; } } }
+		 * // here we manage only property of bean type if (bindTransform != null && !(bindTransform instanceof ObjectBindTransform)) { count++; } } }
 		 * 
 		 * if (count > 0) { methodBuilder.addStatement("currentTag = elementNameStack.pop()"); methodBuilder.beginControlFlow("switch(currentTag)$>");
 		 * 
 		 * for (BindProperty property : entity.getCollection()) { if (property.xmlInfo.xmlType != XmlType.TAG) continue;
 		 * 
-		 * bindTransform = BindTransformer.lookup(property); if (bindTransform instanceof ObjectTransform) continue;
+		 * bindTransform = BindTransformer.lookup(property); if (bindTransform instanceof ObjectBindTransform) continue;
 		 * 
 		 * methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName); methodBuilder.addCode("// property $L\n", property.getName()); methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
 		 * bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property); methodBuilder.endControlFlow();

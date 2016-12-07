@@ -2,8 +2,8 @@ package bind.kripton77;
 
 import org.junit.Test;
 
-import com.abubusoft.kripton.processor.bind.transform.ListTransformation;
-import com.abubusoft.kripton.processor.bind.transform.SetTransformation;
+import com.abubusoft.kripton.processor.bind.transform.ListBindTransformation;
+import com.abubusoft.kripton.processor.bind.transform.SetBindTransformation;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -13,7 +13,7 @@ import bind.AbstractBindTypeProcessorTest;
 
 public class TestKripton77 extends AbstractBindTypeProcessorTest {
 	
-	public class TestListTransform extends ListTransformation
+	public class TestListTransform extends ListBindTransformation
 	{
 
 		public TestListTransform(ParameterizedTypeName clazz) {
@@ -27,7 +27,7 @@ public class TestKripton77 extends AbstractBindTypeProcessorTest {
 		
 	}
 	
-	public class TestSetTransform extends SetTransformation
+	public class TestSetTransform extends SetBindTransformation
 	{
 
 		public TestSetTransform(ParameterizedTypeName clazz) {

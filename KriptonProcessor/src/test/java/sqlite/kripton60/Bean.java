@@ -33,6 +33,7 @@ import java.util.TimeZone;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
+import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
@@ -93,6 +94,7 @@ public class Bean {
 	
 	public TimeZone valueTimeZone;
 	
+	@Bind(enabled=false)	
 	public List<Time> valueTimeList;
 	
 	public LinkedList<String> valueStrinList;

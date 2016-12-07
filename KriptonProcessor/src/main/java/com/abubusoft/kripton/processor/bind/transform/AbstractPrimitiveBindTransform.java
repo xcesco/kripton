@@ -115,7 +115,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		if (property.isInCollection()) {
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonName, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonInfo.jacksonName, getter(beanName, beanClass, property));
 		}
 
 		if (nullable && property.isNullable()) {
@@ -133,7 +133,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		if (property.isInCollection()) {
 			methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.jacksonName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.jacksonInfo.jacksonName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 		}
 
 		if (nullable && property.isNullable()) {
@@ -147,7 +147,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
 
-		if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+		if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)$L.$L())"), parserName, JSON_PARSER_METHOD);
 		} else {
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.$L()"), parserName, JSON_PARSER_METHOD);
@@ -164,7 +164,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
 
-		//if (CharacterTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+		//if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
 			//methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)(int)Integer.valueOf($L.getText()))"), parserName);
 		//} else {
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read$L($L.getText(), $L)"), PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);

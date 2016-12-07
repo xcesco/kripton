@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.sqlite.transform;
+package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
@@ -31,11 +31,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.squareup.javapoet.ArrayTypeName;
-import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
@@ -45,46 +44,13 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public abstract class Transformer {
+public abstract class PrefsTransformer {
 
 	/**
 	 * cache for transform
 	 */
-	private static final Map<TypeName, Transform> cache = new ConcurrentHashMap<TypeName, Transform>();
+	private static final Map<TypeName, PrefsTransform> cache = new ConcurrentHashMap<TypeName, PrefsTransform>();
 
-	/**
-	 * "resultBean", "cursor","indexes["+(i++)+"]"
-	 * 
-	 * @param beanClass
-	 */
-	public static void cursor2Java(MethodSpec.Builder methodBuilder, TypeName beanClass, ModelProperty property,
-			String beanName, String cursorName, String indexName) {
-		Transform transform = lookup(property.getElement().asType());
-
-		if (transform == null) {
-			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
-		}
-		transform.generateReadProperty(methodBuilder, beanClass, beanName, property, cursorName, indexName);
-	}
-
-	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property) {
-		Transform transform = lookup(property.getElement().asType());
-
-		if (transform == null) {
-			throw new RuntimeException("Transform of " + property.getElement().asType() + " not supported");
-		}
-		transform.generateWriteProperty(methodBuilder, beanClass, beanName, property);
-	}
-
-	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeMirror objectType, String objectName) {
-		Transform transform = lookup(objectType);
-
-		if (transform == null) {
-			throw new RuntimeException("Transform of " + typeName(objectType) + " not supported");
-		}
-		transform.generateWriteProperty(methodBuilder, objectName);
-	}
 
 	/**
 	 * Register custom transformable for a Java primitive type or a frequently
@@ -96,17 +62,18 @@ public abstract class Transformer {
 	 *            a class implementing @see
 	 *            org.abubu.elio.binder.transform.Transformable interface.
 	 */
-	public static void register(TypeName type, Transform transform) {
+	public static void register(TypeName type, PrefsTransform transform) {
 		cache.put(type, transform);
 	}
 
 	/**
 	 * Get transformer for type
 	 * 
-	 * @param typeMirror
 	 * @return transform
 	 */
-	public static Transform lookup(TypeMirror typeMirror) {
+	public static PrefsTransform lookup(PrefProperty property) {
+		TypeMirror typeMirror=property.getElement().asType();
+		
 		TypeName typeName;
 
 		if (typeMirror instanceof ModelType) {
@@ -124,8 +91,8 @@ public abstract class Transformer {
 	 * @param typeName
 	 * @return transform
 	 */
-	public static Transform lookup(TypeName typeName) {
-		Transform transform = cache.get(typeName);
+	public static PrefsTransform lookup(TypeName typeName) {
+		PrefsTransform transform = cache.get(typeName);
 
 		if (transform != null) {
 			return transform;
@@ -139,7 +106,7 @@ public abstract class Transformer {
 		return transform;
 	}
 
-	private static Transform getTransform(TypeName typeName) {				
+	private static PrefsTransform getTransform(TypeName typeName) {				
 		if (typeName.isPrimitive()) {
 			return getPrimitiveTransform(typeName);
 		}
@@ -149,20 +116,18 @@ public abstract class Transformer {
 			TypeName componentTypeName = typeNameArray.componentType;
 
 			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
-				return new ByteArrayTransform();
-			} else if (componentTypeName.isPrimitive()) {
-				return new ArrayTransform(componentTypeName, componentTypeName.isPrimitive());
-			} else {
-				return new ArrayTransform(componentTypeName);
-			}
+				return new ByteArrayPrefsTransform();
+			} else { 
+				return new ArrayPrefsTransform();
+			} 
 		} else if (typeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
 			if (TypeUtility.isList(parameterizedTypeName)) {
-				return new ListTransformation(parameterizedTypeName);
+				return new ListPrefsTransformation();
 			} else if (TypeUtility.isSet(parameterizedTypeName)) {
-				return new SetTransformation(parameterizedTypeName);
+				return new SetPrefsTransformation();
 			} else if (TypeUtility.isMap(parameterizedTypeName)) {
-				return new MapTransformation(parameterizedTypeName);
+				return new MapPrefsTransformation();
 			}
 		}
 
@@ -187,44 +152,31 @@ public abstract class Transformer {
 		if (name.startsWith("java.sql")) {
 			return getSqlTransform(typeName);
 		}
-		/*
-		 * if (type == QName.class) { return new QNameTransform(); }
-		 * 
-		 * if (CustomBindTransform.class.isAssignableFrom(type) && type !=
-		 * DefaultCustomTransform.class) { try { return (Transform<?>)
-		 * type.newInstance(); } catch (InstantiationException e) {
-		 * e.printStackTrace(); } catch (IllegalAccessException e) {
-		 * e.printStackTrace(); } }
-		 */
-
-		// } catch (ClassNotFoundException e) {
-		// e.printStackTrace();
-		// }
-
-		return null;
+				
+		return new ObjectPrefsTransform();
 	}
 
-	private static Transform getSqlTransform(TypeName typeName) {
+	private static PrefsTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
-			return new TimeTransform();
+			return new TimePrefsTransform();
 		}
 
 		return null;
 	}
 
-	private static Transform getNetTransform(TypeName typeName) {
+	private static PrefsTransform getNetTransform(TypeName typeName) {
 		if (URL.class.getName().equals(typeName.toString())) {
-			return new UrlTransform();
+			return new UrlPrefsTransform();
 		}
 
 		return null;
 	}
 
-	private static Transform getMathTransform(TypeName typeName) {
+	private static PrefsTransform getMathTransform(TypeName typeName) {
 		if (BigDecimal.class.getName().equals(typeName.toString())) {
-			return new BigDecimalTransform();
+			return new BigDecimalPrefsTransform();
 		} else if (BigInteger.class.getName().equals(typeName.toString())) {
-			return new BigIntegerTransform();
+			return new BigIntegerPrefsTransform();
 		}
 
 		return null;
@@ -236,31 +188,31 @@ public abstract class Transformer {
 	 * @param type
 	 * @return
 	 */
-	private static Transform getPrimitiveTransform(TypeName type) {
+	private static PrefsTransform getPrimitiveTransform(TypeName type) {
 
 		if (Integer.TYPE.toString().equals(type.toString())) {
-			return new IntegerTransform(false);
+			return new IntegerPrefsTransform(false);
 		}
 		if (Boolean.TYPE.toString().equals(type.toString())) {
-			return new BooleanTransform(false);
+			return new BooleanPrefsTransform(false);
 		}
 		if (Long.TYPE.toString().equals(type.toString())) {
-			return new LongTransform(false);
+			return new LongPrefsTransform(false);
 		}
 		if (Double.TYPE.toString().equals(type.toString())) {
-			return new DoubleTransform(false);
+			return new DoublePrefsTransform(false);
 		}
 		if (Float.TYPE.toString().equals(type.toString())) {
-			return new FloatTransform(false);
+			return new FloatPrefsTransform(false);
 		}
 		if (Short.TYPE.toString().equals(type.toString())) {
-			return new ShortTransform(false);
+			return new ShortPrefsTransform(false);
 		}
 		if (Byte.TYPE.toString().equals(type.toString())) {
-			return new ByteTransform(false);
+			return new BytePrefsTransform(false);
 		}
 		if (Character.TYPE.toString().equals(type.toString())) {
-			return new CharacterTransform(false);
+			return new CharacterPrefsTransform(false);
 		}
 		return null;
 	}
@@ -271,35 +223,35 @@ public abstract class Transformer {
 	 * @param type
 	 * @return
 	 */
-	private static Transform getLanguageTransform(TypeName type) {
+	private static PrefsTransform getLanguageTransform(TypeName type) {
 		String typeName = type.toString();
-
+		
 		if (Integer.class.getCanonicalName().equals(typeName)) {
-			return new IntegerTransform(true);
+			return new IntegerPrefsTransform(true);
 		}
 		if (Boolean.class.getCanonicalName().equals(typeName)) {
-			return new BooleanTransform(true);
+			return new BooleanPrefsTransform(true);
 		}
 		if (Long.class.getCanonicalName().equals(typeName)) {
-			return new LongTransform(true);
+			return new LongPrefsTransform(true);
 		}
 		if (Double.class.getCanonicalName().equals(typeName)) {
-			return new DoubleTransform(true);
+			return new DoublePrefsTransform(true);
 		}
 		if (Float.class.getCanonicalName().equals(typeName)) {
-			return new FloatTransform(true);
+			return new FloatPrefsTransform(true);
 		}
 		if (Short.class.getCanonicalName().equals(typeName)) {
-			return new ShortTransform(true);
+			return new ShortPrefsTransform(true);
 		}
 		if (Byte.class.getCanonicalName().equals(typeName)) {
-			return new ByteTransform(true);
+			return new BytePrefsTransform(true);
 		}
 		if (Character.class.getCanonicalName().equals(typeName)) {
-			return new CharacterTransform(true);
+			return new CharacterPrefsTransform(true);
 		}
 		if (String.class.getCanonicalName().equals(typeName)) {
-			return new StringTransform();
+			return new StringPrefsTransform();
 		}
 		return null;
 	}
@@ -311,47 +263,28 @@ public abstract class Transformer {
 	 * @return
 	 */
 
-	private static Transform getUtilTransform(TypeName type) {
+	private static PrefsTransform getUtilTransform(TypeName type) {
 		String typeName = type.toString();
 
 		// Integer.class.getCanonicalName().equals(typeName)
 		if (Date.class.getCanonicalName().equals(typeName)) {
-			return new DateTransform();
+			return new DatePrefsTransform();
 		}
 		if (Locale.class.getCanonicalName().equals(typeName)) {
-			return new LocaleTransform();
+			return new LocalePrefsTransform();
 		}
 		if (Currency.class.getCanonicalName().equals(typeName)) {
-			return new CurrencyTransform();
+			return new CurrencyPrefsTransform();
 		}
 		if (Calendar.class.getCanonicalName().equals(typeName)) {
-			return new CalendarTransform();
+			return new CalendarPrefsTransform();
 		}
 		if (TimeZone.class.getCanonicalName().equals(typeName)) {
-			return new TimeZoneTransform();
+			return new TimeZonePrefsTransform();
 		}
 		return null;
 	}
 
-	public static void resetBean(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property, String cursorName, String indexName) {
-		Transform transform = lookup(property.getElement().asType());
 
-		if (transform == null) {
-			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
-		}
-		transform.generateResetProperty(methodBuilder, beanClass, beanName, property, cursorName, indexName);
-
-	}
-
-	public static String columnType(ModelProperty property) {
-		Transform transform = lookup(property.getElement().asType());
-
-		if (transform == null) {
-			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
-		}
-		return transform.generateColumnType(property);
-
-	}
 
 }

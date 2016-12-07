@@ -179,10 +179,6 @@ public class LiteralType implements TypeMirror {
 		return of(rawType.getCanonicalName(), parametrizedType.getQualifiedName().toString());
 	}
 	
-//	public static LiteralType of(Class<?> rawType, Class<?> parametrizedType) {
-//		return of(rawType.getCanonicalName(), parametrizedType.getCanonicalName());
-//	}
-
 	public boolean isCollection() {
 		if (isResolved() && Collection.class.isAssignableFrom(resolvedRawType)) {
 			return true;
@@ -190,12 +186,6 @@ public class LiteralType implements TypeMirror {
 
 		return false;
 	}
-	
-//	public boolean isComposed()
-//	{
-//		return isCollection() || isMap() || composedType!=null;
-//	}
-
 
 	public boolean isList() {		
 		if (isResolved() && List.class.isAssignableFrom(resolvedRawType)) {

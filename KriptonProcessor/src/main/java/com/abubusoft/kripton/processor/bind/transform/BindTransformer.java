@@ -84,6 +84,16 @@ public abstract class BindTransformer {
 
 		return lookup(typeName);
 	}
+	
+	public static boolean isBindedObject(BindProperty property) {
+		BindTransform t = lookup(property);
+		
+		if (t!=null && t instanceof ObjectBindTransform)
+		{
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Get transformer for type
@@ -116,18 +126,18 @@ public abstract class BindTransformer {
 			TypeName componentTypeName = typeNameArray.componentType;
 
 			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
-				return new ByteArrayTransform();
+				return new ByteArrayBindTransform();
 			} else { 
-				return new ArrayTransform(componentTypeName, componentTypeName.isPrimitive());
+				return new ArrayBindTransform(componentTypeName, componentTypeName.isPrimitive());
 			} 
 		} else if (typeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
 			if (TypeUtility.isList(parameterizedTypeName)) {
-				return new ListTransformation(parameterizedTypeName);
+				return new ListBindTransformation(parameterizedTypeName);
 			} else if (TypeUtility.isSet(parameterizedTypeName)) {
-				return new SetTransformation(parameterizedTypeName);
+				return new SetBindTransformation(parameterizedTypeName);
 			} else if (TypeUtility.isMap(parameterizedTypeName)) {
-				return new MapTransformation(parameterizedTypeName);
+				return new MapBindTransformation(parameterizedTypeName);
 			}
 		}
 
@@ -153,12 +163,12 @@ public abstract class BindTransformer {
 			return getSqlTransform(typeName);
 		}
 				
-		return new ObjectTransform();
+		return new ObjectBindTransform();
 	}
 
 	private static BindTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
-			return new TimeTransform();
+			return new TimeBindTransform();
 		}
 
 		return null;
@@ -166,7 +176,7 @@ public abstract class BindTransformer {
 
 	private static BindTransform getNetTransform(TypeName typeName) {
 		if (URL.class.getName().equals(typeName.toString())) {
-			return new UrlTransform();
+			return new UrlBindTransform();
 		}
 
 		return null;
@@ -174,9 +184,9 @@ public abstract class BindTransformer {
 
 	private static BindTransform getMathTransform(TypeName typeName) {
 		if (BigDecimal.class.getName().equals(typeName.toString())) {
-			return new BigDecimalTransform();
+			return new BigDecimalBindTransform();
 		} else if (BigInteger.class.getName().equals(typeName.toString())) {
-			return new BigIntegerTransform();
+			return new BigIntegerBindTransform();
 		}
 
 		return null;
@@ -191,28 +201,28 @@ public abstract class BindTransformer {
 	private static BindTransform getPrimitiveTransform(TypeName type) {
 
 		if (Integer.TYPE.toString().equals(type.toString())) {
-			return new IntegerTransform(false);
+			return new IntegerBindTransform(false);
 		}
 		if (Boolean.TYPE.toString().equals(type.toString())) {
-			return new BooleanTransform(false);
+			return new BooleanBindTransform(false);
 		}
 		if (Long.TYPE.toString().equals(type.toString())) {
-			return new LongTransform(false);
+			return new LongBindTransform(false);
 		}
 		if (Double.TYPE.toString().equals(type.toString())) {
-			return new DoubleTransform(false);
+			return new DoubleBindTransform(false);
 		}
 		if (Float.TYPE.toString().equals(type.toString())) {
-			return new FloatTransform(false);
+			return new FloatBindTransform(false);
 		}
 		if (Short.TYPE.toString().equals(type.toString())) {
-			return new ShortTransform(false);
+			return new ShortBindTransform(false);
 		}
 		if (Byte.TYPE.toString().equals(type.toString())) {
-			return new ByteTransform(false);
+			return new ByteBindTransform(false);
 		}
 		if (Character.TYPE.toString().equals(type.toString())) {
-			return new CharacterTransform(false);
+			return new CharacterBindTransform(false);
 		}
 		return null;
 	}
@@ -227,31 +237,31 @@ public abstract class BindTransformer {
 		String typeName = type.toString();
 		
 		if (Integer.class.getCanonicalName().equals(typeName)) {
-			return new IntegerTransform(true);
+			return new IntegerBindTransform(true);
 		}
 		if (Boolean.class.getCanonicalName().equals(typeName)) {
-			return new BooleanTransform(true);
+			return new BooleanBindTransform(true);
 		}
 		if (Long.class.getCanonicalName().equals(typeName)) {
-			return new LongTransform(true);
+			return new LongBindTransform(true);
 		}
 		if (Double.class.getCanonicalName().equals(typeName)) {
-			return new DoubleTransform(true);
+			return new DoubleBindTransform(true);
 		}
 		if (Float.class.getCanonicalName().equals(typeName)) {
-			return new FloatTransform(true);
+			return new FloatBindTransform(true);
 		}
 		if (Short.class.getCanonicalName().equals(typeName)) {
-			return new ShortTransform(true);
+			return new ShortBindTransform(true);
 		}
 		if (Byte.class.getCanonicalName().equals(typeName)) {
-			return new ByteTransform(true);
+			return new ByteBindTransform(true);
 		}
 		if (Character.class.getCanonicalName().equals(typeName)) {
-			return new CharacterTransform(true);
+			return new CharacterBindTransform(true);
 		}
 		if (String.class.getCanonicalName().equals(typeName)) {
-			return new StringTransform();
+			return new StringBindTransform();
 		}
 		return null;
 	}
@@ -268,19 +278,19 @@ public abstract class BindTransformer {
 
 		// Integer.class.getCanonicalName().equals(typeName)
 		if (Date.class.getCanonicalName().equals(typeName)) {
-			return new DateTransform();
+			return new DateBindTransform();
 		}
 		if (Locale.class.getCanonicalName().equals(typeName)) {
-			return new LocaleTransform();
+			return new LocaleBindTransform();
 		}
 		if (Currency.class.getCanonicalName().equals(typeName)) {
-			return new CurrencyTransform();
+			return new CurrencyBindTransform();
 		}
 		if (Calendar.class.getCanonicalName().equals(typeName)) {
-			return new CalendarTransform();
+			return new CalendarBindTransform();
 		}
 		if (TimeZone.class.getCanonicalName().equals(typeName)) {
-			return new TimeZoneTransform();
+			return new TimeZoneBindTransform();
 		}
 		return null;
 	}

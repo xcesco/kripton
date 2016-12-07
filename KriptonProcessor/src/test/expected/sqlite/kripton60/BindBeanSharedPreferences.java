@@ -4,21 +4,30 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
-import com.abubusoft.kripton.common.Base64Utils;
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CalendarUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.LocaleUtils;
-import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TimeUtils;
 import com.abubusoft.kripton.common.TimeZoneUtils;
 import com.abubusoft.kripton.common.UrlUtils;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.Boolean;
 import java.lang.Byte;
 import java.lang.Character;
 import java.lang.Double;
+import java.lang.Exception;
 import java.lang.Float;
 import java.lang.Integer;
 import java.lang.Long;
@@ -94,7 +103,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     bean.valueByteType=(byte)prefs.getInt("valueByteType", (byte)bean.valueByteType);
     bean.valueByte=(byte)prefs.getInt("valueByte", (byte)(bean.valueByte==null?(byte)0:bean.valueByte));
     bean.valueShortType=(short)prefs.getInt("valueShortType", (short)bean.valueShortType);
-    bean.valueShort=(short)prefs.getInt("valueShort", (short)(bean.valueShort==null?(short)0:bean.valueShort));
+    bean.valueShort=(short)prefs.getInt("valueShort", 0);
     bean.valueIntType=(int)prefs.getInt("valueIntType", (int)bean.valueIntType);
     bean.valueInt=(int)prefs.getInt("valueInt", (int)(bean.valueInt==null?0:bean.valueInt));
     bean.valueString=prefs.getString("valueString", bean.valueString);
@@ -159,86 +168,77 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
 
      {
       String temp=prefs.getString("valueTimeList", null);
-      bean.valueTimeList=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, temp): null;
+      bean.valueTimeList=StringUtils.hasText(temp) ? parseValueTimeList(temp): null;
     }
 
      {
       String temp=prefs.getString("valueStrinList", null);
-      bean.valueStrinList=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, temp): null;
+      bean.valueStrinList=StringUtils.hasText(temp) ? parseValueStrinList(temp): null;
     }
 
      {
       String temp=prefs.getString("valueLongList", null);
-      bean.valueLongList=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, temp): null;
+      bean.valueLongList=StringUtils.hasText(temp) ? parseValueLongList(temp): null;
     }
 
      {
       String temp=prefs.getString("valueByteArray", null);
-      bean.valueByteArray=(StringUtils.hasText(temp)) ? Base64Utils.decode(temp): null;
+      bean.valueByteArray=StringUtils.hasText(temp) ? parseValueByteArray(temp): null;
     }
 
      {
       String temp=prefs.getString("valueBean", null);
-      bean.valueBean=(StringUtils.hasText(temp)) ? (Bean)readObj(temp, Bean.class): null;}
-
-     {
-      // read valueLongTypeArray
-      String tempValueLongTypeArray=prefs.getString("valueLongTypeArray", null);
-      ArrayList<Long> collection=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, tempValueLongTypeArray);
-      bean.valueLongTypeArray=(StringUtils.hasText(tempValueLongTypeArray)) ? CollectionUtils.asLongTypeArray(collection): null;
+      bean.valueBean=StringUtils.hasText(temp) ? parseValueBean(temp): null;
     }
 
      {
-      // read valueLongArray
-      String tempValueLongArray=prefs.getString("valueLongArray", null);
-      ArrayList<Long> collection=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, tempValueLongArray);
-      bean.valueLongArray=(StringUtils.hasText(tempValueLongArray)) ? CollectionUtils.asLongArray(collection): null;
+      String temp=prefs.getString("valueLongTypeArray", null);
+      bean.valueLongTypeArray=StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): null;
     }
 
      {
-      // read valueBeanArray
-      String tempValueBeanArray=prefs.getString("valueBeanArray", null);
-      ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, tempValueBeanArray);
-      bean.valueBeanArray=(StringUtils.hasText(tempValueBeanArray)) ? CollectionUtils.asArray(collection, new sqlite.kripton60.Bean[collection.size()]): null;
+      String temp=prefs.getString("valueLongArray", null);
+      bean.valueLongArray=StringUtils.hasText(temp) ? parseValueLongArray(temp): null;
     }
 
      {
-      // read valueStringArray
-      String tempValueStringArray=prefs.getString("valueStringArray", null);
-      ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempValueStringArray);
-      bean.valueStringArray=(StringUtils.hasText(tempValueStringArray)) ? CollectionUtils.asArray(collection, new java.lang.String[collection.size()]): null;
+      String temp=prefs.getString("valueBeanArray", null);
+      bean.valueBeanArray=StringUtils.hasText(temp) ? parseValueBeanArray(temp): null;
+    }
+
+     {
+      String temp=prefs.getString("valueStringArray", null);
+      bean.valueStringArray=StringUtils.hasText(temp) ? parseValueStringArray(temp): null;
     }
 
      {
       String temp=prefs.getString("valueCharList", null);
-      bean.valueCharList=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, temp): null;
+      bean.valueCharList=StringUtils.hasText(temp) ? parseValueCharList(temp): null;
     }
 
      {
-      // read valueCharTypeArray
-      String tempValueCharTypeArray=prefs.getString("valueCharTypeArray", null);
-      ArrayList<Character> collection=ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, tempValueCharTypeArray);
-      bean.valueCharTypeArray=(StringUtils.hasText(tempValueCharTypeArray)) ? CollectionUtils.asCharacterTypeArray(collection): null;
+      String temp=prefs.getString("valueCharTypeArray", null);
+      bean.valueCharTypeArray=StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): null;
     }
 
      {
-      // read valueCharArray
-      String tempValueCharArray=prefs.getString("valueCharArray", null);
-      ArrayList<Character> collection=ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, tempValueCharArray);
-      bean.valueCharArray=(StringUtils.hasText(tempValueCharArray)) ? CollectionUtils.asCharacterArray(collection): null;
+      String temp=prefs.getString("valueCharArray", null);
+      bean.valueCharArray=StringUtils.hasText(temp) ? parseValueCharArray(temp): null;
     }
 
      {
       String temp=prefs.getString("valueMapStringBean", null);
-      bean.valueMapStringBean=(StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<String, Bean>(), String.class, Bean.class, temp): null;}
+      bean.valueMapStringBean=StringUtils.hasText(temp) ? parseValueMapStringBean(temp): null;
+    }
 
      {
       String temp=prefs.getString("valueLinkedMapStringBean", null);
-      bean.valueLinkedMapStringBean=(StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new LinkedHashMap<String, Bean>(), String.class, Bean.class, temp): null;}
+      bean.valueLinkedMapStringBean=StringUtils.hasText(temp) ? parseValueLinkedMapStringBean(temp): null;
+    }
 
      {
       String temp=prefs.getString("valueSetString", null);
-      bean.valueSetString=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
+      bean.valueSetString=StringUtils.hasText(temp) ? parseValueSetString(temp): null;
     }
 
 
@@ -253,47 +253,212 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   public void write(Bean bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putBoolean("valueBoolType",(boolean)bean.valueBoolType);
-    if (bean.valueBool!=null) editor.putBoolean("valueBool",(boolean)bean.valueBool);
+
+    if (bean.valueBool!=null)  {
+      editor.putBoolean("valueBool",(boolean)bean.valueBool);
+    }
+
     editor.putInt("valueByteType",(int)bean.valueByteType);
-    if (bean.valueByte!=null) editor.putInt("valueByte",(int)bean.valueByte);
+
+    if (bean.valueByte!=null)  {
+      editor.putInt("valueByte",(int)bean.valueByte);
+    }
+
     editor.putInt("valueShortType",(int)bean.valueShortType);
-    if (bean.valueShort!=null) editor.putInt("valueShort",(int)bean.valueShort);
+
+    if (bean.valueShort!=null)  {
+      editor.putInt("valueShort",(int)bean.valueShort);
+    }
+
     editor.putInt("valueIntType",(int)bean.valueIntType);
-    if (bean.valueInt!=null) editor.putInt("valueInt",(int)bean.valueInt);
+
+    if (bean.valueInt!=null)  {
+      editor.putInt("valueInt",(int)bean.valueInt);
+    }
+
     editor.putString("valueString",bean.valueString);
+
     editor.putInt("valueCharType",(char)bean.valueCharType);
-    if (bean.valueChar!=null) editor.putInt("valueChar",(char)bean.valueChar);
+
+    if (bean.valueChar!=null)  {
+      editor.putInt("valueChar",(char)bean.valueChar);
+    }
+
     editor.putFloat("valueFloatType",bean.valueFloatType);
-    if (bean.valueFloat!=null) editor.putFloat("valueFloat",bean.valueFloat);
-    if (bean.valueBigInteger!=null) editor.putString("valueBigInteger",bean.valueBigInteger.toString() ); else editor.putString("valueBigInteger", null);;
-    if (bean.valueBigDecimal!=null) editor.putString("valueBigDecimal",bean.valueBigDecimal.toPlainString() ); else editor.putString("valueBigDecimal", null);;
-    if (bean.valueEnumType!=null) editor.putString("valueEnumType",bean.valueEnumType.toString() ); else editor.putString("valueEnumType", null);
+
+    if (bean.valueFloat!=null)  {
+      editor.putFloat("valueFloat",bean.valueFloat);
+    }
+
+    if (bean.valueBigInteger!=null) editor.putString("valueBigInteger",bean.valueBigInteger.toString() ); else editor.putString("valueBigInteger", null);
+    if (bean.valueBigDecimal!=null) editor.putString("valueBigDecimal",bean.valueBigDecimal.toPlainString() ); else editor.putString("valueBigDecimal", null);
+    if (bean.valueEnumType!=null)  {
+      editor.putString("valueEnumType",bean.valueEnumType.toString() );
+    } else {
+      editor.remove("valueEnumType");
+    }
+
     editor.putLong("valueLongType",bean.valueLongType);
-    if (bean.valueLong!=null) editor.putLong("valueLong",bean.valueLong);
+
+    if (bean.valueLong!=null)  {
+      editor.putLong("valueLong",bean.valueLong);
+    }
+
     editor.putString("valueDoubleType",String.valueOf(bean.valueDoubleType));
-    if (bean.valueDouble!=null) editor.putString("valueDouble",String.valueOf(bean.valueDouble)); else editor.putString("valueDouble", null);
-    if (bean.valueLocale!=null) editor.putString("valueLocale",LocaleUtils.write(bean.valueLocale)); else editor.putString("valueLocale", null);
-    if (bean.valueCalendar!=null) editor.putString("valueCalendar",CalendarUtils.write(bean.valueCalendar)); else editor.putString("valueCalendar", null);
-    if (bean.valueDate!=null) editor.putString("valueDate",DateUtils.write(bean.valueDate)); else editor.putString("valueDate", null);
-    if (bean.valueUrl!=null) editor.putString("valueUrl",UrlUtils.write(bean.valueUrl)); else editor.putString("valueUrl", null);
-    if (bean.valueTime!=null) editor.putString("valueTime",TimeUtils.write(bean.valueTime)); else editor.putString("valueTime", null);
-    if (bean.valueCurrency!=null) editor.putString("valueCurrency",CurrencyUtils.write(bean.valueCurrency)); else editor.putString("valueCurrency", null);
-    if (bean.valueTimeZone!=null) editor.putString("valueTimeZone",TimeZoneUtils.write(bean.valueTimeZone)); else editor.putString("valueTimeZone", null);
-    if (bean.valueTimeList!=null) editor.putString("valueTimeList",ProcessorHelper.asString(bean.valueTimeList)); else editor.putString("valueTimeList", null);
-    if (bean.valueStrinList!=null) editor.putString("valueStrinList",ProcessorHelper.asString(bean.valueStrinList)); else editor.putString("valueStrinList", null);
-    if (bean.valueLongList!=null) editor.putString("valueLongList",ProcessorHelper.asString(bean.valueLongList)); else editor.putString("valueLongList", null);
-    if (bean.valueByteArray!=null) editor.putString("valueByteArray",Base64Utils.encode(bean.valueByteArray)); else editor.putString("valueByteArray", null);
-    if (bean.valueBean!=null) editor.putString("valueBean",writeObj(bean.valueBean)); else editor.putString("valueBean", null);
-    if (bean.valueLongTypeArray!=null) editor.putString("valueLongTypeArray",ProcessorHelper.asString(CollectionUtils.asList(bean.valueLongTypeArray, ArrayList.class))); else editor.putString("valueLongTypeArray", null);
-    if (bean.valueLongArray!=null) editor.putString("valueLongArray",ProcessorHelper.asString(CollectionUtils.asList(bean.valueLongArray, ArrayList.class))); else editor.putString("valueLongArray", null);
-    if (bean.valueBeanArray!=null) editor.putString("valueBeanArray",ProcessorHelper.asString(CollectionUtils.asList(bean.valueBeanArray, ArrayList.class))); else editor.putString("valueBeanArray", null);
-    if (bean.valueStringArray!=null) editor.putString("valueStringArray",ProcessorHelper.asString(CollectionUtils.asList(bean.valueStringArray, ArrayList.class))); else editor.putString("valueStringArray", null);
-    if (bean.valueCharList!=null) editor.putString("valueCharList",ProcessorHelper.asString(bean.valueCharList)); else editor.putString("valueCharList", null);
-    if (bean.valueCharTypeArray!=null) editor.putString("valueCharTypeArray",ProcessorHelper.asString(CollectionUtils.asList(bean.valueCharTypeArray, ArrayList.class))); else editor.putString("valueCharTypeArray", null);
-    if (bean.valueCharArray!=null) editor.putString("valueCharArray",ProcessorHelper.asString(CollectionUtils.asList(bean.valueCharArray, ArrayList.class))); else editor.putString("valueCharArray", null);
-    if (bean.valueMapStringBean!=null) editor.putString("valueMapStringBean",ProcessorHelper.asString(bean.valueMapStringBean)); else editor.putString("valueMapStringBean", null);
-    if (bean.valueLinkedMapStringBean!=null) editor.putString("valueLinkedMapStringBean",ProcessorHelper.asString(bean.valueLinkedMapStringBean)); else editor.putString("valueLinkedMapStringBean", null);
-    if (bean.valueSetString!=null) editor.putString("valueSetString",ProcessorHelper.asString(bean.valueSetString)); else editor.putString("valueSetString", null);
+
+    if (bean.valueDouble!=null)  {
+      editor.putString("valueDouble",String.valueOf(bean.valueDouble));
+    } else {
+      editor.remove("valueDouble");
+    }
+
+    if (bean.valueLocale!=null)  {
+      editor.putString("valueLocale",LocaleUtils.write(bean.valueLocale));
+    } else {
+      editor.remove("valueLocale");
+    }
+
+    if (bean.valueCalendar!=null)  {
+      editor.putString("valueCalendar",CalendarUtils.write(bean.valueCalendar));
+    } else {
+      editor.remove("valueCalendar");
+    }
+
+    if (bean.valueDate!=null)  {
+      editor.putString("valueDate",DateUtils.write(bean.valueDate));
+    } else {
+      editor.remove("valueDate");
+    }
+
+    if (bean.valueUrl!=null)  {
+      editor.putString("valueUrl",UrlUtils.write(bean.valueUrl));
+    } else {
+      editor.remove("valueUrl");
+    }
+
+    if (bean.valueTime!=null)  {
+      editor.putString("valueTime",TimeUtils.write(bean.valueTime));
+    } else {
+      editor.remove("valueTime");
+    }
+
+    if (bean.valueCurrency!=null)  {
+      editor.putString("valueCurrency",CurrencyUtils.write(bean.valueCurrency));
+    } else {
+      editor.remove("valueCurrency");
+    }
+
+    if (bean.valueTimeZone!=null)  {
+      editor.putString("valueTimeZone",TimeZoneUtils.write(bean.valueTimeZone));
+    } else {
+      editor.remove("valueTimeZone");
+    }
+
+    if (bean.valueTimeList!=null)  {
+      String temp=serializeValueTimeList(bean.valueTimeList);
+      editor.putString("valueTimeList",temp);
+    }  else  {
+      editor.remove("valueTimeList");
+    }
+
+    if (bean.valueStrinList!=null)  {
+      String temp=serializeValueStrinList(bean.valueStrinList);
+      editor.putString("valueStrinList",temp);
+    }  else  {
+      editor.remove("valueStrinList");
+    }
+
+    if (bean.valueLongList!=null)  {
+      String temp=serializeValueLongList(bean.valueLongList);
+      editor.putString("valueLongList",temp);
+    }  else  {
+      editor.remove("valueLongList");
+    }
+
+    if (bean.valueByteArray!=null)  {
+      String temp=serializeValueByteArray(bean.valueByteArray);
+      editor.putString("valueByteArray",temp);
+    }  else  {
+      editor.remove("valueByteArray");
+    }
+
+    if (bean.valueBean!=null)  {
+      String temp=serializeValueBean(bean.valueBean);
+      editor.putString("valueBean",temp);
+    }  else  {
+      editor.remove("valueBean");
+    }
+
+    if (bean.valueLongTypeArray!=null)  {
+      String temp=serializeValueLongTypeArray(bean.valueLongTypeArray);
+      editor.putString("valueLongTypeArray",temp);
+    }  else  {
+      editor.remove("valueLongTypeArray");
+    }
+
+    if (bean.valueLongArray!=null)  {
+      String temp=serializeValueLongArray(bean.valueLongArray);
+      editor.putString("valueLongArray",temp);
+    }  else  {
+      editor.remove("valueLongArray");
+    }
+
+    if (bean.valueBeanArray!=null)  {
+      String temp=serializeValueBeanArray(bean.valueBeanArray);
+      editor.putString("valueBeanArray",temp);
+    }  else  {
+      editor.remove("valueBeanArray");
+    }
+
+    if (bean.valueStringArray!=null)  {
+      String temp=serializeValueStringArray(bean.valueStringArray);
+      editor.putString("valueStringArray",temp);
+    }  else  {
+      editor.remove("valueStringArray");
+    }
+
+    if (bean.valueCharList!=null)  {
+      String temp=serializeValueCharList(bean.valueCharList);
+      editor.putString("valueCharList",temp);
+    }  else  {
+      editor.remove("valueCharList");
+    }
+
+    if (bean.valueCharTypeArray!=null)  {
+      String temp=serializeValueCharTypeArray(bean.valueCharTypeArray);
+      editor.putString("valueCharTypeArray",temp);
+    }  else  {
+      editor.remove("valueCharTypeArray");
+    }
+
+    if (bean.valueCharArray!=null)  {
+      String temp=serializeValueCharArray(bean.valueCharArray);
+      editor.putString("valueCharArray",temp);
+    }  else  {
+      editor.remove("valueCharArray");
+    }
+
+    if (bean.valueMapStringBean!=null)  {
+      String temp=serializeValueMapStringBean(bean.valueMapStringBean);
+      editor.putString("valueMapStringBean",temp);
+    }  else  {
+      editor.remove("valueMapStringBean");
+    }
+
+    if (bean.valueLinkedMapStringBean!=null)  {
+      String temp=serializeValueLinkedMapStringBean(bean.valueLinkedMapStringBean);
+      editor.putString("valueLinkedMapStringBean",temp);
+    }  else  {
+      editor.remove("valueLinkedMapStringBean");
+    }
+
+    if (bean.valueSetString!=null)  {
+      String temp=serializeValueSetString(bean.valueSetString);
+      editor.putString("valueSetString",temp);
+    }  else  {
+      editor.remove("valueSetString");
+    }
+
 
     editor.commit();
   }
@@ -565,7 +730,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public List<Time> valueTimeList() {
     String temp=prefs.getString("valueTimeList", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueTimeList(temp): null;
 
   }
 
@@ -576,7 +741,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public LinkedList<String> valueStrinList() {
     String temp=prefs.getString("valueStrinList", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<String>(), String.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueStrinList(temp): null;
 
   }
 
@@ -587,7 +752,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public LinkedList<Long> valueLongList() {
     String temp=prefs.getString("valueLongList", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueLongList(temp): null;
 
   }
 
@@ -598,7 +763,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public byte[] valueByteArray() {
     String temp=prefs.getString("valueByteArray", null);
-    return (StringUtils.hasText(temp)) ? Base64Utils.decode(temp): null;
+    return StringUtils.hasText(temp) ? parseValueByteArray(temp): null;
 
   }
 
@@ -609,7 +774,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public Bean valueBean() {
     String temp=prefs.getString("valueBean", null);
-    return (StringUtils.hasText(temp)) ? (Bean)readObj(temp, Bean.class): null;
+    return StringUtils.hasText(temp) ? parseValueBean(temp): null;
+
   }
 
   /**
@@ -618,10 +784,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueLongTypeArray value
    */
   public long[] valueLongTypeArray() {
-    // read valueLongTypeArray
-    String tempValueLongTypeArray=prefs.getString("valueLongTypeArray", null);
-    ArrayList<Long> collection=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, tempValueLongTypeArray);
-    return (StringUtils.hasText(tempValueLongTypeArray)) ? CollectionUtils.asLongTypeArray(collection): null;
+    String temp=prefs.getString("valueLongTypeArray", null);
+    return StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): null;
 
   }
 
@@ -631,10 +795,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueLongArray value
    */
   public Long[] valueLongArray() {
-    // read valueLongArray
-    String tempValueLongArray=prefs.getString("valueLongArray", null);
-    ArrayList<Long> collection=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, tempValueLongArray);
-    return (StringUtils.hasText(tempValueLongArray)) ? CollectionUtils.asLongArray(collection): null;
+    String temp=prefs.getString("valueLongArray", null);
+    return StringUtils.hasText(temp) ? parseValueLongArray(temp): null;
 
   }
 
@@ -644,10 +806,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueBeanArray value
    */
   public Bean[] valueBeanArray() {
-    // read valueBeanArray
-    String tempValueBeanArray=prefs.getString("valueBeanArray", null);
-    ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, tempValueBeanArray);
-    return (StringUtils.hasText(tempValueBeanArray)) ? CollectionUtils.asArray(collection, new sqlite.kripton60.Bean[collection.size()]): null;
+    String temp=prefs.getString("valueBeanArray", null);
+    return StringUtils.hasText(temp) ? parseValueBeanArray(temp): null;
 
   }
 
@@ -657,10 +817,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueStringArray value
    */
   public String[] valueStringArray() {
-    // read valueStringArray
-    String tempValueStringArray=prefs.getString("valueStringArray", null);
-    ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempValueStringArray);
-    return (StringUtils.hasText(tempValueStringArray)) ? CollectionUtils.asArray(collection, new java.lang.String[collection.size()]): null;
+    String temp=prefs.getString("valueStringArray", null);
+    return StringUtils.hasText(temp) ? parseValueStringArray(temp): null;
 
   }
 
@@ -671,7 +829,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public LinkedList<Character> valueCharList() {
     String temp=prefs.getString("valueCharList", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueCharList(temp): null;
 
   }
 
@@ -681,10 +839,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueCharTypeArray value
    */
   public char[] valueCharTypeArray() {
-    // read valueCharTypeArray
-    String tempValueCharTypeArray=prefs.getString("valueCharTypeArray", null);
-    ArrayList<Character> collection=ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, tempValueCharTypeArray);
-    return (StringUtils.hasText(tempValueCharTypeArray)) ? CollectionUtils.asCharacterTypeArray(collection): null;
+    String temp=prefs.getString("valueCharTypeArray", null);
+    return StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): null;
 
   }
 
@@ -694,10 +850,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueCharArray value
    */
   public Character[] valueCharArray() {
-    // read valueCharArray
-    String tempValueCharArray=prefs.getString("valueCharArray", null);
-    ArrayList<Character> collection=ProcessorHelper.asCollection(new ArrayList<Character>(), Character.class, tempValueCharArray);
-    return (StringUtils.hasText(tempValueCharArray)) ? CollectionUtils.asCharacterArray(collection): null;
+    String temp=prefs.getString("valueCharArray", null);
+    return StringUtils.hasText(temp) ? parseValueCharArray(temp): null;
 
   }
 
@@ -708,7 +862,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public Map<String, Bean> valueMapStringBean() {
     String temp=prefs.getString("valueMapStringBean", null);
-    return (StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<String, Bean>(), String.class, Bean.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueMapStringBean(temp): null;
+
   }
 
   /**
@@ -718,7 +873,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public LinkedHashMap<String, Bean> valueLinkedMapStringBean() {
     String temp=prefs.getString("valueLinkedMapStringBean", null);
-    return (StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new LinkedHashMap<String, Bean>(), String.class, Bean.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueLinkedMapStringBean(temp): null;
+
   }
 
   /**
@@ -728,8 +884,992 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public Set<String> valueSetString() {
     String temp=prefs.getString("valueSetString", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueSetString(temp): null;
 
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueTimeList(List<Time> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        Time item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueTimeList");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(TimeUtils.write(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected List<Time> parseValueTimeList(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      List<Time> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Time> collection=new ArrayList<>();
+        Time item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item= TimeUtils.read(jacksonParser.getText());
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueStrinList(LinkedList<String> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        String item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueStrinList");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected LinkedList<String> parseValueStrinList(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      LinkedList<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedList<String> collection=new LinkedList<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueLongList(LinkedList<Long> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        Long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueLongList");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected LinkedList<Long> parseValueLongList(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      LinkedList<Long> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedList<Long> collection=new LinkedList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueByteArray(byte[] value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        jacksonSerializer.writeBinaryField("valueByteArray", value);
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected byte[] parseValueByteArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      byte[] result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getBinaryValue();
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueBean(Bean value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        jacksonSerializer.writeFieldName("valueBean");
+        context.mapperFor(Bean.class).serializeOnJackson(context, value, wrapper);
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected Bean parseValueBean(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      Bean result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+        result=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueLongTypeArray(long[] value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueLongTypeArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected long[] parseValueLongTypeArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      long[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Long> collection=new ArrayList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueLongArray(Long[] value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        Long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueLongArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected Long[] parseValueLongArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      Long[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Long> collection=new ArrayList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asLongArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueBeanArray(Bean[] value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        Bean item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueBeanArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            context.mapperFor(Bean.class).serializeOnJackson(context, item, wrapper);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected Bean[] parseValueBeanArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      Bean[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Bean> collection=new ArrayList<>();
+        Bean item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asArray(collection, new Bean[collection.size()]);
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueStringArray(String[] value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        String item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueStringArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected String[] parseValueStringArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      String[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<String> collection=new ArrayList<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asArray(collection, new String[collection.size()]);
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueCharList(LinkedList<Character> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        Character item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueCharList");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected LinkedList<Character> parseValueCharList(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      LinkedList<Character> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedList<Character> collection=new LinkedList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueCharTypeArray(char[] value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        char item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueCharTypeArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected char[] parseValueCharTypeArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      char[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueCharArray(Character[] value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        Character item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueCharArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected Character[] parseValueCharArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      Character[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueMapStringBean(Map<String, Bean> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapStringBean");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Bean> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("key", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("value");
+            } else {
+              jacksonSerializer.writeFieldName("value");
+              context.mapperFor(Bean.class).serializeOnJackson(context, item.getValue(), wrapper);
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("valueMapStringBean");
+        }
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected Map<String, Bean> parseValueMapStringBean(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      Map<String, Bean> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<String, Bean> collection=new HashMap<>();
+        String key=null;
+        Bean value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+            value=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueLinkedMapStringBean(LinkedHashMap<String, Bean> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("valueLinkedMapStringBean");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Bean> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("key", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("value");
+            } else {
+              jacksonSerializer.writeFieldName("value");
+              context.mapperFor(Bean.class).serializeOnJackson(context, item.getValue(), wrapper);
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("valueLinkedMapStringBean");
+        }
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected LinkedHashMap<String, Bean> parseValueLinkedMapStringBean(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      LinkedHashMap<String, Bean> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedHashMap<String, Bean> collection=new LinkedHashMap<>();
+        String key=null;
+        Bean value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+            value=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueSetString(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueSetString");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected Set<String> parseValueSetString(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
   }
 
   /**
@@ -754,6 +1894,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueBoolType(boolean value) {
       editor.putBoolean("valueBoolType",(boolean)value);
+
       return this;
     }
 
@@ -761,7 +1902,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBool
      */
     public BindEditor putValueBool(Boolean value) {
-      if (value!=null) editor.putBoolean("valueBool",(boolean)value);
+      if (value!=null)  {
+        editor.putBoolean("valueBool",(boolean)value);
+      }
+
       return this;
     }
 
@@ -770,6 +1914,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueByteType(byte value) {
       editor.putInt("valueByteType",(int)value);
+
       return this;
     }
 
@@ -777,7 +1922,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueByte
      */
     public BindEditor putValueByte(Byte value) {
-      if (value!=null) editor.putInt("valueByte",(int)value);
+      if (value!=null)  {
+        editor.putInt("valueByte",(int)value);
+      }
+
       return this;
     }
 
@@ -786,6 +1934,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueShortType(short value) {
       editor.putInt("valueShortType",(int)value);
+
       return this;
     }
 
@@ -793,7 +1942,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueShort
      */
     public BindEditor putValueShort(Short value) {
-      if (value!=null) editor.putInt("valueShort",(int)value);
+      if (value!=null)  {
+        editor.putInt("valueShort",(int)value);
+      }
+
       return this;
     }
 
@@ -802,6 +1954,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueIntType(int value) {
       editor.putInt("valueIntType",(int)value);
+
       return this;
     }
 
@@ -809,7 +1962,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueInt
      */
     public BindEditor putValueInt(Integer value) {
-      if (value!=null) editor.putInt("valueInt",(int)value);
+      if (value!=null)  {
+        editor.putInt("valueInt",(int)value);
+      }
+
       return this;
     }
 
@@ -818,6 +1974,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueString(String value) {
       editor.putString("valueString",value);
+
       return this;
     }
 
@@ -826,6 +1983,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueCharType(char value) {
       editor.putInt("valueCharType",(char)value);
+
       return this;
     }
 
@@ -833,7 +1991,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueChar
      */
     public BindEditor putValueChar(Character value) {
-      if (value!=null) editor.putInt("valueChar",(char)value);
+      if (value!=null)  {
+        editor.putInt("valueChar",(char)value);
+      }
+
       return this;
     }
 
@@ -842,6 +2003,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueFloatType(float value) {
       editor.putFloat("valueFloatType",value);
+
       return this;
     }
 
@@ -849,7 +2011,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueFloat
      */
     public BindEditor putValueFloat(Float value) {
-      if (value!=null) editor.putFloat("valueFloat",value);
+      if (value!=null)  {
+        editor.putFloat("valueFloat",value);
+      }
+
       return this;
     }
 
@@ -857,7 +2022,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBigInteger
      */
     public BindEditor putValueBigInteger(BigInteger value) {
-      if (value!=null) editor.putString("valueBigInteger",value.toString()); else editor.putString("valueBigInteger", null);;
+      if (value!=null) editor.putString("valueBigInteger",value.toString()); else editor.remove("valueBigInteger");
       return this;
     }
 
@@ -865,7 +2030,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBigDecimal
      */
     public BindEditor putValueBigDecimal(BigDecimal value) {
-      if (value!=null) editor.putString("valueBigDecimal",value.toPlainString()); else editor.putString("valueBigDecimal", null);;
+      if (value!=null) editor.putString("valueBigDecimal",value.toPlainString()); else editor.remove("valueBigDecimal");
       return this;
     }
 
@@ -873,7 +2038,12 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueEnumType
      */
     public BindEditor putValueEnumType(EnumType value) {
-      if (value!=null) editor.putString("valueEnumType",value.toString()); else editor.putString("valueEnumType", null);
+      if (value!=null)  {
+        editor.putString("valueEnumType",value.toString() );
+      } else {
+        editor.remove("valueEnumType");
+      }
+
       return this;
     }
 
@@ -882,6 +2052,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueLongType(long value) {
       editor.putLong("valueLongType",value);
+
       return this;
     }
 
@@ -889,7 +2060,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueLong
      */
     public BindEditor putValueLong(Long value) {
-      if (value!=null) editor.putLong("valueLong",value);
+      if (value!=null)  {
+        editor.putLong("valueLong",value);
+      }
+
       return this;
     }
 
@@ -898,6 +2072,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueDoubleType(double value) {
       editor.putString("valueDoubleType",String.valueOf(value));
+
       return this;
     }
 
@@ -905,7 +2080,12 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueDouble
      */
     public BindEditor putValueDouble(Double value) {
-      if (value!=null) editor.putString("valueDouble",String.valueOf(value)); else editor.putString("valueDouble", null);
+      if (value!=null)  {
+        editor.putString("valueDouble",String.valueOf(value));
+      } else {
+        editor.remove("valueDouble");
+      }
+
       return this;
     }
 
@@ -913,7 +2093,12 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueLocale
      */
     public BindEditor putValueLocale(Locale value) {
-      if (value!=null) editor.putString("valueLocale",LocaleUtils.write(value)); else editor.putString("valueLocale", null);
+      if (value!=null)  {
+        editor.putString("valueLocale",LocaleUtils.write(value));
+      } else {
+        editor.remove("valueLocale");
+      }
+
       return this;
     }
 
@@ -921,7 +2106,12 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueCalendar
      */
     public BindEditor putValueCalendar(Calendar value) {
-      if (value!=null) editor.putString("valueCalendar",CalendarUtils.write(value)); else editor.putString("valueCalendar", null);
+      if (value!=null)  {
+        editor.putString("valueCalendar",CalendarUtils.write(value));
+      } else {
+        editor.remove("valueCalendar");
+      }
+
       return this;
     }
 
@@ -929,7 +2119,12 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueDate
      */
     public BindEditor putValueDate(Date value) {
-      if (value!=null) editor.putString("valueDate",DateUtils.write(value)); else editor.putString("valueDate", null);
+      if (value!=null)  {
+        editor.putString("valueDate",DateUtils.write(value));
+      } else {
+        editor.remove("valueDate");
+      }
+
       return this;
     }
 
@@ -937,7 +2132,12 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueUrl
      */
     public BindEditor putValueUrl(URL value) {
-      if (value!=null) editor.putString("valueUrl",UrlUtils.write(value)); else editor.putString("valueUrl", null);
+      if (value!=null)  {
+        editor.putString("valueUrl",UrlUtils.write(value));
+      } else {
+        editor.remove("valueUrl");
+      }
+
       return this;
     }
 
@@ -945,7 +2145,12 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueTime
      */
     public BindEditor putValueTime(Time value) {
-      if (value!=null) editor.putString("valueTime",TimeUtils.write(value)); else editor.putString("valueTime", null);
+      if (value!=null)  {
+        editor.putString("valueTime",TimeUtils.write(value));
+      } else {
+        editor.remove("valueTime");
+      }
+
       return this;
     }
 
@@ -953,7 +2158,12 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueCurrency
      */
     public BindEditor putValueCurrency(Currency value) {
-      if (value!=null) editor.putString("valueCurrency",CurrencyUtils.write(value)); else editor.putString("valueCurrency", null);
+      if (value!=null)  {
+        editor.putString("valueCurrency",CurrencyUtils.write(value));
+      } else {
+        editor.remove("valueCurrency");
+      }
+
       return this;
     }
 
@@ -961,7 +2171,12 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueTimeZone
      */
     public BindEditor putValueTimeZone(TimeZone value) {
-      if (value!=null) editor.putString("valueTimeZone",TimeZoneUtils.write(value)); else editor.putString("valueTimeZone", null);
+      if (value!=null)  {
+        editor.putString("valueTimeZone",TimeZoneUtils.write(value));
+      } else {
+        editor.remove("valueTimeZone");
+      }
+
       return this;
     }
 
@@ -969,7 +2184,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueTimeList
      */
     public BindEditor putValueTimeList(List<Time> value) {
-      if (value!=null) editor.putString("valueTimeList",ProcessorHelper.asString(value)); else editor.putString("valueTimeList", null);
+      if (value!=null)  {
+        String temp=serializeValueTimeList(value);
+        editor.putString("valueTimeList",temp);
+      }  else  {
+        editor.remove("valueTimeList");
+      }
+
       return this;
     }
 
@@ -977,7 +2198,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueStrinList
      */
     public BindEditor putValueStrinList(LinkedList<String> value) {
-      if (value!=null) editor.putString("valueStrinList",ProcessorHelper.asString(value)); else editor.putString("valueStrinList", null);
+      if (value!=null)  {
+        String temp=serializeValueStrinList(value);
+        editor.putString("valueStrinList",temp);
+      }  else  {
+        editor.remove("valueStrinList");
+      }
+
       return this;
     }
 
@@ -985,7 +2212,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueLongList
      */
     public BindEditor putValueLongList(LinkedList<Long> value) {
-      if (value!=null) editor.putString("valueLongList",ProcessorHelper.asString(value)); else editor.putString("valueLongList", null);
+      if (value!=null)  {
+        String temp=serializeValueLongList(value);
+        editor.putString("valueLongList",temp);
+      }  else  {
+        editor.remove("valueLongList");
+      }
+
       return this;
     }
 
@@ -993,7 +2226,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueByteArray
      */
     public BindEditor putValueByteArray(byte[] value) {
-      if (value!=null) editor.putString("valueByteArray",Base64Utils.encode(value)); else editor.putString("valueByteArray", null);
+      if (value!=null)  {
+        String temp=serializeValueByteArray(value);
+        editor.putString("valueByteArray",temp);
+      }  else  {
+        editor.remove("valueByteArray");
+      }
+
       return this;
     }
 
@@ -1001,7 +2240,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBean
      */
     public BindEditor putValueBean(Bean value) {
-      if (value!=null) editor.putString("valueBean",writeObj(value)); else editor.putString("valueBean", null);
+      if (value!=null)  {
+        String temp=serializeValueBean(value);
+        editor.putString("valueBean",temp);
+      }  else  {
+        editor.remove("valueBean");
+      }
+
       return this;
     }
 
@@ -1009,7 +2254,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueLongTypeArray
      */
     public BindEditor putValueLongTypeArray(long[] value) {
-      if (value!=null) editor.putString("valueLongTypeArray",ProcessorHelper.asString(CollectionUtils.asList(value, ArrayList.class))); else editor.putString("valueLongTypeArray", null);
+      if (value!=null)  {
+        String temp=serializeValueLongTypeArray(value);
+        editor.putString("valueLongTypeArray",temp);
+      }  else  {
+        editor.remove("valueLongTypeArray");
+      }
+
       return this;
     }
 
@@ -1017,7 +2268,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueLongArray
      */
     public BindEditor putValueLongArray(Long[] value) {
-      if (value!=null) editor.putString("valueLongArray",ProcessorHelper.asString(CollectionUtils.asList(value, ArrayList.class))); else editor.putString("valueLongArray", null);
+      if (value!=null)  {
+        String temp=serializeValueLongArray(value);
+        editor.putString("valueLongArray",temp);
+      }  else  {
+        editor.remove("valueLongArray");
+      }
+
       return this;
     }
 
@@ -1025,7 +2282,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBeanArray
      */
     public BindEditor putValueBeanArray(Bean[] value) {
-      if (value!=null) editor.putString("valueBeanArray",ProcessorHelper.asString(CollectionUtils.asList(value, ArrayList.class))); else editor.putString("valueBeanArray", null);
+      if (value!=null)  {
+        String temp=serializeValueBeanArray(value);
+        editor.putString("valueBeanArray",temp);
+      }  else  {
+        editor.remove("valueBeanArray");
+      }
+
       return this;
     }
 
@@ -1033,7 +2296,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueStringArray
      */
     public BindEditor putValueStringArray(String[] value) {
-      if (value!=null) editor.putString("valueStringArray",ProcessorHelper.asString(CollectionUtils.asList(value, ArrayList.class))); else editor.putString("valueStringArray", null);
+      if (value!=null)  {
+        String temp=serializeValueStringArray(value);
+        editor.putString("valueStringArray",temp);
+      }  else  {
+        editor.remove("valueStringArray");
+      }
+
       return this;
     }
 
@@ -1041,7 +2310,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueCharList
      */
     public BindEditor putValueCharList(LinkedList<Character> value) {
-      if (value!=null) editor.putString("valueCharList",ProcessorHelper.asString(value)); else editor.putString("valueCharList", null);
+      if (value!=null)  {
+        String temp=serializeValueCharList(value);
+        editor.putString("valueCharList",temp);
+      }  else  {
+        editor.remove("valueCharList");
+      }
+
       return this;
     }
 
@@ -1049,7 +2324,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueCharTypeArray
      */
     public BindEditor putValueCharTypeArray(char[] value) {
-      if (value!=null) editor.putString("valueCharTypeArray",ProcessorHelper.asString(CollectionUtils.asList(value, ArrayList.class))); else editor.putString("valueCharTypeArray", null);
+      if (value!=null)  {
+        String temp=serializeValueCharTypeArray(value);
+        editor.putString("valueCharTypeArray",temp);
+      }  else  {
+        editor.remove("valueCharTypeArray");
+      }
+
       return this;
     }
 
@@ -1057,7 +2338,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueCharArray
      */
     public BindEditor putValueCharArray(Character[] value) {
-      if (value!=null) editor.putString("valueCharArray",ProcessorHelper.asString(CollectionUtils.asList(value, ArrayList.class))); else editor.putString("valueCharArray", null);
+      if (value!=null)  {
+        String temp=serializeValueCharArray(value);
+        editor.putString("valueCharArray",temp);
+      }  else  {
+        editor.remove("valueCharArray");
+      }
+
       return this;
     }
 
@@ -1065,7 +2352,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueMapStringBean
      */
     public BindEditor putValueMapStringBean(Map<String, Bean> value) {
-      if (value!=null) editor.putString("valueMapStringBean",ProcessorHelper.asString(value)); else editor.putString("valueMapStringBean", null);
+      if (value!=null)  {
+        String temp=serializeValueMapStringBean(value);
+        editor.putString("valueMapStringBean",temp);
+      }  else  {
+        editor.remove("valueMapStringBean");
+      }
+
       return this;
     }
 
@@ -1073,7 +2366,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueLinkedMapStringBean
      */
     public BindEditor putValueLinkedMapStringBean(LinkedHashMap<String, Bean> value) {
-      if (value!=null) editor.putString("valueLinkedMapStringBean",ProcessorHelper.asString(value)); else editor.putString("valueLinkedMapStringBean", null);
+      if (value!=null)  {
+        String temp=serializeValueLinkedMapStringBean(value);
+        editor.putString("valueLinkedMapStringBean",temp);
+      }  else  {
+        editor.remove("valueLinkedMapStringBean");
+      }
+
       return this;
     }
 
@@ -1081,7 +2380,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueSetString
      */
     public BindEditor putValueSetString(Set<String> value) {
-      if (value!=null) editor.putString("valueSetString",ProcessorHelper.asString(value)); else editor.putString("valueSetString", null);
+      if (value!=null)  {
+        String temp=serializeValueSetString(value);
+        editor.putString("valueSetString",temp);
+      }  else  {
+        editor.remove("valueSetString");
+      }
+
       return this;
     }
   }
