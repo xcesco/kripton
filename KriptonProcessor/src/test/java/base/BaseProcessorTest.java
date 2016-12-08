@@ -248,6 +248,7 @@ public class BaseProcessorTest {
 							}
 						} catch (IOException e) {
 							e.printStackTrace();
+							Assert.fail(e.getMessage());
 						}
 					}
 

@@ -25,7 +25,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindJson;
 import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindTypeXml;
@@ -386,9 +385,9 @@ public class MappingSchema {
 			
 			Bind bindAnnotation = field.getAnnotation(Bind.class);
 			BindXml bindXmlAnnotation = field.getAnnotation(BindXml.class);
-			BindJson bindJsonAnnotation = field.getAnnotation(BindJson.class);
+			//BindJson bindJsonAnnotation = field.getAnnotation(BindJson.class);
 
-			if (!bindAllFields && bindAnnotation == null && (bindXmlAnnotation != null || bindJsonAnnotation != null)) {
+			if (!bindAllFields && bindAnnotation == null && (bindXmlAnnotation != null)) {
 				throw new MappingException("Can not use @BindXml,@BindJson without @Bind for field " + field.getName() + " in class " + type.getCanonicalName());
 			}
 
@@ -435,7 +434,7 @@ public class MappingSchema {
 				}
 
 				elementSchema.buildXmlInfo(bindXmlAnnotation);
-				elementSchema.buildJsonInfo(bindJsonAnnotation);
+			//	elementSchema.buildJsonInfo(bindJsonAnnotation);
 				
 				elementSchema.setField(field);
 				// put in set of used names

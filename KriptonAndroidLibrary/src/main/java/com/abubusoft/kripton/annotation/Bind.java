@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.annotation;       
+package com.abubusoft.kripton.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,20 +22,19 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * Maps a POJO field to an persistent element.
+ * Annotation for bind associated field to xml/json/properties/cbor/yaml format.
  * 
- * @author bulldog
  * @author xcesco
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Bind {
-	
+
 	/**
-	 * default order of 
+	 * default order of
 	 */
-	public static final int DEFAULT_ORDER=1000;
+	public static final int DEFAULT_ORDER = 1000;
 
 	/**
 	 * default name of map value entry
@@ -47,12 +46,12 @@ public @interface Bind {
 	public static final String MAP_KEY_DEFAULT = "key";
 
 	/**
-	 * true if this field must be persisted 
-	 * @return
-	 * 		true if field is enabled
+	 * true if this field must be persisted. Note that {@link BindDisabled} annotation wins about this value.
+	 * 
+	 * @return true if field is enabled
 	 */
 	public boolean enabled() default true;
-	
+
 	/**
 	 * The name of the XML/JSON element
 	 * 
@@ -61,35 +60,30 @@ public @interface Bind {
 	public String value() default "";
 
 	/**
-	 * Used with collections. It's the name of elements contained in the
-	 * collection or array, except byte array. Thus, name specified in
-	 * attribute value will be used for container.
+	 * Used with collections. It's the name of elements contained in the collection or array, except byte array. Thus, name specified in attribute value will be used for container.
 	 * 
 	 * @return name of elements of collection. default is ""
 	 */
-	//public String elementName() default "";
+	// public String elementName() default "";
 
 	/**
 	 * name of element rapresents key of a map. <b>Used only by map type.</b>
 	 * 
-	 * @return
-	 * 		name of map key. Default is {@link #MAP_KEY_DEFAULT}
-	 */				  
+	 * @return name of map key. Default is {@link #MAP_KEY_DEFAULT}
+	 */
 	public String mapKeyName() default MAP_KEY_DEFAULT;
 
 	/**
 	 * name of element rapresents value of a map. <b>Used only by map type.</b>
 	 * 
-	 * @return
-	 * 		name of map. Default is {@link #MAP_VALUE_DEFAULT}
+	 * @return name of map. Default is {@link #MAP_VALUE_DEFAULT}
 	 */
 	public String mapValueName() default MAP_VALUE_DEFAULT;
 
 	/**
 	 * specifies the order of pojo fields during mapping. Order is specified entire schema.
 	 * 
-	 * @return
-	 * 		order of field
+	 * @return order of field
 	 */
 	public int order() default DEFAULT_ORDER;
 

@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -30,14 +31,21 @@ public class TestKripton76Value extends AbstractBindTypeProcessorTest {
 	public ExpectedException expectedEx = ExpectedException.none();
 
 	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
-		expectedEx.expect(AssertionError.class);
+		expectedEx.expect(IncompatibleAttributesInAnnotationException.class);
 		//expectedEx.expectMessage(clazzException.getSimpleName());
 	}
-
-	@Test
-	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
+	
+	@Before
+	public void scalda()
 	{
-		this.expectedException(IncompatibleAttributesInAnnotationException.class);
+		expectedEx.expect(IncompatibleAttributesInAnnotationException.class);
+	}
+
+	@Test//(expected=AssertionError.class)
+	public void testCompile() throws InstantiationException, IllegalAccessException, IOException 
+	{
+		
+		//this.expectedException(IncompatibleAttributesInAnnotationException.class);
 		buildBindProcessorTest(BeanValue76.class, BeanEnum.class);
 	}
 	

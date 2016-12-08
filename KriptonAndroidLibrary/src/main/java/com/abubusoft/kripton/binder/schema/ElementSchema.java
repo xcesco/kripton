@@ -16,7 +16,6 @@
 package com.abubusoft.kripton.binder.schema;
 
 import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindJson;
 import com.abubusoft.kripton.annotation.BindTransform;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.transform.DefaultCustomTransform;
@@ -148,7 +147,7 @@ public class ElementSchema extends AbstractSchema {
 		xmlInfo = new XmlInfo();
 	
 		if (bindXmlAnnotation != null) {
-			xmlInfo.enabled=bindXmlAnnotation.enabled();
+			//xmlInfo.enabled=bindXmlAnnotation.enabled();
 			xmlInfo.type = bindXmlAnnotation.xmlType();
 		} else {
 			xmlInfo.enabled=true;
@@ -156,7 +155,7 @@ public class ElementSchema extends AbstractSchema {
 		}
 	}
 	
-	void buildJsonInfo(BindJson bindJsonAnnotation) {
+	/*void buildJsonInfo(BindJson bindJsonAnnotation) {
 		jsonInfo = new JsonInfo();
 	
 		if (bindJsonAnnotation != null) {
@@ -164,7 +163,7 @@ public class ElementSchema extends AbstractSchema {
 		} else {
 			jsonInfo.enabled = true;
 		}
-	}
+	}*/
 
 	public MapInfo getMapInfo() {
 		return mapInfo;

@@ -35,13 +35,6 @@ import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
 public @interface BindXml {	
 	
 	/**
-	 * 
-	 * @return
-	 * 		if true, means field must bind persist model
-	 */
-	boolean enabled() default true;
-	
-	/**
 	 * Used with collections and maps. It's the name of elements contained in the
 	 * collection or array, except byte array. Thus, name specified in
 	 * attribute value will be used for container.

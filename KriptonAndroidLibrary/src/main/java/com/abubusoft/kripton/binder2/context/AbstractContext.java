@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.core.BinderMapper;
@@ -33,14 +34,20 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder  {
 			// The only way the mapper wouldn't already be loaded into
 			// OBJECT_MAPPERS is if it was compiled separately, but let's handle
 			// it anyway
+			String beanClassName=cls.getName();
+			String mapperClassName=cls.getName() + KriptonBinder2.MAPPER_CLASS_SUFFIX;
 			try {
-				Class<E> mapperClass = (Class<E>) Class.forName(cls.getName() + KriptonBinder2.MAPPER_CLASS_SUFFIX);
+				Class<E> mapperClass = (Class<E>) Class.forName(mapperClassName);
 				mapper = (M) mapperClass.newInstance();
 				// mapper.
 				OBJECT_MAPPERS.put(cls, mapper);
-			} catch (Exception e) {
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				throw new KriptonRuntimeException(e);
+				throw new KriptonRuntimeException(String.format("Class '%s' does not exist. Does '%s' have '%s' annotation?", mapperClassName, beanClassName, BindType.class.getName()));
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
 			}
 		}
 		return mapper;

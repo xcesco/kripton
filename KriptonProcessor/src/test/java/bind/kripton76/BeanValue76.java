@@ -18,11 +18,11 @@ import com.abubusoft.kripton.binder.xml.XmlType;
 @BindType(value="root", allFields=false)
 public class BeanValue76 {
 	
-	//@Bind(enabled=true)
+	@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.VALUE)
 	protected long id;
 	
-	//@Bind(enabled=true)
+	@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.VALUE)
 	public BeanValue76 valueBean;
 

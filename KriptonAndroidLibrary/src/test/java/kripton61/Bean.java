@@ -17,10 +17,8 @@ package kripton61;
 
 import java.util.List;
 
-import com.abubusoft.kripton.annotation.BindJson;
+import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder.xml.XmlType;
 
 @BindType
 public class Bean {
@@ -64,13 +62,11 @@ public class Bean {
 		return true;
 	}
 
-	@BindXml(enabled=false)
-	@BindJson(enabled=false)
+	@Bind(enabled=false)
 	public long id;
 	
 	public String text;
 	
-	@BindXml(enabled=false)
-	@BindJson(enabled=false)
+	@Bind(enabled=false)
 	public List<String> valueStringList;
 }
