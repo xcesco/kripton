@@ -4,9 +4,19 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
-import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.StringUtils;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.Byte;
+import java.lang.Exception;
 import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,11 +72,13 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     bean.value=prefs.getString("value", bean.value);
      {
       String temp=prefs.getString("valueMapStringByte", null);
-      bean.valueMapStringByte=(StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, temp): null;}
+      bean.valueMapStringByte=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): null;
+    }
 
      {
       String temp=prefs.getString("valueMapEnumByte", null);
-      bean.valueMapEnumByte=(StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, temp): null;}
+      bean.valueMapEnumByte=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): null;
+    }
 
 
     return bean;
@@ -80,9 +92,23 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   public void write(Bean63 bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putLong("id",bean.id);
+
     editor.putString("value",bean.value);
-    if (bean.valueMapStringByte!=null) editor.putString("valueMapStringByte",ProcessorHelper.asString(bean.valueMapStringByte)); else editor.putString("valueMapStringByte", null);
-    if (bean.valueMapEnumByte!=null) editor.putString("valueMapEnumByte",ProcessorHelper.asString(bean.valueMapEnumByte)); else editor.putString("valueMapEnumByte", null);
+
+    if (bean.valueMapStringByte!=null)  {
+      String temp=serializeValueMapStringByte(bean.valueMapStringByte);
+      editor.putString("valueMapStringByte",temp);
+    }  else  {
+      editor.remove("valueMapStringByte");
+    }
+
+    if (bean.valueMapEnumByte!=null)  {
+      String temp=serializeValueMapEnumByte(bean.valueMapEnumByte);
+      editor.putString("valueMapEnumByte",temp);
+    }  else  {
+      editor.remove("valueMapEnumByte");
+    }
+
 
     editor.commit();
   }
@@ -112,7 +138,8 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public Map<String, Byte> valueMapStringByte() {
     String temp=prefs.getString("valueMapStringByte", null);
-    return (StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<String, Byte>(), String.class, Byte.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueMapStringByte(temp): null;
+
   }
 
   /**
@@ -122,7 +149,169 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public HashMap<EnumType, Byte> valueMapEnumByte() {
     String temp=prefs.getString("valueMapEnumByte", null);
-    return (StringUtils.hasText(temp)) ? ProcessorHelper.asMap(new HashMap<EnumType, Byte>(), EnumType.class, Byte.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): null;
+
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueMapStringByte(Map<String, Byte> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapStringByte");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Byte> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("key", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("value");
+            } else {
+              jacksonSerializer.writeNumberField("value", item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("valueMapStringByte");
+        }
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected Map<String, Byte> parseValueMapStringByte(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      Map<String, Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<String, Byte> collection=new HashMap<>();
+        String key=null;
+        Byte value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+            value=jacksonParser.getByteValue();
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueMapEnumByte(HashMap<EnumType, Byte> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("valueMapEnumByte");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<EnumType, Byte> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("key", item.getKey().toString());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("value");
+            } else {
+              jacksonSerializer.writeNumberField("value", item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("valueMapEnumByte");
+        }
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected HashMap<EnumType, Byte> parseValueMapEnumByte(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      HashMap<EnumType, Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<EnumType, Byte> collection=new HashMap<>();
+        EnumType key=null;
+        Byte value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+           {
+            String tempEnum=jacksonParser.getText();
+            key=StringUtils.hasText(tempEnum)?EnumType.valueOf(tempEnum):null;
+          }
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+            value=jacksonParser.getByteValue();
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
   }
 
   /**
@@ -147,6 +336,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putId(long value) {
       editor.putLong("id",value);
+
       return this;
     }
 
@@ -155,6 +345,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValue(String value) {
       editor.putString("value",value);
+
       return this;
     }
 
@@ -162,7 +353,13 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueMapStringByte
      */
     public BindEditor putValueMapStringByte(Map<String, Byte> value) {
-      if (value!=null) editor.putString("valueMapStringByte",ProcessorHelper.asString(value)); else editor.putString("valueMapStringByte", null);
+      if (value!=null)  {
+        String temp=serializeValueMapStringByte(value);
+        editor.putString("valueMapStringByte",temp);
+      }  else  {
+        editor.remove("valueMapStringByte");
+      }
+
       return this;
     }
 
@@ -170,7 +367,13 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueMapEnumByte
      */
     public BindEditor putValueMapEnumByte(HashMap<EnumType, Byte> value) {
-      if (value!=null) editor.putString("valueMapEnumByte",ProcessorHelper.asString(value)); else editor.putString("valueMapEnumByte", null);
+      if (value!=null)  {
+        String temp=serializeValueMapEnumByte(value);
+        editor.putString("valueMapEnumByte",temp);
+      }  else  {
+        editor.remove("valueMapEnumByte");
+      }
+
       return this;
     }
   }

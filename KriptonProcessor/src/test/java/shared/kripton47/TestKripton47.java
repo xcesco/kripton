@@ -35,7 +35,7 @@ public class TestKripton47 extends BaseProcessorTest {
 	 */
 	@Test
 	public void test() throws IOException, InstantiationException, IllegalAccessException {
-		buildSharedPreferencesProcessorTest(AppPreferences.class, UserAccessToken.class);
+		buildSharedPreferencesProcessorTest(App.class, UserAccessToken.class);
 	}
 	
 	/**
@@ -46,7 +46,8 @@ public class TestKripton47 extends BaseProcessorTest {
 	 */
 	@Test
 	public void testSecurity() throws IOException, InstantiationException, IllegalAccessException {
-		buildSharedPreferencesProcessorTest(SecurityPreferences.class, DeviceAccessToken.class, UserAccessToken.class);
+		buildBindProcessorTest(DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
+		buildSharedPreferencesProcessorTest(Security.class, DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
 	}
 	
 

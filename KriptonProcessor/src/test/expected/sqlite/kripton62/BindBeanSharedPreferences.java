@@ -4,11 +4,22 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
-import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.Byte;
 import java.lang.Character;
 import java.lang.Double;
+import java.lang.Exception;
 import java.lang.Float;
 import java.lang.Integer;
 import java.lang.Short;
@@ -68,52 +79,52 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     bean.id=prefs.getLong("id", bean.id);
      {
       String temp=prefs.getString("valueByteSet", null);
-      bean.valueByteSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, temp): null;
+      bean.valueByteSet=StringUtils.hasText(temp) ? parseValueByteSet(temp): null;
     }
 
      {
       String temp=prefs.getString("valueShortSet", null);
-      bean.valueShortSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, temp): null;
+      bean.valueShortSet=StringUtils.hasText(temp) ? parseValueShortSet(temp): null;
     }
 
      {
       String temp=prefs.getString("valueIntegerSet", null);
-      bean.valueIntegerSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, temp): null;
+      bean.valueIntegerSet=StringUtils.hasText(temp) ? parseValueIntegerSet(temp): null;
     }
 
      {
       String temp=prefs.getString("valueStringSet", null);
-      bean.valueStringSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
+      bean.valueStringSet=StringUtils.hasText(temp) ? parseValueStringSet(temp): null;
     }
 
      {
       String temp=prefs.getString("valueCharacterSet", null);
-      bean.valueCharacterSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, temp): null;
+      bean.valueCharacterSet=StringUtils.hasText(temp) ? parseValueCharacterSet(temp): null;
     }
 
      {
       String temp=prefs.getString("valueFloatSet", null);
-      bean.valueFloatSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, temp): null;
+      bean.valueFloatSet=StringUtils.hasText(temp) ? parseValueFloatSet(temp): null;
     }
 
      {
       String temp=prefs.getString("valueDoubleSet", null);
-      bean.valueDoubleSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, temp): null;
+      bean.valueDoubleSet=StringUtils.hasText(temp) ? parseValueDoubleSet(temp): null;
     }
 
      {
       String temp=prefs.getString("valueBigDecimalSet", null);
-      bean.valueBigDecimalSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, temp): null;
+      bean.valueBigDecimalSet=StringUtils.hasText(temp) ? parseValueBigDecimalSet(temp): null;
     }
 
      {
       String temp=prefs.getString("valueBeanSet", null);
-      bean.valueBeanSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, temp): null;
+      bean.valueBeanSet=StringUtils.hasText(temp) ? parseValueBeanSet(temp): null;
     }
 
      {
       String temp=prefs.getString("valueEnumTypeSet", null);
-      bean.valueEnumTypeSet=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, temp): null;
+      bean.valueEnumTypeSet=StringUtils.hasText(temp) ? parseValueEnumTypeSet(temp): null;
     }
 
 
@@ -128,16 +139,77 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   public void write(Bean bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putLong("id",bean.id);
-    if (bean.valueByteSet!=null) editor.putString("valueByteSet",ProcessorHelper.asString(bean.valueByteSet)); else editor.putString("valueByteSet", null);
-    if (bean.valueShortSet!=null) editor.putString("valueShortSet",ProcessorHelper.asString(bean.valueShortSet)); else editor.putString("valueShortSet", null);
-    if (bean.valueIntegerSet!=null) editor.putString("valueIntegerSet",ProcessorHelper.asString(bean.valueIntegerSet)); else editor.putString("valueIntegerSet", null);
-    if (bean.valueStringSet!=null) editor.putString("valueStringSet",ProcessorHelper.asString(bean.valueStringSet)); else editor.putString("valueStringSet", null);
-    if (bean.valueCharacterSet!=null) editor.putString("valueCharacterSet",ProcessorHelper.asString(bean.valueCharacterSet)); else editor.putString("valueCharacterSet", null);
-    if (bean.valueFloatSet!=null) editor.putString("valueFloatSet",ProcessorHelper.asString(bean.valueFloatSet)); else editor.putString("valueFloatSet", null);
-    if (bean.valueDoubleSet!=null) editor.putString("valueDoubleSet",ProcessorHelper.asString(bean.valueDoubleSet)); else editor.putString("valueDoubleSet", null);
-    if (bean.valueBigDecimalSet!=null) editor.putString("valueBigDecimalSet",ProcessorHelper.asString(bean.valueBigDecimalSet)); else editor.putString("valueBigDecimalSet", null);
-    if (bean.valueBeanSet!=null) editor.putString("valueBeanSet",ProcessorHelper.asString(bean.valueBeanSet)); else editor.putString("valueBeanSet", null);
-    if (bean.valueEnumTypeSet!=null) editor.putString("valueEnumTypeSet",ProcessorHelper.asString(bean.valueEnumTypeSet)); else editor.putString("valueEnumTypeSet", null);
+
+    if (bean.valueByteSet!=null)  {
+      String temp=serializeValueByteSet(bean.valueByteSet);
+      editor.putString("valueByteSet",temp);
+    }  else  {
+      editor.remove("valueByteSet");
+    }
+
+    if (bean.valueShortSet!=null)  {
+      String temp=serializeValueShortSet(bean.valueShortSet);
+      editor.putString("valueShortSet",temp);
+    }  else  {
+      editor.remove("valueShortSet");
+    }
+
+    if (bean.valueIntegerSet!=null)  {
+      String temp=serializeValueIntegerSet(bean.valueIntegerSet);
+      editor.putString("valueIntegerSet",temp);
+    }  else  {
+      editor.remove("valueIntegerSet");
+    }
+
+    if (bean.valueStringSet!=null)  {
+      String temp=serializeValueStringSet(bean.valueStringSet);
+      editor.putString("valueStringSet",temp);
+    }  else  {
+      editor.remove("valueStringSet");
+    }
+
+    if (bean.valueCharacterSet!=null)  {
+      String temp=serializeValueCharacterSet(bean.valueCharacterSet);
+      editor.putString("valueCharacterSet",temp);
+    }  else  {
+      editor.remove("valueCharacterSet");
+    }
+
+    if (bean.valueFloatSet!=null)  {
+      String temp=serializeValueFloatSet(bean.valueFloatSet);
+      editor.putString("valueFloatSet",temp);
+    }  else  {
+      editor.remove("valueFloatSet");
+    }
+
+    if (bean.valueDoubleSet!=null)  {
+      String temp=serializeValueDoubleSet(bean.valueDoubleSet);
+      editor.putString("valueDoubleSet",temp);
+    }  else  {
+      editor.remove("valueDoubleSet");
+    }
+
+    if (bean.valueBigDecimalSet!=null)  {
+      String temp=serializeValueBigDecimalSet(bean.valueBigDecimalSet);
+      editor.putString("valueBigDecimalSet",temp);
+    }  else  {
+      editor.remove("valueBigDecimalSet");
+    }
+
+    if (bean.valueBeanSet!=null)  {
+      String temp=serializeValueBeanSet(bean.valueBeanSet);
+      editor.putString("valueBeanSet",temp);
+    }  else  {
+      editor.remove("valueBeanSet");
+    }
+
+    if (bean.valueEnumTypeSet!=null)  {
+      String temp=serializeValueEnumTypeSet(bean.valueEnumTypeSet);
+      editor.putString("valueEnumTypeSet",temp);
+    }  else  {
+      editor.remove("valueEnumTypeSet");
+    }
+
 
     editor.commit();
   }
@@ -158,7 +230,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public Set<Byte> valueByteSet() {
     String temp=prefs.getString("valueByteSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Byte>(), Byte.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueByteSet(temp): null;
 
   }
 
@@ -169,7 +241,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<Short> valueShortSet() {
     String temp=prefs.getString("valueShortSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Short>(), Short.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueShortSet(temp): null;
 
   }
 
@@ -180,7 +252,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public LinkedHashSet<Integer> valueIntegerSet() {
     String temp=prefs.getString("valueIntegerSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Integer>(), Integer.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueIntegerSet(temp): null;
 
   }
 
@@ -191,7 +263,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<String> valueStringSet() {
     String temp=prefs.getString("valueStringSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<String>(), String.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueStringSet(temp): null;
 
   }
 
@@ -202,7 +274,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public Set<Character> valueCharacterSet() {
     String temp=prefs.getString("valueCharacterSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Character>(), Character.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueCharacterSet(temp): null;
 
   }
 
@@ -213,7 +285,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<Float> valueFloatSet() {
     String temp=prefs.getString("valueFloatSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Float>(), Float.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueFloatSet(temp): null;
 
   }
 
@@ -224,7 +296,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<Double> valueDoubleSet() {
     String temp=prefs.getString("valueDoubleSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<Double>(), Double.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueDoubleSet(temp): null;
 
   }
 
@@ -235,7 +307,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<BigDecimal> valueBigDecimalSet() {
     String temp=prefs.getString("valueBigDecimalSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<BigDecimal>(), BigDecimal.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueBigDecimalSet(temp): null;
 
   }
 
@@ -246,7 +318,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public LinkedHashSet<Bean> valueBeanSet() {
     String temp=prefs.getString("valueBeanSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new LinkedHashSet<Bean>(), Bean.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueBeanSet(temp): null;
 
   }
 
@@ -257,8 +329,681 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public HashSet<EnumType> valueEnumTypeSet() {
     String temp=prefs.getString("valueEnumTypeSet", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new HashSet<EnumType>(), EnumType.class, temp): null;
+    return StringUtils.hasText(temp) ? parseValueEnumTypeSet(temp): null;
 
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueByteSet(Set<Byte> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueByteSet");
+        jacksonSerializer.writeStartArray();
+        for (Byte item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected Set<Byte> parseValueByteSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      Set<Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<Byte> collection=new HashSet<>();
+        Byte item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getByteValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueShortSet(HashSet<Short> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueShortSet");
+        jacksonSerializer.writeStartArray();
+        for (Short item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected HashSet<Short> parseValueShortSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      HashSet<Short> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<Short> collection=new HashSet<>();
+        Short item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getShortValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueIntegerSet(LinkedHashSet<Integer> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueIntegerSet");
+        jacksonSerializer.writeStartArray();
+        for (Integer item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected LinkedHashSet<Integer> parseValueIntegerSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      LinkedHashSet<Integer> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedHashSet<Integer> collection=new LinkedHashSet<>();
+        Integer item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getIntValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueStringSet(HashSet<String> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueStringSet");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected HashSet<String> parseValueStringSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      HashSet<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueCharacterSet(Set<Character> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueCharacterSet");
+        jacksonSerializer.writeStartArray();
+        for (Character item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected Set<Character> parseValueCharacterSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      Set<Character> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<Character> collection=new HashSet<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueFloatSet(HashSet<Float> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueFloatSet");
+        jacksonSerializer.writeStartArray();
+        for (Float item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected HashSet<Float> parseValueFloatSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      HashSet<Float> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<Float> collection=new HashSet<>();
+        Float item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getFloatValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueDoubleSet(HashSet<Double> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueDoubleSet");
+        jacksonSerializer.writeStartArray();
+        for (Double item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected HashSet<Double> parseValueDoubleSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      HashSet<Double> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<Double> collection=new HashSet<>();
+        Double item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getDoubleValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueBigDecimalSet(HashSet<BigDecimal> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueBigDecimalSet");
+        jacksonSerializer.writeStartArray();
+        for (BigDecimal item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(BigDecimalUtils.write(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected HashSet<BigDecimal> parseValueBigDecimalSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      HashSet<BigDecimal> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<BigDecimal> collection=new HashSet<>();
+        BigDecimal item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=BigDecimalUtils.read(jacksonParser.getText());
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueBeanSet(LinkedHashSet<Bean> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueBeanSet");
+        jacksonSerializer.writeStartArray();
+        for (Bean item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            context.mapperFor(Bean.class).serializeOnJackson(context, item, wrapper);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected LinkedHashSet<Bean> parseValueBeanSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      LinkedHashSet<Bean> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedHashSet<Bean> collection=new LinkedHashSet<>();
+        Bean item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeValueEnumTypeSet(HashSet<EnumType> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueEnumTypeSet");
+        jacksonSerializer.writeStartArray();
+        for (EnumType item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item.toString());
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected HashSet<EnumType> parseValueEnumTypeSet(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      HashSet<EnumType> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<EnumType> collection=new HashSet<>();
+        EnumType item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+             {
+              String tempEnum=jacksonParser.getText();
+              item=StringUtils.hasText(tempEnum)?EnumType.valueOf(tempEnum):null;
+            }
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
   }
 
   /**
@@ -283,6 +1028,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putId(long value) {
       editor.putLong("id",value);
+
       return this;
     }
 
@@ -290,7 +1036,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueByteSet
      */
     public BindEditor putValueByteSet(Set<Byte> value) {
-      if (value!=null) editor.putString("valueByteSet",ProcessorHelper.asString(value)); else editor.putString("valueByteSet", null);
+      if (value!=null)  {
+        String temp=serializeValueByteSet(value);
+        editor.putString("valueByteSet",temp);
+      }  else  {
+        editor.remove("valueByteSet");
+      }
+
       return this;
     }
 
@@ -298,7 +1050,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueShortSet
      */
     public BindEditor putValueShortSet(HashSet<Short> value) {
-      if (value!=null) editor.putString("valueShortSet",ProcessorHelper.asString(value)); else editor.putString("valueShortSet", null);
+      if (value!=null)  {
+        String temp=serializeValueShortSet(value);
+        editor.putString("valueShortSet",temp);
+      }  else  {
+        editor.remove("valueShortSet");
+      }
+
       return this;
     }
 
@@ -306,7 +1064,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueIntegerSet
      */
     public BindEditor putValueIntegerSet(LinkedHashSet<Integer> value) {
-      if (value!=null) editor.putString("valueIntegerSet",ProcessorHelper.asString(value)); else editor.putString("valueIntegerSet", null);
+      if (value!=null)  {
+        String temp=serializeValueIntegerSet(value);
+        editor.putString("valueIntegerSet",temp);
+      }  else  {
+        editor.remove("valueIntegerSet");
+      }
+
       return this;
     }
 
@@ -314,7 +1078,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueStringSet
      */
     public BindEditor putValueStringSet(HashSet<String> value) {
-      if (value!=null) editor.putString("valueStringSet",ProcessorHelper.asString(value)); else editor.putString("valueStringSet", null);
+      if (value!=null)  {
+        String temp=serializeValueStringSet(value);
+        editor.putString("valueStringSet",temp);
+      }  else  {
+        editor.remove("valueStringSet");
+      }
+
       return this;
     }
 
@@ -322,7 +1092,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueCharacterSet
      */
     public BindEditor putValueCharacterSet(Set<Character> value) {
-      if (value!=null) editor.putString("valueCharacterSet",ProcessorHelper.asString(value)); else editor.putString("valueCharacterSet", null);
+      if (value!=null)  {
+        String temp=serializeValueCharacterSet(value);
+        editor.putString("valueCharacterSet",temp);
+      }  else  {
+        editor.remove("valueCharacterSet");
+      }
+
       return this;
     }
 
@@ -330,7 +1106,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueFloatSet
      */
     public BindEditor putValueFloatSet(HashSet<Float> value) {
-      if (value!=null) editor.putString("valueFloatSet",ProcessorHelper.asString(value)); else editor.putString("valueFloatSet", null);
+      if (value!=null)  {
+        String temp=serializeValueFloatSet(value);
+        editor.putString("valueFloatSet",temp);
+      }  else  {
+        editor.remove("valueFloatSet");
+      }
+
       return this;
     }
 
@@ -338,7 +1120,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueDoubleSet
      */
     public BindEditor putValueDoubleSet(HashSet<Double> value) {
-      if (value!=null) editor.putString("valueDoubleSet",ProcessorHelper.asString(value)); else editor.putString("valueDoubleSet", null);
+      if (value!=null)  {
+        String temp=serializeValueDoubleSet(value);
+        editor.putString("valueDoubleSet",temp);
+      }  else  {
+        editor.remove("valueDoubleSet");
+      }
+
       return this;
     }
 
@@ -346,7 +1134,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBigDecimalSet
      */
     public BindEditor putValueBigDecimalSet(HashSet<BigDecimal> value) {
-      if (value!=null) editor.putString("valueBigDecimalSet",ProcessorHelper.asString(value)); else editor.putString("valueBigDecimalSet", null);
+      if (value!=null)  {
+        String temp=serializeValueBigDecimalSet(value);
+        editor.putString("valueBigDecimalSet",temp);
+      }  else  {
+        editor.remove("valueBigDecimalSet");
+      }
+
       return this;
     }
 
@@ -354,7 +1148,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBeanSet
      */
     public BindEditor putValueBeanSet(LinkedHashSet<Bean> value) {
-      if (value!=null) editor.putString("valueBeanSet",ProcessorHelper.asString(value)); else editor.putString("valueBeanSet", null);
+      if (value!=null)  {
+        String temp=serializeValueBeanSet(value);
+        editor.putString("valueBeanSet",temp);
+      }  else  {
+        editor.remove("valueBeanSet");
+      }
+
       return this;
     }
 
@@ -362,7 +1162,13 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueEnumTypeSet
      */
     public BindEditor putValueEnumTypeSet(HashSet<EnumType> value) {
-      if (value!=null) editor.putString("valueEnumTypeSet",ProcessorHelper.asString(value)); else editor.putString("valueEnumTypeSet", null);
+      if (value!=null)  {
+        String temp=serializeValueEnumTypeSet(value);
+        editor.putString("valueEnumTypeSet",temp);
+      }  else  {
+        editor.remove("valueEnumTypeSet");
+      }
+
       return this;
     }
   }

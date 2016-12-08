@@ -4,9 +4,19 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CollectionUtils;
-import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtils;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.ArrayList;
@@ -64,15 +74,13 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
     bean.valueFloat=prefs.getFloat("valueFloat", bean.valueFloat);
     bean.valueBoolean=(boolean)prefs.getBoolean("valueBoolean", (boolean)bean.valueBoolean);
      {
-      // read stringArray
-      String tempStringArray=prefs.getString("stringArray", null);
-      ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempStringArray);
-      bean.setStringArray((StringUtils.hasText(tempStringArray)) ? CollectionUtils.asArray(collection, new java.lang.String[collection.size()]): null);
+      String temp=prefs.getString("stringArray", null);
+      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): null);
     }
 
      {
       String temp=prefs.getString("stringList", null);
-      bean.stringList=StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, temp): null;
+      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): null;
     }
 
     bean.valueInt=(int)prefs.getInt("valueInt", (int)bean.valueInt);
@@ -89,13 +97,33 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
   public void write(AppPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putString("name",bean.name);
+
     editor.putString("description",bean.getDescription());
+
     editor.putFloat("valueFloat",bean.valueFloat);
+
     editor.putBoolean("valueBoolean",(boolean)bean.valueBoolean);
-    if (bean.getStringArray()!=null) editor.putString("stringArray",ProcessorHelper.asString(CollectionUtils.asList(bean.getStringArray(), ArrayList.class))); else editor.putString("stringArray", null);
-    if (bean.stringList!=null) editor.putString("stringList",ProcessorHelper.asString(bean.stringList)); else editor.putString("stringList", null);
+
+    if (bean.getStringArray()!=null)  {
+      String temp=serializeStringArray(bean.getStringArray());
+      editor.putString("stringArray",temp);
+    }  else  {
+      editor.remove("stringArray");
+    }
+
+    if (bean.stringList!=null)  {
+      String temp=serializeStringList(bean.stringList);
+      editor.putString("stringList",temp);
+    }  else  {
+      editor.remove("stringList");
+    }
+
     editor.putInt("valueInt",(int)bean.valueInt);
-    if (bean.valueLong!=null) editor.putLong("valueLong",bean.valueLong);
+
+    if (bean.valueLong!=null)  {
+      editor.putLong("valueLong",bean.valueLong);
+    }
+
 
     editor.commit();
   }
@@ -142,10 +170,8 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
    * @return property stringArray value
    */
   public String[] stringArray() {
-    // read stringArray
-    String tempStringArray=prefs.getString("stringArray", null);
-    ArrayList<String> collection=ProcessorHelper.asCollection(new ArrayList<String>(), String.class, tempStringArray);
-    return (StringUtils.hasText(tempStringArray)) ? CollectionUtils.asArray(collection, new java.lang.String[collection.size()]): null;
+    String temp=prefs.getString("stringArray", null);
+    return StringUtils.hasText(temp) ? parseStringArray(temp): null;
 
   }
 
@@ -156,7 +182,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
    */
   public List<String> stringList() {
     String temp=prefs.getString("stringList", null);
-    return StringUtils.hasText(temp) ? ProcessorHelper.asCollection(new ArrayList<String>(), String.class, temp): null;
+    return StringUtils.hasText(temp) ? parseStringList(temp): null;
 
   }
 
@@ -176,6 +202,146 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
    */
   public Long valueLong() {
     return prefs.getLong("valueLong", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
+  }
+
+  /**
+   * write
+   */
+  protected String serializeStringArray(String[] value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        String item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("stringArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected String[] parseStringArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      String[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<String> collection=new ArrayList<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asArray(collection, new String[collection.size()]);
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
+  }
+
+  /**
+   * write
+   */
+  protected String serializeStringList(List<String> value) {
+    if (value==null) {
+      return null;
+    }
+    try {
+      StringWriter writer=new StringWriter();
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        String item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("stringList");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      wrapper.close();
+      return writer.toString();
+    } catch(IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected List<String> parseStringList(String input) {
+    if (input==null) {
+      return null;
+    }
+    try {
+      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
+      JacksonWrapperParser wrapper=context.createParser(input);
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      List<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<String> collection=new ArrayList<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      return null;
+    }
   }
 
   /**
@@ -200,6 +366,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
      */
     public BindEditor putName(String value) {
       editor.putString("name",value);
+
       return this;
     }
 
@@ -208,6 +375,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
      */
     public BindEditor putDescription(String value) {
       editor.putString("description",value);
+
       return this;
     }
 
@@ -216,6 +384,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
      */
     public BindEditor putValueFloat(float value) {
       editor.putFloat("valueFloat",value);
+
       return this;
     }
 
@@ -224,6 +393,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
      */
     public BindEditor putValueBoolean(boolean value) {
       editor.putBoolean("valueBoolean",(boolean)value);
+
       return this;
     }
 
@@ -231,7 +401,13 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
      * modifier for property stringArray
      */
     public BindEditor putStringArray(String[] value) {
-      if (value!=null) editor.putString("stringArray",ProcessorHelper.asString(CollectionUtils.asList(value, ArrayList.class))); else editor.putString("stringArray", null);
+      if (value!=null)  {
+        String temp=serializeStringArray(value);
+        editor.putString("stringArray",temp);
+      }  else  {
+        editor.remove("stringArray");
+      }
+
       return this;
     }
 
@@ -239,7 +415,13 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
      * modifier for property stringList
      */
     public BindEditor putStringList(List<String> value) {
-      if (value!=null) editor.putString("stringList",ProcessorHelper.asString(value)); else editor.putString("stringList", null);
+      if (value!=null)  {
+        String temp=serializeStringList(value);
+        editor.putString("stringList",temp);
+      }  else  {
+        editor.remove("stringList");
+      }
+
       return this;
     }
 
@@ -248,6 +430,7 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
      */
     public BindEditor putValueInt(int value) {
       editor.putInt("valueInt",(int)value);
+
       return this;
     }
 
@@ -255,7 +438,10 @@ public class BindAppPreferencesSharedPreferences extends AbstractSharedPreferenc
      * modifier for property valueLong
      */
     public BindEditor putValueLong(Long value) {
-      if (value!=null) editor.putLong("valueLong",value);
+      if (value!=null)  {
+        editor.putLong("valueLong",value);
+      }
+
       return this;
     }
   }

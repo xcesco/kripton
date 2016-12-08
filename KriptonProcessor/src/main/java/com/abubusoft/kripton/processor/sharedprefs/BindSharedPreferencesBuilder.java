@@ -134,7 +134,7 @@ public class BindSharedPreferencesBuilder {
 
 		generateSingleReadMethod(entity);
 		
-		generatePersistFieldMethods(entity);
+		generateFieldPersistance(entity);
 
 		generateInstance(className);
 
@@ -144,19 +144,19 @@ public class BindSharedPreferencesBuilder {
 		return className;
 	}
 
-	private static void generatePersistFieldMethods(PrefEntity entity) {
+	private static void generateFieldPersistance(PrefEntity entity) {
 		for (PrefProperty property: entity.getCollection())
 		{
 			if (property.bindProperty!=null)
 			{
-				generateSerializeField(property.bindProperty);
-				generateParseField(property.bindProperty);
+				generateFieldSerialize(property.bindProperty);
+				generateFieldParser(property.bindProperty);
 			}
 		}
 		
 	}
 
-	private static void generateSerializeField(BindProperty property) {	
+	private static void generateFieldSerialize(BindProperty property) {	
 		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 		
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serialize"+format.convert(property.getName()))
@@ -175,24 +175,30 @@ public class BindSharedPreferencesBuilder {
 		methodBuilder.addStatement("$T wrapper=context.createSerializer(writer)", JacksonWrapperSerializer.class);
 		methodBuilder.addStatement("$T jacksonSerializer=wrapper.jacksonGenerator", JsonGenerator.class);
 		
-		String serializerName="jacksonSerializer";
+		if (!property.isBindedObject())
+		{
+			methodBuilder.addStatement("jacksonSerializer.writeStartObject()");
+		}
+		
+		methodBuilder.addStatement("int fieldCount=0");		
 		BindTransform bindTransform = BindTransformer.lookup(property);
-		
-		methodBuilder.addStatement("int fieldCount=0");
-		
+		String serializerName="jacksonSerializer";
 		bindTransform.generateSerializeOnJackson(methodBuilder, serializerName, null, "value", property);
-				 
+		
+		if (!property.isBindedObject()) {
+			methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
+		}
 		methodBuilder.addStatement("wrapper.close()");
 		methodBuilder.addStatement("return writer.toString()");
 		
-		methodBuilder.nextControlFlow("catch($T e)", IOException.class);
+		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
 		methodBuilder.addStatement("return null");
 		methodBuilder.endControlFlow();
 
 		builder.addMethod(methodBuilder.build());
 	}
 	
-	private static void generateParseField(BindProperty property) {	
+	private static void generateFieldParser(BindProperty property) {	
 		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);		
 		
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parse"+format.convert(property.getName()))
@@ -209,6 +215,7 @@ public class BindSharedPreferencesBuilder {
 		methodBuilder.addStatement("$T context=($T)$T.getBinder($T.JSON)", JacksonContext.class, JacksonContext.class, KriptonBinder2.class, BinderType.class);
 		methodBuilder.addStatement("$T wrapper=context.createParser(input)", JacksonWrapperParser.class);
 		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);
+		methodBuilder.addStatement("jacksonParser.nextToken()");
 		
 		String parserName="jacksonParser";
 		BindTransform bindTransform = BindTransformer.lookup(property);

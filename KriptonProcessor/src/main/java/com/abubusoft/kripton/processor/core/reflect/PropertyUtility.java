@@ -215,7 +215,7 @@ public class PropertyUtility {
 		else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName())+"("+value+")";
 		} else {
-			throw new PropertyVisibilityException("property \""+property.getName()+"\" of class \""+beanClass+"\" can not be modify");
+			throw new PropertyVisibilityException(String.format("property '%s' of class '%S' can not be modify",property.getName(), beanClass ));
 		}
 	}
 

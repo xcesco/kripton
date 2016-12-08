@@ -33,9 +33,9 @@ import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
 /**
- * This class is the shared preference binder defined for BeanElement80
+ * This class is the shared preference binder defined for BeanElement70
  *
- * @see BeanElement80
+ * @see BeanElement70
  */
 @BindMap
 public class BeanElement70BindMap extends AbstractMapper<BeanElement70> {

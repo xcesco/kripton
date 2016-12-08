@@ -64,9 +64,8 @@ public class BaseProcessorTest {
 
 	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(AssertionError.class);
-		//expectedEx.expectMessage(clazzException.getSimpleName());
+		expectedEx.expectMessage(clazzException.getSimpleName());
 	}
-
 	
 
 	@Before

@@ -12,7 +12,7 @@ import com.squareup.javapoet.TypeName;
 
 public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTransform {
 
-	static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {

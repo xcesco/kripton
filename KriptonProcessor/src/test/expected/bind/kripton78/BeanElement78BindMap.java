@@ -64,11 +64,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
         jacksonSerializer.writeStartArray();
         for (int i=0; i<n; i++) {
           item=object.valueListByteArray.get(i);
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeBinary(item);
-          }
+          jacksonSerializer.writeBinary(item);
         }
         jacksonSerializer.writeEndArray();
       }
@@ -92,7 +88,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
           }
           jacksonSerializer.writeEndArray();
         } else {
-          jacksonSerializer.writeStringField("valueMapIntByteArray", "null");
+          jacksonSerializer.writeNullField("valueMapIntByteArray");
         }
       }
 
@@ -127,11 +123,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
           jacksonSerializer.writeStartArray();
           for (int i=0; i<n; i++) {
             item=object.valueListByteArray.get(i);
-            if (item==null) {
-              jacksonSerializer.writeString("null");
-            } else {
-              jacksonSerializer.writeBinary(item);
-            }
+            jacksonSerializer.writeBinary(item);
           }
           jacksonSerializer.writeEndArray();
         } else {

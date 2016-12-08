@@ -49,13 +49,6 @@ public class BindTypeProcessor extends BaseProcessor {
 
 	private BindModel model;
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes
-	 * ()
-	 */
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();

@@ -24,39 +24,38 @@ import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 public class UserIdentity {
-    private static final long serialVersionUID = -8872816586169055466L;
-    private String name;
-    private String email;
-    private String username;
+	private String name;
+	private String email;
+	private String username;
 
-    public UserIdentity() {
-    }
+	public UserIdentity() {
+	}
 
-    public String getEmail() {
-        return this.email;
-    }
+	public String getEmail() {
+		return this.email;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public String getUsername() {
-        return this.username;
-    }
+	public String getUsername() {
+		return this.username;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String toString() {
-        return "UserIdentity [name=" + this.name + ", email=" + this.email + ", username=" + this.username + "]";
-    }
+	public String toString() {
+		return "UserIdentity [name=" + this.name + ", email=" + this.email + ", username=" + this.username + "]";
+	}
 }

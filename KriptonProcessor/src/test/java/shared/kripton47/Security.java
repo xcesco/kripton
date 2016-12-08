@@ -15,50 +15,30 @@
  *******************************************************************************/
 package shared.kripton47;
 
-import java.util.Date;
-
+import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindType;
 
-/**
- * Token di accesso al sistema
- *
- * Created by xcesco on 11/04/2016.
- */
 @BindType
-public class UserAccessToken {
-	
-	public UserAccessToken()
-	{
-		
-	}
-	
-	public UserAccessToken(String value)
-	{
-		uid=value;
-		creationDate=(new Date()).getTime();
-	}
+@BindSharedPreferences
+public class Security {
 
-    public String getUid() {
-        return uid;
-    }
+    /**
+     * FCM-ID
+     */
+    public String fcmId;
 
-    public long getCreationDate() {
-        return creationDate;
-    }
+    /**
+     * Autorization token
+     */
+    public DeviceAccessToken authorizationToken;
 
-    private String uid;
+    /**
+     * device UID
+     */
+    public String deviceUid;
 
-    public void setUid(String uid) {
-		this.uid = uid;
-	}
-
-	private long creationDate;
-
-    public void setCreationDate(long creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public boolean isValid() {
-        return uid!=null;
-    }
+    /**
+     * user identitfy
+     */
+    public UserIdentity userIdentity;
 }

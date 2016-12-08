@@ -72,7 +72,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueBeanSet
       if (object.valueBeanSet!=null)  {
         fieldCount++;
-        int n=object.valueBeanSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBeanSet");
         jacksonSerializer.writeStartArray();
@@ -89,7 +88,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueByteSet
       if (object.valueByteSet!=null)  {
         fieldCount++;
-        int n=object.valueByteSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueByteSet");
         jacksonSerializer.writeStartArray();
@@ -106,7 +104,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueCharacterSet
       if (object.valueCharacterSet!=null)  {
         fieldCount++;
-        int n=object.valueCharacterSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueCharacterSet");
         jacksonSerializer.writeStartArray();
@@ -123,7 +120,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueDoubleSet
       if (object.valueDoubleSet!=null)  {
         fieldCount++;
-        int n=object.valueDoubleSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueDoubleSet");
         jacksonSerializer.writeStartArray();
@@ -140,7 +136,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueEnumSet
       if (object.valueEnumSet!=null)  {
         fieldCount++;
-        int n=object.valueEnumSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueEnumSet");
         jacksonSerializer.writeStartArray();
@@ -157,7 +152,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueFloatSet
       if (object.valueFloatSet!=null)  {
         fieldCount++;
-        int n=object.valueFloatSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueFloatSet");
         jacksonSerializer.writeStartArray();
@@ -174,7 +168,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueIntSet
       if (object.getValueIntSet()!=null)  {
         fieldCount++;
-        int n=object.getValueIntSet().size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueIntSet");
         jacksonSerializer.writeStartArray();
@@ -191,7 +184,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueLongSet
       if (object.valueLongSet!=null)  {
         fieldCount++;
-        int n=object.valueLongSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueLongSet");
         jacksonSerializer.writeStartArray();
@@ -208,7 +200,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueShortSet
       if (object.valueShortSet!=null)  {
         fieldCount++;
-        int n=object.valueShortSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueShortSet");
         jacksonSerializer.writeStartArray();
@@ -225,7 +216,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueStringSet
       if (object.valueStringSet!=null)  {
         fieldCount++;
-        int n=object.valueStringSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueStringSet");
         jacksonSerializer.writeStartArray();
@@ -242,7 +232,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueBigDecimalSet
       if (object.valueBigDecimalSet!=null)  {
         fieldCount++;
-        int n=object.valueBigDecimalSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigDecimalSet");
         jacksonSerializer.writeStartArray();
@@ -259,7 +248,6 @@ public class BeanElement72BindMap extends AbstractMapper<BeanElement72> {
       // field valueBigIntegerSet
       if (object.valueBigIntegerSet!=null)  {
         fieldCount++;
-        int n=object.valueBigIntegerSet.size();
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBigIntegerSet");
         jacksonSerializer.writeStartArray();

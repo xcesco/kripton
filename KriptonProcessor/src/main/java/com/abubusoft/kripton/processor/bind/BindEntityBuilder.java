@@ -89,7 +89,7 @@ public class BindEntityBuilder {
 				enabled = enabled || (annotationBind != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBind, AnnotationAttributeType.ATTRIBUTE_ENABLED));
 
 				// if we are not in external context and element is not enabled, we have to analyze in every case.				
-				if (!enabled || !contextExternal) {
+				if (!enabled && !contextExternal) {
 					return false;
 				}
 
@@ -146,19 +146,19 @@ public class BindEntityBuilder {
 
 				if (property.xmlInfo.xmlType == XmlType.ATTRIBUTE) {
 					// check if property is a array
-					if (property.getPropertyType().isArray()) {
+					if (property.isBindedArray()) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 
 					// check if property is a collection
-					if (property.getPropertyType().isCollection()) {
+					if (property.isBindedCollection()) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 
 					// check if property is a map
-					if (property.getPropertyType().isMap()) {
+					if (property.isBindedMap()) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
@@ -174,19 +174,19 @@ public class BindEntityBuilder {
 					counterPropertyInValue.inc();
 					
 					// check if property is a array
-					if (property.getPropertyType().isArray()) {
+					if (property.isBindedArray()) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 
 					// check if property is a collection
-					if (property.getPropertyType().isCollection()) {
+					if (property.isBindedCollection()) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 
 					// check if property is a map
-					if (property.getPropertyType().isMap()) {
+					if (property.isBindedMap()) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
@@ -205,6 +205,14 @@ public class BindEntityBuilder {
 				}
 
 				property.bindedObject=BindTransformer.isBindedObject(property);
+				
+				// if it's an object, we need to avoid to print field name (like object transform usually do). 
+				// set inCollection to true, permits this.
+				if (property.bindedObject && contextExternal)
+				{
+					property.inCollection=true;
+				}
+				
 				return true;
 
 			}

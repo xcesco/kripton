@@ -12,18 +12,32 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import bind.AbstractBindTypeProcessorTest;
 
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
+import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 
+@RunWith(BlockJUnit4ClassRunner.class)
 public class TestKripton76Value extends AbstractBindTypeProcessorTest {
+	
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
+
+	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
+		expectedEx.expect(AssertionError.class);
+		//expectedEx.expectMessage(clazzException.getSimpleName());
+	}
 
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
 	{
-		//this.expectedException(IncompatibleAttributesInAnnotationException.class);
+		this.expectedException(IncompatibleAttributesInAnnotationException.class);
 		buildBindProcessorTest(BeanValue76.class, BeanEnum.class);
 	}
 	

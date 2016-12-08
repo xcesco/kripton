@@ -83,7 +83,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
           }
           jacksonSerializer.writeEndArray();
         } else {
-          jacksonSerializer.writeStringField("valueMapBeanLocale", "null");
+          jacksonSerializer.writeNullField("valueMapBeanLocale");
         }
       }
 
@@ -107,7 +107,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
           }
           jacksonSerializer.writeEndArray();
         } else {
-          jacksonSerializer.writeStringField("valueMapEnumBean", "null");
+          jacksonSerializer.writeNullField("valueMapEnumBean");
         }
       }
 
@@ -130,7 +130,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
           }
           jacksonSerializer.writeEndArray();
         } else {
-          jacksonSerializer.writeStringField("valueMapIntByteArray", "null");
+          jacksonSerializer.writeNullField("valueMapIntByteArray");
         }
       }
 
@@ -153,7 +153,7 @@ public class BeanElement74BindMap extends AbstractMapper<BeanElement74> {
           }
           jacksonSerializer.writeEndArray();
         } else {
-          jacksonSerializer.writeStringField("valueMapStringInteger", "null");
+          jacksonSerializer.writeNullField("valueMapStringInteger");
         }
       }
 

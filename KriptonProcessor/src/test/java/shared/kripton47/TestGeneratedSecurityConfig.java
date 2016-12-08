@@ -28,7 +28,7 @@ public class TestGeneratedSecurityConfig {
 	public void testGenerated()
 	{
 		KriptonLibrary.init(RuntimeEnvironment.application);
-		BindGeneratedSecurityConfig config=BindGeneratedSecurityConfig.instance();
+		BindSecuritySharedPreferences config=BindSecuritySharedPreferences.instance();
 		
 		UserIdentity userIdentity=new UserIdentity();
 		userIdentity.setName("anotno");

@@ -10,7 +10,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
-import bind.kripton71List.BeanElement71BindMap;
 
 public class TestKripton71 extends AbstractBindTypeProcessorTest {
 
