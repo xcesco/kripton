@@ -25,17 +25,19 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
+import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
@@ -138,7 +140,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			for (ModelProperty item : entity.getCollection()) {
 				buffer.append(separator);
 				buffer.append(model.classNameConverter.convert(item.getName()));
-				buffer.append(" "+Transformer.columnType(item));
+				buffer.append(" "+SQLTransformer.columnType(item));
 				
 				annotation=item.getAnnotation(BindColumn.class);
 				
@@ -202,6 +204,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		for (ModelProperty item : kriptonClass.getCollection()) {
 			item.accept(this);
 		}
+		
+		ManagedPropertyPersistenceHelper.generateFieldPersistance(builder, kriptonClass.getCollection(), PersistType.BYTE, true, Modifier.STATIC, Modifier.PUBLIC);
 
 		TypeSpec typeSpec = builder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);

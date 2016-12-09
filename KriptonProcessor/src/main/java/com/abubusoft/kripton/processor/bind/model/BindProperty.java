@@ -19,9 +19,11 @@ import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
+import com.abubusoft.kripton.processor.bind.model.BindProperty.BindPropertyBuilder;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec.Builder;
 
 public class BindProperty extends ModelProperty {
 
@@ -54,12 +56,20 @@ public class BindProperty extends ModelProperty {
 			this.inCollection=true;
 		}
 		
+
+		public BindPropertyBuilder(TypeName parameterTypeName) {
+			this.rawTypeName=parameterTypeName;			
+			this.parentProperty=null;
+			this.nullable=true;			
+			this.inCollection=true;
+		}
+		
 		public BindProperty build()
 		{
 			BindProperty property=new BindProperty(null);
 			
 			property.propertyType=new ModelType(rawTypeName);
-			property.order=parentProperty.order;
+			property.order=parentProperty!=null ? parentProperty.order : 0;
 			property.inCollection=this.inCollection;
 			
 			property.jacksonInfo.jacksonName=tag;
@@ -97,7 +107,8 @@ public class BindProperty extends ModelProperty {
 	}
 	
 	public class XmlInfo {
-		public MapEntryType mapEntryType;
+		
+		public MapEntryType mapEntryType=MapEntryType.TAG;
 		
 		/**
 		 * tag name used for item or collection (if element is a collection)
@@ -111,7 +122,7 @@ public class BindProperty extends ModelProperty {
 		
 		public boolean wrappedCollection;
 
-		public XmlType xmlType;
+		public XmlType xmlType=XmlType.TAG;
 		
 		/**
 		 * If true, this element is a collection with a tag for collection and a tag for each element 
@@ -127,6 +138,10 @@ public class BindProperty extends ModelProperty {
 	
 	public static BindPropertyBuilder builder(TypeName rawTypeName, BindProperty property) {
 		return new BindPropertyBuilder(rawTypeName, property);
+	}
+	
+	public static BindPropertyBuilder builder(TypeName parameterTypeName) {
+		return new BindPropertyBuilder(parameterTypeName);
 	}
 
 	/**
@@ -180,6 +195,5 @@ public class BindProperty extends ModelProperty {
 	public boolean isBindedMap() {
 		return propertyType.isMap();
 	}
-		
 
 }

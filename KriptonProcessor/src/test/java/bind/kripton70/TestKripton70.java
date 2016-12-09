@@ -58,7 +58,7 @@ public class TestKripton70 extends AbstractBindTypeProcessorTest {
 		bean.valueFloat = 24f;
 		bean.valueDoubleType = 24.0;
 		bean.valueDouble = 24.0;
-		bean.valueString = "\"ciao";
+		bean.valueString = "ciao";
 
 		check(bean);
 	}

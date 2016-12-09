@@ -27,8 +27,8 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transform;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
@@ -68,7 +68,7 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 				throw (new InvalidMethodSignException(method, "No column was selected for query defined with method"));
 		}
 		
-		Transform t = Transformer.lookup(returnType);
+		SQLTransform t = SQLTransformer.lookup(returnType);
 
 		methodBuilder.addCode("$T result=",returnType);
 		t.generateDefaultValue(methodBuilder);

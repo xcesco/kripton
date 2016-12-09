@@ -1,6 +1,8 @@
 package com.abubusoft.kripton.binder2.persistence;
 
-public interface ParserWrapper {
+import java.io.Closeable;
+
+public interface ParserWrapper extends Closeable{
 
 	void close();
 }

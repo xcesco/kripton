@@ -36,7 +36,7 @@ import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
@@ -64,7 +64,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		super(elementUtils, filer, model);
 	}
 
-	public static void execute(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
+	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
 		BindCursorBuilder visitor = new BindCursorBuilder(elementUtils, filer, model);
 
 		for (SQLEntity item : model.getEntities()) {
@@ -188,7 +188,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		int i=0;
 		for (ModelProperty item : entity.getCollection()) {			
 			methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
-			Transformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");		
+			SQLTransformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");		
 			methodBuilder.addCode(";");
 			methodBuilder.addCode("}\n");
 			
@@ -256,7 +256,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 			int i=0;
 			for (ModelProperty item : entity.getCollection()) {			
 				methodBuilder.addCode("if (index$L>=0) { ",i);
-				Transformer.resetBean(methodBuilder, entityClass, "resultBean", item,  "cursor","index"+i+"");
+				SQLTransformer.resetBean(methodBuilder, entityClass, "resultBean", item,  "cursor","index"+i+"");
 				methodBuilder.addCode(";");
 				methodBuilder.addCode("}\n");
 				
@@ -270,7 +270,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 			int i=0;
 			for (ModelProperty item : entity.getCollection()) {			
 				methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
-				Transformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");
+				SQLTransformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");
 				methodBuilder.addCode(";");
 				methodBuilder.addCode("}\n");
 				

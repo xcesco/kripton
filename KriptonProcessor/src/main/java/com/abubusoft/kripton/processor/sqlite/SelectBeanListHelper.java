@@ -36,7 +36,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -100,7 +100,7 @@ public class SelectBeanListHelper<ElementUtils> implements SelectCodeGenerator {
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 			}
-			Transformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "cursor", "index" + i + "");
+			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "cursor", "index" + i + "");
 			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");

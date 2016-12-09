@@ -13,7 +13,6 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.Exception;
 import java.lang.String;
@@ -132,17 +131,14 @@ public class BindAppSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperSerializer wrapper=context.createSerializer(writer);
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        jacksonSerializer.writeFieldName("userAccessToken");
         context.mapperFor(UserAccessToken.class).serializeOnJackson(context, value, wrapper);
       }
-      jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -158,6 +154,7 @@ public class BindAppSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       UserAccessToken result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
         result=context.mapperFor(UserAccessToken.class).parseOnJackson(context, wrapper);

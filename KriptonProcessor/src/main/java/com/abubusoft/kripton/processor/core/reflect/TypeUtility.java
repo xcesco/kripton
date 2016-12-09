@@ -445,4 +445,8 @@ public class TypeUtility {
 		return clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1);
 	}
 
+	public static ArrayTypeName arrayTypeName(Type type) {
+		return ArrayTypeName.of(type);
+	}
+
 }

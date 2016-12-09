@@ -41,6 +41,4 @@ import java.lang.annotation.Target;
 public @interface BindSharedPreferences {
 
 	String name() default "";
-
-	boolean allFields() default true;
 }

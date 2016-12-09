@@ -48,7 +48,6 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
-import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sharedprefs.BindSharedPreferencesBuilder;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
@@ -149,18 +148,18 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 		Element beanElement = sharedPreference;
 		String result = beanElement.getSimpleName().toString();
 
+		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.build(null, elementUtils, sharedPreference);
 		final PrefEntity currentEntity = new PrefEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
-		final boolean temp1 = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
-		final boolean temp2 = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindSharedPreferences.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
+		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
 
-		if (!temp1 && temp2) {
-			String msg = String.format("In class '%s', inconsistent value of attribute 'allFields' in annotations '%s' and '%s'", currentEntity.getSimpleName(), BindType.class.getSimpleName(), BindSharedPreferences.class.getSimpleName());
-			throw (new IncompatibleAttributesInAnnotationException(msg));
-		}
+//		if (!temp1 && temp2) {
+//			String msg = String.format("In class '%s', inconsistent value of attribute 'allFields' in annotations '%s' and '%s'", currentEntity.getSimpleName(), BindType.class.getSimpleName(), BindSharedPreferences.class.getSimpleName());
+//			throw (new IncompatibleAttributesInAnnotationException(msg));
+//		}
 		
 		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<PrefProperty>() {
 
@@ -172,8 +171,6 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 			@Override
 			public boolean onProperty(PrefProperty property) {
-				boolean bindAllFields = temp1 && temp2;				
-				
 				// if @BindDisabled is present, exit immediately
 				if (currentEntity.hasAnnotation(BindDisabled.class))
 					return false;

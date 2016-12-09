@@ -26,8 +26,8 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transform;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -74,12 +74,12 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 	
 		LiteralType literalReturn=LiteralType.of(returnType.toString());
 		
-		Transform t;
+		SQLTransform t;
 		if (!literalReturn.isList())
-			 t = Transformer.lookup(returnType);
+			 t = SQLTransformer.lookup(returnType);
 		else 
 		{			
-			t=Transformer.lookup(typeName(literalReturn.getComposedValue()));
+			t=SQLTransformer.lookup(typeName(literalReturn.getComposedValue()));
 		}
 		
 		//@formatter:off

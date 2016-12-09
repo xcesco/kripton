@@ -26,13 +26,10 @@ import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
-import android.content.ContentValues;
-
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
-import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
@@ -40,9 +37,11 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
+
+import android.content.ContentValues;
 
 public class CodeBuilderUtility {
 
@@ -241,7 +240,7 @@ public class CodeBuilderUtility {
 			
 			// add property to list of used properties
 			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(item.getName()));			
-			Transformer.java2ContentValues(methodBuilder, entityClassName,entityName , item);			
+			SQLTransformer.java2ContentValues(methodBuilder, entityClassName, entityName , item);			
 			methodBuilder.addCode(");\n");
 			
 			if (TypeUtility.isNullable(item))

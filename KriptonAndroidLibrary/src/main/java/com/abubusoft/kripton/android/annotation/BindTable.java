@@ -31,6 +31,4 @@ public @interface BindTable {
 	 * 		defined name of the table in java style
 	 */
 	String value() default "";
-	
-	boolean allFields() default true;
 }

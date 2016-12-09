@@ -19,9 +19,9 @@ import java.lang.ref.WeakReference;
 
 import javax.lang.model.element.Element;
 
-import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 
-public class SQLProperty extends ModelProperty {
+public class SQLProperty extends ManagedModelProperty {
 
 	public SQLProperty(SQLEntity entity, Element element) {
 		super(element);
@@ -66,5 +66,7 @@ public class SQLProperty extends ModelProperty {
 	}
 
 	protected boolean primaryKey;
+
+	
 
 }

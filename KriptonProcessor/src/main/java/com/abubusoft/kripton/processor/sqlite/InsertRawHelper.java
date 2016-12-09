@@ -32,7 +32,7 @@ import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerat
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
@@ -68,7 +68,9 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}
 			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
 			// it does not need to be converted in string
-			Transformer.java2ContentValues(methodBuilder, item.value1, item.value0);
+			
+			SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(item.value1), item.value0);
+			//SQLTransformer.java2ContentValues(methodBuilder, item.value1, item.value0);
 			methodBuilder.addCode(");\n");
 			if (nullable) {
 				methodBuilder.nextControlFlow("else");

@@ -85,6 +85,17 @@ public abstract class BindTransformer {
 		return lookup(typeName);
 	}
 	
+
+	public static boolean isBindedObject(TypeName typeName) {
+		BindTransform t = lookup(typeName);
+		
+		if (t!=null && t instanceof ObjectBindTransform)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean isBindedObject(BindProperty property) {
 		BindTransform t = lookup(property);
 		
@@ -294,6 +305,7 @@ public abstract class BindTransformer {
 		}
 		return null;
 	}
+
 
 
 

@@ -269,7 +269,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	void generateSerializeOnJacksonInternal(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-			if (property.isProperty())
+			if (property!=null && property.isProperty())
 			{
 				methodBuilder.addStatement("fieldCount++");
 			}
@@ -309,8 +309,10 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			}
 			
 			// we have to write here this if because the internal if on serialization does not support else statement.
-			// We are in a collection, so we need to write null value too. In all other case, null value will be skipped.
-			if (!elementProperty.getPropertyType().isPrimitive()) {
+			// We are in a collection, so we need to write null value too. In all other case, null value will be skipped.		
+			if (elementProperty.getPropertyType().isArray() || !elementProperty.getPropertyType().isPrimitive()) {
+				
+				// CASE 1 ASSERT: we are with item of kink array OR we are not manage a simple primitive
 				methodBuilder.beginControlFlow("if (item==null)");
 					if (onString)
 					{
@@ -327,7 +329,8 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 					} else {
 						transform.generateSerializeOnJackson(methodBuilder, serializerName, null, "item", elementProperty);	
 					}
-			if (!elementProperty.getPropertyType().isPrimitive()) {
+			if (elementProperty.getPropertyType().isArray() || !elementProperty.getPropertyType().isPrimitive()) {
+				// CASE 1 ASSERT: we are with item of kink array OR we are not manage a simple primitive
 				methodBuilder.endControlFlow();
 			}
 				

@@ -16,11 +16,17 @@
 package com.abubusoft.kripton.processor.sqlite.model;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelBucket;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
+import com.squareup.javapoet.TypeName;
 
 public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
 	
@@ -95,6 +101,21 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	 */
 	public boolean isLogEnabled() {
 		return getParent().generateLog;
+	}
+	
+	/**
+	 * map of params for which generate a java2Content method converter
+	 */
+	public Map<TypeName, String> java2ContentSerializer=new HashMap<TypeName, String>();
+
+	public String generateJava2ContentSerializer(String paramName, TypeName paramTypeName) {
+		if (!java2ContentSerializer.containsKey(paramTypeName))
+		{	
+			String methodName="java2Content"+(java2ContentSerializer.size()+1);
+			java2ContentSerializer.put(paramTypeName, methodName);
+		}
+		
+		return java2ContentSerializer.get(paramTypeName);
 	}
 
 }

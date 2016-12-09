@@ -39,7 +39,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
@@ -101,7 +101,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				// here it needed raw parameter name
 				methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
 				// Transformer.java2ContentValues(methodBuilder, typeName(property.getElement().asType()),null , property);
-				Transformer.java2ContentValues(methodBuilder, property.getElement().asType(), item.value0);
+				
+				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(property.getElement()), item.value0);
+				
 				methodBuilder.addCode(");\n");
 
 				if (TypeUtility.isNullable(method, item, property)) {
@@ -281,7 +283,8 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 			// check for string conversion
 			TypeUtility.beginStringConversion(methodBuilder, item.value1);
-			Transformer.java2ContentValues(methodBuilder, item.value1, resolvedParamName);
+			
+			SQLTransformer.java2ContentValues(methodBuilder, method.getParent(), TypeUtility.typeName(item.value1), resolvedParamName);
 			// check for string conversion
 			TypeUtility.endStringConversion(methodBuilder, item.value1);
 

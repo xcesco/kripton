@@ -18,10 +18,9 @@ package com.abubusoft.kripton.processor.sharedprefs.model;
 import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
-import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 
-public class PrefProperty extends ModelProperty {
+public class PrefProperty extends ManagedModelProperty {
 
 	public PrefProperty(Element element) {
 		super(element);
@@ -32,13 +31,6 @@ public class PrefProperty extends ModelProperty {
 	 */
 	protected PreferenceType preferenceType;
 	
-	/**
-	 * <p>
-	 * 		property definition to write method to manage
-	 * </p>
-	 */
-	public BindProperty bindProperty;
-		
 	public PreferenceType getPreferenceType() {
 		return preferenceType;
 	}

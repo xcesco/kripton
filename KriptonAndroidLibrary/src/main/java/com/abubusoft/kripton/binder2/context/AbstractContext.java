@@ -22,7 +22,7 @@ import com.abubusoft.kripton.binder2.persistence.SerializerWrapper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
 
-public abstract class AbstractContext implements BinderContext, BinderBuilder  {
+public abstract class AbstractContext implements BinderContext, BinderBuilder {
 
 	@SuppressWarnings("rawtypes")
 	private static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
@@ -34,8 +34,8 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder  {
 			// The only way the mapper wouldn't already be loaded into
 			// OBJECT_MAPPERS is if it was compiled separately, but let's handle
 			// it anyway
-			String beanClassName=cls.getName();
-			String mapperClassName=cls.getName() + KriptonBinder2.MAPPER_CLASS_SUFFIX;
+			String beanClassName = cls.getName();
+			String mapperClassName = cls.getName() + KriptonBinder2.MAPPER_CLASS_SUFFIX;
 			try {
 				Class<E> mapperClass = (Class<E>) Class.forName(mapperClassName);
 				mapper = (M) mapperClass.newInstance();
@@ -43,7 +43,9 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder  {
 				OBJECT_MAPPERS.put(cls, mapper);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				throw new KriptonRuntimeException(String.format("Class '%s' does not exist. Does '%s' have '%s' annotation?", mapperClassName, beanClassName, BindType.class.getName()));
+				throw new KriptonRuntimeException(
+						String.format("Class '%s' does not exist. Does '%s' have '%s' annotation?", mapperClassName,
+								beanClassName, BindType.class.getName()));
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -52,11 +54,12 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder  {
 		}
 		return mapper;
 	}
-	
+
 	public abstract BinderType getSupportedFormat();
-	
+
 	/**
-	 * Returns a JsonMapper for a given class that has been annotated with @JsonObject.
+	 * Returns a JsonMapper for a given class that has been annotated
+	 * with @JsonObject.
 	 *
 	 * @param cls
 	 *            The class for which the JsonMapper should be fetched.
@@ -80,94 +83,89 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder  {
 			return mapper;
 		}
 	}
-	
+
 	@Override
 	public <E> E parse(byte[] source, Class<E> objectClazz) {
-		ParserWrapper parserWrapper=createParser(source);
-		E result=mapperFor(objectClazz).parse(this, parserWrapper);
-		parserWrapper.close();
-		
-		return result;
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			E result = mapperFor(objectClazz).parse(this, parserWrapper);
+			return result;
+		}
 	}
-	
+
 	@Override
 	public <E> E parse(File source, Class<E> objectClazz) {
-		ParserWrapper parserWrapper=createParser(source);
-		E result=mapperFor(objectClazz).parse(this, parserWrapper);
-		parserWrapper.close();
-		
-		return result;
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			E result = mapperFor(objectClazz).parse(this, parserWrapper);
+			return result;
+		}
 	}
 
 	@Override
 	public <E> E parse(InputStream source, Class<E> objectClazz) {
-		ParserWrapper parserWrapper=createParser(source);
-		E result=mapperFor(objectClazz).parse(this, parserWrapper);
-		parserWrapper.close();
-		
-		return result;
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			E result = mapperFor(objectClazz).parse(this, parserWrapper);
+			return result;
+		}
 	}
 
 	@Override
 	public <E> E parse(Reader source, Class<E> objectClazz) {
-		ParserWrapper parserWrapper=createParser(source);
-		E result=mapperFor(objectClazz).parse(this, parserWrapper);
-		parserWrapper.close();
-		
-		return result;
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			E result = mapperFor(objectClazz).parse(this, parserWrapper);
+			return result;
+		}
 	}
-	
+
 	@Override
 	public <E> E parse(String source, Class<E> objectClazz) {
-		ParserWrapper parserWrapper=createParser(source);
-		E result=mapperFor(objectClazz).parse(this, parserWrapper);
-		parserWrapper.close();
-		
-		return result;
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			E result = mapperFor(objectClazz).parse(this, parserWrapper);
+			return result;
+		}
 	}
 
 	@Override
 	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, byte[] source) {
-		if (collection==null || type==null) return null;
-		
-		ParserWrapper parser=createParser(source);
-		L result = mapperFor(type).parseCollection(this, parser, collection);
-		parser.close();		
-		
-		return result;
+		if (collection == null || type == null)
+			return null;
+
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
+			return result;
+		}
 	}
 
 	@Override
 	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, InputStream source) {
-		if (collection==null || type==null) return null;
-		
-		ParserWrapper parser=createParser(source);
-		L result = mapperFor(type).parseCollection(this, parser, collection);
-		parser.close();		
-		
-		return result;
+		if (collection == null || type == null)
+			return null;
+
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
+			return result;
+		}
 	}
 
 	@Override
 	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, Reader source) {
-		if (collection==null || type==null) return null;
-		
-		ParserWrapper parser=createParser(source);
-		L result = mapperFor(type).parseCollection(this, parser, collection);
-		parser.close();		
-		
-		return result;
+		if (collection == null || type == null)
+			return null;
+
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
+			return result;
+		}
 	}
 
 	@Override
 	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, String source) {
-		if (collection==null || type==null) return null;
-		
-		ParserWrapper parser=createParser(source);
-		L result = mapperFor(type).parseCollection(this, parser, collection);
-		parser.close();		
-		
-		return result;
+		if (collection == null || type == null)
+			return null;
+
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
+			return result;
+		}
 	}
 
 	@Override
@@ -179,7 +177,7 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder  {
 	public <E> List<E> parseList(Class<E> type, InputStream source) {
 		return parseCollection(new ArrayList<E>(), type, source);
 	}
-	
+
 	@Override
 	public <E> List<E> parseList(Class<E> type, Reader source) {
 		return parseCollection(new ArrayList<E>(), type, source);
@@ -193,91 +191,69 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder  {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> String serialize(E object) {
-		if (object==null) return null;
-		
-		StringWriter source=new StringWriter();
-		SerializerWrapper serializer=createSerializer(source);
-		mapperFor((Class<E>)object.getClass()).serialize(this, serializer, object);
-		serializer.close();		
-		
-		return source.toString();
+		if (object == null)
+			return null;
+
+		StringWriter source = new StringWriter();
+		try (SerializerWrapper serializer = createSerializer(source)) {
+			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
+			return source.toString();
+		}
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> void serialize(E object, File source) {
-		if (object==null) return;
-		
-		SerializerWrapper serializer=createSerializer(source);
-		mapperFor((Class<E>)object.getClass()).serialize(this, serializer, object);
-		serializer.close();		
+		if (object == null)
+			return;
+
+		try (SerializerWrapper serializer = createSerializer(source)) {
+			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> void serialize(E object, OutputStream source) {
-		if (object==null) return;
-		
-		SerializerWrapper serializer = createSerializer(source);		
-		mapperFor((Class<E>)object.getClass()).serialize(this, serializer, object);
-		serializer.close();
-	}
+		if (object == null)
+			return;
 
-	@Override
-	public <E> void serialize(E object, ParameterizedType parameterizedType, OutputStream source) {
-		
-		
+		try (SerializerWrapper serializer = createSerializer(source)) {
+			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
+		}
 	}
 
 	@Override
 	public <E> String serializeCollection(Collection<E> collection, Class<E> objectClazz) {
-		if (collection==null) return null;
-		
+		if (collection == null)
+			return null;
+
 		StringWriter sw = new StringWriter();
-		SerializerWrapper serializer = createSerializer(sw);		
-		mapperFor((Class<E>)objectClazz).serializeCollection(this, serializer, collection);
-		serializer.close();
-		return sw.toString();		
+		try (SerializerWrapper serializer = createSerializer(sw)) {
+			mapperFor((Class<E>) objectClazz).serializeCollection(this, serializer, collection);
+			return sw.toString();
+		}
 	}
 
 	@Override
 	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, File source) {
-		if (collection==null) return;
-		
-		SerializerWrapper serializer = createSerializer(source);		
-		mapperFor(objectClazz).serializeCollection(this, serializer, collection);
-		serializer.close();		
+		if (collection == null)
+			return;
+
+		try (SerializerWrapper serializer = createSerializer(source)) {
+			mapperFor(objectClazz).serializeCollection(this, serializer, collection);
+		}
 	}
-	
+
 	@Override
 	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, OutputStream source) {
-		if (collection==null) return;
-		
-		SerializerWrapper serializer = createSerializer(source);		
-		mapperFor(objectClazz).serializeCollection(this, serializer, collection);
-		serializer.close();		
-	}
-	
-	@Override
-	public <K, V> String serializeMap(Map<K, V> map, Class<K> keyClazz, Class<V> valueClazz) {
-		return null;
-//		if (map==null) return null;
-//		
-//		SerializerWrapper serializer = createSerializer(source);		
-//		mapperFor(objectClazz).serializeMap(this, serializer, collection);
-//		serializer.close();
-	}
+		if (collection == null)
+			return;
 
-	@Override
-	public <K, V> void serializeMap(Map<K, V> map, Class<K> keyClazz, Class<V> valueClazz, File source) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public <K, V> void serializeMap(Map<K, V> map, Class<K> keyClazz, Class<V> valueClazz, OutputStream source) {
-		// TODO Auto-generated method stub
-		
+		try (SerializerWrapper serializer = createSerializer(source)) {
+			mapperFor(objectClazz).serializeCollection(this, serializer, collection);
+		}
 	}
 
 }

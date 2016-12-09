@@ -34,7 +34,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -99,7 +99,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 			int i = 0;
 			for (SQLProperty item : entity.getCollection()) {
 				if (item.isNullable()) {
-					Transformer.resetBean(methodBuilder, entityClass, "resultBean", item,  "cursor", "index" + i + "");
+					SQLTransformer.resetBean(methodBuilder, entityClass, "resultBean", item,  "cursor", "index" + i + "");
 					methodBuilder.addCode(";");
 					methodBuilder.addCode("\n");
 				} else {
@@ -119,7 +119,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 				if (item.isNullable()) {
 					methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 				}
-				Transformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "cursor", "index" + i + "");
+				SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "cursor", "index" + i + "");
 				methodBuilder.addCode(";");
 				if (item.isNullable()) {
 					methodBuilder.addCode(" }");

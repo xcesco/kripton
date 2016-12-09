@@ -1,6 +1,8 @@
 package com.abubusoft.kripton.binder2.persistence;
 
-public interface SerializerWrapper {
+import java.io.Closeable;
+
+public interface SerializerWrapper extends Closeable {
 
 	void close();
 

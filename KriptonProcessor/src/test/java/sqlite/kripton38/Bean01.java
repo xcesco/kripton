@@ -15,10 +15,14 @@
  *******************************************************************************/
 package sqlite.kripton38;
 
+import java.util.List;
+
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 public class Bean01 {
+	
+	public List<String> temp;
 
 	protected Long id;
 

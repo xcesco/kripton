@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
-import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import com.abubusoft.kripton.binder2.BinderType;
 
@@ -47,18 +45,11 @@ public interface BinderContext {
 
 	<E> void serialize(E object, OutputStream os);
 
-	<E> void serialize(E object, ParameterizedType parameterizedType, OutputStream os);
-	
 	<E> String serializeCollection(Collection<E> list, Class<E> objectClazz);
 	
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream source);
 	
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, File source);
 	
-	<K, V> String serializeMap(Map<K, V> map, Class<K> keyClazz, Class<V> valueClazz);
-	
-	<K, V> void serializeMap(Map<K, V> map, Class<K> keyClazz, Class<V> valueClazz, OutputStream source);
-	
-	<K, V> void serializeMap(Map<K, V> map, Class<K> keyClazz, Class<V> valueClazz, File source);
 
 }

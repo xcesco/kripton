@@ -58,7 +58,7 @@ import com.abubusoft.kripton.processor.sqlite.SelectStatementBuilder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -326,10 +326,12 @@ public abstract class MethodUtility {
 				if (nullable) {
 					methodBuilder.addCode("($L==null?null:", item);
 				}				
-				
+							
 				// check for string conversion
 				TypeUtility.beginStringConversion(methodBuilder, paramTypeName);			
-				Transformer.java2ContentValues(methodBuilder, paramTypeName, item);
+				
+				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(paramTypeName), item);
+				
 				// check for string conversion
 				TypeUtility.endStringConversion(methodBuilder, paramTypeName);
 				

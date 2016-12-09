@@ -17,9 +17,12 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.util.Map.Entry;
+
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
@@ -27,6 +30,9 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
+import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
@@ -63,7 +69,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		this.filer = filer;
 	}
 
-	public static void execute(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
+	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
 		BindDaoBuilder visitor = new BindDaoBuilder(model, elementUtils, filer);
 
 		for (SQLDaoDefinition item : model.getCollection()) {
@@ -101,6 +107,12 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		// define column name set
 		for (SQLiteModelMethod item : value.getCollection()) {
 			item.accept(this);
+		}
+		
+		// generate serializer params
+		for (Entry<TypeName, String> item: currentDaoDefinition.java2ContentSerializer.entrySet())
+		{
+			ManagedPropertyPersistenceHelper.generateMethodPersistance(builder, item.getValue(), item.getKey(), PersistType.BYTE);
 		}
 
 		TypeSpec typeSpec = builder.build();

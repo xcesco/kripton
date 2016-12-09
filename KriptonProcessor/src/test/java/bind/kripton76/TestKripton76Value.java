@@ -12,43 +12,23 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runners.BlockJUnit4ClassRunner;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
+
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 
 import bind.AbstractBindTypeProcessorTest;
 
-import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
-import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
-
-@RunWith(BlockJUnit4ClassRunner.class)
 public class TestKripton76Value extends AbstractBindTypeProcessorTest {
 	
-	@Rule
-	public ExpectedException expectedEx = ExpectedException.none();
-
-	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
-		expectedEx.expect(IncompatibleAttributesInAnnotationException.class);
-		//expectedEx.expectMessage(clazzException.getSimpleName());
-	}
-	
-	@Before
-	public void scalda()
-	{
-		expectedEx.expect(IncompatibleAttributesInAnnotationException.class);
-	}
-
-	@Test//(expected=AssertionError.class)
+	@Test
 	public void testCompile() throws InstantiationException, IllegalAccessException, IOException 
 	{
 		
-		//this.expectedException(IncompatibleAttributesInAnnotationException.class);
+		this.expectedException(IncompatibleAttributesInAnnotationException.class);
 		buildBindProcessorTest(BeanValue76.class, BeanEnum.class);
 	}
 	
+	// can not work
 	//@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException
 	{		

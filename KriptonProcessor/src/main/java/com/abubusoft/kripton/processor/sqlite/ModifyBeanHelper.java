@@ -38,7 +38,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.Transformer;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
@@ -135,7 +135,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 			// check for string conversion
 			TypeUtility.beginStringConversion(methodBuilder, property);
-			Transformer.java2ContentValues(methodBuilder, beanClass, beanParamName, property);
+			SQLTransformer.java2ContentValues(methodBuilder, beanClass, beanParamName, property);
 			// check for string conversion
 			TypeUtility.endStringConversion(methodBuilder, property);
 

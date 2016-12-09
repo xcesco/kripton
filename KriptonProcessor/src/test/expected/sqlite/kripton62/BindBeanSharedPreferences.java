@@ -14,7 +14,6 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.Byte;
 import java.lang.Character;
@@ -364,7 +363,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -380,6 +379,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       Set<Byte> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Byte> collection=new HashSet<>();
@@ -431,7 +431,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -447,6 +447,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       HashSet<Short> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Short> collection=new HashSet<>();
@@ -498,7 +499,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -514,6 +515,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       LinkedHashSet<Integer> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         LinkedHashSet<Integer> collection=new LinkedHashSet<>();
@@ -565,7 +567,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -581,6 +583,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       HashSet<String> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<String> collection=new HashSet<>();
@@ -632,7 +635,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -648,6 +651,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       Set<Character> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Character> collection=new HashSet<>();
@@ -699,7 +703,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -715,6 +719,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       HashSet<Float> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Float> collection=new HashSet<>();
@@ -766,7 +771,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -782,6 +787,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       HashSet<Double> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Double> collection=new HashSet<>();
@@ -833,7 +839,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -849,6 +855,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       HashSet<BigDecimal> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<BigDecimal> collection=new HashSet<>();
@@ -900,7 +907,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -916,6 +923,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       LinkedHashSet<Bean> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         LinkedHashSet<Bean> collection=new LinkedHashSet<>();
@@ -967,7 +975,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.writeEndObject();
       wrapper.close();
       return writer.toString();
-    } catch(IOException e) {
+    } catch(Exception e) {
       return null;
     }
   }
@@ -983,6 +991,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
       JacksonWrapperParser wrapper=context.createParser(input);
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       HashSet<EnumType> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<EnumType> collection=new HashSet<>();

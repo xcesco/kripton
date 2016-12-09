@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
+
 import java.io.IOException;
 
 import javax.annotation.processing.Filer;
@@ -32,14 +34,11 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 import com.squareup.javapoet.TypeVariableName;
 
 import android.os.AsyncTask;
-
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 
 /**
  * Utility class to generate async task for database operations

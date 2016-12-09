@@ -22,47 +22,36 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.io.IOException;
-import java.io.StringWriter;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
-import com.abubusoft.kripton.binder2.BinderType;
-import com.abubusoft.kripton.binder2.KriptonBinder2;
-import com.abubusoft.kripton.binder2.context.JacksonContext;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.bind.transform.BindTransform;
-import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
+import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * @author xcesco
@@ -134,7 +123,7 @@ public class BindSharedPreferencesBuilder {
 
 		generateSingleReadMethod(entity);
 		
-		generateFieldPersistance(entity);
+		ManagedPropertyPersistenceHelper.generateFieldPersistance(builder, entity.getCollection(), PersistType.STRING, false, Modifier.STATIC, Modifier.PROTECTED);
 
 		generateInstance(className);
 
@@ -144,95 +133,7 @@ public class BindSharedPreferencesBuilder {
 		return className;
 	}
 
-	private static void generateFieldPersistance(PrefEntity entity) {
-		for (PrefProperty property: entity.getCollection())
-		{
-			if (property.bindProperty!=null)
-			{
-				generateFieldSerialize(property.bindProperty);
-				generateFieldParser(property.bindProperty);
-			}
-		}
-		
-	}
-
-	private static void generateFieldSerialize(BindProperty property) {	
-		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-		
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serialize"+format.convert(property.getName()))
-				.addJavadoc("write\n")
-				.addModifiers(Modifier.PROTECTED)
-				.addParameter(ParameterSpec.builder(typeName(property.getElement()), "value").build())
-				.returns(className(String.class));
-		
-		methodBuilder.beginControlFlow("if (value==null)");
-			methodBuilder.addStatement("return null");
-		methodBuilder.endControlFlow();
-		
-		methodBuilder.beginControlFlow("try");
-		methodBuilder.addStatement("$T writer=new $T()", StringWriter.class, StringWriter.class);
-		methodBuilder.addStatement("$T context=($T)$T.getBinder($T.JSON)", JacksonContext.class, JacksonContext.class, KriptonBinder2.class, BinderType.class);
-		methodBuilder.addStatement("$T wrapper=context.createSerializer(writer)", JacksonWrapperSerializer.class);
-		methodBuilder.addStatement("$T jacksonSerializer=wrapper.jacksonGenerator", JsonGenerator.class);
-		
-		if (!property.isBindedObject())
-		{
-			methodBuilder.addStatement("jacksonSerializer.writeStartObject()");
-		}
-		
-		methodBuilder.addStatement("int fieldCount=0");		
-		BindTransform bindTransform = BindTransformer.lookup(property);
-		String serializerName="jacksonSerializer";
-		bindTransform.generateSerializeOnJackson(methodBuilder, serializerName, null, "value", property);
-		
-		if (!property.isBindedObject()) {
-			methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
-		}
-		methodBuilder.addStatement("wrapper.close()");
-		methodBuilder.addStatement("return writer.toString()");
-		
-		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
-		methodBuilder.addStatement("return null");
-		methodBuilder.endControlFlow();
-
-		builder.addMethod(methodBuilder.build());
-	}
 	
-	private static void generateFieldParser(BindProperty property) {	
-		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);		
-		
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parse"+format.convert(property.getName()))
-				.addJavadoc("parse\n")
-				.addModifiers(Modifier.PROTECTED)
-				.addParameter(ParameterSpec.builder(className(String.class), "input").build())
-				.returns(typeName(property.getElement()));
-		
-		methodBuilder.beginControlFlow("if (input==null)");
-			methodBuilder.addStatement("return null");
-		methodBuilder.endControlFlow();
-		
-		methodBuilder.beginControlFlow("try");
-		methodBuilder.addStatement("$T context=($T)$T.getBinder($T.JSON)", JacksonContext.class, JacksonContext.class, KriptonBinder2.class, BinderType.class);
-		methodBuilder.addStatement("$T wrapper=context.createParser(input)", JacksonWrapperParser.class);
-		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);
-		methodBuilder.addStatement("jacksonParser.nextToken()");
-		
-		String parserName="jacksonParser";
-		BindTransform bindTransform = BindTransformer.lookup(property);
-		
-		methodBuilder.addStatement("$T result=null", property.getPropertyType().getName());
-		
-		bindTransform.generateParseOnJackson(methodBuilder, parserName, null, "result", property);
-				 
-		methodBuilder.addStatement("return result");
-		
-		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
-		methodBuilder.addStatement("return null");
-		methodBuilder.endControlFlow();
-
-		builder.addMethod(methodBuilder.build());
-		
-	}
 
 	/**
 	 * create editor
