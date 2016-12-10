@@ -41,6 +41,7 @@ import sqlite.kripton60.TestKripton60;
 import sqlite.kripton62.TestKripton62;
 import sqlite.kripton63.TestKripton63;
 import sqlite.kripton64.Test64Suite;
+import sqlite.kripton84.TestKripton84;
 import test01.TestDatabase01;
 import test02.TestDao01;
 import test03.Test03;
@@ -65,6 +66,7 @@ import test05firt_aid.TestFirstAid;
 			TestKripton71.class,
 			TestKripton72.class,
 			TestKripton73.class,
+			TestKripton84.class,
 		TestFirstAid.class })
 //@formatter:on
 public class BindDataSourceProcessorSuiteTest {

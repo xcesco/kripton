@@ -18,66 +18,19 @@ package base;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.kripton70.Test70Suite;
-import bind.kripton71List.TestKripton71;
-import bind.kripton72.TestKripton72;
-import bind.kripton73.TestKripton73;
-import bind.kripton74Map.TestKripton74;
-import bind.kripton75.TestKripton75;
-import bind.kripton76.TestKripton76Attribute;
-import bind.kripton76.TestKripton76Value;
-import bind.kripton77.TestKripton77;
-import bind.kripton78.TestKripton78;
-import example01.SQLiteProcessorTest;
-import kripton42faster.TestKripton42;
-import shared.kripton45.TestKripton45;
-import shared.kripton46.TestKripton46;
-import shared.kripton47.Test47Suite;
-import sqlite.kripton33.TestKripton33;
-import sqlite.kripton38.TestKripton38;
-import sqlite.kripton40.TestKripton40;
-import sqlite.kripton41.TestKripton41;
-import sqlite.kripton48.TestKripton48;
-import sqlite.kripton49.TestKripton49;
-import sqlite.kripton50.TestKripton50;
-import sqlite.kripton56.TestKripton56;
-import sqlite.kripton58.TestKripton58Array;
-import sqlite.kripton58.TestKripton58List;
-import sqlite.kripton60.TestKripton60;
-import sqlite.kripton62.TestKripton62;
-import sqlite.kripton63.TestKripton63;
-import sqlite.kripton64.Test64Suite;
-import test01.TestDatabase01;
-import test02.TestDao01;
-import test03.Test03;
-import test05firt_aid.TestFirstAid;
+import bind.BindTypeProcessorSuiteTest;
+import shared.SharedPreferenceProcessorSuiteTest;
+import sqlite.BindDataSourceProcessorSuiteTest;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
-		{ TestDatabase01.class,
-			SQLiteProcessorTest.class,
-			TestDao01.class, 
-			Test03.class, 
-			TestKripton33.class, TestKripton38.class, TestKripton40.class, TestKripton41.class, 
-			TestKripton42.class, TestKripton45.class, TestKripton46.class, Test47Suite.class,
-			TestKripton48.class, TestKripton49.class, TestKripton50.class, TestKripton56.class,
-			TestKripton58Array.class,TestKripton58List.class,
-			TestKripton60.class,
-			TestKripton62.class,
-			TestKripton63.class,
-			Test64Suite.class,
-			Test70Suite.class,
-			TestKripton71.class,
-			TestKripton72.class,
-			TestKripton73.class,
-			TestKripton74.class,
-			TestKripton75.class,
-			TestKripton76Value.class,
-			TestKripton76Attribute.class,
-			TestKripton77.class,
-			TestKripton78.class,
-		TestFirstAid.class })
+		{ 
+			BindTypeProcessorSuiteTest.class,
+			SharedPreferenceProcessorSuiteTest.class,
+			BindDataSourceProcessorSuiteTest.class
+			
+		})
 //@formatter:on
 public class AllProcessorSuiteTest {
 

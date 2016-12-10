@@ -1,269 +1,179 @@
-package com.abubusoft.kripton.processor.core;
+/*******************************************************************************
+ * Copyright 2015, 2016 Francesco Benincasa.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+package sqlite.kripton64;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
-import javax.lang.model.element.Modifier;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
-import com.abubusoft.kripton.binder2.KriptonBinder2;
-import com.abubusoft.kripton.binder2.context.JacksonContext;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.bind.transform.BindTransform;
-import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec.Builder;
+import com.abubusoft.kripton.BinderJsonReader;
+import com.abubusoft.kripton.BinderJsonWriter;
+import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.exception.MappingException;
+import com.abubusoft.kripton.exception.ReaderException;
+import com.abubusoft.kripton.exception.WriterException;
 
-public abstract class ManagedPropertyPersistenceHelper {
+import base.BaseAndroidTest;
+import base.BaseProcessorTest;
+import sqlite.kripton64.BindBean64DataSource.Transaction;
 
-	public enum PersistType {
-		STRING, BYTE
-	}
+/**
+ * @author xcesco
+ *
+ */
+public class Test64 extends BaseAndroidTest {
 	
-	public static String DEFAULT_FIELD_NAME="element";
-
-	public static void generateFieldPersistance(Builder builder, List<? extends ManagedModelProperty> collection, PersistType persistType, boolean forceName, Modifier ... modifiers) {		
+	@Test
+	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(Bean64.class, EnumType.class);
+		buildDataSourceProcessorTest(Bean64DataSource.class, Bean64Dao.class, Bean64.class, EnumType.class);
+	}
+	@Test
+	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
+		BindBean64DataSource dataSource=BindBean64DataSource.instance();
+		dataSource.openWritableDatabase();
 		
-		for (ManagedModelProperty property : collection) {
-			if (property.bindProperty != null) {
-				// if defined a forced name, we use it to define every json mapping, to allow comparison with parameters
-				if (forceName) property.bindProperty.jacksonInfo.jacksonName=DEFAULT_FIELD_NAME;
+		dataSource.execute(new Transaction() {
+			
+			@Override
+			public boolean onExecute(BindBean64DaoFactory daoFactory) {
+				Bean64DaoImpl dao = daoFactory.getBean64Dao();
 				
-				generateFieldSerialize(builder, persistType, property.bindProperty, modifiers);
-				generateFieldParser(builder, persistType, property.bindProperty, modifiers);
+				Bean64 bean=new Bean64();
+				bean.valueString ="hello";
+				bean.valueMapStringBean =new HashMap<>();
+				bean.valueMapStringBean.put("key1", new Bean64());
+				bean.valueSetString=new HashSet<String>();
+				bean.valueSetString.add("hello");
+				
+				dao.insert(bean);
+				List<Bean64> list=dao.selectList(bean.id);
+				Assert.assertEquals("not list ", 1, list.size());
+											
+				Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
+				
+				//Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
+				
+				return true;
 			}
-		}
-
-	}
-
-	public static void generateFieldSerialize(Builder builder, PersistType persistType, BindProperty property, Modifier ...modifiers) {
-		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-
-		String methodName = "serialize" + format.convert(property.getName());
-
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName)
-				.addJavadoc("write\n")
-				.addParameter(ParameterSpec.builder(typeName(property.getElement()), "value").build())
-				.addModifiers(modifiers);
-
-		switch (persistType) {
-		case STRING:
-			methodBuilder.returns(className(String.class));
-			break;
-		case BYTE:
-			methodBuilder.returns(TypeUtility.arrayTypeName(Byte.TYPE));
-			break;
-		}
-
-		methodBuilder.beginControlFlow("if (value==null)");
-		methodBuilder.addStatement("return null");
-		methodBuilder.endControlFlow();
-
-		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder2.class);
-		methodBuilder.beginControlFlow("try ($T stream=new $T(); $T wrapper=context.createSerializer(stream))", KriptonByteArrayOutputStream.class, KriptonByteArrayOutputStream.class, JacksonWrapperSerializer.class );
-		methodBuilder.addStatement("$T jacksonSerializer=wrapper.jacksonGenerator", JsonGenerator.class);
-
-		if (!property.isBindedObject()) {
-			methodBuilder.addStatement("jacksonSerializer.writeStartObject()");
-		}
-
-		methodBuilder.addStatement("int fieldCount=0");
+			
+			@Override
+			public void onError(Throwable e) {
 				
-		BindTransform bindTransform = BindTransformer.lookup(property);
-		String serializerName = "jacksonSerializer";
-		bindTransform.generateSerializeOnJackson(methodBuilder, serializerName, null, "value", property);
+			}
 
-		if (!property.isBindedObject()) {
-			methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
-		}
-		
-		methodBuilder.addStatement("jacksonSerializer.flush()");
 
-		switch (persistType) {
-		case STRING:
-			methodBuilder.addStatement("return stream.toString()");
-			break;
-		case BYTE:
-			methodBuilder.addStatement("return stream.getByteBuffer()");
-			break;
-		}
-
-		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
-		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
-		methodBuilder.endControlFlow();
-
-		builder.addMethod(methodBuilder.build());
+		});
+				
 	}
 
-	public static void generateFieldParser(Builder builder, PersistType persistType, BindProperty property, Modifier ... modifiers) {
-		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parse" + format.convert(property.getName())).addJavadoc("parse\n").returns(typeName(property.getElement()));
-		methodBuilder.addModifiers(modifiers);
+	
+	
+	@Test
+	public void testJson() throws IOException, InstantiationException, IllegalAccessException, MappingException, WriterException, ReaderException {
+		Bean64 bean=new Bean64();
 		
-		switch (persistType) {
-		case STRING:
-			methodBuilder.addParameter(ParameterSpec.builder(className(String.class), "input").build());
-			break;
-		case BYTE:
-			methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(Byte.TYPE), "input").build());
-			break;
-		}
-
-		methodBuilder.beginControlFlow("if (input==null)");
-		methodBuilder.addStatement("return null");
-		methodBuilder.endControlFlow();
-
-		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder2.class);
-
-		methodBuilder.beginControlFlow("try ($T wrapper=context.createParser(input))", JacksonWrapperParser.class);
-		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);
+		bean.valueString ="hello";
+		bean.valueMapStringBean =new HashMap<>();
+		bean.valueMapStringBean.put("key1", new Bean64());
 		
-		methodBuilder.addCode("// START_OBJECT\n");
-		methodBuilder.addStatement("jacksonParser.nextToken()");
+		BinderJsonWriter writer=KriptonBinder.getJsonWriter();
 		
-<<<<<<< HEAD
-		if (!property.isBindedObject()) {					      
-			methodBuilder.addCode("// value of \"element\"\n");
-			methodBuilder.addStatement("jacksonParser.nextValue()");	
-		}
+		String buffer=writer.writeMap(bean.valueMapStringBean);
 		
-=======
-		methodBuilder.addStatement("jacksonParser.nextToken()");
-
->>>>>>> branch 'v1.5.x' of https://github.com/xcesco/kripton.git
-		String parserName = "jacksonParser";
-		BindTransform bindTransform = BindTransformer.lookup(property);
-
-		methodBuilder.addStatement("$T result=null", property.getPropertyType().getName());
-
-		bindTransform.generateParseOnJackson(methodBuilder, parserName, null, "result", property);
-
-		methodBuilder.addStatement("return result");
-
-		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
-		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
-		methodBuilder.endControlFlow();
-
-		builder.addMethod(methodBuilder.build());
-
-	}
-
-	public static void generateParamSerializer(Builder builder, String methodName, TypeName parameterTypeName, PersistType persistType) {
-		methodName = SQLDaoDefinition.PARAM_SERIALIZER_PREFIX + methodName;
+		BinderJsonReader reader=KriptonBinder.getJsonReader();
+		HashMap<String, Bean64> map = reader.readMap(new HashMap<String, Bean64>(), String.class, Bean64.class, buffer);
 		
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("write\n").addParameter(ParameterSpec.builder(parameterTypeName, "value").build());
-		
-		methodBuilder.addModifiers(Modifier.PROTECTED, Modifier.STATIC);
-		switch (persistType) {
-		case STRING:
-			methodBuilder.returns(className(String.class));
-			break;
-		case BYTE:
-			methodBuilder.returns(TypeUtility.arrayTypeName(Byte.TYPE));
-			break;
-		}
-
-		methodBuilder.beginControlFlow("if (value==null)");
-		methodBuilder.addStatement("return null");
-		methodBuilder.endControlFlow();
-
-		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder2.class);
-		methodBuilder.beginControlFlow("try ($T stream=new $T(); $T wrapper=context.createSerializer(stream))", KriptonByteArrayOutputStream.class, KriptonByteArrayOutputStream.class, JacksonWrapperSerializer.class );
-		methodBuilder.addStatement("$T jacksonSerializer=wrapper.jacksonGenerator", JsonGenerator.class);
-		
-		if (!BindTransformer.isBindedObject(parameterTypeName)) {
-			methodBuilder.addStatement("jacksonSerializer.writeStartObject()");
-		}
-
-		methodBuilder.addStatement("int fieldCount=0");
-		BindTransform bindTransform = BindTransformer.lookup(parameterTypeName);
-		String serializerName = "jacksonSerializer";
-		
-		BindProperty property=BindProperty.builder(parameterTypeName).inCollection(false).elementName(DEFAULT_FIELD_NAME).build();		
-		bindTransform.generateSerializeOnJackson(methodBuilder, serializerName, null, "value", property);
-
-		if (!BindTransformer.isBindedObject(parameterTypeName)) {
-			methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
-		}
-		
-		methodBuilder.addStatement("jacksonSerializer.flush()");
-
-		switch (persistType) {
-		case STRING:
-			methodBuilder.addStatement("return stream.toString()");
-			break;
-		case BYTE:
-			methodBuilder.addStatement("return stream.getByteBuffer()");
-			break;
-		}
-
-		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
-		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
-		methodBuilder.endControlFlow();
-
-		builder.addMethod(methodBuilder.build());
-
+		String buffer2=writer.writeMap(map);		
+		Assert.assertEquals(buffer, buffer2);				
 	}
 	
-	public static void generateParamParser(Builder builder, String methodName, TypeName parameterTypeName, PersistType persistType) {
-		methodName = SQLDaoDefinition.PARAM_PARSER_PREFIX + methodName;
-
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("parse\n").returns(parameterTypeName);
-		methodBuilder.addModifiers(Modifier.PROTECTED, Modifier.STATIC);
-		
-		switch (persistType) {
-		case STRING:
-			methodBuilder.addParameter(ParameterSpec.builder(className(String.class), "input").build());
-			break;
-		case BYTE:
-			methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(Byte.TYPE), "input").build());
-			break;
-		}
-
-		methodBuilder.beginControlFlow("if (input==null)");
-		methodBuilder.addStatement("return null");
-		methodBuilder.endControlFlow();
-
-		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder2.class);
-
-		methodBuilder.beginControlFlow("try ($T wrapper=context.createParser(input))", JacksonWrapperParser.class);
-		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);
-				
-		methodBuilder.addCode("// START_OBJECT\n");
-		methodBuilder.addStatement("jacksonParser.nextToken()");
-	      
-		methodBuilder.addCode("// value of \"element\"\n");
-		methodBuilder.addStatement("jacksonParser.nextValue()");
-
-		String parserName = "jacksonParser";
-		BindTransform bindTransform = BindTransformer.lookup(parameterTypeName);
-
-		methodBuilder.addStatement("$T result=null", parameterTypeName);
-
-		BindProperty property=BindProperty.builder(parameterTypeName).inCollection(false).elementName(DEFAULT_FIELD_NAME).build();
-		bindTransform.generateParseOnJackson(methodBuilder, parserName, null, "result", property);
-
-		methodBuilder.addStatement("return result");
-
-		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
-		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
-		methodBuilder.endControlFlow();
-
-		builder.addMethod(methodBuilder.build());
-
+	@Test
+	public void testCompileSharedPreferences() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(Bean64.class, EnumType.class);
 	}
+
+//	@Test
+//	public void testRunSharedPreferences() throws IOException, InstantiationException, IllegalAccessException {
+//		BindBeanSharedPreferences shared = BindBeanSharedPreferences.instance();
+//		
+//		shared.registerOnSharedPreferenceChangeListener(new OnSharedPreferenceChangeListener() {
+//			
+//			@Override
+//			public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+//				Log.i("TAG", "change "+key);			
+//			}
+//		});
+//		
+//		Calendar c=Calendar.getInstance();
+//		Date d=new Date();
+//		
+//		shared.edit()		
+//		.putValueBool(true)
+//		.putValueBoolType(true)
+//		.putValueBigDecimal(new BigDecimal(10))
+//		.putValueBigInteger(BigInteger.valueOf(20))
+//		.putValueByte((byte)34)
+//		.putValueByteType((byte)34)
+//		.putValueCalendar(c)
+//		.putValueChar((char)3)
+//		.putValueCurrency(Currency.getInstance(Locale.ITALY))
+//		.putValueDate(d)
+//		.putValueDouble(34.0)
+//		.putValueDoubleType(34.0)
+//		.putValueEnumType(EnumType.VALUE_2)
+//		.putValueFloat(2f)
+//		.putValueFloatType(2f)
+//		.putValueLocale(Locale.JAPAN)
+//		.putValueLong(2L)
+//		.putValueLongType(2L)
+//		.putValueString("hello")
+//		
+//		.commit();
+//		
+//		Assert.assertEquals(true, shared.valueBool());
+//		Assert.assertEquals(true, shared.valueBoolType());
+//		Assert.assertEquals(new BigDecimal(10), shared.valueBigDecimal());
+//		Assert.assertEquals(BigInteger.valueOf(20), shared.valueBigInteger());
+//		Assert.assertTrue((byte)34==shared.valueByte());
+//		Assert.assertEquals((byte)34, shared.valueByteType());
+//		Assert.assertEquals(c, shared.valueCalendar());
+//		Assert.assertTrue((char)3==shared.valueChar());
+//		Assert.assertEquals(Currency.getInstance(Locale.ITALY), shared.valueCurrency());
+//		Assert.assertEquals(d, shared.valueDate());
+//		Assert.assertTrue(34.0==shared.valueDouble());
+//		Assert.assertTrue(34.0==shared.valueDoubleType());
+//		Assert.assertEquals(EnumType.VALUE_2, shared.valueEnumType());
+//		Assert.assertTrue(2.0f==shared.valueFloat());
+//		Assert.assertTrue(2.0f==shared.valueFloatType());
+//		Assert.assertEquals(Locale.JAPAN, shared.valueLocale());
+//		Assert.assertTrue(2L==shared.valueLong());
+//		Assert.assertTrue(2L==shared.valueLongType());
+//		Assert.assertEquals("hello", shared.valueString());
+//	}
+	
 }
