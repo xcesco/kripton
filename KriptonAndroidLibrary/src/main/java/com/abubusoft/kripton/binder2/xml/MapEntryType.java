@@ -16,34 +16,19 @@
 /**
  * 
  */
-package kripton14;
-
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder.xml.XmlType;
-
-
+package com.abubusoft.kripton.binder2.xml;
 
 /**
+ * Mapping type of map entry
  * @author xcesco
  *
  */
-@BindType
-public class Bean3 implements Serializable {
+public enum MapEntryType {
+	TAG,
+	ATTRIBUTE;
 
-	public Bean3()
-	{
-		set=new HashSet<Bean0>();
+	public XmlType toXmlType() {
+		return XmlType.valueOf(toString());
 	}
-
-
-	private static final long serialVersionUID = 3113613163524431347L;
-
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
-	Set<Bean0> set;
-
 }
+

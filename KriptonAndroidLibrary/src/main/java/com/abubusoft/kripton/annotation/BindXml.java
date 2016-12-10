@@ -20,8 +20,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.binder.xml.XmlType;
-import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
+import com.abubusoft.kripton.binder2.xml.MapEntryType;
+import com.abubusoft.kripton.binder2.xml.XmlType;
 
 /**
  * 

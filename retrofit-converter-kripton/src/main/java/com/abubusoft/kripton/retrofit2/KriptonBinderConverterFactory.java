@@ -4,9 +4,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.BinderJsonReader;
-import com.abubusoft.kripton.BinderJsonWriter;
+import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.BinderContext;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -16,33 +16,22 @@ import retrofit2.Retrofit;
 public final class KriptonBinderConverterFactory extends Converter.Factory {
 
 	public static KriptonBinderConverterFactory create() {
-		return create(KriptonBinder.getJsonWriter(), KriptonBinder.getJsonReader());
+		return new KriptonBinderConverterFactory();
 	}
 
-	public static KriptonBinderConverterFactory create(BinderJsonWriter writer, BinderJsonReader reader) {
-		return new KriptonBinderConverterFactory(writer, reader);
-	}
+	protected BinderContext binderContext;
 
-	private BinderJsonWriter writer;
-	
-	private BinderJsonReader reader;
-
-	private KriptonBinderConverterFactory(BinderJsonWriter writer, BinderJsonReader reader) {
-		this.writer = writer;
-		this.reader = reader;
-		if (writer == null)
-			throw new NullPointerException("writer == null");
-		if (reader == null)
-			throw new NullPointerException("reader == null");
+	private KriptonBinderConverterFactory() {
+		binderContext=KriptonBinder2.getBinder(BinderType.JSON);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
 		if (type instanceof Class) {
-			return new KriptonResponseBodyConverter<>((Class<?>) type, writer, reader);
+			return new KriptonResponseBodyConverter<>(binderContext, (Class<?>) type);
 		} else if (type instanceof ParameterizedType) {
-			return new KriptonResponseBodyCollectionConverter((ParameterizedType) type, writer, reader);
+			return new KriptonResponseBodyCollectionConverter(binderContext, (ParameterizedType) type);
 		}
 
 		return null;
@@ -52,9 +41,9 @@ public final class KriptonBinderConverterFactory extends Converter.Factory {
 	public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations,
 			Annotation[] methodAnnotations, Retrofit retrofit) {
 		if (type instanceof Class) {
-			return new KriptonRequestBodyConverter<>((Class<?>) type, writer, reader);
+			return new KriptonRequestBodyConverter<>(binderContext, (Class<?>) type);
 		} else if (type instanceof ParameterizedType) {
-			return new KriptonRequestBodyCollectionConverter<>((ParameterizedType) type, writer, reader);
+			return new KriptonRequestBodyCollectionConverter<>(binderContext, (ParameterizedType) type);
 		}
 
 		return null;

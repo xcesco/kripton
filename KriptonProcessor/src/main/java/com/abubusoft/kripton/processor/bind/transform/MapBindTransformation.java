@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
+import com.abubusoft.kripton.binder2.xml.MapEntryType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;

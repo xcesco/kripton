@@ -17,8 +17,8 @@ package com.abubusoft.kripton.processor.bind.model;
 
 import javax.lang.model.element.Element;
 
-import com.abubusoft.kripton.binder.xml.XmlType;
-import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
+import com.abubusoft.kripton.binder2.xml.MapEntryType;
+import com.abubusoft.kripton.binder2.xml.XmlType;
 import com.abubusoft.kripton.processor.bind.model.BindProperty.BindPropertyBuilder;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;

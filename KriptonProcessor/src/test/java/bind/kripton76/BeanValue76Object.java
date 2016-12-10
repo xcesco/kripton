@@ -13,7 +13,7 @@ import java.util.TimeZone;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.binder2.xml.XmlType;
 
 @BindType(value="root", allFields=false)
 public class BeanValue76Object {

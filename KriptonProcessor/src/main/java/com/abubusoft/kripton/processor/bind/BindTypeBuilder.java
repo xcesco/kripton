@@ -37,7 +37,6 @@ import org.codehaus.stax2.XMLStreamWriter2;
 
 import com.abubusoft.kripton.android.annotation.BindMap;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
@@ -46,6 +45,7 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.binder2.xml.XmlType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;

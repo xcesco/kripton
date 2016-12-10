@@ -8,8 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.abubusoft.kripton.BinderJsonReader;
-import com.abubusoft.kripton.BinderJsonWriter;
+import com.abubusoft.kripton.binder2.context.BinderContext;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 
@@ -17,15 +16,12 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
 final class KriptonBinderResponseBodyCollectionConverter<T> implements Converter<ResponseBody, T> {
-	BinderJsonWriter writer;
-	BinderJsonReader reader;
 	private Class<?> clazz;
 	private Class<?> beanClazz;
+	private BinderContext binderContext;
 
-	KriptonBinderResponseBodyCollectionConverter(ParameterizedType collectionType, BinderJsonWriter writer,
-			BinderJsonReader reader) {
-		this.writer = writer;
-		this.reader = reader;
+	KriptonBinderResponseBodyCollectionConverter(BinderContext binderContext, ParameterizedType collectionType) {
+		this.binderContext=binderContext;		
 		this.clazz = (Class<?>) collectionType.getRawType();
 		this.beanClazz = (Class<?>) collectionType.getActualTypeArguments()[0];
 		
@@ -50,7 +46,8 @@ final class KriptonBinderResponseBodyCollectionConverter<T> implements Converter
 	@Override
 	public T convert(ResponseBody value) throws IOException {
 		try {
-			return (T) reader.readCollection((Collection) clazz.newInstance(), beanClazz, value.byteStream());
+			return (T) binderContext.parseCollection((Collection) clazz.newInstance(), beanClazz, value.byteStream());
+			//return (T) reader.readCollection((Collection) clazz.newInstance(), beanClazz, value.byteStream());
 		} catch (ReaderException | MappingException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 			return null;

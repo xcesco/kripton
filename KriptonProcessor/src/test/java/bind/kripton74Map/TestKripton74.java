@@ -9,11 +9,6 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
-import com.abubusoft.kripton.BinderOptions;
-import com.abubusoft.kripton.BinderWriter;
-import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.binder2.BinderType;
-
 public class TestKripton74 extends AbstractBindTypeProcessorTest {
 
 	public BeanElement74 createBean() {
@@ -44,21 +39,6 @@ public class TestKripton74 extends AbstractBindTypeProcessorTest {
 		//bean.valueString="hello";
 
 		return bean;
-	}
-
-	@Test
-	public void testCompatibility() throws IOException, InstantiationException, IllegalAccessException {
-		BeanElement74 bean = createBean();
-		{
-			BinderWriter writer = KriptonBinder.getXmlWriter(BinderOptions.build().indent(false));
-			//System.out.println(writer.write(bean));
-		}
-		serializeAndParse(bean, BinderType.XML);
-		
-		{
-			BinderWriter writer = KriptonBinder.getJsonWriter();
-		//	System.out.println(writer.write(bean));
-		}
 	}
 
 	@Test

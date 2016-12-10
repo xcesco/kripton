@@ -1,19 +1,8 @@
 package com.abubusoft.kripton.retrofit2;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Logger;
 
 import org.junit.Test;
-
-import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.BinderJsonWriter;
-import com.abubusoft.kripton.binder.json.JsonWriter;
-
-import retrofit2.Retrofit;
 
 
 public class TestConversion {

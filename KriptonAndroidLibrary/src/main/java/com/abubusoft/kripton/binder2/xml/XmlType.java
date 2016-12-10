@@ -13,41 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+package com.abubusoft.kripton.binder2.xml;
+
 /**
+ * Specify type of xml binding.
  * 
- */
-package kripton15;
-
-import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder.xml.internal.MapEntryType;
-
-
-
-/**
  * @author xcesco
  *
  */
-@BindType
-public class Bean5 implements Serializable {
-
-	public Bean5()
-	{
-		map=new LinkedHashMap<Integer, Level1>();
-	}
-
-	@Bind	
-	public String StringField; 
-
-	private static final long serialVersionUID = 3113613163524431347L;
-
-	@Bind(mapKeyName="k", mapValueName="v")
-	@BindXml(mapEntryType=MapEntryType.ATTRIBUTE)
-	Map<Integer, Level1> map;
-
+public enum XmlType { 
+	/**
+	 * by an attribute
+	 */
+	ATTRIBUTE,
+	/**
+	 * by a tag 
+	 */
+	TAG,
+	/**
+	 * in the value section
+	 */
+	VALUE,
+	/**
+	 * in the value section with CDATA 
+	 */
+	VALUE_CDATA
 }
