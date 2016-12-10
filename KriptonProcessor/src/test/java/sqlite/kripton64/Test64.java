@@ -39,7 +39,7 @@ import com.abubusoft.kripton.exception.WriterException;
 
 import base.BaseAndroidTest;
 import base.BaseProcessorTest;
-import sqlite.kripton64.BindBeanDataSource.Transaction;
+import sqlite.kripton64.BindBean64DataSource.Transaction;
 
 /**
  * @author xcesco
@@ -49,9 +49,9 @@ public class Test64 extends BaseAndroidTest {
 	
 	@Test
 	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Bean64DataSource.class, BeanDao.class, Bean64.class, EnumType.class);
+		buildBindProcessorTest(Bean64.class, EnumType.class);
+		buildDataSourceProcessorTest(Bean64DataSource.class, Bean64Dao.class, Bean64.class, EnumType.class);
 	}
-	
 	@Test
 	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
 		BindBean64DataSource dataSource=BindBean64DataSource.instance();
@@ -60,8 +60,8 @@ public class Test64 extends BaseAndroidTest {
 		dataSource.execute(new Transaction() {
 			
 			@Override
-			public boolean onExecute(BindBeanDaoFactory daoFactory) {
-				BeanDaoImpl dao = daoFactory.getBeanDao();
+			public boolean onExecute(BindBean64DaoFactory daoFactory) {
+				Bean64DaoImpl dao = daoFactory.getBean64Dao();
 				
 				Bean64 bean=new Bean64();
 				bean.valueString ="hello";
@@ -74,9 +74,9 @@ public class Test64 extends BaseAndroidTest {
 				List<Bean64> list=dao.selectList(bean.id);
 				Assert.assertEquals("not list ", 1, list.size());
 											
-				Assert.assertEquals("not map", 1, list.size());
-				
 				Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
+				
+				//Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
 				
 				return true;
 			}
@@ -85,10 +85,14 @@ public class Test64 extends BaseAndroidTest {
 			public void onError(Throwable e) {
 				
 			}
+
+
 		});
 				
 	}
 
+	
+	
 	@Test
 	public void testJson() throws IOException, InstantiationException, IllegalAccessException, MappingException, WriterException, ReaderException {
 		Bean64 bean=new Bean64();

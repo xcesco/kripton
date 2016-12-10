@@ -131,6 +131,8 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.beginControlFlow("try ($T wrapper=context.createParser(input))", JacksonWrapperParser.class);
 		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);
 		methodBuilder.addStatement("jacksonParser.nextToken()");
+		
+		methodBuilder.addStatement("jacksonParser.nextToken()");
 
 		String parserName = "jacksonParser";
 		BindTransform bindTransform = BindTransformer.lookup(property);

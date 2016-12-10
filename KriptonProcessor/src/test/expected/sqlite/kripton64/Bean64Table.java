@@ -398,6 +398,7 @@ public class Bean64Table {
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
+      jacksonParser.nextToken();
       List<Time> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Time> collection=new ArrayList<>();
@@ -465,6 +466,7 @@ public class Bean64Table {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       jacksonParser.nextToken();
       LinkedList<String> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
@@ -534,6 +536,7 @@ public class Bean64Table {
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
+      jacksonParser.nextToken();
       LinkedList<Long> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         LinkedList<Long> collection=new LinkedList<>();
@@ -589,6 +592,7 @@ public class Bean64Table {
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
+      jacksonParser.nextToken();
       byte[] result=null;
       if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
         result=jacksonParser.getBinaryValue();
@@ -642,6 +646,7 @@ public class Bean64Table {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       jacksonParser.nextToken();
       long[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
@@ -711,6 +716,7 @@ public class Bean64Table {
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
+      jacksonParser.nextToken();
       Long[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Long> collection=new ArrayList<>();
@@ -778,6 +784,7 @@ public class Bean64Table {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       jacksonParser.nextToken();
       Bean64[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
@@ -847,6 +854,7 @@ public class Bean64Table {
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
+      jacksonParser.nextToken();
       String[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<String> collection=new ArrayList<>();
@@ -915,6 +923,7 @@ public class Bean64Table {
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
+      jacksonParser.nextToken();
       LinkedList<Character> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         LinkedList<Character> collection=new LinkedList<>();
@@ -978,6 +987,7 @@ public class Bean64Table {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       jacksonParser.nextToken();
       char[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
@@ -1046,6 +1056,7 @@ public class Bean64Table {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       jacksonParser.nextToken();
       Character[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
@@ -1119,6 +1130,7 @@ public class Bean64Table {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       jacksonParser.nextToken();
       Map<String, Bean64> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
@@ -1198,6 +1210,7 @@ public class Bean64Table {
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
+      jacksonParser.nextToken();
       LinkedHashMap<String, Bean64> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         LinkedHashMap<String, Bean64> collection=new LinkedHashMap<>();
@@ -1267,6 +1280,7 @@ public class Bean64Table {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
       jacksonParser.nextToken();
       Set<String> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {

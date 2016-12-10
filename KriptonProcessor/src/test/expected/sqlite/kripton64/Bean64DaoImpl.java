@@ -36,15 +36,15 @@ import java.util.TimeZone;
 
 /**
  * <p>
- * DAO implementation for entity <code>Bean64</code>, based on interface <code>BeanDao</code>
+ * DAO implementation for entity <code>Bean64</code>, based on interface <code>Bean64Dao</code>
  * </p>
  *
  *  @see Bean64
- *  @see BeanDao
+ *  @see Bean64Dao
  *  @see Bean64Table
  */
-public class BeanDaoImpl extends AbstractDao implements BeanDao {
-  public BeanDaoImpl(BindBean64DataSource dataSet) {
+public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
+  public Bean64DaoImpl(BindBean64DataSource dataSet) {
     super(dataSet);
   }
 
