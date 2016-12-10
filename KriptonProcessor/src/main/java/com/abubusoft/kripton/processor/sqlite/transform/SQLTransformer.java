@@ -101,7 +101,10 @@ public abstract class SQLTransformer {
 		if (transform.isJava2ContentSerializerNeeded()) {
 			methodName = sqlDaoDefinition.generateJava2ContentSerializer(paramName, paramType);
 			transform.generateWriteQueryParameter(methodBuilder, paramName, methodName);
+		} else {
+			transform.generateWriteQueryParameter(methodBuilder, paramName, null);
 		}
+		
 
 		
 	}

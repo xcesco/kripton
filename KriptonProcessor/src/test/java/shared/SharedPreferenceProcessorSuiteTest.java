@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import shared.kripton45.TestKripton45;
-import shared.kripton47.TestKripton47;
+import shared.kripton47.Test47Suite;
 import sqlite.kripton50.TestKripton50;
 import sqlite.kripton62.TestKripton62;
 import sqlite.kripton63.TestKripton63;
@@ -30,7 +30,7 @@ import test05firt_aid.TestFirstAid;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-			TestKripton45.class, TestKripton47.class,
+			TestKripton45.class, Test47Suite.class,
 			TestKripton50.class,
 			TestKripton62.class,
 			TestKripton63.class,

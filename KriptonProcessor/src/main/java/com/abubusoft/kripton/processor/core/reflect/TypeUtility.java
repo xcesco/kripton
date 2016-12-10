@@ -211,7 +211,16 @@ public class TypeUtility {
 	 * @return typeName
 	 */
 	public static TypeName typeName(TypeMirror typeMirror) {
+		if (typeMirror instanceof ModelType)
+		{
+			return ((ModelType)typeMirror).getName();
+		}
+		
 		return TypeName.get(typeMirror);
+	}
+	
+	public static TypeName typeName(ModelType modelType) {
+		return modelType.getName();
 	}
 
 	/**

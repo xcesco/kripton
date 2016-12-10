@@ -57,6 +57,14 @@ public class BaseProcessorTest {
 	
 	protected boolean display=false;
 	
+	public void log(String message, Object ... objects)
+	{
+		if (display)
+		{
+			System.out.println(String.format(message, objects));
+		}
+	}
+	
 	final TestType testType = TestType.GENERATE;
 	
 	@Rule

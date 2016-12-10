@@ -17,18 +17,20 @@ import java.util.TimeZone;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.abubusoft.kripton.binder2.BinderType;
+
 import bind.AbstractBindTypeProcessorTest;
 
-public class TestKripton80 extends AbstractBindTypeProcessorTest {
+public class Test80All extends AbstractBindTypeProcessorTest {
 
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(BeanElement80.class, BeanEnum.class);
+		buildBindProcessorTest(Bean80.class, BeanEnum.class);
 	}
 	
-	public BeanElement80 createBean() throws MalformedURLException
+	public Bean80 createBean() throws MalformedURLException
 	{
-		BeanElement80 bean = new BeanElement80();
+		Bean80 bean = new Bean80();
 
 		bean.valueBigDecimal = BigDecimal.valueOf(11.0);
 		bean.valueBigInteger = BigInteger.valueOf(10);
@@ -41,7 +43,7 @@ public class TestKripton80 extends AbstractBindTypeProcessorTest {
 		bean.valueTimeZone = TimeZone.getDefault();
 		bean.valueUrl = new URL("http://github.com");
 		bean.id = 25;
-		bean.valueBean = new BeanElement80();
+		bean.valueBean = new Bean80();
 		bean.valueBean.id = 45;
 		bean.valueBoolType = true;
 		bean.valueBool = true;
@@ -66,18 +68,18 @@ public class TestKripton80 extends AbstractBindTypeProcessorTest {
 
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
-		Assert.assertNotNull(new BeanElement80BindMap());
+		Assert.assertNotNull(new Bean80BindMap());
 				
-		List<BeanElement80> list=new ArrayList<>();
+		List<Bean80> list=new ArrayList<>();
 		list.add(createBean());
 		list.add(createBean());
-		
-		checkCollection(list, BeanElement80.class);
+				
+		checkCollection(list, Bean80.class, BinderType.JSON);
 	}
 	
 	@Test
 	public void testProcessor() throws IOException, InstantiationException, IllegalAccessException {
-		List<BeanElement80> list=new ArrayList<>();
+		List<Bean80> list=new ArrayList<>();
 		list.add(createBean());
 		list.add(createBean());
 		

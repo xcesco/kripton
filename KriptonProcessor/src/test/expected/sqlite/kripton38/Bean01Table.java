@@ -2,6 +2,8 @@ package sqlite.kripton38;
 
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -72,7 +74,8 @@ public class Bean01Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JsonGenerator jacksonSerializer=context.createSerializer(stream).jacksonGenerator) {
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
       if (value!=null)  {
@@ -80,7 +83,7 @@ public class Bean01Table {
         int n=value.size();
         String item;
         // write wrapper tag
-        jacksonSerializer.writeFieldName("temp");
+        jacksonSerializer.writeFieldName("element");
         jacksonSerializer.writeStartArray();
         for (int i=0; i<n; i++) {
           item=value.get(i);
@@ -93,6 +96,7 @@ public class Bean01Table {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
       return stream.getByteBuffer();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
@@ -107,7 +111,8 @@ public class Bean01Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (JsonParser jacksonParser=context.createParser(input).jacksonParser) {
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       List<String> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {

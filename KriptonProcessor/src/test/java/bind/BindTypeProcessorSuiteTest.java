@@ -18,7 +18,7 @@ package bind;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.kripton70.TestKripton70;
+import bind.kripton70.Test70Suite;
 import bind.kripton71List.TestKripton71;
 import bind.kripton72.TestKripton72;
 import bind.kripton73.TestKripton73;
@@ -28,13 +28,13 @@ import bind.kripton76.TestKripton76Attribute;
 import bind.kripton76.TestKripton76Value;
 import bind.kripton77.TestKripton77;
 import bind.kripton78.TestKripton78;
-import bind.kripton80.TestKripton80;
+import bind.kripton80.Test80Suite;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestKripton70.class,
+		Test70Suite.class,
 		TestKripton71.class,
 		TestKripton72.class,
 		TestKripton73.class,
@@ -44,7 +44,7 @@ import bind.kripton80.TestKripton80;
 		TestKripton76Attribute.class,
 		TestKripton77.class,
 		TestKripton78.class,
-		TestKripton80.class
+		Test80Suite.class
 		 })
 //@formatter:on
 public class BindTypeProcessorSuiteTest {

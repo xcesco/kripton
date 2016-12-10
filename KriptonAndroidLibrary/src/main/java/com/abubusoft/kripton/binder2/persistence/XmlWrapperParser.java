@@ -18,7 +18,7 @@ public class XmlWrapperParser implements ParserWrapper {
 
 	@Override
 	public void close() {
-		try {
+		try {			
 			xmlParser.close();
 		} catch (XMLStreamException e) {
 			e.printStackTrace();

@@ -24,32 +24,17 @@ import org.junit.runners.JUnit4;
 import base.BaseProcessorTest;
 
 @RunWith(JUnit4.class)
-public class TestKripton47 extends BaseProcessorTest {
+public class Test47Compile extends BaseProcessorTest {
 
-	/**
-	 * No @BindType is put in bean definition
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 */
 	@Test
-	public void test() throws IOException, InstantiationException, IllegalAccessException {
+	public void testCompileApp() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(App.class, UserAccessToken.class);
 	}
-	
-	/**
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 */
+		
 	@Test
-	public void testSecurity() throws IOException, InstantiationException, IllegalAccessException {
+	public void testCompileSecurity() throws IOException, InstantiationException, IllegalAccessException {				
 		buildBindProcessorTest(DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
 		buildSharedPreferencesProcessorTest(Security.class, DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
 	}
-	
-
 
 }

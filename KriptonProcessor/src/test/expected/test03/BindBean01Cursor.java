@@ -1,8 +1,6 @@
 package test03;
 
 import android.database.Cursor;
-import com.abubusoft.kripton.common.ProcessorHelper;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -89,11 +87,11 @@ public class BindBean01Cursor {
        {
         resultBean=new Bean01();
 
-        if (index0>=0 && !cursor.isNull(index0)) { resultBean.setLista(ProcessorHelper.asCollection(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index0)));}
+        if (index0>=0 && !cursor.isNull(index0)) { resultBean.setLista(Bean01Table.parseLista(cursor.getBlob(index0)));}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1));}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.setMessageDate(cursor.getLong(index2));}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.setMessageText(cursor.getString(index3));}
-        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setBeanList(ProcessorHelper.asCollection(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index4)));}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setBeanList(Bean01Table.parseBeanList(cursor.getBlob(index4)));}
         if (index5>=0 && !cursor.isNull(index5)) { resultBean.setValue(cursor.getLong(index5));}
 
         resultList.add(resultBean);
@@ -122,11 +120,11 @@ public class BindBean01Cursor {
         if (index4>=0) { resultBean.setBeanList(null);}
         if (index5>=0) { resultBean.setValue(0L);}
 
-        if (index0>=0 && !cursor.isNull(index0)) { resultBean.setLista(ProcessorHelper.asCollection(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index0)));}
+        if (index0>=0 && !cursor.isNull(index0)) { resultBean.setLista(Bean01Table.parseLista(cursor.getBlob(index0)));}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1));}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.setMessageDate(cursor.getLong(index2));}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.setMessageText(cursor.getString(index3));}
-        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setBeanList(ProcessorHelper.asCollection(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index4)));}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setBeanList(Bean01Table.parseBeanList(cursor.getBlob(index4)));}
         if (index5>=0 && !cursor.isNull(index5)) { resultBean.setValue(cursor.getLong(index5));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());

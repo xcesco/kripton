@@ -4,17 +4,17 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
-import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.BigDecimalUtils;
+import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.StringWriter;
 import java.lang.Byte;
 import java.lang.Character;
 import java.lang.Double;
@@ -335,14 +335,12 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected String serializeValueByteSet(Set<Byte> value) {
+  protected static String serializeValueByteSet(Set<Byte> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -361,23 +359,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected Set<Byte> parseValueByteSet(String input) {
+  protected static Set<Byte> parseValueByteSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       Set<Byte> result=null;
@@ -396,21 +393,19 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * write
    */
-  protected String serializeValueShortSet(HashSet<Short> value) {
+  protected static String serializeValueShortSet(HashSet<Short> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -429,23 +424,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected HashSet<Short> parseValueShortSet(String input) {
+  protected static HashSet<Short> parseValueShortSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       HashSet<Short> result=null;
@@ -464,21 +458,19 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * write
    */
-  protected String serializeValueIntegerSet(LinkedHashSet<Integer> value) {
+  protected static String serializeValueIntegerSet(LinkedHashSet<Integer> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -497,23 +489,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected LinkedHashSet<Integer> parseValueIntegerSet(String input) {
+  protected static LinkedHashSet<Integer> parseValueIntegerSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       LinkedHashSet<Integer> result=null;
@@ -532,21 +523,19 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * write
    */
-  protected String serializeValueStringSet(HashSet<String> value) {
+  protected static String serializeValueStringSet(HashSet<String> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -565,23 +554,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected HashSet<String> parseValueStringSet(String input) {
+  protected static HashSet<String> parseValueStringSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       HashSet<String> result=null;
@@ -600,21 +588,19 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * write
    */
-  protected String serializeValueCharacterSet(Set<Character> value) {
+  protected static String serializeValueCharacterSet(Set<Character> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -633,23 +619,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected Set<Character> parseValueCharacterSet(String input) {
+  protected static Set<Character> parseValueCharacterSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       Set<Character> result=null;
@@ -668,21 +653,19 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * write
    */
-  protected String serializeValueFloatSet(HashSet<Float> value) {
+  protected static String serializeValueFloatSet(HashSet<Float> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -701,23 +684,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected HashSet<Float> parseValueFloatSet(String input) {
+  protected static HashSet<Float> parseValueFloatSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       HashSet<Float> result=null;
@@ -736,21 +718,19 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * write
    */
-  protected String serializeValueDoubleSet(HashSet<Double> value) {
+  protected static String serializeValueDoubleSet(HashSet<Double> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -769,23 +749,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected HashSet<Double> parseValueDoubleSet(String input) {
+  protected static HashSet<Double> parseValueDoubleSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       HashSet<Double> result=null;
@@ -804,21 +783,19 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * write
    */
-  protected String serializeValueBigDecimalSet(HashSet<BigDecimal> value) {
+  protected static String serializeValueBigDecimalSet(HashSet<BigDecimal> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -837,23 +814,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected HashSet<BigDecimal> parseValueBigDecimalSet(String input) {
+  protected static HashSet<BigDecimal> parseValueBigDecimalSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       HashSet<BigDecimal> result=null;
@@ -872,21 +848,19 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * write
    */
-  protected String serializeValueBeanSet(LinkedHashSet<Bean> value) {
+  protected static String serializeValueBeanSet(LinkedHashSet<Bean> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -905,23 +879,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected LinkedHashSet<Bean> parseValueBeanSet(String input) {
+  protected static LinkedHashSet<Bean> parseValueBeanSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       LinkedHashSet<Bean> result=null;
@@ -940,21 +913,19 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * write
    */
-  protected String serializeValueEnumTypeSet(HashSet<EnumType> value) {
+  protected static String serializeValueEnumTypeSet(HashSet<EnumType> value) {
     if (value==null) {
       return null;
     }
-    try {
-      StringWriter writer=new StringWriter();
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperSerializer wrapper=context.createSerializer(writer);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
@@ -973,23 +944,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
-      wrapper.close();
-      return writer.toString();
+      jacksonSerializer.flush();
+      return stream.toString();
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
   /**
    * parse
    */
-  protected HashSet<EnumType> parseValueEnumTypeSet(String input) {
+  protected static HashSet<EnumType> parseValueEnumTypeSet(String input) {
     if (input==null) {
       return null;
     }
-    try {
-      JacksonContext context=(JacksonContext)KriptonBinder2.getBinder(BinderType.JSON);
-      JacksonWrapperParser wrapper=context.createParser(input);
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       jacksonParser.nextToken();
       HashSet<EnumType> result=null;
@@ -1011,7 +981,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
-      return null;
+      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 

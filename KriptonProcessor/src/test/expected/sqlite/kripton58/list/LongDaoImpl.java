@@ -6,10 +6,14 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.fasterxml.jackson.core.JsonGenerator;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,8 +67,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
       resultBean=new LongBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, cursor.getBlob(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index1)) { resultBean.value=LongBeanTable.parseValue(cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.value2=LongBeanTable.parseValue2(cursor.getBlob(index2)); }
 
     }
     cursor.close();
@@ -99,7 +103,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public LongBean selectOne(List<Long> value) {
     // build where condition
-    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=?", args);
@@ -116,8 +120,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
       resultBean=new LongBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, cursor.getBlob(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index2)); }
+      if (!cursor.isNull(index1)) { resultBean.value=LongBeanTable.parseValue(cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.value2=LongBeanTable.parseValue2(cursor.getBlob(index2)); }
 
     }
     cursor.close();
@@ -152,7 +156,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public void selectOne(List<Long> value, OnReadBeanListener<LongBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=?", args);
@@ -175,8 +179,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index2)); }
+          if (!cursor.isNull(index1)) { resultBean.value=LongBeanTable.parseValue(cursor.getBlob(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.value2=LongBeanTable.parseValue2(cursor.getBlob(index2)); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -215,7 +219,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public void selectOne(List<Long> value, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=?", args);
@@ -263,7 +267,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public List<LongBean> selectList(List<Long> value) {
     // build where condition
-    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=?", args);
@@ -283,8 +287,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
         resultBean=new LongBean();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.value=ProcessorHelper.asCollection(new ArrayList<Long>(), Long.class, cursor.getBlob(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.value2=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index2)); }
+        if (!cursor.isNull(index1)) { resultBean.value=LongBeanTable.parseValue(cursor.getBlob(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.value2=LongBeanTable.parseValue2(cursor.getBlob(index2)); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -323,12 +327,12 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
     if (value!=null) {
-      contentValues.put("value", ProcessorHelper.asByteArray(value));
+      contentValues.put("value", java2Content1(value));
     } else {
       contentValues.putNull("value");
     }
 
-    String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(ProcessorHelper.asByteArray(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(java2Content1(paramValue),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE long_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditions);
     int result = database().update("long_bean", contentValues, "id=? and value=?", whereConditions);
@@ -360,7 +364,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     contentValues.put("id", id);
 
     if (value!=null) {
-      contentValues.put("value", ProcessorHelper.asByteArray(value));
+      contentValues.put("value", java2Content1(value));
     } else {
       contentValues.putNull("value");
     }
@@ -394,13 +398,13 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     contentValues.clear();
 
     if (bean.value!=null) {
-      contentValues.put("value", ProcessorHelper.asByteArray(bean.value));
+      contentValues.put("value", LongBeanTable.serializeValue(bean.value));
     } else {
       contentValues.putNull("value");
     }
 
     if (bean.value2!=null) {
-      contentValues.put("value2", ProcessorHelper.asByteArray(bean.value2));
+      contentValues.put("value2", LongBeanTable.serializeValue2(bean.value2));
     } else {
       contentValues.putNull("value2");
     }
@@ -429,10 +433,46 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long delete(List<Long> paramValue) {
-    String[] whereConditions={(paramValue==null?null:new String(ProcessorHelper.asByteArray(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditions={(paramValue==null?null:new String(java2Content1(paramValue),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE long_bean WHERE value=%s"), (Object[])whereConditions);
     int result = database().delete("long_bean", "value=?", whereConditions);
     return result;
+  }
+
+  /**
+   * write
+   */
+  protected static byte[] java2Content1(List<Long> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        int n=value.size();
+        Long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
   }
 }

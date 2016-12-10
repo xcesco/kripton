@@ -3,7 +3,6 @@ package test03;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -46,7 +45,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     contentValues.clear();
 
     if (bean.getLista()!=null) {
-      contentValues.put("lista", ProcessorHelper.asByteArray(bean.getLista()));
+      contentValues.put("lista", Bean01Table.serializeLista(bean.getLista()));
     } else {
       contentValues.putNull("lista");
     }
@@ -60,7 +59,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     }
 
     if (bean.getBeanList()!=null) {
-      contentValues.put("bean_list", ProcessorHelper.asByteArray(bean.getBeanList()));
+      contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     } else {
       contentValues.putNull("bean_list");
     }
@@ -216,7 +215,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     contentValues.clear();
 
     if (bean.getLista()!=null) {
-      contentValues.put("lista", ProcessorHelper.asByteArray(bean.getLista()));
+      contentValues.put("lista", Bean01Table.serializeLista(bean.getLista()));
     } else {
       contentValues.putNull("lista");
     }
@@ -230,7 +229,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     }
 
     if (bean.getBeanList()!=null) {
-      contentValues.put("bean_list", ProcessorHelper.asByteArray(bean.getBeanList()));
+      contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     } else {
       contentValues.putNull("bean_list");
     }

@@ -36,7 +36,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
-@BindDao(Bean.class)
+@BindDao(Bean64.class)
 public interface BeanDao {
 	//-- select raw
 	@BindSqlSelect(value="valueBoolType")
@@ -95,29 +95,29 @@ public interface BeanDao {
 	//--
 	
 	@BindSqlSelect()
-	Bean selectOne();	
+	Bean64 selectOne();	
 
 	@BindSqlSelect(where = "id = ${id}")
-	void selectOne(int id, OnReadBeanListener<Bean> listener);
+	void selectOne(int id, OnReadBeanListener<Bean64> listener);
 
 	@BindSqlSelect(where = "id = ${id}")
 	void selectOne(long id, OnReadCursorListener listener);
 
 	@BindSqlSelect(where = "id = ${id}")
-	List<Bean> selectList(long id);
+	List<Bean64> selectList(long id);
 	
 	@BindSqlUpdate(where = "id=${value.id}")
-	long updateOne(Bean value);
+	long updateOne(Bean64 value);
 	
 	@BindSqlInsert()
-	long insert(Bean bean);
+	long insert(Bean64 bean);
 	
 	// BigDecimal
 	@BindSqlInsert()
 	long insert(BigDecimal valueBigDecimal);
 	
 	@BindSqlSelect(where = "valueBigDecimal=${valueBigDecimal}")
-	Bean selectOne(BigDecimal valueBigDecimal);
+	Bean64 selectOne(BigDecimal valueBigDecimal);
 	
 	@BindSqlDelete(where = "valueBigDecimal=${valueBigDecimal}")
 	long delete(BigDecimal valueBigDecimal);
@@ -133,7 +133,7 @@ public interface BeanDao {
 	long insert(BigInteger valueBigInteger);
 	
 	@BindSqlSelect(where = "valueBigDecimal=${valueBigDecimal}")
-	Bean selectOne(BigInteger valueBigDecimal);
+	Bean64 selectOne(BigInteger valueBigDecimal);
 	
 	@BindSqlDelete(where = "valueBigDecimal=${valueBigDecimal}")
 	long delete(BigInteger valueBigDecimal);
@@ -148,7 +148,7 @@ public interface BeanDao {
 	long insert(boolean valueBoolType);
 	
 	@BindSqlSelect(where = "valueBoolType=${valueBoolType}")
-	Bean selectOne(boolean valueBoolType);
+	Bean64 selectOne(boolean valueBoolType);
 	
 	@BindSqlDelete(where = "valueBoolType=${valueBoolType}")
 	long delete(boolean valueBoolType);
@@ -163,7 +163,7 @@ public interface BeanDao {
 	long insert(Boolean valueBool);
 	
 	@BindSqlSelect(where = "valueBool=${valueBool}")
-	Bean selectOne(Boolean valueBool);
+	Bean64 selectOne(Boolean valueBool);
 	
 	@BindSqlDelete(where = "valueBool=${valueBool}")
 	long delete(Boolean valueBool);
@@ -177,7 +177,7 @@ public interface BeanDao {
 	long insertByteType(byte valueByteType);
 	
 	@BindSqlSelect(where = "valueByteType=${valueByteType}")
-	Bean selectOneByteType(boolean valueByteType);
+	Bean64 selectOneByteType(boolean valueByteType);
 	
 	@BindSqlDelete(where = "valueByteType=${valueByteType}")
 	long deleteByteType(boolean valueByteType);
@@ -191,7 +191,7 @@ public interface BeanDao {
 	long insertByte(Byte valueByte);
 	
 	@BindSqlSelect(where = "valueByte=${valueByte}")
-	Bean selectOneByte(Byte valueByte);
+	Bean64 selectOneByte(Byte valueByte);
 	
 	@BindSqlDelete(where = "valueByte=${valueByte}")
 	long deleteByte(Byte valueByte);
@@ -206,7 +206,7 @@ public interface BeanDao {
 	long insertCharType(char valueCharType);
 	
 	@BindSqlSelect(where = "valueCharType=${valueCharType}")
-	Bean selectOneCharType(char valueCharType);
+	Bean64 selectOneCharType(char valueCharType);
 	
 	@BindSqlDelete(where = "valueCharType=${valueCharType}")
 	long deleteCharType(char valueCharType);
@@ -219,7 +219,7 @@ public interface BeanDao {
 	long insertChar(Character valueChar);
 	
 	@BindSqlSelect(where = "valueCharType=${valueChar}")
-	Bean selectOneChar(Character valueChar);
+	Bean64 selectOneChar(Character valueChar);
 	
 	@BindSqlDelete(where = "valueCharType=${valueChar}")
 	long deleteChar(Character valueChar);
@@ -234,7 +234,7 @@ public interface BeanDao {
 	long insertShortType(short valueShortType);
 	
 	@BindSqlSelect(where = "valueShortType=${valueShortType}")
-	Bean selectOneShortType(short valueShortType);
+	Bean64 selectOneShortType(short valueShortType);
 	
 	@BindSqlDelete(where = "valueShortType=${valueShortType}")
 	long deleteShortType(short valueShortType);
@@ -247,7 +247,7 @@ public interface BeanDao {
 	long insertShort(Short valueShort);
 	
 	@BindSqlSelect(where = "valueShort=${valueShort}")
-	Bean selectOneShort(Short valueShort);
+	Bean64 selectOneShort(Short valueShort);
 	
 	@BindSqlDelete(where = "valueShort=${valueShort}")
 	long deleteShort(Short valueShort);
@@ -261,7 +261,7 @@ public interface BeanDao {
 	long insertIntType(int valueIntType);
 	
 	@BindSqlSelect(where = "valueIntType=${valueIntType}")
-	Bean selectOneIntType(int valueIntType);
+	Bean64 selectOneIntType(int valueIntType);
 	
 	@BindSqlDelete(where = "valueIntType=${valueIntType}")
 	long deleteIntType(int valueIntType);
@@ -274,7 +274,7 @@ public interface BeanDao {
 	long insertInt(Integer valueInt);
 	
 	@BindSqlSelect(where = "valueInt=${valueInt}")
-	Bean selectOneInt(Integer valueInt);
+	Bean64 selectOneInt(Integer valueInt);
 	
 	@BindSqlDelete(where = "valueInt=${valueInt}")
 	long deleteInt(Integer valueInt);
@@ -289,7 +289,7 @@ public interface BeanDao {
 	long insertLongType(long valueLongType);
 	
 	@BindSqlSelect(where = "valueLongType=${valueLongType}")
-	Bean selectOneLongType(long valueLongType);
+	Bean64 selectOneLongType(long valueLongType);
 	
 	@BindSqlDelete(where = "valueLongType=${valueLongType}")
 	long deleteLongType(long valueLongType);
@@ -302,7 +302,7 @@ public interface BeanDao {
 	long insertLong(Long valueLong);
 	
 	@BindSqlSelect(where = "valueLong=${valueLong}")
-	Bean selectOneLong(Long valueLong);
+	Bean64 selectOneLong(Long valueLong);
 	
 	@BindSqlDelete(where = "valueLong=${valueLong}")
 	long deleteLong(Long valueLong);
@@ -316,7 +316,7 @@ public interface BeanDao {
 	long insertFloatType(float valueFloatType);
 	
 	@BindSqlSelect(where = "valueFloatType=${valueFloatType}")
-	Bean selectOneFloatType(float valueFloatType);
+	Bean64 selectOneFloatType(float valueFloatType);
 	
 	@BindSqlDelete(where = "valueFloatType=${valueFloatType}")
 	long deleteFloatType(float valueFloatType);
@@ -329,7 +329,7 @@ public interface BeanDao {
 	long insertFloat(Float valueFloat);
 	
 	@BindSqlSelect(where = "valueFloat=${valueFloat}")
-	Bean selectOneFloat(Float valueFloat);
+	Bean64 selectOneFloat(Float valueFloat);
 	
 	@BindSqlDelete(where = "valueFloat=${valueFloat}")
 	long deleteFloat(Float valueFloat);
@@ -342,7 +342,7 @@ public interface BeanDao {
 	long insertDoubleType(double valueDoubleType);
 	
 	@BindSqlSelect(where = "valueDoubleType=${valueDoubleType}")
-	Bean selectOneDoubleType(double valueDoubleType);
+	Bean64 selectOneDoubleType(double valueDoubleType);
 	
 	@BindSqlDelete(where = "valueDoubleType=${valueDoubleType}")
 	long deleteDoubleType(double valueDoubleType);
@@ -355,7 +355,7 @@ public interface BeanDao {
 	long insertDouble(Double valueDouble);
 	
 	@BindSqlSelect(where = "valueDouble=${valueDouble}")
-	Bean selectOneDouble(Double valueDouble);
+	Bean64 selectOneDouble(Double valueDouble);
 	
 	@BindSqlDelete(where = "valueDouble=${valueDouble}")
 	long deleteDouble(Double valueDouble);
@@ -369,7 +369,7 @@ public interface BeanDao {
 	long insertString(String valueString);
 	
 	@BindSqlSelect(where = "valueString=${valueString}")
-	Bean selectOneString(String valueString);
+	Bean64 selectOneString(String valueString);
 	
 	@BindSqlDelete(where = "valueString=${valueString}")
 	long deleteString(String valueString);
@@ -383,7 +383,7 @@ public interface BeanDao {
 	long insertDate(Date valueDate);
 	
 	@BindSqlSelect(where = "valueDate=${valueDate}")
-	Bean selectOneDate(Date valueDate);
+	Bean64 selectOneDate(Date valueDate);
 	
 	@BindSqlDelete(where = "valueDate=${valueDate}")
 	long deleteDate(Date valueDate);
@@ -397,7 +397,7 @@ public interface BeanDao {
 	long insertCalendar(Calendar valueCalendar);
 	
 	@BindSqlSelect(where = "valueCalendar=${valueCalendar}")
-	Bean selectOneCalendar(Calendar valueCalendar);
+	Bean64 selectOneCalendar(Calendar valueCalendar);
 	
 	@BindSqlDelete(where = "valueCalendar=${valueCalendar}")
 	long deleteCalendar(Date valueCalendar);
@@ -411,7 +411,7 @@ public interface BeanDao {
 	long insertLocale(Locale valueLocale);
 	
 	@BindSqlSelect(where = "valueLocale=${valueLocale}")
-	Bean selectOneLocale(Calendar valueLocale);
+	Bean64 selectOneLocale(Calendar valueLocale);
 	
 	@BindSqlDelete(where = "valueLocale=${valueLocale}")
 	long deleteLocale(Date valueLocale);
@@ -425,7 +425,7 @@ public interface BeanDao {
 	long insertURL(URL valueUrl);
 	
 	@BindSqlSelect(where = "valueUrl=${valueUrl}")
-	Bean selectOneURL(URL valueUrl);
+	Bean64 selectOneURL(URL valueUrl);
 	
 	@BindSqlDelete(where = "valueUrl=${valueUrl}")
 	long deleteURL(URL valueUrl);
@@ -438,7 +438,7 @@ public interface BeanDao {
 	long insertTime(Time valueTime);
 	
 	@BindSqlSelect(where = "valueTime=${valueTime}")
-	Bean selectOneTime(Time valueTime);
+	Bean64 selectOneTime(Time valueTime);
 	
 	@BindSqlDelete(where = "valueTime=${valueTime}")
 	long deleteTime(Time valueTime);
@@ -452,7 +452,7 @@ public interface BeanDao {
 	long insertCurrency(Currency valueCurrency);
 	
 	@BindSqlSelect(where = "valueCurrency=${valueCurrency}")
-	Bean selectOneCurrencye(Currency valueCurrency);
+	Bean64 selectOneCurrencye(Currency valueCurrency);
 	
 	@BindSqlDelete(where = "valueCurrency=${valueCurrency}")
 	long deleteCurrency(Currency valueCurrency);
@@ -466,7 +466,7 @@ public interface BeanDao {
 	long insertTimeZone(TimeZone valueTimeZone);
 	
 	@BindSqlSelect(where = "valueTimeZone=${valueTimeZone}")
-	Bean selectOneTimeZone(TimeZone valueTimeZone);
+	Bean64 selectOneTimeZone(TimeZone valueTimeZone);
 	
 	@BindSqlDelete(where = "valueTimeZone=${valueTimeZone}")
 	long deleteTimeZone(TimeZone valueTimeZone);
@@ -479,7 +479,7 @@ public interface BeanDao {
 	long insertEnumType(EnumType valueEnumType);
 	
 	@BindSqlSelect(where = "valueEnumType=${valueEnumType}")
-	Bean selectOneEnumType(EnumType valueEnumType);
+	Bean64 selectOneEnumType(EnumType valueEnumType);
 	
 	@BindSqlDelete(where = "valueEnumType=${valueEnumType}")
 	long deleteEnumType(EnumType valueEnumType);
@@ -489,23 +489,23 @@ public interface BeanDao {
 	
 	// array bean	
 	@BindSqlInsert
-	long insertArrayBeanType(Bean[] valueBeanArray);
+	long insertArrayBeanType(Bean64[] valueBeanArray);
 	
 	@BindSqlSelect(where = "valueBeanArray=${valueBeanArray}")
-	Bean selectOneArrayBeanType(Bean[] valueBeanArray);
+	Bean64 selectOneArrayBeanType(Bean64[] valueBeanArray);
 	
 	@BindSqlDelete(where = "valueBeanArray=${valueBeanArray}")
-	long deleteArrayBeanType(Bean[] valueBeanArray);
+	long deleteArrayBeanType(Bean64[] valueBeanArray);
 	
 	@BindSqlUpdate(where = "valueBeanArray=${valueBeanArray}")
-	long updateOneArrayBean(Bean[] valueBeanArray);
+	long updateOneArrayBean(Bean64[] valueBeanArray);
 	
 	// array long	
 	@BindSqlInsert
 	long insertArrayLongType(long[] valueLongTypeArray);
 	
 	@BindSqlSelect(where = "valueLongTypeArray=${valueLongTypeArray}")
-	Bean selectOneArrayLongType(long[] valueLongTypeArray);
+	Bean64 selectOneArrayLongType(long[] valueLongTypeArray);
 	
 	@BindSqlDelete(where = "valueLongTypeArray=${valueLongTypeArray}")
 	long deleteArrayLongType(long[] valueLongTypeArray);
@@ -518,7 +518,7 @@ public interface BeanDao {
 	long insertArrayLong(Long[] valueLongArray);
 	
 	@BindSqlSelect(where = "valueLongArray=${valueLongArray}")
-	Bean selectOneArrayLong(Long[] valueLongArray);
+	Bean64 selectOneArrayLong(Long[] valueLongArray);
 	
 	@BindSqlDelete(where = "valueLongArray=${valueLongArray}")
 	long deleteArrayLong(Long[] valueLongArray);
@@ -531,7 +531,7 @@ public interface BeanDao {
 	long insertListLong(LinkedList<Long> valueLongList);
 	
 	@BindSqlSelect(where = "valueLongList=${valueLongList}")
-	Bean selectOneListLong(LinkedList<Long> valueLongList);
+	Bean64 selectOneListLong(LinkedList<Long> valueLongList);
 	
 	@BindSqlDelete(where = "valueLongList=${valueLongList}")
 	long deleteListLong(LinkedList<Long> valueLongList);

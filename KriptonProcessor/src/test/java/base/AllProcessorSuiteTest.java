@@ -18,7 +18,7 @@ package base;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.kripton70.TestKripton70;
+import bind.kripton70.Test70Suite;
 import bind.kripton71List.TestKripton71;
 import bind.kripton72.TestKripton72;
 import bind.kripton73.TestKripton73;
@@ -32,7 +32,7 @@ import example01.SQLiteProcessorTest;
 import kripton42faster.TestKripton42;
 import shared.kripton45.TestKripton45;
 import shared.kripton46.TestKripton46;
-import shared.kripton47.TestKripton47;
+import shared.kripton47.Test47Suite;
 import sqlite.kripton33.TestKripton33;
 import sqlite.kripton38.TestKripton38;
 import sqlite.kripton40.TestKripton40;
@@ -46,7 +46,7 @@ import sqlite.kripton58.TestKripton58List;
 import sqlite.kripton60.TestKripton60;
 import sqlite.kripton62.TestKripton62;
 import sqlite.kripton63.TestKripton63;
-import sqlite.kripton64.TestKripton64;
+import sqlite.kripton64.Test64;
 import test01.TestDatabase01;
 import test02.TestDao01;
 import test03.Test03;
@@ -60,14 +60,14 @@ import test05firt_aid.TestFirstAid;
 			TestDao01.class, 
 			Test03.class, 
 			TestKripton33.class, TestKripton38.class, TestKripton40.class, TestKripton41.class, 
-			TestKripton42.class, TestKripton45.class, TestKripton46.class, TestKripton47.class,
+			TestKripton42.class, TestKripton45.class, TestKripton46.class, Test47Suite.class,
 			TestKripton48.class, TestKripton49.class, TestKripton50.class, TestKripton56.class,
 			TestKripton58Array.class,TestKripton58List.class,
 			TestKripton60.class,
 			TestKripton62.class,
 			TestKripton63.class,
-			TestKripton64.class,
-			TestKripton70.class,
+			Test64.class,
+			Test70Suite.class,
 			TestKripton71.class,
 			TestKripton72.class,
 			TestKripton73.class,

@@ -6,28 +6,28 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CalendarUtils;
-import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.common.DateUtils;
+import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.LocaleUtils;
-import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TimeUtils;
 import com.abubusoft.kripton.common.TimeZoneUtils;
 import com.abubusoft.kripton.common.UrlUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.fasterxml.jackson.core.JsonGenerator;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -36,22 +36,22 @@ import java.util.TimeZone;
 
 /**
  * <p>
- * DAO implementation for entity <code>Bean</code>, based on interface <code>BeanDao</code>
+ * DAO implementation for entity <code>Bean64</code>, based on interface <code>BeanDao</code>
  * </p>
  *
- *  @see Bean
+ *  @see Bean64
  *  @see BeanDao
- *  @see BeanTable
+ *  @see Bean64Table
  */
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
-  public BeanDaoImpl(BindBeanDataSource dataSet) {
+  public BeanDaoImpl(BindBean64DataSource dataSet) {
     super(dataSet);
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_bool_type FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -67,8 +67,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     boolean result=false;
 
@@ -89,7 +89,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_bool FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -105,8 +105,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Boolean result=null;
 
@@ -127,7 +127,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_byte_type FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_byte_type FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -143,8 +143,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_byte_type FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_byte_type FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_byte_type FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_byte_type FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     byte result=0;
 
@@ -165,7 +165,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_byte FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_byte FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -181,8 +181,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_byte FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_byte FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_byte FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_byte FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Byte result=null;
 
@@ -203,7 +203,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_short_type FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_short_type FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -219,8 +219,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_short_type FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_short_type FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_short_type FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_short_type FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     short result=0;
 
@@ -241,7 +241,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_short FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_short FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -257,8 +257,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_short FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_short FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_short FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_short FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Short result=null;
 
@@ -279,7 +279,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_int_type FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_int_type FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -295,8 +295,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_int_type FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_int_type FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_int_type FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_int_type FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     int result=0;
 
@@ -317,7 +317,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_int FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_int FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -333,8 +333,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_int FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_int FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_int FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_int FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Integer result=null;
 
@@ -355,7 +355,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_string FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_string FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -371,8 +371,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_string FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_string FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_string FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_string FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     String result=null;
 
@@ -393,7 +393,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_char_type FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_char_type FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -409,8 +409,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_char_type FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_char_type FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_char_type FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_char_type FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     char result=0;
 
@@ -431,7 +431,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_char FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_char FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -447,8 +447,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_char FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_char FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_char FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_char FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Character result=null;
 
@@ -469,7 +469,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_float_type FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_float_type FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -485,8 +485,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_float_type FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_float_type FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_float_type FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_float_type FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     float result=0f;
 
@@ -507,7 +507,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_float FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_float FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -523,8 +523,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_float FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_float FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_float FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_float FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Float result=null;
 
@@ -545,7 +545,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_long_type FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_long_type FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -561,8 +561,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_long_type FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_long_type FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_long_type FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_long_type FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     long result=0L;
 
@@ -583,7 +583,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_long FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_long FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -599,8 +599,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_long FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_long FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_long FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_long FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Long result=null;
 
@@ -621,7 +621,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_double_type FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_double_type FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -637,8 +637,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_double_type FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_double_type FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_double_type FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_double_type FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     double result=0;
 
@@ -659,7 +659,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_double FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_double FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -675,8 +675,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_double FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_double FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_double FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_double FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Double result=null;
 
@@ -697,7 +697,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE 1=1</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -750,15 +750,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOne() {
+  public Bean64 selectOne() {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -805,7 +805,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -834,20 +834,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -859,7 +859,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -917,17 +917,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @param id
    * 	is binded to ${id}
    * @param listener
-   * 	is the Bean listener
+   * 	is the Bean64 listener
    */
   @Override
-  public void selectOne(int id, OnReadBeanListener<Bean> listener) {
+  public void selectOne(int id, OnReadBeanListener<Bean64> listener) {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = '%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = '%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
-    Bean resultBean=new Bean();
+    Bean64 resultBean=new Bean64();
     try {
       if (cursor.moveToFirst()) {
 
@@ -1049,20 +1049,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
           if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
           if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-          if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-          if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-          if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+          if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+          if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+          if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
           if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-          if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-          if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-          if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-          if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-          if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-          if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-          if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-          if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-          if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-          if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+          if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+          if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+          if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+          if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+          if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+          if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+          if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+          if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+          if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+          if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
           if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
@@ -1078,7 +1078,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -1143,8 +1143,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = '%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = '%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     try {
@@ -1165,7 +1165,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -1226,16 +1226,16 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Bean> selectList(long id) {
+  public List<Bean64> selectList(long id) {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = '%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = '%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean> resultList=new LinkedList<Bean>();
-    Bean resultBean=null;
+    LinkedList<Bean64> resultList=new LinkedList<Bean64>();
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -1284,7 +1284,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       do
        {
-        resultBean=new Bean();
+        resultBean=new Bean64();
 
         if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
         if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -1313,20 +1313,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-        if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-        if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-        if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+        if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+        if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+        if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
         if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-        if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-        if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-        if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-        if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-        if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-        if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-        if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-        if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-        if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-        if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+        if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+        if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+        if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+        if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+        if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+        if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+        if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+        if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+        if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+        if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
         if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
         resultList.add(resultBean);
@@ -1339,7 +1339,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL Update:</p>
-   * <pre>UPDATE bean SET value_bool_type=${value.valueBoolType}, value_bool=${value.valueBool}, value_byte_type=${value.valueByteType}, value_byte=${value.valueByte}, value_short_type=${value.valueShortType}, value_short=${value.valueShort}, value_int_type=${value.valueIntType}, value_int=${value.valueInt}, value_string=${value.valueString}, value_char_type=${value.valueCharType}, value_char=${value.valueChar}, value_float_type=${value.valueFloatType}, value_float=${value.valueFloat}, value_big_integer=${value.valueBigInteger}, value_big_decimal=${value.valueBigDecimal}, value_enum_type=${value.valueEnumType}, value_long_type=${value.valueLongType}, value_long=${value.valueLong}, value_double_type=${value.valueDoubleType}, value_double=${value.valueDouble}, value_locale=${value.valueLocale}, value_calendar=${value.valueCalendar}, value_date=${value.valueDate}, value_url=${value.valueUrl}, value_time=${value.valueTime}, value_currency=${value.valueCurrency}, value_time_zone=${value.valueTimeZone}, value_time_list=${value.valueTimeList}, value_strin_list=${value.valueStrinList}, value_long_list=${value.valueLongList}, value_byte_array=${value.valueByteArray}, value_long_type_array=${value.valueLongTypeArray}, value_long_array=${value.valueLongArray}, value_bean_array=${value.valueBeanArray}, value_string_array=${value.valueStringArray}, value_char_list=${value.valueCharList}, value_char_type_array=${value.valueCharTypeArray}, value_char_array=${value.valueCharArray}, value_map_string_bean=${value.valueMapStringBean}, value_linked_map_string_bean=${value.valueLinkedMapStringBean}, value_set_string=${value.valueSetString} WHERE id=${value.id}</pre>
+   * <pre>UPDATE bean64 SET value_bool_type=${value.valueBoolType}, value_bool=${value.valueBool}, value_byte_type=${value.valueByteType}, value_byte=${value.valueByte}, value_short_type=${value.valueShortType}, value_short=${value.valueShort}, value_int_type=${value.valueIntType}, value_int=${value.valueInt}, value_string=${value.valueString}, value_char_type=${value.valueCharType}, value_char=${value.valueChar}, value_float_type=${value.valueFloatType}, value_float=${value.valueFloat}, value_big_integer=${value.valueBigInteger}, value_big_decimal=${value.valueBigDecimal}, value_enum_type=${value.valueEnumType}, value_long_type=${value.valueLongType}, value_long=${value.valueLong}, value_double_type=${value.valueDoubleType}, value_double=${value.valueDouble}, value_locale=${value.valueLocale}, value_calendar=${value.valueCalendar}, value_date=${value.valueDate}, value_url=${value.valueUrl}, value_time=${value.valueTime}, value_currency=${value.valueCurrency}, value_time_zone=${value.valueTimeZone}, value_time_list=${value.valueTimeList}, value_strin_list=${value.valueStrinList}, value_long_list=${value.valueLongList}, value_byte_array=${value.valueByteArray}, value_long_type_array=${value.valueLongTypeArray}, value_long_array=${value.valueLongArray}, value_bean_array=${value.valueBeanArray}, value_string_array=${value.valueStringArray}, value_char_list=${value.valueCharList}, value_char_type_array=${value.valueCharTypeArray}, value_char_array=${value.valueCharArray}, value_map_string_bean=${value.valueMapStringBean}, value_linked_map_string_bean=${value.valueLinkedMapStringBean}, value_set_string=${value.valueSetString} WHERE id=${value.id}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -1397,7 +1397,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return number of updated records
    */
   @Override
-  public long updateOne(Bean value) {
+  public long updateOne(Bean64 value) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
@@ -1532,19 +1532,19 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (value.valueTimeList!=null) {
-      contentValues.put("value_time_list", ProcessorHelper.asByteArray(value.valueTimeList));
+      contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(value.valueTimeList));
     } else {
       contentValues.putNull("value_time_list");
     }
 
     if (value.valueStrinList!=null) {
-      contentValues.put("value_strin_list", ProcessorHelper.asByteArray(value.valueStrinList));
+      contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(value.valueStrinList));
     } else {
       contentValues.putNull("value_strin_list");
     }
 
     if (value.valueLongList!=null) {
-      contentValues.put("value_long_list", ProcessorHelper.asByteArray(value.valueLongList));
+      contentValues.put("value_long_list", Bean64Table.serializeValueLongList(value.valueLongList));
     } else {
       contentValues.putNull("value_long_list");
     }
@@ -1556,75 +1556,75 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (value.valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueLongTypeArray, ArrayList.class)));
+      contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(value.valueLongTypeArray));
     } else {
       contentValues.putNull("value_long_type_array");
     }
 
     if (value.valueLongArray!=null) {
-      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueLongArray, ArrayList.class)));
+      contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(value.valueLongArray));
     } else {
       contentValues.putNull("value_long_array");
     }
 
     if (value.valueBeanArray!=null) {
-      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueBeanArray, ArrayList.class)));
+      contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(value.valueBeanArray));
     } else {
       contentValues.putNull("value_bean_array");
     }
 
     if (value.valueStringArray!=null) {
-      contentValues.put("value_string_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueStringArray, ArrayList.class)));
+      contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(value.valueStringArray));
     } else {
       contentValues.putNull("value_string_array");
     }
 
     if (value.valueCharList!=null) {
-      contentValues.put("value_char_list", ProcessorHelper.asByteArray(value.valueCharList));
+      contentValues.put("value_char_list", Bean64Table.serializeValueCharList(value.valueCharList));
     } else {
       contentValues.putNull("value_char_list");
     }
 
     if (value.valueCharTypeArray!=null) {
-      contentValues.put("value_char_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueCharTypeArray, ArrayList.class)));
+      contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(value.valueCharTypeArray));
     } else {
       contentValues.putNull("value_char_type_array");
     }
 
     if (value.valueCharArray!=null) {
-      contentValues.put("value_char_array", ProcessorHelper.asByteArray(CollectionUtils.asList(value.valueCharArray, ArrayList.class)));
+      contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(value.valueCharArray));
     } else {
       contentValues.putNull("value_char_array");
     }
 
     if (value.valueMapStringBean!=null) {
-      contentValues.put("value_map_string_bean", ProcessorHelper.asByteArray(value.valueMapStringBean));
+      contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(value.valueMapStringBean));
     } else {
       contentValues.putNull("value_map_string_bean");
     }
 
     if (value.valueLinkedMapStringBean!=null) {
-      contentValues.put("value_linked_map_string_bean", ProcessorHelper.asByteArray(value.valueLinkedMapStringBean));
+      contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(value.valueLinkedMapStringBean));
     } else {
       contentValues.putNull("value_linked_map_string_bean");
     }
 
     if (value.valueSetString!=null) {
-      contentValues.put("value_set_string", ProcessorHelper.asByteArray(value.valueSetString));
+      contentValues.put("value_set_string", Bean64Table.serializeValueSetString(value.valueSetString));
     } else {
       contentValues.putNull("value_set_string");
     }
 
     String[] whereConditions={String.valueOf(value.id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET value_bool_type='"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"', value_bool='"+StringUtils.checkSize(contentValues.get("value_bool"))+"', value_byte_type='"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"', value_byte='"+StringUtils.checkSize(contentValues.get("value_byte"))+"', value_short_type='"+StringUtils.checkSize(contentValues.get("value_short_type"))+"', value_short='"+StringUtils.checkSize(contentValues.get("value_short"))+"', value_int_type='"+StringUtils.checkSize(contentValues.get("value_int_type"))+"', value_int='"+StringUtils.checkSize(contentValues.get("value_int"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"', value_char_type='"+StringUtils.checkSize(contentValues.get("value_char_type"))+"', value_char='"+StringUtils.checkSize(contentValues.get("value_char"))+"', value_float_type='"+StringUtils.checkSize(contentValues.get("value_float_type"))+"', value_float='"+StringUtils.checkSize(contentValues.get("value_float"))+"', value_big_integer='"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"', value_big_decimal='"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"', value_enum_type='"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"', value_long_type='"+StringUtils.checkSize(contentValues.get("value_long_type"))+"', value_long='"+StringUtils.checkSize(contentValues.get("value_long"))+"', value_double_type='"+StringUtils.checkSize(contentValues.get("value_double_type"))+"', value_double='"+StringUtils.checkSize(contentValues.get("value_double"))+"', value_locale='"+StringUtils.checkSize(contentValues.get("value_locale"))+"', value_calendar='"+StringUtils.checkSize(contentValues.get("value_calendar"))+"', value_date='"+StringUtils.checkSize(contentValues.get("value_date"))+"', value_url='"+StringUtils.checkSize(contentValues.get("value_url"))+"', value_time='"+StringUtils.checkSize(contentValues.get("value_time"))+"', value_currency='"+StringUtils.checkSize(contentValues.get("value_currency"))+"', value_time_zone='"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"', value_time_list='"+StringUtils.checkSize(contentValues.get("value_time_list"))+"', value_strin_list='"+StringUtils.checkSize(contentValues.get("value_strin_list"))+"', value_long_list='"+StringUtils.checkSize(contentValues.get("value_long_list"))+"', value_byte_array='"+StringUtils.checkSize(contentValues.get("value_byte_array"))+"', value_long_type_array='"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"', value_long_array='"+StringUtils.checkSize(contentValues.get("value_long_array"))+"', value_bean_array='"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"', value_string_array='"+StringUtils.checkSize(contentValues.get("value_string_array"))+"', value_char_list='"+StringUtils.checkSize(contentValues.get("value_char_list"))+"', value_char_type_array='"+StringUtils.checkSize(contentValues.get("value_char_type_array"))+"', value_char_array='"+StringUtils.checkSize(contentValues.get("value_char_array"))+"', value_map_string_bean='"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', value_linked_map_string_bean='"+StringUtils.checkSize(contentValues.get("value_linked_map_string_bean"))+"', value_set_string='"+StringUtils.checkSize(contentValues.get("value_set_string"))+"' WHERE id=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET value_bool_type='"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"', value_bool='"+StringUtils.checkSize(contentValues.get("value_bool"))+"', value_byte_type='"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"', value_byte='"+StringUtils.checkSize(contentValues.get("value_byte"))+"', value_short_type='"+StringUtils.checkSize(contentValues.get("value_short_type"))+"', value_short='"+StringUtils.checkSize(contentValues.get("value_short"))+"', value_int_type='"+StringUtils.checkSize(contentValues.get("value_int_type"))+"', value_int='"+StringUtils.checkSize(contentValues.get("value_int"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"', value_char_type='"+StringUtils.checkSize(contentValues.get("value_char_type"))+"', value_char='"+StringUtils.checkSize(contentValues.get("value_char"))+"', value_float_type='"+StringUtils.checkSize(contentValues.get("value_float_type"))+"', value_float='"+StringUtils.checkSize(contentValues.get("value_float"))+"', value_big_integer='"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"', value_big_decimal='"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"', value_enum_type='"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"', value_long_type='"+StringUtils.checkSize(contentValues.get("value_long_type"))+"', value_long='"+StringUtils.checkSize(contentValues.get("value_long"))+"', value_double_type='"+StringUtils.checkSize(contentValues.get("value_double_type"))+"', value_double='"+StringUtils.checkSize(contentValues.get("value_double"))+"', value_locale='"+StringUtils.checkSize(contentValues.get("value_locale"))+"', value_calendar='"+StringUtils.checkSize(contentValues.get("value_calendar"))+"', value_date='"+StringUtils.checkSize(contentValues.get("value_date"))+"', value_url='"+StringUtils.checkSize(contentValues.get("value_url"))+"', value_time='"+StringUtils.checkSize(contentValues.get("value_time"))+"', value_currency='"+StringUtils.checkSize(contentValues.get("value_currency"))+"', value_time_zone='"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"', value_time_list='"+StringUtils.checkSize(contentValues.get("value_time_list"))+"', value_strin_list='"+StringUtils.checkSize(contentValues.get("value_strin_list"))+"', value_long_list='"+StringUtils.checkSize(contentValues.get("value_long_list"))+"', value_byte_array='"+StringUtils.checkSize(contentValues.get("value_byte_array"))+"', value_long_type_array='"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"', value_long_array='"+StringUtils.checkSize(contentValues.get("value_long_array"))+"', value_bean_array='"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"', value_string_array='"+StringUtils.checkSize(contentValues.get("value_string_array"))+"', value_char_list='"+StringUtils.checkSize(contentValues.get("value_char_list"))+"', value_char_type_array='"+StringUtils.checkSize(contentValues.get("value_char_type_array"))+"', value_char_array='"+StringUtils.checkSize(contentValues.get("value_char_array"))+"', value_map_string_bean='"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', value_linked_map_string_bean='"+StringUtils.checkSize(contentValues.get("value_linked_map_string_bean"))+"', value_set_string='"+StringUtils.checkSize(contentValues.get("value_set_string"))+"' WHERE id=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "id=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${bean.valueBoolType}, ${bean.valueBool}, ${bean.valueByteType}, ${bean.valueByte}, ${bean.valueShortType}, ${bean.valueShort}, ${bean.valueIntType}, ${bean.valueInt}, ${bean.valueString}, ${bean.valueCharType}, ${bean.valueChar}, ${bean.valueFloatType}, ${bean.valueFloat}, ${bean.valueBigInteger}, ${bean.valueBigDecimal}, ${bean.valueEnumType}, ${bean.valueLongType}, ${bean.valueLong}, ${bean.valueDoubleType}, ${bean.valueDouble}, ${bean.valueLocale}, ${bean.valueCalendar}, ${bean.valueDate}, ${bean.valueUrl}, ${bean.valueTime}, ${bean.valueCurrency}, ${bean.valueTimeZone}, ${bean.valueTimeList}, ${bean.valueStrinList}, ${bean.valueLongList}, ${bean.valueByteArray}, ${bean.valueLongTypeArray}, ${bean.valueLongArray}, ${bean.valueBeanArray}, ${bean.valueStringArray}, ${bean.valueCharList}, ${bean.valueCharTypeArray}, ${bean.valueCharArray}, ${bean.valueMapStringBean}, ${bean.valueLinkedMapStringBean}, ${bean.valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${bean.valueBoolType}, ${bean.valueBool}, ${bean.valueByteType}, ${bean.valueByte}, ${bean.valueShortType}, ${bean.valueShort}, ${bean.valueIntType}, ${bean.valueInt}, ${bean.valueString}, ${bean.valueCharType}, ${bean.valueChar}, ${bean.valueFloatType}, ${bean.valueFloat}, ${bean.valueBigInteger}, ${bean.valueBigDecimal}, ${bean.valueEnumType}, ${bean.valueLongType}, ${bean.valueLong}, ${bean.valueDoubleType}, ${bean.valueDouble}, ${bean.valueLocale}, ${bean.valueCalendar}, ${bean.valueDate}, ${bean.valueUrl}, ${bean.valueTime}, ${bean.valueCurrency}, ${bean.valueTimeZone}, ${bean.valueTimeList}, ${bean.valueStrinList}, ${bean.valueLongList}, ${bean.valueByteArray}, ${bean.valueLongTypeArray}, ${bean.valueLongArray}, ${bean.valueBeanArray}, ${bean.valueStringArray}, ${bean.valueCharList}, ${bean.valueCharTypeArray}, ${bean.valueCharArray}, ${bean.valueMapStringBean}, ${bean.valueLinkedMapStringBean}, ${bean.valueSetString})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -1679,7 +1679,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return <strong>id</strong> of inserted record
    */
   @Override
-  public long insert(Bean bean) {
+  public long insert(Bean64 bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
@@ -1814,19 +1814,19 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (bean.valueTimeList!=null) {
-      contentValues.put("value_time_list", ProcessorHelper.asByteArray(bean.valueTimeList));
+      contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(bean.valueTimeList));
     } else {
       contentValues.putNull("value_time_list");
     }
 
     if (bean.valueStrinList!=null) {
-      contentValues.put("value_strin_list", ProcessorHelper.asByteArray(bean.valueStrinList));
+      contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(bean.valueStrinList));
     } else {
       contentValues.putNull("value_strin_list");
     }
 
     if (bean.valueLongList!=null) {
-      contentValues.put("value_long_list", ProcessorHelper.asByteArray(bean.valueLongList));
+      contentValues.put("value_long_list", Bean64Table.serializeValueLongList(bean.valueLongList));
     } else {
       contentValues.putNull("value_long_list");
     }
@@ -1838,68 +1838,68 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (bean.valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueLongTypeArray, ArrayList.class)));
+      contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(bean.valueLongTypeArray));
     } else {
       contentValues.putNull("value_long_type_array");
     }
 
     if (bean.valueLongArray!=null) {
-      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueLongArray, ArrayList.class)));
+      contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(bean.valueLongArray));
     } else {
       contentValues.putNull("value_long_array");
     }
 
     if (bean.valueBeanArray!=null) {
-      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueBeanArray, ArrayList.class)));
+      contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(bean.valueBeanArray));
     } else {
       contentValues.putNull("value_bean_array");
     }
 
     if (bean.valueStringArray!=null) {
-      contentValues.put("value_string_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueStringArray, ArrayList.class)));
+      contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(bean.valueStringArray));
     } else {
       contentValues.putNull("value_string_array");
     }
 
     if (bean.valueCharList!=null) {
-      contentValues.put("value_char_list", ProcessorHelper.asByteArray(bean.valueCharList));
+      contentValues.put("value_char_list", Bean64Table.serializeValueCharList(bean.valueCharList));
     } else {
       contentValues.putNull("value_char_list");
     }
 
     if (bean.valueCharTypeArray!=null) {
-      contentValues.put("value_char_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueCharTypeArray, ArrayList.class)));
+      contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(bean.valueCharTypeArray));
     } else {
       contentValues.putNull("value_char_type_array");
     }
 
     if (bean.valueCharArray!=null) {
-      contentValues.put("value_char_array", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.valueCharArray, ArrayList.class)));
+      contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(bean.valueCharArray));
     } else {
       contentValues.putNull("value_char_array");
     }
 
     if (bean.valueMapStringBean!=null) {
-      contentValues.put("value_map_string_bean", ProcessorHelper.asByteArray(bean.valueMapStringBean));
+      contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(bean.valueMapStringBean));
     } else {
       contentValues.putNull("value_map_string_bean");
     }
 
     if (bean.valueLinkedMapStringBean!=null) {
-      contentValues.put("value_linked_map_string_bean", ProcessorHelper.asByteArray(bean.valueLinkedMapStringBean));
+      contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(bean.valueLinkedMapStringBean));
     } else {
       contentValues.putNull("value_linked_map_string_bean");
     }
 
     if (bean.valueSetString!=null) {
-      contentValues.put("value_set_string", ProcessorHelper.asByteArray(bean.valueSetString));
+      contentValues.put("value_set_string", Bean64Table.serializeValueSetString(bean.valueSetString));
     } else {
       contentValues.putNull("value_set_string");
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_bool"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte"))+"', '"+StringUtils.checkSize(contentValues.get("value_short_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_short"))+"', '"+StringUtils.checkSize(contentValues.get("value_int_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_int"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_char"))+"', '"+StringUtils.checkSize(contentValues.get("value_float_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_float"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"', '"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long"))+"', '"+StringUtils.checkSize(contentValues.get("value_double_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_double"))+"', '"+StringUtils.checkSize(contentValues.get("value_locale"))+"', '"+StringUtils.checkSize(contentValues.get("value_calendar"))+"', '"+StringUtils.checkSize(contentValues.get("value_date"))+"', '"+StringUtils.checkSize(contentValues.get("value_url"))+"', '"+StringUtils.checkSize(contentValues.get("value_time"))+"', '"+StringUtils.checkSize(contentValues.get("value_currency"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_strin_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_string_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_linked_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_bool"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte"))+"', '"+StringUtils.checkSize(contentValues.get("value_short_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_short"))+"', '"+StringUtils.checkSize(contentValues.get("value_int_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_int"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_char"))+"', '"+StringUtils.checkSize(contentValues.get("value_float_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_float"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"', '"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long"))+"', '"+StringUtils.checkSize(contentValues.get("value_double_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_double"))+"', '"+StringUtils.checkSize(contentValues.get("value_locale"))+"', '"+StringUtils.checkSize(contentValues.get("value_calendar"))+"', '"+StringUtils.checkSize(contentValues.get("value_date"))+"', '"+StringUtils.checkSize(contentValues.get("value_url"))+"', '"+StringUtils.checkSize(contentValues.get("value_time"))+"', '"+StringUtils.checkSize(contentValues.get("value_currency"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_strin_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_string_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_linked_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     bean.id=result;
 
     return result;
@@ -1907,7 +1907,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_big_decimal) VALUES (${valueBigDecimal})</pre>
+   * <pre>INSERT INTO bean64 (value_big_decimal) VALUES (${valueBigDecimal})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -1931,15 +1931,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_big_decimal) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_big_decimal) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -2000,15 +2000,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOne(BigDecimal valueBigDecimal) {
+  public Bean64 selectOne(BigDecimal valueBigDecimal) {
     // build where condition
     String[] args={(valueBigDecimal==null?null:valueBigDecimal.toPlainString())};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -2055,7 +2055,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -2084,20 +2084,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -2108,7 +2108,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <pre>DELETE bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -2124,14 +2124,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long delete(BigDecimal valueBigDecimal) {
     String[] whereConditions={(valueBigDecimal==null?null:valueBigDecimal.toPlainString())};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBigDecimal=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_big_decimal=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueBigDecimal=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_big_decimal=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -2154,14 +2154,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueBigDecimal==null?null:valueBigDecimal.toPlainString())};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBigDecimal=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_big_decimal=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueBigDecimal=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_big_decimal=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET valueSetString=${valueSetString} WHERE id=${id}</pre>
+   * <pre>UPDATE bean64 SET valueSetString=${valueSetString} WHERE id=${id}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -2185,21 +2185,21 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
     if (valueSetString!=null) {
-      contentValues.put("value_set_string", ProcessorHelper.asByteArray(valueSetString));
+      contentValues.put("value_set_string", java2Content1(valueSetString));
     } else {
       contentValues.putNull("value_set_string");
     }
 
     String[] whereConditions={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET valueSetString='"+StringUtils.checkSize(contentValues.get("value_set_string"))+"' WHERE id=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET valueSetString='"+StringUtils.checkSize(contentValues.get("value_set_string"))+"' WHERE id=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "id=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_big_integer) VALUES (${valueBigInteger})</pre>
+   * <pre>INSERT INTO bean64 (value_big_integer) VALUES (${valueBigInteger})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -2223,15 +2223,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_big_integer) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_big_integer) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -2292,15 +2292,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOne(BigInteger valueBigDecimal) {
+  public Bean64 selectOne(BigInteger valueBigDecimal) {
     // build where condition
     String[] args={(valueBigDecimal==null?null:String.valueOf(valueBigDecimal.toString()))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -2347,7 +2347,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -2376,20 +2376,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -2400,7 +2400,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <pre>DELETE bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -2416,14 +2416,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long delete(BigInteger valueBigDecimal) {
     String[] whereConditions={(valueBigDecimal==null?null:String.valueOf(valueBigDecimal.toString()))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBigDecimal=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_big_decimal=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueBigDecimal=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_big_decimal=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -2446,14 +2446,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueBigDecimal==null?null:String.valueOf(valueBigDecimal.toString()))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBigDecimal=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_big_decimal=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueBigDecimal=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_big_decimal=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_bool_type) VALUES (${valueBoolType})</pre>
+   * <pre>INSERT INTO bean64 (value_bool_type) VALUES (${valueBoolType})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -2473,15 +2473,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_bool_type", valueBoolType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bool_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_bool_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBoolType=${valueBoolType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBoolType=${valueBoolType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -2542,15 +2542,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOne(boolean valueBoolType) {
+  public Bean64 selectOne(boolean valueBoolType) {
     // build where condition
     String[] args={String.valueOf(valueBoolType)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -2597,7 +2597,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -2626,20 +2626,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -2650,7 +2650,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueBoolType=${valueBoolType}</pre>
+   * <pre>DELETE bean64 WHERE valueBoolType=${valueBoolType}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -2666,14 +2666,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long delete(boolean valueBoolType) {
     String[] whereConditions={String.valueOf(valueBoolType)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBoolType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_bool_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueBoolType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_bool_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueBoolType=${valueBoolType}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueBoolType=${valueBoolType}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -2696,14 +2696,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueBoolType)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBoolType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_bool_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueBoolType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_bool_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_bool) VALUES (${valueBool})</pre>
+   * <pre>INSERT INTO bean64 (value_bool) VALUES (${valueBool})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -2727,15 +2727,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bool) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_bool) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBool=${valueBool}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBool=${valueBool}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -2796,15 +2796,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOne(Boolean valueBool) {
+  public Bean64 selectOne(Boolean valueBool) {
     // build where condition
     String[] args={(valueBool==null?null:String.valueOf(valueBool))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -2851,7 +2851,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -2880,20 +2880,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -2904,7 +2904,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueBool=${valueBool}</pre>
+   * <pre>DELETE bean64 WHERE valueBool=${valueBool}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -2920,14 +2920,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long delete(Boolean valueBool) {
     String[] whereConditions={(valueBool==null?null:String.valueOf(valueBool))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBool=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_bool=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueBool=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_bool=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueBool=${valueBool}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueBool=${valueBool}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -2950,14 +2950,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueBool==null?null:String.valueOf(valueBool))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBool=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_bool=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueBool=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_bool=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_byte_type) VALUES (${valueByteType})</pre>
+   * <pre>INSERT INTO bean64 (value_byte_type) VALUES (${valueByteType})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -2977,15 +2977,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_byte_type", valueByteType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_byte_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_byte_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueByteType=${valueByteType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueByteType=${valueByteType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -3046,15 +3046,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneByteType(boolean valueByteType) {
+  public Bean64 selectOneByteType(boolean valueByteType) {
     // build where condition
     String[] args={String.valueOf(valueByteType)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -3101,7 +3101,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -3130,20 +3130,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -3154,7 +3154,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueByteType=${valueByteType}</pre>
+   * <pre>DELETE bean64 WHERE valueByteType=${valueByteType}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -3170,14 +3170,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteByteType(boolean valueByteType) {
     String[] whereConditions={String.valueOf(valueByteType)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueByteType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_byte_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueByteType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_byte_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueByteType=${valueByteType}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueByteType=${valueByteType}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -3200,14 +3200,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueByteType)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueByteType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_byte_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueByteType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_byte_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_byte) VALUES (${valueByte})</pre>
+   * <pre>INSERT INTO bean64 (value_byte) VALUES (${valueByte})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -3231,15 +3231,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueByte=${valueByte}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueByte=${valueByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -3300,15 +3300,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneByte(Byte valueByte) {
+  public Bean64 selectOneByte(Byte valueByte) {
     // build where condition
     String[] args={(valueByte==null?null:String.valueOf(valueByte))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -3355,7 +3355,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -3384,20 +3384,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -3408,7 +3408,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueByte=${valueByte}</pre>
+   * <pre>DELETE bean64 WHERE valueByte=${valueByte}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -3424,14 +3424,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteByte(Byte valueByte) {
     String[] whereConditions={(valueByte==null?null:String.valueOf(valueByte))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueByte=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_byte=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueByte=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_byte=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueByte=${valueByte}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueByte=${valueByte}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -3454,14 +3454,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueByte==null?null:String.valueOf(valueByte))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueByte=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_byte=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueByte=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_byte=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_char_type) VALUES (${valueCharType})</pre>
+   * <pre>INSERT INTO bean64 (value_char_type) VALUES (${valueCharType})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -3481,15 +3481,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_char_type", (int)valueCharType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_char_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char_type"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_char_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char_type"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueCharType=${valueCharType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueCharType=${valueCharType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -3550,15 +3550,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneCharType(char valueCharType) {
+  public Bean64 selectOneCharType(char valueCharType) {
     // build where condition
     String[] args={String.valueOf((int)valueCharType)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -3605,7 +3605,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -3634,20 +3634,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -3658,7 +3658,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueCharType=${valueCharType}</pre>
+   * <pre>DELETE bean64 WHERE valueCharType=${valueCharType}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -3674,14 +3674,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteCharType(char valueCharType) {
     String[] whereConditions={String.valueOf((int)valueCharType)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueCharType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_char_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueCharType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_char_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueCharType=${valueCharType}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueCharType=${valueCharType}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -3704,14 +3704,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf((int)valueCharType)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueCharType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_char_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueCharType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_char_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_char) VALUES (${valueChar})</pre>
+   * <pre>INSERT INTO bean64 (value_char) VALUES (${valueChar})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -3735,15 +3735,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_char) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_char) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueCharType=${valueChar}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueCharType=${valueChar}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -3804,15 +3804,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneChar(Character valueChar) {
+  public Bean64 selectOneChar(Character valueChar) {
     // build where condition
     String[] args={(valueChar==null?null:String.valueOf((int)valueChar))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -3859,7 +3859,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -3888,20 +3888,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -3912,7 +3912,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueCharType=${valueChar}</pre>
+   * <pre>DELETE bean64 WHERE valueCharType=${valueChar}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -3928,14 +3928,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteChar(Character valueChar) {
     String[] whereConditions={(valueChar==null?null:String.valueOf((int)valueChar))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueCharType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_char_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueCharType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_char_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueCharType=${valueChar}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueCharType=${valueChar}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -3958,14 +3958,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueChar==null?null:String.valueOf((int)valueChar))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueCharType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_char_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueCharType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_char_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_short_type) VALUES (${valueShortType})</pre>
+   * <pre>INSERT INTO bean64 (value_short_type) VALUES (${valueShortType})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -3985,15 +3985,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_short_type", (int)valueShortType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_short_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short_type"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_short_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short_type"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueShortType=${valueShortType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueShortType=${valueShortType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -4054,15 +4054,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneShortType(short valueShortType) {
+  public Bean64 selectOneShortType(short valueShortType) {
     // build where condition
     String[] args={String.valueOf((int)valueShortType)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -4109,7 +4109,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -4138,20 +4138,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -4162,7 +4162,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueShortType=${valueShortType}</pre>
+   * <pre>DELETE bean64 WHERE valueShortType=${valueShortType}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -4178,14 +4178,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteShortType(short valueShortType) {
     String[] whereConditions={String.valueOf((int)valueShortType)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueShortType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_short_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueShortType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_short_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueShortType=${valueShortType}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueShortType=${valueShortType}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -4208,14 +4208,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf((int)valueShortType)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueShortType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_short_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueShortType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_short_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_short) VALUES (${valueShort})</pre>
+   * <pre>INSERT INTO bean64 (value_short) VALUES (${valueShort})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -4239,15 +4239,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_short) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_short) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueShort=${valueShort}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueShort=${valueShort}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -4308,15 +4308,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneShort(Short valueShort) {
+  public Bean64 selectOneShort(Short valueShort) {
     // build where condition
     String[] args={(valueShort==null?null:String.valueOf((int)valueShort))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -4363,7 +4363,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -4392,20 +4392,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -4416,7 +4416,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueShort=${valueShort}</pre>
+   * <pre>DELETE bean64 WHERE valueShort=${valueShort}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -4432,14 +4432,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteShort(Short valueShort) {
     String[] whereConditions={(valueShort==null?null:String.valueOf((int)valueShort))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueShort=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_short=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueShort=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_short=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueShort=${valueShort}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueShort=${valueShort}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -4462,14 +4462,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueShort==null?null:String.valueOf((int)valueShort))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueShort=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_short=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueShort=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_short=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_int_type) VALUES (${valueIntType})</pre>
+   * <pre>INSERT INTO bean64 (value_int_type) VALUES (${valueIntType})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -4489,15 +4489,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_int_type", valueIntType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_int_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int_type"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_int_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int_type"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueIntType=${valueIntType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueIntType=${valueIntType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -4558,15 +4558,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneIntType(int valueIntType) {
+  public Bean64 selectOneIntType(int valueIntType) {
     // build where condition
     String[] args={String.valueOf(valueIntType)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -4613,7 +4613,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -4642,20 +4642,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -4666,7 +4666,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueIntType=${valueIntType}</pre>
+   * <pre>DELETE bean64 WHERE valueIntType=${valueIntType}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -4682,14 +4682,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteIntType(int valueIntType) {
     String[] whereConditions={String.valueOf(valueIntType)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueIntType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_int_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueIntType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_int_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueIntType=${valueIntType}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueIntType=${valueIntType}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -4712,14 +4712,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueIntType)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueIntType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_int_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueIntType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_int_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_int) VALUES (${valueInt})</pre>
+   * <pre>INSERT INTO bean64 (value_int) VALUES (${valueInt})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -4743,15 +4743,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_int) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_int) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueInt=${valueInt}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueInt=${valueInt}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -4812,15 +4812,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneInt(Integer valueInt) {
+  public Bean64 selectOneInt(Integer valueInt) {
     // build where condition
     String[] args={(valueInt==null?null:String.valueOf(valueInt))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -4867,7 +4867,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -4896,20 +4896,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -4920,7 +4920,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueInt=${valueInt}</pre>
+   * <pre>DELETE bean64 WHERE valueInt=${valueInt}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -4936,14 +4936,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteInt(Integer valueInt) {
     String[] whereConditions={(valueInt==null?null:String.valueOf(valueInt))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueInt=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_int=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueInt=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_int=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueInt=${valueInt}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueInt=${valueInt}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -4966,14 +4966,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueInt==null?null:String.valueOf(valueInt))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueInt=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_int=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueInt=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_int=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_long_type) VALUES (${valueLongType})</pre>
+   * <pre>INSERT INTO bean64 (value_long_type) VALUES (${valueLongType})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -4993,15 +4993,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_long_type", valueLongType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_long_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLongType=${valueLongType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLongType=${valueLongType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -5062,15 +5062,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneLongType(long valueLongType) {
+  public Bean64 selectOneLongType(long valueLongType) {
     // build where condition
     String[] args={String.valueOf(valueLongType)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -5117,7 +5117,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -5146,20 +5146,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -5170,7 +5170,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueLongType=${valueLongType}</pre>
+   * <pre>DELETE bean64 WHERE valueLongType=${valueLongType}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -5186,14 +5186,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteLongType(long valueLongType) {
     String[] whereConditions={String.valueOf(valueLongType)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_long_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueLongType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_long_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueLongType=${valueLongType}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueLongType=${valueLongType}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -5216,14 +5216,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueLongType)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_long_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueLongType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_long_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_long) VALUES (${valueLong})</pre>
+   * <pre>INSERT INTO bean64 (value_long) VALUES (${valueLong})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -5247,15 +5247,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_long) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLong=${valueLong}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLong=${valueLong}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -5316,15 +5316,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneLong(Long valueLong) {
+  public Bean64 selectOneLong(Long valueLong) {
     // build where condition
     String[] args={(valueLong==null?null:String.valueOf(valueLong))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -5371,7 +5371,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -5400,20 +5400,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -5424,7 +5424,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueLong=${valueLong}</pre>
+   * <pre>DELETE bean64 WHERE valueLong=${valueLong}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -5440,14 +5440,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteLong(Long valueLong) {
     String[] whereConditions={(valueLong==null?null:String.valueOf(valueLong))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLong=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_long=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueLong=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_long=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueLong=${valueLong}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueLong=${valueLong}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -5470,14 +5470,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueLong==null?null:String.valueOf(valueLong))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLong=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_long=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueLong=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_long=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_float_type) VALUES (${valueFloatType})</pre>
+   * <pre>INSERT INTO bean64 (value_float_type) VALUES (${valueFloatType})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -5497,15 +5497,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_float_type", valueFloatType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_float_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float_type"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_float_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float_type"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueFloatType=${valueFloatType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueFloatType=${valueFloatType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -5566,15 +5566,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneFloatType(float valueFloatType) {
+  public Bean64 selectOneFloatType(float valueFloatType) {
     // build where condition
     String[] args={String.valueOf(valueFloatType)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -5621,7 +5621,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -5650,20 +5650,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -5674,7 +5674,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueFloatType=${valueFloatType}</pre>
+   * <pre>DELETE bean64 WHERE valueFloatType=${valueFloatType}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -5690,14 +5690,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteFloatType(float valueFloatType) {
     String[] whereConditions={String.valueOf(valueFloatType)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueFloatType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_float_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueFloatType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_float_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueFloatType=${valueFloatType}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueFloatType=${valueFloatType}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -5720,14 +5720,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueFloatType)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueFloatType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_float_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueFloatType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_float_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_float) VALUES (${valueFloat})</pre>
+   * <pre>INSERT INTO bean64 (value_float) VALUES (${valueFloat})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -5751,15 +5751,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_float) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_float) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueFloat=${valueFloat}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueFloat=${valueFloat}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -5820,15 +5820,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneFloat(Float valueFloat) {
+  public Bean64 selectOneFloat(Float valueFloat) {
     // build where condition
     String[] args={(valueFloat==null?null:String.valueOf(valueFloat))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -5875,7 +5875,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -5904,20 +5904,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -5928,7 +5928,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueFloat=${valueFloat}</pre>
+   * <pre>DELETE bean64 WHERE valueFloat=${valueFloat}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -5944,14 +5944,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteFloat(Float valueFloat) {
     String[] whereConditions={(valueFloat==null?null:String.valueOf(valueFloat))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueFloat=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_float=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueFloat=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_float=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueFloat=${valueFloat}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueFloat=${valueFloat}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -5974,14 +5974,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueFloat==null?null:String.valueOf(valueFloat))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueFloat=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_float=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueFloat=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_float=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_double_type) VALUES (${valueDoubleType})</pre>
+   * <pre>INSERT INTO bean64 (value_double_type) VALUES (${valueDoubleType})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -6001,15 +6001,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_double_type", valueDoubleType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_double_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double_type"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_double_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double_type"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueDoubleType=${valueDoubleType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueDoubleType=${valueDoubleType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -6070,15 +6070,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneDoubleType(double valueDoubleType) {
+  public Bean64 selectOneDoubleType(double valueDoubleType) {
     // build where condition
     String[] args={String.valueOf(valueDoubleType)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -6125,7 +6125,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -6154,20 +6154,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -6178,7 +6178,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueDoubleType=${valueDoubleType}</pre>
+   * <pre>DELETE bean64 WHERE valueDoubleType=${valueDoubleType}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -6194,14 +6194,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteDoubleType(double valueDoubleType) {
     String[] whereConditions={String.valueOf(valueDoubleType)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueDoubleType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_double_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueDoubleType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_double_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueDoubleType=${valueDoubleType}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueDoubleType=${valueDoubleType}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -6224,14 +6224,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={String.valueOf(valueDoubleType)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueDoubleType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_double_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueDoubleType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_double_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_double) VALUES (${valueDouble})</pre>
+   * <pre>INSERT INTO bean64 (value_double) VALUES (${valueDouble})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -6255,15 +6255,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_double) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_double) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueDouble=${valueDouble}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueDouble=${valueDouble}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -6324,15 +6324,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneDouble(Double valueDouble) {
+  public Bean64 selectOneDouble(Double valueDouble) {
     // build where condition
     String[] args={(valueDouble==null?null:String.valueOf(valueDouble))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -6379,7 +6379,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -6408,20 +6408,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -6432,7 +6432,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueDouble=${valueDouble}</pre>
+   * <pre>DELETE bean64 WHERE valueDouble=${valueDouble}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -6448,14 +6448,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteDouble(Double valueDouble) {
     String[] whereConditions={(valueDouble==null?null:String.valueOf(valueDouble))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueDouble=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_double=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueDouble=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_double=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueDouble=${valueDouble}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueDouble=${valueDouble}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -6478,14 +6478,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueDouble==null?null:String.valueOf(valueDouble))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueDouble=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_double=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueDouble=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_double=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_string) VALUES (${valueString})</pre>
+   * <pre>INSERT INTO bean64 (value_string) VALUES (${valueString})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -6509,15 +6509,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueString=${valueString}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueString=${valueString}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -6578,15 +6578,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneString(String valueString) {
+  public Bean64 selectOneString(String valueString) {
     // build where condition
     String[] args={(valueString==null?null:valueString)};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_string='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_string=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_string='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_string=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -6633,7 +6633,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -6662,20 +6662,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -6686,7 +6686,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueString=${valueString}</pre>
+   * <pre>DELETE bean64 WHERE valueString=${valueString}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -6702,14 +6702,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteString(String valueString) {
     String[] whereConditions={(valueString==null?null:valueString)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueString=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_string=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueString=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_string=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueString=${valueString}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueString=${valueString}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -6732,14 +6732,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueString==null?null:String.valueOf(valueString))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueString=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_string=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueString=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_string=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_date) VALUES (${valueDate})</pre>
+   * <pre>INSERT INTO bean64 (value_date) VALUES (${valueDate})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -6763,15 +6763,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_date) VALUES ('"+StringUtils.checkSize(contentValues.get("value_date"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_date) VALUES ('"+StringUtils.checkSize(contentValues.get("value_date"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueDate=${valueDate}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueDate=${valueDate}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -6832,15 +6832,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneDate(Date valueDate) {
+  public Bean64 selectOneDate(Date valueDate) {
     // build where condition
     String[] args={(valueDate==null?null:String.valueOf(DateUtils.write(valueDate)))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_date='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_date=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_date='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_date=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -6887,7 +6887,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -6916,20 +6916,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -6940,7 +6940,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueDate=${valueDate}</pre>
+   * <pre>DELETE bean64 WHERE valueDate=${valueDate}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -6956,14 +6956,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteDate(Date valueDate) {
     String[] whereConditions={(valueDate==null?null:String.valueOf(DateUtils.write(valueDate)))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueDate=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_date=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueDate=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_date=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueDate=${valueDate}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueDate=${valueDate}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -6986,14 +6986,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueDate==null?null:String.valueOf(DateUtils.write(valueDate)))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueDate=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_date=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueDate=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_date=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_calendar) VALUES (${valueCalendar})</pre>
+   * <pre>INSERT INTO bean64 (value_calendar) VALUES (${valueCalendar})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -7017,15 +7017,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_calendar) VALUES ('"+StringUtils.checkSize(contentValues.get("value_calendar"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_calendar) VALUES ('"+StringUtils.checkSize(contentValues.get("value_calendar"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueCalendar=${valueCalendar}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueCalendar=${valueCalendar}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -7086,15 +7086,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneCalendar(Calendar valueCalendar) {
+  public Bean64 selectOneCalendar(Calendar valueCalendar) {
     // build where condition
     String[] args={(valueCalendar==null?null:String.valueOf(CalendarUtils.write(valueCalendar)))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_calendar='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_calendar=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_calendar='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_calendar=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -7141,7 +7141,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -7170,20 +7170,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -7194,7 +7194,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueCalendar=${valueCalendar}</pre>
+   * <pre>DELETE bean64 WHERE valueCalendar=${valueCalendar}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -7210,14 +7210,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteCalendar(Date valueCalendar) {
     String[] whereConditions={(valueCalendar==null?null:String.valueOf(DateUtils.write(valueCalendar)))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueCalendar=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_calendar=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueCalendar=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_calendar=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueCalendar=${valueCalendar}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueCalendar=${valueCalendar}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -7240,14 +7240,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueCalendar==null?null:String.valueOf(CalendarUtils.write(valueCalendar)))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueCalendar=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_calendar=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueCalendar=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_calendar=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_locale) VALUES (${valueLocale})</pre>
+   * <pre>INSERT INTO bean64 (value_locale) VALUES (${valueLocale})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -7271,15 +7271,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_locale) VALUES ('"+StringUtils.checkSize(contentValues.get("value_locale"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_locale) VALUES ('"+StringUtils.checkSize(contentValues.get("value_locale"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLocale=${valueLocale}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLocale=${valueLocale}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -7340,15 +7340,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneLocale(Calendar valueLocale) {
+  public Bean64 selectOneLocale(Calendar valueLocale) {
     // build where condition
     String[] args={(valueLocale==null?null:String.valueOf(CalendarUtils.write(valueLocale)))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_locale='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_locale=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_locale='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_locale=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -7395,7 +7395,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -7424,20 +7424,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -7448,7 +7448,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueLocale=${valueLocale}</pre>
+   * <pre>DELETE bean64 WHERE valueLocale=${valueLocale}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -7464,14 +7464,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteLocale(Date valueLocale) {
     String[] whereConditions={(valueLocale==null?null:String.valueOf(DateUtils.write(valueLocale)))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLocale=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_locale=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueLocale=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_locale=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueLocale=${valueLocale}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueLocale=${valueLocale}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -7494,14 +7494,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueLocale==null?null:String.valueOf(LocaleUtils.write(valueLocale)))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLocale=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_locale=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueLocale=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_locale=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_url) VALUES (${valueUrl})</pre>
+   * <pre>INSERT INTO bean64 (value_url) VALUES (${valueUrl})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -7525,15 +7525,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_url) VALUES ('"+StringUtils.checkSize(contentValues.get("value_url"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_url) VALUES ('"+StringUtils.checkSize(contentValues.get("value_url"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueUrl=${valueUrl}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueUrl=${valueUrl}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -7594,15 +7594,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneURL(URL valueUrl) {
+  public Bean64 selectOneURL(URL valueUrl) {
     // build where condition
     String[] args={(valueUrl==null?null:String.valueOf(UrlUtils.write(valueUrl)))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_url='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_url=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_url='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_url=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -7649,7 +7649,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -7678,20 +7678,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -7702,7 +7702,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueUrl=${valueUrl}</pre>
+   * <pre>DELETE bean64 WHERE valueUrl=${valueUrl}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -7718,14 +7718,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteURL(URL valueUrl) {
     String[] whereConditions={(valueUrl==null?null:String.valueOf(UrlUtils.write(valueUrl)))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueUrl=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_url=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueUrl=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_url=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueUrl=${valueUrl}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueUrl=${valueUrl}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -7748,14 +7748,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueUrl==null?null:String.valueOf(UrlUtils.write(valueUrl)))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueUrl=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_url=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueUrl=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_url=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_time) VALUES (${valueTime})</pre>
+   * <pre>INSERT INTO bean64 (value_time) VALUES (${valueTime})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -7779,15 +7779,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_time) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_time) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueTime=${valueTime}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueTime=${valueTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -7848,15 +7848,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneTime(Time valueTime) {
+  public Bean64 selectOneTime(Time valueTime) {
     // build where condition
     String[] args={(valueTime==null?null:String.valueOf(TimeUtils.write(valueTime)))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -7903,7 +7903,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -7932,20 +7932,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -7956,7 +7956,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueTime=${valueTime}</pre>
+   * <pre>DELETE bean64 WHERE valueTime=${valueTime}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -7972,14 +7972,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteTime(Time valueTime) {
     String[] whereConditions={(valueTime==null?null:String.valueOf(TimeUtils.write(valueTime)))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueTime=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_time=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueTime=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_time=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueTime=${valueTime}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueTime=${valueTime}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -8002,14 +8002,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueTime==null?null:String.valueOf(TimeUtils.write(valueTime)))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueTime=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_time=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueTime=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_time=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_currency) VALUES (${valueCurrency})</pre>
+   * <pre>INSERT INTO bean64 (value_currency) VALUES (${valueCurrency})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -8033,15 +8033,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_currency) VALUES ('"+StringUtils.checkSize(contentValues.get("value_currency"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_currency) VALUES ('"+StringUtils.checkSize(contentValues.get("value_currency"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueCurrency=${valueCurrency}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueCurrency=${valueCurrency}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -8102,15 +8102,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneCurrencye(Currency valueCurrency) {
+  public Bean64 selectOneCurrencye(Currency valueCurrency) {
     // build where condition
     String[] args={(valueCurrency==null?null:String.valueOf(CurrencyUtils.write(valueCurrency)))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_currency='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_currency=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_currency='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_currency=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -8157,7 +8157,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -8186,20 +8186,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -8210,7 +8210,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueCurrency=${valueCurrency}</pre>
+   * <pre>DELETE bean64 WHERE valueCurrency=${valueCurrency}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -8226,14 +8226,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteCurrency(Currency valueCurrency) {
     String[] whereConditions={(valueCurrency==null?null:String.valueOf(CurrencyUtils.write(valueCurrency)))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueCurrency=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_currency=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueCurrency=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_currency=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueCurrency=${valueCurrency}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueCurrency=${valueCurrency}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -8256,14 +8256,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueCurrency==null?null:String.valueOf(CurrencyUtils.write(valueCurrency)))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueCurrency=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_currency=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueCurrency=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_currency=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_time_zone) VALUES (${valueTimeZone})</pre>
+   * <pre>INSERT INTO bean64 (value_time_zone) VALUES (${valueTimeZone})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -8287,15 +8287,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_time_zone) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_time_zone) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueTimeZone=${valueTimeZone}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueTimeZone=${valueTimeZone}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -8356,15 +8356,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneTimeZone(TimeZone valueTimeZone) {
+  public Bean64 selectOneTimeZone(TimeZone valueTimeZone) {
     // build where condition
     String[] args={(valueTimeZone==null?null:String.valueOf(TimeZoneUtils.write(valueTimeZone)))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time_zone='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time_zone=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time_zone='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time_zone=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -8411,7 +8411,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -8440,20 +8440,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -8464,7 +8464,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueTimeZone=${valueTimeZone}</pre>
+   * <pre>DELETE bean64 WHERE valueTimeZone=${valueTimeZone}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -8480,14 +8480,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteTimeZone(TimeZone valueTimeZone) {
     String[] whereConditions={(valueTimeZone==null?null:String.valueOf(TimeZoneUtils.write(valueTimeZone)))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueTimeZone=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_time_zone=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueTimeZone=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_time_zone=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueTimeZone=${valueTimeZone}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueTimeZone=${valueTimeZone}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -8510,14 +8510,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueTimeZone==null?null:String.valueOf(TimeZoneUtils.write(valueTimeZone)))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueTimeZone=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_time_zone=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueTimeZone=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_time_zone=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_enum_type) VALUES (${valueEnumType})</pre>
+   * <pre>INSERT INTO bean64 (value_enum_type) VALUES (${valueEnumType})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -8541,15 +8541,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_enum_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_enum_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueEnumType=${valueEnumType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueEnumType=${valueEnumType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -8610,15 +8610,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneEnumType(EnumType valueEnumType) {
+  public Bean64 selectOneEnumType(EnumType valueEnumType) {
     // build where condition
     String[] args={(valueEnumType==null?null:String.valueOf(valueEnumType.toString()))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_enum_type='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_enum_type=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_enum_type='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_enum_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -8665,7 +8665,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -8694,20 +8694,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -8718,7 +8718,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueEnumType=${valueEnumType}</pre>
+   * <pre>DELETE bean64 WHERE valueEnumType=${valueEnumType}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -8734,14 +8734,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long deleteEnumType(EnumType valueEnumType) {
     String[] whereConditions={(valueEnumType==null?null:String.valueOf(valueEnumType.toString()))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueEnumType=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_enum_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueEnumType=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_enum_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueEnumType=${valueEnumType}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueEnumType=${valueEnumType}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -8764,14 +8764,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditions={(valueEnumType==null?null:String.valueOf(valueEnumType.toString()))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueEnumType=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_enum_type=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueEnumType=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_enum_type=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_bean_array) VALUES (${valueBeanArray})</pre>
+   * <pre>INSERT INTO bean64 (value_bean_array) VALUES (${valueBeanArray})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -8784,26 +8784,26 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return <strong>id</strong> of inserted record
    */
   @Override
-  public long insertArrayBeanType(Bean[] valueBeanArray) {
+  public long insertArrayBeanType(Bean64[] valueBeanArray) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
     if (valueBeanArray!=null) {
-      contentValues.put("value_bean_array", ProcessorHelper.asByteArray(CollectionUtils.asList(valueBeanArray, ArrayList.class)));
+      contentValues.put("value_bean_array", java2Content2(valueBeanArray));
     } else {
       contentValues.putNull("value_bean_array");
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bean_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_bean_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueBeanArray=${valueBeanArray}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBeanArray=${valueBeanArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -8864,15 +8864,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneArrayBeanType(Bean[] valueBeanArray) {
+  public Bean64 selectOneArrayBeanType(Bean64[] valueBeanArray) {
     // build where condition
-    String[] args={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(valueBeanArray==null?null:new String(java2Content2(valueBeanArray),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bean_array='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bean_array=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -8919,7 +8919,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -8948,20 +8948,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -8972,7 +8972,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueBeanArray=${valueBeanArray}</pre>
+   * <pre>DELETE bean64 WHERE valueBeanArray=${valueBeanArray}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -8985,17 +8985,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return number of deleted records
    */
   @Override
-  public long deleteArrayBeanType(Bean[] valueBeanArray) {
-    String[] whereConditions={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
+  public long deleteArrayBeanType(Bean64[] valueBeanArray) {
+    String[] whereConditions={(valueBeanArray==null?null:new String(java2Content2(valueBeanArray),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBeanArray=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_bean_array=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueBeanArray=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_bean_array=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueBeanArray=${valueBeanArray}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueBeanArray=${valueBeanArray}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -9012,20 +9012,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return number of updated records
    */
   @Override
-  public long updateOneArrayBean(Bean[] valueBeanArray) {
+  public long updateOneArrayBean(Bean64[] valueBeanArray) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueBeanArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueBeanArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueBeanArray==null?null:new String(java2Content2(valueBeanArray),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBeanArray=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_bean_array=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueBeanArray=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_bean_array=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_long_type_array) VALUES (${valueLongTypeArray})</pre>
+   * <pre>INSERT INTO bean64 (value_long_type_array) VALUES (${valueLongTypeArray})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -9043,21 +9043,21 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongTypeArray, ArrayList.class)));
+      contentValues.put("value_long_type_array", java2Content3(valueLongTypeArray));
     } else {
       contentValues.putNull("value_long_type_array");
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_type_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_long_type_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -9118,15 +9118,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneArrayLongType(long[] valueLongTypeArray) {
+  public Bean64 selectOneArrayLongType(long[] valueLongTypeArray) {
     // build where condition
-    String[] args={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(valueLongTypeArray==null?null:new String(java2Content3(valueLongTypeArray),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type_array='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type_array=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -9173,7 +9173,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -9202,20 +9202,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -9226,7 +9226,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
+   * <pre>DELETE bean64 WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -9240,16 +9240,16 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteArrayLongType(long[] valueLongTypeArray) {
-    String[] whereConditions={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongTypeArray==null?null:new String(java2Content3(valueLongTypeArray),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_long_type_array=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_long_type_array=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -9270,16 +9270,16 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueLongTypeArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongTypeArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongTypeArray==null?null:new String(java2Content3(valueLongTypeArray),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_long_type_array=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_long_type_array=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_long_array) VALUES (${valueLongArray})</pre>
+   * <pre>INSERT INTO bean64 (value_long_array) VALUES (${valueLongArray})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -9297,21 +9297,21 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueLongArray!=null) {
-      contentValues.put("value_long_array", ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongArray, ArrayList.class)));
+      contentValues.put("value_long_array", java2Content4(valueLongArray));
     } else {
       contentValues.putNull("value_long_array");
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_array"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_long_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_array"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLongArray=${valueLongArray}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLongArray=${valueLongArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -9372,15 +9372,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneArrayLong(Long[] valueLongArray) {
+  public Bean64 selectOneArrayLong(Long[] valueLongArray) {
     // build where condition
-    String[] args={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(valueLongArray==null?null:new String(java2Content4(valueLongArray),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_array='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_array=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -9427,7 +9427,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -9456,20 +9456,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -9480,7 +9480,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueLongArray=${valueLongArray}</pre>
+   * <pre>DELETE bean64 WHERE valueLongArray=${valueLongArray}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -9494,16 +9494,16 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteArrayLong(Long[] valueLongArray) {
-    String[] whereConditions={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongArray==null?null:new String(java2Content4(valueLongArray),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongArray=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_long_array=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueLongArray=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_long_array=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueLongArray=${valueLongArray}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueLongArray=${valueLongArray}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -9524,16 +9524,16 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueLongArray==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(valueLongArray, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongArray==null?null:new String(java2Content4(valueLongArray),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongArray=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_long_array=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueLongArray=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_long_array=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_long_list) VALUES (${valueLongList})</pre>
+   * <pre>INSERT INTO bean64 (value_long_list) VALUES (${valueLongList})</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
@@ -9551,21 +9551,21 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueLongList!=null) {
-      contentValues.put("value_long_list", ProcessorHelper.asByteArray(valueLongList));
+      contentValues.put("value_long_list", java2Content5(valueLongList));
     } else {
       contentValues.putNull("value_long_list");
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_list) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_list"))+"')"));
-    long result = database().insert("bean", null, contentValues);
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64 (value_long_list) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_list"))+"')"));
+    long result = database().insert("bean64", null, contentValues);
     return result;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE valueLongList=${valueLongList}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLongList=${valueLongList}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -9626,15 +9626,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Bean selectOneListLong(LinkedList<Long> valueLongList) {
+  public Bean64 selectOneListLong(LinkedList<Long> valueLongList) {
     // build where condition
-    String[] args={(valueLongList==null?null:new String(ProcessorHelper.asByteArray(valueLongList),StandardCharsets.UTF_8))};
+    String[] args={(valueLongList==null?null:new String(java2Content5(valueLongList),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_list='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_list=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean resultBean=null;
+    Bean64 resultBean=null;
 
     if (cursor.moveToFirst()) {
 
@@ -9681,7 +9681,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int index40=cursor.getColumnIndex("value_set_string");
       int index41=cursor.getColumnIndex("id");
 
-      resultBean=new Bean();
+      resultBean=new Bean64();
 
       if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
       if (!cursor.isNull(index1)) { resultBean.valueBool=cursor.getInt(index1)==0?false:true; }
@@ -9710,20 +9710,20 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
       if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
       if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
-      if (!cursor.isNull(index27)) { resultBean.valueTimeList=ProcessorHelper.asCollection(new ArrayList<Time>(), Time.class, cursor.getBlob(index27)); }
-      if (!cursor.isNull(index28)) { resultBean.valueStrinList=ProcessorHelper.asCollection(new LinkedList<String>(), String.class, cursor.getBlob(index28)); }
-      if (!cursor.isNull(index29)) { resultBean.valueLongList=ProcessorHelper.asCollection(new LinkedList<Long>(), Long.class, cursor.getBlob(index29)); }
+      if (!cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(cursor.getBlob(index27)); }
+      if (!cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(cursor.getBlob(index28)); }
+      if (!cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(cursor.getBlob(index29)); }
       if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
-      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=CollectionUtils.asLongTypeArray(ProcessorHelper.asList(Long.TYPE, cursor.getBlob(index31))); }
-      if (!cursor.isNull(index32)) { resultBean.valueLongArray=CollectionUtils.asLongArray(ProcessorHelper.asList(Long.class, cursor.getBlob(index32))); }
-      if (!cursor.isNull(index33)) { ArrayList<Bean> collection=ProcessorHelper.asCollection(new ArrayList<Bean>(), Bean.class, cursor.getBlob(index33)); resultBean.valueBeanArray=CollectionUtils.asArray(collection, new Bean[collection.size()]); }
-      if (!cursor.isNull(index34)) { resultBean.valueStringArray=CollectionUtils.asStringArray(ProcessorHelper.asList(String.class, cursor.getBlob(index34))); }
-      if (!cursor.isNull(index35)) { resultBean.valueCharList=ProcessorHelper.asCollection(new LinkedList<Character>(), Character.class, cursor.getBlob(index35)); }
-      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=CollectionUtils.asCharacterTypeArray(ProcessorHelper.asList(Character.TYPE, cursor.getBlob(index36))); }
-      if (!cursor.isNull(index37)) { resultBean.valueCharArray=CollectionUtils.asCharacterArray(ProcessorHelper.asList(Character.class, cursor.getBlob(index37))); }
-      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=ProcessorHelper.asMap(new HashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index38)); }
-      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=ProcessorHelper.asMap(new LinkedHashMap<String,Bean>(), String.class, Bean.class, cursor.getBlob(index39)); }
-      if (!cursor.isNull(index40)) { resultBean.valueSetString=ProcessorHelper.asCollection(new HashSet<String>(), String.class, cursor.getBlob(index40)); }
+      if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(cursor.getBlob(index31)); }
+      if (!cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(cursor.getBlob(index32)); }
+      if (!cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(cursor.getBlob(index33)); }
+      if (!cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(cursor.getBlob(index34)); }
+      if (!cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(cursor.getBlob(index35)); }
+      if (!cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(cursor.getBlob(index36)); }
+      if (!cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(cursor.getBlob(index37)); }
+      if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(cursor.getBlob(index38)); }
+      if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
+      if (!cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(cursor.getBlob(index40)); }
       if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
 
     }
@@ -9734,7 +9734,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE bean WHERE valueLongList=${valueLongList}</pre>
+   * <pre>DELETE bean64 WHERE valueLongList=${valueLongList}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -9748,16 +9748,16 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteListLong(LinkedList<Long> valueLongList) {
-    String[] whereConditions={(valueLongList==null?null:new String(ProcessorHelper.asByteArray(valueLongList),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongList==null?null:new String(java2Content5(valueLongList),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongList=%s"), (Object[])whereConditions);
-    int result = database().delete("bean", "value_long_list=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean64 WHERE valueLongList=%s"), (Object[])whereConditions);
+    int result = database().delete("bean64", "value_long_list=?", whereConditions);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean SET  WHERE valueLongList=${valueLongList}</pre>
+   * <pre>UPDATE bean64 SET  WHERE valueLongList=${valueLongList}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -9778,10 +9778,183 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueLongList==null?null:new String(ProcessorHelper.asByteArray(valueLongList),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongList==null?null:new String(java2Content5(valueLongList),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongList=%s"), (Object[])whereConditions);
-    int result = database().update("bean", contentValues, "value_long_list=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean64 SET  WHERE valueLongList=%s"), (Object[])whereConditions);
+    int result = database().update("bean64", contentValues, "value_long_list=?", whereConditions);
     return result;
+  }
+
+  /**
+   * write
+   */
+  protected static byte[] java2Content2(Bean64[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        int n=value.length;
+        Bean64 item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            context.mapperFor(Bean64.class).serializeOnJackson(context, item, wrapper);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  protected static byte[] java2Content4(Long[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        int n=value.length;
+        Long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  protected static byte[] java2Content1(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  protected static byte[] java2Content5(LinkedList<Long> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        int n=value.size();
+        Long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  protected static byte[] java2Content3(long[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        int n=value.length;
+        long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
   }
 }

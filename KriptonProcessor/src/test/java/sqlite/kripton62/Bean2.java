@@ -27,17 +27,10 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindSharedPreferences
 public class Bean2 {
 	
-	long id;
+	public long id;
 	
 	Set<Byte> valueByteSet;
 	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public Set<Byte> getValueByteSet() {
 		return valueByteSet;

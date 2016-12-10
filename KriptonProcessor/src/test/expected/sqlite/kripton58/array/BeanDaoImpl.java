@@ -6,11 +6,14 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.common.CollectionUtils;
-import com.abubusoft.kripton.common.ProcessorHelper;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.fasterxml.jackson.core.JsonGenerator;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,8 +67,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       resultBean=new BeanBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index1)); resultBean.value=CollectionUtils.asArray(collection, new BeanInner[collection.size()]); }
-      if (!cursor.isNull(index2)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index2)); resultBean.value2=CollectionUtils.asArray(collection, new BeanInner[collection.size()]); }
+      if (!cursor.isNull(index1)) { resultBean.value=BeanBeanTable.parseValue(cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.value2=BeanBeanTable.parseValue2(cursor.getBlob(index2)); }
 
     }
     cursor.close();
@@ -103,7 +106,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public BeanBean selectOne(BeanInner[] value, BeanInner[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
@@ -120,8 +123,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       resultBean=new BeanBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index1)); resultBean.value=CollectionUtils.asArray(collection, new BeanInner[collection.size()]); }
-      if (!cursor.isNull(index2)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index2)); resultBean.value2=CollectionUtils.asArray(collection, new BeanInner[collection.size()]); }
+      if (!cursor.isNull(index1)) { resultBean.value=BeanBeanTable.parseValue(cursor.getBlob(index1)); }
+      if (!cursor.isNull(index2)) { resultBean.value2=BeanBeanTable.parseValue2(cursor.getBlob(index2)); }
 
     }
     cursor.close();
@@ -159,7 +162,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectOne(BeanInner[] value, BeanInner[] value2, OnReadBeanListener<BeanBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
@@ -182,8 +185,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index1)); resultBean.value=CollectionUtils.asArray(collection, new BeanInner[collection.size()]); }
-          if (!cursor.isNull(index2)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index2)); resultBean.value2=CollectionUtils.asArray(collection, new BeanInner[collection.size()]); }
+          if (!cursor.isNull(index1)) { resultBean.value=BeanBeanTable.parseValue(cursor.getBlob(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.value2=BeanBeanTable.parseValue2(cursor.getBlob(index2)); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -225,7 +228,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectOne(BeanInner[] value, BeanInner[] value2, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
@@ -276,7 +279,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public List<BeanBean> selectList(BeanInner[] value, BeanInner[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
@@ -296,8 +299,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         resultBean=new BeanBean();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index1)); resultBean.value=CollectionUtils.asArray(collection, new BeanInner[collection.size()]); }
-        if (!cursor.isNull(index2)) { ArrayList<BeanInner> collection=ProcessorHelper.asCollection(new ArrayList<BeanInner>(), BeanInner.class, cursor.getBlob(index2)); resultBean.value2=CollectionUtils.asArray(collection, new BeanInner[collection.size()]); }
+        if (!cursor.isNull(index1)) { resultBean.value=BeanBeanTable.parseValue(cursor.getBlob(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.value2=BeanBeanTable.parseValue2(cursor.getBlob(index2)); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -336,7 +339,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={String.valueOf(id), (value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={String.valueOf(id), (value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE bean_bean SET  WHERE id=%s and value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().update("bean_bean", contentValues, "id=? and value=? and value2=?", whereConditions);
@@ -371,13 +374,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("id", id);
 
     if (value!=null) {
-      contentValues.put("value", ProcessorHelper.asByteArray(CollectionUtils.asList(value, ArrayList.class)));
+      contentValues.put("value", java2Content1(value));
     } else {
       contentValues.putNull("value");
     }
 
     if (value2!=null) {
-      contentValues.put("value2", ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)));
+      contentValues.put("value2", java2Content1(value2));
     } else {
       contentValues.putNull("value2");
     }
@@ -411,13 +414,13 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (bean.value!=null) {
-      contentValues.put("value", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.value, ArrayList.class)));
+      contentValues.put("value", BeanBeanTable.serializeValue(bean.value));
     } else {
       contentValues.putNull("value");
     }
 
     if (bean.value2!=null) {
-      contentValues.put("value2", ProcessorHelper.asByteArray(CollectionUtils.asList(bean.value2, ArrayList.class)));
+      contentValues.put("value2", BeanBeanTable.serializeValue2(bean.value2));
     } else {
       contentValues.putNull("value2");
     }
@@ -449,10 +452,46 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(BeanInner[] value, BeanInner[] value2) {
-    String[] whereConditions={(value==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value, ArrayList.class)),StandardCharsets.UTF_8)), (value2==null?null:new String(ProcessorHelper.asByteArray(CollectionUtils.asList(value2, ArrayList.class)),StandardCharsets.UTF_8))};
+    String[] whereConditions={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE bean_bean WHERE value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().delete("bean_bean", "value=? and value2=?", whereConditions);
     return result;
+  }
+
+  /**
+   * write
+   */
+  protected static byte[] java2Content1(BeanInner[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        int n=value.length;
+        BeanInner item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            context.mapperFor(BeanInner.class).serializeOnJackson(context, item, wrapper);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
   }
 }

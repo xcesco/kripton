@@ -1,4 +1,4 @@
-package bind.kripton80;
+package bind.kripton70;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -16,13 +16,13 @@ import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.binder.xml.XmlType;
 
 @BindType("root")
-public class BeanElement80 {
+public class Bean70All {
 	
 	@Bind("name")
 	@BindXml(xmlType=XmlType.TAG)
 	protected long id;
 	
-	public BeanElement80 valueBean;
+	public Bean70All valueBean;
 
 	public BigDecimal valueBigDecimal;
 	
@@ -89,7 +89,7 @@ public class BeanElement80 {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BeanElement80 other = (BeanElement80) obj;
+		Bean70All other = (Bean70All) obj;
 		if (id != other.id)
 			return false;
 		if (valueBean == null) {

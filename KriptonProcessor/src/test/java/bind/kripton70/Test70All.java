@@ -16,18 +16,19 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
-public class TestKripton70 extends AbstractBindTypeProcessorTest {
+
+public class Test70All extends AbstractBindTypeProcessorTest {
 
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(BeanElement70.class, BeanEnum.class);
+		buildBindProcessorTest(Bean70All.class, BeanEnum.class);
 	}
 
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
-		Assert.assertNotNull(new BeanElement70BindMap());
+		Assert.assertNotNull(new Bean70AllBindMap());
 
-		BeanElement70 bean = new BeanElement70();
+		Bean70All bean = new Bean70All();
 
 		bean.valueBigDecimal = BigDecimal.valueOf(11.0);
 		bean.valueBigInteger = BigInteger.valueOf(10);
@@ -40,7 +41,7 @@ public class TestKripton70 extends AbstractBindTypeProcessorTest {
 		bean.valueTimeZone = TimeZone.getDefault();
 		bean.valueUrl = new URL("http://github.com");
 		bean.id = 25;
-		bean.valueBean = new BeanElement70();
+		bean.valueBean = new Bean70All();
 		bean.valueBean.id = 45;
 		bean.valueBoolType = true;
 		bean.valueBool = true;

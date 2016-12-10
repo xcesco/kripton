@@ -37,7 +37,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 @BindSharedPreferences
-public class Bean {
+public class Bean64 {
 	
 	public boolean valueBoolType;
 	
@@ -102,13 +102,13 @@ public class Bean {
 	public byte[] valueByteArray;
 	
 	@BindColumn(enabled=false)
-	public Bean valueBean;
+	public Bean64 valueBean;
 	
 	public long[] valueLongTypeArray;
 	
 	public Long[] valueLongArray;	
 	
-	public Bean[] valueBeanArray;
+	public Bean64[] valueBeanArray;
 	
 	public String[] valueStringArray;
 	
@@ -118,9 +118,9 @@ public class Bean {
 
 	public Character[] valueCharArray;
 	
-	public Map<String, Bean> valueMapStringBean;
+	public Map<String, Bean64> valueMapStringBean;
 	
-	public LinkedHashMap<String, Bean> valueLinkedMapStringBean;
+	public LinkedHashMap<String, Bean64> valueLinkedMapStringBean;
 	
 	public Set<String> valueSetString;
 	

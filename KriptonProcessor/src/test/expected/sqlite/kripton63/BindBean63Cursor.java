@@ -1,10 +1,6 @@
 package sqlite.kripton63;
 
 import android.database.Cursor;
-import com.abubusoft.kripton.common.ProcessorHelper;
-import java.lang.Byte;
-import java.lang.String;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -81,8 +77,8 @@ public class BindBean63Cursor {
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.value=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueMapStringByte=ProcessorHelper.asMap(new HashMap<String,Byte>(), String.class, Byte.class, cursor.getBlob(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.valueMapEnumByte=ProcessorHelper.asMap(new HashMap<EnumType,Byte>(), EnumType.class, Byte.class, cursor.getBlob(index3));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3));}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -110,8 +106,8 @@ public class BindBean63Cursor {
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.value=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueMapStringByte=ProcessorHelper.asMap(new HashMap<String,Byte>(), String.class, Byte.class, cursor.getBlob(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.valueMapEnumByte=ProcessorHelper.asMap(new HashMap<EnumType,Byte>(), EnumType.class, Byte.class, cursor.getBlob(index3));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

@@ -27,41 +27,38 @@ import com.squareup.javapoet.TypeName;
  * @author bulldog
  *
  */
-public class LongSQLTransform  extends AbstractSQLTransform {
+public class LongSQLTransform extends AbstractSQLTransform {
 
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getLong($L)"), cursorName, indexName);
 	}
-	
+
 	@Override
 	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getLong($L)", cursorName, indexName);		
+		methodBuilder.addCode("$L.getLong($L)", cursorName, indexName);
 	}
 
-	public LongSQLTransform(boolean nullable)
-	{
-		defaultValue="0L";
-		if (nullable)
-		{
-			defaultValue="null";
+	public LongSQLTransform(boolean nullable) {
+		defaultValue = "0L";
+		if (nullable) {
+			defaultValue = "null";
 		}
 	}
-	
+
 	@Override
-	public void generateDefaultValue(Builder methodBuilder)
-	{
-		methodBuilder.addCode(defaultValue);		
+	public void generateDefaultValue(Builder methodBuilder) {
+		methodBuilder.addCode(defaultValue);
 	}
-	
+
 	protected String defaultValue;
-	
+
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+
 		methodBuilder.addCode(setter(beanClass, beanName, property, defaultValue));
 	}
-	
+
 	@Override
 	public String generateColumnType(ModelProperty property) {
 		return "INTEGER";

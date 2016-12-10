@@ -37,6 +37,7 @@ import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
 
+import base.BaseAndroidTest;
 import base.BaseProcessorTest;
 import sqlite.kripton64.BindBeanDataSource.Transaction;
 
@@ -44,25 +45,16 @@ import sqlite.kripton64.BindBeanDataSource.Transaction;
  * @author xcesco
  *
  */
-@Config(manifest=Config.NONE)
-@RunWith(RobolectricTestRunner.class)
-public class TestKripton64 extends BaseProcessorTest {
-	
-	@Before
-	public void setup()
-	{
-		ShadowLog.stream = System.out;
-		KriptonLibrary.init(RuntimeEnvironment.application);
-	}
+public class Test64 extends BaseAndroidTest {
 	
 	@Test
 	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(BeanDataSource.class, BeanDao.class, Bean.class, EnumType.class);
+		buildDataSourceProcessorTest(Bean64DataSource.class, BeanDao.class, Bean64.class, EnumType.class);
 	}
 	
 	@Test
 	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		BindBeanDataSource dataSource=BindBeanDataSource.instance();
+		BindBean64DataSource dataSource=BindBean64DataSource.instance();
 		dataSource.openWritableDatabase();
 		
 		dataSource.execute(new Transaction() {
@@ -71,15 +63,15 @@ public class TestKripton64 extends BaseProcessorTest {
 			public boolean onExecute(BindBeanDaoFactory daoFactory) {
 				BeanDaoImpl dao = daoFactory.getBeanDao();
 				
-				Bean bean=new Bean();
+				Bean64 bean=new Bean64();
 				bean.valueString ="hello";
 				bean.valueMapStringBean =new HashMap<>();
-				bean.valueMapStringBean.put("key1", new Bean());
+				bean.valueMapStringBean.put("key1", new Bean64());
 				bean.valueSetString=new HashSet<String>();
 				bean.valueSetString.add("hello");
 				
 				dao.insert(bean);
-				List<Bean> list=dao.selectList(bean.id);
+				List<Bean64> list=dao.selectList(bean.id);
 				Assert.assertEquals("not list ", 1, list.size());
 											
 				Assert.assertEquals("not map", 1, list.size());
@@ -99,18 +91,18 @@ public class TestKripton64 extends BaseProcessorTest {
 
 	@Test
 	public void testJson() throws IOException, InstantiationException, IllegalAccessException, MappingException, WriterException, ReaderException {
-		Bean bean=new Bean();
+		Bean64 bean=new Bean64();
 		
 		bean.valueString ="hello";
 		bean.valueMapStringBean =new HashMap<>();
-		bean.valueMapStringBean.put("key1", new Bean());
+		bean.valueMapStringBean.put("key1", new Bean64());
 		
 		BinderJsonWriter writer=KriptonBinder.getJsonWriter();
 		
 		String buffer=writer.writeMap(bean.valueMapStringBean);
 		
 		BinderJsonReader reader=KriptonBinder.getJsonReader();
-		HashMap<String, Bean> map = reader.readMap(new HashMap<String, Bean>(), String.class, Bean.class, buffer);
+		HashMap<String, Bean64> map = reader.readMap(new HashMap<String, Bean64>(), String.class, Bean64.class, buffer);
 		
 		String buffer2=writer.writeMap(map);		
 		Assert.assertEquals(buffer, buffer2);				
@@ -118,7 +110,7 @@ public class TestKripton64 extends BaseProcessorTest {
 	
 	@Test
 	public void testCompileSharedPreferences() throws IOException, InstantiationException, IllegalAccessException {
-		buildSharedPreferencesProcessorTest(Bean.class, EnumType.class);
+		buildSharedPreferencesProcessorTest(Bean64.class, EnumType.class);
 	}
 
 //	@Test

@@ -1,6 +1,29 @@
 package sqlite.kripton60;
 
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.common.CollectionUtils;
+import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
+import com.abubusoft.kripton.common.TimeUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import java.lang.Character;
+import java.lang.Exception;
+import java.lang.Long;
 import java.lang.String;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -20,9 +43,9 @@ public class BeanTable {
    * DDL to create table bean
    * </p>
    *
-   * <pre>CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, value_set_string BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, value_set_string BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, value_set_string BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, value_set_string BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);";
 
   /**
    * <p>
@@ -223,6 +246,13 @@ public class BeanTable {
   public static final String COLUMN_VALUE_TIME_ZONE = "value_time_zone";
 
   /**
+   * Entity's property <code>valueTimeList</code> is associated to table column <code>value_time_list</code>. This costant represents column name.
+   *
+   *  @see Bean#valueTimeList
+   */
+  public static final String COLUMN_VALUE_TIME_LIST = "value_time_list";
+
+  /**
    * Entity's property <code>valueStrinList</code> is associated to table column <code>value_strin_list</code>. This costant represents column name.
    *
    *  @see Bean#valueStrinList
@@ -319,4 +349,942 @@ public class BeanTable {
    *  @see Bean#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueTimeList(List<Time> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        Time item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(TimeUtils.write(item));
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static List<Time> parseValueTimeList(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      List<Time> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Time> collection=new ArrayList<>();
+        Time item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item= TimeUtils.read(jacksonParser.getText());
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueStrinList(LinkedList<String> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        String item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static LinkedList<String> parseValueStrinList(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      LinkedList<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedList<String> collection=new LinkedList<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueLongList(LinkedList<Long> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        Long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static LinkedList<Long> parseValueLongList(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      LinkedList<Long> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedList<Long> collection=new LinkedList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueByteArray(byte[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        jacksonSerializer.writeBinaryField("element", value);
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static byte[] parseValueByteArray(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      byte[] result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getBinaryValue();
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueLongTypeArray(long[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static long[] parseValueLongTypeArray(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      long[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Long> collection=new ArrayList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueLongArray(Long[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        Long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static Long[] parseValueLongArray(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      Long[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Long> collection=new ArrayList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asLongArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueBeanArray(Bean[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        Bean item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            context.mapperFor(Bean.class).serializeOnJackson(context, item, wrapper);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static Bean[] parseValueBeanArray(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      Bean[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Bean> collection=new ArrayList<>();
+        Bean item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asArray(collection, new Bean[collection.size()]);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueStringArray(String[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        String item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static String[] parseValueStringArray(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      String[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<String> collection=new ArrayList<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asArray(collection, new String[collection.size()]);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueCharList(LinkedList<Character> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        Character item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static LinkedList<Character> parseValueCharList(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      LinkedList<Character> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedList<Character> collection=new LinkedList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueCharTypeArray(char[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        char item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static char[] parseValueCharTypeArray(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      char[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueCharArray(Character[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        Character item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static Character[] parseValueCharArray(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      Character[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueMapStringBean(Map<String, Bean> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("element");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Bean> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("key", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("value");
+            } else {
+              jacksonSerializer.writeFieldName("value");
+              context.mapperFor(Bean.class).serializeOnJackson(context, item.getValue(), wrapper);
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("element");
+        }
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static Map<String, Bean> parseValueMapStringBean(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      Map<String, Bean> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<String, Bean> collection=new HashMap<>();
+        String key=null;
+        Bean value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+            value=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueLinkedMapStringBean(LinkedHashMap<String, Bean> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("element");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Bean> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("key", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("value");
+            } else {
+              jacksonSerializer.writeFieldName("value");
+              context.mapperFor(Bean.class).serializeOnJackson(context, item.getValue(), wrapper);
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("element");
+        }
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static LinkedHashMap<String, Bean> parseValueLinkedMapStringBean(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      LinkedHashMap<String, Bean> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedHashMap<String, Bean> collection=new LinkedHashMap<>();
+        String key=null;
+        Bean value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+            value=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeValueSetString(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static Set<String> parseValueSetString(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      jacksonParser.nextToken();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
 }

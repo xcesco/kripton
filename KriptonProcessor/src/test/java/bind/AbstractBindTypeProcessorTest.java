@@ -3,6 +3,7 @@ package bind;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +11,7 @@ import org.unitils.reflectionassert.ReflectionAssert;
 import org.unitils.reflectionassert.ReflectionComparatorMode;
 
 import base.BaseProcessorTest;
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 import com.abubusoft.kripton.binder2.BinderType;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
@@ -31,41 +33,85 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		display=true;
 	}
 	
-	protected void check(Object bean) {
-		int xmlSize=1;
-		int cborSize=0;
+	protected void check(Object bean, BinderType ... checks) {
+		int max=0;
+		int[] values=new int[BinderType.values().length];
 		
-		//xmlSize=serializeAndParse(bean, BinderType.XML);
-		//cborSize=serializeAndParseBinary(bean, BinderType.CBOR);
-		int jsonSize=serializeAndParse(bean, BinderType.JSON);
-		int yamlSize=serializeAndParse(bean, BinderType.YAML);
-		int propertySize=serializeAndParse(bean, BinderType.PROPERTIES);
+		boolean all=false;
+		@SuppressWarnings("unchecked")
+		List<BinderType> checkList=Arrays.asList(checks);
+		if (checks.length==0) all=true; 
 		
-		double cborPerc=cborSize*100.0/xmlSize;
-		double jsonPerc=jsonSize*100.0/xmlSize;
-		double yamlPerc=yamlSize*100.0/xmlSize;
-		double propertyPerc=propertySize*100.0/xmlSize;
+		int i=0;
+		for (BinderType checkType: BinderType.values())
+		{
+			if (all || checkList.contains(checkType))
+			{
+				if (checkType==BinderType.CBOR)
+				{
+					values[i]=serializeAndParseBinary(bean, checkType);
+				} else {
+					values[i]=serializeAndParse(bean, checkType);
+				}
+				max=Math.max(max, values[i]);
+				i++;
+			}	
+		}
 		
-		System.out.println(String.format("xml: %s, cbor: %s (%.0f%%), json: %s (%.0f%%), yaml: %s (%.0f%%), property: %s (%.0f%%)", xmlSize, cborSize, cborPerc, jsonSize, jsonPerc,yamlSize, yamlPerc, propertySize, propertyPerc));	
+		i=0;
+		for (BinderType checkType: BinderType.values())
+		{
+			if (all || checkList.contains(checkType))
+			{
+				if (display)
+				System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i]*100.0/max));
+				i++;
+			}	
+		}
+		
+		if (display)
+			System.out.println();			
 	}
 	
-	protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz) {
-		//int xmlSize=serializeAndParseCollection(collection, beanClazz, BinderType.XML);
-		int cborSize=serializeAndParseCollectionBinary(collection, beanClazz, BinderType.CBOR);
-		int jsonSize=serializeAndParseCollection(collection, beanClazz, BinderType.JSON);
-		int yamlSize=serializeAndParseCollection(collection, beanClazz, BinderType.YAML);
-		int propertySize=serializeAndParseCollection(collection, beanClazz, BinderType.PROPERTIES);
+	protected  <E> void checkCollection(Collection<E> collection, Class<E> beanClazz, BinderType ... checks) {
+		int max=0;
+		int[] values=new int[BinderType.values().length];
 		
-		int xmlSize=jsonSize;
+		boolean all=false;
+		@SuppressWarnings("unchecked")
+		List<BinderType> checkList=Arrays.asList(checks);
+		if (checks.length==0) all=true; 
 		
-		double cborPerc=cborSize*100.0/xmlSize;
-		double jsonPerc=jsonSize*100.0/xmlSize;
-		double yamlPerc=yamlSize*100.0/xmlSize;
-		double propertyPerc=propertySize*100.0/xmlSize;
+		int i=0;
+		for (BinderType checkType: BinderType.values())
+		{
+			if (all || checkList.contains(checkType))
+			{
+				if (checkType==BinderType.CBOR)
+				{
+					values[i]=serializeAndParseCollectionBinary(collection, beanClazz, checkType);
+				} else {
+					values[i]=serializeAndParseCollection(collection, beanClazz, checkType);
+				}
+				max=Math.max(max, values[i]);
+				i++;
+			}	
+		}
 		
-		System.out.println(String.format("xml: %s, cbor: %s (%.0f%%), json: %s (%.0f%%), yaml: %s (%.0f%%), property: %s (%.0f%%)", xmlSize, cborSize, cborPerc, jsonSize, jsonPerc,yamlSize, yamlPerc, propertySize, propertyPerc));	
+		i=0;
+		for (BinderType checkType: BinderType.values())
+		{
+			if (all || checkList.contains(checkType))
+			{
+				if (display)
+				System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i]*100.0/max));
+				i++;
+			}	
+		}
+		
+		if (display)
+			System.out.println();			
 	}
-
 
 	/**
 	 * @param bean

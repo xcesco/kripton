@@ -196,9 +196,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 
 		StringWriter source = new StringWriter();
 		try (SerializerWrapper serializer = createSerializer(source)) {
-			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
-			return source.toString();
+			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);			
 		}
+		
+		return source.toString();
 
 	}
 
@@ -231,9 +232,9 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 
 		StringWriter sw = new StringWriter();
 		try (SerializerWrapper serializer = createSerializer(sw)) {
-			mapperFor((Class<E>) objectClazz).serializeCollection(this, serializer, collection);
-			return sw.toString();
+			mapperFor((Class<E>) objectClazz).serializeCollection(this, serializer, collection);			
 		}
+		return sw.toString();
 	}
 
 	@Override

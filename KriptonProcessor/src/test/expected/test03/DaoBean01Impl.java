@@ -3,9 +3,7 @@ package test03;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.ProcessorHelper;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,11 +65,11 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
        {
         resultBean=new Bean01();
 
-        if (!cursor.isNull(index0)) { resultBean.setLista(ProcessorHelper.asCollection(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index0))); }
+        if (!cursor.isNull(index0)) { resultBean.setLista(Bean01Table.parseLista(cursor.getBlob(index0))); }
         if (!cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1)); }
         if (!cursor.isNull(index2)) { resultBean.setMessageDate(cursor.getLong(index2)); }
         resultBean.setMessageText(cursor.getString(index3));
-        if (!cursor.isNull(index4)) { resultBean.setBeanList(ProcessorHelper.asCollection(new ArrayList<Bean02>(), Bean02.class, cursor.getBlob(index4))); }
+        if (!cursor.isNull(index4)) { resultBean.setBeanList(Bean01Table.parseBeanList(cursor.getBlob(index4))); }
         if (!cursor.isNull(index5)) { resultBean.setValue(cursor.getLong(index5)); }
 
         resultList.add(resultBean);

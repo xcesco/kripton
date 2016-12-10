@@ -17,7 +17,8 @@ public class JacksonWrapperParser implements ListParserWrapper {
 	@Override
 	public void close() {
 		try {
-			jacksonParser.close();
+			if (!jacksonParser.isClosed())
+				jacksonParser.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw(new KriptonRuntimeException(e));
