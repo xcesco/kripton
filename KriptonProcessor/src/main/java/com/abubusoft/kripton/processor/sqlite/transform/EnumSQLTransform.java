@@ -19,6 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
@@ -40,8 +41,8 @@ public class EnumSQLTransform extends AbstractSQLTransform {
 	}
 	
 	@Override
-	public void generateWriteQueryParameter(Builder methodBuilder, String objectName, String serializerName) {
-		methodBuilder.addCode("$L.toString()", objectName);		
+	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+		methodBuilder.addCode("$L.toString()", paramName);		
 	}
 
 	
@@ -51,7 +52,7 @@ public class EnumSQLTransform extends AbstractSQLTransform {
 	}
 	
 	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 

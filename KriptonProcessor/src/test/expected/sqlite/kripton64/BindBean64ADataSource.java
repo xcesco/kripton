@@ -10,21 +10,21 @@ import java.lang.String;
 
 /**
  * <p>
- * Represents implementation of datasource BeanDataSource.
+ * Represents implementation of datasource Bean64ADataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see BeanDataSource
- * @see BindBeanDaoFactory
- * @see BeanDao
- * @see BeanDaoImpl
- * @see Bean64
+ * @see Bean64ADataSource
+ * @see BindBean64ADaoFactory
+ * @see Bean64ADao
+ * @see Bean64ADaoImpl
+ * @see Bean64A
  */
-public class BindBeanDataSource extends AbstractDataSource implements BindBeanDaoFactory, BeanDataSource {
+public class BindBean64ADataSource extends AbstractDataSource implements BindBean64ADaoFactory, Bean64ADataSource {
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindBeanDataSource instance;
+  private static BindBean64ADataSource instance;
 
   /**
    * <p><file name used to save database,/p>
@@ -39,15 +39,15 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   /**
    * <p>dao instance</p>
    */
-  protected BeanDaoImpl beanDao = new BeanDaoImpl(this);
+  protected Bean64ADaoImpl bean64ADao = new Bean64ADaoImpl(this);
 
-  protected BindBeanDataSource(Context context) {
+  protected BindBean64ADataSource(Context context) {
     super(context, name, null, version);
   }
 
   @Override
-  public BeanDaoImpl getBeanDao() {
-    return beanDao;
+  public Bean64ADaoImpl getBean64ADao() {
+    return bean64ADao;
   }
 
   /**
@@ -71,9 +71,9 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   /**
    * instance
    */
-  public static synchronized BindBeanDataSource instance() {
+  public static synchronized BindBean64ADataSource instance() {
     if (instance==null) {
-      instance=new BindBeanDataSource(KriptonLibrary.context());
+      instance=new BindBean64ADataSource(KriptonLibrary.context());
     }
     return instance;
   }
@@ -84,8 +84,8 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",Bean64Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean64Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean64ATable.CREATE_TABLE_SQL);
+    database.execSQL(Bean64ATable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,17 +94,17 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",Bean64Table.DROP_TABLE_SQL);
-    database.execSQL(Bean64Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",Bean64ATable.DROP_TABLE_SQL);
+    database.execSQL(Bean64ATable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",Bean64Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean64Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean64ATable.CREATE_TABLE_SQL);
+    database.execSQL(Bean64ATable.CREATE_TABLE_SQL);
   }
 
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindBeanDaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindBean64ADaoFactory> {
   }
 }

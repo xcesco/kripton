@@ -7,6 +7,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -45,8 +46,8 @@ public class WrappedSQLTransform<U> extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateWriteQueryParameter(Builder methodBuilder, String objectName, String serializerName) {
-		methodBuilder.addCode("$T.write($L)", utilClazz, objectName);
+	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+		methodBuilder.addCode("$T.write($L)", utilClazz, paramName);
 	}
 
 	@Override

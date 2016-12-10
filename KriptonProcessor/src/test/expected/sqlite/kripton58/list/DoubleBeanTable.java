@@ -115,7 +115,10 @@ public class DoubleBeanTable {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       List<Double> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Double> collection=new ArrayList<>();
@@ -183,7 +186,10 @@ public class DoubleBeanTable {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       LinkedList<Double> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         LinkedList<Double> collection=new LinkedList<>();

@@ -110,7 +110,10 @@ public class CharBeanTable {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       char[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Character> collection=new ArrayList<>();
@@ -178,7 +181,10 @@ public class CharBeanTable {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       Character[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Character> collection=new ArrayList<>();

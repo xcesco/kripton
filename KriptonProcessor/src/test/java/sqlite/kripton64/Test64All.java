@@ -21,47 +21,39 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLog;
 
 import com.abubusoft.kripton.BinderJsonReader;
 import com.abubusoft.kripton.BinderJsonWriter;
 import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.exception.MappingException;
 import com.abubusoft.kripton.exception.ReaderException;
 import com.abubusoft.kripton.exception.WriterException;
 
 import base.BaseAndroidTest;
-import base.BaseProcessorTest;
-import sqlite.kripton64.BindBeanDataSource.Transaction;
+import sqlite.kripton64.BindBean64DataSource.Transaction;
 
 /**
  * @author xcesco
  *
  */
-public class Test64 extends BaseAndroidTest {
+public class Test64All extends BaseAndroidTest {
 	
 	@Test
 	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Bean64DataSource.class, BeanDao.class, Bean64.class, EnumType.class);
+		buildBindProcessorTest(Bean64.class, EnumType.class);
+		buildDataSourceProcessorTest(Bean64DataSource.class, Bean64Dao.class, Bean64.class, EnumType.class);
 	}
 	
 	@Test
 	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
 		BindBean64DataSource dataSource=BindBean64DataSource.instance();
-		dataSource.openWritableDatabase();
 		
 		dataSource.execute(new Transaction() {
 			
 			@Override
-			public boolean onExecute(BindBeanDaoFactory daoFactory) {
-				BeanDaoImpl dao = daoFactory.getBeanDao();
+			public boolean onExecute(BindBean64DaoFactory daoFactory) {
+				Bean64DaoImpl dao = daoFactory.getBean64Dao();
 				
 				Bean64 bean=new Bean64();
 				bean.valueString ="hello";

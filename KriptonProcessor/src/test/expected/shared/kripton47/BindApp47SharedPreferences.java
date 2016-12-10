@@ -18,33 +18,33 @@ import java.lang.Exception;
 import java.lang.String;
 
 /**
- * This class is the shared preference binder defined for App
+ * This class is the shared preference binder defined for App47
  *
- * @see App
+ * @see App47
  */
-public class BindAppSharedPreferences extends AbstractSharedPreference {
+public class BindApp47SharedPreferences extends AbstractSharedPreference {
   /**
-   * shared preferences name for App
+   * shared preferences name for App47
    */
-  public static final String SHARED_PREFERENCE_NAME = "app";
+  public static final String SHARED_PREFERENCE_NAME = "app47";
 
   /**
    * instance of shared preferences
    */
-  private static BindAppSharedPreferences instance;
+  private static BindApp47SharedPreferences instance;
 
   /**
    * working instance of bean
    */
-  private final App defaultBean;
+  private final App47 defaultBean;
 
   /**
    * constructor
    */
-  private BindAppSharedPreferences() {
+  private BindApp47SharedPreferences() {
     // using name attribute of annotation @BindSharedPreferences as name
     prefs=KriptonLibrary.context().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
-    defaultBean=new App();
+    defaultBean=new App47();
   }
 
   /**
@@ -58,7 +58,7 @@ public class BindAppSharedPreferences extends AbstractSharedPreference {
    * reset shared preferences
    */
   public void reset() {
-    App bean=new App();
+    App47 bean=new App47();
     write(bean);
   }
 
@@ -67,8 +67,8 @@ public class BindAppSharedPreferences extends AbstractSharedPreference {
    *
    * @return read bean
    */
-  public App read() {
-    App bean=new App();
+  public App47 read() {
+    App47 bean=new App47();
     bean.name=prefs.getString("name", bean.name);
      {
       String temp=prefs.getString("userAccessToken", null);
@@ -84,7 +84,7 @@ public class BindAppSharedPreferences extends AbstractSharedPreference {
    *
    * @param bean bean to entirely write
    */
-  public void write(App bean) {
+  public void write(App47 bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putString("name",bean.name);
 
@@ -151,6 +151,7 @@ public class BindAppSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
       UserAccessToken result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
@@ -165,9 +166,9 @@ public class BindAppSharedPreferences extends AbstractSharedPreference {
   /**
    * get instance of shared preferences
    */
-  public static synchronized BindAppSharedPreferences instance() {
+  public static synchronized BindApp47SharedPreferences instance() {
     if (instance==null) {
-      instance=new BindAppSharedPreferences();
+      instance=new BindApp47SharedPreferences();
     }
     return instance;
   }

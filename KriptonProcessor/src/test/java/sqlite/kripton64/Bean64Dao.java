@@ -37,7 +37,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 @BindDao(Bean64.class)
-public interface BeanDao {
+public interface Bean64Dao {
 	//-- select raw
 	@BindSqlSelect(value="valueBoolType")
 	boolean selectValueBoolType();

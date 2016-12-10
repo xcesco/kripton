@@ -30,6 +30,10 @@ import com.squareup.javapoet.TypeName;
 
 public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
 	
+	public static final String PARAM_PARSER_PREFIX = "parser";
+
+	public static final String PARAM_SERIALIZER_PREFIX = "serializer";
+
 	private WeakReference<SQLiteDatabaseSchema> parent;
 
 	/**
@@ -106,16 +110,24 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	/**
 	 * map of params for which generate a java2Content method converter
 	 */
-	public Map<TypeName, String> java2ContentSerializer=new HashMap<TypeName, String>();
+	public Map<TypeName, String> managedParams=new HashMap<TypeName, String>();
 
-	public String generateJava2ContentSerializer(String paramName, TypeName paramTypeName) {
-		if (!java2ContentSerializer.containsKey(paramTypeName))
-		{	
-			String methodName="java2Content"+(java2ContentSerializer.size()+1);
-			java2ContentSerializer.put(paramTypeName, methodName);
+	public String generateJava2ContentSerializer(TypeName paramTypeName) {
+		if (!managedParams.containsKey(paramTypeName))
+		{				
+			managedParams.put(paramTypeName, ""+(managedParams.size()+1));
 		}
 		
-		return java2ContentSerializer.get(paramTypeName);
+		return PARAM_SERIALIZER_PREFIX+managedParams.get(paramTypeName);
+	}
+
+	public String generateJava2ContentParser(TypeName paramTypeName) {
+		if (!managedParams.containsKey(paramTypeName))
+		{				
+			managedParams.put(paramTypeName, ""+(managedParams.size()+1));
+		}
+		
+		return PARAM_PARSER_PREFIX+managedParams.get(paramTypeName);
 	}
 
 }

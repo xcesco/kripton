@@ -28,6 +28,7 @@ import org.robolectric.shadows.ShadowLog;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 
+import base.BaseAndroidTest;
 import base.BaseProcessorTest;
 
 /**
@@ -36,14 +37,8 @@ import base.BaseProcessorTest;
  */
 @Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner.class)
-public class TestKripton84 extends BaseProcessorTest {
+public class TestKripton84 extends BaseAndroidTest {
 	
-	@Before
-	public void setup()
-	{
-		ShadowLog.stream = System.out;
-		KriptonLibrary.init(RuntimeEnvironment.application);
-	}
 	
 	@Test
 	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {

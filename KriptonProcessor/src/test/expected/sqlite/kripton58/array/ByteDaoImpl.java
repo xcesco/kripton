@@ -8,12 +8,17 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,7 +72,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
       resultBean=new ByteBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=cursor.getBlob(index1); }
+      if (!cursor.isNull(index1)) { resultBean.value=ByteBeanTable.parseValue(cursor.getBlob(index1)); }
       if (!cursor.isNull(index2)) { resultBean.value2=ByteBeanTable.parseValue2(cursor.getBlob(index2)); }
 
     }
@@ -106,7 +111,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public ByteBean selectOne(byte[] value, Byte[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
@@ -123,7 +128,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
       resultBean=new ByteBean();
 
       if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=cursor.getBlob(index1); }
+      if (!cursor.isNull(index1)) { resultBean.value=ByteBeanTable.parseValue(cursor.getBlob(index1)); }
       if (!cursor.isNull(index2)) { resultBean.value2=ByteBeanTable.parseValue2(cursor.getBlob(index2)); }
 
     }
@@ -162,7 +167,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(byte[] value, Byte[] value2, OnReadBeanListener<ByteBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
@@ -185,7 +190,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.value=cursor.getBlob(index1); }
+          if (!cursor.isNull(index1)) { resultBean.value=ByteBeanTable.parseValue(cursor.getBlob(index1)); }
           if (!cursor.isNull(index2)) { resultBean.value2=ByteBeanTable.parseValue2(cursor.getBlob(index2)); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
@@ -228,7 +233,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(byte[] value, Byte[] value2, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
@@ -279,7 +284,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public List<ByteBean> selectList(byte[] value, Byte[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
@@ -299,7 +304,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
         resultBean=new ByteBean();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.value=cursor.getBlob(index1); }
+        if (!cursor.isNull(index1)) { resultBean.value=ByteBeanTable.parseValue(cursor.getBlob(index1)); }
         if (!cursor.isNull(index2)) { resultBean.value2=ByteBeanTable.parseValue2(cursor.getBlob(index2)); }
 
         resultList.add(resultBean);
@@ -339,7 +344,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={String.valueOf(id), (value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
+    String[] whereConditions={String.valueOf(id), (value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE byte_bean SET  WHERE id=%s and value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().update("byte_bean", contentValues, "id=? and value=? and value2=?", whereConditions);
@@ -374,13 +379,13 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     contentValues.put("id", id);
 
     if (value!=null) {
-      contentValues.put("value", value);
+      contentValues.put("value", serializer1(value));
     } else {
       contentValues.putNull("value");
     }
 
     if (value2!=null) {
-      contentValues.put("value2", java2Content1(value2));
+      contentValues.put("value2", serializer2(value2));
     } else {
       contentValues.putNull("value2");
     }
@@ -414,7 +419,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     contentValues.clear();
 
     if (bean.value!=null) {
-      contentValues.put("value", bean.value);
+      contentValues.put("value", ByteBeanTable.serializeValue(bean.value));
     } else {
       contentValues.putNull("value");
     }
@@ -452,7 +457,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
    */
   @Override
   public long delete(byte[] value, Byte[] value2) {
-    String[] whereConditions={(value==null?null:new String(value,StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content1(value2),StandardCharsets.UTF_8))};
+    String[] whereConditions={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE byte_bean WHERE value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().delete("byte_bean", "value=? and value2=?", whereConditions);
@@ -462,7 +467,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   /**
    * write
    */
-  protected static byte[] java2Content1(Byte[] value) {
+  protected static byte[] serializer2(Byte[] value) {
     if (value==null) {
       return null;
     }
@@ -490,6 +495,87 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
       return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected static Byte[] parser2(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Byte[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Byte> collection=new ArrayList<>();
+        Byte item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getByteValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asByteArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  protected static byte[] serializer1(byte[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        jacksonSerializer.writeBinaryField("element", value);
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected static byte[] parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      byte[] result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getBinaryValue();
+      }
+      return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

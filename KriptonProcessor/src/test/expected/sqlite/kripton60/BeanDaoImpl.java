@@ -8,8 +8,10 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CalendarUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -20,14 +22,18 @@ import com.abubusoft.kripton.common.TimeZoneUtils;
 import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -837,7 +843,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -1052,7 +1058,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
           if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
           if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-          if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+          if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
           if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
           if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
           if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -1316,7 +1322,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
         if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
         if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-        if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+        if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
         if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
         if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
         if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -1550,7 +1556,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (value.valueByteArray!=null) {
-      contentValues.put("value_byte_array", value.valueByteArray);
+      contentValues.put("value_byte_array", BeanTable.serializeValueByteArray(value.valueByteArray));
     } else {
       contentValues.putNull("value_byte_array");
     }
@@ -1832,7 +1838,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     if (bean.valueByteArray!=null) {
-      contentValues.put("value_byte_array", bean.valueByteArray);
+      contentValues.put("value_byte_array", BeanTable.serializeValueByteArray(bean.valueByteArray));
     } else {
       contentValues.putNull("value_byte_array");
     }
@@ -2087,7 +2093,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -2185,7 +2191,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
     if (valueSetString!=null) {
-      contentValues.put("value_set_string", java2Content1(valueSetString));
+      contentValues.put("value_set_string", serializer1(valueSetString));
     } else {
       contentValues.putNull("value_set_string");
     }
@@ -2379,7 +2385,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -2629,7 +2635,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -2883,7 +2889,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -3133,7 +3139,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -3387,7 +3393,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -3637,7 +3643,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -3891,7 +3897,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -4141,7 +4147,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -4395,7 +4401,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -4645,7 +4651,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -4899,7 +4905,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -5149,7 +5155,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -5403,7 +5409,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -5653,7 +5659,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -5907,7 +5913,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -6157,7 +6163,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -6411,7 +6417,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -6665,7 +6671,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -6919,7 +6925,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -7173,7 +7179,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -7427,7 +7433,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -7681,7 +7687,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -7935,7 +7941,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -8189,7 +8195,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -8443,7 +8449,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -8697,7 +8703,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -8789,7 +8795,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueBeanArray!=null) {
-      contentValues.put("value_bean_array", java2Content2(valueBeanArray));
+      contentValues.put("value_bean_array", serializer2(valueBeanArray));
     } else {
       contentValues.putNull("value_bean_array");
     }
@@ -8866,7 +8872,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneArrayBeanType(Bean[] valueBeanArray) {
     // build where condition
-    String[] args={(valueBeanArray==null?null:new String(java2Content2(valueBeanArray),StandardCharsets.UTF_8))};
+    String[] args={(valueBeanArray==null?null:new String(serializer2(valueBeanArray),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array=?", args);
@@ -8951,7 +8957,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -8986,7 +8992,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteArrayBeanType(Bean[] valueBeanArray) {
-    String[] whereConditions={(valueBeanArray==null?null:new String(java2Content2(valueBeanArray),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueBeanArray==null?null:new String(serializer2(valueBeanArray),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueBeanArray=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_bean_array=?", whereConditions);
@@ -9016,7 +9022,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueBeanArray==null?null:new String(java2Content2(valueBeanArray),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueBeanArray==null?null:new String(serializer2(valueBeanArray),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueBeanArray=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_bean_array=?", whereConditions);
@@ -9043,7 +9049,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", java2Content3(valueLongTypeArray));
+      contentValues.put("value_long_type_array", serializer3(valueLongTypeArray));
     } else {
       contentValues.putNull("value_long_type_array");
     }
@@ -9120,7 +9126,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneArrayLongType(long[] valueLongTypeArray) {
     // build where condition
-    String[] args={(valueLongTypeArray==null?null:new String(java2Content3(valueLongTypeArray),StandardCharsets.UTF_8))};
+    String[] args={(valueLongTypeArray==null?null:new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array=?", args);
@@ -9205,7 +9211,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -9240,7 +9246,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteArrayLongType(long[] valueLongTypeArray) {
-    String[] whereConditions={(valueLongTypeArray==null?null:new String(java2Content3(valueLongTypeArray),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongTypeArray==null?null:new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_long_type_array=?", whereConditions);
@@ -9270,7 +9276,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueLongTypeArray==null?null:new String(java2Content3(valueLongTypeArray),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongTypeArray==null?null:new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongTypeArray=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_long_type_array=?", whereConditions);
@@ -9297,7 +9303,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueLongArray!=null) {
-      contentValues.put("value_long_array", java2Content4(valueLongArray));
+      contentValues.put("value_long_array", serializer4(valueLongArray));
     } else {
       contentValues.putNull("value_long_array");
     }
@@ -9374,7 +9380,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneArrayLong(Long[] valueLongArray) {
     // build where condition
-    String[] args={(valueLongArray==null?null:new String(java2Content4(valueLongArray),StandardCharsets.UTF_8))};
+    String[] args={(valueLongArray==null?null:new String(serializer4(valueLongArray),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array=?", args);
@@ -9459,7 +9465,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -9494,7 +9500,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteArrayLong(Long[] valueLongArray) {
-    String[] whereConditions={(valueLongArray==null?null:new String(java2Content4(valueLongArray),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongArray==null?null:new String(serializer4(valueLongArray),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongArray=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_long_array=?", whereConditions);
@@ -9524,7 +9530,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueLongArray==null?null:new String(java2Content4(valueLongArray),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongArray==null?null:new String(serializer4(valueLongArray),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongArray=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_long_array=?", whereConditions);
@@ -9551,7 +9557,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueLongList!=null) {
-      contentValues.put("value_long_list", java2Content5(valueLongList));
+      contentValues.put("value_long_list", serializer5(valueLongList));
     } else {
       contentValues.putNull("value_long_list");
     }
@@ -9628,7 +9634,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOneListLong(LinkedList<Long> valueLongList) {
     // build where condition
-    String[] args={(valueLongList==null?null:new String(java2Content5(valueLongList),StandardCharsets.UTF_8))};
+    String[] args={(valueLongList==null?null:new String(serializer5(valueLongList),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list=?", args);
@@ -9713,7 +9719,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
       if (!cursor.isNull(index28)) { resultBean.valueStrinList=BeanTable.parseValueStrinList(cursor.getBlob(index28)); }
       if (!cursor.isNull(index29)) { resultBean.valueLongList=BeanTable.parseValueLongList(cursor.getBlob(index29)); }
-      if (!cursor.isNull(index30)) { resultBean.valueByteArray=cursor.getBlob(index30); }
+      if (!cursor.isNull(index30)) { resultBean.valueByteArray=BeanTable.parseValueByteArray(cursor.getBlob(index30)); }
       if (!cursor.isNull(index31)) { resultBean.valueLongTypeArray=BeanTable.parseValueLongTypeArray(cursor.getBlob(index31)); }
       if (!cursor.isNull(index32)) { resultBean.valueLongArray=BeanTable.parseValueLongArray(cursor.getBlob(index32)); }
       if (!cursor.isNull(index33)) { resultBean.valueBeanArray=BeanTable.parseValueBeanArray(cursor.getBlob(index33)); }
@@ -9748,7 +9754,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long deleteListLong(LinkedList<Long> valueLongList) {
-    String[] whereConditions={(valueLongList==null?null:new String(java2Content5(valueLongList),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongList==null?null:new String(serializer5(valueLongList),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE bean WHERE valueLongList=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value_long_list=?", whereConditions);
@@ -9778,7 +9784,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueLongList==null?null:new String(java2Content5(valueLongList),StandardCharsets.UTF_8))};
+    String[] whereConditions={(valueLongList==null?null:new String(serializer5(valueLongList),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE valueLongList=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value_long_list=?", whereConditions);
@@ -9788,7 +9794,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  protected static byte[] java2Content2(Bean[] value) {
+  protected static byte[] serializer2(Bean[] value) {
     if (value==null) {
       return null;
     }
@@ -9822,9 +9828,43 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
+   * parse
+   */
+  protected static Bean[] parser2(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Bean[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Bean> collection=new ArrayList<>();
+        Bean item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asArray(collection, new Bean[collection.size()]);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
    * write
    */
-  protected static byte[] java2Content4(Long[] value) {
+  protected static byte[] serializer4(Long[] value) {
     if (value==null) {
       return null;
     }
@@ -9858,9 +9898,43 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
+   * parse
+   */
+  protected static Long[] parser4(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Long[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Long> collection=new ArrayList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asLongArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
    * write
    */
-  protected static byte[] java2Content1(Set<String> value) {
+  protected static byte[] serializer1(Set<String> value) {
     if (value==null) {
       return null;
     }
@@ -9891,9 +9965,43 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
+   * parse
+   */
+  protected static Set<String> parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
    * write
    */
-  protected static byte[] java2Content5(LinkedList<Long> value) {
+  protected static byte[] serializer5(LinkedList<Long> value) {
     if (value==null) {
       return null;
     }
@@ -9927,9 +10035,43 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
+   * parse
+   */
+  protected static LinkedList<Long> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      LinkedList<Long> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedList<Long> collection=new LinkedList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
    * write
    */
-  protected static byte[] java2Content3(long[] value) {
+  protected static byte[] serializer3(long[] value) {
     if (value==null) {
       return null;
     }
@@ -9953,6 +10095,40 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
       return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected static long[] parser3(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      long[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Long> collection=new ArrayList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

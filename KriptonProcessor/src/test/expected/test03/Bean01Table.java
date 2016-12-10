@@ -134,7 +134,10 @@ public class Bean01Table {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       List<Bean02> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Bean02> collection=new ArrayList<>();
@@ -202,7 +205,10 @@ public class Bean01Table {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       List<Bean02> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Bean02> collection=new ArrayList<>();

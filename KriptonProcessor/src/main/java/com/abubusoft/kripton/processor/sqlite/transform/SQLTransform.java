@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -38,10 +39,12 @@ public interface SQLTransform {
 	 * Generate code to read from cursor
 	 * 
 	 * @param methodBuilder
+	 * @param daoDefinition TODO
+	 * @param paramTypeName TODO
 	 * @param cursorName
 	 * @param indexName
 	 */
-	void generateRead(Builder methodBuilder, String cursorName, String indexName);
+	void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName);
 
 	/**
 	 * Generate default value, null or 0 or ''
@@ -64,9 +67,10 @@ public interface SQLTransform {
 	/**
 	 * <p>Generate code to write parameter to content value element</p>
 	 * @param methodBuilder
+	 * @param daoDefinition TODO
 	 * @param objectName
 	 */	
-	void generateWriteQueryParameter(Builder methodBuilder, String objectName, String serializerName);
+	void generateWriteParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, String paramName, TypeName paramTypeName);
 
 	/**
 	 * Generate code to set property to null value or default value
@@ -85,15 +89,6 @@ public interface SQLTransform {
 	 * @param property
 	 */
 	String generateColumnType(ModelProperty property);
-
-	/**
-	 * True means a method need to be generated to support param conversion.
-	 * 
-	 * @return
-	 * 		true if conversion need a support method.
-	 * 	
-	 */
-	boolean isJava2ContentSerializerNeeded();
 	
 
 }

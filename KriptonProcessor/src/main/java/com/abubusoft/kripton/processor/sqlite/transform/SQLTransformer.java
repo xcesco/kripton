@@ -97,16 +97,7 @@ public abstract class SQLTransformer {
 			throw new RuntimeException("Transform of " + paramType + " not supported");
 		}
 
-		String methodName = null;
-		if (transform.isJava2ContentSerializerNeeded()) {
-			methodName = sqlDaoDefinition.generateJava2ContentSerializer(paramName, paramType);
-			transform.generateWriteQueryParameter(methodBuilder, paramName, methodName);
-		} else {
-			transform.generateWriteQueryParameter(methodBuilder, paramName, null);
-		}
-		
-
-		
+		transform.generateWriteParam(methodBuilder, sqlDaoDefinition, paramName, paramType);
 	}
 
 	/**

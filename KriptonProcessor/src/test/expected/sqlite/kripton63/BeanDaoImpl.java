@@ -8,11 +8,14 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -377,7 +380,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueMapStringByte!=null) {
-      contentValues.put("value_map_string_byte", java2Content1(valueMapStringByte));
+      contentValues.put("value_map_string_byte", serializer1(valueMapStringByte));
     } else {
       contentValues.putNull("value_map_string_byte");
     }
@@ -416,7 +419,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean63 selectOne(Map<String, Byte> valueMapStringByte) {
     // build where condition
-    String[] args={(valueMapStringByte==null?null:String.valueOf(java2Content1(valueMapStringByte)))};
+    String[] args={(valueMapStringByte==null?null:String.valueOf(serializer1(valueMapStringByte)))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
@@ -460,7 +463,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(Map<String, Byte> valueMapStringByte) {
-    String[] whereConditions={(valueMapStringByte==null?null:String.valueOf(java2Content1(valueMapStringByte)))};
+    String[] whereConditions={(valueMapStringByte==null?null:String.valueOf(serializer1(valueMapStringByte)))};
 
     Logger.info(StringUtils.formatSQL("DELETE bean63 WHERE value=%s"), (Object[])whereConditions);
     int result = database().delete("bean63", "value=?", whereConditions);
@@ -490,7 +493,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueMapStringByte==null?null:String.valueOf(java2Content1(valueMapStringByte)))};
+    String[] whereConditions={(valueMapStringByte==null?null:String.valueOf(serializer1(valueMapStringByte)))};
 
     Logger.info(StringUtils.formatSQL("UPDATE bean63 SET  WHERE value=%s"), (Object[])whereConditions);
     int result = database().update("bean63", contentValues, "value=?", whereConditions);
@@ -517,7 +520,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueMapEnumByte!=null) {
-      contentValues.put("value_map_enum_byte", java2Content2(valueMapEnumByte));
+      contentValues.put("value_map_enum_byte", serializer2(valueMapEnumByte));
     } else {
       contentValues.putNull("value_map_enum_byte");
     }
@@ -556,7 +559,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean63 selectOne(HashMap<EnumType, Byte> valueMapEnumByte) {
     // build where condition
-    String[] args={(valueMapEnumByte==null?null:String.valueOf(java2Content2(valueMapEnumByte)))};
+    String[] args={(valueMapEnumByte==null?null:String.valueOf(serializer2(valueMapEnumByte)))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
@@ -612,7 +615,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Cursor selectCursorOne(HashMap<EnumType, Byte> valueMapEnumByte) {
     // build where condition
-    String[] args={(valueMapEnumByte==null?null:String.valueOf(java2Content2(valueMapEnumByte)))};
+    String[] args={(valueMapEnumByte==null?null:String.valueOf(serializer2(valueMapEnumByte)))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
@@ -648,7 +651,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadBeanListener<Bean63> listener) {
     // build where condition
-    String[] args={(valueMapEnumByte==null?null:String.valueOf(java2Content2(valueMapEnumByte)))};
+    String[] args={(valueMapEnumByte==null?null:String.valueOf(serializer2(valueMapEnumByte)))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
@@ -715,7 +718,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(valueMapEnumByte==null?null:String.valueOf(java2Content2(valueMapEnumByte)))};
+    String[] args={(valueMapEnumByte==null?null:String.valueOf(serializer2(valueMapEnumByte)))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
@@ -752,7 +755,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(HashMap<EnumType, Byte> valueMapEnumByte) {
-    String[] whereConditions={(valueMapEnumByte==null?null:String.valueOf(java2Content2(valueMapEnumByte)))};
+    String[] whereConditions={(valueMapEnumByte==null?null:String.valueOf(serializer2(valueMapEnumByte)))};
 
     Logger.info(StringUtils.formatSQL("DELETE bean63 WHERE value=%s"), (Object[])whereConditions);
     int result = database().delete("bean63", "value=?", whereConditions);
@@ -782,7 +785,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueMapEnumByte==null?null:String.valueOf(java2Content2(valueMapEnumByte)))};
+    String[] whereConditions={(valueMapEnumByte==null?null:String.valueOf(serializer2(valueMapEnumByte)))};
 
     Logger.info(StringUtils.formatSQL("UPDATE bean63 SET  WHERE value=%s"), (Object[])whereConditions);
     int result = database().update("bean63", contentValues, "value=?", whereConditions);
@@ -882,7 +885,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  protected static byte[] java2Content2(HashMap<EnumType, Byte> value) {
+  protected static byte[] serializer2(HashMap<EnumType, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -920,9 +923,51 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
+   * parse
+   */
+  protected static HashMap<EnumType, Byte> parser2(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      HashMap<EnumType, Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<EnumType, Byte> collection=new HashMap<>();
+        EnumType key=null;
+        Byte value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+           {
+            String tempEnum=jacksonParser.getText();
+            key=StringUtils.hasText(tempEnum)?EnumType.valueOf(tempEnum):null;
+          }
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+            value=jacksonParser.getByteValue();
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
    * write
    */
-  protected static byte[] java2Content1(Map<String, Byte> value) {
+  protected static byte[] serializer1(Map<String, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -954,6 +999,45 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
       return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected static Map<String, Byte> parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Map<String, Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<String, Byte> collection=new HashMap<>();
+        String key=null;
+        Byte value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+            value=jacksonParser.getByteValue();
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
+      }
+      return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

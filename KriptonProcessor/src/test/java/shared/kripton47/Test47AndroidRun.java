@@ -18,7 +18,6 @@ package shared.kripton47;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import base.BaseAndroidTest;
@@ -28,17 +27,17 @@ public class Test47AndroidRun extends BaseAndroidTest {
 	@Test
 	public void testAppRun()
 	{
-		BindAppSharedPreferences shared=BindAppSharedPreferences.instance();
+		BindApp47SharedPreferences shared=BindApp47SharedPreferences.instance();
 		shared.edit().putName("hello").commit();		
 		assertTrue(shared.name().equals("hello"));
 		log("shared.name() %s", shared.name());		
 	}
 	
 	@Test
-	public void testGenerated()
+	public void testSecurityRun()
 	{
 		String value="testGenerated";
-		BindSecuritySharedPreferences config=BindSecuritySharedPreferences.instance();
+		BindSecurity47SharedPreferences config=BindSecurity47SharedPreferences.instance();
 		
 		UserIdentity userIdentity=new UserIdentity();
 		userIdentity.setName(value);
@@ -52,7 +51,6 @@ public class Test47AndroidRun extends BaseAndroidTest {
           .putAuthorizationToken(deviceAuthorizationToken)
           .putDeviceUid("aa")
           .commit();
-		
 		
 		assertTrue(value.equals(config.userIdentity().getName()));
 		

@@ -92,7 +92,7 @@ public class BindBean05Cursor {
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1));}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2)));}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3));}
-        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4));}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4)));}
         if (index5>=0 && !cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5)));}
 
         resultList.add(resultBean);
@@ -125,7 +125,7 @@ public class BindBean05Cursor {
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1));}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2)));}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3));}
-        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4));}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4)));}
         if (index5>=0 && !cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5)));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());

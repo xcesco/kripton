@@ -110,7 +110,10 @@ public class IntBeanTable {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       int[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Integer> collection=new ArrayList<>();
@@ -178,7 +181,10 @@ public class IntBeanTable {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       Integer[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Integer> collection=new ArrayList<>();

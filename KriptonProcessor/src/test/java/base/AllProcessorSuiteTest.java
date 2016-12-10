@@ -46,7 +46,7 @@ import sqlite.kripton58.TestKripton58List;
 import sqlite.kripton60.TestKripton60;
 import sqlite.kripton62.TestKripton62;
 import sqlite.kripton63.TestKripton63;
-import sqlite.kripton64.Test64;
+import sqlite.kripton64.Test64Suite;
 import test01.TestDatabase01;
 import test02.TestDao01;
 import test03.Test03;
@@ -66,7 +66,7 @@ import test05firt_aid.TestFirstAid;
 			TestKripton60.class,
 			TestKripton62.class,
 			TestKripton63.class,
-			Test64.class,
+			Test64Suite.class,
 			Test70Suite.class,
 			TestKripton71.class,
 			TestKripton72.class,

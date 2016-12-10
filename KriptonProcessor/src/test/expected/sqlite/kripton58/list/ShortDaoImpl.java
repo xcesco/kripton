@@ -8,12 +8,16 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -103,7 +107,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public ShortBean selectOne(List<Short> value) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=?", args);
@@ -156,7 +160,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public void selectOne(List<Short> value, OnReadBeanListener<ShortBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=?", args);
@@ -219,7 +223,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public void selectOne(List<Short> value, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=?", args);
@@ -267,7 +271,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public List<ShortBean> selectList(List<Short> value) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=?", args);
@@ -327,12 +331,12 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
     if (value!=null) {
-      contentValues.put("value", java2Content1(value));
+      contentValues.put("value", serializer1(value));
     } else {
       contentValues.putNull("value");
     }
 
-    String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(java2Content1(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE short_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditions);
     int result = database().update("short_bean", contentValues, "id=? and value=?", whereConditions);
@@ -364,7 +368,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
     contentValues.put("id", id);
 
     if (value!=null) {
-      contentValues.put("value", java2Content1(value));
+      contentValues.put("value", serializer1(value));
     } else {
       contentValues.putNull("value");
     }
@@ -433,7 +437,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    */
   @Override
   public long delete(List<Short> paramValue) {
-    String[] whereConditions={(paramValue==null?null:new String(java2Content1(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditions={(paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE short_bean WHERE value=%s"), (Object[])whereConditions);
     int result = database().delete("short_bean", "value=?", whereConditions);
@@ -443,7 +447,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   /**
    * write
    */
-  protected static byte[] java2Content1(List<Short> value) {
+  protected static byte[] serializer1(List<Short> value) {
     if (value==null) {
       return null;
     }
@@ -471,6 +475,40 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
       return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected static List<Short> parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      List<Short> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Short> collection=new ArrayList<>();
+        Short item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getShortValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

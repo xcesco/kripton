@@ -9,14 +9,14 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * </p>
  *
  * @see Bean64DataSource
- * @see BeanDao
- * @see BeanDaoImpl
+ * @see Bean64Dao
+ * @see Bean64DaoImpl
  * @see Bean64
  */
 public interface BindBean64DaoFactory extends BindDaoFactory {
   /**
    *
-   * retrieve dao BeanDao
+   * retrieve dao Bean64Dao
    */
-  BeanDaoImpl getBeanDao();
+  Bean64DaoImpl getBean64Dao();
 }

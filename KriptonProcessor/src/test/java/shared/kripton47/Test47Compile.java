@@ -28,13 +28,14 @@ public class Test47Compile extends BaseProcessorTest {
 
 	@Test
 	public void testCompileApp() throws IOException, InstantiationException, IllegalAccessException {
-		buildSharedPreferencesProcessorTest(App.class, UserAccessToken.class);
+		buildBindProcessorTest(App47.class);
+		buildSharedPreferencesProcessorTest(App47.class, UserAccessToken.class);
 	}
 		
 	@Test
 	public void testCompileSecurity() throws IOException, InstantiationException, IllegalAccessException {				
 		buildBindProcessorTest(DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
-		buildSharedPreferencesProcessorTest(Security.class, DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
+		buildSharedPreferencesProcessorTest(Security47.class, DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
 	}
 
 }

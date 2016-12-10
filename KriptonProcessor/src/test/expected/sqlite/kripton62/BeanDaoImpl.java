@@ -8,12 +8,15 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -553,7 +556,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueBigDecimalSet!=null) {
-      contentValues.put("value_big_decimal_set", java2Content1(valueBigDecimalSet));
+      contentValues.put("value_big_decimal_set", serializer1(valueBigDecimalSet));
     } else {
       contentValues.putNull("value_big_decimal_set");
     }
@@ -599,7 +602,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean selectOne(HashSet<BigDecimal> valueBigDecimalSet) {
     // build where condition
-    String[] args={(valueBigDecimalSet==null?null:String.valueOf(java2Content1(valueBigDecimalSet)))};
+    String[] args={(valueBigDecimalSet==null?null:String.valueOf(serializer1(valueBigDecimalSet)))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=?", args);
@@ -657,7 +660,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(HashSet<BigDecimal> valueBigDecimalSet) {
-    String[] whereConditions={(valueBigDecimalSet==null?null:String.valueOf(java2Content1(valueBigDecimalSet)))};
+    String[] whereConditions={(valueBigDecimalSet==null?null:String.valueOf(serializer1(valueBigDecimalSet)))};
 
     Logger.info(StringUtils.formatSQL("DELETE bean WHERE value=%s"), (Object[])whereConditions);
     int result = database().delete("bean", "value=?", whereConditions);
@@ -687,7 +690,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={(valueBigDecimalSet==null?null:String.valueOf(java2Content1(valueBigDecimalSet)))};
+    String[] whereConditions={(valueBigDecimalSet==null?null:String.valueOf(serializer1(valueBigDecimalSet)))};
 
     Logger.info(StringUtils.formatSQL("UPDATE bean SET  WHERE value=%s"), (Object[])whereConditions);
     int result = database().update("bean", contentValues, "value=?", whereConditions);
@@ -697,7 +700,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  protected static byte[] java2Content1(HashSet<BigDecimal> value) {
+  protected static byte[] serializer1(HashSet<BigDecimal> value) {
     if (value==null) {
       return null;
     }
@@ -722,6 +725,40 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
       return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected static HashSet<BigDecimal> parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      HashSet<BigDecimal> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<BigDecimal> collection=new HashSet<>();
+        BigDecimal item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=BigDecimalUtils.read(jacksonParser.getText());
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

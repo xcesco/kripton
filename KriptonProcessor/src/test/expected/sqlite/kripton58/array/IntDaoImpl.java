@@ -8,12 +8,17 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -106,7 +111,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   @Override
   public IntBean selectOne(int[] value, Integer[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content2(value2),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM int_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM int_bean WHERE value=? and value2=?", args);
@@ -162,7 +167,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   @Override
   public void selectOne(int[] value, Integer[] value2, OnReadBeanListener<IntBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content2(value2),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM int_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM int_bean WHERE value=? and value2=?", args);
@@ -228,7 +233,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   @Override
   public void selectOne(int[] value, Integer[] value2, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content2(value2),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM int_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM int_bean WHERE value=? and value2=?", args);
@@ -279,7 +284,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   @Override
   public List<IntBean> selectList(int[] value, Integer[] value2) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content2(value2),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM int_bean WHERE value='%s' and value2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM int_bean WHERE value=? and value2=?", args);
@@ -339,7 +344,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    String[] whereConditions={String.valueOf(id), (value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content2(value2),StandardCharsets.UTF_8))};
+    String[] whereConditions={String.valueOf(id), (value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE int_bean SET  WHERE id=%s and value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().update("int_bean", contentValues, "id=? and value=? and value2=?", whereConditions);
@@ -374,13 +379,13 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     contentValues.put("id", id);
 
     if (value!=null) {
-      contentValues.put("value", java2Content1(value));
+      contentValues.put("value", serializer1(value));
     } else {
       contentValues.putNull("value");
     }
 
     if (value2!=null) {
-      contentValues.put("value2", java2Content2(value2));
+      contentValues.put("value2", serializer2(value2));
     } else {
       contentValues.putNull("value2");
     }
@@ -452,7 +457,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
    */
   @Override
   public long delete(int[] value, Integer[] value2) {
-    String[] whereConditions={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(java2Content2(value2),StandardCharsets.UTF_8))};
+    String[] whereConditions={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE int_bean WHERE value=%s and value2=%s"), (Object[])whereConditions);
     int result = database().delete("int_bean", "value=? and value2=?", whereConditions);
@@ -462,7 +467,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   /**
    * write
    */
-  protected static byte[] java2Content1(int[] value) {
+  protected static byte[] serializer1(int[] value) {
     if (value==null) {
       return null;
     }
@@ -492,9 +497,43 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   }
 
   /**
+   * parse
+   */
+  protected static int[] parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      int[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Integer> collection=new ArrayList<>();
+        Integer item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getIntValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asIntegerTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
    * write
    */
-  protected static byte[] java2Content2(Integer[] value) {
+  protected static byte[] serializer2(Integer[] value) {
     if (value==null) {
       return null;
     }
@@ -522,6 +561,40 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
       return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected static Integer[] parser2(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Integer[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Integer> collection=new ArrayList<>();
+        Integer item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getIntValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asIntegerArray(collection);
+      }
+      return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

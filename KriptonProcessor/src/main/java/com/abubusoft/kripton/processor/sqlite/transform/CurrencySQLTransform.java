@@ -20,6 +20,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
@@ -51,8 +52,8 @@ class CurrencySQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateWriteQueryParameter(Builder methodBuilder, String objectName, String serializerName) {
-		methodBuilder.addCode("$T.write($L)", CurrencyUtils.class, objectName);
+	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+		methodBuilder.addCode("$T.write($L)", CurrencyUtils.class, paramName);
 	}
 
 	@Override

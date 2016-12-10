@@ -6,8 +6,17 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.binder2.KriptonBinder2;
+import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.DateUtils;
+import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,7 +88,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
       if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
       if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-      if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
+      if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
       if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
     }
@@ -142,7 +151,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
       if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
       if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-      if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
+      if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
       if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
     }
@@ -207,7 +216,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
         if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
         if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
         if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
+        if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
         if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
         resultList.add(resultBean);
@@ -431,7 +440,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
           if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
           if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
           if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
+          if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
           if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
@@ -557,7 +566,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
           if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
           if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
           if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
+          if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
           if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
@@ -602,7 +611,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
 
     if (content!=null) {
-      contentValues.put("content", content);
+      contentValues.put("content", serializer1(content));
     } else {
       contentValues.putNull("content");
     }
@@ -659,7 +668,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
 
     if (bean.getContent()!=null) {
-      contentValues.put("content", bean.getContent());
+      contentValues.put("content", Bean05Table.serializeContent(bean.getContent()));
     } else {
       contentValues.putNull("content");
     }
@@ -721,7 +730,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
 
     if (bean.getContent()!=null) {
-      contentValues.put("content", bean.getContent());
+      contentValues.put("content", Bean05Table.serializeContent(bean.getContent()));
     } else {
       contentValues.putNull("content");
     }
@@ -774,7 +783,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     ContentValues contentValues=contentValues();
     contentValues.clear();
     if (content!=null) {
-      contentValues.put("content", content);
+      contentValues.put("content", serializer1(content));
     } else {
       contentValues.putNull("content");
     }
@@ -927,7 +936,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       if (cursor.moveToFirst()) {
 
         if (cursor.isNull(0)) { return null; }
-        result=cursor.getBlob(0);
+        result=parser1(cursor.getBlob(0));
       }
     } finally {
       if (!cursor.isClosed()) {
@@ -935,5 +944,52 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       }
     }
     return result;
+  }
+
+  /**
+   * write
+   */
+  protected static byte[] serializer1(byte[] value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        jacksonSerializer.writeBinaryField("element", value);
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected static byte[] parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      byte[] result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getBinaryValue();
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
   }
 }

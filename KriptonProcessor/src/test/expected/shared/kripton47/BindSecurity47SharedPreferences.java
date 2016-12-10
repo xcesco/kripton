@@ -18,28 +18,28 @@ import java.lang.Exception;
 import java.lang.String;
 
 /**
- * This class is the shared preference binder defined for Security
+ * This class is the shared preference binder defined for Security47
  *
- * @see Security
+ * @see Security47
  */
-public class BindSecuritySharedPreferences extends AbstractSharedPreference {
+public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   /**
    * instance of shared preferences
    */
-  private static BindSecuritySharedPreferences instance;
+  private static BindSecurity47SharedPreferences instance;
 
   /**
    * working instance of bean
    */
-  private final Security defaultBean;
+  private final Security47 defaultBean;
 
   /**
    * constructor
    */
-  private BindSecuritySharedPreferences() {
+  private BindSecurity47SharedPreferences() {
     // no name specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
-    defaultBean=new Security();
+    defaultBean=new Security47();
   }
 
   /**
@@ -53,7 +53,7 @@ public class BindSecuritySharedPreferences extends AbstractSharedPreference {
    * reset shared preferences
    */
   public void reset() {
-    Security bean=new Security();
+    Security47 bean=new Security47();
     write(bean);
   }
 
@@ -62,8 +62,8 @@ public class BindSecuritySharedPreferences extends AbstractSharedPreference {
    *
    * @return read bean
    */
-  public Security read() {
-    Security bean=new Security();
+  public Security47 read() {
+    Security47 bean=new Security47();
     bean.fcmId=prefs.getString("fcmId", bean.fcmId);
      {
       String temp=prefs.getString("authorizationToken", null);
@@ -85,7 +85,7 @@ public class BindSecuritySharedPreferences extends AbstractSharedPreference {
    *
    * @param bean bean to entirely write
    */
-  public void write(Security bean) {
+  public void write(Security47 bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putString("fcmId",bean.fcmId);
 
@@ -181,6 +181,7 @@ public class BindSecuritySharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
       DeviceAccessToken result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
@@ -224,6 +225,7 @@ public class BindSecuritySharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
       UserIdentity result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
@@ -238,9 +240,9 @@ public class BindSecuritySharedPreferences extends AbstractSharedPreference {
   /**
    * get instance of shared preferences
    */
-  public static synchronized BindSecuritySharedPreferences instance() {
+  public static synchronized BindSecurity47SharedPreferences instance() {
     if (instance==null) {
-      instance=new BindSecuritySharedPreferences();
+      instance=new BindSecurity47SharedPreferences();
     }
     return instance;
   }

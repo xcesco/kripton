@@ -19,6 +19,7 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.squareup.javapoet.MethodSpec;
@@ -63,7 +64,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 			methodBuilder.returns(className(String.class));
 			break;
 		case BYTE:
-			methodBuilder.addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(TypeUtility.arrayTypeName(Byte.TYPE));
+			methodBuilder.returns(TypeUtility.arrayTypeName(Byte.TYPE));
 			break;
 		}
 
@@ -130,8 +131,15 @@ public abstract class ManagedPropertyPersistenceHelper {
 
 		methodBuilder.beginControlFlow("try ($T wrapper=context.createParser(input))", JacksonWrapperParser.class);
 		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);
+		
+		methodBuilder.addCode("// START_OBJECT\n");
 		methodBuilder.addStatement("jacksonParser.nextToken()");
-
+		
+		if (!property.isBindedObject()) {					      
+			methodBuilder.addCode("// value of \"element\"\n");
+			methodBuilder.addStatement("jacksonParser.nextValue()");	
+		}
+		
 		String parserName = "jacksonParser";
 		BindTransform bindTransform = BindTransformer.lookup(property);
 
@@ -149,9 +157,11 @@ public abstract class ManagedPropertyPersistenceHelper {
 
 	}
 
-	public static void generateMethodPersistance(Builder builder, String methodName, TypeName parameterTypeName, PersistType persistType) {
+	public static void generateParamSerializer(Builder builder, String methodName, TypeName parameterTypeName, PersistType persistType) {
+		methodName = SQLDaoDefinition.PARAM_SERIALIZER_PREFIX + methodName;
+		
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("write\n").addParameter(ParameterSpec.builder(parameterTypeName, "value").build());
-
+		
 		methodBuilder.addModifiers(Modifier.PROTECTED, Modifier.STATIC);
 		switch (persistType) {
 		case STRING:
@@ -195,6 +205,54 @@ public abstract class ManagedPropertyPersistenceHelper {
 			methodBuilder.addStatement("return stream.getByteBuffer()");
 			break;
 		}
+
+		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
+		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
+		methodBuilder.endControlFlow();
+
+		builder.addMethod(methodBuilder.build());
+
+	}
+	
+	public static void generateParamParser(Builder builder, String methodName, TypeName parameterTypeName, PersistType persistType) {
+		methodName = SQLDaoDefinition.PARAM_PARSER_PREFIX + methodName;
+
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("parse\n").returns(parameterTypeName);
+		methodBuilder.addModifiers(Modifier.PROTECTED, Modifier.STATIC);
+		
+		switch (persistType) {
+		case STRING:
+			methodBuilder.addParameter(ParameterSpec.builder(className(String.class), "input").build());
+			break;
+		case BYTE:
+			methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(Byte.TYPE), "input").build());
+			break;
+		}
+
+		methodBuilder.beginControlFlow("if (input==null)");
+		methodBuilder.addStatement("return null");
+		methodBuilder.endControlFlow();
+
+		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder2.class);
+
+		methodBuilder.beginControlFlow("try ($T wrapper=context.createParser(input))", JacksonWrapperParser.class);
+		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);
+				
+		methodBuilder.addCode("// START_OBJECT\n");
+		methodBuilder.addStatement("jacksonParser.nextToken()");
+	      
+		methodBuilder.addCode("// value of \"element\"\n");
+		methodBuilder.addStatement("jacksonParser.nextValue()");
+
+		String parserName = "jacksonParser";
+		BindTransform bindTransform = BindTransformer.lookup(parameterTypeName);
+
+		methodBuilder.addStatement("$T result=null", parameterTypeName);
+
+		BindProperty property=BindProperty.builder(parameterTypeName).inCollection(false).elementName(DEFAULT_FIELD_NAME).build();
+		bindTransform.generateParseOnJackson(methodBuilder, parserName, null, "result", property);
+
+		methodBuilder.addStatement("return result");
 
 		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
 		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);

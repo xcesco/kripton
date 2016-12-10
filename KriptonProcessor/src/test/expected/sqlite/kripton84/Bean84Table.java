@@ -2,6 +2,8 @@ package sqlite.kripton84;
 
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -98,7 +100,8 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JsonGenerator jacksonSerializer=context.createSerializer(stream).jacksonGenerator) {
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
       if (value!=null)  {
@@ -119,6 +122,7 @@ public class Bean84Table {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
       return stream.getByteBuffer();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
@@ -133,8 +137,12 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (JsonParser jacksonParser=context.createParser(input).jacksonParser) {
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       List<String> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<String> collection=new ArrayList<>();
@@ -163,7 +171,8 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JsonGenerator jacksonSerializer=context.createSerializer(stream).jacksonGenerator) {
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
       if (value!=null)  {
@@ -188,6 +197,7 @@ public class Bean84Table {
         }
       }
       jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
       return stream.getByteBuffer();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
@@ -202,8 +212,12 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (JsonParser jacksonParser=context.createParser(input).jacksonParser) {
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       Map<Integer, String> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashMap<Integer, String> collection=new HashMap<>();
@@ -237,7 +251,8 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JsonGenerator jacksonSerializer=context.createSerializer(stream).jacksonGenerator) {
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
       if (value!=null)  {
@@ -258,6 +273,7 @@ public class Bean84Table {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
       return stream.getByteBuffer();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
@@ -272,8 +288,12 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (JsonParser jacksonParser=context.createParser(input).jacksonParser) {
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       Character[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Character> collection=new ArrayList<>();
@@ -302,7 +322,8 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JsonGenerator jacksonSerializer=context.createSerializer(stream).jacksonGenerator) {
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
       if (value!=null)  {
@@ -319,6 +340,7 @@ public class Bean84Table {
         jacksonSerializer.writeEndArray();
       }
       jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
       return stream.getByteBuffer();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
@@ -333,8 +355,12 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (JsonParser jacksonParser=context.createParser(input).jacksonParser) {
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       char[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<Character> collection=new ArrayList<>();
@@ -363,7 +389,8 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JsonGenerator jacksonSerializer=context.createSerializer(stream).jacksonGenerator) {
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
       int fieldCount=0;
       if (value!=null)  {
@@ -371,6 +398,7 @@ public class Bean84Table {
         jacksonSerializer.writeBinaryField("element", value);
       }
       jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
       return stream.getByteBuffer();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
@@ -385,8 +413,12 @@ public class Bean84Table {
       return null;
     }
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
-    try (JsonParser jacksonParser=context.createParser(input).jacksonParser) {
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       byte[] result=null;
       if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
         result=jacksonParser.getBinaryValue();

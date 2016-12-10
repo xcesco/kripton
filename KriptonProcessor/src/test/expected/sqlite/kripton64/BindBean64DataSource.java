@@ -16,8 +16,8 @@ import java.lang.String;
  *
  * @see Bean64DataSource
  * @see BindBean64DaoFactory
- * @see BeanDao
- * @see BeanDaoImpl
+ * @see Bean64Dao
+ * @see Bean64DaoImpl
  * @see Bean64
  */
 public class BindBean64DataSource extends AbstractDataSource implements BindBean64DaoFactory, Bean64DataSource {
@@ -39,15 +39,15 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
   /**
    * <p>dao instance</p>
    */
-  protected BeanDaoImpl beanDao = new BeanDaoImpl(this);
+  protected Bean64DaoImpl bean64Dao = new Bean64DaoImpl(this);
 
   protected BindBean64DataSource(Context context) {
     super(context, name, null, version);
   }
 
   @Override
-  public BeanDaoImpl getBeanDao() {
-    return beanDao;
+  public Bean64DaoImpl getBean64Dao() {
+    return bean64Dao;
   }
 
   /**

@@ -21,6 +21,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.math.BigDecimal;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -36,8 +37,8 @@ class BigDecimalSQLTransform extends AbstractSQLTransform {
 	 * @see com.abubusoft.kripton.processor.sqlite.transform.Transform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String)
 	 */
 	@Override
-	public void generateWriteQueryParameter(Builder methodBuilder, String objectName, String serializerName) {
-		methodBuilder.addCode("$L.toPlainString()", objectName);		
+	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+		methodBuilder.addCode("$L.toPlainString()", paramName);		
 	}
 	
 	@Override

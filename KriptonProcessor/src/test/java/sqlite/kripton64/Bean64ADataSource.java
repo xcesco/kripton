@@ -13,21 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared.kripton47;
+package sqlite.kripton64;
 
-import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
-import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@BindType
-@BindSharedPreferences(name="dummy")
-public class App {
 
-	public String name="ciao"; 
-	
-	//public String description;
-		
-	//public float valueFloat=5.0f;
-	
-	public UserAccessToken userAccessToken;
-	
+@BindDataSource(value=Bean64ADao.class, fileName = "dummy" , version=1, asyncTask=false, cursor=false)
+public interface Bean64ADataSource {
+
 }

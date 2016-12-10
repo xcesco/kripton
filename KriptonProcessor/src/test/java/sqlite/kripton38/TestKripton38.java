@@ -92,6 +92,7 @@ public class TestKripton38 extends BaseProcessorTest {
 	 */
 	@Test
 	public void test05() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(Bean05.class, BeanType.class);
 		buildDataSourceProcessorTest(Dummy05DataSource.class, DaoBean05.class, Bean05.class, BaseDao.class, BeanType.class);
 	}
 	

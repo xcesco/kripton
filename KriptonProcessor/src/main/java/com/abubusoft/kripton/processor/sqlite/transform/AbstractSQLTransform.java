@@ -24,6 +24,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
@@ -41,27 +42,19 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	}
 
 	@Override
-	public void generateWriteQueryParameter(Builder methodBuilder, String objectName, String serializerName) {
-		methodBuilder.addCode("$L", objectName);		
+	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+		methodBuilder.addCode("$L", paramName);		
 	}
-	
+		
 	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		// except for supported result type, each transform does not need to implements this method
 		throw new KriptonRuntimeException("Something went wrong!");
 	}
 	
 	@Override
 	public void generateDefaultValue(Builder methodBuilder) {
-		throw new KriptonRuntimeException("Something went wrong!");
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#isJava2ContentSerializerNeeded()
-	 */
-	public boolean isJava2ContentSerializerNeeded()
-	{
-		return false;
+		methodBuilder.addCode("null");
 	}
 	
 

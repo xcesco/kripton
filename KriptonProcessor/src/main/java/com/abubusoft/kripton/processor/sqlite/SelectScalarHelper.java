@@ -91,7 +91,7 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 			methodBuilder.addCode("; }\n", t);
 		}
 		methodBuilder.addCode("result=");
-		t.generateRead(methodBuilder, "cursor", "0");
+		t.generateReadParam(methodBuilder, method.getParent(), typeName(returnType), "cursor", "0");
 		methodBuilder.addCode(";\n");
 
 		//methodBuilder.endControlFlow("while (cursor.moveToNext())");

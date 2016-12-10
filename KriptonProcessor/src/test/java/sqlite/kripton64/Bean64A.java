@@ -13,32 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared.kripton47;
+package sqlite.kripton64;
 
-import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
+import java.util.Map;
+import java.util.Set;
+
+import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindSharedPreferences
-public class Security {
-
-    /**
-     * FCM-ID
-     */
-    public String fcmId;
-
-    /**
-     * Autorization token
-     */
-    public DeviceAccessToken authorizationToken;
-
-    /**
-     * device UID
-     */
-    public String deviceUid;
-
-    /**
-     * user identitfy
-     */
-    public UserIdentity userIdentity;
+public class Bean64A {
+		
+	public Map<String, Bean64A> valueMapStringBean;
+	
+	public Set<String> valueSetString;
+	
+	public String valueString;
+	
+	public long id;
 }

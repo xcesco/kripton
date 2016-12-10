@@ -376,7 +376,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       Set<Byte> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Byte> collection=new HashSet<>();
@@ -441,7 +444,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       HashSet<Short> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Short> collection=new HashSet<>();
@@ -506,7 +512,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       LinkedHashSet<Integer> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         LinkedHashSet<Integer> collection=new LinkedHashSet<>();
@@ -571,7 +580,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       HashSet<String> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<String> collection=new HashSet<>();
@@ -636,7 +648,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       Set<Character> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Character> collection=new HashSet<>();
@@ -701,7 +716,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       HashSet<Float> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Float> collection=new HashSet<>();
@@ -766,7 +784,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       HashSet<Double> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<Double> collection=new HashSet<>();
@@ -831,7 +852,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       HashSet<BigDecimal> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<BigDecimal> collection=new HashSet<>();
@@ -896,7 +920,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       LinkedHashSet<Bean> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         LinkedHashSet<Bean> collection=new LinkedHashSet<>();
@@ -961,7 +988,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
       jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
       HashSet<EnumType> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         HashSet<EnumType> collection=new HashSet<>();

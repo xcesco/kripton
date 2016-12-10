@@ -8,12 +8,16 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.binder2.KriptonBinder2;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
+import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -103,7 +107,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public FloatBean selectOne(List<Float> value) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM float_bean WHERE value=?", args);
@@ -156,7 +160,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public void selectOne(List<Float> value, OnReadBeanListener<FloatBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM float_bean WHERE value=?", args);
@@ -219,7 +223,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public void selectOne(List<Float> value, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM float_bean WHERE value=?", args);
@@ -267,7 +271,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public List<FloatBean> selectList(List<Float> value) {
     // build where condition
-    String[] args={(value==null?null:new String(java2Content1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM float_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM float_bean WHERE value=?", args);
@@ -327,12 +331,12 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
     if (value!=null) {
-      contentValues.put("value", java2Content1(value));
+      contentValues.put("value", serializer1(value));
     } else {
       contentValues.putNull("value");
     }
 
-    String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(java2Content1(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("UPDATE float_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditions);
     int result = database().update("float_bean", contentValues, "id=? and value=?", whereConditions);
@@ -364,7 +368,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     contentValues.put("id", id);
 
     if (value!=null) {
-      contentValues.put("value", java2Content1(value));
+      contentValues.put("value", serializer1(value));
     } else {
       contentValues.putNull("value");
     }
@@ -433,7 +437,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    */
   @Override
   public long delete(List<Float> paramValue) {
-    String[] whereConditions={(paramValue==null?null:new String(java2Content1(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditions={(paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("DELETE float_bean WHERE value=%s"), (Object[])whereConditions);
     int result = database().delete("float_bean", "value=?", whereConditions);
@@ -443,7 +447,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   /**
    * write
    */
-  protected static byte[] java2Content1(List<Float> value) {
+  protected static byte[] serializer1(List<Float> value) {
     if (value==null) {
       return null;
     }
@@ -471,6 +475,40 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
       return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  protected static List<Float> parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      List<Float> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Float> collection=new ArrayList<>();
+        Float item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getFloatValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

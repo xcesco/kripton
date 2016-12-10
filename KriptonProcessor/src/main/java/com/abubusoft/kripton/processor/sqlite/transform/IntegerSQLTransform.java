@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -34,7 +35,7 @@ public class IntegerSQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getInt($L)", cursorName, indexName);
 	}
 

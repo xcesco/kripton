@@ -92,7 +92,7 @@ public class BindBean84Cursor {
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.columnMapIntegerString=Bean84Table.parseColumnMapIntegerString(cursor.getBlob(index2));}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.columnArrayChar=Bean84Table.parseColumnArrayChar(cursor.getBlob(index3));}
         if (index4>=0 && !cursor.isNull(index4)) { resultBean.columnArrayCharType=Bean84Table.parseColumnArrayCharType(cursor.getBlob(index4));}
-        if (index5>=0 && !cursor.isNull(index5)) { resultBean.columnArrayByteType=cursor.getBlob(index5);}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.columnArrayByteType=Bean84Table.parseColumnArrayByteType(cursor.getBlob(index5));}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -125,7 +125,7 @@ public class BindBean84Cursor {
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.columnMapIntegerString=Bean84Table.parseColumnMapIntegerString(cursor.getBlob(index2));}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.columnArrayChar=Bean84Table.parseColumnArrayChar(cursor.getBlob(index3));}
         if (index4>=0 && !cursor.isNull(index4)) { resultBean.columnArrayCharType=Bean84Table.parseColumnArrayCharType(cursor.getBlob(index4));}
-        if (index5>=0 && !cursor.isNull(index5)) { resultBean.columnArrayByteType=cursor.getBlob(index5);}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.columnArrayByteType=Bean84Table.parseColumnArrayByteType(cursor.getBlob(index5));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

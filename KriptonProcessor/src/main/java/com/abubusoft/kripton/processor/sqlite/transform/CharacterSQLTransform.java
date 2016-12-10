@@ -19,6 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -44,8 +45,8 @@ class CharacterSQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateWriteQueryParameter(Builder methodBuilder, String objectName, String serializerName) {
-		methodBuilder.addCode("(int)$L", objectName);
+	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+		methodBuilder.addCode("(int)$L", paramName);
 	}
 
 	@Override
@@ -55,7 +56,7 @@ class CharacterSQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
+	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("(char)$L.getInt($L)", cursorName, indexName);
 	}
 

@@ -110,9 +110,10 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		}
 		
 		// generate serializer params
-		for (Entry<TypeName, String> item: currentDaoDefinition.java2ContentSerializer.entrySet())
+		for (Entry<TypeName, String> item: currentDaoDefinition.managedParams.entrySet())
 		{
-			ManagedPropertyPersistenceHelper.generateMethodPersistance(builder, item.getValue(), item.getKey(), PersistType.BYTE);
+			ManagedPropertyPersistenceHelper.generateParamSerializer(builder, item.getValue(), item.getKey(), PersistType.BYTE);
+			ManagedPropertyPersistenceHelper.generateParamParser(builder, item.getValue(), item.getKey(), PersistType.BYTE);
 		}
 
 		TypeSpec typeSpec = builder.build();
