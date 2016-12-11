@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import javax.xml.stream.XMLStreamException;
 
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.binder2.context.BinderContext;
 import com.abubusoft.kripton.binder2.context.JacksonContext;
 import com.abubusoft.kripton.binder2.context.XmlBinderContext;
