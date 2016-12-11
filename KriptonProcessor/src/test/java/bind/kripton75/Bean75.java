@@ -3,14 +3,14 @@ package bind.kripton75;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-public class BeanElement75 {
+public class Bean75 {
 	
-	public BeanElement75()
+	public Bean75()
 	{
 		
 	}
 	
-	public BeanElement75(String name)
+	public Bean75(String name)
 	{
 		this.name=name;
 	}

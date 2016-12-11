@@ -11,11 +11,11 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 
 @BindType
-public class BeanElement71 {
+public class Bean71 {
 	
 	@Bind(enabled=true)
 	@BindXml(elementTag="item")
-	public LinkedList<BeanElement71> valueBeanList;
+	public LinkedList<Bean71> valueBeanList;
 	
 	@Bind(enabled=true)
 	public LinkedList<BigDecimal> valueBigDecimalList;
@@ -32,7 +32,7 @@ public class BeanElement71 {
 	@BindXml(elementTag="item")
 	public List<Double> valueDoubleList;
 		
-	public LinkedList<BeanEnum71> valueEnumList;
+	public LinkedList<Enum71> valueEnumList;
 	
 	@BindXml(elementTag="item")
 	public List<Float> valueFloatList;
@@ -52,12 +52,12 @@ public class BeanElement71 {
 	@Bind(enabled=true)
 	public String zalueStringFinal;
 	
-	public BeanElement71()
+	public Bean71()
 	{
 		
 	}
 
-	public BeanElement71(String name)
+	public Bean71(String name)
 	{
 		this.zalueStringFinal=name;
 	}
@@ -70,7 +70,7 @@ public class BeanElement71 {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BeanElement71 other = (BeanElement71) obj;
+		Bean71 other = (Bean71) obj;
 		if (valueBeanList == null) {
 			if (other.valueBeanList != null)
 				return false;

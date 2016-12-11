@@ -19,9 +19,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import bind.kripton70.Test70Suite;
-import bind.kripton71List.TestKripton71;
-import bind.kripton72.TestKripton72;
-import bind.kripton73.TestKripton73;
+import bind.kripton71List.Test71;
+import bind.kripton72.Test72;
+import bind.kripton73.Test73;
 import example01.SQLiteProcessorTest;
 import kripton42faster.TestKripton42;
 import shared.kripton45.TestKripton45;
@@ -41,7 +41,7 @@ import sqlite.kripton60.TestKripton60;
 import sqlite.kripton62.TestKripton62;
 import sqlite.kripton63.TestKripton63;
 import sqlite.kripton64.Test64Suite;
-import sqlite.kripton84.TestKripton84;
+import sqlite.kripton84.Test84;
 import test01.TestDatabase01;
 import test02.TestDao01;
 import test03.Test03;
@@ -63,10 +63,10 @@ import test05firt_aid.TestFirstAid;
 			TestKripton63.class,
 			Test64Suite.class,
 			Test70Suite.class,
-			TestKripton71.class,
-			TestKripton72.class,
-			TestKripton73.class,
-			TestKripton84.class,
+			Test71.class,
+			Test72.class,
+			Test73.class,
+			Test84.class,
 		TestFirstAid.class })
 //@formatter:on
 public class BindDataSourceProcessorSuiteTest {

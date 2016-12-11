@@ -40,23 +40,23 @@ import org.codehaus.stax2.XMLStreamWriter2;
 /**
  * This class is the shared preference binder defined for BeanElement73
  *
- * @see BeanElement73
+ * @see Bean73
  */
 @BindMap
-public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
+public class BeanElement73BindMap extends AbstractMapper<Bean73> {
   /**
    * create new object instance
    */
   @Override
-  public BeanElement73 createInstance() {
-    return new BeanElement73();
+  public Bean73 createInstance() {
+    return new Bean73();
   }
 
   /**
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(JacksonContext context, BeanElement73 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(JacksonContext context, Bean73 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -74,7 +74,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
       if (object.valueBeanArray!=null)  {
         fieldCount++;
         int n=object.valueBeanArray.length;
-        BeanElement73 item;
+        Bean73 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBeanArray");
         jacksonSerializer.writeStartArray();
@@ -83,7 +83,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(BeanElement73.class).serializeOnJackson(context, item, wrapper);
+            context.mapperFor(Bean73.class).serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -150,7 +150,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
       if (object.valueEnumArray!=null)  {
         fieldCount++;
         int n=object.valueEnumArray.length;
-        BeanEnum73 item;
+        Enum73 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueEnumArray");
         jacksonSerializer.writeStartArray();
@@ -310,7 +310,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(JacksonContext context, BeanElement73 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(JacksonContext context, Bean73 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -328,7 +328,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
       if (object.valueBeanArray!=null)  {
         fieldCount++;
         int n=object.valueBeanArray.length;
-        BeanElement73 item;
+        Bean73 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueBeanArray");
         if (n>0) {
@@ -338,7 +338,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
             if (item==null) {
               jacksonSerializer.writeString("null");
             } else {
-              if (context.mapperFor(BeanElement73.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
+              if (context.mapperFor(Bean73.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
                 jacksonSerializer.writeNullField("valueBeanArray");
               }
             }
@@ -422,7 +422,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
       if (object.valueEnumArray!=null)  {
         fieldCount++;
         int n=object.valueEnumArray.length;
-        BeanEnum73 item;
+        Enum73 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("valueEnumArray");
         if (n>0) {
@@ -614,7 +614,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(XmlBinderContext context, BeanElement73 object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(XmlBinderContext context, Bean73 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -633,7 +633,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
       // field valueBeanArray
       if (object.valueBeanArray!=null)  {
         int n=object.valueBeanArray.length;
-        BeanElement73 item;
+        Bean73 item;
         // write wrapper tag
         xmlSerializer.writeStartElement("valueBeanArray");
         for (int i=0; i<n; i++) {
@@ -642,7 +642,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
             xmlSerializer.writeEmptyElement("item");
           } else {
             xmlSerializer.writeStartElement("item");
-            context.mapperFor(BeanElement73.class).serializeOnXml(context, item, wrapper, 1);
+            context.mapperFor(Bean73.class).serializeOnXml(context, item, wrapper, 1);
             xmlSerializer.writeEndElement();
           }
         }
@@ -709,7 +709,7 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
       // field valueEnumArray
       if (object.valueEnumArray!=null)  {
         int n=object.valueEnumArray.length;
-        BeanEnum73 item;
+        Enum73 item;
         for (int i=0; i<n; i++) {
           item=object.valueEnumArray[i];
           if (item==null) {
@@ -865,10 +865,10 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
    * create new object instance
    */
   @Override
-  public BeanElement73 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean73 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      BeanElement73 instance = createInstance();
+      Bean73 instance = createInstance();
       String fieldName;
       if (jacksonParser.currentToken() == null) {
         jacksonParser.nextToken();
@@ -892,17 +892,17 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
             case "valueBeanArray":
               // field valueBeanArray
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-                ArrayList<BeanElement73> collection=new ArrayList<>();
-                BeanElement73 item=null;
+                ArrayList<Bean73> collection=new ArrayList<>();
+                Bean73 item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=context.mapperFor(BeanElement73.class).parseOnJackson(context, wrapper);
+                    item=context.mapperFor(Bean73.class).parseOnJackson(context, wrapper);
                   }
                   collection.add(item);
                 }
-                instance.valueBeanArray=CollectionUtils.asArray(collection, new BeanElement73[collection.size()]);
+                instance.valueBeanArray=CollectionUtils.asArray(collection, new Bean73[collection.size()]);
               }
             break;
             case "valueByteArray":
@@ -956,20 +956,20 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
             case "valueEnumArray":
               // field valueEnumArray
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-                ArrayList<BeanEnum73> collection=new ArrayList<>();
-                BeanEnum73 item=null;
+                ArrayList<Enum73> collection=new ArrayList<>();
+                Enum73 item=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
                      {
                       String tempEnum=jacksonParser.getText();
-                      item=StringUtils.hasText(tempEnum)?BeanEnum73.valueOf(tempEnum):null;
+                      item=StringUtils.hasText(tempEnum)?Enum73.valueOf(tempEnum):null;
                     }
                   }
                   collection.add(item);
                 }
-                instance.valueEnumArray=CollectionUtils.asArray(collection, new BeanEnum73[collection.size()]);
+                instance.valueEnumArray=CollectionUtils.asArray(collection, new Enum73[collection.size()]);
               }
             break;
             case "valueFloatArray":
@@ -1099,10 +1099,10 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
    * create new object instance
    */
   @Override
-  public BeanElement73 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean73 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      BeanElement73 instance = createInstance();
+      Bean73 instance = createInstance();
       String fieldName;
       if (jacksonParser.getCurrentToken() == null) {
         jacksonParser.nextToken();
@@ -1126,22 +1126,22 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
             case "valueBeanArray":
               // field valueBeanArray
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-                ArrayList<BeanElement73> collection=new ArrayList<>();
-                BeanElement73 item=null;
+                ArrayList<Bean73> collection=new ArrayList<>();
+                Bean73 item=null;
                 String tempValue=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                   tempValue=jacksonParser.getValueAsString();
                   if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                     item=null;
                   } else {
-                    item=context.mapperFor(BeanElement73.class).parseOnJacksonAsString(context, wrapper);
+                    item=context.mapperFor(Bean73.class).parseOnJacksonAsString(context, wrapper);
                   }
                   collection.add(item);
                 }
-                instance.valueBeanArray=CollectionUtils.asArray(collection, new BeanElement73[collection.size()]);
+                instance.valueBeanArray=CollectionUtils.asArray(collection, new Bean73[collection.size()]);
               } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
-                ArrayList<BeanElement73> collection=new ArrayList<>();
-                instance.valueBeanArray=CollectionUtils.asArray(collection, new BeanElement73[collection.size()]);
+                ArrayList<Bean73> collection=new ArrayList<>();
+                instance.valueBeanArray=CollectionUtils.asArray(collection, new Bean73[collection.size()]);
               }
             break;
             case "valueByteArray":
@@ -1210,8 +1210,8 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
             case "valueEnumArray":
               // field valueEnumArray
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-                ArrayList<BeanEnum73> collection=new ArrayList<>();
-                BeanEnum73 item=null;
+                ArrayList<Enum73> collection=new ArrayList<>();
+                Enum73 item=null;
                 String tempValue=null;
                 while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                   tempValue=jacksonParser.getValueAsString();
@@ -1220,15 +1220,15 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   } else {
                      {
                       String tempEnum=jacksonParser.getText();
-                      item=StringUtils.hasText(tempEnum)?BeanEnum73.valueOf(tempEnum):null;
+                      item=StringUtils.hasText(tempEnum)?Enum73.valueOf(tempEnum):null;
                     }
                   }
                   collection.add(item);
                 }
-                instance.valueEnumArray=CollectionUtils.asArray(collection, new BeanEnum73[collection.size()]);
+                instance.valueEnumArray=CollectionUtils.asArray(collection, new Enum73[collection.size()]);
               } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
-                ArrayList<BeanEnum73> collection=new ArrayList<>();
-                instance.valueEnumArray=CollectionUtils.asArray(collection, new BeanEnum73[collection.size()]);
+                ArrayList<Enum73> collection=new ArrayList<>();
+                instance.valueEnumArray=CollectionUtils.asArray(collection, new Enum73[collection.size()]);
               }
             break;
             case "valueFloatArray":
@@ -1395,10 +1395,10 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
    * create new object instance
    */
   @Override
-  public BeanElement73 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public Bean73 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XMLStreamReader2 xmlParser = wrapper.xmlParser;
-      BeanElement73 instance = createInstance();
+      Bean73 instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
 
@@ -1431,18 +1431,18 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   case "valueBeanArray":
                     // property valueBeanArray
                      {
-                      ArrayList<BeanElement73> collection=new ArrayList<>();
-                      BeanElement73 item;
+                      ArrayList<Bean73> collection=new ArrayList<>();
+                      Bean73 item;
                       while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
                         } else {
-                          item=context.mapperFor(BeanElement73.class).parseOnXml(context, wrapper, eventType);
+                          item=context.mapperFor(Bean73.class).parseOnXml(context, wrapper, eventType);
                         }
                         collection.add(item);
                       }
-                      instance.valueBeanArray=CollectionUtils.asArray(collection, new BeanElement73[collection.size()]);
+                      instance.valueBeanArray=CollectionUtils.asArray(collection, new Bean73[collection.size()]);
                     }
                   break;
                   case "valueByteArray":
@@ -1499,14 +1499,14 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                   case "valueEnumArray":
                     // property valueEnumArray
                      {
-                      ArrayList<BeanEnum73> collection=new ArrayList<>();
-                      BeanEnum73 item;
+                      ArrayList<Enum73> collection=new ArrayList<>();
+                      Enum73 item;
                       // add first element
                       if (xmlParser.isEmptyElement()) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=BeanEnum73.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                        item=Enum73.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                       }
                       collection.add(item);
                       while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("valueEnumArray")) {
@@ -1514,11 +1514,11 @@ public class BeanElement73BindMap extends AbstractMapper<BeanElement73> {
                           item=null;
                           xmlParser.nextTag();
                         } else {
-                          item=BeanEnum73.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                          item=Enum73.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                         }
                         collection.add(item);
                       }
-                      instance.valueEnumArray=CollectionUtils.asArray(collection, new BeanEnum73[collection.size()]);
+                      instance.valueEnumArray=CollectionUtils.asArray(collection, new Enum73[collection.size()]);
                       read=false;
                     }
                   break;

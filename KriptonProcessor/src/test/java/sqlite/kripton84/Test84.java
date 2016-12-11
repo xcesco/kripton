@@ -18,18 +18,12 @@ package sqlite.kripton84;
 import java.io.IOException;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLog;
-
-import com.abubusoft.kripton.android.KriptonLibrary;
 
 import base.BaseAndroidTest;
-import base.BaseProcessorTest;
 
 /**
  * @author xcesco
@@ -37,7 +31,7 @@ import base.BaseProcessorTest;
  */
 @Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner.class)
-public class TestKripton84 extends BaseAndroidTest {
+public class Test84 extends BaseAndroidTest {
 	
 	
 	@Test

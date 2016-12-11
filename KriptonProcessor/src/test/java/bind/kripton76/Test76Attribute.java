@@ -17,7 +17,7 @@ import bind.AbstractBindTypeProcessorTest;
 
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 
-public class TestKripton76Attribute extends AbstractBindTypeProcessorTest {
+public class Test76Attribute extends AbstractBindTypeProcessorTest {
 
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException

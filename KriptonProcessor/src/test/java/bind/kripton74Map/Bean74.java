@@ -19,7 +19,6 @@
 package bind.kripton74Map;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -34,9 +33,9 @@ import com.abubusoft.kripton.annotation.BindXml;
  *
  */
 @BindType(allFields=true)
-public class BeanElement74 implements Serializable {
+public class Bean74 implements Serializable {
 
-	public BeanElement74()
+	public Bean74()
 	{	
 	}
 
@@ -48,13 +47,13 @@ public class BeanElement74 implements Serializable {
 	
 	@Bind(mapKeyName="k", mapValueName="v")
 	@BindXml(elementTag="item")
-	public Map<BeanEnum74, BeanElement74> valueMapEnumBean;
+	public Map<Enum74, Bean74> valueMapEnumBean;
 	
 	@Bind(mapKeyName="k", mapValueName="v")
 	public Map<Integer, byte[]> valueMapIntByteArray;
 	
 	@Bind(mapKeyName="k", mapValueName="v")
-	public Map<BeanElement74, Locale> valueMapBeanLocale;
+	public Map<Bean74, Locale> valueMapBeanLocale;
 	
 	@Override
 	public int hashCode() {
@@ -76,7 +75,7 @@ public class BeanElement74 implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BeanElement74 other = (BeanElement74) obj;
+		Bean74 other = (Bean74) obj;
 		if (valueMapBeanLocale == null) {
 			if (other.valueMapBeanLocale != null)
 				return false;

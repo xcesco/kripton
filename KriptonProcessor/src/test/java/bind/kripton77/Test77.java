@@ -11,7 +11,7 @@ import com.squareup.javapoet.TypeName;
 
 import bind.AbstractBindTypeProcessorTest;
 
-public class TestKripton77 extends AbstractBindTypeProcessorTest {
+public class Test77 extends AbstractBindTypeProcessorTest {
 	
 	public class TestListTransform extends ListBindTransformation
 	{

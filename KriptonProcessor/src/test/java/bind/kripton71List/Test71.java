@@ -11,12 +11,12 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
-public class TestKripton71 extends AbstractBindTypeProcessorTest {
+public class Test71 extends AbstractBindTypeProcessorTest {
 
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanElement71.class, BeanEnum71.class);
+		buildBindProcessorTest(Bean71.class, Enum71.class);
 	}
 		
 	@Test
@@ -24,10 +24,10 @@ public class TestKripton71 extends AbstractBindTypeProcessorTest {
 	{
 		Assert.assertNotNull(new BeanElement71BindMap());
 		
-		BeanElement71 bean=new BeanElement71();
+		Bean71 bean=new Bean71();
 			
 		bean.valueBeanList=new LinkedList<>();
-		bean.valueBeanList.add(new BeanElement71("hello"));				
+		bean.valueBeanList.add(new Bean71("hello"));				
 		
 		bean.valueBigDecimalList=new LinkedList<>();
 		bean.valueBigDecimalList.add(null);
@@ -52,8 +52,8 @@ public class TestKripton71 extends AbstractBindTypeProcessorTest {
 		
 		bean.valueEnumList=new LinkedList<>();
 		bean.valueEnumList.add(null);
-		bean.valueEnumList.add(BeanEnum71.VALUE_1);
-		bean.valueEnumList.add(BeanEnum71.VALUE_2);
+		bean.valueEnumList.add(Enum71.VALUE_1);
+		bean.valueEnumList.add(Enum71.VALUE_2);
 				
 		bean.valueFloatList=new ArrayList<>();
 		bean.valueFloatList.add(1f);

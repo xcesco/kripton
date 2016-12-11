@@ -9,23 +9,23 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
-public class TestKripton73 extends AbstractBindTypeProcessorTest {
+public class Test73 extends AbstractBindTypeProcessorTest {
 
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanElement73.class, BeanEnum73.class);
+		buildBindProcessorTest(Bean73.class, Enum73.class);
 	}
 		
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException
 	{
-		Assert.assertNotNull(new BeanElement73BindMap());
+		Assert.assertNotNull(new Bean73BindMap());
 		
-		BeanElement73 bean=new BeanElement73();
+		Bean73 bean=new Bean73();
 			
-		bean.valueBeanArray=new BeanElement73[1];
-		bean.valueBeanArray[0]=new BeanElement73("hello");				
+		bean.valueBeanArray=new Bean73[1];
+		bean.valueBeanArray[0]=new Bean73("hello");				
 		
 		bean.valueBigDecimalArray=new BigDecimal[4];
 		bean.valueBigDecimalArray[0]=null;
@@ -48,10 +48,10 @@ public class TestKripton73 extends AbstractBindTypeProcessorTest {
 		
 		bean.valueDoubleArray=new Double[0];		
 		
-		bean.valueEnumArray=new BeanEnum73[3];
+		bean.valueEnumArray=new Enum73[3];
 		bean.valueEnumArray[0]=null;
-		bean.valueEnumArray[1]=BeanEnum73.VALUE_1;
-		bean.valueEnumArray[2]=BeanEnum73.VALUE_2;
+		bean.valueEnumArray[1]=Enum73.VALUE_1;
+		bean.valueEnumArray[2]=Enum73.VALUE_2;
 				
 		bean.valueFloatArray=new Float[2];
 		bean.valueFloatArray[0]=1f;

@@ -7,20 +7,20 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
-public class TestKripton75 extends AbstractBindTypeProcessorTest {
+public class Test75 extends AbstractBindTypeProcessorTest {
 
 	@Test
 	public void testCompile() throws Throwable
 	{
-		buildBindProcessorTest(BeanElement75.class);
+		buildBindProcessorTest(Bean75.class);
 	}
 		
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException
 	{
-		Assert.assertNotNull(new BeanElement75BindMap());
+		Assert.assertNotNull(new Bean75BindMap());
 		
-		BeanElement75 bean=new BeanElement75();
+		Bean75 bean=new Bean75();
 			
 		bean.valueByteArray=new Byte[2];
 		bean.valueByteArray[0]='1';

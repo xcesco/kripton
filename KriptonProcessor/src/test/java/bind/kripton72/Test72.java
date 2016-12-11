@@ -11,24 +11,24 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
-public class TestKripton72 extends AbstractBindTypeProcessorTest {
+public class Test72 extends AbstractBindTypeProcessorTest {
 	
 
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
 	{
-		buildBindProcessorTest(BeanElement72.class, BeanEnum72.class);
+		buildBindProcessorTest(Bean72.class, Enum72.class);
 	}
 		
 	@Test
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException
 	{
-		Assert.assertNotNull(new BeanElement72BindMap());
+		Assert.assertNotNull(new Bean72BindMap());
 		
-		BeanElement72 bean=new BeanElement72();
+		Bean72 bean=new Bean72();
 			
-		bean.valueBeanSet=new HashSet<BeanElement72>();
-		bean.valueBeanSet.add(new BeanElement72("hello"));				
+		bean.valueBeanSet=new HashSet<Bean72>();
+		bean.valueBeanSet.add(new Bean72("hello"));				
 		
 		bean.valueBigDecimalSet=new HashSet<BigDecimal>();
 		bean.valueBigDecimalSet.add(null);
@@ -43,8 +43,8 @@ public class TestKripton72 extends AbstractBindTypeProcessorTest {
 		
 		bean.valueDoubleSet=new TreeSet<Double>();		
 		
-		bean.valueEnumSet=new HashSet<BeanEnum72>();
-		bean.valueEnumSet.add(BeanEnum72.VALUE_1);
+		bean.valueEnumSet=new HashSet<Enum72>();
+		bean.valueEnumSet.add(Enum72.VALUE_1);
 				
 		bean.valueFloatSet=new HashSet<Float>();
 		bean.valueFloatSet.add(1f);

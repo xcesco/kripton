@@ -19,15 +19,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import bind.kripton70.Test70Suite;
-import bind.kripton71List.TestKripton71;
-import bind.kripton72.TestKripton72;
-import bind.kripton73.TestKripton73;
-import bind.kripton74Map.TestKripton74;
-import bind.kripton75.TestKripton75;
-import bind.kripton76.TestKripton76Attribute;
-import bind.kripton76.TestKripton76Value;
-import bind.kripton77.TestKripton77;
-import bind.kripton78.TestKripton78;
+import bind.kripton71List.Test71;
+import bind.kripton72.Test72;
+import bind.kripton73.Test73;
+import bind.kripton74Map.Test74;
+import bind.kripton75.Test75;
+import bind.kripton76.Test76Suite;
+import bind.kripton77.Test77;
+import bind.kripton78.Test78;
 import bind.kripton80.Test80Suite;
 
 @RunWith(Suite.class)
@@ -35,15 +34,14 @@ import bind.kripton80.Test80Suite;
 @Suite.SuiteClasses(
 		{ 
 		Test70Suite.class,
-		TestKripton71.class,
-		TestKripton72.class,
-		TestKripton73.class,
-		TestKripton74.class,
-		TestKripton75.class,
-		TestKripton76Value.class,
-		TestKripton76Attribute.class,
-		TestKripton77.class,
-		TestKripton78.class,
+		Test71.class,
+		Test72.class,
+		Test73.class,
+		Test74.class,
+		Test75.class,
+		Test76Suite.class,
+		Test77.class,
+		Test78.class,
 		Test80Suite.class
 		 })
 //@formatter:on

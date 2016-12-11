@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
-public class TestKripton78 extends AbstractBindTypeProcessorTest {
+public class Test78 extends AbstractBindTypeProcessorTest {
 
 	public BeanElement78 createBean() {
 		BeanElement78 bean = new BeanElement78();

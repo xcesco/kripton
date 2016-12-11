@@ -31,12 +31,12 @@ import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
 /**
- * This class is the shared preference binder defined for BeanElement74
+ * This class is the shared preference binder defined for Bean74
  *
  * @see Bean74
  */
 @BindMap
-public class BeanElement74BindMap extends AbstractMapper<Bean74> {
+public class Bean74BindMap extends AbstractMapper<Bean74> {
   /**
    * create new object instance
    */
@@ -297,7 +297,7 @@ public class BeanElement74BindMap extends AbstractMapper<Bean74> {
     try {
       XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
-        xmlSerializer.writeStartElement("beanElement74");
+        xmlSerializer.writeStartElement("bean74");
       }
 
       // Persisted fields:

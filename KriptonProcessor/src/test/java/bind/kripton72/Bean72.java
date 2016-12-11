@@ -10,14 +10,14 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 
 @BindType
-public class BeanElement72 {
+public class Bean72 {
 	
-	public BeanElement72()
+	public Bean72()
 	{
 		
 	}
 	
-	public BeanElement72(String name)
+	public Bean72(String name)
 	{
 		this.name=name;
 	}
@@ -25,7 +25,7 @@ public class BeanElement72 {
 	public String name;
 	
 	@BindXml(elementTag="item")
-	public HashSet<BeanElement72> valueBeanSet;
+	public HashSet<Bean72> valueBeanSet;
 	
 	@Bind(enabled=true)
 	public HashSet<BigDecimal> valueBigDecimalSet;
@@ -43,7 +43,7 @@ public class BeanElement72 {
 	@BindXml(elementTag="item")
 	public Set<Double> valueDoubleSet;
 	
-	public HashSet<BeanEnum72> valueEnumSet;
+	public HashSet<Enum72> valueEnumSet;
 	
 	@BindXml(elementTag="item")
 	public Set<Float> valueFloatSet;
@@ -100,7 +100,7 @@ public class BeanElement72 {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BeanElement72 other = (BeanElement72) obj;
+		Bean72 other = (Bean72) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
