@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.abubusoft.kripton.binder2.context.BinderContext;
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.ReaderException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -48,7 +46,7 @@ final class KriptonBinderResponseBodyCollectionConverter<T> implements Converter
 		try {
 			return (T) binderContext.parseCollection((Collection) clazz.newInstance(), beanClazz, value.byteStream());
 			//return (T) reader.readCollection((Collection) clazz.newInstance(), beanClazz, value.byteStream());
-		} catch (ReaderException | MappingException | InstantiationException | IllegalAccessException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		} finally {

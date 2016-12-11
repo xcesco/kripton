@@ -23,10 +23,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.ReaderException;
-import com.abubusoft.kripton.exception.WriterException;
-
 import base.BaseAndroidTest;
 import sqlite.kripton64.BindBean64DataSource.Transaction;
 
@@ -83,7 +79,7 @@ public class Test64 extends BaseAndroidTest {
 	
 	
 	@Test
-	public void testJson() throws IOException, InstantiationException, IllegalAccessException, MappingException, WriterException, ReaderException {
+	public void testJson() throws IOException, InstantiationException, IllegalAccessException {
 //		Bean64 bean=new Bean64();
 //		
 //		bean.valueString ="hello";

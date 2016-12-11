@@ -20,10 +20,7 @@ import java.io.IOException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.ReaderException;
-import com.abubusoft.kripton.exception.WriterException;
+import org.yaml.snakeyaml.reader.ReaderException;
 
 import base.BaseProcessorTest;
 
@@ -35,7 +32,7 @@ import base.BaseProcessorTest;
 public class TestKripton63 extends BaseProcessorTest {
 
 	@Test
-	public void testJson() throws IOException, InstantiationException, IllegalAccessException, MappingException, WriterException, ReaderException {
+	public void testJson() throws IOException, InstantiationException, IllegalAccessException, ReaderException {
 //		Bean63 bean=new Bean63();
 //		
 //		bean.value="hell";

@@ -3,8 +3,6 @@ package com.abubusoft.kripton.retrofit2;
 import java.io.IOException;
 
 import com.abubusoft.kripton.binder2.context.BinderContext;
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.WriterException;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -26,7 +24,7 @@ final class KriptonRequestBodyConverter<T> implements Converter<T, RequestBody> 
 		try {
 			binderContext.serialize(value, buffer.outputStream());
 			return RequestBody.create(MEDIA_TYPE, buffer.readByteString());
-		} catch (WriterException | MappingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		} finally {

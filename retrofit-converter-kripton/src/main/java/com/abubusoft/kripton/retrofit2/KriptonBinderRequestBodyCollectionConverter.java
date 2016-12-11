@@ -5,8 +5,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
 import com.abubusoft.kripton.binder2.context.BinderContext;
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.WriterException;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -35,9 +33,8 @@ final class KriptonBinderRequestBodyCollectionConverter<T> implements Converter<
 		
 		try {			
 			binderContext.serializeCollection((Collection)value, beanClazz,buffer.outputStream());
-			//writer.writeCollection((Collection<?>)value, buffer.outputStream());
 			return RequestBody.create(MEDIA_TYPE, buffer.readByteString());
-		} catch (WriterException | MappingException e) {			
+		} catch (Exception e) {			
 			e.printStackTrace();
 			return null;
 		} finally

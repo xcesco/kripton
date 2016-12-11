@@ -76,12 +76,7 @@ public class BindSharedPreferencesBuilder {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		String beanClassName = entity.getSimpleName().toString();
 
-		boolean needSuffix = true;
-		if (beanClassName.endsWith(SUFFIX)) {
-			needSuffix = false;
-		}
-
-		String className = PREFIX + beanClassName + (needSuffix ? SUFFIX : "");
+		String className = PREFIX + beanClassName + (beanClassName.endsWith(SUFFIX) ? "" : SUFFIX);
 		ModelAnnotation annotation = entity.getAnnotation(BindSharedPreferences.class);
 		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_NAME);
 

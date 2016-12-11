@@ -3,8 +3,6 @@ package com.abubusoft.kripton.retrofit2;
 import java.io.IOException;
 
 import com.abubusoft.kripton.binder2.context.BinderContext;
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.ReaderException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -22,7 +20,7 @@ final class KriptonResponseBodyConverter<T> implements Converter<ResponseBody, T
 	public T convert(ResponseBody value) throws IOException {
 		try {
 			return binderContext.parse(value.byteStream(), clazz);
-		} catch (ReaderException | MappingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		} finally {

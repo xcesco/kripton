@@ -22,9 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.exception.MappingException;
-import com.abubusoft.kripton.exception.WriterException;
-
 import base.BaseProcessorTest;
 
 /**
@@ -77,7 +74,7 @@ public class TestKripton42 extends BaseProcessorTest {
 	}
 	
 	@Test
-	public void testKritponXML() throws IOException, MappingException, WriterException
+	public void testKritponXML() throws IOException
 	{
 		/*File file=PathSourceType.SRC_TEST_RESULT.createFile("com/abubusoft/kripton/processor/kripton42/"+"restaurant_kripton.xml");
 		
