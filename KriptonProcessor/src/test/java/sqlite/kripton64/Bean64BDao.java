@@ -12,21 +12,25 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ ******************************************************************************/
 package sqlite.kripton64;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.util.List;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		Test64A.class,
-		Test64B.class,
-		Test64All.class
-		 })
-//@formatter:on
-public class Test64Suite  {
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+
+@BindDao(Bean64B.class)
+public interface Bean64BDao {
 	
+	@BindSqlSelect
+	List<Bean64B> selectAll();
+	
+	@BindSqlSelect(where="id=${id}")
+	List<Bean64B> selectList(long id);
+	
+	@BindSqlInsert
+	long insert(Bean64B bean);
+			
 }

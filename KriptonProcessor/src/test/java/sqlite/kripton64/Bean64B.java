@@ -15,18 +15,19 @@
  *******************************************************************************/
 package sqlite.kripton64;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.util.Map;
+import java.util.Set;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		Test64A.class,
-		Test64B.class,
-		Test64All.class
-		 })
-//@formatter:on
-public class Test64Suite  {
+import com.abubusoft.kripton.annotation.BindType;
+
+@BindType
+public class Bean64B {
+		
+	public Map<String, Bean64B> valueMapStringBean;
 	
+	public Set<String> valueSetString;
+	
+	public String valueString;
+	
+	public long id;
 }

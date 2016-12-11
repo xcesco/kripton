@@ -218,24 +218,6 @@ public class LiteralType implements TypeMirror {
 	public String getRawType() {
 		return rawType;
 	}
-	
-//	public boolean isComposedType(Class<?> clazz)	
-//	{
-//		return isComposedType(clazz.getName());
-//	}
-//	
-//	public boolean isComposedType(String clazzName)
-//	{
-//		if (isComposed())
-//		{
-//			if (this.composedType.equals(clazzName))
-//			{
-//				return true;
-//			}
-//			return false;
-//		}
-//		return false;
-//	}
 
 	@Override
 	public TypeKind getKind() {
