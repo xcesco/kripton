@@ -2,10 +2,9 @@ package com.abubusoft.kripton.common;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * Acts as a ByteArrayOutputStream, but allow direct access to array of byte
