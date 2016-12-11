@@ -24,6 +24,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jsr305.version>3.0.1</jsr305.version>
+		<kripton.version>1.5.0-SNAPSHOT</kripton.version>
 		<guava.version>19.0</guava.version>
 		<jackson.version>2.8.5</jackson.version>
 		<woodstox.version>5.0.3</woodstox.version>		
@@ -89,6 +90,13 @@
 			<scope>test</scope>
 		</dependency>
 
+
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-android-library</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+		
 
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core --> 
 <!-- 		<dependency> -->
