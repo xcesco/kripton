@@ -26,7 +26,7 @@ public class KriptonByteArrayOutputStream extends ByteArrayOutputStream {
 	}
 
 	public byte[] getByteBuffer() {
-		return this.get
+		return buf;
 	}
 
 	public byte[] getByteBufferCopy() {
