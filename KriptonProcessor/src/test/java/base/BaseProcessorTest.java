@@ -54,19 +54,17 @@ import com.abubusoft.testing.compile.JavaFileObjects;
 import com.google.common.io.ByteStreams;
 
 public class BaseProcessorTest {
-	
-	protected boolean display=false;
-	
-	public void log(String message, Object ... objects)
-	{
-		if (display)
-		{
+
+	protected boolean display = true;
+
+	public void log(String message, Object... objects) {
+		if (display) {
 			System.out.println(String.format(message, objects));
 		}
 	}
-	
-	final TestType testType = TestType.GENERATE;
-	
+
+	final TestType testType = TestType.PREPARE_TEST;
+
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
@@ -74,7 +72,6 @@ public class BaseProcessorTest {
 		expectedEx.expect(AssertionError.class);
 		expectedEx.expectMessage(clazzException.getSimpleName());
 	}
-	
 
 	@Before
 	public void before() {
@@ -82,13 +79,16 @@ public class BaseProcessorTest {
 	}
 
 	public enum TestType {
-		GENERATE, COMPARE
+		GENERATE, COMPARE, PREPARE_TEST;
 	}
 
 	protected static Logger logger = Logger.getGlobal();
 
 	public enum PathSourceType {
-		SRC_TEST_JAVA("src/test/java/"), SRC_TEST_EXPECTED("src/test/expected/"), TARGET_TEST_RESULT("target/test/generated/");
+		SRC_TEST_JAVA("src/test/java/"), 
+		SRC_TEST_EXPECTED("src/test/expected/"), 
+		TARGET_TEST_RESULT("target/test/generated/"),
+		DEST_PREPARE_TEST("../KriptonAndroidLibrary/src/test/java/");
 
 		private PathSourceType(String path) {
 			this.path = path;
@@ -203,7 +203,7 @@ public class BaseProcessorTest {
 		return buildTest(BindSharedPreferencesProcessor.class, classesToTest);
 	}
 
-	protected long buildBindProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException  {
+	protected long buildBindProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
 		return buildTest(BindTypeProcessor.class, classesToTest);
 	}
 
@@ -218,51 +218,69 @@ public class BaseProcessorTest {
 	 *            classes to compile and test
 	 * 
 	 * @return count of generated sources
-	 * @throws IOException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws Throwable 
+	 * @throws IOException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws Throwable
 	 */
 	protected long buildTest(Class<? extends BaseProcessor> processorClazz, Class<?>... classesToTest) throws IOException, InstantiationException, IllegalAccessException {
-			final Map<String, String> mapSet = new HashMap<>();
-			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
+		final Map<String, String> mapSet = new HashMap<>();
+		final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
 
-			BindDataSourceProcessor.DEVELOP_MODE = true;
+		BindDataSourceProcessor.DEVELOP_MODE = true;
 
-			final AtomicLong counter = new AtomicLong(0);
+		final AtomicLong counter = new AtomicLong(0);
 
 		//@formatter:off
 		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
 				sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
 		//@formatter:on
-			GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
-			resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
+		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
+		resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
 
-				@Override
-				public void accept(Map<String, JavaFileObject> t) {
-					for (Entry<String, JavaFileObject> item : t.entrySet()) {
-						counter.addAndGet(1);
-						try {
-							String contentFile = getStringFromInputStream(item.getValue().openInputStream());
+			@Override
+			public void accept(Map<String, JavaFileObject> t) {
+				for (Entry<String, JavaFileObject> item : t.entrySet()) {
+					counter.addAndGet(1);
+					try {
+						String contentFile = getStringFromInputStream(item.getValue().openInputStream());
 
-							mapSet.put(item.getKey(), contentFile);
+						mapSet.put(item.getKey(), contentFile);
 
-							if (testType == TestType.COMPARE) {
-								writeGeneratedFile(PathSourceType.TARGET_TEST_RESULT, item.getValue());
-								boolean result = compareGeneratedFile(item.getValue());
-								Assert.assertTrue(String.format("%s not generated as aspected", item.getKey()), result);
-							} else {
-								writeGeneratedFile(PathSourceType.SRC_TEST_EXPECTED, item.getValue());
-							}
-						} catch (IOException e) {
-							e.printStackTrace();
-							Assert.fail(e.getMessage());
+						switch (testType) {
+						case COMPARE:
+							writeGeneratedFile(PathSourceType.TARGET_TEST_RESULT, item.getValue());
+							boolean result = compareGeneratedFile(item.getValue());
+							Assert.assertTrue(String.format("%s not generated as aspected", item.getKey()), result);
+							break;
+						case GENERATE:
+							writeGeneratedFile(PathSourceType.SRC_TEST_EXPECTED, item.getValue());
+							break;
+						case PREPARE_TEST:
+							writeGeneratedFile(PathSourceType.DEST_PREPARE_TEST, item.getValue());
+							break;
 						}
+
+					} catch (IOException e) {
+						e.printStackTrace();
+						Assert.fail(e.getMessage());
 					}
-
 				}
-			});
 
-			return counter.longValue();
+			}
+		});
+		
+		switch (testType) {
+		case PREPARE_TEST:
+			for (JavaFileObject item: sourcesPhase1)
+			{
+				writeGeneratedFile(PathSourceType.DEST_PREPARE_TEST, item);
+			}
+			break;
+		default:
+			break;			
+		}
+
+		return counter.longValue();
 	}
 }

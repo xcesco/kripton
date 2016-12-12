@@ -42,6 +42,11 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	}
 
 	@Override
+	public String getColumnTypeAsString() {
+		return getColumnType().toString();
+	}
+
+	@Override
 	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
 		methodBuilder.addCode("$L", paramName);		
 	}

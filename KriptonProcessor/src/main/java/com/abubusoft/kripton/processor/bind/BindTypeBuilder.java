@@ -213,14 +213,13 @@ public class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 		methodBuilder.addStatement("String currentTag = xmlParser.getName().toString()");
 
-		methodBuilder.addStatement("$T<String> elementNameStack = new $T<>()", Stack.class, Stack.class);
-		methodBuilder.addStatement("elementNameStack.push(currentTag)");
+		methodBuilder.addStatement("String elementName = currentTag");		
 
 		generateParseOnXmlAttributes(methodBuilder, bean);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("//sub-elements\n");
-		methodBuilder.beginControlFlow("while (xmlParser.hasNext() && !elementNameStack.isEmpty())");
+		methodBuilder.beginControlFlow("while (xmlParser.hasNext() && elementName!=null)");
 		//methodBuilder.beginControlFlow("while (xmlParser.hasNext())");
 		
 		methodBuilder.beginControlFlow("if (read)");
@@ -262,29 +261,8 @@ public class BindTypeBuilder {
 	}
 
 	private static void generateParserOnXmlEndElement(MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
-		methodBuilder.addStatement("currentTag = elementNameStack.pop()");
-		/*
-		 * BindTransform bindTransform;
-		 * 
-		 * int count = 0; // count property to manage { // for each elements for (BindProperty property : entity.getCollection()) { if (property.xmlInfo.xmlType != XmlType.TAG) continue;
-		 * 
-		 * bindTransform = BindTransformer.lookup(property);
-		 * 
-		 * // here we manage only property of bean type if (bindTransform != null && !(bindTransform instanceof ObjectBindTransform)) { count++; } } }
-		 * 
-		 * if (count > 0) { methodBuilder.addStatement("currentTag = elementNameStack.pop()"); methodBuilder.beginControlFlow("switch(currentTag)$>");
-		 * 
-		 * for (BindProperty property : entity.getCollection()) { if (property.xmlInfo.xmlType != XmlType.TAG) continue;
-		 * 
-		 * bindTransform = BindTransformer.lookup(property); if (bindTransform instanceof ObjectBindTransform) continue;
-		 * 
-		 * methodBuilder.addCode("case $S:\n$>", property.xmlInfo.tagName); methodBuilder.addCode("// property $L\n", property.getName()); methodBuilder.beginControlFlow("if (!xmlParser.isEmptyElement())");
-		 * bindTransform.generateParseOnXml(methodBuilder, "xmlParser", typeName(property.getPropertyType()), "instance", property); methodBuilder.endControlFlow();
-		 * 
-		 * methodBuilder.addStatement("$<break"); }
-		 * 
-		 * methodBuilder.addCode("default:\n$>"); methodBuilder.addStatement("$<break$<"); methodBuilder.endControlFlow(); }
-		 */
+		methodBuilder.addStatement("currentTag = elementName");
+		methodBuilder.addStatement("elementName = null");		
 
 	}
 

@@ -474,8 +474,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         int n=value.length;
         Byte item;
@@ -544,8 +544,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         jacksonSerializer.writeBinaryField("element", value);
       }

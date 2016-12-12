@@ -131,15 +131,7 @@
 			</exclusions>
 			<scope>test</scope>
 		</dependency>
-
-		<!-- <dependency> -->
-		<!-- <groupId>com.android.support</groupId> -->
-		<!-- <artifactId>support-v4</artifactId> -->
-		<!-- <version>${support-v4.version}</version> -->
-		<!-- <type>aar</type> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
-
+	
 	</dependencies>
 
 	<build>

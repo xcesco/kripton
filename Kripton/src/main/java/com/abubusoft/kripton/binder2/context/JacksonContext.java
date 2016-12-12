@@ -13,6 +13,8 @@ import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.util.MinimalPrettyPrinter;
 
 public abstract class JacksonContext extends AbstractContext implements BinderContext {
 
@@ -77,7 +79,9 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	@Override
 	public JacksonWrapperSerializer createSerializer(File file, JsonEncoding encoding) {
 		try {
-			return new JacksonWrapperSerializer(innerFactory.createGenerator(file, encoding), getSupportedFormat());
+			JsonGenerator generator = innerFactory.createGenerator(file, encoding);
+			generator.setPrettyPrinter(new MinimalPrettyPrinter());
+			return new JacksonWrapperSerializer(generator, getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -92,7 +96,9 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	@Override
 	public JacksonWrapperSerializer createSerializer(OutputStream out, JsonEncoding encoding) {
 		try {
-			return new JacksonWrapperSerializer(innerFactory.createGenerator(out, encoding), getSupportedFormat());
+			JsonGenerator generator = innerFactory.createGenerator(out, encoding);
+			generator.setPrettyPrinter(new MinimalPrettyPrinter());
+			return new JacksonWrapperSerializer(generator, getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -102,7 +108,9 @@ public abstract class JacksonContext extends AbstractContext implements BinderCo
 	@Override
 	public JacksonWrapperSerializer createSerializer(Writer writer) {
 		try {
-			return new JacksonWrapperSerializer(innerFactory.createGenerator(writer), getSupportedFormat());
+			JsonGenerator generator = innerFactory.createGenerator(writer);
+			generator.setPrettyPrinter(new MinimalPrettyPrinter());
+			return new JacksonWrapperSerializer(generator, getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -61,8 +62,8 @@ public class LongSQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public String generateColumnType(ModelProperty property) {
-		return "INTEGER";
+	public SQLColumnType getColumnType() {
+		return SQLColumnType.INTEGER;
 	}
 
 }

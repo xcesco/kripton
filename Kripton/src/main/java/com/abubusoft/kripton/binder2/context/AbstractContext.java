@@ -196,7 +196,7 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 
 		StringWriter source = new StringWriter();
 		try (SerializerWrapper serializer = createSerializer(source)) {
-			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);			
+			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);				
 		}
 		
 		return source.toString();

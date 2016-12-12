@@ -19,6 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -68,7 +69,7 @@ public class EnumSQLTransform extends AbstractSQLTransform {
 	}
 	
 	@Override
-	public String generateColumnType(ModelProperty property) {
-		return "TEXT";
+	public SQLColumnType getColumnType() {
+		return SQLColumnType.TEXT;
 	}
 }

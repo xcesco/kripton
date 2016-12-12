@@ -16,13 +16,6 @@
  */
 package com.abubusoft.kripton.escape.text;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * <p>Operations on arrays, primitive arrays (like {@code int[]}) and
  * primitive wrapper arrays (like {@code Integer[]}).

@@ -707,8 +707,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         // write wrapper tag
         jacksonSerializer.writeFieldName("element");

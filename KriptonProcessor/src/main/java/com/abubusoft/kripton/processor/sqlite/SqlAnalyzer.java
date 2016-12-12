@@ -110,7 +110,6 @@ public class SqlAnalyzer {
 		paramGetters = new ArrayList<String>();
 		usedBeanPropertyNames=new ArrayList<String>();
 		paramTypeNames=new ArrayList<TypeMirror>();
-				
 
 		// replace placeholder ${ } with ?
 		{
@@ -196,7 +195,7 @@ public class SqlAnalyzer {
 		return usedBeanPropertyNames;
 	}
 
-	public String getter(ModelProperty property) {
+	public String getter(ModelProperty property) {		
 		if (property.isPublicOrPackageField())
 			return property.getName();
 

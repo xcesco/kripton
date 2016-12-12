@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -84,11 +85,18 @@ public interface SQLTransform {
 	void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName);
 
 	/**
-	 * Generate code to define column
+	 * Associated column type
 	 * 
-	 * @param property
+	 * @return column type as string
+	 * 
 	 */
-	String generateColumnType(ModelProperty property);
+	String getColumnTypeAsString();
+	
+	/**
+	 * 
+	 * @return column type
+	 */
+	SQLColumnType getColumnType();
 	
 
 }

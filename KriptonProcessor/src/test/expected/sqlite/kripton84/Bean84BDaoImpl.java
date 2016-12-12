@@ -14,6 +14,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>
@@ -82,7 +83,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, column_bean FROM bean84_b WHERE columnBean=${param1}</pre>
+   * <pre>SELECT id, column_bean FROM bean84_b WHERE cast(columnBean as TEXT) = ${param1}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -105,10 +106,10 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   @Override
   public Bean84B selectByBean(Bean84B2 param1) {
     // build where condition
-    String[] args={(param1==null?null:String.valueOf(serializer1(param1)))};
+    String[] args={(param1==null?null:new String(serializer1(param1),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE column_bean='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE column_bean=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = '%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean84B resultBean=null;

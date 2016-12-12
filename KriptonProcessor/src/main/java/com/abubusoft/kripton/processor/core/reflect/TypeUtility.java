@@ -30,6 +30,8 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
@@ -337,17 +339,32 @@ public class TypeUtility {
 		} else {
 			typeName = typeName(typeMirror);
 		}
-
-		if (isString(typeName)) {
+		
+		SQLTransform transform = SQLTransformer.lookup(typeMirror);
+		
+		switch(transform.getColumnType())
+		{
+		case TEXT:
 			return;
-		} else if (isArray(typeName) || isList(typeName)) {
-			// every array of primitive will be converted in byte[]
+		case BLOB:
 			methodBuilder.addCode("new String(");
-		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
-			methodBuilder.addCode("");
-		} else {
+			break;
+		case INTEGER:
+		case REAL:
 			methodBuilder.addCode("String.valueOf(");
+			break;
 		}
+
+//		if (isString(typeName)) {
+//			return;
+//		} else if (isArray(typeName) || isList(typeName)) {
+//			// every array of primitive will be converted in byte[]
+//			methodBuilder.addCode("new String(");
+//		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
+//			methodBuilder.addCode("");
+//		} else {
+//			methodBuilder.addCode("String.valueOf(");
+//		}
 	}
 
 	/**
@@ -373,18 +390,33 @@ public class TypeUtility {
 		} else {
 			typeName = typeName(typeMirror);
 		}
-
-		if (isString(typeName)) {
+		
+		SQLTransform transform = SQLTransformer.lookup(typeMirror);
+		
+		switch(transform.getColumnType())
+		{
+		case TEXT:
 			return;
-		} else if (isArray(typeName) || isList(typeName)) {
-			// TODO support StandardCharsets.UTF8
-			// see http://stackoverflow.com/questions/5729806/encode-string-to-utf-8
+		case BLOB:
 			methodBuilder.addCode(",$T.UTF_8)", StandardCharsets.class);
-		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
-			methodBuilder.addCode("");
-		} else {
+			break;
+		case INTEGER:
+		case REAL:
 			methodBuilder.addCode(")");
+			break;
 		}
+
+//		if (isString(typeName)) {
+//			return;
+//		} else if (isArray(typeName) || isList(typeName)) {
+//			// TODO support StandardCharsets.UTF8
+//			// see http://stackoverflow.com/questions/5729806/encode-string-to-utf-8
+//			methodBuilder.addCode(",$T.UTF_8)", StandardCharsets.class);
+//		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
+//			methodBuilder.addCode("");
+//		} else {
+//			methodBuilder.addCode(")");
+//		}
 	}
 
 	public static boolean isArray(TypeName typeName) {

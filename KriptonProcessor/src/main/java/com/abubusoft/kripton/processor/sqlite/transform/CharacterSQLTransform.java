@@ -19,6 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -75,8 +76,8 @@ class CharacterSQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public String generateColumnType(ModelProperty property) {
-		return "INTEGER";
+	public SQLColumnType getColumnType() {
+		return SQLColumnType.INTEGER;
 	}
 
 }

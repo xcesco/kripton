@@ -454,8 +454,8 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         int n=value.size();
         String item;

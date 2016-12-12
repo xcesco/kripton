@@ -20,6 +20,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -62,9 +63,10 @@ class CurrencySQLTransform extends AbstractSQLTransform {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
+	
 	@Override
-	public String generateColumnType(ModelProperty property) {
-		return "TEXT";
+	public SQLColumnType getColumnType() {
+		return SQLColumnType.TEXT;
 	}
 
 	/*

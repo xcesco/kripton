@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -40,11 +41,6 @@ class BooleanSQLTransform extends AbstractSQLTransform {
 			defaultValue="null";
 		}
 	}
-	
-	@Override
-	public String generateColumnType(ModelProperty property) {
-		return "INTEGER";
-	}
 
 	@Override
 	public void generateDefaultValue(Builder methodBuilder)
@@ -66,6 +62,11 @@ class BooleanSQLTransform extends AbstractSQLTransform {
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
 		
 		methodBuilder.addCode(setter(beanClass, beanName, property, defaultValue));
+	}
+
+	@Override
+	public SQLColumnType getColumnType() {
+		return SQLColumnType.INTEGER;
 	}
 
 }

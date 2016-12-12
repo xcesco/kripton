@@ -464,8 +464,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         int n=value.length;
         char item;
@@ -530,8 +530,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         int n=value.length;
         Character item;
@@ -600,8 +600,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         int n=value.size();
         String item;
@@ -670,8 +670,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         // write wrapper tag
         if (value.size()>0) {

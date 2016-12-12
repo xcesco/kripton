@@ -24,6 +24,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -105,6 +106,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
 		SQLDaoDefinition daoDefinition=method.getParent();
+		 Converter<String, String> nc = daoDefinition.getColumnNameConverter();
 		
 		String sqlInsert;
 		// generate javadoc and result
@@ -115,9 +117,11 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			StringBuilder bufferQuestion = new StringBuilder();
 			String separator = "";
 			for (SQLProperty property : listUsedProperty) {
-				bufferName.append(separator + daoDefinition.getColumnNameConverter().convert(property.getName()));
+				bufferName.append(separator + nc.convert(property.getName()));
 				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
-				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(property.getName()) + "\"))+\"'");
+								
+				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" +nc.convert(property.getName()) + "\"))+\"'");
+				
 				separator = ", ";
 			}
 

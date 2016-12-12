@@ -474,8 +474,8 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         int n=value.length;
         double item;
@@ -540,8 +540,8 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     JacksonContext context=KriptonBinder2.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
       int fieldCount=0;
+      jacksonSerializer.writeStartObject();
       if (value!=null)  {
         int n=value.length;
         Double item;

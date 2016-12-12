@@ -348,7 +348,7 @@ public abstract class SQLTransformer {
 		if (transform == null) {
 			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
 		}
-		return transform.generateColumnType(property);
+		return transform.getColumnTypeAsString();
 
 	}
 

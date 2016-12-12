@@ -22,7 +22,6 @@ import java.util.Map.Entry;
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
@@ -30,7 +29,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;

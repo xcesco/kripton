@@ -67,6 +67,7 @@ public class Test84B extends BaseAndroidTest {
 				assertTrue(bean.equals(bean2));
 				
 				Bean84B bean3=dao.selectByBean(innerBean);
+				//logger.info(String.format("'%s'", new String(bean3.columnBean));
 				
 				assertTrue(bean.equals(bean3));
 				
