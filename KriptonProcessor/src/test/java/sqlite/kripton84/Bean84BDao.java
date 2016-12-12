@@ -16,7 +16,6 @@
 package sqlite.kripton84;
 
 import java.util.List;
-import java.util.Map;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
@@ -25,24 +24,21 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-@BindDao(Bean84.class)
-public interface Bean84Dao {
+@BindDao(Bean84B.class)
+public interface Bean84BDao {
 
-	@BindSqlSelect
-	List<Bean84> selectAll();
+	@BindSqlSelect(where="id = ${id}")
+	Bean84B selectById(@BindSqlParam("id") long param1);
 	
-	@BindSqlSelect(where="columnListString=${param1} and columnMapIntegerString=${param2} and columnArrayChar=${param3}  and columnArrayCharType=${param4}")
-	List<Bean84> selectWhere(List<String> param1, Map<Integer, String> param2, Character[] param3, char[] param4);
-	
-	@BindSqlInsert
-	boolean insertAll(Bean84 bean);
+	@BindSqlSelect(where="columnBean=${param1}")
+	Bean84B selectByBean(Bean84B2 param1);
 	
 	@BindSqlInsert
-	boolean insert(@BindSqlParam("columnListString") List<String> param1);
+	boolean insert(Bean84B bean);
 	
 	@BindSqlUpdate
-	boolean updateAll(Bean84 bean);
+	boolean updateAll(Bean84B bean);
 	
 	@BindSqlDelete
-	boolean deleteAll(Bean84 bean);
+	boolean deleteAll(Bean84B bean);
 }

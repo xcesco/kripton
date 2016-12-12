@@ -21,76 +21,90 @@ import java.util.Map;
 
 /**
  * <p>
- * Entity <code>Bean84</code> is associated to table <code>bean84</code>
+ * Entity <code>Bean84A</code> is associated to table <code>bean84_a</code>
  * This class represents table associated to entity.
  * </p>
- *  @see Bean84
+ *  @see Bean84A
  */
-public class Bean84Table {
+public class Bean84ATable {
   /**
-   * Costant represents name of table bean84
+   * Costant represents name of table bean84_a
    */
-  public static final String TABLE_NAME = "bean84";
+  public static final String TABLE_NAME = "bean84_a";
 
   /**
    * <p>
-   * DDL to create table bean84
+   * DDL to create table bean84_a
    * </p>
    *
-   * <pre>CREATE TABLE bean84 (id INTEGER PRIMARY KEY AUTOINCREMENT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_array_byte_type BLOB);</pre>
+   * <pre>CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84 (id INTEGER PRIMARY KEY AUTOINCREMENT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_array_byte_type BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);";
 
   /**
    * <p>
-   * DDL to drop table bean84
+   * DDL to drop table bean84_a
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS bean84;</pre>
+   * <pre>DROP TABLE IF EXISTS bean84_a;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean84;";
+  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean84_a;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
-   *  @see Bean84#id
+   *  @see Bean84A#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
    * Entity's property <code>columnListString</code> is associated to table column <code>column_list_string</code>. This costant represents column name.
    *
-   *  @see Bean84#columnListString
+   *  @see Bean84A#columnListString
    */
   public static final String COLUMN_COLUMN_LIST_STRING = "column_list_string";
 
   /**
    * Entity's property <code>columnMapIntegerString</code> is associated to table column <code>column_map_integer_string</code>. This costant represents column name.
    *
-   *  @see Bean84#columnMapIntegerString
+   *  @see Bean84A#columnMapIntegerString
    */
   public static final String COLUMN_COLUMN_MAP_INTEGER_STRING = "column_map_integer_string";
 
   /**
    * Entity's property <code>columnArrayChar</code> is associated to table column <code>column_array_char</code>. This costant represents column name.
    *
-   *  @see Bean84#columnArrayChar
+   *  @see Bean84A#columnArrayChar
    */
   public static final String COLUMN_COLUMN_ARRAY_CHAR = "column_array_char";
 
   /**
    * Entity's property <code>columnArrayCharType</code> is associated to table column <code>column_array_char_type</code>. This costant represents column name.
    *
-   *  @see Bean84#columnArrayCharType
+   *  @see Bean84A#columnArrayCharType
    */
   public static final String COLUMN_COLUMN_ARRAY_CHAR_TYPE = "column_array_char_type";
 
   /**
+   * Entity's property <code>columnBean</code> is associated to table column <code>column_bean</code>. This costant represents column name.
+   *
+   *  @see Bean84A#columnBean
+   */
+  public static final String COLUMN_COLUMN_BEAN = "column_bean";
+
+  /**
    * Entity's property <code>columnArrayByteType</code> is associated to table column <code>column_array_byte_type</code>. This costant represents column name.
    *
-   *  @see Bean84#columnArrayByteType
+   *  @see Bean84A#columnArrayByteType
    */
   public static final String COLUMN_COLUMN_ARRAY_BYTE_TYPE = "column_array_byte_type";
+
+  /**
+   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column name.
+   *
+   *  @see Bean84A#valueString
+   */
+  public static final String COLUMN_VALUE_STRING = "value_string";
 
   /**
    * write
@@ -374,6 +388,50 @@ public class Bean84Table {
           collection.add(item);
         }
         result=CollectionUtils.asCharacterTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  public static byte[] serializeColumnBean(Bean84A value) {
+    if (value==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        context.mapperFor(Bean84A.class).serializeOnJackson(context, value, wrapper);
+      }
+      jacksonSerializer.flush();
+      return stream.getByteBuffer();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  public static Bean84A parseColumnBean(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      Bean84A result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+        result=context.mapperFor(Bean84A.class).parseOnJackson(context, wrapper);
       }
       return result;
     } catch(Exception e) {

@@ -18,10 +18,10 @@ import java.lang.SuppressWarnings;
  * When method <code>execute</code> is invoked, an inner async task is created.
  * </p>
  *
- * @see BindBean84DaoFactory
- * @see BindBean84DataSource
+ * @see BindBean84ADaoFactory
+ * @see BindBean84ADataSource
  */
-public abstract class BindBean84AsyncTask<I, U, R> {
+public abstract class BindBean84AAsyncTask<I, U, R> {
   /**
    * If <code>true</code> indicates database operations are only read operations
    *
@@ -39,7 +39,7 @@ public abstract class BindBean84AsyncTask<I, U, R> {
    * With this constructor, a read only database connection will be used
    * </p>
    */
-  public BindBean84AsyncTask() {
+  public BindBean84AAsyncTask() {
     this(true);}
 
   /**
@@ -49,7 +49,7 @@ public abstract class BindBean84AsyncTask<I, U, R> {
    *
    * @param readOnlyTask if true, force async task to use read only database connection
    */
-  public BindBean84AsyncTask(boolean readOnlyTask) {
+  public BindBean84AAsyncTask(boolean readOnlyTask) {
     this.readOnlyTask = readOnlyTask;}
 
   /**
@@ -66,7 +66,7 @@ public abstract class BindBean84AsyncTask<I, U, R> {
    * @return
    * 	result of operation (list, bean, etc)
    */
-  public abstract R onExecute(BindBean84DaoFactory daoFactory);
+  public abstract R onExecute(BindBean84ADaoFactory daoFactory);
 
   /**
    * Use this method for operations on UI-thread after execution
@@ -89,12 +89,12 @@ public abstract class BindBean84AsyncTask<I, U, R> {
     asyncTask=new AsyncTask<I, U, R>() {
       @Override
       public void onPreExecute() {
-        BindBean84AsyncTask.this.onPreExecute();
+        BindBean84AAsyncTask.this.onPreExecute();
       }
 
       @Override
       public R doInBackground(@SuppressWarnings("unchecked") I... params) {
-        BindBean84DataSource dataSource=BindBean84DataSource.instance();
+        BindBean84ADataSource dataSource=BindBean84ADataSource.instance();
         R result=null;
         if (readOnlyTask) dataSource.openReadOnlyDatabase(); else dataSource.openWritableDatabase();
         try {
@@ -110,12 +110,12 @@ public abstract class BindBean84AsyncTask<I, U, R> {
 
       @Override
       public void onProgressUpdate(@SuppressWarnings("unchecked") U... values) {
-        BindBean84AsyncTask.this.onProgressUpdate(values);
+        BindBean84AAsyncTask.this.onProgressUpdate(values);
       }
 
       @Override
       public void onPostExecute(R result) {
-        BindBean84AsyncTask.this.onFinish(result);
+        BindBean84AAsyncTask.this.onFinish(result);
       }
     };
     asyncTask.execute(params);
@@ -124,9 +124,9 @@ public abstract class BindBean84AsyncTask<I, U, R> {
   /**
    * Simple implementation of async task. It uses read only database.
    *
-   * @see BindBean84DaoFactory
-   * @see BindBean84DataSource
+   * @see BindBean84ADaoFactory
+   * @see BindBean84ADataSource
    */
-  public abstract static class Simple<R> extends BindBean84AsyncTask<Void, Void, R> {
+  public abstract static class Simple<R> extends BindBean84AAsyncTask<Void, Void, R> {
   }
 }

@@ -16,6 +16,7 @@
 package sqlite.kripton84;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,6 +25,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import base.BaseAndroidTest;
+import sqlite.kripton84.BindBean84ADataSource.Transaction;
 
 /**
  * @author xcesco
@@ -31,50 +33,47 @@ import base.BaseAndroidTest;
  */
 @Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner.class)
-public class Test84 extends BaseAndroidTest {
+public class Test84A extends BaseAndroidTest {
 	
 	
 	@Test
 	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Bean84DataSource.class, Bean84Dao.class, Bean84.class, Enum84Type.class);
+		buildBindProcessorTest(Bean84A.class, Enum84Type.class);
+		buildDataSourceProcessorTest(Bean84ADataSource.class, Bean84ADao.class, Bean84A.class, Enum84Type.class);
 	}
 	
 	@Test
 	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		Assert.assertNotNull(Bean84Table.class.getName()!=null);
-		Assert.assertNotNull(Bean84DaoImpl.class.getName()!=null);
-//		BindBeanDataSource dataSource=BindBeanDataSource.instance();
-//		dataSource.openWritableDatabase();
-//		
-//		dataSource.execute(new Transaction() {
-//			
-//			@Override
-//			public boolean onExecute(BindBeanDaoFactory daoFactory) {
-//				BeanDaoImpl dao = daoFactory.getBeanDao();
-//				
-//				Bean84 bean=new Bean84();
-//				bean.valueString ="hello";
-//				bean.valueMapStringBean =new HashMap<>();
-//				bean.valueMapStringBean.put("key1", new Bean84());
-//				bean.valueSetString=new HashSet<String>();
-//				bean.valueSetString.add("hello");
-//				
-//				dao.insert(bean);
-//				List<Bean84> list=dao.selectList(bean.id);
-//				Assert.assertEquals("not list ", 1, list.size());
-//											
-//				Assert.assertEquals("not map", 1, list.size());
-//				
-//				Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
-//				
-//				return true;
-//			}
-//			
-//			@Override
-//			public void onError(Throwable e) {
-//				
-//			}
-//		});
+		Assert.assertNotNull(Bean84ATable.class.getName()!=null);
+		Assert.assertNotNull(Bean84ADaoImpl.class.getName()!=null);
+		BindBean84ADataSource dataSource=BindBean84ADataSource.instance();
+		dataSource.openWritableDatabase();
+		
+		dataSource.execute(new Transaction() {
+			
+			@Override
+			public boolean onExecute(BindBean84ADaoFactory daoFactory) {
+				Bean84ADaoImpl dao = daoFactory.getBean84ADao();
+				
+				Bean84A bean=new Bean84A();
+				bean.valueString ="hello";
+				
+				dao.insertAll(bean);
+				List<Bean84A> list=dao.selectById(bean.id);
+				Assert.assertEquals("not list ", 1, list.size());
+											
+				Assert.assertEquals("not map", 1, list.size());
+				
+				//Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
+				
+				return true;
+			}
+			
+			@Override
+			public void onError(Throwable e) {
+				
+			}
+		});
 				
 	}
 

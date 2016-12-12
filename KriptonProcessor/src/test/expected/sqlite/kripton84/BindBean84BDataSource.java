@@ -10,21 +10,21 @@ import java.lang.String;
 
 /**
  * <p>
- * Represents implementation of datasource Bean84DataSource.
+ * Represents implementation of datasource Bean84BDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see Bean84DataSource
- * @see BindBean84DaoFactory
- * @see Bean84Dao
- * @see Bean84DaoImpl
- * @see Bean84
+ * @see Bean84BDataSource
+ * @see BindBean84BDaoFactory
+ * @see Bean84BDao
+ * @see Bean84BDaoImpl
+ * @see Bean84B
  */
-public class BindBean84DataSource extends AbstractDataSource implements BindBean84DaoFactory, Bean84DataSource {
+public class BindBean84BDataSource extends AbstractDataSource implements BindBean84BDaoFactory, Bean84BDataSource {
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindBean84DataSource instance;
+  private static BindBean84BDataSource instance;
 
   /**
    * <p><file name used to save database,/p>
@@ -39,15 +39,15 @@ public class BindBean84DataSource extends AbstractDataSource implements BindBean
   /**
    * <p>dao instance</p>
    */
-  protected Bean84DaoImpl bean84Dao = new Bean84DaoImpl(this);
+  protected Bean84BDaoImpl bean84BDao = new Bean84BDaoImpl(this);
 
-  protected BindBean84DataSource(Context context) {
+  protected BindBean84BDataSource(Context context) {
     super(context, name, null, version);
   }
 
   @Override
-  public Bean84DaoImpl getBean84Dao() {
-    return bean84Dao;
+  public Bean84BDaoImpl getBean84BDao() {
+    return bean84BDao;
   }
 
   /**
@@ -71,9 +71,9 @@ public class BindBean84DataSource extends AbstractDataSource implements BindBean
   /**
    * instance
    */
-  public static synchronized BindBean84DataSource instance() {
+  public static synchronized BindBean84BDataSource instance() {
     if (instance==null) {
-      instance=new BindBean84DataSource(KriptonLibrary.context());
+      instance=new BindBean84BDataSource(KriptonLibrary.context());
     }
     return instance;
   }
@@ -84,8 +84,8 @@ public class BindBean84DataSource extends AbstractDataSource implements BindBean
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",Bean84Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean84Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean84BTable.CREATE_TABLE_SQL);
+    database.execSQL(Bean84BTable.CREATE_TABLE_SQL);
   }
 
   /**
@@ -94,17 +94,17 @@ public class BindBean84DataSource extends AbstractDataSource implements BindBean
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
     // drop tables
-    Logger.info("DDL: %s",Bean84Table.DROP_TABLE_SQL);
-    database.execSQL(Bean84Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",Bean84BTable.DROP_TABLE_SQL);
+    database.execSQL(Bean84BTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",Bean84Table.CREATE_TABLE_SQL);
-    database.execSQL(Bean84Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Bean84BTable.CREATE_TABLE_SQL);
+    database.execSQL(Bean84BTable.CREATE_TABLE_SQL);
   }
 
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindBean84DaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindBean84BDaoFactory> {
   }
 }

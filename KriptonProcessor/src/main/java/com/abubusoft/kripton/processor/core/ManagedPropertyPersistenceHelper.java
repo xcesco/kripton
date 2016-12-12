@@ -180,22 +180,25 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.beginControlFlow("try ($T stream=new $T(); $T wrapper=context.createSerializer(stream))", KriptonByteArrayOutputStream.class, KriptonByteArrayOutputStream.class, JacksonWrapperSerializer.class );
 		methodBuilder.addStatement("$T jacksonSerializer=wrapper.jacksonGenerator", JsonGenerator.class);
 		
-		if (!BindTransformer.isBindedObject(parameterTypeName)) {
-			methodBuilder.addStatement("jacksonSerializer.writeStartObject()");
-		}
-
 		methodBuilder.addStatement("int fieldCount=0");
+		
 		BindTransform bindTransform = BindTransformer.lookup(parameterTypeName);
 		String serializerName = "jacksonSerializer";
 		
-		BindProperty property=BindProperty.builder(parameterTypeName).inCollection(false).elementName(DEFAULT_FIELD_NAME).build();		
+		boolean isInCollection=true;
+		if (!BindTransformer.isBindedObject(parameterTypeName)) {
+			methodBuilder.addStatement("$L.writeStartObject()", serializerName);
+			isInCollection=false;
+		}
+		
+		BindProperty property=BindProperty.builder(parameterTypeName).inCollection(isInCollection).elementName(DEFAULT_FIELD_NAME).build();		
 		bindTransform.generateSerializeOnJackson(methodBuilder, serializerName, null, "value", property);
 
 		if (!BindTransformer.isBindedObject(parameterTypeName)) {
-			methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
+			methodBuilder.addStatement("$L.writeEndObject()", serializerName);
 		}
 		
-		methodBuilder.addStatement("jacksonSerializer.flush()");
+		methodBuilder.addStatement("$L.flush()", serializerName);
 
 		switch (persistType) {
 		case STRING:

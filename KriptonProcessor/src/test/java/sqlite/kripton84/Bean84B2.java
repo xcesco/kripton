@@ -15,25 +15,36 @@
  *******************************************************************************/
 package sqlite.kripton84;
 
-import java.util.List;
-import java.util.Map;
-
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-public class Bean84 {
+public class Bean84B2 {
 	
-	public long id;
+	public String columnString;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((columnString == null) ? 0 : columnString.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Bean84B2 other = (Bean84B2) obj;
+		if (columnString == null) {
+			if (other.columnString != null)
+				return false;
+		} else if (!columnString.equals(other.columnString))
+			return false;
+		return true;
+	}
 	
-	public List<String> columnListString;
-	
-	public Map<Integer, String> columnMapIntegerString;
-	
-	public Character[] columnArrayChar;
-	
-	public char[] columnArrayCharType;
-	
-	//public Bean84 columnBean;
-	
-	public byte[] columnArrayByteType;
 }

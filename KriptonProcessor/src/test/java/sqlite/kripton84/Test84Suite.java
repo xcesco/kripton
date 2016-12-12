@@ -15,10 +15,17 @@
  *******************************************************************************/
 package sqlite.kripton84;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-
-@BindDataSource(value=Bean84Dao.class, fileName = "dummy" , version=1, asyncTask=true, cursor=true)
-public interface Bean84DataSource {
-
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		Test84A.class,
+		Test84B.class
+		 })
+//@formatter:on
+public class Test84Suite  {
+	
 }

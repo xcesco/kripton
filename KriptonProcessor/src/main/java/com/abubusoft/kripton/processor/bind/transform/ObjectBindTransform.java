@@ -34,8 +34,6 @@ import com.squareup.javapoet.TypeName;
  */
 public class ObjectBindTransform extends AbstractBindTransform {
 
-	protected Class<?> utilClazz;
-
 	public ObjectBindTransform() {
 	}
 
@@ -80,6 +78,7 @@ public class ObjectBindTransform extends AbstractBindTransform {
 		{
 			methodBuilder.addStatement("$L.writeFieldName($S)",serializerName, property.jacksonInfo.jacksonName);
 		}
+		
 		if (onString)
 		{
 			methodBuilder.beginControlFlow("if (context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)==0)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
