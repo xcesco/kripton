@@ -221,8 +221,8 @@
 									<goal>jar</goal>
 								</goals>
 								<configuration>
-									<!-- <additionalparam>-Xdoclint:none</additionalparam> -->
-									<!-- <failOnError>false</failOnError> -->
+<!-- 									<additionalparam>-Xdoclint:none</additionalparam> -->
+									<failOnError>false</failOnError>
 								</configuration>
 							</execution>
 						</executions>
