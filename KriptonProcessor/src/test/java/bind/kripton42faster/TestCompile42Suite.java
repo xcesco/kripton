@@ -12,7 +12,7 @@ import bind.AbstractBaseTest;
 		TestCompile42.class
 		 })
 //@formatter:on
-public class TestCompile42Suite extends AbstractBaseTest {
+public class TestCompile42Suite {
 
 	
 
