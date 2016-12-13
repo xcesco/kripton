@@ -208,7 +208,7 @@ public class Bean70ABindMap extends AbstractMapper<Bean70A> {
         switch (fieldName) {
             case "valueBean":
               // field valueBean
-              if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+              if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
                 instance.valueBean=context.mapperFor(Bean70A.class).parseOnJacksonAsString(context, wrapper);
               }
             break;
