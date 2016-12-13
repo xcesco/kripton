@@ -15,6 +15,7 @@ import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.BigIntegerUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.XmlAttributeUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -582,6 +583,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
 
       // field valueBeanSet
       if (object.valueBeanSet!=null)  {
+        int n=object.valueBeanSet.size();
         for (Bean72A item: object.valueBeanSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueBeanSet");
@@ -591,10 +593,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueBeanSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueBigDecimalSet
       if (object.valueBigDecimalSet!=null)  {
+        int n=object.valueBigDecimalSet.size();
         for (BigDecimal item: object.valueBigDecimalSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueBigDecimalSet");
@@ -604,10 +613,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueBigDecimalSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueBigIntegerSet
       if (object.valueBigIntegerSet!=null)  {
+        int n=object.valueBigIntegerSet.size();
         for (BigInteger item: object.valueBigIntegerSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueBigIntegerSet");
@@ -617,10 +633,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueBigIntegerSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueByteSet
       if (object.valueByteSet!=null)  {
+        int n=object.valueByteSet.size();
         for (Byte item: object.valueByteSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueByteSet");
@@ -630,10 +653,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueByteSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueCharacterSet
       if (object.valueCharacterSet!=null)  {
+        int n=object.valueCharacterSet.size();
         for (Character item: object.valueCharacterSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueCharacterSet");
@@ -643,10 +673,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueCharacterSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueDoubleSet
       if (object.valueDoubleSet!=null)  {
+        int n=object.valueDoubleSet.size();
         for (Double item: object.valueDoubleSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueDoubleSet");
@@ -656,10 +693,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueDoubleSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueEnumSet
       if (object.valueEnumSet!=null)  {
+        int n=object.valueEnumSet.size();
         for (Enum72 item: object.valueEnumSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueEnumSet");
@@ -669,10 +713,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueEnumSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueFloatSet
       if (object.valueFloatSet!=null)  {
+        int n=object.valueFloatSet.size();
         for (Float item: object.valueFloatSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueFloatSet");
@@ -682,10 +733,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueFloatSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueIntSet
       if (object.getValueIntSet()!=null)  {
+        int n=object.getValueIntSet().size();
         for (Integer item: object.getValueIntSet()) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueIntSet");
@@ -695,10 +753,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueIntSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueLongSet
       if (object.valueLongSet!=null)  {
+        int n=object.valueLongSet.size();
         for (Long item: object.valueLongSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueLongSet");
@@ -708,10 +773,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueLongSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueShortSet
       if (object.valueShortSet!=null)  {
+        int n=object.valueShortSet.size();
         for (Short item: object.valueShortSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueShortSet");
@@ -721,10 +793,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueShortSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueStringSet
       if (object.valueStringSet!=null)  {
+        int n=object.valueStringSet.size();
         for (String item: object.valueStringSet) {
           if (item==null) {
             xmlSerializer.writeEmptyElement("valueStringSet");
@@ -733,6 +812,12 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item));
             xmlSerializer.writeEndElement();
           }
+        }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueStringSet");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
         }
       }
 
@@ -1336,13 +1421,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<Bean72A> collection=new HashSet<>();
                       Bean72A item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=context.mapperFor(Bean72A.class).parseOnXml(context, wrapper, eventType);
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueBeanSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1362,13 +1451,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<BigDecimal> collection=new HashSet<>();
                       BigDecimal item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=BigDecimalUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueBigDecimalSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1388,13 +1481,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<BigInteger> collection=new HashSet<>();
                       BigInteger item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=BigIntegerUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueBigIntegerSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1414,13 +1511,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<Byte> collection=new HashSet<>();
                       Byte item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=(byte)PrimitiveUtils.readByte(xmlParser.getElementAsInt(), null);
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueByteSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1440,13 +1541,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<Character> collection=new HashSet<>();
                       Character item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=(char)PrimitiveUtils.readCharacter(xmlParser.getElementAsInt(), null);
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueCharacterSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1466,13 +1571,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<Double> collection=new HashSet<>();
                       Double item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=PrimitiveUtils.readDouble(xmlParser.getElementAsDouble(), null);
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueDoubleSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1492,13 +1601,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<Enum72> collection=new HashSet<>();
                       Enum72 item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=Enum72.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueEnumSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1518,13 +1631,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<Float> collection=new HashSet<>();
                       Float item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=PrimitiveUtils.readFloat(xmlParser.getElementAsFloat(), null);
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueFloatSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1544,13 +1661,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<Integer> collection=new HashSet<>();
                       Integer item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueIntSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1570,13 +1691,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<Long> collection=new HashSet<>();
                       Long item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null);
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueLongSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1596,13 +1721,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<Short> collection=new HashSet<>();
                       Short item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=(short)PrimitiveUtils.readShort(xmlParser.getElementAsInt(), null);
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueShortSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1622,13 +1751,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       HashSet<String> collection=new HashSet<>();
                       String item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueStringSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;

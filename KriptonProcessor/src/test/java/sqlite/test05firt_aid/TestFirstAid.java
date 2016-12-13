@@ -22,9 +22,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import test05firt_aid.FirstAid;
-import test05firt_aid.FirstAidDao;
-import test05firt_aid.FirstAidDataSource;
 
 /**
  * @author xcesco

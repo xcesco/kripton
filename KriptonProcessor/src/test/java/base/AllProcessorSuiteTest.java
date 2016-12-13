@@ -28,8 +28,7 @@ import sqlite.BindSQLiteProcessorSuiteTest;
 		{ 
 			BindTypeProcessorSuiteTest.class,
 			SharedPreferenceProcessorSuiteTest.class,
-			BindSQLiteProcessorSuiteTest.class
-			
+			BindSQLiteProcessorSuiteTest.class			
 		})
 //@formatter:on
 public class AllProcessorSuiteTest {

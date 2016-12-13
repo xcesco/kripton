@@ -19,21 +19,22 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import shared.kripton45.Test45Suite;
+import shared.kripton46.Test46Compile;
 import shared.kripton47.Test47Suite;
-import sqlite.kripton50.TestKripton50;
+import shared.kripton50.TestKripton50;
 import sqlite.kripton62.TestKripton62;
 import sqlite.kripton63.TestKripton63;
-import sqlite.test05firt_aid.TestFirstAid;
 
 @RunWith(Suite.class)
 // @formatter:off
 @Suite.SuiteClasses({ 
 	Test45Suite.class, 
+	Test46Compile.class,
 	Test47Suite.class, 
 	TestKripton50.class, 
 	TestKripton62.class, 
-	TestKripton63.class, 
-	TestFirstAid.class })
+	TestKripton63.class 
+	 })
 // @formatter:on
 public class SharedPreferenceProcessorSuiteTest {
 

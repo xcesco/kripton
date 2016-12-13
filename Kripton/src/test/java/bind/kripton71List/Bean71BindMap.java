@@ -15,6 +15,7 @@ import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.BigIntegerUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.XmlAttributeUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -712,6 +713,12 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
             xmlSerializer.writeEndElement();
           }
         }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueEnumList");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
+        }
       }
 
       // field valueFloatList
@@ -841,6 +848,12 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
             xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(BigDecimalUtils.write(item)));
             xmlSerializer.writeEndElement();
           }
+        }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueBigDecimalList");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
         }
       }
 
@@ -1496,13 +1509,17 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                       LinkedList<Enum71> collection=new LinkedList<>();
                       Enum71 item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=Enum71.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueEnumList")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
@@ -1624,13 +1641,17 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                       LinkedList<BigDecimal> collection=new LinkedList<>();
                       BigDecimal item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=BigDecimalUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueBigDecimalList")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;

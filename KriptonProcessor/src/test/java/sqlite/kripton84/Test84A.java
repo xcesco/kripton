@@ -16,13 +16,8 @@
 package sqlite.kripton84;
 
 import java.io.IOException;
-import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
@@ -30,8 +25,6 @@ import sqlite.AbstractBindSQLiteProcessorTest;
  * @author xcesco
  *
  */
-@Config(manifest = Config.NONE)
-@RunWith(RobolectricTestRunner.class)
 public class Test84A extends AbstractBindSQLiteProcessorTest {
 
 	@Test
@@ -40,40 +33,5 @@ public class Test84A extends AbstractBindSQLiteProcessorTest {
 		buildDataSourceProcessorTest(Bean84ADataSource.class, Bean84ADao.class, Bean84A.class, Enum84Type.class);
 	}
 
-	@Test
-	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		Assert.assertNotNull(Bean84ATable.class.getName() != null);
-		Assert.assertNotNull(Bean84ADaoImpl.class.getName() != null);
-		BindBean84ADataSource dataSource = BindBean84ADataSource.instance();
-		dataSource.openWritableDatabase();
-
-		dataSource.execute(new Transaction() {
-
-			@Override
-			public boolean onExecute(BindBean84ADaoFactory daoFactory) {
-				Bean84ADaoImpl dao = daoFactory.getBean84ADao();
-
-				Bean84A bean = new Bean84A();
-				bean.valueString = "hello";
-
-				dao.insertAll(bean);
-				List<Bean84A> list = dao.selectById(bean.id);
-				Assert.assertEquals("not list ", 1, list.size());
-
-				Assert.assertEquals("not map", 1, list.size());
-
-				// Assert.assertEquals("not set", 1,
-				// list.get(0).valueSetString.size());
-
-				return true;
-			}
-
-			@Override
-			public void onError(Throwable e) {
-
-			}
-		});
-
-	}
 
 }

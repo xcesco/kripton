@@ -2,6 +2,8 @@ package bind.kripton80ContextCollection;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+import bind.kripton80ContextCollection.Bean80A;
+
 @BindType
 public class Bean80A {
 	

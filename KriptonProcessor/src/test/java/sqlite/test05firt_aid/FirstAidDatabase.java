@@ -17,8 +17,6 @@ package sqlite.test05firt_aid;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import test05firt_aid.FirstAid;
-
 /**
  * Created by xcesco on 09/06/2016.
  */

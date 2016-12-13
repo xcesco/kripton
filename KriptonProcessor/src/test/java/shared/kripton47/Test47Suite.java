@@ -24,8 +24,7 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		Test47Compile.class,
-		Test47AndroidRun.class
+		Test47Compile.class
 		 })
 //@formatter:on
 public class Test47Suite extends BaseProcessorTest {

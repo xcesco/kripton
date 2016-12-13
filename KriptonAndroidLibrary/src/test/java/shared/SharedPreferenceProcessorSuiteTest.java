@@ -20,11 +20,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import shared.kripton45.Test45Suite;
+import shared.kripton47.Test47Suite;
 
 @RunWith(Suite.class)
 // @formatter:off
 @Suite.SuiteClasses({ 
-	Test45Suite.class 
+	Test45Suite.class,
+	Test47Suite.class
+	
 	 })
 // @formatter:on
 public class SharedPreferenceProcessorSuiteTest {
