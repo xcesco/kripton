@@ -1,10 +1,10 @@
-package bind;
+package bind.kripton70;
 
 import org.junit.Test;
 
-import bind.kripton70.Bean70A;
+import bind.AbstractBaseTest;
 
-public class Test70 extends AbstractBaseTest {
+public class TestRuntime70 extends AbstractBaseTest {
 
 	@Test
 	public void testRun70A() {
