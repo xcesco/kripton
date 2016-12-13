@@ -122,13 +122,21 @@ public class AbstractBaseTest {
 	public int serializeAndParse(Object bean, BinderType type) {
 		String output1 = KriptonBinder.getBinder(type).serialize(bean);
 		if (display)
-			System.out.println(output1);
+			System.out.println("[["+output1+"]]");
 
 		Object bean2 = KriptonBinder.getBinder(type).parse(output1, bean.getClass());
 
 		String output2 = KriptonBinder.getBinder(type).serialize(bean2);
 		if (display)
-			System.out.println(output2);
+		{
+			if (output1.equals(output2))
+			{
+				System.out.println("[[-- same --]]");
+			} else {
+				System.out.println("[["+output2+"]]");
+			}
+		}
+			
 
 		Assert.assertTrue(type.toString(), output1.length() == output2.length());
 
@@ -139,14 +147,23 @@ public class AbstractBaseTest {
 
 	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) {
 		String value1 = KriptonBinder.getBinder(type).serializeCollection(list, clazz);
+		
+		if (display)
+			System.out.println("[["+value1+"]]");
+		
 		Collection<E> list2 = KriptonBinder.getBinder(type).parseCollection(new ArrayList<E>(), clazz, value1);
 
 		String value2 = KriptonBinder.getBinder(type).serializeCollection(list2, clazz);
-
+		
 		if (display)
-			System.out.println(value1);
-		if (display)
-			System.out.println(value2);
+		{
+			if (value1.equals(value2))
+			{
+				System.out.println("[[-- same --]]");
+			} else {
+				System.out.println("[["+value2+"]]");
+			}					
+		}
 		//
 		Assert.assertTrue(value1.length() == value2.length());
 		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
@@ -158,6 +175,9 @@ public class AbstractBaseTest {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
 		KriptonBinder.getBinder(type).serializeCollection(list, clazz, bar);
 		String value1 = toString(bar.getByteBuffer());
+		
+		if (display)
+			System.out.println("[["+value1+"]]");
 
 		Collection<E> list2 = KriptonBinder.getBinder(type).parseCollection(new ArrayList<E>(), clazz, bar.getByteBufferCopy());
 
@@ -166,9 +186,14 @@ public class AbstractBaseTest {
 		String value2 = toString(bar2.getByteBuffer());
 
 		if (display)
-			System.out.println(value1);
-		if (display)
-			System.out.println(value2);
+		{
+			if (value1.equals(value2))
+			{
+				System.out.println("[[-- same --]]");
+			} else {
+				System.out.println("[["+value2+"]]");
+			}					
+		}
 
 		Assert.assertTrue(value1.length() == value2.length());
 		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
@@ -179,17 +204,26 @@ public class AbstractBaseTest {
 	public int serializeAndParseBinary(Object bean, BinderType type) {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
 		KriptonBinder.getBinder(type).serialize(bean, bar);
-		String value1 = toString(bar.getByteBuffer());
+		String value1 = toString(bar.getByteBufferCopy());
 
 		if (display)
-			System.out.println(value1);
+			System.out.println("[["+value1+"]]");
+		
 		Object bean2 = KriptonBinder.getBinder(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
 
 		KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
 		KriptonBinder.getBinder(type).serialize(bean2, bar2);
-		String value2 = toString(bar2.getByteBuffer());
+		String value2 = toString(bar2.getByteBufferCopy());
+		
 		if (display)
-			System.out.println(value2);
+		{
+			if (value1.equals(value2))
+			{
+				System.out.println("[[-- same --]]");
+			} else {
+				System.out.println("[["+value2+"]]");
+			}					
+		}
 
 		Assert.assertTrue(value1.length() == value2.length());
 		// ReflectionAssert.assertReflectionEquals(type.toString(), bean,

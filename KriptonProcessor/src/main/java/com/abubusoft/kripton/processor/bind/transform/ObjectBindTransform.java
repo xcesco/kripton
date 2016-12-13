@@ -117,7 +117,7 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 
 		if (property.isNullable()) {
-			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT)", parserName, JsonToken.class);
+			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT || $L.currentToken()==$T.VALUE_STRING)", parserName, JsonToken.class, parserName, JsonToken.class);
 		}
 		methodBuilder.addStatement(setter(beanClass, beanName, property, "context.mapperFor($T.class).parseOnJacksonAsString(context, wrapper)"), property.getPropertyType().getName());
 		if (property.isNullable()) {

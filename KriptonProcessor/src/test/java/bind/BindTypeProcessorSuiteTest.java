@@ -18,7 +18,7 @@ package bind;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.kripton70.Test70Suite;
+import bind.kripton70.TestCompile70Suite;
 import bind.kripton71List.Test71;
 import bind.kripton72.Test72;
 import bind.kripton73.Test73;
@@ -33,7 +33,7 @@ import bind.kripton80.Test80Suite;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		Test70Suite.class,
+		TestCompile70Suite.class,
 		Test71.class,
 		Test72.class,
 		Test73.class,

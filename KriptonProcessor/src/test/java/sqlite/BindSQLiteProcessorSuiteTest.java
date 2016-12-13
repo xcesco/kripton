@@ -18,7 +18,7 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.kripton70.Test70Suite;
+import bind.kripton70.TestRuntime70Suite;
 import bind.kripton71List.Test71;
 import bind.kripton72.Test72;
 import bind.kripton73.Test73;
@@ -62,7 +62,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestKripton62.class,
 			TestKripton63.class,
 			Test64Suite.class,
-			Test70Suite.class,
+			TestRuntime70Suite.class,
 			Test71.class,
 			Test72.class,
 			Test73.class,
