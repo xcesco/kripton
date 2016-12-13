@@ -13,29 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared;
+package sqlite.kripton64;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.io.IOException;
 
-import shared.kripton45.Test45Suite;
-import shared.kripton46.Test46Compile;
-import shared.kripton47.Test47Suite;
-import shared.kripton50.TestKripton50;
-import sqlite.kripton62.Test62Compile;
-import sqlite.kripton63.Test63Compile;
+import org.junit.Test;
 
-@RunWith(Suite.class)
-// @formatter:off
-@Suite.SuiteClasses({ 
-	Test45Suite.class, 
-	Test46Compile.class,
-	Test47Suite.class, 
-	TestKripton50.class, 
-	Test62Compile.class, 
-	Test63Compile.class 
-	 })
-// @formatter:on
-public class SharedPreferenceProcessorSuiteTest {
+import sqlite.AbstractBindSQLiteProcessorTest;
+
+/**
+ * @author xcesco
+ *
+ */
+public class Test64Compile extends AbstractBindSQLiteProcessorTest {
+
+	@Test
+	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(Bean64.class, EnumType.class);
+		buildDataSourceProcessorTest(Bean64DataSource.class, Bean64Dao.class, Bean64.class, EnumType.class);
+	}
+
+	@Test
+	public void testCompileSharedPreferences() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(Bean64.class, EnumType.class);
+	}
 
 }

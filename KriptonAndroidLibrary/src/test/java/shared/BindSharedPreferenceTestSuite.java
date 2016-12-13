@@ -1,3 +1,4 @@
+package shared;
 /*******************************************************************************
  * Copyright 2015, 2016 Francesco Benincasa.
  *
@@ -13,29 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared;
+
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import shared.kripton45.Test45Suite;
-import shared.kripton46.Test46Compile;
 import shared.kripton47.Test47Suite;
-import shared.kripton50.TestKripton50;
-import sqlite.kripton62.Test62Compile;
-import sqlite.kripton63.Test63Compile;
 
 @RunWith(Suite.class)
 // @formatter:off
 @Suite.SuiteClasses({ 
-	Test45Suite.class, 
-	Test46Compile.class,
-	Test47Suite.class, 
-	TestKripton50.class, 
-	Test62Compile.class, 
-	Test63Compile.class 
+	Test45Suite.class,
+	Test47Suite.class
+	
 	 })
 // @formatter:on
-public class SharedPreferenceProcessorSuiteTest {
+public class BindSharedPreferenceTestSuite {
 
 }

@@ -22,9 +22,9 @@ import org.junit.runners.Suite;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		Test64A.class,
-		Test64B.class,
-		Test64All.class
+		Test64ACompile.class,
+		Test64BCompile.class,
+		Test64Compile.class
 		 })
 //@formatter:on
 public class Test64Suite  {

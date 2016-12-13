@@ -13,29 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared;
+package sqlite.kripton51.entities;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.annotation.BindType;
 
-import shared.kripton45.Test45Suite;
-import shared.kripton46.Test46Compile;
-import shared.kripton47.Test47Suite;
-import shared.kripton50.TestKripton50;
-import sqlite.kripton62.Test62Compile;
-import sqlite.kripton63.Test63Compile;
+import sqlite.kripton51.internal.MessageType;
 
-@RunWith(Suite.class)
-// @formatter:off
-@Suite.SuiteClasses({ 
-	Test45Suite.class, 
-	Test46Compile.class,
-	Test47Suite.class, 
-	TestKripton50.class, 
-	Test62Compile.class, 
-	Test63Compile.class 
-	 })
-// @formatter:on
-public class SharedPreferenceProcessorSuiteTest {
+/**
+ * Created by xcesco on 27/09/2016.
+ */
+
+@BindType
+@BindTable("message")
+public class MessageEntity {
+
+    public long id;
+
+    public long channelId;
+
+    public OwnerType ownerType;
+    
+    public String faceUid;
+    public String text;
+    public String ownerUid;
+    public String channelUid;
+    public long updateTime;
+    
+    public MessageType type;
+    
 
 }

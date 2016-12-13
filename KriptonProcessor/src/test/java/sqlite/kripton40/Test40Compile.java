@@ -13,29 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared;
+package sqlite.kripton40;
 
+import java.io.IOException;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import shared.kripton45.Test45Suite;
-import shared.kripton46.Test46Compile;
-import shared.kripton47.Test47Suite;
-import shared.kripton50.TestKripton50;
-import sqlite.kripton62.Test62Compile;
-import sqlite.kripton63.Test63Compile;
+import sqlite.AbstractBindSQLiteProcessorTest;
 
-@RunWith(Suite.class)
-// @formatter:off
-@Suite.SuiteClasses({ 
-	Test45Suite.class, 
-	Test46Compile.class,
-	Test47Suite.class, 
-	TestKripton50.class, 
-	Test62Compile.class, 
-	Test63Compile.class 
-	 })
-// @formatter:on
-public class SharedPreferenceProcessorSuiteTest {
+/**
+ * @author xcesco
+ *
+ */
+@RunWith(JUnit4.class)
+public class Test40Compile extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * id: Long id
+	 * 
+	 * @throws IOException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 */
+	@Test
+	public void test01() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, BaseDao.class, Dummy02DataSource.class, DaoBean02.class, Bean02.class);
+	}
 
 }

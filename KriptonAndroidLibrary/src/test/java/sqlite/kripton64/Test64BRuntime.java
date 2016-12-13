@@ -13,48 +13,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.kripton84;
+package sqlite.kripton64;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import base.BaseAndroidTest;
-import sqlite.kripton84.BindBean84BDataSource.Transaction;
+import sqlite.kripton64.BindBean64ADataSource.Transaction;
 
 /**
  * @author xcesco
  *
  */
-public class Test84RuntimeB extends BaseAndroidTest {
+public class Test64BRuntime extends BaseAndroidTest {
 
 	@Test
-	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
-		Assert.assertNotNull(Bean84BTable.class.getName() != null);
-		Assert.assertNotNull(Bean84BDaoImpl.class.getName() != null);
-		BindBean84BDataSource dataSource = BindBean84BDataSource.instance();
+	public void testRunSqlite() {
+		BindBean64ADataSource dataSource = BindBean64ADataSource.instance();
 
 		dataSource.execute(new Transaction() {
 
 			@Override
-			public boolean onExecute(BindBean84BDaoFactory daoFactory) {
-				Bean84BDaoImpl dao = daoFactory.getBean84BDao();
+			public boolean onExecute(BindBean64ADaoFactory daoFactory) {
+				Bean64ADaoImpl dao = daoFactory.getBean64ADao();
 
-				Bean84B2 innerBean = new Bean84B2();
-				innerBean.columnString = "test01";
+				Bean64A bean = new Bean64A();
+				bean.valueString = "hello";
+				bean.valueMapStringBean = new HashMap<>();
+				bean.valueMapStringBean.put("key1", new Bean64A());
+				bean.valueSetString = new HashSet<String>();
+				bean.valueSetString.add("hello");
 
-				Bean84B bean = new Bean84B();
-				bean.columnBean = innerBean;
 				dao.insert(bean);
+				List<Bean64A> list = dao.selectList(bean.id);
+				Assert.assertEquals("not list ", 1, list.size());
 
-				Bean84B bean2 = dao.selectById(bean.id);
-				assertTrue(bean.equals(bean2));
+				Assert.assertEquals("not map", 1, list.size());
 
-				Bean84B bean3 = dao.selectByBean(innerBean);
-				assertTrue(bean.equals(bean3));
+				Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
 
 				return true;
 			}
@@ -64,7 +64,6 @@ public class Test84RuntimeB extends BaseAndroidTest {
 
 			}
 		});
-
 	}
 
 }

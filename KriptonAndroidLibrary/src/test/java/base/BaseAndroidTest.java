@@ -11,7 +11,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 
 @Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner.class)
-public class BaseAndroidTest {
+public abstract class BaseAndroidTest {
 	
 	protected boolean display;
 

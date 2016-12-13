@@ -13,29 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared;
+package sqlite.kripton51.internal;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.abubusoft.kripton.annotation.BindType;
 
-import shared.kripton45.Test45Suite;
-import shared.kripton46.Test46Compile;
-import shared.kripton47.Test47Suite;
-import shared.kripton50.TestKripton50;
-import sqlite.kripton62.Test62Compile;
-import sqlite.kripton63.Test63Compile;
+@BindType
+public enum MessageType {
+    SYSTEM_CHANNEL_CREATED,
+    SYSTEM_USER_ADDED,
+    SYSTEM_USER_EXITS,
+    SYSTEM_USER_BANNED,
+    SYSTEM_CHANNEL_DESTROYED,
+    TEXT,
+    ACTION;
 
-@RunWith(Suite.class)
-// @formatter:off
-@Suite.SuiteClasses({ 
-	Test45Suite.class, 
-	Test46Compile.class,
-	Test47Suite.class, 
-	TestKripton50.class, 
-	Test62Compile.class, 
-	Test63Compile.class 
-	 })
-// @formatter:on
-public class SharedPreferenceProcessorSuiteTest {
-
+    private MessageType() {
+    }
 }
