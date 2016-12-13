@@ -24,6 +24,9 @@ import sqlite.BindSQLiteProcessorSuiteTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ BindTypeProcessorSuiteTest.class, BindSharedPreferenceTestSuite.class, BindSQLiteProcessorSuiteTest.class })
-public class AllProcessorSuiteTest {
+public class AllProcessorTestSuite {
 
+	static {
+		new AllProcessorTestSuite();
+	}
 }

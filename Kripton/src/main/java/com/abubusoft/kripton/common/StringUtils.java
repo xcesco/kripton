@@ -28,6 +28,8 @@ import java.nio.charset.Charset;
  */
 public class StringUtils {
 
+	private static final int VIEW_SIZE = 64;
+
 	public static boolean isEmpty(String value) {
 		return value == null || value.length() == 0;
 	}
@@ -89,7 +91,7 @@ public class StringUtils {
 	 * limit string size to 32
 	 */
 	public static String checkSize(Object value) {
-		return checkSize(value, 32);
+		return checkSize(value, VIEW_SIZE);
 	}
 	
 	/**

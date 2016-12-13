@@ -178,7 +178,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64_a (value_map_string_bean, value_set_string, value_string) VALUES ('"+StringUtils.checkSize((byte[])contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean64_a (value_map_string_bean, value_set_string, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
     long result = database().insert("bean64_a", null, contentValues);
     bean.id=result;
 
