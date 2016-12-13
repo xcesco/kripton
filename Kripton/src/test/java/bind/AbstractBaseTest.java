@@ -47,7 +47,6 @@ public class AbstractBaseTest {
 		int[] values = new int[BinderType.values().length];
 
 		boolean all = false;
-		@SuppressWarnings("unchecked")
 		List<BinderType> checkList = Arrays.asList(checks);
 		if (checks.length == 0)
 			all = true;
@@ -83,7 +82,6 @@ public class AbstractBaseTest {
 		int[] values = new int[BinderType.values().length];
 
 		boolean all = false;
-		@SuppressWarnings("unchecked")
 		List<BinderType> checkList = Arrays.asList(checks);
 		if (checks.length == 0)
 			all = true;

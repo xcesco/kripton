@@ -14,6 +14,7 @@ import com.abubusoft.kripton.binder.xml.XmlSerializer;
 import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.XmlAttributeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -195,6 +196,12 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
             xmlSerializer.writeBinary(item, 0, item.length);
             xmlSerializer.writeEndElement();
           }
+        }
+        // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+        if (n==0) {
+          xmlSerializer.writeStartElement("valueListByteArray");
+          xmlSerializer.writeAttribute("emptyCollection", "true");
+          xmlSerializer.writeEndElement();
         }
       }
 
@@ -428,13 +435,17 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
                       ArrayList<byte[]> collection=new ArrayList<>();
                       byte[] item;
                       // add first element
+                      item=null;
                       if (xmlParser.isEmptyElement()) {
-                        item=null;
+                        // if there's a an empty collection it marked with attribute emptyCollection
+                        if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                          collection.add(item);
+                        }
                         xmlParser.nextTag();
                       } else {
                         item=xmlParser.getElementAsBinary();
+                        collection.add(item);
                       }
-                      collection.add(item);
                       while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueListByteArray")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;

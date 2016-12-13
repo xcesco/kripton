@@ -17,7 +17,7 @@ package sqlite.test01;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import example01.DaoChannelMessage;
+import sqlite.example01.DaoChannelMessage;
 
 
 @BindDataSource(value=DaoChannelMessage.class, fileName = "dummy" , version=1)

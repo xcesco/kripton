@@ -234,7 +234,7 @@ public class XmlParser {
 	 * org.codehaus.stax2.typed.TypedXMLStreamReader#getAttributeAsBoolean(int)
 	 */
 	public boolean getAttributeAsBoolean(int index) throws Exception {
-		return getAttributeAsBoolean(index);
+		return xmlStreamReader.getAttributeAsBoolean(index);
 	}
 
 	/*

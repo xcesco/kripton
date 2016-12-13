@@ -18,15 +18,15 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import bind.kripton42faster.TestKripton42;
 import bind.kripton70.TestRuntime70Suite;
-import bind.kripton71List.Test71;
-import bind.kripton72.Test72;
-import bind.kripton73.Test73;
-import example01.SQLiteProcessorTest;
-import kripton42faster.TestKripton42;
+import bind.kripton71List.TestCompile71;
+import bind.kripton72.TestCompile72;
+import bind.kripton73Array.TestCompile73;
 import shared.kripton45.TestKripton45;
 import shared.kripton46.TestKripton46;
 import shared.kripton47.Test47Suite;
+import sqlite.example01.SQLiteProcessorTest;
 import sqlite.kripton33.TestKripton33;
 import sqlite.kripton38.TestKripton38;
 import sqlite.kripton40.TestKripton40;
@@ -63,9 +63,9 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestKripton63.class,
 			Test64Suite.class,
 			TestRuntime70Suite.class,
-			Test71.class,
-			Test72.class,
-			Test73.class,
+			TestCompile71.class,
+			TestCompile72.class,
+			TestCompile73.class,
 			Test84Suite.class,
 		TestFirstAid.class })
 //@formatter:on

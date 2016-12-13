@@ -625,7 +625,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                       if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                         value=null;
                       } else {
-                        if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+                        if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
                           value=context.mapperFor(Bean74.class).parseOnJacksonAsString(context, wrapper);
                         }
                       }

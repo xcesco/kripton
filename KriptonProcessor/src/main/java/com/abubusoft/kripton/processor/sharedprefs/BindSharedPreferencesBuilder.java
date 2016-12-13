@@ -61,7 +61,9 @@ public class BindSharedPreferencesBuilder {
 
 	protected static final String PREFIX = "Bind";
 
-	protected static final String SUFFIX = "SharedPreferences";
+	protected static final String SUFFIX_SHARED_PREFERENCE = "SharedPreferences";
+	
+	protected static final String SUFFIX_PREFERENCE = "Preferences";
 
 	protected static Builder builder;
 
@@ -75,8 +77,19 @@ public class BindSharedPreferencesBuilder {
 	public static String generate(Elements elementUtils, Filer filer, PrefEntity entity) throws IOException {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		String beanClassName = entity.getSimpleName().toString();
+		String suffix;
 
-		String className = PREFIX + beanClassName + (beanClassName.endsWith(SUFFIX) ? "" : SUFFIX);
+		if (beanClassName.endsWith(SUFFIX_SHARED_PREFERENCE))
+		{
+			suffix="";
+		} else if (beanClassName.endsWith(SUFFIX_PREFERENCE))
+		{
+			suffix="";
+		} else {
+			suffix=SUFFIX_SHARED_PREFERENCE;
+		}
+		
+		String className = PREFIX + beanClassName + suffix;
 		ModelAnnotation annotation = entity.getAnnotation(BindSharedPreferences.class);
 		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_NAME);
 

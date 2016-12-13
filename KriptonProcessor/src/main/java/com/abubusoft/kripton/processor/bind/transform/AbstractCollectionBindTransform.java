@@ -12,10 +12,12 @@ import java.util.List;
 import com.abubusoft.kripton.binder.xml.XMLEventConstants;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.XmlAttributeUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -26,6 +28,8 @@ import com.squareup.javapoet.TypeName;
  *
  */
 public abstract class AbstractCollectionBindTransform extends AbstractBindTransform {
+
+	private static final String EMPTY_COLLECTION_ATTRIBUTE_NAME = "emptyCollection";
 
 	public enum CollectionType {
 		ARRAY, LIST, SET;
@@ -197,22 +201,20 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		} else {
 			// no wrap element
 			methodBuilder.addCode("// add first element\n");
-			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
-				methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+			methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);
+				methodBuilder.addCode("// if there's a an empty collection it marked with attribute emptyCollection\n");
+				methodBuilder.beginControlFlow("if ($T.getAttributeAsBoolean($L, $S, false)==false)", XmlAttributeUtils.class, parserName, EMPTY_COLLECTION_ATTRIBUTE_NAME);
+					methodBuilder.addStatement("collection.add(item)");					
+				methodBuilder.endControlFlow();
 				methodBuilder.addStatement("$L.nextTag()", parserName);
 			methodBuilder.nextControlFlow("else");
 			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
-			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("collection.add(item)");
+			methodBuilder.endControlFlow();			
 			
 			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_ELEMENT && $L.getName().toString().equals($S))", parserName, XMLEventConstants.class, parserName, property.xmlInfo.tag);
 		}
-		
-//		if (property.xmlInfo.isWrappedCollection())
-//		{
-//			// with wrap element
-//			methodBuilder.beginControlFlow("if ($L.getName().toString().equals($S))", parserName, property.xmlInfo.tagElement);
-//		}
 		
 		// for all
 		methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);				
@@ -223,11 +225,6 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		methodBuilder.endControlFlow();
 		methodBuilder.addStatement("collection.add(item)");
 		
-//		if (property.xmlInfo.isWrappedCollection())
-//		{
-//			// with wrap element
-//			methodBuilder.endControlFlow();
-//		}
 		methodBuilder.endControlFlow();
 	                 	
 		if (collectionType==CollectionType.ARRAY)
@@ -354,13 +351,20 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		//@formatter:off
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 			
-			if (collectionType==CollectionType.LIST) {
+			switch(collectionType)
+			{
+			case LIST:
 				methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$T item", elementTypeName);
-			} else if (collectionType==CollectionType.ARRAY) {
+				break;
+			case ARRAY:
 				methodBuilder.addStatement("int n=$L.length", getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$T item", elementTypeName);
-			}
+				break;
+			case SET:
+				methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
+				break;
+			}			
 			
 			if (property.xmlInfo.isWrappedCollection())
 			{
@@ -403,6 +407,16 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			if (property.xmlInfo.isWrappedCollection())
 			{
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+			} else {				
+				// if there's no wrap tag, we need to assure that empty collection will be writed.
+				// to distinguish between first empty element and empty collection, we write an attribute emptyCollection to
+				// say: this collection is empty
+				methodBuilder.addCode("// to distinguish between first empty element and empty collection, we write an attribute emptyCollection\n");
+				methodBuilder.beginControlFlow("if (n==0)");
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tagElement);
+				methodBuilder.addStatement("$L.writeAttribute($S, $S)", serializerName, EMPTY_COLLECTION_ATTRIBUTE_NAME, "true");
+				methodBuilder.addStatement("$L.writeEndElement()", serializerName);				
+			    methodBuilder.endControlFlow();
 			}
 						
 			methodBuilder.endControlFlow();

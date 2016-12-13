@@ -18,7 +18,7 @@ package shared;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import shared.kripton45.TestKripton45;
+import shared.kripton45.Test45Suite;
 import shared.kripton47.Test47Suite;
 import sqlite.kripton50.TestKripton50;
 import sqlite.kripton62.TestKripton62;
@@ -28,7 +28,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 @RunWith(Suite.class)
 // @formatter:off
 @Suite.SuiteClasses({ 
-	TestKripton45.class, 
+	Test45Suite.class, 
 	Test47Suite.class, 
 	TestKripton50.class, 
 	TestKripton62.class, 

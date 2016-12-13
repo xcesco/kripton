@@ -18,31 +18,33 @@ package bind;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import bind.kripton42faster.TestCompile42Suite;
 import bind.kripton70.TestCompile70Suite;
-import bind.kripton71List.Test71;
-import bind.kripton72.Test72;
-import bind.kripton73.Test73;
-import bind.kripton74Map.Test74;
-import bind.kripton75.Test75;
-import bind.kripton76.Test76Suite;
+import bind.kripton71List.TestCompile71Suite;
+import bind.kripton72.TestCompile72Suite;
+import bind.kripton73Array.TestCompile73Suite;
+import bind.kripton74Map.TestCompile74Suite;
+import bind.kripton75ByteArray.TestCompile75Suite;
+import bind.kripton76Errors.TestCompile76Suite;
 import bind.kripton77.Test77;
-import bind.kripton78.Test78;
-import bind.kripton80.Test80Suite;
+import bind.kripton78.TestCompile78Suite;
+import bind.kripton80ContextCollection.TestCompile80Suite;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
-		{ 
+		{
+		TestCompile42Suite.class,
 		TestCompile70Suite.class,
-		Test71.class,
-		Test72.class,
-		Test73.class,
-		Test74.class,
-		Test75.class,
-		Test76Suite.class,
+		TestCompile71Suite.class,
+		TestCompile72Suite.class,
+		TestCompile73Suite.class,
+		TestCompile74Suite.class,
+		TestCompile75Suite.class,
+		TestCompile76Suite.class,
 		Test77.class,
-		Test78.class,
-		Test80Suite.class
+		TestCompile78Suite.class,
+		TestCompile80Suite.class
 		 })
 //@formatter:on
 public class BindTypeProcessorSuiteTest {
