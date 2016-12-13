@@ -59,6 +59,11 @@ public class StringUtils {
 	 */
 	public static String checkSize(Object value, int limitSize) {		
 		if (value != null) {
+			if ("byte[]".equals(value.getClass().getSimpleName()))
+			{
+				return checkSize((byte[])value, limitSize);
+			}
+					
 			String str=value.toString();
 			if (str.length() > limitSize) {
 				return str.substring(0, limitSize-3)+"...";

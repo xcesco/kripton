@@ -112,8 +112,8 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 * @return string sql
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		Converter<String, String> columnConverter = daoDefinition.getColumnNameConverter();
+		SQLDaoDefinition daoDefinition = method.getParent();		
+		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
 
 		String sqlInsert;
 		{
@@ -125,11 +125,11 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				String separator = "";
 				for (Pair<String, TypeMirror> item : method.getParameters()) {
 					String resolvedParamName = method.findParameterAliasByName(item.value0);
-					bufferName.append(separator + columnConverter.convert(resolvedParamName));
+					bufferName.append(separator + nc.convert(resolvedParamName));
 					bufferValue.append(separator + "${" + resolvedParamName + "}");
 
 					// here it needed raw parameter name
-					bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + columnConverter.convert(resolvedParamName) + "\"))+\"'");
+					bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + nc.convert(resolvedParamName) + "\"))+\"'");
 					separator = ", ";
 				}
 			}
@@ -143,7 +143,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeMirror> property : method.getParameters()) {
 				String resolvedName=method.findParameterAliasByName(property.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>",columnConverter.convert(resolvedName));
+				methodBuilder.addJavadoc("\t<dt>$L</dt>",nc.convert(resolvedName));
 				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n","${"+resolvedName+"}", property.value0);				
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
@@ -151,7 +151,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			{								
 				for (Pair<String, TypeMirror> param : method.getParameters()) {
 					methodBuilder.addJavadoc("@param $L\n", param.value0);
-					methodBuilder.addJavadoc("\tis binded to column <strong>$L</strong>\n", columnConverter.convert(method.findParameterAliasByName(param.value0)));
+					methodBuilder.addJavadoc("\tis binded to column <strong>$L</strong>\n", nc.convert(method.findParameterAliasByName(param.value0)));
 				}				
 			}
 

@@ -195,8 +195,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 */
 	public String buildJavadoc(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, String beanNameParameter, String whereCondition, List<SQLProperty> listUsedProperty,
 			List<String> attributesUsedInWhereConditions) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		Converter<String, String> columnNameConverter = daoDefinition.getColumnNameConverter();
+		SQLDaoDefinition daoDefinition = method.getParent();		
+		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
 		
 		// in this case, only one parameter can exists for method
 		Pair<String, TypeMirror> beanParameter = method.getParameters().get(0);
@@ -209,11 +209,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		String separator = "";
 		for (SQLProperty property : listUsedProperty) {
-			buffer.append(String.format("%s%s=${%s.%s}", separator, columnNameConverter.convert(property.getName()), method.findParameterAliasByName(beanNameParameter), property.getName()));
+			buffer.append(String.format("%s%s=${%s.%s}", separator, nc.convert(property.getName()), method.findParameterAliasByName(beanNameParameter), property.getName()));
 
 			bufferQuestion.append(separator);
-			bufferQuestion.append(columnNameConverter.convert(property.getName()) + "=");
-			bufferQuestion.append("'\"+StringUtils.checkSize(contentValues.get(\"" + columnNameConverter.convert(property.getName()) + "\"))+\"'");
+			bufferQuestion.append(nc.convert(property.getName()) + "=");
+			bufferQuestion.append("'\"+StringUtils.checkSize(contentValues.get(\"" + nc.convert(property.getName()) + "\"))+\"'");
 
 			separator = ", ";
 		}
@@ -231,7 +231,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
 				String resolvedName = method.findParameterAliasByName(beanParameter.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", columnNameConverter.convert(property.getName()));
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", nc.convert(property.getName()));
 				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n", "${"+resolvedName+"."+property.getName()+"}");
 			}
 			methodBuilder.addJavadoc("</dl>\n");			

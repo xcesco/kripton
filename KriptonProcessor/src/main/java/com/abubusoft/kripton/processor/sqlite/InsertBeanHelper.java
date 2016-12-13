@@ -43,8 +43,8 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 	@Override
 	public String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
-		SQLDaoDefinition daoDefinition=method.getParent();
-		SQLEntity entity=daoDefinition.getEntity();
+		SQLDaoDefinition daoDefinition = method.getParent();
+		SQLEntity entity = daoDefinition.getEntity();
 		String sqlInsert;
 
 		List<SQLProperty> listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlInsert.class, methodBuilder, null);
@@ -52,8 +52,8 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 		ModelProperty primaryKey = entity.getPrimaryKey();
 
-		//methodBuilder.addCode("\n");
-		
+		// methodBuilder.addCode("\n");
+
 		// generate javadoc and query
 		sqlInsert = generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
 
@@ -101,13 +101,12 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	 * @param returnType
 	 * @param listUsedProperty
 	 * @param primaryKey
-	 * @return
-	 * 		string to use in log
+	 * @return string to use in log
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
-		SQLDaoDefinition daoDefinition=method.getParent();
-		 Converter<String, String> nc = daoDefinition.getColumnNameConverter();
-		
+		SQLDaoDefinition daoDefinition = method.getParent();
+		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
+
 		String sqlInsert;
 		// generate javadoc and result
 		{
@@ -119,16 +118,16 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			for (SQLProperty property : listUsedProperty) {
 				bufferName.append(separator + nc.convert(property.getName()));
 				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
-								
-				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" +nc.convert(property.getName()) + "\"))+\"'");
 				
+				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + nc.convert(property.getName()) + "\"))+\"'");
+
 				separator = ", ";
 			}
 
 			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
 			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
-			methodBuilder.addJavadoc("\n");						
+			methodBuilder.addJavadoc("\n");
 
 			// generate sql query
 			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
@@ -137,18 +136,19 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
-				methodBuilder.addJavadoc("\t<dt>$L</dt>",daoDefinition.getColumnNameConverter().convert(property.getName()));
-				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n","${"+method.findParameterAliasByName(method.getParameters().get(0).value0)+"."+method.findParameterNameByAlias(property.getName())+"}");				
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", daoDefinition.getColumnNameConverter().convert(property.getName()));
+				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n",
+						"${" + method.findParameterAliasByName(method.getParameters().get(0).value0) + "." + method.findParameterNameByAlias(property.getName()) + "}");
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
-			
+
 			// update bean have only one parameter: the bean to update
 			for (Pair<String, TypeMirror> param : method.getParameters()) {
 				methodBuilder.addJavadoc("@param $L", param.value0);
 				methodBuilder.addJavadoc("\n\tis mapped to parameter <strong>$L</strong>\n", method.findParameterAliasByName(param.value0));
 			}
-			
-			InsertRawHelper.generateJavaDocReturnType(methodBuilder, returnType);			
+
+			InsertRawHelper.generateJavaDocReturnType(methodBuilder, returnType);
 		}
 		return sqlInsert;
 	}

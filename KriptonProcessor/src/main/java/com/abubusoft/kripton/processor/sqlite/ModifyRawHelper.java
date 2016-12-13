@@ -196,7 +196,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		String sqlResult;
 		StringBuilder buffer = new StringBuilder();
 		StringBuilder bufferQuestion = new StringBuilder();
-		Converter<String, String> columnConverter = daoDefinition.getColumnNameConverter();
+		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
 
 		String separator = "";
 		for (Pair<String, TypeMirror> param : updateableParams) {
@@ -220,7 +220,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeMirror> property : updateableParams) {
 				String resolvedName = method.findParameterAliasByName(property.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", columnConverter.convert(resolvedName));
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", nc.convert(resolvedName));
 				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n","${"+resolvedName+"}", property.value0);
 			}
 			methodBuilder.addJavadoc("</dl>\n");
