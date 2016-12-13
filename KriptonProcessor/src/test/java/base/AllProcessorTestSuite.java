@@ -18,15 +18,15 @@ package base;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.BindTypeProcessorSuiteTest;
-import shared.BindSharedPreferenceTestSuite;
-import sqlite.BindSQLiteProcessorSuiteTest;
+import bind.BindCompileTestSuite;
+import shared.SharedCompileTestSuite;
+import sqlite.SQLiteCompileTestSuite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ BindTypeProcessorSuiteTest.class, BindSharedPreferenceTestSuite.class, BindSQLiteProcessorSuiteTest.class })
+@Suite.SuiteClasses({
+	BindCompileTestSuite.class, 
+	SharedCompileTestSuite.class, 	
+	SQLiteCompileTestSuite.class })
 public class AllProcessorTestSuite {
 
-	static {
-		new AllProcessorTestSuite();
-	}
 }

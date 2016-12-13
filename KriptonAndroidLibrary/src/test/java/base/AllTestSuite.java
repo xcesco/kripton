@@ -18,15 +18,15 @@ package base;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import shared.BindSharedPreferenceTestSuite;
-import sqlite.BindSQLiteTestSuite;
+import shared.SharedRuntimeTestSuite;
+import sqlite.SQLiteRuntimeTestSuite;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-			BindSharedPreferenceTestSuite.class,
-			BindSQLiteTestSuite.class
+			SharedRuntimeTestSuite.class,
+			SQLiteRuntimeTestSuite.class
 		})
 //@formatter:on
 public class AllTestSuite {

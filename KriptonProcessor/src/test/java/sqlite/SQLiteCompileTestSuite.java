@@ -70,6 +70,6 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestFirstAid.class
 			})
 //@formatter:on
-public class BindSQLiteProcessorSuiteTest {
+public class SQLiteCompileTestSuite {
 
 }

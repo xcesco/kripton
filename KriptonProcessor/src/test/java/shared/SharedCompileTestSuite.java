@@ -1,4 +1,3 @@
-package sqlite;
 /*******************************************************************************
  * Copyright 2015, 2016 Francesco Benincasa.
  *
@@ -14,21 +13,29 @@ package sqlite;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-
+package shared;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import sqlite.kripton64.Test64RuntimeSuite;
-import sqlite.kripton84.Test84RuntimeSuite;
+import shared.kripton45.Test45Suite;
+import shared.kripton46.Test46Compile;
+import shared.kripton47.Test47Suite;
+import shared.kripton50.TestKripton50;
+import sqlite.kripton62.Test62Compile;
+import sqlite.kripton63.Test63Compile;
 
 @RunWith(Suite.class)
 // @formatter:off
-@Suite.SuiteClasses({ 	
-	Test64RuntimeSuite.class,
-	Test84RuntimeSuite.class
+@Suite.SuiteClasses({ 
+	Test45Suite.class, 
+	Test46Compile.class,
+	Test47Suite.class, 
+	TestKripton50.class, 
+	Test62Compile.class, 
+	Test63Compile.class 
 	 })
 // @formatter:on
-public class BindSQLiteTestSuite {
+public class SharedCompileTestSuite {
 
 }

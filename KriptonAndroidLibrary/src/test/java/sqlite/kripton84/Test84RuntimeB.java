@@ -21,6 +21,9 @@ import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import base.BaseAndroidTest;
 import sqlite.kripton84.BindBean84BDataSource.Transaction;
@@ -29,6 +32,8 @@ import sqlite.kripton84.BindBean84BDataSource.Transaction;
  * @author xcesco
  *
  */
+@Config(manifest=Config.NONE)
+@RunWith(RobolectricTestRunner.class)
 public class Test84RuntimeB extends BaseAndroidTest {
 
 	@Test

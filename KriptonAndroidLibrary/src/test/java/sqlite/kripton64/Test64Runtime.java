@@ -70,27 +70,6 @@ public class Test64Runtime extends BaseAndroidTest {
 		});
 
 	}
-
-	@Test
-	public void testJson() throws IOException, InstantiationException, IllegalAccessException {
-		// Bean64 bean=new Bean64();
-		//
-		// bean.valueString ="hello";
-		// bean.valueMapStringBean =new HashMap<>();
-		// bean.valueMapStringBean.put("key1", new Bean64());
-		//
-		// BinderJsonWriter writer=KriptonBinder.getJsonWriter();
-		//
-		// String buffer=writer.writeMap(bean.valueMapStringBean);
-		//
-		// BinderJsonReader reader=KriptonBinder.getJsonReader();
-		// HashMap<String, Bean64> map = reader.readMap(new HashMap<String,
-		// Bean64>(), String.class, Bean64.class, buffer);
-		//
-		// String buffer2=writer.writeMap(map);
-		// Assert.assertEquals(buffer, buffer2);
-	}
-
 	
 	// @Test
 	// public void testRunSharedPreferences() throws IOException,

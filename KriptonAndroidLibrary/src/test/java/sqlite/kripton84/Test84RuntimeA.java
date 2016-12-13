@@ -20,6 +20,9 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import base.BaseAndroidTest;
 import sqlite.kripton84.BindBean84ADataSource.Transaction;
@@ -29,6 +32,8 @@ import sqlite.kripton84.BindBean84ADataSource.Transaction;
  * @author xcesco
  *
  */
+@Config(manifest=Config.NONE)
+@RunWith(RobolectricTestRunner.class)
 public class Test84RuntimeA extends BaseAndroidTest {
 
 	@Test

@@ -29,6 +29,6 @@ import shared.kripton47.Test47Suite;
 	Test47Suite.class
 	 })
 // @formatter:on
-public class BindSharedPreferenceTestSuite {
+public class SharedRuntimeTestSuite {
 
 }

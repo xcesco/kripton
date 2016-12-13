@@ -4,7 +4,7 @@ import org.junit.Before;
 
 import base.BaseProcessorTest;
 
-public class AbstractBindSharedPreferenceProcessorTest extends BaseProcessorTest {
+public abstract class AbstractBindSharedPreferenceProcessorTest extends BaseProcessorTest {
 	@Before
 	public void setup() {
 		testType = TestType.PREPARE_TEST_ANDROID_LIBRARY;

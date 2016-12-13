@@ -47,6 +47,6 @@ import bind.kripton80ContextCollection.TestCompile80Suite;
 		TestCompile80Suite.class
 		 })
 //@formatter:on
-public class BindTypeProcessorSuiteTest {
+public class BindCompileTestSuite {
 
 }
