@@ -9,6 +9,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.ArrayList;
 import java.util.List;
 
+import com.abubusoft.kripton.binder.xml.XMLEventConstants;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
@@ -25,12 +26,9 @@ import com.squareup.javapoet.TypeName;
  *
  */
 public abstract class AbstractCollectionBindTransform extends AbstractBindTransform {
-	
-	public enum CollectionType
-	{
-		ARRAY,
-		LIST,
-		SET;
+
+	public enum CollectionType {
+		ARRAY, LIST, SET;
 	}
 
 	protected CollectionType collectionType;
@@ -38,13 +36,13 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	private TypeName elementTypeName;
 
 	public AbstractCollectionBindTransform(ParameterizedTypeName clazz, CollectionType collectionType) {
-		this.collectionType=collectionType;
+		this.collectionType = collectionType;
 
 		this.collectionTypeName = clazz;
-		// for now, it supports only parameterized type with 1 argument 
+		// for now, it supports only parameterized type with 1 argument
 		this.elementTypeName = clazz.typeArguments.get(0);
 	}
-	
+
 	/**
 	 * Only for arrays
 	 * 
@@ -52,25 +50,25 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	 * @param collectionType
 	 */
 	public AbstractCollectionBindTransform(TypeName clazz, CollectionType collectionType) {
-		this.collectionType=collectionType;
+		this.collectionType = collectionType;
 
 		this.collectionTypeName = null;
-		// for now, it supports only parameterized type with 1 argument 
+		// for now, it supports only parameterized type with 1 argument
 		this.elementTypeName = clazz;
 	}
-	
-	protected Class<?> collectionClazz=List.class;
-	protected Class<?> defaultClazz=ArrayList.class;		
+
+	protected Class<?> collectionClazz = List.class;
+	protected Class<?> defaultClazz = ArrayList.class;
 
 	protected Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName) {
-		if (collectionTypeName.toString().startsWith(collectionClazz.getCanonicalName())) { 
+		if (collectionTypeName.toString().startsWith(collectionClazz.getCanonicalName())) {
 			return defaultClazz;
 		}
 		try {
 			return Class.forName(collectionTypeName.rawType.toString());
-		} catch (ClassNotFoundException e) {			
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			throw new KriptonClassNotFoundException(e);			
+			throw new KriptonClassNotFoundException(e);
 		}
 	}
 
@@ -83,7 +81,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, true);
 	}
-	
+
 	public void generateParseOnJacksonInternal(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);
@@ -195,7 +193,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		if (property.xmlInfo.isWrappedCollection())
 		{					
 			// with wrap element
-			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tagElement);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_ELEMENT && $L.getName().toString().equals($S))", parserName, XMLEventConstants.class,  parserName, property.xmlInfo.tagElement);
 		} else {
 			// no wrap element
 			methodBuilder.addCode("// add first element\n");
@@ -207,7 +205,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("collection.add(item)");
 			
-			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tag);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_ELEMENT && $L.getName().toString().equals($S))", parserName, XMLEventConstants.class, parserName, property.xmlInfo.tag);
 		}
 		
 //		if (property.xmlInfo.isWrappedCollection())
@@ -254,18 +252,17 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		methodBuilder.endControlFlow();
 		//@formatter:on
 	}
-	
+
 	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {		
+	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, false);
 	}
 
-
 	@Override
-	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {		
+	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
-	
+
 	void generateSerializeOnJacksonInternal(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
@@ -351,7 +348,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		methodBuilder.endControlFlow();
 		//@formatter:on
 	}
-	
+
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off

@@ -23,14 +23,14 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import base.BaseAndroidTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.kripton64.BindBean64ADataSource.Transaction;
 
 /**
  * @author xcesco
  *
  */
-public class Test64B extends BaseAndroidTest {
+public class Test64B extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
@@ -40,67 +40,37 @@ public class Test64B extends BaseAndroidTest {
 
 	@Test
 	public void testRunSqlite() {
-		BindBean64ADataSource dataSource=BindBean64ADataSource.instance();
-		
+		BindBean64ADataSource dataSource = BindBean64ADataSource.instance();
+
 		dataSource.execute(new Transaction() {
-			
+
 			@Override
 			public boolean onExecute(BindBean64ADaoFactory daoFactory) {
 				Bean64ADaoImpl dao = daoFactory.getBean64ADao();
-				
-				Bean64A bean=new Bean64A();
-				bean.valueString ="hello";
-				bean.valueMapStringBean =new HashMap<>();
+
+				Bean64A bean = new Bean64A();
+				bean.valueString = "hello";
+				bean.valueMapStringBean = new HashMap<>();
 				bean.valueMapStringBean.put("key1", new Bean64A());
-				bean.valueSetString=new HashSet<String>();
+				bean.valueSetString = new HashSet<String>();
 				bean.valueSetString.add("hello");
-				
+
 				dao.insert(bean);
-				List<Bean64A> list=dao.selectList(bean.id);
+				List<Bean64A> list = dao.selectList(bean.id);
 				Assert.assertEquals("not list ", 1, list.size());
-											
+
 				Assert.assertEquals("not map", 1, list.size());
-				
+
 				Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
-				
+
 				return true;
 			}
-			
+
 			@Override
 			public void onError(Throwable e) {
-				
+
 			}
 		});
 	}
 
 }
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				

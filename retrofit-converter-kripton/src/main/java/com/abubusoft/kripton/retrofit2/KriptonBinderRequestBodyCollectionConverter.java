@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
-import com.abubusoft.kripton.binder2.context.BinderContext;
+import com.abubusoft.kripton.binder.context.BinderContext;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

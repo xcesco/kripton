@@ -1,9 +1,9 @@
 package sqlite.kripton84;
 
-import com.abubusoft.kripton.binder2.KriptonBinder2;
-import com.abubusoft.kripton.binder2.context.JacksonContext;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.binder.KriptonBinder;
+import com.abubusoft.kripton.binder.context.JacksonContext;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -64,7 +64,7 @@ public class Bean84BTable {
     if (value==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
@@ -73,7 +73,7 @@ public class Bean84BTable {
         context.mapperFor(Bean84B2.class).serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.getByteBuffer();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -86,7 +86,7 @@ public class Bean84BTable {
     if (input==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT

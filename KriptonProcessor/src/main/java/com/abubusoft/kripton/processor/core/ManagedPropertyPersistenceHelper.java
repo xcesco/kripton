@@ -7,10 +7,10 @@ import java.util.List;
 
 import javax.lang.model.element.Modifier;
 
-import com.abubusoft.kripton.binder2.KriptonBinder2;
-import com.abubusoft.kripton.binder2.context.JacksonContext;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.binder.KriptonBinder;
+import com.abubusoft.kripton.binder.context.JacksonContext;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -72,7 +72,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("return null");
 		methodBuilder.endControlFlow();
 
-		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder2.class);
+		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder.class);
 		methodBuilder.beginControlFlow("try ($T stream=new $T(); $T wrapper=context.createSerializer(stream))", KriptonByteArrayOutputStream.class, KriptonByteArrayOutputStream.class, JacksonWrapperSerializer.class );
 		methodBuilder.addStatement("$T jacksonSerializer=wrapper.jacksonGenerator", JsonGenerator.class);
 
@@ -127,7 +127,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("return null");
 		methodBuilder.endControlFlow();
 
-		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder2.class);
+		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder.class);
 
 		methodBuilder.beginControlFlow("try ($T wrapper=context.createParser(input))", JacksonWrapperParser.class);
 		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);
@@ -176,7 +176,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("return null");
 		methodBuilder.endControlFlow();
 
-		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder2.class);
+		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder.class);
 		methodBuilder.beginControlFlow("try ($T stream=new $T(); $T wrapper=context.createSerializer(stream))", KriptonByteArrayOutputStream.class, KriptonByteArrayOutputStream.class, JacksonWrapperSerializer.class );
 		methodBuilder.addStatement("$T jacksonSerializer=wrapper.jacksonGenerator", JsonGenerator.class);
 		
@@ -236,7 +236,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("return null");
 		methodBuilder.endControlFlow();
 
-		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder2.class);
+		methodBuilder.addStatement("$T context=$T.getJsonBinderContext()", JacksonContext.class, KriptonBinder.class);
 
 		methodBuilder.beginControlFlow("try ($T wrapper=context.createParser(input))", JacksonWrapperParser.class);
 		methodBuilder.addStatement("$T jacksonParser=wrapper.jacksonParser", JsonParser.class);

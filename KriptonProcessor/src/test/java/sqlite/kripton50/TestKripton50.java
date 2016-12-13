@@ -21,17 +21,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
 
 @RunWith(JUnit4.class)
-public class TestKripton50 extends BaseProcessorTest {
+public class TestKripton50 extends AbstractBindSQLiteProcessorTest {
 
-	
 	@Test
 	public void testRight() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(RightPreferences.class, UserAccessToken.class);
 	}
-	
-	
 
 }

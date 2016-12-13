@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.kripton58.array.BeanBean;
 import sqlite.kripton58.array.BeanDao;
 import sqlite.kripton58.array.BeanDataSource;
@@ -55,7 +55,7 @@ import sqlite.kripton58.array.StringDataSource;
  *
  */
 @RunWith(JUnit4.class)
-public class TestKripton58Array extends BaseProcessorTest {
+public class TestKripton58Array extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * Test bean with list of Byte

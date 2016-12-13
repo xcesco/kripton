@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.binder2.xml.XmlType;
+import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;

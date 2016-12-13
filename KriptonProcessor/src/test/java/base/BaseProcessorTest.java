@@ -63,7 +63,15 @@ public class BaseProcessorTest {
 		}
 	}
 
-	final TestType testType = TestType.PREPARE_TEST;
+	@Before
+	public void before() {
+		testType = TestType.PREPARE_TEST_ANDROID_LIBRARY;
+		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
+	}
+
+	protected TestType testType = TestType.GENERATE;
+
+	protected PathSourceType destinationPath;
 
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
@@ -73,22 +81,15 @@ public class BaseProcessorTest {
 		expectedEx.expectMessage(clazzException.getSimpleName());
 	}
 
-	@Before
-	public void before() {
-		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
-	}
-
 	public enum TestType {
-		GENERATE, COMPARE, PREPARE_TEST;
+		GENERATE, COMPARE, PREPARE_TEST_ANDROID_LIBRARY, PREPARE_TEST_JAVA_LIBRARY;
 	}
 
 	protected static Logger logger = Logger.getGlobal();
 
 	public enum PathSourceType {
-		SRC_TEST_JAVA("src/test/java/"), 
-		SRC_TEST_EXPECTED("src/test/expected/"), 
-		TARGET_TEST_RESULT("target/test/generated/"),
-		DEST_PREPARE_TEST("../KriptonAndroidLibrary/src/test/java/");
+		SRC_TEST_JAVA("src/test/java/"), SRC_TEST_EXPECTED("src/test/expected/"), TARGET_TEST_RESULT("target/test/generated/"), DEST_TEST_ANDROID_LIBRARY(
+				"../KriptonAndroidLibrary/src/test/java/"), DEST_TEST_JAVA_LIBRARY("../Kripton/src/test/java/");
 
 		private PathSourceType(String path) {
 			this.path = path;
@@ -231,10 +232,9 @@ public class BaseProcessorTest {
 
 		final AtomicLong counter = new AtomicLong(0);
 
-		//@formatter:off
-		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(
-				sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
-		//@formatter:on
+		// @formatter:off
+		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
+		// @formatter:on
 		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
 		resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
 
@@ -256,8 +256,11 @@ public class BaseProcessorTest {
 						case GENERATE:
 							writeGeneratedFile(PathSourceType.SRC_TEST_EXPECTED, item.getValue());
 							break;
-						case PREPARE_TEST:
-							writeGeneratedFile(PathSourceType.DEST_PREPARE_TEST, item.getValue());
+						case PREPARE_TEST_ANDROID_LIBRARY:
+							writeGeneratedFile(PathSourceType.DEST_TEST_ANDROID_LIBRARY, item.getValue());
+							break;
+						case PREPARE_TEST_JAVA_LIBRARY:
+							writeGeneratedFile(PathSourceType.DEST_TEST_JAVA_LIBRARY, item.getValue());
 							break;
 						}
 
@@ -269,16 +272,23 @@ public class BaseProcessorTest {
 
 			}
 		});
-		
+
+		/**
+		 * copy beans too
+		 */
 		switch (testType) {
-		case PREPARE_TEST:
-			for (JavaFileObject item: sourcesPhase1)
-			{
-				writeGeneratedFile(PathSourceType.DEST_PREPARE_TEST, item);
+		case PREPARE_TEST_ANDROID_LIBRARY:
+			for (JavaFileObject item : sourcesPhase1) {
+				writeGeneratedFile(PathSourceType.DEST_TEST_ANDROID_LIBRARY, item);
+			}
+			break;
+		case PREPARE_TEST_JAVA_LIBRARY:
+			for (JavaFileObject item : sourcesPhase1) {
+				writeGeneratedFile(PathSourceType.DEST_TEST_JAVA_LIBRARY, item);
 			}
 			break;
 		default:
-			break;			
+			break;
 		}
 
 		return counter.longValue();

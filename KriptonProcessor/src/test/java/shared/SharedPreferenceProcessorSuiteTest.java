@@ -23,19 +23,18 @@ import shared.kripton47.Test47Suite;
 import sqlite.kripton50.TestKripton50;
 import sqlite.kripton62.TestKripton62;
 import sqlite.kripton63.TestKripton63;
-import test05firt_aid.TestFirstAid;
-
+import sqlite.test05firt_aid.TestFirstAid;
 
 @RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-			TestKripton45.class, Test47Suite.class,
-			TestKripton50.class,
-			TestKripton62.class,
-			TestKripton63.class,
-			TestFirstAid.class })
-//@formatter:on
+// @formatter:off
+@Suite.SuiteClasses({ 
+	TestKripton45.class, 
+	Test47Suite.class, 
+	TestKripton50.class, 
+	TestKripton62.class, 
+	TestKripton63.class, 
+	TestFirstAid.class })
+// @formatter:on
 public class SharedPreferenceProcessorSuiteTest {
 
 }

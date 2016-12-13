@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.kripton48.entities.Bean01;
 import sqlite.kripton48.entities.Bean02;
 import sqlite.kripton48.persistence.BaseDao;
@@ -35,19 +35,18 @@ import sqlite.kripton48.persistence.Dummy02DataSource;
  *
  */
 @RunWith(JUnit4.class)
-public class TestKripton48 extends BaseProcessorTest {
+public class TestKripton48 extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 *  id: Long id
+	 * id: Long id
 	 * 
 	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 	@Test
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, BaseDao.class,Dummy02DataSource.class, DaoBean02.class, Bean02.class);
-	}	
-
+		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, BaseDao.class, Dummy02DataSource.class, DaoBean02.class, Bean02.class);
+	}
 
 }

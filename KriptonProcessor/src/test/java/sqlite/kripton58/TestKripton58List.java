@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.kripton58.list.BeanBean;
 import sqlite.kripton58.list.BeanDao;
 import sqlite.kripton58.list.BeanDataSource;
@@ -55,7 +55,7 @@ import sqlite.kripton58.list.StringDataSource;
  *
  */
 @RunWith(JUnit4.class)
-public class TestKripton58List extends BaseProcessorTest {
+public class TestKripton58List extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * Test bean with list of Byte
@@ -68,7 +68,7 @@ public class TestKripton58List extends BaseProcessorTest {
 	public void test1ByteListFieldType() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(ByteDataSource.class, ByteDao.class, ByteBean.class, BaseDao.class);
 	}
-	
+
 	/**
 	 * Test bean with list of Char
 	 * 
@@ -81,7 +81,6 @@ public class TestKripton58List extends BaseProcessorTest {
 		buildDataSourceProcessorTest(CharDataSource.class, CharDao.class, CharBean.class, BaseDao.class);
 	}
 
-	
 	/**
 	 * Test bean with list of Short
 	 * 
@@ -93,7 +92,7 @@ public class TestKripton58List extends BaseProcessorTest {
 	public void test3ShortListFieldType() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(ShortDataSource.class, ShortDao.class, ShortBean.class, BaseDao.class);
 	}
-	
+
 	/**
 	 * Test bean with list of Integer
 	 * 
@@ -105,7 +104,7 @@ public class TestKripton58List extends BaseProcessorTest {
 	public void test4IntegerListFieldType() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(IntegerDataSource.class, IntegerDao.class, IntegerBean.class, BaseDao.class);
 	}
-	
+
 	/**
 	 * Test bean with list of Long
 	 * 
@@ -117,7 +116,7 @@ public class TestKripton58List extends BaseProcessorTest {
 	public void test5LongListFieldType() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(LongDataSource.class, LongDao.class, LongBean.class, BaseDao.class);
 	}
-	
+
 	/**
 	 * Test bean with list of Float
 	 * 
@@ -129,7 +128,7 @@ public class TestKripton58List extends BaseProcessorTest {
 	public void test6FloatListFieldType() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(FloatDataSource.class, FloatDao.class, FloatBean.class, BaseDao.class);
 	}
-	
+
 	/**
 	 * Test bean with list of Double
 	 * 
@@ -140,7 +139,7 @@ public class TestKripton58List extends BaseProcessorTest {
 	@Test
 	public void test7DoubleListFieldType() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(DoubleDataSource.class, DoubleDao.class, DoubleBean.class, BaseDao.class);
-	}	
+	}
 
 	/**
 	 * Test bean with list of String
@@ -152,8 +151,8 @@ public class TestKripton58List extends BaseProcessorTest {
 	@Test
 	public void test8StringListFieldType() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(StringDataSource.class, StringDao.class, StringBean.class, BaseDao.class);
-	}	
-	
+	}
+
 	/**
 	 * Test bean with list of Bean
 	 * 
@@ -164,5 +163,5 @@ public class TestKripton58List extends BaseProcessorTest {
 	@Test
 	public void test9BeanListFieldType() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(BeanDataSource.class, BeanDao.class, BeanBean.class, BaseDao.class);
-	}	
+	}
 }

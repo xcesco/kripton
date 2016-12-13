@@ -4,9 +4,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import com.abubusoft.kripton.binder2.BinderType;
-import com.abubusoft.kripton.binder2.KriptonBinder2;
-import com.abubusoft.kripton.binder2.context.BinderContext;
+import com.abubusoft.kripton.binder.BinderType;
+import com.abubusoft.kripton.binder.KriptonBinder;
+import com.abubusoft.kripton.binder.context.BinderContext;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -22,7 +22,7 @@ public final class KriptonBinderConverterFactory extends Converter.Factory {
 	protected BinderContext binderContext;
 
 	private KriptonBinderConverterFactory() {
-		binderContext=KriptonBinder2.getBinder(BinderType.JSON);
+		binderContext=KriptonBinder.getBinder(BinderType.JSON);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

@@ -21,17 +21,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import shared.AbstractBindSharedPreferenceProcessorTest;
 
 @RunWith(JUnit4.class)
-public class TestKripton46 extends BaseProcessorTest {
+public class TestKripton46 extends AbstractBindSharedPreferenceProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition
 	 * 
 	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 	@Test
 	public void testNoDao() throws IOException, InstantiationException, IllegalAccessException {

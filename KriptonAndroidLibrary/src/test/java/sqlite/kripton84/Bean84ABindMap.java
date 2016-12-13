@@ -1,22 +1,16 @@
 package sqlite.kripton84;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.XMLEvent;
-
-
-import com.abubusoft.kripton.android.annotation.BindMap;
-import com.abubusoft.kripton.binder2.context.JacksonContext;
-import com.abubusoft.kripton.binder2.context.XmlBinderContext;
-import com.abubusoft.kripton.binder2.core.AbstractMapper;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
-import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.binder.context.JacksonContext;
+import com.abubusoft.kripton.binder.context.XmlBinderContext;
+import com.abubusoft.kripton.binder.core.AbstractMapper;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.binder.persistence.XmlWrapperParser;
+import com.abubusoft.kripton.binder.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.binder.xml.XMLEventConstants;
+import com.abubusoft.kripton.binder.xml.XmlParser;
+import com.abubusoft.kripton.binder.xml.XmlSerializer;
 import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
@@ -26,6 +20,15 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import java.io.IOException;
+import java.lang.Character;
+import java.lang.Exception;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class is the shared preference binder defined for Bean84A
@@ -299,7 +302,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
   @Override
   public void serializeOnXml(XmlBinderContext context, Bean84A object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
-      XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
+      XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
         xmlSerializer.writeStartElement("bean84A");
       }
@@ -399,7 +402,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
       if (currentEventType == 0) {
         xmlSerializer.writeEndElement();
       }
-    } catch(XMLStreamException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -694,7 +697,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
   @Override
   public Bean84A parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
-      XMLStreamReader2 xmlParser = wrapper.xmlParser;
+      XmlParser xmlParser = wrapper.xmlParser;
       Bean84A instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
@@ -705,11 +708,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         eventType = xmlParser.getEventType();
       }
       String currentTag = xmlParser.getName().toString();
-      String elementNameStack = currentTag;      
+      String elementName = currentTag;
       // No attributes found
 
       //sub-elements
-      while (xmlParser.hasNext() && elementNameStack!=null) {
+      while (xmlParser.hasNext() && elementName!=null) {
         if (read) {
           eventType = xmlParser.next();
         } else {
@@ -717,7 +720,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
         read=true;
         switch(eventType) {
-            case XMLEvent.START_ELEMENT:
+            case XMLEventConstants.START_ELEMENT:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "columnArrayByteType":
@@ -737,7 +740,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                         item=(char)PrimitiveUtils.readCharacter(xmlParser.getElementAsInt(), null);
                       }
                       collection.add(item);
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("columnArrayChar")) {
+                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("columnArrayChar")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -763,7 +766,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                         item=(char)PrimitiveUtils.readCharacter(xmlParser.getElementAsInt(), ' ');
                       }
                       collection.add(item);
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("columnArrayCharType")) {
+                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("columnArrayCharType")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -793,7 +796,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                         item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       }
                       collection.add(item);
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("columnListString")) {
+                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("columnListString")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -824,7 +827,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                       }
                       xmlParser.nextTag();
                       collection.put(key, value);
-                      while (xmlParser.nextTag() != XMLEvent.END_ELEMENT && xmlParser.getName().toString().equals("columnMapIntegerString")) {
+                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("columnMapIntegerString")) {
                         xmlParser.nextTag();
                         key=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
                         xmlParser.nextTag();
@@ -854,19 +857,19 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                   break;
                 }
               break;
-              case XMLEvent.END_ELEMENT:
-                currentTag = elementNameStack;
-                elementNameStack=null;
+              case XMLEventConstants.END_ELEMENT:
+                currentTag = elementName;
+                elementName = null;
               break;
-              case XMLEvent.CDATA:
-              case XMLEvent.CHARACTERS:
+              case XMLEventConstants.CDATA:
+              case XMLEventConstants.CHARACTERS:
                 // no property is binded to VALUE o CDATA break;
               default:
               break;
           }
         }
         return instance;
-      } catch(XMLStreamException e) {
+      } catch(Exception e) {
         e.printStackTrace();
         throw (new KriptonRuntimeException(e));
       }

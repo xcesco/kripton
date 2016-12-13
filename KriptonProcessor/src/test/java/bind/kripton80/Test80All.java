@@ -17,7 +17,7 @@ import java.util.TimeZone;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.abubusoft.kripton.binder2.BinderType;
+import com.abubusoft.kripton.binder.BinderType;
 
 import bind.AbstractBindTypeProcessorTest;
 

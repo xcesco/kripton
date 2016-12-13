@@ -1,24 +1,24 @@
 package sqlite.kripton84;
 
-import com.abubusoft.kripton.android.annotation.BindMap;
-import com.abubusoft.kripton.binder2.context.JacksonContext;
-import com.abubusoft.kripton.binder2.context.XmlBinderContext;
-import com.abubusoft.kripton.binder2.core.AbstractMapper;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.binder2.persistence.XmlWrapperParser;
-import com.abubusoft.kripton.binder2.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.binder.context.JacksonContext;
+import com.abubusoft.kripton.binder.context.XmlBinderContext;
+import com.abubusoft.kripton.binder.core.AbstractMapper;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.binder.persistence.XmlWrapperParser;
+import com.abubusoft.kripton.binder.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.binder.xml.XMLEventConstants;
+import com.abubusoft.kripton.binder.xml.XmlParser;
+import com.abubusoft.kripton.binder.xml.XmlSerializer;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.io.IOException;
+import java.lang.Exception;
 import java.lang.Override;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.XMLEvent;
-import org.codehaus.stax2.XMLStreamReader2;
-import org.codehaus.stax2.XMLStreamWriter2;
 
 /**
  * This class is the shared preference binder defined for Bean84B2
@@ -93,7 +93,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
   @Override
   public void serializeOnXml(XmlBinderContext context, Bean84B2 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
-      XMLStreamWriter2 xmlSerializer = wrapper.xmlSerializer;
+      XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
         xmlSerializer.writeStartElement("bean84B2");
       }
@@ -110,7 +110,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
       if (currentEventType == 0) {
         xmlSerializer.writeEndElement();
       }
-    } catch(XMLStreamException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -200,7 +200,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
   @Override
   public Bean84B2 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
-      XMLStreamReader2 xmlParser = wrapper.xmlParser;
+      XmlParser xmlParser = wrapper.xmlParser;
       Bean84B2 instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
@@ -223,7 +223,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
         }
         read=true;
         switch(eventType) {
-            case XMLEvent.START_ELEMENT:
+            case XMLEventConstants.START_ELEMENT:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "columnString":
@@ -235,19 +235,19 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
                   break;
                 }
               break;
-              case XMLEvent.END_ELEMENT:
+              case XMLEventConstants.END_ELEMENT:
                 currentTag = elementName;
                 elementName = null;
               break;
-              case XMLEvent.CDATA:
-              case XMLEvent.CHARACTERS:
+              case XMLEventConstants.CDATA:
+              case XMLEventConstants.CHARACTERS:
                 // no property is binded to VALUE o CDATA break;
               default:
               break;
           }
         }
         return instance;
-      } catch(XMLStreamException e) {
+      } catch(Exception e) {
         e.printStackTrace();
         throw (new KriptonRuntimeException(e));
       }

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.abubusoft.kripton.binder2.context.BinderContext;
+import com.abubusoft.kripton.binder.context.BinderContext;
 
 import okhttp3.ResponseBody;
 import retrofit2.Converter;

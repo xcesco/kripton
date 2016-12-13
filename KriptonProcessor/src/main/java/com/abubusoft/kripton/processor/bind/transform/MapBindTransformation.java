@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.abubusoft.kripton.binder2.xml.MapEntryType;
+import com.abubusoft.kripton.binder.xml.MapEntryType;
+import com.abubusoft.kripton.binder.xml.XMLEventConstants;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
@@ -67,7 +68,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 		
 		if (property.xmlInfo.isWrappedCollection())
 		{					
-			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tagElement);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_ELEMENT && $L.getName().toString().equals($S))", parserName, XMLEventConstants.class, parserName, property.xmlInfo.tagElement);
 		} else {
 			methodBuilder.addCode("// add first element\n");			
 			switch (property.xmlInfo.mapEntryType)
@@ -93,7 +94,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 			}
 			
 			methodBuilder.addStatement("collection.put(key, value)");
-			methodBuilder.beginControlFlow("while ($L.nextTag() != XMLEvent.END_ELEMENT && $L.getName().toString().equals($S))", parserName, parserName, property.xmlInfo.tagElement);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_ELEMENT && $L.getName().toString().equals($S))", parserName, XMLEventConstants.class, parserName, property.xmlInfo.tagElement);
 		}
 		
 		switch (property.xmlInfo.mapEntryType)
@@ -186,14 +187,14 @@ public class MapBindTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, false);		
+		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, false);
 	}
 
 	@Override
 	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, true);		
+		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
-	
+
 	void generateSerializeOnJacksonInternal(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
@@ -271,14 +272,14 @@ public class MapBindTransformation extends AbstractBindTransform {
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, false);
-		
+
 	}
-	
+
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, true);
 	}
-	
+
 	public void generateParseOnJacksonInternal(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);		

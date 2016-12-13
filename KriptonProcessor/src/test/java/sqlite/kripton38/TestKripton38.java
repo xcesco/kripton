@@ -24,78 +24,79 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
  * @author xcesco
  *
  */
 @RunWith(JUnit4.class)
-public class TestKripton38 extends BaseProcessorTest {
+public class TestKripton38 extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 *  id: Long id
+	 * id: Long id
 	 * 
 	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 	@Test
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, BaseDao.class);
-	}	
+	}
 
 	/**
-	 *  id: long id
+	 * id: long id
 	 * 
 	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 	@Test
 	public void test02() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy02DataSource.class, DaoBean02.class, Bean02.class, BaseDao.class);
 	}
-	
+
 	/**
-	 *  @BindColumn(ColumnType.PRIMARY_KEY) on Long id;
+	 * @BindColumn(ColumnType.PRIMARY_KEY) on Long id;
 	 * 
 	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 	@Test
 	public void test03() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy03DataSource.class, DaoBean03.class, Bean03.class, BaseDao.class);
 	}
-	
 
 	/**
-	 *  No DAO definition with @BindDaoDefinition annotation was found for class Dummy01DatabaseSchema with @BindDatabaseSchema annotation
+	 * No DAO definition with @BindDaoDefinition annotation was found for class
+	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation
 	 * 
 	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 	@Test
 	public void testErrorNoDaoElementsFound() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(NoDaoElementsFound.class);
 		buildDataSourceProcessorTest(Dummy04DataSource.class, DaoBean04.class, Bean04.class, BaseDao.class);
 	}
-	
+
 	/**
-	 *  No DAO definition with @BindDaoDefinition annotation was found for class Dummy01DatabaseSchema with @BindDatabaseSchema annotation
+	 * No DAO definition with @BindDaoDefinition annotation was found for class
+	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation
 	 * 
 	 * @throws IOException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 	@Test
 	public void test05() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean05.class, BeanType.class);
 		buildDataSourceProcessorTest(Dummy05DataSource.class, DaoBean05.class, Bean05.class, BaseDao.class, BeanType.class);
 	}
-	
+
 	@Test
 	public void testErrorMethodParameterNotFoundException() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(MethodParameterNotFoundException.class);

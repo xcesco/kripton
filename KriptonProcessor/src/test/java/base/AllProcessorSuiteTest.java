@@ -20,7 +20,7 @@ import org.junit.runners.Suite;
 
 import bind.BindTypeProcessorSuiteTest;
 import shared.SharedPreferenceProcessorSuiteTest;
-import sqlite.BindDataSourceProcessorSuiteTest;
+import sqlite.BindSQLiteProcessorSuiteTest;
 
 @RunWith(Suite.class)
 //@formatter:off
@@ -28,7 +28,7 @@ import sqlite.BindDataSourceProcessorSuiteTest;
 		{ 
 			BindTypeProcessorSuiteTest.class,
 			SharedPreferenceProcessorSuiteTest.class,
-			BindDataSourceProcessorSuiteTest.class
+			BindSQLiteProcessorSuiteTest.class
 			
 		})
 //@formatter:on

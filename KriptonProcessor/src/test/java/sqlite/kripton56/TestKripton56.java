@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.kripton56.entities.MessageEntity;
 import sqlite.kripton56.entities.OwnerType;
 import sqlite.kripton56.internal.MessageType;
@@ -29,11 +29,11 @@ import sqlite.kripton56.persistence.DaoMessage;
 import sqlite.kripton56.persistence.WhisperDataSource;
 
 @RunWith(JUnit4.class)
-public class TestKripton56 extends BaseProcessorTest {
+public class TestKripton56 extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testDatabase() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(WhisperDataSource.class, MessageEntity.class, OwnerType.class, DaoMessage.class, MessageType.class);		
+		buildDataSourceProcessorTest(WhisperDataSource.class, MessageEntity.class, OwnerType.class, DaoMessage.class, MessageType.class);
 	}
 
 }

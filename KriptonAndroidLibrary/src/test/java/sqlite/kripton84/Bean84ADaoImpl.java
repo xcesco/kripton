@@ -4,10 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.binder2.KriptonBinder2;
-import com.abubusoft.kripton.binder2.context.JacksonContext;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder2.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.binder.KriptonBinder;
+import com.abubusoft.kripton.binder.context.JacksonContext;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -461,7 +461,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     if (value==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
@@ -493,7 +493,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     if (input==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -527,7 +527,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     if (value==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
@@ -563,7 +563,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     if (input==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -597,7 +597,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     if (value==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
@@ -633,7 +633,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     if (input==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -667,7 +667,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     if (value==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
@@ -707,7 +707,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     if (input==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder2.getJsonBinderContext();
+    JacksonContext context=KriptonBinder.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT

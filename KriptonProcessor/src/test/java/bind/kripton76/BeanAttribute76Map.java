@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder2.xml.XmlType;
+import com.abubusoft.kripton.binder.xml.XmlType;
 
 @BindType(value="root", allFields=true)
 public class BeanAttribute76Map {
