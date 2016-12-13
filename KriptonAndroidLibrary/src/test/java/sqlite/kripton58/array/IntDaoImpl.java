@@ -490,7 +490,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -560,7 +560,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

@@ -18,8 +18,6 @@ package shared.kripton47;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import base.BaseProcessorTest;
-
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
@@ -27,6 +25,6 @@ import base.BaseProcessorTest;
 		Test47Compile.class
 		 })
 //@formatter:on
-public class Test47Suite extends BaseProcessorTest {
+public class Test47Suite {
 
 }

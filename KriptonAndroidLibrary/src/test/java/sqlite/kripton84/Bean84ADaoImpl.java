@@ -480,7 +480,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -550,7 +550,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -620,7 +620,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -694,7 +694,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

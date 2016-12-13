@@ -228,7 +228,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
         context.mapperFor(Bean84B2.class).serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

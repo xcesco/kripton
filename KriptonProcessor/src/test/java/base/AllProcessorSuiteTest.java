@@ -23,14 +23,7 @@ import shared.BindSharedPreferenceTestSuite;
 import sqlite.BindSQLiteProcessorSuiteTest;
 
 @RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-			BindTypeProcessorSuiteTest.class,
-			BindSharedPreferenceTestSuite.class,
-			BindSQLiteProcessorSuiteTest.class			
-		})
-//@formatter:on
+@Suite.SuiteClasses({ BindTypeProcessorSuiteTest.class, BindSharedPreferenceTestSuite.class, BindSQLiteProcessorSuiteTest.class })
 public class AllProcessorSuiteTest {
 
 }

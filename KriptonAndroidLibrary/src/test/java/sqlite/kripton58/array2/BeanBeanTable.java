@@ -98,7 +98,7 @@ public class BeanBeanTable {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBuffer();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -169,7 +169,7 @@ public class BeanBeanTable {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBuffer();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

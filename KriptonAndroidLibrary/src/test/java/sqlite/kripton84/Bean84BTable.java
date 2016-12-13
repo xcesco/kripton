@@ -73,7 +73,7 @@ public class Bean84BTable {
         context.mapperFor(Bean84B2.class).serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
-      return stream.getByteBuffer();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

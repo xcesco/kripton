@@ -137,7 +137,7 @@ public class Bean84ATable {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBuffer();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -212,7 +212,7 @@ public class Bean84ATable {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBuffer();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -288,7 +288,7 @@ public class Bean84ATable {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBuffer();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -355,7 +355,7 @@ public class Bean84ATable {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBuffer();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -411,7 +411,7 @@ public class Bean84ATable {
         context.mapperFor(Bean84A.class).serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
-      return stream.getByteBuffer();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -457,7 +457,7 @@ public class Bean84ATable {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBuffer();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

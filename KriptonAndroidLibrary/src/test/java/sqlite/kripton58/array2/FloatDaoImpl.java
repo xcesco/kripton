@@ -494,7 +494,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -560,7 +560,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

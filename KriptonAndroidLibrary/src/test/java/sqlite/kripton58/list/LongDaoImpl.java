@@ -474,7 +474,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
-      return stream.getByteBufferCopy();
+      return stream.toByteArray();
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

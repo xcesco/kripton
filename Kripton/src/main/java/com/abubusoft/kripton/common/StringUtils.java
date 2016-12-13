@@ -18,6 +18,7 @@ package com.abubusoft.kripton.common;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.Charset;
 
 /**
  * A few string utils
@@ -68,10 +69,28 @@ public class StringUtils {
 
 	}
 	
+	public static String checkSize(byte[] value, int limitSize) {		
+		if (value != null) {			
+			if (value.length > limitSize) {
+				return new String(value, 0, limitSize-3)+"...";
+			} else
+				return new String(value);
+		} else
+			return null;
+
+	}
+	
 	/**
 	 * limit string size to 32
 	 */
 	public static String checkSize(Object value) {
+		return checkSize(value, 32);
+	}
+	
+	/**
+	 * limit string size to 32
+	 */
+	public static String checkSize(byte[] value) {
 		return checkSize(value, 32);
 	}
 

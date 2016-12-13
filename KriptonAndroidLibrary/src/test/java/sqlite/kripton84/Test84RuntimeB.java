@@ -35,6 +35,7 @@ public class Test84RuntimeB extends BaseAndroidTest {
 	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
 		Assert.assertNotNull(Bean84BTable.class.getName() != null);
 		Assert.assertNotNull(Bean84BDaoImpl.class.getName() != null);
+		
 		BindBean84BDataSource dataSource = BindBean84BDataSource.instance();
 
 		dataSource.execute(new Transaction() {

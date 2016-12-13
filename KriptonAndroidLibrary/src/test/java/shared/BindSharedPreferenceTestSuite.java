@@ -27,7 +27,6 @@ import shared.kripton47.Test47Suite;
 @Suite.SuiteClasses({ 
 	Test45Suite.class,
 	Test47Suite.class
-	
 	 })
 // @formatter:on
 public class BindSharedPreferenceTestSuite {

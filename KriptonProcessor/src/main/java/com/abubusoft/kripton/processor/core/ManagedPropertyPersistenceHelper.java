@@ -97,7 +97,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 			methodBuilder.addStatement("return stream.toString()");
 			break;
 		case BYTE:
-			methodBuilder.addStatement("return stream.getByteBuffer()");
+			methodBuilder.addStatement("return stream.toByteArray()");
 			break;
 		}
 
@@ -205,7 +205,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 			methodBuilder.addStatement("return stream.toString()");
 			break;
 		case BYTE:
-			methodBuilder.addStatement("return stream.getByteBufferCopy()");
+			methodBuilder.addStatement("return stream.toByteArray()");
 			break;
 		}
 
