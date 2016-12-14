@@ -22,25 +22,10 @@ import com.abubusoft.kripton.binder.context.YamlBinderContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
 public class AbstractBaseTest {
+	public boolean display = false;
+
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
-
-	public <E extends Exception> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
-		expectedEx.expect(AssertionError.class);
-		expectedEx.expectMessage(clazzException.getSimpleName());
-	}
-
-	public boolean display = true;
-
-	@Before
-	public void setup() {
-		KriptonBinder.registryBinder(new YamlBinderContext());
-		KriptonBinder.registryBinder(new PropertiesBinderContext());
-		KriptonBinder.registryBinder(new XmlBinderContext());
-		KriptonBinder.registryBinder(new CborBinderContext());
-
-		display = true;
-	}
 
 	protected void check(Object bean, BinderType... checks) {
 		int max = 0;
@@ -112,6 +97,11 @@ public class AbstractBaseTest {
 			System.out.println();
 	}
 
+	public <E extends Exception> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
+		expectedEx.expect(AssertionError.class);
+		expectedEx.expectMessage(clazzException.getSimpleName());
+	}
+
 	/**
 	 * @param bean
 	 * @param type
@@ -120,21 +110,18 @@ public class AbstractBaseTest {
 	public int serializeAndParse(Object bean, BinderType type) {
 		String output1 = KriptonBinder.getBinder(type).serialize(bean);
 		if (display)
-			System.out.println("[["+output1+"]]");
+			System.out.println("[[" + output1 + "]]");
 
 		Object bean2 = KriptonBinder.getBinder(type).parse(output1, bean.getClass());
 
 		String output2 = KriptonBinder.getBinder(type).serialize(bean2);
-		if (display)
-		{
-			if (output1.equals(output2))
-			{
+		if (display) {
+			if (output1.equals(output2)) {
 				System.out.println("[[-- same --]]");
 			} else {
-				System.out.println("[["+output2+"]]");
+				System.out.println("[[" + output2 + "]]");
 			}
 		}
-			
 
 		Assert.assertTrue(type.toString(), output1.length() == output2.length());
 
@@ -143,24 +130,51 @@ public class AbstractBaseTest {
 		return output2.length();
 	}
 
+	public int serializeAndParseBinary(Object bean, BinderType type) {
+		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
+		KriptonBinder.getBinder(type).serialize(bean, bar);
+		String value1 = toString(bar.getByteBufferCopy());
+
+		if (display)
+			System.out.println("[[" + value1 + "]]");
+
+		Object bean2 = KriptonBinder.getBinder(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
+
+		KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
+		KriptonBinder.getBinder(type).serialize(bean2, bar2);
+		String value2 = toString(bar2.getByteBufferCopy());
+
+		if (display) {
+			if (value1.equals(value2)) {
+				System.out.println("[[-- same --]]");
+			} else {
+				System.out.println("[[" + value2 + "]]");
+			}
+		}
+
+		Assert.assertTrue(value1.length() == value2.length());
+		// ReflectionAssert.assertReflectionEquals(type.toString(), bean,
+		// bean2);
+
+		return bar.getCount();
+	}
+
 	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) {
 		String value1 = KriptonBinder.getBinder(type).serializeCollection(list, clazz);
-		
+
 		if (display)
-			System.out.println("[["+value1+"]]");
-		
+			System.out.println("[[" + value1 + "]]");
+
 		Collection<E> list2 = KriptonBinder.getBinder(type).parseCollection(new ArrayList<E>(), clazz, value1);
 
 		String value2 = KriptonBinder.getBinder(type).serializeCollection(list2, clazz);
-		
-		if (display)
-		{
-			if (value1.equals(value2))
-			{
+
+		if (display) {
+			if (value1.equals(value2)) {
 				System.out.println("[[-- same --]]");
 			} else {
-				System.out.println("[["+value2+"]]");
-			}					
+				System.out.println("[[" + value2 + "]]");
+			}
 		}
 		//
 		Assert.assertTrue(value1.length() == value2.length());
@@ -173,9 +187,9 @@ public class AbstractBaseTest {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
 		KriptonBinder.getBinder(type).serializeCollection(list, clazz, bar);
 		String value1 = toString(bar.getByteBuffer());
-		
+
 		if (display)
-			System.out.println("[["+value1+"]]");
+			System.out.println("[[" + value1 + "]]");
 
 		Collection<E> list2 = KriptonBinder.getBinder(type).parseCollection(new ArrayList<E>(), clazz, bar.getByteBufferCopy());
 
@@ -183,14 +197,12 @@ public class AbstractBaseTest {
 		KriptonBinder.getBinder(type).serializeCollection(list2, clazz, bar2);
 		String value2 = toString(bar2.getByteBuffer());
 
-		if (display)
-		{
-			if (value1.equals(value2))
-			{
+		if (display) {
+			if (value1.equals(value2)) {
 				System.out.println("[[-- same --]]");
 			} else {
-				System.out.println("[["+value2+"]]");
-			}					
+				System.out.println("[[" + value2 + "]]");
+			}
 		}
 
 		Assert.assertTrue(value1.length() == value2.length());
@@ -199,35 +211,18 @@ public class AbstractBaseTest {
 		return bar.getCount();
 	}
 
-	public int serializeAndParseBinary(Object bean, BinderType type) {
-		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
-		KriptonBinder.getBinder(type).serialize(bean, bar);
-		String value1 = toString(bar.getByteBufferCopy());
-
-		if (display)
-			System.out.println("[["+value1+"]]");
-		
-		Object bean2 = KriptonBinder.getBinder(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
-
-		KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
-		KriptonBinder.getBinder(type).serialize(bean2, bar2);
-		String value2 = toString(bar2.getByteBufferCopy());
-		
-		if (display)
+	@Before
+	public void setup() {
+		final String value = System.getenv("KRIPTON_TEST_DEBUG");		
+		if ("true".equals(value))
 		{
-			if (value1.equals(value2))
-			{
-				System.out.println("[[-- same --]]");
-			} else {
-				System.out.println("[["+value2+"]]");
-			}					
-		}
-
-		Assert.assertTrue(value1.length() == value2.length());
-		// ReflectionAssert.assertReflectionEquals(type.toString(), bean,
-		// bean2);
-
-		return bar.getCount();
+			display = true;
+		}		
+		
+		KriptonBinder.registryBinder(new YamlBinderContext());
+		KriptonBinder.registryBinder(new PropertiesBinderContext());
+		KriptonBinder.registryBinder(new XmlBinderContext());
+		KriptonBinder.registryBinder(new CborBinderContext());
 	}
 
 	String toString(byte[] input) {

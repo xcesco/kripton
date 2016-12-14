@@ -15,8 +15,6 @@
  *******************************************************************************/
 package sqlite.kripton58;
 
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-
 public interface BaseDao<E> {
 /*
 	@BindSelect(where="id=${id}")

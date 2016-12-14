@@ -13,12 +13,19 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 @RunWith(RobolectricTestRunner.class)
 public abstract class BaseAndroidTest {
 	
+	private static final String KRIPTON_TEST_DEBUG = "KRIPTON_TEST_DEBUG";
+	
 	protected boolean display;
 
 	@Before
 	public void setup()
 	{
-		display=true;
+		final String value = System.getenv(KRIPTON_TEST_DEBUG);		
+		if ("true".equals(value))
+		{
+			display = true;
+		}
+				
 		ShadowLog.stream = System.out;
 		KriptonLibrary.init(RuntimeEnvironment.application);
 	}

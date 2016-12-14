@@ -29,6 +29,6 @@ import sqlite.SQLiteRuntimeTestSuite;
 			SQLiteRuntimeTestSuite.class
 		})
 //@formatter:on
-public class AllTestSuite {
+public class KriptonRuntimeAndroidTestSuite {
 
 }

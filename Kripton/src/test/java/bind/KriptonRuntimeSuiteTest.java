@@ -13,20 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package base;
+package bind;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.BindCompileTestSuite;
-import shared.SharedCompileTestSuite;
-import sqlite.SQLiteCompileTestSuite;
+import bind.kripton42faster.TestRuntime42Suite;
+import bind.kripton70.TestRuntime70Suite;
+import bind.kripton71List.TestRuntime71Suite;
+import bind.kripton72.TestRuntime72Suite;
+import bind.kripton73Array.TestRuntime73Suite;
+import bind.kripton74Map.TestRuntime74Suite;
+import bind.kripton75ByteArray.TestRuntime75Suite;
+import bind.kripton78.TestRuntime78Suite;
+import bind.kripton80ContextCollection.TestRuntime80Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
-	BindCompileTestSuite.class, 
-	SharedCompileTestSuite.class, 	
-	SQLiteCompileTestSuite.class })
-public class AllProcessorTestSuite {
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestRuntime42Suite.class,
+		TestRuntime70Suite.class,
+		TestRuntime71Suite.class,
+		TestRuntime72Suite.class,
+		TestRuntime73Suite.class,
+		TestRuntime74Suite.class,
+		TestRuntime75Suite.class,
+		TestRuntime78Suite.class,
+		TestRuntime80Suite.class
+		 })
+//@formatter:on
+public class KriptonRuntimeSuiteTest {
 
 }

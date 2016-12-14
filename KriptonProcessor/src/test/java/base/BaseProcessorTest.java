@@ -55,7 +55,9 @@ import com.google.common.io.ByteStreams;
 
 public class BaseProcessorTest {
 
-	protected boolean display = true;
+	private static final String KRIPTON_TEST_DEBUG = "KRIPTON_TEST_DEBUG";
+
+	protected boolean display = false;
 
 	public void log(String message, Object... objects) {
 		if (display) {
@@ -65,6 +67,12 @@ public class BaseProcessorTest {
 
 	@Before
 	public void before() {
+		final String value = System.getenv(KRIPTON_TEST_DEBUG);		
+		if ("true".equals(value))
+		{
+			display = true;
+		}	
+		
 		testType = TestType.PREPARE_TEST_ANDROID_LIBRARY;
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
 	}

@@ -30,8 +30,6 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		KriptonBinder.registryBinder(new XmlBinderContext());
 		KriptonBinder.registryBinder(new CborBinderContext());
 
-		display = true;
-
 		testType = TestType.PREPARE_TEST_JAVA_LIBRARY;
 		destinationPath = PathSourceType.DEST_TEST_JAVA_LIBRARY;
 	}
