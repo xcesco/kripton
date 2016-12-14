@@ -203,15 +203,67 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		bean.id=23;
 		bean.valueByteArray="hello".getBytes();
 		bean.valueInteger=24;
-		bean.valueMapStringInteger=new HashMap<>();
-		bean.valueMapStringInteger.put("hello", 42);
+		bean.valueMapStringInteger=null;				
 		
+		check(bean);
+	}
+	
+	@Test
+	public void testRuntimeS() throws IOException, InstantiationException, IllegalAccessException {
+		assertTrue(Bean81SBindMap.class.getName()!=null);
+		
+		Bean81S bean=createBeanS();
+		check(bean);
+		
+		bean.id=23;
+		bean.valueByteArray="hello".getBytes();
+		bean.valueInteger=24;
+		bean.valueMapStringInteger=null;				
+		
+		check(bean);
+	}
+	
+	@Test
+	public void testRuntimeT() throws IOException, InstantiationException, IllegalAccessException {
+		assertTrue(Bean81TBindMap.class.getName()!=null);
+		
+		Bean81T bean=createBeanT();
+		check(bean);
+		
+		bean.id=23;
+		bean.valueByteArray="hello".getBytes();
+		bean.valueInteger=24;
+		bean.valueMapStringInteger=null;				
 		
 		check(bean);
 	}
 
 	private Bean81R createBeanR() {
 		Bean81R bean = new Bean81R();
+		
+		bean.id=23;
+		bean.valueByteArray="hello".getBytes();
+		bean.valueInteger=24;
+		bean.valueMapStringInteger=new HashMap<>();
+		bean.valueMapStringInteger.put("hello", 42);
+		
+		return bean;
+	}
+	
+	private Bean81S createBeanS() {
+		Bean81S bean = new Bean81S();
+		
+		bean.id=23;
+		bean.valueByteArray="hello".getBytes();
+		bean.valueInteger=24;
+		bean.valueMapStringInteger=new HashMap<>();
+		bean.valueMapStringInteger.put("hello", 42);
+		
+		return bean;
+	}
+	
+	private Bean81T createBeanT() {
+		Bean81T bean = new Bean81T();
 		
 		bean.id=23;
 		bean.valueByteArray="hello".getBytes();
