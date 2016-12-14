@@ -16,22 +16,10 @@
 package sqlite.kripton63;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.URL;
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
 import java.util.Set;
-import java.util.TimeZone;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindType;
 

@@ -18,7 +18,6 @@ package sqlite.kripton64;
 import java.util.Map;
 import java.util.Set;
 
-import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType

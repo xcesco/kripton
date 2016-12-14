@@ -16,15 +16,10 @@
 package sqlite.kripton64;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.kripton64.BindBean64ADataSource.Transaction;
 
 /**
  * @author xcesco
