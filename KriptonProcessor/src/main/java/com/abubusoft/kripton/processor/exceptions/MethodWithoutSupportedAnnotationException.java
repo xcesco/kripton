@@ -24,11 +24,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 
 public class MethodWithoutSupportedAnnotationException extends KriptonProcessorException {
 
-	public MethodWithoutSupportedAnnotationException()
-	{
-		
-	}
-	
 	private static final long serialVersionUID = 8462705406839489618L;
 
 	public MethodWithoutSupportedAnnotationException(SQLDaoDefinition daoDefinition, ModelMethod method) {

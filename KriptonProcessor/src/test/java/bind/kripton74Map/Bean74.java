@@ -104,6 +104,6 @@ public class Bean74 implements Serializable {
 		return true;
 	}
 
-	String valueString;
+	public String valueString;
 
 }

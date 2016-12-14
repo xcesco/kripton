@@ -78,52 +78,52 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.id=prefs.getLong("id", bean.id);
      {
       String temp=prefs.getString("valueByteSet", null);
-      bean.valueByteSet=StringUtils.hasText(temp) ? parseValueByteSet(temp): null;
+      bean.setValueByteSet(StringUtils.hasText(temp) ? parseValueByteSet(temp): null);
     }
 
      {
       String temp=prefs.getString("valueShortSet", null);
-      bean.valueShortSet=StringUtils.hasText(temp) ? parseValueShortSet(temp): null;
+      bean.setValueShortSet(StringUtils.hasText(temp) ? parseValueShortSet(temp): null);
     }
 
      {
       String temp=prefs.getString("valueIntegerSet", null);
-      bean.valueIntegerSet=StringUtils.hasText(temp) ? parseValueIntegerSet(temp): null;
+      bean.setValueIntegerSet(StringUtils.hasText(temp) ? parseValueIntegerSet(temp): null);
     }
 
      {
       String temp=prefs.getString("valueStringSet", null);
-      bean.valueStringSet=StringUtils.hasText(temp) ? parseValueStringSet(temp): null;
+      bean.setValueStringSet(StringUtils.hasText(temp) ? parseValueStringSet(temp): null);
     }
 
      {
       String temp=prefs.getString("valueCharacterSet", null);
-      bean.valueCharacterSet=StringUtils.hasText(temp) ? parseValueCharacterSet(temp): null;
+      bean.setValueCharacterSet(StringUtils.hasText(temp) ? parseValueCharacterSet(temp): null);
     }
 
      {
       String temp=prefs.getString("valueFloatSet", null);
-      bean.valueFloatSet=StringUtils.hasText(temp) ? parseValueFloatSet(temp): null;
+      bean.setValueFloatSet(StringUtils.hasText(temp) ? parseValueFloatSet(temp): null);
     }
 
      {
       String temp=prefs.getString("valueDoubleSet", null);
-      bean.valueDoubleSet=StringUtils.hasText(temp) ? parseValueDoubleSet(temp): null;
+      bean.setValueDoubleSet(StringUtils.hasText(temp) ? parseValueDoubleSet(temp): null);
     }
 
      {
       String temp=prefs.getString("valueBigDecimalSet", null);
-      bean.valueBigDecimalSet=StringUtils.hasText(temp) ? parseValueBigDecimalSet(temp): null;
+      bean.setValueBigDecimalSet(StringUtils.hasText(temp) ? parseValueBigDecimalSet(temp): null);
     }
 
      {
       String temp=prefs.getString("valueBeanSet", null);
-      bean.valueBeanSet=StringUtils.hasText(temp) ? parseValueBeanSet(temp): null;
+      bean.setValueBeanSet(StringUtils.hasText(temp) ? parseValueBeanSet(temp): null);
     }
 
      {
       String temp=prefs.getString("valueEnumTypeSet", null);
-      bean.valueEnumTypeSet=StringUtils.hasText(temp) ? parseValueEnumTypeSet(temp): null;
+      bean.setValueEnumTypeSet(StringUtils.hasText(temp) ? parseValueEnumTypeSet(temp): null);
     }
 
 
@@ -139,71 +139,71 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putLong("id",bean.id);
 
-    if (bean.valueByteSet!=null)  {
-      String temp=serializeValueByteSet(bean.valueByteSet);
+    if (bean.getValueByteSet()!=null)  {
+      String temp=serializeValueByteSet(bean.getValueByteSet());
       editor.putString("valueByteSet",temp);
     }  else  {
       editor.remove("valueByteSet");
     }
 
-    if (bean.valueShortSet!=null)  {
-      String temp=serializeValueShortSet(bean.valueShortSet);
+    if (bean.getValueShortSet()!=null)  {
+      String temp=serializeValueShortSet(bean.getValueShortSet());
       editor.putString("valueShortSet",temp);
     }  else  {
       editor.remove("valueShortSet");
     }
 
-    if (bean.valueIntegerSet!=null)  {
-      String temp=serializeValueIntegerSet(bean.valueIntegerSet);
+    if (bean.getValueIntegerSet()!=null)  {
+      String temp=serializeValueIntegerSet(bean.getValueIntegerSet());
       editor.putString("valueIntegerSet",temp);
     }  else  {
       editor.remove("valueIntegerSet");
     }
 
-    if (bean.valueStringSet!=null)  {
-      String temp=serializeValueStringSet(bean.valueStringSet);
+    if (bean.getValueStringSet()!=null)  {
+      String temp=serializeValueStringSet(bean.getValueStringSet());
       editor.putString("valueStringSet",temp);
     }  else  {
       editor.remove("valueStringSet");
     }
 
-    if (bean.valueCharacterSet!=null)  {
-      String temp=serializeValueCharacterSet(bean.valueCharacterSet);
+    if (bean.getValueCharacterSet()!=null)  {
+      String temp=serializeValueCharacterSet(bean.getValueCharacterSet());
       editor.putString("valueCharacterSet",temp);
     }  else  {
       editor.remove("valueCharacterSet");
     }
 
-    if (bean.valueFloatSet!=null)  {
-      String temp=serializeValueFloatSet(bean.valueFloatSet);
+    if (bean.getValueFloatSet()!=null)  {
+      String temp=serializeValueFloatSet(bean.getValueFloatSet());
       editor.putString("valueFloatSet",temp);
     }  else  {
       editor.remove("valueFloatSet");
     }
 
-    if (bean.valueDoubleSet!=null)  {
-      String temp=serializeValueDoubleSet(bean.valueDoubleSet);
+    if (bean.getValueDoubleSet()!=null)  {
+      String temp=serializeValueDoubleSet(bean.getValueDoubleSet());
       editor.putString("valueDoubleSet",temp);
     }  else  {
       editor.remove("valueDoubleSet");
     }
 
-    if (bean.valueBigDecimalSet!=null)  {
-      String temp=serializeValueBigDecimalSet(bean.valueBigDecimalSet);
+    if (bean.getValueBigDecimalSet()!=null)  {
+      String temp=serializeValueBigDecimalSet(bean.getValueBigDecimalSet());
       editor.putString("valueBigDecimalSet",temp);
     }  else  {
       editor.remove("valueBigDecimalSet");
     }
 
-    if (bean.valueBeanSet!=null)  {
-      String temp=serializeValueBeanSet(bean.valueBeanSet);
+    if (bean.getValueBeanSet()!=null)  {
+      String temp=serializeValueBeanSet(bean.getValueBeanSet());
       editor.putString("valueBeanSet",temp);
     }  else  {
       editor.remove("valueBeanSet");
     }
 
-    if (bean.valueEnumTypeSet!=null)  {
-      String temp=serializeValueEnumTypeSet(bean.valueEnumTypeSet);
+    if (bean.getValueEnumTypeSet()!=null)  {
+      String temp=serializeValueEnumTypeSet(bean.getValueEnumTypeSet());
       editor.putString("valueEnumTypeSet",temp);
     }  else  {
       editor.remove("valueEnumTypeSet");

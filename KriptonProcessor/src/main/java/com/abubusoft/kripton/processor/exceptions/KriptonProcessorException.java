@@ -36,15 +36,11 @@ public abstract class KriptonProcessorException extends RuntimeException {
 		super(message);
 	}
 	
-	public KriptonProcessorException(ClassNotFoundException cause) {
+	public KriptonProcessorException(Throwable cause) {
 		super(cause);
 	}
-
-	public KriptonProcessorException(InstantiationException cause) {
-		super(cause);
-	}
-
-	public KriptonProcessorException(ReflectiveOperationException cause) {
+	
+	public KriptonProcessorException(Exception cause) {
 		super(cause);
 	}
 

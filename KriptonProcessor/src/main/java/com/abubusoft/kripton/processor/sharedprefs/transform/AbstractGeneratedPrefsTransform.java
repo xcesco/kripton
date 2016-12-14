@@ -22,7 +22,7 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getName());
 
 		if (readAll) {
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
+			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
@@ -32,7 +32,7 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 		methodBuilder.addCode(": null");
 
 		if (readAll) {
-			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
+			methodBuilder.addCode((!property.isPublicField() ? ")" : ""));
 		}
 
 		methodBuilder.addCode(";\n");

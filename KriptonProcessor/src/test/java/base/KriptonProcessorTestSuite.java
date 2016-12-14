@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import bind.BindCompileTestSuite;
+import commons.CommonsCompileSuite;
 import shared.SharedCompileTestSuite;
 import sqlite.SQLiteCompileTestSuite;
 
@@ -26,7 +27,9 @@ import sqlite.SQLiteCompileTestSuite;
 @Suite.SuiteClasses({
 	BindCompileTestSuite.class, 
 	SharedCompileTestSuite.class, 	
-	SQLiteCompileTestSuite.class })
+	SQLiteCompileTestSuite.class,
+	CommonsCompileSuite.class
+	})
 public class KriptonProcessorTestSuite {
 
 }

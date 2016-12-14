@@ -1154,8 +1154,10 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
                 }
               break;
               case XMLEventConstants.END_ELEMENT:
-                currentTag = elementName;
-                elementName = null;
+                if (elementName.equals(xmlParser.getName())) {
+                  currentTag = elementName;
+                  elementName = null;
+                }
               break;
               case XMLEventConstants.CDATA:
               case XMLEventConstants.CHARACTERS:

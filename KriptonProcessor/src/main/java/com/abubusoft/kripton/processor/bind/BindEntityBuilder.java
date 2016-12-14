@@ -156,13 +156,13 @@ public class BindEntityBuilder {
 
 					// check if property is a collection
 					if (property.isBindedCollection()) {
-						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
+						String msg = String.format("In class '%s', property '%s' is a collection and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 
 					// check if property is a map
 					if (property.isBindedMap()) {
-						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
+						String msg = String.format("In class '%s', property '%s' is an map and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 

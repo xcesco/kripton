@@ -15,19 +15,15 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.exceptions;
 
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 
-public class MethodNotFoundException extends KriptonProcessorException {
+public class DaoDefinitionWithoutAnnotatedMethodException extends KriptonProcessorException {
 
-	public MethodNotFoundException()
-	{
-		
-	}
-	
 	private static final long serialVersionUID = 8462705406839489618L;
 
-	public MethodNotFoundException(String msg)
+	public DaoDefinitionWithoutAnnotatedMethodException(SQLDaoDefinition daoDefinition)
 	{
-		super(msg);
+		super("Dao definition " + daoDefinition.getName() + " contains no methods to bind queries");
 	}
 
 }

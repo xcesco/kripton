@@ -2,10 +2,6 @@ package com.abubusoft.kripton.processor.exceptions;
 
 public class KriptonInstantiationException extends KriptonProcessorException {
 
-	public KriptonInstantiationException(InstantiationException e) {
-		super(e);
-	}
-
 	public KriptonInstantiationException(ReflectiveOperationException e) {
 		super(e);
 	}

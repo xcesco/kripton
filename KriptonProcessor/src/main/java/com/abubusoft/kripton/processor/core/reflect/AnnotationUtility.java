@@ -39,7 +39,7 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelWithAnnotation;
 
-public class AnnotationUtility {
+public abstract class AnnotationUtility {
 
 	private static final Pattern classPattern = Pattern.compile("([\\w.]*).class");
 

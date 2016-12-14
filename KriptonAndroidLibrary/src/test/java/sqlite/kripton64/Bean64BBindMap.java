@@ -562,8 +562,10 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
                 }
               break;
               case XMLEventConstants.END_ELEMENT:
-                currentTag = elementName;
-                elementName = null;
+                if (elementName.equals(xmlParser.getName())) {
+                  currentTag = elementName;
+                  elementName = null;
+                }
               break;
               case XMLEventConstants.CDATA:
               case XMLEventConstants.CHARACTERS:

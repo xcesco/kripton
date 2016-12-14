@@ -456,7 +456,7 @@ public class Bean81TBindMap extends AbstractMapper<Bean81T> {
               case XMLEventConstants.CHARACTERS:
                 if (elementName!=null && xmlParser.hasText()) {
                   // property valueByteArray
-                  instance.valueByteArray=xmlParser.getElementAsBinary();
+                  instance.valueByteArray=Base64Utils.decode(xmlParser.getText());
                 }
               break;
               default:

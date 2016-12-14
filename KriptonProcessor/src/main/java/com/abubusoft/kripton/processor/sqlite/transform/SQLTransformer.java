@@ -31,9 +31,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
@@ -146,9 +148,9 @@ public abstract class SQLTransformer {
 		}
 
 		transform = getTransform(typeName);
-		if (transform != null) {
-			cache.put(typeName, transform);
-		}
+		
+		if (transform==null) throw new UnsupportedFieldTypeException(typeName, BindDataSourceProcessor.class);
+		cache.put(typeName, transform);
 
 		return transform;
 	}

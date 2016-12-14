@@ -29,7 +29,6 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
@@ -37,7 +36,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.squareup.javapoet.TypeName;
 
-public class PropertyUtility {
+public abstract class PropertyUtility {
 	
 	static Converter<String, String> converterField2Method=CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
@@ -178,7 +177,7 @@ public class PropertyUtility {
 	}
 	
 	static String getter(TypeName beanClass, ModelProperty property) {
-		if (property.isPublicOrPackageField())
+		if (property.isPublicField())
 			return property.getName();
 
 		if (property.isFieldWithGetter()) {
@@ -195,7 +194,7 @@ public class PropertyUtility {
 	}
 
 	public static String setter(TypeName beanClass, ModelProperty property) {
-		if (property.isPublicOrPackageField())
+		if (property.isPublicField())
 		{
 			return property.getName();
 		} else if (property.isFieldWithSetter()) {
@@ -210,7 +209,7 @@ public class PropertyUtility {
 	}
 	
 	private static String setter(TypeName beanClass, ModelProperty property, String value) {
-		if (property.isPublicOrPackageField())
+		if (property.isPublicField())
 			return property.getName()+"="+value;
 		else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName())+"("+value+")";

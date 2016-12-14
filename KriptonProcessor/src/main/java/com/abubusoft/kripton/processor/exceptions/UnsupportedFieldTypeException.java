@@ -18,18 +18,17 @@
  */
 package com.abubusoft.kripton.processor.exceptions;
 
+import com.abubusoft.kripton.processor.BaseProcessor;
+import com.squareup.javapoet.TypeName;
+
 /**
- * @author 908099
+ * @author xcesco
  *
  */
 public class UnsupportedFieldTypeException extends KriptonProcessorException {
-
-	public UnsupportedFieldTypeException(String message) {
-		super(message);
-	}
-
 	private static final long serialVersionUID = -8165503181899906671L;
 
-	public UnsupportedFieldTypeException() {
+	public UnsupportedFieldTypeException(TypeName typeName, Class<? extends BaseProcessor> processorClazz) {
+		super(typeName+" is an unsupported type in annotation processor "+processorClazz.getSimpleName());
 	}
 }

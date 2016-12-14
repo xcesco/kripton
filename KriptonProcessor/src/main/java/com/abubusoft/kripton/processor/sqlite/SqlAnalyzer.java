@@ -196,7 +196,7 @@ public class SqlAnalyzer {
 	}
 
 	public String getter(ModelProperty property) {		
-		if (property.isPublicOrPackageField())
+		if (property.isPublicField())
 			return property.getName();
 
 		if (property.isFieldWithGetter()) {
@@ -211,7 +211,7 @@ public class SqlAnalyzer {
 	}
 
 	public String setter(ModelProperty property) {
-		if (property.isPublicOrPackageField())
+		if (property.isPublicField())
 			return property.getName();
 
 		if (property.isFieldWithGetter() || property.isFieldWithIs()) {

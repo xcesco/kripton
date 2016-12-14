@@ -54,7 +54,7 @@ public class DoublePrefsTransform extends AbstractPrefsTransform {
 		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getName());
 
 		if (readAll) {
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicOrPackageField() ? "(" : "=") + "", beanName);
+			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
 		} else {
 			methodBuilder.addCode("return ");
 		}
@@ -64,7 +64,7 @@ public class DoublePrefsTransform extends AbstractPrefsTransform {
 		methodBuilder.addCode(": $L", defaultValue);
 
 		if (readAll) {
-			methodBuilder.addCode((!property.isPublicOrPackageField() ? ")" : ""));
+			methodBuilder.addCode((!property.isPublicField() ? ")" : ""));
 		}
 
 		methodBuilder.addCode(";\n");

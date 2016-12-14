@@ -75,7 +75,7 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 			break;
 		case VALUE:
 		case VALUE_CDATA:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getElementAsBinary()"), parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getText())"), Base64Utils.class, parserName);			
 			break;
 		default:
 			break;

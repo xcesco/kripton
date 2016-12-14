@@ -31,8 +31,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.processor.BindSharedPreferencesProcessor;
+import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -74,14 +77,7 @@ public abstract class PrefsTransformer {
 	public static PrefsTransform lookup(PrefProperty property) {
 		TypeMirror typeMirror=property.getElement().asType();
 		
-		TypeName typeName;
-
-		if (typeMirror instanceof ModelType) {
-			typeName = ((ModelType) typeMirror).getName();
-		} else {
-			typeName = typeName(typeMirror);
-		}
-
+		TypeName typeName=typeName(typeMirror);
 		return lookup(typeName);
 	}
 
@@ -99,9 +95,8 @@ public abstract class PrefsTransformer {
 		}
 
 		transform = getTransform(typeName);
-		if (transform != null) {
-			cache.put(typeName, transform);
-		}
+		if (transform==null) throw new UnsupportedFieldTypeException(typeName, BindSharedPreferencesProcessor.class);
+		cache.put(typeName, transform);
 
 		return transform;
 	}

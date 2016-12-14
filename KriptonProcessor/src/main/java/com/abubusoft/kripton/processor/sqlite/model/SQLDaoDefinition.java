@@ -20,12 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelBucket;
-import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.TypeName;
 
 public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {

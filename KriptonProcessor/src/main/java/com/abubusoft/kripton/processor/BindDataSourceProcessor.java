@@ -63,7 +63,7 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCrea
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.exceptions.InvalidSQLDaoDefinitionException;
-import com.abubusoft.kripton.processor.exceptions.MethodNotFoundException;
+import com.abubusoft.kripton.processor.exceptions.DaoDefinitionWithoutAnnotatedMethodException;
 import com.abubusoft.kripton.processor.exceptions.NoBindTypeElementsFound;
 import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
@@ -493,9 +493,8 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		});
 
 		// dao definition must have >0 method associated to query
-		if (currentDaoDefinition.getCollection().size() == 0) {
-			String msg = "Dao definition " + currentDaoDefinition.getName() + " contains no methods to bind queries";
-			throw (new MethodNotFoundException(msg));
+		if (currentDaoDefinition.getCollection().size() == 0) {			
+			throw (new DaoDefinitionWithoutAnnotatedMethodException(currentDaoDefinition));
 		}
 	}
 

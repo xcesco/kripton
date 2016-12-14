@@ -87,6 +87,54 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return result;
 	}
 
+	private Bean81R createBeanR() {
+		Bean81R bean = new Bean81R();
+		
+		bean.id=23;
+		bean.valueByteArray="hello".getBytes();
+		bean.valueInteger=24;
+		bean.valueMapStringInteger=new HashMap<>();
+		bean.valueMapStringInteger.put("hello", 42);
+		
+		return bean;
+	}
+	
+	private Bean81S createBeanS() {
+		Bean81S bean = new Bean81S();
+		
+		bean.id=23;
+		bean.valueByteArray="hello".getBytes();
+		bean.valueInteger=24;
+		bean.valueMapStringInteger=new HashMap<>();
+		bean.valueMapStringInteger.put("hello", 42);
+		
+		return bean;
+	}
+	
+	private Bean81T createBeanT() {
+		Bean81T bean = new Bean81T();
+		
+		bean.id=23;
+		bean.valueByteArray="hello".getBytes();
+		bean.valueInteger=24;
+		bean.valueMapStringInteger=new HashMap<>();
+		bean.valueMapStringInteger.put("hello", 42);
+		
+		return bean;
+	}
+	
+	private Bean81U createBeanU() {
+		Bean81U bean = new Bean81U();
+		
+		bean.id=23;
+		bean.valueByteArray="hello".getBytes();
+		bean.valueInteger=24;
+		bean.valueMapStringInteger=new HashMap<>();
+		bean.valueMapStringInteger.put("hello", 42);
+		
+		return bean;
+	}
+	
 	@Test
 	public void testRuntimeG() throws IOException, InstantiationException, IllegalAccessException {
 		assertTrue(Bean81GBindMap.class.getName()!=null);
@@ -100,6 +148,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	
 	@Test
 	public void testRuntimeH() throws IOException, InstantiationException, IllegalAccessException {
 		assertTrue(Bean81HBindMap.class.getName()!=null);
@@ -112,6 +161,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		
 		check(bean);
 	}
+	
 	
 	@Test
 	public void testRuntimeI() throws IOException, InstantiationException, IllegalAccessException {
@@ -139,7 +189,6 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
-	
 	@Test
 	public void testRuntimeM() throws IOException, InstantiationException, IllegalAccessException {
 		assertTrue(Bean81MBindMap.class.getName()!=null);
@@ -152,7 +201,6 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		
 		check(bean);
 	}
-	
 	
 	@Test
 	public void testRuntimeN() throws IOException, InstantiationException, IllegalAccessException {
@@ -192,7 +240,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		
 		check(bean);
 	}
-	
+
 	@Test
 	public void testRuntimeR() throws IOException, InstantiationException, IllegalAccessException {
 		assertTrue(Bean81RBindMap.class.getName()!=null);
@@ -237,41 +285,20 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		
 		check(bean);
 	}
-
-	private Bean81R createBeanR() {
-		Bean81R bean = new Bean81R();
-		
-		bean.id=23;
-		bean.valueByteArray="hello".getBytes();
-		bean.valueInteger=24;
-		bean.valueMapStringInteger=new HashMap<>();
-		bean.valueMapStringInteger.put("hello", 42);
-		
-		return bean;
-	}
 	
-	private Bean81S createBeanS() {
-		Bean81S bean = new Bean81S();
+	@Test
+	public void testRuntimeU() throws IOException, InstantiationException, IllegalAccessException {
+		assertTrue(Bean81UBindMap.class.getName()!=null);
+		
+		Bean81U bean=createBeanU();
+		check(bean);
 		
 		bean.id=23;
 		bean.valueByteArray="hello".getBytes();
 		bean.valueInteger=24;
-		bean.valueMapStringInteger=new HashMap<>();
-		bean.valueMapStringInteger.put("hello", 42);
+		bean.valueMapStringInteger=null;				
 		
-		return bean;
-	}
-	
-	private Bean81T createBeanT() {
-		Bean81T bean = new Bean81T();
-		
-		bean.id=23;
-		bean.valueByteArray="hello".getBytes();
-		bean.valueInteger=24;
-		bean.valueMapStringInteger=new HashMap<>();
-		bean.valueMapStringInteger.put("hello", 42);
-		
-		return bean;
+		check(bean);
 	}
 	
 }

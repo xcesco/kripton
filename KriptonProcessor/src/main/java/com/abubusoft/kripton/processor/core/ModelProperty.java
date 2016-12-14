@@ -83,8 +83,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		
 		if (element!=null) {
 			this.propertyType=new ModelType(element.asType());
-			publicField=element.getModifiers().contains(Modifier.PUBLIC);
-			packageField=!element.getModifiers().contains(Modifier.PRIVATE) && !element.getModifiers().contains(Modifier.PUBLIC) && !element.getModifiers().contains(Modifier.PROTECTED);
+			publicField=element.getModifiers().contains(Modifier.PUBLIC);			
 		}
 		this.annotations = new ArrayList<ModelAnnotation>();
 	}
@@ -119,8 +118,6 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	protected boolean publicField;
-	
-	protected boolean packageField;
 	
 	protected boolean fieldWithGetter;
 	
@@ -182,8 +179,8 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	/**
 	 * @return the publicField
 	 */
-	public boolean isPublicOrPackageField() {
-		return publicField || packageField;
+	public boolean isPublicField() {
+		return publicField;
 	}
 
 	

@@ -31,9 +31,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -74,13 +75,7 @@ public abstract class BindTransformer {
 	public static BindTransform lookup(BindProperty property) {
 		TypeMirror typeMirror=property.getElement().asType();
 		
-		TypeName typeName;
-
-		if (typeMirror instanceof ModelType) {
-			typeName = ((ModelType) typeMirror).getName();
-		} else {
-			typeName = typeName(typeMirror);
-		}
+		TypeName typeName=typeName(typeMirror);		
 
 		return lookup(typeName);
 	}
@@ -120,9 +115,10 @@ public abstract class BindTransformer {
 		}
 
 		transform = getTransform(typeName);
-		if (transform != null) {
-			cache.put(typeName, transform);
-		}
+		
+		if (transform==null) throw new UnsupportedFieldTypeException(typeName, BindTypeProcessor.class);
+		// transform will be always valorized
+		cache.put(typeName, transform);
 
 		return transform;
 	}
