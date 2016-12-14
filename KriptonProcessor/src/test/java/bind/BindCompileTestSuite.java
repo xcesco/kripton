@@ -18,33 +18,35 @@ package bind;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.kripton42faster.TestCompile42Suite;
-import bind.kripton70.TestCompile70Suite;
-import bind.kripton71List.TestCompile71Suite;
-import bind.kripton72.TestCompile72Suite;
-import bind.kripton73Array.TestCompile73Suite;
-import bind.kripton74Map.TestCompile74Suite;
-import bind.kripton75ByteArray.TestCompile75Suite;
-import bind.kripton76Errors.TestCompile76Suite;
+import bind.kripton42faster.Test42CompileSuite;
+import bind.kripton70.Test70CompileSuite;
+import bind.kripton71List.Test71CompileSuite;
+import bind.kripton72.Test72CompileSuite;
+import bind.kripton73Array.Test73CompileSuite;
+import bind.kripton74Map.Test74CompileSuite;
+import bind.kripton75ByteArray.Test75CompileSuite;
+import bind.kripton76Errors.Test76CompileSuite;
 import bind.kripton77.Test77;
-import bind.kripton78.TestCompile78Suite;
-import bind.kripton80ContextCollection.TestCompile80Suite;
+import bind.kripton78.Test78CompileSuite;
+import bind.kripton80ContextCollection.Test80CompileSuite;
+import bind.kripton81MoreCoverageTests.Test81CompileSuite;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{
-		TestCompile42Suite.class,
-		TestCompile70Suite.class,
-		TestCompile71Suite.class,
-		TestCompile72Suite.class,
-		TestCompile73Suite.class,
-		TestCompile74Suite.class,
-		TestCompile75Suite.class,
-		TestCompile76Suite.class,
+		Test42CompileSuite.class,
+		Test70CompileSuite.class,
+		Test71CompileSuite.class,
+		Test72CompileSuite.class,
+		Test73CompileSuite.class,
+		Test74CompileSuite.class,
+		Test75CompileSuite.class,
+		Test76CompileSuite.class,
 		Test77.class,
-		TestCompile78Suite.class,
-		TestCompile80Suite.class
+		Test78CompileSuite.class,
+		Test80CompileSuite.class,
+		Test81CompileSuite.class
 		 })
 //@formatter:on
 public class BindCompileTestSuite {

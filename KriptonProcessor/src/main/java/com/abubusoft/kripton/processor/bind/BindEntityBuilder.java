@@ -18,6 +18,7 @@ import com.abubusoft.kripton.processor.bind.model.BindModel;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
+import com.abubusoft.kripton.processor.bind.transform.ByteArrayBindTransform;
 import com.abubusoft.kripton.processor.bind.transform.ObjectBindTransform;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -145,8 +146,10 @@ public class BindEntityBuilder {
 				}
 
 				if (property.xmlInfo.xmlType == XmlType.ATTRIBUTE) {
+					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
+					
 					// check if property is a array
-					if (property.isBindedArray()) {
+					if (property.isBindedArray() && !(transform instanceof ByteArrayBindTransform)) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
@@ -163,7 +166,7 @@ public class BindEntityBuilder {
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 
-					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
+					
 					if (transform != null && transform instanceof ObjectBindTransform) {
 						String msg = String.format("In class '%s', property '%s' is an object and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
@@ -173,8 +176,10 @@ public class BindEntityBuilder {
 				if (property.xmlInfo.xmlType == XmlType.VALUE || property.xmlInfo.xmlType == XmlType.VALUE_CDATA) {
 					counterPropertyInValue.inc();
 					
+					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
+					
 					// check if property is a array
-					if (property.isBindedArray()) {
+					if (property.isBindedArray() && !(transform instanceof ByteArrayBindTransform)) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
@@ -191,8 +196,6 @@ public class BindEntityBuilder {
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 
-					// TODO check objects
-					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
 					if (transform != null && transform instanceof ObjectBindTransform) {
 						String msg = String.format("In class '%s', property '%s' is an object and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));

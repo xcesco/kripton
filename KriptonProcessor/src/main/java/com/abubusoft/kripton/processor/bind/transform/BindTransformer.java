@@ -127,7 +127,7 @@ public abstract class BindTransformer {
 		return transform;
 	}
 
-	private static BindTransform getTransform(TypeName typeName) {				
+	static BindTransform getTransform(TypeName typeName) {				
 		if (typeName.isPrimitive()) {
 			return getPrimitiveTransform(typeName);
 		}
@@ -152,32 +152,37 @@ public abstract class BindTransformer {
 			}
 		}
 
-		String name = typeName.toString();
-
-		if (name.startsWith("java.lang")) {
-			return getLanguageTransform(typeName);
+		BindTransform bindTransform;
+		
+		bindTransform=getLanguageTransform(typeName);
+		if (bindTransform!=null) {
+			return bindTransform;
 		}
 
-		if (name.startsWith("java.util")) {
-			return getUtilTransform(typeName);
+		bindTransform=getUtilTransform(typeName);
+		if (bindTransform!=null) {
+			return bindTransform;
 		}
 
-		if (name.startsWith("java.math")) {
-			return getMathTransform(typeName);
+		bindTransform=getMathTransform(typeName);
+		if (bindTransform!=null) {
+			return bindTransform;
 		}
 
-		if (name.startsWith("java.net")) {
-			return getNetTransform(typeName);
+		bindTransform=getNetTransform(typeName);
+		if (bindTransform!=null) {
+			return bindTransform;
 		}
 
-		if (name.startsWith("java.sql")) {
-			return getSqlTransform(typeName);
+		bindTransform=getSqlTransform(typeName);
+		if (bindTransform!=null) {
+			return bindTransform;
 		}
 				
 		return new ObjectBindTransform();
 	}
 
-	private static BindTransform getSqlTransform(TypeName typeName) {
+	static BindTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
 			return new TimeBindTransform();
 		}
@@ -185,7 +190,7 @@ public abstract class BindTransformer {
 		return null;
 	}
 
-	private static BindTransform getNetTransform(TypeName typeName) {
+	static BindTransform getNetTransform(TypeName typeName) {
 		if (URL.class.getName().equals(typeName.toString())) {
 			return new UrlBindTransform();
 		}
@@ -193,7 +198,7 @@ public abstract class BindTransformer {
 		return null;
 	}
 
-	private static BindTransform getMathTransform(TypeName typeName) {
+	static BindTransform getMathTransform(TypeName typeName) {
 		if (BigDecimal.class.getName().equals(typeName.toString())) {
 			return new BigDecimalBindTransform();
 		} else if (BigInteger.class.getName().equals(typeName.toString())) {
@@ -209,7 +214,7 @@ public abstract class BindTransformer {
 	 * @param type
 	 * @return
 	 */
-	private static BindTransform getPrimitiveTransform(TypeName type) {
+	static BindTransform getPrimitiveTransform(TypeName type) {
 
 		if (Integer.TYPE.toString().equals(type.toString())) {
 			return new IntegerBindTransform(false);
@@ -244,7 +249,7 @@ public abstract class BindTransformer {
 	 * @param type
 	 * @return
 	 */
-	private static BindTransform getLanguageTransform(TypeName type) {
+	static BindTransform getLanguageTransform(TypeName type) {
 		String typeName = type.toString();
 		
 		if (Integer.class.getCanonicalName().equals(typeName)) {
@@ -284,7 +289,7 @@ public abstract class BindTransformer {
 	 * @return
 	 */
 
-	private static BindTransform getUtilTransform(TypeName type) {
+	static BindTransform getUtilTransform(TypeName type) {
 		String typeName = type.toString();
 
 		// Integer.class.getCanonicalName().equals(typeName)

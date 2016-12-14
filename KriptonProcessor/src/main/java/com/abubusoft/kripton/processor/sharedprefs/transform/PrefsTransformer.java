@@ -131,32 +131,37 @@ public abstract class PrefsTransformer {
 			}
 		}
 
-		String name = typeName.toString();
+		PrefsTransform transform;
 
-		if (name.startsWith("java.lang")) {
-			return getLanguageTransform(typeName);
+		transform=getLanguageTransform(typeName);
+		if (transform!=null) {
+			return transform;
 		}
 
-		if (name.startsWith("java.util")) {
-			return getUtilTransform(typeName);
+		transform=getUtilTransform(typeName);
+		if (transform!=null) {
+			return transform;
 		}
 
-		if (name.startsWith("java.math")) {
-			return getMathTransform(typeName);
+		transform=getMathTransform(typeName);
+		if (transform!=null) {
+			return transform;
 		}
 
-		if (name.startsWith("java.net")) {
-			return getNetTransform(typeName);
+		transform=getNetTransform(typeName);
+		if (transform!=null) {
+			return transform;
 		}
 
-		if (name.startsWith("java.sql")) {
-			return getSqlTransform(typeName);
+		transform=getSqlTransform(typeName);
+		if (transform!=null) {
+			return transform;
 		}
 				
 		return new ObjectPrefsTransform();
 	}
 
-	private static PrefsTransform getSqlTransform(TypeName typeName) {
+	static PrefsTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
 			return new TimePrefsTransform();
 		}
@@ -164,7 +169,7 @@ public abstract class PrefsTransformer {
 		return null;
 	}
 
-	private static PrefsTransform getNetTransform(TypeName typeName) {
+	static PrefsTransform getNetTransform(TypeName typeName) {
 		if (URL.class.getName().equals(typeName.toString())) {
 			return new UrlPrefsTransform();
 		}
@@ -172,7 +177,7 @@ public abstract class PrefsTransformer {
 		return null;
 	}
 
-	private static PrefsTransform getMathTransform(TypeName typeName) {
+	static PrefsTransform getMathTransform(TypeName typeName) {
 		if (BigDecimal.class.getName().equals(typeName.toString())) {
 			return new BigDecimalPrefsTransform();
 		} else if (BigInteger.class.getName().equals(typeName.toString())) {
@@ -188,7 +193,7 @@ public abstract class PrefsTransformer {
 	 * @param type
 	 * @return
 	 */
-	private static PrefsTransform getPrimitiveTransform(TypeName type) {
+	static PrefsTransform getPrimitiveTransform(TypeName type) {
 
 		if (Integer.TYPE.toString().equals(type.toString())) {
 			return new IntegerPrefsTransform(false);
@@ -223,7 +228,7 @@ public abstract class PrefsTransformer {
 	 * @param type
 	 * @return
 	 */
-	private static PrefsTransform getLanguageTransform(TypeName type) {
+	static PrefsTransform getLanguageTransform(TypeName type) {
 		String typeName = type.toString();
 		
 		if (Integer.class.getCanonicalName().equals(typeName)) {
@@ -263,7 +268,7 @@ public abstract class PrefsTransformer {
 	 * @return
 	 */
 
-	private static PrefsTransform getUtilTransform(TypeName type) {
+	static PrefsTransform getUtilTransform(TypeName type) {
 		String typeName = type.toString();
 
 		// Integer.class.getCanonicalName().equals(typeName)

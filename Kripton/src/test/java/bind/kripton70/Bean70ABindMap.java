@@ -239,7 +239,7 @@ public class Bean70ABindMap extends AbstractMapper<Bean70A> {
       Bean70A instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
-
+      
       if (currentEventType == 0) {
         eventType = xmlParser.next();
       } else {

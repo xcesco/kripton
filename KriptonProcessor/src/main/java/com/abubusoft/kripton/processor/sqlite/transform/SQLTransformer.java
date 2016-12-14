@@ -203,7 +203,7 @@ public abstract class SQLTransformer {
 		return new ObjectSQLTransform();
 	}
 
-	private static SQLTransform getSqlTransform(TypeName typeName) {
+	static SQLTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
 			return new TimeSQLTransform();
 		}
@@ -211,7 +211,7 @@ public abstract class SQLTransformer {
 		return null;
 	}
 
-	private static SQLTransform getNetTransform(TypeName typeName) {
+	static SQLTransform getNetTransform(TypeName typeName) {
 		if (URL.class.getName().equals(typeName.toString())) {
 			return new UrlSQLTransform();
 		}
@@ -219,7 +219,7 @@ public abstract class SQLTransformer {
 		return null;
 	}
 
-	private static SQLTransform getMathTransform(TypeName typeName) {
+	static SQLTransform getMathTransform(TypeName typeName) {
 		if (BigDecimal.class.getName().equals(typeName.toString())) {
 			return new BigDecimalSQLTransform();
 		} else if (BigInteger.class.getName().equals(typeName.toString())) {
@@ -235,7 +235,7 @@ public abstract class SQLTransformer {
 	 * @param type
 	 * @return
 	 */
-	private static SQLTransform getPrimitiveTransform(TypeName type) {
+	static SQLTransform getPrimitiveTransform(TypeName type) {
 
 		if (Integer.TYPE.toString().equals(type.toString())) {
 			return new IntegerSQLTransform(false);
@@ -270,7 +270,7 @@ public abstract class SQLTransformer {
 	 * @param type
 	 * @return
 	 */
-	private static SQLTransform getLanguageTransform(TypeName type) {
+	static SQLTransform getLanguageTransform(TypeName type) {
 		String typeName = type.toString();
 
 		if (Integer.class.getCanonicalName().equals(typeName)) {
@@ -310,7 +310,7 @@ public abstract class SQLTransformer {
 	 * @return
 	 */
 
-	private static SQLTransform getUtilTransform(TypeName type) {
+	static SQLTransform getUtilTransform(TypeName type) {
 		String typeName = type.toString();
 
 		// Integer.class.getCanonicalName().equals(typeName)

@@ -327,13 +327,8 @@ public class TypeUtility {
 	 * @return
 	 * 
 	 */
-
-	/**
-	 * generate begin string to translate in code to used in String or parameter need to be converted in string through String.valueOf
-	 * 
-	 */
 	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
-		TypeName typeName;
+		TypeName typeName=null;
 		if (typeMirror instanceof ModelType) {
 			typeName = ((ModelType) typeMirror).getName();
 		} else {
@@ -354,17 +349,6 @@ public class TypeUtility {
 			methodBuilder.addCode("String.valueOf(");
 			break;
 		}
-
-//		if (isString(typeName)) {
-//			return;
-//		} else if (isArray(typeName) || isList(typeName)) {
-//			// every array of primitive will be converted in byte[]
-//			methodBuilder.addCode("new String(");
-//		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
-//			methodBuilder.addCode("");
-//		} else {
-//			methodBuilder.addCode("String.valueOf(");
-//		}
 	}
 
 	/**

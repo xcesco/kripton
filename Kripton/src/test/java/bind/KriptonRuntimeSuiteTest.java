@@ -27,6 +27,7 @@ import bind.kripton74Map.TestRuntime74Suite;
 import bind.kripton75ByteArray.TestRuntime75Suite;
 import bind.kripton78.TestRuntime78Suite;
 import bind.kripton80ContextCollection.TestRuntime80Suite;
+import bind.kripton81MoreCoverageTests.TestRuntime81Suite;
 
 @RunWith(Suite.class)
 //@formatter:off
@@ -40,7 +41,8 @@ import bind.kripton80ContextCollection.TestRuntime80Suite;
 		TestRuntime74Suite.class,
 		TestRuntime75Suite.class,
 		TestRuntime78Suite.class,
-		TestRuntime80Suite.class
+		TestRuntime80Suite.class,
+		TestRuntime81Suite.class
 		 })
 //@formatter:on
 public class KriptonRuntimeSuiteTest {

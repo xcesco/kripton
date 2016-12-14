@@ -68,7 +68,7 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getAttributeAsBinary()"), parserName);
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getAttributeValue(attributeIndex))"), Base64Utils.class,  parserName);
 			break;
 		case TAG:
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getElementAsBinary()"), parserName);
@@ -121,7 +121,7 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $L)", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeAttribute($S, $T.encode($L))", serializerName, property.xmlInfo.tag, Base64Utils.class, getter(beanName, beanClass, property));
 			break;
 		case TAG:
 			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
