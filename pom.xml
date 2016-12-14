@@ -9,7 +9,7 @@
 
   <groupId>com.abubusoft</groupId>
   <artifactId>kripton-parent</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
+  <version>1.5.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Kripton (Parent)</name>
   <description>Java persist library</description>
@@ -28,25 +28,25 @@
     <!-- Test Dependencies -->
     <junit.version>4.11</junit.version>
   </properties>
-
-  <scm>
-    <url>https://github.com/square/okio/</url>
-    <connection>scm:git:https://github.com/square/okio.git</connection>
-    <developerConnection>scm:git:git@github.com:square/okio.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
-
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/square/okio/issues</url>
-  </issueManagement>
-
+  
   <licenses>
-    <license>
-      <name>Apache 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-    </license>
-  </licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:https://github.com/xcesco/kripton.git</connection>
+		<developerConnection>scm:git:git@github.com:xcesco/kripton.git</developerConnection>
+		<url>https://github.com/xcesco/kripton</url>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/xcesco/kripton/issues</url>
+	</issueManagement>
 
   <dependencyManagement>
     <dependencies>
@@ -54,6 +54,7 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
+		<scope>test</scope>
       </dependency>     
     </dependencies>
   </dependencyManagement>
