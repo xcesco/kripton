@@ -2462,7 +2462,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 }
               break;
               case XMLEventConstants.END_ELEMENT:
-                if (elementName.equals(xmlParser.getName())) {
+                if (elementName.equals(xmlParser.getName().getLocalPart())) {
                   currentTag = elementName;
                   elementName = null;
                 }

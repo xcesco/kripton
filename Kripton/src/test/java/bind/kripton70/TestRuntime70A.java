@@ -4,23 +4,18 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.abubusoft.kripton.binder.BinderType;
-
 import bind.AbstractBaseTest;
 
 public class TestRuntime70A extends AbstractBaseTest {
 	
 	@Test
-	public void testRun70A() {
-		assertNotNull(Bean70ABindMap.class);
-	}
-
-	@Test
 	public void testRun70A_1() {
+		assertNotNull(Bean70ABindMap.class);
+		
 		Bean70A bean = new Bean70A();
 		bean.valueString = "this is a test";
 		bean.valueBean = new Bean70A();
-		bean.valueBean.valueString = "this is a second test";
+		//bean.valueBean.valueString = "this is a second test";
 
 		check(bean);
 	}

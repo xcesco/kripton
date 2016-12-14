@@ -252,7 +252,7 @@ public class BindTypeBuilder {
 	}
 
 	private static void generateParserOnXmlEndElement(MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
-		methodBuilder.beginControlFlow("if (elementName.equals($L.getName()))", parserName);
+		methodBuilder.beginControlFlow("if (elementName.equals($L.getName().getLocalPart()))", parserName);		
 			methodBuilder.addStatement("currentTag = elementName");
 			methodBuilder.addStatement("elementName = null");
 		methodBuilder.endControlFlow();

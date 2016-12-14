@@ -439,7 +439,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
                 }
               break;
               case XMLEventConstants.END_ELEMENT:
-                if (elementName.equals(xmlParser.getName())) {
+                if (elementName.equals(xmlParser.getName().getLocalPart())) {
                   currentTag = elementName;
                   elementName = null;
                 }

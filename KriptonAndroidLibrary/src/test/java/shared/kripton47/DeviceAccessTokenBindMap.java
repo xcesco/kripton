@@ -249,7 +249,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
                 }
               break;
               case XMLEventConstants.END_ELEMENT:
-                if (elementName.equals(xmlParser.getName())) {
+                if (elementName.equals(xmlParser.getName().getLocalPart())) {
                   currentTag = elementName;
                   elementName = null;
                 }
