@@ -90,7 +90,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-android-library</artifactId>
