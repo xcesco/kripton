@@ -22,6 +22,8 @@ import com.abubusoft.kripton.binder.context.YamlBinderContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
 public class AbstractBaseTest {
+	private static final String KRIPTON_TEST_DEBUG = "KRIPTON_TEST_DEBUG";
+
 	public boolean display = false;
 
 	@Rule
@@ -213,7 +215,7 @@ public class AbstractBaseTest {
 
 	@Before
 	public void setup() {
-		final String value = System.getenv("KRIPTON_TEST_DEBUG");		
+		final String value = System.getenv(KRIPTON_TEST_DEBUG);		
 		if ("true".equals(value))
 		{
 			display = true;

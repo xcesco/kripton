@@ -24,6 +24,7 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
 
 
 
@@ -45,6 +46,7 @@ public class BeanElement78 implements Serializable {
 	public Map<Integer, byte[]> valueMapIntByteArray;
 	
 	@Bind
+	@BindXml(elementTag="item")
 	public List<byte[]> valueListByteArray;
 	
 
