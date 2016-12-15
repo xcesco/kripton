@@ -2,7 +2,7 @@ package shared.kripton47;
 
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
-import com.abubusoft.kripton.binder.context.KriptonXmlContext;
+import com.abubusoft.kripton.binder.context.BinderContext;
 import com.abubusoft.kripton.binder.core.AbstractMapper;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
@@ -93,7 +93,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(KriptonXmlContext context, DeviceAccessToken object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(BinderContext context, DeviceAccessToken object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -207,7 +207,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
    * create new object instance
    */
   @Override
-  public DeviceAccessToken parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public DeviceAccessToken parseOnXml(BinderContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlParser xmlParser = wrapper.xmlParser;
       DeviceAccessToken instance = createInstance();

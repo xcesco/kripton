@@ -356,8 +356,10 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
               // No property to manage here
             break;
             case XMLEventConstants.END_ELEMENT:
-              currentTag = elementName;
-              elementName = null;
+              if (elementName.equals(xmlParser.getName().getLocalPart())) {
+                currentTag = elementName;
+                elementName = null;
+              }
             break;
             case XMLEventConstants.CDATA:
             case XMLEventConstants.CHARACTERS:

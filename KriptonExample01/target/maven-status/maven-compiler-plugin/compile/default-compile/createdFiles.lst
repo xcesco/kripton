@@ -2,6 +2,7 @@ com\abubusoft\kripton\example02\Prestazione.class
 com\abubusoft\kripton\example02\PrestazioneBindMap.class
 com\abubusoft\kripton\example02\Main.class
 com\abubusoft\kripton\example01\BeanBindMap.class
+com\abubusoft\kripton\example02\PrenotazioniService.class
 com\abubusoft\kripton\example02\PrenotabilitaBindMap.class
 com\abubusoft\kripton\example01\Main.class
 com\abubusoft\kripton\example01\Bean.class

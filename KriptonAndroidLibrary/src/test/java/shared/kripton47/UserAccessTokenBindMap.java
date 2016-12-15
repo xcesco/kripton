@@ -2,7 +2,7 @@ package shared.kripton47;
 
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
-import com.abubusoft.kripton.binder.context.KriptonXmlContext;
+import com.abubusoft.kripton.binder.context.BinderContext;
 import com.abubusoft.kripton.binder.core.AbstractMapper;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
@@ -99,7 +99,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(KriptonXmlContext context, UserAccessToken object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(BinderContext context, UserAccessToken object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -219,7 +219,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
    * create new object instance
    */
   @Override
-  public UserAccessToken parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public UserAccessToken parseOnXml(BinderContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlParser xmlParser = wrapper.xmlParser;
       UserAccessToken instance = createInstance();

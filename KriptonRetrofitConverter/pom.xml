@@ -187,7 +187,6 @@
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton</artifactId>
 			<version>${project.version}</version>
-			<scope>compile</scope>
 		</dependency>
 
 		<dependency>

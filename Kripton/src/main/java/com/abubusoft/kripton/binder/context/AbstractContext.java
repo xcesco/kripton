@@ -18,7 +18,6 @@ import com.abubusoft.kripton.binder.KriptonBinder;
 import com.abubusoft.kripton.binder.core.BinderMapper;
 import com.abubusoft.kripton.binder.persistence.ParserWrapper;
 import com.abubusoft.kripton.binder.persistence.SerializerWrapper;
-//import com.abubusoft.kripton.binder2.core.ParameterizedType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
 

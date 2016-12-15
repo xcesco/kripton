@@ -187,6 +187,12 @@
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+				<artifactId>com.abubusoft</artifactId>
+				<groupId>kripton-dataformat-xml</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- https://github.com/FasterXML/woodstox/ -->

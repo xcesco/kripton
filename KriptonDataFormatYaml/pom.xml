@@ -186,6 +186,12 @@
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+				<artifactId>com.abubusoft</artifactId>
+				<groupId>kripton-dataformat-yaml</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
