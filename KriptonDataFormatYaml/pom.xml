@@ -12,6 +12,36 @@
 		<version>1.5.0-SNAPSHOT</version>
 		<relativePath>../KriptonParent/pom.xml</relativePath>
 	</parent>
+	
+	<!-- Property version 1.5.0-SNAPSHOT -->
+	<properties>
+		<!-- environment version -->
+		<sourceEncoding>UTF-8</sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.7</java.version>
+
+		<!-- dependencies version -->
+		<jackson.version>2.8.5</jackson.version>
+		<woodstox.version>5.0.3</woodstox.version>
+		<retrofit.version>2.1.0</retrofit.version>
+		
+		<junit.version>4.12</junit.version>
+		<unitils.version>3.4.2</unitils.version>
+		
+		<jsr305.version>3.0.1</jsr305.version>
+		<guava.version>19.0</guava.version>
+		<javapoet.version>1.7.0</javapoet.version>
+		<robolectric.version>3.1.4</robolectric.version>
+		<roboletricAndroidAll.version>6.0.0_r1-robolectric-0</roboletricAndroidAll.version>
+
+		<!-- plugins version -->
+		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
+		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>			
+	</properties>
 
 	<dependencies>
 		<dependency>
