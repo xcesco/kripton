@@ -18,7 +18,6 @@
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
 		<version>1.5.0-SNAPSHOT</version>
-		<relativePath>../KriptonParent/pom.xml</relativePath>
 	</parent>
 
 	<!-- Property version 1.5.0-SNAPSHOT -->
@@ -98,7 +97,6 @@
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>${roboletricAndroidAll.version}</version>
-			<scope>compile</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.robolectric/robolectric -->
@@ -139,6 +137,28 @@
     		<artifactId>woodstox-core</artifactId>
     		<version>${woodstox.version}</version>
     	</dependency>
+    	
+    	<!-- TEST DEPENDENCIES -->
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-core</artifactId>
+			<version>${unitils.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 

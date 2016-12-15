@@ -22,7 +22,6 @@
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
 		<version>1.5.0-SNAPSHOT</version>
-		<relativePath>../KriptonParent/pom.xml</relativePath>
 	</parent>
  
  	<!-- Property version 1.5.0-SNAPSHOT -->
@@ -88,6 +87,27 @@
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
 			<scope>provided</scope>
+		</dependency>
+		
+		<!-- TEST DEPENDENCIES -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-core</artifactId>
+			<version>${unitils.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+			<scope>test</scope>
 		</dependency>
 	
 	</dependencies>

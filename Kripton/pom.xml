@@ -7,13 +7,11 @@
 	the specific language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion> 
 
 	<name>Kripton Library</name>
-	
 
-	<artifactId>kripton</artifactId>
-	<version>1.5.0-SNAPSHOT</version>
+	<artifactId>kripton</artifactId>	
 	<packaging>jar</packaging>
  
 	<description>Kripton Persistence Library.</description>
@@ -21,10 +19,10 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>1.5.0-SNAPSHOT</version>
-		<relativePath>../KriptonParent/pom.xml</relativePath>
+		<version>1.5.0-SNAPSHOT</version>		
 	</parent>
 	
+	<!-- Property version 1.5.0-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
@@ -35,24 +33,32 @@
 		<!-- dependencies version -->
 		<jackson.version>2.8.5</jackson.version>
 		<woodstox.version>5.0.3</woodstox.version>
+		<retrofit.version>2.1.0</retrofit.version>
 		
+		<!-- test version -->
 		<junit.version>4.12</junit.version>
 		<unitils.version>3.4.2</unitils.version>
+		
+		<jsr305.version>3.0.1</jsr305.version>
+		<guava.version>19.0</guava.version>
+		<javapoet.version>1.7.0</javapoet.version>
+		<robolectric.version>3.1.4</robolectric.version>
+		<roboletricAndroidAll.version>6.0.0_r1-robolectric-0</roboletricAndroidAll.version>
 
 		<!-- plugins version -->
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
-		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>			
 	</properties>
-
+	
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
 		<dependency>
-			<groupId>org.unitils</groupId>
-			<artifactId>unitils-core</artifactId>
-			<version>3.4.2</version>
-			<scope>test</scope>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 
 		<dependency>
@@ -82,6 +88,27 @@
 			<artifactId>woodstox-core</artifactId>
 			<version>${woodstox.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		
+		<!-- TEST DEPENDENCIES -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-core</artifactId>
+			<version>${unitils.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
