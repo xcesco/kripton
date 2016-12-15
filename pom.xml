@@ -22,7 +22,8 @@
 	<module>KriptonDataFormatXml</module>
 	<module>KriptonDataFormatYaml</module>
     <module>KriptonAndroidLibrary</module>
-	<module>KriptonProcessor</module>	
+	<module>KriptonProcessor</module>
+	<module>KriptonRetrofitConverter</module>
   </modules>
 
   <properties>
