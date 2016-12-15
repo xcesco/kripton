@@ -58,6 +58,12 @@ Snapshots of the development version are available in [Sonatype's snapshots repo
 
 Kritpon requires at minimum Java 7 or Android 2.3.
 
+# Build
+To build entire library collections just download repository and launch from this directory 
+
+```
+mvn clean deploy -Prelease,deploy -Dmaven.test.skip=true
+```
 
 # Supported platforms
 There are two platform: the android environment and generic Java environment. For each platform there is a version of library. Android platform already include a json library and xml parser library. Java JDK does not include a json library and have different xml parser libraries.

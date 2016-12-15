@@ -3,19 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>Kripton Retrofit Converter</name>
-
+	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-retrofit-converter</artifactId>
+	<version>1.5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
 	<description>Kripton adapter for Retrofit library</description>
-	
-	<parent>
-		<groupId>com.abubusoft</groupId>
-		<artifactId>kripton-parent</artifactId>
-		<version>1.5.0-SNAPSHOT</version>
-		<relativePath>../KriptonParent/pom.xml</relativePath>
-	</parent>
 
+<!-- common part - BEGIN -->
 	<!-- Property version 1.5.0-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
@@ -28,10 +23,11 @@
 		<jackson.version>2.8.5</jackson.version>
 		<woodstox.version>5.0.3</woodstox.version>
 		<retrofit.version>2.1.0</retrofit.version>
-		
+
+		<!-- test version -->
 		<junit.version>4.12</junit.version>
 		<unitils.version>3.4.2</unitils.version>
-		
+
 		<jsr305.version>3.0.1</jsr305.version>
 		<guava.version>19.0</guava.version>
 		<javapoet.version>1.7.0</javapoet.version>
@@ -43,24 +39,183 @@
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
-		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>			
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 	</properties>
 
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/xcesco/kripton/issues</url>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:git:https://github.com/xcesco/kripton.git</connection>
+		<developerConnection>scm:git:git@github.com:xcesco/kripton.git</developerConnection>
+		<url>https://github.com/xcesco/kripton</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>xcesco</id>
+			<name>Francesco Benincasa</name>
+			<email>abubusoft@gmail.com</email>
+			<roles>
+				<role>owner</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<profiles>
+		<profile>
+			<id>deploy</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${maven-gpg-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- deploy on sonatype -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>${nexus-staging-maven-plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+			<!-- distribution manager -->
+			<distributionManagement>
+				<snapshotRepository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+				<repository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
+
+		</profile>
+
+		<profile>
+			<id>release</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${maven-javadoc-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<!-- <additionalparam>-Xdoclint:none</additionalparam> -->
+									<!-- <excludePackageNames>com.abubusoft.kripton.android*</excludePackageNames> -->
+									<failOnError>false</failOnError>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>${maven-source-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<!-- common part - END -->
 
 	<dependencies>
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+	
 		<dependency>
 			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>retrofit</artifactId>
 			<version>${retrofit.version}</version>
 		</dependency>
-
+		
+		<!-- TEST DEPENDENCIES -->
 		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton</artifactId>
-			<version>${parent.version}</version>
-			<scope>compile</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-core</artifactId>
+			<version>${unitils.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 </project>
