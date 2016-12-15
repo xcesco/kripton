@@ -20,7 +20,6 @@ import java.io.IOException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.yaml.snakeyaml.reader.ReaderException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
@@ -30,28 +29,6 @@ import sqlite.AbstractBindSQLiteProcessorTest;
  */
 @RunWith(JUnit4.class)
 public class Test63Compile extends AbstractBindSQLiteProcessorTest {
-
-	@Test
-	public void testJson() throws IOException, InstantiationException, IllegalAccessException, ReaderException {
-		// Bean63 bean=new Bean63();
-		//
-		// bean.value="hell";
-		// bean.valueMapStringByte=new HashMap<>();
-		// bean.valueMapStringByte.put("hello", (byte) 24);
-		// bean.valueMapStringByte.put("hello2", (byte) 224);
-		//
-		// BinderJsonWriter writer=KriptonBinder.getJsonWriter();
-		//
-		// String buffer=writer.writeMap(bean.valueMapStringByte);
-		//
-		// BinderJsonReader reader=KriptonBinder.getJsonReader();
-		// HashMap<String, Byte> map = reader.readMap(new HashMap<String,
-		// Byte>(), String.class, Byte.class, buffer);
-		//
-		// String buffer2=writer.writeMap(map);
-		//
-		// Assert.assertEquals(buffer, buffer2);
-	}
 
 	@Test
 	public void testSqlite() throws IOException, InstantiationException, IllegalAccessException {

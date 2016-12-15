@@ -29,38 +29,7 @@
 		<roboletricAndroidAll.version>6.0.0_r1-robolectric-0</roboletricAndroidAll.version>
 	</properties>
 
-	<description>Annotation processor for Kripton PersistenceLibrary.</description>
-
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-	<issueManagement>
-		<system>GitHub Issues</system>
-		<url>https://github.com/xcesco/kripton/issues</url>
-	</issueManagement>
-
-	<scm>
-		<connection>scm:git:https://github.com/xcesco/kripton.git</connection>
-		<developerConnection>scm:git:git@github.com:xcesco/kripton.git</developerConnection>
-		<url>https://github.com/xcesco/kripton</url>
-	</scm>
-
-	<developers>
-		<developer>
-			<id>xcesco</id>
-			<name>Francesco Benincasa</name>
-			<email>abubusoft@gmail.com</email>
-			<roles>
-				<role>owner</role>
-				<role>developer</role>
-			</roles>
-		</developer>
-	</developers>
+	<description>Annotation processor for Kripton Persistence Library.</description>
 
 	<dependencies>
 		<dependency>
@@ -116,38 +85,6 @@
 			<artifactId>robolectric</artifactId>
 			<version>${robolectric.version}</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-cbor</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-yaml</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-properties</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-		
-		<!-- https://github.com/FasterXML/woodstox/ -->
-		<dependency>
-			<groupId>com.fasterxml.woodstox</groupId>
-    		<artifactId>woodstox-core</artifactId>
-    		<version>${woodstox.version}</version>
-    	</dependency>
 
 	</dependencies>
 
