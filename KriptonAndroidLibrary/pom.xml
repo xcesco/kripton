@@ -10,7 +10,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+ 
 	<name>Kripton Android Library</name>
 
 	<artifactId>kripton-android-library</artifactId>
@@ -28,16 +28,14 @@
 	<properties>
 		<!-- use UTF-8 for everything -->
 		<android-maven-plugin.version>4.2.0</android-maven-plugin.version>		
-		<roboletric.version>3.1</roboletric.version>
-
-		
+		<roboletric.version>3.1</roboletric.version>		
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>		
 	
 		<dependency>
