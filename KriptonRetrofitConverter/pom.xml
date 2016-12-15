@@ -7,10 +7,10 @@
 	<artifactId>kripton-retrofit-converter</artifactId>
 	<version>1.5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	
+
 	<description>Kripton adapter for Retrofit library</description>
 
-<!-- common part - BEGIN -->
+	<!-- common part - BEGIN -->
 	<!-- Property version 1.5.0-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
@@ -189,13 +189,13 @@
 			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>retrofit</artifactId>
 			<version>${retrofit.version}</version>
 		</dependency>
-		
+
 		<!-- TEST DEPENDENCIES -->
 		<dependency>
 			<groupId>junit</groupId>
