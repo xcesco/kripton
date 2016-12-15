@@ -33,8 +33,8 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.binder.KriptonBinder;
-import com.abubusoft.kripton.binder.context.JacksonContext;
-import com.abubusoft.kripton.binder.context.XmlBinderContext;
+import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
+import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.binder.core.AbstractMapper;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
@@ -186,7 +186,7 @@ public class BindTypeBuilder {
 	private static void generateParseOnXml(BindEntity bean) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnXml").addJavadoc("create new object instance\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(XmlBinderContext.class), "context").addParameter(typeName(XmlWrapperParser.class), "wrapper").addParameter(typeName(Integer.TYPE), "currentEventType")
+				.addParameter(typeName(KriptonXmlContext.class), "context").addParameter(typeName(XmlWrapperParser.class), "wrapper").addParameter(typeName(Integer.TYPE), "currentEventType")
 				.returns(typeName(bean.getElement()));
 		// @formatter:on
 
@@ -401,7 +401,7 @@ public class BindTypeBuilder {
 	private static void generateParseOnJackson(BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJackson").addJavadoc("create new object instance\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(JacksonContext.class), "context").addParameter(typeName(JacksonWrapperParser.class), "wrapper").returns(typeName(entity.getElement()));
+				.addParameter(typeName(AbstractJacksonContext.class), "context").addParameter(typeName(JacksonWrapperParser.class), "wrapper").returns(typeName(entity.getElement()));
 		// @formatter:on
 
 		methodBuilder.beginControlFlow("try");
@@ -460,7 +460,7 @@ public class BindTypeBuilder {
 	private static void generateParseOnJacksonAsString(BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJacksonAsString").addJavadoc("create new object instance\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(JacksonContext.class), "context").addParameter(typeName(JacksonWrapperParser.class), "wrapper").returns(typeName(entity.getElement()));
+				.addParameter(typeName(AbstractJacksonContext.class), "context").addParameter(typeName(JacksonWrapperParser.class), "wrapper").returns(typeName(entity.getElement()));
 		// @formatter:on
 
 		methodBuilder.beginControlFlow("try");
@@ -520,7 +520,7 @@ public class BindTypeBuilder {
 	private static void generateSerializeOnJackson(BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJackson").addJavadoc("reset shared preferences\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(JacksonContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
+				.addParameter(typeName(AbstractJacksonContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
 				.returns(Integer.TYPE);
 		// @formatter:on
 
@@ -557,7 +557,7 @@ public class BindTypeBuilder {
 	private static void generateSerializeOnJacksonAsString(BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJacksonAsString").addJavadoc("reset shared preferences\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(JacksonContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
+				.addParameter(typeName(AbstractJacksonContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
 				.returns(Integer.TYPE);
 		// @formatter:on
 
@@ -595,7 +595,7 @@ public class BindTypeBuilder {
 	private static void generateSerializeOnXml(BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnXml").addJavadoc("reset shared preferences\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(XmlBinderContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(XmlWrapperSerializer.class), "wrapper")
+				.addParameter(typeName(KriptonXmlContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(XmlWrapperSerializer.class), "wrapper")
 				.addParameter(typeName(Integer.TYPE), "currentEventType").returns(Void.TYPE);
 		// @formatter:on
 

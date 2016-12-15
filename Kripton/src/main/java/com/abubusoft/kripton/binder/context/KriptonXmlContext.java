@@ -26,7 +26,7 @@ import com.fasterxml.jackson.core.JsonEncoding;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class XmlBinderContext extends AbstractContext {
+public class KriptonXmlContext extends AbstractContext {
 
 	public XmlWrapperParser createParser(byte[] data) {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(data);

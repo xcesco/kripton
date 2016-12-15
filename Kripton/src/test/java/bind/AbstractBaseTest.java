@@ -15,10 +15,10 @@ import org.unitils.reflectionassert.ReflectionComparatorMode;
 
 import com.abubusoft.kripton.binder.BinderType;
 import com.abubusoft.kripton.binder.KriptonBinder;
-import com.abubusoft.kripton.binder.context.CborBinderContext;
-import com.abubusoft.kripton.binder.context.PropertiesBinderContext;
-import com.abubusoft.kripton.binder.context.XmlBinderContext;
-import com.abubusoft.kripton.binder.context.YamlBinderContext;
+import com.abubusoft.kripton.binder.context.KriptonCborContext;
+import com.abubusoft.kripton.binder.context.KriptonPropertiesContext;
+import com.abubusoft.kripton.binder.context.KriptonXmlContext;
+import com.abubusoft.kripton.binder.context.KriptonYamlContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
 public class AbstractBaseTest {
@@ -221,10 +221,10 @@ public class AbstractBaseTest {
 			display = true;
 		}		
 		
-		KriptonBinder.registryBinder(new YamlBinderContext());
-		KriptonBinder.registryBinder(new PropertiesBinderContext());
-		KriptonBinder.registryBinder(new XmlBinderContext());
-		KriptonBinder.registryBinder(new CborBinderContext());
+		KriptonBinder.registryBinder(new KriptonYamlContext());
+		KriptonBinder.registryBinder(new KriptonPropertiesContext());
+		KriptonBinder.registryBinder(new KriptonXmlContext());
+		KriptonBinder.registryBinder(new KriptonCborContext());
 	}
 
 	String toString(byte[] input) {

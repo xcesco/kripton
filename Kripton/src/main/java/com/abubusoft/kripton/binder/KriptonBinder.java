@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.abubusoft.kripton.binder.context.BinderContext;
-import com.abubusoft.kripton.binder.context.JsonBinderContext;
+import com.abubusoft.kripton.binder.context.KriptonJsonContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public abstract class KriptonBinder {
 
 	public static final String MAPPER_CLASS_SUFFIX = "BindMap";
 
-	private static final JsonBinderContext jsonBinderContext = new JsonBinderContext();
+	private static final KriptonJsonContext jsonBinderContext = new KriptonJsonContext();
 
 	public static void registryBinder(BinderContext factory) {
 		binders.put(factory.getSupportedFormat(), factory);
@@ -28,7 +28,7 @@ public abstract class KriptonBinder {
 	 * 
 	 * @return
 	 */
-	public static JsonBinderContext getJsonBinderContext() {
+	public static KriptonJsonContext getJsonBinderContext() {
 		return jsonBinderContext;
 	}
 

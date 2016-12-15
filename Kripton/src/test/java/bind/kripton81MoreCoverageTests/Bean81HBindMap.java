@@ -1,8 +1,8 @@
 package bind.kripton81MoreCoverageTests;
 
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.binder.context.JacksonContext;
-import com.abubusoft.kripton.binder.context.XmlBinderContext;
+import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
+import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.binder.core.AbstractMapper;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
@@ -42,7 +42,7 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(JacksonContext context, Bean81H object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(AbstractJacksonContext context, Bean81H object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -78,7 +78,7 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(JacksonContext context, Bean81H object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean81H object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -113,7 +113,7 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(XmlBinderContext context, Bean81H object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, Bean81H object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -150,7 +150,7 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
    * create new object instance
    */
   @Override
-  public Bean81H parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean81H parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       Bean81H instance = createInstance();
@@ -199,7 +199,7 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
    * create new object instance
    */
   @Override
-  public Bean81H parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean81H parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       Bean81H instance = createInstance();
@@ -248,7 +248,7 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
    * create new object instance
    */
   @Override
-  public Bean81H parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public Bean81H parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlParser xmlParser = wrapper.xmlParser;
       Bean81H instance = createInstance();

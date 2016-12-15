@@ -5,7 +5,7 @@ import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.binder.KriptonBinder;
-import com.abubusoft.kripton.binder.context.JacksonContext;
+import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CollectionUtils;
@@ -210,7 +210,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
     if (value==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder.getJsonBinderContext();
+    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -247,7 +247,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
     if (input==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder.getJsonBinderContext();
+    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -281,7 +281,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
     if (value==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder.getJsonBinderContext();
+    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -318,7 +318,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
     if (input==null) {
       return null;
     }
-    JacksonContext context=KriptonBinder.getJsonBinderContext();
+    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT

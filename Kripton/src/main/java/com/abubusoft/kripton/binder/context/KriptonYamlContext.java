@@ -8,7 +8,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class YamlBinderContext extends JacksonContext {
+public class KriptonYamlContext extends AbstractJacksonContext {
 
 	@Override
 	public BinderType getSupportedFormat()

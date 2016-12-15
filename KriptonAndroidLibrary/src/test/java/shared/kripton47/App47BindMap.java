@@ -1,8 +1,8 @@
 package shared.kripton47;
 
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.binder.context.JacksonContext;
-import com.abubusoft.kripton.binder.context.XmlBinderContext;
+import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
+import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.binder.core.AbstractMapper;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
@@ -39,7 +39,7 @@ public class App47BindMap extends AbstractMapper<App47> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(JacksonContext context, App47 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(AbstractJacksonContext context, App47 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -72,7 +72,7 @@ public class App47BindMap extends AbstractMapper<App47> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(JacksonContext context, App47 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(AbstractJacksonContext context, App47 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -107,7 +107,7 @@ public class App47BindMap extends AbstractMapper<App47> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(XmlBinderContext context, App47 object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, App47 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -143,7 +143,7 @@ public class App47BindMap extends AbstractMapper<App47> {
    * create new object instance
    */
   @Override
-  public App47 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
+  public App47 parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       App47 instance = createInstance();
@@ -188,7 +188,7 @@ public class App47BindMap extends AbstractMapper<App47> {
    * create new object instance
    */
   @Override
-  public App47 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
+  public App47 parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       App47 instance = createInstance();
@@ -233,7 +233,7 @@ public class App47BindMap extends AbstractMapper<App47> {
    * create new object instance
    */
   @Override
-  public App47 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public App47 parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlParser xmlParser = wrapper.xmlParser;
       App47 instance = createInstance();

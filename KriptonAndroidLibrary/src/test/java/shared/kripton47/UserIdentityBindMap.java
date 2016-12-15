@@ -1,8 +1,8 @@
 package shared.kripton47;
 
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.binder.context.JacksonContext;
-import com.abubusoft.kripton.binder.context.XmlBinderContext;
+import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
+import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.binder.core.AbstractMapper;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
@@ -39,7 +39,7 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(JacksonContext context, UserIdentity object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(AbstractJacksonContext context, UserIdentity object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -77,7 +77,7 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(JacksonContext context, UserIdentity object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(AbstractJacksonContext context, UserIdentity object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -115,7 +115,7 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(XmlBinderContext context, UserIdentity object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, UserIdentity object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -158,7 +158,7 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
    * create new object instance
    */
   @Override
-  public UserIdentity parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
+  public UserIdentity parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       UserIdentity instance = createInstance();
@@ -209,7 +209,7 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
    * create new object instance
    */
   @Override
-  public UserIdentity parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
+  public UserIdentity parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       UserIdentity instance = createInstance();
@@ -260,7 +260,7 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
    * create new object instance
    */
   @Override
-  public UserIdentity parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public UserIdentity parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlParser xmlParser = wrapper.xmlParser;
       UserIdentity instance = createInstance();

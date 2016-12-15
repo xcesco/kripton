@@ -2,23 +2,24 @@ package com.abubusoft.kripton.binder.context;
 
 import com.abubusoft.kripton.binder.BinderType;
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
+import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class PropertiesBinderContext extends JacksonContext {
+public class KriptonCborContext extends AbstractJacksonContext {
 
 	@Override
 	public BinderType getSupportedFormat()
 	{
-		return BinderType.PROPERTIES;
+		return BinderType.CBOR;
 	}
 	
 	@Override
 	public JsonFactory createInnerFactory()
 	{
-		return new JavaPropsFactory();
+		return new CBORFactory();
 	}
+	
 }

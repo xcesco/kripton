@@ -1,8 +1,8 @@
 package bind.kripton73Array;
 
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.binder.context.JacksonContext;
-import com.abubusoft.kripton.binder.context.XmlBinderContext;
+import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
+import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.binder.core.AbstractMapper;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
@@ -56,7 +56,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(JacksonContext context, Bean73 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(AbstractJacksonContext context, Bean73 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -310,7 +310,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(JacksonContext context, Bean73 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean73 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -614,7 +614,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(XmlBinderContext context, Bean73 object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, Bean73 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -877,7 +877,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
    * create new object instance
    */
   @Override
-  public Bean73 parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean73 parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       Bean73 instance = createInstance();
@@ -1111,7 +1111,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
    * create new object instance
    */
   @Override
-  public Bean73 parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean73 parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       Bean73 instance = createInstance();
@@ -1407,7 +1407,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
    * create new object instance
    */
   @Override
-  public Bean73 parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public Bean73 parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlParser xmlParser = wrapper.xmlParser;
       Bean73 instance = createInstance();

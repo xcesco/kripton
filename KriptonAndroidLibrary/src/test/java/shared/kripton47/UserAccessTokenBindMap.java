@@ -1,8 +1,8 @@
 package shared.kripton47;
 
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.binder.context.JacksonContext;
-import com.abubusoft.kripton.binder.context.XmlBinderContext;
+import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
+import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.binder.core.AbstractMapper;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
@@ -40,7 +40,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(JacksonContext context, UserAccessToken object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(AbstractJacksonContext context, UserAccessToken object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -70,7 +70,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(JacksonContext context, UserAccessToken object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(AbstractJacksonContext context, UserAccessToken object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -99,7 +99,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(XmlBinderContext context, UserAccessToken object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, UserAccessToken object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -133,7 +133,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
    * create new object instance
    */
   @Override
-  public UserAccessToken parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
+  public UserAccessToken parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       UserAccessToken instance = createInstance();
@@ -176,7 +176,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
    * create new object instance
    */
   @Override
-  public UserAccessToken parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
+  public UserAccessToken parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       UserAccessToken instance = createInstance();
@@ -219,7 +219,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
    * create new object instance
    */
   @Override
-  public UserAccessToken parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public UserAccessToken parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlParser xmlParser = wrapper.xmlParser;
       UserAccessToken instance = createInstance();

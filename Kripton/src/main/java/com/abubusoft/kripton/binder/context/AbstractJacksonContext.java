@@ -15,11 +15,11 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 
-public abstract class JacksonContext extends AbstractContext implements BinderContext {
+public abstract class AbstractJacksonContext extends AbstractContext implements BinderContext {
 
 	public JsonFactory innerFactory;
 
-	public JacksonContext() {
+	public AbstractJacksonContext() {
 		innerFactory = createInnerFactory();
 	}
 

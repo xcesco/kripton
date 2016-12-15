@@ -1,8 +1,8 @@
 package sqlite.kripton64;
 
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.binder.context.JacksonContext;
-import com.abubusoft.kripton.binder.context.XmlBinderContext;
+import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
+import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.binder.core.AbstractMapper;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
@@ -46,7 +46,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(JacksonContext context, Bean64B object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(AbstractJacksonContext context, Bean64B object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -116,7 +116,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(JacksonContext context, Bean64B object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean64B object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -192,7 +192,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(XmlBinderContext context, Bean64B object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, Bean64B object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -268,7 +268,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
    * create new object instance
    */
   @Override
-  public Bean64B parseOnJackson(JacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean64B parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       Bean64B instance = createInstance();
@@ -348,7 +348,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
    * create new object instance
    */
   @Override
-  public Bean64B parseOnJacksonAsString(JacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean64B parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
       Bean64B instance = createInstance();
@@ -455,7 +455,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
    * create new object instance
    */
   @Override
-  public Bean64B parseOnXml(XmlBinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public Bean64B parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlParser xmlParser = wrapper.xmlParser;
       Bean64B instance = createInstance();

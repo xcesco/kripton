@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonFactory;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class JsonBinderContext extends JacksonContext {
+public class KriptonJsonContext extends AbstractJacksonContext {
 
 	@Override
 	public BinderType getSupportedFormat()

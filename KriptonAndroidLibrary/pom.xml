@@ -1,79 +1,43 @@
-<!-- Copyright 2015, 2016 Francesco Benincasa. Licensed under the Apache 
+<!--
+	Copyright 2015, 2016 Francesco Benincasa. Licensed under the Apache 
 	License, Version 2.0 (the "License"); you may not use this file except in 
 	compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
 	Unless required by applicable law or agreed to in writing, software distributed 
 	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
 	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
-	the specific language governing permissions and limitations under the License. -->
+	the specific language governing permissions and limitations under the License.	
+	-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>Kripton Android Library</name>
 
-	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-android-library</artifactId>
-	<version>1.5.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-	<url>https://github.com/xcesco/kripton</url>
+	<description>Kripton Persistence Library for Android platform.</description>
+	
+	<parent>
+		<groupId>com.abubusoft</groupId>
+		<artifactId>kripton-parent</artifactId>
+		<version>1.5.0-SNAPSHOT</version>
+		<relativePath>../KriptonParent/pom.xml</relativePath>
+	</parent>
 
 	<properties>
 		<!-- use UTF-8 for everything -->
-		<sourceEncoding>UTF-8</sourceEncoding>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<android-maven-plugin.version>4.2.0</android-maven-plugin.version>
-		<kripton.version>1.5.0-SNAPSHOT</kripton.version>
-		<jackson.version>2.8.5</jackson.version>
-		<woodstox.version>5.0.3</woodstox.version>
+		<android-maven-plugin.version>4.2.0</android-maven-plugin.version>		
 		<roboletric.version>3.1</roboletric.version>
 
-		<junit.version>4.12</junit.version>
-		<unitilsVersion>3.4.2</unitilsVersion>
-
-		<!-- <android.version>5.0.1_r2</android.version> -->
-		<!-- <support-v4.version>21.0.3</support-v4.version> -->
+		
 	</properties>
-
-	<description>Bind library to convert java POJO to XML, to JSON and viceversa.</description>
-
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-	<issueManagement>
-		<system>GitHub Issues</system>
-		<url>https://github.com/xcesco/kripton/issues</url>
-	</issueManagement>
-
-	<scm>
-		<connection>scm:git:https://github.com/xcesco/kripton.git</connection>
-		<developerConnection>scm:git:git@github.com:xcesco/kripton.git</developerConnection>
-		<url>https://github.com/xcesco/kripton</url>
-	</scm>
-
-	<developers>
-		<developer>
-			<id>xcesco</id>
-			<name>Francesco Benincasa</name>
-			<email>abubusoft@gmail.com</email>
-			<roles>
-				<role>owner</role>
-				<role>developer</role>
-			</roles>
-		</developer>
-	</developers>
-
 
 	<dependencies>
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton</artifactId>
-			<version>${kripton.version}</version>
+			<version>${parent.version}</version>
 		</dependency>		
 	
 		<dependency>
@@ -103,150 +67,7 @@
 			<version>r7</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-install-plugin</artifactId>
-			<version>2.5.2</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.unitils</groupId>
-			<artifactId>unitils-core</artifactId>
-			<version>${unitilsVersion}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>junit</artifactId>
-					<groupId>junit</groupId>
-				</exclusion>
-			</exclusions>
-			<scope>test</scope>
-		</dependency>
 	
 	</dependencies>
-
-	<build>
-
-		<plugins>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-
-		</plugins>
-	</build>
-
-	<profiles>
-		<profile>
-			<id>deploy</id>
-
-			<build>
-				<plugins>
-					<!-- deploy on sonatype -->
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.5</version>
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>ossrh</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
-						</configuration>
-					</plugin>
-
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-
-			<!-- distribution manager -->
-			<distributionManagement>
-				<snapshotRepository>
-					<id>ossrh</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-				</snapshotRepository>
-				<repository>
-					<id>ossrh</id>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-				</repository>
-			</distributionManagement>
-
-		</profile>
-
-		<profile>
-			<id>release</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-
-			<build>
-				<plugins>
-
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.10.2</version>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-								<configuration>
-<!-- 									<additionalparam>-Xdoclint:none</additionalparam> -->
-									<failOnError>false</failOnError>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<version>2.4</version>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-
-				</plugins>
-
-			</build>
-		</profile>
-	</profiles>
-
-
+		
 </project>
