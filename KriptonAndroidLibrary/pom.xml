@@ -24,11 +24,15 @@
 		<version>1.5.0-SNAPSHOT</version>
 		<relativePath>../KriptonParent/pom.xml</relativePath>
 	</parent>
-
+ 
 	<properties>
 		<!-- use UTF-8 for everything -->
 		<android-maven-plugin.version>4.2.0</android-maven-plugin.version>		
-		<roboletric.version>3.1</roboletric.version>		
+		<roboletric.version>3.1</roboletric.version>	
+		
+		<!-- dependencies version -->
+		<jackson.version>2.8.5</jackson.version>
+		<woodstox.version>5.0.3</woodstox.version>
 	</properties>
 
 	<dependencies>
