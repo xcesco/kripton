@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.abubusoft</groupId>
+	<artifactId>kripton-example-01</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<!-- Property version 1.5.0-SNAPSHOT -->
+	<properties>
+		<!-- environment version -->
+		<sourceEncoding>UTF-8</sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		
+		<java.version>1.7</java.version>
+
+		<!-- dependencies version -->
+		<jackson.version>2.8.5</jackson.version>
+		<woodstox.version>5.0.3</woodstox.version>
+		<retrofit.version>2.1.0</retrofit.version>
+
+		<junit.version>4.12</junit.version>
+		<unitils.version>3.4.2</unitils.version>
+
+		<jsr305.version>3.0.1</jsr305.version>
+		<guava.version>19.0</guava.version>
+		<javapoet.version>1.7.0</javapoet.version>
+		<robolectric.version>3.1.4</robolectric.version>
+		<roboletricAndroidAll.version>6.0.0_r1-robolectric-0</roboletricAndroidAll.version>
+
+		<!-- plugins version -->
+		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
+		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		
+		<kripton.version>1.5.0-SNAPSHOT</kripton.version>
+	</properties>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit -->
+		<dependency>
+			<groupId>com.squareup.retrofit2</groupId>
+			<artifactId>retrofit</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-retrofit-converter</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.6.0</version>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>com.abubusoft</groupId>
+								<artifactId>kripton-processor</artifactId>
+								<version>${kripton.version}</version>
+							</path>
+						</annotationProcessorPaths>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+	</build>
+
+</project>
