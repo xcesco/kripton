@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>kripton-dataformat-xml</artifactId>
+	<name>Kripton XML data format</name>
+    <description>This is jar need to support XML format.</description>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>com.abubusoft</groupId>
+		<artifactId>kripton-parent</artifactId>
+		<version>1.5.0-SNAPSHOT</version>
+		<relativePath>../KriptonParent/pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+	
+		<!-- https://github.com/FasterXML/woodstox/ -->
+		<dependency>
+			<groupId>com.fasterxml.woodstox</groupId>
+			<artifactId>woodstox-core</artifactId>
+			<version>${woodstox.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>
