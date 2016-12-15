@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>kripton-format-properties</artifactId>
+	<artifactId>kripton-dataformat-properties</artifactId>
 	<name>Kripton Properties data format</name>
     <description>This is jar need to support Properties format.</description>
 	<packaging>jar</packaging>

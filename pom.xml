@@ -17,8 +17,12 @@
 
   <modules>
     <module>Kripton</module>
+	<module>KriptonDataFormatCbor</module>
+	<module>KriptonDataFormatProperties</module>
+	<module>KriptonDataFormatXml</module>
+	<module>KriptonDataFormatYaml</module>
     <module>KriptonAndroidLibrary</module>
-	<module>KriptonProcessor</module>
+	<module>KriptonProcessor</module>	
   </modules>
 
   <properties>
