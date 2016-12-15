@@ -35,7 +35,7 @@ import javax.lang.model.type.TypeVisitor;
  * @author xcesco
  *
  */
-public class LiteralType implements TypeMirror {
+public class LiteralType {
 	
 	final static Map<String, LiteralType> cached=new HashMap<String, LiteralType>();
 
@@ -219,13 +219,11 @@ public class LiteralType implements TypeMirror {
 		return rawType;
 	}
 
-	@Override
 	public TypeKind getKind() {
 
 		return null;
 	}
 
-	@Override
 	public <R, P> R accept(TypeVisitor<R, P> v, P p) {
 		return null;
 	}

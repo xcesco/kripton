@@ -167,13 +167,14 @@ public class SqlAnalyzer {
 				{
 					throw new MethodParameterNotFoundException(method, splittedName[0]);
 				}
-				
+				 
 				if (TypeUtility.isEquals(TypeUtility.typeName(method.findParameterTypeByAliasOrName(splittedName[0])), entity) && entity.contains(splittedName[1]))
 				{				
 					// there are nested property invocation
 					paramGetters.add(method.findParameterNameByAlias(splittedName[0])+"."+getter(entity.findByName(splittedName[1])));
 					usedBeanPropertyNames.add(splittedName[1]);
-					paramTypeNames.add(entity.findByName(splittedName[1]).getPropertyType());
+					//paramTypeNames.add(entity.findByName(splittedName[1]).getPropertyType());
+					paramTypeNames.add(entity.findByName(splittedName[1]).getElement().asType());
 					
 					usedMethodParameters.add(method.findParameterNameByAlias(splittedName[0]));
 				} else {
