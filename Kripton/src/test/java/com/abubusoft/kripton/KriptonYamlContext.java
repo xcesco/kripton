@@ -1,25 +1,26 @@
-package com.abubusoft.kripton.binder.context;
+package com.abubusoft.kripton;
 
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.BinderType;
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class KriptonPropertiesContext extends AbstractJacksonContext {
+public class KriptonYamlContext extends AbstractJacksonContext {
 
 	@Override
 	public BinderType getSupportedFormat()
 	{
-		return BinderType.PROPERTIES;
+		return BinderType.YAML;
 	}
 	
 	@Override
 	public JsonFactory createInnerFactory()
 	{
-		return new JavaPropsFactory();
+		return new YAMLFactory();
 	}
+	
 }

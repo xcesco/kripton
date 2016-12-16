@@ -16,10 +16,10 @@
   <url>https://github.com/xcesco/kripton</url>
 
   <modules>
+	<module>KriptonCore</module>
     <module>Kripton</module>
 	<module>KriptonDataFormatCbor</module>
-	<module>KriptonDataFormatProperties</module>
-	<module>KriptonDataFormatXml</module>
+	<module>KriptonDataFormatProperties</module>	
 	<module>KriptonDataFormatYaml</module>
     <module>KriptonAndroidLibrary</module>
 	<module>KriptonProcessor</module>

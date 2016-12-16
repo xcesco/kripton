@@ -167,7 +167,7 @@
 									<goal>jar</goal>
 								</goals>
 							</execution>
-						</executions>
+						</executions> 
 					</plugin>
 
 				</plugins>
@@ -175,11 +175,12 @@
 		</profile>
 	</profiles>
 
+	<!-- common part - END -->
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId> 
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<source>${java.version}</source>
@@ -188,8 +189,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- common part - END -->
-
 
 	<dependencies>
 		<dependency>

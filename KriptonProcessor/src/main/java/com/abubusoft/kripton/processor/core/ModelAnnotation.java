@@ -19,26 +19,6 @@ import java.util.Map;
 
 public class ModelAnnotation {
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ModelAnnotation [");
-		if (name != null) {
-			builder.append("name=");
-			builder.append(name);
-			builder.append(", ");
-		}
-		if (attributes != null) {
-			builder.append("attributes=");
-			builder.append(attributes);
-		}
-		builder.append("]");
-		return builder.toString();
-	}
-
 	protected String name;
 
 	/**
@@ -51,19 +31,11 @@ public class ModelAnnotation {
 	protected Map<String, String> attributes;
 
 
-//	public Map<String, String> getAttributes() {
-//		return attributes;
-//	}
-
 	public ModelAnnotation(String name, Map<String, String> attributes) {
 		this.name = name;
 		this.attributes = attributes;
 	}
 
-//	public String getAttribute(String attributeName) {
-//		return attributes.get(attributeName);
-//	}
-	
 	public String getAttribute(AnnotationAttributeType attribute) {
 		return attributes.get(attribute.getValue());
 	}

@@ -38,43 +38,6 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ModelMethod [");
-		if (name != null) {
-			builder.append("name=");
-			builder.append(name);
-			builder.append(", ");
-		}
-		if (annotations != null) {
-			builder.append("annotations=");
-			builder.append(annotations);
-			builder.append(", ");
-		}
-		if (parameters != null) {
-			builder.append("parameters=");
-			builder.append(parameters);
-			builder.append(", ");
-		}
-		if (returnClass != null) {
-			builder.append("returnClass=");
-			builder.append(returnClass);
-			builder.append(", ");
-		}
-		if (element != null) {
-			builder.append("element=");
-			builder.append(element);
-		}
-		builder.append("]");
-		return builder.toString();
-	}
-
 	public ModelMethod(ExecutableElement element) {
 		super(element.getSimpleName().toString(), element);
 		this.parameters = new ArrayList<Pair<String, TypeMirror>>();
@@ -93,13 +56,6 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	}
 
 	protected List<ModelAnnotation> annotations;
-
-	/**
-	 * @return the annotations
-	 */
-//	public List<ModelAnnotation> getAnnotations() {
-//		return annotations;
-//	}
 
 	/**
 	 * @return the parameters
