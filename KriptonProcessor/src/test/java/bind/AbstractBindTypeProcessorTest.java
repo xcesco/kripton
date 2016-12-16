@@ -116,13 +116,13 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 	 * @return
 	 */
 	public int serializeAndParse(Object bean, BinderType type) {
-		String output1 = KriptonBinder.getBinder(type).serialize(bean);
+		String output1 = KriptonBinder.bind(type).serialize(bean);
 		if (developmentMode)
 			System.out.println(output1);
 
-		Object bean2 = KriptonBinder.getBinder(type).parse(output1, bean.getClass());
+		Object bean2 = KriptonBinder.bind(type).parse(output1, bean.getClass());
 
-		String output2 = KriptonBinder.getBinder(type).serialize(bean2);
+		String output2 = KriptonBinder.bind(type).serialize(bean2);
 		if (developmentMode)
 			System.out.println(output2);
 
@@ -134,10 +134,10 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 	}
 
 	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) {
-		String value1 = KriptonBinder.getBinder(type).serializeCollection(list, clazz);
-		Collection<E> list2 = KriptonBinder.getBinder(type).parseCollection(new ArrayList<E>(), clazz, value1);
+		String value1 = KriptonBinder.bind(type).serializeCollection(list, clazz);
+		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(new ArrayList<E>(), clazz, value1);
 
-		String value2 = KriptonBinder.getBinder(type).serializeCollection(list2, clazz);
+		String value2 = KriptonBinder.bind(type).serializeCollection(list2, clazz);
 
 		if (developmentMode)
 			System.out.println(value1);
@@ -152,13 +152,13 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 
 	public <E> int serializeAndParseCollectionBinary(Collection<E> list, Class<E> clazz, BinderType type) {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
-		KriptonBinder.getBinder(type).serializeCollection(list, clazz, bar);
+		KriptonBinder.bind(type).serializeCollection(list, clazz, bar);
 		String value1 = toString(bar.getByteBuffer());
 
-		Collection<E> list2 = KriptonBinder.getBinder(type).parseCollection(new ArrayList<E>(), clazz, bar.getByteBufferCopy());
+		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(new ArrayList<E>(), clazz, bar.getByteBufferCopy());
 
 		KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
-		KriptonBinder.getBinder(type).serializeCollection(list2, clazz, bar2);
+		KriptonBinder.bind(type).serializeCollection(list2, clazz, bar2);
 		String value2 = toString(bar2.getByteBuffer());
 
 		if (developmentMode)
@@ -174,15 +174,15 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 
 	public int serializeAndParseBinary(Object bean, BinderType type) {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
-		KriptonBinder.getBinder(type).serialize(bean, bar);
+		KriptonBinder.bind(type).serialize(bean, bar);
 		String value1 = toString(bar.getByteBuffer());
 
 		if (developmentMode)
 			System.out.println(value1);
-		Object bean2 = KriptonBinder.getBinder(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
+		Object bean2 = KriptonBinder.bind(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
 
 		KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
-		KriptonBinder.getBinder(type).serialize(bean2, bar2);
+		KriptonBinder.bind(type).serialize(bean2, bar2);
 		String value2 = toString(bar2.getByteBuffer());
 		if (developmentMode)
 			System.out.println(value2);

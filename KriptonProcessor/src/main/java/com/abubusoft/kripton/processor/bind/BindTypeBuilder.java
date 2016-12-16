@@ -32,8 +32,8 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
-import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonXmlContext;
+import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.binder.xml.XMLEventConstants;

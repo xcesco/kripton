@@ -12,21 +12,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.abubusoft.kripton.BinderBuilder;
-import com.abubusoft.kripton.BinderContext;
-import com.abubusoft.kripton.BinderType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
 import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.abubusoft.kripton.persistence.SerializerWrapper;
 
 public abstract class AbstractContext implements BinderContext, BinderBuilder {
-
+	
 	@SuppressWarnings("rawtypes")
-	private static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
+	static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
 
 	@SuppressWarnings("unchecked")
-	public <E, M extends BinderMapper<E>> M getMapper(Class<E> cls) {
+	public static <E, M extends BinderMapper<E>> M getMapper(Class<E> cls) {
 		M mapper = (M) OBJECT_MAPPERS.get(cls);
 		if (mapper == null) {
 			// The only way the mapper wouldn't already be loaded into
@@ -52,9 +49,7 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		}
 		return mapper;
 	}
-
-	public abstract BinderType getSupportedFormat();
-
+	
 	/**
 	 * Returns a JsonMapper for a given class that has been annotated
 	 * with @JsonObject.
@@ -62,21 +57,21 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 	 * @param cls
 	 *            The class for which the JsonMapper should be fetched.
 	 */
-	public <T, M extends BinderMapper<T>> M mapperFor(Class<T> cls) throws NoSuchMapperException {
+	public static <T, M extends BinderMapper<T>> M mapperFor(Class<T> cls) throws NoSuchMapperException {
 		M mapper = getMapper(cls);
 
 		if (mapper == null) {
-			throw new NoSuchMapperException(cls, getSupportedFormat());
+			throw new NoSuchMapperException(cls);
 		} else {
 			return mapper;
 		}
 	}
 
-	public <E, M extends BinderMapper<E>> M mapperFor(ParameterizedType type) throws NoSuchMapperException {
+	public static <E, M extends BinderMapper<E>> M mapperFor(ParameterizedType type) throws NoSuchMapperException {
 		@SuppressWarnings("unchecked")
 		M mapper = getMapper((Class<E>) type.getActualTypeArguments()[0]);
 		if (mapper == null) {
-			throw new NoSuchMapperException(type.getRawType(), getSupportedFormat());
+			throw new NoSuchMapperException(type.getRawType());
 		} else {
 			return mapper;
 		}

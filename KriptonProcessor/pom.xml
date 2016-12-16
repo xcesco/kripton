@@ -74,14 +74,7 @@
 			<artifactId>kripton-dataformat-yaml</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-dataformat-xml</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
+		</dependency>		
 				
 		<dependency>
 			<groupId>com.sun</groupId>

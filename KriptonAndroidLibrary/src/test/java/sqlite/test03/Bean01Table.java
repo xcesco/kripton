@@ -1,7 +1,7 @@
 package sqlite.test03;
 
-import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -94,7 +94,7 @@ public class Bean01Table {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -131,7 +131,7 @@ public class Bean01Table {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -165,7 +165,7 @@ public class Bean01Table {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -202,7 +202,7 @@ public class Bean01Table {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT

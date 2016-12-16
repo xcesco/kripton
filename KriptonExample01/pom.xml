@@ -36,12 +36,6 @@
 		
 		<dependency>
 			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-dataformat-xml</artifactId>
-			<version>${kripton.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-retrofit-converter</artifactId>
 			<version>${kripton.version}</version>
 		</dependency>

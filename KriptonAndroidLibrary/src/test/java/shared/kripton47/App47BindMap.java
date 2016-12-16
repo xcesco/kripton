@@ -2,8 +2,8 @@ package shared.kripton47;
 
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.binder.xml.XMLEventConstants;
 import com.abubusoft.kripton.binder.xml.XmlParser;
 import com.abubusoft.kripton.binder.xml.XmlSerializer;

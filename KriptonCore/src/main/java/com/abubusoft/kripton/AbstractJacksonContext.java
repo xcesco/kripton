@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 
-import com.abubusoft.kripton.BinderContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -16,7 +15,7 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 
-public abstract class AbstractJacksonContext extends AbstractContext implements BinderContext {
+public abstract class AbstractJacksonContext extends AbstractContext {
 
 	public JsonFactory innerFactory;
 
@@ -80,7 +79,6 @@ public abstract class AbstractJacksonContext extends AbstractContext implements 
 	public JacksonWrapperSerializer createSerializer(File file, JsonEncoding encoding) {
 		try {
 			JsonGenerator generator = innerFactory.createGenerator(file, encoding);
-			// generator.setPrettyPrinter(new MinimalPrettyPrinter());
 			return new JacksonWrapperSerializer(generator, getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();

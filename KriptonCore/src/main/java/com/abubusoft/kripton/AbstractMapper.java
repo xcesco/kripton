@@ -3,8 +3,6 @@ package com.abubusoft.kripton;
 import java.io.IOException;
 import java.util.Collection;
 
-import com.abubusoft.kripton.BinderContext;
-import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -51,19 +49,15 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 			try {
 				collection.clear();
 
-				if (parser.nextToken()!=JsonToken.START_ARRAY)
-				{
-					throw(new KriptonRuntimeException("Invalid input format"));
+				if (parser.nextToken() != JsonToken.START_ARRAY) {
+					throw (new KriptonRuntimeException("Invalid input format"));
 				}
-				if (context.getSupportedFormat().onlyText)
-				{					
-					while (parser.nextToken()!=JsonToken.END_ARRAY) {
+				if (context.getSupportedFormat().onlyText) {
+					while (parser.nextToken() != JsonToken.END_ARRAY) {
 						collection.add(parseOnJacksonAsString(jacksonContext, wrapperParser));
 					}
-				}
-				else
-				{
-					while (parser.nextToken()!=JsonToken.END_ARRAY) {						
+				} else {
+					while (parser.nextToken() != JsonToken.END_ARRAY) {
 						collection.add(parseOnJackson(jacksonContext, wrapperParser));
 					}
 				}

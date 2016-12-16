@@ -22,7 +22,7 @@ public final class KriptonBinderConverterFactory extends Converter.Factory {
 	protected BinderContext binderContext;
 
 	private KriptonBinderConverterFactory() {
-		binderContext=KriptonBinder.getBinder(BinderType.JSON);
+		binderContext=KriptonBinder.bind(BinderType.JSON);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

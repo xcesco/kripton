@@ -196,13 +196,7 @@
 			<artifactId>kripton-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.woodstox</groupId>
-			<artifactId>woodstox-core</artifactId>
-			<version>${woodstox.version}</version>
-		</dependency>
-
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-cbor</artifactId>

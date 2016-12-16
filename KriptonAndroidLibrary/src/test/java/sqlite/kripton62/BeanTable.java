@@ -1,7 +1,7 @@
 package sqlite.kripton62;
 
-import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -139,7 +139,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -173,7 +173,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -207,7 +207,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -241,7 +241,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -275,7 +275,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -309,7 +309,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -343,7 +343,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -377,7 +377,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -411,7 +411,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -445,7 +445,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -479,7 +479,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -513,7 +513,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -547,7 +547,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -581,7 +581,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -615,7 +615,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -649,7 +649,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -683,7 +683,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -717,7 +717,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -751,7 +751,7 @@ public class BeanTable {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -785,7 +785,7 @@ public class BeanTable {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT

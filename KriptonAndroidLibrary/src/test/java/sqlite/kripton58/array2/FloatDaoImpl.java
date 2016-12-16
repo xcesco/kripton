@@ -2,9 +2,8 @@ package sqlite.kripton58.array2;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-
-import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
@@ -472,7 +471,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
@@ -508,7 +507,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
@@ -542,7 +541,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     if (value==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
@@ -574,7 +573,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     if (input==null) {
       return null;
     }
-    AbstractJacksonContext context=KriptonBinder.getJsonBinderContext();
+    KriptonJsonContext context=KriptonBinder.jsonBind();
     try (JacksonWrapperParser wrapper=context.createParser(input)) {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT

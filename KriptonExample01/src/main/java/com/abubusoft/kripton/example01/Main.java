@@ -14,12 +14,12 @@ public class Main {
 		KriptonBinder.registryBinder(new KriptonXmlContext());
 
 		{
-			String result = KriptonBinder.getJsonBinderContext().serialize(bean);
+			String result = KriptonBinder.jsonBind().serialize(bean);
 			System.out.println(result);
 		}
 
 		{
-			String result = KriptonBinder.getBinder(BinderType.XML).serialize(bean);
+			String result = KriptonBinder.bind(BinderType.XML).serialize(bean);
 			System.out.println(result);
 		}
 	}

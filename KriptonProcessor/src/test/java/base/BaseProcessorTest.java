@@ -56,6 +56,8 @@ import com.google.common.io.ByteStreams;
 public class BaseProcessorTest {
 
 	protected static final String KRIPTON_TEST_DEBUG = "KRIPTON_TEST_DEBUG";
+	
+	protected TestType testType = TestType.NONE;
 
 	protected static boolean developmentMode = false;
 
@@ -76,7 +78,7 @@ public class BaseProcessorTest {
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
 	}
 
-	protected TestType testType = TestType.NONE;
+	
 
 	protected PathSourceType destinationPath;
 

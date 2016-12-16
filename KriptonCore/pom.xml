@@ -165,6 +165,22 @@
 	</profiles>
 
 	<!-- common part - END -->
+	<dependencies>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>			
+		</dependency>
+	
+		<dependency>
+			<groupId>com.fasterxml.woodstox</groupId>
+			<artifactId>woodstox-core</artifactId>
+			<version>${woodstox.version}</version>
+		</dependency>
+		
+		
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -178,45 +194,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencies>
-	
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${jackson.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.abubusoft</groupId>
-					<artifactId>kripton</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<!-- TEST DEPENDENCIES -->
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.unitils</groupId>
-			<artifactId>unitils-core</artifactId>
-			<version>${unitils.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>junit</artifactId>
-					<groupId>junit</groupId>
-				</exclusion>
-			</exclusions>
-			<scope>test</scope>
-		</dependency>
-
-	</dependencies>
-
 
 </project>

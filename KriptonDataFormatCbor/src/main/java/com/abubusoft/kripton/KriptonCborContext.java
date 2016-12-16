@@ -20,5 +20,4 @@ public class KriptonCborContext extends AbstractJacksonContext {
 	{
 		return new CBORFactory();
 	}
-	
 }
