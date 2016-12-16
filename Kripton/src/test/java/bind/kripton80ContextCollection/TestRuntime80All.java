@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.abubusoft.kripton.BinderType;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import bind.AbstractBaseTest;
 
@@ -60,16 +61,54 @@ public class TestRuntime80All extends AbstractBaseTest {
 		
 		return bean;
 	}
+	
+	public Bean80 createBean2() throws MalformedURLException
+	{
+		Bean80 bean = new Bean80();
+		
+		return bean;
+	}
 
 	@Test
-	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRun_1() throws IOException, InstantiationException, IllegalAccessException {
 		Assert.assertNotNull(new Bean80BindMap());
 				
 		List<Bean80> list=new ArrayList<>();
 		list.add(createBean());
 		list.add(createBean());
 				
-		checkCollection(list, Bean80.class, BinderType.JSON);
+		checkCollection(list, Bean80.class, BinderType.JSON, BinderType.CBOR, BinderType.PROPERTIES, BinderType.YAML);
+	}
+	
+	@Test(expected=KriptonRuntimeException.class)
+	public void testRun_1_err() throws IOException, InstantiationException, IllegalAccessException {
+		//this.expectedException(KriptonRuntimeException.class);		
+		Assert.assertNotNull(new Bean80BindMap());
+				
+		List<Bean80> list=new ArrayList<>();
+		list.add(createBean());
+		list.add(createBean());
+				
+		checkCollection(list, Bean80.class, BinderType.XML);
+	}
+	
+	@Test
+	public void testRun_2() throws IOException, InstantiationException, IllegalAccessException {
+		Assert.assertNotNull(new Bean80BindMap());
+				
+		List<Bean80> list=new ArrayList<>();
+		list.add(createBean());
+		list.add(createBean2());
+				
+		checkCollection(list, Bean80.class, BinderType.JSON, BinderType.CBOR, BinderType.PROPERTIES, BinderType.YAML);
+	}
+	
+	@Test
+	public void testRun_3() throws IOException, InstantiationException, IllegalAccessException {
+		Assert.assertNotNull(new Bean80BindMap());		
+				
+		check(createBean());
+		check(createBean2());
 	}
 
 }
