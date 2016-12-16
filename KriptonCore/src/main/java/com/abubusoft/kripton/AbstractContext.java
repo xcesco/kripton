@@ -15,7 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.abubusoft.kripton.BinderBuilder;
 import com.abubusoft.kripton.BinderContext;
 import com.abubusoft.kripton.BinderType;
-import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
 import com.abubusoft.kripton.persistence.ParserWrapper;
@@ -43,8 +42,8 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 				throw new KriptonRuntimeException(
-						String.format("Class '%s' does not exist. Does '%s' have '%s' annotation?", mapperClassName,
-								beanClassName, BindType.class.getName()));
+						String.format("Class '%s' does not exist. Does '%s' have @BindType annotation?", mapperClassName,
+								beanClassName));
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {

@@ -3,7 +3,7 @@ package com.abubusoft.kripton;
 import java.util.Collection;
 
 import com.abubusoft.kripton.BinderContext;
-import com.abubusoft.kripton.binder.context.KriptonXmlContext;
+import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.persistence.ParserWrapper;

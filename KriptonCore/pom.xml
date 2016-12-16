@@ -180,12 +180,18 @@
 	</build>
 
 	<dependencies>
-
+	
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
 		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.abubusoft</groupId>
+					<artifactId>kripton</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- TEST DEPENDENCIES -->
