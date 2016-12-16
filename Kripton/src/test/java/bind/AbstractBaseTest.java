@@ -13,8 +13,8 @@ import org.junit.rules.ExpectedException;
 import org.unitils.reflectionassert.ReflectionAssert;
 import org.unitils.reflectionassert.ReflectionComparatorMode;
 
-import com.abubusoft.kripton.binder.BinderType;
-import com.abubusoft.kripton.binder.KriptonBinder;
+import com.abubusoft.kripton.BinderType;
+import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.binder.context.KriptonCborContext;
 import com.abubusoft.kripton.binder.context.KriptonPropertiesContext;
 import com.abubusoft.kripton.binder.context.KriptonXmlContext;

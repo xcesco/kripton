@@ -1,18 +1,18 @@
 package shared.kripton47;
 
+import com.abubusoft.kripton.AbstractJacksonContext;
+import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
-import com.abubusoft.kripton.binder.context.BinderContext;
-import com.abubusoft.kripton.binder.core.AbstractMapper;
-import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.binder.persistence.XmlWrapperParser;
-import com.abubusoft.kripton.binder.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.binder.context.KriptonXmlContext;
 import com.abubusoft.kripton.binder.xml.XMLEventConstants;
 import com.abubusoft.kripton.binder.xml.XmlParser;
 import com.abubusoft.kripton.binder.xml.XmlSerializer;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.persistence.XmlWrapperParser;
+import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -115,7 +115,7 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(BinderContext context, UserIdentity object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, UserIdentity object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
@@ -260,7 +260,7 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
    * create new object instance
    */
   @Override
-  public UserIdentity parseOnXml(BinderContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public UserIdentity parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlParser xmlParser = wrapper.xmlParser;
       UserIdentity instance = createInstance();

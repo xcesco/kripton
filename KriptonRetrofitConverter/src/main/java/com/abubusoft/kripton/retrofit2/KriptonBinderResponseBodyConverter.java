@@ -2,7 +2,7 @@ package com.abubusoft.kripton.retrofit2;
 
 import java.io.IOException;
 
-import com.abubusoft.kripton.binder.context.BinderContext;
+import com.abubusoft.kripton.BinderContext;
 
 import okhttp3.ResponseBody;
 import retrofit2.Converter;

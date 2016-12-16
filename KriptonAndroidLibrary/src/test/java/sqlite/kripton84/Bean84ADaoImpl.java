@@ -2,16 +2,17 @@ package sqlite.kripton84;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+
+import com.abubusoft.kripton.AbstractJacksonContext;
+import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.binder.KriptonBinder;
-import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
-import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;

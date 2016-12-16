@@ -16,10 +16,11 @@ import org.codehaus.stax2.XMLOutputFactory2;
 import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.XMLStreamWriter2;
 
-import com.abubusoft.kripton.binder.BinderType;
-import com.abubusoft.kripton.binder.persistence.XmlWrapperParser;
-import com.abubusoft.kripton.binder.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.AbstractContext;
+import com.abubusoft.kripton.BinderType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.persistence.XmlWrapperParser;
+import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
 import com.fasterxml.jackson.core.JsonEncoding;
 
 /**

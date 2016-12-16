@@ -10,12 +10,12 @@ import org.junit.Before;
 import org.unitils.reflectionassert.ReflectionAssert;
 import org.unitils.reflectionassert.ReflectionComparatorMode;
 
-import com.abubusoft.kripton.binder.BinderType;
-import com.abubusoft.kripton.binder.KriptonBinder;
-import com.abubusoft.kripton.binder.context.KriptonCborContext;
-import com.abubusoft.kripton.binder.context.KriptonPropertiesContext;
-import com.abubusoft.kripton.binder.context.KriptonXmlContext;
-import com.abubusoft.kripton.binder.context.KriptonYamlContext;
+import com.abubusoft.kripton.BinderType;
+import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.KriptonCborContext;
+import com.abubusoft.kripton.KriptonPropertiesContext;
+import com.abubusoft.kripton.KriptonXmlContext;
+import com.abubusoft.kripton.KriptonYamlContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
 import base.BaseProcessorTest;

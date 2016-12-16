@@ -1,13 +1,9 @@
 package bind.kripton81MoreCoverageTests;
 
+import com.abubusoft.kripton.AbstractJacksonContext;
+import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
 import com.abubusoft.kripton.binder.context.KriptonXmlContext;
-import com.abubusoft.kripton.binder.core.AbstractMapper;
-import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.binder.persistence.XmlWrapperParser;
-import com.abubusoft.kripton.binder.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.binder.xml.XMLEventConstants;
 import com.abubusoft.kripton.binder.xml.XmlParser;
 import com.abubusoft.kripton.binder.xml.XmlSerializer;
@@ -16,6 +12,10 @@ import com.abubusoft.kripton.common.BigIntegerUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.persistence.XmlWrapperParser;
+import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;

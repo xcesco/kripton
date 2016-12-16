@@ -2,7 +2,7 @@ package com.abubusoft.kripton.exception;
 
 import java.lang.reflect.Type;
 
-import com.abubusoft.kripton.binder.BinderType;
+import com.abubusoft.kripton.BinderType;
 
 
 public class NoSuchMapperException extends KriptonRuntimeException {

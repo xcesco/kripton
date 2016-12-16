@@ -4,9 +4,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import com.abubusoft.kripton.binder.BinderType;
-import com.abubusoft.kripton.binder.KriptonBinder;
-import com.abubusoft.kripton.binder.context.BinderContext;
+import com.abubusoft.kripton.BinderContext;
+import com.abubusoft.kripton.BinderType;
+import com.abubusoft.kripton.KriptonBinder;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

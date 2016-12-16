@@ -5,7 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-import com.abubusoft.kripton.binder.context.BinderContext;
+import com.abubusoft.kripton.BinderContext;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

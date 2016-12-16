@@ -7,14 +7,14 @@ import java.util.List;
 
 import javax.lang.model.element.Modifier;
 
-import com.abubusoft.kripton.binder.KriptonBinder;
-import com.abubusoft.kripton.binder.context.AbstractJacksonContext;
-import com.abubusoft.kripton.binder.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.binder.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.AbstractJacksonContext;
+import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;

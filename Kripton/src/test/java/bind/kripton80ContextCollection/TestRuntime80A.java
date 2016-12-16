@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.abubusoft.kripton.binder.BinderType;
+import com.abubusoft.kripton.BinderType;
 
 import bind.AbstractBaseTest;
 
