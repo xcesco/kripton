@@ -5,7 +5,7 @@ import java.util.Locale;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.xml.XmlType;
 
 @BindType
 public class Bean81P {

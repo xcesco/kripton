@@ -13,7 +13,7 @@ import java.util.TimeZone;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.binder.xml.XmlType;
+import com.abubusoft.kripton.xml.XmlType;
 
 import bind.kripton80ContextCollection.Bean80;
 import bind.kripton80ContextCollection.BeanEnum;

@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.common;
 
-import com.abubusoft.kripton.binder.xml.XmlParser;
+import com.abubusoft.kripton.persistence.XmlParser;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)

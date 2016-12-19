@@ -17,10 +17,10 @@ package com.abubusoft.kripton.processor.bind.model;
 
 import javax.lang.model.element.Element;
 
-import com.abubusoft.kripton.binder.xml.MapEntryType;
-import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
+import com.abubusoft.kripton.xml.MapEntryType;
+import com.abubusoft.kripton.xml.XmlType;
 import com.squareup.javapoet.TypeName;
 
 public class BindProperty extends ModelProperty {

@@ -16,7 +16,7 @@
 /**
  * 
  */
-package com.abubusoft.kripton.binder.xml;
+package com.abubusoft.kripton.xml;
 
 /**
  * Mapping type of map entry

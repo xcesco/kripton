@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.exception;
 
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
+
 /**
  * This exception is a generic kripton exception. 
  * 
@@ -22,6 +24,15 @@ package com.abubusoft.kripton.exception;
  *
  */
 public class KriptonRuntimeException extends RuntimeException {
+	
+	protected Throwable detail;
+    protected int row = -1;
+    protected int column = -1;
+    
+    public Throwable getDetail() { return detail; }
+    //    public void setDetail(Throwable cause) { this.detail = cause; }
+    public int getLineNumber() { return row; }
+    public int getColumnNumber() { return column; }
 
 	private static final long serialVersionUID = 7993865639459660322L;
 
@@ -39,5 +50,17 @@ public class KriptonRuntimeException extends RuntimeException {
 	public KriptonRuntimeException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
 	}
+	
+	 public KriptonRuntimeException(String msg, XmlPullParser parser, Throwable chain) {
+	        super ((msg == null ? "" : msg+" ")
+	               + (parser == null ? "" : "(position:"+parser.getPositionDescription()+") ")
+	               + (chain == null ? "" : "caused by: "+chain));
+
+	        if (parser != null) {
+	            this.row = parser.getLineNumber();
+	            this.column = parser.getColumnNumber();
+	        }
+	        this.detail = chain;
+	    }
 
 }

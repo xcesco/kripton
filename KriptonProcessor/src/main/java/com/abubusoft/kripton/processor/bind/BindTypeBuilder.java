@@ -36,15 +36,14 @@ import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.binder.xml.XMLEventConstants;
-import com.abubusoft.kripton.binder.xml.XmlParser;
-import com.abubusoft.kripton.binder.xml.XmlSerializer;
-import com.abubusoft.kripton.binder.xml.XmlType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.persistence.XmlParser;
+import com.abubusoft.kripton.persistence.XmlSerializer;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.persistence.xml.internal.MXSerializer;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
@@ -52,6 +51,8 @@ import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.abubusoft.kripton.xml.XMLEventConstants;
+import com.abubusoft.kripton.xml.XmlType;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -600,6 +601,7 @@ public class BindTypeBuilder {
 		// @formatter:on
 
 		methodBuilder.beginControlFlow("try");
+		//methodBuilder.addStatement("$T xmlSerializer = wrapper.xmlSerializer", className(MXSerializer.class));
 		methodBuilder.addStatement("$T xmlSerializer = wrapper.xmlSerializer", className(XmlSerializer.class));
 
 		methodBuilder.beginControlFlow("if (currentEventType == 0)");

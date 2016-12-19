@@ -3,14 +3,14 @@ package com.abubusoft.kripton.persistence;
 import org.codehaus.stax2.XMLStreamWriter2;
 
 import com.abubusoft.kripton.BinderType;
-import com.abubusoft.kripton.binder.xml.XmlSerializer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.persistence.xml.internal.MXSerializer;
 
 public class XmlWrapperSerializer implements SerializerWrapper {
 
 	public XmlSerializer xmlSerializer;
-
-	public XmlWrapperSerializer(XMLStreamWriter2 xmlSerializer, BinderType supportedFormat) {
+	
+	public XmlWrapperSerializer(MXSerializer xmlSerializer) {
 		this.xmlSerializer = new XmlSerializer(xmlSerializer);
 	}
 

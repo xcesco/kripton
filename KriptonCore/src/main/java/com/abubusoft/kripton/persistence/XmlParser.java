@@ -31,6 +31,7 @@ import org.codehaus.stax2.validation.XMLValidator;
 public class XmlParser {
 
 	private XMLStreamReader2 xmlStreamReader;
+	//private KXmlParser xmlStreamReader;
 
 	public XmlParser(XMLStreamReader2 xmlStreamReader2) {
 		this.xmlStreamReader = xmlStreamReader2;

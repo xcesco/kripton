@@ -1,8 +1,9 @@
 /**
  * 
  */
-package com.abubusoft.kripton.binder.xml;
+package com.abubusoft.kripton.persistence;
 
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -17,16 +18,21 @@ import org.codehaus.stax2.validation.ValidationProblemHandler;
 import org.codehaus.stax2.validation.XMLValidationSchema;
 import org.codehaus.stax2.validation.XMLValidator;
 
+import com.abubusoft.kripton.persistence.xml.internal.MXSerializer;
+
 /**
  * @author xcesco
  *
  */
-public class XmlSerializer {
+public class XmlSerializer2 {
 
 	private XMLStreamWriter2 xmlStreamWriter2;
+	
+	//private MXSerializer xmlStreamWriter2;
 
-	public XmlSerializer(XMLStreamWriter2 xmlStreamWriter2) {
+	public XmlSerializer2(XMLStreamWriter2 xmlStreamWriter2) {
 		this.xmlStreamWriter2 = xmlStreamWriter2;
+		//xmlStreamWriter2.setOutput(writer);
 	}
 
 	/*
@@ -36,7 +42,6 @@ public class XmlSerializer {
 	 */
 	public void close() throws Exception {
 		xmlStreamWriter2.close();
-
 	}
 
 	/*
@@ -241,7 +246,7 @@ public class XmlSerializer {
 	 * java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public void writeAttribute(String prefix, String namespaceURI, String localName, String value) throws Exception {
-		xmlStreamWriter2.writeAttribute(prefix, namespaceURI, localName, value);
+		xmlStreamWriter2.writeAttribute(namespaceURI, localName, value);
 
 	}
 

@@ -4,7 +4,6 @@ import org.codehaus.stax2.XMLStreamReader2;
 
 import com.abubusoft.kripton.BinderContext;
 import com.abubusoft.kripton.BinderType;
-import com.abubusoft.kripton.binder.xml.XmlParser;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public class XmlWrapperParser implements ParserWrapper {

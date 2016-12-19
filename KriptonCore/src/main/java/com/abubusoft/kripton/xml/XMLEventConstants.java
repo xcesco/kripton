@@ -22,7 +22,7 @@
  *
  */
 
-package com.abubusoft.kripton.binder.xml;
+package com.abubusoft.kripton.xml;
 
 /**
  * This interface declares the constants used in this API. Numbers in the range
