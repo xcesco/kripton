@@ -18,8 +18,8 @@ package com.abubusoft.kripton.processor.bind.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.xml.XMLEventConstants;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -50,9 +50,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
-		methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+		methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
 		methodBuilder.addStatement("context.mapperFor($T.class).serializeOnXml(context, $L, wrapper, $L)", property.getPropertyType().getName(), getter(beanName, beanClass, property),
-				XMLEventConstants.START_ELEMENT);
+				XmlPullParser.START_TAG);
 		methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 
 		if (property.isNullable() && !property.isInCollection()) {
@@ -72,14 +72,14 @@ public class ObjectBindTransform extends AbstractBindTransform {
 		}
 
 		if (!property.isInCollection()) {
-			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonInfo.jacksonName);
+			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.label);
 		}
 
 		if (onString) {
 			methodBuilder.beginControlFlow("if (context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)==0)", property.getPropertyType().getName(),
 					getter(beanName, beanClass, property));
 			// KRITPON-38: in a collection, for null object we write
-			methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.jacksonInfo.jacksonName);
+			methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.label);
 			methodBuilder.endControlFlow();
 		} else {
 			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));

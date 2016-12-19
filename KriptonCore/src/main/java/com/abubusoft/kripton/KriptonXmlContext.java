@@ -3,7 +3,6 @@ package com.abubusoft.kripton;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,16 +10,10 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-import org.codehaus.stax2.XMLOutputFactory2;
-import org.codehaus.stax2.XMLStreamReader2;
-import org.codehaus.stax2.XMLStreamWriter2;
-
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.persistence.xml.internal.MXSerializer;
-import com.ctc.wstx.stax.WstxInputFactory;
-import com.ctc.wstx.stax.WstxOutputFactory;
 import com.fasterxml.jackson.core.JsonEncoding;
 
 /**
@@ -29,12 +22,10 @@ import com.fasterxml.jackson.core.JsonEncoding;
  */
 public class KriptonXmlContext extends AbstractContext {
 
-	public XmlWrapperParser createParser(byte[] data) {
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
-		WstxInputFactory inputFactory = new WstxInputFactory();
+	public XmlWrapperParser createParser(byte[] data) {		
         try {
-			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(inputStream);
-			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
+        	ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
+			return new XmlWrapperParser(this,inputStream, getSupportedFormat());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -44,20 +35,16 @@ public class KriptonXmlContext extends AbstractContext {
 	public XmlWrapperParser createParser(File file) {
         try {
         	FileInputStream inputStream = new FileInputStream(file);
-        	WstxInputFactory inputFactory = new WstxInputFactory();
-			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(inputStream);
-			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
+			return new XmlWrapperParser(this,inputStream, getSupportedFormat());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	public XmlWrapperParser createParser(InputStream in) {
+	public XmlWrapperParser createParser(InputStream inputStream) {
         try {
-        	WstxInputFactory inputFactory = new WstxInputFactory();
-			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(in);
-			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
+			return new XmlWrapperParser(this, inputStream, getSupportedFormat());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -66,9 +53,7 @@ public class KriptonXmlContext extends AbstractContext {
 
 	public XmlWrapperParser createParser(Reader reader) {	    
         try {
-        	WstxInputFactory inputFactory = new WstxInputFactory();
-			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(reader);
-			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
+			return new XmlWrapperParser(this, reader, getSupportedFormat());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -78,9 +63,7 @@ public class KriptonXmlContext extends AbstractContext {
 	public XmlWrapperParser createParser(String content) {		
         try {
         	ByteArrayInputStream inputStream = new ByteArrayInputStream(content.getBytes(JsonEncoding.UTF8.toString()));
-        	WstxInputFactory inputFactory = new WstxInputFactory();
-			XMLStreamReader2 xmlStreamReader = (XMLStreamReader2) inputFactory.createXMLStreamReader(inputStream);
-			return new XmlWrapperParser(this,xmlStreamReader, getSupportedFormat());
+			return new XmlWrapperParser(this, inputStream, getSupportedFormat());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

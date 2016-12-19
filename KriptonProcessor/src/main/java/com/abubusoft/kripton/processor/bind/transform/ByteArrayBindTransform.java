@@ -98,7 +98,7 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 		if (property.isInCollection()) {
 			methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addStatement("$L.writeBinaryField($S, $L)", serializerName, property.jacksonInfo.jacksonName, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeBinaryField($S, $L)", serializerName, property.label, getter(beanName, beanClass, property));
 		}
 
 		if (property.isNullable()) {
@@ -121,10 +121,10 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 		
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $T.encode($L))", serializerName, property.xmlInfo.tag, Base64Utils.class, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeAttribute($S, $T.encode($L))", serializerName, property.label, Base64Utils.class, getter(beanName, beanClass, property));
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
 			methodBuilder.addStatement("$L.writeBinary($L, 0, $L.length)", serializerName, getter(beanName, beanClass, property), getter(beanName, beanClass, property));
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			break;

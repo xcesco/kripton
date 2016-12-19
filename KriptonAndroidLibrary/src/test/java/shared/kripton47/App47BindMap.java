@@ -8,11 +8,10 @@ import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.persistence.XmlParser;
 import com.abubusoft.kripton.persistence.XmlSerializer;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.xml.XMLEventConstants;
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -126,7 +125,7 @@ public class App47BindMap extends AbstractMapper<App47> {
       // field userAccessToken
       if (object.userAccessToken!=null)  {
         xmlSerializer.writeStartElement("userAccessToken");
-        context.mapperFor(UserAccessToken.class).serializeOnXml(context, object.userAccessToken, wrapper, 1);
+        context.mapperFor(UserAccessToken.class).serializeOnXml(context, object.userAccessToken, wrapper, 2);
         xmlSerializer.writeEndElement();
       }
 
@@ -235,7 +234,7 @@ public class App47BindMap extends AbstractMapper<App47> {
   @Override
   public App47 parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
-      XmlParser xmlParser = wrapper.xmlParser;
+      XmlPullParser xmlParser = wrapper.xmlParser;
       App47 instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
@@ -258,7 +257,7 @@ public class App47BindMap extends AbstractMapper<App47> {
         }
         read=true;
         switch(eventType) {
-            case XMLEventConstants.START_ELEMENT:
+            case XmlPullParser.START_TAG:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "name":
@@ -270,18 +269,17 @@ public class App47BindMap extends AbstractMapper<App47> {
                     instance.userAccessToken=context.mapperFor(UserAccessToken.class).parseOnXml(context, wrapper, eventType);
                   break;
                   default:
-                    xmlParser.skipElement();
                   break;
                 }
               break;
-              case XMLEventConstants.END_ELEMENT:
-                if (elementName.equals(xmlParser.getName().getLocalPart())) {
+              case XmlPullParser.END_TAG:
+                if (elementName.equals(xmlParser.getName())) {
                   currentTag = elementName;
                   elementName = null;
                 }
               break;
-              case XMLEventConstants.CDATA:
-              case XMLEventConstants.CHARACTERS:
+              case XmlPullParser.CDSECT:
+              case XmlPullParser.TEXT:
                 // no property is binded to VALUE o CDATA break;
               default:
               break;

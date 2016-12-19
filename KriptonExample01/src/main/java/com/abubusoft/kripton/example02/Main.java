@@ -27,7 +27,12 @@ public class Main {
 
 		PrenotazioniService service = retrofit.create(PrenotazioniService.class);
 		list=service.list("vis").execute().body();
-				
+						
+		for (Prestazione item: list)
+		{
+			System.out.println(item);
+		}
+		
 		System.out.print(list.size());
 	}
 

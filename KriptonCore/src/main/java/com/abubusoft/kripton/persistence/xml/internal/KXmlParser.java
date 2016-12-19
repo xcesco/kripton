@@ -27,9 +27,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.abubusoft.kripton.common.Base64Utils;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 /**
@@ -969,6 +973,11 @@ public class KXmlParser implements XmlPullParser, Closeable {
             throw new KriptonRuntimeException(
                     "expected: /" + elementStack[sp + 3] + " read: " + name, this, null);
         }
+    }
+    
+    public boolean hasNext()
+    {
+    	return getEventType()!=END_DOCUMENT;
     }
 
     /**
@@ -2017,6 +2026,17 @@ public class KXmlParser implements XmlPullParser, Closeable {
 
         return null;
     }
+    
+    public int getAttributeIndex(String namespace, String name) {
+        for (int i = (attributeCount * 4) - 4; i >= 0; i -= 4) {
+            if (attributes[i + 2].equals(name)
+                    && (namespace == null || attributes[i].equals(namespace))) {
+                return i/4;
+            }
+        }
+
+        return -1;
+    }
 
     public int getEventType(){
         return type;
@@ -2047,7 +2067,7 @@ public class KXmlParser implements XmlPullParser, Closeable {
         }
     }
 
-    public String nextText() throws KriptonRuntimeException, IOException {
+    public String nextText() throws IOException {
         if (type != START_TAG) {
             throw new KriptonRuntimeException("precondition: START_TAG", this, null);
         }
@@ -2153,4 +2173,63 @@ public class KXmlParser implements XmlPullParser, Closeable {
         limit = nextContentSource.limit;
         nextContentSource = nextContentSource.next;
     }
+
+	@Override
+	public boolean hasText() {
+		return StringUtils.hasText(getText());
+	}
+
+	@Override
+	public String getElementText() throws IOException {
+		return nextText();
+	}
+
+	@Override
+	public boolean getElementAsBoolean() throws IOException {
+		return Boolean.parseBoolean(nextText());
+	}
+	
+	public int getElementAsInt() throws Exception {
+		return Integer.parseInt(nextText());
+	}
+
+	public long getElementAsLong() throws Exception {
+		return Long.parseLong(nextText());
+	}
+
+	public float getElementAsFloat() throws Exception {
+		return Float.parseFloat(nextText());
+	}
+
+	public double getElementAsDouble() throws Exception {
+		return Double.parseDouble(nextText());
+	}
+
+	public BigInteger getElementAsInteger() throws Exception {
+		return new BigInteger(nextText());
+	}
+
+	public BigDecimal getElementAsDecimal() throws Exception {
+		return new BigDecimal(nextText());
+	}
+
+	@Override
+	public boolean isEmptyElement() {
+		return isEmptyElementTag();
+	}
+	
+	@Override
+	public byte[] getElementAsBinary() throws IOException {
+		return Base64Utils.decode(nextText());
+	}
+
+	@Override
+	public BigDecimal getAttributeAsDecimal(int index) {
+		return new BigDecimal(getAttributeValue(index).trim());
+	}
+
+	@Override
+	public BigInteger getAttributeAsInteger(int index) {
+		return new BigInteger(getAttributeValue(index).trim());
+	}
 }

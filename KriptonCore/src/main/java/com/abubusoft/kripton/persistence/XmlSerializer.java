@@ -3,20 +3,8 @@
  */
 package com.abubusoft.kripton.persistence;
 
-import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.namespace.QName;
-
-import org.codehaus.stax2.XMLStreamLocation2;
-import org.codehaus.stax2.XMLStreamReader2;
-import org.codehaus.stax2.XMLStreamWriter2;
-import org.codehaus.stax2.typed.Base64Variant;
-import org.codehaus.stax2.validation.ValidationProblemHandler;
-import org.codehaus.stax2.validation.XMLValidationSchema;
-import org.codehaus.stax2.validation.XMLValidator;
 
 import com.abubusoft.kripton.persistence.xml.internal.MXSerializer;
 
@@ -26,12 +14,9 @@ import com.abubusoft.kripton.persistence.xml.internal.MXSerializer;
  */
 public class XmlSerializer {
 
-	//private XMLStreamWriter2 xmlStreamWriter2;
-	
 	private MXSerializer xmlStreamWriter2;
 
 	public XmlSerializer(MXSerializer xmlStreamWriter2) {
-		//this.xmlStreamWriter2 = xmlStreamWriter2;
 		this.xmlStreamWriter2=xmlStreamWriter2;
 	}
 

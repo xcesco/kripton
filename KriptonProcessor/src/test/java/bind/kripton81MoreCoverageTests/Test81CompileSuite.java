@@ -20,6 +20,7 @@ import bind.AbstractBindTypeProcessorTest;
 		Test81ECompile.class,
 		Test81FCompile.class,
 		Test81GHILMNOPCompile.class,
+		Test81VCompile.class
 		 })
 //@formatter:on
 public class Test81CompileSuite extends AbstractBindTypeProcessorTest {

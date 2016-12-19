@@ -8,11 +8,10 @@ import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.persistence.XmlParser;
 import com.abubusoft.kripton.persistence.XmlSerializer;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.xml.XMLEventConstants;
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -209,7 +208,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
   @Override
   public DeviceAccessToken parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
-      XmlParser xmlParser = wrapper.xmlParser;
+      XmlPullParser xmlParser = wrapper.xmlParser;
       DeviceAccessToken instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
@@ -232,7 +231,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
         }
         read=true;
         switch(eventType) {
-            case XMLEventConstants.START_ELEMENT:
+            case XmlPullParser.START_TAG:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "creationTime":
@@ -244,18 +243,17 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
                     instance.setLastUsedTime(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
                   break;
                   default:
-                    xmlParser.skipElement();
                   break;
                 }
               break;
-              case XMLEventConstants.END_ELEMENT:
-                if (elementName.equals(xmlParser.getName().getLocalPart())) {
+              case XmlPullParser.END_TAG:
+                if (elementName.equals(xmlParser.getName())) {
                   currentTag = elementName;
                   elementName = null;
                 }
               break;
-              case XMLEventConstants.CDATA:
-              case XMLEventConstants.CHARACTERS:
+              case XmlPullParser.CDSECT:
+              case XmlPullParser.TEXT:
                 // no property is binded to VALUE o CDATA break;
               default:
               break;

@@ -9,9 +9,9 @@ import java.util.Map.Entry;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.xml.MapEntryType;
-import com.abubusoft.kripton.xml.XMLEventConstants;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -68,7 +68,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 		
 		if (property.xmlInfo.isWrappedCollection())
 		{					
-			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_ELEMENT && $L.getName().toString().equals($S))", parserName, XMLEventConstants.class, parserName, property.xmlInfo.tagElement);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, XmlPullParser.class, parserName, property.xmlInfo.labelItem);
 		} else {
 			methodBuilder.addCode("// add first element\n");			
 			switch (property.xmlInfo.mapEntryType)
@@ -94,7 +94,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 			}
 			
 			methodBuilder.addStatement("collection.put(key, value)");
-			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_ELEMENT && $L.getName().toString().equals($S))", parserName, XMLEventConstants.class, parserName, property.xmlInfo.tagElement);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, XmlPullParser.class, parserName, property.xmlInfo.labelItem);
 		}
 		
 		switch (property.xmlInfo.mapEntryType)
@@ -142,7 +142,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 		if (property.xmlInfo.isWrappedCollection())
 		{
 			methodBuilder.addCode("// write wrapper tag\n");
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
 		}
 		
 		
@@ -157,7 +157,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 		
 		methodBuilder.beginControlFlow("for ($T<$T, $T> item: $L.entrySet())", Entry.class, keyTypeName, valueTypeName, getter(beanName, beanClass, property));		
 		
-		methodBuilder.addStatement("$L.writeStartElement($S)$>", serializerName, property.xmlInfo.tagElement);
+		methodBuilder.addStatement("$L.writeStartElement($S)$>", serializerName, property.xmlInfo.labelItem);
 						
 		transformKey.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
 		
@@ -216,7 +216,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 			// BEGIN - if map has elements 
 			methodBuilder.beginControlFlow("if ($L.size()>0)",getter(beanName, beanClass, property));
 			
-			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonInfo.jacksonName);
+			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.label);
 			methodBuilder.addStatement("$L.writeStartArray()", serializerName);
 									
 			methodBuilder.beginControlFlow("for ($T<$T, $T> item: $L.entrySet())", Entry.class, keyTypeName, valueTypeName, getter(beanName, beanClass, property));
@@ -257,9 +257,9 @@ public class MapBindTransformation extends AbstractBindTransform {
 	        methodBuilder.nextControlFlow("else");	        
 	        	if (onString)
 				{
-					methodBuilder.addStatement("$L.writeStringField($S, \"null\")",serializerName, property.jacksonInfo.jacksonName);
+					methodBuilder.addStatement("$L.writeStringField($S, \"null\")",serializerName, property.label);
 				} else {
-					methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.jacksonInfo.jacksonName);
+					methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.label);
 				}
 	        
 			// END - if map has elements

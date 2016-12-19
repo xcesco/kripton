@@ -95,7 +95,7 @@ public class WrappedBindTransform extends AbstractBindTransform {
 			// we need to write only value			
 			methodBuilder.addStatement("$L.writeString($T.write($L))", serializerName, utilClazz, getter(beanName, beanClass, property));
 		} else {		
-			methodBuilder.addStatement("$L.writeStringField($S, $T.write($L))", serializerName, property.jacksonInfo.jacksonName, utilClazz, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeStringField($S, $T.write($L))", serializerName, property.label, utilClazz, getter(beanName, beanClass, property));
 		}
 		
 		if (property.isNullable())
@@ -119,10 +119,10 @@ public class WrappedBindTransform extends AbstractBindTransform {
 		}
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $T.write($L))", serializerName, property.xmlInfo.tag, utilClazz, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeAttribute($S, $T.write($L))", serializerName, property.label, utilClazz, getter(beanName, beanClass, property));
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
 			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write($L)))", serializerName, StringEscapeUtils.class, utilClazz, getter(beanName, beanClass, property));
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			break;

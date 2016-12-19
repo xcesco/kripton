@@ -95,15 +95,14 @@ public class BindEntityBuilder {
 				}
 
 				ModelAnnotation annotationBindXml = property.getAnnotation(BindXml.class);
-
-				property.jacksonInfo.jacksonName = typeNameConverter.convert(property.getName());
+				
 				property.order = 0;
-				property.xmlInfo.tag = typeNameConverter.convert(property.getName());
-				property.xmlInfo.tagElement = property.xmlInfo.tag;
-				property.xmlInfo.wrappedCollection = false;
-				property.xmlInfo.xmlType = XmlType.valueOf(XmlType.TAG.toString());
 				property.mapKeyName = Bind.MAP_KEY_DEFAULT;
 				property.mapValueName = Bind.MAP_VALUE_DEFAULT;
+				property.label = typeNameConverter.convert(property.getName());
+				property.xmlInfo.labelItem = property.xmlInfo.labelItem;
+				property.xmlInfo.wrappedCollection = false;
+				property.xmlInfo.xmlType = XmlType.valueOf(XmlType.TAG.toString());				
 				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());			
 
 				// @Bind management
@@ -113,7 +112,7 @@ public class BindEntityBuilder {
 
 					String tempName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 					if (StringUtils.hasText(tempName)) {
-						property.xmlInfo.tag = tempName;
+						property.label = tempName;
 					}
 
 					// map info
@@ -135,7 +134,7 @@ public class BindEntityBuilder {
 					// define element tag name
 					String tempElementName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.ATTRIBUTE_XML_ELEMENT_TAG);
 					if (StringUtils.hasText(tempElementName)) {
-						property.xmlInfo.tagElement = tempElementName;
+						property.xmlInfo.labelItem = tempElementName;
 						property.xmlInfo.wrappedCollection = true;
 					}
 
@@ -186,13 +185,13 @@ public class BindEntityBuilder {
 
 					// check if property is a collection
 					if (property.isBindedCollection()) {
-						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
+						String msg = String.format("In class '%s', property '%s' is a collection and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 
 					// check if property is a map
 					if (property.isBindedMap()) {
-						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
+						String msg = String.format("In class '%s', property '%s' is a map and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 

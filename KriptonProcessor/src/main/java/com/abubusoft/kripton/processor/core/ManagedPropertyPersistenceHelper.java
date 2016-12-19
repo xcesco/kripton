@@ -41,7 +41,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		for (ManagedModelProperty property : collection) {
 			if (property.bindProperty != null) {
 				// if defined a forced name, we use it to define every json mapping, to allow comparison with parameters
-				if (forceName) property.bindProperty.jacksonInfo.jacksonName=DEFAULT_FIELD_NAME;
+				if (forceName) property.bindProperty.label=DEFAULT_FIELD_NAME;
 				
 				generateFieldSerialize(builder, persistType, property.bindProperty, modifiers);
 				generateFieldParser(builder, persistType, property.bindProperty, modifiers);

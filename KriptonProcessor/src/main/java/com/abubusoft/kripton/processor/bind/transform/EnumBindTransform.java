@@ -53,10 +53,10 @@ public class EnumBindTransform extends AbstractBindTransform {
 		}
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $L.$L())", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+			methodBuilder.addStatement("$L.writeAttribute($S, $L.$L())", serializerName, property.label, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
 			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L()))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);						
 			break;
@@ -91,7 +91,7 @@ public class EnumBindTransform extends AbstractBindTransform {
 			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
 		} else 
 		{
-			methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.jacksonInfo.jacksonName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+			methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.label, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
 		}
 		
 		if (property.isNullable())

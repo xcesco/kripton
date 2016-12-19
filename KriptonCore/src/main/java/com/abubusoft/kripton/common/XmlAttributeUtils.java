@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.common;
 
-import com.abubusoft.kripton.persistence.XmlParser;
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -8,13 +8,17 @@ import com.abubusoft.kripton.persistence.XmlParser;
  */
 public class XmlAttributeUtils {
 	
-	public static boolean getAttributeAsBoolean(XmlParser parser, String attributeName, boolean defaultValue) throws Exception
+	public static boolean getAttributeAsBoolean(XmlPullParser parser, String attributeName, boolean defaultValue) throws Exception
 	{
-		int index=parser.getAttributeIndex(null, attributeName);
+		//parser.getText()
+		String value=parser.getAttributeValue(null, attributeName);
 		
-		if (index==-1) return defaultValue;
+		if (!StringUtils.hasText(value))
+		{
+			return defaultValue;
+		}	
 		
-		return parser.getAttributeAsBoolean(index);		
+		return Boolean.parseBoolean(value);
 	}
 
 }

@@ -12,10 +12,10 @@ import java.util.List;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.XmlAttributeUtils;
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
-import com.abubusoft.kripton.xml.XMLEventConstants;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -196,7 +196,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		if (property.xmlInfo.isWrappedCollection())
 		{					
 			// with wrap element
-			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_ELEMENT && $L.getName().toString().equals($S))", parserName, XMLEventConstants.class,  parserName, property.xmlInfo.tagElement);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, XmlPullParser.class,  parserName, property.label);
 		} else {
 			// no wrap element
 			methodBuilder.addCode("// add first element\n");
@@ -212,7 +212,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			methodBuilder.addStatement("collection.add(item)");
 			methodBuilder.endControlFlow();			
 			
-			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_ELEMENT && $L.getName().toString().equals($S))", parserName, XMLEventConstants.class, parserName, property.xmlInfo.tag);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, XmlPullParser.class, parserName, property.label);
 		}
 		
 		// for all
@@ -281,7 +281,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).nullable(false).build();
 		
 			methodBuilder.addCode("// write wrapper tag\n");
-			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.jacksonInfo.jacksonName);
+			methodBuilder.addStatement("$L.writeFieldName($S)", serializerName, property.label);
 			
 			if (onString)
 			{
@@ -368,11 +368,11 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			if (property.xmlInfo.isWrappedCollection())
 			{
 				methodBuilder.addCode("// write wrapper tag\n");
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
 			}
 			
 			BindTransform transform=BindTransformer.lookup(elementTypeName);
-			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).elementName(property.xmlInfo.tagElement).build();
+			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).elementName(property.xmlInfo.labelItem).build();
 			
 			switch(collectionType)
 			{
@@ -393,7 +393,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			if (!property.getPropertyType().isPrimitive())
 			{
 				methodBuilder.beginControlFlow("if (item==null)");
-					methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.tagElement);
+					methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.labelItem);
 				methodBuilder.nextControlFlow("else");
 					transform.generateSerializeOnXml(methodBuilder, serializerName, null, "item", elementProperty);
 				methodBuilder.endControlFlow();
@@ -412,7 +412,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 				// say: this collection is empty
 				methodBuilder.addCode("// to distinguish between first empty element and empty collection, we write an attribute emptyCollection\n");
 				methodBuilder.beginControlFlow("if (n==0)");
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tagElement);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.labelItem);
 				methodBuilder.addStatement("$L.writeAttribute($S, $S)", serializerName, EMPTY_COLLECTION_ATTRIBUTE_NAME, "true");
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);				
 			    methodBuilder.endControlFlow();

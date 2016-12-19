@@ -12,11 +12,10 @@ import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.persistence.XmlParser;
 import com.abubusoft.kripton.persistence.XmlSerializer;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.xml.XMLEventConstants;
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -313,7 +312,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         for (Map.Entry<Bean74, Locale> item: object.valueMapBeanLocale.entrySet()) {
           xmlSerializer.writeStartElement("valueMapBeanLocale");
             xmlSerializer.writeStartElement("k");
-            context.mapperFor(Bean74.class).serializeOnXml(context, item.getKey(), wrapper, 1);
+            context.mapperFor(Bean74.class).serializeOnXml(context, item.getKey(), wrapper, 2);
             xmlSerializer.writeEndElement();
             if (item.getValue()==null) {
               xmlSerializer.writeEmptyElement("v");
@@ -342,7 +341,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
             } else {
               if (item.getValue()!=null)  {
                 xmlSerializer.writeStartElement("v");
-                context.mapperFor(Bean74.class).serializeOnXml(context, item.getValue(), wrapper, 1);
+                context.mapperFor(Bean74.class).serializeOnXml(context, item.getValue(), wrapper, 2);
                 xmlSerializer.writeEndElement();
               }
             }
@@ -737,7 +736,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
   @Override
   public Bean74 parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
-      XmlParser xmlParser = wrapper.xmlParser;
+      XmlPullParser xmlParser = wrapper.xmlParser;
       Bean74 instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
@@ -760,7 +759,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         }
         read=true;
         switch(eventType) {
-            case XMLEventConstants.START_ELEMENT:
+            case XmlPullParser.START_TAG:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "valueString":
@@ -785,7 +784,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                       }
                       xmlParser.nextTag();
                       collection.put(key, value);
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueMapBeanLocale")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueMapBeanLocale")) {
                         xmlParser.nextTag();
                         key=context.mapperFor(Bean74.class).parseOnXml(context, wrapper, eventType);
                         xmlParser.nextTag();
@@ -808,7 +807,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                       HashMap<Enum74, Bean74> collection=new HashMap<>();
                       Enum74 key;
                       Bean74 value;
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("item")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                         xmlParser.nextTag();
                         key=Enum74.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                         xmlParser.nextTag();
@@ -842,7 +841,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                       }
                       xmlParser.nextTag();
                       collection.put(key, value);
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueMapIntByteArray")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueMapIntByteArray")) {
                         xmlParser.nextTag();
                         key=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
                         xmlParser.nextTag();
@@ -865,7 +864,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                       HashMap<String, Integer> collection=new HashMap<>();
                       String key;
                       Integer value;
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("rutto")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("rutto")) {
                         xmlParser.nextTag();
                         key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                         xmlParser.nextTag();
@@ -882,18 +881,17 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                     }
                   break;
                   default:
-                    xmlParser.skipElement();
                   break;
                 }
               break;
-              case XMLEventConstants.END_ELEMENT:
-                if (elementName.equals(xmlParser.getName().getLocalPart())) {
+              case XmlPullParser.END_TAG:
+                if (elementName.equals(xmlParser.getName())) {
                   currentTag = elementName;
                   elementName = null;
                 }
               break;
-              case XMLEventConstants.CDATA:
-              case XMLEventConstants.CHARACTERS:
+              case XmlPullParser.CDSECT:
+              case XmlPullParser.TEXT:
                 // no property is binded to VALUE o CDATA break;
               default:
               break;

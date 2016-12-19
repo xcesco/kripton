@@ -11,6 +11,7 @@ import org.junit.runners.Suite;
 		TestRuntime81B.class,
 		TestRuntime81C.class,
 		TestRuntime81GHILMNOP.class,
+		TestRuntime81V.class
 		 })
 //@formatter:on
 public class TestRuntime81Suite {

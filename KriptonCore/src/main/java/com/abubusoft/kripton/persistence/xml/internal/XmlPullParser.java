@@ -3,9 +3,13 @@
 
 package com.abubusoft.kripton.persistence.xml.internal;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import javax.xml.stream.XMLStreamException;
 
 /**
  * XML Pull Parser is an interface that defines parsing functionality provided
@@ -709,6 +713,12 @@ public interface XmlPullParser {
      * @see #nextToken
      */
     String getText ();
+    
+    /**
+     * check if current tag has text
+     * @return
+     */
+    boolean hasText();
 
 
     /**
@@ -1117,5 +1127,109 @@ public interface XmlPullParser {
      * </pre>
      */
     int nextTag() throws IOException;
+
+	boolean hasNext();
+	
+	  /**
+	   * Reads the content of a text-only element, an exception is thrown if this is
+	   * not a text-only element.
+	   * Regardless of value of javax.xml.stream.isCoalescing this method always returns coalesced content.
+	   * <br /> Precondition: the current event is START_ELEMENT.
+	   * <br /> Postcondition: the current event is the corresponding END_ELEMENT.
+	   *
+	   * <br />The method does the following (implementations are free to optimized
+	   * but must do equivalent processing):
+	   * <pre>
+	   * if(getEventType() != XMLStreamConstants.START_ELEMENT) {
+	   * throw new XMLStreamException(
+	   * "parser must be on START_ELEMENT to read next text", getLocation());
+	   * }
+	   * int eventType = next();
+	   * StringBuffer content = new StringBuffer();
+	   * while(eventType != XMLStreamConstants.END_ELEMENT ) {
+	   * if(eventType == XMLStreamConstants.CHARACTERS
+	   * || eventType == XMLStreamConstants.CDATA
+	   * || eventType == XMLStreamConstants.SPACE
+	   * || eventType == XMLStreamConstants.ENTITY_REFERENCE) {
+	   * buf.append(getText());
+	   * } else if(eventType == XMLStreamConstants.PROCESSING_INSTRUCTION
+	   * || eventType == XMLStreamConstants.COMMENT) {
+	   * // skipping
+	   * } else if(eventType == XMLStreamConstants.END_DOCUMENT) {
+	   * throw new XMLStreamException(
+	   * "unexpected end of document when reading element text content", this);
+	   * } else if(eventType == XMLStreamConstants.START_ELEMENT) {
+	   * throw new XMLStreamException(
+	   * "element text content may not contain START_ELEMENT", getLocation());
+	   * } else {
+	   * throw new XMLStreamException(
+	   * "Unexpected event type "+eventType, getLocation());
+	   * }
+	   * eventType = next();
+	   * }
+	   * return buf.toString();
+	   * </pre>
+	 * @throws IOException 
+	   *
+	   * @throws XMLStreamException if the current event is not a START_ELEMENT
+	   * or if a non text element is encountered
+	   */
+	  public String getElementText() throws IOException;
+	  
+	  
+	    /**
+	     * <p>Read an element content as a boolean. The lexical
+	     * representation of a boolean is defined by the 
+	     * <a href="http://www.w3.org/TR/xmlschema-2/#boolean">XML Schema boolean</a> data type. Whitespace MUST be 
+	     * <a href="http://www.w3.org/TR/xmlschema-2/datatypes.html#rf-whiteSpace">collapsed</a>
+	     * according to the whiteSpace facet for the XML Schema boolean
+	     * data type.
+	     * An exception is thrown if, after whitespace is
+	     * collapsed, the resulting sequence of characters is not in 
+	     * the lexical space defined by the XML Schema boolean data type.
+	     * (note: allowed lexical values are canonicals "true" and
+	     * "false", as well as non-canonical "0" and "1")
+	     * </p>
+	     *<p>
+	     * These are the pre- and post-conditions of calling this method:
+	     * <ul>
+	     * <li>Precondition: the current event is START_ELEMENT.</li>
+	     * <li>Postcondition: the current event is the corresponding 
+	     *     END_ELEMENT.</li>
+	     * </ul>
+	     * </p>
+	     * @throws IOException 
+	     * 
+	     */
+	    public boolean getElementAsBoolean() throws IOException;
+	    
+		public int getElementAsInt() throws Exception;
+
+		public long getElementAsLong() throws Exception;
+
+		public float getElementAsFloat() throws Exception;
+
+		public double getElementAsDouble() throws Exception;
+
+		public BigInteger getElementAsInteger() throws Exception;
+
+		public BigDecimal getElementAsDecimal() throws Exception;
+		
+		/**
+	     * Returns true if the current event is START_TAG and the tag
+	     * is degenerated
+	     * (e.g. &lt;foobar/&gt;).
+	     * <p><b>NOTE:</b> if the parser is not on START_TAG, an exception
+	     * will be thrown.
+	     */
+	    boolean isEmptyElement();
+
+		byte[] getElementAsBinary() throws IOException;
+
+		BigDecimal getAttributeAsDecimal(int index);
+
+		BigInteger getAttributeAsInteger(int index);
+		
+		int getAttributeIndex(String namespace, String name);
 
 }

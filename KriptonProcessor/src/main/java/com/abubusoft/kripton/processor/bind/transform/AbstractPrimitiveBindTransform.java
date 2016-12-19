@@ -77,11 +77,11 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L($L))", serializerName, property.xmlInfo.tag, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L($L))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 			break;
 		case TAG:
 			// value don't need to be converted into string
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);			
 			break;
@@ -114,7 +114,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		if (property.isInCollection()) {
 			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.jacksonInfo.jacksonName, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.label, getter(beanName, beanClass, property));
 		}
 
 		if (nullable && property.isNullable()) {
@@ -132,7 +132,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		if (property.isInCollection()) {
 			methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.jacksonInfo.jacksonName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 		}
 
 		if (nullable && property.isNullable()) {

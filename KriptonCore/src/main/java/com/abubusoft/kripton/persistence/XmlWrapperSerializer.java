@@ -1,8 +1,5 @@
 package com.abubusoft.kripton.persistence;
 
-import org.codehaus.stax2.XMLStreamWriter2;
-
-import com.abubusoft.kripton.BinderType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.xml.internal.MXSerializer;
 

@@ -19,11 +19,10 @@ import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.persistence.XmlParser;
 import com.abubusoft.kripton.persistence.XmlSerializer;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.xml.XMLEventConstants;
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -412,7 +411,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
       // field valueBean
       if (object.valueBean!=null)  {
         xmlSerializer.writeStartElement("valueBean");
-        context.mapperFor(Bean70All.class).serializeOnXml(context, object.valueBean, wrapper, 1);
+        context.mapperFor(Bean70All.class).serializeOnXml(context, object.valueBean, wrapper, 2);
         xmlSerializer.writeEndElement();
       }
 
@@ -1006,7 +1005,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
   @Override
   public Bean70All parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
-      XmlParser xmlParser = wrapper.xmlParser;
+      XmlPullParser xmlParser = wrapper.xmlParser;
       Bean70All instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
@@ -1029,7 +1028,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
         }
         read=true;
         switch(eventType) {
-            case XMLEventConstants.START_ELEMENT:
+            case XmlPullParser.START_TAG:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "valueBean":
@@ -1149,18 +1148,17 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
                     instance.setId(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
                   break;
                   default:
-                    xmlParser.skipElement();
                   break;
                 }
               break;
-              case XMLEventConstants.END_ELEMENT:
-                if (elementName.equals(xmlParser.getName().getLocalPart())) {
+              case XmlPullParser.END_TAG:
+                if (elementName.equals(xmlParser.getName())) {
                   currentTag = elementName;
                   elementName = null;
                 }
               break;
-              case XMLEventConstants.CDATA:
-              case XMLEventConstants.CHARACTERS:
+              case XmlPullParser.CDSECT:
+              case XmlPullParser.TEXT:
                 if (elementName!=null && xmlParser.hasText()) {
                   // property valueContentBoolType
                   instance.valueContentBoolType=PrimitiveUtils.readInteger(xmlParser.getText(), null);

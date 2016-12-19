@@ -18,7 +18,6 @@
 
 		<!-- dependencies version -->
 		<jackson.version>2.8.5</jackson.version>
-		<woodstox.version>5.0.3</woodstox.version>
 		<retrofit.version>2.1.0</retrofit.version>
 
 		<!-- test version -->
@@ -171,13 +170,6 @@
 			<artifactId>jackson-core</artifactId>
 			<version>${jackson.version}</version>			
 		</dependency>
-	
-		<dependency>
-			<groupId>com.fasterxml.woodstox</groupId>
-			<artifactId>woodstox-core</artifactId>
-			<version>${woodstox.version}</version>
-		</dependency>
-		
 		
 	</dependencies>
 

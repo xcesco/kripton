@@ -13,11 +13,10 @@ import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.persistence.XmlParser;
 import com.abubusoft.kripton.persistence.XmlSerializer;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.xml.XMLEventConstants;
+import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -589,7 +588,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEmptyElement("valueBeanSet");
           } else {
             xmlSerializer.writeStartElement("valueBeanSet");
-            context.mapperFor(Bean72A.class).serializeOnXml(context, item, wrapper, 1);
+            context.mapperFor(Bean72A.class).serializeOnXml(context, item, wrapper, 2);
             xmlSerializer.writeEndElement();
           }
         }
@@ -1385,7 +1384,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
   @Override
   public Bean72A parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
-      XmlParser xmlParser = wrapper.xmlParser;
+      XmlPullParser xmlParser = wrapper.xmlParser;
       Bean72A instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
@@ -1408,7 +1407,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
         }
         read=true;
         switch(eventType) {
-            case XMLEventConstants.START_ELEMENT:
+            case XmlPullParser.START_TAG:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "name":
@@ -1432,7 +1431,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=context.mapperFor(Bean72A.class).parseOnXml(context, wrapper, eventType);
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueBeanSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBeanSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1462,7 +1461,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=BigDecimalUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueBigDecimalSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBigDecimalSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1492,7 +1491,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=BigIntegerUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueBigIntegerSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBigIntegerSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1522,7 +1521,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=(byte)PrimitiveUtils.readByte(xmlParser.getElementAsInt(), null);
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueByteSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueByteSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1552,7 +1551,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=(char)PrimitiveUtils.readCharacter(xmlParser.getElementAsInt(), null);
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueCharacterSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueCharacterSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1582,7 +1581,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=PrimitiveUtils.readDouble(xmlParser.getElementAsDouble(), null);
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueDoubleSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueDoubleSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1612,7 +1611,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=Enum72.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueEnumSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueEnumSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1642,7 +1641,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=PrimitiveUtils.readFloat(xmlParser.getElementAsFloat(), null);
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueFloatSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueFloatSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1672,7 +1671,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueIntSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueIntSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1702,7 +1701,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null);
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueLongSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueLongSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1732,7 +1731,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=(short)PrimitiveUtils.readShort(xmlParser.getElementAsInt(), null);
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueShortSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueShortSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1762,7 +1761,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                         collection.add(item);
                       }
-                      while (xmlParser.nextTag() != XMLEventConstants.END_ELEMENT && xmlParser.getName().toString().equals("valueStringSet")) {
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueStringSet")) {
                         if (xmlParser.isEmptyElement()) {
                           item=null;
                           xmlParser.nextTag();
@@ -1780,18 +1779,17 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                     instance.zalueStringFinal=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   default:
-                    xmlParser.skipElement();
                   break;
                 }
               break;
-              case XMLEventConstants.END_ELEMENT:
-                if (elementName.equals(xmlParser.getName().getLocalPart())) {
+              case XmlPullParser.END_TAG:
+                if (elementName.equals(xmlParser.getName())) {
                   currentTag = elementName;
                   elementName = null;
                 }
               break;
-              case XMLEventConstants.CDATA:
-              case XMLEventConstants.CHARACTERS:
+              case XmlPullParser.CDSECT:
+              case XmlPullParser.TEXT:
                 // no property is binded to VALUE o CDATA break;
               default:
               break;

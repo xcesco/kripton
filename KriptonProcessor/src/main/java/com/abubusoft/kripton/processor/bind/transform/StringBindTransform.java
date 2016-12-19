@@ -87,7 +87,7 @@ public class StringBindTransform extends AbstractBindTransform {
 			// we need to write only value
 			methodBuilder.addStatement("$L.writeString($L)", serializerName, getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.jacksonInfo.jacksonName, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.label, getter(beanName, beanClass, property));
 		}
 
 		if (property.isNullable()) {
@@ -109,10 +109,10 @@ public class StringBindTransform extends AbstractBindTransform {
 		XmlType xmlType = property.xmlInfo.xmlType;
 		switch (xmlType) {
 		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $L)", serializerName, property.xmlInfo.tag, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.writeAttribute($S, $L)", serializerName, property.label, getter(beanName, beanClass, property));
 			break;
 		case TAG:
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.tag);
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
 			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			break;

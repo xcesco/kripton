@@ -33,7 +33,10 @@ public class BindProperty extends ModelProperty {
 
 		protected XmlType xmlType;
 
-		private String tag;
+		/**
+		 * element's label, or collection's label (for xml binding)
+		 */
+		private String label;
 
 		private boolean nullable;
 		
@@ -50,7 +53,7 @@ public class BindProperty extends ModelProperty {
 			this.parentProperty=property;
 			this.nullable=property.nullable;
 			this.xmlType=property.xmlInfo.xmlType;
-			this.tag=property.xmlInfo.tag;
+			this.label=property.label;
 			this.inCollection=true;
 		}
 		
@@ -70,11 +73,10 @@ public class BindProperty extends ModelProperty {
 			property.order=parentProperty!=null ? parentProperty.order : 0;
 			property.inCollection=this.inCollection;
 			
-			property.jacksonInfo.jacksonName=tag;
+			property.label=label;
 			
 			property.xmlInfo.xmlType=this.xmlType;
-			property.xmlInfo.tag=tag;
-			property.xmlInfo.tagElement=null;
+			property.xmlInfo.labelItem=null;
 			
 			property.nullable=this.nullable;
 			
@@ -87,8 +89,13 @@ public class BindProperty extends ModelProperty {
 			return this;
 		}
 		
-		public BindPropertyBuilder elementName(String elementTag) {
-			this.tag = elementTag;	
+		public BindPropertyBuilder elementName(String label) {
+			this.label = label;	
+			return this;
+		}
+		
+		public BindPropertyBuilder label(String elementTag) {
+			this.label = elementTag;	
 			return this;
 		}
 
@@ -101,7 +108,7 @@ public class BindProperty extends ModelProperty {
 	
 	public class JacksonInfo {
 		
-		public String jacksonName;
+		//public String jacksonName;
 	}
 	
 	public class XmlInfo {
@@ -111,12 +118,12 @@ public class BindProperty extends ModelProperty {
 		/**
 		 * tag name used for item or collection (if element is a collection)
 		 */
-		public String tag;
+		//public String itemTag;
 		
 		/**
-		 * tag name for collection's element
+		 * tag name for collection's item
 		 */
-		public String tagElement;
+		public String labelItem;
 		
 		public boolean wrappedCollection;
 
@@ -158,6 +165,11 @@ public class BindProperty extends ModelProperty {
 	public JacksonInfo jacksonInfo;
 
 	public String mapKeyName;
+	
+	/**
+	 * property's label 
+	 */
+	public String label;
 
 	public String mapValueName;
 

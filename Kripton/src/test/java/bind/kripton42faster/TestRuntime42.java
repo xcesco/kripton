@@ -15,7 +15,7 @@ public class TestRuntime42 extends AbstractBaseTest {
 
 		Restaurant bean = new Restaurant();
 
-		bean.address="long address string";
+		bean.address="love is in the air";
 		bean.id=1;
 		bean.latitude=25.0;
 		bean.longitude=34.0;
