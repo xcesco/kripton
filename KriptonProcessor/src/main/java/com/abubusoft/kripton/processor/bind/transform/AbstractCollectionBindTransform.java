@@ -196,7 +196,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		if (property.xmlInfo.isWrappedCollection())
 		{					
 			// with wrap element
-			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, XmlPullParser.class,  parserName, property.label);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, XmlPullParser.class,  parserName, property.xmlInfo.labelItem);
 		} else {
 			// no wrap element
 			methodBuilder.addCode("// add first element\n");

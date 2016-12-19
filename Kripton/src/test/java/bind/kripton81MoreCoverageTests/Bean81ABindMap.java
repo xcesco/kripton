@@ -27,7 +27,7 @@ import java.lang.Override;
  *
  * @see Bean81A
  */
-@BindMap
+@BindMap(Bean81A.class)
 public class Bean81ABindMap extends AbstractMapper<Bean81A> {
   /**
    * create new object instance
@@ -49,23 +49,23 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       fieldCount++;
       jacksonSerializer.writeNumberField("id", object.id);
 
-      // field valueBidDecimal
+      // field valueBidDecimal (mapped with "valueBidDecimal")
       if (object.valueBidDecimal!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueBidDecimal", BigDecimalUtils.write(object.valueBidDecimal));
       }
 
-      // field valueBidInteger
+      // field valueBidInteger (mapped with "valueBidInteger")
       if (object.valueBidInteger!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueBidInteger", BigIntegerUtils.write(object.valueBidInteger));
       }
 
-      // field valueEnum
+      // field valueEnum (mapped with "valueEnum")
       if (object.valueEnum!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueEnum", object.valueEnum.toString());
@@ -91,22 +91,22 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-      // field valueBidDecimal
+      // field valueBidDecimal (mapped with "valueBidDecimal")
       if (object.valueBidDecimal!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueBidDecimal", BigDecimalUtils.write(object.valueBidDecimal));
       }
 
-      // field valueBidInteger
+      // field valueBidInteger (mapped with "valueBidInteger")
       if (object.valueBidInteger!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueBidInteger", BigIntegerUtils.write(object.valueBidInteger));
       }
 
-      // field valueEnum
+      // field valueEnum (mapped with "valueEnum")
       if (object.valueEnum!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueEnum", object.valueEnum.toString());
@@ -133,22 +133,22 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
 
       // Persisted fields:
 
-      // field valueBidDecimal
+      // field valueBidDecimal (mapped with "valueBidDecimal")
       if (object.valueBidDecimal!=null)  {
         xmlSerializer.writeDecimalAttribute(null, null,"valueBidDecimal", object.valueBidDecimal);
       }
 
-      // field valueBidInteger
+      // field valueBidInteger (mapped with "valueBidInteger")
       if (object.valueBidInteger!=null)  {
         xmlSerializer.writeIntegerAttribute(null, null,"valueBidInteger", object.valueBidInteger);
       }
 
-      // field valueEnum
+      // field valueEnum (mapped with "valueEnum")
       if (object.valueEnum!=null)  {
         xmlSerializer.writeAttribute("valueEnum", object.valueEnum.toString());
       }
 
-      // field id
+      // field id (mapped with "id")
       xmlSerializer.writeStartElement("id");
       xmlSerializer.writeLong(object.id);
       xmlSerializer.writeEndElement();
@@ -185,26 +185,26 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
         // Parse fields:
         switch (fieldName) {
             case "valueBidDecimal":
-              // field valueBidDecimal
+              // field valueBidDecimal (mapped with "valueBidDecimal")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueBidDecimal=BigDecimalUtils.read(jacksonParser.getText());
               }
             break;
             case "valueBidInteger":
-              // field valueBidInteger
+              // field valueBidInteger (mapped with "valueBidInteger")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueBidInteger=BigIntegerUtils.read(jacksonParser.getText());
               }
             break;
             case "valueEnum":
-              // field valueEnum
+              // field valueEnum (mapped with "valueEnum")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 String tempEnum=jacksonParser.getText();
                 instance.valueEnum=StringUtils.hasText(tempEnum)?Bean81Enum.valueOf(tempEnum):null;
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=jacksonParser.getLongValue();
             break;
             default:
@@ -241,26 +241,26 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
         // Parse fields:
         switch (fieldName) {
             case "valueBidDecimal":
-              // field valueBidDecimal
+              // field valueBidDecimal (mapped with "valueBidDecimal")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueBidDecimal=BigDecimalUtils.read(jacksonParser.getText());
               }
             break;
             case "valueBidInteger":
-              // field valueBidInteger
+              // field valueBidInteger (mapped with "valueBidInteger")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueBidInteger=BigIntegerUtils.read(jacksonParser.getText());
               }
             break;
             case "valueEnum":
-              // field valueEnum
+              // field valueEnum (mapped with "valueEnum")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 String tempEnum=jacksonParser.getText();
                 instance.valueEnum=StringUtils.hasText(tempEnum)?Bean81Enum.valueOf(tempEnum):null;
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
             break;
             default:
@@ -300,15 +300,15 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
         attributeName = xmlParser.getAttributeName(attributeIndex);
         switch(attributeName) {
             case "valueBidDecimal":
-              // field valueBidDecimal
+              // field valueBidDecimal (mapped by "valueBidDecimal")
               instance.valueBidDecimal=xmlParser.getAttributeAsDecimal(attributeIndex);
             break;
             case "valueBidInteger":
-              // field valueBidInteger
+              // field valueBidInteger (mapped by "valueBidInteger")
               instance.valueBidInteger=xmlParser.getAttributeAsInteger(attributeIndex);
             break;
             case "valueEnum":
-              // field valueEnum
+              // field valueEnum (mapped by "valueEnum")
               instance.valueEnum=Bean81Enum.valueOf(xmlParser.getAttributeValue(attributeIndex));
             break;
             default:
@@ -329,7 +329,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "id":
-                    // property id
+                    // property id (mapped on "id")
                     instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                   break;
                   default:

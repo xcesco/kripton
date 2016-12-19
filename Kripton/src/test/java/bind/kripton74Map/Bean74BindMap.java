@@ -33,7 +33,7 @@ import java.util.Map;
  *
  * @see Bean74
  */
-@BindMap
+@BindMap(Bean74.class)
 public class Bean74BindMap extends AbstractMapper<Bean74> {
   /**
    * create new object instance
@@ -55,13 +55,13 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
 
       // Serialized Field:
 
-      // field valueString
+      // field valueString (mapped with "valueString")
       if (object.valueString!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueString", object.valueString);
       }
 
-      // field valueMapBeanLocale
+      // field valueMapBeanLocale (mapped with "valueMapBeanLocale")
       if (object.valueMapBeanLocale!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -85,7 +85,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         }
       }
 
-      // field valueMapEnumBean
+      // field valueMapEnumBean (mapped with "valueMapEnumBean")
       if (object.valueMapEnumBean!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -109,7 +109,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         }
       }
 
-      // field valueMapIntByteArray
+      // field valueMapIntByteArray (mapped with "valueMapIntByteArray")
       if (object.valueMapIntByteArray!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -132,7 +132,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         }
       }
 
-      // field valueMapStringInteger
+      // field valueMapStringInteger (mapped with "valueMapStringInteger")
       if (object.valueMapStringInteger!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -175,13 +175,13 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
 
       // Serialized Field:
 
-      // field valueString
+      // field valueString (mapped with "valueString")
       if (object.valueString!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueString", object.valueString);
       }
 
-      // field valueMapBeanLocale
+      // field valueMapBeanLocale (mapped with "valueMapBeanLocale")
       if (object.valueMapBeanLocale!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -207,7 +207,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         }
       }
 
-      // field valueMapEnumBean
+      // field valueMapEnumBean (mapped with "valueMapEnumBean")
       if (object.valueMapEnumBean!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -233,7 +233,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         }
       }
 
-      // field valueMapIntByteArray
+      // field valueMapIntByteArray (mapped with "valueMapIntByteArray")
       if (object.valueMapIntByteArray!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -256,7 +256,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         }
       }
 
-      // field valueMapStringInteger
+      // field valueMapStringInteger (mapped with "valueMapStringInteger")
       if (object.valueMapStringInteger!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -300,14 +300,14 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
 
       // Persisted fields:
 
-      // field valueString
+      // field valueString (mapped with "valueString")
       if (object.valueString!=null) {
         xmlSerializer.writeStartElement("valueString");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.valueString));
         xmlSerializer.writeEndElement();
       }
 
-      // field valueMapBeanLocale
+      // field valueMapBeanLocale (mapped with "valueMapBeanLocale")
       if (object.valueMapBeanLocale!=null)  {
         for (Map.Entry<Bean74, Locale> item: object.valueMapBeanLocale.entrySet()) {
           xmlSerializer.writeStartElement("valueMapBeanLocale");
@@ -327,7 +327,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         }
       }
 
-      // field valueMapEnumBean
+      // field valueMapEnumBean (mapped with "valueMapEnumBean")
       if (object.valueMapEnumBean!=null)  {
         // write wrapper tag
         xmlSerializer.writeStartElement("valueMapEnumBean");
@@ -350,7 +350,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueMapIntByteArray
+      // field valueMapIntByteArray (mapped with "valueMapIntByteArray")
       if (object.valueMapIntByteArray!=null)  {
         for (Map.Entry<Integer, byte[]> item: object.valueMapIntByteArray.entrySet()) {
           xmlSerializer.writeStartElement("valueMapIntByteArray");
@@ -370,7 +370,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         }
       }
 
-      // field valueMapStringInteger
+      // field valueMapStringInteger (mapped with "valueMapStringInteger")
       if (object.valueMapStringInteger!=null)  {
         // write wrapper tag
         xmlSerializer.writeStartElement("valueMapStringInteger");
@@ -427,13 +427,13 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         // Parse fields:
         switch (fieldName) {
             case "valueString":
-              // field valueString
+              // field valueString (mapped with "valueString")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueString=jacksonParser.getText();
               }
             break;
             case "valueMapBeanLocale":
-              // field valueMapBeanLocale
+              // field valueMapBeanLocale (mapped with "valueMapBeanLocale")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<Bean74, Locale> collection=new HashMap<>();
                 Bean74 key=null;
@@ -454,7 +454,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
               }
             break;
             case "valueMapEnumBean":
-              // field valueMapEnumBean
+              // field valueMapEnumBean (mapped with "valueMapEnumBean")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<Enum74, Bean74> collection=new HashMap<>();
                 Enum74 key=null;
@@ -478,7 +478,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
               }
             break;
             case "valueMapIntByteArray":
-              // field valueMapIntByteArray
+              // field valueMapIntByteArray (mapped with "valueMapIntByteArray")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<Integer, byte[]> collection=new HashMap<>();
                 Integer key=null;
@@ -499,7 +499,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
               }
             break;
             case "valueMapStringInteger":
-              // field valueMapStringInteger
+              // field valueMapStringInteger (mapped with "valueMapStringInteger")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<String, Integer> collection=new HashMap<>();
                 String key=null;
@@ -553,13 +553,13 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         // Parse fields:
         switch (fieldName) {
             case "valueString":
-              // field valueString
+              // field valueString (mapped with "valueString")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueString=jacksonParser.getText();
               }
             break;
             case "valueMapBeanLocale":
-              // field valueMapBeanLocale
+              // field valueMapBeanLocale (mapped with "valueMapBeanLocale")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<Bean74, Locale> collection=new HashMap<>();
                 Bean74 key=null;
@@ -598,7 +598,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
               }
             break;
             case "valueMapEnumBean":
-              // field valueMapEnumBean
+              // field valueMapEnumBean (mapped with "valueMapEnumBean")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<Enum74, Bean74> collection=new HashMap<>();
                 Enum74 key=null;
@@ -640,7 +640,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
               }
             break;
             case "valueMapIntByteArray":
-              // field valueMapIntByteArray
+              // field valueMapIntByteArray (mapped with "valueMapIntByteArray")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<Integer, byte[]> collection=new HashMap<>();
                 Integer key=null;
@@ -679,7 +679,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
               }
             break;
             case "valueMapStringInteger":
-              // field valueMapStringInteger
+              // field valueMapStringInteger (mapped with "valueMapStringInteger")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<String, Integer> collection=new HashMap<>();
                 String key=null;
@@ -763,11 +763,11 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "valueString":
-                    // property valueString
+                    // property valueString (mapped on "valueString")
                     instance.valueString=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   case "valueMapBeanLocale":
-                    // property valueMapBeanLocale
+                    // property valueMapBeanLocale (mapped on "valueMapBeanLocale")
                      {
                       HashMap<Bean74, Locale> collection=new HashMap<>();
                       Bean74 key;
@@ -802,7 +802,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                     }
                   break;
                   case "valueMapEnumBean":
-                    // property valueMapEnumBean
+                    // property valueMapEnumBean (mapped on "valueMapEnumBean")
                      {
                       HashMap<Enum74, Bean74> collection=new HashMap<>();
                       Enum74 key;
@@ -824,7 +824,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                     }
                   break;
                   case "valueMapIntByteArray":
-                    // property valueMapIntByteArray
+                    // property valueMapIntByteArray (mapped on "valueMapIntByteArray")
                      {
                       HashMap<Integer, byte[]> collection=new HashMap<>();
                       Integer key;
@@ -859,7 +859,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                     }
                   break;
                   case "valueMapStringInteger":
-                    // property valueMapStringInteger
+                    // property valueMapStringInteger (mapped on "valueMapStringInteger")
                      {
                       HashMap<String, Integer> collection=new HashMap<>();
                       String key;

@@ -54,6 +54,7 @@ import com.abubusoft.kripton.xml.XmlType;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -100,7 +101,7 @@ public class BindTypeBuilder {
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindType.class, packageName, className);
 		// @formatter:off
-		builder = TypeSpec.classBuilder(className).addAnnotation(BindMap.class).addModifiers(Modifier.PUBLIC)
+		builder = TypeSpec.classBuilder(className).addAnnotation(AnnotationSpec.builder(BindMap.class).addMember("value", "$T.class",typeName(item.getElement().asType())).build()).addModifiers(Modifier.PUBLIC)
 				.superclass(TypeUtility.parameterizedTypeName(className(AbstractMapper.class), typeName(item.getElement().asType())));
 		// @formatter:on
 		builder.addJavadoc("This class is the shared preference binder defined for $T\n\n", item.getElement());
@@ -294,7 +295,7 @@ public class BindTypeBuilder {
 				methodBuilder.addCode("case $S:\n$>", property.label);
 
 				bindTransform = BindTransformer.lookup(property);
-				methodBuilder.addCode("// field $L\n", property.getName());
+				methodBuilder.addCode("// field $L (mapped by $S)\n", property.getName(), property.label);
 				bindTransform.generateParseOnXml(methodBuilder, "xmlParser", property.getPropertyType().getName(), "instance", property);
 
 				methodBuilder.addStatement("$<break");
@@ -348,7 +349,7 @@ public class BindTypeBuilder {
 				// here we manage only property of bean type
 				if (bindTransform != null) {
 					methodBuilder.addCode("case $S:\n$>", property.label);
-					methodBuilder.addCode("// property $L\n", property.getName());
+					methodBuilder.addCode("// property $L (mapped on $S)\n", property.getName(), property.label);
 
 					// methodBuilder.beginControlFlow("if
 					// (!xmlParser.isEmptyElement())");
@@ -429,8 +430,8 @@ public class BindTypeBuilder {
 			for (BindProperty item : entity.getCollection()) {
 				bindTransform = BindTransformer.lookup(item);
 
-				methodBuilder.addCode("case $S:\n$>", item.getName());
-				methodBuilder.addCode("// field $L\n", item.getName());
+				methodBuilder.addCode("case $S:\n$>", item.label);
+				methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
 				bindTransform.generateParseOnJackson(methodBuilder, "jacksonParser", item.getPropertyType().getName(), "instance", item);
 				methodBuilder.addCode("$<break;\n");
 			}
@@ -488,8 +489,8 @@ public class BindTypeBuilder {
 			for (BindProperty item : entity.getCollection()) {
 				bindTransform = BindTransformer.lookup(item);
 
-				methodBuilder.addCode("case $S:\n$>", item.getName());
-				methodBuilder.addCode("// field $L\n", item.getName());
+				methodBuilder.addCode("case $S:\n$>", item.label);
+				methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
 				bindTransform.generateParseOnJacksonAsString(methodBuilder, "jacksonParser", item.getPropertyType().getName(), "instance", item);
 				methodBuilder.addCode("$<break;\n");
 			}
@@ -537,7 +538,7 @@ public class BindTypeBuilder {
 		for (BindProperty item : entity.getCollection()) {
 			bindTransform = BindTransformer.lookup(item);
 
-			methodBuilder.addCode("// field $L\n", item.getName());
+			methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
 			bindTransform.generateSerializeOnJackson(methodBuilder, "jacksonSerializer", item.getPropertyType().getName(), "object", item);
 			methodBuilder.addCode("\n");
 		}
@@ -574,7 +575,7 @@ public class BindTypeBuilder {
 		for (BindProperty item : entity.getCollection()) {
 			bindTransform = BindTransformer.lookup(item);
 
-			methodBuilder.addCode("// field $L\n", item.getName());
+			methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
 			bindTransform.generateSerializeOnJacksonAsString(methodBuilder, "jacksonSerializer", item.getPropertyType().getName(), "object", item);
 			methodBuilder.addCode("\n");
 		}
@@ -603,7 +604,7 @@ public class BindTypeBuilder {
 		methodBuilder.addStatement("$T xmlSerializer = wrapper.xmlSerializer", className(XmlSerializer.class));
 
 		methodBuilder.beginControlFlow("if (currentEventType == 0)");
-		methodBuilder.addStatement("xmlSerializer.writeStartElement(\"$L\")", entity.xmlInfo.tagName);
+		methodBuilder.addStatement("xmlSerializer.writeStartElement(\"$L\")", entity.xmlInfo.label);
 		methodBuilder.endControlFlow();
 
 		BindTransform bindTransform;
@@ -615,7 +616,7 @@ public class BindTypeBuilder {
 		for (BindProperty item : entity.getCollection()) {
 			bindTransform = BindTransformer.lookup(item);
 
-			methodBuilder.addCode("// field $L\n", item.getName());
+			methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
 			bindTransform.generateSerializeOnXml(methodBuilder, "xmlSerializer", item.getPropertyType().getName(), "object", item);
 			methodBuilder.addCode("\n");
 		}

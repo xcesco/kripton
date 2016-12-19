@@ -31,7 +31,7 @@ import java.util.ArrayList;
  *
  * @see Bean75
  */
-@BindMap
+@BindMap(Bean75.class)
 public class Bean75BindMap extends AbstractMapper<Bean75> {
   /**
    * create new object instance
@@ -53,13 +53,13 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
 
       // Serialized Field:
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
-      // field valueByteArray
+      // field valueByteArray (mapped with "valueByteArray")
       if (object.valueByteArray!=null)  {
         fieldCount++;
         int n=object.valueByteArray.length;
@@ -78,7 +78,7 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueByteTypeArray
+      // field valueByteTypeArray (mapped with "valueByteTypeArray")
       if (object.valueByteTypeArray!=null)  {
         fieldCount++;
         jacksonSerializer.writeBinaryField("valueByteTypeArray", object.valueByteTypeArray);
@@ -104,13 +104,13 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
 
       // Serialized Field:
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
-      // field valueByteArray
+      // field valueByteArray (mapped with "valueByteArray")
       if (object.valueByteArray!=null)  {
         fieldCount++;
         int n=object.valueByteArray.length;
@@ -133,7 +133,7 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
         }
       }
 
-      // field valueByteTypeArray
+      // field valueByteTypeArray (mapped with "valueByteTypeArray")
       if (object.valueByteTypeArray!=null)  {
         fieldCount++;
         jacksonSerializer.writeBinaryField("valueByteTypeArray", object.valueByteTypeArray);
@@ -160,14 +160,14 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
 
       // Persisted fields:
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null) {
         xmlSerializer.writeStartElement("name");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
         xmlSerializer.writeEndElement();
       }
 
-      // field valueByteArray
+      // field valueByteArray (mapped with "valueByteArray")
       if (object.valueByteArray!=null)  {
         int n=object.valueByteArray.length;
         Byte item;
@@ -189,7 +189,7 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
         }
       }
 
-      // field valueByteTypeArray
+      // field valueByteTypeArray (mapped with "valueByteTypeArray")
       if (object.valueByteTypeArray!=null) {
         xmlSerializer.writeStartElement("valueByteTypeArray");
         xmlSerializer.writeBinary(object.valueByteTypeArray, 0, object.valueByteTypeArray.length);
@@ -228,13 +228,13 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
         // Parse fields:
         switch (fieldName) {
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.name=jacksonParser.getText();
               }
             break;
             case "valueByteArray":
-              // field valueByteArray
+              // field valueByteArray (mapped with "valueByteArray")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Byte> collection=new ArrayList<>();
                 Byte item=null;
@@ -250,7 +250,7 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
               }
             break;
             case "valueByteTypeArray":
-              // field valueByteTypeArray
+              // field valueByteTypeArray (mapped with "valueByteTypeArray")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueByteTypeArray=jacksonParser.getBinaryValue();
               }
@@ -289,13 +289,13 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
         // Parse fields:
         switch (fieldName) {
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.name=jacksonParser.getText();
               }
             break;
             case "valueByteArray":
-              // field valueByteArray
+              // field valueByteArray (mapped with "valueByteArray")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Byte> collection=new ArrayList<>();
                 Byte item=null;
@@ -316,7 +316,7 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
               }
             break;
             case "valueByteTypeArray":
-              // field valueByteTypeArray
+              // field valueByteTypeArray (mapped with "valueByteTypeArray")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueByteTypeArray=Base64Utils.decode(jacksonParser.getValueAsString());
               }
@@ -365,11 +365,11 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "name":
-                    // property name
+                    // property name (mapped on "name")
                     instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   case "valueByteArray":
-                    // property valueByteArray
+                    // property valueByteArray (mapped on "valueByteArray")
                      {
                       ArrayList<Byte> collection=new ArrayList<>();
                       Byte item;
@@ -399,7 +399,7 @@ public class Bean75BindMap extends AbstractMapper<Bean75> {
                     }
                   break;
                   case "valueByteTypeArray":
-                    // property valueByteTypeArray
+                    // property valueByteTypeArray (mapped on "valueByteTypeArray")
                     instance.valueByteTypeArray=xmlParser.getElementAsBinary();
                   break;
                   default:

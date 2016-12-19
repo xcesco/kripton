@@ -24,7 +24,7 @@ import java.lang.Override;
  *
  * @see DeviceAccessToken
  */
-@BindMap
+@BindMap(DeviceAccessToken.class)
 public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> {
   /**
    * create new object instance
@@ -46,11 +46,11 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
 
       // Serialized Field:
 
-      // field creationTime
+      // field creationTime (mapped with "creationTime")
       fieldCount++;
       jacksonSerializer.writeNumberField("creationTime", object.getCreationTime());
 
-      // field lastUsedTime
+      // field lastUsedTime (mapped with "lastUsedTime")
       fieldCount++;
       jacksonSerializer.writeNumberField("lastUsedTime", object.getLastUsedTime());
 
@@ -74,10 +74,10 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
 
       // Serialized Field:
 
-      // field creationTime
+      // field creationTime (mapped with "creationTime")
       jacksonSerializer.writeStringField("creationTime", PrimitiveUtils.writeLong(object.getCreationTime()));
 
-      // field lastUsedTime
+      // field lastUsedTime (mapped with "lastUsedTime")
       jacksonSerializer.writeStringField("lastUsedTime", PrimitiveUtils.writeLong(object.getLastUsedTime()));
 
       jacksonSerializer.writeEndObject();
@@ -101,12 +101,12 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
 
       // Persisted fields:
 
-      // field creationTime
+      // field creationTime (mapped with "creationTime")
       xmlSerializer.writeStartElement("creationTime");
       xmlSerializer.writeLong(object.getCreationTime());
       xmlSerializer.writeEndElement();
 
-      // field lastUsedTime
+      // field lastUsedTime (mapped with "lastUsedTime")
       xmlSerializer.writeStartElement("lastUsedTime");
       xmlSerializer.writeLong(object.getLastUsedTime());
       xmlSerializer.writeEndElement();
@@ -143,11 +143,11 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
         // Parse fields:
         switch (fieldName) {
             case "creationTime":
-              // field creationTime
+              // field creationTime (mapped with "creationTime")
               instance.setCreationTime(jacksonParser.getLongValue());
             break;
             case "lastUsedTime":
-              // field lastUsedTime
+              // field lastUsedTime (mapped with "lastUsedTime")
               instance.setLastUsedTime(jacksonParser.getLongValue());
             break;
             default:
@@ -184,11 +184,11 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
         // Parse fields:
         switch (fieldName) {
             case "creationTime":
-              // field creationTime
+              // field creationTime (mapped with "creationTime")
               instance.setCreationTime(PrimitiveUtils.readLong(jacksonParser.getText(), 0L));
             break;
             case "lastUsedTime":
-              // field lastUsedTime
+              // field lastUsedTime (mapped with "lastUsedTime")
               instance.setLastUsedTime(PrimitiveUtils.readLong(jacksonParser.getText(), 0L));
             break;
             default:
@@ -235,11 +235,11 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "creationTime":
-                    // property creationTime
+                    // property creationTime (mapped on "creationTime")
                     instance.setCreationTime(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
                   break;
                   case "lastUsedTime":
-                    // property lastUsedTime
+                    // property lastUsedTime (mapped on "lastUsedTime")
                     instance.setLastUsedTime(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
                   break;
                   default:

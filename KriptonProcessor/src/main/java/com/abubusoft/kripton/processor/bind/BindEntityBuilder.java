@@ -58,9 +58,9 @@ public class BindEntityBuilder {
 		// tag name
 		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindType.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 		if (StringUtils.hasText(tagName)) {
-			currentEntity.xmlInfo.tagName = tagName;
+			currentEntity.xmlInfo.label = tagName;
 		} else {
-			currentEntity.xmlInfo.tagName = typeNameConverter.convert(beanElement.getSimpleName().toString());
+			currentEntity.xmlInfo.label = typeNameConverter.convert(beanElement.getSimpleName().toString());
 		}
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
@@ -99,8 +99,9 @@ public class BindEntityBuilder {
 				property.order = 0;
 				property.mapKeyName = Bind.MAP_KEY_DEFAULT;
 				property.mapValueName = Bind.MAP_VALUE_DEFAULT;
+				// label for item and collection elements are the same for default
 				property.label = typeNameConverter.convert(property.getName());
-				property.xmlInfo.labelItem = property.xmlInfo.labelItem;
+				property.xmlInfo.labelItem = property.label;
 				property.xmlInfo.wrappedCollection = false;
 				property.xmlInfo.xmlType = XmlType.valueOf(XmlType.TAG.toString());				
 				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());			
@@ -112,7 +113,9 @@ public class BindEntityBuilder {
 
 					String tempName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
 					if (StringUtils.hasText(tempName)) {
+						// for the moment are the same
 						property.label = tempName;
+						property.xmlInfo.labelItem = property.label;
 					}
 
 					// map info

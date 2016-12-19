@@ -40,7 +40,7 @@ import java.util.HashSet;
  *
  * @see Bean72
  */
-@BindMap
+@BindMap(Bean72.class)
 public class Bean72BindMap extends AbstractMapper<Bean72> {
   /**
    * create new object instance
@@ -62,13 +62,13 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
 
       // Serialized Field:
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
-      // field valueBeanSet
+      // field valueBeanSet (mapped with "valueBeanSet")
       if (object.valueBeanSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -84,7 +84,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueByteSet
+      // field valueByteSet (mapped with "valueByteSet")
       if (object.valueByteSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -100,7 +100,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueCharacterSet
+      // field valueCharacterSet (mapped with "valueCharacterSet")
       if (object.valueCharacterSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -116,7 +116,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueDoubleSet
+      // field valueDoubleSet (mapped with "valueDoubleSet")
       if (object.valueDoubleSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -132,7 +132,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueEnumSet
+      // field valueEnumSet (mapped with "valueEnumSet")
       if (object.valueEnumSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -148,7 +148,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueFloatSet
+      // field valueFloatSet (mapped with "valueFloatSet")
       if (object.valueFloatSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -164,7 +164,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueIntSet
+      // field valueIntSet (mapped with "valueIntSet")
       if (object.getValueIntSet()!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -180,7 +180,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueLongSet
+      // field valueLongSet (mapped with "valueLongSet")
       if (object.valueLongSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -196,7 +196,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueShortSet
+      // field valueShortSet (mapped with "valueShortSet")
       if (object.valueShortSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -212,7 +212,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueStringSet
+      // field valueStringSet (mapped with "valueStringSet")
       if (object.valueStringSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -228,7 +228,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueBigDecimalSet
+      // field valueBigDecimalSet (mapped with "valueBigDecimalSet")
       if (object.valueBigDecimalSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -244,7 +244,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueBigIntegerSet
+      // field valueBigIntegerSet (mapped with "valueBigIntegerSet")
       if (object.valueBigIntegerSet!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -260,7 +260,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field zalueStringFinal
+      // field zalueStringFinal (mapped with "zalueStringFinal")
       if (object.zalueStringFinal!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("zalueStringFinal", object.zalueStringFinal);
@@ -286,13 +286,13 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
 
       // Serialized Field:
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
-      // field valueBeanSet
+      // field valueBeanSet (mapped with "valueBeanSet")
       if (object.valueBeanSet!=null)  {
         fieldCount++;
         int n=object.valueBeanSet.size();
@@ -315,7 +315,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueByteSet
+      // field valueByteSet (mapped with "valueByteSet")
       if (object.valueByteSet!=null)  {
         fieldCount++;
         int n=object.valueByteSet.size();
@@ -336,7 +336,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueCharacterSet
+      // field valueCharacterSet (mapped with "valueCharacterSet")
       if (object.valueCharacterSet!=null)  {
         fieldCount++;
         int n=object.valueCharacterSet.size();
@@ -357,7 +357,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueDoubleSet
+      // field valueDoubleSet (mapped with "valueDoubleSet")
       if (object.valueDoubleSet!=null)  {
         fieldCount++;
         int n=object.valueDoubleSet.size();
@@ -378,7 +378,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueEnumSet
+      // field valueEnumSet (mapped with "valueEnumSet")
       if (object.valueEnumSet!=null)  {
         fieldCount++;
         int n=object.valueEnumSet.size();
@@ -399,7 +399,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueFloatSet
+      // field valueFloatSet (mapped with "valueFloatSet")
       if (object.valueFloatSet!=null)  {
         fieldCount++;
         int n=object.valueFloatSet.size();
@@ -420,7 +420,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueIntSet
+      // field valueIntSet (mapped with "valueIntSet")
       if (object.getValueIntSet()!=null)  {
         fieldCount++;
         int n=object.getValueIntSet().size();
@@ -441,7 +441,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueLongSet
+      // field valueLongSet (mapped with "valueLongSet")
       if (object.valueLongSet!=null)  {
         fieldCount++;
         int n=object.valueLongSet.size();
@@ -462,7 +462,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueShortSet
+      // field valueShortSet (mapped with "valueShortSet")
       if (object.valueShortSet!=null)  {
         fieldCount++;
         int n=object.valueShortSet.size();
@@ -483,7 +483,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueStringSet
+      // field valueStringSet (mapped with "valueStringSet")
       if (object.valueStringSet!=null)  {
         fieldCount++;
         int n=object.valueStringSet.size();
@@ -504,7 +504,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueBigDecimalSet
+      // field valueBigDecimalSet (mapped with "valueBigDecimalSet")
       if (object.valueBigDecimalSet!=null)  {
         fieldCount++;
         int n=object.valueBigDecimalSet.size();
@@ -525,7 +525,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueBigIntegerSet
+      // field valueBigIntegerSet (mapped with "valueBigIntegerSet")
       if (object.valueBigIntegerSet!=null)  {
         fieldCount++;
         int n=object.valueBigIntegerSet.size();
@@ -546,7 +546,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field zalueStringFinal
+      // field zalueStringFinal (mapped with "zalueStringFinal")
       if (object.zalueStringFinal!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("zalueStringFinal", object.zalueStringFinal);
@@ -573,14 +573,14 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
 
       // Persisted fields:
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null) {
         xmlSerializer.writeStartElement("name");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
         xmlSerializer.writeEndElement();
       }
 
-      // field valueBeanSet
+      // field valueBeanSet (mapped with "valueBeanSet")
       if (object.valueBeanSet!=null)  {
         int n=object.valueBeanSet.size();
         // write wrapper tag
@@ -597,7 +597,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueByteSet
+      // field valueByteSet (mapped with "valueByteSet")
       if (object.valueByteSet!=null)  {
         int n=object.valueByteSet.size();
         // write wrapper tag
@@ -614,7 +614,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueCharacterSet
+      // field valueCharacterSet (mapped with "valueCharacterSet")
       if (object.valueCharacterSet!=null)  {
         int n=object.valueCharacterSet.size();
         // write wrapper tag
@@ -631,7 +631,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueDoubleSet
+      // field valueDoubleSet (mapped with "valueDoubleSet")
       if (object.valueDoubleSet!=null)  {
         int n=object.valueDoubleSet.size();
         // write wrapper tag
@@ -648,7 +648,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueEnumSet
+      // field valueEnumSet (mapped with "valueEnumSet")
       if (object.valueEnumSet!=null)  {
         int n=object.valueEnumSet.size();
         for (Enum72 item: object.valueEnumSet) {
@@ -668,7 +668,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueFloatSet
+      // field valueFloatSet (mapped with "valueFloatSet")
       if (object.valueFloatSet!=null)  {
         int n=object.valueFloatSet.size();
         // write wrapper tag
@@ -685,7 +685,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueIntSet
+      // field valueIntSet (mapped with "valueIntSet")
       if (object.getValueIntSet()!=null)  {
         int n=object.getValueIntSet().size();
         // write wrapper tag
@@ -702,7 +702,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueLongSet
+      // field valueLongSet (mapped with "valueLongSet")
       if (object.valueLongSet!=null)  {
         int n=object.valueLongSet.size();
         // write wrapper tag
@@ -719,7 +719,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueShortSet
+      // field valueShortSet (mapped with "valueShortSet")
       if (object.valueShortSet!=null)  {
         int n=object.valueShortSet.size();
         // write wrapper tag
@@ -736,7 +736,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueStringSet
+      // field valueStringSet (mapped with "valueStringSet")
       if (object.valueStringSet!=null)  {
         int n=object.valueStringSet.size();
         // write wrapper tag
@@ -753,7 +753,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueBigDecimalSet
+      // field valueBigDecimalSet (mapped with "valueBigDecimalSet")
       if (object.valueBigDecimalSet!=null)  {
         int n=object.valueBigDecimalSet.size();
         for (BigDecimal item: object.valueBigDecimalSet) {
@@ -773,7 +773,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         }
       }
 
-      // field valueBigIntegerSet
+      // field valueBigIntegerSet (mapped with "valueBigIntegerSet")
       if (object.valueBigIntegerSet!=null)  {
         int n=object.valueBigIntegerSet.size();
         // write wrapper tag
@@ -790,7 +790,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         xmlSerializer.writeEndElement();
       }
 
-      // field zalueStringFinal
+      // field zalueStringFinal (mapped with "zalueStringFinal")
       if (object.zalueStringFinal!=null) {
         xmlSerializer.writeStartElement("zalueStringFinal");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.zalueStringFinal));
@@ -829,13 +829,13 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         // Parse fields:
         switch (fieldName) {
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.name=jacksonParser.getText();
               }
             break;
             case "valueBeanSet":
-              // field valueBeanSet
+              // field valueBeanSet (mapped with "valueBeanSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Bean72> collection=new HashSet<>();
                 Bean72 item=null;
@@ -851,7 +851,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueByteSet":
-              // field valueByteSet
+              // field valueByteSet (mapped with "valueByteSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Byte> collection=new HashSet<>();
                 Byte item=null;
@@ -867,7 +867,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueCharacterSet":
-              // field valueCharacterSet
+              // field valueCharacterSet (mapped with "valueCharacterSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Character> collection=new HashSet<>();
                 Character item=null;
@@ -883,7 +883,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueDoubleSet":
-              // field valueDoubleSet
+              // field valueDoubleSet (mapped with "valueDoubleSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Double> collection=new HashSet<>();
                 Double item=null;
@@ -899,7 +899,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueEnumSet":
-              // field valueEnumSet
+              // field valueEnumSet (mapped with "valueEnumSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Enum72> collection=new HashSet<>();
                 Enum72 item=null;
@@ -918,7 +918,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueFloatSet":
-              // field valueFloatSet
+              // field valueFloatSet (mapped with "valueFloatSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Float> collection=new HashSet<>();
                 Float item=null;
@@ -934,7 +934,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueIntSet":
-              // field valueIntSet
+              // field valueIntSet (mapped with "valueIntSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Integer> collection=new HashSet<>();
                 Integer item=null;
@@ -950,7 +950,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueLongSet":
-              // field valueLongSet
+              // field valueLongSet (mapped with "valueLongSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Long> collection=new HashSet<>();
                 Long item=null;
@@ -966,7 +966,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueShortSet":
-              // field valueShortSet
+              // field valueShortSet (mapped with "valueShortSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Short> collection=new HashSet<>();
                 Short item=null;
@@ -982,7 +982,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueStringSet":
-              // field valueStringSet
+              // field valueStringSet (mapped with "valueStringSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<String> collection=new HashSet<>();
                 String item=null;
@@ -998,7 +998,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueBigDecimalSet":
-              // field valueBigDecimalSet
+              // field valueBigDecimalSet (mapped with "valueBigDecimalSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BigDecimal> collection=new HashSet<>();
                 BigDecimal item=null;
@@ -1014,7 +1014,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueBigIntegerSet":
-              // field valueBigIntegerSet
+              // field valueBigIntegerSet (mapped with "valueBigIntegerSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BigInteger> collection=new HashSet<>();
                 BigInteger item=null;
@@ -1030,7 +1030,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "zalueStringFinal":
-              // field zalueStringFinal
+              // field zalueStringFinal (mapped with "zalueStringFinal")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.zalueStringFinal=jacksonParser.getText();
               }
@@ -1069,13 +1069,13 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
         // Parse fields:
         switch (fieldName) {
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.name=jacksonParser.getText();
               }
             break;
             case "valueBeanSet":
-              // field valueBeanSet
+              // field valueBeanSet (mapped with "valueBeanSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Bean72> collection=new HashSet<>();
                 Bean72 item=null;
@@ -1096,7 +1096,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueByteSet":
-              // field valueByteSet
+              // field valueByteSet (mapped with "valueByteSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Byte> collection=new HashSet<>();
                 Byte item=null;
@@ -1117,7 +1117,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueCharacterSet":
-              // field valueCharacterSet
+              // field valueCharacterSet (mapped with "valueCharacterSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Character> collection=new HashSet<>();
                 Character item=null;
@@ -1138,7 +1138,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueDoubleSet":
-              // field valueDoubleSet
+              // field valueDoubleSet (mapped with "valueDoubleSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Double> collection=new HashSet<>();
                 Double item=null;
@@ -1159,7 +1159,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueEnumSet":
-              // field valueEnumSet
+              // field valueEnumSet (mapped with "valueEnumSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Enum72> collection=new HashSet<>();
                 Enum72 item=null;
@@ -1183,7 +1183,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueFloatSet":
-              // field valueFloatSet
+              // field valueFloatSet (mapped with "valueFloatSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Float> collection=new HashSet<>();
                 Float item=null;
@@ -1204,7 +1204,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueIntSet":
-              // field valueIntSet
+              // field valueIntSet (mapped with "valueIntSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Integer> collection=new HashSet<>();
                 Integer item=null;
@@ -1225,7 +1225,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueLongSet":
-              // field valueLongSet
+              // field valueLongSet (mapped with "valueLongSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Long> collection=new HashSet<>();
                 Long item=null;
@@ -1246,7 +1246,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueShortSet":
-              // field valueShortSet
+              // field valueShortSet (mapped with "valueShortSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<Short> collection=new HashSet<>();
                 Short item=null;
@@ -1267,7 +1267,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueStringSet":
-              // field valueStringSet
+              // field valueStringSet (mapped with "valueStringSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<String> collection=new HashSet<>();
                 String item=null;
@@ -1290,7 +1290,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueBigDecimalSet":
-              // field valueBigDecimalSet
+              // field valueBigDecimalSet (mapped with "valueBigDecimalSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BigDecimal> collection=new HashSet<>();
                 BigDecimal item=null;
@@ -1311,7 +1311,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "valueBigIntegerSet":
-              // field valueBigIntegerSet
+              // field valueBigIntegerSet (mapped with "valueBigIntegerSet")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<BigInteger> collection=new HashSet<>();
                 BigInteger item=null;
@@ -1332,7 +1332,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               }
             break;
             case "zalueStringFinal":
-              // field zalueStringFinal
+              // field zalueStringFinal (mapped with "zalueStringFinal")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.zalueStringFinal=jacksonParser.getText();
               }
@@ -1381,11 +1381,11 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "name":
-                    // property name
+                    // property name (mapped on "name")
                     instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   case "valueBeanSet":
-                    // property valueBeanSet
+                    // property valueBeanSet (mapped on "valueBeanSet")
                      {
                       HashSet<Bean72> collection=new HashSet<>();
                       Bean72 item;
@@ -1402,7 +1402,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueByteSet":
-                    // property valueByteSet
+                    // property valueByteSet (mapped on "valueByteSet")
                      {
                       HashSet<Byte> collection=new HashSet<>();
                       Byte item;
@@ -1419,7 +1419,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueCharacterSet":
-                    // property valueCharacterSet
+                    // property valueCharacterSet (mapped on "valueCharacterSet")
                      {
                       HashSet<Character> collection=new HashSet<>();
                       Character item;
@@ -1436,7 +1436,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueDoubleSet":
-                    // property valueDoubleSet
+                    // property valueDoubleSet (mapped on "valueDoubleSet")
                      {
                       HashSet<Double> collection=new HashSet<>();
                       Double item;
@@ -1453,7 +1453,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueEnumSet":
-                    // property valueEnumSet
+                    // property valueEnumSet (mapped on "valueEnumSet")
                      {
                       HashSet<Enum72> collection=new HashSet<>();
                       Enum72 item;
@@ -1483,7 +1483,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueFloatSet":
-                    // property valueFloatSet
+                    // property valueFloatSet (mapped on "valueFloatSet")
                      {
                       HashSet<Float> collection=new HashSet<>();
                       Float item;
@@ -1500,7 +1500,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueIntSet":
-                    // property valueIntSet
+                    // property valueIntSet (mapped on "valueIntSet")
                      {
                       HashSet<Integer> collection=new HashSet<>();
                       Integer item;
@@ -1517,7 +1517,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueLongSet":
-                    // property valueLongSet
+                    // property valueLongSet (mapped on "valueLongSet")
                      {
                       HashSet<Long> collection=new HashSet<>();
                       Long item;
@@ -1534,7 +1534,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueShortSet":
-                    // property valueShortSet
+                    // property valueShortSet (mapped on "valueShortSet")
                      {
                       HashSet<Short> collection=new HashSet<>();
                       Short item;
@@ -1551,7 +1551,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueStringSet":
-                    // property valueStringSet
+                    // property valueStringSet (mapped on "valueStringSet")
                      {
                       HashSet<String> collection=new HashSet<>();
                       String item;
@@ -1568,7 +1568,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueBigDecimalSet":
-                    // property valueBigDecimalSet
+                    // property valueBigDecimalSet (mapped on "valueBigDecimalSet")
                      {
                       HashSet<BigDecimal> collection=new HashSet<>();
                       BigDecimal item;
@@ -1598,7 +1598,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "valueBigIntegerSet":
-                    // property valueBigIntegerSet
+                    // property valueBigIntegerSet (mapped on "valueBigIntegerSet")
                      {
                       HashSet<BigInteger> collection=new HashSet<>();
                       BigInteger item;
@@ -1615,7 +1615,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
                     }
                   break;
                   case "zalueStringFinal":
-                    // property zalueStringFinal
+                    // property zalueStringFinal (mapped on "zalueStringFinal")
                     instance.zalueStringFinal=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   default:

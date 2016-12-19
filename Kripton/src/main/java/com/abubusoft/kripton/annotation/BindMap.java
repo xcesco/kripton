@@ -18,5 +18,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindMap {
+	
+	/**
+	 * binded bean class
+	 * 
+	 * @return
+	 * 		associated bean class
+	 */
+	Class<?> value();
 
 }

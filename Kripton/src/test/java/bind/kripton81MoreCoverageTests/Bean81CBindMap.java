@@ -26,7 +26,7 @@ import java.lang.Override;
  *
  * @see Bean81C
  */
-@BindMap
+@BindMap(Bean81C.class)
 public class Bean81CBindMap extends AbstractMapper<Bean81C> {
   /**
    * create new object instance
@@ -48,11 +48,11 @@ public class Bean81CBindMap extends AbstractMapper<Bean81C> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       fieldCount++;
       jacksonSerializer.writeNumberField("id", object.id);
 
-      // field valueEnum
+      // field valueEnum (mapped with "valueEnum")
       if (object.valueEnum!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueEnum", object.valueEnum.toString());
@@ -78,10 +78,10 @@ public class Bean81CBindMap extends AbstractMapper<Bean81C> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-      // field valueEnum
+      // field valueEnum (mapped with "valueEnum")
       if (object.valueEnum!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueEnum", object.valueEnum.toString());
@@ -108,12 +108,12 @@ public class Bean81CBindMap extends AbstractMapper<Bean81C> {
 
       // Persisted fields:
 
-      // field id
+      // field id (mapped with "id")
       xmlSerializer.writeStartElement("id");
       xmlSerializer.writeLong(object.id);
       xmlSerializer.writeEndElement();
 
-      // field valueEnum
+      // field valueEnum (mapped with "valueEnum")
       if (object.valueEnum!=null)  {
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.valueEnum.toString()));
       }
@@ -150,11 +150,11 @@ public class Bean81CBindMap extends AbstractMapper<Bean81C> {
         // Parse fields:
         switch (fieldName) {
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=jacksonParser.getLongValue();
             break;
             case "valueEnum":
-              // field valueEnum
+              // field valueEnum (mapped with "valueEnum")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 String tempEnum=jacksonParser.getText();
                 instance.valueEnum=StringUtils.hasText(tempEnum)?Bean81Enum.valueOf(tempEnum):null;
@@ -194,11 +194,11 @@ public class Bean81CBindMap extends AbstractMapper<Bean81C> {
         // Parse fields:
         switch (fieldName) {
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
             break;
             case "valueEnum":
-              // field valueEnum
+              // field valueEnum (mapped with "valueEnum")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 String tempEnum=jacksonParser.getText();
                 instance.valueEnum=StringUtils.hasText(tempEnum)?Bean81Enum.valueOf(tempEnum):null;
@@ -248,7 +248,7 @@ public class Bean81CBindMap extends AbstractMapper<Bean81C> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "id":
-                    // property id
+                    // property id (mapped on "id")
                     instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                   break;
                   default:

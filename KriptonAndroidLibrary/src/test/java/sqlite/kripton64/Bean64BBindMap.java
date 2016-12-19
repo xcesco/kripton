@@ -31,7 +31,7 @@ import java.util.Map;
  *
  * @see Bean64B
  */
-@BindMap
+@BindMap(Bean64B.class)
 public class Bean64BBindMap extends AbstractMapper<Bean64B> {
   /**
    * create new object instance
@@ -53,11 +53,11 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       fieldCount++;
       jacksonSerializer.writeNumberField("id", object.id);
 
-      // field valueMapStringBean
+      // field valueMapStringBean (mapped with "valueMapStringBean")
       if (object.valueMapStringBean!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -81,7 +81,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
         }
       }
 
-      // field valueSetString
+      // field valueSetString (mapped with "valueSetString")
       if (object.valueSetString!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -97,7 +97,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueString
+      // field valueString (mapped with "valueString")
       if (object.valueString!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueString", object.valueString);
@@ -123,10 +123,10 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-      // field valueMapStringBean
+      // field valueMapStringBean (mapped with "valueMapStringBean")
       if (object.valueMapStringBean!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -152,7 +152,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
         }
       }
 
-      // field valueSetString
+      // field valueSetString (mapped with "valueSetString")
       if (object.valueSetString!=null)  {
         fieldCount++;
         int n=object.valueSetString.size();
@@ -173,7 +173,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
         }
       }
 
-      // field valueString
+      // field valueString (mapped with "valueString")
       if (object.valueString!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueString", object.valueString);
@@ -200,12 +200,12 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
 
       // Persisted fields:
 
-      // field id
+      // field id (mapped with "id")
       xmlSerializer.writeStartElement("id");
       xmlSerializer.writeLong(object.id);
       xmlSerializer.writeEndElement();
 
-      // field valueMapStringBean
+      // field valueMapStringBean (mapped with "valueMapStringBean")
       if (object.valueMapStringBean!=null)  {
         for (Map.Entry<String, Bean64B> item: object.valueMapStringBean.entrySet()) {
           xmlSerializer.writeStartElement("valueMapStringBean");
@@ -227,7 +227,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
         }
       }
 
-      // field valueSetString
+      // field valueSetString (mapped with "valueSetString")
       if (object.valueSetString!=null)  {
         int n=object.valueSetString.size();
         for (String item: object.valueSetString) {
@@ -247,7 +247,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
         }
       }
 
-      // field valueString
+      // field valueString (mapped with "valueString")
       if (object.valueString!=null) {
         xmlSerializer.writeStartElement("valueString");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.valueString));
@@ -286,11 +286,11 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
         // Parse fields:
         switch (fieldName) {
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=jacksonParser.getLongValue();
             break;
             case "valueMapStringBean":
-              // field valueMapStringBean
+              // field valueMapStringBean (mapped with "valueMapStringBean")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<String, Bean64B> collection=new HashMap<>();
                 String key=null;
@@ -311,7 +311,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
               }
             break;
             case "valueSetString":
-              // field valueSetString
+              // field valueSetString (mapped with "valueSetString")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<String> collection=new HashSet<>();
                 String item=null;
@@ -327,7 +327,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
               }
             break;
             case "valueString":
-              // field valueString
+              // field valueString (mapped with "valueString")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueString=jacksonParser.getText();
               }
@@ -366,11 +366,11 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
         // Parse fields:
         switch (fieldName) {
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
             break;
             case "valueMapStringBean":
-              // field valueMapStringBean
+              // field valueMapStringBean (mapped with "valueMapStringBean")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<String, Bean64B> collection=new HashMap<>();
                 String key=null;
@@ -411,7 +411,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
               }
             break;
             case "valueSetString":
-              // field valueSetString
+              // field valueSetString (mapped with "valueSetString")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashSet<String> collection=new HashSet<>();
                 String item=null;
@@ -434,7 +434,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
               }
             break;
             case "valueString":
-              // field valueString
+              // field valueString (mapped with "valueString")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueString=jacksonParser.getText();
               }
@@ -483,11 +483,11 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "id":
-                    // property id
+                    // property id (mapped on "id")
                     instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                   break;
                   case "valueMapStringBean":
-                    // property valueMapStringBean
+                    // property valueMapStringBean (mapped on "valueMapStringBean")
                      {
                       HashMap<String, Bean64B> collection=new HashMap<>();
                       String key;
@@ -522,7 +522,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
                     }
                   break;
                   case "valueSetString":
-                    // property valueSetString
+                    // property valueSetString (mapped on "valueSetString")
                      {
                       HashSet<String> collection=new HashSet<>();
                       String item;
@@ -552,7 +552,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
                     }
                   break;
                   case "valueString":
-                    // property valueString
+                    // property valueString (mapped on "valueString")
                     instance.valueString=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   default:

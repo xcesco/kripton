@@ -25,7 +25,7 @@ import java.lang.Override;
  *
  * @see UserAccessToken
  */
-@BindMap
+@BindMap(UserAccessToken.class)
 public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
   /**
    * create new object instance
@@ -47,11 +47,11 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
 
       // Serialized Field:
 
-      // field creationDate
+      // field creationDate (mapped with "creationDate")
       fieldCount++;
       jacksonSerializer.writeNumberField("creationDate", object.getCreationDate());
 
-      // field uid
+      // field uid (mapped with "uid")
       if (object.getUid()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("uid", object.getUid());
@@ -77,10 +77,10 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
 
       // Serialized Field:
 
-      // field creationDate
+      // field creationDate (mapped with "creationDate")
       jacksonSerializer.writeStringField("creationDate", PrimitiveUtils.writeLong(object.getCreationDate()));
 
-      // field uid
+      // field uid (mapped with "uid")
       if (object.getUid()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("uid", object.getUid());
@@ -107,12 +107,12 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
 
       // Persisted fields:
 
-      // field creationDate
+      // field creationDate (mapped with "creationDate")
       xmlSerializer.writeStartElement("creationDate");
       xmlSerializer.writeLong(object.getCreationDate());
       xmlSerializer.writeEndElement();
 
-      // field uid
+      // field uid (mapped with "uid")
       if (object.getUid()!=null) {
         xmlSerializer.writeStartElement("uid");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getUid()));
@@ -151,11 +151,11 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
         // Parse fields:
         switch (fieldName) {
             case "creationDate":
-              // field creationDate
+              // field creationDate (mapped with "creationDate")
               instance.setCreationDate(jacksonParser.getLongValue());
             break;
             case "uid":
-              // field uid
+              // field uid (mapped with "uid")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setUid(jacksonParser.getText());
               }
@@ -194,11 +194,11 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
         // Parse fields:
         switch (fieldName) {
             case "creationDate":
-              // field creationDate
+              // field creationDate (mapped with "creationDate")
               instance.setCreationDate(PrimitiveUtils.readLong(jacksonParser.getText(), 0L));
             break;
             case "uid":
-              // field uid
+              // field uid (mapped with "uid")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setUid(jacksonParser.getText());
               }
@@ -247,11 +247,11 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "creationDate":
-                    // property creationDate
+                    // property creationDate (mapped on "creationDate")
                     instance.setCreationDate(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
                   break;
                   case "uid":
-                    // property uid
+                    // property uid (mapped on "uid")
                     instance.setUid(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   default:

@@ -27,7 +27,7 @@ import java.lang.Override;
  *
  * @see Bean81P
  */
-@BindMap
+@BindMap(Bean81P.class)
 public class Bean81PBindMap extends AbstractMapper<Bean81P> {
   /**
    * create new object instance
@@ -49,17 +49,17 @@ public class Bean81PBindMap extends AbstractMapper<Bean81P> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       fieldCount++;
       jacksonSerializer.writeNumberField("id", object.id);
 
-      // field valueCurrency
+      // field valueCurrency (mapped with "valueCurrency")
       if (object.valueCurrency!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueCurrency", CurrencyUtils.write(object.valueCurrency));
       }
 
-      // field valueLocale
+      // field valueLocale (mapped with "valueLocale")
       if (object.valueLocale!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueLocale", LocaleUtils.write(object.valueLocale));
@@ -85,16 +85,16 @@ public class Bean81PBindMap extends AbstractMapper<Bean81P> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-      // field valueCurrency
+      // field valueCurrency (mapped with "valueCurrency")
       if (object.valueCurrency!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueCurrency", CurrencyUtils.write(object.valueCurrency));
       }
 
-      // field valueLocale
+      // field valueLocale (mapped with "valueLocale")
       if (object.valueLocale!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueLocale", LocaleUtils.write(object.valueLocale));
@@ -121,17 +121,17 @@ public class Bean81PBindMap extends AbstractMapper<Bean81P> {
 
       // Persisted fields:
 
-      // field valueCurrency
+      // field valueCurrency (mapped with "valueCurrency")
       if (object.valueCurrency!=null)  {
         xmlSerializer.writeAttribute("valueCurrency", CurrencyUtils.write(object.valueCurrency));
       }
 
-      // field id
+      // field id (mapped with "id")
       xmlSerializer.writeStartElement("id");
       xmlSerializer.writeLong(object.id);
       xmlSerializer.writeEndElement();
 
-      // field valueLocale
+      // field valueLocale (mapped with "valueLocale")
       if (object.valueLocale!=null)  {
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(LocaleUtils.write(object.valueLocale)));
       }
@@ -168,17 +168,17 @@ public class Bean81PBindMap extends AbstractMapper<Bean81P> {
         // Parse fields:
         switch (fieldName) {
             case "valueCurrency":
-              // field valueCurrency
+              // field valueCurrency (mapped with "valueCurrency")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueCurrency= CurrencyUtils.read(jacksonParser.getText());
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=jacksonParser.getLongValue();
             break;
             case "valueLocale":
-              // field valueLocale
+              // field valueLocale (mapped with "valueLocale")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueLocale= LocaleUtils.read(jacksonParser.getText());
               }
@@ -217,17 +217,17 @@ public class Bean81PBindMap extends AbstractMapper<Bean81P> {
         // Parse fields:
         switch (fieldName) {
             case "valueCurrency":
-              // field valueCurrency
+              // field valueCurrency (mapped with "valueCurrency")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueCurrency=CurrencyUtils.read(jacksonParser.getText());
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
             break;
             case "valueLocale":
-              // field valueLocale
+              // field valueLocale (mapped with "valueLocale")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueLocale=LocaleUtils.read(jacksonParser.getText());
               }
@@ -269,7 +269,7 @@ public class Bean81PBindMap extends AbstractMapper<Bean81P> {
         attributeName = xmlParser.getAttributeName(attributeIndex);
         switch(attributeName) {
             case "valueCurrency":
-              // field valueCurrency
+              // field valueCurrency (mapped by "valueCurrency")
               instance.valueCurrency=CurrencyUtils.read(xmlParser.getAttributeValue(attributeIndex));
             break;
             default:
@@ -290,7 +290,7 @@ public class Bean81PBindMap extends AbstractMapper<Bean81P> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "id":
-                    // property id
+                    // property id (mapped on "id")
                     instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                   break;
                   default:

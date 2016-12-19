@@ -24,7 +24,7 @@ import java.lang.Override;
  *
  * @see App47
  */
-@BindMap
+@BindMap(App47.class)
 public class App47BindMap extends AbstractMapper<App47> {
   /**
    * create new object instance
@@ -46,13 +46,13 @@ public class App47BindMap extends AbstractMapper<App47> {
 
       // Serialized Field:
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
-      // field userAccessToken
+      // field userAccessToken (mapped with "userAccessToken")
       if (object.userAccessToken!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("userAccessToken");
@@ -79,13 +79,13 @@ public class App47BindMap extends AbstractMapper<App47> {
 
       // Serialized Field:
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
       }
 
-      // field userAccessToken
+      // field userAccessToken (mapped with "userAccessToken")
       if (object.userAccessToken!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("userAccessToken");
@@ -115,14 +115,14 @@ public class App47BindMap extends AbstractMapper<App47> {
 
       // Persisted fields:
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null) {
         xmlSerializer.writeStartElement("name");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
         xmlSerializer.writeEndElement();
       }
 
-      // field userAccessToken
+      // field userAccessToken (mapped with "userAccessToken")
       if (object.userAccessToken!=null)  {
         xmlSerializer.writeStartElement("userAccessToken");
         context.mapperFor(UserAccessToken.class).serializeOnXml(context, object.userAccessToken, wrapper, 2);
@@ -161,13 +161,13 @@ public class App47BindMap extends AbstractMapper<App47> {
         // Parse fields:
         switch (fieldName) {
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.name=jacksonParser.getText();
               }
             break;
             case "userAccessToken":
-              // field userAccessToken
+              // field userAccessToken (mapped with "userAccessToken")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
                 instance.userAccessToken=context.mapperFor(UserAccessToken.class).parseOnJackson(context, wrapper);
               }
@@ -206,13 +206,13 @@ public class App47BindMap extends AbstractMapper<App47> {
         // Parse fields:
         switch (fieldName) {
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.name=jacksonParser.getText();
               }
             break;
             case "userAccessToken":
-              // field userAccessToken
+              // field userAccessToken (mapped with "userAccessToken")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
                 instance.userAccessToken=context.mapperFor(UserAccessToken.class).parseOnJacksonAsString(context, wrapper);
               }
@@ -261,11 +261,11 @@ public class App47BindMap extends AbstractMapper<App47> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "name":
-                    // property name
+                    // property name (mapped on "name")
                     instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   case "userAccessToken":
-                    // property userAccessToken
+                    // property userAccessToken (mapped on "userAccessToken")
                     instance.userAccessToken=context.mapperFor(UserAccessToken.class).parseOnXml(context, wrapper, eventType);
                   break;
                   default:

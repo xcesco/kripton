@@ -24,7 +24,7 @@ import java.lang.Override;
  *
  * @see UserIdentity
  */
-@BindMap
+@BindMap(UserIdentity.class)
 public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
   /**
    * create new object instance
@@ -46,19 +46,19 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
 
       // Serialized Field:
 
-      // field email
+      // field email (mapped with "email")
       if (object.getEmail()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("email", object.getEmail());
       }
 
-      // field name
+      // field name (mapped with "name")
       if (object.getName()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.getName());
       }
 
-      // field username
+      // field username (mapped with "username")
       if (object.getUsername()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("username", object.getUsername());
@@ -84,19 +84,19 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
 
       // Serialized Field:
 
-      // field email
+      // field email (mapped with "email")
       if (object.getEmail()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("email", object.getEmail());
       }
 
-      // field name
+      // field name (mapped with "name")
       if (object.getName()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.getName());
       }
 
-      // field username
+      // field username (mapped with "username")
       if (object.getUsername()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("username", object.getUsername());
@@ -123,21 +123,21 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
 
       // Persisted fields:
 
-      // field email
+      // field email (mapped with "email")
       if (object.getEmail()!=null) {
         xmlSerializer.writeStartElement("email");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getEmail()));
         xmlSerializer.writeEndElement();
       }
 
-      // field name
+      // field name (mapped with "name")
       if (object.getName()!=null) {
         xmlSerializer.writeStartElement("name");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getName()));
         xmlSerializer.writeEndElement();
       }
 
-      // field username
+      // field username (mapped with "username")
       if (object.getUsername()!=null) {
         xmlSerializer.writeStartElement("username");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getUsername()));
@@ -176,19 +176,19 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
         // Parse fields:
         switch (fieldName) {
             case "email":
-              // field email
+              // field email (mapped with "email")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setEmail(jacksonParser.getText());
               }
             break;
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setName(jacksonParser.getText());
               }
             break;
             case "username":
-              // field username
+              // field username (mapped with "username")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setUsername(jacksonParser.getText());
               }
@@ -227,19 +227,19 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
         // Parse fields:
         switch (fieldName) {
             case "email":
-              // field email
+              // field email (mapped with "email")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setEmail(jacksonParser.getText());
               }
             break;
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setName(jacksonParser.getText());
               }
             break;
             case "username":
-              // field username
+              // field username (mapped with "username")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setUsername(jacksonParser.getText());
               }
@@ -288,15 +288,15 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "email":
-                    // property email
+                    // property email (mapped on "email")
                     instance.setEmail(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "name":
-                    // property name
+                    // property name (mapped on "name")
                     instance.setName(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   case "username":
-                    // property username
+                    // property username (mapped on "username")
                     instance.setUsername(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   default:

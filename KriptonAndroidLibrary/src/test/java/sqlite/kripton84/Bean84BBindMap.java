@@ -24,7 +24,7 @@ import java.lang.Override;
  *
  * @see Bean84B
  */
-@BindMap
+@BindMap(Bean84B.class)
 public class Bean84BBindMap extends AbstractMapper<Bean84B> {
   /**
    * create new object instance
@@ -46,14 +46,14 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
 
       // Serialized Field:
 
-      // field columnBean
+      // field columnBean (mapped with "columnBean")
       if (object.columnBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("columnBean");
         context.mapperFor(Bean84B2.class).serializeOnJackson(context, object.columnBean, wrapper);
       }
 
-      // field id
+      // field id (mapped with "id")
       fieldCount++;
       jacksonSerializer.writeNumberField("id", object.id);
 
@@ -77,7 +77,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
 
       // Serialized Field:
 
-      // field columnBean
+      // field columnBean (mapped with "columnBean")
       if (object.columnBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("columnBean");
@@ -86,7 +86,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
         }
       }
 
-      // field id
+      // field id (mapped with "id")
       jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
       jacksonSerializer.writeEndObject();
@@ -110,14 +110,14 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
 
       // Persisted fields:
 
-      // field columnBean
+      // field columnBean (mapped with "columnBean")
       if (object.columnBean!=null)  {
         xmlSerializer.writeStartElement("columnBean");
         context.mapperFor(Bean84B2.class).serializeOnXml(context, object.columnBean, wrapper, 2);
         xmlSerializer.writeEndElement();
       }
 
-      // field id
+      // field id (mapped with "id")
       xmlSerializer.writeStartElement("id");
       xmlSerializer.writeLong(object.id);
       xmlSerializer.writeEndElement();
@@ -154,13 +154,13 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
         // Parse fields:
         switch (fieldName) {
             case "columnBean":
-              // field columnBean
+              // field columnBean (mapped with "columnBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
                 instance.columnBean=context.mapperFor(Bean84B2.class).parseOnJackson(context, wrapper);
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=jacksonParser.getLongValue();
             break;
             default:
@@ -197,13 +197,13 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
         // Parse fields:
         switch (fieldName) {
             case "columnBean":
-              // field columnBean
+              // field columnBean (mapped with "columnBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
                 instance.columnBean=context.mapperFor(Bean84B2.class).parseOnJacksonAsString(context, wrapper);
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
             break;
             default:
@@ -250,11 +250,11 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "columnBean":
-                    // property columnBean
+                    // property columnBean (mapped on "columnBean")
                     instance.columnBean=context.mapperFor(Bean84B2.class).parseOnXml(context, wrapper, eventType);
                   break;
                   case "id":
-                    // property id
+                    // property id (mapped on "id")
                     instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                   break;
                   default:

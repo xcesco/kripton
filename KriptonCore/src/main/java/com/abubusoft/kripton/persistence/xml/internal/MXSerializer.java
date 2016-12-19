@@ -770,7 +770,8 @@ public class MXSerializer {
         }
         if(startTagIncomplete) {
             writeNamespaceDeclarations();
-            out.write(" />"); //space is added to make it easier to work in XHTML!!!
+            //out.write(" />"); //space is added to make it easier to work in XHTML!!!
+            out.write("/>");
             --depth;
         } else {
             //assert startTagIncomplete == false;

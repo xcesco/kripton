@@ -41,7 +41,7 @@ import java.util.LinkedList;
  *
  * @see Bean71
  */
-@BindMap
+@BindMap(Bean71.class)
 public class Bean71BindMap extends AbstractMapper<Bean71> {
   /**
    * create new object instance
@@ -63,7 +63,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
 
       // Serialized Field:
 
-      // field valueBigIntegerList
+      // field valueBigIntegerList (mapped with "valueBigIntegerList")
       if (object.valueBigIntegerList!=null)  {
         fieldCount++;
         int n=object.valueBigIntegerList.size();
@@ -82,7 +82,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueByteList
+      // field valueByteList (mapped with "valueByteList")
       if (object.valueByteList!=null)  {
         fieldCount++;
         int n=object.valueByteList.size();
@@ -101,7 +101,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueCharacterList
+      // field valueCharacterList (mapped with "valueCharacterList")
       if (object.valueCharacterList!=null)  {
         fieldCount++;
         int n=object.valueCharacterList.size();
@@ -120,7 +120,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueDoubleList
+      // field valueDoubleList (mapped with "valueDoubleList")
       if (object.valueDoubleList!=null)  {
         fieldCount++;
         int n=object.valueDoubleList.size();
@@ -139,7 +139,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueEnumList
+      // field valueEnumList (mapped with "valueEnumList")
       if (object.valueEnumList!=null)  {
         fieldCount++;
         int n=object.valueEnumList.size();
@@ -158,7 +158,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueFloatList
+      // field valueFloatList (mapped with "valueFloatList")
       if (object.valueFloatList!=null)  {
         fieldCount++;
         int n=object.valueFloatList.size();
@@ -177,7 +177,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueIntList
+      // field valueIntList (mapped with "valueIntList")
       if (object.getValueIntList()!=null)  {
         fieldCount++;
         int n=object.getValueIntList().size();
@@ -196,7 +196,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueLongList
+      // field valueLongList (mapped with "valueLongList")
       if (object.valueLongList!=null)  {
         fieldCount++;
         int n=object.valueLongList.size();
@@ -215,7 +215,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueShortList
+      // field valueShortList (mapped with "valueShortList")
       if (object.valueShortList!=null)  {
         fieldCount++;
         int n=object.valueShortList.size();
@@ -234,7 +234,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueStringList
+      // field valueStringList (mapped with "valueStringList")
       if (object.valueStringList!=null)  {
         fieldCount++;
         int n=object.valueStringList.size();
@@ -253,7 +253,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueBeanList
+      // field valueBeanList (mapped with "valueBeanList")
       if (object.valueBeanList!=null)  {
         fieldCount++;
         int n=object.valueBeanList.size();
@@ -272,7 +272,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field valueBigDecimalList
+      // field valueBigDecimalList (mapped with "valueBigDecimalList")
       if (object.valueBigDecimalList!=null)  {
         fieldCount++;
         int n=object.valueBigDecimalList.size();
@@ -291,7 +291,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field zalueStringFinal
+      // field zalueStringFinal (mapped with "zalueStringFinal")
       if (object.zalueStringFinal!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("zalueStringFinal", object.zalueStringFinal);
@@ -317,7 +317,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
 
       // Serialized Field:
 
-      // field valueBigIntegerList
+      // field valueBigIntegerList (mapped with "valueBigIntegerList")
       if (object.valueBigIntegerList!=null)  {
         fieldCount++;
         int n=object.valueBigIntegerList.size();
@@ -340,7 +340,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueByteList
+      // field valueByteList (mapped with "valueByteList")
       if (object.valueByteList!=null)  {
         fieldCount++;
         int n=object.valueByteList.size();
@@ -363,7 +363,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueCharacterList
+      // field valueCharacterList (mapped with "valueCharacterList")
       if (object.valueCharacterList!=null)  {
         fieldCount++;
         int n=object.valueCharacterList.size();
@@ -386,7 +386,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueDoubleList
+      // field valueDoubleList (mapped with "valueDoubleList")
       if (object.valueDoubleList!=null)  {
         fieldCount++;
         int n=object.valueDoubleList.size();
@@ -409,7 +409,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueEnumList
+      // field valueEnumList (mapped with "valueEnumList")
       if (object.valueEnumList!=null)  {
         fieldCount++;
         int n=object.valueEnumList.size();
@@ -432,7 +432,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueFloatList
+      // field valueFloatList (mapped with "valueFloatList")
       if (object.valueFloatList!=null)  {
         fieldCount++;
         int n=object.valueFloatList.size();
@@ -455,7 +455,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueIntList
+      // field valueIntList (mapped with "valueIntList")
       if (object.getValueIntList()!=null)  {
         fieldCount++;
         int n=object.getValueIntList().size();
@@ -478,7 +478,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueLongList
+      // field valueLongList (mapped with "valueLongList")
       if (object.valueLongList!=null)  {
         fieldCount++;
         int n=object.valueLongList.size();
@@ -501,7 +501,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueShortList
+      // field valueShortList (mapped with "valueShortList")
       if (object.valueShortList!=null)  {
         fieldCount++;
         int n=object.valueShortList.size();
@@ -524,7 +524,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueStringList
+      // field valueStringList (mapped with "valueStringList")
       if (object.valueStringList!=null)  {
         fieldCount++;
         int n=object.valueStringList.size();
@@ -547,7 +547,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueBeanList
+      // field valueBeanList (mapped with "valueBeanList")
       if (object.valueBeanList!=null)  {
         fieldCount++;
         int n=object.valueBeanList.size();
@@ -572,7 +572,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueBigDecimalList
+      // field valueBigDecimalList (mapped with "valueBigDecimalList")
       if (object.valueBigDecimalList!=null)  {
         fieldCount++;
         int n=object.valueBigDecimalList.size();
@@ -595,7 +595,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field zalueStringFinal
+      // field zalueStringFinal (mapped with "zalueStringFinal")
       if (object.zalueStringFinal!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("zalueStringFinal", object.zalueStringFinal);
@@ -622,7 +622,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
 
       // Persisted fields:
 
-      // field valueBigIntegerList
+      // field valueBigIntegerList (mapped with "valueBigIntegerList")
       if (object.valueBigIntegerList!=null)  {
         int n=object.valueBigIntegerList.size();
         BigInteger item;
@@ -641,7 +641,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueByteList
+      // field valueByteList (mapped with "valueByteList")
       if (object.valueByteList!=null)  {
         int n=object.valueByteList.size();
         Byte item;
@@ -660,7 +660,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueCharacterList
+      // field valueCharacterList (mapped with "valueCharacterList")
       if (object.valueCharacterList!=null)  {
         int n=object.valueCharacterList.size();
         Character item;
@@ -679,7 +679,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueDoubleList
+      // field valueDoubleList (mapped with "valueDoubleList")
       if (object.valueDoubleList!=null)  {
         int n=object.valueDoubleList.size();
         Double item;
@@ -698,7 +698,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueEnumList
+      // field valueEnumList (mapped with "valueEnumList")
       if (object.valueEnumList!=null)  {
         int n=object.valueEnumList.size();
         Enum71 item;
@@ -720,7 +720,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field valueFloatList
+      // field valueFloatList (mapped with "valueFloatList")
       if (object.valueFloatList!=null)  {
         int n=object.valueFloatList.size();
         Float item;
@@ -739,7 +739,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueIntList
+      // field valueIntList (mapped with "valueIntList")
       if (object.getValueIntList()!=null)  {
         int n=object.getValueIntList().size();
         Integer item;
@@ -758,7 +758,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueLongList
+      // field valueLongList (mapped with "valueLongList")
       if (object.valueLongList!=null)  {
         int n=object.valueLongList.size();
         Long item;
@@ -777,7 +777,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueShortList
+      // field valueShortList (mapped with "valueShortList")
       if (object.valueShortList!=null)  {
         int n=object.valueShortList.size();
         Short item;
@@ -796,7 +796,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueStringList
+      // field valueStringList (mapped with "valueStringList")
       if (object.valueStringList!=null)  {
         int n=object.valueStringList.size();
         String item;
@@ -815,7 +815,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueBeanList
+      // field valueBeanList (mapped with "valueBeanList")
       if (object.valueBeanList!=null)  {
         int n=object.valueBeanList.size();
         Bean71 item;
@@ -834,7 +834,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         xmlSerializer.writeEndElement();
       }
 
-      // field valueBigDecimalList
+      // field valueBigDecimalList (mapped with "valueBigDecimalList")
       if (object.valueBigDecimalList!=null)  {
         int n=object.valueBigDecimalList.size();
         BigDecimal item;
@@ -856,7 +856,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         }
       }
 
-      // field zalueStringFinal
+      // field zalueStringFinal (mapped with "zalueStringFinal")
       if (object.zalueStringFinal!=null) {
         xmlSerializer.writeStartElement("zalueStringFinal");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.zalueStringFinal));
@@ -895,7 +895,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         // Parse fields:
         switch (fieldName) {
             case "valueBigIntegerList":
-              // field valueBigIntegerList
+              // field valueBigIntegerList (mapped with "valueBigIntegerList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 LinkedList<BigInteger> collection=new LinkedList<>();
                 BigInteger item=null;
@@ -911,7 +911,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueByteList":
-              // field valueByteList
+              // field valueByteList (mapped with "valueByteList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Byte> collection=new ArrayList<>();
                 Byte item=null;
@@ -927,7 +927,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueCharacterList":
-              // field valueCharacterList
+              // field valueCharacterList (mapped with "valueCharacterList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Character> collection=new ArrayList<>();
                 Character item=null;
@@ -943,7 +943,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueDoubleList":
-              // field valueDoubleList
+              // field valueDoubleList (mapped with "valueDoubleList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Double> collection=new ArrayList<>();
                 Double item=null;
@@ -959,7 +959,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueEnumList":
-              // field valueEnumList
+              // field valueEnumList (mapped with "valueEnumList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 LinkedList<Enum71> collection=new LinkedList<>();
                 Enum71 item=null;
@@ -978,7 +978,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueFloatList":
-              // field valueFloatList
+              // field valueFloatList (mapped with "valueFloatList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Float> collection=new ArrayList<>();
                 Float item=null;
@@ -994,7 +994,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueIntList":
-              // field valueIntList
+              // field valueIntList (mapped with "valueIntList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Integer> collection=new ArrayList<>();
                 Integer item=null;
@@ -1010,7 +1010,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueLongList":
-              // field valueLongList
+              // field valueLongList (mapped with "valueLongList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Long> collection=new ArrayList<>();
                 Long item=null;
@@ -1026,7 +1026,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueShortList":
-              // field valueShortList
+              // field valueShortList (mapped with "valueShortList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Short> collection=new ArrayList<>();
                 Short item=null;
@@ -1042,7 +1042,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueStringList":
-              // field valueStringList
+              // field valueStringList (mapped with "valueStringList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<String> collection=new ArrayList<>();
                 String item=null;
@@ -1058,7 +1058,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueBeanList":
-              // field valueBeanList
+              // field valueBeanList (mapped with "valueBeanList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 LinkedList<Bean71> collection=new LinkedList<>();
                 Bean71 item=null;
@@ -1074,7 +1074,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueBigDecimalList":
-              // field valueBigDecimalList
+              // field valueBigDecimalList (mapped with "valueBigDecimalList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 LinkedList<BigDecimal> collection=new LinkedList<>();
                 BigDecimal item=null;
@@ -1090,7 +1090,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "zalueStringFinal":
-              // field zalueStringFinal
+              // field zalueStringFinal (mapped with "zalueStringFinal")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.zalueStringFinal=jacksonParser.getText();
               }
@@ -1129,7 +1129,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
         // Parse fields:
         switch (fieldName) {
             case "valueBigIntegerList":
-              // field valueBigIntegerList
+              // field valueBigIntegerList (mapped with "valueBigIntegerList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 LinkedList<BigInteger> collection=new LinkedList<>();
                 BigInteger item=null;
@@ -1150,7 +1150,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueByteList":
-              // field valueByteList
+              // field valueByteList (mapped with "valueByteList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Byte> collection=new ArrayList<>();
                 Byte item=null;
@@ -1171,7 +1171,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueCharacterList":
-              // field valueCharacterList
+              // field valueCharacterList (mapped with "valueCharacterList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Character> collection=new ArrayList<>();
                 Character item=null;
@@ -1192,7 +1192,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueDoubleList":
-              // field valueDoubleList
+              // field valueDoubleList (mapped with "valueDoubleList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Double> collection=new ArrayList<>();
                 Double item=null;
@@ -1213,7 +1213,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueEnumList":
-              // field valueEnumList
+              // field valueEnumList (mapped with "valueEnumList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 LinkedList<Enum71> collection=new LinkedList<>();
                 Enum71 item=null;
@@ -1237,7 +1237,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueFloatList":
-              // field valueFloatList
+              // field valueFloatList (mapped with "valueFloatList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Float> collection=new ArrayList<>();
                 Float item=null;
@@ -1258,7 +1258,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueIntList":
-              // field valueIntList
+              // field valueIntList (mapped with "valueIntList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Integer> collection=new ArrayList<>();
                 Integer item=null;
@@ -1279,7 +1279,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueLongList":
-              // field valueLongList
+              // field valueLongList (mapped with "valueLongList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Long> collection=new ArrayList<>();
                 Long item=null;
@@ -1300,7 +1300,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueShortList":
-              // field valueShortList
+              // field valueShortList (mapped with "valueShortList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Short> collection=new ArrayList<>();
                 Short item=null;
@@ -1321,7 +1321,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueStringList":
-              // field valueStringList
+              // field valueStringList (mapped with "valueStringList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<String> collection=new ArrayList<>();
                 String item=null;
@@ -1344,7 +1344,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueBeanList":
-              // field valueBeanList
+              // field valueBeanList (mapped with "valueBeanList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 LinkedList<Bean71> collection=new LinkedList<>();
                 Bean71 item=null;
@@ -1365,7 +1365,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "valueBigDecimalList":
-              // field valueBigDecimalList
+              // field valueBigDecimalList (mapped with "valueBigDecimalList")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 LinkedList<BigDecimal> collection=new LinkedList<>();
                 BigDecimal item=null;
@@ -1386,7 +1386,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               }
             break;
             case "zalueStringFinal":
-              // field zalueStringFinal
+              // field zalueStringFinal (mapped with "zalueStringFinal")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.zalueStringFinal=jacksonParser.getText();
               }
@@ -1435,7 +1435,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "valueBigIntegerList":
-                    // property valueBigIntegerList
+                    // property valueBigIntegerList (mapped on "valueBigIntegerList")
                      {
                       LinkedList<BigInteger> collection=new LinkedList<>();
                       BigInteger item;
@@ -1452,7 +1452,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueByteList":
-                    // property valueByteList
+                    // property valueByteList (mapped on "valueByteList")
                      {
                       ArrayList<Byte> collection=new ArrayList<>();
                       Byte item;
@@ -1469,7 +1469,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueCharacterList":
-                    // property valueCharacterList
+                    // property valueCharacterList (mapped on "valueCharacterList")
                      {
                       ArrayList<Character> collection=new ArrayList<>();
                       Character item;
@@ -1486,7 +1486,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueDoubleList":
-                    // property valueDoubleList
+                    // property valueDoubleList (mapped on "valueDoubleList")
                      {
                       ArrayList<Double> collection=new ArrayList<>();
                       Double item;
@@ -1503,7 +1503,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueEnumList":
-                    // property valueEnumList
+                    // property valueEnumList (mapped on "valueEnumList")
                      {
                       LinkedList<Enum71> collection=new LinkedList<>();
                       Enum71 item;
@@ -1533,7 +1533,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueFloatList":
-                    // property valueFloatList
+                    // property valueFloatList (mapped on "valueFloatList")
                      {
                       ArrayList<Float> collection=new ArrayList<>();
                       Float item;
@@ -1550,7 +1550,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueIntList":
-                    // property valueIntList
+                    // property valueIntList (mapped on "valueIntList")
                      {
                       ArrayList<Integer> collection=new ArrayList<>();
                       Integer item;
@@ -1567,7 +1567,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueLongList":
-                    // property valueLongList
+                    // property valueLongList (mapped on "valueLongList")
                      {
                       ArrayList<Long> collection=new ArrayList<>();
                       Long item;
@@ -1584,7 +1584,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueShortList":
-                    // property valueShortList
+                    // property valueShortList (mapped on "valueShortList")
                      {
                       ArrayList<Short> collection=new ArrayList<>();
                       Short item;
@@ -1601,7 +1601,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueStringList":
-                    // property valueStringList
+                    // property valueStringList (mapped on "valueStringList")
                      {
                       ArrayList<String> collection=new ArrayList<>();
                       String item;
@@ -1618,7 +1618,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueBeanList":
-                    // property valueBeanList
+                    // property valueBeanList (mapped on "valueBeanList")
                      {
                       LinkedList<Bean71> collection=new LinkedList<>();
                       Bean71 item;
@@ -1635,7 +1635,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "valueBigDecimalList":
-                    // property valueBigDecimalList
+                    // property valueBigDecimalList (mapped on "valueBigDecimalList")
                      {
                       LinkedList<BigDecimal> collection=new LinkedList<>();
                       BigDecimal item;
@@ -1665,7 +1665,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                     }
                   break;
                   case "zalueStringFinal":
-                    // property zalueStringFinal
+                    // property zalueStringFinal (mapped on "zalueStringFinal")
                     instance.zalueStringFinal=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   default:

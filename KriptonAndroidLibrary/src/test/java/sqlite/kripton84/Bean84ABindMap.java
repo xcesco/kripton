@@ -35,7 +35,7 @@ import java.util.Map;
  *
  * @see Bean84A
  */
-@BindMap
+@BindMap(Bean84A.class)
 public class Bean84ABindMap extends AbstractMapper<Bean84A> {
   /**
    * create new object instance
@@ -57,13 +57,13 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
 
       // Serialized Field:
 
-      // field columnArrayByteType
+      // field columnArrayByteType (mapped with "columnArrayByteType")
       if (object.columnArrayByteType!=null)  {
         fieldCount++;
         jacksonSerializer.writeBinaryField("columnArrayByteType", object.columnArrayByteType);
       }
 
-      // field columnArrayChar
+      // field columnArrayChar (mapped with "columnArrayChar")
       if (object.columnArrayChar!=null)  {
         fieldCount++;
         int n=object.columnArrayChar.length;
@@ -82,7 +82,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field columnArrayCharType
+      // field columnArrayCharType (mapped with "columnArrayCharType")
       if (object.columnArrayCharType!=null)  {
         fieldCount++;
         int n=object.columnArrayCharType.length;
@@ -97,14 +97,14 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field columnBean
+      // field columnBean (mapped with "columnBean")
       if (object.columnBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("columnBean");
         context.mapperFor(Bean84A.class).serializeOnJackson(context, object.columnBean, wrapper);
       }
 
-      // field columnListString
+      // field columnListString (mapped with "columnListString")
       if (object.columnListString!=null)  {
         fieldCount++;
         int n=object.columnListString.size();
@@ -123,7 +123,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         jacksonSerializer.writeEndArray();
       }
 
-      // field columnMapIntegerString
+      // field columnMapIntegerString (mapped with "columnMapIntegerString")
       if (object.columnMapIntegerString!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -146,11 +146,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field id
+      // field id (mapped with "id")
       fieldCount++;
       jacksonSerializer.writeNumberField("id", object.id);
 
-      // field valueString
+      // field valueString (mapped with "valueString")
       if (object.valueString!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueString", object.valueString);
@@ -176,13 +176,13 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
 
       // Serialized Field:
 
-      // field columnArrayByteType
+      // field columnArrayByteType (mapped with "columnArrayByteType")
       if (object.columnArrayByteType!=null)  {
         fieldCount++;
         jacksonSerializer.writeBinaryField("columnArrayByteType", object.columnArrayByteType);
       }
 
-      // field columnArrayChar
+      // field columnArrayChar (mapped with "columnArrayChar")
       if (object.columnArrayChar!=null)  {
         fieldCount++;
         int n=object.columnArrayChar.length;
@@ -205,7 +205,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field columnArrayCharType
+      // field columnArrayCharType (mapped with "columnArrayCharType")
       if (object.columnArrayCharType!=null)  {
         fieldCount++;
         int n=object.columnArrayCharType.length;
@@ -224,7 +224,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field columnBean
+      // field columnBean (mapped with "columnBean")
       if (object.columnBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("columnBean");
@@ -233,7 +233,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field columnListString
+      // field columnListString (mapped with "columnListString")
       if (object.columnListString!=null)  {
         fieldCount++;
         int n=object.columnListString.size();
@@ -256,7 +256,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field columnMapIntegerString
+      // field columnMapIntegerString (mapped with "columnMapIntegerString")
       if (object.columnMapIntegerString!=null)  {
         fieldCount++;
         // write wrapper tag
@@ -279,10 +279,10 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field id
+      // field id (mapped with "id")
       jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-      // field valueString
+      // field valueString (mapped with "valueString")
       if (object.valueString!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueString", object.valueString);
@@ -309,14 +309,14 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
 
       // Persisted fields:
 
-      // field columnArrayByteType
+      // field columnArrayByteType (mapped with "columnArrayByteType")
       if (object.columnArrayByteType!=null) {
         xmlSerializer.writeStartElement("columnArrayByteType");
         xmlSerializer.writeBinary(object.columnArrayByteType, 0, object.columnArrayByteType.length);
         xmlSerializer.writeEndElement();
       }
 
-      // field columnArrayChar
+      // field columnArrayChar (mapped with "columnArrayChar")
       if (object.columnArrayChar!=null)  {
         int n=object.columnArrayChar.length;
         Character item;
@@ -338,7 +338,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field columnArrayCharType
+      // field columnArrayCharType (mapped with "columnArrayCharType")
       if (object.columnArrayCharType!=null)  {
         int n=object.columnArrayCharType.length;
         char item;
@@ -356,14 +356,14 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field columnBean
+      // field columnBean (mapped with "columnBean")
       if (object.columnBean!=null)  {
         xmlSerializer.writeStartElement("columnBean");
         context.mapperFor(Bean84A.class).serializeOnXml(context, object.columnBean, wrapper, 2);
         xmlSerializer.writeEndElement();
       }
 
-      // field columnListString
+      // field columnListString (mapped with "columnListString")
       if (object.columnListString!=null)  {
         int n=object.columnListString.size();
         String item;
@@ -385,7 +385,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field columnMapIntegerString
+      // field columnMapIntegerString (mapped with "columnMapIntegerString")
       if (object.columnMapIntegerString!=null)  {
         for (Map.Entry<Integer, String> item: object.columnMapIntegerString.entrySet()) {
           xmlSerializer.writeStartElement("columnMapIntegerString");
@@ -405,12 +405,12 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         }
       }
 
-      // field id
+      // field id (mapped with "id")
       xmlSerializer.writeStartElement("id");
       xmlSerializer.writeLong(object.id);
       xmlSerializer.writeEndElement();
 
-      // field valueString
+      // field valueString (mapped with "valueString")
       if (object.valueString!=null) {
         xmlSerializer.writeStartElement("valueString");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.valueString));
@@ -449,13 +449,13 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         // Parse fields:
         switch (fieldName) {
             case "columnArrayByteType":
-              // field columnArrayByteType
+              // field columnArrayByteType (mapped with "columnArrayByteType")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.columnArrayByteType=jacksonParser.getBinaryValue();
               }
             break;
             case "columnArrayChar":
-              // field columnArrayChar
+              // field columnArrayChar (mapped with "columnArrayChar")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Character> collection=new ArrayList<>();
                 Character item=null;
@@ -471,7 +471,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
               }
             break;
             case "columnArrayCharType":
-              // field columnArrayCharType
+              // field columnArrayCharType (mapped with "columnArrayCharType")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Character> collection=new ArrayList<>();
                 Character item=null;
@@ -487,13 +487,13 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
               }
             break;
             case "columnBean":
-              // field columnBean
+              // field columnBean (mapped with "columnBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
                 instance.columnBean=context.mapperFor(Bean84A.class).parseOnJackson(context, wrapper);
               }
             break;
             case "columnListString":
-              // field columnListString
+              // field columnListString (mapped with "columnListString")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<String> collection=new ArrayList<>();
                 String item=null;
@@ -509,7 +509,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
               }
             break;
             case "columnMapIntegerString":
-              // field columnMapIntegerString
+              // field columnMapIntegerString (mapped with "columnMapIntegerString")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<Integer, String> collection=new HashMap<>();
                 Integer key=null;
@@ -530,11 +530,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=jacksonParser.getLongValue();
             break;
             case "valueString":
-              // field valueString
+              // field valueString (mapped with "valueString")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueString=jacksonParser.getText();
               }
@@ -573,13 +573,13 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
         // Parse fields:
         switch (fieldName) {
             case "columnArrayByteType":
-              // field columnArrayByteType
+              // field columnArrayByteType (mapped with "columnArrayByteType")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.columnArrayByteType=Base64Utils.decode(jacksonParser.getValueAsString());
               }
             break;
             case "columnArrayChar":
-              // field columnArrayChar
+              // field columnArrayChar (mapped with "columnArrayChar")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Character> collection=new ArrayList<>();
                 Character item=null;
@@ -600,7 +600,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
               }
             break;
             case "columnArrayCharType":
-              // field columnArrayCharType
+              // field columnArrayCharType (mapped with "columnArrayCharType")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<Character> collection=new ArrayList<>();
                 Character item=null;
@@ -621,13 +621,13 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
               }
             break;
             case "columnBean":
-              // field columnBean
+              // field columnBean (mapped with "columnBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
                 instance.columnBean=context.mapperFor(Bean84A.class).parseOnJacksonAsString(context, wrapper);
               }
             break;
             case "columnListString":
-              // field columnListString
+              // field columnListString (mapped with "columnListString")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 ArrayList<String> collection=new ArrayList<>();
                 String item=null;
@@ -650,7 +650,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
               }
             break;
             case "columnMapIntegerString":
-              // field columnMapIntegerString
+              // field columnMapIntegerString (mapped with "columnMapIntegerString")
               if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
                 HashMap<Integer, String> collection=new HashMap<>();
                 Integer key=null;
@@ -689,11 +689,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
             break;
             case "valueString":
-              // field valueString
+              // field valueString (mapped with "valueString")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueString=jacksonParser.getText();
               }
@@ -742,11 +742,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "columnArrayByteType":
-                    // property columnArrayByteType
+                    // property columnArrayByteType (mapped on "columnArrayByteType")
                     instance.columnArrayByteType=xmlParser.getElementAsBinary();
                   break;
                   case "columnArrayChar":
-                    // property columnArrayChar
+                    // property columnArrayChar (mapped on "columnArrayChar")
                      {
                       ArrayList<Character> collection=new ArrayList<>();
                       Character item;
@@ -776,7 +776,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                     }
                   break;
                   case "columnArrayCharType":
-                    // property columnArrayCharType
+                    // property columnArrayCharType (mapped on "columnArrayCharType")
                      {
                       ArrayList<Character> collection=new ArrayList<>();
                       Character item;
@@ -806,11 +806,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                     }
                   break;
                   case "columnBean":
-                    // property columnBean
+                    // property columnBean (mapped on "columnBean")
                     instance.columnBean=context.mapperFor(Bean84A.class).parseOnXml(context, wrapper, eventType);
                   break;
                   case "columnListString":
-                    // property columnListString
+                    // property columnListString (mapped on "columnListString")
                      {
                       ArrayList<String> collection=new ArrayList<>();
                       String item;
@@ -840,7 +840,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                     }
                   break;
                   case "columnMapIntegerString":
-                    // property columnMapIntegerString
+                    // property columnMapIntegerString (mapped on "columnMapIntegerString")
                      {
                       HashMap<Integer, String> collection=new HashMap<>();
                       Integer key;
@@ -875,11 +875,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                     }
                   break;
                   case "id":
-                    // property id
+                    // property id (mapped on "id")
                     instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                   break;
                   case "valueString":
-                    // property valueString
+                    // property valueString (mapped on "valueString")
                     instance.valueString=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   default:

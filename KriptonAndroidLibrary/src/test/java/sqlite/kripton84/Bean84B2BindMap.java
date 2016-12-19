@@ -24,7 +24,7 @@ import java.lang.Override;
  *
  * @see Bean84B2
  */
-@BindMap
+@BindMap(Bean84B2.class)
 public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
   /**
    * create new object instance
@@ -46,7 +46,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
 
       // Serialized Field:
 
-      // field columnString
+      // field columnString (mapped with "columnString")
       if (object.columnString!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("columnString", object.columnString);
@@ -72,7 +72,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
 
       // Serialized Field:
 
-      // field columnString
+      // field columnString (mapped with "columnString")
       if (object.columnString!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("columnString", object.columnString);
@@ -99,7 +99,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
 
       // Persisted fields:
 
-      // field columnString
+      // field columnString (mapped with "columnString")
       if (object.columnString!=null) {
         xmlSerializer.writeStartElement("columnString");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.columnString));
@@ -138,7 +138,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
         // Parse fields:
         switch (fieldName) {
             case "columnString":
-              // field columnString
+              // field columnString (mapped with "columnString")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.columnString=jacksonParser.getText();
               }
@@ -177,7 +177,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
         // Parse fields:
         switch (fieldName) {
             case "columnString":
-              // field columnString
+              // field columnString (mapped with "columnString")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.columnString=jacksonParser.getText();
               }
@@ -226,7 +226,7 @@ public class Bean84B2BindMap extends AbstractMapper<Bean84B2> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "columnString":
-                    // property columnString
+                    // property columnString (mapped on "columnString")
                     instance.columnString=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   default:

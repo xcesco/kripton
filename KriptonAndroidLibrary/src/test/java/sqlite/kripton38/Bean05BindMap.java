@@ -28,7 +28,7 @@ import java.lang.Override;
  *
  * @see Bean05
  */
-@BindMap
+@BindMap(Bean05.class)
 public class Bean05BindMap extends AbstractMapper<Bean05> {
   /**
    * create new object instance
@@ -50,33 +50,33 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
 
       // Serialized Field:
 
-      // field beanType
+      // field beanType (mapped with "beanType")
       if (object.getBeanType()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("beanType", object.getBeanType().toString());
       }
 
-      // field content
+      // field content (mapped with "content")
       if (object.getContent()!=null)  {
         fieldCount++;
         jacksonSerializer.writeBinaryField("content", object.getContent());
       }
 
-      // field creationTime
+      // field creationTime (mapped with "creationTime")
       if (object.getCreationTime()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("creationTime", DateUtils.write(object.getCreationTime()));
       }
 
-      // field number
+      // field number (mapped with "number")
       fieldCount++;
       jacksonSerializer.writeNumberField("number", object.getNumber());
 
-      // field pk
+      // field pk (mapped with "pk")
       fieldCount++;
       jacksonSerializer.writeNumberField("pk", object.getPk());
 
-      // field text
+      // field text (mapped with "text")
       if (object.getText()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("text", object.getText());
@@ -102,31 +102,31 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
 
       // Serialized Field:
 
-      // field beanType
+      // field beanType (mapped with "beanType")
       if (object.getBeanType()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("beanType", object.getBeanType().toString());
       }
 
-      // field content
+      // field content (mapped with "content")
       if (object.getContent()!=null)  {
         fieldCount++;
         jacksonSerializer.writeBinaryField("content", object.getContent());
       }
 
-      // field creationTime
+      // field creationTime (mapped with "creationTime")
       if (object.getCreationTime()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("creationTime", DateUtils.write(object.getCreationTime()));
       }
 
-      // field number
+      // field number (mapped with "number")
       jacksonSerializer.writeStringField("number", PrimitiveUtils.writeLong(object.getNumber()));
 
-      // field pk
+      // field pk (mapped with "pk")
       jacksonSerializer.writeStringField("pk", PrimitiveUtils.writeLong(object.getPk()));
 
-      // field text
+      // field text (mapped with "text")
       if (object.getText()!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("text", object.getText());
@@ -153,38 +153,38 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
 
       // Persisted fields:
 
-      // field beanType
+      // field beanType (mapped with "beanType")
       if (object.getBeanType()!=null)  {
         xmlSerializer.writeStartElement("beanType");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getBeanType().toString()));
         xmlSerializer.writeEndElement();
       }
 
-      // field content
+      // field content (mapped with "content")
       if (object.getContent()!=null) {
         xmlSerializer.writeStartElement("content");
         xmlSerializer.writeBinary(object.getContent(), 0, object.getContent().length);
         xmlSerializer.writeEndElement();
       }
 
-      // field creationTime
+      // field creationTime (mapped with "creationTime")
       if (object.getCreationTime()!=null)  {
         xmlSerializer.writeStartElement("creationTime");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtils.write(object.getCreationTime())));
         xmlSerializer.writeEndElement();
       }
 
-      // field number
+      // field number (mapped with "number")
       xmlSerializer.writeStartElement("number");
       xmlSerializer.writeLong(object.getNumber());
       xmlSerializer.writeEndElement();
 
-      // field pk
+      // field pk (mapped with "pk")
       xmlSerializer.writeStartElement("pk");
       xmlSerializer.writeLong(object.getPk());
       xmlSerializer.writeEndElement();
 
-      // field text
+      // field text (mapped with "text")
       if (object.getText()!=null) {
         xmlSerializer.writeStartElement("text");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getText()));
@@ -223,34 +223,34 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
         // Parse fields:
         switch (fieldName) {
             case "beanType":
-              // field beanType
+              // field beanType (mapped with "beanType")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 String tempEnum=jacksonParser.getText();
                 instance.setBeanType(StringUtils.hasText(tempEnum)?BeanType.valueOf(tempEnum):null);
               }
             break;
             case "content":
-              // field content
+              // field content (mapped with "content")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setContent(jacksonParser.getBinaryValue());
               }
             break;
             case "creationTime":
-              // field creationTime
+              // field creationTime (mapped with "creationTime")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setCreationTime( DateUtils.read(jacksonParser.getText()));
               }
             break;
             case "number":
-              // field number
+              // field number (mapped with "number")
               instance.setNumber(jacksonParser.getLongValue());
             break;
             case "pk":
-              // field pk
+              // field pk (mapped with "pk")
               instance.setPk(jacksonParser.getLongValue());
             break;
             case "text":
-              // field text
+              // field text (mapped with "text")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setText(jacksonParser.getText());
               }
@@ -289,34 +289,34 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
         // Parse fields:
         switch (fieldName) {
             case "beanType":
-              // field beanType
+              // field beanType (mapped with "beanType")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 String tempEnum=jacksonParser.getText();
                 instance.setBeanType(StringUtils.hasText(tempEnum)?BeanType.valueOf(tempEnum):null);
               }
             break;
             case "content":
-              // field content
+              // field content (mapped with "content")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setContent(Base64Utils.decode(jacksonParser.getValueAsString()));
               }
             break;
             case "creationTime":
-              // field creationTime
+              // field creationTime (mapped with "creationTime")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setCreationTime(DateUtils.read(jacksonParser.getText()));
               }
             break;
             case "number":
-              // field number
+              // field number (mapped with "number")
               instance.setNumber(PrimitiveUtils.readLong(jacksonParser.getText(), 0L));
             break;
             case "pk":
-              // field pk
+              // field pk (mapped with "pk")
               instance.setPk(PrimitiveUtils.readLong(jacksonParser.getText(), 0L));
             break;
             case "text":
-              // field text
+              // field text (mapped with "text")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.setText(jacksonParser.getText());
               }
@@ -365,27 +365,27 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "beanType":
-                    // property beanType
+                    // property beanType (mapped on "beanType")
                     instance.setBeanType(BeanType.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText())));
                   break;
                   case "content":
-                    // property content
+                    // property content (mapped on "content")
                     instance.setContent(xmlParser.getElementAsBinary());
                   break;
                   case "creationTime":
-                    // property creationTime
+                    // property creationTime (mapped on "creationTime")
                     instance.setCreationTime(DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText())));
                   break;
                   case "number":
-                    // property number
+                    // property number (mapped on "number")
                     instance.setNumber(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
                   break;
                   case "pk":
-                    // property pk
+                    // property pk (mapped on "pk")
                     instance.setPk(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
                   break;
                   case "text":
-                    // property text
+                    // property text (mapped on "text")
                     instance.setText(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   default:

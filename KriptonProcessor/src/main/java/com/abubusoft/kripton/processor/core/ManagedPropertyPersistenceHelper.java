@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.lang.model.element.Modifier;
 
-import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.CaseFormat;

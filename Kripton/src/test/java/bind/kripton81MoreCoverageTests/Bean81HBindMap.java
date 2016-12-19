@@ -27,7 +27,7 @@ import java.lang.Override;
  *
  * @see Bean81H
  */
-@BindMap
+@BindMap(Bean81H.class)
 public class Bean81HBindMap extends AbstractMapper<Bean81H> {
   /**
    * create new object instance
@@ -49,17 +49,17 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       fieldCount++;
       jacksonSerializer.writeNumberField("id", object.id);
 
-      // field valueBigDecimal
+      // field valueBigDecimal (mapped with "valueBigDecimal")
       if (object.valueBigDecimal!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtils.write(object.valueBigDecimal));
       }
 
-      // field valueBigInteger
+      // field valueBigInteger (mapped with "valueBigInteger")
       if (object.valueBigInteger!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtils.write(object.valueBigInteger));
@@ -85,16 +85,16 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
 
       // Serialized Field:
 
-      // field id
+      // field id (mapped with "id")
       jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-      // field valueBigDecimal
+      // field valueBigDecimal (mapped with "valueBigDecimal")
       if (object.valueBigDecimal!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtils.write(object.valueBigDecimal));
       }
 
-      // field valueBigInteger
+      // field valueBigInteger (mapped with "valueBigInteger")
       if (object.valueBigInteger!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtils.write(object.valueBigInteger));
@@ -121,17 +121,17 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
 
       // Persisted fields:
 
-      // field valueBigInteger
+      // field valueBigInteger (mapped with "valueBigInteger")
       if (object.valueBigInteger!=null)  {
         xmlSerializer.writeIntegerAttribute(null, null,"valueBigInteger", object.valueBigInteger);
       }
 
-      // field id
+      // field id (mapped with "id")
       xmlSerializer.writeStartElement("id");
       xmlSerializer.writeLong(object.id);
       xmlSerializer.writeEndElement();
 
-      // field valueBigDecimal
+      // field valueBigDecimal (mapped with "valueBigDecimal")
       if (object.valueBigDecimal!=null)  {
         xmlSerializer.writeCData(StringEscapeUtils.escapeXml10(BigDecimalUtils.write(object.valueBigDecimal)));
       }
@@ -168,17 +168,17 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
         // Parse fields:
         switch (fieldName) {
             case "valueBigInteger":
-              // field valueBigInteger
+              // field valueBigInteger (mapped with "valueBigInteger")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueBigInteger=BigIntegerUtils.read(jacksonParser.getText());
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=jacksonParser.getLongValue();
             break;
             case "valueBigDecimal":
-              // field valueBigDecimal
+              // field valueBigDecimal (mapped with "valueBigDecimal")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueBigDecimal=BigDecimalUtils.read(jacksonParser.getText());
               }
@@ -217,17 +217,17 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
         // Parse fields:
         switch (fieldName) {
             case "valueBigInteger":
-              // field valueBigInteger
+              // field valueBigInteger (mapped with "valueBigInteger")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueBigInteger=BigIntegerUtils.read(jacksonParser.getText());
               }
             break;
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
             break;
             case "valueBigDecimal":
-              // field valueBigDecimal
+              // field valueBigDecimal (mapped with "valueBigDecimal")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueBigDecimal=BigDecimalUtils.read(jacksonParser.getText());
               }
@@ -269,7 +269,7 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
         attributeName = xmlParser.getAttributeName(attributeIndex);
         switch(attributeName) {
             case "valueBigInteger":
-              // field valueBigInteger
+              // field valueBigInteger (mapped by "valueBigInteger")
               instance.valueBigInteger=xmlParser.getAttributeAsInteger(attributeIndex);
             break;
             default:
@@ -290,7 +290,7 @@ public class Bean81HBindMap extends AbstractMapper<Bean81H> {
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
                   case "id":
-                    // property id
+                    // property id (mapped on "id")
                     instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                   break;
                   default:

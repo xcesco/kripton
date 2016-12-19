@@ -25,7 +25,7 @@ import java.lang.Override;
  *
  * @see Restaurant
  */
-@BindMap
+@BindMap(Restaurant.class)
 public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   /**
    * create new object instance
@@ -47,29 +47,29 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
 
       // Serialized Field:
 
-      // field address
+      // field address (mapped with "address")
       if (object.address!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("address", object.address);
       }
 
-      // field id
+      // field id (mapped with "id")
       fieldCount++;
       jacksonSerializer.writeNumberField("id", object.id);
 
-      // field latitude
+      // field latitude (mapped with "latitude")
       if (object.latitude!=null)  {
         fieldCount++;
         jacksonSerializer.writeNumberField("latitude", object.latitude);
       }
 
-      // field longitude
+      // field longitude (mapped with "longitude")
       if (object.longitude!=null)  {
         fieldCount++;
         jacksonSerializer.writeNumberField("longitude", object.longitude);
       }
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
@@ -95,26 +95,26 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
 
       // Serialized Field:
 
-      // field address
+      // field address (mapped with "address")
       if (object.address!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("address", object.address);
       }
 
-      // field id
+      // field id (mapped with "id")
       jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-      // field latitude
+      // field latitude (mapped with "latitude")
       if (object.latitude!=null)  {
         jacksonSerializer.writeStringField("latitude", PrimitiveUtils.writeDouble(object.latitude));
       }
 
-      // field longitude
+      // field longitude (mapped with "longitude")
       if (object.longitude!=null)  {
         jacksonSerializer.writeStringField("longitude", PrimitiveUtils.writeDouble(object.longitude));
       }
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("name", object.name);
@@ -141,25 +141,25 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
 
       // Persisted fields:
 
-      // field id
+      // field id (mapped with "id")
       xmlSerializer.writeAttribute("id", PrimitiveUtils.writeLong(object.id));
 
-      // field latitude
+      // field latitude (mapped with "latitude")
       if (object.latitude!=null)  {
         xmlSerializer.writeAttribute("latitude", PrimitiveUtils.writeDouble(object.latitude));
       }
 
-      // field longitude
+      // field longitude (mapped with "longitude")
       if (object.longitude!=null)  {
         xmlSerializer.writeAttribute("longitude", PrimitiveUtils.writeDouble(object.longitude));
       }
 
-      // field name
+      // field name (mapped with "name")
       if (object.name!=null) {
         xmlSerializer.writeAttribute("name", object.name);
       }
 
-      // field address
+      // field address (mapped with "address")
       if (object.address!=null) {
         xmlSerializer.writeCData(StringEscapeUtils.escapeXml10(object.address));
       }
@@ -196,29 +196,29 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
         // Parse fields:
         switch (fieldName) {
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=jacksonParser.getLongValue();
             break;
             case "latitude":
-              // field latitude
+              // field latitude (mapped with "latitude")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.latitude=jacksonParser.getDoubleValue();
               }
             break;
             case "longitude":
-              // field longitude
+              // field longitude (mapped with "longitude")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.longitude=jacksonParser.getDoubleValue();
               }
             break;
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.name=jacksonParser.getText();
               }
             break;
             case "address":
-              // field address
+              // field address (mapped with "address")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.address=jacksonParser.getText();
               }
@@ -257,29 +257,29 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
         // Parse fields:
         switch (fieldName) {
             case "id":
-              // field id
+              // field id (mapped with "id")
               instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
             break;
             case "latitude":
-              // field latitude
+              // field latitude (mapped with "latitude")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.latitude=PrimitiveUtils.readDouble(jacksonParser.getText(), null);
               }
             break;
             case "longitude":
-              // field longitude
+              // field longitude (mapped with "longitude")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.longitude=PrimitiveUtils.readDouble(jacksonParser.getText(), null);
               }
             break;
             case "name":
-              // field name
+              // field name (mapped with "name")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.name=jacksonParser.getText();
               }
             break;
             case "address":
-              // field address
+              // field address (mapped with "address")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.address=jacksonParser.getText();
               }
@@ -321,19 +321,19 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
         attributeName = xmlParser.getAttributeName(attributeIndex);
         switch(attributeName) {
             case "id":
-              // field id
+              // field id (mapped by "id")
               instance.id=PrimitiveUtils.readLong(xmlParser.getAttributeValue(attributeIndex), 0L);
             break;
             case "latitude":
-              // field latitude
+              // field latitude (mapped by "latitude")
               instance.latitude=PrimitiveUtils.readDouble(xmlParser.getAttributeValue(attributeIndex), null);
             break;
             case "longitude":
-              // field longitude
+              // field longitude (mapped by "longitude")
               instance.longitude=PrimitiveUtils.readDouble(xmlParser.getAttributeValue(attributeIndex), null);
             break;
             case "name":
-              // field name
+              // field name (mapped by "name")
               instance.name=xmlParser.getAttributeValue(attributeIndex);
             break;
             default:

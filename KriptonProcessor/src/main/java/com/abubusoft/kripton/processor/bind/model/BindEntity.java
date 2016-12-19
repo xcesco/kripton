@@ -30,7 +30,7 @@ public class BindEntity extends ModelClass<BindProperty> {
 	public XmlInfo xmlInfo;
 
 	public class XmlInfo {
-		public String tagName;
+		public String label;
 	}
 
 }

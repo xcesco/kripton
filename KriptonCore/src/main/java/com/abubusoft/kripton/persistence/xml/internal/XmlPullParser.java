@@ -919,9 +919,8 @@ public interface XmlPullParser {
      * @see #next()
      * @see #nextToken()
      */
-    int getEventType()
-       ;
-
+    int getEventType();
+    
     /**
      * Get next parsing event - element content wil be coalesced and only one
      * TEXT event must be returned for whole element content

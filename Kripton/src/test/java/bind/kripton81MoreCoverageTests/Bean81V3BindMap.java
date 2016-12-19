@@ -4,8 +4,10 @@ import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.common.Base64Utils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -17,33 +19,35 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.io.IOException;
+import java.lang.Byte;
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class is the shared preference binder defined for Bean81S
+ * This class is the shared preference binder defined for Bean81V3
  *
- * @see Bean81S
+ * @see Bean81V3
  */
-@BindMap(Bean81S.class)
-public class Bean81SBindMap extends AbstractMapper<Bean81S> {
+@BindMap(Bean81V3.class)
+public class Bean81V3BindMap extends AbstractMapper<Bean81V3> {
   /**
    * create new object instance
    */
   @Override
-  public Bean81S createInstance() {
-    return new Bean81S();
+  public Bean81V3 createInstance() {
+    return new Bean81V3();
   }
 
   /**
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(AbstractJacksonContext context, Bean81S object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(AbstractJacksonContext context, Bean81V3 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -58,13 +62,39 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
       // field valueByteArray (mapped with "valueByteArray")
       if (object.valueByteArray!=null)  {
         fieldCount++;
-        jacksonSerializer.writeBinaryField("valueByteArray", object.valueByteArray);
+        int n=object.valueByteArray.length;
+        Byte item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueByteArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=object.valueByteArray[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
       }
 
-      // field valueInteger (mapped with "valueInteger")
-      if (object.valueInteger!=null)  {
+      // field valueIntegerList (mapped with "valueIntegerList")
+      if (object.valueIntegerList!=null)  {
         fieldCount++;
-        jacksonSerializer.writeNumberField("valueInteger", object.valueInteger);
+        int n=object.valueIntegerList.size();
+        Integer item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueIntegerList");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=object.valueIntegerList.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
       }
 
       // field valueMapStringInteger (mapped with "valueMapStringInteger")
@@ -102,7 +132,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean81S object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean81V3 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -116,12 +146,47 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
       // field valueByteArray (mapped with "valueByteArray")
       if (object.valueByteArray!=null)  {
         fieldCount++;
-        jacksonSerializer.writeBinaryField("valueByteArray", object.valueByteArray);
+        int n=object.valueByteArray.length;
+        Byte item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueByteArray");
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueByteArray[i];
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeByte(item));
+            }
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
+        }
       }
 
-      // field valueInteger (mapped with "valueInteger")
-      if (object.valueInteger!=null)  {
-        jacksonSerializer.writeStringField("valueInteger", PrimitiveUtils.writeInteger(object.valueInteger));
+      // field valueIntegerList (mapped with "valueIntegerList")
+      if (object.valueIntegerList!=null)  {
+        fieldCount++;
+        int n=object.valueIntegerList.size();
+        Integer item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueIntegerList");
+        if (n>0) {
+          jacksonSerializer.writeStartArray();
+          for (int i=0; i<n; i++) {
+            item=object.valueIntegerList.get(i);
+            if (item==null) {
+              jacksonSerializer.writeString("null");
+            } else {
+              jacksonSerializer.writeString(PrimitiveUtils.writeInteger(item));
+            }
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeString("");
+        }
       }
 
       // field valueMapStringInteger (mapped with "valueMapStringInteger")
@@ -159,11 +224,11 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(KriptonXmlContext context, Bean81S object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, Bean81V3 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
-        xmlSerializer.writeStartElement("bean81S");
+        xmlSerializer.writeStartElement("bean81V3");
       }
 
       // Persisted fields:
@@ -174,9 +239,40 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
       xmlSerializer.writeEndElement();
 
       // field valueByteArray (mapped with "valueByteArray")
-      if (object.valueByteArray!=null) {
+      if (object.valueByteArray!=null)  {
+        int n=object.valueByteArray.length;
+        Byte item;
+        // write wrapper tag
         xmlSerializer.writeStartElement("valueByteArray");
-        xmlSerializer.writeBinary(object.valueByteArray, 0, object.valueByteArray.length);
+        for (int i=0; i<n; i++) {
+          item=object.valueByteArray[i];
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeInt(item);
+            xmlSerializer.writeEndElement();
+          }
+        }
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueIntegerList (mapped with "valueIntegerList")
+      if (object.valueIntegerList!=null)  {
+        int n=object.valueIntegerList.size();
+        Integer item;
+        // write wrapper tag
+        xmlSerializer.writeStartElement("valueIntegerList");
+        for (int i=0; i<n; i++) {
+          item=object.valueIntegerList.get(i);
+          if (item==null) {
+            xmlSerializer.writeEmptyElement("item");
+          } else {
+            xmlSerializer.writeStartElement("item");
+            xmlSerializer.writeInt(item);
+            xmlSerializer.writeEndElement();
+          }
+        }
         xmlSerializer.writeEndElement();
       }
 
@@ -185,25 +281,24 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
         // write wrapper tag
         xmlSerializer.writeStartElement("valueMapStringInteger");
         for (Map.Entry<String, Integer> item: object.valueMapStringInteger.entrySet()) {
-          xmlSerializer.writeStartElement("map");
+          xmlSerializer.writeStartElement("item");
             if (item.getKey()!=null) {
-              xmlSerializer.writeAttribute("key", item.getKey());
+              xmlSerializer.writeStartElement("key");
+              xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.getKey()));
+              xmlSerializer.writeEndElement();
             }
             if (item.getValue()==null) {
               xmlSerializer.writeEmptyElement("value");
             } else {
               if (item.getValue()!=null)  {
-                xmlSerializer.writeAttribute("value", PrimitiveUtils.writeInteger(item.getValue()));
+                xmlSerializer.writeStartElement("value");
+                xmlSerializer.writeInt(item.getValue());
+                xmlSerializer.writeEndElement();
               }
             }
           xmlSerializer.writeEndElement();
         }
         xmlSerializer.writeEndElement();
-      }
-
-      // field valueInteger (mapped with "valueInteger")
-      if (object.valueInteger!=null)  {
-        xmlSerializer.writeCData(PrimitiveUtils.writeInteger(object.valueInteger));
       }
 
       if (currentEventType == 0) {
@@ -219,10 +314,10 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
    * create new object instance
    */
   @Override
-  public Bean81S parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean81V3 parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      Bean81S instance = createInstance();
+      Bean81V3 instance = createInstance();
       String fieldName;
       if (jacksonParser.currentToken() == null) {
         jacksonParser.nextToken();
@@ -243,8 +338,34 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
             break;
             case "valueByteArray":
               // field valueByteArray (mapped with "valueByteArray")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueByteArray=jacksonParser.getBinaryValue();
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Byte> collection=new ArrayList<>();
+                Byte item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=jacksonParser.getByteValue();
+                  }
+                  collection.add(item);
+                }
+                instance.valueByteArray=CollectionUtils.asByteArray(collection);
+              }
+            break;
+            case "valueIntegerList":
+              // field valueIntegerList (mapped with "valueIntegerList")
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Integer> collection=new ArrayList<>();
+                Integer item=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                    item=null;
+                  } else {
+                    item=jacksonParser.getIntValue();
+                  }
+                  collection.add(item);
+                }
+                instance.valueIntegerList=collection;
               }
             break;
             case "valueMapStringInteger":
@@ -268,12 +389,6 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
                 instance.valueMapStringInteger=collection;
               }
             break;
-            case "valueInteger":
-              // field valueInteger (mapped with "valueInteger")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueInteger=jacksonParser.getIntValue();
-              }
-            break;
             default:
               jacksonParser.skipChildren();
             break;}
@@ -289,10 +404,10 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
    * create new object instance
    */
   @Override
-  public Bean81S parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean81V3 parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      Bean81S instance = createInstance();
+      Bean81V3 instance = createInstance();
       String fieldName;
       if (jacksonParser.getCurrentToken() == null) {
         jacksonParser.nextToken();
@@ -313,8 +428,44 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
             break;
             case "valueByteArray":
               // field valueByteArray (mapped with "valueByteArray")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueByteArray=Base64Utils.decode(jacksonParser.getValueAsString());
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Byte> collection=new ArrayList<>();
+                Byte item=null;
+                String tempValue=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  tempValue=jacksonParser.getValueAsString();
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
+                    item=null;
+                  } else {
+                    item=PrimitiveUtils.readByte(jacksonParser.getText(), null);
+                  }
+                  collection.add(item);
+                }
+                instance.valueByteArray=CollectionUtils.asByteArray(collection);
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Byte> collection=new ArrayList<>();
+                instance.valueByteArray=CollectionUtils.asByteArray(collection);
+              }
+            break;
+            case "valueIntegerList":
+              // field valueIntegerList (mapped with "valueIntegerList")
+              if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+                ArrayList<Integer> collection=new ArrayList<>();
+                Integer item=null;
+                String tempValue=null;
+                while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                  tempValue=jacksonParser.getValueAsString();
+                  if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
+                    item=null;
+                  } else {
+                    item=PrimitiveUtils.readInteger(jacksonParser.getText(), null);
+                  }
+                  collection.add(item);
+                }
+                instance.valueIntegerList=collection;
+              } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+                ArrayList<Integer> collection=new ArrayList<>();
+                instance.valueIntegerList=collection;
               }
             break;
             case "valueMapStringInteger":
@@ -358,12 +509,6 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
                 instance.valueMapStringInteger=collection;
               }
             break;
-            case "valueInteger":
-              // field valueInteger (mapped with "valueInteger")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueInteger=PrimitiveUtils.readInteger(jacksonParser.getText(), null);
-              }
-            break;
             default:
               jacksonParser.skipChildren();
             break;}
@@ -379,10 +524,10 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
    * create new object instance
    */
   @Override
-  public Bean81S parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public Bean81V3 parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlPullParser xmlParser = wrapper.xmlParser;
-      Bean81S instance = createInstance();
+      Bean81V3 instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
 
@@ -413,7 +558,37 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
                   break;
                   case "valueByteArray":
                     // property valueByteArray (mapped on "valueByteArray")
-                    instance.valueByteArray=xmlParser.getElementAsBinary();
+                     {
+                      ArrayList<Byte> collection=new ArrayList<>();
+                      Byte item;
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=(byte)PrimitiveUtils.readByte(xmlParser.getElementAsInt(), null);
+                        }
+                        collection.add(item);
+                      }
+                      instance.valueByteArray=CollectionUtils.asByteArray(collection);
+                    }
+                  break;
+                  case "valueIntegerList":
+                    // property valueIntegerList (mapped on "valueIntegerList")
+                     {
+                      ArrayList<Integer> collection=new ArrayList<>();
+                      Integer item;
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
+                        if (xmlParser.isEmptyElement()) {
+                          item=null;
+                          xmlParser.nextTag();
+                        } else {
+                          item=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
+                        }
+                        collection.add(item);
+                      }
+                      instance.valueIntegerList=collection;
+                    }
                   break;
                   case "valueMapStringInteger":
                     // property valueMapStringInteger (mapped on "valueMapStringInteger")
@@ -421,12 +596,17 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
                       HashMap<String, Integer> collection=new HashMap<>();
                       String key;
                       Integer value;
-                      int attributeIndex;
-                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("map")) {
-                        attributeIndex=xmlParser.getAttributeIndex(null, "key");
-                        key=xmlParser.getAttributeValue(attributeIndex);
-                        attributeIndex=xmlParser.getAttributeIndex(null, "value");
-                        value=PrimitiveUtils.readInteger(xmlParser.getAttributeValue(attributeIndex), null);
+                      while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
+                        xmlParser.nextTag();
+                        key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                        xmlParser.nextTag();
+                        if (xmlParser.isEmptyElement()) {
+                          value=null;
+                          xmlParser.nextTag();
+                        } else {
+                          value=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
+                        }
+                        xmlParser.nextTag();
                         collection.put(key, value);
                       }
                       instance.valueMapStringInteger=collection;
@@ -444,11 +624,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
               break;
               case XmlPullParser.CDSECT:
               case XmlPullParser.TEXT:
-                if (elementName!=null && xmlParser.hasText()) {
-                  // property valueInteger
-                  instance.valueInteger=PrimitiveUtils.readInteger(xmlParser.getText(), null);
-                }
-              break;
+                // no property is binded to VALUE o CDATA break;
               default:
               break;
           }
