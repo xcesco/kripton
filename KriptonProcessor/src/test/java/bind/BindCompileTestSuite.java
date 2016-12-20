@@ -30,6 +30,7 @@ import bind.kripton77.Test77;
 import bind.kripton78.Test78CompileSuite;
 import bind.kripton80ContextCollection.Test80CompileSuite;
 import bind.kripton81MoreCoverageTests.Test81CompileSuite;
+import bind.kripton87TypeAdapter.Test87CompileSuite;
 
 @RunWith(Suite.class)
 //@formatter:off
@@ -46,7 +47,8 @@ import bind.kripton81MoreCoverageTests.Test81CompileSuite;
 		Test77.class,
 		Test78CompileSuite.class,
 		Test80CompileSuite.class,
-		Test81CompileSuite.class
+		Test81CompileSuite.class,
+		Test87CompileSuite.class
 		 })
 //@formatter:on
 public class BindCompileTestSuite {

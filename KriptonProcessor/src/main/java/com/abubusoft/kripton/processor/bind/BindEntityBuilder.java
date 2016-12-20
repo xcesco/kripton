@@ -4,6 +4,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.NoneAdapter;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
@@ -108,6 +109,13 @@ public class BindEntityBuilder {
 
 				// @Bind management
 				if (annotationBind != null) {
+					property.typeAdapterClazz=null;
+					String typeAdapter = AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_TYPE_ADAPTER);
+					if (typeAdapter.equals(NoneAdapter.class))
+					{
+						property.typeAdapterClazz = typeAdapter;
+					}
+					
 					int order = AnnotationUtility.extractAsInt(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_ORDER);
 					property.order = order;
 

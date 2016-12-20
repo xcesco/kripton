@@ -34,6 +34,11 @@ public class WrappedBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
 		
+		if (property.hasTypeAdapterClazz())
+		{
+			methodBuilder.addCode("// test $L", property.typeAdapterClazz);
+		}
+		
 		methodBuilder.addStatement(setter(beanClass, beanName, property," $T.read($L.getText())"), utilClazz, parserName);
 		
 		if (property.isNullable())

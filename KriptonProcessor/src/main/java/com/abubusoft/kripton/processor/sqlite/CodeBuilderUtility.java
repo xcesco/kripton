@@ -43,7 +43,7 @@ import com.squareup.javapoet.TypeName;
 
 import android.content.ContentValues;
 
-public class CodeBuilderUtility {
+public abstract class CodeBuilderUtility {
 
 	/**
 	 * Generate code necessary to put bean properties in content values map. Returns the primary key

@@ -600,7 +600,6 @@ public class BindTypeBuilder {
 		// @formatter:on
 
 		methodBuilder.beginControlFlow("try");
-		//methodBuilder.addStatement("$T xmlSerializer = wrapper.xmlSerializer", className(MXSerializer.class));
 		methodBuilder.addStatement("$T xmlSerializer = wrapper.xmlSerializer", className(XmlSerializer.class));
 
 		methodBuilder.beginControlFlow("if (currentEventType == 0)");

@@ -145,6 +145,11 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		if (nullable && property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
+		
+		if (property.hasTypeAdapterClazz())
+		{
+			methodBuilder.addCode("// test $L", property.typeAdapterClazz);
+		}
 
 		if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)$L.$L())"), parserName, JSON_PARSER_METHOD);

@@ -173,6 +173,8 @@ public class BindProperty extends ModelProperty {
 
 	public String mapValueName;
 
+	public String typeAdapterClazz;
+
 	public BindProperty(Element element) {
 		super(element);
 		
@@ -204,6 +206,10 @@ public class BindProperty extends ModelProperty {
 
 	public boolean isBindedMap() {
 		return propertyType.isMap();
+	}
+
+	public boolean hasTypeAdapterClazz() {
+		return typeAdapterClazz!=null;
 	}
 
 }

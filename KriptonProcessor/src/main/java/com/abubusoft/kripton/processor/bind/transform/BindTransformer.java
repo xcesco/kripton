@@ -74,9 +74,11 @@ public abstract class BindTransformer {
 	 */
 	public static BindTransform lookup(BindProperty property) {
 		TypeMirror typeMirror=property.getElement().asType();
-		
-		TypeName typeName=typeName(typeMirror);		
-
+		TypeName typeName=typeName(typeMirror);
+		if (property.typeAdapterClazz!=null)
+		{
+			typeName=typeName(property.typeAdapterClazz);
+		} 
 		return lookup(typeName);
 	}
 	
