@@ -9,11 +9,8 @@ package com.abubusoft.kripton;
  */
 public interface BindTypeAdapter<J, D> {
 
-	D java2data(J java);
-	
-	J data2java(D data);
-	
-	Class<D> getBindType();
-	
-	Class<J> getJavaType();
+	J toJava(D dataValue);
+
+	D toData(J javaValue);
+		
 }

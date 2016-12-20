@@ -19,7 +19,9 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.xml.XmlType;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
@@ -146,15 +148,27 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
 		
-		if (property.hasTypeAdapterClazz())
+		if (property.hasTypeAdapter())
 		{
-			methodBuilder.addCode("// test $L", property.typeAdapterClazz);
-		}
-
-		if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)$L.$L())"), parserName, JSON_PARSER_METHOD);
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			String PRE_TYPE_ADAPTER="$T.toJava($T.class, ";
+			String POST_TYPE_ADAPTER=")";
+			
+			// no adapter is present
+			if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER+"Character.valueOf((char)$L.$L())+POST_TYPE_ADAPTER"), TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), parserName, JSON_PARSER_METHOD);
+			} else {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER+"$L.$L()"+POST_TYPE_ADAPTER), TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), parserName, JSON_PARSER_METHOD);
+			}
+			
 		} else {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.$L()"), parserName, JSON_PARSER_METHOD);
+			// no adapter is present
+			if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)$L.$L())"), parserName, JSON_PARSER_METHOD);
+			} else {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.$L()"), parserName, JSON_PARSER_METHOD);
+			}
 		}
 
 		if (nullable && property.isNullable()) {
@@ -168,11 +182,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
 
-		//if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
-			//methodBuilder.addStatement(setter(beanClass, beanName, property, "Character.valueOf((char)(int)Integer.valueOf($L.getText()))"), parserName);
-		//} else {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read$L($L.getText(), $L)"), PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
-		//}
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read$L($L.getText(), $L)"), PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
 
 		if (nullable && property.isNullable()) {
 			methodBuilder.endControlFlow();

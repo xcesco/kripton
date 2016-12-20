@@ -9,7 +9,7 @@ public class Bean {
 
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public String description;
-	
+	 
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public int id;
 }

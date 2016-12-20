@@ -24,6 +24,13 @@ import com.abubusoft.kripton.xml.XmlType;
 import com.squareup.javapoet.TypeName;
 
 public class BindProperty extends ModelProperty {
+	
+	public class TypeAdapter
+	{
+		public String adapterClazz;
+		
+		public String dataType;
+	}
 
 	public static class BindPropertyBuilder
 	{				
@@ -173,7 +180,7 @@ public class BindProperty extends ModelProperty {
 
 	public String mapValueName;
 
-	public String typeAdapterClazz;
+	public TypeAdapter typeAdapter;
 
 	public BindProperty(Element element) {
 		super(element);
@@ -182,6 +189,7 @@ public class BindProperty extends ModelProperty {
 		inCollection=false;
 		xmlInfo=new XmlInfo();
 		jacksonInfo=new JacksonInfo();
+		typeAdapter=new TypeAdapter();
 	}
 	
 	public boolean isInCollection() {
@@ -208,8 +216,8 @@ public class BindProperty extends ModelProperty {
 		return propertyType.isMap();
 	}
 
-	public boolean hasTypeAdapterClazz() {
-		return typeAdapterClazz!=null;
+	public boolean hasTypeAdapter() {
+		return typeAdapter.adapterClazz!=null;
 	}
 
 }

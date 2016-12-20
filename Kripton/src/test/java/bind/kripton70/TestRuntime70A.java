@@ -10,7 +10,7 @@ public class TestRuntime70A extends AbstractBaseTest {
 	
 	@Test
 	public void testRun70A_1() {
-		assertNotNull(Bean70ABindMap.class);
+		assertNotNull(Bean70ABindMap.class.toString());
 		
 		Bean70A bean = new Bean70A();
 		bean.valueString = "this is a test";

@@ -47,16 +47,16 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
 
       // Serialized Field:
 
-      // field valueDescription (mapped with "valueDescription")
-      if (object.valueDescription!=null)  {
-        fieldCount++;
-        jacksonSerializer.writeStringField("valueDescription", object.valueDescription);
-      }
-
       // field valueDate (mapped with "valueDate")
       if (object.valueDate!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueDate", DateUtils.write(object.valueDate));
+      }
+
+      // field valueDescription (mapped with "valueDescription")
+      if (object.valueDescription!=null)  {
+        fieldCount++;
+        jacksonSerializer.writeStringField("valueDescription", object.valueDescription);
       }
 
       jacksonSerializer.writeEndObject();
@@ -79,16 +79,16 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
 
       // Serialized Field:
 
-      // field valueDescription (mapped with "valueDescription")
-      if (object.valueDescription!=null)  {
-        fieldCount++;
-        jacksonSerializer.writeStringField("valueDescription", object.valueDescription);
-      }
-
       // field valueDate (mapped with "valueDate")
       if (object.valueDate!=null)  {
         fieldCount++;
         jacksonSerializer.writeStringField("valueDate", DateUtils.write(object.valueDate));
+      }
+
+      // field valueDescription (mapped with "valueDescription")
+      if (object.valueDescription!=null)  {
+        fieldCount++;
+        jacksonSerializer.writeStringField("valueDescription", object.valueDescription);
       }
 
       jacksonSerializer.writeEndObject();
@@ -112,17 +112,17 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
 
       // Persisted fields:
 
-      // field valueDescription (mapped with "valueDescription")
-      if (object.valueDescription!=null) {
-        xmlSerializer.writeStartElement("valueDescription");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.valueDescription));
-        xmlSerializer.writeEndElement();
-      }
-
       // field valueDate (mapped with "valueDate")
       if (object.valueDate!=null)  {
         xmlSerializer.writeStartElement("valueDate");
         xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtils.write(object.valueDate)));
+        xmlSerializer.writeEndElement();
+      }
+
+      // field valueDescription (mapped with "valueDescription")
+      if (object.valueDescription!=null) {
+        xmlSerializer.writeStartElement("valueDescription");
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.valueDescription));
         xmlSerializer.writeEndElement();
       }
 
@@ -157,16 +157,16 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
 
         // Parse fields:
         switch (fieldName) {
-            case "valueDescription":
-              // field valueDescription (mapped with "valueDescription")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDescription=jacksonParser.getText();
-              }
-            break;
             case "valueDate":
               // field valueDate (mapped with "valueDate")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueDate= DateUtils.read(jacksonParser.getText());
+              }
+            break;
+            case "valueDescription":
+              // field valueDescription (mapped with "valueDescription")
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueDescription=jacksonParser.getText();
               }
             break;
             default:
@@ -202,16 +202,16 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
 
         // Parse fields:
         switch (fieldName) {
-            case "valueDescription":
-              // field valueDescription (mapped with "valueDescription")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDescription=jacksonParser.getText();
-              }
-            break;
             case "valueDate":
               // field valueDate (mapped with "valueDate")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                 instance.valueDate=DateUtils.read(jacksonParser.getText());
+              }
+            break;
+            case "valueDescription":
+              // field valueDescription (mapped with "valueDescription")
+              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                instance.valueDescription=jacksonParser.getText();
               }
             break;
             default:
@@ -257,13 +257,13 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
             case XmlPullParser.START_TAG:
               currentTag = xmlParser.getName().toString();
               switch(currentTag) {
-                  case "valueDescription":
-                    // property valueDescription (mapped on "valueDescription")
-                    instance.valueDescription=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
-                  break;
                   case "valueDate":
                     // property valueDate (mapped on "valueDate")
                     instance.valueDate=DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                  break;
+                  case "valueDescription":
+                    // property valueDescription (mapped on "valueDescription")
+                    instance.valueDescription=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                   break;
                   default:
                   break;

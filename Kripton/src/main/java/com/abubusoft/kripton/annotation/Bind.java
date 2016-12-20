@@ -20,9 +20,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.BindTypeAdapter;
-import com.abubusoft.kripton.NoneAdapter;
-
 /**
  * 
  * Annotation for bind associated field to xml/json/properties/cbor/yaml format.
@@ -61,8 +58,6 @@ public @interface Bind {
 	 * @return name
 	 */
 	public String value() default "";
-	
-	public Class<? extends BindTypeAdapter<?,?>> typeAdapter() default NoneAdapter.class;
 
 	/**
 	 * name of element rapresents key of a map. <b>Used only by map type.</b>

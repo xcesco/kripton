@@ -101,7 +101,11 @@ public class BindTypeBuilder {
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindType.class, packageName, className);
 		// @formatter:off
-		builder = TypeSpec.classBuilder(className).addAnnotation(AnnotationSpec.builder(BindMap.class).addMember("value", "$T.class",typeName(item.getElement().asType())).build()).addModifiers(Modifier.PUBLIC)
+		builder = TypeSpec.classBuilder(className)
+				.addAnnotation(AnnotationSpec.builder(BindMap.class)
+						.addMember("value", "$T.class",typeName(item.getElement().asType()))
+						.build())
+				.addModifiers(Modifier.PUBLIC)
 				.superclass(TypeUtility.parameterizedTypeName(className(AbstractMapper.class), typeName(item.getElement().asType())));
 		// @formatter:on
 		builder.addJavadoc("This class is the shared preference binder defined for $T\n\n", item.getElement());
@@ -616,6 +620,10 @@ public class BindTypeBuilder {
 			bindTransform = BindTransformer.lookup(item);
 
 			methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
+			if (item.hasTypeAdapter())
+			{
+				methodBuilder.addCode("// field trasformation $L $L \n",item.typeAdapter.dataType, item.typeAdapter.adapterClazz);
+			}
 			bindTransform.generateSerializeOnXml(methodBuilder, "xmlSerializer", item.getPropertyType().getName(), "object", item);
 			methodBuilder.addCode("\n");
 		}

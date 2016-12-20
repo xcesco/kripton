@@ -4,8 +4,8 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.NoneAdapter;
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
@@ -47,7 +47,7 @@ public class BindEntityBuilder {
 
 	private static AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).build();
 
-	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).build();
+	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
 
 	public static BindEntity build(final BindModel model, final Elements elementUtils, Element element) {
 		final InnerCounter counterPropertyInValue = new InnerCounter();
@@ -81,6 +81,8 @@ public class BindEntityBuilder {
 				// if we are build Map, the model are not null
 				boolean contextExternal = (model == null);
 				
+				ModelAnnotation annotationBindAdapter = property.getAnnotation(BindAdapter.class);
+				
 				// if @BindDisabled is present, we don't need it
 				ModelAnnotation annotationBindDisabled = property.getAnnotation(BindDisabled.class);
 				if (annotationBindDisabled != null)
@@ -105,17 +107,16 @@ public class BindEntityBuilder {
 				property.xmlInfo.labelItem = property.label;
 				property.xmlInfo.wrappedCollection = false;
 				property.xmlInfo.xmlType = XmlType.valueOf(XmlType.TAG.toString());				
-				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());			
+				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());	
+				
+				// @BindAdapter
+				if (annotationBindAdapter != null) {					
+					property.typeAdapter.adapterClazz=AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), BindAdapter.class, AnnotationAttributeType.ATTRIBUTE_ADAPTER);
+					property.typeAdapter.dataType=AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), BindAdapter.class, AnnotationAttributeType.ATTRIBUTE_DATA_TYPE);										
+				}
 
 				// @Bind management
-				if (annotationBind != null) {
-					property.typeAdapterClazz=null;
-					String typeAdapter = AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_TYPE_ADAPTER);
-					if (typeAdapter.equals(NoneAdapter.class))
-					{
-						property.typeAdapterClazz = typeAdapter;
-					}
-					
+				if (annotationBind != null) {										
 					int order = AnnotationUtility.extractAsInt(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_ORDER);
 					property.order = order;
 

@@ -40,6 +40,8 @@ public class Test84RuntimeA extends BaseAndroidTest {
 	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
 		Assert.assertNotNull(Bean84ATable.class.getName() != null);
 		Assert.assertNotNull(Bean84ADaoImpl.class.getName() != null);
+		
+		
 		BindBean84ADataSource dataSource = BindBean84ADataSource.instance();
 		//dataSource.openWritableDatabase();
 
