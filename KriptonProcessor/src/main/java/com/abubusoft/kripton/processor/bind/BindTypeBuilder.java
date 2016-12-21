@@ -64,7 +64,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
  * @author xcesco
  *
  */
-public class BindTypeBuilder {
+public abstract class BindTypeBuilder {
 
 	protected static Builder builder;
 

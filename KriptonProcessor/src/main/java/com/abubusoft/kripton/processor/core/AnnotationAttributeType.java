@@ -49,7 +49,6 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_FIELD_TYPE("fieldType"),
 	ATTRIBUTE_ENABLED("enabled"),
 	
-	//ATTRIBUTE_ELEMENT_NAME("elementName"),
 	ATTRIBUTE_ORDER("order"),	
 	ATTRIBUTE_MAP_KEY_NAME("mapKeyName"),
 	ATTRIBUTE_MAP_VALUE_NAME("mapValueName"),
@@ -58,7 +57,8 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_XML_ELEMENT_TAG("elementTag"),
 	
 	ATTRIBUTE_ADAPTER("adapter"),
-	ATTRIBUTE_DATA_TYPE("dataType")
+	ATTRIBUTE_DATA_TYPE("dataType"),
+	ATTRIBUTE_FOREIGN_KEY("foreignKey")
 	;
 	
 	

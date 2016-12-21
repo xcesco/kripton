@@ -43,6 +43,7 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
@@ -367,6 +368,19 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					} else {
 						throw (new KriptonRuntimeException(String.format("In class '%s' property '%s' has a wrong definition for create SQLite DataSource", bindEntity.getElement().asType() , property.getName())));					
 					}
+					
+					String columnName=null;
+					ModelAnnotation columnAnnotation=property.getAnnotation(BindColumn.class);
+					if (columnAnnotation!=null)
+					{
+						columnName=columnAnnotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_NAME);
+					}
+					
+					if (!StringUtils.hasText(columnName))
+					{
+						columnName=property.getName();
+					}
+					property.columnName=columnName;
 
 					return true;
 

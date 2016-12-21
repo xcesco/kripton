@@ -72,7 +72,7 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 		return tableName;
 	}
 
-	public void buildTableName(Elements elementUtils, SQLiteDatabaseSchema model) {
+	public String buildTableName(Elements elementUtils, SQLiteDatabaseSchema model) {
 		tableName=getSimpleName();
 		if (containsAnnotation(BindTable.class))			
 		{
@@ -83,6 +83,8 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 		}		
 		tableName=model.classNameConverter.convert(tableName);
 		
-	}
+		return tableName;
+		
+	}			
 
 }

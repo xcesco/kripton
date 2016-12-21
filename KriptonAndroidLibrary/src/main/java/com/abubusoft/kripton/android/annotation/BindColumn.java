@@ -22,6 +22,7 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.sqlite.FieldType;
+import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 
 /**
  * 
@@ -63,6 +64,14 @@ public @interface BindColumn {
 	 * @return if true, column can be set to null
 	 */
 	public boolean nullable() default NULLABLE_DEFAULT;
+	
+	/**
+	 * Rapresents foreign key to another entity/table. It can be used only on long/Long column type
+	 *  
+	 * @return
+	 * 		foreign entity/table to reference
+	 */
+	public Class<?> foreignKey() default NoForeignKey.class;
 	
 	/**
 	 * Transformation to apply

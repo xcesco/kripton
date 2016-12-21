@@ -32,8 +32,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.BindSharedPreferencesProcessor;
-import com.abubusoft.kripton.processor.BindTypeProcessor;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;

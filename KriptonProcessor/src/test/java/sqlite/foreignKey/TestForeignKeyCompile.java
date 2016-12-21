@@ -13,14 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.android;
+package sqlite.foreignKey;
+
+import java.io.IOException;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
  * @author xcesco
  *
  */
-public enum ColumnType {
-	PRIMARY_KEY,
-	UNIQUE,
-	STANDARD
+@RunWith(JUnit4.class)
+public class TestForeignKeyCompile extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * test on select 1
+	 * 
+	 * @throws IOException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 */
+	@Test
+	public void testForeignKeyCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(BeanA_1.class, BeanA_2.class, DaoBeanA_1.class, DaoBeanA_2.class, DummyDataSource.class);
+	}
+
 }

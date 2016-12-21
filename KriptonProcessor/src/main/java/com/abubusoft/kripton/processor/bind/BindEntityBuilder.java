@@ -32,7 +32,7 @@ import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnota
 import com.abubusoft.kripton.xml.MapEntryType;
 import com.abubusoft.kripton.xml.XmlType;
 
-public class BindEntityBuilder {
+public abstract class BindEntityBuilder {
 
 	public static class InnerCounter {
 		int counter;

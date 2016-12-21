@@ -209,11 +209,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		String separator = "";
 		for (SQLProperty property : listUsedProperty) {
-			buffer.append(String.format("%s%s=${%s.%s}", separator, nc.convert(property.getName()), method.findParameterAliasByName(beanNameParameter), property.getName()));
+			buffer.append(String.format("%s%s=${%s.%s}", separator, nc.convert(property.columnName), method.findParameterAliasByName(beanNameParameter), property.getName()));
 
 			bufferQuestion.append(separator);
 			bufferQuestion.append(nc.convert(property.getName()) + "=");
-			bufferQuestion.append("'\"+StringUtils.checkSize(contentValues.get(\"" + nc.convert(property.getName()) + "\"))+\"'");
+			bufferQuestion.append("'\"+StringUtils.checkSize(contentValues.get(\"" + nc.convert(property.columnName) + "\"))+\"'");
 
 			separator = ", ";
 		}

@@ -23,6 +23,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -91,7 +92,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		SQLEntity entity=kriptonClass;
 		entity.buildTableName(elementUtils, model);
 				
-		String classTableName =  tableName(entity);	
+		String classTableName = tableName(entity);	
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
@@ -134,19 +135,19 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			String separator="";
 			// primary key can be column id or that marked as PRIMARY_KEY
 			ModelProperty primaryKey = entity.getPrimaryKey();
-			ModelAnnotation annotation;
+			ModelAnnotation annotationBindColumn;
 			
 			buffer.append(" (");
-			for (ModelProperty item : entity.getCollection()) {
+			for (SQLProperty item : entity.getCollection()) {
 				buffer.append(separator);
-				buffer.append(model.classNameConverter.convert(item.getName()));
+				buffer.append(model.classNameConverter.convert(item.columnName));
 				buffer.append(" "+SQLTransformer.columnType(item));
 				
-				annotation=item.getAnnotation(BindColumn.class);
+				annotationBindColumn=item.getAnnotation(BindColumn.class);
 				
-				if (annotation!=null)
+				if (annotationBindColumn!=null)
 				{
-					ColumnType columnType=ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE));
+					ColumnType columnType=ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_VALUE));
 					switch(columnType)
 					{
 					case PRIMARY_KEY:
@@ -156,16 +157,24 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 						buffer.append(" UNIQUE");
 						break;
 					case STANDARD:
-						break;
-					case FOREIGN_KEY:
-						break;
+						break;					
 					}
-					
-					boolean nullable=Boolean.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotation, AnnotationAttributeType.ATTRIBUTE_NULLABLE));				
+										
+					boolean nullable=Boolean.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_NULLABLE));				
 					if (!nullable)
 					{
 						buffer.append(" NOT NULL");
 					}
+					
+					// foreign key
+					String foreignClassName=annotationBindColumn.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_FOREIGN_KEY);
+					if (!foreignClassName.equals(NoForeignKey.class.getName()))
+					{
+						SQLEntity references = model.getEntity(foreignClassName);
+						buffer.append(", FOREIGN KEY("+model.classNameConverter.convert(item.getName())+") REFERENCES "+references.buildTableName(elementUtils, model)+"("+model.classNameConverter.convert(references.getPrimaryKey().columnName)+")");
+						//FOREIGN KEY(trackartist) REFERENCES artist(artistid)
+					}
+					
 				} else if (primaryKey.equals(item)) {
 					buffer.append(" PRIMARY KEY AUTOINCREMENT");
 				}
@@ -186,7 +195,6 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		
 		{			
 			// drop table SQL
-			// "CREATE TABLE IF NOT EXISTS TutorialsPoint(Username VARCHAR,Password VARCHAR);"
 			String sql="DROP TABLE IF EXISTS "+entity.getTableName()+";";
 			
 			//@formatter:off
