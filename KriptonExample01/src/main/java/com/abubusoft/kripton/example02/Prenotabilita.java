@@ -14,7 +14,7 @@ public class Prenotabilita {
 	public boolean callCenter;
 	
 	public boolean sportelliCup;
-
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
