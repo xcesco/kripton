@@ -15,7 +15,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Override;
 
@@ -56,7 +55,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -82,7 +81,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -155,7 +154,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -196,7 +195,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }

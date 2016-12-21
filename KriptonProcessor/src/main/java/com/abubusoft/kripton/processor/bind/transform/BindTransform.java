@@ -39,5 +39,13 @@ public interface BindTransform {
 	void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property);
 	
 	void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property);
+	
+	/**
+	 * If true, means bind transformer support type adapter
+	 * @return
+	 */
+	boolean isTypeAdapterSupported();
+	
+	
 
 }

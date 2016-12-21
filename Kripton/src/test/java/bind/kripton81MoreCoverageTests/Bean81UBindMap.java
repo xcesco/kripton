@@ -17,7 +17,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
@@ -93,7 +92,7 @@ public class Bean81UBindMap extends AbstractMapper<Bean81U> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -150,7 +149,7 @@ public class Bean81UBindMap extends AbstractMapper<Bean81U> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -206,7 +205,7 @@ public class Bean81UBindMap extends AbstractMapper<Bean81U> {
 
       // field valueByteArray (mapped with "valueByteArray")
       if (object.valueByteArray!=null) {
-        xmlSerializer.writeBinary(object.valueByteArray, 0, object.valueByteArray.length);
+        xmlSerializer.writeBinary(object.valueByteArray);
       }
 
       if (currentEventType == 0) {
@@ -282,7 +281,7 @@ public class Bean81UBindMap extends AbstractMapper<Bean81U> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -372,7 +371,7 @@ public class Bean81UBindMap extends AbstractMapper<Bean81U> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }

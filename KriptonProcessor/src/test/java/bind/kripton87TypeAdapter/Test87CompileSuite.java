@@ -9,7 +9,8 @@ import bind.AbstractBindTypeProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		Test87ACompile.class		
+		Test87ACompile.class,
+		Test87BCompile.class
 		 })
 //@formatter:on
 public class Test87CompileSuite extends AbstractBindTypeProcessorTest {

@@ -19,7 +19,9 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.common.Base64Utils;
+import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.xml.XmlType;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
@@ -36,21 +38,39 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, false); 
+		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, false);
 
 	}
 	
+	public boolean isTypeAdapterSupported() {
+		return true;
+	}
+
 	public void generateParseOnJacksonInternal(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		}		
-		
-		if (onString)
-		{
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getValueAsString())"), Base64Utils.class, parserName);
-		} else {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getBinaryValue()"), parserName);
 		}
+
+		if (property.hasTypeAdapter()) {
+
+			if (onString) {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.decode($L.getValueAsString())" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), Base64Utils.class, parserName);
+			} else {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$L.getBinaryValue()" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), parserName);
+			}
+
+		} else {
+
+			if (onString) {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getValueAsString())"), Base64Utils.class, parserName);
+			} else {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getBinaryValue()"), parserName);
+			}
+
+		}
+
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
@@ -59,26 +79,50 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, true); 
+		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, true);
 	}
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 
-		switch (xmlType) {
-		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getAttributeValue(attributeIndex))"), Base64Utils.class,  parserName);
-			break;
-		case TAG:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getElementAsBinary()"), parserName);
-			break;
-		case VALUE:
-		case VALUE_CDATA:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getText())"), Base64Utils.class, parserName);			
-			break;
-		default:
-			break;
+		if (property.hasTypeAdapter()) {
+
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.decode($L.getAttributeValue(attributeIndex))" + POST_TYPE_ADAPTER),
+						TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), Base64Utils.class, parserName);
+				break;
+			case TAG:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$L.getElementAsBinary()" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), parserName);
+				break;
+			case VALUE:
+			case VALUE_CDATA:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.decode($L.getText())" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), Base64Utils.class, parserName);
+				break;
+			default:
+				break;
+			}
+
+		} else {
+
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getAttributeValue(attributeIndex))"), Base64Utils.class, parserName);
+				break;
+			case TAG:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getElementAsBinary()"), parserName);
+				break;
+			case VALUE:
+			case VALUE_CDATA:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.decode($L.getText())"), Base64Utils.class, parserName);
+				break;
+			default:
+				break;
+			}
+
 		}
 
 	}
@@ -88,17 +132,28 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
-		
-		if (property.isProperty())
-		{
+
+		if (property.isProperty()) {
 			methodBuilder.addStatement("fieldCount++");
 		}
 
-		// in a collection we need to insert only value, not field name
-		if (property.isInCollection()) {
-			methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
+		if (property.hasTypeAdapter()) {
+			// in a collection we need to insert only value, not field name
+			if (property.isInCollection()) {
+				methodBuilder.addStatement("$L.writeBinary(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			} else {
+				methodBuilder.addStatement("$L.writeBinaryField($S, " + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, property.label, TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			}
 		} else {
-			methodBuilder.addStatement("$L.writeBinaryField($S, $L)", serializerName, property.label, getter(beanName, beanClass, property));
+			// in a collection we need to insert only value, not field name
+			if (property.isInCollection()) {
+				methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
+			} else {
+				methodBuilder.addStatement("$L.writeBinaryField($S, $L)", serializerName, property.label, getter(beanName, beanClass, property));
+			}
+
 		}
 
 		if (property.isNullable()) {
@@ -114,24 +169,45 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-		
+
 		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null)", getter(beanName, beanClass, property));
 		}
-		
-		switch (xmlType) {
-		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $T.encode($L))", serializerName, property.label, Base64Utils.class, getter(beanName, beanClass, property));
-			break;
-		case TAG:
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
-			methodBuilder.addStatement("$L.writeBinary($L, 0, $L.length)", serializerName, getter(beanName, beanClass, property), getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
-			break;
-		case VALUE:
-		case VALUE_CDATA:
-			methodBuilder.addStatement("$L.writeBinary($L, 0, $L.length)", serializerName, getter(beanName, beanClass, property), getter(beanName, beanClass, property));
-			break;
+
+		if (property.hasTypeAdapter()) {
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.encode(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, property.label, Base64Utils.class,
+						TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz),getter(beanName, beanClass, property));
+				break;
+			case TAG:
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeBinary(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz),getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+				break;
+			case VALUE:
+			case VALUE_CDATA:
+				methodBuilder.addStatement("$L.writeBinary("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz),getter(beanName, beanClass, property));
+				break;
+			}
+		} else {
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.encode($L))", serializerName, property.label, Base64Utils.class, getter(beanName, beanClass, property));
+				break;
+			case TAG:
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+				break;
+			case VALUE:
+			case VALUE_CDATA:
+				methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
+				break;
+			}
 		}
 
 		if (property.isNullable() && !property.isInCollection()) {

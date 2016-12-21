@@ -26,5 +26,12 @@ package com.abubusoft.kripton.processor.bind.transform;
 public abstract class AbstractBindTransform implements BindTransform {
 	
 	protected String DEFAULT_VALUE="null";
+	
+	protected static final String PRE_TYPE_ADAPTER_TO_JAVA="$T.toJava($T.class, ";
+	protected static final String PRE_TYPE_ADAPTER_TO_DATA="$T.toData($T.class, ";
+	
+	protected static final String POST_TYPE_ADAPTER=")";
+	
+	
 
 }

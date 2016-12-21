@@ -16,7 +16,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Override;
 
@@ -77,7 +76,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -122,7 +121,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -156,7 +155,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
 
       // field name (mapped with "name")
       if (object.name!=null) {
-        xmlSerializer.writeAttribute("name", object.name);
+        xmlSerializer.writeAttribute("name", StringEscapeUtils.escapeXml10(object.name));
       }
 
       // field address (mapped with "address")
@@ -228,7 +227,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -289,7 +288,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -334,7 +333,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
             break;
             case "name":
               // field name (mapped by "name")
-              instance.name=xmlParser.getAttributeValue(attributeIndex);
+              instance.name=StringEscapeUtils.unescapeXml(xmlParser.getAttributeValue(attributeIndex));
             break;
             default:
             break;

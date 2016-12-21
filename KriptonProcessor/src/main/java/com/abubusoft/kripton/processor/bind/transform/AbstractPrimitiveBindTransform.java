@@ -35,111 +35,24 @@ import com.squareup.javapoet.TypeName;
  */
 abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
+	protected String JSON_PARSER_METHOD;
+
+	protected String JSON_TYPE;
+
+	protected boolean nullable;
+	protected String PRIMITIVE_UTILITY_TYPE;
+	protected String XML_ATTRIBUTE_METHOD_POST;
+	protected String XML_ATTRIBUTE_METHOD_PRE;
+	protected String XML_CAST_TYPE = "";
+
+	protected String XML_TYPE;
+
 	public AbstractPrimitiveBindTransform(boolean nullable) {
 		this.nullable = nullable;
 	}
-
-	protected boolean nullable;
-
-	protected String XML_TYPE;
-	protected String PRIMITIVE_UTILITY_TYPE;
-	protected String XML_CAST_TYPE = "";
-	protected String XML_ATTRIBUTE_METHOD_PRE;
-	protected String XML_ATTRIBUTE_METHOD_POST;
-
-	protected String JSON_TYPE;
-	protected String JSON_PARSER_METHOD;
-
-	@Override
-	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		XmlType xmlType = property.xmlInfo.xmlType;
-
-		switch (xmlType) {
-		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getAttributeValue(attributeIndex), $L)"),XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
-			break;
-		case TAG:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getElementAs$L(), $L)"),XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, XML_TYPE, DEFAULT_VALUE);
-			break;
-		case VALUE:
-		case VALUE_CDATA:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getText(), $L)"),XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
-			break;
-		default:
-			break;
-		}
-	}
-
-	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		XmlType xmlType = property.xmlInfo.xmlType;
-		if (nullable && property.isNullable() && !property.isInCollection()) {
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		}
-
-		switch (xmlType) {
-		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L($L))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
-			break;
-		case TAG:
-			// value don't need to be converted into string
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
-			methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$L.writeEndElement()", serializerName);			
-			break;
-		case VALUE:
-			// value don't need to be converted into string
-			methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
-			break;
-		case VALUE_CDATA:
-			methodBuilder.addStatement("$L.writeCData($T.write$L($L))", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
-			break;
-		}
-
-		if (nullable && property.isNullable() && !property.isInCollection()) {
-			methodBuilder.endControlFlow();
-		}
-	}
-
-	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (nullable && property.isNullable()) {
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		}
-		
-		if (property.isProperty())
-		{
-			methodBuilder.addStatement("fieldCount++");
-		}
-
-		// in a collection we need to insert only value, not field name
-		if (property.isInCollection()) {
-			methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
-		} else {
-			methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.label, getter(beanName, beanClass, property));
-		}
-
-		if (nullable && property.isNullable()) {
-			methodBuilder.endControlFlow();
-		}
-	}
-
-	@Override
-	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		if (nullable && property.isNullable()) {
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		}
-
-		// we need to write only value
-		if (property.isInCollection()) {
-			methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
-		} else {
-			methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
-		}
-
-		if (nullable && property.isNullable()) {
-			methodBuilder.endControlFlow();
-		}
+	
+	public boolean isTypeAdapterSupported() {
+		return true;
 	}
 
 	@Override
@@ -147,21 +60,20 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		if (nullable && property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		
-		if (property.hasTypeAdapter())
-		{
+
+		if (property.hasTypeAdapter()) {
 			// there's an type adapter
 			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
-			String PRE_TYPE_ADAPTER="$T.toJava($T.class, ";
-			String POST_TYPE_ADAPTER=")";
-			
+
 			// no adapter is present
 			if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER+"Character.valueOf((char)$L.$L())+POST_TYPE_ADAPTER"), TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), parserName, JSON_PARSER_METHOD);
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "Character.valueOf((char)$L.$L())+POST_TYPE_ADAPTER"), TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), parserName, JSON_PARSER_METHOD);
 			} else {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER+"$L.$L()"+POST_TYPE_ADAPTER), TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), parserName, JSON_PARSER_METHOD);
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$L.$L()" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), parserName, JSON_PARSER_METHOD);
 			}
-			
+
 		} else {
 			// no adapter is present
 			if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
@@ -182,9 +94,196 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
 
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read$L($L.getText(), $L)"), PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
+		if (property.hasTypeAdapter()) {
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+
+			methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read$L($L.getText(), $L)" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+					TypeUtility.typeName(property.typeAdapter.adapterClazz), PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
+		} else {
+			// without type adapter
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read$L($L.getText(), $L)"), PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
+		}
 
 		if (nullable && property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		XmlType xmlType = property.xmlInfo.xmlType;
+
+		if (property.hasTypeAdapter()) {
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$L$T.read$L($L.getAttributeValue(attributeIndex), $L)" + POST_TYPE_ADAPTER),
+						TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
+				break;
+			case TAG:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$L$T.read$L($L.getElementAs$L(), $L)" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, XML_TYPE, DEFAULT_VALUE);
+				break;
+			case VALUE:
+			case VALUE_CDATA:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$L$T.read$L($L.getText(), $L)" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+						TypeUtility.typeName(property.typeAdapter.adapterClazz), XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
+				break;
+			default:
+				break;
+			}
+		} else {
+			// without type adapter
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getAttributeValue(attributeIndex), $L)"), XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE,
+						parserName, DEFAULT_VALUE);
+				break;
+			case TAG:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getElementAs$L(), $L)"), XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName,
+						XML_TYPE, DEFAULT_VALUE);
+				break;
+			case VALUE:
+			case VALUE_CDATA:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getText(), $L)"), XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName,
+						DEFAULT_VALUE);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	@Override
+	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		if (nullable && property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.isProperty()) {
+			methodBuilder.addStatement("fieldCount++");
+		}
+
+		if (property.hasTypeAdapter()) {
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+
+			// in a collection we need to insert only value, not field name
+			if (property.isInCollection()) {
+				methodBuilder.addStatement("$L.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, JSON_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			} else {
+				methodBuilder.addStatement("$L.write$LField($S, "+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, JSON_TYPE, property.label, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			}
+		} else {
+			// there's no type adapter
+			
+			// in a collection we need to insert only value, not field name
+			if (property.isInCollection()) {
+				methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
+			} else {
+				methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.label, getter(beanName, beanClass, property));
+			}
+
+		}
+
+		if (nullable && property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		if (nullable && property.isNullable()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.hasTypeAdapter()) {
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+
+			if (property.isInCollection()) {
+				// in a collection we need to insert only value, not field name
+				methodBuilder.addStatement("$L.writeString($T.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName,PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE,  TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			} else {
+				// we need to write only value
+				methodBuilder.addStatement("$L.writeStringField($S, $T.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE,  TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			}
+		
+		} else {
+			// there's no type adapter
+			
+			if (property.isInCollection()) {
+				// in a collection we need to insert only value, not field name
+				methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+			} else {
+				// we need to write only value
+				methodBuilder.addStatement("$L.writeStringField($S, $T.write$L($L))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+			}
+		}
+
+		if (nullable && property.isNullable()) {
+			methodBuilder.endControlFlow();
+		}
+	}
+
+	@Override
+	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		XmlType xmlType = property.xmlInfo.xmlType;
+		if (nullable && property.isNullable() && !property.isInCollection()) {
+			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+		}
+
+		if (property.hasTypeAdapter()) {
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				break;
+			case TAG:
+				// value don't need to be converted into string
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, XML_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+				break;
+			case VALUE:
+				// value don't need to be converted into string
+				methodBuilder.addStatement("$L.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, XML_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				break;
+			case VALUE_CDATA:
+				methodBuilder.addStatement("$L.writeCData("+PRE_TYPE_ADAPTER_TO_DATA+"$T.write$L($L)"+POST_TYPE_ADAPTER+")", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				break;
+			}
+		
+		} else {
+			// there's no type adapter
+		
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L($L))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+				break;
+			case TAG:
+				// value don't need to be converted into string
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+				break;
+			case VALUE:
+				// value don't need to be converted into string
+				methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
+				break;
+			case VALUE_CDATA:
+				methodBuilder.addStatement("$L.writeCData($T.write$L($L))", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+				break;
+			}
+		
+		}
+
+		if (nullable && property.isNullable() && !property.isInCollection()) {
 			methodBuilder.endControlFlow();
 		}
 	}

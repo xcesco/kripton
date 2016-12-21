@@ -17,7 +17,7 @@ public class XmlSerializer {
 	private MXSerializer xmlStreamWriter2;
 
 	public XmlSerializer(MXSerializer xmlStreamWriter2) {
-		this.xmlStreamWriter2=xmlStreamWriter2;
+		this.xmlStreamWriter2 = xmlStreamWriter2;
 	}
 
 	/*
@@ -106,6 +106,17 @@ public class XmlSerializer {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.codehaus.stax2.typed.TypedXMLStreamWriter#writeBinary(byte[],
+	 * int, int)
+	 */
+	public void writeBinary(byte[] value) throws Exception {
+		xmlStreamWriter2.writeBinary(value);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.codehaus.stax2.typed.TypedXMLStreamWriter#writeBoolean(boolean)
 	 */
 	public void writeBoolean(boolean value) throws Exception {
@@ -120,8 +131,7 @@ public class XmlSerializer {
 	 * org.codehaus.stax2.typed.TypedXMLStreamWriter#writeBooleanAttribute(java.
 	 * lang.String, java.lang.String, java.lang.String, boolean)
 	 */
-	public void writeBooleanAttribute(String prefix, String namespaceURI, String localName, boolean value)
-			throws Exception {
+	public void writeBooleanAttribute(String prefix, String namespaceURI, String localName, boolean value) throws Exception {
 		xmlStreamWriter2.writeBooleanAttribute(prefix, namespaceURI, localName, value);
 	}
 
@@ -174,8 +184,7 @@ public class XmlSerializer {
 	 * org.codehaus.stax2.typed.TypedXMLStreamWriter#writeDecimalAttribute(java.
 	 * lang.String, java.lang.String, java.lang.String, java.math.BigDecimal)
 	 */
-	public void writeDecimalAttribute(String prefix, String namespaceURI, String localName, BigDecimal value)
-			throws Exception {
+	public void writeDecimalAttribute(String prefix, String namespaceURI, String localName, BigDecimal value) throws Exception {
 		xmlStreamWriter2.writeDecimalAttribute(prefix, namespaceURI, localName, value);
 
 	}
@@ -197,8 +206,7 @@ public class XmlSerializer {
 	 * org.codehaus.stax2.typed.TypedXMLStreamWriter#writeDoubleAttribute(java.
 	 * lang.String, java.lang.String, java.lang.String, double)
 	 */
-	public void writeDoubleAttribute(String prefix, String namespaceURI, String localName, double value)
-			throws Exception {
+	public void writeDoubleAttribute(String prefix, String namespaceURI, String localName, double value) throws Exception {
 		xmlStreamWriter2.writeDoubleAttribute(prefix, namespaceURI, localName, value);
 
 	}
@@ -269,8 +277,7 @@ public class XmlSerializer {
 	 * org.codehaus.stax2.typed.TypedXMLStreamWriter#writeIntegerAttribute(java.
 	 * lang.String, java.lang.String, java.lang.String, java.math.BigInteger)
 	 */
-	public void writeIntegerAttribute(String prefix, String namespaceURI, String localName, BigInteger value)
-			throws Exception {
+	public void writeIntegerAttribute(String prefix, String namespaceURI, String localName, BigInteger value) throws Exception {
 		xmlStreamWriter2.writeIntegerAttribute(prefix, namespaceURI, localName, value);
 
 	}

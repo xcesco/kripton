@@ -4,7 +4,8 @@ import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.common.DateUtils;
+import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -16,30 +17,29 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Bean87A
+ * This class is the shared preference binder defined for Bean87A_1
  *
- * @see Bean87A
+ * @see Bean87A_1
  */
-@BindMap(Bean87A.class)
-public class Bean87ABindMap extends AbstractMapper<Bean87A> {
+@BindMap(Bean87A_1.class)
+public class Bean87A_1BindMap extends AbstractMapper<Bean87A_1> {
   /**
    * create new object instance
    */
   @Override
-  public Bean87A createInstance() {
-    return new Bean87A();
+  public Bean87A_1 createInstance() {
+    return new Bean87A_1();
   }
 
   /**
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(AbstractJacksonContext context, Bean87A object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(AbstractJacksonContext context, Bean87A_1 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -50,18 +50,20 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
       // field valueDate (mapped with "valueDate")
       if (object.valueDate!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueDate", DateUtils.write(object.valueDate));
+        // using type adapter bind.kripton87TypeAdapter.DateLongTypeAdapter
+        jacksonSerializer.writeNumberField("valueDate", TypeAdapterUtils.toData(DateLongTypeAdapter.class, object.valueDate));
       }
 
       // field valueDescription (mapped with "valueDescription")
       if (object.valueDescription!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueDescription", object.valueDescription);
+        // using type adapter bind.kripton87TypeAdapter.StringInverterTypeAdapter
+        jacksonSerializer.writeStringField("valueDescription", TypeAdapterUtils.toData(StringInverterTypeAdapter.class, object.valueDescription));
       }
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -71,7 +73,7 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean87A object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean87A_1 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -81,19 +83,20 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
 
       // field valueDate (mapped with "valueDate")
       if (object.valueDate!=null)  {
-        fieldCount++;
-        jacksonSerializer.writeStringField("valueDate", DateUtils.write(object.valueDate));
+        // using type adapter bind.kripton87TypeAdapter.DateLongTypeAdapter
+        jacksonSerializer.writeStringField("valueDate", PrimitiveUtils.writeLong(TypeAdapterUtils.toData(DateLongTypeAdapter.class, object.valueDate)));
       }
 
       // field valueDescription (mapped with "valueDescription")
       if (object.valueDescription!=null)  {
         fieldCount++;
-        jacksonSerializer.writeStringField("valueDescription", object.valueDescription);
+        // using type adapter bind.kripton87TypeAdapter.StringInverterTypeAdapter
+        jacksonSerializer.writeStringField("valueDescription", TypeAdapterUtils.toData(StringInverterTypeAdapter.class, object.valueDescription));
       }
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -103,26 +106,30 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(KriptonXmlContext context, Bean87A object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, Bean87A_1 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
-        xmlSerializer.writeStartElement("bean87A");
+        xmlSerializer.writeStartElement("bean87A_1");
       }
 
       // Persisted fields:
 
       // field valueDate (mapped with "valueDate")
+      // field trasformation java.lang.Long bind.kripton87TypeAdapter.DateLongTypeAdapter 
       if (object.valueDate!=null)  {
+        // using type adapter bind.kripton87TypeAdapter.DateLongTypeAdapter
         xmlSerializer.writeStartElement("valueDate");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtils.write(object.valueDate)));
+        xmlSerializer.writeLong(TypeAdapterUtils.toData(DateLongTypeAdapter.class, object.valueDate));
         xmlSerializer.writeEndElement();
       }
 
       // field valueDescription (mapped with "valueDescription")
+      // field trasformation java.lang.String bind.kripton87TypeAdapter.StringInverterTypeAdapter 
       if (object.valueDescription!=null) {
+        // using type adapter bind.kripton87TypeAdapter.StringInverterTypeAdapter
         xmlSerializer.writeStartElement("valueDescription");
-        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.valueDescription));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(TypeAdapterUtils.toData(StringInverterTypeAdapter.class, object.valueDescription)));
         xmlSerializer.writeEndElement();
       }
 
@@ -139,10 +146,10 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
    * create new object instance
    */
   @Override
-  public Bean87A parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean87A_1 parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      Bean87A instance = createInstance();
+      Bean87A_1 instance = createInstance();
       String fieldName;
       if (jacksonParser.currentToken() == null) {
         jacksonParser.nextToken();
@@ -160,13 +167,15 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
             case "valueDate":
               // field valueDate (mapped with "valueDate")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDate= DateUtils.read(jacksonParser.getText());
+                // using type adapter bind.kripton87TypeAdapter.DateLongTypeAdapter
+                instance.valueDate=TypeAdapterUtils.toJava(DateLongTypeAdapter.class, jacksonParser.getLongValue());
               }
             break;
             case "valueDescription":
               // field valueDescription (mapped with "valueDescription")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDescription=jacksonParser.getText();
+                // using type adapter bind.kripton87TypeAdapter.StringInverterTypeAdapter
+                instance.valueDescription=TypeAdapterUtils.toJava(StringInverterTypeAdapter.class, jacksonParser.getText());
               }
             break;
             default:
@@ -174,7 +183,7 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -184,10 +193,10 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
    * create new object instance
    */
   @Override
-  public Bean87A parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean87A_1 parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      Bean87A instance = createInstance();
+      Bean87A_1 instance = createInstance();
       String fieldName;
       if (jacksonParser.getCurrentToken() == null) {
         jacksonParser.nextToken();
@@ -205,13 +214,15 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
             case "valueDate":
               // field valueDate (mapped with "valueDate")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDate=DateUtils.read(jacksonParser.getText());
+                // using type adapter bind.kripton87TypeAdapter.DateLongTypeAdapter
+                instance.valueDate=TypeAdapterUtils.toJava(DateLongTypeAdapter.class, PrimitiveUtils.readLong(jacksonParser.getText(), null));
               }
             break;
             case "valueDescription":
               // field valueDescription (mapped with "valueDescription")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDescription=jacksonParser.getText();
+                // using type adapter bind.kripton87TypeAdapter.StringInverterTypeAdapter
+                instance.valueDescription=TypeAdapterUtils.toJava(StringInverterTypeAdapter.class, jacksonParser.getText());
               }
             break;
             default:
@@ -219,7 +230,7 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -229,10 +240,10 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
    * create new object instance
    */
   @Override
-  public Bean87A parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public Bean87A_1 parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlPullParser xmlParser = wrapper.xmlParser;
-      Bean87A instance = createInstance();
+      Bean87A_1 instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
 
@@ -259,11 +270,13 @@ public class Bean87ABindMap extends AbstractMapper<Bean87A> {
               switch(currentTag) {
                   case "valueDate":
                     // property valueDate (mapped on "valueDate")
-                    instance.valueDate=DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                    // using type adapter bind.kripton87TypeAdapter.DateLongTypeAdapter
+                    instance.valueDate=TypeAdapterUtils.toJava(DateLongTypeAdapter.class, PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null));
                   break;
                   case "valueDescription":
                     // property valueDescription (mapped on "valueDescription")
-                    instance.valueDescription=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                    // using type adapter bind.kripton87TypeAdapter.StringInverterTypeAdapter
+                    instance.valueDescription=TypeAdapterUtils.toJava(StringInverterTypeAdapter.class, StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                   break;
                   default:
                   break;

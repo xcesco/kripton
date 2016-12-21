@@ -29,7 +29,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Character;
 import java.lang.Exception;
 import java.lang.Long;
@@ -481,7 +480,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -946,7 +945,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -1035,7 +1034,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
       // field valueByteArray (mapped with "valueByteArray")
       if (object.valueByteArray!=null) {
         xmlSerializer.writeStartElement("valueByteArray");
-        xmlSerializer.writeBinary(object.valueByteArray, 0, object.valueByteArray.length);
+        xmlSerializer.writeBinary(object.valueByteArray);
         xmlSerializer.writeEndElement();
       }
 
@@ -1531,7 +1530,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             case "valueCalendar":
               // field valueCalendar (mapped with "valueCalendar")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueCalendar= CalendarUtils.read(jacksonParser.getText());
+                instance.valueCalendar=CalendarUtils.read(jacksonParser.getText());
               }
             break;
             case "valueChar":
@@ -1595,13 +1594,13 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             case "valueCurrency":
               // field valueCurrency (mapped with "valueCurrency")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueCurrency= CurrencyUtils.read(jacksonParser.getText());
+                instance.valueCurrency=CurrencyUtils.read(jacksonParser.getText());
               }
             break;
             case "valueDate":
               // field valueDate (mapped with "valueDate")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDate= DateUtils.read(jacksonParser.getText());
+                instance.valueDate=DateUtils.read(jacksonParser.getText());
               }
             break;
             case "valueDouble":
@@ -1665,7 +1664,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             case "valueLocale":
               // field valueLocale (mapped with "valueLocale")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueLocale= LocaleUtils.read(jacksonParser.getText());
+                instance.valueLocale=LocaleUtils.read(jacksonParser.getText());
               }
             break;
             case "valueLong":
@@ -1814,7 +1813,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             case "valueTime":
               // field valueTime (mapped with "valueTime")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueTime= TimeUtils.read(jacksonParser.getText());
+                instance.valueTime=TimeUtils.read(jacksonParser.getText());
               }
             break;
             case "valueTimeList":
@@ -1826,7 +1825,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item= TimeUtils.read(jacksonParser.getText());
+                    item=TimeUtils.read(jacksonParser.getText());
                   }
                   collection.add(item);
                 }
@@ -1836,13 +1835,13 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             case "valueTimeZone":
               // field valueTimeZone (mapped with "valueTimeZone")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueTimeZone= TimeZoneUtils.read(jacksonParser.getText());
+                instance.valueTimeZone=TimeZoneUtils.read(jacksonParser.getText());
               }
             break;
             case "valueUrl":
               // field valueUrl (mapped with "valueUrl")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueUrl= UrlUtils.read(jacksonParser.getText());
+                instance.valueUrl=UrlUtils.read(jacksonParser.getText());
               }
             break;
             default:
@@ -1850,7 +1849,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -2365,7 +2364,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }

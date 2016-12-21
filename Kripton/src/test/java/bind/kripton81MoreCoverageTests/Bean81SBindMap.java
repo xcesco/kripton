@@ -6,6 +6,7 @@ import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -16,7 +17,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
@@ -92,7 +92,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -149,7 +149,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -176,7 +176,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
       // field valueByteArray (mapped with "valueByteArray")
       if (object.valueByteArray!=null) {
         xmlSerializer.writeStartElement("valueByteArray");
-        xmlSerializer.writeBinary(object.valueByteArray, 0, object.valueByteArray.length);
+        xmlSerializer.writeBinary(object.valueByteArray);
         xmlSerializer.writeEndElement();
       }
 
@@ -187,7 +187,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
         for (Map.Entry<String, Integer> item: object.valueMapStringInteger.entrySet()) {
           xmlSerializer.writeStartElement("map");
             if (item.getKey()!=null) {
-              xmlSerializer.writeAttribute("key", item.getKey());
+              xmlSerializer.writeAttribute("key", StringEscapeUtils.escapeXml10(item.getKey()));
             }
             if (item.getValue()==null) {
               xmlSerializer.writeEmptyElement("value");
@@ -279,7 +279,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -369,7 +369,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -424,7 +424,7 @@ public class Bean81SBindMap extends AbstractMapper<Bean81S> {
                       int attributeIndex;
                       while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("map")) {
                         attributeIndex=xmlParser.getAttributeIndex(null, "key");
-                        key=xmlParser.getAttributeValue(attributeIndex);
+                        key=StringEscapeUtils.unescapeXml(xmlParser.getAttributeValue(attributeIndex));
                         attributeIndex=xmlParser.getAttributeIndex(null, "value");
                         value=PrimitiveUtils.readInteger(xmlParser.getAttributeValue(attributeIndex), null);
                         collection.put(key, value);

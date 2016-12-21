@@ -16,7 +16,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Override;
 
@@ -65,7 +64,7 @@ public class Bean81MBindMap extends AbstractMapper<Bean81M> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -100,7 +99,7 @@ public class Bean81MBindMap extends AbstractMapper<Bean81M> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -121,7 +120,7 @@ public class Bean81MBindMap extends AbstractMapper<Bean81M> {
 
       // field valueString1 (mapped with "valueString1")
       if (object.valueString1!=null) {
-        xmlSerializer.writeAttribute("valueString1", object.valueString1);
+        xmlSerializer.writeAttribute("valueString1", StringEscapeUtils.escapeXml10(object.valueString1));
       }
 
       // field id (mapped with "id")
@@ -186,7 +185,7 @@ public class Bean81MBindMap extends AbstractMapper<Bean81M> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -235,7 +234,7 @@ public class Bean81MBindMap extends AbstractMapper<Bean81M> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -268,7 +267,7 @@ public class Bean81MBindMap extends AbstractMapper<Bean81M> {
         switch(attributeName) {
             case "valueString1":
               // field valueString1 (mapped by "valueString1")
-              instance.valueString1=xmlParser.getAttributeValue(attributeIndex);
+              instance.valueString1=StringEscapeUtils.unescapeXml(xmlParser.getAttributeValue(attributeIndex));
             break;
             default:
             break;

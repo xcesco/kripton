@@ -31,6 +31,10 @@ public class MapBindTransformation extends AbstractBindTransform {
 		this.keyTypeName = mapTypeName.typeArguments.get(0);
 		this.valueTypeName = mapTypeName.typeArguments.get(1);
 	}
+	
+	public boolean isTypeAdapterSupported() {
+		return false;
+	}
 
 	private Class<?> defineMapClass(ParameterizedTypeName mapTypeName) {
 		if (mapTypeName.toString().startsWith(Map.class.getCanonicalName())) {
@@ -108,7 +112,6 @@ public class MapBindTransformation extends AbstractBindTransform {
 				methodBuilder.addStatement("$L.nextTag()", parserName);
 			methodBuilder.nextControlFlow("else");
 				transformValue.generateParseOnXml(methodBuilder, parserName, null, "value", elementValueProperty);
-				//methodBuilder.addStatement("$L.nextTag()", parserName);
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$L.nextTag()", parserName);
 			break;

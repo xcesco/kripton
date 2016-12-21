@@ -1202,24 +1202,24 @@ public class MXSerializer {
 	public void writeEmptyElement(String tag) throws IOException {
 		startTag(null, tag);
 		endTag(null, tag);
-		
 	}
 
 	public void writeBinary(byte[] value, int start, int length) throws IOException {
 		text(Base64Utils.encode(value, start, length));			
 	}
 	
+	public void writeBinary(byte[] value) throws IOException {
+		text(Base64Utils.encode(value, 0, value.length));			
+	}
+	
 	public void writeDecimalAttribute(String prefix, String namespaceURI, String localName, BigDecimal value)
 			throws Exception {
 		this.attribute(namespaceURI, localName, value.toPlainString());
-		//xmlStreamWriter2.writeDecimalAttribute(prefix, namespaceURI, localName, value);
-
 	}
 	
 	public void writeIntegerAttribute(String prefix, String namespaceURI, String localName, BigInteger value)
 			throws Exception {
 		this.attribute(namespaceURI, localName, value.toString());
-		//xmlStreamWriter2.writeDecimalAttribute(prefix, namespaceURI, localName, value);
 
 	}
 

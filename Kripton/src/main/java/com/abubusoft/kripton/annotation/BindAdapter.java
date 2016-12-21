@@ -17,7 +17,17 @@ import com.abubusoft.kripton.BindTypeAdapter;
 @Target(ElementType.FIELD)
 public @interface BindAdapter {
 
+	/**
+	 * TypeAdapter used to convert data
+	 * 
+	 * @return
+	 * 		instance of class converter
+	 */
 	public Class<? extends BindTypeAdapter<?,?>> adapter();
 		
+	/**
+	 * Type of data stored in json/xml/etc.
+	 * @return
+	 */
 	public Class<?> dataType();
 }

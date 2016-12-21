@@ -33,6 +33,11 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	public enum CollectionType {
 		ARRAY, LIST, SET;
 	}
+	
+	public boolean isTypeAdapterSupported()
+	{
+		return false;
+	}
 
 	protected CollectionType collectionType;
 	private ParameterizedTypeName collectionTypeName;

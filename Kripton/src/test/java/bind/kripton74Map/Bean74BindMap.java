@@ -19,7 +19,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
@@ -157,7 +156,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -281,7 +280,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -362,7 +361,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
             } else {
               if (item.getValue()!=null) {
                 xmlSerializer.writeStartElement("v");
-                xmlSerializer.writeBinary(item.getValue(), 0, item.getValue().length);
+                xmlSerializer.writeBinary(item.getValue());
                 xmlSerializer.writeEndElement();
               }
             }
@@ -443,7 +442,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                   key=context.mapperFor(Bean74.class).parseOnJackson(context, wrapper);
                   jacksonParser.nextValue();
                   if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                    value= LocaleUtils.read(jacksonParser.getText());
+                    value=LocaleUtils.read(jacksonParser.getText());
                   }
                   collection.put(key, value);
                   key=null;
@@ -524,7 +523,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -724,7 +723,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }

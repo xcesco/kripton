@@ -8,6 +8,7 @@ import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.BigIntegerUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -18,7 +19,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Override;
 
@@ -73,7 +73,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -114,7 +114,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -145,7 +145,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
 
       // field valueEnum (mapped with "valueEnum")
       if (object.valueEnum!=null)  {
-        xmlSerializer.writeAttribute("valueEnum", object.valueEnum.toString());
+        xmlSerializer.writeAttribute("valueEnum", StringEscapeUtils.escapeXml10(object.valueEnum.toString()));
       }
 
       // field id (mapped with "id")
@@ -212,7 +212,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -268,7 +268,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -309,7 +309,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
             break;
             case "valueEnum":
               // field valueEnum (mapped by "valueEnum")
-              instance.valueEnum=Bean81Enum.valueOf(xmlParser.getAttributeValue(attributeIndex));
+              instance.valueEnum=Bean81Enum.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getAttributeValue(attributeIndex)));
             break;
             default:
             break;

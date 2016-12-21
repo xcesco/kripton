@@ -16,11 +16,9 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
@@ -120,20 +118,6 @@ public class TypeUtility {
 	 * Check if class that is rapresented by value has same name of entity parameter.
 	 * 
 	 * @param value
-	 * @param rawType
-	 * @param generic
-	 * @return true if value is equals to className.
-	 */
-//	public static boolean isEqualsToGeneric(TypeName value, TypeName rawType, TypeName generic) {
-//		return isSameType(value, rawType + "<" + generic.toString() + ">");
-//	}
-
-	// com.abubusoft.kripton.android.sqlite.ReadBeanListener<com.abubusoft.kripton.processor.test03.Bean01>
-
-	/**
-	 * Check if class that is rapresented by value has same name of entity parameter.
-	 * 
-	 * @param value
 	 * @param kindOfParameter
 	 * @return true if value is equals to className.
 	 */
@@ -168,23 +152,6 @@ public class TypeUtility {
 		return ClassName.get("",className);
 		
 	}
-
-	/**
-	 * Generate class name
-	 * 
-	 * @param className
-	 * @return class name generated
-	 */
-//	public static ClassName classNameWithPrefix(String className, String prefix) {
-//		String fullName=className+prefix;
-//		
-//		int lastIndex=fullName.lastIndexOf(".");
-//		
-//		String packageName=fullName.substring(0, lastIndex);
-//		String clazzName=fullName.substring(lastIndex+1);
-//		
-//		return ClassName.get(packageName, clazzName);
-//	}
 
 	/**
 	 * Convert a class in a classname
@@ -242,6 +209,21 @@ public class TypeUtility {
 	 * @return typeName
 	 */
 	public static TypeName typeName(String typeName) {
+		TypeName[] values={TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT};
+		
+		for (TypeName item: values)
+		{
+			if (item.toString().equals(typeName))
+			{
+				return item;
+			}
+		}
+		
+		if (typeName.endsWith("[]"))
+		{			
+			return ArrayTypeName.of(typeName(typeName.substring(0, typeName.length()-2)));
+		}
+		
 		return className(typeName);
 	}
 
@@ -254,23 +236,6 @@ public class TypeUtility {
 	public static TypeName typeName(Element element) {
 		return TypeName.get(element.asType());
 	}
-
-//	public static boolean isEnumType(Element element) {
-//		return element.getKind() == ElementKind.ENUM;
-//	}
-
-//	public static boolean isTypeIncludedIn(String clazzName, Class<?>... set) {
-//		String a;
-//		for (Class<?> item : set) {
-//			a = item.getCanonicalName();
-//
-//			if (clazzName.equals(a))
-//				return true;
-//		}
-//
-//		return false;
-//
-//	}
 
 	public static boolean isNullable(ModelProperty property) {
 		return isNullable(property.getPropertyType().getName());
@@ -328,7 +293,7 @@ public class TypeUtility {
 	 * 
 	 */
 	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
-		TypeName typeName=null;
+		TypeName typeName;
 		if (typeMirror instanceof ModelType) {
 			typeName = ((ModelType) typeMirror).getName();
 		} else {

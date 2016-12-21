@@ -18,7 +18,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
@@ -97,7 +96,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -163,7 +162,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -192,7 +191,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
             xmlSerializer.writeEmptyElement("valueListByteArray");
           } else {
             xmlSerializer.writeStartElement("valueListByteArray");
-            xmlSerializer.writeBinary(item, 0, item.length);
+            xmlSerializer.writeBinary(item);
             xmlSerializer.writeEndElement();
           }
         }
@@ -216,7 +215,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
             } else {
               if (item.getValue()!=null) {
                 xmlSerializer.writeStartElement("v");
-                xmlSerializer.writeBinary(item.getValue(), 0, item.getValue().length);
+                xmlSerializer.writeBinary(item.getValue());
                 xmlSerializer.writeEndElement();
               }
             }
@@ -297,7 +296,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -390,7 +389,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }

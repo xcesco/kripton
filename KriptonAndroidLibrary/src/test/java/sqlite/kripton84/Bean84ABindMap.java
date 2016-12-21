@@ -20,7 +20,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Character;
 import java.lang.Exception;
 import java.lang.Integer;
@@ -158,7 +157,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -290,7 +289,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -312,7 +311,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
       // field columnArrayByteType (mapped with "columnArrayByteType")
       if (object.columnArrayByteType!=null) {
         xmlSerializer.writeStartElement("columnArrayByteType");
-        xmlSerializer.writeBinary(object.columnArrayByteType, 0, object.columnArrayByteType.length);
+        xmlSerializer.writeBinary(object.columnArrayByteType);
         xmlSerializer.writeEndElement();
       }
 
@@ -544,7 +543,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -703,7 +702,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }

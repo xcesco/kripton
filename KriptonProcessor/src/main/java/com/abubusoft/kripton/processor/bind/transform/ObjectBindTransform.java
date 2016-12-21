@@ -42,6 +42,10 @@ public class ObjectBindTransform extends AbstractBindTransform {
 		methodBuilder.addStatement(setter(beanClass, beanName, property, "context.mapperFor($T.class).parseOnXml(context, wrapper, eventType)"), property.getPropertyType().getName());
 
 	}
+	
+	public boolean isTypeAdapterSupported() {
+		return false;
+	}
 
 	@Override
 	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {

@@ -17,7 +17,9 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.xml.XmlType;
@@ -34,12 +36,28 @@ import com.squareup.javapoet.TypeName;
  */
 public class StringBindTransform extends AbstractBindTransform {
 
+	public boolean isTypeAdapterSupported() {
+		return true;
+	}
+	
 	@Override
 	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getText()"), parserName);
+		
+		if (property.hasTypeAdapter())
+		{
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+		
+			methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+"$L.getText()"+POST_TYPE_ADAPTER), TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz),parserName);
+		
+		} else {
+			// there's no type adapter
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getText()"), parserName);
+		}
+		
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
@@ -49,25 +67,58 @@ public class StringBindTransform extends AbstractBindTransform {
 	@Override
 	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		methodBuilder.beginControlFlow("if ($L.currentToken()!=$T.VALUE_NULL)", parserName, JsonToken.class);
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getText()"), parserName);
+		
+		if (property.hasTypeAdapter())
+		{
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+		
+			methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+"$L.getText()"+POST_TYPE_ADAPTER), TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz),parserName);
+		
+		} else {
+			// there's no type adapter
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getText()"), parserName);
+		}
+		
 		methodBuilder.endControlFlow();
 	}
 
 	@Override
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
-
-		switch (xmlType) {
-		case ATTRIBUTE:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.getAttributeValue(attributeIndex)"), parserName);
-			break;
-		case TAG:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.unescapeXml($L.getElementText())"), StringEscapeUtils.class, parserName);
-			break;
-		case VALUE:
-		case VALUE_CDATA:
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.unescapeXml($L.getText())"), StringEscapeUtils.class, parserName);
-			break;		
+		
+		if (property.hasTypeAdapter())
+		{
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);			
+			
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+"$T.unescapeXml($L.getAttributeValue(attributeIndex))"+POST_TYPE_ADAPTER), TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz), StringEscapeUtils.class, parserName);
+				break;
+			case TAG:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+"$T.unescapeXml($L.getElementText())"+POST_TYPE_ADAPTER), TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz), StringEscapeUtils.class, parserName);
+				break;
+			case VALUE:
+			case VALUE_CDATA:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+"$T.unescapeXml($L.getText())"+POST_TYPE_ADAPTER), TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz), StringEscapeUtils.class, parserName);
+				break;		
+			}
+		
+		} else {
+			// there's no type adapter
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.unescapeXml($L.getAttributeValue(attributeIndex))"), StringEscapeUtils.class, parserName);
+				break;
+			case TAG:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.unescapeXml($L.getElementText())"), StringEscapeUtils.class, parserName);
+				break;
+			case VALUE:
+			case VALUE_CDATA:
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.unescapeXml($L.getText())"), StringEscapeUtils.class, parserName);
+				break;		
+			}
 		}
 
 	}
@@ -82,12 +133,27 @@ public class StringBindTransform extends AbstractBindTransform {
 		{
 			methodBuilder.addStatement("fieldCount++");
 		}
-
-		if (property.isInCollection()) {
-			// we need to write only value
-			methodBuilder.addStatement("$L.writeString($L)", serializerName, getter(beanName, beanClass, property));
+		
+		if (property.hasTypeAdapter())
+		{
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			
+			if (property.isInCollection()) {
+				// we need to write only value
+				methodBuilder.addStatement("$L.writeString("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName,  TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			} else {
+				methodBuilder.addStatement("$L.writeStringField($S, "+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, property.label, TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			}
 		} else {
-			methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.label, getter(beanName, beanClass, property));
+			// there's no type adapter
+			
+			if (property.isInCollection()) {
+				// we need to write only value
+				methodBuilder.addStatement("$L.writeString($L)", serializerName, getter(beanName, beanClass, property));
+			} else {
+				methodBuilder.addStatement("$L.writeStringField($S, $L)", serializerName, property.label, getter(beanName, beanClass, property));
+			}
 		}
 
 		if (property.isNullable()) {
@@ -107,21 +173,46 @@ public class StringBindTransform extends AbstractBindTransform {
 		}
 
 		XmlType xmlType = property.xmlInfo.xmlType;
-		switch (xmlType) {
-		case ATTRIBUTE:
-			methodBuilder.addStatement("$L.writeAttribute($S, $L)", serializerName, property.label, getter(beanName, beanClass, property));
-			break;
-		case TAG:
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
-			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
-			break;
-		case VALUE:
-			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
-			break;
-		case VALUE_CDATA:
-			methodBuilder.addStatement("$L.writeCData($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
-			break;
+		
+		if (property.hasTypeAdapter())
+		{
+			// there's an type adapter
+			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.escapeXml10("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName, property.label, StringEscapeUtils.class, TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				break;
+			case TAG:
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName, StringEscapeUtils.class, TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+				break;
+			case VALUE:
+				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName, StringEscapeUtils.class, TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				break;
+			case VALUE_CDATA:
+				methodBuilder.addStatement("$L.writeCData($T.escapeXml10("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName, StringEscapeUtils.class, TypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				break;
+			}
+		} else {
+			// there's no type adapter
+			switch (xmlType) {
+			case ATTRIBUTE:
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.escapeXml10($L))", serializerName, property.label, StringEscapeUtils.class, getter(beanName, beanClass, property));
+				break;
+			case TAG:
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+				break;
+			case VALUE:
+				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
+				break;
+			case VALUE_CDATA:
+				methodBuilder.addStatement("$L.writeCData($T.escapeXml10($L))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property));
+				break;
+			}
 		}
 
 		if (!property.isInCollection()) {

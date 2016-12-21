@@ -26,7 +26,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Override;
 
@@ -222,7 +221,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -389,7 +388,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -670,7 +669,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
             case "valueCalendar":
               // field valueCalendar (mapped with "valueCalendar")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueCalendar= CalendarUtils.read(jacksonParser.getText());
+                instance.valueCalendar=CalendarUtils.read(jacksonParser.getText());
               }
             break;
             case "valueChar":
@@ -686,13 +685,13 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
             case "valueCurrency":
               // field valueCurrency (mapped with "valueCurrency")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueCurrency= CurrencyUtils.read(jacksonParser.getText());
+                instance.valueCurrency=CurrencyUtils.read(jacksonParser.getText());
               }
             break;
             case "valueDate":
               // field valueDate (mapped with "valueDate")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueDate= DateUtils.read(jacksonParser.getText());
+                instance.valueDate=DateUtils.read(jacksonParser.getText());
               }
             break;
             case "valueDouble":
@@ -735,7 +734,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
             case "valueLocale":
               // field valueLocale (mapped with "valueLocale")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueLocale= LocaleUtils.read(jacksonParser.getText());
+                instance.valueLocale=LocaleUtils.read(jacksonParser.getText());
               }
             break;
             case "valueLong":
@@ -767,19 +766,19 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
             case "valueTime":
               // field valueTime (mapped with "valueTime")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueTime= TimeUtils.read(jacksonParser.getText());
+                instance.valueTime=TimeUtils.read(jacksonParser.getText());
               }
             break;
             case "valueTimeZone":
               // field valueTimeZone (mapped with "valueTimeZone")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueTimeZone= TimeZoneUtils.read(jacksonParser.getText());
+                instance.valueTimeZone=TimeZoneUtils.read(jacksonParser.getText());
               }
             break;
             case "valueUrl":
               // field valueUrl (mapped with "valueUrl")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueUrl= UrlUtils.read(jacksonParser.getText());
+                instance.valueUrl=UrlUtils.read(jacksonParser.getText());
               }
             break;
             case "name":
@@ -797,7 +796,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -993,7 +992,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }

@@ -19,7 +19,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Exception;
 import java.lang.Override;
 
@@ -84,7 +83,7 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -134,7 +133,7 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -163,7 +162,7 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
       // field content (mapped with "content")
       if (object.getContent()!=null) {
         xmlSerializer.writeStartElement("content");
-        xmlSerializer.writeBinary(object.getContent(), 0, object.getContent().length);
+        xmlSerializer.writeBinary(object.getContent());
         xmlSerializer.writeEndElement();
       }
 
@@ -238,7 +237,7 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
             case "creationTime":
               // field creationTime (mapped with "creationTime")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.setCreationTime( DateUtils.read(jacksonParser.getText()));
+                instance.setCreationTime(DateUtils.read(jacksonParser.getText()));
               }
             break;
             case "number":
@@ -260,7 +259,7 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -326,7 +325,7 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }

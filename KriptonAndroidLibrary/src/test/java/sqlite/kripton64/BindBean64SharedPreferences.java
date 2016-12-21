@@ -946,7 +946,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item= TimeUtils.read(jacksonParser.getText());
+            item=TimeUtils.read(jacksonParser.getText());
           }
           collection.add(item);
         }

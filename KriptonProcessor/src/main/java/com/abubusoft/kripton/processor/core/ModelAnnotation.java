@@ -17,6 +17,8 @@ package com.abubusoft.kripton.processor.core;
 
 import java.util.Map;
 
+import com.abubusoft.kripton.common.StringUtils;
+
 public class ModelAnnotation {
 
 	protected String name;
@@ -43,6 +45,17 @@ public class ModelAnnotation {
 
 	public String getSimpleName() {
 		return name.substring(name.lastIndexOf(".")+1);
+	}
+
+	public String getAttributeAsClassName(AnnotationAttributeType attribute) {
+		String temp=attributes.get(attribute.getValue());
+		
+		if (StringUtils.hasText(temp))
+		{
+			temp=temp.replace(".class", "");
+		}
+		
+		return temp;
 	}
 
 }

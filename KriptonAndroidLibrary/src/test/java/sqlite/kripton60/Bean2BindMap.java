@@ -29,7 +29,6 @@ import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.io.IOException;
 import java.lang.Character;
 import java.lang.Exception;
 import java.lang.Long;
@@ -413,7 +412,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -805,7 +804,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
 
       jacksonSerializer.writeEndObject();
       return fieldCount;
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       throw (new KriptonRuntimeException(e));
     }
@@ -894,7 +893,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
       // field valueByteArray (mapped with "valueByteArray")
       if (object.getValueByteArray()!=null) {
         xmlSerializer.writeStartElement("valueByteArray");
-        xmlSerializer.writeBinary(object.getValueByteArray(), 0, object.getValueByteArray().length);
+        xmlSerializer.writeBinary(object.getValueByteArray());
         xmlSerializer.writeEndElement();
       }
 
@@ -1326,7 +1325,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
             case "valueCalendar":
               // field valueCalendar (mapped with "valueCalendar")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.setValueCalendar( CalendarUtils.read(jacksonParser.getText()));
+                instance.setValueCalendar(CalendarUtils.read(jacksonParser.getText()));
               }
             break;
             case "valueChar":
@@ -1390,13 +1389,13 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
             case "valueCurrency":
               // field valueCurrency (mapped with "valueCurrency")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.setValueCurrency( CurrencyUtils.read(jacksonParser.getText()));
+                instance.setValueCurrency(CurrencyUtils.read(jacksonParser.getText()));
               }
             break;
             case "valueDate":
               // field valueDate (mapped with "valueDate")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.setValueDate( DateUtils.read(jacksonParser.getText()));
+                instance.setValueDate(DateUtils.read(jacksonParser.getText()));
               }
             break;
             case "valueDouble":
@@ -1439,7 +1438,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
             case "valueLocale":
               // field valueLocale (mapped with "valueLocale")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.setValueLocale( LocaleUtils.read(jacksonParser.getText()));
+                instance.setValueLocale(LocaleUtils.read(jacksonParser.getText()));
               }
             break;
             case "valueLong":
@@ -1551,7 +1550,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
             case "valueTime":
               // field valueTime (mapped with "valueTime")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.setValueTime( TimeUtils.read(jacksonParser.getText()));
+                instance.setValueTime(TimeUtils.read(jacksonParser.getText()));
               }
             break;
             case "valueTimeList":
@@ -1563,7 +1562,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item= TimeUtils.read(jacksonParser.getText());
+                    item=TimeUtils.read(jacksonParser.getText());
                   }
                   collection.add(item);
                 }
@@ -1573,13 +1572,13 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
             case "valueTimeZone":
               // field valueTimeZone (mapped with "valueTimeZone")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.setValueTimeZone( TimeZoneUtils.read(jacksonParser.getText()));
+                instance.setValueTimeZone(TimeZoneUtils.read(jacksonParser.getText()));
               }
             break;
             case "valueUrl":
               // field valueUrl (mapped with "valueUrl")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.setValueUrl( UrlUtils.read(jacksonParser.getText()));
+                instance.setValueUrl(UrlUtils.read(jacksonParser.getText()));
               }
             break;
             default:
@@ -1587,7 +1586,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }
@@ -1997,7 +1996,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
             break;}
       }
       return instance;
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new KriptonRuntimeException(e);
     }

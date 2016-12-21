@@ -453,7 +453,7 @@ public class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 
 		methodBuilder.addStatement("return instance");
-		methodBuilder.nextControlFlow("catch ($T e)", IOException.class);
+		methodBuilder.nextControlFlow("catch ($T e)", Exception.class);
 		methodBuilder.addStatement("e.printStackTrace()");
 		methodBuilder.addStatement("throw new $T(e)", KriptonRuntimeException.class);
 		methodBuilder.endControlFlow();
@@ -513,7 +513,7 @@ public class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 
 		methodBuilder.addStatement("return instance");
-		methodBuilder.nextControlFlow("catch ($T e)", IOException.class);
+		methodBuilder.nextControlFlow("catch ($T e)", Exception.class);
 		methodBuilder.addStatement("e.printStackTrace()");
 		methodBuilder.addStatement("throw new $T(e)", KriptonRuntimeException.class);
 		methodBuilder.endControlFlow();
@@ -550,7 +550,7 @@ public class BindTypeBuilder {
 		methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
 		methodBuilder.addStatement("return fieldCount");
 
-		methodBuilder.nextControlFlow("catch($T e)", typeName(IOException.class));
+		methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
 		methodBuilder.addStatement("e.printStackTrace()");
 		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
 		methodBuilder.endControlFlow();
@@ -587,7 +587,7 @@ public class BindTypeBuilder {
 		methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
 
 		methodBuilder.addStatement("return fieldCount");
-		methodBuilder.nextControlFlow("catch($T e)", typeName(IOException.class));
+		methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
 		methodBuilder.addStatement("e.printStackTrace()");
 		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
 		methodBuilder.endControlFlow();

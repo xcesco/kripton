@@ -26,6 +26,8 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.xml.MapEntryType;
 import com.abubusoft.kripton.xml.XmlType;
@@ -111,8 +113,16 @@ public class BindEntityBuilder {
 				
 				// @BindAdapter
 				if (annotationBindAdapter != null) {					
-					property.typeAdapter.adapterClazz=AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), BindAdapter.class, AnnotationAttributeType.ATTRIBUTE_ADAPTER);
-					property.typeAdapter.dataType=AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), BindAdapter.class, AnnotationAttributeType.ATTRIBUTE_DATA_TYPE);										
+					property.typeAdapter.adapterClazz=annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_ADAPTER);// AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), BindAdapter.class, AnnotationAttributeType.ATTRIBUTE_ADAPTER);
+					property.typeAdapter.dataType=annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_DATA_TYPE); //AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), BindAdapter.class, AnnotationAttributeType.ATTRIBUTE_DATA_TYPE);
+					
+					BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
+					
+					if (!transform.isTypeAdapterSupported())
+					{
+						String msg = String.format("In class '%s', property '%s' of type '%s' can not be annotated with @BindAdapter, due field type", beanElement.asType().toString(), property.getName(), property.getPropertyType().getName());
+						throw (new IncompatibleAnnotationException(msg));
+					}
 				}
 
 				// @Bind management
