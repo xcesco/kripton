@@ -20,9 +20,9 @@ public class BeanA_2Table {
    * DDL to create table bean_a_2
    * </p>
    *
-   * <pre>CREATE TABLE bean_a_2 (pk INTEGER);</pre>
+   * <pre>CREATE TABLE bean_a_2 (PK INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean_a_2 (pk INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean_a_2 (PK INTEGER);";
 
   /**
    * <p>
@@ -34,9 +34,9 @@ public class BeanA_2Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean_a_2;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>PK</code>. This costant represents column name.
    *
    *  @see BeanA_2#id
    */
-  public static final String COLUMN_ID = "id";
+  public static final String COLUMN_ID = "PK";
 }

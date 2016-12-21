@@ -140,7 +140,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			buffer.append(" (");
 			for (SQLProperty item : entity.getCollection()) {
 				buffer.append(separator);
-				buffer.append(model.classNameConverter.convert(item.columnName));
+				buffer.append(columnNameConverter.convert(item.columnName));
 				buffer.append(" "+SQLTransformer.columnType(item));
 				
 				annotationBindColumn=item.getAnnotation(BindColumn.class);
@@ -171,7 +171,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					if (!foreignClassName.equals(NoForeignKey.class.getName()))
 					{
 						SQLEntity references = model.getEntity(foreignClassName);
-						buffer.append(", FOREIGN KEY("+model.classNameConverter.convert(item.getName())+") REFERENCES "+references.buildTableName(elementUtils, model)+"("+model.classNameConverter.convert(references.getPrimaryKey().columnName)+")");
+						buffer.append(", FOREIGN KEY("+columnNameConverter.convert(item.getName())+") REFERENCES "+references.buildTableName(elementUtils, model)+"("+columnNameConverter.convert(references.getPrimaryKey().columnName)+")");
 						//FOREIGN KEY(trackartist) REFERENCES artist(artistid)
 					}
 					
@@ -223,10 +223,10 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	public void visit(SQLProperty kriptonProperty) {
 		//@formatter:off
 		FieldSpec fieldSpec = FieldSpec.builder(String.class, "COLUMN_" + columnNameConverter.convert(kriptonProperty.getName()), Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-				.initializer("\"$L\"", model.columnNameConverter.convert(kriptonProperty.getName()))
+				.initializer("$S", columnNameConverter.convert(kriptonProperty.columnName))
 				.addJavadoc("Entity's property <code>$L</code> is associated to table column <code>$L</code>. This costant represents column name.\n",
 						kriptonProperty.getName(),
-						model.columnNameConverter.convert(kriptonProperty.getName()))
+						columnNameConverter.convert(kriptonProperty.columnName))
 				.addJavadoc("\n @see $T#$L\n", TypeUtility.className(kriptonProperty.getParent().getName()), kriptonProperty.getName())
 				.build();
 		//@formatter:on

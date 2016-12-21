@@ -42,6 +42,7 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 		return element.getSimpleName().toString();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void accept(ModelElementVisitor visitor) throws Exception {
 		visitor.visit(this);
