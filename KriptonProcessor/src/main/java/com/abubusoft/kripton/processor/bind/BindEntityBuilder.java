@@ -112,15 +112,21 @@ public class BindEntityBuilder {
 				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());	
 				
 				// @BindAdapter
-				if (annotationBindAdapter != null) {					
-					property.typeAdapter.adapterClazz=annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_ADAPTER);// AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), BindAdapter.class, AnnotationAttributeType.ATTRIBUTE_ADAPTER);
-					property.typeAdapter.dataType=annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_DATA_TYPE); //AnnotationUtility.extractAsClassName(elementUtils, property.getElement(), BindAdapter.class, AnnotationAttributeType.ATTRIBUTE_DATA_TYPE);
+				if (annotationBindAdapter != null) {				
+					property.typeAdapter.adapterClazz=annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_ADAPTER);
+					property.typeAdapter.dataType=annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_DATA_TYPE); 
 					
 					BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
 					
 					if (!transform.isTypeAdapterSupported())
 					{
-						String msg = String.format("In class '%s', property '%s' of type '%s' can not be annotated with @BindAdapter, due field type", beanElement.asType().toString(), property.getName(), property.getPropertyType().getName());
+						String msg = String.format("In class '%s', property '%s' uses @BindAdapter with unsupported 'dataType' '%s'", beanElement.asType().toString(), property.getName(), property.typeAdapter.dataType);
+						throw (new IncompatibleAnnotationException(msg));
+					}
+					
+					if (property.getPropertyType().isPrimitive())
+					{
+						String msg = String.format("In class '%s', property '%s' is primitive of type '%s' and it can not be annotated with @BindAdapter", beanElement.asType().toString(), property.getName(), property.getPropertyType().getName());
 						throw (new IncompatibleAnnotationException(msg));
 					}
 				}

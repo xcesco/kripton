@@ -27,7 +27,6 @@ import com.abubusoft.kripton.android.sqlite.FieldType;
  * 
  * F
  * 
- * @author bulldog
  * @author xcesco
  * 
  */

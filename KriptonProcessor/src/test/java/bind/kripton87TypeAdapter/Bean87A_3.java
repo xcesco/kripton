@@ -21,7 +21,7 @@ public class Bean87A_3 {
 	public Boolean dataBoolean;
 	
 	@BindXml(xmlType = XmlType.TAG)
-	@BindAdapter(adapter = EnumIntegerTypeAdapter.class, dataType = Integer.class)
+	@BindAdapter(adapter = Enum87IntegerTypeAdapter.class, dataType = Integer.class)
 	public Enum87A elementEnum;
 
 }

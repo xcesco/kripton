@@ -4,8 +4,9 @@ import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.TypeAdapterUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -20,25 +21,25 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Bean87A_3
+ * This class is the shared preference binder defined for Bean87A_5
  *
- * @see Bean87A_3
+ * @see Bean87A_5
  */
-@BindMap(Bean87A_3.class)
-public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
+@BindMap(Bean87A_5.class)
+public class Bean87A_5BindMap extends AbstractMapper<Bean87A_5> {
   /**
    * create new object instance
    */
   @Override
-  public Bean87A_3 createInstance() {
-    return new Bean87A_3();
+  public Bean87A_5 createInstance() {
+    return new Bean87A_5();
   }
 
   /**
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(AbstractJacksonContext context, Bean87A_3 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJackson(AbstractJacksonContext context, Bean87A_5 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -49,29 +50,19 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
       // field attributeBoolean (mapped with "attributeBoolean")
       if (object.attributeBoolean!=null)  {
         fieldCount++;
-        // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-        jacksonSerializer.writeNumberField("attributeBoolean", TypeAdapterUtils.toData(BooleanByteArrayTypeAdapter.class, object.attributeBoolean));
+        jacksonSerializer.writeStringField("attributeBoolean", BigDecimalUtils.write(TypeAdapterUtils.toData(BooleanBigDecimalTypeAdapter.class, object.attributeBoolean)));
       }
 
       // field dataBoolean (mapped with "dataBoolean")
       if (object.dataBoolean!=null)  {
         fieldCount++;
-        // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-        jacksonSerializer.writeNumberField("dataBoolean", TypeAdapterUtils.toData(BooleanByteArrayTypeAdapter.class, object.dataBoolean));
+        jacksonSerializer.writeStringField("dataBoolean", BigDecimalUtils.write(TypeAdapterUtils.toData(BooleanBigDecimalTypeAdapter.class, object.dataBoolean)));
       }
 
       // field elementBoolean (mapped with "elementBoolean")
       if (object.elementBoolean!=null)  {
         fieldCount++;
-        // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-        jacksonSerializer.writeNumberField("elementBoolean", TypeAdapterUtils.toData(BooleanByteArrayTypeAdapter.class, object.elementBoolean));
-      }
-
-      // field elementEnum (mapped with "elementEnum")
-      if (object.elementEnum!=null)  {
-        fieldCount++;
-        // using type adapter bind.kripton87TypeAdapter.Enum87IntegerTypeAdapter
-        jacksonSerializer.writeNumberField("elementEnum", TypeAdapterUtils.toData(Enum87IntegerTypeAdapter.class, object.elementEnum));
+        jacksonSerializer.writeStringField("elementBoolean", BigDecimalUtils.write(TypeAdapterUtils.toData(BooleanBigDecimalTypeAdapter.class, object.elementBoolean)));
       }
 
       jacksonSerializer.writeEndObject();
@@ -86,7 +77,7 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean87A_3 object, JacksonWrapperSerializer wrapper) {
+  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean87A_5 object, JacksonWrapperSerializer wrapper) {
     try {
       JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
       jacksonSerializer.writeStartObject();
@@ -96,26 +87,20 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
 
       // field attributeBoolean (mapped with "attributeBoolean")
       if (object.attributeBoolean!=null)  {
-        // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-        jacksonSerializer.writeStringField("attributeBoolean", PrimitiveUtils.writeLong(TypeAdapterUtils.toData(BooleanByteArrayTypeAdapter.class, object.attributeBoolean)));
+        fieldCount++;
+        jacksonSerializer.writeStringField("attributeBoolean", BigDecimalUtils.write(TypeAdapterUtils.toData(BooleanBigDecimalTypeAdapter.class, object.attributeBoolean)));
       }
 
       // field dataBoolean (mapped with "dataBoolean")
       if (object.dataBoolean!=null)  {
-        // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-        jacksonSerializer.writeStringField("dataBoolean", PrimitiveUtils.writeLong(TypeAdapterUtils.toData(BooleanByteArrayTypeAdapter.class, object.dataBoolean)));
+        fieldCount++;
+        jacksonSerializer.writeStringField("dataBoolean", BigDecimalUtils.write(TypeAdapterUtils.toData(BooleanBigDecimalTypeAdapter.class, object.dataBoolean)));
       }
 
       // field elementBoolean (mapped with "elementBoolean")
       if (object.elementBoolean!=null)  {
-        // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-        jacksonSerializer.writeStringField("elementBoolean", PrimitiveUtils.writeLong(TypeAdapterUtils.toData(BooleanByteArrayTypeAdapter.class, object.elementBoolean)));
-      }
-
-      // field elementEnum (mapped with "elementEnum")
-      if (object.elementEnum!=null)  {
-        // using type adapter bind.kripton87TypeAdapter.Enum87IntegerTypeAdapter
-        jacksonSerializer.writeStringField("elementEnum", PrimitiveUtils.writeInteger(TypeAdapterUtils.toData(Enum87IntegerTypeAdapter.class, object.elementEnum)));
+        fieldCount++;
+        jacksonSerializer.writeStringField("elementBoolean", BigDecimalUtils.write(TypeAdapterUtils.toData(BooleanBigDecimalTypeAdapter.class, object.elementBoolean)));
       }
 
       jacksonSerializer.writeEndObject();
@@ -130,45 +115,33 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(KriptonXmlContext context, Bean87A_3 object, XmlWrapperSerializer wrapper, int currentEventType) {
+  public void serializeOnXml(KriptonXmlContext context, Bean87A_5 object, XmlWrapperSerializer wrapper, int currentEventType) {
     try {
       XmlSerializer xmlSerializer = wrapper.xmlSerializer;
       if (currentEventType == 0) {
-        xmlSerializer.writeStartElement("bean87A_3");
+        xmlSerializer.writeStartElement("bean87A_5");
       }
 
       // Persisted fields:
 
       // field attributeBoolean (mapped with "attributeBoolean")
-      // field trasformation java.lang.Long bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter 
+      // field trasformation java.math.BigDecimal bind.kripton87TypeAdapter.BooleanBigDecimalTypeAdapter 
       if (object.attributeBoolean!=null)  {
-        // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-        xmlSerializer.writeAttribute("attributeBoolean", PrimitiveUtils.writeLong(TypeAdapterUtils.toData(BooleanByteArrayTypeAdapter.class, object.attributeBoolean)));
+        xmlSerializer.writeDecimalAttribute(null, null,"attributeBoolean", TypeAdapterUtils.toData(BooleanBigDecimalTypeAdapter.class, object.attributeBoolean));
       }
 
       // field elementBoolean (mapped with "elementBoolean")
-      // field trasformation java.lang.Long bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter 
+      // field trasformation java.math.BigDecimal bind.kripton87TypeAdapter.BooleanBigDecimalTypeAdapter 
       if (object.elementBoolean!=null)  {
-        // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
         xmlSerializer.writeStartElement("elementBoolean");
-        xmlSerializer.writeLong(TypeAdapterUtils.toData(BooleanByteArrayTypeAdapter.class, object.elementBoolean));
-        xmlSerializer.writeEndElement();
-      }
-
-      // field elementEnum (mapped with "elementEnum")
-      // field trasformation java.lang.Integer bind.kripton87TypeAdapter.Enum87IntegerTypeAdapter 
-      if (object.elementEnum!=null)  {
-        // using type adapter bind.kripton87TypeAdapter.Enum87IntegerTypeAdapter
-        xmlSerializer.writeStartElement("elementEnum");
-        xmlSerializer.writeInt(TypeAdapterUtils.toData(Enum87IntegerTypeAdapter.class, object.elementEnum));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(BigDecimalUtils.write(TypeAdapterUtils.toData(BooleanBigDecimalTypeAdapter.class, object.elementBoolean))));
         xmlSerializer.writeEndElement();
       }
 
       // field dataBoolean (mapped with "dataBoolean")
-      // field trasformation java.lang.Long bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter 
+      // field trasformation java.math.BigDecimal bind.kripton87TypeAdapter.BooleanBigDecimalTypeAdapter 
       if (object.dataBoolean!=null)  {
-        // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-        xmlSerializer.writeLong(TypeAdapterUtils.toData(BooleanByteArrayTypeAdapter.class, object.dataBoolean));
+        xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(BigDecimalUtils.write(TypeAdapterUtils.toData(BooleanBigDecimalTypeAdapter.class, object.dataBoolean))));
       }
 
       if (currentEventType == 0) {
@@ -184,10 +157,10 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
    * create new object instance
    */
   @Override
-  public Bean87A_3 parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean87A_5 parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      Bean87A_3 instance = createInstance();
+      Bean87A_5 instance = createInstance();
       String fieldName;
       if (jacksonParser.currentToken() == null) {
         jacksonParser.nextToken();
@@ -205,29 +178,19 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
             case "attributeBoolean":
               // field attributeBoolean (mapped with "attributeBoolean")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-                instance.attributeBoolean=TypeAdapterUtils.toJava(BooleanByteArrayTypeAdapter.class, jacksonParser.getLongValue());
+                instance.attributeBoolean=TypeAdapterUtils.toJava(BooleanBigDecimalTypeAdapter.class, BigDecimalUtils.read(jacksonParser.getText()));
               }
             break;
             case "elementBoolean":
               // field elementBoolean (mapped with "elementBoolean")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-                instance.elementBoolean=TypeAdapterUtils.toJava(BooleanByteArrayTypeAdapter.class, jacksonParser.getLongValue());
-              }
-            break;
-            case "elementEnum":
-              // field elementEnum (mapped with "elementEnum")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                // using type adapter bind.kripton87TypeAdapter.Enum87IntegerTypeAdapter
-                instance.elementEnum=TypeAdapterUtils.toJava(Enum87IntegerTypeAdapter.class, jacksonParser.getIntValue());
+                instance.elementBoolean=TypeAdapterUtils.toJava(BooleanBigDecimalTypeAdapter.class, BigDecimalUtils.read(jacksonParser.getText()));
               }
             break;
             case "dataBoolean":
               // field dataBoolean (mapped with "dataBoolean")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-                instance.dataBoolean=TypeAdapterUtils.toJava(BooleanByteArrayTypeAdapter.class, jacksonParser.getLongValue());
+                instance.dataBoolean=TypeAdapterUtils.toJava(BooleanBigDecimalTypeAdapter.class, BigDecimalUtils.read(jacksonParser.getText()));
               }
             break;
             default:
@@ -245,10 +208,10 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
    * create new object instance
    */
   @Override
-  public Bean87A_3 parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
+  public Bean87A_5 parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
     try {
       JsonParser jacksonParser = wrapper.jacksonParser;
-      Bean87A_3 instance = createInstance();
+      Bean87A_5 instance = createInstance();
       String fieldName;
       if (jacksonParser.getCurrentToken() == null) {
         jacksonParser.nextToken();
@@ -266,29 +229,19 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
             case "attributeBoolean":
               // field attributeBoolean (mapped with "attributeBoolean")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-                instance.attributeBoolean=TypeAdapterUtils.toJava(BooleanByteArrayTypeAdapter.class, PrimitiveUtils.readLong(jacksonParser.getText(), null));
+                instance.attributeBoolean=TypeAdapterUtils.toJava(BooleanBigDecimalTypeAdapter.class, BigDecimalUtils.read(jacksonParser.getText()));
               }
             break;
             case "elementBoolean":
               // field elementBoolean (mapped with "elementBoolean")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-                instance.elementBoolean=TypeAdapterUtils.toJava(BooleanByteArrayTypeAdapter.class, PrimitiveUtils.readLong(jacksonParser.getText(), null));
-              }
-            break;
-            case "elementEnum":
-              // field elementEnum (mapped with "elementEnum")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                // using type adapter bind.kripton87TypeAdapter.Enum87IntegerTypeAdapter
-                instance.elementEnum=TypeAdapterUtils.toJava(Enum87IntegerTypeAdapter.class, PrimitiveUtils.readInteger(jacksonParser.getText(), null));
+                instance.elementBoolean=TypeAdapterUtils.toJava(BooleanBigDecimalTypeAdapter.class, BigDecimalUtils.read(jacksonParser.getText()));
               }
             break;
             case "dataBoolean":
               // field dataBoolean (mapped with "dataBoolean")
               if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-                instance.dataBoolean=TypeAdapterUtils.toJava(BooleanByteArrayTypeAdapter.class, PrimitiveUtils.readLong(jacksonParser.getText(), null));
+                instance.dataBoolean=TypeAdapterUtils.toJava(BooleanBigDecimalTypeAdapter.class, BigDecimalUtils.read(jacksonParser.getText()));
               }
             break;
             default:
@@ -306,10 +259,10 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
    * create new object instance
    */
   @Override
-  public Bean87A_3 parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
+  public Bean87A_5 parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
     try {
       XmlPullParser xmlParser = wrapper.xmlParser;
-      Bean87A_3 instance = createInstance();
+      Bean87A_5 instance = createInstance();
       int eventType = currentEventType;
       boolean read=true;
 
@@ -329,8 +282,7 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
         switch(attributeName) {
             case "attributeBoolean":
               // field attributeBoolean (mapped by "attributeBoolean")
-              // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-              instance.attributeBoolean=TypeAdapterUtils.toJava(BooleanByteArrayTypeAdapter.class, PrimitiveUtils.readLong(xmlParser.getAttributeValue(attributeIndex), null));
+              instance.attributeBoolean=TypeAdapterUtils.toJava(BooleanBigDecimalTypeAdapter.class, xmlParser.getAttributeAsDecimal(attributeIndex));
             break;
             default:
             break;
@@ -351,13 +303,7 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
               switch(currentTag) {
                   case "elementBoolean":
                     // property elementBoolean (mapped on "elementBoolean")
-                    // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-                    instance.elementBoolean=TypeAdapterUtils.toJava(BooleanByteArrayTypeAdapter.class, PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null));
-                  break;
-                  case "elementEnum":
-                    // property elementEnum (mapped on "elementEnum")
-                    // using type adapter bind.kripton87TypeAdapter.Enum87IntegerTypeAdapter
-                    instance.elementEnum=TypeAdapterUtils.toJava(Enum87IntegerTypeAdapter.class, PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null));
+                    instance.elementBoolean=TypeAdapterUtils.toJava(BooleanBigDecimalTypeAdapter.class, BigDecimalUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText())));
                   break;
                   default:
                   break;
@@ -373,8 +319,7 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
               case XmlPullParser.TEXT:
                 if (elementName!=null && xmlParser.hasText()) {
                   // property dataBoolean
-                  // using type adapter bind.kripton87TypeAdapter.BooleanByteArrayTypeAdapter
-                  instance.dataBoolean=TypeAdapterUtils.toJava(BooleanByteArrayTypeAdapter.class, PrimitiveUtils.readLong(xmlParser.getText(), null));
+                  instance.dataBoolean=TypeAdapterUtils.toJava(BooleanBigDecimalTypeAdapter.class, BigDecimalUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getText())));
                 }
               break;
               default:

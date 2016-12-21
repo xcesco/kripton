@@ -2,7 +2,7 @@ package bind.kripton87TypeAdapter;
 
 import com.abubusoft.kripton.BindTypeAdapter;
 
-public class EnumIntegerTypeAdapter implements BindTypeAdapter<Enum87A, Integer> {
+public class Enum87IntegerTypeAdapter implements BindTypeAdapter<Enum87A, Integer> {
 
 	@Override
 	public Enum87A toJava(Integer dataValue) throws Exception {

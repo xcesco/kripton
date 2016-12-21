@@ -44,9 +44,9 @@ public class EnumBindTransform extends AbstractBindTransform {
 
 		METHOD_TO_CONVERT = "toString";
 	}
-	
+
 	public boolean isTypeAdapterSupported() {
-		return true;
+		return false;
 	}
 
 	protected String METHOD_TO_CONVERT;
@@ -58,45 +58,22 @@ public class EnumBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 
-		if (property.hasTypeAdapter()) {
-			switch (xmlType) {
-			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.writeAttribute($S, $T.escapeXml10(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, property.label,
-						StringEscapeUtils.class, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
-				break;
-			case TAG:
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
-				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, StringEscapeUtils.class,
-						TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
-				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
-				break;
-			case VALUE:
-				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, StringEscapeUtils.class,
-						TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
-				break;
-			case VALUE_CDATA:
-				methodBuilder.addStatement("$L.writeCData($T.escapeXml10(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, StringEscapeUtils.class,
-						TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
-				break;
-			}
-		} else {
-			switch (xmlType) {
-			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.writeAttribute($S, $T.escapeXml10($L.$L()))", serializerName, property.label, StringEscapeUtils.class, getter(beanName, beanClass, property),
-						METHOD_TO_CONVERT);
-				break;
-			case TAG:
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
-				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L()))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
-				break;
-			case VALUE:
-				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L()))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-				break;
-			case VALUE_CDATA:
-				methodBuilder.addStatement("$L.writeCData($T.escapeXml10($L.$L()))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-				break;
-			}
+		switch (xmlType) {
+		case ATTRIBUTE:
+			methodBuilder.addStatement("$L.writeAttribute($S, $T.escapeXml10($L.$L()))", serializerName, property.label, StringEscapeUtils.class, getter(beanName, beanClass, property),
+					METHOD_TO_CONVERT);
+			break;
+		case TAG:
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L()))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
+			break;
+		case VALUE:
+			methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($L.$L()))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+			break;
+		case VALUE_CDATA:
+			methodBuilder.addStatement("$L.writeCData($T.escapeXml10($L.$L()))", serializerName, StringEscapeUtils.class, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
+			break;
 		}
 
 		if (property.isNullable() && !property.isInCollection()) {
@@ -115,20 +92,10 @@ public class EnumBindTransform extends AbstractBindTransform {
 			methodBuilder.addStatement("fieldCount++");
 		}
 
-		if (property.hasTypeAdapter()) {
-			if (property.isInCollection()) {
-				methodBuilder.addStatement("$L.writeString(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, TypeAdapterUtils.class,
-						TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
-			} else {
-				methodBuilder.addStatement("$L.writeStringField($S, " + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, property.label, TypeAdapterUtils.class,
-						TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
-			}
+		if (property.isInCollection()) {
+			methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
 		} else {
-			if (property.isInCollection()) {
-				methodBuilder.addStatement("$L.writeString($L.$L())", serializerName, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-			} else {
-				methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.label, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
-			}
+			methodBuilder.addStatement("$L.writeStringField($S, $L.$L())", serializerName, property.label, getter(beanName, beanClass, property), METHOD_TO_CONVERT);
 		}
 
 		if (property.isNullable()) {
@@ -140,39 +107,19 @@ public class EnumBindTransform extends AbstractBindTransform {
 	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 
-		if (property.hasTypeAdapter()) {
-			switch (xmlType) {
-			case ATTRIBUTE:
-				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.unescapeXml($L.getAttributeValue(attributeIndex))" + POST_TYPE_ADAPTER),
-						TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), StringEscapeUtils.class, parserName);
-				break;
-			case TAG:
-				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.unescapeXml($L.getElementText())" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
-						TypeUtility.typeName(property.typeAdapter.adapterClazz), StringEscapeUtils.class, parserName);
-				break;
-			case VALUE:
-			case VALUE_CDATA:
-				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.unescapeXml($L.getText())" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
-						TypeUtility.typeName(property.typeAdapter.adapterClazz), StringEscapeUtils.class, parserName);
-				break;
-			default:
-				break;
-			}
-		} else {
-			switch (xmlType) {
-			case ATTRIBUTE:
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.valueOf($T.unescapeXml($L.getAttributeValue(attributeIndex)))"), typeName, StringEscapeUtils.class, parserName);
-				break;
-			case TAG:
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.valueOf($T.unescapeXml($L.getElementText()))"), typeName, StringEscapeUtils.class, parserName);
-				break;
-			case VALUE:
-			case VALUE_CDATA:
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.valueOf($T.unescapeXml($L.getText()))"), typeName, StringEscapeUtils.class, parserName);
-				break;
-			default:
-				break;
-			}
+		switch (xmlType) {
+		case ATTRIBUTE:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.valueOf($T.unescapeXml($L.getAttributeValue(attributeIndex)))"), typeName, StringEscapeUtils.class, parserName);
+			break;
+		case TAG:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.valueOf($T.unescapeXml($L.getElementText()))"), typeName, StringEscapeUtils.class, parserName);
+			break;
+		case VALUE:
+		case VALUE_CDATA:
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.valueOf($T.unescapeXml($L.getText()))"), typeName, StringEscapeUtils.class, parserName);
+			break;
+		default:
+			break;
 		}
 
 	}
@@ -190,13 +137,8 @@ public class EnumBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("");
 		}
 
-		if (property.hasTypeAdapter()) {
-			methodBuilder.addStatement("String tempEnum=$L.getText()", parserName);
-			methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+"tempEnum"+POST_TYPE_ADAPTER), TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz));
-		} else {
-			methodBuilder.addStatement("String tempEnum=$L.getText()", parserName);
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.hasText(tempEnum)?$T.valueOf(tempEnum):null"), StringUtils.class, typeName);
-		}
+		methodBuilder.addStatement("String tempEnum=$L.getText()", parserName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.hasText(tempEnum)?$T.valueOf(tempEnum):null"), StringUtils.class, typeName);
 
 		methodBuilder.endControlFlow();
 	}

@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.UrlUtils;
 /**
  * Transformer between a string and a java.net.URL object
  * 
- * @author bulldog
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class UrlBindTransform extends WrappedBindTransform {

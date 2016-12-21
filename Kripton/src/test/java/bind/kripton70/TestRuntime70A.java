@@ -15,7 +15,6 @@ public class TestRuntime70A extends AbstractBaseTest {
 		Bean70A bean = new Bean70A();
 		bean.valueString = "this is a test";
 		bean.valueBean = new Bean70A();
-		//bean.valueBean.valueString = "this is a second test";
 
 		check(bean);
 	}
