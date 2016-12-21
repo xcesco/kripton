@@ -30,9 +30,9 @@ public class Bean05Table {
    * DDL to create table ws_bean
    * </p>
    *
-   * <pre>CREATE TABLE ws_bean (pk INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, bean_type TEXT, text TEXT, content BLOB, creation_time TEXT);</pre>
+   * <pre>CREATE TABLE ws_bean (PK INTEGER PRIMARY KEY AUTOINCREMENT, NUMBER INTEGER, BEAN_TYPE TEXT, TEXT TEXT, CONTENT BLOB, CREATION_TIME TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE ws_bean (pk INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, bean_type TEXT, text TEXT, content BLOB, creation_time TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE ws_bean (PK INTEGER PRIMARY KEY AUTOINCREMENT, NUMBER INTEGER, BEAN_TYPE TEXT, TEXT TEXT, CONTENT BLOB, CREATION_TIME TEXT);";
 
   /**
    * <p>
@@ -44,46 +44,46 @@ public class Bean05Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS ws_bean;";
 
   /**
-   * Entity's property <code>pk</code> is associated to table column <code>pk</code>. This costant represents column name.
+   * Entity's property <code>pk</code> is associated to table column <code>PK</code>. This costant represents column name.
    *
    *  @see Bean05#pk
    */
-  public static final String COLUMN_PK = "pk";
+  public static final String COLUMN_PK = "PK";
 
   /**
-   * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column name.
+   * Entity's property <code>number</code> is associated to table column <code>NUMBER</code>. This costant represents column name.
    *
    *  @see Bean05#number
    */
-  public static final String COLUMN_NUMBER = "number";
+  public static final String COLUMN_NUMBER = "NUMBER";
 
   /**
-   * Entity's property <code>beanType</code> is associated to table column <code>bean_type</code>. This costant represents column name.
+   * Entity's property <code>beanType</code> is associated to table column <code>BEAN_TYPE</code>. This costant represents column name.
    *
    *  @see Bean05#beanType
    */
-  public static final String COLUMN_BEAN_TYPE = "bean_type";
+  public static final String COLUMN_BEAN_TYPE = "BEAN_TYPE";
 
   /**
-   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
+   * Entity's property <code>text</code> is associated to table column <code>TEXT</code>. This costant represents column name.
    *
    *  @see Bean05#text
    */
-  public static final String COLUMN_TEXT = "text";
+  public static final String COLUMN_TEXT = "TEXT";
 
   /**
-   * Entity's property <code>content</code> is associated to table column <code>content</code>. This costant represents column name.
+   * Entity's property <code>content</code> is associated to table column <code>CONTENT</code>. This costant represents column name.
    *
    *  @see Bean05#content
    */
-  public static final String COLUMN_CONTENT = "content";
+  public static final String COLUMN_CONTENT = "CONTENT";
 
   /**
-   * Entity's property <code>creationTime</code> is associated to table column <code>creation_time</code>. This costant represents column name.
+   * Entity's property <code>creationTime</code> is associated to table column <code>CREATION_TIME</code>. This costant represents column name.
    *
    *  @see Bean05#creationTime
    */
-  public static final String COLUMN_CREATION_TIME = "creation_time";
+  public static final String COLUMN_CREATION_TIME = "CREATION_TIME";
 
   /**
    * write

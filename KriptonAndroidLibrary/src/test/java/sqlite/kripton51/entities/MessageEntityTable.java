@@ -20,9 +20,9 @@ public class MessageEntityTable {
    * DDL to create table message
    * </p>
    *
-   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);</pre>
+   * <pre>CREATE TABLE message (ID INTEGER PRIMARY KEY AUTOINCREMENT, CHANNEL_ID INTEGER, OWNER_TYPE TEXT, FACE_UID TEXT, TEXT TEXT, OWNER_UID TEXT, CHANNEL_UID TEXT, UPDATE_TIME INTEGER, TYPE TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (ID INTEGER PRIMARY KEY AUTOINCREMENT, CHANNEL_ID INTEGER, OWNER_TYPE TEXT, FACE_UID TEXT, TEXT TEXT, OWNER_UID TEXT, CHANNEL_UID TEXT, UPDATE_TIME INTEGER, TYPE TEXT);";
 
   /**
    * <p>
@@ -34,65 +34,65 @@ public class MessageEntityTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS message;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>ID</code>. This costant represents column name.
    *
    *  @see MessageEntity#id
    */
-  public static final String COLUMN_ID = "id";
+  public static final String COLUMN_ID = "ID";
 
   /**
-   * Entity's property <code>channelId</code> is associated to table column <code>channel_id</code>. This costant represents column name.
+   * Entity's property <code>channelId</code> is associated to table column <code>CHANNEL_ID</code>. This costant represents column name.
    *
    *  @see MessageEntity#channelId
    */
-  public static final String COLUMN_CHANNEL_ID = "channel_id";
+  public static final String COLUMN_CHANNEL_ID = "CHANNEL_ID";
 
   /**
-   * Entity's property <code>ownerType</code> is associated to table column <code>owner_type</code>. This costant represents column name.
+   * Entity's property <code>ownerType</code> is associated to table column <code>OWNER_TYPE</code>. This costant represents column name.
    *
    *  @see MessageEntity#ownerType
    */
-  public static final String COLUMN_OWNER_TYPE = "owner_type";
+  public static final String COLUMN_OWNER_TYPE = "OWNER_TYPE";
 
   /**
-   * Entity's property <code>faceUid</code> is associated to table column <code>face_uid</code>. This costant represents column name.
+   * Entity's property <code>faceUid</code> is associated to table column <code>FACE_UID</code>. This costant represents column name.
    *
    *  @see MessageEntity#faceUid
    */
-  public static final String COLUMN_FACE_UID = "face_uid";
+  public static final String COLUMN_FACE_UID = "FACE_UID";
 
   /**
-   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
+   * Entity's property <code>text</code> is associated to table column <code>TEXT</code>. This costant represents column name.
    *
    *  @see MessageEntity#text
    */
-  public static final String COLUMN_TEXT = "text";
+  public static final String COLUMN_TEXT = "TEXT";
 
   /**
-   * Entity's property <code>ownerUid</code> is associated to table column <code>owner_uid</code>. This costant represents column name.
+   * Entity's property <code>ownerUid</code> is associated to table column <code>OWNER_UID</code>. This costant represents column name.
    *
    *  @see MessageEntity#ownerUid
    */
-  public static final String COLUMN_OWNER_UID = "owner_uid";
+  public static final String COLUMN_OWNER_UID = "OWNER_UID";
 
   /**
-   * Entity's property <code>channelUid</code> is associated to table column <code>channel_uid</code>. This costant represents column name.
+   * Entity's property <code>channelUid</code> is associated to table column <code>CHANNEL_UID</code>. This costant represents column name.
    *
    *  @see MessageEntity#channelUid
    */
-  public static final String COLUMN_CHANNEL_UID = "channel_uid";
+  public static final String COLUMN_CHANNEL_UID = "CHANNEL_UID";
 
   /**
-   * Entity's property <code>updateTime</code> is associated to table column <code>update_time</code>. This costant represents column name.
+   * Entity's property <code>updateTime</code> is associated to table column <code>UPDATE_TIME</code>. This costant represents column name.
    *
    *  @see MessageEntity#updateTime
    */
-  public static final String COLUMN_UPDATE_TIME = "update_time";
+  public static final String COLUMN_UPDATE_TIME = "UPDATE_TIME";
 
   /**
-   * Entity's property <code>type</code> is associated to table column <code>type</code>. This costant represents column name.
+   * Entity's property <code>type</code> is associated to table column <code>TYPE</code>. This costant represents column name.
    *
    *  @see MessageEntity#type
    */
-  public static final String COLUMN_TYPE = "type";
+  public static final String COLUMN_TYPE = "TYPE";
 }

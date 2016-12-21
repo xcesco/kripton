@@ -32,9 +32,9 @@ public class Bean01Table {
    * DDL to create table bean01
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (lista BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, message_date INTEGER, message_text TEXT NOT NULL, bean_list BLOB, value INTEGER);</pre>
+   * <pre>CREATE TABLE bean01 (LISTA BLOB, ID INTEGER PRIMARY KEY AUTOINCREMENT, MESSAGE_DATE INTEGER, MESSAGE_TEXT TEXT NOT NULL, BEAN_LIST BLOB, VALUE INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (lista BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, message_date INTEGER, message_text TEXT NOT NULL, bean_list BLOB, value INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (LISTA BLOB, ID INTEGER PRIMARY KEY AUTOINCREMENT, MESSAGE_DATE INTEGER, MESSAGE_TEXT TEXT NOT NULL, BEAN_LIST BLOB, VALUE INTEGER);";
 
   /**
    * <p>
@@ -46,46 +46,46 @@ public class Bean01Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean01;";
 
   /**
-   * Entity's property <code>lista</code> is associated to table column <code>lista</code>. This costant represents column name.
+   * Entity's property <code>lista</code> is associated to table column <code>LISTA</code>. This costant represents column name.
    *
    *  @see Bean01#lista
    */
-  public static final String COLUMN_LISTA = "lista";
+  public static final String COLUMN_LISTA = "LISTA";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>ID</code>. This costant represents column name.
    *
    *  @see Bean01#id
    */
-  public static final String COLUMN_ID = "id";
+  public static final String COLUMN_ID = "ID";
 
   /**
-   * Entity's property <code>messageDate</code> is associated to table column <code>message_date</code>. This costant represents column name.
+   * Entity's property <code>messageDate</code> is associated to table column <code>MESSAGE_DATE</code>. This costant represents column name.
    *
    *  @see Bean01#messageDate
    */
-  public static final String COLUMN_MESSAGE_DATE = "message_date";
+  public static final String COLUMN_MESSAGE_DATE = "MESSAGE_DATE";
 
   /**
-   * Entity's property <code>messageText</code> is associated to table column <code>message_text</code>. This costant represents column name.
+   * Entity's property <code>messageText</code> is associated to table column <code>MESSAGE_TEXT</code>. This costant represents column name.
    *
    *  @see Bean01#messageText
    */
-  public static final String COLUMN_MESSAGE_TEXT = "message_text";
+  public static final String COLUMN_MESSAGE_TEXT = "MESSAGE_TEXT";
 
   /**
-   * Entity's property <code>beanList</code> is associated to table column <code>bean_list</code>. This costant represents column name.
+   * Entity's property <code>beanList</code> is associated to table column <code>BEAN_LIST</code>. This costant represents column name.
    *
    *  @see Bean01#beanList
    */
-  public static final String COLUMN_BEAN_LIST = "bean_list";
+  public static final String COLUMN_BEAN_LIST = "BEAN_LIST";
 
   /**
-   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
+   * Entity's property <code>value</code> is associated to table column <code>VALUE</code>. This costant represents column name.
    *
    *  @see Bean01#value
    */
-  public static final String COLUMN_VALUE = "value";
+  public static final String COLUMN_VALUE = "VALUE";
 
   /**
    * write

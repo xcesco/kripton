@@ -34,9 +34,9 @@ public class Bean64BTable {
    * DDL to create table bean64_b
    * </p>
    *
-   * <pre>CREATE TABLE bean64_b (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE bean64_b (VALUE_MAP_STRING_BEAN BLOB, VALUE_SET_STRING BLOB, VALUE_STRING TEXT, ID INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean64_b (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean64_b (VALUE_MAP_STRING_BEAN BLOB, VALUE_SET_STRING BLOB, VALUE_STRING TEXT, ID INTEGER PRIMARY KEY AUTOINCREMENT);";
 
   /**
    * <p>
@@ -48,32 +48,32 @@ public class Bean64BTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean64_b;";
 
   /**
-   * Entity's property <code>valueMapStringBean</code> is associated to table column <code>value_map_string_bean</code>. This costant represents column name.
+   * Entity's property <code>valueMapStringBean</code> is associated to table column <code>VALUE_MAP_STRING_BEAN</code>. This costant represents column name.
    *
    *  @see Bean64B#valueMapStringBean
    */
-  public static final String COLUMN_VALUE_MAP_STRING_BEAN = "value_map_string_bean";
+  public static final String COLUMN_VALUE_MAP_STRING_BEAN = "VALUE_MAP_STRING_BEAN";
 
   /**
-   * Entity's property <code>valueSetString</code> is associated to table column <code>value_set_string</code>. This costant represents column name.
+   * Entity's property <code>valueSetString</code> is associated to table column <code>VALUE_SET_STRING</code>. This costant represents column name.
    *
    *  @see Bean64B#valueSetString
    */
-  public static final String COLUMN_VALUE_SET_STRING = "value_set_string";
+  public static final String COLUMN_VALUE_SET_STRING = "VALUE_SET_STRING";
 
   /**
-   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column name.
+   * Entity's property <code>valueString</code> is associated to table column <code>VALUE_STRING</code>. This costant represents column name.
    *
    *  @see Bean64B#valueString
    */
-  public static final String COLUMN_VALUE_STRING = "value_string";
+  public static final String COLUMN_VALUE_STRING = "VALUE_STRING";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>ID</code>. This costant represents column name.
    *
    *  @see Bean64B#id
    */
-  public static final String COLUMN_ID = "id";
+  public static final String COLUMN_ID = "ID";
 
   /**
    * write

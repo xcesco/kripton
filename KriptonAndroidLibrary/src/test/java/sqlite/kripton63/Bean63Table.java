@@ -34,9 +34,9 @@ public class Bean63Table {
    * DDL to create table bean63
    * </p>
    *
-   * <pre>CREATE TABLE bean63 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_map_string_byte BLOB, value_map_enum_byte BLOB);</pre>
+   * <pre>CREATE TABLE bean63 (ID INTEGER PRIMARY KEY AUTOINCREMENT, VALUE TEXT, VALUE_MAP_STRING_BYTE BLOB, VALUE_MAP_ENUM_BYTE BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean63 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_map_string_byte BLOB, value_map_enum_byte BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean63 (ID INTEGER PRIMARY KEY AUTOINCREMENT, VALUE TEXT, VALUE_MAP_STRING_BYTE BLOB, VALUE_MAP_ENUM_BYTE BLOB);";
 
   /**
    * <p>
@@ -48,32 +48,32 @@ public class Bean63Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean63;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>ID</code>. This costant represents column name.
    *
    *  @see Bean63#id
    */
-  public static final String COLUMN_ID = "id";
+  public static final String COLUMN_ID = "ID";
 
   /**
-   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
+   * Entity's property <code>value</code> is associated to table column <code>VALUE</code>. This costant represents column name.
    *
    *  @see Bean63#value
    */
-  public static final String COLUMN_VALUE = "value";
+  public static final String COLUMN_VALUE = "VALUE";
 
   /**
-   * Entity's property <code>valueMapStringByte</code> is associated to table column <code>value_map_string_byte</code>. This costant represents column name.
+   * Entity's property <code>valueMapStringByte</code> is associated to table column <code>VALUE_MAP_STRING_BYTE</code>. This costant represents column name.
    *
    *  @see Bean63#valueMapStringByte
    */
-  public static final String COLUMN_VALUE_MAP_STRING_BYTE = "value_map_string_byte";
+  public static final String COLUMN_VALUE_MAP_STRING_BYTE = "VALUE_MAP_STRING_BYTE";
 
   /**
-   * Entity's property <code>valueMapEnumByte</code> is associated to table column <code>value_map_enum_byte</code>. This costant represents column name.
+   * Entity's property <code>valueMapEnumByte</code> is associated to table column <code>VALUE_MAP_ENUM_BYTE</code>. This costant represents column name.
    *
    *  @see Bean63#valueMapEnumByte
    */
-  public static final String COLUMN_VALUE_MAP_ENUM_BYTE = "value_map_enum_byte";
+  public static final String COLUMN_VALUE_MAP_ENUM_BYTE = "VALUE_MAP_ENUM_BYTE";
 
   /**
    * write

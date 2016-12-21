@@ -32,9 +32,9 @@ public class Bean01Table {
    * DDL to create table bean01
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (temp BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT);</pre>
+   * <pre>CREATE TABLE bean01 (TEMP BLOB, ID INTEGER PRIMARY KEY AUTOINCREMENT, TEXT TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (temp BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (TEMP BLOB, ID INTEGER PRIMARY KEY AUTOINCREMENT, TEXT TEXT);";
 
   /**
    * <p>
@@ -46,25 +46,25 @@ public class Bean01Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean01;";
 
   /**
-   * Entity's property <code>temp</code> is associated to table column <code>temp</code>. This costant represents column name.
+   * Entity's property <code>temp</code> is associated to table column <code>TEMP</code>. This costant represents column name.
    *
    *  @see Bean01#temp
    */
-  public static final String COLUMN_TEMP = "temp";
+  public static final String COLUMN_TEMP = "TEMP";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>ID</code>. This costant represents column name.
    *
    *  @see Bean01#id
    */
-  public static final String COLUMN_ID = "id";
+  public static final String COLUMN_ID = "ID";
 
   /**
-   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
+   * Entity's property <code>text</code> is associated to table column <code>TEXT</code>. This costant represents column name.
    *
    *  @see Bean01#text
    */
-  public static final String COLUMN_TEXT = "text";
+  public static final String COLUMN_TEXT = "TEXT";
 
   /**
    * write

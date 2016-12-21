@@ -30,9 +30,9 @@ public class Bean84BTable {
    * DDL to create table bean84_b
    * </p>
    *
-   * <pre>CREATE TABLE bean84_b (id INTEGER PRIMARY KEY AUTOINCREMENT, column_bean BLOB);</pre>
+   * <pre>CREATE TABLE bean84_b (ID INTEGER PRIMARY KEY AUTOINCREMENT, COLUMN_BEAN BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_b (id INTEGER PRIMARY KEY AUTOINCREMENT, column_bean BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_b (ID INTEGER PRIMARY KEY AUTOINCREMENT, COLUMN_BEAN BLOB);";
 
   /**
    * <p>
@@ -44,18 +44,18 @@ public class Bean84BTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean84_b;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>ID</code>. This costant represents column name.
    *
    *  @see Bean84B#id
    */
-  public static final String COLUMN_ID = "id";
+  public static final String COLUMN_ID = "ID";
 
   /**
-   * Entity's property <code>columnBean</code> is associated to table column <code>column_bean</code>. This costant represents column name.
+   * Entity's property <code>columnBean</code> is associated to table column <code>COLUMN_BEAN</code>. This costant represents column name.
    *
    *  @see Bean84B#columnBean
    */
-  public static final String COLUMN_COLUMN_BEAN = "column_bean";
+  public static final String COLUMN_COLUMN_BEAN = "COLUMN_BEAN";
 
   /**
    * write
