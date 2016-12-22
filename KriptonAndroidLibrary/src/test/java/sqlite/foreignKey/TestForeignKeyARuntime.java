@@ -16,8 +16,6 @@
 package sqlite.foreignKey;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Assert;
@@ -40,14 +38,20 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 			@Override
 			public boolean onExecute(BindDummyDaoFactory daoFactory) {
+				BeanA_2 beanGroup = new BeanA_2();
+				beanGroup.valueString2 = "happy";
+				DaoBeanA_2Impl dao2 = daoFactory.getDaoBeanA_2();
+				dao2.insert(beanGroup);
+
 				DaoBeanA_1Impl dao = daoFactory.getDaoBeanA_1();
 
 				BeanA_1 bean = new BeanA_1();
-				bean.valueString="hello";				
-				
+				bean.valueString = "hello";
+				bean.beanA2Id = beanGroup.id;
+
 				dao.insert(bean);
 				List<BeanA_1> list = dao.selectById(bean.id);
-				
+
 				Assert.assertEquals("not one ", 1, list.size());
 				Assert.assertEquals("not equals", true, list.get(0).equals(bean));
 
@@ -61,7 +65,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 		});
 
 	}
-	
+
 	@Test
 	public void testRunSqlite3() throws IOException, InstantiationException, IllegalAccessException {
 		BindDummy3DataSource dataSource = BindDummy3DataSource.instance();
@@ -73,20 +77,20 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 				DaoBeanA_5Impl dao1 = daoFactory.getDaoBeanA_5();
 				DaoBeanA_6Impl dao2 = daoFactory.getDaoBeanA_6();
 
-				BeanA_6 bean2=new BeanA_6();
-				bean2.valueString2="test";				
+				BeanA_6 bean2 = new BeanA_6();
+				bean2.valueString2 = "test";
 				dao2.insert(bean2);
-				
+
 				BeanA_5 bean = new BeanA_5();
-				bean.valueString="hello";
-				bean.beanA2Id=bean2.id;
-				
+				bean.valueString = "hello";
+				bean.beanA2Id = bean2.id;
+
 				dao1.insert(bean);
 				List<BeanA_5> list = dao1.selectById(bean.id);
-				
+
 				Assert.assertEquals("not one ", 1, list.size());
 				Assert.assertEquals("not equals", true, list.get(0).equals(bean));
-								
+
 				dao1.update(bean);
 
 				return true;
