@@ -15,6 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
@@ -26,6 +29,12 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 public class SQLEntity extends ModelClass<SQLProperty> {
 
 	private String tableName;
+
+	/**
+	 * Set of entities for which there's a foreign in this entities. In other
+	 * words, rapresents entities from which this entity depends.
+	 */
+	public Set<SQLEntity> referedEntities = new HashSet<>();
 
 	public SQLEntity(TypeElement element) {
 		super(element);
@@ -40,8 +49,7 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 		int countAnnotation = 0;
 
 		for (SQLProperty item : collection) {
-			if (item.isPrimaryKey())
-			{
+			if (item.isPrimaryKey()) {
 				countAnnotation++;
 			}
 		}
@@ -56,10 +64,9 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 	 */
 	public SQLProperty getPrimaryKey() {
 		for (SQLProperty item : collection) {
-			if (item.isPrimaryKey())
-			{
+			if (item.isPrimaryKey()) {
 				return item;
-			}			
+			}
 		}
 
 		// try to get id
@@ -68,23 +75,22 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 		return id;
 	}
 
-	public String getTableName() {		
+	public String getTableName() {
 		return tableName;
 	}
 
 	public String buildTableName(Elements elementUtils, SQLiteDatabaseSchema model) {
-		tableName=getSimpleName();
-		if (containsAnnotation(BindTable.class))			
-		{
-			String temp=AnnotationUtility.extractAsString(elementUtils, getElement(), BindTable.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
-			
-			if (temp!=null && temp.length()>0)
-				tableName=temp;
-		}		
-		tableName=model.classNameConverter.convert(tableName);
-		
+		tableName = getSimpleName();
+		if (containsAnnotation(BindTable.class)) {
+			String temp = AnnotationUtility.extractAsString(elementUtils, getElement(), BindTable.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+
+			if (temp != null && temp.length() > 0)
+				tableName = temp;
+		}
+		tableName = model.classNameConverter.convert(tableName);
+
 		return tableName;
-		
-	}			
+
+	}
 
 }

@@ -63,7 +63,7 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
-import com.abubusoft.kripton.processor.exceptions.InvalidSQLDaoDefinitionException;
+import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.DaoDefinitionWithoutAnnotatedMethodException;
 import com.abubusoft.kripton.processor.exceptions.NoBindTypeElementsFound;
 import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
@@ -455,7 +455,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		// dao is associated to an entity is not contained in analyzed class
 		// set.
 		if (!globalBeanElements.containsKey(currentDaoDefinition.getEntityClassName())) {
-			throw (new InvalidSQLDaoDefinitionException(currentDaoDefinition));
+			throw (new InvalidBeanTypeException(currentDaoDefinition));
 		}
 
 		currentSchema.add(currentDaoDefinition);

@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.exceptions;
+package sqlite.foreignKey;
 
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-public class InvalidSQLDaoDefinitionException extends KriptonProcessorException {
-
-	private static final long serialVersionUID = 8462705406839489618L;
-
-	public InvalidSQLDaoDefinitionException(SQLDaoDefinition daoDefinition)
-	{
-		super("In class "+daoDefinition.getName()+" is used @SQLDao annotation for unmanaged bean type "+daoDefinition.getEntityClassName()+". Please check if it has @BindType annotation.");
-	}
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestForeignKeyARuntime.class		
+		 })
+//@formatter:on
+public class TestForeignKeyRuntimeSuite  {
+	
 }

@@ -15,8 +15,10 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.lang.model.element.TypeElement;
@@ -29,7 +31,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	
 	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 	
-	public Converter<String, String> columnNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
+	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	protected Map<String, SQLEntity> entities=new HashMap<String, SQLEntity>();
 
@@ -73,6 +75,10 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public Collection<SQLEntity> getEntities() {
 		return entities.values();
+	}
+	
+	public List<SQLEntity> getEntitiesAsList() {
+		return new ArrayList<>(entities.values());
 	}
 	
 	public SQLEntity getEntity(String entityClassName) {

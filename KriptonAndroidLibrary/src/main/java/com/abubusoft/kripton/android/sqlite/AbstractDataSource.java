@@ -117,6 +117,12 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		}
 	}
 
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

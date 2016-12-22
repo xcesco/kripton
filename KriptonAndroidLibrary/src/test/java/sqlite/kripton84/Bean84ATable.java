@@ -37,9 +37,9 @@ public class Bean84ATable {
    * DDL to create table bean84_a
    * </p>
    *
-   * <pre>CREATE TABLE bean84_a (ID INTEGER PRIMARY KEY AUTOINCREMENT, COLUMN_LIST_STRING BLOB, COLUMN_MAP_INTEGER_STRING BLOB, COLUMN_ARRAY_CHAR BLOB, COLUMN_ARRAY_CHAR_TYPE BLOB, COLUMN_BEAN BLOB, COLUMN_ARRAY_BYTE_TYPE BLOB, VALUE_STRING TEXT);</pre>
+   * <pre>CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_a (ID INTEGER PRIMARY KEY AUTOINCREMENT, COLUMN_LIST_STRING BLOB, COLUMN_MAP_INTEGER_STRING BLOB, COLUMN_ARRAY_CHAR BLOB, COLUMN_ARRAY_CHAR_TYPE BLOB, COLUMN_BEAN BLOB, COLUMN_ARRAY_BYTE_TYPE BLOB, VALUE_STRING TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);";
 
   /**
    * <p>
@@ -51,60 +51,60 @@ public class Bean84ATable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean84_a;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>ID</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Bean84A#id
    */
-  public static final String COLUMN_ID = "ID";
+  public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>columnListString</code> is associated to table column <code>COLUMN_LIST_STRING</code>. This costant represents column name.
+   * Entity's property <code>columnListString</code> is associated to table column <code>column_list_string</code>. This costant represents column name.
    *
    *  @see Bean84A#columnListString
    */
-  public static final String COLUMN_COLUMN_LIST_STRING = "COLUMN_LIST_STRING";
+  public static final String COLUMN_COLUMN_LIST_STRING = "column_list_string";
 
   /**
-   * Entity's property <code>columnMapIntegerString</code> is associated to table column <code>COLUMN_MAP_INTEGER_STRING</code>. This costant represents column name.
+   * Entity's property <code>columnMapIntegerString</code> is associated to table column <code>column_map_integer_string</code>. This costant represents column name.
    *
    *  @see Bean84A#columnMapIntegerString
    */
-  public static final String COLUMN_COLUMN_MAP_INTEGER_STRING = "COLUMN_MAP_INTEGER_STRING";
+  public static final String COLUMN_COLUMN_MAP_INTEGER_STRING = "column_map_integer_string";
 
   /**
-   * Entity's property <code>columnArrayChar</code> is associated to table column <code>COLUMN_ARRAY_CHAR</code>. This costant represents column name.
+   * Entity's property <code>columnArrayChar</code> is associated to table column <code>column_array_char</code>. This costant represents column name.
    *
    *  @see Bean84A#columnArrayChar
    */
-  public static final String COLUMN_COLUMN_ARRAY_CHAR = "COLUMN_ARRAY_CHAR";
+  public static final String COLUMN_COLUMN_ARRAY_CHAR = "column_array_char";
 
   /**
-   * Entity's property <code>columnArrayCharType</code> is associated to table column <code>COLUMN_ARRAY_CHAR_TYPE</code>. This costant represents column name.
+   * Entity's property <code>columnArrayCharType</code> is associated to table column <code>column_array_char_type</code>. This costant represents column name.
    *
    *  @see Bean84A#columnArrayCharType
    */
-  public static final String COLUMN_COLUMN_ARRAY_CHAR_TYPE = "COLUMN_ARRAY_CHAR_TYPE";
+  public static final String COLUMN_COLUMN_ARRAY_CHAR_TYPE = "column_array_char_type";
 
   /**
-   * Entity's property <code>columnBean</code> is associated to table column <code>COLUMN_BEAN</code>. This costant represents column name.
+   * Entity's property <code>columnBean</code> is associated to table column <code>column_bean</code>. This costant represents column name.
    *
    *  @see Bean84A#columnBean
    */
-  public static final String COLUMN_COLUMN_BEAN = "COLUMN_BEAN";
+  public static final String COLUMN_COLUMN_BEAN = "column_bean";
 
   /**
-   * Entity's property <code>columnArrayByteType</code> is associated to table column <code>COLUMN_ARRAY_BYTE_TYPE</code>. This costant represents column name.
+   * Entity's property <code>columnArrayByteType</code> is associated to table column <code>column_array_byte_type</code>. This costant represents column name.
    *
    *  @see Bean84A#columnArrayByteType
    */
-  public static final String COLUMN_COLUMN_ARRAY_BYTE_TYPE = "COLUMN_ARRAY_BYTE_TYPE";
+  public static final String COLUMN_COLUMN_ARRAY_BYTE_TYPE = "column_array_byte_type";
 
   /**
-   * Entity's property <code>valueString</code> is associated to table column <code>VALUE_STRING</code>. This costant represents column name.
+   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column name.
    *
    *  @see Bean84A#valueString
    */
-  public static final String COLUMN_VALUE_STRING = "VALUE_STRING";
+  public static final String COLUMN_VALUE_STRING = "value_string";
 
   /**
    * write

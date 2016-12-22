@@ -21,6 +21,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
+
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
@@ -38,8 +40,19 @@ public class TestForeignKeyCompile extends AbstractBindSQLiteProcessorTest {
 	 * @throws InstantiationException
 	 */
 	@Test
-	public void testForeignKeyCompile() throws IOException, InstantiationException, IllegalAccessException {
+	public void testForeignKeyCompile1() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(BeanA_1.class, BeanA_2.class, DaoBeanA_1.class, DaoBeanA_2.class, DummyDataSource.class);
+	}
+	
+	@Test
+	public void testForeignKeyCompile2() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(InvalidBeanTypeException.class);
+		buildDataSourceProcessorTest(BeanA_3.class, BeanA_4.class, DaoBeanA_3.class, DaoBeanA_4.class, Dummy2DataSource.class);
+	}
+	
+	@Test
+	public void testForeignKeyCompile3() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(BeanA_5.class, BeanA_6.class, DaoBeanA_5.class, DaoBeanA_6.class, Dummy3DataSource.class);
 	}
 
 }

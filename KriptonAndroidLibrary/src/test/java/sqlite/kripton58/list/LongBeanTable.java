@@ -34,9 +34,9 @@ public class LongBeanTable {
    * DDL to create table long_bean
    * </p>
    *
-   * <pre>CREATE TABLE long_bean (ID INTEGER PRIMARY KEY AUTOINCREMENT, VALUE BLOB, VALUE2 BLOB);</pre>
+   * <pre>CREATE TABLE long_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE long_bean (ID INTEGER PRIMARY KEY AUTOINCREMENT, VALUE BLOB, VALUE2 BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE long_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);";
 
   /**
    * <p>
@@ -48,25 +48,25 @@ public class LongBeanTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS long_bean;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>ID</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see LongBean#id
    */
-  public static final String COLUMN_ID = "ID";
+  public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>value</code> is associated to table column <code>VALUE</code>. This costant represents column name.
+   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
    *
    *  @see LongBean#value
    */
-  public static final String COLUMN_VALUE = "VALUE";
+  public static final String COLUMN_VALUE = "value";
 
   /**
-   * Entity's property <code>value2</code> is associated to table column <code>VALUE2</code>. This costant represents column name.
+   * Entity's property <code>value2</code> is associated to table column <code>value2</code>. This costant represents column name.
    *
    *  @see LongBean#value2
    */
-  public static final String COLUMN_VALUE2 = "VALUE2";
+  public static final String COLUMN_VALUE2 = "value2";
 
   /**
    * write

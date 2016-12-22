@@ -20,9 +20,9 @@ public class BeanA_2Table {
    * DDL to create table bean_a_2
    * </p>
    *
-   * <pre>CREATE TABLE bean_a_2 (PK INTEGER);</pre>
+   * <pre>CREATE TABLE bean_a_2 (pk INTEGER PRIMARY KEY AUTOINCREMENT, value_string2 TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean_a_2 (PK INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean_a_2 (pk INTEGER PRIMARY KEY AUTOINCREMENT, value_string2 TEXT);";
 
   /**
    * <p>
@@ -34,9 +34,16 @@ public class BeanA_2Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean_a_2;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>PK</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>pk</code>. This costant represents column name.
    *
    *  @see BeanA_2#id
    */
-  public static final String COLUMN_ID = "PK";
+  public static final String COLUMN_ID = "pk";
+
+  /**
+   * Entity's property <code>valueString2</code> is associated to table column <code>value_string2</code>. This costant represents column name.
+   *
+   *  @see BeanA_2#valueString2
+   */
+  public static final String COLUMN_VALUE_STRING2 = "value_string2";
 }

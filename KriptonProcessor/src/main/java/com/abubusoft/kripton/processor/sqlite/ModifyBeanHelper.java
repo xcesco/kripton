@@ -219,7 +219,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		}
 
 		if (updateMode) {
-			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
+			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "'%s'");
 			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), where);
 
 			methodBuilder.addJavadoc("<p>SQL Update:</p>\n");

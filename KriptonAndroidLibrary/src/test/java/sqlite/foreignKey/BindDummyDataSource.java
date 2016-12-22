@@ -97,10 +97,10 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",BeanA_1Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanA_1Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_2Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_2Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",BeanA_1Table.CREATE_TABLE_SQL);
+    database.execSQL(BeanA_1Table.CREATE_TABLE_SQL);
   }
 
   /**
@@ -115,10 +115,19 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
     database.execSQL(BeanA_2Table.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",BeanA_1Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanA_1Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_2Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_2Table.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",BeanA_1Table.CREATE_TABLE_SQL);
+    database.execSQL(BeanA_1Table.CREATE_TABLE_SQL);
+  }
+
+  /**
+   * onConfigure
+   */
+  @Override
+  public void onConfigure(SQLiteDatabase database) {
+    // configure database
+    database.setForeignKeyConstraintsEnabled(true);
   }
 
   /**

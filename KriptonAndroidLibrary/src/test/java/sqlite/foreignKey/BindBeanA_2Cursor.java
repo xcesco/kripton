@@ -21,6 +21,11 @@ public class BindBeanA_2Cursor {
   protected int index0;
 
   /**
+   * Index for column "valueString2"
+   */
+  protected int index1;
+
+  /**
    * <p>Constructor</p>
    *
    * @param cursor cursor used to read from database
@@ -38,6 +43,7 @@ public class BindBeanA_2Cursor {
     this.cursor=cursor;
 
     index0=cursor.getColumnIndex("id");
+    index1=cursor.getColumnIndex("value_string2");
 
     return this;
   }
@@ -58,6 +64,7 @@ public class BindBeanA_2Cursor {
         resultBean=new BeanA_2();
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1);}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -79,8 +86,10 @@ public class BindBeanA_2Cursor {
       do
        {
         if (index0>=0) { resultBean.id=0L;}
+        if (index1>=0) { resultBean.valueString2=null;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1);}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());
