@@ -447,7 +447,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   /**
    * write
    */
-  protected static byte[] serializer1(List<Float> value) {
+  private byte[] serializer1(List<Float> value) {
     if (value==null) {
       return null;
     }
@@ -483,7 +483,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   /**
    * parse
    */
-  protected static List<Float> parser1(byte[] input) {
+  private List<Float> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

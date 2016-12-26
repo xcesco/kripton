@@ -49,11 +49,17 @@ public class BindTypeProcessor extends BaseProcessor {
 
 	private BindModel model;
 	
+	private BindSharedPreferencesProcessor sharedPreferencesProcessor=new BindSharedPreferencesProcessor();
+	
+	private BindDataSourceProcessor dataSourceProcessor=new BindDataSourceProcessor();
+	
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
 
 		annotations.add(BindType.class.getCanonicalName());
+		annotations.addAll(sharedPreferencesProcessor.getSupportedAnnotationTypes());
+		annotations.addAll(dataSourceProcessor.getSupportedAnnotationTypes());
 
 		return annotations;
 	}
@@ -61,13 +67,16 @@ public class BindTypeProcessor extends BaseProcessor {
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
+		
+		sharedPreferencesProcessor.init(processingEnv);
+		dataSourceProcessor.init(processingEnv);
 	}
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		try {
 			count++;
-			if (count > 1) {
+			if (count > 1) {								
 				return true;
 			}
 
@@ -97,12 +106,15 @@ public class BindTypeProcessor extends BaseProcessor {
 			}
 
 			if (itemCounter == 0) {
-				warn("No class with %s annotation was found", BindType.class);
+				info("No class with @BindType annotation was found");
 			}
 
 			for (BindEntity item : model.getEntities()) {
 				BindTypeBuilder.generate(elementUtils, filer, item);
 			}
+			
+			sharedPreferencesProcessor.process(annotations, roundEnv);					
+			dataSourceProcessor.process(annotations, roundEnv);
 
 		} catch (Exception e) {
 			String msg = e.getMessage();

@@ -1,5 +1,6 @@
 package sqlite.kripton64;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
@@ -50,11 +51,22 @@ import java.util.Map;
 @BindMap(Bean64.class)
 public class Bean64BindMap extends AbstractMapper<Bean64> {
   /**
+   * Bean64BindMap */
+  private Bean64BindMap bean64BindMap;
+
+  /**
    * create new object instance
    */
   @Override
   public Bean64 createInstance() {
     return new Bean64();
+  }
+
+  private Bean64BindMap bean64BindMap() {
+    if (bean64BindMap==null) {
+      bean64BindMap=AbstractContext.mapperFor(Bean64.class);
+    }
+    return bean64BindMap;
   }
 
   /**
@@ -77,7 +89,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
       if (object.valueBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("valueBean");
-        context.mapperFor(Bean64.class).serializeOnJackson(context, object.valueBean, wrapper);
+        bean64BindMap().serializeOnJackson(context, object.valueBean, wrapper);
       }
 
       // field valueBeanArray (mapped with "valueBeanArray")
@@ -93,7 +105,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean64.class).serializeOnJackson(context, item, wrapper);
+            bean64BindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -268,7 +280,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              context.mapperFor(Bean64.class).serializeOnJackson(context, item.getValue(), wrapper);
+              bean64BindMap().serializeOnJackson(context, item.getValue(), wrapper);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -361,7 +373,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              context.mapperFor(Bean64.class).serializeOnJackson(context, item.getValue(), wrapper);
+              bean64BindMap().serializeOnJackson(context, item.getValue(), wrapper);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -505,7 +517,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
       if (object.valueBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("valueBean");
-        if (context.mapperFor(Bean64.class).serializeOnJacksonAsString(context, object.valueBean, wrapper)==0) {
+        if (bean64BindMap().serializeOnJacksonAsString(context, object.valueBean, wrapper)==0) {
           jacksonSerializer.writeNullField("valueBean");
         }
       }
@@ -524,7 +536,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             if (item==null) {
               jacksonSerializer.writeString("null");
             } else {
-              if (context.mapperFor(Bean64.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
+              if (bean64BindMap().serializeOnJacksonAsString(context, item, wrapper)==0) {
                 jacksonSerializer.writeNullField("valueBeanArray");
               }
             }
@@ -704,7 +716,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
               jacksonSerializer.writeStringField("value", "null");
             } else {
               jacksonSerializer.writeFieldName("value");
-              if (context.mapperFor(Bean64.class).serializeOnJacksonAsString(context, item.getValue(), wrapper)==0) {
+              if (bean64BindMap().serializeOnJacksonAsString(context, item.getValue(), wrapper)==0) {
                 jacksonSerializer.writeNullField("value");
               }
             }
@@ -809,7 +821,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
               jacksonSerializer.writeStringField("value", "null");
             } else {
               jacksonSerializer.writeFieldName("value");
-              if (context.mapperFor(Bean64.class).serializeOnJacksonAsString(context, item.getValue(), wrapper)==0) {
+              if (bean64BindMap().serializeOnJacksonAsString(context, item.getValue(), wrapper)==0) {
                 jacksonSerializer.writeNullField("value");
               }
             }
@@ -972,7 +984,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
       // field valueBean (mapped with "valueBean")
       if (object.valueBean!=null)  {
         xmlSerializer.writeStartElement("valueBean");
-        context.mapperFor(Bean64.class).serializeOnXml(context, object.valueBean, wrapper, 2);
+        bean64BindMap().serializeOnXml(context, object.valueBean, wrapper, 2);
         xmlSerializer.writeEndElement();
       }
 
@@ -986,7 +998,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             xmlSerializer.writeEmptyElement("valueBeanArray");
           } else {
             xmlSerializer.writeStartElement("valueBeanArray");
-            context.mapperFor(Bean64.class).serializeOnXml(context, item, wrapper, 2);
+            bean64BindMap().serializeOnXml(context, item, wrapper, 2);
             xmlSerializer.writeEndElement();
           }
         }
@@ -1195,7 +1207,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             } else {
               if (item.getValue()!=null)  {
                 xmlSerializer.writeStartElement("value");
-                context.mapperFor(Bean64.class).serializeOnXml(context, item.getValue(), wrapper, 2);
+                bean64BindMap().serializeOnXml(context, item.getValue(), wrapper, 2);
                 xmlSerializer.writeEndElement();
               }
             }
@@ -1298,7 +1310,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             } else {
               if (item.getValue()!=null)  {
                 xmlSerializer.writeStartElement("value");
-                context.mapperFor(Bean64.class).serializeOnXml(context, item.getValue(), wrapper, 2);
+                bean64BindMap().serializeOnXml(context, item.getValue(), wrapper, 2);
                 xmlSerializer.writeEndElement();
               }
             }
@@ -1470,7 +1482,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             case "valueBean":
               // field valueBean (mapped with "valueBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                instance.valueBean=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+                instance.valueBean=bean64BindMap().parseOnJackson(context, wrapper);
               }
             break;
             case "valueBeanArray":
@@ -1482,7 +1494,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+                    item=bean64BindMap().parseOnJackson(context, wrapper);
                   }
                   collection.add(item);
                 }
@@ -1651,7 +1663,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                   key=jacksonParser.getText();
                   jacksonParser.nextValue();
                   if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                    value=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+                    value=bean64BindMap().parseOnJackson(context, wrapper);
                   }
                   collection.put(key, value);
                   key=null;
@@ -1736,7 +1748,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                   key=jacksonParser.getText();
                   jacksonParser.nextValue();
                   if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                    value=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+                    value=bean64BindMap().parseOnJackson(context, wrapper);
                   }
                   collection.put(key, value);
                   key=null;
@@ -1884,7 +1896,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
             case "valueBean":
               // field valueBean (mapped with "valueBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-                instance.valueBean=context.mapperFor(Bean64.class).parseOnJacksonAsString(context, wrapper);
+                instance.valueBean=bean64BindMap().parseOnJacksonAsString(context, wrapper);
               }
             break;
             case "valueBeanArray":
@@ -1898,7 +1910,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                     item=null;
                   } else {
-                    item=context.mapperFor(Bean64.class).parseOnJacksonAsString(context, wrapper);
+                    item=bean64BindMap().parseOnJacksonAsString(context, wrapper);
                   }
                   collection.add(item);
                 }
@@ -2101,7 +2113,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                         value=null;
                       } else {
                         if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-                          value=context.mapperFor(Bean64.class).parseOnJacksonAsString(context, wrapper);
+                          value=bean64BindMap().parseOnJacksonAsString(context, wrapper);
                         }
                       }
                     break;
@@ -2221,7 +2233,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                         value=null;
                       } else {
                         if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-                          value=context.mapperFor(Bean64.class).parseOnJacksonAsString(context, wrapper);
+                          value=bean64BindMap().parseOnJacksonAsString(context, wrapper);
                         }
                       }
                     break;
@@ -2408,7 +2420,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                   break;
                   case "valueBean":
                     // property valueBean (mapped on "valueBean")
-                    instance.valueBean=context.mapperFor(Bean64.class).parseOnXml(context, wrapper, eventType);
+                    instance.valueBean=bean64BindMap().parseOnXml(context, wrapper, eventType);
                   break;
                   case "valueBeanArray":
                     // property valueBeanArray (mapped on "valueBeanArray")
@@ -2424,7 +2436,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                         }
                         xmlParser.nextTag();
                       } else {
-                        item=context.mapperFor(Bean64.class).parseOnXml(context, wrapper, eventType);
+                        item=bean64BindMap().parseOnXml(context, wrapper, eventType);
                         collection.add(item);
                       }
                       while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBeanArray")) {
@@ -2432,7 +2444,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                           item=null;
                           xmlParser.nextTag();
                         } else {
-                          item=context.mapperFor(Bean64.class).parseOnXml(context, wrapper, eventType);
+                          item=bean64BindMap().parseOnXml(context, wrapper, eventType);
                         }
                         collection.add(item);
                       }
@@ -2620,7 +2632,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                         value=null;
                         xmlParser.nextTag();
                       } else {
-                        value=context.mapperFor(Bean64.class).parseOnXml(context, wrapper, eventType);
+                        value=bean64BindMap().parseOnXml(context, wrapper, eventType);
                       }
                       xmlParser.nextTag();
                       collection.put(key, value);
@@ -2632,7 +2644,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                           value=null;
                           xmlParser.nextTag();
                         } else {
-                          value=context.mapperFor(Bean64.class).parseOnXml(context, wrapper, eventType);
+                          value=bean64BindMap().parseOnXml(context, wrapper, eventType);
                         }
                         xmlParser.nextTag();
                         collection.put(key, value);
@@ -2757,7 +2769,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                         value=null;
                         xmlParser.nextTag();
                       } else {
-                        value=context.mapperFor(Bean64.class).parseOnXml(context, wrapper, eventType);
+                        value=bean64BindMap().parseOnXml(context, wrapper, eventType);
                       }
                       xmlParser.nextTag();
                       collection.put(key, value);
@@ -2769,7 +2781,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                           value=null;
                           xmlParser.nextTag();
                         } else {
-                          value=context.mapperFor(Bean64.class).parseOnXml(context, wrapper, eventType);
+                          value=bean64BindMap().parseOnXml(context, wrapper, eventType);
                         }
                         xmlParser.nextTag();
                         collection.put(key, value);

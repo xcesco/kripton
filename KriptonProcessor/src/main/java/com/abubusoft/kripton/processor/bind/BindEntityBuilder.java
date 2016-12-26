@@ -74,7 +74,7 @@ public abstract class BindEntityBuilder {
 
 			@Override
 			public BindProperty createProperty(Element element) {
-				return new BindProperty(element);
+				return new BindProperty(currentEntity, element);
 			}
 		}, propertyAnnotationFilter, new PropertyCreatedListener<BindProperty>() {
 

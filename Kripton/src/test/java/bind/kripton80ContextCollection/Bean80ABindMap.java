@@ -1,5 +1,6 @@
 package bind.kripton80ContextCollection;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
@@ -27,11 +28,22 @@ import java.lang.Override;
 @BindMap(Bean80A.class)
 public class Bean80ABindMap extends AbstractMapper<Bean80A> {
   /**
+   * Bean80ABindMap */
+  private Bean80ABindMap bean80ABindMap;
+
+  /**
    * create new object instance
    */
   @Override
   public Bean80A createInstance() {
     return new Bean80A();
+  }
+
+  private Bean80ABindMap bean80ABindMap() {
+    if (bean80ABindMap==null) {
+      bean80ABindMap=AbstractContext.mapperFor(Bean80A.class);
+    }
+    return bean80ABindMap;
   }
 
   /**
@@ -54,7 +66,7 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
       if (object.valueBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("valueBean");
-        context.mapperFor(Bean80A.class).serializeOnJackson(context, object.valueBean, wrapper);
+        bean80ABindMap().serializeOnJackson(context, object.valueBean, wrapper);
       }
 
       // field valueString (mapped with "valueString")
@@ -90,7 +102,7 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
       if (object.valueBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("valueBean");
-        if (context.mapperFor(Bean80A.class).serializeOnJacksonAsString(context, object.valueBean, wrapper)==0) {
+        if (bean80ABindMap().serializeOnJacksonAsString(context, object.valueBean, wrapper)==0) {
           jacksonSerializer.writeNullField("valueBean");
         }
       }
@@ -130,7 +142,7 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
       // field valueBean (mapped with "valueBean")
       if (object.valueBean!=null)  {
         xmlSerializer.writeStartElement("valueBean");
-        context.mapperFor(Bean80A.class).serializeOnXml(context, object.valueBean, wrapper, 2);
+        bean80ABindMap().serializeOnXml(context, object.valueBean, wrapper, 2);
         xmlSerializer.writeEndElement();
       }
 
@@ -179,7 +191,7 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
             case "valueBean":
               // field valueBean (mapped with "valueBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                instance.valueBean=context.mapperFor(Bean80A.class).parseOnJackson(context, wrapper);
+                instance.valueBean=bean80ABindMap().parseOnJackson(context, wrapper);
               }
             break;
             case "valueString":
@@ -228,7 +240,7 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
             case "valueBean":
               // field valueBean (mapped with "valueBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-                instance.valueBean=context.mapperFor(Bean80A.class).parseOnJacksonAsString(context, wrapper);
+                instance.valueBean=bean80ABindMap().parseOnJacksonAsString(context, wrapper);
               }
             break;
             case "valueString":
@@ -286,7 +298,7 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
                   break;
                   case "valueBean":
                     // property valueBean (mapped on "valueBean")
-                    instance.valueBean=context.mapperFor(Bean80A.class).parseOnXml(context, wrapper, eventType);
+                    instance.valueBean=bean80ABindMap().parseOnXml(context, wrapper, eventType);
                   break;
                   case "valueString":
                     // property valueString (mapped on "valueString")

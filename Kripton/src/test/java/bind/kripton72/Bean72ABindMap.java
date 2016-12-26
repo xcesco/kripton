@@ -1,5 +1,6 @@
 package bind.kripton72;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
@@ -42,11 +43,22 @@ import java.util.HashSet;
 @BindMap(Bean72A.class)
 public class Bean72ABindMap extends AbstractMapper<Bean72A> {
   /**
+   * Bean72ABindMap */
+  private Bean72ABindMap bean72ABindMap;
+
+  /**
    * create new object instance
    */
   @Override
   public Bean72A createInstance() {
     return new Bean72A();
+  }
+
+  private Bean72ABindMap bean72ABindMap() {
+    if (bean72ABindMap==null) {
+      bean72ABindMap=AbstractContext.mapperFor(Bean72A.class);
+    }
+    return bean72ABindMap;
   }
 
   /**
@@ -77,7 +89,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean72A.class).serializeOnJackson(context, item, wrapper);
+            bean72ABindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -303,7 +315,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             if (item==null) {
               jacksonSerializer.writeString("null");
             } else {
-              if (context.mapperFor(Bean72A.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
+              if (bean72ABindMap().serializeOnJacksonAsString(context, item, wrapper)==0) {
                 jacksonSerializer.writeNullField("valueBeanSet");
               }
             }
@@ -587,7 +599,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
             xmlSerializer.writeEmptyElement("valueBeanSet");
           } else {
             xmlSerializer.writeStartElement("valueBeanSet");
-            context.mapperFor(Bean72A.class).serializeOnXml(context, item, wrapper, 2);
+            bean72ABindMap().serializeOnXml(context, item, wrapper, 2);
             xmlSerializer.writeEndElement();
           }
         }
@@ -872,7 +884,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=context.mapperFor(Bean72A.class).parseOnJackson(context, wrapper);
+                    item=bean72ABindMap().parseOnJackson(context, wrapper);
                   }
                   collection.add(item);
                 }
@@ -1114,7 +1126,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                     item=null;
                   } else {
-                    item=context.mapperFor(Bean72A.class).parseOnJacksonAsString(context, wrapper);
+                    item=bean72ABindMap().parseOnJacksonAsString(context, wrapper);
                   }
                   collection.add(item);
                 }
@@ -1427,7 +1439,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         }
                         xmlParser.nextTag();
                       } else {
-                        item=context.mapperFor(Bean72A.class).parseOnXml(context, wrapper, eventType);
+                        item=bean72ABindMap().parseOnXml(context, wrapper, eventType);
                         collection.add(item);
                       }
                       while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBeanSet")) {
@@ -1435,7 +1447,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                           item=null;
                           xmlParser.nextTag();
                         } else {
-                          item=context.mapperFor(Bean72A.class).parseOnXml(context, wrapper, eventType);
+                          item=bean72ABindMap().parseOnXml(context, wrapper, eventType);
                         }
                         collection.add(item);
                       }

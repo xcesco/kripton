@@ -467,7 +467,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   /**
    * write
    */
-  protected static byte[] serializer2(Float[] value) {
+  private byte[] serializer2(Float[] value) {
     if (value==null) {
       return null;
     }
@@ -503,7 +503,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   /**
    * parse
    */
-  protected static Float[] parser2(byte[] input) {
+  private Float[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -537,7 +537,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   /**
    * write
    */
-  protected static byte[] serializer1(float[] value) {
+  private byte[] serializer1(float[] value) {
     if (value==null) {
       return null;
     }
@@ -569,7 +569,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   /**
    * parse
    */
-  protected static float[] parser1(byte[] input) {
+  private float[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }

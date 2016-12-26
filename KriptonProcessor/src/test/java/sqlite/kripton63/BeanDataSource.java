@@ -18,7 +18,7 @@ package sqlite.kripton63;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@BindDataSource(value=BeanDao.class, fileName = "dummy" , version=1, asyncTask=true, cursor=true)
+@BindDataSource(dao=BeanDao.class, fileName = "dummy" , version=1, asyncTask=true, cursor=true)
 public interface BeanDataSource {
 
 }

@@ -1,5 +1,6 @@
 package sqlite.kripton84;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -58,6 +59,17 @@ public class Bean84BTable {
   public static final String COLUMN_COLUMN_BEAN = "column_bean";
 
   /**
+   * Bean84B2BindMap */
+  private static Bean84B2BindMap bean84B2BindMap;
+
+  private static Bean84B2BindMap bean84B2BindMap() {
+    if (bean84B2BindMap==null) {
+      bean84B2BindMap=AbstractContext.mapperFor(Bean84B2.class);
+    }
+    return bean84B2BindMap;
+  }
+
+  /**
    * write
    */
   public static byte[] serializeColumnBean(Bean84B2 value) {
@@ -70,7 +82,7 @@ public class Bean84BTable {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        context.mapperFor(Bean84B2.class).serializeOnJackson(context, value, wrapper);
+        bean84B2BindMap().serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
       return stream.toByteArray();
@@ -93,7 +105,7 @@ public class Bean84BTable {
       jacksonParser.nextToken();
       Bean84B2 result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=context.mapperFor(Bean84B2.class).parseOnJackson(context, wrapper);
+        result=bean84B2BindMap().parseOnJackson(context, wrapper);
       }
       return result;
     } catch(Exception e) {

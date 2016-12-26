@@ -2,6 +2,7 @@ package sqlite.kripton60;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -50,6 +51,10 @@ import java.util.TimeZone;
  *  @see BeanTable
  */
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
+  /**
+   * BeanBindMap */
+  private BeanBindMap beanBindMap;
+
   public BeanDaoImpl(BindBeanDataSource dataSet) {
     super(dataSet);
   }
@@ -9791,10 +9796,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     return result;
   }
 
+  private BeanBindMap beanBindMap() {
+    if (beanBindMap==null) {
+      beanBindMap=AbstractContext.mapperFor(Bean.class);
+    }
+    return beanBindMap;
+  }
+
   /**
    * write
    */
-  protected static byte[] serializer2(Bean[] value) {
+  private byte[] serializer2(Bean[] value) {
     if (value==null) {
       return null;
     }
@@ -9814,7 +9826,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean.class).serializeOnJackson(context, item, wrapper);
+            beanBindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -9830,7 +9842,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static Bean[] parser2(byte[] input) {
+  private Bean[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -9849,7 +9861,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+            item=beanBindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }
@@ -9864,7 +9876,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  protected static byte[] serializer4(Long[] value) {
+  private byte[] serializer4(Long[] value) {
     if (value==null) {
       return null;
     }
@@ -9900,7 +9912,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static Long[] parser4(byte[] input) {
+  private Long[] parser4(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -9934,7 +9946,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  protected static byte[] serializer1(Set<String> value) {
+  private byte[] serializer1(Set<String> value) {
     if (value==null) {
       return null;
     }
@@ -9967,7 +9979,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static Set<String> parser1(byte[] input) {
+  private Set<String> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -10001,7 +10013,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  protected static byte[] serializer5(LinkedList<Long> value) {
+  private byte[] serializer5(LinkedList<Long> value) {
     if (value==null) {
       return null;
     }
@@ -10037,7 +10049,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static LinkedList<Long> parser5(byte[] input) {
+  private LinkedList<Long> parser5(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -10071,7 +10083,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  protected static byte[] serializer3(long[] value) {
+  private byte[] serializer3(long[] value) {
     if (value==null) {
       return null;
     }
@@ -10103,7 +10115,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static long[] parser3(byte[] input) {
+  private long[] parser3(byte[] input) {
     if (input==null) {
       return null;
     }

@@ -1,5 +1,6 @@
 package bind.kripton73Array;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
@@ -43,11 +44,22 @@ import java.util.ArrayList;
 @BindMap(Bean73.class)
 public class Bean73BindMap extends AbstractMapper<Bean73> {
   /**
+   * Bean73BindMap */
+  private Bean73BindMap bean73BindMap;
+
+  /**
    * create new object instance
    */
   @Override
   public Bean73 createInstance() {
     return new Bean73();
+  }
+
+  private Bean73BindMap bean73BindMap() {
+    if (bean73BindMap==null) {
+      bean73BindMap=AbstractContext.mapperFor(Bean73.class);
+    }
+    return bean73BindMap;
   }
 
   /**
@@ -81,7 +93,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean73.class).serializeOnJackson(context, item, wrapper);
+            bean73BindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -336,7 +348,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
             if (item==null) {
               jacksonSerializer.writeString("null");
             } else {
-              if (context.mapperFor(Bean73.class).serializeOnJacksonAsString(context, item, wrapper)==0) {
+              if (bean73BindMap().serializeOnJacksonAsString(context, item, wrapper)==0) {
                 jacksonSerializer.writeNullField("valueBeanArray");
               }
             }
@@ -640,7 +652,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
             xmlSerializer.writeEmptyElement("item");
           } else {
             xmlSerializer.writeStartElement("item");
-            context.mapperFor(Bean73.class).serializeOnXml(context, item, wrapper, 2);
+            bean73BindMap().serializeOnXml(context, item, wrapper, 2);
             xmlSerializer.writeEndElement();
           }
         }
@@ -908,7 +920,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                     item=null;
                   } else {
-                    item=context.mapperFor(Bean73.class).parseOnJackson(context, wrapper);
+                    item=bean73BindMap().parseOnJackson(context, wrapper);
                   }
                   collection.add(item);
                 }
@@ -1144,7 +1156,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                   if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                     item=null;
                   } else {
-                    item=context.mapperFor(Bean73.class).parseOnJacksonAsString(context, wrapper);
+                    item=bean73BindMap().parseOnJacksonAsString(context, wrapper);
                   }
                   collection.add(item);
                 }
@@ -1447,7 +1459,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                           item=null;
                           xmlParser.nextTag();
                         } else {
-                          item=context.mapperFor(Bean73.class).parseOnXml(context, wrapper, eventType);
+                          item=bean73BindMap().parseOnXml(context, wrapper, eventType);
                         }
                         collection.add(item);
                       }

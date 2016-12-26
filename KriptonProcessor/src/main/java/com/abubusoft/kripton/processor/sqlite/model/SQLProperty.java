@@ -15,22 +15,14 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
-import java.lang.ref.WeakReference;
-
 import javax.lang.model.element.Element;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
 
 public class SQLProperty extends ManagedModelProperty {
 
 	public SQLProperty(SQLEntity entity, Element element) {
-		super(element);
-		this.parent=new WeakReference<SQLEntity>(entity);
-							
+		super(entity, element);								
 	}
 	
 	/**
@@ -39,13 +31,7 @@ public class SQLProperty extends ManagedModelProperty {
 	public String columnName;
 
 	protected boolean nullable;
-	
-	protected WeakReference<SQLEntity> parent;
-	
-	public SQLEntity getParent()
-	{
-		return parent.get();
-	}
+		
 	
 	/**
 	 * @param primaryKey the primaryKey to set

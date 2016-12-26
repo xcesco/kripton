@@ -74,7 +74,7 @@ public class BindProperty extends ModelProperty {
 		
 		public BindProperty build()
 		{
-			BindProperty property=new BindProperty(null);
+			BindProperty property=new BindProperty(null, null);
 			
 			property.propertyType=new ModelType(rawTypeName);
 			property.order=parentProperty!=null ? parentProperty.order : 0;
@@ -182,8 +182,8 @@ public class BindProperty extends ModelProperty {
 
 	public TypeAdapter typeAdapter;
 
-	public BindProperty(Element element) {
-		super(element);
+	public BindProperty(BindEntity entity, Element element) {
+		super(entity, element);
 		
 		nullable=true;
 		inCollection=false;

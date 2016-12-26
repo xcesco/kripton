@@ -2,6 +2,7 @@ package shared.kripton47;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -37,6 +38,10 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final App47 defaultBean;
+
+  /**
+   * UserAccessTokenBindMap */
+  private UserAccessTokenBindMap userAccessTokenBindMap;
 
   /**
    * constructor
@@ -119,10 +124,17 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
 
   }
 
+  private UserAccessTokenBindMap userAccessTokenBindMap() {
+    if (userAccessTokenBindMap==null) {
+      userAccessTokenBindMap=AbstractContext.mapperFor(UserAccessToken.class);
+    }
+    return userAccessTokenBindMap;
+  }
+
   /**
    * write
    */
-  protected static String serializeUserAccessToken(UserAccessToken value) {
+  protected String serializeUserAccessToken(UserAccessToken value) {
     if (value==null) {
       return null;
     }
@@ -132,7 +144,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        context.mapperFor(UserAccessToken.class).serializeOnJackson(context, value, wrapper);
+        userAccessTokenBindMap().serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -144,7 +156,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static UserAccessToken parseUserAccessToken(String input) {
+  protected UserAccessToken parseUserAccessToken(String input) {
     if (input==null) {
       return null;
     }
@@ -155,7 +167,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       UserAccessToken result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=context.mapperFor(UserAccessToken.class).parseOnJackson(context, wrapper);
+        result=userAccessTokenBindMap().parseOnJackson(context, wrapper);
       }
       return result;
     } catch(Exception e) {

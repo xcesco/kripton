@@ -7,7 +7,7 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindType
 public class Bean8 {
 
-	@BindColumn(ColumnType.PRIMARY_KEY)
+	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long id;
 	
 	public String test;

@@ -25,7 +25,7 @@ package com.abubusoft.kripton.processor.exceptions;
 public class NoDaoElementsFound extends KriptonProcessorException {
 
 	public NoDaoElementsFound() {
-		super("No bean with @Dao annotation is present in to-compile sources");
+		super("No bean with @BindDao annotation is present in to-compile sources");
 	}
 	
 

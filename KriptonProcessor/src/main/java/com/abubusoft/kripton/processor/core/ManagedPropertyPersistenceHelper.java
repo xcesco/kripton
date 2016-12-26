@@ -15,6 +15,7 @@ import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
+import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 public abstract class ManagedPropertyPersistenceHelper {
@@ -35,21 +37,21 @@ public abstract class ManagedPropertyPersistenceHelper {
 	
 	public static String DEFAULT_FIELD_NAME="element";
 
-	public static void generateFieldPersistance(Builder builder, List<? extends ManagedModelProperty> collection, PersistType persistType, boolean forceName, Modifier ... modifiers) {		
+	public static void generateFieldPersistance(BindTypeContext context, List<? extends ManagedModelProperty> collection, PersistType persistType, boolean forceName, Modifier ... modifiers) {		
 		
 		for (ManagedModelProperty property : collection) {
 			if (property.bindProperty != null) {
 				// if defined a forced name, we use it to define every json mapping, to allow comparison with parameters
 				if (forceName) property.bindProperty.label=DEFAULT_FIELD_NAME;
 				
-				generateFieldSerialize(builder, persistType, property.bindProperty, modifiers);
-				generateFieldParser(builder, persistType, property.bindProperty, modifiers);
+				generateFieldSerialize(context, persistType, property.bindProperty, modifiers);
+				generateFieldParser(context, persistType, property.bindProperty, modifiers);
 			}
 		}
 
 	}
 
-	public static void generateFieldSerialize(Builder builder, PersistType persistType, BindProperty property, Modifier ...modifiers) {
+	public static void generateFieldSerialize(BindTypeContext context, PersistType persistType, BindProperty property, Modifier ...modifiers) {
 		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 		String methodName = "serialize" + format.convert(property.getName());
@@ -84,7 +86,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 				
 		BindTransform bindTransform = BindTransformer.lookup(property);
 		String serializerName = "jacksonSerializer";
-		bindTransform.generateSerializeOnJackson(methodBuilder, serializerName, null, "value", property);
+		bindTransform.generateSerializeOnJackson(context, methodBuilder, serializerName, null, "value", property);
 
 		if (!property.isBindedObject()) {
 			methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
@@ -105,10 +107,10 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		context.builder.addMethod(methodBuilder.build());
 	}
 
-	public static void generateFieldParser(Builder builder, PersistType persistType, BindProperty property, Modifier ... modifiers) {
+	public static void generateFieldParser(BindTypeContext context, PersistType persistType, BindProperty property, Modifier ... modifiers) {
 		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parse" + format.convert(property.getName())).addJavadoc("parse\n").returns(typeName(property.getElement()));
@@ -145,7 +147,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 
 		methodBuilder.addStatement("$T result=null", property.getPropertyType().getName());
 
-		bindTransform.generateParseOnJackson(methodBuilder, parserName, null, "result", property);
+		bindTransform.generateParseOnJackson(context, methodBuilder, parserName, null, "result", property);
 
 		methodBuilder.addStatement("return result");
 
@@ -153,16 +155,16 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		context.builder.addMethod(methodBuilder.build());
 
 	}
 
-	public static void generateParamSerializer(Builder builder, String methodName, TypeName parameterTypeName, PersistType persistType) {
+	public static void generateParamSerializer(BindTypeContext context, String methodName, TypeName parameterTypeName, PersistType persistType) {
 		methodName = SQLDaoDefinition.PARAM_SERIALIZER_PREFIX + methodName;
 		
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("write\n").addParameter(ParameterSpec.builder(parameterTypeName, "value").build());
 		
-		methodBuilder.addModifiers(Modifier.PROTECTED, Modifier.STATIC);
+		methodBuilder.addModifiers(context.modifiers);
 		switch (persistType) {
 		case STRING:
 			methodBuilder.returns(className(String.class));
@@ -192,7 +194,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		}
 		
 		BindProperty property=BindProperty.builder(parameterTypeName).inCollection(isInCollection).elementName(DEFAULT_FIELD_NAME).build();		
-		bindTransform.generateSerializeOnJackson(methodBuilder, serializerName, null, "value", property);
+		bindTransform.generateSerializeOnJackson(context, methodBuilder, serializerName, null, "value", property);
 
 		if (!BindTransformer.isBindedObject(parameterTypeName)) {
 			methodBuilder.addStatement("$L.writeEndObject()", serializerName);
@@ -213,15 +215,15 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		context.builder.addMethod(methodBuilder.build());
 
 	}
 	
-	public static void generateParamParser(Builder builder, String methodName, TypeName parameterTypeName, PersistType persistType) {
+	public static void generateParamParser(BindTypeContext context, String methodName, TypeName parameterTypeName, PersistType persistType) {
 		methodName = SQLDaoDefinition.PARAM_PARSER_PREFIX + methodName;
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("parse\n").returns(parameterTypeName);
-		methodBuilder.addModifiers(Modifier.PROTECTED, Modifier.STATIC);
+		methodBuilder.addModifiers(context.modifiers);
 		
 		switch (persistType) {
 		case STRING:
@@ -253,7 +255,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("$T result=null", parameterTypeName);
 
 		BindProperty property=BindProperty.builder(parameterTypeName).inCollection(false).elementName(DEFAULT_FIELD_NAME).build();
-		bindTransform.generateParseOnJackson(methodBuilder, parserName, null, "result", property);
+		bindTransform.generateParseOnJackson(context, methodBuilder, parserName, null, "result", property);
 
 		methodBuilder.addStatement("return result");
 
@@ -261,7 +263,8 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		//typeBuilder.
+		context.builder.addMethod(methodBuilder.build());
 
 	}
 }

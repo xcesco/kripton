@@ -33,6 +33,7 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
@@ -91,7 +92,7 @@ public class BindSharedPreferencesBuilder {
 		
 		String className = PREFIX + beanClassName + suffix;
 		ModelAnnotation annotation = entity.getAnnotation(BindSharedPreferences.class);
-		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_NAME);
+		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
@@ -101,6 +102,9 @@ public class BindSharedPreferencesBuilder {
 		builder = TypeSpec.classBuilder(className)
 				.addModifiers(Modifier.PUBLIC)
 				.superclass(AbstractSharedPreference.class);
+		
+		BindTypeContext context=new BindTypeContext(builder, Modifier.PRIVATE);
+		
 		//@formatter:on
 		builder.addJavadoc("This class is the shared preference binder defined for $T\n\n", entity.getElement());
 		JavadocUtility.generateJavadocGeneratedBy(builder);
@@ -131,7 +135,7 @@ public class BindSharedPreferencesBuilder {
 
 		generateSingleReadMethod(entity);
 		
-		ManagedPropertyPersistenceHelper.generateFieldPersistance(builder, entity.getCollection(), PersistType.STRING, false, Modifier.STATIC, Modifier.PROTECTED);
+		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.STRING, false, Modifier.PROTECTED);
 
 		generateInstance(className);
 

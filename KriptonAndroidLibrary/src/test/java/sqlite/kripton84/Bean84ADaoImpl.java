@@ -457,7 +457,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * write
    */
-  protected static byte[] serializer4(char[] value) {
+  private byte[] serializer4(char[] value) {
     if (value==null) {
       return null;
     }
@@ -489,7 +489,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * parse
    */
-  protected static char[] parser4(byte[] input) {
+  private char[] parser4(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -523,7 +523,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * write
    */
-  protected static byte[] serializer3(Character[] value) {
+  private byte[] serializer3(Character[] value) {
     if (value==null) {
       return null;
     }
@@ -559,7 +559,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * parse
    */
-  protected static Character[] parser3(byte[] input) {
+  private Character[] parser3(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -593,7 +593,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * write
    */
-  protected static byte[] serializer1(List<String> value) {
+  private byte[] serializer1(List<String> value) {
     if (value==null) {
       return null;
     }
@@ -629,7 +629,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * parse
    */
-  protected static List<String> parser1(byte[] input) {
+  private List<String> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -663,7 +663,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * write
    */
-  protected static byte[] serializer2(Map<Integer, String> value) {
+  private byte[] serializer2(Map<Integer, String> value) {
     if (value==null) {
       return null;
     }
@@ -703,7 +703,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * parse
    */
-  protected static Map<Integer, String> parser2(byte[] input) {
+  private Map<Integer, String> parser2(byte[] input) {
     if (input==null) {
       return null;
     }

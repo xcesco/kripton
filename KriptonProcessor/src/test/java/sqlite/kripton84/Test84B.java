@@ -30,7 +30,7 @@ public class Test84B extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean84B.class, Bean84B2.class, Enum84Type.class);
-		buildDataSourceProcessorTest(Bean84BDataSource.class, Bean84BDao.class, Bean84B.class, Enum84Type.class);
+		buildDataSourceProcessorTest(Bean84BDataSource.class, Bean84BDao.class, Bean84B.class, Bean84B2.class,Enum84Type.class);
 	}
 
 }

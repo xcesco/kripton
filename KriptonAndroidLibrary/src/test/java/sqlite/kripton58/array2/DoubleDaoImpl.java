@@ -467,7 +467,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   /**
    * write
    */
-  protected static byte[] serializer1(double[] value) {
+  private byte[] serializer1(double[] value) {
     if (value==null) {
       return null;
     }
@@ -499,7 +499,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   /**
    * parse
    */
-  protected static double[] parser1(byte[] input) {
+  private double[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -533,7 +533,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   /**
    * write
    */
-  protected static byte[] serializer2(Double[] value) {
+  private byte[] serializer2(Double[] value) {
     if (value==null) {
       return null;
     }
@@ -569,7 +569,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   /**
    * parse
    */
-  protected static Double[] parser2(byte[] input) {
+  private Double[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }

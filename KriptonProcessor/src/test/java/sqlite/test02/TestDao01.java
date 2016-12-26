@@ -40,7 +40,7 @@ public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test(expected = AssertionError.class)
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy01Database.class, Bean01.class);
+		buildDataSourceProcessorTest(Dummy01DataSource.class, Bean01.class);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test(expected = AssertionError.class)
 	public void test02() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy02Database.class, Bean02.class, DaoBean02.class);
+		buildDataSourceProcessorTest(Dummy02DataSource.class, Bean02.class, DaoBean02.class);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test(expected = AssertionError.class)
 	public void test03() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy03Database.class, Bean03A.class, DaoBean03.class);
+		buildDataSourceProcessorTest(Dummy03DataSource.class, Bean03A.class, DaoBean03.class, Bean03B.class);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test(expected = AssertionError.class)
 	public void test04() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy04Database.class, Bean04.class, DaoBean04.class);
+		buildDataSourceProcessorTest(Dummy04DataSource.class, Bean04.class, DaoBean04.class);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test(expected = AssertionError.class)
 	public void test05() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy05Database.class, Bean05.class, DaoBean05.class);
+		buildDataSourceProcessorTest(Dummy05DataSource.class, Bean05.class, DaoBean05.class);
 	}
 
 }

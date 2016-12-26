@@ -886,7 +886,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  protected static byte[] serializer2(HashMap<EnumType, Byte> value) {
+  private byte[] serializer2(HashMap<EnumType, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -926,7 +926,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static HashMap<EnumType, Byte> parser2(byte[] input) {
+  private HashMap<EnumType, Byte> parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -968,7 +968,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  protected static byte[] serializer1(Map<String, Byte> value) {
+  private byte[] serializer1(Map<String, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -1008,7 +1008,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static Map<String, Byte> parser1(byte[] input) {
+  private Map<String, Byte> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

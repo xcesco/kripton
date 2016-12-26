@@ -206,7 +206,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeStringArray(String[] value) {
+  protected String serializeStringArray(String[] value) {
     if (value==null) {
       return null;
     }
@@ -243,7 +243,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static String[] parseStringArray(String input) {
+  protected String[] parseStringArray(String input) {
     if (input==null) {
       return null;
     }
@@ -277,7 +277,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeStringList(List<String> value) {
+  protected String serializeStringList(List<String> value) {
     if (value==null) {
       return null;
     }
@@ -314,7 +314,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static List<String> parseStringList(String input) {
+  protected List<String> parseStringList(String input) {
     if (input==null) {
       return null;
     }

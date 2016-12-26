@@ -18,7 +18,10 @@ package com.abubusoft.kripton.processor.bind.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import javax.lang.model.element.Modifier;
+
 import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
+import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
@@ -38,9 +41,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "context.mapperFor($T.class).parseOnXml(context, wrapper, eventType)"), property.getPropertyType().getName());
-
+	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {		
+		String bindName=context.getBindMapperName(context, property);		
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L().parseOnXml(context, wrapper, eventType)"), bindName);
 	}
 	
 	public boolean isTypeAdapterSupported() {
@@ -48,15 +51,16 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		String bindName=context.getBindMapperName(context, property);
+		
 		// @formatter:off
 		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
-
+				
 		methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
-		methodBuilder.addStatement("context.mapperFor($T.class).serializeOnXml(context, $L, wrapper, $L)", property.getPropertyType().getName(), getter(beanName, beanClass, property),
-				XmlPullParser.START_TAG);
+		methodBuilder.addStatement("$L().serializeOnXml(context, $L, wrapper, $L)", bindName, getter(beanName, beanClass, property), XmlPullParser.START_TAG);
 		methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 
 		if (property.isNullable() && !property.isInCollection()) {
@@ -65,7 +69,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 		// @formatter:on
 	}
 
-	void generateSerializeInternal(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+	void generateSerializeInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+		String bindName=context.getBindMapperName(context, property);
+		
 		// @formatter:off
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
@@ -80,13 +86,13 @@ public class ObjectBindTransform extends AbstractBindTransform {
 		}
 
 		if (onString) {
-			methodBuilder.beginControlFlow("if (context.mapperFor($T.class).serializeOnJacksonAsString(context, $L, wrapper)==0)", property.getPropertyType().getName(),
+			methodBuilder.beginControlFlow("if ($L().serializeOnJacksonAsString(context, $L, wrapper)==0)", bindName, 
 					getter(beanName, beanClass, property));
 			// KRITPON-38: in a collection, for null object we write
 			methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.label);
 			methodBuilder.endControlFlow();
 		} else {
-			methodBuilder.addStatement("context.mapperFor($T.class).serializeOnJackson(context, $L, wrapper)", property.getPropertyType().getName(), getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L().serializeOnJackson(context, $L, wrapper)", bindName, getter(beanName, beanClass, property));
 		}
 
 		if (property.isNullable()) {
@@ -96,34 +102,37 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		generateSerializeInternal(methodBuilder, serializerName, beanClass, beanName, property, false);
+	public void generateSerializeOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		generateSerializeInternal(context, methodBuilder, serializerName, beanClass, beanName, property, false);
 	}
 
 	@Override
-	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		generateSerializeInternal(methodBuilder, serializerName, beanClass, beanName, property, true);
+	public void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		generateSerializeInternal(context, methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
 
 	@Override
-	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateParseOnJackson(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		String bindName=context.getBindMapperName(context, property);
+		
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT)", parserName, JsonToken.class);
 		}
 
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "context.mapperFor($T.class).parseOnJackson(context, wrapper)"), property.getPropertyType().getName());
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L().parseOnJackson(context, wrapper)"), bindName);
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
 	}
 
 	@Override
-	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-
+	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		String bindName=context.getBindMapperName(context, property);
+		
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT || $L.currentToken()==$T.VALUE_STRING)", parserName, JsonToken.class, parserName, JsonToken.class);
 		}
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "context.mapperFor($T.class).parseOnJacksonAsString(context, wrapper)"), property.getPropertyType().getName());
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L().parseOnJacksonAsString(context, wrapper)"), bindName);
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}

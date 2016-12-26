@@ -447,7 +447,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   /**
    * write
    */
-  protected static byte[] serializer1(List<Short> value) {
+  private byte[] serializer1(List<Short> value) {
     if (value==null) {
       return null;
     }
@@ -483,7 +483,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   /**
    * parse
    */
-  protected static List<Short> parser1(byte[] input) {
+  private List<Short> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

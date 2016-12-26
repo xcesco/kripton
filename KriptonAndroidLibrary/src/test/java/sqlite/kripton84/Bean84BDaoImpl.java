@@ -2,6 +2,7 @@ package sqlite.kripton84;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -26,6 +27,10 @@ import java.nio.charset.StandardCharsets;
  *  @see Bean84BTable
  */
 public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
+  /**
+   * Bean84B2BindMap */
+  private Bean84B2BindMap bean84B2BindMap;
+
   public Bean84BDaoImpl(BindBean84BDataSource dataSet) {
     super(dataSet);
   }
@@ -213,10 +218,17 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     return result!=0;
   }
 
+  private Bean84B2BindMap bean84B2BindMap() {
+    if (bean84B2BindMap==null) {
+      bean84B2BindMap=AbstractContext.mapperFor(Bean84B2.class);
+    }
+    return bean84B2BindMap;
+  }
+
   /**
    * write
    */
-  protected static byte[] serializer1(Bean84B2 value) {
+  private byte[] serializer1(Bean84B2 value) {
     if (value==null) {
       return null;
     }
@@ -225,7 +237,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
       if (value!=null)  {
-        context.mapperFor(Bean84B2.class).serializeOnJackson(context, value, wrapper);
+        bean84B2BindMap().serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
       return stream.toByteArray();
@@ -237,7 +249,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   /**
    * parse
    */
-  protected static Bean84B2 parser1(byte[] input) {
+  private Bean84B2 parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -250,7 +262,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       jacksonParser.nextValue();
       Bean84B2 result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=context.mapperFor(Bean84B2.class).parseOnJackson(context, wrapper);
+        result=bean84B2BindMap().parseOnJackson(context, wrapper);
       }
       return result;
     } catch(Exception e) {

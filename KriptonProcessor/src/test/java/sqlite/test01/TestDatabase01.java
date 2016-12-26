@@ -29,6 +29,18 @@ import sqlite.AbstractBindSQLiteProcessorTest;
  */
 @RunWith(JUnit4.class)
 public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
+	
+	/**
+	 * No element annotaed 
+	 * 
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test//(expected = AssertionError.class)
+	public void test00() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(Bean01.class);
+	}
 
 	/**
 	 * No @BindType is put in bean definition
@@ -64,7 +76,7 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void test03() throws IOException, InstantiationException, IllegalAccessException {
-		withGeneratedSourceCounter(buildDataSourceProcessorTest(Dummy03Database.class, Bean01.class, Bean02.class), 0);
+		withGeneratedSourceCounter(buildDataSourceProcessorTest(Dummy03Database.class, Bean01.class, Bean02.class), 1);
 	}
 
 	/**

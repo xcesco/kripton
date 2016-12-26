@@ -2,6 +2,7 @@ package shared.kripton47;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -32,6 +33,14 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final Security47 defaultBean;
+
+  /**
+   * DeviceAccessTokenBindMap */
+  private DeviceAccessTokenBindMap deviceAccessTokenBindMap;
+
+  /**
+   * UserIdentityBindMap */
+  private UserIdentityBindMap userIdentityBindMap;
 
   /**
    * constructor
@@ -149,10 +158,17 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
 
   }
 
+  private DeviceAccessTokenBindMap deviceAccessTokenBindMap() {
+    if (deviceAccessTokenBindMap==null) {
+      deviceAccessTokenBindMap=AbstractContext.mapperFor(DeviceAccessToken.class);
+    }
+    return deviceAccessTokenBindMap;
+  }
+
   /**
    * write
    */
-  protected static String serializeAuthorizationToken(DeviceAccessToken value) {
+  protected String serializeAuthorizationToken(DeviceAccessToken value) {
     if (value==null) {
       return null;
     }
@@ -162,7 +178,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        context.mapperFor(DeviceAccessToken.class).serializeOnJackson(context, value, wrapper);
+        deviceAccessTokenBindMap().serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -174,7 +190,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static DeviceAccessToken parseAuthorizationToken(String input) {
+  protected DeviceAccessToken parseAuthorizationToken(String input) {
     if (input==null) {
       return null;
     }
@@ -185,7 +201,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       DeviceAccessToken result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=context.mapperFor(DeviceAccessToken.class).parseOnJackson(context, wrapper);
+        result=deviceAccessTokenBindMap().parseOnJackson(context, wrapper);
       }
       return result;
     } catch(Exception e) {
@@ -193,10 +209,17 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     }
   }
 
+  private UserIdentityBindMap userIdentityBindMap() {
+    if (userIdentityBindMap==null) {
+      userIdentityBindMap=AbstractContext.mapperFor(UserIdentity.class);
+    }
+    return userIdentityBindMap;
+  }
+
   /**
    * write
    */
-  protected static String serializeUserIdentity(UserIdentity value) {
+  protected String serializeUserIdentity(UserIdentity value) {
     if (value==null) {
       return null;
     }
@@ -206,7 +229,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        context.mapperFor(UserIdentity.class).serializeOnJackson(context, value, wrapper);
+        userIdentityBindMap().serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -218,7 +241,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static UserIdentity parseUserIdentity(String input) {
+  protected UserIdentity parseUserIdentity(String input) {
     if (input==null) {
       return null;
     }
@@ -229,7 +252,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       UserIdentity result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=context.mapperFor(UserIdentity.class).parseOnJackson(context, wrapper);
+        result=userIdentityBindMap().parseOnJackson(context, wrapper);
       }
       return result;
     } catch(Exception e) {

@@ -37,7 +37,15 @@ public class UserAccessToken {
 
     private long creationDate;
 
-    public boolean isValid() {
+    public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public void setCreationDate(long creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public boolean isValid() {
         return uid!=null;
     }
 }

@@ -13,6 +13,7 @@ import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.XmlAttributeUtils;
 import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
+import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
@@ -81,16 +82,16 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	}
 
 	@Override
-	public void generateParseOnJackson(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, false);
+	public void generateParseOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, false);
 	}
 
 	@Override
-	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, true);
+	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, true);
 	}
 
-	public void generateParseOnJacksonInternal(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);
 			if (collectionType==CollectionType.ARRAY)
@@ -122,9 +123,9 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 				methodBuilder.nextControlFlow("else");
 				if (onString)
 				{
-					transform.generateParseOnJacksonAsString(methodBuilder, parserName, null, "item", elementProperty);
+					transform.generateParseOnJacksonAsString(context, methodBuilder, parserName, null, "item", elementProperty);
 				} else {
-					transform.generateParseOnJackson(methodBuilder, parserName, null, "item", elementProperty);
+					transform.generateParseOnJackson(context, methodBuilder, parserName, null, "item", elementProperty);
 				}
 				methodBuilder.endControlFlow();
 				methodBuilder.addStatement("collection.add(item)");
@@ -178,7 +179,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	}
 
 	@Override
-	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("");
 		
@@ -213,7 +214,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 				methodBuilder.endControlFlow();
 				methodBuilder.addStatement("$L.nextTag()", parserName);
 			methodBuilder.nextControlFlow("else");
-			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
+			transform.generateParseOnXml(context, methodBuilder, parserName, null, "item", elementProperty);
 			methodBuilder.addStatement("collection.add(item)");
 			methodBuilder.endControlFlow();			
 			
@@ -225,7 +226,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
 			methodBuilder.addStatement("$L.nextTag()", parserName);						
 		methodBuilder.nextControlFlow("else");
-			transform.generateParseOnXml(methodBuilder, parserName, null, "item", elementProperty);
+			transform.generateParseOnXml(context, methodBuilder, parserName, null, "item", elementProperty);
 		methodBuilder.endControlFlow();
 		methodBuilder.addStatement("collection.add(item)");
 		
@@ -255,16 +256,16 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	}
 
 	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, false);
+	public void generateSerializeOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, false);
 	}
 
 	@Override
-	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, true);
+	public void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
 
-	void generateSerializeOnJacksonInternal(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 			if (property!=null && property.isProperty())
@@ -323,9 +324,9 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			}
 					if (onString)
 					{
-						transform.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item", elementProperty);
+						transform.generateSerializeOnJacksonAsString(context, methodBuilder, serializerName, null, "item", elementProperty);
 					} else {
-						transform.generateSerializeOnJackson(methodBuilder, serializerName, null, "item", elementProperty);	
+						transform.generateSerializeOnJackson(context, methodBuilder, serializerName, null, "item", elementProperty);	
 					}
 			if (elementProperty.getPropertyType().isArray() || !elementProperty.getPropertyType().isPrimitive()) {
 				// CASE 1 ASSERT: we are with item of kink array OR we are not manage a simple primitive
@@ -351,7 +352,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	}
 
 	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 			
@@ -400,10 +401,10 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 				methodBuilder.beginControlFlow("if (item==null)");
 					methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.labelItem);
 				methodBuilder.nextControlFlow("else");
-					transform.generateSerializeOnXml(methodBuilder, serializerName, null, "item", elementProperty);
+					transform.generateSerializeOnXml(context, methodBuilder, serializerName, null, "item", elementProperty);
 				methodBuilder.endControlFlow();
 			} else {
-				transform.generateSerializeOnXml(methodBuilder, serializerName, null, "item", elementProperty);
+				transform.generateSerializeOnXml(context, methodBuilder, serializerName, null, "item", elementProperty);
 			}
 				
 			methodBuilder.endControlFlow();

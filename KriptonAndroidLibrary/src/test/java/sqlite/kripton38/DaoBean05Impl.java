@@ -949,7 +949,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * write
    */
-  protected static byte[] serializer1(byte[] value) {
+  private byte[] serializer1(byte[] value) {
     if (value==null) {
       return null;
     }
@@ -972,7 +972,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * parse
    */
-  protected static byte[] parser1(byte[] input) {
+  private byte[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }

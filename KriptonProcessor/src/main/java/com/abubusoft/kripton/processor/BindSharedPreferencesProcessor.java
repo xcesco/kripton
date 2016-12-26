@@ -123,12 +123,11 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 				itemCounter++;
 			}
 
-			if (itemCounter == 0) {
-				warn("No class with %s annotation was found", BindSharedPreferences.class);
-			}
-			
-			for (PrefEntity item : model.getEntities()) {
-				BindSharedPreferencesBuilder.generate(elementUtils, filer, item);
+			if (itemCounter > 0) {
+				//warn("No class with %s annotation was found", BindSharedPreferences.class);
+				for (PrefEntity item : model.getEntities()) {
+					BindSharedPreferencesBuilder.generate(elementUtils, filer, item);
+				}
 			}
 
 		} catch (Exception e) {
@@ -165,7 +164,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 			@Override
 			public PrefProperty createProperty(Element element) {
-				return new PrefProperty(element);
+				return new PrefProperty(currentEntity, element);
 			}
 		}, propertyAnnotationFilter, new PropertyCreatedListener<PrefProperty>() {
 
@@ -219,7 +218,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 					}
 					
 				} else {
-					throw (new KriptonRuntimeException(String.format("In class '%s' property '%s' has a wrong definition for create SharedPreference", sharedPreference.asType() , property.getName())));					
+					throw (new KriptonRuntimeException(String.format("In class '%s' property '%s' has a wrong definition to create SharedPreference", sharedPreference.asType() , property.getName())));					
 				}
 
 				return true;

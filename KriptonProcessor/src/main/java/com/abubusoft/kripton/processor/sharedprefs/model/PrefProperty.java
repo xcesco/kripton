@@ -19,11 +19,12 @@ import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
+import com.abubusoft.kripton.processor.core.ModelEntity;
 
 public class PrefProperty extends ManagedModelProperty {
 
-	public PrefProperty(Element element) {
-		super(element);
+	public PrefProperty(@SuppressWarnings("rawtypes") ModelEntity entity, Element element) {
+		super(entity, element);
 	}
 	
 	/**

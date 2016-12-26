@@ -2,6 +2,7 @@ package sqlite.kripton58.array2;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.kripton58.BeanInner;
+import sqlite.kripton58.BeanInnerBindMap;
 
 /**
  * <p>
@@ -33,6 +35,10 @@ import sqlite.kripton58.BeanInner;
  *  @see BeanBeanTable
  */
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
+  /**
+   * BeanInnerBindMap */
+  private BeanInnerBindMap beanInnerBindMap;
+
   public BeanDaoImpl(BindBeanDataSource dataSet) {
     super(dataSet);
   }
@@ -465,10 +471,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     return result;
   }
 
+  private BeanInnerBindMap beanInnerBindMap() {
+    if (beanInnerBindMap==null) {
+      beanInnerBindMap=AbstractContext.mapperFor(BeanInner.class);
+    }
+    return beanInnerBindMap;
+  }
+
   /**
    * write
    */
-  protected static byte[] serializer1(BeanInner[] value) {
+  private byte[] serializer1(BeanInner[] value) {
     if (value==null) {
       return null;
     }
@@ -488,7 +501,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(BeanInner.class).serializeOnJackson(context, item, wrapper);
+            beanInnerBindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -504,7 +517,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static BeanInner[] parser1(byte[] input) {
+  private BeanInner[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -523,7 +536,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(BeanInner.class).parseOnJackson(context, wrapper);
+            item=beanInnerBindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }

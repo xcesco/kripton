@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor.core;
 
 import java.lang.annotation.Annotation;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,19 @@ import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 
 @BindType
-public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {
+public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {	
+	
+	@SuppressWarnings("rawtypes")
+	protected WeakReference<ModelEntity> parent;
+	
+	@SuppressWarnings("rawtypes")
+	public ModelEntity getParent()
+	{
+		return parent.get();
+	}
 		
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -78,8 +89,11 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		return true;
 	}
 
-	public ModelProperty(Element element) {
+	@SuppressWarnings("rawtypes")
+	public ModelProperty(ModelEntity<?> entity, Element element) {
 		super((element!=null) ? element.getSimpleName().toString() :null, element);
+		
+		this.parent=new WeakReference<ModelEntity>(entity);
 		
 		if (element!=null) {
 			this.propertyType=new ModelType(element.asType());

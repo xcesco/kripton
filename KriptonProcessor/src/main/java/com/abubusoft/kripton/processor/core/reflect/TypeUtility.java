@@ -202,6 +202,12 @@ public class TypeUtility {
 		return classNameWithPrefix(packageName, typeName,"");
 	}
 	
+	public static TypeName mergeTypeName(TypeName typeName, String typeNamePrefix) {
+		ClassName className = className(typeName.toString());
+		
+		return classNameWithPrefix(className.packageName(), className.simpleName(),typeNamePrefix);
+	}
+	
 	/**
 	 * Convert a TypeMirror in a typeName
 	 * 
@@ -431,12 +437,20 @@ public class TypeUtility {
 	 * @param clazz
 	 * @return
 	 */
-	public static String simpleName(TypeName clazz) {
-		return clazz.toString().substring(clazz.toString().lastIndexOf(".") + 1);
+	public static String simpleName(TypeName clazzName) {
+		String clazz=clazzName.toString();
+		int index=clazz.lastIndexOf(".");
+		if (index>0)
+		{
+			return clazz.substring(index+1);
+		}
+		return clazz;
 	}
 
 	public static ArrayTypeName arrayTypeName(Type type) {
 		return ArrayTypeName.of(type);
 	}
+
+
 
 }

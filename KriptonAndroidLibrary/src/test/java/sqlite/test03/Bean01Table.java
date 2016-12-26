@@ -1,5 +1,6 @@
 package sqlite.test03;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -88,6 +89,17 @@ public class Bean01Table {
   public static final String COLUMN_VALUE = "value";
 
   /**
+   * Bean02BindMap */
+  private static Bean02BindMap bean02BindMap;
+
+  private static Bean02BindMap bean02BindMap() {
+    if (bean02BindMap==null) {
+      bean02BindMap=AbstractContext.mapperFor(Bean02.class);
+    }
+    return bean02BindMap;
+  }
+
+  /**
    * write
    */
   public static byte[] serializeLista(List<Bean02> value) {
@@ -111,7 +123,7 @@ public class Bean01Table {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean02.class).serializeOnJackson(context, item, wrapper);
+            bean02BindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -146,7 +158,7 @@ public class Bean01Table {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(Bean02.class).parseOnJackson(context, wrapper);
+            item=bean02BindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }
@@ -182,7 +194,7 @@ public class Bean01Table {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean02.class).serializeOnJackson(context, item, wrapper);
+            bean02BindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -217,7 +229,7 @@ public class Bean01Table {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(Bean02.class).parseOnJackson(context, wrapper);
+            item=bean02BindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }

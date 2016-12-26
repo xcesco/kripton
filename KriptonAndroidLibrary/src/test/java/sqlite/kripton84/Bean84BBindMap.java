@@ -1,5 +1,6 @@
 package sqlite.kripton84;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
@@ -26,11 +27,22 @@ import java.lang.Override;
 @BindMap(Bean84B.class)
 public class Bean84BBindMap extends AbstractMapper<Bean84B> {
   /**
+   * Bean84B2BindMap */
+  private Bean84B2BindMap bean84B2BindMap;
+
+  /**
    * create new object instance
    */
   @Override
   public Bean84B createInstance() {
     return new Bean84B();
+  }
+
+  private Bean84B2BindMap bean84B2BindMap() {
+    if (bean84B2BindMap==null) {
+      bean84B2BindMap=AbstractContext.mapperFor(Bean84B2.class);
+    }
+    return bean84B2BindMap;
   }
 
   /**
@@ -49,7 +61,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
       if (object.columnBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("columnBean");
-        context.mapperFor(Bean84B2.class).serializeOnJackson(context, object.columnBean, wrapper);
+        bean84B2BindMap().serializeOnJackson(context, object.columnBean, wrapper);
       }
 
       // field id (mapped with "id")
@@ -80,7 +92,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
       if (object.columnBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("columnBean");
-        if (context.mapperFor(Bean84B2.class).serializeOnJacksonAsString(context, object.columnBean, wrapper)==0) {
+        if (bean84B2BindMap().serializeOnJacksonAsString(context, object.columnBean, wrapper)==0) {
           jacksonSerializer.writeNullField("columnBean");
         }
       }
@@ -112,7 +124,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
       // field columnBean (mapped with "columnBean")
       if (object.columnBean!=null)  {
         xmlSerializer.writeStartElement("columnBean");
-        context.mapperFor(Bean84B2.class).serializeOnXml(context, object.columnBean, wrapper, 2);
+        bean84B2BindMap().serializeOnXml(context, object.columnBean, wrapper, 2);
         xmlSerializer.writeEndElement();
       }
 
@@ -155,7 +167,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
             case "columnBean":
               // field columnBean (mapped with "columnBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                instance.columnBean=context.mapperFor(Bean84B2.class).parseOnJackson(context, wrapper);
+                instance.columnBean=bean84B2BindMap().parseOnJackson(context, wrapper);
               }
             break;
             case "id":
@@ -198,7 +210,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
             case "columnBean":
               // field columnBean (mapped with "columnBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-                instance.columnBean=context.mapperFor(Bean84B2.class).parseOnJacksonAsString(context, wrapper);
+                instance.columnBean=bean84B2BindMap().parseOnJacksonAsString(context, wrapper);
               }
             break;
             case "id":
@@ -250,7 +262,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
               switch(currentTag) {
                   case "columnBean":
                     // property columnBean (mapped on "columnBean")
-                    instance.columnBean=context.mapperFor(Bean84B2.class).parseOnXml(context, wrapper, eventType);
+                    instance.columnBean=bean84B2BindMap().parseOnXml(context, wrapper, eventType);
                   break;
                   case "id":
                     // property id (mapped on "id")

@@ -155,7 +155,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueMapStringByte(Map<String, Byte> value) {
+  protected String serializeValueMapStringByte(Map<String, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -196,7 +196,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static Map<String, Byte> parseValueMapStringByte(String input) {
+  protected Map<String, Byte> parseValueMapStringByte(String input) {
     if (input==null) {
       return null;
     }
@@ -235,7 +235,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueMapEnumByte(HashMap<EnumType, Byte> value) {
+  protected String serializeValueMapEnumByte(HashMap<EnumType, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -276,7 +276,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static HashMap<EnumType, Byte> parseValueMapEnumByte(String input) {
+  protected HashMap<EnumType, Byte> parseValueMapEnumByte(String input) {
     if (input==null) {
       return null;
     }

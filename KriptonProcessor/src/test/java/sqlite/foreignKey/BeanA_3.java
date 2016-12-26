@@ -2,13 +2,12 @@ package sqlite.foreignKey;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 public class BeanA_3 {
 
-	@BindColumn(name="pk", value=ColumnType.PRIMARY_KEY)
+	@BindColumn(value="pk", columnType=ColumnType.PRIMARY_KEY)
 	public long id;
 	
 	public String valueString2;

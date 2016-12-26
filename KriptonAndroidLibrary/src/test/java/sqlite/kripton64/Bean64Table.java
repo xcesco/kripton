@@ -1,5 +1,6 @@
 package sqlite.kripton64;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.CollectionUtils;
@@ -349,6 +350,10 @@ public class Bean64Table {
    *  @see Bean64#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Bean64BindMap */
+  private static Bean64BindMap bean64BindMap;
 
   /**
    * write
@@ -749,6 +754,13 @@ public class Bean64Table {
     }
   }
 
+  private static Bean64BindMap bean64BindMap() {
+    if (bean64BindMap==null) {
+      bean64BindMap=AbstractContext.mapperFor(Bean64.class);
+    }
+    return bean64BindMap;
+  }
+
   /**
    * write
    */
@@ -773,7 +785,7 @@ public class Bean64Table {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean64.class).serializeOnJackson(context, item, wrapper);
+            bean64BindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -808,7 +820,7 @@ public class Bean64Table {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+            item=bean64BindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }
@@ -1125,7 +1137,7 @@ public class Bean64Table {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              context.mapperFor(Bean64.class).serializeOnJackson(context, item.getValue(), wrapper);
+              bean64BindMap().serializeOnJackson(context, item.getValue(), wrapper);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -1166,7 +1178,7 @@ public class Bean64Table {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+            value=bean64BindMap().parseOnJackson(context, wrapper);
           }
           collection.put(key, value);
           key=null;
@@ -1206,7 +1218,7 @@ public class Bean64Table {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              context.mapperFor(Bean64.class).serializeOnJackson(context, item.getValue(), wrapper);
+              bean64BindMap().serializeOnJackson(context, item.getValue(), wrapper);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -1247,7 +1259,7 @@ public class Bean64Table {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+            value=bean64BindMap().parseOnJackson(context, wrapper);
           }
           collection.put(key, value);
           key=null;

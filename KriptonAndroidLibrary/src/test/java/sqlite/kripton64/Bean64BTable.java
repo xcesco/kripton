@@ -1,5 +1,6 @@
 package sqlite.kripton64;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -76,6 +77,17 @@ public class Bean64BTable {
   public static final String COLUMN_ID = "id";
 
   /**
+   * Bean64BBindMap */
+  private static Bean64BBindMap bean64BBindMap;
+
+  private static Bean64BBindMap bean64BBindMap() {
+    if (bean64BBindMap==null) {
+      bean64BBindMap=AbstractContext.mapperFor(Bean64B.class);
+    }
+    return bean64BBindMap;
+  }
+
+  /**
    * write
    */
   public static byte[] serializeValueMapStringBean(Map<String, Bean64B> value) {
@@ -100,7 +112,7 @@ public class Bean64BTable {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              context.mapperFor(Bean64B.class).serializeOnJackson(context, item.getValue(), wrapper);
+              bean64BBindMap().serializeOnJackson(context, item.getValue(), wrapper);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -141,7 +153,7 @@ public class Bean64BTable {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=context.mapperFor(Bean64B.class).parseOnJackson(context, wrapper);
+            value=bean64BBindMap().parseOnJackson(context, wrapper);
           }
           collection.put(key, value);
           key=null;

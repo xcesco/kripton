@@ -24,7 +24,7 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Bean03 {
 
 	@Bind
-	@BindColumn(ColumnType.PRIMARY_KEY)
+	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	protected Long id;
 
 	/**

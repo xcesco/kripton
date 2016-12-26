@@ -447,7 +447,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   /**
    * write
    */
-  protected static byte[] serializer1(List<Long> value) {
+  private byte[] serializer1(List<Long> value) {
     if (value==null) {
       return null;
     }
@@ -483,7 +483,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   /**
    * parse
    */
-  protected static List<Long> parser1(byte[] input) {
+  private List<Long> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

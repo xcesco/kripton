@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
+import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.xml.MapEntryType;
 import com.fasterxml.jackson.core.JsonToken;
@@ -17,6 +18,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 public class MapBindTransformation extends AbstractBindTransform {
 
@@ -50,7 +52,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateParseOnXml(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("");
 		
@@ -79,21 +81,21 @@ public class MapBindTransformation extends AbstractBindTransform {
 			{
 			case TAG:
 				methodBuilder.addStatement("$L.nextTag()", parserName);
-				transformKey.generateParseOnXml(methodBuilder, parserName, null, "key", elementKeyProperty);
+				transformKey.generateParseOnXml(context, methodBuilder, parserName, null, "key", elementKeyProperty);
 				methodBuilder.addStatement("$L.nextTag()", parserName);
 				methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);
 					methodBuilder.addStatement("value=null");
 					methodBuilder.addStatement("$L.nextTag()", parserName);
 				methodBuilder.nextControlFlow("else");
-					transformValue.generateParseOnXml(methodBuilder, parserName, null, "value", elementValueProperty);
+					transformValue.generateParseOnXml(context, methodBuilder, parserName, null, "value", elementValueProperty);
 				methodBuilder.endControlFlow();
 				methodBuilder.addStatement("$L.nextTag()", parserName);
 				break;
 			case ATTRIBUTE:
 				methodBuilder.addStatement("attributeIndex=$L.getAttributeIndex(null, $S)", parserName, property.mapKeyName);
-				transformKey.generateParseOnXml(methodBuilder, parserName, null, "key", elementKeyProperty);
+				transformKey.generateParseOnXml(context, methodBuilder, parserName, null, "key", elementKeyProperty);
 				methodBuilder.addStatement("attributeIndex=$L.getAttributeIndex(null, $S)", parserName, property.mapValueName);
-				transformValue.generateParseOnXml(methodBuilder, parserName, null, "value", elementValueProperty);
+				transformValue.generateParseOnXml(context, methodBuilder, parserName, null, "value", elementValueProperty);
 				break;
 			}
 			
@@ -105,21 +107,21 @@ public class MapBindTransformation extends AbstractBindTransform {
 		{
 		case TAG:
 			methodBuilder.addStatement("$L.nextTag()", parserName);
-			transformKey.generateParseOnXml(methodBuilder, parserName, null, "key", elementKeyProperty);
+			transformKey.generateParseOnXml(context, methodBuilder, parserName, null, "key", elementKeyProperty);
 			methodBuilder.addStatement("$L.nextTag()", parserName);
 			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);
 				methodBuilder.addStatement("value=null");		
 				methodBuilder.addStatement("$L.nextTag()", parserName);
 			methodBuilder.nextControlFlow("else");
-				transformValue.generateParseOnXml(methodBuilder, parserName, null, "value", elementValueProperty);
+				transformValue.generateParseOnXml(context, methodBuilder, parserName, null, "value", elementValueProperty);
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$L.nextTag()", parserName);
 			break;
 		case ATTRIBUTE:
 			methodBuilder.addStatement("attributeIndex=$L.getAttributeIndex(null, $S)", parserName, property.mapKeyName);
-			transformKey.generateParseOnXml(methodBuilder, parserName, null, "key", elementKeyProperty);
+			transformKey.generateParseOnXml(context, methodBuilder, parserName, null, "key", elementKeyProperty);
 			methodBuilder.addStatement("attributeIndex=$L.getAttributeIndex(null, $S)", parserName, property.mapValueName);
-			transformValue.generateParseOnXml(methodBuilder, parserName, null, "value", elementValueProperty);
+			transformValue.generateParseOnXml(context, methodBuilder, parserName, null, "value", elementValueProperty);
 			break;
 		}
 		
@@ -138,7 +140,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnXml(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 				
@@ -162,17 +164,17 @@ public class MapBindTransformation extends AbstractBindTransform {
 		
 		methodBuilder.addStatement("$L.writeStartElement($S)$>", serializerName, property.xmlInfo.labelItem);
 						
-		transformKey.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
+		transformKey.generateSerializeOnXml(context, methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
 		
 		if (elementValueProperty.isNullable())
 		{
 			methodBuilder.beginControlFlow("if (item.getValue()==null)");
 				methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.mapValueName);
 			methodBuilder.nextControlFlow("else");
-				transformValue.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
+				transformValue.generateSerializeOnXml(context, methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
 			methodBuilder.endControlFlow();
 		} else {
-			transformValue.generateSerializeOnXml(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
+			transformValue.generateSerializeOnXml(context, methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
 		}
 		
 		methodBuilder.addStatement("$<$L.writeEndElement()", serializerName);		
@@ -189,16 +191,16 @@ public class MapBindTransformation extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateSerializeOnJackson(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, false);
+	public void generateSerializeOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, false);
 	}
 
 	@Override
-	public void generateSerializeOnJacksonAsString(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		this.generateSerializeOnJacksonInternal(methodBuilder, serializerName, beanClass, beanName, property, true);
+	public void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
 
-	void generateSerializeOnJacksonInternal(MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		
@@ -227,9 +229,9 @@ public class MapBindTransformation extends AbstractBindTransform {
 			
 				if (onString)
 				{
-					transformKey.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
+					transformKey.generateSerializeOnJacksonAsString(context, methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
 				} else {
-					transformKey.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
+					transformKey.generateSerializeOnJackson(context, methodBuilder, serializerName, null, "item.getKey()", elementKeyProperty);
 				}
 			
 				// field is always nullable
@@ -244,9 +246,9 @@ public class MapBindTransformation extends AbstractBindTransform {
 				methodBuilder.nextControlFlow("else");
 				if (onString)
 				{
-					transformValue.generateSerializeOnJacksonAsString(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);	
+					transformValue.generateSerializeOnJacksonAsString(context, methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);	
 				} else {
-					transformValue.generateSerializeOnJackson(methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
+					transformValue.generateSerializeOnJackson(context, methodBuilder, serializerName, null, "item.getValue()", elementValueProperty);
 				}						
 				methodBuilder.endControlFlow();
 				
@@ -273,17 +275,17 @@ public class MapBindTransformation extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateParseOnJackson(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, false);
+	public void generateParseOnJackson(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, false);
 
 	}
 
 	@Override
-	public void generateParseOnJacksonAsString(MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		generateParseOnJacksonInternal(methodBuilder, parserName, beanClass, beanName, property, true);
+	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, true);
 	}
 
-	public void generateParseOnJacksonInternal(Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);		
 		methodBuilder.addStatement("$T<$T, $T> collection=new $T<>()", defineMapClass(mapTypeName), keyTypeName, valueTypeName, defineMapClass(mapTypeName));
@@ -315,7 +317,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 			methodBuilder.addCode("switch(jacksonParser.getCurrentName()) {\n");
 			methodBuilder.addCode("case $S:$>\n", property.mapKeyName);
 			
-			transformKey.generateParseOnJacksonAsString(methodBuilder, parserName, null, "key", elementKeyProperty);
+			transformKey.generateParseOnJacksonAsString(context, methodBuilder, parserName, null, "key", elementKeyProperty);
 			
 			methodBuilder.addStatement("$<break");
 			methodBuilder.addCode("case $S:$>\n", property.mapValueName);
@@ -324,7 +326,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_STRING && \"null\".equals(tempValue))", parserName, JsonToken.class);
 				methodBuilder.addStatement("value=$L", DEFAULT_VALUE);
 			methodBuilder.nextControlFlow("else");			
-				transformValue.generateParseOnJacksonAsString(methodBuilder, parserName, null, "value", elementValueProperty);			
+				transformValue.generateParseOnJacksonAsString(context, methodBuilder, parserName, null, "value", elementValueProperty);			
 			methodBuilder.endControlFlow();
 			
 			methodBuilder.addStatement("$<break");
@@ -335,11 +337,11 @@ public class MapBindTransformation extends AbstractBindTransform {
 		} else {
 			// key
 			methodBuilder.addStatement("$L.nextValue()", parserName);
-			transformKey.generateParseOnJackson(methodBuilder, parserName, null, "key", elementKeyProperty);
+			transformKey.generateParseOnJackson(context, methodBuilder, parserName, null, "key", elementKeyProperty);
 			
 			// value
 			methodBuilder.addStatement("$L.nextValue()", parserName);
-			transformValue.generateParseOnJackson(methodBuilder, parserName, null, "value", elementValueProperty);
+			transformValue.generateParseOnJackson(context, methodBuilder, parserName, null, "value", elementValueProperty);
 			
 		}
 			methodBuilder.addStatement("collection.put(key, value)");

@@ -701,7 +701,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   /**
    * write
    */
-  protected static byte[] serializer1(HashSet<BigDecimal> value) {
+  private byte[] serializer1(HashSet<BigDecimal> value) {
     if (value==null) {
       return null;
     }
@@ -734,7 +734,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   /**
    * parse
    */
-  protected static HashSet<BigDecimal> parser1(byte[] input) {
+  private HashSet<BigDecimal> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

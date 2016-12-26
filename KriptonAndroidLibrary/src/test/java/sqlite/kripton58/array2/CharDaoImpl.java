@@ -467,7 +467,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
   /**
    * write
    */
-  protected static byte[] serializer1(char[] value) {
+  private byte[] serializer1(char[] value) {
     if (value==null) {
       return null;
     }
@@ -499,7 +499,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
   /**
    * parse
    */
-  protected static char[] parser1(byte[] input) {
+  private char[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -533,7 +533,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
   /**
    * write
    */
-  protected static byte[] serializer2(Character[] value) {
+  private byte[] serializer2(Character[] value) {
     if (value==null) {
       return null;
     }
@@ -569,7 +569,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
   /**
    * parse
    */
-  protected static Character[] parser2(byte[] input) {
+  private Character[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }

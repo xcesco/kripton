@@ -18,7 +18,7 @@ package sqlite.kripton58.array;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@BindDataSource(value=LongDao.class, fileName = "dummy" , version=1, asyncTask=false, cursor=false)
+@BindDataSource(dao=LongDao.class, fileName = "dummy" , version=1, asyncTask=false, cursor=false)
 public interface LongDataSource {
 
 }

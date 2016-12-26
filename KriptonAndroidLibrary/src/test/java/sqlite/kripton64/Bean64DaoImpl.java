@@ -2,6 +2,7 @@ package sqlite.kripton64;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -50,6 +51,10 @@ import java.util.TimeZone;
  *  @see Bean64Table
  */
 public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
+  /**
+   * Bean64BindMap */
+  private Bean64BindMap bean64BindMap;
+
   public Bean64DaoImpl(BindBean64DataSource dataSet) {
     super(dataSet);
   }
@@ -9791,10 +9796,17 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     return result;
   }
 
+  private Bean64BindMap bean64BindMap() {
+    if (bean64BindMap==null) {
+      bean64BindMap=AbstractContext.mapperFor(Bean64.class);
+    }
+    return bean64BindMap;
+  }
+
   /**
    * write
    */
-  protected static byte[] serializer2(Bean64[] value) {
+  private byte[] serializer2(Bean64[] value) {
     if (value==null) {
       return null;
     }
@@ -9814,7 +9826,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean64.class).serializeOnJackson(context, item, wrapper);
+            bean64BindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -9830,7 +9842,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * parse
    */
-  protected static Bean64[] parser2(byte[] input) {
+  private Bean64[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -9849,7 +9861,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+            item=bean64BindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }
@@ -9864,7 +9876,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * write
    */
-  protected static byte[] serializer4(Long[] value) {
+  private byte[] serializer4(Long[] value) {
     if (value==null) {
       return null;
     }
@@ -9900,7 +9912,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * parse
    */
-  protected static Long[] parser4(byte[] input) {
+  private Long[] parser4(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -9934,7 +9946,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * write
    */
-  protected static byte[] serializer1(Set<String> value) {
+  private byte[] serializer1(Set<String> value) {
     if (value==null) {
       return null;
     }
@@ -9967,7 +9979,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * parse
    */
-  protected static Set<String> parser1(byte[] input) {
+  private Set<String> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -10001,7 +10013,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * write
    */
-  protected static byte[] serializer5(LinkedList<Long> value) {
+  private byte[] serializer5(LinkedList<Long> value) {
     if (value==null) {
       return null;
     }
@@ -10037,7 +10049,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * parse
    */
-  protected static LinkedList<Long> parser5(byte[] input) {
+  private LinkedList<Long> parser5(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -10071,7 +10083,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * write
    */
-  protected static byte[] serializer3(long[] value) {
+  private byte[] serializer3(long[] value) {
     if (value==null) {
       return null;
     }
@@ -10103,7 +10115,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * parse
    */
-  protected static long[] parser3(byte[] input) {
+  private long[] parser3(byte[] input) {
     if (input==null) {
       return null;
     }

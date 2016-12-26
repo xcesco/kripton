@@ -47,7 +47,7 @@ public class Test03 extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testSelectCursor() throws IOException, InstantiationException, IllegalAccessException {
-		buildDataSourceProcessorTest(Dummy02DataSource.class, DaoBean02.class, Bean01.class);
+		buildDataSourceProcessorTest(Dummy02DataSource.class, DaoBean02.class, Bean01.class, Bean02.class);
 	}
 
 	@Test

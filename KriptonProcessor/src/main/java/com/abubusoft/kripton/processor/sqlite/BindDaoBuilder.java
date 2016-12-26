@@ -29,6 +29,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
 import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
@@ -85,6 +86,8 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		builder = TypeSpec.classBuilder(classTableName).superclass(AbstractDao.class).addSuperinterface(typeName(value.getElement())).addModifiers(Modifier.PUBLIC);
+		
+		BindTypeContext context=new BindTypeContext(builder, Modifier.PRIVATE);
 
 		// javadoc for class
 		builder.addJavadoc("<p>");
@@ -110,8 +113,8 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		// generate serializer params
 		for (Entry<TypeName, String> item: currentDaoDefinition.managedParams.entrySet())
 		{
-			ManagedPropertyPersistenceHelper.generateParamSerializer(builder, item.getValue(), item.getKey(), PersistType.BYTE);
-			ManagedPropertyPersistenceHelper.generateParamParser(builder, item.getValue(), item.getKey(), PersistType.BYTE);
+			ManagedPropertyPersistenceHelper.generateParamSerializer(context, item.getValue(), item.getKey(), PersistType.BYTE);
+			ManagedPropertyPersistenceHelper.generateParamParser(context, item.getValue(), item.getKey(), PersistType.BYTE);
 		}
 
 		TypeSpec typeSpec = builder.build();

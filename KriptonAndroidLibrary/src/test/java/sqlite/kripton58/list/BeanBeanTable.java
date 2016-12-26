@@ -1,5 +1,6 @@
 package sqlite.kripton58.list;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.kripton58.BeanInner;
+import sqlite.kripton58.BeanInnerBindMap;
 
 /**
  * <p>
@@ -69,6 +71,17 @@ public class BeanBeanTable {
   public static final String COLUMN_VALUE2 = "value2";
 
   /**
+   * BeanInnerBindMap */
+  private static BeanInnerBindMap beanInnerBindMap;
+
+  private static BeanInnerBindMap beanInnerBindMap() {
+    if (beanInnerBindMap==null) {
+      beanInnerBindMap=AbstractContext.mapperFor(BeanInner.class);
+    }
+    return beanInnerBindMap;
+  }
+
+  /**
    * write
    */
   public static byte[] serializeValue(List<BeanInner> value) {
@@ -92,7 +105,7 @@ public class BeanBeanTable {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(BeanInner.class).serializeOnJackson(context, item, wrapper);
+            beanInnerBindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -127,7 +140,7 @@ public class BeanBeanTable {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(BeanInner.class).parseOnJackson(context, wrapper);
+            item=beanInnerBindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }
@@ -163,7 +176,7 @@ public class BeanBeanTable {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(BeanInner.class).serializeOnJackson(context, item, wrapper);
+            beanInnerBindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -198,7 +211,7 @@ public class BeanBeanTable {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(BeanInner.class).parseOnJackson(context, wrapper);
+            item=beanInnerBindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }

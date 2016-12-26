@@ -19,18 +19,12 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
-
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import edu.emory.mathcs.backport.java.util.Collections;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -52,6 +46,10 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Generates database class

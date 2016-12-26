@@ -2,6 +2,7 @@ package sqlite.kripton64;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -65,6 +66,10 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final Bean64 defaultBean;
+
+  /**
+   * Bean64BindMap */
+  private Bean64BindMap bean64BindMap;
 
   /**
    * constructor
@@ -890,7 +895,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueTimeList(List<Time> value) {
+  protected String serializeValueTimeList(List<Time> value) {
     if (value==null) {
       return null;
     }
@@ -927,7 +932,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static List<Time> parseValueTimeList(String input) {
+  protected List<Time> parseValueTimeList(String input) {
     if (input==null) {
       return null;
     }
@@ -961,7 +966,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueStrinList(LinkedList<String> value) {
+  protected String serializeValueStrinList(LinkedList<String> value) {
     if (value==null) {
       return null;
     }
@@ -998,7 +1003,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static LinkedList<String> parseValueStrinList(String input) {
+  protected LinkedList<String> parseValueStrinList(String input) {
     if (input==null) {
       return null;
     }
@@ -1032,7 +1037,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueLongList(LinkedList<Long> value) {
+  protected String serializeValueLongList(LinkedList<Long> value) {
     if (value==null) {
       return null;
     }
@@ -1069,7 +1074,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static LinkedList<Long> parseValueLongList(String input) {
+  protected LinkedList<Long> parseValueLongList(String input) {
     if (input==null) {
       return null;
     }
@@ -1103,7 +1108,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueByteArray(byte[] value) {
+  protected String serializeValueByteArray(byte[] value) {
     if (value==null) {
       return null;
     }
@@ -1127,7 +1132,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static byte[] parseValueByteArray(String input) {
+  protected byte[] parseValueByteArray(String input) {
     if (input==null) {
       return null;
     }
@@ -1148,10 +1153,17 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
   }
 
+  private Bean64BindMap bean64BindMap() {
+    if (bean64BindMap==null) {
+      bean64BindMap=AbstractContext.mapperFor(Bean64.class);
+    }
+    return bean64BindMap;
+  }
+
   /**
    * write
    */
-  protected static String serializeValueBean(Bean64 value) {
+  protected String serializeValueBean(Bean64 value) {
     if (value==null) {
       return null;
     }
@@ -1161,7 +1173,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        context.mapperFor(Bean64.class).serializeOnJackson(context, value, wrapper);
+        bean64BindMap().serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -1173,7 +1185,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static Bean64 parseValueBean(String input) {
+  protected Bean64 parseValueBean(String input) {
     if (input==null) {
       return null;
     }
@@ -1184,7 +1196,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       Bean64 result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+        result=bean64BindMap().parseOnJackson(context, wrapper);
       }
       return result;
     } catch(Exception e) {
@@ -1195,7 +1207,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueLongTypeArray(long[] value) {
+  protected String serializeValueLongTypeArray(long[] value) {
     if (value==null) {
       return null;
     }
@@ -1228,7 +1240,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static long[] parseValueLongTypeArray(String input) {
+  protected long[] parseValueLongTypeArray(String input) {
     if (input==null) {
       return null;
     }
@@ -1262,7 +1274,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueLongArray(Long[] value) {
+  protected String serializeValueLongArray(Long[] value) {
     if (value==null) {
       return null;
     }
@@ -1299,7 +1311,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static Long[] parseValueLongArray(String input) {
+  protected Long[] parseValueLongArray(String input) {
     if (input==null) {
       return null;
     }
@@ -1333,7 +1345,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueBeanArray(Bean64[] value) {
+  protected String serializeValueBeanArray(Bean64[] value) {
     if (value==null) {
       return null;
     }
@@ -1354,7 +1366,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean64.class).serializeOnJackson(context, item, wrapper);
+            bean64BindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -1370,7 +1382,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static Bean64[] parseValueBeanArray(String input) {
+  protected Bean64[] parseValueBeanArray(String input) {
     if (input==null) {
       return null;
     }
@@ -1389,7 +1401,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+            item=bean64BindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }
@@ -1404,7 +1416,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueStringArray(String[] value) {
+  protected String serializeValueStringArray(String[] value) {
     if (value==null) {
       return null;
     }
@@ -1441,7 +1453,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static String[] parseValueStringArray(String input) {
+  protected String[] parseValueStringArray(String input) {
     if (input==null) {
       return null;
     }
@@ -1475,7 +1487,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueCharList(LinkedList<Character> value) {
+  protected String serializeValueCharList(LinkedList<Character> value) {
     if (value==null) {
       return null;
     }
@@ -1512,7 +1524,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static LinkedList<Character> parseValueCharList(String input) {
+  protected LinkedList<Character> parseValueCharList(String input) {
     if (input==null) {
       return null;
     }
@@ -1546,7 +1558,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueCharTypeArray(char[] value) {
+  protected String serializeValueCharTypeArray(char[] value) {
     if (value==null) {
       return null;
     }
@@ -1579,7 +1591,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static char[] parseValueCharTypeArray(String input) {
+  protected char[] parseValueCharTypeArray(String input) {
     if (input==null) {
       return null;
     }
@@ -1613,7 +1625,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueCharArray(Character[] value) {
+  protected String serializeValueCharArray(Character[] value) {
     if (value==null) {
       return null;
     }
@@ -1650,7 +1662,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static Character[] parseValueCharArray(String input) {
+  protected Character[] parseValueCharArray(String input) {
     if (input==null) {
       return null;
     }
@@ -1684,7 +1696,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueMapStringBean(Map<String, Bean64> value) {
+  protected String serializeValueMapStringBean(Map<String, Bean64> value) {
     if (value==null) {
       return null;
     }
@@ -1706,7 +1718,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              context.mapperFor(Bean64.class).serializeOnJackson(context, item.getValue(), wrapper);
+              bean64BindMap().serializeOnJackson(context, item.getValue(), wrapper);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -1726,7 +1738,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static Map<String, Bean64> parseValueMapStringBean(String input) {
+  protected Map<String, Bean64> parseValueMapStringBean(String input) {
     if (input==null) {
       return null;
     }
@@ -1747,7 +1759,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+            value=bean64BindMap().parseOnJackson(context, wrapper);
           }
           collection.put(key, value);
           key=null;
@@ -1765,7 +1777,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueLinkedMapStringBean(LinkedHashMap<String, Bean64> value) {
+  protected String serializeValueLinkedMapStringBean(LinkedHashMap<String, Bean64> value) {
     if (value==null) {
       return null;
     }
@@ -1787,7 +1799,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              context.mapperFor(Bean64.class).serializeOnJackson(context, item.getValue(), wrapper);
+              bean64BindMap().serializeOnJackson(context, item.getValue(), wrapper);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -1807,7 +1819,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static LinkedHashMap<String, Bean64> parseValueLinkedMapStringBean(String input) {
+  protected LinkedHashMap<String, Bean64> parseValueLinkedMapStringBean(String input) {
     if (input==null) {
       return null;
     }
@@ -1828,7 +1840,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=context.mapperFor(Bean64.class).parseOnJackson(context, wrapper);
+            value=bean64BindMap().parseOnJackson(context, wrapper);
           }
           collection.put(key, value);
           key=null;
@@ -1846,7 +1858,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * write
    */
-  protected static String serializeValueSetString(Set<String> value) {
+  protected String serializeValueSetString(Set<String> value) {
     if (value==null) {
       return null;
     }
@@ -1880,7 +1892,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
    * parse
    */
-  protected static Set<String> parseValueSetString(String input) {
+  protected Set<String> parseValueSetString(String input) {
     if (input==null) {
       return null;
     }

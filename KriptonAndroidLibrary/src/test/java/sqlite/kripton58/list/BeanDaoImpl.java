@@ -2,6 +2,7 @@ package sqlite.kripton58.list;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.kripton58.BeanInner;
+import sqlite.kripton58.BeanInnerBindMap;
 
 /**
  * <p>
@@ -32,6 +34,14 @@ import sqlite.kripton58.BeanInner;
  *  @see BeanBeanTable
  */
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
+  /**
+   * BeanBeanBindMap */
+  private BeanBeanBindMap beanBeanBindMap;
+
+  /**
+   * BeanInnerBindMap */
+  private BeanInnerBindMap beanInnerBindMap;
+
   public BeanDaoImpl(BindBeanDataSource dataSet) {
     super(dataSet);
   }
@@ -445,10 +455,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     return result;
   }
 
+  private BeanBeanBindMap beanBeanBindMap() {
+    if (beanBeanBindMap==null) {
+      beanBeanBindMap=AbstractContext.mapperFor(BeanBean.class);
+    }
+    return beanBeanBindMap;
+  }
+
   /**
    * write
    */
-  protected static byte[] serializer1(List<BeanBean> value) {
+  private byte[] serializer1(List<BeanBean> value) {
     if (value==null) {
       return null;
     }
@@ -468,7 +485,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(BeanBean.class).serializeOnJackson(context, item, wrapper);
+            beanBeanBindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -484,7 +501,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static List<BeanBean> parser1(byte[] input) {
+  private List<BeanBean> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -503,7 +520,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(BeanBean.class).parseOnJackson(context, wrapper);
+            item=beanBeanBindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }
@@ -515,10 +532,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
   }
 
+  private BeanInnerBindMap beanInnerBindMap() {
+    if (beanInnerBindMap==null) {
+      beanInnerBindMap=AbstractContext.mapperFor(BeanInner.class);
+    }
+    return beanInnerBindMap;
+  }
+
   /**
    * write
    */
-  protected static byte[] serializer2(List<BeanInner> value) {
+  private byte[] serializer2(List<BeanInner> value) {
     if (value==null) {
       return null;
     }
@@ -538,7 +562,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(BeanInner.class).serializeOnJackson(context, item, wrapper);
+            beanInnerBindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -554,7 +578,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  protected static List<BeanInner> parser2(byte[] input) {
+  private List<BeanInner> parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -573,7 +597,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(BeanInner.class).parseOnJackson(context, wrapper);
+            item=beanInnerBindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }

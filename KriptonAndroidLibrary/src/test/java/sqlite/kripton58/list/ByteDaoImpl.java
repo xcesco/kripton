@@ -447,7 +447,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   /**
    * write
    */
-  protected static byte[] serializer2(List<Byte> value) {
+  private byte[] serializer2(List<Byte> value) {
     if (value==null) {
       return null;
     }
@@ -483,7 +483,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   /**
    * parse
    */
-  protected static List<Byte> parser2(byte[] input) {
+  private List<Byte> parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -517,7 +517,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   /**
    * write
    */
-  protected static byte[] serializer1(List<Short> value) {
+  private byte[] serializer1(List<Short> value) {
     if (value==null) {
       return null;
     }
@@ -553,7 +553,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   /**
    * parse
    */
-  protected static List<Short> parser1(byte[] input) {
+  private List<Short> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

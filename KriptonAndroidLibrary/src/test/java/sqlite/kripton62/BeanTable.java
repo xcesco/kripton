@@ -1,5 +1,6 @@
 package sqlite.kripton62;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.BigDecimalUtils;
@@ -131,6 +132,10 @@ public class BeanTable {
    *  @see Bean#valueEnumTypeSet
    */
   public static final String COLUMN_VALUE_ENUM_TYPE_SET = "value_enum_type_set";
+
+  /**
+   * BeanBindMap */
+  private static BeanBindMap beanBindMap;
 
   /**
    * write
@@ -676,6 +681,13 @@ public class BeanTable {
     }
   }
 
+  private static BeanBindMap beanBindMap() {
+    if (beanBindMap==null) {
+      beanBindMap=AbstractContext.mapperFor(Bean.class);
+    }
+    return beanBindMap;
+  }
+
   /**
    * write
    */
@@ -697,7 +709,7 @@ public class BeanTable {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            context.mapperFor(Bean.class).serializeOnJackson(context, item, wrapper);
+            beanBindMap().serializeOnJackson(context, item, wrapper);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -732,7 +744,7 @@ public class BeanTable {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=context.mapperFor(Bean.class).parseOnJackson(context, wrapper);
+            item=beanBindMap().parseOnJackson(context, wrapper);
           }
           collection.add(item);
         }

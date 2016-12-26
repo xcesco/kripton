@@ -49,14 +49,14 @@ public @interface BindColumn {
 	 * 
 	 * @return name of the column
 	 */
-	public String name() default "";
+	public String value() default "";
 
 	/**
 	 * Type of column
 	 * 
 	 * @return type of the column
 	 */
-	public ColumnType value() default ColumnType.STANDARD;
+	public ColumnType columnType() default ColumnType.STANDARD;
 
 	/**
 	 * if true, column can be set to null

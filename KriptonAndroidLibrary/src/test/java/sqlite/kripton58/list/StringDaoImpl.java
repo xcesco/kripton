@@ -447,7 +447,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   /**
    * write
    */
-  protected static byte[] serializer1(List<String> value) {
+  private byte[] serializer1(List<String> value) {
     if (value==null) {
       return null;
     }
@@ -483,7 +483,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   /**
    * parse
    */
-  protected static List<String> parser1(byte[] input) {
+  private List<String> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

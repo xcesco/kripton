@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.test02;
+package sqlite.test01;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-
-@BindDataSource(value=Bean04.class, fileName = "dummy" , version=1)
-public interface Dummy04Database {
+@BindDataSource(dao=Bean07.class, fileName = "dummy" , version=1)
+public interface Dummy07Database {
 
 }

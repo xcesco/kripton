@@ -25,7 +25,7 @@ public class ChannelMessage extends UidEntity {
 
 	private static final long serialVersionUID = -2411765210163916759L;
 	
-	@BindColumn(ColumnType.PRIMARY_KEY)
+	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	protected long id;
 	
 	protected byte[] image;

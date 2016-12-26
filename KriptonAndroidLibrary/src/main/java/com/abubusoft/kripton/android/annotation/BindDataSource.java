@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 /**
  * <p>Decorate an database schema definition interface. This definition is needed to generate a {@link com.abubusoft.kripton.android.sqlite.AbstractDataSource} instance.</p>
  * 
- * <p>For every managed entity referred in {{@link #value()} attribute, will be used the associated {@link BindDao} definition.
+ * <p>For every managed entity referred in {{@link #dao()} attribute, will be used the associated {@link BindDao} definition.
  * 
  * @author xcesco
  *
@@ -38,7 +38,7 @@ public @interface BindDataSource {
 	 * @return
 	 * 		class to include in the database schema
 	 */
-	Class<?>[] value();
+	Class<?>[] dao();
 	
 	/**
 	 * Name of database file

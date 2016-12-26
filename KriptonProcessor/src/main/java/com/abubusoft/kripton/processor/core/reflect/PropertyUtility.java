@@ -214,7 +214,7 @@ public abstract class PropertyUtility {
 		else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName())+"("+value+")";
 		} else {
-			throw new PropertyVisibilityException(String.format("property '%s' of class '%S' can not be modify",property.getName(), beanClass ));
+			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",property.getName(), property.getParent().getElement().asType()));
 		}
 	}
 

@@ -26,6 +26,7 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
@@ -35,6 +36,7 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
+import com.abubusoft.kripton.processor.exceptions.InvalidForeignKeyTypeException;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -62,7 +64,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	private Converter<String, String> columnNameToLowerCaseConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	public BindTableGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
-		super(elementUtils, filer, model);				
+		super(elementUtils, filer, model);
 	}
 
 	/**
@@ -100,6 +102,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
 		builder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC);
+		
+		BindTypeContext context=new BindTypeContext(builder, Modifier.STATIC, Modifier.PRIVATE);
+		
 		// javadoc for class
 		builder.addJavadoc("<p>");
 		builder.addJavadoc("\nEntity <code>$L</code> is associated to table <code>$L</code>\n", entity.getSimpleName(), entity.getTableName());
@@ -146,7 +151,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				annotationBindColumn = item.getAnnotation(BindColumn.class);
 
 				if (annotationBindColumn != null) {
-					ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_VALUE));
+					ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_COLUMN_TYPE));
 					switch (columnType) {
 					case PRIMARY_KEY:
 						buffer.append(" PRIMARY KEY AUTOINCREMENT");
@@ -167,15 +172,20 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					String foreignClassName = annotationBindColumn.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_FOREIGN_KEY);
 					if (!foreignClassName.equals(NoForeignKey.class.getName())) {
 						SQLEntity reference = model.getEntity(foreignClassName);
-						
-						if (reference==null)
-						{
-							throw new InvalidBeanTypeException(item, foreignClassName); 
+
+						if (reference == null) {
+							throw new InvalidBeanTypeException(item, foreignClassName);
 						}
-						
+
+						// foreign key can ben used only with column type
+						// long/Long
+						if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getName(), Long.class, Long.TYPE)) {
+							throw new InvalidForeignKeyTypeException(item);
+						}
+
 						bufferForeignKey.append(", FOREIGN KEY(" + columnNameToLowerCaseConverter.convert(item.getName()) + ") REFERENCES " + reference.buildTableName(elementUtils, model) + "("
 								+ columnNameToLowerCaseConverter.convert(reference.getPrimaryKey().columnName) + ")");
-						
+
 						entity.referedEntities.add(reference);
 					}
 
@@ -185,7 +195,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 				separator = ", ";
 			}
-			
+
 			buffer.append(bufferForeignKey.toString());
 			buffer.append(")");
 			buffer.append(";");
@@ -219,7 +229,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			item.accept(this);
 		}
 
-		ManagedPropertyPersistenceHelper.generateFieldPersistance(builder, entity.getCollection(), PersistType.BYTE, true, Modifier.STATIC, Modifier.PUBLIC);
+		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.BYTE, true, Modifier.STATIC, Modifier.PUBLIC);
 
 		TypeSpec typeSpec = builder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);

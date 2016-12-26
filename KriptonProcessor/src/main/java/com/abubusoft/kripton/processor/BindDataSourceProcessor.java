@@ -112,7 +112,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 		annotations.add(BindType.class.getCanonicalName());
 		annotations.add(BindDataSource.class.getCanonicalName());
-		annotations.add(BindTable.class.getCanonicalName());
+		//annotations.add(BindTable.class.getCanonicalName());
 		annotations.add(BindDao.class.getCanonicalName());
 
 		return annotations;
@@ -180,10 +180,11 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			if (dataSets.size() == 0)
 				return true;
 
+			// @BindType can be stored in other jars
 			// No bind type is present
-			if (globalBeanElements.size() == 0) {
-				throw (new NoBindTypeElementsFound());
-			}
+//			if (globalBeanElements.size() == 0) {
+//				throw (new NoBindTypeElementsFound());
+//			}
 
 			// No bind type is present
 			if (globalDaoElements.size() == 0) {
@@ -195,7 +196,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 				// get all dao used within SQLDatabaseSchema annotation
 				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource,
-						BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+						BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_DAO);
 
 				// Analyze beans BEFORE daos, because beans are needed for DAO
 				// definition
@@ -329,7 +330,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 						property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn,
 								AnnotationAttributeType.ATTRIBUTE_NULLABLE));
 						ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(
-								elementUtils, property, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_VALUE));
+								elementUtils, property, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_COLUMN_TYPE));
 
 						property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
 
@@ -373,7 +374,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					ModelAnnotation columnAnnotation=property.getAnnotation(BindColumn.class);
 					if (columnAnnotation!=null)
 					{
-						columnName=columnAnnotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_NAME);
+						columnName=columnAnnotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
 					}
 					
 					if (!StringUtils.hasText(columnName))

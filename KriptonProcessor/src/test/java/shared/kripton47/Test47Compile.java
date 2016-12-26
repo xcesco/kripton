@@ -28,13 +28,13 @@ public class Test47Compile extends AbstractBindSharedPreferenceProcessorTest {
 
 	@Test
 	public void testCompileApp() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(App47.class);
+		//buildBindProcessorTest(App47.class);
 		buildSharedPreferencesProcessorTest(App47.class, UserAccessToken.class);
 	}
 
 	@Test
 	public void testCompileSecurity() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
+		//buildBindProcessorTest(DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
 		buildSharedPreferencesProcessorTest(Security47.class, DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);
 	}
 

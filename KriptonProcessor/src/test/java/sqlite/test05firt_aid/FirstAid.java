@@ -25,10 +25,10 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindType
 public class FirstAid {
 
-	@BindColumn(ColumnType.PRIMARY_KEY)
+	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
     public long id;
     
-    @BindColumn(ColumnType.UNIQUE)
+    @BindColumn(columnType = ColumnType.UNIQUE)
     public String uid;
 
     public String description;

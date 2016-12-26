@@ -220,7 +220,7 @@ public class BaseProcessorTest {
 	}
 
 	protected long buildSharedPreferencesProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
-		return buildTest(BindSharedPreferencesProcessor.class, classesToTest);
+		return buildTest(BindTypeProcessor.class, classesToTest);
 	}
 
 	protected long buildBindProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
@@ -228,7 +228,7 @@ public class BaseProcessorTest {
 	}
 
 	protected long buildDataSourceProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
-		return buildTest(BindDataSourceProcessor.class, classesToTest);
+		return buildTest(BindTypeProcessor.class, classesToTest);
 	}
 
 	/**

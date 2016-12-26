@@ -467,7 +467,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   /**
    * write
    */
-  protected static byte[] serializer1(int[] value) {
+  private byte[] serializer1(int[] value) {
     if (value==null) {
       return null;
     }
@@ -499,7 +499,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   /**
    * parse
    */
-  protected static int[] parser1(byte[] input) {
+  private int[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -533,7 +533,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   /**
    * write
    */
-  protected static byte[] serializer2(Integer[] value) {
+  private byte[] serializer2(Integer[] value) {
     if (value==null) {
       return null;
     }
@@ -569,7 +569,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   /**
    * parse
    */
-  protected static Integer[] parser2(byte[] input) {
+  private Integer[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }

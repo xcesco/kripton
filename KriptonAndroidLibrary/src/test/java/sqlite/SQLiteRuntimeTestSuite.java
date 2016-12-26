@@ -19,6 +19,7 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import sqlite.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.kripton64.Test64RuntimeSuite;
 import sqlite.kripton84.Test84RuntimeSuite;
 
@@ -26,7 +27,8 @@ import sqlite.kripton84.Test84RuntimeSuite;
 // @formatter:off
 @Suite.SuiteClasses({ 	
 	Test64RuntimeSuite.class,
-	Test84RuntimeSuite.class
+	Test84RuntimeSuite.class,
+	TestForeignKeyRuntimeSuite.class
 	 })
 // @formatter:on
 public class SQLiteRuntimeTestSuite {

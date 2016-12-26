@@ -1,5 +1,6 @@
 package sqlite.kripton84;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.CollectionUtils;
@@ -105,6 +106,10 @@ public class Bean84ATable {
    *  @see Bean84A#valueString
    */
   public static final String COLUMN_VALUE_STRING = "value_string";
+
+  /**
+   * Bean84ABindMap */
+  private static Bean84ABindMap bean84ABindMap;
 
   /**
    * write
@@ -395,6 +400,13 @@ public class Bean84ATable {
     }
   }
 
+  private static Bean84ABindMap bean84ABindMap() {
+    if (bean84ABindMap==null) {
+      bean84ABindMap=AbstractContext.mapperFor(Bean84A.class);
+    }
+    return bean84ABindMap;
+  }
+
   /**
    * write
    */
@@ -408,7 +420,7 @@ public class Bean84ATable {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        context.mapperFor(Bean84A.class).serializeOnJackson(context, value, wrapper);
+        bean84ABindMap().serializeOnJackson(context, value, wrapper);
       }
       jacksonSerializer.flush();
       return stream.toByteArray();
@@ -431,7 +443,7 @@ public class Bean84ATable {
       jacksonParser.nextToken();
       Bean84A result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=context.mapperFor(Bean84A.class).parseOnJackson(context, wrapper);
+        result=bean84ABindMap().parseOnJackson(context, wrapper);
       }
       return result;
     } catch(Exception e) {

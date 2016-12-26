@@ -28,8 +28,6 @@ import javax.lang.model.element.ExecutableElement;
 public enum AnnotationAttributeType {
 	ATTRIBUTE_ALL_FIELDS("allFields"),
 	
-	ATTRIBUTE_NAME("name"),
-	
 	ATTRIBUTE_RAW_FIELDS("rawFields"),
 	
 	ATTRIBUTE_VALUE("value"),
@@ -58,7 +56,9 @@ public enum AnnotationAttributeType {
 	
 	ATTRIBUTE_ADAPTER("adapter"),
 	ATTRIBUTE_DATA_TYPE("dataType"),
-	ATTRIBUTE_FOREIGN_KEY("foreignKey")
+	ATTRIBUTE_FOREIGN_KEY("foreignKey"),
+	ATTRIBUTE_COLUMN_TYPE("columnType"),
+	ATTRIBUTE_DAO("dao")
 	;
 	
 	

@@ -1,5 +1,6 @@
 package bind.kripton80ContextCollection;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
@@ -37,11 +38,22 @@ import java.lang.Override;
 @BindMap(Bean80.class)
 public class Bean80BindMap extends AbstractMapper<Bean80> {
   /**
+   * Bean80BindMap */
+  private Bean80BindMap bean80BindMap;
+
+  /**
    * create new object instance
    */
   @Override
   public Bean80 createInstance() {
     return new Bean80();
+  }
+
+  private Bean80BindMap bean80BindMap() {
+    if (bean80BindMap==null) {
+      bean80BindMap=AbstractContext.mapperFor(Bean80.class);
+    }
+    return bean80BindMap;
   }
 
   /**
@@ -60,7 +72,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
       if (object.valueBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("valueBean");
-        context.mapperFor(Bean80.class).serializeOnJackson(context, object.valueBean, wrapper);
+        bean80BindMap().serializeOnJackson(context, object.valueBean, wrapper);
       }
 
       // field valueBigDecimal (mapped with "valueBigDecimal")
@@ -243,7 +255,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
       if (object.valueBean!=null)  {
         fieldCount++;
         jacksonSerializer.writeFieldName("valueBean");
-        if (context.mapperFor(Bean80.class).serializeOnJacksonAsString(context, object.valueBean, wrapper)==0) {
+        if (bean80BindMap().serializeOnJacksonAsString(context, object.valueBean, wrapper)==0) {
           jacksonSerializer.writeNullField("valueBean");
         }
       }
@@ -410,7 +422,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
       // field valueBean (mapped with "valueBean")
       if (object.valueBean!=null)  {
         xmlSerializer.writeStartElement("valueBean");
-        context.mapperFor(Bean80.class).serializeOnXml(context, object.valueBean, wrapper, 2);
+        bean80BindMap().serializeOnXml(context, object.valueBean, wrapper, 2);
         xmlSerializer.writeEndElement();
       }
 
@@ -631,7 +643,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
             case "valueBean":
               // field valueBean (mapped with "valueBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                instance.valueBean=context.mapperFor(Bean80.class).parseOnJackson(context, wrapper);
+                instance.valueBean=bean80BindMap().parseOnJackson(context, wrapper);
               }
             break;
             case "valueBigDecimal":
@@ -827,7 +839,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
             case "valueBean":
               // field valueBean (mapped with "valueBean")
               if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-                instance.valueBean=context.mapperFor(Bean80.class).parseOnJacksonAsString(context, wrapper);
+                instance.valueBean=bean80BindMap().parseOnJacksonAsString(context, wrapper);
               }
             break;
             case "valueBigDecimal":
@@ -1032,7 +1044,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
               switch(currentTag) {
                   case "valueBean":
                     // property valueBean (mapped on "valueBean")
-                    instance.valueBean=context.mapperFor(Bean80.class).parseOnXml(context, wrapper, eventType);
+                    instance.valueBean=bean80BindMap().parseOnXml(context, wrapper, eventType);
                   break;
                   case "valueBigDecimal":
                     // property valueBigDecimal (mapped on "valueBigDecimal")

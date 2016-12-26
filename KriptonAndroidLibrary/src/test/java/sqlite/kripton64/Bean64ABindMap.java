@@ -1,5 +1,6 @@
 package sqlite.kripton64;
 
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonXmlContext;
@@ -33,11 +34,22 @@ import java.util.Map;
 @BindMap(Bean64A.class)
 public class Bean64ABindMap extends AbstractMapper<Bean64A> {
   /**
+   * Bean64ABindMap */
+  private Bean64ABindMap bean64ABindMap;
+
+  /**
    * create new object instance
    */
   @Override
   public Bean64A createInstance() {
     return new Bean64A();
+  }
+
+  private Bean64ABindMap bean64ABindMap() {
+    if (bean64ABindMap==null) {
+      bean64ABindMap=AbstractContext.mapperFor(Bean64A.class);
+    }
+    return bean64ABindMap;
   }
 
   /**
@@ -70,7 +82,7 @@ public class Bean64ABindMap extends AbstractMapper<Bean64A> {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              context.mapperFor(Bean64A.class).serializeOnJackson(context, item.getValue(), wrapper);
+              bean64ABindMap().serializeOnJackson(context, item.getValue(), wrapper);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -139,7 +151,7 @@ public class Bean64ABindMap extends AbstractMapper<Bean64A> {
               jacksonSerializer.writeStringField("value", "null");
             } else {
               jacksonSerializer.writeFieldName("value");
-              if (context.mapperFor(Bean64A.class).serializeOnJacksonAsString(context, item.getValue(), wrapper)==0) {
+              if (bean64ABindMap().serializeOnJacksonAsString(context, item.getValue(), wrapper)==0) {
                 jacksonSerializer.writeNullField("value");
               }
             }
@@ -218,7 +230,7 @@ public class Bean64ABindMap extends AbstractMapper<Bean64A> {
             } else {
               if (item.getValue()!=null)  {
                 xmlSerializer.writeStartElement("value");
-                context.mapperFor(Bean64A.class).serializeOnXml(context, item.getValue(), wrapper, 2);
+                bean64ABindMap().serializeOnXml(context, item.getValue(), wrapper, 2);
                 xmlSerializer.writeEndElement();
               }
             }
@@ -299,7 +311,7 @@ public class Bean64ABindMap extends AbstractMapper<Bean64A> {
                   key=jacksonParser.getText();
                   jacksonParser.nextValue();
                   if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                    value=context.mapperFor(Bean64A.class).parseOnJackson(context, wrapper);
+                    value=bean64ABindMap().parseOnJackson(context, wrapper);
                   }
                   collection.put(key, value);
                   key=null;
@@ -395,7 +407,7 @@ public class Bean64ABindMap extends AbstractMapper<Bean64A> {
                         value=null;
                       } else {
                         if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-                          value=context.mapperFor(Bean64A.class).parseOnJacksonAsString(context, wrapper);
+                          value=bean64ABindMap().parseOnJacksonAsString(context, wrapper);
                         }
                       }
                     break;
@@ -499,7 +511,7 @@ public class Bean64ABindMap extends AbstractMapper<Bean64A> {
                         value=null;
                         xmlParser.nextTag();
                       } else {
-                        value=context.mapperFor(Bean64A.class).parseOnXml(context, wrapper, eventType);
+                        value=bean64ABindMap().parseOnXml(context, wrapper, eventType);
                       }
                       xmlParser.nextTag();
                       collection.put(key, value);
@@ -511,7 +523,7 @@ public class Bean64ABindMap extends AbstractMapper<Bean64A> {
                           value=null;
                           xmlParser.nextTag();
                         } else {
-                          value=context.mapperFor(Bean64A.class).parseOnXml(context, wrapper, eventType);
+                          value=bean64ABindMap().parseOnXml(context, wrapper, eventType);
                         }
                         xmlParser.nextTag();
                         collection.put(key, value);
