@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kripton Persistence Library Benchmark</string>
+    <string name="value_prop">Just hit the "Parse Benchmark" or "Serialize Benchmark" button to see how our library stacks up against the library you\'re probably using now.
+    This is a fork of Logan Square Demo project, modified to evalute Kripton.</string>
+    <string name="parse_benchmark">Parse Benchmark</string>
+    <string name="serialize_benchmark">Serialize Benchmark</string>
+
+</resources>
