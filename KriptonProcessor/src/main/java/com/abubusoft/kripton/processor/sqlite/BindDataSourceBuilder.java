@@ -20,7 +20,9 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -244,6 +246,7 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 	private List<SQLEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
 		List<SQLEntity> orderedEntities=new ArrayList<>();
 		List<SQLEntity> entities=schema.getEntitiesAsList();
+		Set<SQLEntity> alreadyUsedEntities=new HashSet<>();
 		Collections.sort(entities, new Comparator<SQLEntity>() {
 
 			@Override
@@ -272,6 +275,7 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			}								
 		}
 
+		//if 
 		
 		//else {
  		//	throw(new CircularRelationshipException(dependencyItem));
