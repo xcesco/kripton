@@ -9826,7 +9826,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            bean64BindMap().serializeOnJackson(context, item, wrapper);
+            bean64BindMap().serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -9861,7 +9861,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=bean64BindMap().parseOnJackson(context, wrapper);
+            item=bean64BindMap().parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

@@ -70,7 +70,7 @@ public class TestRuntime80All extends AbstractBaseTest {
 	}
 
 	@Test
-	public void testRun_1() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRun_1() throws Exception {
 		Assert.assertNotNull(new Bean80BindMap());
 				
 		List<Bean80> list=new ArrayList<>();
@@ -81,7 +81,7 @@ public class TestRuntime80All extends AbstractBaseTest {
 	}
 	
 	@Test(expected=KriptonRuntimeException.class)
-	public void testRun_1_err() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRun_1_err() throws Exception {
 		//this.expectedException(KriptonRuntimeException.class);		
 		Assert.assertNotNull(new Bean80BindMap());
 				
@@ -93,7 +93,7 @@ public class TestRuntime80All extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRun_2() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRun_2() throws Exception {
 		Assert.assertNotNull(new Bean80BindMap());
 				
 		List<Bean80> list=new ArrayList<>();
@@ -104,7 +104,7 @@ public class TestRuntime80All extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRun_3() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRun_3() throws Exception {
 		Assert.assertNotNull(new Bean80BindMap());		
 				
 		check(createBean());

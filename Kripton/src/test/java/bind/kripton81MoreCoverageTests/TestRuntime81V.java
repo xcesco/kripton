@@ -13,7 +13,7 @@ import bind.AbstractBaseTest;
 public class TestRuntime81V extends AbstractBaseTest {
 
 	@Test
-	public void testRuntime0() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime0() throws Exception  {
 		assertTrue(Bean81VBindMap.class.getName()!=null);
 		
 		Bean81V bean=createBean0();
@@ -25,7 +25,7 @@ public class TestRuntime81V extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntime2() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime2() throws Exception  {
 		assertTrue(Bean81V2BindMap.class.getName()!=null);
 		
 		Bean81V2 bean=createBean2();
@@ -37,7 +37,7 @@ public class TestRuntime81V extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntime3() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime3() throws Exception  {
 		assertTrue(Bean81V3BindMap.class.getName()!=null);
 		
 		Bean81V3 bean=createBean3();
@@ -49,7 +49,7 @@ public class TestRuntime81V extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntime4() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime4() throws Exception  {
 		assertTrue(Bean81V4BindMap.class.getName()!=null);
 		
 		Bean81V4 bean=createBean4();

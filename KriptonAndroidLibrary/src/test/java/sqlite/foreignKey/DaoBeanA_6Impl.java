@@ -25,12 +25,13 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value_string2 FROM bean_a_6 WHERE 1=1</pre>
+   * <pre>SELECT id, bean_a2_id, value_string2 FROM bean_a_6 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>bean_a2_id</dt><dd>is associated to bean's property <strong>beanA2Id</strong></dd>
    * 	<dt>value_string2</dt><dd>is associated to bean's property <strong>valueString2</strong></dd>
    * </dl>
    *
@@ -42,8 +43,8 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_6 WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_6 WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, bean_a2_id, value_string2 FROM bean_a_6 WHERE 1=1"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, bean_a2_id, value_string2 FROM bean_a_6 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<BeanA_6> resultList=new LinkedList<BeanA_6>();
@@ -52,14 +53,16 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
     if (cursor.moveToFirst()) {
 
       int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_string2");
+      int index1=cursor.getColumnIndex("bean_a2_id");
+      int index2=cursor.getColumnIndex("value_string2");
 
       do
        {
         resultBean=new BeanA_6();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1); }
+        resultBean.beanA2Id=cursor.getLong(index1);
+        if (!cursor.isNull(index2)) { resultBean.valueString2=cursor.getString(index2); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -72,12 +75,13 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value_string2 FROM bean_a_6 WHERE id=${id}</pre>
+   * <pre>SELECT id, bean_a2_id, value_string2 FROM bean_a_6 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>bean_a2_id</dt><dd>is associated to bean's property <strong>beanA2Id</strong></dd>
    * 	<dt>value_string2</dt><dd>is associated to bean's property <strong>valueString2</strong></dd>
    * </dl>
    *
@@ -97,8 +101,8 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_6 WHERE id='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_6 WHERE id=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, bean_a2_id, value_string2 FROM bean_a_6 WHERE id='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, bean_a2_id, value_string2 FROM bean_a_6 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<BeanA_6> resultList=new LinkedList<BeanA_6>();
@@ -107,14 +111,16 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
     if (cursor.moveToFirst()) {
 
       int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value_string2");
+      int index1=cursor.getColumnIndex("bean_a2_id");
+      int index2=cursor.getColumnIndex("value_string2");
 
       do
        {
         resultBean=new BeanA_6();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1); }
+        resultBean.beanA2Id=cursor.getLong(index1);
+        if (!cursor.isNull(index2)) { resultBean.valueString2=cursor.getString(index2); }
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -178,12 +184,13 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean_a_6 (value_string2) VALUES (${bean.valueString2})</pre>
+   * <pre>INSERT INTO bean_a_6 (bean_a2_id, value_string2) VALUES (${bean.beanA2Id}, ${bean.valueString2})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>bean_a2_id</dt><dd>is mapped to <strong>${bean.beanA2Id}</strong></dd>
    * 	<dt>value_string2</dt><dd>is mapped to <strong>${bean.valueString2}</strong></dd>
    * </dl>
    *
@@ -197,6 +204,12 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
+    if (bean.beanA2Id!=null) {
+      contentValues.put("bean_a2_id", bean.beanA2Id);
+    } else {
+      contentValues.putNull("bean_a2_id");
+    }
+
     if (bean.valueString2!=null) {
       contentValues.put("value_string2", bean.valueString2);
     } else {
@@ -204,7 +217,7 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean_a_6 (value_string2) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string2"))+"')"));
+    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean_a_6 (bean_a2_id, value_string2) VALUES ('"+StringUtils.checkSize(contentValues.get("bean_a2_id"))+"', '"+StringUtils.checkSize(contentValues.get("value_string2"))+"')"));
     long result = database().insert("bean_a_6", null, contentValues);
     bean.id=result;
 
@@ -213,10 +226,11 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
 
   /**
    * <p>SQL Update:</p>
-   * <pre>UPDATE bean_a_6 SET value_string2=${bean.valueString2} WHERE valueString2=${bean.valueString2}</pre>
+   * <pre>UPDATE bean_a_6 SET bean_a2_id=${bean.beanA2Id}, value_string2=${bean.valueString2} WHERE valueString2=${bean.valueString2}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
+   * 	<dt>bean_a2_id</dt><dd>is mapped to <strong>${bean.beanA2Id}</strong></dd>
    * 	<dt>value_string2</dt><dd>is mapped to <strong>${bean.valueString2}</strong></dd>
    * </dl>
    *
@@ -235,6 +249,12 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
+    if (bean.beanA2Id!=null) {
+      contentValues.put("bean_a2_id", bean.beanA2Id);
+    } else {
+      contentValues.putNull("bean_a2_id");
+    }
+
     if (bean.valueString2!=null) {
       contentValues.put("value_string2", bean.valueString2);
     } else {
@@ -243,7 +263,7 @@ public class DaoBeanA_6Impl extends AbstractDao implements DaoBeanA_6 {
 
     String[] whereConditions={(bean.valueString2==null?null:bean.valueString2)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean_a_6 SET value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'"), (Object[])whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean_a_6 SET bean_a2_id='"+StringUtils.checkSize(contentValues.get("bean_a2_id"))+"', value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'"), (Object[])whereConditions);
     int result = database().update("bean_a_6", contentValues, "value_string2=?", whereConditions);
     return result;
   }

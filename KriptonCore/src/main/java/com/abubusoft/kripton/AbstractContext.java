@@ -16,11 +16,17 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
 import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.abubusoft.kripton.persistence.SerializerWrapper;
+import com.fasterxml.jackson.core.io.SegmentedStringWriter;
+import com.fasterxml.jackson.core.util.BufferRecycler;
 
 public abstract class AbstractContext implements BinderContext, BinderBuilder {
 	
 	@SuppressWarnings("rawtypes")
 	static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
+	
+	static final ThreadLocal<BufferRecycler> buffer=new ThreadLocal<BufferRecycler>() {
+		
+	};
 
 	@SuppressWarnings("unchecked")
 	public static <E, M extends BinderMapper<E>> M getMapper(Class<E> cls) {
@@ -82,6 +88,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -90,6 +100,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -98,6 +112,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -106,6 +124,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -114,6 +136,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -125,6 +151,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
 			return result;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -136,6 +166,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
 			return result;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -147,6 +181,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
 			return result;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -158,6 +196,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
 			return result;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -180,19 +222,27 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 	public <E> List<E> parseList(Class<E> type, String source) {
 		return parseCollection(new ArrayList<E>(), type, source);
 	}
-
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public <E> String serialize(E object) {
+	public <E> String serialize(E object) {		
+		
 		if (object == null)
 			return null;
 
-		StringWriter source = new StringWriter();
+		//StringWriter source = new StringWriter();
+		SegmentedStringWriter source=new SegmentedStringWriter(buffer.get());
 		try (SerializerWrapper serializer = createSerializer(source)) {
 			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);				
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 		
-		return source.toString();
+		//return source.toString();
+		return source.getAndClear();
 
 	}
 
@@ -204,6 +254,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 
 		try (SerializerWrapper serializer = createSerializer(source)) {
 			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -215,6 +269,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 
 		try (SerializerWrapper serializer = createSerializer(source)) {
 			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -226,6 +284,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		StringWriter sw = new StringWriter();
 		try (SerializerWrapper serializer = createSerializer(sw)) {
 			mapperFor((Class<E>) objectClazz).serializeCollection(this, serializer, collection);			
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 		return sw.toString();
 	}
@@ -237,6 +299,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 
 		try (SerializerWrapper serializer = createSerializer(source)) {
 			mapperFor(objectClazz).serializeCollection(this, serializer, collection);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 
@@ -247,6 +313,10 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 
 		try (SerializerWrapper serializer = createSerializer(source)) {
 			mapperFor(objectClazz).serializeCollection(this, serializer, collection);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
 		}
 	}
 

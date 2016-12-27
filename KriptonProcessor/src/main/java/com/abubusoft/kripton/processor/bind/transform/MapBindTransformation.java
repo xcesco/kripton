@@ -9,10 +9,10 @@ import java.util.Map.Entry;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.xml.MapEntryType;
+import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;

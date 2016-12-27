@@ -420,7 +420,7 @@ public class Bean84ATable {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        bean84ABindMap().serializeOnJackson(context, value, wrapper);
+        bean84ABindMap().serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toByteArray();
@@ -443,7 +443,7 @@ public class Bean84ATable {
       jacksonParser.nextToken();
       Bean84A result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=bean84ABindMap().parseOnJackson(context, wrapper);
+        result=bean84ABindMap().parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {

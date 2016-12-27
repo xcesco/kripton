@@ -1,14 +1,14 @@
 package com.abubusoft.kripton.persistence;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.persistence.xml.internal.MXSerializer;
+import com.abubusoft.kripton.xml.XMLSerializer;
 
 public class XmlWrapperSerializer implements SerializerWrapper {
 
-	public XmlSerializer xmlSerializer;
+	public XMLSerializer xmlSerializer;
 	
-	public XmlWrapperSerializer(MXSerializer xmlSerializer) {
-		this.xmlSerializer = new XmlSerializer(xmlSerializer);
+	public XmlWrapperSerializer(XMLSerializer xmlSerializer) {
+		this.xmlSerializer = xmlSerializer;
 	}
 
 	@Override

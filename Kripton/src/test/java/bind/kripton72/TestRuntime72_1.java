@@ -1,6 +1,5 @@
 package bind.kripton72;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashSet;
@@ -15,13 +14,10 @@ public class TestRuntime72_1 extends AbstractBaseTest {
 
 	/**
 	 * Test all elements filled
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * @throws Exception 
 	 */
 	@Test
-	public void testAllFilledRun() throws IOException, InstantiationException, IllegalAccessException
+	public void testAllFilledRun() throws Exception
 	{
 		Assert.assertNotNull(new Bean72BindMap());
 		

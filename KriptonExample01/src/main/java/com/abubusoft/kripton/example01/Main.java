@@ -6,7 +6,7 @@ import com.abubusoft.kripton.KriptonXmlContext;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Bean bean = new Bean();
 		bean.description = "hello";
 

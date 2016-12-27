@@ -14,7 +14,7 @@ import bind.AbstractBaseTest;
 public class TestRuntime80A extends AbstractBaseTest {
 
 	@Test
-	public void testRun_1() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRun_1() throws Exception {
 		Assert.assertNotNull(new Bean80ABindMap());
 				
 		List<Bean80A> list=new ArrayList<>();
@@ -25,7 +25,7 @@ public class TestRuntime80A extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRun_2() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRun_2() throws Exception {
 		Assert.assertNotNull(new Bean80ABindMap());
 		
 		check(createBean());		

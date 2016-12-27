@@ -11,7 +11,7 @@ import bind.AbstractBaseTest;
 public class TestRuntime81C extends AbstractBaseTest {
 
 	@Test
-	public void testRuntime() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime() throws Exception {
 		assertTrue(Bean81CBindMap.class.getName()!=null);
 		
 		Bean81C bean=createBean();

@@ -11,13 +11,10 @@ public class TestRuntime72A_3 extends AbstractBaseTest {
 
 	/**
 	 * Test all collection null
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * @throws Exception 
 	 */
 	@Test
-	public void testWithNullCollectionsRun() throws IOException, InstantiationException, IllegalAccessException
+	public void testWithNullCollectionsRun() throws Exception
 	{
 		Assert.assertNotNull(new Bean72ABindMap());
 		

@@ -36,9 +36,10 @@ public class BindTypeContext {
 			alreadyGeneratedMethods.add(simpleName);
 			context.builder.addField(FieldSpec.builder(bindMapperName, simpleName, modifiers)					
 					.addJavadoc("$T", bindMapperName)
+					.initializer("$T.mapperFor($T.class)", AbstractContext.class, property.getPropertyType().getName())
 					.build());
 			
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(simpleName)					
+			/*MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(simpleName)					
 					.addModifiers(modifiers)
 					.returns(bindMapperName);
 			methodBuilder.beginControlFlow("if ($L==null)", simpleName);
@@ -46,7 +47,7 @@ public class BindTypeContext {
 			methodBuilder.endControlFlow();
 			
 			methodBuilder.addStatement("return $L", simpleName);
-			context.builder.addMethod(methodBuilder.build());
+			context.builder.addMethod(methodBuilder.build());*/
 		}
 		
 		return simpleName;

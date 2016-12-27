@@ -709,7 +709,7 @@ public class Bean2Table {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanBindMap().serializeOnJackson(context, item, wrapper);
+            beanBindMap().serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -744,7 +744,7 @@ public class Bean2Table {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanBindMap().parseOnJackson(context, wrapper);
+            item=beanBindMap().parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

@@ -112,7 +112,7 @@ public class Bean64ATable {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              bean64ABindMap().serializeOnJackson(context, item.getValue(), wrapper);
+              bean64ABindMap().serializeOnJackson(item.getValue(), jacksonSerializer);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -153,7 +153,7 @@ public class Bean64ATable {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=bean64ABindMap().parseOnJackson(context, wrapper);
+            value=bean64ABindMap().parseOnJackson(jacksonParser);
           }
           collection.put(key, value);
           key=null;

@@ -178,7 +178,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        deviceAccessTokenBindMap().serializeOnJackson(context, value, wrapper);
+        deviceAccessTokenBindMap().serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -201,7 +201,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       DeviceAccessToken result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=deviceAccessTokenBindMap().parseOnJackson(context, wrapper);
+        result=deviceAccessTokenBindMap().parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {
@@ -229,7 +229,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        userIdentityBindMap().serializeOnJackson(context, value, wrapper);
+        userIdentityBindMap().serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -252,7 +252,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       UserIdentity result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=userIdentityBindMap().parseOnJackson(context, wrapper);
+        result=userIdentityBindMap().parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {

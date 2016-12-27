@@ -10,6 +10,9 @@ public class BeanA_6 {
 	@BindColumn(value="pk", columnType=ColumnType.PRIMARY_KEY)
 	public long id;
 	
+	@BindColumn(foreignKey=BeanA_5.class, nullable=false)
+	public Long beanA2Id;
+	
 	public String valueString2;
 
 	@Override

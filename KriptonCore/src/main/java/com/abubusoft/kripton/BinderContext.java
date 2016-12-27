@@ -39,15 +39,15 @@ public interface BinderContext {
 
 	<E> String serialize(E object);
 	
-	<E> void serialize(E object, File source);
+	<E> void serialize(E object, File source) throws Exception;
 
-	<E> void serialize(E object, OutputStream os);
+	<E> void serialize(E object, OutputStream os) throws Exception;
 
-	<E> String serializeCollection(Collection<E> list, Class<E> objectClazz);
+	<E> String serializeCollection(Collection<E> list, Class<E> objectClazz) throws Exception;
 	
-	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream source);
+	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream source) throws Exception;
 	
-	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, File source);
+	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, File source) throws Exception;
 	
 
 }

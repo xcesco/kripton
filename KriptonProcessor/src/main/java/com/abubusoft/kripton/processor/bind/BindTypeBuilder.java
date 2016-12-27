@@ -30,21 +30,13 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.common.CaseFormat;
-import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.persistence.XmlSerializer;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
-import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
@@ -52,15 +44,16 @@ import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.abubusoft.kripton.xml.XMLParser;
+import com.abubusoft.kripton.xml.XMLSerializer;
+import com.abubusoft.kripton.xml.XmlPullParser;
 import com.abubusoft.kripton.xml.XmlType;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -121,9 +114,6 @@ public abstract class BindTypeBuilder {
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc("@see $T\n", item.getElement());
 
-		// createInstance
-		generateCreateInstance(context, item);
-
 		// order item by order, property name
 		Collections.sort(item.getCollection(), new Comparator<BindProperty>() {
 
@@ -179,16 +169,6 @@ public abstract class BindTypeBuilder {
 	}
 
 	/**
-	 * @param item
-	 */
-	private static void generateCreateInstance(BindTypeContext context, BindEntity item) {
-		MethodSpec.Builder method = MethodSpec.methodBuilder("createInstance").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addJavadoc("create new object instance\n")
-				.returns(typeName(item.getElement()));
-		method.addStatement("return new $T()", typeName(item.getElement()));
-		context.builder.addMethod(method.build());
-	}
-
-	/**
 	 * <p>
 	 * Generate method to parse xml stream.
 	 * </p>
@@ -198,14 +178,19 @@ public abstract class BindTypeBuilder {
 	 */
 	private static void generateParseOnXml(BindTypeContext context, BindEntity bean) {
 		// @formatter:off
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnXml").addJavadoc("create new object instance\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(KriptonXmlContext.class), "context").addParameter(typeName(XmlWrapperParser.class), "wrapper").addParameter(typeName(Integer.TYPE), "currentEventType")
-				.returns(typeName(bean.getElement()));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnXml")
+				.addJavadoc("create new object instance\n")
+				.addAnnotation(Override.class)
+				.addModifiers(Modifier.PUBLIC)
+					//.addParameter(typeName(KriptonXmlContext.class), "context")
+					.addParameter(typeName(XMLParser.class), "xmlParser")
+					.addParameter(typeName(Integer.TYPE), "currentEventType")
+				.returns(typeName(bean.getElement())).addException(Exception.class);
 		// @formatter:on
 
-		methodBuilder.beginControlFlow("try");
-		methodBuilder.addStatement("$T xmlParser = wrapper.xmlParser", XmlPullParser.class);
-		methodBuilder.addStatement("$T instance = createInstance()", bean.getElement());
+		//methodBuilder.beginControlFlow("try");
+		//methodBuilder.addStatement("$T xmlParser = wrapper.xmlParser", XmlPullParser.class);		
+		methodBuilder.addStatement("$T instance = new $T()", bean.getElement(), bean.getElement());
 		methodBuilder.addStatement("int eventType = currentEventType");
 		methodBuilder.addStatement("boolean read=true");
 
@@ -224,7 +209,6 @@ public abstract class BindTypeBuilder {
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("//sub-elements\n");
 		methodBuilder.beginControlFlow("while (xmlParser.hasNext() && elementName!=null)");
-		// methodBuilder.beginControlFlow("while (xmlParser.hasNext())");
 
 		methodBuilder.beginControlFlow("if (read)");
 		methodBuilder.addStatement("eventType = xmlParser.next()");
@@ -256,10 +240,10 @@ public abstract class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 
 		methodBuilder.addStatement("return instance");
-		methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
-		methodBuilder.addStatement("e.printStackTrace()");
-		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
-		methodBuilder.endControlFlow();
+		//methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
+		//methodBuilder.addStatement("e.printStackTrace()");
+		//methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
+		//methodBuilder.endControlFlow();
 
 		context.builder.addMethod(methodBuilder.build());
 	}
@@ -413,13 +397,19 @@ public abstract class BindTypeBuilder {
 
 	private static void generateParseOnJackson(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJackson").addJavadoc("create new object instance\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(AbstractJacksonContext.class), "context").addParameter(typeName(JacksonWrapperParser.class), "wrapper").returns(typeName(entity.getElement()));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJackson")
+				.addJavadoc("create new object instance\n")
+				.addAnnotation(Override.class)
+				.addModifiers(Modifier.PUBLIC)
+				//.addParameter(typeName(AbstractJacksonContext.class), "context")
+				.addParameter(typeName(JsonParser.class), "jacksonParser")
+				.returns(typeName(entity.getElement()))
+				.addException(Exception.class);
 		// @formatter:on
 
-		methodBuilder.beginControlFlow("try");
-		methodBuilder.addStatement("$T jacksonParser = wrapper.jacksonParser", JsonParser.class);
-		methodBuilder.addStatement("$T instance = createInstance()", entity.getElement());
+		//methodBuilder.beginControlFlow("try");
+		//methodBuilder.addStatement("$T jacksonParser = wrapper.jacksonParser", JsonParser.class);
+		methodBuilder.addStatement("$T instance = new $T()", entity.getElement(), entity.getElement());		
 		methodBuilder.addStatement("String fieldName");
 
 		methodBuilder.beginControlFlow("if (jacksonParser.currentToken() == null)");
@@ -462,23 +452,27 @@ public abstract class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 
 		methodBuilder.addStatement("return instance");
-		methodBuilder.nextControlFlow("catch ($T e)", Exception.class);
-		methodBuilder.addStatement("e.printStackTrace()");
-		methodBuilder.addStatement("throw new $T(e)", KriptonRuntimeException.class);
-		methodBuilder.endControlFlow();
+		//methodBuilder.nextControlFlow("catch ($T e)", Exception.class);
+		//methodBuilder.addStatement("e.printStackTrace()");
+		//methodBuilder.addStatement("throw new $T(e)", KriptonRuntimeException.class);
+		//methodBuilder.endControlFlow();
 		context.builder.addMethod(methodBuilder.build());
 
 	}
 
 	private static void generateParseOnJacksonAsString(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJacksonAsString").addJavadoc("create new object instance\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(AbstractJacksonContext.class), "context").addParameter(typeName(JacksonWrapperParser.class), "wrapper").returns(typeName(entity.getElement()));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJacksonAsString")
+				.addJavadoc("create new object instance\n")
+				.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
+				//.addParameter(typeName(AbstractJacksonContext.class), "context")
+				.addParameter(typeName(JsonParser.class), "jacksonParser")
+				.returns(typeName(entity.getElement())).addException(Exception.class);
 		// @formatter:on
 
-		methodBuilder.beginControlFlow("try");
-		methodBuilder.addStatement("$T jacksonParser = wrapper.jacksonParser", JsonParser.class);
-		methodBuilder.addStatement("$T instance = createInstance()", entity.getElement());
+		//methodBuilder.beginControlFlow("try");
+		//methodBuilder.addStatement("$T jacksonParser = wrapper.jacksonParser", JsonParser.class);		
+		methodBuilder.addStatement("$T instance = new $T()", entity.getElement(), entity.getElement());
 		methodBuilder.addStatement("String fieldName");
 
 		methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() == null)");
@@ -522,23 +516,28 @@ public abstract class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 
 		methodBuilder.addStatement("return instance");
-		methodBuilder.nextControlFlow("catch ($T e)", Exception.class);
-		methodBuilder.addStatement("e.printStackTrace()");
-		methodBuilder.addStatement("throw new $T(e)", KriptonRuntimeException.class);
-		methodBuilder.endControlFlow();
+//		methodBuilder.nextControlFlow("catch ($T e)", Exception.class);
+//		methodBuilder.addStatement("e.printStackTrace()");
+//		methodBuilder.addStatement("throw new $T(e)", KriptonRuntimeException.class);
+//		methodBuilder.endControlFlow();
 		context.builder.addMethod(methodBuilder.build());
 
 	}
 
 	private static void generateSerializeOnJackson(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJackson").addJavadoc("reset shared preferences\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(AbstractJacksonContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
-				.returns(Integer.TYPE);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJackson")
+				.addJavadoc("reset shared preferences\n")
+				.addAnnotation(Override.class)
+				.addModifiers(Modifier.PUBLIC)
+					//.addParameter(typeName(AbstractJacksonContext.class), "context")
+					.addParameter(typeName(entity.getElement()), "object")
+					.addParameter(typeName(JsonGenerator.class), "jacksonSerializer")
+				.returns(Integer.TYPE).addException(Exception.class);
 		// @formatter:on
 
-		methodBuilder.beginControlFlow("try");
-		methodBuilder.addStatement("$T jacksonSerializer = wrapper.jacksonGenerator", className(JsonGenerator.class));
+		//methodBuilder.beginControlFlow("try");
+		//methodBuilder.addStatement("$T jacksonSerializer = wrapper.jacksonGenerator", className(JsonGenerator.class));
 		methodBuilder.addStatement("jacksonSerializer.writeStartObject()");
 		methodBuilder.addStatement("int fieldCount=0");
 
@@ -559,23 +558,27 @@ public abstract class BindTypeBuilder {
 		methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
 		methodBuilder.addStatement("return fieldCount");
 
-		methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
-		methodBuilder.addStatement("e.printStackTrace()");
-		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
-		methodBuilder.endControlFlow();
+//		methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
+//		methodBuilder.addStatement("e.printStackTrace()");
+//		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
+//		methodBuilder.endControlFlow();
 
 		context.builder.addMethod(methodBuilder.build());
 	}
 
 	private static void generateSerializeOnJacksonAsString(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJacksonAsString").addJavadoc("reset shared preferences\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(AbstractJacksonContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(JacksonWrapperSerializer.class), "wrapper")
-				.returns(Integer.TYPE);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJacksonAsString")
+				.addJavadoc("reset shared preferences\n")
+				.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
+					//.addParameter(typeName(AbstractJacksonContext.class), "context")
+					.addParameter(typeName(entity.getElement()), "object")
+					.addParameter(typeName(JsonGenerator.class), "jacksonSerializer")
+				.returns(Integer.TYPE).addException(Exception.class);
 		// @formatter:on
 
-		methodBuilder.beginControlFlow("try");
-		methodBuilder.addStatement("$T jacksonSerializer = wrapper.jacksonGenerator", className(JsonGenerator.class));
+		//methodBuilder.beginControlFlow("try");
+		//methodBuilder.addStatement("$T jacksonSerializer = wrapper.jacksonGenerator", className(JsonGenerator.class));
 		methodBuilder.addStatement("jacksonSerializer.writeStartObject()");
 		methodBuilder.addStatement("int fieldCount=0");
 
@@ -596,10 +599,10 @@ public abstract class BindTypeBuilder {
 		methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
 
 		methodBuilder.addStatement("return fieldCount");
-		methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
-		methodBuilder.addStatement("e.printStackTrace()");
-		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
-		methodBuilder.endControlFlow();
+//		methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
+//		methodBuilder.addStatement("e.printStackTrace()");
+//		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
+//		methodBuilder.endControlFlow();
 
 		context.builder.addMethod(methodBuilder.build());
 
@@ -608,12 +611,15 @@ public abstract class BindTypeBuilder {
 	private static void generateSerializeOnXml(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnXml").addJavadoc("reset shared preferences\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
-				.addParameter(typeName(KriptonXmlContext.class), "context").addParameter(typeName(entity.getElement()), "object").addParameter(typeName(XmlWrapperSerializer.class), "wrapper")
-				.addParameter(typeName(Integer.TYPE), "currentEventType").returns(Void.TYPE);
+					//.addParameter(typeName(KriptonXmlContext.class), "context")
+					.addParameter(typeName(entity.getElement()), "object")
+					.addParameter(typeName(XMLSerializer.class), "xmlSerializer")
+					.addParameter(typeName(Integer.TYPE), "currentEventType")
+				.returns(Void.TYPE).addException(Exception.class);
 		// @formatter:on
 
-		methodBuilder.beginControlFlow("try");
-		methodBuilder.addStatement("$T xmlSerializer = wrapper.xmlSerializer", className(XmlSerializer.class));
+		//methodBuilder.beginControlFlow("try");
+		//methodBuilder.addStatement("$T xmlSerializer = wrapper.xmlSerializer", className(XmlSerializer.class));
 
 		methodBuilder.beginControlFlow("if (currentEventType == 0)");
 		methodBuilder.addStatement("xmlSerializer.writeStartElement(\"$L\")", entity.xmlInfo.label);
@@ -640,10 +646,10 @@ public abstract class BindTypeBuilder {
 		methodBuilder.addStatement("xmlSerializer.writeEndElement()");
 		methodBuilder.endControlFlow();
 
-		methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
-		methodBuilder.addStatement("e.printStackTrace()");
-		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
-		methodBuilder.endControlFlow();
+//		methodBuilder.nextControlFlow("catch($T e)", typeName(Exception.class));
+//		methodBuilder.addStatement("e.printStackTrace()");
+//		methodBuilder.addStatement("throw (new $T(e))", typeName(KriptonRuntimeException.class));
+//		methodBuilder.endControlFlow();
 
 		context.builder.addMethod(methodBuilder.build());
 	}

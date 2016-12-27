@@ -21,7 +21,7 @@ import commons.benchmark.model.Response;
 public class TestBenchmark {
 
 	@Test
-	public void test() throws IOException
+	public void test() throws Exception
 	{
 		URL base = getClass().getClassLoader().getResource("benchmark/largesample.json");
 
@@ -29,7 +29,7 @@ public class TestBenchmark {
 		System.out.println(base.getPath());
 
 		long start=System.currentTimeMillis();
-		for (int i = 0; i < 20000; i++) {
+		for (int i = 0; i < 2000; i++) {
 			Response output = KriptonBinder.jsonBind().parse(input, Response.class);
 
 			if (!"success".equals(output.status)) {

@@ -237,7 +237,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
       if (value!=null)  {
-        bean84B2BindMap().serializeOnJackson(context, value, wrapper);
+        bean84B2BindMap().serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toByteArray();
@@ -262,7 +262,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       jacksonParser.nextValue();
       Bean84B2 result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=bean84B2BindMap().parseOnJackson(context, wrapper);
+        result=bean84B2BindMap().parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {

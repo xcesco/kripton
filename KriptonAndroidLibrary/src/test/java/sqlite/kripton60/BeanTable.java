@@ -785,7 +785,7 @@ public class BeanTable {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanBindMap().serializeOnJackson(context, item, wrapper);
+            beanBindMap().serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -820,7 +820,7 @@ public class BeanTable {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanBindMap().parseOnJackson(context, wrapper);
+            item=beanBindMap().parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
@@ -1137,7 +1137,7 @@ public class BeanTable {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              beanBindMap().serializeOnJackson(context, item.getValue(), wrapper);
+              beanBindMap().serializeOnJackson(item.getValue(), jacksonSerializer);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -1178,7 +1178,7 @@ public class BeanTable {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=beanBindMap().parseOnJackson(context, wrapper);
+            value=beanBindMap().parseOnJackson(jacksonParser);
           }
           collection.put(key, value);
           key=null;
@@ -1218,7 +1218,7 @@ public class BeanTable {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              beanBindMap().serializeOnJackson(context, item.getValue(), wrapper);
+              beanBindMap().serializeOnJackson(item.getValue(), jacksonSerializer);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -1259,7 +1259,7 @@ public class BeanTable {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=beanBindMap().parseOnJackson(context, wrapper);
+            value=beanBindMap().parseOnJackson(jacksonParser);
           }
           collection.put(key, value);
           key=null;

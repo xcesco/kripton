@@ -11,7 +11,7 @@ import com.abubusoft.kripton.KriptonBinder;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 
 		URL base = Main.class.getClassLoader().getResource("benchmark/largesample.json");
 

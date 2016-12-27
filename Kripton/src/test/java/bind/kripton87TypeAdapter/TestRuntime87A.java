@@ -14,7 +14,7 @@ import bind.AbstractBaseTest;
 public class TestRuntime87A extends AbstractBaseTest {
 
 	@Test
-	public void testRuntime1() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime1() throws Exception  {
 		assertTrue(Bean87A_1BindMap.class.getName()!=null);
 		
 		Bean87A_1 bean=createBeanA();
@@ -34,7 +34,7 @@ public class TestRuntime87A extends AbstractBaseTest {
 	}	
 	
 	@Test
-	public void testRuntime2() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime2() throws Exception  {
 		assertTrue(Bean87A_2BindMap.class.getName()!=null);
 		
 		Bean87A_2 bean=createBeanA_2();
@@ -46,7 +46,7 @@ public class TestRuntime87A extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntime3() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime3() throws Exception  {
 		assertTrue(Bean87A_3BindMap.class.getName()!=null);
 		
 		Bean87A_3 bean=createBeanA_3();
@@ -60,7 +60,7 @@ public class TestRuntime87A extends AbstractBaseTest {
 	}	
 	
 	@Test
-	public void testRuntime5() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime5() throws Exception  {
 		assertTrue(Bean87A_5BindMap.class.getName()!=null);
 		
 		Bean87A_5 bean=createBeanA_5();
@@ -73,7 +73,7 @@ public class TestRuntime87A extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntime6() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime6() throws Exception  {
 		assertTrue(Bean87A_6BindMap.class.getName()!=null);
 		
 		Bean87A_6 bean=createBeanA_6();
@@ -86,7 +86,7 @@ public class TestRuntime87A extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntime7() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime7() throws Exception  {
 		assertTrue(Bean87A_7BindMap.class.getName()!=null);
 		
 		Bean87A_7 bean=createBeanA_7();

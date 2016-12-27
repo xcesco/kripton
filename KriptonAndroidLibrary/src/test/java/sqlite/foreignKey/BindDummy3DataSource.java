@@ -97,6 +97,8 @@ public class BindDummy3DataSource extends AbstractDataSource implements BindDumm
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
+    Logger.info("DDL: %s",BeanA_5Table.CREATE_TABLE_SQL);
+    database.execSQL(BeanA_5Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_6Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_6Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_5Table.CREATE_TABLE_SQL);
@@ -113,8 +115,12 @@ public class BindDummy3DataSource extends AbstractDataSource implements BindDumm
     database.execSQL(BeanA_5Table.DROP_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_6Table.DROP_TABLE_SQL);
     database.execSQL(BeanA_6Table.DROP_TABLE_SQL);
+    Logger.info("DDL: %s",BeanA_5Table.DROP_TABLE_SQL);
+    database.execSQL(BeanA_5Table.DROP_TABLE_SQL);
 
     // generate tables
+    Logger.info("DDL: %s",BeanA_5Table.CREATE_TABLE_SQL);
+    database.execSQL(BeanA_5Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_6Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_6Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_5Table.CREATE_TABLE_SQL);

@@ -20,7 +20,7 @@ import bind.AbstractBaseTest;
 public class TestRuntime70All extends AbstractBaseTest {
 
 	@Test
-	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRun() throws Exception {
 		Assert.assertNotNull(new Bean70AllBindMap());
 
 		Bean70All bean = new Bean70All();

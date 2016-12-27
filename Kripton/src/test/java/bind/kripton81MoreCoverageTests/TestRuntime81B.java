@@ -2,8 +2,6 @@ package bind.kripton81MoreCoverageTests;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
 import org.junit.Test;
 
 import bind.AbstractBaseTest;
@@ -11,7 +9,7 @@ import bind.AbstractBaseTest;
 public class TestRuntime81B extends AbstractBaseTest {
 
 	@Test
-	public void testRuntime() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntime() throws Exception {
 		assertTrue(Bean81BBindMap.class.getName()!=null);
 		
 		Bean81B bean=createBean();

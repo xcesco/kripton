@@ -14,7 +14,7 @@ import bind.AbstractBaseTest;
 public class TestRuntime71 extends AbstractBaseTest {
 			
 	@Test
-	public void testRun() throws IOException, InstantiationException, IllegalAccessException
+	public void testRun() throws Exception
 	{
 		Assert.assertNotNull(new Bean71BindMap());
 		

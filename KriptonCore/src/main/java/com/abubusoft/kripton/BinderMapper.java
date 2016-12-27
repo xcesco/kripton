@@ -2,35 +2,33 @@ package com.abubusoft.kripton;
 
 import java.util.Collection;
 
-import com.abubusoft.kripton.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.abubusoft.kripton.persistence.SerializerWrapper;
-import com.abubusoft.kripton.persistence.XmlWrapperParser;
-import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.xml.XMLParser;
+import com.abubusoft.kripton.xml.XMLSerializer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
 
 public interface BinderMapper<E> {
 	
-	E createInstance();
+	E parse(BinderContext context, ParserWrapper parser) throws Exception;
 
-	E parse(BinderContext context, ParserWrapper parser);
+	<L extends Collection<E>> L parseCollection(BinderContext context, ParserWrapper parser, L collection)  throws Exception;
 
-	<L extends Collection<E>> L parseCollection(BinderContext context, ParserWrapper parser, L collection);
+	E parseOnJackson(JsonParser jacksonParser) throws Exception;
 
-	E parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser jacksonParser);
+	E parseOnJacksonAsString(JsonParser jacksonParser) throws Exception;
 
-	E parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser jacksonParser);
+	E parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception;
 
-	E parseOnXml(KriptonXmlContext context, XmlWrapperParser xmlParser, int currentEventType);
+	void serialize(BinderContext context, SerializerWrapper serializerWrapper, E object) throws Exception;
 
-	void serialize(BinderContext context, SerializerWrapper serializerWrapper, E object);
+	void serializeCollection(BinderContext context, SerializerWrapper serializerWrapper, Collection<E> collection) throws Exception;
 
-	void serializeCollection(BinderContext context, SerializerWrapper serializerWrapper, Collection<E> collection);
+	int serializeOnJackson(E object, JsonGenerator jacksonSerializer) throws Exception;
 
-	int serializeOnJackson(AbstractJacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer);
+	int serializeOnJacksonAsString(E object, JsonGenerator jacksonSerializer) throws Exception;
 
-	int serializeOnJacksonAsString(AbstractJacksonContext context, E object, JacksonWrapperSerializer jacksonSerializer);
-
-	void serializeOnXml(KriptonXmlContext context, E object, XmlWrapperSerializer xmlSerializer, int currentEventType);
+	void serializeOnXml(E object, XMLSerializer xmlSerializer, int currentEventType) throws Exception;
 
 }

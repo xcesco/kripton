@@ -28,7 +28,7 @@ public class AbstractBaseTest {
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
-	protected void check(Object bean, BinderType... checks) {
+	protected void check(Object bean, BinderType... checks) throws Exception {
 		int max = 0;
 		int[] values = new int[BinderType.values().length];
 
@@ -63,7 +63,7 @@ public class AbstractBaseTest {
 			System.out.println();
 	}
 
-	protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz, BinderType... checks) {
+	protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz, BinderType... checks) throws Exception {
 		int max = 0;
 		int[] values = new int[BinderType.values().length];
 
@@ -107,8 +107,9 @@ public class AbstractBaseTest {
 	 * @param bean
 	 * @param type
 	 * @return
+	 * @throws Exception 
 	 */
-	public int serializeAndParse(Object bean, BinderType type) {
+	public int serializeAndParse(Object bean, BinderType type) throws Exception {
 		String output1 = KriptonBinder.bind(type).serialize(bean);
 		if (display)
 			System.out.println("[[" + output1 + "]]");
@@ -131,7 +132,7 @@ public class AbstractBaseTest {
 		return output2.length();
 	}
 
-	public int serializeAndParseBinary(Object bean, BinderType type) {
+	public int serializeAndParseBinary(Object bean, BinderType type) throws Exception {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
 		KriptonBinder.bind(type).serialize(bean, bar);
 		String value1 = toString(bar.getByteBufferCopy());
@@ -160,7 +161,7 @@ public class AbstractBaseTest {
 		return bar.getCount();
 	}
 
-	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) {
+	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
 		String value1 = KriptonBinder.bind(type).serializeCollection(list, clazz);
 
 		if (display)
@@ -184,7 +185,7 @@ public class AbstractBaseTest {
 		return value1.length();
 	}
 
-	public <E> int serializeAndParseCollectionBinary(Collection<E> list, Class<E> clazz, BinderType type) {
+	public <E> int serializeAndParseCollectionBinary(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
 		KriptonBinder.bind(type).serializeCollection(list, clazz, bar);
 		String value1 = toString(bar.getByteBuffer());

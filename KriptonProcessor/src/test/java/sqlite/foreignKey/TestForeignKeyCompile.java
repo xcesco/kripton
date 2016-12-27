@@ -46,7 +46,7 @@ public class TestForeignKeyCompile extends AbstractBindSQLiteProcessorTest {
 	
 	@Test
 	public void testForeignKeyCompile2() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(InvalidBeanTypeException.class);
+		//this.expectedException(InvalidBeanTypeException.class);
 		buildDataSourceProcessorTest(BeanA_3.class, BeanA_4.class, DaoBeanA_3.class, DaoBeanA_4.class, Dummy2DataSource.class);
 	}
 	

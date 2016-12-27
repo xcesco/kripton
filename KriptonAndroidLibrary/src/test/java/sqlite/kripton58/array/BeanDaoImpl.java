@@ -501,7 +501,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanInnerBindMap().serializeOnJackson(context, item, wrapper);
+            beanInnerBindMap().serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -536,7 +536,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanInnerBindMap().parseOnJackson(context, wrapper);
+            item=beanInnerBindMap().parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

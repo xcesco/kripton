@@ -14,13 +14,10 @@ public class TestRuntime72_2 extends AbstractBaseTest {
 
 	/**
 	 * Test all elements with null elements
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * @throws Exception 
 	 */
 	@Test
-	public void testWithNullElementsRun() throws IOException, InstantiationException, IllegalAccessException
+	public void testWithNullElementsRun() throws Exception
 	{
 		Assert.assertNotNull(new Bean72BindMap());
 		

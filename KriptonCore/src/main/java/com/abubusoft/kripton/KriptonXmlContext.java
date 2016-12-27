@@ -13,7 +13,7 @@ import java.io.Writer;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.persistence.xml.internal.MXSerializer;
+import com.abubusoft.kripton.xml.XMLSerializer;
 import com.fasterxml.jackson.core.JsonEncoding;
 
 /**
@@ -79,7 +79,7 @@ public class KriptonXmlContext extends AbstractContext {
         try {
         	
 			//XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(new FileOutputStream(file), encoding.toString());
-        	MXSerializer xmlStreamWriter=new MXSerializer(new FileWriter(file));
+        	XMLSerializer xmlStreamWriter=new XMLSerializer(new FileWriter(file));
 			return new XmlWrapperSerializer(xmlStreamWriter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +95,7 @@ public class KriptonXmlContext extends AbstractContext {
 		//XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) new WstxOutputFactory();
         try {
 			//XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(out, encoding.toString());
-        	MXSerializer xmlStreamWriter=new MXSerializer(new OutputStreamWriter(out, encoding.getJavaName()));
+        	XMLSerializer xmlStreamWriter=new XMLSerializer(new OutputStreamWriter(out, encoding.getJavaName()));
 			return new XmlWrapperSerializer(xmlStreamWriter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,7 +107,7 @@ public class KriptonXmlContext extends AbstractContext {
 		//XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) new WstxOutputFactory();
         try {
 			//XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(writer, JsonEncoding.UTF8.toString());
-        	MXSerializer xmlStreamWriter=new MXSerializer(writer);
+        	XMLSerializer xmlStreamWriter=new XMLSerializer(writer);
 			return new XmlWrapperSerializer(xmlStreamWriter);
 		} catch (Exception e) {
 			e.printStackTrace();

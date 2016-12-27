@@ -82,7 +82,7 @@ public class Bean84BTable {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        bean84B2BindMap().serializeOnJackson(context, value, wrapper);
+        bean84B2BindMap().serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toByteArray();
@@ -105,7 +105,7 @@ public class Bean84BTable {
       jacksonParser.nextToken();
       Bean84B2 result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=bean84B2BindMap().parseOnJackson(context, wrapper);
+        result=bean84B2BindMap().parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {

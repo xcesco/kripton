@@ -1,20 +1,14 @@
 package bind.kripton81MoreCoverageTests;
 
-import com.abubusoft.kripton.AbstractJacksonContext;
 import com.abubusoft.kripton.AbstractMapper;
-import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.BigIntegerUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.abubusoft.kripton.persistence.XmlSerializer;
-import com.abubusoft.kripton.persistence.XmlWrapperParser;
-import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
-import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
+import com.abubusoft.kripton.xml.XMLParser;
+import com.abubusoft.kripton.xml.XMLSerializer;
+import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -29,118 +23,92 @@ import java.lang.Override;
 @BindMap(Bean81L.class)
 public class Bean81LBindMap extends AbstractMapper<Bean81L> {
   /**
-   * create new object instance
-   */
-  @Override
-  public Bean81L createInstance() {
-    return new Bean81L();
-  }
-
-  /**
    * reset shared preferences
    */
   @Override
-  public int serializeOnJackson(AbstractJacksonContext context, Bean81L object, JacksonWrapperSerializer wrapper) {
-    try {
-      JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
+  public int serializeOnJackson(Bean81L object, JsonGenerator jacksonSerializer) throws Exception {
+    jacksonSerializer.writeStartObject();
+    int fieldCount=0;
 
-      // Serialized Field:
+    // Serialized Field:
 
-      // field id (mapped with "id")
+    // field id (mapped with "id")
+    fieldCount++;
+    jacksonSerializer.writeNumberField("id", object.id);
+
+    // field valueBigDecimal (mapped with "valueBigDecimal")
+    if (object.valueBigDecimal!=null)  {
       fieldCount++;
-      jacksonSerializer.writeNumberField("id", object.id);
-
-      // field valueBigDecimal (mapped with "valueBigDecimal")
-      if (object.valueBigDecimal!=null)  {
-        fieldCount++;
-        jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtils.write(object.valueBigDecimal));
-      }
-
-      // field valueBigInteger (mapped with "valueBigInteger")
-      if (object.valueBigInteger!=null)  {
-        fieldCount++;
-        jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtils.write(object.valueBigInteger));
-      }
-
-      jacksonSerializer.writeEndObject();
-      return fieldCount;
-    } catch(Exception e) {
-      e.printStackTrace();
-      throw (new KriptonRuntimeException(e));
+      jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtils.write(object.valueBigDecimal));
     }
+
+    // field valueBigInteger (mapped with "valueBigInteger")
+    if (object.valueBigInteger!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtils.write(object.valueBigInteger));
+    }
+
+    jacksonSerializer.writeEndObject();
+    return fieldCount;
   }
 
   /**
    * reset shared preferences
    */
   @Override
-  public int serializeOnJacksonAsString(AbstractJacksonContext context, Bean81L object, JacksonWrapperSerializer wrapper) {
-    try {
-      JsonGenerator jacksonSerializer = wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
+  public int serializeOnJacksonAsString(Bean81L object, JsonGenerator jacksonSerializer) throws Exception {
+    jacksonSerializer.writeStartObject();
+    int fieldCount=0;
 
-      // Serialized Field:
+    // Serialized Field:
 
-      // field id (mapped with "id")
-      jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
+    // field id (mapped with "id")
+    jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-      // field valueBigDecimal (mapped with "valueBigDecimal")
-      if (object.valueBigDecimal!=null)  {
-        fieldCount++;
-        jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtils.write(object.valueBigDecimal));
-      }
-
-      // field valueBigInteger (mapped with "valueBigInteger")
-      if (object.valueBigInteger!=null)  {
-        fieldCount++;
-        jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtils.write(object.valueBigInteger));
-      }
-
-      jacksonSerializer.writeEndObject();
-      return fieldCount;
-    } catch(Exception e) {
-      e.printStackTrace();
-      throw (new KriptonRuntimeException(e));
+    // field valueBigDecimal (mapped with "valueBigDecimal")
+    if (object.valueBigDecimal!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("valueBigDecimal", BigDecimalUtils.write(object.valueBigDecimal));
     }
+
+    // field valueBigInteger (mapped with "valueBigInteger")
+    if (object.valueBigInteger!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("valueBigInteger", BigIntegerUtils.write(object.valueBigInteger));
+    }
+
+    jacksonSerializer.writeEndObject();
+    return fieldCount;
   }
 
   /**
    * reset shared preferences
    */
   @Override
-  public void serializeOnXml(KriptonXmlContext context, Bean81L object, XmlWrapperSerializer wrapper, int currentEventType) {
-    try {
-      XmlSerializer xmlSerializer = wrapper.xmlSerializer;
-      if (currentEventType == 0) {
-        xmlSerializer.writeStartElement("bean81L");
-      }
+  public void serializeOnXml(Bean81L object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+    if (currentEventType == 0) {
+      xmlSerializer.writeStartElement("bean81L");
+    }
 
-      // Persisted fields:
+    // Persisted fields:
 
-      // field valueBigDecimal (mapped with "valueBigDecimal")
-      if (object.valueBigDecimal!=null)  {
-        xmlSerializer.writeDecimalAttribute(null, null,"valueBigDecimal", object.valueBigDecimal);
-      }
+    // field valueBigDecimal (mapped with "valueBigDecimal")
+    if (object.valueBigDecimal!=null)  {
+      xmlSerializer.writeDecimalAttribute(null, null,"valueBigDecimal", object.valueBigDecimal);
+    }
 
-      // field id (mapped with "id")
-      xmlSerializer.writeStartElement("id");
-      xmlSerializer.writeLong(object.id);
+    // field id (mapped with "id")
+    xmlSerializer.writeStartElement("id");
+    xmlSerializer.writeLong(object.id);
+    xmlSerializer.writeEndElement();
+
+    // field valueBigInteger (mapped with "valueBigInteger")
+    if (object.valueBigInteger!=null)  {
+      xmlSerializer.writeCData(StringEscapeUtils.escapeXml10(BigIntegerUtils.write(object.valueBigInteger)));
+    }
+
+    if (currentEventType == 0) {
       xmlSerializer.writeEndElement();
-
-      // field valueBigInteger (mapped with "valueBigInteger")
-      if (object.valueBigInteger!=null)  {
-        xmlSerializer.writeCData(StringEscapeUtils.escapeXml10(BigIntegerUtils.write(object.valueBigInteger)));
-      }
-
-      if (currentEventType == 0) {
-        xmlSerializer.writeEndElement();
-      }
-    } catch(Exception e) {
-      e.printStackTrace();
-      throw (new KriptonRuntimeException(e));
     }
   }
 
@@ -148,175 +116,157 @@ public class Bean81LBindMap extends AbstractMapper<Bean81L> {
    * create new object instance
    */
   @Override
-  public Bean81L parseOnJackson(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
-    try {
-      JsonParser jacksonParser = wrapper.jacksonParser;
-      Bean81L instance = createInstance();
-      String fieldName;
-      if (jacksonParser.currentToken() == null) {
-        jacksonParser.nextToken();
-      }
-      if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
-        jacksonParser.skipChildren();
-        return instance;
-      }
-      while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
-        fieldName = jacksonParser.getCurrentName();
-        jacksonParser.nextToken();
-
-        // Parse fields:
-        switch (fieldName) {
-            case "valueBigDecimal":
-              // field valueBigDecimal (mapped with "valueBigDecimal")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueBigDecimal=BigDecimalUtils.read(jacksonParser.getText());
-              }
-            break;
-            case "id":
-              // field id (mapped with "id")
-              instance.id=jacksonParser.getLongValue();
-            break;
-            case "valueBigInteger":
-              // field valueBigInteger (mapped with "valueBigInteger")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueBigInteger=BigIntegerUtils.read(jacksonParser.getText());
-              }
-            break;
-            default:
-              jacksonParser.skipChildren();
-            break;}
-      }
+  public Bean81L parseOnJackson(JsonParser jacksonParser) throws Exception {
+    Bean81L instance = new Bean81L();
+    String fieldName;
+    if (jacksonParser.currentToken() == null) {
+      jacksonParser.nextToken();
+    }
+    if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
+      jacksonParser.skipChildren();
       return instance;
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new KriptonRuntimeException(e);
     }
+    while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
+      fieldName = jacksonParser.getCurrentName();
+      jacksonParser.nextToken();
+
+      // Parse fields:
+      switch (fieldName) {
+          case "valueBigDecimal":
+            // field valueBigDecimal (mapped with "valueBigDecimal")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.valueBigDecimal=BigDecimalUtils.read(jacksonParser.getText());
+            }
+          break;
+          case "id":
+            // field id (mapped with "id")
+            instance.id=jacksonParser.getLongValue();
+          break;
+          case "valueBigInteger":
+            // field valueBigInteger (mapped with "valueBigInteger")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.valueBigInteger=BigIntegerUtils.read(jacksonParser.getText());
+            }
+          break;
+          default:
+            jacksonParser.skipChildren();
+          break;}
+    }
+    return instance;
   }
 
   /**
    * create new object instance
    */
   @Override
-  public Bean81L parseOnJacksonAsString(AbstractJacksonContext context, JacksonWrapperParser wrapper) {
-    try {
-      JsonParser jacksonParser = wrapper.jacksonParser;
-      Bean81L instance = createInstance();
-      String fieldName;
-      if (jacksonParser.getCurrentToken() == null) {
-        jacksonParser.nextToken();
-      }
-      if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
-        jacksonParser.skipChildren();
-        return instance;
-      }
-      while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
-        fieldName = jacksonParser.getCurrentName();
-        jacksonParser.nextToken();
-
-        // Parse fields:
-        switch (fieldName) {
-            case "valueBigDecimal":
-              // field valueBigDecimal (mapped with "valueBigDecimal")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueBigDecimal=BigDecimalUtils.read(jacksonParser.getText());
-              }
-            break;
-            case "id":
-              // field id (mapped with "id")
-              instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
-            break;
-            case "valueBigInteger":
-              // field valueBigInteger (mapped with "valueBigInteger")
-              if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                instance.valueBigInteger=BigIntegerUtils.read(jacksonParser.getText());
-              }
-            break;
-            default:
-              jacksonParser.skipChildren();
-            break;}
-      }
+  public Bean81L parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    Bean81L instance = new Bean81L();
+    String fieldName;
+    if (jacksonParser.getCurrentToken() == null) {
+      jacksonParser.nextToken();
+    }
+    if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+      jacksonParser.skipChildren();
       return instance;
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new KriptonRuntimeException(e);
     }
+    while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
+      fieldName = jacksonParser.getCurrentName();
+      jacksonParser.nextToken();
+
+      // Parse fields:
+      switch (fieldName) {
+          case "valueBigDecimal":
+            // field valueBigDecimal (mapped with "valueBigDecimal")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.valueBigDecimal=BigDecimalUtils.read(jacksonParser.getText());
+            }
+          break;
+          case "id":
+            // field id (mapped with "id")
+            instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
+          case "valueBigInteger":
+            // field valueBigInteger (mapped with "valueBigInteger")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.valueBigInteger=BigIntegerUtils.read(jacksonParser.getText());
+            }
+          break;
+          default:
+            jacksonParser.skipChildren();
+          break;}
+    }
+    return instance;
   }
 
   /**
    * create new object instance
    */
   @Override
-  public Bean81L parseOnXml(KriptonXmlContext context, XmlWrapperParser wrapper, int currentEventType) {
-    try {
-      XmlPullParser xmlParser = wrapper.xmlParser;
-      Bean81L instance = createInstance();
-      int eventType = currentEventType;
-      boolean read=true;
+  public Bean81L parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    Bean81L instance = new Bean81L();
+    int eventType = currentEventType;
+    boolean read=true;
 
-      if (currentEventType == 0) {
+    if (currentEventType == 0) {
+      eventType = xmlParser.next();
+    } else {
+      eventType = xmlParser.getEventType();
+    }
+    String currentTag = xmlParser.getName().toString();
+    String elementName = currentTag;
+
+    // attributes 
+    String attributeName = null;
+    int attributesCount = xmlParser.getAttributeCount();;
+    for (int attributeIndex = 0; attributeIndex < attributesCount; attributeIndex++) {
+      attributeName = xmlParser.getAttributeName(attributeIndex);
+      switch(attributeName) {
+          case "valueBigDecimal":
+            // field valueBigDecimal (mapped by "valueBigDecimal")
+            instance.valueBigDecimal=xmlParser.getAttributeAsDecimal(attributeIndex);
+          break;
+          default:
+          break;
+      }
+    }
+
+    //sub-elements
+    while (xmlParser.hasNext() && elementName!=null) {
+      if (read) {
         eventType = xmlParser.next();
       } else {
         eventType = xmlParser.getEventType();
       }
-      String currentTag = xmlParser.getName().toString();
-      String elementName = currentTag;
-
-      // attributes 
-      String attributeName = null;
-      int attributesCount = xmlParser.getAttributeCount();;
-      for (int attributeIndex = 0; attributeIndex < attributesCount; attributeIndex++) {
-        attributeName = xmlParser.getAttributeName(attributeIndex);
-        switch(attributeName) {
-            case "valueBigDecimal":
-              // field valueBigDecimal (mapped by "valueBigDecimal")
-              instance.valueBigDecimal=xmlParser.getAttributeAsDecimal(attributeIndex);
+      read=true;
+      switch(eventType) {
+          case XmlPullParser.START_TAG:
+            currentTag = xmlParser.getName().toString();
+            switch(currentTag) {
+                case "id":
+                  // property id (mapped on "id")
+                  instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
+                default:
+                break;
+              }
+            break;
+            case XmlPullParser.END_TAG:
+              if (elementName.equals(xmlParser.getName())) {
+                currentTag = elementName;
+                elementName = null;
+              }
+            break;
+            case XmlPullParser.CDSECT:
+            case XmlPullParser.TEXT:
+              if (elementName!=null && xmlParser.hasText()) {
+                // property valueBigInteger
+                instance.valueBigInteger=BigIntegerUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getText()));
+              }
             break;
             default:
             break;
         }
       }
-
-      //sub-elements
-      while (xmlParser.hasNext() && elementName!=null) {
-        if (read) {
-          eventType = xmlParser.next();
-        } else {
-          eventType = xmlParser.getEventType();
-        }
-        read=true;
-        switch(eventType) {
-            case XmlPullParser.START_TAG:
-              currentTag = xmlParser.getName().toString();
-              switch(currentTag) {
-                  case "id":
-                    // property id (mapped on "id")
-                    instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
-                  break;
-                  default:
-                  break;
-                }
-              break;
-              case XmlPullParser.END_TAG:
-                if (elementName.equals(xmlParser.getName())) {
-                  currentTag = elementName;
-                  elementName = null;
-                }
-              break;
-              case XmlPullParser.CDSECT:
-              case XmlPullParser.TEXT:
-                if (elementName!=null && xmlParser.hasText()) {
-                  // property valueBigInteger
-                  instance.valueBigInteger=BigIntegerUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getText()));
-                }
-              break;
-              default:
-              break;
-          }
-        }
-        return instance;
-      } catch(Exception e) {
-        e.printStackTrace();
-        throw (new KriptonRuntimeException(e));
-      }
+      return instance;
     }
   }

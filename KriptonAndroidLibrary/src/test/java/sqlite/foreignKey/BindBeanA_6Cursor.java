@@ -21,9 +21,14 @@ public class BindBeanA_6Cursor {
   protected int index0;
 
   /**
-   * Index for column "valueString2"
+   * Index for column "beanA2Id"
    */
   protected int index1;
+
+  /**
+   * Index for column "valueString2"
+   */
+  protected int index2;
 
   /**
    * <p>Constructor</p>
@@ -43,7 +48,8 @@ public class BindBeanA_6Cursor {
     this.cursor=cursor;
 
     index0=cursor.getColumnIndex("id");
-    index1=cursor.getColumnIndex("value_string2");
+    index1=cursor.getColumnIndex("bean_a2_id");
+    index2=cursor.getColumnIndex("value_string2");
 
     return this;
   }
@@ -64,7 +70,8 @@ public class BindBeanA_6Cursor {
         resultBean=new BeanA_6();
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1);}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.beanA2Id=cursor.getLong(index1);}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueString2=cursor.getString(index2);}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -86,10 +93,12 @@ public class BindBeanA_6Cursor {
       do
        {
         if (index0>=0) { resultBean.id=0L;}
-        if (index1>=0) { resultBean.valueString2=null;}
+        if (index1>=0) { resultBean.beanA2Id=null;}
+        if (index2>=0) { resultBean.valueString2=null;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1);}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.beanA2Id=cursor.getLong(index1);}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueString2=cursor.getString(index2);}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

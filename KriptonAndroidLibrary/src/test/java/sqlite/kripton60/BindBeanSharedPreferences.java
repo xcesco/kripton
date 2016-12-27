@@ -1173,7 +1173,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        beanBindMap().serializeOnJackson(context, value, wrapper);
+        beanBindMap().serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -1196,7 +1196,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       Bean result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=beanBindMap().parseOnJackson(context, wrapper);
+        result=beanBindMap().parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {
@@ -1366,7 +1366,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanBindMap().serializeOnJackson(context, item, wrapper);
+            beanBindMap().serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -1401,7 +1401,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanBindMap().parseOnJackson(context, wrapper);
+            item=beanBindMap().parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
@@ -1718,7 +1718,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              beanBindMap().serializeOnJackson(context, item.getValue(), wrapper);
+              beanBindMap().serializeOnJackson(item.getValue(), jacksonSerializer);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -1759,7 +1759,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=beanBindMap().parseOnJackson(context, wrapper);
+            value=beanBindMap().parseOnJackson(jacksonParser);
           }
           collection.put(key, value);
           key=null;
@@ -1799,7 +1799,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              beanBindMap().serializeOnJackson(context, item.getValue(), wrapper);
+              beanBindMap().serializeOnJackson(item.getValue(), jacksonSerializer);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -1840,7 +1840,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=beanBindMap().parseOnJackson(context, wrapper);
+            value=beanBindMap().parseOnJackson(jacksonParser);
           }
           collection.put(key, value);
           key=null;

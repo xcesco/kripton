@@ -13,13 +13,10 @@ public class TestRuntime73_1 extends AbstractBaseTest {
 
 	/**
 	 * Test empty arrays
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * @throws Exception 
 	 */
 	@Test
-	public void testEmptyArraysRun() throws IOException, InstantiationException, IllegalAccessException
+	public void testEmptyArraysRun() throws Exception
 	{
 		Assert.assertNotNull(new Bean73BindMap());
 		

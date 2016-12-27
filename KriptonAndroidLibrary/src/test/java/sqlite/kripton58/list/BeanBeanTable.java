@@ -105,7 +105,7 @@ public class BeanBeanTable {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanInnerBindMap().serializeOnJackson(context, item, wrapper);
+            beanInnerBindMap().serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -140,7 +140,7 @@ public class BeanBeanTable {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanInnerBindMap().parseOnJackson(context, wrapper);
+            item=beanInnerBindMap().parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
@@ -176,7 +176,7 @@ public class BeanBeanTable {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanInnerBindMap().serializeOnJackson(context, item, wrapper);
+            beanInnerBindMap().serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -211,7 +211,7 @@ public class BeanBeanTable {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanInnerBindMap().parseOnJackson(context, wrapper);
+            item=beanInnerBindMap().parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

@@ -1,6 +1,5 @@
 package bind.kripton74Map;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -42,7 +41,7 @@ public class TestRuntime74 extends AbstractBaseTest {
 	}
 
 	@Test
-	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRun() throws Exception {
 		Assert.assertNotNull(new Bean74BindMap());
 
 		Bean74 bean = createBean();

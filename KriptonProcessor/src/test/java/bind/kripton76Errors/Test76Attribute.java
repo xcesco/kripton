@@ -36,7 +36,7 @@ public class Test76Attribute extends AbstractBindTypeProcessorTest {
 	}
 	
 	//@Test
-	public void testRun() throws IOException, InstantiationException, IllegalAccessException
+	public void testRun() throws Exception
 	{
 		//Assert.assertNotNull(new BeanAttribute76BindMap());
 		

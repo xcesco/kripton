@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.exception;
 
-import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
+import com.abubusoft.kripton.xml.XmlPullParser;
 
 /**
  * This exception is a generic kripton exception. 

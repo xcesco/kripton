@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -49,7 +50,6 @@ import com.squareup.javapoet.TypeSpec;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Generates database class
@@ -265,14 +265,18 @@ public class BindDataSourceBuilder extends AbstractBuilder  {
 			// before an entity, insert its dependencies
 			for (SQLEntity dependencyItem: item.referedEntities)
 			{
-				if (orderedEntities.indexOf(dependencyItem)==-1)
+				//if (orderedEntities.indexOf(dependencyItem)==-1)
 				{
 					orderedEntities.add(index, dependencyItem);
-				} else {
-					throw(new CircularRelationshipException(dependencyItem));
-				}
+				} 
 			}								
 		}
+
+		
+		//else {
+ 		//	throw(new CircularRelationshipException(dependencyItem));
+		//}
+		
 		return orderedEntities;
 	}
 

@@ -1,6 +1,5 @@
 package bind.kripton72;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashSet;
@@ -14,7 +13,7 @@ import bind.AbstractBaseTest;
 public class TestRuntime72A extends AbstractBaseTest {
 
 	@Test
-	public void testRun() throws IOException, InstantiationException, IllegalAccessException
+	public void testRun() throws Exception
 	{
 		Assert.assertNotNull(new Bean72BindMap());
 		

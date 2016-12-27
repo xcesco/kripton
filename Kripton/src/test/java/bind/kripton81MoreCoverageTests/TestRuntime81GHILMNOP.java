@@ -136,7 +136,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntimeG() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeG() throws Exception {
 		assertTrue(Bean81GBindMap.class.getName()!=null);
 		
 		Bean81G bean=createBeanG();
@@ -150,7 +150,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	
 	
 	@Test
-	public void testRuntimeH() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeH() throws Exception {
 		assertTrue(Bean81HBindMap.class.getName()!=null);
 		
 		Bean81H bean=createBeanH();
@@ -164,7 +164,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	
 	
 	@Test
-	public void testRuntimeI() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeI() throws Exception {
 		assertTrue(Bean81IBindMap.class.getName()!=null);
 		
 		Bean81I bean=createBeanI();
@@ -177,7 +177,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntimeL() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeL() throws Exception {
 		assertTrue(Bean81LBindMap.class.getName()!=null);
 		
 		Bean81L bean=createBeanL();
@@ -190,7 +190,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntimeM() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeM() throws Exception  {
 		assertTrue(Bean81MBindMap.class.getName()!=null);
 		
 		Bean81M bean=createBeanM();
@@ -203,7 +203,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntimeN() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeN() throws Exception  {
 		assertTrue(Bean81NBindMap.class.getName()!=null);
 		
 		Bean81N bean=createBeanN();
@@ -216,7 +216,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntimeO() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeO() throws Exception  {
 		assertTrue(Bean81OBindMap.class.getName()!=null);
 		
 		Bean81O bean=createBeanO();
@@ -229,7 +229,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntimeP() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeP() throws Exception  {
 		assertTrue(Bean81PBindMap.class.getName()!=null);
 		
 		Bean81P bean=createBeanP();
@@ -242,7 +242,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 
 	@Test
-	public void testRuntimeR() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeR() throws Exception  {
 		assertTrue(Bean81RBindMap.class.getName()!=null);
 		
 		Bean81R bean=createBeanR();
@@ -257,7 +257,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntimeS() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeS() throws Exception  {
 		assertTrue(Bean81SBindMap.class.getName()!=null);
 		
 		Bean81S bean=createBeanS();
@@ -272,7 +272,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntimeT() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeT() throws Exception  {
 		assertTrue(Bean81TBindMap.class.getName()!=null);
 		
 		Bean81T bean=createBeanT();
@@ -287,7 +287,7 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	@Test
-	public void testRuntimeU() throws IOException, InstantiationException, IllegalAccessException {
+	public void testRuntimeU() throws Exception  {
 		assertTrue(Bean81UBindMap.class.getName()!=null);
 		
 		Bean81U bean=createBeanU();

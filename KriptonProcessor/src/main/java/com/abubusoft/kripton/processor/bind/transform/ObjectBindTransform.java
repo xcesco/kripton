@@ -18,11 +18,9 @@ package com.abubusoft.kripton.processor.bind.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import javax.lang.model.element.Modifier;
-
-import com.abubusoft.kripton.persistence.xml.internal.XmlPullParser;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -43,7 +41,7 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {		
 		String bindName=context.getBindMapperName(context, property);		
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L().parseOnXml(context, wrapper, eventType)"), bindName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.parseOnXml(xmlParser, eventType)"), bindName);
 	}
 	
 	public boolean isTypeAdapterSupported() {
@@ -60,7 +58,7 @@ public class ObjectBindTransform extends AbstractBindTransform {
 		}
 				
 		methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
-		methodBuilder.addStatement("$L().serializeOnXml(context, $L, wrapper, $L)", bindName, getter(beanName, beanClass, property), XmlPullParser.START_TAG);
+		methodBuilder.addStatement("$L.serializeOnXml($L, xmlSerializer, $L)", bindName, getter(beanName, beanClass, property), XmlPullParser.START_TAG);
 		methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 
 		if (property.isNullable() && !property.isInCollection()) {
@@ -86,13 +84,13 @@ public class ObjectBindTransform extends AbstractBindTransform {
 		}
 
 		if (onString) {
-			methodBuilder.beginControlFlow("if ($L().serializeOnJacksonAsString(context, $L, wrapper)==0)", bindName, 
+			methodBuilder.beginControlFlow("if ($L.serializeOnJacksonAsString($L, jacksonSerializer)==0)", bindName,
 					getter(beanName, beanClass, property));
 			// KRITPON-38: in a collection, for null object we write
 			methodBuilder.addStatement("$L.writeNullField($S)", serializerName, property.label);
 			methodBuilder.endControlFlow();
 		} else {
-			methodBuilder.addStatement("$L().serializeOnJackson(context, $L, wrapper)", bindName, getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.serializeOnJackson($L, jacksonSerializer)", bindName, getter(beanName, beanClass, property));
 		}
 
 		if (property.isNullable()) {
@@ -119,7 +117,7 @@ public class ObjectBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT)", parserName, JsonToken.class);
 		}
 
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L().parseOnJackson(context, wrapper)"), bindName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.parseOnJackson(jacksonParser)"), bindName);
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
@@ -132,7 +130,7 @@ public class ObjectBindTransform extends AbstractBindTransform {
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT || $L.currentToken()==$T.VALUE_STRING)", parserName, JsonToken.class, parserName, JsonToken.class);
 		}
-		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L().parseOnJacksonAsString(context, wrapper)"), bindName);
+		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.parseOnJacksonAsString(jacksonParser)"), bindName);
 		if (property.isNullable()) {
 			methodBuilder.endControlFlow();
 		}
