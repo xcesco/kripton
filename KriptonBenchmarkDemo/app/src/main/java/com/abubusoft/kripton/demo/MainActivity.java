@@ -2,10 +2,12 @@ package com.abubusoft.kripton.demo;
 
 import android.app.AlertDialog;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.abubusoft.kripton.demo.model.Response;
@@ -64,6 +66,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String s=" Device model: " + android.os.Build.MODEL;
+        s += "\n OS API Level: " + android.os.Build.VERSION.SDK_INT;
+
+        TextView tvDeviceInfo= (TextView) findViewById(R.id.tvDeviceInfo);
+        tvDeviceInfo.setText(s);
 
         mJsonStringsToParse = readJsonFromFile();
         mResponsesToSerialize = getResponsesToParse();
