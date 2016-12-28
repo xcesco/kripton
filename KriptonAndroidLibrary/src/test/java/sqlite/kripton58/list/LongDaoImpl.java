@@ -83,7 +83,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value}</pre>
+   * <pre>SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -109,8 +109,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // build where condition
     String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LongBean resultBean=null;
@@ -136,7 +136,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value}</pre>
+   * <pre>SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -162,8 +162,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // build where condition
     String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     LongBean resultBean=new LongBean();
     try {
@@ -199,7 +199,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value}</pre>
+   * <pre>SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -225,8 +225,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // build where condition
     String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     try {
@@ -247,7 +247,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value}</pre>
+   * <pre>SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -273,8 +273,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // build where condition
     String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s'"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=?", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<LongBean> resultList=new LinkedList<LongBean>();
@@ -304,7 +304,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE long_bean SET value=${value} WHERE id=${id} and value=${paramValue}</pre>
+   * <pre>UPDATE long_bean SET value=${value} WHERE id=${id} and CAST(value AS TEXT)=${paramValue}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
@@ -338,8 +338,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE long_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditions);
-    int result = database().update("long_bean", contentValues, "id=? and value=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE long_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and CAST(value AS TEXT)=%s"), (Object[])whereConditions);
+    int result = database().update("long_bean", contentValues, "id=? and CAST(value AS TEXT)=?", whereConditions);
     return result;
   }
 
@@ -423,7 +423,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
   /**
    * <p>SQL delete:</p>
-   * <pre>DELETE long_bean WHERE value=${paramValue}</pre>
+   * <pre>DELETE long_bean WHERE CAST(value AS TEXT)=${paramValue}</pre>
    *
    * <p><strong>Where parameters:</strong></p>
    * <dl>
@@ -439,8 +439,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   public long delete(List<Long> paramValue) {
     String[] whereConditions={(paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE long_bean WHERE value=%s"), (Object[])whereConditions);
-    int result = database().delete("long_bean", "value=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE long_bean WHERE CAST(value AS TEXT)=%s"), (Object[])whereConditions);
+    int result = database().delete("long_bean", "CAST(value AS TEXT)=?", whereConditions);
     return result;
   }
 

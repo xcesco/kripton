@@ -28,30 +28,30 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 @BindDao(LongBean.class)
 public interface LongDao {
 	@BindSqlSelect()
-	LongBean selectOne();	
-	
-	@BindSqlSelect(where = "value=${value}")
+	LongBean selectOne();
+
+	@BindSqlSelect(where = "CAST(value AS TEXT)=${value}")
 	LongBean selectOne(List<Long> value);
 
-	@BindSqlSelect(where = "value=${value}")
+	@BindSqlSelect(where = "CAST(value AS TEXT)=${value}")
 	void selectOne(List<Long> value, OnReadBeanListener<LongBean> listener);
-	
-	@BindSqlSelect(where = "value=${value}")
+
+	@BindSqlSelect(where = "CAST(value AS TEXT)=${value}")
 	void selectOne(List<Long> value, OnReadCursorListener listener);
-	
-	@BindSqlSelect(where = "value=${value}")
+
+	@BindSqlSelect(where = "CAST(value AS TEXT)=${value}")
 	List<LongBean> selectList(List<Long> value);
-	
-	@BindSqlUpdate(where = "id=${id} and value=${paramValue}")
+
+	@BindSqlUpdate(where = "id=${id} and CAST(value AS TEXT)=${paramValue}")
 	long updateOne(List<Long> value, long id, List<Long> paramValue);
-	
+
 	@BindSqlInsert()
 	long insert(long id, List<Long> value);
-	
+
 	@BindSqlInsert()
 	long insert(LongBean bean);
-	
-	@BindSqlDelete(where="value=${paramValue}")
+
+	@BindSqlDelete(where = "CAST(value AS TEXT)=${paramValue}")
 	long delete(List<Long> paramValue);
-	
+
 }
