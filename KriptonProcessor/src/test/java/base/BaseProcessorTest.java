@@ -44,7 +44,6 @@ import org.junit.rules.ExpectedException;
 
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
-import com.abubusoft.kripton.processor.BindSharedPreferencesProcessor;
 import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.testing.compile.CompileTester.CompilationResultsConsumer;
@@ -56,7 +55,7 @@ import com.google.common.io.ByteStreams;
 public class BaseProcessorTest {
 
 	protected static final String KRIPTON_TEST_DEBUG = "KRIPTON_TEST_DEBUG";
-	
+
 	protected TestType testType = TestType.NONE;
 
 	protected static boolean developmentMode = false;
@@ -69,16 +68,13 @@ public class BaseProcessorTest {
 
 	@Before
 	public void before() {
-		final String value = System.getenv(KRIPTON_TEST_DEBUG);		
-		if ("true".equals(value))
-		{
+		final String value = System.getenv(KRIPTON_TEST_DEBUG);
+		if ("true".equals(value)) {
 			developmentMode = true;
-		}			
-		
+		}
+
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
 	}
-
-	
 
 	protected PathSourceType destinationPath;
 
@@ -97,11 +93,8 @@ public class BaseProcessorTest {
 	protected static Logger logger = Logger.getGlobal();
 
 	public enum PathSourceType {
-		SRC_TEST_JAVA("src/test/java/"),
-		SRC_TEST_EXPECTED("src/test/expected/"),
-		TARGET_TEST_RESULT("target/test/generated/"),
-		DEST_TEST_ANDROID_LIBRARY("../KriptonAndroidLibrary/src/test/java/"), 
-		DEST_TEST_JAVA_LIBRARY("../Kripton/src/test/java/");
+		SRC_TEST_JAVA("src/test/java/"), SRC_TEST_EXPECTED("src/test/expected/"), TARGET_TEST_RESULT("target/test/generated/"), DEST_TEST_ANDROID_LIBRARY(
+				"../KriptonAndroidLibrary/src/test/java/"), DEST_TEST_JAVA_LIBRARY("../Kripton/src/test/java/");
 
 		private PathSourceType(String path) {
 			this.path = path;
@@ -151,12 +144,12 @@ public class BaseProcessorTest {
 		byte[] bytes = ByteStreams.toByteArray(javaFileObject.openInputStream());
 
 		String pathString = javaFileObject.getName().toString().replace("/SOURCE_OUTPUT", "");
-		//if (pathString.startsWith("/")) pathString=pathString.substring(1);
-		pathString=basePath.path+pathString;		
-		
-		pathString=pathString.replaceFirst("//", "/");
-		
-		System.out.println("Generate file "+pathString);
+		// if (pathString.startsWith("/")) pathString=pathString.substring(1);
+		pathString = basePath.path + pathString;
+
+		pathString = pathString.replaceFirst("//", "/");
+
+		System.out.println("Generate file " + pathString);
 		Files.write(path, bytes);
 	}
 
@@ -273,7 +266,8 @@ public class BaseProcessorTest {
 							Assert.assertTrue(String.format("%s not generated as aspected", item.getKey()), result);
 							break;
 						case NONE:
-							//writeGeneratedFile(PathSourceType.SRC_TEST_EXPECTED, item.getValue());
+							// writeGeneratedFile(PathSourceType.SRC_TEST_EXPECTED,
+							// item.getValue());
 							break;
 						case PREPARE_TEST_ANDROID_LIBRARY:
 							writeGeneratedFile(PathSourceType.DEST_TEST_ANDROID_LIBRARY, item.getValue());
