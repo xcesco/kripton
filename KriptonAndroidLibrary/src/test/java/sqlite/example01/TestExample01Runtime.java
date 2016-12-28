@@ -13,58 +13,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.foreignKey;
+package sqlite.example01;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
+import com.abubusoft.kripton.android.Logger;
+
 import base.BaseAndroidTest;
-import sqlite.foreignKey.BindDummyDataSource.Transaction;
+import sqlite.example01.BindDummy01DataSource.Transaction;
 
 /**
  * @author xcesco
  *
  */
-public class TestForeignKeyARuntime extends BaseAndroidTest {
+public class TestExample01Runtime extends BaseAndroidTest {
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
-		BindDummyDataSource dataSource = BindDummyDataSource.instance();
+		BindDummy01DataSource dataSource = BindDummy01DataSource.instance();
 
 		dataSource.execute(new Transaction() {
 
 			@Override
-			public boolean onExecute(BindDummyDaoFactory daoFactory) {
-				DaoBeanA_1Impl dao = daoFactory.getDaoBeanA_1();
+			public boolean onExecute(BindDummy01DaoFactory daoFactory) {
+				DaoChannelImpl dao = daoFactory.getDaoChannel();
 
-				BeanA_2 beanParent = new BeanA_2();
-				beanParent.valueString2 = "parent";
-				// daoFactory.getDaoBeanA_2().insert(beanParent);
+				{
+					long result = dao.insertRaw1("test", 52);
+					assertTrue(result == 52);
+				}
 
-				BeanA_1 bean = new BeanA_1();
-				bean.valueString = "hello";
-				bean.beanA2Id = beanParent.id;
+				assertTrue(dao.insertRaw2("test2", 23) == true);
 
-				dao.insert(bean);
-				assertNotEquals(-1, bean.id);
-				// List<BeanA_1> list = dao.selectById(bean.id);
+				{
+					// insert use max id value + 1
+					Channel bean = new Channel();
+					bean.setName("test3");
 
-				// Assert.assertEquals("not one ", 1, list.size());
-				// Assert.assertEquals("not equals", true,
-				// list.get(0).equals(bean));
+					assertTrue(dao.insertBean1(bean) == 53);
 
+					Logger.info("%s", bean.id);
+				}
+
+				{
+					assertTrue(dao.selectAll().size() == 3);
+				}
 				return true;
 			}
 
 			@Override
 			public void onError(Throwable e) {
-				System.out.println("aaa");
+				// TODO Auto-generated method stub
+
 			}
 		});
-
 	}
 
 }
