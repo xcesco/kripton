@@ -37,6 +37,7 @@ import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
@@ -103,7 +104,7 @@ public class BindSharedPreferencesBuilder {
 				.addModifiers(Modifier.PUBLIC)
 				.superclass(AbstractSharedPreference.class);
 		
-		BindTypeContext context=new BindTypeContext(builder, Modifier.PRIVATE);
+		BindTypeContext context=new BindTypeContext(builder, TypeUtility.typeName(entity.getElement()),  Modifier.PRIVATE);
 		
 		//@formatter:on
 		builder.addJavadoc("This class is the shared preference binder defined for $T\n\n", entity.getElement());

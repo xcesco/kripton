@@ -26,7 +26,6 @@ import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 
 @BindType
 public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {	

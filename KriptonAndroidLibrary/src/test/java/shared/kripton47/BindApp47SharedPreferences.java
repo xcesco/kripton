@@ -41,7 +41,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
 
   /**
    * UserAccessTokenBindMap */
-  private UserAccessTokenBindMap userAccessTokenBindMap;
+  private UserAccessTokenBindMap userAccessTokenBindMap = AbstractContext.mapperFor(UserAccessToken.class);
 
   /**
    * constructor
@@ -124,13 +124,6 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
 
   }
 
-  private UserAccessTokenBindMap userAccessTokenBindMap() {
-    if (userAccessTokenBindMap==null) {
-      userAccessTokenBindMap=AbstractContext.mapperFor(UserAccessToken.class);
-    }
-    return userAccessTokenBindMap;
-  }
-
   /**
    * write
    */
@@ -144,7 +137,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        userAccessTokenBindMap().serializeOnJackson(value, jacksonSerializer);
+        userAccessTokenBindMap.serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -167,7 +160,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       UserAccessToken result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=userAccessTokenBindMap().parseOnJackson(jacksonParser);
+        result=userAccessTokenBindMap.parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {

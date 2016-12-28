@@ -1,6 +1,5 @@
 package bind.kripton72;
 
-import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.BigDecimalUtils;
@@ -38,14 +37,7 @@ import java.util.HashSet;
 public class Bean72ABindMap extends AbstractMapper<Bean72A> {
   /**
    * Bean72ABindMap */
-  private Bean72ABindMap bean72ABindMap;
-
-  private Bean72ABindMap bean72ABindMap() {
-    if (bean72ABindMap==null) {
-      bean72ABindMap=AbstractContext.mapperFor(Bean72A.class);
-    }
-    return bean72ABindMap;
-  }
+  private Bean72ABindMap bean72ABindMap = this;
 
   /**
    * reset shared preferences
@@ -73,7 +65,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          bean72ABindMap().serializeOnJackson(item, jacksonSerializer);
+          bean72ABindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
@@ -293,7 +285,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (bean72ABindMap().serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+            if (bean72ABindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("valueBeanSet");
             }
           }
@@ -571,7 +563,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
           xmlSerializer.writeEmptyElement("valueBeanSet");
         } else {
           xmlSerializer.writeStartElement("valueBeanSet");
-          bean72ABindMap().serializeOnXml(item, xmlSerializer, 2);
+          bean72ABindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
@@ -850,7 +842,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=bean72ABindMap().parseOnJackson(jacksonParser);
+                  item=bean72ABindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -1086,7 +1078,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=bean72ABindMap().parseOnJacksonAsString(jacksonParser);
+                  item=bean72ABindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -1393,7 +1385,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=bean72ABindMap().parseOnXml(xmlParser, eventType);
+                      item=bean72ABindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBeanSet")) {
@@ -1401,7 +1393,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=bean72ABindMap().parseOnXml(xmlParser, eventType);
+                        item=bean72ABindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }

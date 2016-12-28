@@ -53,7 +53,7 @@ import java.util.TimeZone;
 public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * Bean64BindMap */
-  private Bean64BindMap bean64BindMap;
+  private Bean64BindMap bean64BindMap = AbstractContext.mapperFor(Bean64.class);
 
   public Bean64DaoImpl(BindBean64DataSource dataSet) {
     super(dataSet);
@@ -9796,13 +9796,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     return result;
   }
 
-  private Bean64BindMap bean64BindMap() {
-    if (bean64BindMap==null) {
-      bean64BindMap=AbstractContext.mapperFor(Bean64.class);
-    }
-    return bean64BindMap;
-  }
-
   /**
    * write
    */
@@ -9826,7 +9819,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            bean64BindMap().serializeOnJackson(item, jacksonSerializer);
+            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -9861,7 +9854,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=bean64BindMap().parseOnJackson(jacksonParser);
+            item=bean64BindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

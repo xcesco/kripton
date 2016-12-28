@@ -135,7 +135,7 @@ public class BeanTable {
 
   /**
    * BeanBindMap */
-  private static BeanBindMap beanBindMap;
+  private static BeanBindMap beanBindMap = AbstractContext.mapperFor(Bean.class);
 
   /**
    * write
@@ -681,13 +681,6 @@ public class BeanTable {
     }
   }
 
-  private static BeanBindMap beanBindMap() {
-    if (beanBindMap==null) {
-      beanBindMap=AbstractContext.mapperFor(Bean.class);
-    }
-    return beanBindMap;
-  }
-
   /**
    * write
    */
@@ -709,7 +702,7 @@ public class BeanTable {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanBindMap().serializeOnJackson(item, jacksonSerializer);
+            beanBindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -744,7 +737,7 @@ public class BeanTable {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanBindMap().parseOnJackson(jacksonParser);
+            item=beanBindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

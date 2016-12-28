@@ -1,6 +1,5 @@
 package bind.kripton74Map;
 
-import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.Base64Utils;
@@ -31,14 +30,7 @@ import java.util.Map;
 public class Bean74BindMap extends AbstractMapper<Bean74> {
   /**
    * Bean74BindMap */
-  private Bean74BindMap bean74BindMap;
-
-  private Bean74BindMap bean74BindMap() {
-    if (bean74BindMap==null) {
-      bean74BindMap=AbstractContext.mapperFor(Bean74.class);
-    }
-    return bean74BindMap;
-  }
+  private Bean74BindMap bean74BindMap = this;
 
   /**
    * reset shared preferences
@@ -66,7 +58,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         for (Map.Entry<Bean74, Locale> item: object.valueMapBeanLocale.entrySet()) {
           jacksonSerializer.writeStartObject();
           jacksonSerializer.writeFieldName("k");
-          bean74BindMap().serializeOnJackson(item.getKey(), jacksonSerializer);
+          bean74BindMap.serializeOnJackson(item.getKey(), jacksonSerializer);
           if (item.getValue()==null) {
             jacksonSerializer.writeNullField("v");
           } else {
@@ -94,7 +86,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
             jacksonSerializer.writeNullField("v");
           } else {
             jacksonSerializer.writeFieldName("v");
-            bean74BindMap().serializeOnJackson(item.getValue(), jacksonSerializer);
+            bean74BindMap.serializeOnJackson(item.getValue(), jacksonSerializer);
           }
           jacksonSerializer.writeEndObject();
         }
@@ -180,7 +172,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
         for (Map.Entry<Bean74, Locale> item: object.valueMapBeanLocale.entrySet()) {
           jacksonSerializer.writeStartObject();
           jacksonSerializer.writeFieldName("k");
-          if (bean74BindMap().serializeOnJacksonAsString(item.getKey(), jacksonSerializer)==0) {
+          if (bean74BindMap.serializeOnJacksonAsString(item.getKey(), jacksonSerializer)==0) {
             jacksonSerializer.writeNullField("k");
           }
           if (item.getValue()==null) {
@@ -210,7 +202,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
             jacksonSerializer.writeStringField("v", "null");
           } else {
             jacksonSerializer.writeFieldName("v");
-            if (bean74BindMap().serializeOnJacksonAsString(item.getValue(), jacksonSerializer)==0) {
+            if (bean74BindMap.serializeOnJacksonAsString(item.getValue(), jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("v");
             }
           }
@@ -295,7 +287,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
       for (Map.Entry<Bean74, Locale> item: object.valueMapBeanLocale.entrySet()) {
         xmlSerializer.writeStartElement("valueMapBeanLocale");
           xmlSerializer.writeStartElement("k");
-          bean74BindMap().serializeOnXml(item.getKey(), xmlSerializer, 2);
+          bean74BindMap.serializeOnXml(item.getKey(), xmlSerializer, 2);
           xmlSerializer.writeEndElement();
           if (item.getValue()==null) {
             xmlSerializer.writeEmptyElement("v");
@@ -324,7 +316,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
           } else {
             if (item.getValue()!=null)  {
               xmlSerializer.writeStartElement("v");
-              bean74BindMap().serializeOnXml(item.getValue(), xmlSerializer, 2);
+              bean74BindMap.serializeOnXml(item.getValue(), xmlSerializer, 2);
               xmlSerializer.writeEndElement();
             }
           }
@@ -417,7 +409,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
               Locale value=null;
               while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                 jacksonParser.nextValue();
-                key=bean74BindMap().parseOnJackson(jacksonParser);
+                key=bean74BindMap.parseOnJackson(jacksonParser);
                 jacksonParser.nextValue();
                 if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
                   value=LocaleUtils.read(jacksonParser.getText());
@@ -444,7 +436,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                 }
                 jacksonParser.nextValue();
                 if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                  value=bean74BindMap().parseOnJackson(jacksonParser);
+                  value=bean74BindMap.parseOnJackson(jacksonParser);
                 }
                 collection.put(key, value);
                 key=null;
@@ -546,7 +538,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                   jacksonParser.nextValue();
                   switch(jacksonParser.getCurrentName()) {
                   case "k":
-                    key=bean74BindMap().parseOnJacksonAsString(jacksonParser);
+                    key=bean74BindMap.parseOnJacksonAsString(jacksonParser);
                   break;
                   case "v":
                     tempValue=jacksonParser.getValueAsString();
@@ -596,7 +588,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                       value=null;
                     } else {
                       if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-                        value=bean74BindMap().parseOnJacksonAsString(jacksonParser);
+                        value=bean74BindMap.parseOnJacksonAsString(jacksonParser);
                       }
                     }
                   break;
@@ -739,7 +731,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                     Locale value;
                     // add first element
                     xmlParser.nextTag();
-                    key=bean74BindMap().parseOnXml(xmlParser, eventType);
+                    key=bean74BindMap.parseOnXml(xmlParser, eventType);
                     xmlParser.nextTag();
                     if (xmlParser.isEmptyElement()) {
                       value=null;
@@ -751,7 +743,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                     collection.put(key, value);
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueMapBeanLocale")) {
                       xmlParser.nextTag();
-                      key=bean74BindMap().parseOnXml(xmlParser, eventType);
+                      key=bean74BindMap.parseOnXml(xmlParser, eventType);
                       xmlParser.nextTag();
                       if (xmlParser.isEmptyElement()) {
                         value=null;
@@ -780,7 +772,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
                         value=null;
                         xmlParser.nextTag();
                       } else {
-                        value=bean74BindMap().parseOnXml(xmlParser, eventType);
+                        value=bean74BindMap.parseOnXml(xmlParser, eventType);
                       }
                       xmlParser.nextTag();
                       collection.put(key, value);

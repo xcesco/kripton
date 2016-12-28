@@ -26,14 +26,7 @@ import java.util.ArrayList;
 public class ResponseBindMap extends AbstractMapper<Response> {
   /**
    * UserBindMap */
-  private UserBindMap userBindMap;
-
-  private UserBindMap userBindMap() {
-    if (userBindMap==null) {
-      userBindMap=AbstractContext.mapperFor(User.class);
-    }
-    return userBindMap;
-  }
+  private UserBindMap userBindMap = AbstractContext.mapperFor(User.class);
 
   /**
    * reset shared preferences
@@ -64,7 +57,7 @@ public class ResponseBindMap extends AbstractMapper<Response> {
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          userBindMap().serializeOnJackson(item, jacksonSerializer);
+          userBindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
@@ -108,7 +101,7 @@ public class ResponseBindMap extends AbstractMapper<Response> {
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (userBindMap().serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+            if (userBindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("users");
             }
           }
@@ -154,7 +147,7 @@ public class ResponseBindMap extends AbstractMapper<Response> {
           xmlSerializer.writeEmptyElement("users");
         } else {
           xmlSerializer.writeStartElement("users");
-          userBindMap().serializeOnXml(item, xmlSerializer, 2);
+          userBindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
@@ -211,7 +204,7 @@ public class ResponseBindMap extends AbstractMapper<Response> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=userBindMap().parseOnJackson(jacksonParser);
+                  item=userBindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -266,7 +259,7 @@ public class ResponseBindMap extends AbstractMapper<Response> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=userBindMap().parseOnJacksonAsString(jacksonParser);
+                  item=userBindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -335,7 +328,7 @@ public class ResponseBindMap extends AbstractMapper<Response> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=userBindMap().parseOnXml(xmlParser, eventType);
+                      item=userBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("users")) {
@@ -343,7 +336,7 @@ public class ResponseBindMap extends AbstractMapper<Response> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=userBindMap().parseOnXml(xmlParser, eventType);
+                        item=userBindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }

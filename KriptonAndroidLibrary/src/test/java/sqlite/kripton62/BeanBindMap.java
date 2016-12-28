@@ -1,6 +1,5 @@
 package sqlite.kripton62;
 
-import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.BigDecimalUtils;
@@ -36,14 +35,7 @@ import java.util.LinkedHashSet;
 public class BeanBindMap extends AbstractMapper<Bean> {
   /**
    * BeanBindMap */
-  private BeanBindMap beanBindMap;
-
-  private BeanBindMap beanBindMap() {
-    if (beanBindMap==null) {
-      beanBindMap=AbstractContext.mapperFor(Bean.class);
-    }
-    return beanBindMap;
-  }
+  private BeanBindMap beanBindMap = this;
 
   /**
    * reset shared preferences
@@ -69,7 +61,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          beanBindMap().serializeOnJackson(item, jacksonSerializer);
+          beanBindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
@@ -248,7 +240,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (beanBindMap().serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+            if (beanBindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("valueBeanSet");
             }
           }
@@ -476,7 +468,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           xmlSerializer.writeEmptyElement("valueBeanSet");
         } else {
           xmlSerializer.writeStartElement("valueBeanSet");
-          beanBindMap().serializeOnXml(item, xmlSerializer, 2);
+          beanBindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
@@ -706,7 +698,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=beanBindMap().parseOnJackson(jacksonParser);
+                  item=beanBindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -902,7 +894,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=beanBindMap().parseOnJacksonAsString(jacksonParser);
+                  item=beanBindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -1161,7 +1153,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=beanBindMap().parseOnXml(xmlParser, eventType);
+                      item=beanBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBeanSet")) {
@@ -1169,7 +1161,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=beanBindMap().parseOnXml(xmlParser, eventType);
+                        item=beanBindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }

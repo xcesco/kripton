@@ -90,14 +90,7 @@ public class Bean01Table {
 
   /**
    * Bean02BindMap */
-  private static Bean02BindMap bean02BindMap;
-
-  private static Bean02BindMap bean02BindMap() {
-    if (bean02BindMap==null) {
-      bean02BindMap=AbstractContext.mapperFor(Bean02.class);
-    }
-    return bean02BindMap;
-  }
+  private static Bean02BindMap bean02BindMap = AbstractContext.mapperFor(Bean02.class);
 
   /**
    * write
@@ -123,7 +116,7 @@ public class Bean01Table {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            bean02BindMap().serializeOnJackson(item, jacksonSerializer);
+            bean02BindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -158,7 +151,7 @@ public class Bean01Table {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=bean02BindMap().parseOnJackson(jacksonParser);
+            item=bean02BindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
@@ -194,7 +187,7 @@ public class Bean01Table {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            bean02BindMap().serializeOnJackson(item, jacksonSerializer);
+            bean02BindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -229,7 +222,7 @@ public class Bean01Table {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=bean02BindMap().parseOnJackson(jacksonParser);
+            item=bean02BindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

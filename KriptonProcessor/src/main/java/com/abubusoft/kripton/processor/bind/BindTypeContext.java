@@ -19,9 +19,11 @@ public class BindTypeContext {
 	public TypeSpec.Builder builder;
 	public Set<String> alreadyGeneratedMethods;
 	public Modifier[] modifiers;
+	private TypeName beanTypeName;
 
-	public BindTypeContext(TypeSpec.Builder builder, Modifier ... modifiers) {
+	public BindTypeContext(TypeSpec.Builder builder, TypeName beanTypeName, Modifier ... modifiers) {
 		this.builder=builder;
+		this.beanTypeName=beanTypeName;
 		this.alreadyGeneratedMethods = new HashSet<>();
 		this.modifiers=modifiers;
 	}
@@ -34,10 +36,20 @@ public class BindTypeContext {
 		if (!alreadyGeneratedMethods.contains(simpleName))
 		{
 			alreadyGeneratedMethods.add(simpleName);
-			context.builder.addField(FieldSpec.builder(bindMapperName, simpleName, modifiers)					
-					.addJavadoc("$T", bindMapperName)
-					.initializer("$T.mapperFor($T.class)", AbstractContext.class, property.getPropertyType().getName())
-					.build());
+			if (bindMapperName.equals(beanTypeName))
+			{
+				context.builder.addField(FieldSpec.builder(bindMapperName, simpleName, modifiers)					
+						.addJavadoc("$T", bindMapperName)
+						.initializer("this")
+						.build());
+			} else {				
+				context.builder.addField(FieldSpec.builder(bindMapperName, simpleName, modifiers)					
+						.addJavadoc("$T", bindMapperName)
+						.initializer("$T.mapperFor($T.class)", AbstractContext.class, property.getPropertyType().getName())
+						.build());	
+			}
+			
+			
 			
 			/*MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(simpleName)					
 					.addModifiers(modifiers)

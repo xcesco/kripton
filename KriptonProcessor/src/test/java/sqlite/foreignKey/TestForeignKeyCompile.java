@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
 import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
@@ -46,12 +47,12 @@ public class TestForeignKeyCompile extends AbstractBindSQLiteProcessorTest {
 	
 	@Test
 	public void testForeignKeyCompile2() throws IOException, InstantiationException, IllegalAccessException {
-		//this.expectedException(InvalidBeanTypeException.class);
 		buildDataSourceProcessorTest(BeanA_3.class, BeanA_4.class, DaoBeanA_3.class, DaoBeanA_4.class, Dummy2DataSource.class);
 	}
 	
 	@Test
 	public void testForeignKeyCompile3() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(CircularRelationshipException.class);
 		buildDataSourceProcessorTest(BeanA_5.class, BeanA_6.class, DaoBeanA_5.class, DaoBeanA_6.class, Dummy3DataSource.class);
 	}
 

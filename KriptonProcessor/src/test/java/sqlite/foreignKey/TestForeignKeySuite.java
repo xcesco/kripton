@@ -9,7 +9,8 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestForeignKeyCompile.class
+		TestForeignKeyCompile.class,
+		TestDependiciesFinder.class
 		 })
 //@formatter:on
 public class TestForeignKeySuite extends BaseProcessorTest {

@@ -103,7 +103,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
 		builder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC);
 		
-		BindTypeContext context=new BindTypeContext(builder, Modifier.STATIC, Modifier.PRIVATE);
+		BindTypeContext context=new BindTypeContext(builder, TypeUtility.typeName(packageName, classTableName), Modifier.STATIC, Modifier.PRIVATE);
 		
 		// javadoc for class
 		builder.addJavadoc("<p>");

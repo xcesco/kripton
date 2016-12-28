@@ -1,6 +1,5 @@
 package sqlite.kripton64;
 
-import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
@@ -29,14 +28,7 @@ import java.util.Map;
 public class Bean64BBindMap extends AbstractMapper<Bean64B> {
   /**
    * Bean64BBindMap */
-  private Bean64BBindMap bean64BBindMap;
-
-  private Bean64BBindMap bean64BBindMap() {
-    if (bean64BBindMap==null) {
-      bean64BBindMap=AbstractContext.mapperFor(Bean64B.class);
-    }
-    return bean64BBindMap;
-  }
+  private Bean64BBindMap bean64BBindMap = this;
 
   /**
    * reset shared preferences
@@ -66,7 +58,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
             jacksonSerializer.writeNullField("value");
           } else {
             jacksonSerializer.writeFieldName("value");
-            bean64BBindMap().serializeOnJackson(item.getValue(), jacksonSerializer);
+            bean64BBindMap.serializeOnJackson(item.getValue(), jacksonSerializer);
           }
           jacksonSerializer.writeEndObject();
         }
@@ -129,7 +121,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
             jacksonSerializer.writeStringField("value", "null");
           } else {
             jacksonSerializer.writeFieldName("value");
-            if (bean64BBindMap().serializeOnJacksonAsString(item.getValue(), jacksonSerializer)==0) {
+            if (bean64BBindMap.serializeOnJacksonAsString(item.getValue(), jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("value");
             }
           }
@@ -202,7 +194,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
           } else {
             if (item.getValue()!=null)  {
               xmlSerializer.writeStartElement("value");
-              bean64BBindMap().serializeOnXml(item.getValue(), xmlSerializer, 2);
+              bean64BBindMap.serializeOnXml(item.getValue(), xmlSerializer, 2);
               xmlSerializer.writeEndElement();
             }
           }
@@ -277,7 +269,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
                 key=jacksonParser.getText();
                 jacksonParser.nextValue();
                 if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-                  value=bean64BBindMap().parseOnJackson(jacksonParser);
+                  value=bean64BBindMap.parseOnJackson(jacksonParser);
                 }
                 collection.put(key, value);
                 key=null;
@@ -367,7 +359,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
                       value=null;
                     } else {
                       if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-                        value=bean64BBindMap().parseOnJacksonAsString(jacksonParser);
+                        value=bean64BBindMap.parseOnJacksonAsString(jacksonParser);
                       }
                     }
                   break;
@@ -465,7 +457,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
                       value=null;
                       xmlParser.nextTag();
                     } else {
-                      value=bean64BBindMap().parseOnXml(xmlParser, eventType);
+                      value=bean64BBindMap.parseOnXml(xmlParser, eventType);
                     }
                     xmlParser.nextTag();
                     collection.put(key, value);
@@ -477,7 +469,7 @@ public class Bean64BBindMap extends AbstractMapper<Bean64B> {
                         value=null;
                         xmlParser.nextTag();
                       } else {
-                        value=bean64BBindMap().parseOnXml(xmlParser, eventType);
+                        value=bean64BBindMap.parseOnXml(xmlParser, eventType);
                       }
                       xmlParser.nextTag();
                       collection.put(key, value);

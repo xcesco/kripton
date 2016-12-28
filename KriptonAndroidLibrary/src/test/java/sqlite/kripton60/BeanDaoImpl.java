@@ -53,7 +53,7 @@ import java.util.TimeZone;
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * BeanBindMap */
-  private BeanBindMap beanBindMap;
+  private BeanBindMap beanBindMap = AbstractContext.mapperFor(Bean.class);
 
   public BeanDaoImpl(BindBeanDataSource dataSet) {
     super(dataSet);
@@ -9796,13 +9796,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     return result;
   }
 
-  private BeanBindMap beanBindMap() {
-    if (beanBindMap==null) {
-      beanBindMap=AbstractContext.mapperFor(Bean.class);
-    }
-    return beanBindMap;
-  }
-
   /**
    * write
    */
@@ -9826,7 +9819,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanBindMap().serializeOnJackson(item, jacksonSerializer);
+            beanBindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -9861,7 +9854,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanBindMap().parseOnJackson(jacksonParser);
+            item=beanBindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

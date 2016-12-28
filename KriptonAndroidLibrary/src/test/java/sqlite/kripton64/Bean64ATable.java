@@ -78,14 +78,7 @@ public class Bean64ATable {
 
   /**
    * Bean64ABindMap */
-  private static Bean64ABindMap bean64ABindMap;
-
-  private static Bean64ABindMap bean64ABindMap() {
-    if (bean64ABindMap==null) {
-      bean64ABindMap=AbstractContext.mapperFor(Bean64A.class);
-    }
-    return bean64ABindMap;
-  }
+  private static Bean64ABindMap bean64ABindMap = AbstractContext.mapperFor(Bean64A.class);
 
   /**
    * write
@@ -112,7 +105,7 @@ public class Bean64ATable {
               jacksonSerializer.writeNullField("value");
             } else {
               jacksonSerializer.writeFieldName("value");
-              bean64ABindMap().serializeOnJackson(item.getValue(), jacksonSerializer);
+              bean64ABindMap.serializeOnJackson(item.getValue(), jacksonSerializer);
             }
             jacksonSerializer.writeEndObject();
           }
@@ -153,7 +146,7 @@ public class Bean64ATable {
           key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-            value=bean64ABindMap().parseOnJackson(jacksonParser);
+            value=bean64ABindMap.parseOnJackson(jacksonParser);
           }
           collection.put(key, value);
           key=null;

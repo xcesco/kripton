@@ -37,7 +37,7 @@ import sqlite.kripton58.BeanInnerBindMap;
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * BeanInnerBindMap */
-  private BeanInnerBindMap beanInnerBindMap;
+  private BeanInnerBindMap beanInnerBindMap = AbstractContext.mapperFor(BeanInner.class);
 
   public BeanDaoImpl(BindBeanDataSource dataSet) {
     super(dataSet);
@@ -471,13 +471,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     return result;
   }
 
-  private BeanInnerBindMap beanInnerBindMap() {
-    if (beanInnerBindMap==null) {
-      beanInnerBindMap=AbstractContext.mapperFor(BeanInner.class);
-    }
-    return beanInnerBindMap;
-  }
-
   /**
    * write
    */
@@ -501,7 +494,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanInnerBindMap().serializeOnJackson(item, jacksonSerializer);
+            beanInnerBindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -536,7 +529,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanInnerBindMap().parseOnJackson(jacksonParser);
+            item=beanInnerBindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

@@ -1,6 +1,5 @@
 package sqlite.kripton60;
 
-import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.Base64Utils;
@@ -42,14 +41,7 @@ import java.util.LinkedList;
 public class Bean2BindMap extends AbstractMapper<Bean2> {
   /**
    * Bean2BindMap */
-  private Bean2BindMap bean2BindMap;
-
-  private Bean2BindMap bean2BindMap() {
-    if (bean2BindMap==null) {
-      bean2BindMap=AbstractContext.mapperFor(Bean2.class);
-    }
-    return bean2BindMap;
-  }
+  private Bean2BindMap bean2BindMap = this;
 
   /**
    * reset shared preferences
@@ -69,7 +61,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
     if (object.getValueBean()!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("valueBean");
-      bean2BindMap().serializeOnJackson(object.getValueBean(), jacksonSerializer);
+      bean2BindMap.serializeOnJackson(object.getValueBean(), jacksonSerializer);
     }
 
     // field valueBeanArray (mapped with "valueBeanArray")
@@ -85,7 +77,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          bean2BindMap().serializeOnJackson(item, jacksonSerializer);
+          bean2BindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
@@ -427,7 +419,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
     if (object.getValueBean()!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("valueBean");
-      if (bean2BindMap().serializeOnJacksonAsString(object.getValueBean(), jacksonSerializer)==0) {
+      if (bean2BindMap.serializeOnJacksonAsString(object.getValueBean(), jacksonSerializer)==0) {
         jacksonSerializer.writeNullField("valueBean");
       }
     }
@@ -446,7 +438,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (bean2BindMap().serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+            if (bean2BindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("valueBeanArray");
             }
           }
@@ -815,7 +807,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
     // field valueBean (mapped with "valueBean")
     if (object.getValueBean()!=null)  {
       xmlSerializer.writeStartElement("valueBean");
-      bean2BindMap().serializeOnXml(object.getValueBean(), xmlSerializer, 2);
+      bean2BindMap.serializeOnXml(object.getValueBean(), xmlSerializer, 2);
       xmlSerializer.writeEndElement();
     }
 
@@ -829,7 +821,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
           xmlSerializer.writeEmptyElement("valueBeanArray");
         } else {
           xmlSerializer.writeStartElement("valueBeanArray");
-          bean2BindMap().serializeOnXml(item, xmlSerializer, 2);
+          bean2BindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
@@ -1243,7 +1235,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
           case "valueBean":
             // field valueBean (mapped with "valueBean")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-              instance.setValueBean(bean2BindMap().parseOnJackson(jacksonParser));
+              instance.setValueBean(bean2BindMap.parseOnJackson(jacksonParser));
             }
           break;
           case "valueBeanArray":
@@ -1255,7 +1247,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=bean2BindMap().parseOnJackson(jacksonParser);
+                  item=bean2BindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -1593,7 +1585,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
           case "valueBean":
             // field valueBean (mapped with "valueBean")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-              instance.setValueBean(bean2BindMap().parseOnJacksonAsString(jacksonParser));
+              instance.setValueBean(bean2BindMap.parseOnJacksonAsString(jacksonParser));
             }
           break;
           case "valueBeanArray":
@@ -1607,7 +1599,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=bean2BindMap().parseOnJacksonAsString(jacksonParser);
+                  item=bean2BindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -2006,7 +1998,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 break;
                 case "valueBean":
                   // property valueBean (mapped on "valueBean")
-                  instance.setValueBean(bean2BindMap().parseOnXml(xmlParser, eventType));
+                  instance.setValueBean(bean2BindMap.parseOnXml(xmlParser, eventType));
                 break;
                 case "valueBeanArray":
                   // property valueBeanArray (mapped on "valueBeanArray")
@@ -2022,7 +2014,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=bean2BindMap().parseOnXml(xmlParser, eventType);
+                      item=bean2BindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBeanArray")) {
@@ -2030,7 +2022,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=bean2BindMap().parseOnXml(xmlParser, eventType);
+                        item=bean2BindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }

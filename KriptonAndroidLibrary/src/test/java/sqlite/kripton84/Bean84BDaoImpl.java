@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   /**
    * Bean84B2BindMap */
-  private Bean84B2BindMap bean84B2BindMap;
+  private Bean84B2BindMap bean84B2BindMap = AbstractContext.mapperFor(Bean84B2.class);
 
   public Bean84BDaoImpl(BindBean84BDataSource dataSet) {
     super(dataSet);
@@ -218,13 +218,6 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     return result!=0;
   }
 
-  private Bean84B2BindMap bean84B2BindMap() {
-    if (bean84B2BindMap==null) {
-      bean84B2BindMap=AbstractContext.mapperFor(Bean84B2.class);
-    }
-    return bean84B2BindMap;
-  }
-
   /**
    * write
    */
@@ -237,7 +230,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
       int fieldCount=0;
       if (value!=null)  {
-        bean84B2BindMap().serializeOnJackson(value, jacksonSerializer);
+        bean84B2BindMap.serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toByteArray();
@@ -262,7 +255,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       jacksonParser.nextValue();
       Bean84B2 result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=bean84B2BindMap().parseOnJackson(jacksonParser);
+        result=bean84B2BindMap.parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {

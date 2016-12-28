@@ -109,7 +109,7 @@ public class Bean84ATable {
 
   /**
    * Bean84ABindMap */
-  private static Bean84ABindMap bean84ABindMap;
+  private static Bean84ABindMap bean84ABindMap = AbstractContext.mapperFor(Bean84A.class);
 
   /**
    * write
@@ -400,13 +400,6 @@ public class Bean84ATable {
     }
   }
 
-  private static Bean84ABindMap bean84ABindMap() {
-    if (bean84ABindMap==null) {
-      bean84ABindMap=AbstractContext.mapperFor(Bean84A.class);
-    }
-    return bean84ABindMap;
-  }
-
   /**
    * write
    */
@@ -420,7 +413,7 @@ public class Bean84ATable {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        bean84ABindMap().serializeOnJackson(value, jacksonSerializer);
+        bean84ABindMap.serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toByteArray();
@@ -443,7 +436,7 @@ public class Bean84ATable {
       jacksonParser.nextToken();
       Bean84A result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=bean84ABindMap().parseOnJackson(jacksonParser);
+        result=bean84ABindMap.parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {

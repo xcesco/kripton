@@ -22,14 +22,7 @@ import java.lang.Override;
 public class App47BindMap extends AbstractMapper<App47> {
   /**
    * UserAccessTokenBindMap */
-  private UserAccessTokenBindMap userAccessTokenBindMap;
-
-  private UserAccessTokenBindMap userAccessTokenBindMap() {
-    if (userAccessTokenBindMap==null) {
-      userAccessTokenBindMap=AbstractContext.mapperFor(UserAccessToken.class);
-    }
-    return userAccessTokenBindMap;
-  }
+  private UserAccessTokenBindMap userAccessTokenBindMap = AbstractContext.mapperFor(UserAccessToken.class);
 
   /**
    * reset shared preferences
@@ -51,7 +44,7 @@ public class App47BindMap extends AbstractMapper<App47> {
     if (object.userAccessToken!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("userAccessToken");
-      userAccessTokenBindMap().serializeOnJackson(object.userAccessToken, jacksonSerializer);
+      userAccessTokenBindMap.serializeOnJackson(object.userAccessToken, jacksonSerializer);
     }
 
     jacksonSerializer.writeEndObject();
@@ -78,7 +71,7 @@ public class App47BindMap extends AbstractMapper<App47> {
     if (object.userAccessToken!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("userAccessToken");
-      if (userAccessTokenBindMap().serializeOnJacksonAsString(object.userAccessToken, jacksonSerializer)==0) {
+      if (userAccessTokenBindMap.serializeOnJacksonAsString(object.userAccessToken, jacksonSerializer)==0) {
         jacksonSerializer.writeNullField("userAccessToken");
       }
     }
@@ -108,7 +101,7 @@ public class App47BindMap extends AbstractMapper<App47> {
     // field userAccessToken (mapped with "userAccessToken")
     if (object.userAccessToken!=null)  {
       xmlSerializer.writeStartElement("userAccessToken");
-      userAccessTokenBindMap().serializeOnXml(object.userAccessToken, xmlSerializer, 2);
+      userAccessTokenBindMap.serializeOnXml(object.userAccessToken, xmlSerializer, 2);
       xmlSerializer.writeEndElement();
     }
 
@@ -146,7 +139,7 @@ public class App47BindMap extends AbstractMapper<App47> {
           case "userAccessToken":
             // field userAccessToken (mapped with "userAccessToken")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-              instance.userAccessToken=userAccessTokenBindMap().parseOnJackson(jacksonParser);
+              instance.userAccessToken=userAccessTokenBindMap.parseOnJackson(jacksonParser);
             }
           break;
           default:
@@ -185,7 +178,7 @@ public class App47BindMap extends AbstractMapper<App47> {
           case "userAccessToken":
             // field userAccessToken (mapped with "userAccessToken")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-              instance.userAccessToken=userAccessTokenBindMap().parseOnJacksonAsString(jacksonParser);
+              instance.userAccessToken=userAccessTokenBindMap.parseOnJacksonAsString(jacksonParser);
             }
           break;
           default:
@@ -231,7 +224,7 @@ public class App47BindMap extends AbstractMapper<App47> {
                 break;
                 case "userAccessToken":
                   // property userAccessToken (mapped on "userAccessToken")
-                  instance.userAccessToken=userAccessTokenBindMap().parseOnXml(xmlParser, eventType);
+                  instance.userAccessToken=userAccessTokenBindMap.parseOnXml(xmlParser, eventType);
                 break;
                 default:
                 break;

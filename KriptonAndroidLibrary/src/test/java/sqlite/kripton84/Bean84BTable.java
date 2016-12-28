@@ -60,14 +60,7 @@ public class Bean84BTable {
 
   /**
    * Bean84B2BindMap */
-  private static Bean84B2BindMap bean84B2BindMap;
-
-  private static Bean84B2BindMap bean84B2BindMap() {
-    if (bean84B2BindMap==null) {
-      bean84B2BindMap=AbstractContext.mapperFor(Bean84B2.class);
-    }
-    return bean84B2BindMap;
-  }
+  private static Bean84B2BindMap bean84B2BindMap = AbstractContext.mapperFor(Bean84B2.class);
 
   /**
    * write
@@ -82,7 +75,7 @@ public class Bean84BTable {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        bean84B2BindMap().serializeOnJackson(value, jacksonSerializer);
+        bean84B2BindMap.serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toByteArray();
@@ -105,7 +98,7 @@ public class Bean84BTable {
       jacksonParser.nextToken();
       Bean84B2 result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=bean84B2BindMap().parseOnJackson(jacksonParser);
+        result=bean84B2BindMap.parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {

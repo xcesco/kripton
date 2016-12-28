@@ -36,11 +36,11 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
 
   /**
    * DeviceAccessTokenBindMap */
-  private DeviceAccessTokenBindMap deviceAccessTokenBindMap;
+  private DeviceAccessTokenBindMap deviceAccessTokenBindMap = AbstractContext.mapperFor(DeviceAccessToken.class);
 
   /**
    * UserIdentityBindMap */
-  private UserIdentityBindMap userIdentityBindMap;
+  private UserIdentityBindMap userIdentityBindMap = AbstractContext.mapperFor(UserIdentity.class);
 
   /**
    * constructor
@@ -158,13 +158,6 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
 
   }
 
-  private DeviceAccessTokenBindMap deviceAccessTokenBindMap() {
-    if (deviceAccessTokenBindMap==null) {
-      deviceAccessTokenBindMap=AbstractContext.mapperFor(DeviceAccessToken.class);
-    }
-    return deviceAccessTokenBindMap;
-  }
-
   /**
    * write
    */
@@ -178,7 +171,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        deviceAccessTokenBindMap().serializeOnJackson(value, jacksonSerializer);
+        deviceAccessTokenBindMap.serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -201,19 +194,12 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       DeviceAccessToken result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=deviceAccessTokenBindMap().parseOnJackson(jacksonParser);
+        result=deviceAccessTokenBindMap.parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
-  }
-
-  private UserIdentityBindMap userIdentityBindMap() {
-    if (userIdentityBindMap==null) {
-      userIdentityBindMap=AbstractContext.mapperFor(UserIdentity.class);
-    }
-    return userIdentityBindMap;
   }
 
   /**
@@ -229,7 +215,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        userIdentityBindMap().serializeOnJackson(value, jacksonSerializer);
+        userIdentityBindMap.serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -252,7 +238,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       UserIdentity result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=userIdentityBindMap().parseOnJackson(jacksonParser);
+        result=userIdentityBindMap.parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {

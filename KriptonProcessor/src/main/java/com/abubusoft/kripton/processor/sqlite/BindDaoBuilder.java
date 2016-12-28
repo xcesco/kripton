@@ -87,7 +87,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 		builder = TypeSpec.classBuilder(classTableName).superclass(AbstractDao.class).addSuperinterface(typeName(value.getElement())).addModifiers(Modifier.PUBLIC);
 		
-		BindTypeContext context=new BindTypeContext(builder, Modifier.PRIVATE);
+		BindTypeContext context=new BindTypeContext(builder, TypeUtility.typeName(packageName, classTableName), Modifier.PRIVATE);
 
 		// javadoc for class
 		builder.addJavadoc("<p>");

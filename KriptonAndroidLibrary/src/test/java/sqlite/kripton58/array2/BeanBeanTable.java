@@ -71,14 +71,7 @@ public class BeanBeanTable {
 
   /**
    * BeanInnerBindMap */
-  private static BeanInnerBindMap beanInnerBindMap;
-
-  private static BeanInnerBindMap beanInnerBindMap() {
-    if (beanInnerBindMap==null) {
-      beanInnerBindMap=AbstractContext.mapperFor(BeanInner.class);
-    }
-    return beanInnerBindMap;
-  }
+  private static BeanInnerBindMap beanInnerBindMap = AbstractContext.mapperFor(BeanInner.class);
 
   /**
    * write
@@ -104,7 +97,7 @@ public class BeanBeanTable {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanInnerBindMap().serializeOnJackson(item, jacksonSerializer);
+            beanInnerBindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -139,7 +132,7 @@ public class BeanBeanTable {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanInnerBindMap().parseOnJackson(jacksonParser);
+            item=beanInnerBindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
@@ -175,7 +168,7 @@ public class BeanBeanTable {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanInnerBindMap().serializeOnJackson(item, jacksonSerializer);
+            beanInnerBindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -210,7 +203,7 @@ public class BeanBeanTable {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanInnerBindMap().parseOnJackson(jacksonParser);
+            item=beanInnerBindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

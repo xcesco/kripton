@@ -26,14 +26,7 @@ import java.util.ArrayList;
 public class Bean01BindMap extends AbstractMapper<Bean01> {
   /**
    * Bean02BindMap */
-  private Bean02BindMap bean02BindMap;
-
-  private Bean02BindMap bean02BindMap() {
-    if (bean02BindMap==null) {
-      bean02BindMap=AbstractContext.mapperFor(Bean02.class);
-    }
-    return bean02BindMap;
-  }
+  private Bean02BindMap bean02BindMap = AbstractContext.mapperFor(Bean02.class);
 
   /**
    * reset shared preferences
@@ -58,7 +51,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          bean02BindMap().serializeOnJackson(item, jacksonSerializer);
+          bean02BindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
@@ -81,7 +74,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          bean02BindMap().serializeOnJackson(item, jacksonSerializer);
+          bean02BindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
@@ -129,7 +122,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (bean02BindMap().serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+            if (bean02BindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("beanList");
             }
           }
@@ -157,7 +150,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (bean02BindMap().serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+            if (bean02BindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("lista");
             }
           }
@@ -205,7 +198,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
           xmlSerializer.writeEmptyElement("beanList");
         } else {
           xmlSerializer.writeStartElement("beanList");
-          bean02BindMap().serializeOnXml(item, xmlSerializer, 2);
+          bean02BindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
@@ -232,7 +225,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
           xmlSerializer.writeEmptyElement("lista");
         } else {
           xmlSerializer.writeStartElement("lista");
-          bean02BindMap().serializeOnXml(item, xmlSerializer, 2);
+          bean02BindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
@@ -295,7 +288,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=bean02BindMap().parseOnJackson(jacksonParser);
+                  item=bean02BindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -315,7 +308,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=bean02BindMap().parseOnJackson(jacksonParser);
+                  item=bean02BindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -374,7 +367,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=bean02BindMap().parseOnJacksonAsString(jacksonParser);
+                  item=bean02BindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -399,7 +392,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=bean02BindMap().parseOnJacksonAsString(jacksonParser);
+                  item=bean02BindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -474,7 +467,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=bean02BindMap().parseOnXml(xmlParser, eventType);
+                      item=bean02BindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("beanList")) {
@@ -482,7 +475,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=bean02BindMap().parseOnXml(xmlParser, eventType);
+                        item=bean02BindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }
@@ -508,7 +501,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=bean02BindMap().parseOnXml(xmlParser, eventType);
+                      item=bean02BindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("lista")) {
@@ -516,7 +509,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=bean02BindMap().parseOnXml(xmlParser, eventType);
+                        item=bean02BindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }

@@ -47,7 +47,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
 
   /**
    * BeanBindMap */
-  private BeanBindMap beanBindMap;
+  private BeanBindMap beanBindMap = AbstractContext.mapperFor(Bean.class);
 
   /**
    * constructor
@@ -881,13 +881,6 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
   }
 
-  private BeanBindMap beanBindMap() {
-    if (beanBindMap==null) {
-      beanBindMap=AbstractContext.mapperFor(Bean.class);
-    }
-    return beanBindMap;
-  }
-
   /**
    * write
    */
@@ -909,7 +902,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            beanBindMap().serializeOnJackson(item, jacksonSerializer);
+            beanBindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -944,7 +937,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=beanBindMap().parseOnJackson(jacksonParser);
+            item=beanBindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

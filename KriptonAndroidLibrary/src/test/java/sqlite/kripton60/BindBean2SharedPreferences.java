@@ -64,7 +64,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
 
   /**
    * Bean2BindMap */
-  private Bean2BindMap bean2BindMap;
+  private Bean2BindMap bean2BindMap = AbstractContext.mapperFor(Bean2.class);
 
   /**
    * constructor
@@ -830,13 +830,6 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (StringUtils.hasText(temp)) ? UrlUtils.read(temp): null;
   }
 
-  private Bean2BindMap bean2BindMap() {
-    if (bean2BindMap==null) {
-      bean2BindMap=AbstractContext.mapperFor(Bean2.class);
-    }
-    return bean2BindMap;
-  }
-
   /**
    * write
    */
@@ -850,7 +843,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        bean2BindMap().serializeOnJackson(value, jacksonSerializer);
+        bean2BindMap.serializeOnJackson(value, jacksonSerializer);
       }
       jacksonSerializer.flush();
       return stream.toString();
@@ -873,7 +866,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       Bean2 result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=bean2BindMap().parseOnJackson(jacksonParser);
+        result=bean2BindMap.parseOnJackson(jacksonParser);
       }
       return result;
     } catch(Exception e) {
@@ -905,7 +898,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            bean2BindMap().serializeOnJackson(item, jacksonSerializer);
+            bean2BindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -940,7 +933,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=bean2BindMap().parseOnJackson(jacksonParser);
+            item=bean2BindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

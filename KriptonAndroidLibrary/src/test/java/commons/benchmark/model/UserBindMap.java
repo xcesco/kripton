@@ -28,36 +28,15 @@ import java.util.ArrayList;
 public class UserBindMap extends AbstractMapper<User> {
   /**
    * FriendBindMap */
-  private FriendBindMap friendBindMap;
+  private FriendBindMap friendBindMap = AbstractContext.mapperFor(Friend.class);
 
   /**
    * ImageBindMap */
-  private ImageBindMap imageBindMap;
+  private ImageBindMap imageBindMap = AbstractContext.mapperFor(Image.class);
 
   /**
    * NameBindMap */
-  private NameBindMap nameBindMap;
-
-  private FriendBindMap friendBindMap() {
-    if (friendBindMap==null) {
-      friendBindMap=AbstractContext.mapperFor(Friend.class);
-    }
-    return friendBindMap;
-  }
-
-  private ImageBindMap imageBindMap() {
-    if (imageBindMap==null) {
-      imageBindMap=AbstractContext.mapperFor(Image.class);
-    }
-    return imageBindMap;
-  }
-
-  private NameBindMap nameBindMap() {
-    if (nameBindMap==null) {
-      nameBindMap=AbstractContext.mapperFor(Name.class);
-    }
-    return nameBindMap;
-  }
+  private NameBindMap nameBindMap = AbstractContext.mapperFor(Name.class);
 
   /**
    * reset shared preferences
@@ -128,7 +107,7 @@ public class UserBindMap extends AbstractMapper<User> {
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          friendBindMap().serializeOnJackson(item, jacksonSerializer);
+          friendBindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
@@ -159,7 +138,7 @@ public class UserBindMap extends AbstractMapper<User> {
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          imageBindMap().serializeOnJackson(item, jacksonSerializer);
+          imageBindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
@@ -185,7 +164,7 @@ public class UserBindMap extends AbstractMapper<User> {
     if (object.name!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("name");
-      nameBindMap().serializeOnJackson(object.name, jacksonSerializer);
+      nameBindMap.serializeOnJackson(object.name, jacksonSerializer);
     }
 
     // field phone (mapped with "phone")
@@ -327,7 +306,7 @@ public class UserBindMap extends AbstractMapper<User> {
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (friendBindMap().serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+            if (friendBindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("friends");
             }
           }
@@ -364,7 +343,7 @@ public class UserBindMap extends AbstractMapper<User> {
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (imageBindMap().serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+            if (imageBindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("images");
             }
           }
@@ -391,7 +370,7 @@ public class UserBindMap extends AbstractMapper<User> {
     if (object.name!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("name");
-      if (nameBindMap().serializeOnJacksonAsString(object.name, jacksonSerializer)==0) {
+      if (nameBindMap.serializeOnJacksonAsString(object.name, jacksonSerializer)==0) {
         jacksonSerializer.writeNullField("name");
       }
     }
@@ -548,7 +527,7 @@ public class UserBindMap extends AbstractMapper<User> {
           xmlSerializer.writeEmptyElement("friends");
         } else {
           xmlSerializer.writeStartElement("friends");
-          friendBindMap().serializeOnXml(item, xmlSerializer, 2);
+          friendBindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
@@ -584,7 +563,7 @@ public class UserBindMap extends AbstractMapper<User> {
           xmlSerializer.writeEmptyElement("images");
         } else {
           xmlSerializer.writeStartElement("images");
-          imageBindMap().serializeOnXml(item, xmlSerializer, 2);
+          imageBindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
@@ -619,7 +598,7 @@ public class UserBindMap extends AbstractMapper<User> {
     // field name (mapped with "name")
     if (object.name!=null)  {
       xmlSerializer.writeStartElement("name");
-      nameBindMap().serializeOnXml(object.name, xmlSerializer, 2);
+      nameBindMap.serializeOnXml(object.name, xmlSerializer, 2);
       xmlSerializer.writeEndElement();
     }
 
@@ -780,7 +759,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=friendBindMap().parseOnJackson(jacksonParser);
+                  item=friendBindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -808,7 +787,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=imageBindMap().parseOnJackson(jacksonParser);
+                  item=imageBindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -834,7 +813,7 @@ public class UserBindMap extends AbstractMapper<User> {
           case "name":
             // field name (mapped with "name")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-              instance.name=nameBindMap().parseOnJackson(jacksonParser);
+              instance.name=nameBindMap.parseOnJackson(jacksonParser);
             }
           break;
           case "phone":
@@ -981,7 +960,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=friendBindMap().parseOnJacksonAsString(jacksonParser);
+                  item=friendBindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -1014,7 +993,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=imageBindMap().parseOnJacksonAsString(jacksonParser);
+                  item=imageBindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -1043,7 +1022,7 @@ public class UserBindMap extends AbstractMapper<User> {
           case "name":
             // field name (mapped with "name")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-              instance.name=nameBindMap().parseOnJacksonAsString(jacksonParser);
+              instance.name=nameBindMap.parseOnJacksonAsString(jacksonParser);
             }
           break;
           case "phone":
@@ -1201,7 +1180,7 @@ public class UserBindMap extends AbstractMapper<User> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=friendBindMap().parseOnXml(xmlParser, eventType);
+                      item=friendBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("friends")) {
@@ -1209,7 +1188,7 @@ public class UserBindMap extends AbstractMapper<User> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=friendBindMap().parseOnXml(xmlParser, eventType);
+                        item=friendBindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }
@@ -1239,7 +1218,7 @@ public class UserBindMap extends AbstractMapper<User> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=imageBindMap().parseOnXml(xmlParser, eventType);
+                      item=imageBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("images")) {
@@ -1247,7 +1226,7 @@ public class UserBindMap extends AbstractMapper<User> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=imageBindMap().parseOnXml(xmlParser, eventType);
+                        item=imageBindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }
@@ -1273,7 +1252,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 break;
                 case "name":
                   // property name (mapped on "name")
-                  instance.name=nameBindMap().parseOnXml(xmlParser, eventType);
+                  instance.name=nameBindMap.parseOnXml(xmlParser, eventType);
                 break;
                 case "phone":
                   // property phone (mapped on "phone")

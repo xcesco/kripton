@@ -1,6 +1,5 @@
 package bind.kripton70;
 
-import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.BigDecimalUtils;
@@ -33,14 +32,7 @@ import java.lang.Override;
 public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
   /**
    * Bean70AllBindMap */
-  private Bean70AllBindMap bean70AllBindMap;
-
-  private Bean70AllBindMap bean70AllBindMap() {
-    if (bean70AllBindMap==null) {
-      bean70AllBindMap=AbstractContext.mapperFor(Bean70All.class);
-    }
-    return bean70AllBindMap;
-  }
+  private Bean70AllBindMap bean70AllBindMap = this;
 
   /**
    * reset shared preferences
@@ -56,7 +48,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
     if (object.valueBean!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("valueBean");
-      bean70AllBindMap().serializeOnJackson(object.valueBean, jacksonSerializer);
+      bean70AllBindMap.serializeOnJackson(object.valueBean, jacksonSerializer);
     }
 
     // field valueBigDecimal (mapped with "valueBigDecimal")
@@ -233,7 +225,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
     if (object.valueBean!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("valueBean");
-      if (bean70AllBindMap().serializeOnJacksonAsString(object.valueBean, jacksonSerializer)==0) {
+      if (bean70AllBindMap.serializeOnJacksonAsString(object.valueBean, jacksonSerializer)==0) {
         jacksonSerializer.writeNullField("valueBean");
       }
     }
@@ -394,7 +386,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
     // field valueBean (mapped with "valueBean")
     if (object.valueBean!=null)  {
       xmlSerializer.writeStartElement("valueBean");
-      bean70AllBindMap().serializeOnXml(object.valueBean, xmlSerializer, 2);
+      bean70AllBindMap.serializeOnXml(object.valueBean, xmlSerializer, 2);
       xmlSerializer.writeEndElement();
     }
 
@@ -609,7 +601,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
           case "valueBean":
             // field valueBean (mapped with "valueBean")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-              instance.valueBean=bean70AllBindMap().parseOnJackson(jacksonParser);
+              instance.valueBean=bean70AllBindMap.parseOnJackson(jacksonParser);
             }
           break;
           case "valueBigDecimal":
@@ -799,7 +791,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
           case "valueBean":
             // field valueBean (mapped with "valueBean")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-              instance.valueBean=bean70AllBindMap().parseOnJacksonAsString(jacksonParser);
+              instance.valueBean=bean70AllBindMap.parseOnJacksonAsString(jacksonParser);
             }
           break;
           case "valueBigDecimal":
@@ -998,7 +990,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
             switch(currentTag) {
                 case "valueBean":
                   // property valueBean (mapped on "valueBean")
-                  instance.valueBean=bean70AllBindMap().parseOnXml(xmlParser, eventType);
+                  instance.valueBean=bean70AllBindMap.parseOnXml(xmlParser, eventType);
                 break;
                 case "valueBigDecimal":
                   // property valueBigDecimal (mapped on "valueBigDecimal")

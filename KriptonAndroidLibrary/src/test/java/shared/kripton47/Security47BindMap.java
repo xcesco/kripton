@@ -22,25 +22,11 @@ import java.lang.Override;
 public class Security47BindMap extends AbstractMapper<Security47> {
   /**
    * DeviceAccessTokenBindMap */
-  private DeviceAccessTokenBindMap deviceAccessTokenBindMap;
+  private DeviceAccessTokenBindMap deviceAccessTokenBindMap = AbstractContext.mapperFor(DeviceAccessToken.class);
 
   /**
    * UserIdentityBindMap */
-  private UserIdentityBindMap userIdentityBindMap;
-
-  private DeviceAccessTokenBindMap deviceAccessTokenBindMap() {
-    if (deviceAccessTokenBindMap==null) {
-      deviceAccessTokenBindMap=AbstractContext.mapperFor(DeviceAccessToken.class);
-    }
-    return deviceAccessTokenBindMap;
-  }
-
-  private UserIdentityBindMap userIdentityBindMap() {
-    if (userIdentityBindMap==null) {
-      userIdentityBindMap=AbstractContext.mapperFor(UserIdentity.class);
-    }
-    return userIdentityBindMap;
-  }
+  private UserIdentityBindMap userIdentityBindMap = AbstractContext.mapperFor(UserIdentity.class);
 
   /**
    * reset shared preferences
@@ -56,7 +42,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
     if (object.authorizationToken!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("authorizationToken");
-      deviceAccessTokenBindMap().serializeOnJackson(object.authorizationToken, jacksonSerializer);
+      deviceAccessTokenBindMap.serializeOnJackson(object.authorizationToken, jacksonSerializer);
     }
 
     // field deviceUid (mapped with "deviceUid")
@@ -75,7 +61,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
     if (object.userIdentity!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("userIdentity");
-      userIdentityBindMap().serializeOnJackson(object.userIdentity, jacksonSerializer);
+      userIdentityBindMap.serializeOnJackson(object.userIdentity, jacksonSerializer);
     }
 
     jacksonSerializer.writeEndObject();
@@ -96,7 +82,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
     if (object.authorizationToken!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("authorizationToken");
-      if (deviceAccessTokenBindMap().serializeOnJacksonAsString(object.authorizationToken, jacksonSerializer)==0) {
+      if (deviceAccessTokenBindMap.serializeOnJacksonAsString(object.authorizationToken, jacksonSerializer)==0) {
         jacksonSerializer.writeNullField("authorizationToken");
       }
     }
@@ -117,7 +103,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
     if (object.userIdentity!=null)  {
       fieldCount++;
       jacksonSerializer.writeFieldName("userIdentity");
-      if (userIdentityBindMap().serializeOnJacksonAsString(object.userIdentity, jacksonSerializer)==0) {
+      if (userIdentityBindMap.serializeOnJacksonAsString(object.userIdentity, jacksonSerializer)==0) {
         jacksonSerializer.writeNullField("userIdentity");
       }
     }
@@ -140,7 +126,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
     // field authorizationToken (mapped with "authorizationToken")
     if (object.authorizationToken!=null)  {
       xmlSerializer.writeStartElement("authorizationToken");
-      deviceAccessTokenBindMap().serializeOnXml(object.authorizationToken, xmlSerializer, 2);
+      deviceAccessTokenBindMap.serializeOnXml(object.authorizationToken, xmlSerializer, 2);
       xmlSerializer.writeEndElement();
     }
 
@@ -161,7 +147,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
     // field userIdentity (mapped with "userIdentity")
     if (object.userIdentity!=null)  {
       xmlSerializer.writeStartElement("userIdentity");
-      userIdentityBindMap().serializeOnXml(object.userIdentity, xmlSerializer, 2);
+      userIdentityBindMap.serializeOnXml(object.userIdentity, xmlSerializer, 2);
       xmlSerializer.writeEndElement();
     }
 
@@ -193,7 +179,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
           case "authorizationToken":
             // field authorizationToken (mapped with "authorizationToken")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-              instance.authorizationToken=deviceAccessTokenBindMap().parseOnJackson(jacksonParser);
+              instance.authorizationToken=deviceAccessTokenBindMap.parseOnJackson(jacksonParser);
             }
           break;
           case "deviceUid":
@@ -211,7 +197,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
           case "userIdentity":
             // field userIdentity (mapped with "userIdentity")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-              instance.userIdentity=userIdentityBindMap().parseOnJackson(jacksonParser);
+              instance.userIdentity=userIdentityBindMap.parseOnJackson(jacksonParser);
             }
           break;
           default:
@@ -244,7 +230,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
           case "authorizationToken":
             // field authorizationToken (mapped with "authorizationToken")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-              instance.authorizationToken=deviceAccessTokenBindMap().parseOnJacksonAsString(jacksonParser);
+              instance.authorizationToken=deviceAccessTokenBindMap.parseOnJacksonAsString(jacksonParser);
             }
           break;
           case "deviceUid":
@@ -262,7 +248,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
           case "userIdentity":
             // field userIdentity (mapped with "userIdentity")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
-              instance.userIdentity=userIdentityBindMap().parseOnJacksonAsString(jacksonParser);
+              instance.userIdentity=userIdentityBindMap.parseOnJacksonAsString(jacksonParser);
             }
           break;
           default:
@@ -304,7 +290,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
             switch(currentTag) {
                 case "authorizationToken":
                   // property authorizationToken (mapped on "authorizationToken")
-                  instance.authorizationToken=deviceAccessTokenBindMap().parseOnXml(xmlParser, eventType);
+                  instance.authorizationToken=deviceAccessTokenBindMap.parseOnXml(xmlParser, eventType);
                 break;
                 case "deviceUid":
                   // property deviceUid (mapped on "deviceUid")
@@ -316,7 +302,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
                 break;
                 case "userIdentity":
                   // property userIdentity (mapped on "userIdentity")
-                  instance.userIdentity=userIdentityBindMap().parseOnXml(xmlParser, eventType);
+                  instance.userIdentity=userIdentityBindMap.parseOnXml(xmlParser, eventType);
                 break;
                 default:
                 break;

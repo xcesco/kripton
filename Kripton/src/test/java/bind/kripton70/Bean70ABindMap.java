@@ -1,6 +1,5 @@
 package bind.kripton70;
 
-import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -22,7 +21,7 @@ import java.lang.Override;
 public class Bean70ABindMap extends AbstractMapper<Bean70A> {
   /**
    * Bean70ABindMap */
-  private Bean70ABindMap bean70ABindMap = AbstractContext.mapperFor(Bean70A.class);
+  private Bean70ABindMap bean70ABindMap = this;
 
   /**
    * reset shared preferences
