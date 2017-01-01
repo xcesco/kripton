@@ -52,6 +52,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		this.nullable = nullable;
 	}
 	
+	@Override
 	public boolean isTypeAdapterSupported() {
 		return true;
 	}
@@ -133,8 +134,6 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$L$T.read$L($L.getText(), $L)" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz), XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
 				break;
-			default:
-				break;
 			}
 		} else {
 			// without type adapter
@@ -151,8 +150,6 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			case VALUE_CDATA:
 				methodBuilder.addStatement(setter(beanClass, beanName, property, "$L$T.read$L($L.getText(), $L)"), XML_CAST_TYPE, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName,
 						DEFAULT_VALUE);
-				break;
-			default:
 				break;
 			}
 		}

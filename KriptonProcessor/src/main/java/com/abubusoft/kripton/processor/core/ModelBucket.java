@@ -21,23 +21,21 @@ import java.util.List;
 import javax.lang.model.element.Element;
 
 public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends ModelEntity<E> {
-	
+
 	/**
 	 * find property by its name
 	 * 
 	 * @param key
-	 * 		simple name of property
-	 * @return
-	 * 		property or null
+	 *            simple name of property
+	 * @return property or null
 	 */
 	public T findByName(String key) {
 		for (T item : collection) {
-			if (item.getName().equals(key))
-			{
+			if (item.getName().equals(key)) {
 				return item;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -45,9 +43,6 @@ public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends Mo
 
 	public ModelBucket(String name, E element) {
 		super(name, element);
-	}
-
-	public ModelBucket() {
 	}
 
 	/**
@@ -80,9 +75,9 @@ public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends Mo
 
 		return false;
 	}
-	
-//	public void clear()
-//	{
-//		collection.clear();
-//	}
+
+	// public void clear()
+	// {
+	// collection.clear();
+	// }
 }

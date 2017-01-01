@@ -40,6 +40,7 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 
 	}
 
+	@Override
 	public boolean isTypeAdapterSupported() {
 		return true;
 	}
@@ -100,8 +101,6 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($T.unescapeXml($L.getText()))" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz), NUMBER_UTIL_CLAZZ, StringEscapeUtils.class, parserName);
 				break;
-			default:
-				break;
 			}
 		} else {
 			switch (xmlType) {
@@ -114,8 +113,6 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 			case VALUE:
 			case VALUE_CDATA:
 				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read($T.unescapeXml($L.getText()))"), NUMBER_UTIL_CLAZZ, StringEscapeUtils.class, parserName);
-				break;
-			default:
 				break;
 			}
 		}

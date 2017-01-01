@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.CaseFormat;
@@ -37,8 +36,8 @@ import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.squareup.javapoet.TypeName;
 
 public abstract class PropertyUtility {
-	
-	static Converter<String, String> converterField2Method=CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+
+	static Converter<String, String> converterField2Method = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	static Logger logger = Logger.getGlobal();
 
@@ -48,7 +47,8 @@ public abstract class PropertyUtility {
 
 	public interface PropertyCreatedListener<E extends ModelProperty> {
 		/**
-		 * If true, the property will be included in the class. If return false, the property will be ignored
+		 * If true, the property will be included in the class. If return false,
+		 * the property will be ignored
 		 * 
 		 * @param property
 		 * @return true to include property, false otherwise
@@ -57,14 +57,18 @@ public abstract class PropertyUtility {
 	};
 
 	/**
-	 * Given a model clazz, define its properties. No annotation is analyzed for properties
+	 * Given a model clazz, define its properties. No annotation is analyzed for
+	 * properties
+	 * 
 	 * @param elementUtils
 	 * @param entity
 	 * @param factoryProperty
 	 */
-//	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils,  T entity, PropertyFactory<P> factoryProperty) {
-//		buildProperties(elementUtils, entity, factoryProperty, null, null);
-//	}
+	// public static <P extends ModelProperty, T extends ModelClass<P>> void
+	// buildProperties(Elements elementUtils, T entity, PropertyFactory<P>
+	// factoryProperty) {
+	// buildProperties(elementUtils, entity, factoryProperty, null, null);
+	// }
 
 	/**
 	 * Given a model clazz, define its properties.
@@ -75,12 +79,16 @@ public abstract class PropertyUtility {
 	 * @param propertyAnnotationFilter
 	 *            if null, no filter is applied to annotations
 	 */
-//	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils,  T entity, PropertyFactory<P> factoryProperty,  AnnotationFilter propertyAnnotationFilter) {
-//		buildProperties(elementUtils, entity, factoryProperty, propertyAnnotationFilter, null);
-//	}
+	// public static <P extends ModelProperty, T extends ModelClass<P>> void
+	// buildProperties(Elements elementUtils, T entity, PropertyFactory<P>
+	// factoryProperty, AnnotationFilter propertyAnnotationFilter) {
+	// buildProperties(elementUtils, entity, factoryProperty,
+	// propertyAnnotationFilter, null);
+	// }
 
 	/**
-	 * Given a model clazz, define its properties. The listener allow to select which property include in class definition.
+	 * Given a model clazz, define its properties. The listener allow to select
+	 * which property include in class definition.
 	 * 
 	 * @param elementUtils
 	 * @param entity
@@ -89,25 +97,26 @@ public abstract class PropertyUtility {
 	 *            if null, no filter is applied to annotations
 	 * @param listener
 	 */
-	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils, T entity, PropertyFactory<P> factoryProperty,  AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener<P> listener) {
-		List<? extends Element> list = elementUtils.getAllMembers((TypeElement) entity.getElement());
+	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils, T entity, PropertyFactory<P> factoryProperty,
+			AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener<P> listener) {
+		List<? extends Element> list = elementUtils.getAllMembers(entity.getElement());
 
 		if (propertyAnnotationFilter != null) {
 			AnnotationUtility.forEachAnnotations(elementUtils, entity.getElement(), propertyAnnotationFilter, new AnnotationFoundListener() {
 
 				@Override
 				public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
-					logger.info("Annotation... " + annotationClassName);					
+					logger.info("Annotation... " + annotationClassName);
 				}
 			});
 		}
 
 		P field;
 		for (Element item : list) {
-			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {	
-				field = factoryProperty.createProperty(item);				
+			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
+				field = factoryProperty.createProperty(item);
 				AnnotationUtility.buildAnnotations(elementUtils, field, propertyAnnotationFilter);
-								
+
 				entity.add(field);
 			}
 		}
@@ -141,14 +150,14 @@ public abstract class PropertyUtility {
 					currentKriptonField = entity.get(propertyName);
 					Pair<String, String> result = MethodUtility.extractResultAndArguments(item.asType().toString());
 
-					if (currentKriptonField.isType(result.value1) && status==0) {
+					if (currentKriptonField.isType(result.value1) && status == 0) {
 						currentKriptonField.setFieldWithGetter(true);
-					} else if (currentKriptonField.isType(result.value1) && status==1) {
+					} else if (currentKriptonField.isType(result.value1) && status == 1) {
 						currentKriptonField.setFieldWithIs(true);
-					} else if (currentKriptonField.isType(result.value0) && status==2) {
+					} else if (currentKriptonField.isType(result.value0) && status == 2) {
 						currentKriptonField.setFieldWithSetter(true);
 					}
-					
+
 				}
 			}
 		}
@@ -175,7 +184,7 @@ public abstract class PropertyUtility {
 
 		return true;
 	}
-	
+
 	static String getter(TypeName beanClass, ModelProperty property) {
 		if (property.isPublicField())
 			return property.getName();
@@ -185,36 +194,35 @@ public abstract class PropertyUtility {
 		} else if (property.isFieldWithIs()) {
 			return "is" + converterField2Method.convert(property.getName()) + "()";
 		} else {
-			throw new PropertyVisibilityException("Property "+property.getName()+" of class "+beanClass+" can not be read");
+			throw new PropertyVisibilityException("Property " + property.getName() + " of class " + beanClass + " can not be read");
 		}
 	}
-	
+
 	public static String getter(String beanName, TypeName beanClass, ModelProperty property) {
-		return beanName+(beanClass!=null ? "."+getter(beanClass, property) : "");
+		return beanName + (beanClass != null ? "." + getter(beanClass, property) : "");
 	}
 
 	public static String setter(TypeName beanClass, ModelProperty property) {
-		if (property.isPublicField())
-		{
+		if (property.isPublicField()) {
 			return property.getName();
 		} else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName());
 		} else {
-			throw new PropertyVisibilityException("property \""+property.getName()+"\" of class \""+beanClass+"\" can not be modify");
+			throw new PropertyVisibilityException("property \"" + property.getName() + "\" of class \"" + beanClass + "\" can not be modify");
 		}
 	}
-	
+
 	public static String setter(TypeName beanClass, String beanName, ModelProperty property, String value) {
-		return beanName+(beanClass!=null ? "."+setter(beanClass, property, value): "="+value);
+		return beanName + (beanClass != null ? "." + setter(beanClass, property, value) : "=" + value);
 	}
-	
+
 	private static String setter(TypeName beanClass, ModelProperty property, String value) {
 		if (property.isPublicField())
-			return property.getName()+"="+value;
+			return property.getName() + "=" + value;
 		else if (property.isFieldWithSetter()) {
-			return "set" + converterField2Method.convert(property.getName())+"("+value+")";
+			return "set" + converterField2Method.convert(property.getName()) + "(" + value + ")";
 		} else {
-			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",property.getName(), property.getParent().getElement().asType()));
+			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify", property.getName(), property.getParent().getElement().asType()));
 		}
 	}
 

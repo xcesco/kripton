@@ -48,11 +48,11 @@ import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationExcept
 public class BindTypeProcessor extends BaseProcessor {
 
 	private BindModel model;
-	
-	private BindSharedPreferencesProcessor sharedPreferencesProcessor=new BindSharedPreferencesProcessor();
-	
-	private BindDataSourceProcessor dataSourceProcessor=new BindDataSourceProcessor();
-	
+
+	private BindSharedPreferencesProcessor sharedPreferencesProcessor = new BindSharedPreferencesProcessor();
+
+	private BindDataSourceProcessor dataSourceProcessor = new BindDataSourceProcessor();
+
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
@@ -67,7 +67,7 @@ public class BindTypeProcessor extends BaseProcessor {
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
-		
+
 		sharedPreferencesProcessor.init(processingEnv);
 		dataSourceProcessor.init(processingEnv);
 	}
@@ -76,7 +76,7 @@ public class BindTypeProcessor extends BaseProcessor {
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		try {
 			count++;
-			if (count > 1) {								
+			if (count > 1) {
 				return true;
 			}
 
@@ -90,7 +90,7 @@ public class BindTypeProcessor extends BaseProcessor {
 				}
 			}
 
-			// Put all @BindSharedPreferences elements in beanElements
+			// Put all @BindType elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
 				if (item.getKind() != ElementKind.CLASS && item.getKind() != ElementKind.ENUM) {
 					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindType.class.getSimpleName());
@@ -100,7 +100,7 @@ public class BindTypeProcessor extends BaseProcessor {
 				if (item.getKind() == ElementKind.ENUM)
 					continue;
 
-				BindEntityBuilder.build(model, elementUtils,  item);
+				BindEntityBuilder.build(model, elementUtils, item);
 
 				itemCounter++;
 			}
@@ -112,8 +112,9 @@ public class BindTypeProcessor extends BaseProcessor {
 			for (BindEntity item : model.getEntities()) {
 				BindTypeBuilder.generate(elementUtils, filer, item);
 			}
-			
-			sharedPreferencesProcessor.process(annotations, roundEnv);					
+
+			// after working with @BindType, we work with other annotations
+			sharedPreferencesProcessor.process(annotations, roundEnv);
 			dataSourceProcessor.process(annotations, roundEnv);
 
 		} catch (Exception e) {

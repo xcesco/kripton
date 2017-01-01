@@ -29,6 +29,7 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCrea
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
+import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.xml.MapEntryType;
 import com.abubusoft.kripton.xml.XmlType;
 
@@ -82,57 +83,66 @@ public abstract class BindEntityBuilder {
 			public boolean onProperty(BindProperty property) {
 				// if we are build Map, the model are not null
 				boolean contextExternal = (model == null);
-				
+
 				ModelAnnotation annotationBindAdapter = property.getAnnotation(BindAdapter.class);
-				
+
 				// if @BindDisabled is present, we don't need it
 				ModelAnnotation annotationBindDisabled = property.getAnnotation(BindDisabled.class);
-				if (annotationBindDisabled != null)
-					return false;
+
+				// if @BindDisabled is present, exit immediately
+				if (property.hasAnnotation(BindDisabled.class)) {
+					if (bindAllFields) {
+						return false;
+					} else {
+						throw new InvalidDefinition("@BindDisabled can not be used with @BindType(allField=false)");
+					}
+				}
 
 				boolean enabled = bindAllFields;
 				ModelAnnotation annotationBind = property.getAnnotation(Bind.class);
 				enabled = enabled || (annotationBind != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBind, AnnotationAttributeType.ATTRIBUTE_ENABLED));
 
-				// if we are not in external context and element is not enabled, we have to analyze in every case.				
+				// if we are not in external context and element is not enabled,
+				// we have to analyze in every case.
 				if (!enabled && !contextExternal) {
 					return false;
 				}
 
 				ModelAnnotation annotationBindXml = property.getAnnotation(BindXml.class);
-				
+
 				property.order = 0;
 				property.mapKeyName = Bind.MAP_KEY_DEFAULT;
 				property.mapValueName = Bind.MAP_VALUE_DEFAULT;
-				// label for item and collection elements are the same for default
+				// label for item and collection elements are the same for
+				// default
 				property.label = typeNameConverter.convert(property.getName());
 				property.xmlInfo.labelItem = property.label;
 				property.xmlInfo.wrappedCollection = false;
-				property.xmlInfo.xmlType = XmlType.valueOf(XmlType.TAG.toString());				
-				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());	
-				
+				property.xmlInfo.xmlType = XmlType.valueOf(XmlType.TAG.toString());
+				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());
+
 				// @BindAdapter
-				if (annotationBindAdapter != null) {				
-					property.typeAdapter.adapterClazz=annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_ADAPTER);
-					property.typeAdapter.dataType=annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_DATA_TYPE); 
-					
+				if (annotationBindAdapter != null) {
+					property.typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_ADAPTER);
+					property.typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ATTRIBUTE_DATA_TYPE);
+
 					BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
-					
-					if (!transform.isTypeAdapterSupported())
-					{
-						String msg = String.format("In class '%s', property '%s' uses @BindAdapter with unsupported 'dataType' '%s'", beanElement.asType().toString(), property.getName(), property.typeAdapter.dataType);
+
+					if (!transform.isTypeAdapterSupported()) {
+						String msg = String.format("In class '%s', property '%s' uses @BindAdapter with unsupported 'dataType' '%s'", beanElement.asType().toString(), property.getName(),
+								property.typeAdapter.dataType);
 						throw (new IncompatibleAnnotationException(msg));
 					}
-					
-					if (property.getPropertyType().isPrimitive())
-					{
-						String msg = String.format("In class '%s', property '%s' is primitive of type '%s' and it can not be annotated with @BindAdapter", beanElement.asType().toString(), property.getName(), property.getPropertyType().getName());
+
+					if (property.getPropertyType().isPrimitive()) {
+						String msg = String.format("In class '%s', property '%s' is primitive of type '%s' and it can not be annotated with @BindAdapter", beanElement.asType().toString(),
+								property.getName(), property.getPropertyType().getName());
 						throw (new IncompatibleAnnotationException(msg));
 					}
 				}
 
 				// @Bind management
-				if (annotationBind != null) {										
+				if (annotationBind != null) {
 					int order = AnnotationUtility.extractAsInt(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ATTRIBUTE_ORDER);
 					property.order = order;
 
@@ -174,7 +184,7 @@ public abstract class BindEntityBuilder {
 
 				if (property.xmlInfo.xmlType == XmlType.ATTRIBUTE) {
 					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
-					
+
 					// check if property is a array
 					if (property.isBindedArray() && !(transform instanceof ByteArrayBindTransform)) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
@@ -193,7 +203,6 @@ public abstract class BindEntityBuilder {
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 
-					
 					if (transform != null && transform instanceof ObjectBindTransform) {
 						String msg = String.format("In class '%s', property '%s' is an object and it can not be mapped in a xml attribute", beanElement.asType().toString(), property.getName());
 						throw (new IncompatibleAttributesInAnnotationException(msg));
@@ -202,9 +211,9 @@ public abstract class BindEntityBuilder {
 
 				if (property.xmlInfo.xmlType == XmlType.VALUE || property.xmlInfo.xmlType == XmlType.VALUE_CDATA) {
 					counterPropertyInValue.inc();
-					
+
 					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
-					
+
 					// check if property is a array
 					if (property.isBindedArray() && !(transform instanceof ByteArrayBindTransform)) {
 						String msg = String.format("In class '%s', property '%s' is an array and it can not be mapped in a xml value", beanElement.asType().toString(), property.getName());
@@ -228,21 +237,22 @@ public abstract class BindEntityBuilder {
 						throw (new IncompatibleAttributesInAnnotationException(msg));
 					}
 				}
-				
+
 				if (counterPropertyInValue.value() > 1) {
-					String msg = String.format("In class '%s', property '%s' and other properties are mapped in a xml value, but only one property for class can be a xml value", beanElement.asType().toString(), property.getName());
+					String msg = String.format("In class '%s', property '%s' and other properties are mapped in a xml value, but only one property for class can be a xml value",
+							beanElement.asType().toString(), property.getName());
 					throw (new IncompatibleAttributesInAnnotationException(msg));
 				}
 
-				property.bindedObject=BindTransformer.isBindedObject(property);
-				
-				// if it's an object, we need to avoid to print field name (like object transform usually do). 
+				property.bindedObject = BindTransformer.isBindedObject(property);
+
+				// if it's an object, we need to avoid to print field name (like
+				// object transform usually do).
 				// set inCollection to true, permits this.
-				if (property.bindedObject && contextExternal)
-				{
-					property.inCollection=true;
+				if (property.bindedObject && contextExternal) {
+					property.inCollection = true;
 				}
-				
+
 				return true;
 
 			}

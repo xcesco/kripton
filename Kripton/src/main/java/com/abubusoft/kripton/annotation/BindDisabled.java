@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.annotation;       
+package com.abubusoft.kripton.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,12 +22,19 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * This annotation disable completely bind for the associated field. This annotation is usefully only when
- * attribute <strong>allFields</strong> is set to <code>true</code> (default value).
+ * This annotation disable completely bind for the associated field. This
+ * annotation is usefully only when attribute <strong>allFields</strong> is set
+ * to <code>true</code> (default value).
  * </p>
  * 
  * <p>
- * This annotation affects bind to xml/json/etc, sharepreference and sqlite conversion.
+ * <strong> Don't use with allField = true, otherwise an exception will be
+ * thrown during compilation</strong>
+ * <p>
+ * 
+ * <p>
+ * This annotation affects bind to xml/json/etc, sharepreference and sqlite
+ * conversion.
  * </p>
  * 
  * @author xcesco
@@ -36,6 +43,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BindDisabled {
-
 
 }

@@ -18,10 +18,12 @@ package com.abubusoft.kripton.processor.core;
 import javax.lang.model.element.Element;
 
 public class ModelEntity<E extends Element> {
-	
+
 	protected E element;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -33,7 +35,9 @@ public class ModelEntity<E extends Element> {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -75,11 +79,8 @@ public class ModelEntity<E extends Element> {
 	}
 
 	public ModelEntity(String name, E element) {
-		this.element=element;
-		this.name = name;		
-	}
-	
-	public ModelEntity() {		
+		this.element = element;
+		this.name = name;
 	}
 
 }

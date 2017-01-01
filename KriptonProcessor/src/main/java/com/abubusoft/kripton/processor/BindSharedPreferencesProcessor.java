@@ -48,6 +48,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
+import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sharedprefs.BindSharedPreferencesBuilder;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
@@ -73,7 +74,9 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes ()
+	 * @see
+	 * javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes
+	 * ()
 	 */
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {
@@ -124,7 +127,8 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 			}
 
 			if (itemCounter > 0) {
-				//warn("No class with %s annotation was found", BindSharedPreferences.class);
+				// warn("No class with %s annotation was found",
+				// BindSharedPreferences.class);
 				for (PrefEntity item : model.getEntities()) {
 					BindSharedPreferencesBuilder.generate(elementUtils, filer, item);
 				}
@@ -155,11 +159,14 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
 
-//		if (!temp1 && temp2) {
-//			String msg = String.format("In class '%s', inconsistent value of attribute 'allFields' in annotations '%s' and '%s'", currentEntity.getSimpleName(), BindType.class.getSimpleName(), BindSharedPreferences.class.getSimpleName());
-//			throw (new IncompatibleAttributesInAnnotationException(msg));
-//		}
-		
+		// if (!temp1 && temp2) {
+		// String msg = String.format("In class '%s', inconsistent value of
+		// attribute 'allFields' in annotations '%s' and '%s'",
+		// currentEntity.getSimpleName(), BindType.class.getSimpleName(),
+		// BindSharedPreferences.class.getSimpleName());
+		// throw (new IncompatibleAttributesInAnnotationException(msg));
+		// }
+
 		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<PrefProperty>() {
 
 			@Override
@@ -171,8 +178,13 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 			@Override
 			public boolean onProperty(PrefProperty property) {
 				// if @BindDisabled is present, exit immediately
-				if (currentEntity.hasAnnotation(BindDisabled.class))
-					return false;
+				if (property.hasAnnotation(BindDisabled.class)) {
+					if (bindAllFields) {
+						return false;
+					} else {
+						throw new InvalidDefinition("@BindDisabled can not be used with @BindType(allField=false)");
+					}
+				}
 
 				if (property.getPropertyType().isArray() || property.getPropertyType().isList()) {
 					property.setPreferenceType(PreferenceType.STRING);
@@ -200,25 +212,21 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 					// skip field
 					return false;
 				}
-				
+
 				// if field disable, skip property definition
 				ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
 				if (annotation != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false) {
 					return false;
 				}
 
-				if (bindEntity.contains(property.getName())) {		
+				if (bindEntity.contains(property.getName())) {
 					BindProperty bindProperty = bindEntity.get(property.getName());
-					if (bindProperty.isBindedArray() 		||
-						bindProperty.isBindedCollection() 	||						
-						bindProperty.isBindedMap() 			||						
-						bindProperty.isBindedObject())
-					{
-						property.bindProperty=bindProperty;
+					if (bindProperty.isBindedArray() || bindProperty.isBindedCollection() || bindProperty.isBindedMap() || bindProperty.isBindedObject()) {
+						property.bindProperty = bindProperty;
 					}
-					
+
 				} else {
-					throw (new KriptonRuntimeException(String.format("In class '%s' property '%s' has a wrong definition to create SharedPreference", sharedPreference.asType() , property.getName())));					
+					throw (new KriptonRuntimeException(String.format("In class '%s' property '%s' has a wrong definition to create SharedPreference", sharedPreference.asType(), property.getName())));
 				}
 
 				return true;

@@ -8,6 +8,7 @@ import com.abubusoft.kripton.processor.sharedprefs.transform.Test81ECompile;
 import com.abubusoft.kripton.processor.sqlite.transform.Test81FCompile;
 
 import bind.AbstractBindTypeProcessorTest;
+import bind.kripton81ExceptionCoverage.Test81ExceptionCompile;
 
 @RunWith(Suite.class)
 //@formatter:off
@@ -20,11 +21,10 @@ import bind.AbstractBindTypeProcessorTest;
 		Test81ECompile.class,
 		Test81FCompile.class,
 		Test81GHILMNOPCompile.class,
-		Test81VCompile.class
+		Test81VCompile.class,
+		Test81ExceptionCompile.class
 		 })
 //@formatter:on
 public class Test81CompileSuite extends AbstractBindTypeProcessorTest {
-
-	
 
 }

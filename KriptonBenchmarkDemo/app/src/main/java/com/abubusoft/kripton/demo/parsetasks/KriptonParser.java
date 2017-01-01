@@ -4,9 +4,14 @@ package com.abubusoft.kripton.demo.parsetasks;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.demo.model.Response;
+import com.fasterxml.jackson.databind.util.ByteBufferBackedInputStream;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.StringReader;
 
 /**
- * Created by 908099 on 22/12/2016.
+ * Created by xcecso on 22/12/2016.
  */
 
 public class KriptonParser extends Parser {
@@ -21,7 +26,12 @@ public class KriptonParser extends Parser {
     @Override
     protected int parse(String json) {
         try {
-            Response response = kriptonContext.parse(json, Response.class);
+            //InputStream input=new ByteArrayInputStream(json.getBytes());
+           //StringReader sr=new StringReader(json);
+            Response response = kriptonContext.parse(json
+                    , Response.class);
+           // sr.close();
+            //input.close();
             return response.users.size();
         } catch (Exception e) {
             return 0;
