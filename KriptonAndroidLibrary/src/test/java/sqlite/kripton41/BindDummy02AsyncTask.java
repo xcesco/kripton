@@ -1,8 +1,10 @@
 package sqlite.kripton41;
 
 import android.os.AsyncTask;
+import com.abubusoft.kripton.android.Logger;
 import java.lang.Override;
 import java.lang.SuppressWarnings;
+import java.lang.Throwable;
 
 /**
  *
@@ -17,6 +19,10 @@ import java.lang.SuppressWarnings;
  * <p>
  * When method <code>execute</code> is invoked, an inner async task is created.
  * </p>
+ *
+ * @param I input param
+ * @param U update param
+ * @param R result param
  *
  * @see BindDummy02DaoFactory
  * @see BindDummy02DataSource
@@ -61,12 +67,12 @@ public abstract class BindDummy02AsyncTask<I, U, R> {
   /**
    * Method used to encapsulate operations on datasource
    *
-   * @param daoFactory
-   * 	dao factory. Use it to retrieve DAO
+   * @param dataSource
+   * 	use it to retrieve DAO
    * @return
-   * 	result of operation (list, bean, etc)
+   * 	result of operation (list, bean, etc) and execute transactions.
    */
-  public abstract R onExecute(BindDummy02DaoFactory daoFactory);
+  public abstract R onExecute(BindDummy02DataSource dataSource) throws Throwable;
 
   /**
    * Use this method for operations on UI-thread after execution
@@ -77,6 +83,15 @@ public abstract class BindDummy02AsyncTask<I, U, R> {
    * Override this method to display operation progress on UI-Thread
    */
   public void onProgressUpdate(U... update) {
+  }
+
+  /**
+   * This method is invoked when <code>onExecute</code> method generate an exception.
+   * @param exception exception generated
+   */
+  public void onError(Throwable exception) {
+    Logger.error(exception.getMessage());
+    exception.printStackTrace();
   }
 
   /**
@@ -99,7 +114,8 @@ public abstract class BindDummy02AsyncTask<I, U, R> {
         if (readOnlyTask) dataSource.openReadOnlyDatabase(); else dataSource.openWritableDatabase();
         try {
           result=onExecute(dataSource);
-        } catch(Exception e) {
+        } catch(Throwable e) {
+          onError(e);
         } finally {
           if (dataSource.isOpen()) {
             dataSource.close();

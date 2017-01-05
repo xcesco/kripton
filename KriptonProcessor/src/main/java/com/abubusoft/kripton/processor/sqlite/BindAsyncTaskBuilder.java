@@ -24,9 +24,12 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.FieldSpec;
@@ -56,7 +59,7 @@ public class BindAsyncTaskBuilder {
 	 * 
 	 * @throws IOException
 	 */
-	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws IOException {		
+	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws IOException {
 		String className = schema.getName();
 
 		String dataSourceName = PREFIX + className;
@@ -66,6 +69,8 @@ public class BindAsyncTaskBuilder {
 
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
+
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, className);
 
 		//@formatter:off
 		builder = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC).addModifiers(Modifier.ABSTRACT)
@@ -79,18 +84,20 @@ public class BindAsyncTaskBuilder {
 		builder.addJavadoc("\n<p>\nUnlike standard async task, for an instance of this class can be used many time.\n</p>\n");
 		builder.addJavadoc("\n<p>\nWhen method <code>execute</code> is invoked, an inner async task is created.\n</p>\n\n");
 		JavadocUtility.generateJavadocGeneratedBy(builder);
+		builder.addJavadoc("@param I input param\n");
+		builder.addJavadoc("@param U update param\n");
+		builder.addJavadoc("@param R result param\n\n");
 		builder.addJavadoc("@see $T\n", className(className.replaceAll(SUFFIX, BindDaoFactoryBuilder.SUFFIX)));
 		builder.addJavadoc("@see $T\n", className(dataSourceName));
 
 		// build constructors
 		builder.addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addCode("this(true);")
-				.addJavadoc("<p>\nWith this constructor, a read only database connection will be used\n</p>\n")
-				.build());
-		
-		builder.addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC)
-				.addJavadoc("<p>\nWith this constructor it is possible to specify which type of database use in async task\n</p>\n\n")
-				.addJavadoc("@param readOnlyTask if true, force async task to use read only database connection\n")
-				.addParameter(Boolean.TYPE, "readOnlyTask").addCode("this.readOnlyTask = readOnlyTask;").build());
+				.addJavadoc("<p>\nWith this constructor, a read only database connection will be used\n</p>\n").build());
+
+		builder.addMethod(
+				MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addJavadoc("<p>\nWith this constructor it is possible to specify which type of database use in async task\n</p>\n\n")
+						.addJavadoc("@param readOnlyTask if true, force async task to use read only database connection\n").addParameter(Boolean.TYPE, "readOnlyTask")
+						.addCode("this.readOnlyTask = readOnlyTask;").build());
 
 		// define fields
 		{
@@ -100,7 +107,8 @@ public class BindAsyncTaskBuilder {
 		}
 
 		{
-			ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(TypeUtility.className(AsyncTask.class), TypeUtility.typeName("I"), TypeUtility.typeName("U"), TypeUtility.typeName("R"));
+			ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(TypeUtility.className(AsyncTask.class), TypeUtility.typeName("I"), TypeUtility.typeName("U"),
+					TypeUtility.typeName("R"));
 			FieldSpec.Builder fieldSpec = FieldSpec.builder(parameterizedTypeName, "asyncTask", Modifier.PROTECTED);
 			fieldSpec.addJavadoc("Async task wrapped by this class\n\n");
 			builder.addField(fieldSpec.build());
@@ -108,27 +116,25 @@ public class BindAsyncTaskBuilder {
 
 		// build methods
 		builder.addMethod(MethodSpec.methodBuilder("onPreExecute").addModifiers(Modifier.PUBLIC).addJavadoc("Use this method for operations on UI-thread before start execution\n").build());
-		
-		builder.addMethod(MethodSpec.methodBuilder("onExecute")
-				.returns(TypeUtility.typeName("R"))
-				.addParameter(TypeUtility.typeName(className.replaceAll(SUFFIX, BindDaoFactoryBuilder.SUFFIX)), "daoFactory")				
-				.addJavadoc("Method used to encapsulate operations on datasource\n\n@param daoFactory\n\tdao factory. Use it to retrieve DAO\n@return\n\tresult of operation (list, bean, etc)\n")
-				.addModifiers(Modifier.PUBLIC)
-				.addModifiers(Modifier.ABSTRACT).build());
-		builder.addMethod(MethodSpec.methodBuilder("onFinish").addParameter(TypeUtility.typeName("R"), "result").addModifiers(Modifier.PUBLIC).addModifiers(Modifier.ABSTRACT).addJavadoc("Use this method for operations on UI-thread after execution\n").build());
-		
-		builder.addMethod(MethodSpec.methodBuilder("onProgressUpdate")
-				.addModifiers(Modifier.PUBLIC)				
-				.addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.typeName("U")), "update").build()).varargs()
-				.addJavadoc("Override this method to display operation progress on UI-Thread\n")
-				.build());
 
-		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute")				
+		builder.addMethod(MethodSpec.methodBuilder("onExecute").returns(TypeUtility.typeName("R")).addParameter(TypeUtility.typeName(dataSourceName), "dataSource")
+				.addJavadoc(
+						"Method used to encapsulate operations on datasource\n\n@param dataSource\n\tuse it to retrieve DAO\n@return\n\tresult of operation (list, bean, etc) and execute transactions.\n")
+				.addModifiers(Modifier.PUBLIC).addModifiers(Modifier.ABSTRACT).addException(Throwable.class).build());
+		builder.addMethod(MethodSpec.methodBuilder("onFinish").addParameter(TypeUtility.typeName("R"), "result").addModifiers(Modifier.PUBLIC).addModifiers(Modifier.ABSTRACT)
+				.addJavadoc("Use this method for operations on UI-thread after execution\n").build());
+
+		builder.addMethod(MethodSpec.methodBuilder("onProgressUpdate").addModifiers(Modifier.PUBLIC).addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.typeName("U")), "update").build())
+				.varargs().addJavadoc("Override this method to display operation progress on UI-Thread\n").build());
+
+		builder.addMethod(MethodSpec.methodBuilder("onError").addParameter(Throwable.class, "exception").addModifiers(Modifier.PUBLIC)
+				.addJavadoc("This method is invoked when <code>onExecute</code> method generate an exception.\n@param exception exception generated\n")
+				.addStatement("$T.error(exception.getMessage())", Logger.class).addStatement("exception.printStackTrace()").build());
+
+		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute")
 				.addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.className("I")), "params")
-						.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value","$S", "unchecked").build())
-						.build()).varargs(true)
-				.addModifiers(Modifier.PUBLIC)
-				.addJavadoc("Method to start operations.\n\n@param\n\tdata input\n");
+						.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "$S", "unchecked").build()).build())
+				.varargs(true).addModifiers(Modifier.PUBLIC).addJavadoc("Method to start operations.\n\n@param\n\tdata input\n");
 
 		//@formatter:off
 		TypeSpec.Builder anonymous = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(TypeUtility.className(AsyncTask.class), TypeUtility.className("I"), TypeUtility.className("U"), TypeUtility.className("R")));
@@ -144,7 +150,8 @@ public class BindAsyncTaskBuilder {
 				//.addStatement("$T sqlite=readOnlyTask ? dataSource.getReadableDatabase() : dataSource.getWritableDatabase()", SQLiteDatabase.class)
 				.beginControlFlow("try")
 				.addStatement("result=onExecute(dataSource)")
-				.nextControlFlow("catch(Exception e)")
+				.nextControlFlow("catch(Throwable e)")
+					.addStatement("onError(e)")
 				.nextControlFlow("finally")
 					.beginControlFlow("if (dataSource.isOpen())")
 					.addStatement("dataSource.close()")
