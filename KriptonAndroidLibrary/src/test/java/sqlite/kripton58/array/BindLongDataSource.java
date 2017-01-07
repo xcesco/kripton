@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.Throwable;
 
 /**
  * <p>
@@ -106,5 +107,16 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    * interface to define transactions
    */
   public interface Transaction extends AbstractTransaction<BindLongDaoFactory> {
+  }
+
+  /**
+   * Simple class implements interface to define transactions
+   */
+  public abstract static class SimpleTransaction implements Transaction {
+    @Override
+    public void onError(Throwable e) {
+      Logger.error(e.getMessage());
+      e.printStackTrace();
+    }
   }
 }

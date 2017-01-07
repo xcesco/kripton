@@ -247,7 +247,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		});
 
 		List<SQLEntity> list = schema.getEntitiesAsList();
-		
+
 		EntityUtility<SQLEntity> sorder = new EntityUtility<SQLEntity>(list) {
 
 			@Override
@@ -266,16 +266,45 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 	/**
 	 * <p>
-	 * Generate execute method
+	 * Generate transaction an execute method
 	 * </p>
 	 * 
 	 * @param daoFactoryName
 	 */
 	public void generateMethodExecute(String daoFactoryName) {
+
+		// create interface
 		String transationExecutorName = "Transaction";
+		//@formatter:off
 		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactoryName));
 		builder.addType(
-				TypeSpec.interfaceBuilder(transationExecutorName).addModifiers(Modifier.PUBLIC).addSuperinterface(parameterizedTypeName).addJavadoc("interface to define transactions\n").build());
+				TypeSpec.interfaceBuilder(transationExecutorName)
+				.addModifiers(Modifier.PUBLIC)
+				.addSuperinterface(parameterizedTypeName)
+				.addJavadoc("interface to define transactions\n").build());
+		//@formatter:on
+
+		// create SimpleTransaction class
+		String simpleTransactionClassName = "SimpleTransaction";
+		//@formatter:off
+		builder.addType(
+				TypeSpec.classBuilder(simpleTransactionClassName)
+				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
+				.addSuperinterface(className(transationExecutorName))
+				.addJavadoc("Simple class implements interface to define transactions\n")
+				.addMethod(MethodSpec.methodBuilder("onError")
+						.addAnnotation(Override.class)
+						.returns(Void.TYPE)
+						.addModifiers(Modifier.PUBLIC)
+						.addParameter(Throwable.class, "e")
+						.addStatement("$T.error(e.getMessage())", Logger.class)
+						.addStatement("e.printStackTrace()")
+						.build()
+						)
+				.build());
+				
+				
+		//@formatter:on
 
 		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC, Modifier.SYNCHRONIZED).addParameter(className(transationExecutorName), "transaction");
 
