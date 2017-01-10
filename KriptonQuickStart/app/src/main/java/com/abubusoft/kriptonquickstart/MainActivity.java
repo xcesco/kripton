@@ -5,6 +5,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kriptonquickstart.model.User;
@@ -16,6 +19,9 @@ import com.abubusoft.kriptonquickstart.persistence.UserDaoImpl;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private UserAdapter mAdapter;
 
     public static boolean isNetworkAvailable(Context ct) {
         ConnectivityManager connectivityManager = (ConnectivityManager) ct.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -40,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
                     for (User item : userList) {
                         if (dao.selectById(item.id) == null) {
-                            Logger.info("Post %s is not yet stored", item.id);
+                            Logger.info("User %s is not yet stored", item.id);
                             dao.insert(item);
                         } else {
-                            Logger.info("Post %s is already stored", item.id);
+                            Logger.info("User %s is already stored", item.id);
                         }
                     }
                     Logger.info("finished");
@@ -56,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onFinish(List<User> result) {
-
+            mAdapter.update(result);
+            mAdapter.notifyDataSetChanged();
         }
     };
 
@@ -65,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        mAdapter = new UserAdapter();
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
 
         asyncTask.execute();
         // Qui
