@@ -1,24 +1,26 @@
-package com.abubusoft.kriptonquickstart;
+package com.abubusoft.kriptonquickstart.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kriptonquickstart.model.Post;
+import com.abubusoft.kriptonquickstart.model.User;
 
 import java.util.List;
 
 /**
  * Created by xcesco on 04/01/2017.
  */
-@BindDao(User.class)
-public interface UserDao {
-
+@BindDao(Post.class)
+public interface PostDao {
     @BindSqlInsert
-    void insert(User bean);
+    void insert(Post bean);
 
     @BindSqlSelect
-    List<User> selectAll();
+    List<Post> selectAll();
 
     @BindSqlSelect(where="id = ${value}")
-    User isPresent(@BindSqlParam("value") long id);
+    Post selectById(@BindSqlParam("value") long id);
+
 }

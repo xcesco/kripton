@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KriptonQuickStart</string>
+    <string name="quickstart_username_label">Username</string>
 </resources>

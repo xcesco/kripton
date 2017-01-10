@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.retrofit2.KriptonBinderConverterFactory;
+import com.abubusoft.kriptonquickstart.persistence.BindQuickStartDaoFactory;
+import com.abubusoft.kriptonquickstart.persistence.BindQuickStartDataSource;
 
 import retrofit2.Retrofit;
 

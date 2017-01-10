@@ -7,10 +7,86 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="TextView"
+        android:text="tvId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvId"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUsername"
+        android:id="@+id/tvName" />
+
+    <TextView
+        android:text="tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEmail"
+        android:layout_below="@+id/tvId"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <TextView
+        android:text="tvCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvCompany"
+        android:layout_below="@+id/tvAddress" />
+
+    <TextView
+        android:text="tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvUsername"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="tvPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteY="125dp"
         tools:layout_editor_absoluteX="44dp"
-        android:id="@+id/textView" />
+        android:id="@+id/tvPhone"
+        android:layout_below="@+id/tvName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="tvWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="125dp"
+        tools:layout_editor_absoluteX="44dp"
+        android:id="@+id/tvWebsite"
+        android:layout_below="@+id/tvPhone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAddress"
+        android:layout_below="@+id/tvWebsite"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
+
+<!--
+
+public long id;
+    public String name;
+    public String username;
+    public String email;
+    public Address address;
+    public String phone;
+    public String website;
+    public Company company;
+-->
