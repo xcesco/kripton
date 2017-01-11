@@ -15,9 +15,9 @@ import java.util.List;
  * Created by xcesco on 06/01/2017.
  */
 
-public class UserAdapter extends GenericRecyclerViewAdapter<User, UserAdapter.ViewHolder> {
+public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.ViewHolder> {
 
-    public static class ViewHolder extends GenericRecyclerViewAdapter.ViewHolder {
+    public static class ViewHolder extends AbstractRecyclerViewAdapter.ViewHolder {
         public TextView tvId;
         // each data item is just a string in this case
         public TextView tvUsername;

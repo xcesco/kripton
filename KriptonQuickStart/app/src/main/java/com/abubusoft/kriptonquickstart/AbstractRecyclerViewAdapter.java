@@ -13,9 +13,9 @@ import java.util.List;
  * @param <T>
  * @param <VH>
  */
-public abstract class GenericRecyclerViewAdapter<T, VH extends GenericRecyclerViewAdapter.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecyclerViewAdapter.ViewHolder> extends RecyclerView.Adapter<VH> {
 
-    public GenericRecyclerViewAdapter() {
+    public AbstractRecyclerViewAdapter() {
         dataset=new ArrayList<T>();
     }
 
@@ -68,7 +68,7 @@ public abstract class GenericRecyclerViewAdapter<T, VH extends GenericRecyclerVi
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public GenericRecyclerViewAdapter(Activity activity, ArrayList<T> myDataset) {
+    public AbstractRecyclerViewAdapter(ArrayList<T> myDataset) {
         dataset = myDataset;
     }
 
