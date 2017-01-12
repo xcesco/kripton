@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private UserAdapter mAdapter;
+    private DividerItemDecoration mDividerItemDecoration;
 
     public static boolean isNetworkAvailable(Context ct) {
         ConnectivityManager connectivityManager = (ConnectivityManager) ct.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            return userList;
+            return dataSource.getUserDao().selectAll();
         }
 
         @Override
@@ -76,9 +78,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         mAdapter = new UserAdapter();
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                mLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(mDividerItemDecoration);
         recyclerView.setAdapter(mAdapter);
 
         asyncTask.execute();

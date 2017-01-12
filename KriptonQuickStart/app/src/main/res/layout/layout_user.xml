@@ -3,92 +3,140 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_account_circle_blue_grey_400_48dp"
         android:id="@+id/imageView"
-         />
+        android:layout_marginRight="16dp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="8dp">
 
         <TextView
-            android:text="tvId"
+            style="@style/RobotoLabelViewStyle"
+            android:text="@string/quickstart_username_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvId"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:id="@+id/tvLblUsername"/>
+
+        <TextView
+            android:text="tvUsername"
+            style="@style/RobotoTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvUsername"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            style="@style/RobotoLabelViewStyle"
+            android:text="@string/quickstart_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLblName" />
 
         <TextView
             android:text="tvName"
+            style="@style/RobotoTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvUsername"
-            android:id="@+id/tvName" />
+            android:id="@+id/tvName"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            style="@style/RobotoLabelViewStyle"
+            android:text="@string/quickstart_phone_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLblPhone"
+            />
+
+        <TextView
+            android:text="tvPhone"
+            style="@style/RobotoTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPhone"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingBottom="4dp" />
+
+
+        <TextView
+            style="@style/RobotoLabelViewStyle"
+            android:text="@string/quickstart_email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLblEmail"
+            />
 
         <TextView
             android:text="tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvEmail"
-            android:layout_below="@+id/tvId"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            style="@style/RobotoTextViewStyle"
+            android:paddingBottom="4dp" />
 
+
+        <TextView
+            style="@style/RobotoLabelViewStyle"
+            android:text="@string/quickstart_address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLblAddress"
+        />
+
+        <TextView
+            android:text="tvAddress"
+            style="@style/RobotoTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAddress"
+            android:paddingBottom="4dp" />
+
+
+        <TextView
+            style="@style/RobotoLabelViewStyle"
+            android:text="@string/quickstart_company_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLblCompany"
+        />
 
         <TextView
             android:text="tvCompany"
+            style="@style/RobotoTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvCompany"
-            android:layout_below="@+id/tvAddress" />
+            android:paddingBottom="4dp" />
+
 
         <TextView
-            android:text="tvUsername"
+            style="@style/RobotoLabelViewStyle"
+            android:text="@string/quickstart_website_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvUsername"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:text="tvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteY="125dp"
-            tools:layout_editor_absoluteX="44dp"
-            android:id="@+id/tvPhone"
-            android:layout_below="@+id/tvName"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/tvLblWebsite" />
 
         <TextView
             android:text="tvWebsite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteY="125dp"
-            tools:layout_editor_absoluteX="44dp"
+            style="@style/RobotoTextViewStyle"
             android:id="@+id/tvWebsite"
-            android:layout_below="@+id/tvPhone"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            />
 
-        <TextView
-            android:text="tvAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvAddress"
-            android:layout_below="@+id/tvWebsite"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-    </RelativeLayout>
+    </LinearLayout>
+
 </LinearLayout>
 
 

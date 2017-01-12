@@ -18,7 +18,7 @@ public interface UserDao {
     @BindSqlInsert
     void insert(User bean);
 
-    @BindSqlSelect
+    @BindSqlSelect(orderBy = "username asc")
     List<User> selectAll();
 
     @BindSqlSelect(where="id = ${value}")
