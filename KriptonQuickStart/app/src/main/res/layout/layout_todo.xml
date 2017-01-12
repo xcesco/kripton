@@ -10,8 +10,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_email_blue_grey_400_48dp"
-        android:id="@+id/imageView"
+        app:srcCompat="@drawable/todo_icon"
+        android:id="@+id/ivTodo"
         android:layout_marginRight="16dp" />
 
     <LinearLayout
@@ -21,20 +21,19 @@
         android:paddingRight="8dp">
 
         <TextView
-            android:text="tvPostTitle"
+            android:text="tvTodoTitle"
             style="@style/RobotoTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvPostTitle"
+            android:id="@+id/tvTodoTitle"
             android:paddingBottom="4dp" />
 
         <TextView
-            android:text="tvPostBody"
+            android:text="tvTodoBody"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/tvPostBody"
-            android:paddingBottom="4dp"
-            android:singleLine="false" />
+            android:id="@+id/tvTodoBody"
+            android:paddingBottom="4dp"/>
 
     </LinearLayout>
 

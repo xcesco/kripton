@@ -10,4 +10,5 @@
     <string name="title_activity_post">PostActivity</string>
     <string name="quickstart_post_title">Title</string>
     <string name="quickstart_post_body">Message</string>
+    <string name="title_activity_todo">TodoActivity</string>
 </resources>

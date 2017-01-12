@@ -1,10 +1,13 @@
 package com.abubusoft.kriptonquickstart;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,18 +22,21 @@ import java.util.List;
 
 public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.ViewHolder> {
 
-    public static class ViewHolder extends AbstractRecyclerViewAdapter.ViewHolder {
+    static class ViewHolder extends AbstractRecyclerViewAdapter.ViewHolder {
        // public TextView tvId;
         // each data item is just a string in this case
-        public TextView tvUsername;
-        public TextView tvName;
-        public TextView tvEmail;
-        public TextView tvPhone;
-        public TextView tvAddress;
-        public TextView tvCompany;
-        public TextView tvWebsite;
+        TextView tvUsername;
+        TextView tvName;
+        TextView tvEmail;
+        TextView tvPhone;
+        TextView tvAddress;
+        TextView tvCompany;
+        TextView tvWebsite;
 
-        public ViewHolder(View v) {
+        ImageView ivUserActionTodo;
+        ImageView ivUserActionPost;
+
+        ViewHolder(View v) {
             super(v);
         }
     }
@@ -46,6 +52,9 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         holder.tvPhone=(TextView)v.findViewById(R.id.tvPhone);
         holder.tvCompany=(TextView)v.findViewById(R.id.tvCompany);
         holder.tvWebsite=(TextView)v.findViewById(R.id.tvWebsite);
+
+        holder.ivUserActionTodo=(ImageView) v.findViewById(R.id.ivUserActionTodo);
+        holder.ivUserActionPost=(ImageView) v.findViewById(R.id.ivUserActionPost);
         return holder;
     }
 
@@ -65,15 +74,28 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         holder.tvCompany.setText(item.company.toString());
         holder.tvAddress.setText(item.address.toString());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.ivUserActionTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Selected item "+item.username, Toast.LENGTH_LONG).show();
-
-                Intent intent = new Intent(v.getContext(), PostActivity.class);
+                Intent intent = new Intent(v.getContext(), TodoActivity.class);
+                Bundle b = new Bundle();
+                b.putLong("userId", item.id);
+                intent.putExtras(b);
                 v.getContext().startActivity(intent);
             }
         });
+
+        holder.ivUserActionPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), PostActivity.class);
+                Bundle b = new Bundle();
+                b.putLong("userId", item.id);
+                intent.putExtras(b);
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
 }

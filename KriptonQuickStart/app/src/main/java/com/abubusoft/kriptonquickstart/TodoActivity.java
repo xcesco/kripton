@@ -13,40 +13,39 @@ import android.view.View;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kriptonquickstart.model.Post;
-import com.abubusoft.kriptonquickstart.model.User;
+import com.abubusoft.kriptonquickstart.model.Todo;
 import com.abubusoft.kriptonquickstart.persistence.BindQuickStartAsyncTask;
 import com.abubusoft.kriptonquickstart.persistence.BindQuickStartDaoFactory;
 import com.abubusoft.kriptonquickstart.persistence.BindQuickStartDataSource;
 import com.abubusoft.kriptonquickstart.persistence.PostDaoImpl;
-import com.abubusoft.kriptonquickstart.persistence.UserDaoImpl;
+import com.abubusoft.kriptonquickstart.persistence.TodoDaoImpl;
 
 import java.util.List;
 
-public class PostActivity extends AppCompatActivity {
-
+public class TodoActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private PostAdapter mAdapter;
+    private TodoAdapter mAdapter;
 
-    BindQuickStartAsyncTask.Simple<List<Post>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Post>>() {
+    BindQuickStartAsyncTask.Simple<List<Todo>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Todo>>() {
 
-        List<Post> postList;
+        List<Todo> list;
 
         @Override
-        public List<Post> onExecute(BindQuickStartDataSource dataSource) throws Throwable {
-            postList = dataSource.getPostDao().selectByUserId(userId);
+        public List<Todo> onExecute(BindQuickStartDataSource dataSource) throws Throwable {
+            list = dataSource.getTodoDao().selectByUserId(userId);
 
-            if (postList.size() == 0) {
-                postList = QuickStartApplication.service.listPosts(userId).execute().body();
-                Logger.info("%s post downloaded for userId %s ", postList.size(), userId);
+            if (list.size() == 0) {
+                list = QuickStartApplication.service.listTodos(userId).execute().body();
+                Logger.info("%s todo downloaded for userId %s ", list.size(), userId);
 
                 dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 
                     @Override
                     public boolean onExecute(BindQuickStartDaoFactory daoFactory) {
-                        PostDaoImpl dao = daoFactory.getPostDao();
+                        TodoDaoImpl dao = daoFactory.getTodoDao();
 
-                        for (Post item : postList) {
-                            Logger.info("Store post %s", item.id);
+                        for (Todo item : list) {
+                            Logger.info("Store todo %s", item.id);
                             dao.insert(item);
                         }
                         Logger.info("finished");
@@ -54,17 +53,17 @@ public class PostActivity extends AppCompatActivity {
                     }
                 });
 
-                return dataSource.getPostDao().selectByUserId(userId);
+                return dataSource.getTodoDao().selectByUserId(userId);
             } else {
                 // user already downloaded
-                return postList;
+                return list;
             }
 
 
         }
 
         @Override
-        public void onFinish(List<Post> result) {
+        public void onFinish(List<Todo> result) {
             mAdapter.update(result);
             mAdapter.notifyDataSetChanged();
         }
@@ -79,7 +78,7 @@ public class PostActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         userId = (long) bundle.get("userId");
 
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_todo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -93,9 +92,9 @@ public class PostActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_post);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_todo);
 
-        mAdapter = new PostAdapter();
+        mAdapter = new TodoAdapter();
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

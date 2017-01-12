@@ -11,12 +11,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kriptonquickstart.model.User;
 import com.abubusoft.kriptonquickstart.persistence.BindQuickStartAsyncTask;
 import com.abubusoft.kriptonquickstart.persistence.BindQuickStartDaoFactory;
 import com.abubusoft.kriptonquickstart.persistence.BindQuickStartDataSource;
 import com.abubusoft.kriptonquickstart.persistence.UserDaoImpl;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,13 +37,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     BindQuickStartAsyncTask.Simple<List<User>> asyncTask = new BindQuickStartAsyncTask.Simple<List<User>>() {
+
+        List<User> userList;
+
         @Override
         public List<User> onExecute(BindQuickStartDataSource dataSource) throws Throwable {
-            final List<User> userList = dataSource.getUserDao().selectAll();
+            userList = dataSource.getUserDao().selectAll();
 
-            if (userList.size()==0)
-            {
-                QuickStartApplication.service.listUsers().execute().body();
+            if (userList.size() == 0) {
+                Logger.info("Start user download");
+                userList = QuickStartApplication.service.listUsers().execute().body();
                 Logger.info("%s users downloaded ", userList.size());
 
                 dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
@@ -51,12 +56,8 @@ public class MainActivity extends AppCompatActivity {
                         UserDaoImpl dao = daoFactory.getUserDao();
 
                         for (User item : userList) {
-                            if (dao.selectById(item.id) == null) {
-                                Logger.info("User %s is not yet stored", item.id);
-                                dao.insert(item);
-                            } else {
-                                Logger.info("User %s is already stored", item.id);
-                            }
+                            Logger.info("User %s is not yet stored", item.id);
+                            dao.insert(item);
                         }
                         Logger.info("finished");
                         return true;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
                 return dataSource.getUserDao().selectAll();
             } else {
+                Logger.info("Already user downloaded");
                 // user already downloaded
                 return userList;
             }

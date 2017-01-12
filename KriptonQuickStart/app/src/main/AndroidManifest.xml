@@ -28,6 +28,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.abubusoft.kriptonquickstart.MainActivity" />
         </activity>
+        <activity
+            android:name=".TodoActivity"
+            android:label="@string/title_activity_todo"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.abubusoft.kriptonquickstart.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
