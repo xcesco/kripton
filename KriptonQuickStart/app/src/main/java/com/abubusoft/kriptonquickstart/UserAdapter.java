@@ -1,10 +1,12 @@
 package com.abubusoft.kriptonquickstart;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.abubusoft.kriptonquickstart.model.User;
 
@@ -53,7 +55,7 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
     }
 
     @Override
-    public void onBindItem(ViewHolder holder, User item) {
+    public void onBindItem(ViewHolder holder, final User item) {
        // holder.tvId.setText(Long.toString(item.id));
         holder.tvUsername.setText(item.username);
         holder.tvEmail.setText(item.email);
@@ -62,6 +64,16 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         holder.tvWebsite.setText(item.website);
         holder.tvCompany.setText(item.company.toString());
         holder.tvAddress.setText(item.address.toString());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Selected item "+item.username, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(v.getContext(), PostActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
 }

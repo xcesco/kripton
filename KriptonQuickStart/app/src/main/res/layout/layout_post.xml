@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_account_circle_blue_grey_400_48dp"
+        android:id="@+id/imageView"
+        android:layout_marginRight="16dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="8dp">
+
+        <TextView
+            style="@style/RobotoLabelViewStyle"
+            android:text="@string/quickstart_post_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLblPostTitle"/>
+
+        <TextView
+            android:text="tvPostTitle"
+            style="@style/RobotoTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPostTitle"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            style="@style/RobotoLabelViewStyle"
+            android:text="@string/quickstart_post_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLblPostBody" />
+
+        <TextView
+            android:text="tvPostBody"
+            style="@style/RobotoTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/tvPostBody"
+            android:paddingBottom="4dp"
+            android:singleLine="false" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

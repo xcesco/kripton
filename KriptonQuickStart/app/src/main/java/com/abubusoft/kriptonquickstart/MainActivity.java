@@ -37,29 +37,39 @@ public class MainActivity extends AppCompatActivity {
     BindQuickStartAsyncTask.Simple<List<User>> asyncTask = new BindQuickStartAsyncTask.Simple<List<User>>() {
         @Override
         public List<User> onExecute(BindQuickStartDataSource dataSource) throws Throwable {
-            final List<User> userList = QuickStartApplication.service.listUsers().execute().body();
-            Logger.info("%s users downloaded ", userList.size());
+            final List<User> userList = dataSource.getUserDao().selectAll();
 
-            dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
+            if (userList.size()==0)
+            {
+                QuickStartApplication.service.listUsers().execute().body();
+                Logger.info("%s users downloaded ", userList.size());
 
-                @Override
-                public boolean onExecute(BindQuickStartDaoFactory daoFactory) {
-                    UserDaoImpl dao = daoFactory.getUserDao();
+                dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 
-                    for (User item : userList) {
-                        if (dao.selectById(item.id) == null) {
-                            Logger.info("User %s is not yet stored", item.id);
-                            dao.insert(item);
-                        } else {
-                            Logger.info("User %s is already stored", item.id);
+                    @Override
+                    public boolean onExecute(BindQuickStartDaoFactory daoFactory) {
+                        UserDaoImpl dao = daoFactory.getUserDao();
+
+                        for (User item : userList) {
+                            if (dao.selectById(item.id) == null) {
+                                Logger.info("User %s is not yet stored", item.id);
+                                dao.insert(item);
+                            } else {
+                                Logger.info("User %s is already stored", item.id);
+                            }
                         }
+                        Logger.info("finished");
+                        return true;
                     }
-                    Logger.info("finished");
-                    return true;
-                }
-            });
+                });
 
-            return dataSource.getUserDao().selectAll();
+                return dataSource.getUserDao().selectAll();
+            } else {
+                // user already downloaded
+                return userList;
+            }
+
+
         }
 
         @Override
