@@ -316,7 +316,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		executeMethod.beginControlFlow("if (transaction!=null && transaction.onExecute(this))");
 		executeMethod.addCode("connection.setTransactionSuccessful();\n");
 		executeMethod.endControlFlow();
-
+		
+		executeMethod.nextControlFlow("catch($T e)", Throwable.class);
+		
+		executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
+		executeMethod.addStatement("e.printStackTrace()");		
+	
 		executeMethod.nextControlFlow("finally");
 		executeMethod.addCode("connection.endTransaction();\n");
 		executeMethod.addCode("close();\n");

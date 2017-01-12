@@ -63,6 +63,9 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
       if (transaction!=null && transaction.onExecute(this)) {
         connection.setTransactionSuccessful();
       }
+    } catch(Throwable e) {
+      Logger.error(e.getMessage());
+      e.printStackTrace();
     } finally {
       connection.endTransaction();
       close();

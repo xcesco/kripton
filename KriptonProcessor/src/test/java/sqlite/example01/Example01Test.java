@@ -19,10 +19,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
 
 @RunWith(JUnit4.class)
-public class Example01Test extends BaseProcessorTest {
+public class Example01Test extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition

@@ -63,6 +63,9 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
       if (transaction!=null && transaction.onExecute(this)) {
         connection.setTransactionSuccessful();
       }
+    } catch(Throwable e) {
+      Logger.error(e.getMessage());
+      e.printStackTrace();
     } finally {
       connection.endTransaction();
       close();

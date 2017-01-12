@@ -51,8 +51,10 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		 * 
 		 * @param daoFactory
 		 * @return true to commit, false to rollback
+		 * 
+		 * @exception any exception
 		 */
-		boolean onExecute(E daoFactory);
+		boolean onExecute(E daoFactory) throws Throwable;
 	}
 	
 	/**

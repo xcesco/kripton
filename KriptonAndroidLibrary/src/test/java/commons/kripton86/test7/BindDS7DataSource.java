@@ -62,6 +62,9 @@ public class BindDS7DataSource extends AbstractDataSource implements BindDS7DaoF
       if (transaction!=null && transaction.onExecute(this)) {
         connection.setTransactionSuccessful();
       }
+    } catch(Throwable e) {
+    	Logger.error(e.getMessage());
+    	e.printStackTrace();    
     } finally {
       connection.endTransaction();
       close();

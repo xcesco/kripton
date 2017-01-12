@@ -64,6 +64,9 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
       if (transaction!=null && transaction.onExecute(this)) {
         connection.setTransactionSuccessful();
       }
+    } catch(Throwable e) {
+      Logger.error(e.getMessage());
+      e.printStackTrace();
     } finally {
       connection.endTransaction();
       close();
