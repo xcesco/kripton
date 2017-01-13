@@ -133,12 +133,6 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     // generate tables
     Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
     database.execSQL(UserTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
-    database.execSQL(PostTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
     database.execSQL(PostTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",CommentTable.CREATE_TABLE_SQL);
@@ -161,20 +155,8 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     database.execSQL(PostTable.DROP_TABLE_SQL);
     Logger.info("DDL: %s",UserTable.DROP_TABLE_SQL);
     database.execSQL(UserTable.DROP_TABLE_SQL);
-    Logger.info("DDL: %s",PostTable.DROP_TABLE_SQL);
-    database.execSQL(PostTable.DROP_TABLE_SQL);
-    Logger.info("DDL: %s",UserTable.DROP_TABLE_SQL);
-    database.execSQL(UserTable.DROP_TABLE_SQL);
-    Logger.info("DDL: %s",UserTable.DROP_TABLE_SQL);
-    database.execSQL(UserTable.DROP_TABLE_SQL);
 
     // generate tables
-    Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
-    database.execSQL(PostTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
     database.execSQL(UserTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);

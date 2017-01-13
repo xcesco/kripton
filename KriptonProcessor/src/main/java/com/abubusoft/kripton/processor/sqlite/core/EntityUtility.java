@@ -47,6 +47,10 @@ public abstract class EntityUtility<E> {
 			insert(master, item);
 		}
 
-		output.add(current);
+		// insert only element does not exists
+		if (output.indexOf(current)==-1)
+		{		
+			output.add(current);
+		}
 	}
 }
