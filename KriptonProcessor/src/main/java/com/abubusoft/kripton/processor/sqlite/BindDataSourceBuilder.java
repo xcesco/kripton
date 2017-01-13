@@ -249,7 +249,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		List<SQLEntity> list = schema.getEntitiesAsList();
 
 		EntityUtility<SQLEntity> sorder = new EntityUtility<SQLEntity>(list) {
-
+  
 			@Override
 			public Collection<SQLEntity> getDependencies(SQLEntity item) {
 				return item.referedEntities;
