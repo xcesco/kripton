@@ -185,9 +185,12 @@ public abstract class CodeBuilderUtility {
 
 		// initialize contentValues
 		SQLProperty primaryKey = entity.getPrimaryKey();
+		
+		boolean includePrimaryKey=annotation.getAttributeAsBoolean(AnnotationAttributeType.ATTRIBUTE_INCLUDE_PRIMARY_KEY);
+		
 		// for each property in entity except primaryKey and excluded properties
 		for (SQLProperty item : entity.getCollection()) {
-			if (item.equals(primaryKey) || excludedFields.contains(item.getName()))
+			if (!includePrimaryKey && item.equals(primaryKey) || excludedFields.contains(item.getName()))
 				continue;
 			if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
 				continue;
@@ -225,8 +228,11 @@ public abstract class CodeBuilderUtility {
 		methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 		methodBuilder.addCode("contentValues.clear();\n\n");
 		// for each property in entity except primaryKey and excluded properties
-		for (SQLProperty item : entity.getCollection()) {
-			if (item.equals(primaryKey) || excludedFields.contains(item.getName()))
+				
+		boolean includePrimaryKey=annotation.getAttributeAsBoolean(AnnotationAttributeType.ATTRIBUTE_INCLUDE_PRIMARY_KEY);
+		
+		for (SQLProperty item : entity.getCollection()) {			
+			if (!includePrimaryKey && item.equals(primaryKey) || excludedFields.contains(item.getName()))
 				continue;
 			if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
 				continue;

@@ -204,7 +204,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean_a_2 (value_string2) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string2"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean_a_2 (value_string2) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string2"))+"')"));
     long result = database().insert("bean_a_2", null, contentValues);
     bean.id=result;
 

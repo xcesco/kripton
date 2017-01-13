@@ -213,7 +213,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean_a_4 (bean_a2_id, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("bean_a2_id"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean_a_4 (bean_a2_id, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("bean_a2_id"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
     long result = database().insert("bean_a_4", null, contentValues);
     bean.id=result;
 

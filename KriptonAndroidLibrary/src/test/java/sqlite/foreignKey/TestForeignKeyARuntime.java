@@ -15,11 +15,14 @@
  *******************************************************************************/
 package sqlite.foreignKey;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.IOException;
 
 import org.junit.Test;
+
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import base.BaseAndroidTest;
 import sqlite.foreignKey.BindDummyDataSource.Transaction;
@@ -30,7 +33,7 @@ import sqlite.foreignKey.BindDummyDataSource.Transaction;
  */
 public class TestForeignKeyARuntime extends BaseAndroidTest {
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
 		BindDummyDataSource dataSource = BindDummyDataSource.instance();
 
@@ -49,7 +52,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 				bean.beanA2Id = beanParent.id;
 
 				dao.insert(bean);
-				assertNotEquals(-1, bean.id);
+				assertEquals(-1, bean.id);
 				// List<BeanA_1> list = dao.selectById(bean.id);
 
 				// Assert.assertEquals("not one ", 1, list.size());
@@ -62,6 +65,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 			@Override
 			public void onError(Throwable e) {
 				System.out.println("aaa");
+				throw(new KriptonRuntimeException(e));
 			}
 		});
 

@@ -103,13 +103,25 @@ public @interface BindSqlInsert {
 	/**
 	 * <p>
 	 * bean properties to include into INSERT command. <b>To use only if method have only one parameter and its type is the same of supported bean</b>.
+	 * </p>
 	 * 
 	 * @return property's names to include
 	 */
 	String[] value() default {};
+	
+	/**
+	 * <p>
+	 * Allow to include primary key into INSERT command. <b>To use only if method have only one parameter and its type is the same of supported bean</b>.
+	 * </p>
+	 * 
+	 * @return true if you need to include primary key in INSERT COMMAND
+	 */
+	boolean includePrimaryKey() default false;
 
 	/**
+	 * <p>
 	 * properties to exclude into INSERT command. <b>To use only if method have only one parameter and its type is the same of supported bean</b>.
+	 * </p>
 	 * 
 	 * @return property's names to exclude
 	 */

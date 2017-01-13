@@ -215,7 +215,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean01 (id) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean01 (id) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     return result;
   }
@@ -248,7 +248,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean01 (text) VALUES ('"+StringUtils.checkSize(contentValues.get("text"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean01 (text) VALUES ('"+StringUtils.checkSize(contentValues.get("text"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     bean.setId(result);
 

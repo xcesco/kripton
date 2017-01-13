@@ -52,14 +52,12 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 		ModelProperty primaryKey = entity.getPrimaryKey();
 
-		// methodBuilder.addCode("\n");
-
 		// generate javadoc and query
 		sqlInsert = generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
 
 		if (daoDefinition.isLogEnabled()) {
 			methodBuilder.addCode("// log\n");
-			methodBuilder.addCode("$T.info($T.formatSQL(\"SQL: $L\"));\n", Logger.class, StringUtils.class, sqlInsert);
+			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"));\n", Logger.class, StringUtils.class, sqlInsert);
 		}
 
 		methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());

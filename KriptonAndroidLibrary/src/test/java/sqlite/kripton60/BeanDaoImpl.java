@@ -1909,7 +1909,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_bool"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte"))+"', '"+StringUtils.checkSize(contentValues.get("value_short_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_short"))+"', '"+StringUtils.checkSize(contentValues.get("value_int_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_int"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_char"))+"', '"+StringUtils.checkSize(contentValues.get("value_float_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_float"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"', '"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long"))+"', '"+StringUtils.checkSize(contentValues.get("value_double_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_double"))+"', '"+StringUtils.checkSize(contentValues.get("value_locale"))+"', '"+StringUtils.checkSize(contentValues.get("value_calendar"))+"', '"+StringUtils.checkSize(contentValues.get("value_date"))+"', '"+StringUtils.checkSize(contentValues.get("value_url"))+"', '"+StringUtils.checkSize(contentValues.get("value_time"))+"', '"+StringUtils.checkSize(contentValues.get("value_currency"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_strin_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_string_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_linked_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_bool"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte"))+"', '"+StringUtils.checkSize(contentValues.get("value_short_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_short"))+"', '"+StringUtils.checkSize(contentValues.get("value_int_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_int"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_char"))+"', '"+StringUtils.checkSize(contentValues.get("value_float_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_float"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"', '"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_long"))+"', '"+StringUtils.checkSize(contentValues.get("value_double_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_double"))+"', '"+StringUtils.checkSize(contentValues.get("value_locale"))+"', '"+StringUtils.checkSize(contentValues.get("value_calendar"))+"', '"+StringUtils.checkSize(contentValues.get("value_date"))+"', '"+StringUtils.checkSize(contentValues.get("value_url"))+"', '"+StringUtils.checkSize(contentValues.get("value_time"))+"', '"+StringUtils.checkSize(contentValues.get("value_currency"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"', '"+StringUtils.checkSize(contentValues.get("value_time_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_strin_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_byte_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_long_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_string_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_list"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_type_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_char_array"))+"', '"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_linked_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"')"));
     long result = database().insert("bean", null, contentValues);
     bean.id=result;
 
@@ -1942,7 +1942,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_big_decimal) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_big_decimal) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_decimal"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -2234,7 +2234,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_big_integer) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_big_integer) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_integer"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -2484,7 +2484,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_bool_type", valueBoolType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bool_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_bool_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -2738,7 +2738,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bool) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_bool) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bool"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -2988,7 +2988,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_byte_type", valueByteType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_byte_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_byte_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -3242,7 +3242,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -3492,7 +3492,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_char_type", (int)valueCharType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_char_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_char_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -3746,7 +3746,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_char) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_char) VALUES ('"+StringUtils.checkSize(contentValues.get("value_char"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -3996,7 +3996,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_short_type", (int)valueShortType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_short_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_short_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -4250,7 +4250,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_short) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_short) VALUES ('"+StringUtils.checkSize(contentValues.get("value_short"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -4500,7 +4500,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_int_type", valueIntType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_int_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_int_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -4754,7 +4754,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_int) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_int) VALUES ('"+StringUtils.checkSize(contentValues.get("value_int"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -5004,7 +5004,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_long_type", valueLongType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_long_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -5258,7 +5258,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_long) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -5508,7 +5508,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_float_type", valueFloatType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_float_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_float_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -5762,7 +5762,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_float) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_float) VALUES ('"+StringUtils.checkSize(contentValues.get("value_float"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -6012,7 +6012,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("value_double_type", valueDoubleType);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_double_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_double_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -6266,7 +6266,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_double) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_double) VALUES ('"+StringUtils.checkSize(contentValues.get("value_double"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -6520,7 +6520,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -6774,7 +6774,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_date) VALUES ('"+StringUtils.checkSize(contentValues.get("value_date"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_date) VALUES ('"+StringUtils.checkSize(contentValues.get("value_date"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -7028,7 +7028,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_calendar) VALUES ('"+StringUtils.checkSize(contentValues.get("value_calendar"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_calendar) VALUES ('"+StringUtils.checkSize(contentValues.get("value_calendar"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -7282,7 +7282,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_locale) VALUES ('"+StringUtils.checkSize(contentValues.get("value_locale"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_locale) VALUES ('"+StringUtils.checkSize(contentValues.get("value_locale"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -7536,7 +7536,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_url) VALUES ('"+StringUtils.checkSize(contentValues.get("value_url"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_url) VALUES ('"+StringUtils.checkSize(contentValues.get("value_url"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -7790,7 +7790,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_time) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_time) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -8044,7 +8044,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_currency) VALUES ('"+StringUtils.checkSize(contentValues.get("value_currency"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_currency) VALUES ('"+StringUtils.checkSize(contentValues.get("value_currency"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -8298,7 +8298,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_time_zone) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_time_zone) VALUES ('"+StringUtils.checkSize(contentValues.get("value_time_zone"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -8552,7 +8552,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_enum_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_enum_type) VALUES ('"+StringUtils.checkSize(contentValues.get("value_enum_type"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -8806,7 +8806,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_bean_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_bean_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_bean_array"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -9060,7 +9060,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_type_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_long_type_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_type_array"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -9314,7 +9314,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_array"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_long_array) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_array"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -9568,7 +9568,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean (value_long_list) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_list"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean (value_long_list) VALUES ('"+StringUtils.checkSize(contentValues.get("value_long_list"))+"')"));
     long result = database().insert("bean", null, contentValues);
     return result;
   }

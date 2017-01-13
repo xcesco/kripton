@@ -34,6 +34,7 @@ import sqlite.kripton62.Test62Suite;
 import sqlite.kripton63.Test63Suite;
 import sqlite.kripton64.Test64Suite;
 import sqlite.kripton84.Test84Suite;
+import sqlite.quickstart.TestQuickstartSuite;
 import sqlite.test01.Test01Suite;
 import sqlite.test02.Test02Suite;
 import sqlite.test02.TestDao01;
@@ -65,7 +66,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			Test63Suite.class,
 			Test64Suite.class,
 			Test84Suite.class,
-			
+			TestQuickstartSuite.class, 
 			TestDao01.class, 
 			Test03.class, 
 			TestFirstAid.class,

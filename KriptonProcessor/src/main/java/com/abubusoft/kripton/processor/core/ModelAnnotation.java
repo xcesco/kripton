@@ -58,4 +58,10 @@ public class ModelAnnotation {
 		return temp;
 	}
 
+	public boolean getAttributeAsBoolean(AnnotationAttributeType attribute) {
+		String temp=attributes.get(attribute.getValue());
+		
+		return Boolean.parseBoolean(temp);
+	}
+
 }

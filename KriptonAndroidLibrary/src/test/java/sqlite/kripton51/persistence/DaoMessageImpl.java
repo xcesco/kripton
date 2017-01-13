@@ -248,7 +248,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO message (channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES ('"+StringUtils.checkSize(contentValues.get("channel_id"))+"', '"+StringUtils.checkSize(contentValues.get("owner_type"))+"', '"+StringUtils.checkSize(contentValues.get("face_uid"))+"', '"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("type"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO message (channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES ('"+StringUtils.checkSize(contentValues.get("channel_id"))+"', '"+StringUtils.checkSize(contentValues.get("owner_type"))+"', '"+StringUtils.checkSize(contentValues.get("face_uid"))+"', '"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("type"))+"')"));
     long result = database().insert("message", null, contentValues);
     bean.id=result;
   }

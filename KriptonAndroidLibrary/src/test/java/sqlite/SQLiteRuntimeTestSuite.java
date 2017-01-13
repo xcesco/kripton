@@ -23,6 +23,7 @@ import sqlite.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;
 import sqlite.kripton64.Test64RuntimeSuite;
 import sqlite.kripton84.Test84RuntimeSuite;
+import sqlite.quickstart.TestQuickstartRuntimeSuite;
 
 @RunWith(Suite.class)
 // @formatter:off
@@ -31,7 +32,8 @@ import sqlite.kripton84.Test84RuntimeSuite;
 	Test84RuntimeSuite.class,
 	TestForeignKeyRuntimeSuite.class,
 	TestExample01RuntimeSuite.class,
-	Test58RuntimeSuite.class
+	Test58RuntimeSuite.class,
+	TestQuickstartRuntimeSuite.class
 	 })
 // @formatter:on
 public class SQLiteRuntimeTestSuite {

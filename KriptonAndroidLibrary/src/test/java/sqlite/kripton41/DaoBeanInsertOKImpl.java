@@ -50,7 +50,7 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean01 (id, value) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean01 (id, value) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     return result!=-1;
   }

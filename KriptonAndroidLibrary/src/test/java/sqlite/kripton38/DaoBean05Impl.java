@@ -623,7 +623,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO ws_bean (text, content, creation_time) VALUES ('"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("content"))+"', '"+StringUtils.checkSize(contentValues.get("creation_time"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO ws_bean (text, content, creation_time) VALUES ('"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("content"))+"', '"+StringUtils.checkSize(contentValues.get("creation_time"))+"')"));
     long result = database().insert("ws_bean", null, contentValues);
     return result;
   }
@@ -680,7 +680,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO ws_bean (number, bean_type, text, content, creation_time) VALUES ('"+StringUtils.checkSize(contentValues.get("number"))+"', '"+StringUtils.checkSize(contentValues.get("bean_type"))+"', '"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("content"))+"', '"+StringUtils.checkSize(contentValues.get("creation_time"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO ws_bean (number, bean_type, text, content, creation_time) VALUES ('"+StringUtils.checkSize(contentValues.get("number"))+"', '"+StringUtils.checkSize(contentValues.get("bean_type"))+"', '"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("content"))+"', '"+StringUtils.checkSize(contentValues.get("creation_time"))+"')"));
     long result = database().insert("ws_bean", null, contentValues);
     bean.setPk(result);
   }

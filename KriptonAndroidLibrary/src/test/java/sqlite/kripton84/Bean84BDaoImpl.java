@@ -163,7 +163,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean84_b (column_bean) VALUES ('"+StringUtils.checkSize(contentValues.get("column_bean"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean84_b (column_bean) VALUES ('"+StringUtils.checkSize(contentValues.get("column_bean"))+"')"));
     long result = database().insert("bean84_b", null, contentValues);
     bean.id=result;
 

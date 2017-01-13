@@ -326,7 +326,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean84_a (column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("column_bean"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean84_a (column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("column_bean"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
     long result = database().insert("bean84_a", null, contentValues);
     bean.id=result;
 
@@ -359,7 +359,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean84_a (column_list_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean84_a (column_list_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"')"));
     long result = database().insert("bean84_a", null, contentValues);
     return result!=-1;
   }

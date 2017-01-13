@@ -156,7 +156,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     contentValues.put("id", azz);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
     long result = database().insert("channel", null, contentValues);
     return result;
   }
@@ -192,7 +192,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     contentValues.put("id", id);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
     long result = database().insert("channel", null, contentValues);
     return result!=-1;
   }
@@ -228,7 +228,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     contentValues.put("id", id);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
     int result = (int)database().insert("channel", null, contentValues);
     return result;
   }
@@ -278,7 +278,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
     long result = database().insert("channel", null, contentValues);
     bean.setId(result);
 
@@ -330,7 +330,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
     long result = database().insert("channel", null, contentValues);
     bean.setId(result);
 

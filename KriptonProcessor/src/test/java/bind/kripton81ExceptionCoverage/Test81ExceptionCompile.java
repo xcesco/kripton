@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.processor.exceptions.InvalidForeignKeyTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
@@ -109,5 +110,17 @@ public class Test81ExceptionCompile extends AbstractBindSQLiteProcessorTest {
 	public void testError15() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(InvalidKindForAnnotationException.class);
 		buildDataSourceProcessorTest(Error15Bean.class);
+	}
+	
+	@Test
+	public void testErrorPK1() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(ErrorPK1Dao.class, ErrorPK1Bean.class, ErrorPK1DataSource.class);
+	}
+	
+	@Test
+	public void testPK() throws IOException, InstantiationException, IllegalAccessException {
+	//	this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(PKDao.class, PKBean.class, PKDataSource.class);
 	}
 }

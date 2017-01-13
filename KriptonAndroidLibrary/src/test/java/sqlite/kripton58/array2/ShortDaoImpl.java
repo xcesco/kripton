@@ -391,7 +391,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO short_bean (id, value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO short_bean (id, value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("short_bean", null, contentValues);
     return result;
   }
@@ -431,7 +431,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO short_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO short_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("short_bean", null, contentValues);
     bean.setId(result);
 

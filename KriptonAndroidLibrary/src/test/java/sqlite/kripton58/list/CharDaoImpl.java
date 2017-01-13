@@ -374,7 +374,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO char_bean (id, value) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO char_bean (id, value) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
     long result = database().insert("char_bean", null, contentValues);
     return result;
   }
@@ -414,7 +414,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO char_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO char_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("char_bean", null, contentValues);
     bean.id=result;
 

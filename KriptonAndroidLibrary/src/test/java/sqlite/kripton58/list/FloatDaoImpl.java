@@ -374,7 +374,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO float_bean (id, value) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO float_bean (id, value) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
     long result = database().insert("float_bean", null, contentValues);
     return result;
   }
@@ -414,7 +414,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO float_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO float_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("float_bean", null, contentValues);
     bean.id=result;
 

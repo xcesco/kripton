@@ -67,7 +67,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     contentValues.put("value", bean.getValue());
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES ('"+StringUtils.checkSize(contentValues.get("lista"))+"', '"+StringUtils.checkSize(contentValues.get("message_date"))+"', '"+StringUtils.checkSize(contentValues.get("message_text"))+"', '"+StringUtils.checkSize(contentValues.get("bean_list"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES ('"+StringUtils.checkSize(contentValues.get("lista"))+"', '"+StringUtils.checkSize(contentValues.get("message_date"))+"', '"+StringUtils.checkSize(contentValues.get("message_text"))+"', '"+StringUtils.checkSize(contentValues.get("bean_list"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     bean.setId(result);
 
@@ -101,7 +101,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     contentValues.put("message_date", messageDate);
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean01 (value, message_date) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("message_date"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean01 (value, message_date) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("message_date"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     return result;
   }

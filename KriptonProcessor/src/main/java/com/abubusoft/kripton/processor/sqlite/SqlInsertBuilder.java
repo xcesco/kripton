@@ -123,7 +123,11 @@ public abstract class SqlInsertBuilder {
 				throw (new InvalidMethodSignException(method));
 			}
 			
-
+			// check no 
+			if (annotation.getAttributeAsBoolean(AnnotationAttributeType.ATTRIBUTE_INCLUDE_PRIMARY_KEY))
+			{
+				throw (new InvalidMethodSignException(method, "attribute '"+AnnotationAttributeType.ATTRIBUTE_INCLUDE_PRIMARY_KEY.getValue()+"' can not be used here"));
+			}
 		} else if (count == 1) {
 			insertResultType = InsertType.INSERT_BEAN;
 			

@@ -82,7 +82,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		if (daoDefinition.isLogEnabled()) {
 			methodBuilder.addCode("// log\n");
-			methodBuilder.addCode("$T.info($T.formatSQL(\"SQL: $L\"));\n", Logger.class, StringUtils.class, sqlInsert);
+			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"));\n", Logger.class, StringUtils.class, sqlInsert);
 		}
 
 		// define return value

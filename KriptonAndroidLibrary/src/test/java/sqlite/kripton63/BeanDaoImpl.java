@@ -354,7 +354,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean63 (value, value_map_string_byte, value_map_enum_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value_map_string_byte"))+"', '"+StringUtils.checkSize(contentValues.get("value_map_enum_byte"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean63 (value, value_map_string_byte, value_map_enum_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value_map_string_byte"))+"', '"+StringUtils.checkSize(contentValues.get("value_map_enum_byte"))+"')"));
     long result = database().insert("bean63", null, contentValues);
     bean.id=result;
 
@@ -387,7 +387,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean63 (value_map_string_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value_map_string_byte"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean63 (value_map_string_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value_map_string_byte"))+"')"));
     long result = database().insert("bean63", null, contentValues);
     return result;
   }
@@ -527,7 +527,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log
-    Logger.info(StringUtils.formatSQL("SQL: INSERT INTO bean63 (value_map_enum_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value_map_enum_byte"))+"')"));
+    Logger.info(StringUtils.formatSQL("INSERT INTO bean63 (value_map_enum_byte) VALUES ('"+StringUtils.checkSize(contentValues.get("value_map_enum_byte"))+"')"));
     long result = database().insert("bean63", null, contentValues);
     return result;
   }
