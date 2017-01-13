@@ -14,29 +14,56 @@
         android:id="@+id/imageView"
         android:layout_marginRight="16dp" />
 
-    <LinearLayout
-        android:orientation="vertical"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingRight="8dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:text="tvPostTitle"
-            style="@style/RobotoTextViewStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvPostTitle"
-            android:paddingBottom="4dp" />
+            android:paddingRight="8dp">
 
-        <TextView
-            android:text="tvPostBody"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/tvPostBody"
-            android:paddingBottom="4dp"
-            android:singleLine="false" />
+            <TextView
+                android:text="tvPostTitle"
+                style="@style/RobotoTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPostTitle"
+                android:paddingBottom="4dp" />
 
-    </LinearLayout>
+            <TextView
+                android:text="tvPostBody"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/tvPostBody"
+                android:paddingBottom="4dp"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_assignment_blue_grey_400_24dp"
+                android:id="@+id/ivPostActionComment"
+                android:paddingRight="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
 
 </LinearLayout>
 

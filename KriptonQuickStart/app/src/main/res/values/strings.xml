@@ -11,4 +11,8 @@
     <string name="quickstart_post_title">Title</string>
     <string name="quickstart_post_body">Message</string>
     <string name="title_activity_todo">TodoActivity</string>
+    <string name="quickstart_comment_name_label">Comment</string>
+    <string name="quickstart_comment_email_label">From</string>
+    <string name="quickstart_comment_body_label">Body</string>
+    <string name="title_activity_comment">Post Activity</string>
 </resources>
