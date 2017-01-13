@@ -18,6 +18,8 @@ package sqlite.quickstart;
 import org.junit.Test;
 
 import base.BaseAndroidTest;
+import sqlite.quickstart.model.Comment;
+import sqlite.quickstart.model.Post;
 import sqlite.quickstart.model.User;
 import sqlite.quickstart.persistence.BindQuickStartDaoFactory;
 import sqlite.quickstart.persistence.BindQuickStartDataSource;
@@ -36,8 +38,23 @@ public class TestQuickstartRuntime extends BaseAndroidTest {
 			
 			@Override
 			public boolean onExecute(BindQuickStartDaoFactory daoFactory) throws Throwable {
-				daoFactory.getUserDao().insert(new User());
+				User user=new User();
+				user.id=1;
+				user.name="user";
+				user.username="username";
 				
+				daoFactory.getUserDao().insert(user);
+				
+				Post post=new Post();
+				post.id=2;
+				post.title="post";
+				post.userId=user.id;
+				daoFactory.getPostDao().insert(post);
+				
+				Comment comment=new Comment();
+				comment.id=3;
+				comment.postId=post.id;
+				daoFactory.getCommentDao().insert(comment);
 				return true;
 			}
 		});
