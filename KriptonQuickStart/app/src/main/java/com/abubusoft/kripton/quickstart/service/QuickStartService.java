@@ -1,6 +1,8 @@
 package com.abubusoft.kripton.quickstart.service;
 
+import com.abubusoft.kripton.quickstart.model.Album;
 import com.abubusoft.kripton.quickstart.model.Comment;
+import com.abubusoft.kripton.quickstart.model.Photo;
 import com.abubusoft.kripton.quickstart.model.Post;
 import com.abubusoft.kripton.quickstart.model.Todo;
 import com.abubusoft.kripton.quickstart.model.User;
@@ -21,7 +23,13 @@ public interface QuickStartService {
 	Call<List<Todo>> listTodos(@Query("userId") long userId);
 
 	@GET("comments")
-	Call<List<Comment>> listComments(@Query("userId") long userId);
+	Call<List<Comment>> listComments(@Query("postId") long postId);
+
+	@GET("albums")
+	Call<List<Album>> listAlbums(@Query("userId") long userId);
+
+	@GET("photos")
+	Call<List<Photo>> listPhotos(@Query("albumId") long albumId);
 
 	@GET("users")
 	Call<List<User>> listUsers();

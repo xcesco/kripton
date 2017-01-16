@@ -17,10 +17,8 @@ import com.abubusoft.kripton.quickstart.model.Post;
 public class PostAdapter extends AbstractRecyclerViewAdapter<Post, PostAdapter.ViewHolder> {
 
     static class ViewHolder extends AbstractRecyclerViewAdapter.ViewHolder {
-       // public TextView tvId;
-        // each data item is just a string in this case
-        TextView tvTitle;
-        TextView tvBody;
+        TextView tvPostTitle;
+        TextView tvPostBody;
         ImageView ivPostActionComment;
 
         ViewHolder(View v) {
@@ -31,8 +29,8 @@ public class PostAdapter extends AbstractRecyclerViewAdapter<Post, PostAdapter.V
     @Override
     public ViewHolder createViewHolder(View v) {
         ViewHolder holder=new ViewHolder(v);
-        holder.tvTitle= (TextView) v.findViewById(R.id.tvPostTitle);
-        holder.tvBody= (TextView) v.findViewById(R.id.tvPostBody);
+        holder.tvPostTitle = (TextView) v.findViewById(R.id.tvPostTitle);
+        holder.tvPostBody = (TextView) v.findViewById(R.id.tvPostBody);
         holder.ivPostActionComment= (ImageView) v.findViewById(R.id.ivPostActionComment);
         return holder;
     }
@@ -44,9 +42,8 @@ public class PostAdapter extends AbstractRecyclerViewAdapter<Post, PostAdapter.V
 
     @Override
     public void onBindItem(ViewHolder holder, final Post item) {
-       // holder.tvId.setText(Long.toString(item.id));
-        holder.tvTitle.setText(item.title);
-        holder.tvBody.setText(item.body);
+        holder.tvPostTitle.setText(item.title);
+        holder.tvPostBody.setText(item.body);
 
         holder.ivPostActionComment.setOnClickListener(new View.OnClickListener() {
             @Override

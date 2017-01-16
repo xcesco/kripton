@@ -150,7 +150,17 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_assignment_blue_grey_400_24dp"
+                app:srcCompat="@drawable/ic_collections_blue_grey_400_24dp"
+                android:id="@+id/ivUserActionAlbum"
+                android:paddingRight="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_format_list_bulleted_blue_grey_400_24dp"
                 android:id="@+id/ivUserActionTodo"
                 android:paddingRight="16dp"
                 android:layout_alignParentTop="true"
@@ -160,7 +170,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_speaker_notes_blue_grey_400_24dp"
+                app:srcCompat="@drawable/ic_comment_blue_grey_400_24dp"
                 android:id="@+id/ivUserActionPost"
                 android:layout_alignParentTop="true"
                 android:paddingRight="16dp"
@@ -173,16 +183,3 @@
 
 
 </LinearLayout>
-
-
-<!--
-
-public long id;
-    public String name;
-    public String username;
-    public String email;
-    public Address address;
-    public String phone;
-    public String website;
-    public Company company;
--->

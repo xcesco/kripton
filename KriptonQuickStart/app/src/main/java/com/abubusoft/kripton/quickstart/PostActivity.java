@@ -71,7 +71,14 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getIntent().getExtras();
-        userId = (long) bundle.get("userId");
+        if (bundle!=null) {
+            userId = (long) bundle.get("userId");
+            BindApplicationPreferences.instance().edit().putUserId(userId).commit();
+        }
+        else
+        {
+            userId=BindApplicationPreferences.instance().userId();
+        }
 
         setContentView(R.layout.activity_post);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KriptonQuickStart</string>
+    <string name="app_name">Kripton Quick Start</string>
     <string name="quickstart_username_label">Username</string>
     <string name="quickstart_name_label">Name</string>
     <string name="quickstart_phone_label">Phone</string>
@@ -7,12 +7,16 @@
     <string name="quickstart_address_label">Address</string>
     <string name="quickstart_company_label">Company</string>
     <string name="quickstart_website_label">Website</string>
-    <string name="title_activity_post">PostActivity</string>
     <string name="quickstart_post_title">Title</string>
     <string name="quickstart_post_body">Message</string>
-    <string name="title_activity_todo">TodoActivity</string>
     <string name="quickstart_comment_name_label">Comment</string>
     <string name="quickstart_comment_email_label">From</string>
     <string name="quickstart_comment_body_label">Body</string>
-    <string name="title_activity_comment">Post Activity</string>
+    <string name="quickstart_album_title_label">Album</string>
+
+    <string name="title_activity_post">Posts</string>
+    <string name="title_activity_todo">Todos</string>
+    <string name="title_activity_comment">Comments</string>
+    <string name="title_activity_album">Albums</string>
+    <string name="title_activity_photo">Photos</string>
 </resources>

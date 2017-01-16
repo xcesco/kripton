@@ -72,16 +72,24 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getIntent().getExtras();
-        postId = (long) bundle.get("postId");
+        Bundle bundle=getIntent().getExtras();
+        if (bundle!=null) {
+            postId = (long) bundle.get("postId");
+            BindApplicationPreferences state = BindApplicationPreferences.instance();
+            state.edit().putPostId(postId).commit();
+        }
+        else
+        {
+            postId=BindApplicationPreferences.instance().postId();
+        }
 
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_comment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_post);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_comment);
 
         mAdapter = new CommentAdapter();
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

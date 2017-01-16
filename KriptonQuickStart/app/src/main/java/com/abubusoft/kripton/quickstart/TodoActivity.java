@@ -71,8 +71,16 @@ public class TodoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getIntent().getExtras();
-        userId = (long) bundle.get("userId");
+        Bundle bundle=getIntent().getExtras();
+        if (bundle!=null) {
+            userId = (long) bundle.get("userId");
+            BindApplicationPreferences state = BindApplicationPreferences.instance();
+            state.edit().putUserId(userId).commit();
+        }
+        else
+        {
+            userId=BindApplicationPreferences.instance().userId();
+        }
 
         setContentView(R.layout.activity_todo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

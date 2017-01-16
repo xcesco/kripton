@@ -26,6 +26,7 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         TextView tvCompany;
         TextView tvWebsite;
 
+        ImageView ivUserActionAlbum;
         ImageView ivUserActionTodo;
         ImageView ivUserActionPost;
 
@@ -46,6 +47,7 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         holder.tvCompany=(TextView)v.findViewById(R.id.tvCompany);
         holder.tvWebsite=(TextView)v.findViewById(R.id.tvWebsite);
 
+        holder.ivUserActionAlbum=(ImageView) v.findViewById(R.id.ivUserActionAlbum);
         holder.ivUserActionTodo=(ImageView) v.findViewById(R.id.ivUserActionTodo);
         holder.ivUserActionPost=(ImageView) v.findViewById(R.id.ivUserActionPost);
         return holder;
@@ -66,6 +68,17 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         holder.tvWebsite.setText(item.website);
         holder.tvCompany.setText(item.company.toString());
         holder.tvAddress.setText(item.address.toString());
+
+        holder.ivUserActionAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AlbumActivity.class);
+                Bundle b = new Bundle();
+                b.putLong("userId", item.id);
+                intent.putExtras(b);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         holder.ivUserActionTodo.setOnClickListener(new View.OnClickListener() {
             @Override

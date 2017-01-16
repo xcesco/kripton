@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_email_blue_grey_400_48dp"
+        app:srcCompat="@drawable/ic_comment_blue_grey_400_48dp"
         android:id="@+id/imageView"
         android:layout_marginRight="16dp" />
 
@@ -52,7 +52,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_assignment_blue_grey_400_24dp"
+                app:srcCompat="@drawable/ic_textsms_blue_grey_400_24dp"
                 android:id="@+id/ivPostActionComment"
                 android:paddingRight="16dp"
                 android:layout_alignParentTop="true"

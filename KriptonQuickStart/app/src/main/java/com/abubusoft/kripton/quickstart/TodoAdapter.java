@@ -53,12 +53,12 @@ public class TodoAdapter extends AbstractRecyclerViewAdapter<Todo, TodoAdapter.V
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Selected item "+item.title, Toast.LENGTH_LONG).show();
-
+/*
                 Intent intent = new Intent(v.getContext(), PostActivity.class);
                 Bundle b = new Bundle();
                 b.putLong("todoId", item.id);
                 intent.putExtras(b);
-                v.getContext().startActivity(intent);
+                v.getContext().startActivity(intent);*/
             }
         });
     }

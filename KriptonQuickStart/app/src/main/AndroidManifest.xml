@@ -12,6 +12,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.abubusoft.kripton.quickstart.network.okhttp3.OkHttpGlideModule"
+            android:value="GlideModule"/>
+
         <activity android:name="com.abubusoft.kripton.quickstart.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,6 +50,24 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.abubusoft.kripton.quickstart.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.abubusoft.kripton.quickstart.AlbumActivity"
+            android:label="@string/title_activity_album"
+            android:parentActivityName="com.abubusoft.kripton.quickstart.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.abubusoft.kripton.quickstart.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.abubusoft.kripton.quickstart.PhotoActivity"
+            android:label="@string/title_activity_photo"
+            android:parentActivityName="com.abubusoft.kripton.quickstart.AlbumActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.abubusoft.kripton.quickstart.AlbumActivity" />
         </activity>
     </application>
 

@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_account_circle_blue_grey_400_48dp"
+        app:srcCompat="@drawable/ic_textsms_blue_grey_400_48dp"
         android:id="@+id/imageView"
         android:layout_marginRight="16dp" />
 
@@ -54,16 +54,8 @@
                 android:paddingBottom="4dp" />
 
             <TextView
+                android:text="tvCommentBody"
                 style="@style/RobotoLabelViewStyle"
-                android:text="@string/quickstart_comment_body_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvLblCommentBody"
-                />
-
-            <TextView
-                android:text="tvAddress"
-                style="@style/RobotoTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvCommentBody"

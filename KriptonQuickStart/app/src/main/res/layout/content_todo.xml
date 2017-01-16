@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.abubusoft.quickstart.com.abubusoft.kripton.quickstart.quickstart.TodoActivity"
+    tools:context="com.abubusoft.kripton.quickstart.TodoActivity"
     tools:showIn="@layout/activity_todo">
 
     <android.support.v7.widget.RecyclerView

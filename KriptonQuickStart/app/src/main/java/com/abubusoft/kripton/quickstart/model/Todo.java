@@ -10,9 +10,9 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindType
 public class Todo {
 
-    @BindColumn(columnType = ColumnType.PRIMARY_KEY)
     public long id;
 
+    @BindColumn(foreignKey = User.class)
     public long userId;
 
     public String title;

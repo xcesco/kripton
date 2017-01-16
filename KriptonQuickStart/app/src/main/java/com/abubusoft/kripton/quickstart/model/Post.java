@@ -1,7 +1,10 @@
 package com.abubusoft.kripton.quickstart.model;
 
 import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
+
+import java.util.List;
 
 @BindType
 public class Post {
@@ -14,4 +17,5 @@ public class Post {
     public String title;
 
     public String body;
+
 }

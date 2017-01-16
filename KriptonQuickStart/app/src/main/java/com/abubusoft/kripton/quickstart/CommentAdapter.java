@@ -13,9 +13,9 @@ import com.abubusoft.quickstart.R;
 public class CommentAdapter extends AbstractRecyclerViewAdapter<Comment, CommentAdapter.ViewHolder> {
 
     static class ViewHolder extends AbstractRecyclerViewAdapter.ViewHolder {
-        TextView tvPostTitle;
-        TextView tvPostBody;
-        TextView tvPostEmail;
+        TextView tvCommentTitle;
+        TextView tvCommentBody;
+        TextView tvCommentEmail;
 
         ViewHolder(View v) {
             super(v);
@@ -25,22 +25,22 @@ public class CommentAdapter extends AbstractRecyclerViewAdapter<Comment, Comment
     @Override
     public ViewHolder createViewHolder(View v) {
         ViewHolder holder=new ViewHolder(v);
-        holder.tvPostTitle= (TextView) v.findViewById(R.id.tvCommentName);
-        holder.tvPostBody= (TextView) v.findViewById(R.id.tvCommentBody);
-        holder.tvPostEmail= (TextView) v.findViewById(R.id.tvCommentEmail);
+        holder.tvCommentTitle = (TextView) v.findViewById(R.id.tvCommentName);
+        holder.tvCommentBody = (TextView) v.findViewById(R.id.tvCommentBody);
+        holder.tvCommentEmail = (TextView) v.findViewById(R.id.tvCommentEmail);
         return holder;
     }
 
     @Override
     public int getViewLayoutResourceId() {
-        return R.layout.layout_post;
+        return R.layout.layout_comment;
     }
 
     @Override
     public void onBindItem(ViewHolder holder, final Comment item) {
-        holder.tvPostTitle.setText(item.name);
-        holder.tvPostBody.setText(item.body);
-        holder.tvPostEmail.setText(item.email);
+        holder.tvCommentTitle.setText(item.name);
+        holder.tvCommentBody.setText(item.body);
+        holder.tvCommentEmail.setText(item.email);
 
     }
 
