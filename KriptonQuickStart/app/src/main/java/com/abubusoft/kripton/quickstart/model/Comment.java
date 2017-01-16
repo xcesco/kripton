@@ -3,10 +3,6 @@ package com.abubusoft.kripton.quickstart.model;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
-/**
- * Created by 908099 on 13/01/2017.
- */
-
 @BindType
 public class Comment {
 
