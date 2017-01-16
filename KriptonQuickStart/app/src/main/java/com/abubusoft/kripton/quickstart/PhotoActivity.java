@@ -34,26 +34,21 @@ public class PhotoActivity extends AppCompatActivity {
 
             if (list.size() == 0) {
                 list = QuickStartApplication.service.listPhotos(albumId).execute().body();
-                Logger.info("%s post downloaded for albumId %s ", list.size(), albumId);
 
                 dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 
                     @Override
                     public boolean onExecute(BindQuickStartDaoFactory daoFactory) {
                         PhotoDaoImpl dao = daoFactory.getPhotoDao();
-
                         for (Photo item : list) {
-                            Logger.info("Store photo %s", item.id);
                             dao.insert(item);
                         }
-                        Logger.info("finished");
                         return true;
                     }
                 });
 
                 return dataSource.getPhotoDao().selectByUserId(albumId);
             } else {
-                // user already downloaded
                 return list;
             }
         }
@@ -64,7 +59,7 @@ public class PhotoActivity extends AppCompatActivity {
             mAdapter.notifyDataSetChanged();
         }
     };
-    private DividerItemDecoration mDividerItemDecoration;
+
     private long albumId;
 
     @Override

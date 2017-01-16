@@ -33,8 +33,6 @@ public class AlbumActivity extends AppCompatActivity {
 
             if (list.size() == 0) {
                 list = QuickStartApplication.service.listAlbums(userId).execute().body();
-                Logger.info("%s album downloaded for userId %s ", list.size(), userId);
-
                 dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 
                     @Override
@@ -42,17 +40,14 @@ public class AlbumActivity extends AppCompatActivity {
                         AlbumDaoImpl dao = daoFactory.getAlbumDao();
 
                         for (Album item : list) {
-                            Logger.info("Store album %s", item.id);
                             dao.insert(item);
                         }
-                        Logger.info("finished");
                         return true;
                     }
                 });
 
                 return dataSource.getAlbumDao().selectByUserId(userId);
             } else {
-                // user already downloaded
                 return list;
             }
         }

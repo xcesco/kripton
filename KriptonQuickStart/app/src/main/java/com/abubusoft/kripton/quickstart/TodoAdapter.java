@@ -44,23 +44,9 @@ public class TodoAdapter extends AbstractRecyclerViewAdapter<Todo, TodoAdapter.V
 
     @Override
     public void onBindItem(ViewHolder holder, final Todo item) {
-       // holder.tvId.setText(Long.toString(item.id));
         holder.tvTitle.setText(item.title);
         holder.tvBody.setText(item.completed? "completed!": "not yet finished");
         holder.ivTodo.setActivated(item.completed);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Selected item "+item.title, Toast.LENGTH_LONG).show();
-/*
-                Intent intent = new Intent(v.getContext(), PostActivity.class);
-                Bundle b = new Bundle();
-                b.putLong("todoId", item.id);
-                intent.putExtras(b);
-                v.getContext().startActivity(intent);*/
-            }
-        });
     }
 
 }

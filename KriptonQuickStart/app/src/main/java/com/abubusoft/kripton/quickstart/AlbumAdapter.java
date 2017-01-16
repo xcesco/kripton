@@ -45,8 +45,6 @@ public class AlbumAdapter extends AbstractRecyclerViewAdapter<Album, AlbumAdapte
         holder.ivAlbumAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Selected item "+item.title, Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(v.getContext(), PhotoActivity.class);
                 Bundle b = new Bundle();
                 b.putLong("albumId", item.id);

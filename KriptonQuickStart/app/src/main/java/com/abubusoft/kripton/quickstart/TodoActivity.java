@@ -32,8 +32,6 @@ public class TodoActivity extends AppCompatActivity {
 
             if (list.size() == 0) {
                 list = QuickStartApplication.service.listTodos(userId).execute().body();
-                Logger.info("%s todo downloaded for userId %s ", list.size(), userId);
-
                 dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 
                     @Override
@@ -41,17 +39,14 @@ public class TodoActivity extends AppCompatActivity {
                         TodoDaoImpl dao = daoFactory.getTodoDao();
 
                         for (Todo item : list) {
-                            Logger.info("Store todo %s", item.id);
                             dao.insert(item);
                         }
-                        Logger.info("finished");
                         return true;
                     }
                 });
 
                 return dataSource.getTodoDao().selectByUserId(userId);
             } else {
-                // user already downloaded
                 return list;
             }
 

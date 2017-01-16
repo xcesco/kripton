@@ -10,7 +10,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.model.User;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
@@ -31,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null &&
                 activeNetworkInfo.isConnectedOrConnecting();
-
     }
 
 
@@ -43,11 +41,8 @@ public class MainActivity extends AppCompatActivity {
         public List<User> onExecute(BindQuickStartDataSource dataSource) throws Throwable {
             userList = dataSource.getUserDao().selectAll();
 
-            if (userList.size() == 0) {
-                Logger.info("Start user download");
+            if (isNetworkAvailable(MainActivity.this) && userList.size() == 0) {
                 userList = QuickStartApplication.service.listUsers().execute().body();
-                Logger.info("%s users downloaded ", userList.size());
-
                 dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 
                     @Override
@@ -55,18 +50,14 @@ public class MainActivity extends AppCompatActivity {
                         UserDaoImpl dao = daoFactory.getUserDao();
 
                         for (User item : userList) {
-                            Logger.info("User %s is not yet stored", item.id);
                             dao.insert(item);
                         }
-                        Logger.info("finished");
                         return true;
                     }
                 });
 
                 return dataSource.getUserDao().selectAll();
             } else {
-                Logger.info("Already user downloaded");
-                // user already downloaded
                 return userList;
             }
 

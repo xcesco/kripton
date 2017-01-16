@@ -33,26 +33,20 @@ public class PostActivity extends AppCompatActivity {
 
             if (postList.size() == 0) {
                 postList = QuickStartApplication.service.listPosts(userId).execute().body();
-                Logger.info("%s post downloaded for userId %s ", postList.size(), userId);
-
                 dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 
                     @Override
                     public boolean onExecute(BindQuickStartDaoFactory daoFactory) {
                         PostDaoImpl dao = daoFactory.getPostDao();
-
                         for (Post item : postList) {
-                            Logger.info("Store post %s", item.id);
                             dao.insert(item);
                         }
-                        Logger.info("finished");
                         return true;
                     }
                 });
 
                 return dataSource.getPostDao().selectByUserId(userId);
             } else {
-                // user already downloaded
                 return postList;
             }
         }

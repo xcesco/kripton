@@ -55,8 +55,6 @@ public class PhotoAdapter extends AbstractRecyclerViewAdapter<Photo, PhotoAdapte
         holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Selected item "+item.title, Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(v.getContext(), CommentActivity.class);
                 Bundle b = new Bundle();
                 b.putLong("photoId", item.id);

@@ -33,8 +33,6 @@ public class CommentActivity extends AppCompatActivity {
 
             if (list.size() == 0) {
                 list = QuickStartApplication.service.listComments(postId).execute().body();
-                Logger.info("%s post downloaded for postId %s ", list.size(), postId);
-
                 dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 
                     @Override
@@ -42,17 +40,14 @@ public class CommentActivity extends AppCompatActivity {
                         CommentDaoImpl dao = daoFactory.getCommentDao();
 
                         for (Comment item : list) {
-                            Logger.info("Store comment %s", item.id);
                             dao.insert(item);
                         }
-                        Logger.info("finished");
                         return true;
                     }
                 });
 
                 return dataSource.getCommentDao().selectByPostId(postId);
             } else {
-                // user already downloaded
                 return list;
             }
 

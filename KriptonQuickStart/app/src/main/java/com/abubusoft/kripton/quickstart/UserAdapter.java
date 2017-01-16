@@ -38,7 +38,6 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
     @Override
     public ViewHolder createViewHolder(View v) {
         ViewHolder holder=new ViewHolder(v);
-        //holder.tvId = (TextView) v.findViewById(R.id.tvId);
         holder.tvUsername= (TextView) v.findViewById(R.id.tvUsername);
         holder.tvName= (TextView) v.findViewById(R.id.tvName);
         holder.tvAddress=(TextView)v.findViewById(R.id.tvAddress);
@@ -60,7 +59,6 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
 
     @Override
     public void onBindItem(ViewHolder holder, final User item) {
-       // holder.tvId.setText(Long.toString(item.id));
         holder.tvUsername.setText(item.username);
         holder.tvEmail.setText(item.email);
         holder.tvName.setText(item.name);
