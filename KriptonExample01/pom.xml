@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-example-01</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 
 	<!-- Property version 1.5.0-SNAPSHOT -->
 	<properties>
@@ -71,4 +70,5 @@
 
 	</build>
 
+	<version>1.5.0</version>
 </project>

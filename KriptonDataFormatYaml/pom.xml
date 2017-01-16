@@ -3,7 +3,7 @@
   
   <groupId>com.abubusoft</groupId>
   <artifactId>kripton-dataformat-yaml</artifactId>
-  <version>1.5.0-SNAPSHOT</version>
+  <version>1.5.0</version>
   <name>Kripton YAML data format</name>
   <description>This is jar need to support YAML format.</description>
   <packaging>jar</packaging>
