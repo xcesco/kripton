@@ -196,7 +196,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			}
 		}
 
-		methodBuilder.beginControlFlow("if (databaseListener == null)");
+		methodBuilder.beginControlFlow("if (databaseListener != null)");
 		methodBuilder.addStatement("databaseListener.onCreate(database)");
 		methodBuilder.endControlFlow();
 
@@ -218,7 +218,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		Collections.reverse(orderedEntities);
 
-		methodBuilder.beginControlFlow("if (databaseListener == null)");
+		methodBuilder.beginControlFlow("if (databaseListener != null)");
 		methodBuilder.addStatement("databaseListener.onUpdate(database, oldVersion, newVersion, true)");
 		methodBuilder.nextControlFlow("else");
 
@@ -264,7 +264,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			methodBuilder.addStatement("database.setForeignKeyConstraintsEnabled(true)");
 		}
 
-		methodBuilder.beginControlFlow("if (databaseListener == null)");
+		methodBuilder.beginControlFlow("if (databaseListener != null)");
 		methodBuilder.addStatement("databaseListener.onConfigure(database)");
 		methodBuilder.endControlFlow();
 

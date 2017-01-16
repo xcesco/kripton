@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import java.lang.Override;
 import java.lang.SuppressWarnings;
 import java.lang.Throwable;
+import java.util.concurrent.Executor;
 
 /**
  *
@@ -97,10 +98,20 @@ public abstract class BindDummy08AsyncTask<I, U, R> {
   /**
    * Method to start operations.
    *
-   * @param
-   * 	data input
+   * @param executor used executor
+   * @param data input
    */
   public void execute(@SuppressWarnings("unchecked") I... params) {
+    executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, params);
+  }
+
+  /**
+   * Method to start operations.
+   *
+   * @param executor used executor
+   * @param data input
+   */
+  public void executeOnExecutor(Executor executor, @SuppressWarnings("unchecked") I... params) {
     asyncTask=new AsyncTask<I, U, R>() {
       @Override
       public void onPreExecute() {
@@ -134,7 +145,7 @@ public abstract class BindDummy08AsyncTask<I, U, R> {
         BindDummy08AsyncTask.this.onFinish(result);
       }
     };
-    asyncTask.execute(params);
+    asyncTask.executeOnExecutor(executor, params);
   }
 
   /**

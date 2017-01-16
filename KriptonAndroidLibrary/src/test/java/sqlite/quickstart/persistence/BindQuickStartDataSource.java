@@ -139,7 +139,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     database.execSQL(CommentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
     database.execSQL(TodoTable.CREATE_TABLE_SQL);
-    if (databaseListener == null) {
+    if (databaseListener != null) {
       databaseListener.onCreate(database);
     }
   }
@@ -149,7 +149,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener == null) {
+    if (databaseListener != null) {
       databaseListener.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
@@ -181,7 +181,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   public void onConfigure(SQLiteDatabase database) {
     // configure database
     database.setForeignKeyConstraintsEnabled(true);
-    if (databaseListener == null) {
+    if (databaseListener != null) {
       databaseListener.onConfigure(database);
     }
   }

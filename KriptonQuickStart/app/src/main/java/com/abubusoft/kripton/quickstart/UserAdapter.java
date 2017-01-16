@@ -64,8 +64,8 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         holder.tvName.setText(item.name);
         holder.tvPhone.setText(item.phone);
         holder.tvWebsite.setText(item.website);
-        holder.tvCompany.setText(item.company.toString());
-        holder.tvAddress.setText(item.address.toString());
+        holder.tvCompany.setText(item.company!=null?item.company.toString():"");
+        holder.tvAddress.setText(item.address!=null?item.address.toString():"");
 
         holder.ivUserActionAlbum.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 
 import java.io.IOException;
+import java.util.concurrent.Executor;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -131,13 +132,30 @@ public class BindAsyncTaskBuilder {
 				.addJavadoc("This method is invoked when <code>onExecute</code> method generate an exception.\n@param exception exception generated\n")
 				.addStatement("$T.error(exception.getMessage())", Logger.class).addStatement("exception.printStackTrace()").build());
 
-		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute")
-				.addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.className("I")), "params")
-						.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "$S", "unchecked").build()).build())
-				.varargs(true).addModifiers(Modifier.PUBLIC).addJavadoc("Method to start operations.\n\n@param\n\tdata input\n");
+		// method execute1
+		{
+			MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute")									
+					.addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.className("I")), "params")
+							.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "$S", "unchecked").build()).build())
+					.varargs(true).addModifiers(Modifier.PUBLIC)
+					.addJavadoc("Method to start operations.\n\n@param executor used executor\n@param data input\n");
+			
+			executeBuilder.addStatement("executeOnExecutor($T.SERIAL_EXECUTOR, params)", android.os.AsyncTask.class);			
+			builder.addMethod(executeBuilder.build());		
+		}
+		
+		// method execute2
+		{
+			MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("executeOnExecutor")
+					.addParameter(Executor.class, "executor")					
+					.addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.className("I")), "params")
+							.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "$S", "unchecked").build()).build())
+					.varargs(true).addModifiers(Modifier.PUBLIC)
+					.addJavadoc("Method to start operations.\n\n@param executor used executor\n@param data input\n");
 
 		//@formatter:off
-		TypeSpec.Builder anonymous = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(TypeUtility.className(AsyncTask.class), TypeUtility.className("I"), TypeUtility.className("U"), TypeUtility.className("R")));
+		TypeSpec.Builder anonymous = TypeSpec.anonymousClassBuilder("")
+				.addSuperinterface(ParameterizedTypeName.get(TypeUtility.className(AsyncTask.class), TypeUtility.className("I"), TypeUtility.className("U"), TypeUtility.className("R")));
 		anonymous.addMethod(MethodSpec.methodBuilder("onPreExecute").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).addStatement("$L.this.onPreExecute()",className).build());
 		
 		anonymous.addMethod(MethodSpec.methodBuilder("doInBackground").addModifiers(Modifier.PUBLIC).returns(TypeUtility.typeName("R")).addAnnotation(Override.class)
@@ -158,6 +176,7 @@ public class BindAsyncTaskBuilder {
 					.endControlFlow()
 				.endControlFlow()
 				.addStatement("return result").build());
+		
 		anonymous.addMethod(MethodSpec.methodBuilder("onProgressUpdate")
 				.addModifiers(Modifier.PUBLIC)
 				.addAnnotation(Override.class)
@@ -178,9 +197,9 @@ public class BindAsyncTaskBuilder {
 		//@formatter:on
 
 		//@formatter:off
-		executeBuilder.addStatement("asyncTask=$L", anonymous.build());
-		executeBuilder.addStatement("asyncTask.execute(params)", anonymous.build());
-		builder.addMethod(executeBuilder.build());
+		executeBuilder.addStatement("asyncTask=$L", anonymous.build());		
+		executeBuilder.addStatement("asyncTask.executeOnExecutor(executor, params)", anonymous.build());
+		builder.addMethod(executeBuilder.build());		
 					
 		anonymous.addMethod(MethodSpec.methodBuilder("cancel")
 				.addModifiers(Modifier.PUBLIC)
@@ -190,6 +209,7 @@ public class BindAsyncTaskBuilder {
 				.addStatement("return asyncTask.cancel(mayInterruptIfRunning)")
 				.endControlFlow()
 				.addStatement("return false").build());
+		}
 
 		
 		// build BasicAsyncTask

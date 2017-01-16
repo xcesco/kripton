@@ -90,7 +90,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
     // generate tables
     Logger.info("DDL: %s",PKBeanTable.CREATE_TABLE_SQL);
     database.execSQL(PKBeanTable.CREATE_TABLE_SQL);
-    if (databaseListener == null) {
+    if (databaseListener != null) {
       databaseListener.onCreate(database);
     }
   }
@@ -100,7 +100,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener == null) {
+    if (databaseListener != null) {
       databaseListener.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
@@ -119,7 +119,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    if (databaseListener == null) {
+    if (databaseListener != null) {
       databaseListener.onConfigure(database);
     }
   }
