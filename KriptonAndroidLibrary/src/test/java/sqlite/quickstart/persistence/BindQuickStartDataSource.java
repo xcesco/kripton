@@ -139,6 +139,9 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     database.execSQL(CommentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
     database.execSQL(TodoTable.CREATE_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onCreate(database);
+    }
   }
 
   /**
@@ -146,25 +149,29 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    // drop tables
-    Logger.info("DDL: %s",TodoTable.DROP_TABLE_SQL);
-    database.execSQL(TodoTable.DROP_TABLE_SQL);
-    Logger.info("DDL: %s",CommentTable.DROP_TABLE_SQL);
-    database.execSQL(CommentTable.DROP_TABLE_SQL);
-    Logger.info("DDL: %s",PostTable.DROP_TABLE_SQL);
-    database.execSQL(PostTable.DROP_TABLE_SQL);
-    Logger.info("DDL: %s",UserTable.DROP_TABLE_SQL);
-    database.execSQL(UserTable.DROP_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    } else {
+      // drop tables
+      Logger.info("DDL: %s",TodoTable.DROP_TABLE_SQL);
+      database.execSQL(TodoTable.DROP_TABLE_SQL);
+      Logger.info("DDL: %s",CommentTable.DROP_TABLE_SQL);
+      database.execSQL(CommentTable.DROP_TABLE_SQL);
+      Logger.info("DDL: %s",PostTable.DROP_TABLE_SQL);
+      database.execSQL(PostTable.DROP_TABLE_SQL);
+      Logger.info("DDL: %s",UserTable.DROP_TABLE_SQL);
+      database.execSQL(UserTable.DROP_TABLE_SQL);
 
-    // generate tables
-    Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
-    database.execSQL(PostTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",CommentTable.CREATE_TABLE_SQL);
-    database.execSQL(CommentTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
-    database.execSQL(TodoTable.CREATE_TABLE_SQL);
+      // generate tables
+      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+      database.execSQL(UserTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
+      database.execSQL(PostTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",CommentTable.CREATE_TABLE_SQL);
+      database.execSQL(CommentTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
+      database.execSQL(TodoTable.CREATE_TABLE_SQL);
+    }
   }
 
   /**
@@ -174,6 +181,9 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   public void onConfigure(SQLiteDatabase database) {
     // configure database
     database.setForeignKeyConstraintsEnabled(true);
+    if (databaseListener == null) {
+      databaseListener.onConfigure(database);
+    }
   }
 
   /**

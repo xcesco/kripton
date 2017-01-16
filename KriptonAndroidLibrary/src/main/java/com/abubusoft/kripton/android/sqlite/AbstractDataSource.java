@@ -63,7 +63,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * @author xcesco
 	 *
 	 */
-	public interface OnDatabaseUpdateListener {
+	public interface OnDatabaseListener {
 	
 		/**
 		 * <p>Method for DDL or DML
@@ -75,9 +75,23 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		 * @param newVersion
 		 * 		new version of database
 		 * @param upgrade
-		 * 		if true is an upgrade operation, otherwise it's a download operation.
+		 * 		if true is an upgrade operation, otherwise it's a downgrade operation.
 		 */
 		void onUpdate(SQLiteDatabase db, int oldVersion, int newVersion, boolean upgrade);
+
+		/**
+		 * Invoked after execution of DDL necessary to create database.
+		 * 
+		 * @param database
+		 */
+		void onCreate(SQLiteDatabase database);
+
+		/**
+		 * Invoked during database configuration.
+		 * 
+		 * @param database
+		 */
+		void onConfigure(SQLiteDatabase database);
 	}
 	
 	/**
@@ -88,7 +102,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	/**
 	 * listener to execute code during database upgrade events
 	 */
-	protected OnDatabaseUpdateListener databaseUpdateListener;
+	protected OnDatabaseListener databaseListener;
 
 	private AtomicInteger openCounter = new AtomicInteger();
 
@@ -168,9 +182,9 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 */
 	@Override
 	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (databaseUpdateListener!=null)
+		if (databaseListener!=null)
 		{
-			databaseUpdateListener.onUpdate(db, oldVersion, newVersion, false);
+			databaseListener.onUpdate(db, oldVersion, newVersion, false);
 			upgradedVersion=true;
 		}
 	}
@@ -180,9 +194,9 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (databaseUpdateListener!=null)
+		if (databaseListener!=null)
 		{
-			databaseUpdateListener.onUpdate(db, oldVersion, newVersion, true);
+			databaseListener.onUpdate(db, oldVersion, newVersion, true);
 			upgradedVersion=true;
 		}
 	}
@@ -233,9 +247,9 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * @param listener
 	 * 			listener to user
 	 */
-	public void setOnDatabaseUpdateListener(OnDatabaseUpdateListener listener)
+	public void setOnDatabaseUpdateListener(OnDatabaseListener listener)
 	{
-		this.databaseUpdateListener=listener;
+		this.databaseListener=listener;
 	}
 
 }

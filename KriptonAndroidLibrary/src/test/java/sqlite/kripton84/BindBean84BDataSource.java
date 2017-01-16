@@ -90,6 +90,9 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
     // generate tables
     Logger.info("DDL: %s",Bean84BTable.CREATE_TABLE_SQL);
     database.execSQL(Bean84BTable.CREATE_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onCreate(database);
+    }
   }
 
   /**
@@ -97,13 +100,28 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    // drop tables
-    Logger.info("DDL: %s",Bean84BTable.DROP_TABLE_SQL);
-    database.execSQL(Bean84BTable.DROP_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    } else {
+      // drop tables
+      Logger.info("DDL: %s",Bean84BTable.DROP_TABLE_SQL);
+      database.execSQL(Bean84BTable.DROP_TABLE_SQL);
 
-    // generate tables
-    Logger.info("DDL: %s",Bean84BTable.CREATE_TABLE_SQL);
-    database.execSQL(Bean84BTable.CREATE_TABLE_SQL);
+      // generate tables
+      Logger.info("DDL: %s",Bean84BTable.CREATE_TABLE_SQL);
+      database.execSQL(Bean84BTable.CREATE_TABLE_SQL);
+    }
+  }
+
+  /**
+   * onConfigure
+   */
+  @Override
+  public void onConfigure(SQLiteDatabase database) {
+    // configure database
+    if (databaseListener == null) {
+      databaseListener.onConfigure(database);
+    }
   }
 
   /**

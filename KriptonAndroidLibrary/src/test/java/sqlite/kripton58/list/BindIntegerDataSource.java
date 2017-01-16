@@ -90,6 +90,9 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
     // generate tables
     Logger.info("DDL: %s",IntegerBeanTable.CREATE_TABLE_SQL);
     database.execSQL(IntegerBeanTable.CREATE_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onCreate(database);
+    }
   }
 
   /**
@@ -97,13 +100,28 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    // drop tables
-    Logger.info("DDL: %s",IntegerBeanTable.DROP_TABLE_SQL);
-    database.execSQL(IntegerBeanTable.DROP_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    } else {
+      // drop tables
+      Logger.info("DDL: %s",IntegerBeanTable.DROP_TABLE_SQL);
+      database.execSQL(IntegerBeanTable.DROP_TABLE_SQL);
 
-    // generate tables
-    Logger.info("DDL: %s",IntegerBeanTable.CREATE_TABLE_SQL);
-    database.execSQL(IntegerBeanTable.CREATE_TABLE_SQL);
+      // generate tables
+      Logger.info("DDL: %s",IntegerBeanTable.CREATE_TABLE_SQL);
+      database.execSQL(IntegerBeanTable.CREATE_TABLE_SQL);
+    }
+  }
+
+  /**
+   * onConfigure
+   */
+  @Override
+  public void onConfigure(SQLiteDatabase database) {
+    // configure database
+    if (databaseListener == null) {
+      databaseListener.onConfigure(database);
+    }
   }
 
   /**

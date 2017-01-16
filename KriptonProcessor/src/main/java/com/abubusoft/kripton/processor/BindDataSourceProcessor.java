@@ -164,7 +164,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			// Put all @BindDao elements in daoElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
 				if (item.getKind() != ElementKind.INTERFACE) {
-					String msg = String.format("%s %s, only interface can be annotated with @%s annotation", item.getKind(), item, BindDao.class.getSimpleName());
+					String msg = String.format("%s %s can not be annotated with @%s annotation, because it is not an interface", item.getKind(), item, BindDao.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 				globalDaoElements.put(item.toString(), item);

@@ -91,6 +91,9 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
     // generate tables
     Logger.info("DDL: %s",Bean01EntityTable.CREATE_TABLE_SQL);
     database.execSQL(Bean01EntityTable.CREATE_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onCreate(database);
+    }
   }
 
   /**
@@ -98,13 +101,28 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    // drop tables
-    Logger.info("DDL: %s",Bean01EntityTable.DROP_TABLE_SQL);
-    database.execSQL(Bean01EntityTable.DROP_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    } else {
+      // drop tables
+      Logger.info("DDL: %s",Bean01EntityTable.DROP_TABLE_SQL);
+      database.execSQL(Bean01EntityTable.DROP_TABLE_SQL);
 
-    // generate tables
-    Logger.info("DDL: %s",Bean01EntityTable.CREATE_TABLE_SQL);
-    database.execSQL(Bean01EntityTable.CREATE_TABLE_SQL);
+      // generate tables
+      Logger.info("DDL: %s",Bean01EntityTable.CREATE_TABLE_SQL);
+      database.execSQL(Bean01EntityTable.CREATE_TABLE_SQL);
+    }
+  }
+
+  /**
+   * onConfigure
+   */
+  @Override
+  public void onConfigure(SQLiteDatabase database) {
+    // configure database
+    if (databaseListener == null) {
+      databaseListener.onConfigure(database);
+    }
   }
 
   /**

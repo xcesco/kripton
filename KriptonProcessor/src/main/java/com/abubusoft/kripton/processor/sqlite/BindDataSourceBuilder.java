@@ -159,81 +159,116 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			builder.addMethod(methodBuilder.build());
 		}
 
-		List<SQLEntity> orderedEntities;
-		boolean useForeignKey = false;
+		// before use entities, order them with dependencies respect
+		List<SQLEntity> orderedEntities = generateOrderedEntitiesList(schema);
 
-		{
-			// onCreate
-			// before use entities, order them with dependencies respect
-			orderedEntities = generateOrderedEntitiesList(schema);
+		// onCreate
+		boolean useForeignKey = generateOnCreate(schema, orderedEntities);
 
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
-			methodBuilder.addParameter(SQLiteDatabase.class, "database");
-			methodBuilder.addJavadoc("onCreate\n");
-			methodBuilder.addCode("// generate tables\n");
-			for (SQLEntity item : orderedEntities) {
-				if (schema.isLogEnabled()) {
-					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
-				}
-				methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
-
-				if (item.referedEntities.size() > 0) {
-					useForeignKey = true;
-				}
-			}
-
-			builder.addMethod(methodBuilder.build());
-		}
-
-		{
-			// onUpgrade
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
-			methodBuilder.addParameter(SQLiteDatabase.class, "database");
-			methodBuilder.addParameter(Integer.TYPE, "oldVersion");
-			methodBuilder.addParameter(Integer.TYPE, "newVersion");
-			methodBuilder.addJavadoc("onUpgrade\n");
-
-			Collections.reverse(orderedEntities);
-
-			methodBuilder.addCode("// drop tables\n");
-			for (SQLEntity item : orderedEntities) {
-				if (schema.isLogEnabled()) {
-					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.DROP_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
-				}
-				methodBuilder.addCode("database.execSQL($T.DROP_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
-			}
-
-			// reorder entities
-			Collections.reverse(orderedEntities);
-
-			methodBuilder.addCode("\n");
-			methodBuilder.addCode("// generate tables\n");
-
-			for (SQLEntity item : orderedEntities) {
-				if (schema.isLogEnabled()) {
-					methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
-				}
-				methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
-			}
-
-			builder.addMethod(methodBuilder.build());
-		}
+		// onUpgrade
+		generateOnUpgrade(schema, orderedEntities);
 
 		// onConfigure
-		if (useForeignKey) {
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onConfigure").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
-			methodBuilder.addParameter(SQLiteDatabase.class, "database");
-			methodBuilder.addJavadoc("onConfigure\n");
-			methodBuilder.addCode("// configure database\n");
-
-			// methodBuilder.addStatement("//database.setLocale");
-			methodBuilder.addStatement("database.setForeignKeyConstraintsEnabled(true)");
-
-			builder.addMethod(methodBuilder.build());
-		}
+		generateOnConfigure(useForeignKey);
 
 		TypeSpec typeSpec = builder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+	}
+
+	/**
+	 * @param schema
+	 * @param orderedEntities
+	 */
+	private boolean generateOnCreate(SQLiteDatabaseSchema schema, List<SQLEntity> orderedEntities) {
+		boolean useForeignKey = false;
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
+		methodBuilder.addParameter(SQLiteDatabase.class, "database");
+		methodBuilder.addJavadoc("onCreate\n");
+		methodBuilder.addCode("// generate tables\n");
+		for (SQLEntity item : orderedEntities) {
+			if (schema.isLogEnabled()) {
+				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
+			}
+			methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
+
+			if (item.referedEntities.size() > 0) {
+				useForeignKey = true;
+			}
+		}
+
+		methodBuilder.beginControlFlow("if (databaseListener == null)");
+		methodBuilder.addStatement("databaseListener.onCreate(database)");
+		methodBuilder.endControlFlow();
+
+		builder.addMethod(methodBuilder.build());
+
+		return useForeignKey;
+	}
+
+	/**
+	 * @param schema
+	 * @param orderedEntities
+	 */
+	private void generateOnUpgrade(SQLiteDatabaseSchema schema, List<SQLEntity> orderedEntities) {
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
+		methodBuilder.addParameter(SQLiteDatabase.class, "database");
+		methodBuilder.addParameter(Integer.TYPE, "oldVersion");
+		methodBuilder.addParameter(Integer.TYPE, "newVersion");
+		methodBuilder.addJavadoc("onUpgrade\n");
+
+		Collections.reverse(orderedEntities);
+
+		methodBuilder.beginControlFlow("if (databaseListener == null)");
+		methodBuilder.addStatement("databaseListener.onUpdate(database, oldVersion, newVersion, true)");
+		methodBuilder.nextControlFlow("else");
+
+		methodBuilder.addCode("// drop tables\n");
+		for (SQLEntity item : orderedEntities) {
+			if (schema.isLogEnabled()) {
+				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.DROP_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
+			}
+			methodBuilder.addCode("database.execSQL($T.DROP_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
+		}
+
+		// reorder entities
+		Collections.reverse(orderedEntities);
+
+		methodBuilder.addCode("\n");
+		methodBuilder.addCode("// generate tables\n");
+
+		for (SQLEntity item : orderedEntities) {
+			if (schema.isLogEnabled()) {
+				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
+			}
+			methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
+		}
+
+		methodBuilder.endControlFlow();
+
+		builder.addMethod(methodBuilder.build());
+	}
+
+	/**
+	 * @param useForeignKey
+	 */
+	private void generateOnConfigure(boolean useForeignKey) {
+		// onConfigure
+
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onConfigure").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
+		methodBuilder.addParameter(SQLiteDatabase.class, "database");
+		methodBuilder.addJavadoc("onConfigure\n");
+		methodBuilder.addCode("// configure database\n");
+
+		if (useForeignKey) {
+			// methodBuilder.addStatement("//database.setLocale");
+			methodBuilder.addStatement("database.setForeignKeyConstraintsEnabled(true)");
+		}
+
+		methodBuilder.beginControlFlow("if (databaseListener == null)");
+		methodBuilder.addStatement("databaseListener.onConfigure(database)");
+		methodBuilder.endControlFlow();
+
+		builder.addMethod(methodBuilder.build());
 	}
 
 	private List<SQLEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
@@ -249,7 +284,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		List<SQLEntity> list = schema.getEntitiesAsList();
 
 		EntityUtility<SQLEntity> sorder = new EntityUtility<SQLEntity>(list) {
-  
+
 			@Override
 			public Collection<SQLEntity> getDependencies(SQLEntity item) {
 				return item.referedEntities;
@@ -316,12 +351,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		executeMethod.beginControlFlow("if (transaction!=null && transaction.onExecute(this))");
 		executeMethod.addCode("connection.setTransactionSuccessful();\n");
 		executeMethod.endControlFlow();
-		
+
 		executeMethod.nextControlFlow("catch($T e)", Throwable.class);
-		
+
 		executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
-		executeMethod.addStatement("e.printStackTrace()");		
-	
+		executeMethod.addStatement("e.printStackTrace()");
+
 		executeMethod.nextControlFlow("finally");
 		executeMethod.addCode("connection.endTransaction();\n");
 		executeMethod.addCode("close();\n");

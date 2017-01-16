@@ -105,6 +105,9 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
     database.execSQL(BeanA_2Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_1Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_1Table.CREATE_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onCreate(database);
+    }
   }
 
   /**
@@ -112,17 +115,21 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    // drop tables
-    Logger.info("DDL: %s",BeanA_1Table.DROP_TABLE_SQL);
-    database.execSQL(BeanA_1Table.DROP_TABLE_SQL);
-    Logger.info("DDL: %s",BeanA_2Table.DROP_TABLE_SQL);
-    database.execSQL(BeanA_2Table.DROP_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    } else {
+      // drop tables
+      Logger.info("DDL: %s",BeanA_1Table.DROP_TABLE_SQL);
+      database.execSQL(BeanA_1Table.DROP_TABLE_SQL);
+      Logger.info("DDL: %s",BeanA_2Table.DROP_TABLE_SQL);
+      database.execSQL(BeanA_2Table.DROP_TABLE_SQL);
 
-    // generate tables
-    Logger.info("DDL: %s",BeanA_2Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanA_2Table.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",BeanA_1Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanA_1Table.CREATE_TABLE_SQL);
+      // generate tables
+      Logger.info("DDL: %s",BeanA_2Table.CREATE_TABLE_SQL);
+      database.execSQL(BeanA_2Table.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",BeanA_1Table.CREATE_TABLE_SQL);
+      database.execSQL(BeanA_1Table.CREATE_TABLE_SQL);
+    }
   }
 
   /**
@@ -132,6 +139,9 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   public void onConfigure(SQLiteDatabase database) {
     // configure database
     database.setForeignKeyConstraintsEnabled(true);
+    if (databaseListener == null) {
+      databaseListener.onConfigure(database);
+    }
   }
 
   /**

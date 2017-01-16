@@ -75,6 +75,12 @@ public class Test81ExceptionCompile extends AbstractBindSQLiteProcessorTest {
 	public void test8DataSource() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Bean8.class, Bean8Dao.class, Bean8DataSource.class);
 	}
+	
+	@Test
+	public void testError8DataSource() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(InvalidKindForAnnotationException.class);
+		buildDataSourceProcessorTest(Error8.class, Error8Dao.class, Error8Database.class);
+	}
 
 	@Test
 	public void testError9DataSource() throws IOException, InstantiationException, IllegalAccessException {

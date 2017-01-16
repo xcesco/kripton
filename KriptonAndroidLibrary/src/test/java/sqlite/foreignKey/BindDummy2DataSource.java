@@ -103,10 +103,11 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
     // generate tables
     Logger.info("DDL: %s",BeanA_3Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_3Table.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",BeanA_3Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanA_3Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_4Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_4Table.CREATE_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onCreate(database);
+    }
   }
 
   /**
@@ -114,21 +115,21 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    // drop tables
-    Logger.info("DDL: %s",BeanA_4Table.DROP_TABLE_SQL);
-    database.execSQL(BeanA_4Table.DROP_TABLE_SQL);
-    Logger.info("DDL: %s",BeanA_3Table.DROP_TABLE_SQL);
-    database.execSQL(BeanA_3Table.DROP_TABLE_SQL);
-    Logger.info("DDL: %s",BeanA_3Table.DROP_TABLE_SQL);
-    database.execSQL(BeanA_3Table.DROP_TABLE_SQL);
+    if (databaseListener == null) {
+      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    } else {
+      // drop tables
+      Logger.info("DDL: %s",BeanA_4Table.DROP_TABLE_SQL);
+      database.execSQL(BeanA_4Table.DROP_TABLE_SQL);
+      Logger.info("DDL: %s",BeanA_3Table.DROP_TABLE_SQL);
+      database.execSQL(BeanA_3Table.DROP_TABLE_SQL);
 
-    // generate tables
-    Logger.info("DDL: %s",BeanA_3Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanA_3Table.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",BeanA_3Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanA_3Table.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",BeanA_4Table.CREATE_TABLE_SQL);
-    database.execSQL(BeanA_4Table.CREATE_TABLE_SQL);
+      // generate tables
+      Logger.info("DDL: %s",BeanA_3Table.CREATE_TABLE_SQL);
+      database.execSQL(BeanA_3Table.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",BeanA_4Table.CREATE_TABLE_SQL);
+      database.execSQL(BeanA_4Table.CREATE_TABLE_SQL);
+    }
   }
 
   /**
@@ -138,6 +139,9 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   public void onConfigure(SQLiteDatabase database) {
     // configure database
     database.setForeignKeyConstraintsEnabled(true);
+    if (databaseListener == null) {
+      databaseListener.onConfigure(database);
+    }
   }
 
   /**
