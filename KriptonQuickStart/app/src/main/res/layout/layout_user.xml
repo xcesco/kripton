@@ -8,12 +8,11 @@
     android:paddingTop="8dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         app:srcCompat="@drawable/ic_account_circle_blue_grey_400_48dp"
-        android:id="@+id/imageView"
+        android:id="@+id/ivUser"
         android:layout_marginRight="16dp" />
-
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -147,36 +146,38 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
 
-            <ImageView
+            <ImageButton
+            android:id="@+id/btnUserActionAlbum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_collections_blue_grey_400_24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+                android:layout_marginRight="16dp" />
+
+            <ImageButton
+                android:id="@+id/btnUserActionTodo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_collections_blue_grey_400_24dp"
-                android:id="@+id/ivUserActionAlbum"
-                android:paddingRight="16dp"
+                android:src="@drawable/ic_format_list_bulleted_blue_grey_400_24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="16dp" />
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/btnUserActionPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_format_list_bulleted_blue_grey_400_24dp"
-                android:id="@+id/ivUserActionTodo"
-                android:paddingRight="16dp"
+                android:src="@drawable/ic_comment_blue_grey_400_24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_comment_blue_grey_400_24dp"
-                android:id="@+id/ivUserActionPost"
-                android:layout_alignParentTop="true"
-                android:paddingRight="16dp"
-                android:layout_toLeftOf="@+id/ivUserActionTodo"
-                android:layout_toStartOf="@+id/ivUserActionTodo" />
-
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="16dp" />
         </LinearLayout>
 
     </FrameLayout>

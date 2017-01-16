@@ -49,15 +49,16 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/btnPostActionComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_textsms_blue_grey_400_24dp"
-                android:id="@+id/ivPostActionComment"
-                android:paddingRight="16dp"
+                android:src="@drawable/ic_textsms_blue_grey_400_24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="16dp" />
 
         </LinearLayout>
 

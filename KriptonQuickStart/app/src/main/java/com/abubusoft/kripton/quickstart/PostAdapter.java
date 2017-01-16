@@ -3,6 +3,7 @@ package com.abubusoft.kripton.quickstart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ public class PostAdapter extends AbstractRecyclerViewAdapter<Post, PostAdapter.V
     static class ViewHolder extends AbstractRecyclerViewAdapter.ViewHolder {
         TextView tvPostTitle;
         TextView tvPostBody;
-        ImageView ivPostActionComment;
+        ImageButton btnPostActionComment;
 
         ViewHolder(View v) {
             super(v);
@@ -31,7 +32,7 @@ public class PostAdapter extends AbstractRecyclerViewAdapter<Post, PostAdapter.V
         ViewHolder holder=new ViewHolder(v);
         holder.tvPostTitle = (TextView) v.findViewById(R.id.tvPostTitle);
         holder.tvPostBody = (TextView) v.findViewById(R.id.tvPostBody);
-        holder.ivPostActionComment= (ImageView) v.findViewById(R.id.ivPostActionComment);
+        holder.btnPostActionComment= (ImageButton) v.findViewById(R.id.btnPostActionComment);
         return holder;
     }
 
@@ -45,7 +46,7 @@ public class PostAdapter extends AbstractRecyclerViewAdapter<Post, PostAdapter.V
         holder.tvPostTitle.setText(item.title);
         holder.tvPostBody.setText(item.body);
 
-        holder.ivPostActionComment.setOnClickListener(new View.OnClickListener() {
+        holder.btnPostActionComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Selected item "+item.title, Toast.LENGTH_LONG).show();

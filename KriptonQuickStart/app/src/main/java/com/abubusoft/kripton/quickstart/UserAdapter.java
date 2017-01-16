@@ -3,17 +3,23 @@ package com.abubusoft.kripton.quickstart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.model.User;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 /**
  * Created by xcesco on 06/01/2017.
  */
 
 public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.ViewHolder> {
+
+    static final String baseUrl ="http://lorempixel.com/84/84/people/";
 
     static class ViewHolder extends AbstractRecyclerViewAdapter.ViewHolder {
        // public TextView tvId;
@@ -26,9 +32,11 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         TextView tvCompany;
         TextView tvWebsite;
 
-        ImageView ivUserActionAlbum;
-        ImageView ivUserActionTodo;
-        ImageView ivUserActionPost;
+        ImageView ivUser;
+
+        ImageButton btnUserActionAlbum;
+        ImageButton btnUserActionTodo;
+        ImageButton btnUserActionPost;
 
         ViewHolder(View v) {
             super(v);
@@ -46,9 +54,12 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         holder.tvCompany=(TextView)v.findViewById(R.id.tvCompany);
         holder.tvWebsite=(TextView)v.findViewById(R.id.tvWebsite);
 
-        holder.ivUserActionAlbum=(ImageView) v.findViewById(R.id.ivUserActionAlbum);
-        holder.ivUserActionTodo=(ImageView) v.findViewById(R.id.ivUserActionTodo);
-        holder.ivUserActionPost=(ImageView) v.findViewById(R.id.ivUserActionPost);
+        holder.btnUserActionAlbum=(ImageButton) v.findViewById(R.id.btnUserActionAlbum);
+        holder.btnUserActionTodo=(ImageButton) v.findViewById(R.id.btnUserActionTodo);
+        holder.btnUserActionPost=(ImageButton) v.findViewById(R.id.btnUserActionPost);
+
+        holder.ivUser=(ImageView) v.findViewById(R.id.ivUser);
+
         return holder;
     }
 
@@ -67,7 +78,13 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
         holder.tvCompany.setText(item.company!=null?item.company.toString():"");
         holder.tvAddress.setText(item.address!=null?item.address.toString():"");
 
-        holder.ivUserActionAlbum.setOnClickListener(new View.OnClickListener() {
+        Glide.with(KriptonLibrary.context()).load(baseUrl +item.id)
+                .placeholder(R.drawable.ic_account_circle_blue_grey_400_48dp)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.ivUser);
+
+        holder.btnUserActionAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AlbumActivity.class);
@@ -78,7 +95,7 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
             }
         });
 
-        holder.ivUserActionTodo.setOnClickListener(new View.OnClickListener() {
+        holder.btnUserActionTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), TodoActivity.class);
@@ -89,7 +106,7 @@ public class UserAdapter extends AbstractRecyclerViewAdapter<User, UserAdapter.V
             }
         });
 
-        holder.ivUserActionPost.setOnClickListener(new View.OnClickListener() {
+        holder.btnUserActionPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), PostActivity.class);

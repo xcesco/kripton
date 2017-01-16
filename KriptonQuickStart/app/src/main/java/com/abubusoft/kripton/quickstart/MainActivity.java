@@ -3,6 +3,7 @@ package com.abubusoft.kripton.quickstart;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(mDividerItemDecoration);
         recyclerView.setAdapter(mAdapter);
 
-        asyncTask.execute();
+        asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         // Qui
         //BindQuickStart
 
