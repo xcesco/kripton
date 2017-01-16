@@ -17,9 +17,13 @@
  * 
  */
 package com.abubusoft.kripton.common;
+
 /**
  * @author xcesco
  *
+ * @param <V1>
+ * @param <V2>
+ * @param <V3>
  */
 public class Triple<V1, V2, V3> {
 

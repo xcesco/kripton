@@ -32,7 +32,7 @@ import java.io.ByteArrayInputStream;
 
 public class DynamicByteBuffer {
 
-    public static DynamicByteBuffer create( byte[] buffer ) {
+    public static DynamicByteBuffer create(byte[] buffer ) {
         DynamicByteBuffer buf = new DynamicByteBuffer( buffer.length );
         buf.buffer = buffer;
         return buf;

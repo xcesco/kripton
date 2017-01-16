@@ -1,11 +1,11 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa.
+ * Copyright 2015, 2017 Francesco Benincasa.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,17 +19,14 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.xml.XmlType;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
 
 /**
  * Transformer between a string and a Java5 Enum object

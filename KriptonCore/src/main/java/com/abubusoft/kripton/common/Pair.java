@@ -13,9 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-/**
- * 
- */
 package com.abubusoft.kripton.common;
 
 /**
@@ -57,6 +54,7 @@ public class Pair<A, B> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("rawtypes")
 		Pair other = (Pair) obj;
 		if (value0 == null) {
 			if (other.value0 != null)

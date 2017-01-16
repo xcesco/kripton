@@ -11,7 +11,7 @@ import com.abubusoft.benchmark.Main;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.quickstart.model.Todo;
 
-public class Tutorial01Main {
+public class QuickstartMain {
 
 	public static void main(String[] args) throws IOException {
 		/*

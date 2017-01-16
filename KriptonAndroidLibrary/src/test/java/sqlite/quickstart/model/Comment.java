@@ -4,9 +4,9 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 /**
- * Created by 908099 on 13/01/2017.
+ * @author xcesco
+ *
  */
-
 @BindType
 public class Comment {
 

@@ -1,6 +1,6 @@
-package com.abubusoft.kripton.common;
+package com.abubusoft.kripton.xml;
 
-import com.abubusoft.kripton.xml.XmlPullParser;
+import com.abubusoft.kripton.common.StringUtils;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
