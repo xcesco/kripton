@@ -17,7 +17,7 @@
             android:name="com.abubusoft.kripton.quickstart.network.okhttp3.OkHttpGlideModule"
             android:value="GlideModule"/>
 
-        <activity android:name="com.abubusoft.kripton.quickstart.MainActivity">
+        <activity android:name="com.abubusoft.kripton.quickstart.UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,11 +27,11 @@
         <activity
             android:name="com.abubusoft.kripton.quickstart.PostActivity"
             android:label="@string/title_activity_post"
-            android:parentActivityName="com.abubusoft.kripton.quickstart.MainActivity"
+            android:parentActivityName="com.abubusoft.kripton.quickstart.UserActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.abubusoft.kripton.quickstart.MainActivity" />
+                android:value="com.abubusoft.kripton.quickstart.UserActivity" />
         </activity>
         <activity
             android:name="com.abubusoft.kripton.quickstart.CommentActivity"
@@ -45,20 +45,20 @@
         <activity
             android:name="com.abubusoft.kripton.quickstart.TodoActivity"
             android:label="@string/title_activity_todo"
-            android:parentActivityName="com.abubusoft.kripton.quickstart.MainActivity"
+            android:parentActivityName="com.abubusoft.kripton.quickstart.UserActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.abubusoft.kripton.quickstart.MainActivity" />
+                android:value="com.abubusoft.kripton.quickstart.UserActivity" />
         </activity>
         <activity
             android:name="com.abubusoft.kripton.quickstart.AlbumActivity"
             android:label="@string/title_activity_album"
-            android:parentActivityName="com.abubusoft.kripton.quickstart.MainActivity"
+            android:parentActivityName="com.abubusoft.kripton.quickstart.UserActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.abubusoft.kripton.quickstart.MainActivity" />
+                android:value="com.abubusoft.kripton.quickstart.UserActivity" />
         </activity>
         <activity
             android:name="com.abubusoft.kripton.quickstart.PhotoActivity"

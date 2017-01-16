@@ -20,7 +20,7 @@ import com.abubusoft.kripton.quickstart.persistence.UserDaoImpl;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private UserAdapter mAdapter;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         public List<User> onExecute(BindQuickStartDataSource dataSource) throws Throwable {
             userList = dataSource.getUserDao().selectAll();
 
-            if (isNetworkAvailable(MainActivity.this) && userList.size() == 0) {
+            if (isNetworkAvailable(UserActivity.this) && userList.size() == 0) {
                 userList = QuickStartApplication.service.listUsers().execute().body();
                 dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 
@@ -90,8 +90,5 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
         asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        // Qui
-        //BindQuickStart
-
     }
 }
