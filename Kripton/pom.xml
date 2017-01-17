@@ -16,7 +16,7 @@
 	<version>1.5.0</version>
 	<packaging>jar</packaging>
 
-	<description>Kripton Persistence Library.</description>
+	<description>Kripton Persistence Library</description>
 
 	<!-- common part - BEGIN -->
 	<!-- Property version 1.5.0-SNAPSHOT -->
@@ -242,4 +242,5 @@
 	</dependencies>
 
 
+	<url>https://github.com/xcesco/kripton</url>
 </project>

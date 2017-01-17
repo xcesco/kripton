@@ -10,7 +10,7 @@
 	<packaging>jar</packaging>
 
  	<!-- common part - BEGIN -->
-	<!-- Property version 1.5.0-SNAPSHOT -->
+	<!-- Property version 1.5.0 -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
@@ -40,7 +40,9 @@
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>			
 	</properties>
 	
-		<licenses>
+	<url>https://github.com/xcesco/kripton</url>
+	
+	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
@@ -193,5 +195,5 @@
 			<version>${jackson.version}</version>			
 		</dependency>
 	</dependencies>
-
+	
 </project>

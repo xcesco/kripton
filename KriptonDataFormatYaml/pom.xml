@@ -40,6 +40,8 @@
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 	</properties>
 
+	<url>https://github.com/xcesco/kripton</url>
+
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -193,5 +195,5 @@
 			<version>${jackson.version}</version>			
 		</dependency>
 	</dependencies>
-
+	
 </project>

@@ -44,8 +44,18 @@
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>			
 	</properties>
+	
+	<url>https://github.com/xcesco/kripton</url>
+	
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
-	<description>Annotation processor for Kripton Persistence Library.</description>
+	<description>Annotation processor for Kripton Persistence Library</description>
 
 	<dependencies>
 		<dependency>
@@ -324,5 +334,5 @@
 			</plugin>
 		</plugins>
 
-	</build>
+	</build>	
 </project>

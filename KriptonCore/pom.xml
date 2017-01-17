@@ -37,6 +37,8 @@
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 	</properties>
+	
+	<url>https://github.com/xcesco/kripton</url>
 
 	<licenses>
 		<license>
@@ -186,5 +188,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 </project>
