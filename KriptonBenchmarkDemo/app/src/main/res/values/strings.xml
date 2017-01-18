@@ -6,5 +6,6 @@
     This is a fork of Logan Square Demo project, modified to evalute Kripton.</string>
     <string name="parse_benchmark">Parse Benchmark</string>
     <string name="serialize_benchmark">Serialize Benchmark</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

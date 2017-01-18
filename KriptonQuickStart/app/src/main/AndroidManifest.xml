@@ -12,17 +12,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.abubusoft.kripton.quickstart.network.okhttp3.OkHttpGlideModule"
-            android:value="GlideModule"/>
+            android:value="GlideModule" />
 
         <activity android:name="com.abubusoft.kripton.quickstart.UserActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.abubusoft.kripton.quickstart.PostActivity"
@@ -68,6 +62,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.abubusoft.kripton.quickstart.AlbumActivity" />
+        </activity>
+        <activity android:name="com.abubusoft.kripton.quickstart.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

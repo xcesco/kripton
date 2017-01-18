@@ -16,15 +16,16 @@
 #   public *;
 #}
 
+# Kripton
 -keep class com.abubusoft.kripton.annotation.** { *; }
 -keep @com.abubusoft.kripton.annotation.BindType class ** { *; }
 -keep @com.abubusoft.kripton.annotation.BindMap class ** { *; }
+-dontwarn okio.**
 
 # Glide
 -keep class com.abubusoft.kripton.quickstart.network.okhttp3.OkHttpGlideModule { *; }
 
 # Retrofit
--dontwarn okio.**
 -dontwarn retrofit2.**
 -dontwarn org.codehaus.mojo.**
 -keep class retrofit2.** { *; }

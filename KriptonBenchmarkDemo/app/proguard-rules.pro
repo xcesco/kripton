@@ -5,3 +5,8 @@
 
 # Jackson
 -dontwarn org.w3c.dom.bootstrap.DOMImplementationRegistry
+
+# Kripton
+-keep class com.abubusoft.kripton.annotation.** { *; }
+-keep @com.abubusoft.kripton.annotation.BindType class ** { *; }
+-keep @com.abubusoft.kripton.annotation.BindMap class ** { *; }

@@ -2,7 +2,6 @@ package com.abubusoft.kripton.demo;
 
 import android.app.AlertDialog;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -41,7 +40,7 @@ import java.util.List;
 /**
  * This is a test app we wrote in 10 minutes. Please do not write code like this, kiddos.
  */
-public class MainActivity extends ActionBarActivity {
+public class BenchmarkActivity extends ActionBarActivity {
 
     private static final int ITERATIONS = 20;
 
@@ -65,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_benchmark);
 
         String s=" Device model: " + android.os.Build.MODEL;
         s += "\n OS API Level: " + android.os.Build.VERSION.SDK_INT;

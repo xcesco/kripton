@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kripton Quick Start</string>
+    <string name="app_name">Kripton QuickStart</string>
     <string name="quickstart_username_label">Username</string>
     <string name="quickstart_name_label">Name</string>
     <string name="quickstart_phone_label">Phone</string>
@@ -19,4 +19,5 @@
     <string name="title_activity_comment">Comments</string>
     <string name="title_activity_album">Albums</string>
     <string name="title_activity_photo">Photos</string>
+    <string name="app_info">This is Kripton QuickStart, a demo app to show how Kripton library works.</string>
 </resources>
