@@ -56,6 +56,29 @@
 	</licenses>
 
 	<description>Annotation processor for Kripton Persistence Library</description>
+	
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/xcesco/kripton/issues</url>
+	</issueManagement>
+	
+	<scm>
+		<connection>scm:git:https://github.com/xcesco/kripton.git</connection>
+		<developerConnection>scm:git:git@github.com:xcesco/kripton.git</developerConnection>
+		<url>https://github.com/xcesco/kripton</url>
+	</scm>
+	
+	<developers>
+		<developer>
+			<id>xcesco</id>
+			<name>Francesco Benincasa</name>
+			<email>abubusoft@gmail.com</email>
+			<roles>
+				<role>owner</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
 
 	<dependencies>
 		<dependency>

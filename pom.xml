@@ -12,8 +12,9 @@
   <version>1.5.0</version>
   <packaging>pom</packaging>
   <name>Kripton (Parent)</name>
-  <description>Kripton persistence library</description>
+  <description>Kripton persistence library - parent pom</description>
   <url>https://github.com/xcesco/kripton</url>
+
 
   <modules>
 	<module>KriptonCore</module>
