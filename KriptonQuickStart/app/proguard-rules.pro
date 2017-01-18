@@ -19,6 +19,8 @@
 -keep class com.abubusoft.kripton.annotation.** { *; }
 -keep @com.abubusoft.kripton.annotation.BindType class ** { *; }
 -keep @com.abubusoft.kripton.annotation.BindMap class ** { *; }
+
+# Glide
 -keep class com.abubusoft.kripton.quickstart.network.okhttp3.OkHttpGlideModule { *; }
 
 # Retrofit

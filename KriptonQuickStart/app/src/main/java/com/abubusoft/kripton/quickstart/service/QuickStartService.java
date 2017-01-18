@@ -15,7 +15,6 @@ import retrofit2.http.Query;
 
 public interface QuickStartService {
 
-	// https://jsonplaceholder.typicode.com/posts
 	@GET("posts")
 	Call<List<Post>> listPosts(@Query("userId") long userId);
 
