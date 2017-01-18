@@ -59,10 +59,10 @@ Snapshots of the development version are available in [Sonatype's snapshots repo
 Kritpon requires at minimum Java 7 or Android 2.3.
 
 # Build
-To build entire library collections just download repository and launch from this directory 
+To build entire library collections just download repository and launch from base directory 
 
 ```
-mvn clean deploy -Prelease,deploy -Dmaven.test.skip=true
+mvn clean install -Prelease
 ```
 
 # Supported platforms
