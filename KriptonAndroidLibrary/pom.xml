@@ -19,7 +19,7 @@
 	<description>Kripton Persistence Library for Android platform</description>
 
 	<!-- common part - BEGIN -->
-	<!-- Property version 1.5.0-SNAPSHOT -->
+	<!-- Property version 1.5.0 -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
