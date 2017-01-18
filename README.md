@@ -24,7 +24,7 @@ To get performannce and avoid boilerplate-code, Kripton use the power of annotat
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
 
-# Download
+# Usage
 You can use Kritpon Annotation Processor and Kripton Library via maven
 
 ```xml
