@@ -11,7 +11,7 @@
 [![test coverage](https://img.shields.io/codecov/c/github/xcesco/kripton/master.svg?style=flat-square)](https://codecov.io/gh/xcesco/kripton?branch=master)
 
 # Kripton 
-Java library with the aim to provide a simple and uniform way to manage persistence of Java classes in different flavours. Supported persistence format are:
+Java library provides a simple and uniform way to manage persistence of Java classes in different flavours. Supported persistence format are:
 
 * SQLite database
 * REST service, throws [Retrofit library](http://square.github.io/retrofit/) integration
@@ -24,7 +24,7 @@ To get performannce and avoid boilerplate-code, Kripton use the power of annotat
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
 
-# Download
+# Usage
 You can use Kritpon Annotation Processor and Kripton Library via maven
 
 ```xml
@@ -32,7 +32,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton-processor</artifactId>
-    <version>1.3.0</version>
+    <version>1.5.0</version>
     <scope>compile</scope>
 </dependency>
 
@@ -40,7 +40,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>1.3.0</version>
+    <version>1.5.0</version>
 </dependency>
 ```
 
@@ -48,10 +48,10 @@ or via gradle
 
 ```
 // https://mvnrepository.com/artifact/com.abubusoft/kripton-processor
-compile group: 'com.abubusoft', name: 'kripton-processor', version: '1.3.0'
+compile group: 'com.abubusoft', name: 'kripton-processor', version: '1.5.0'
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-compile group: 'com.abubusoft', name: 'kripton', version: '1.3.0'
+compile group: 'com.abubusoft', name: 'kripton', version: '1.5.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
@@ -59,10 +59,10 @@ Snapshots of the development version are available in [Sonatype's snapshots repo
 Kritpon requires at minimum Java 7 or Android 2.3.
 
 # Build
-To build entire library collections just download repository and launch from this directory 
+To build entire library collections just download repository and launch from base directory 
 
 ```
-mvn clean deploy -Prelease,deploy -Dmaven.test.skip=true
+mvn clean install -Prelease
 ```
 
 # Supported platforms
