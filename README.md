@@ -11,7 +11,7 @@
 [![test coverage](https://img.shields.io/codecov/c/github/xcesco/kripton/master.svg?style=flat-square)](https://codecov.io/gh/xcesco/kripton?branch=master)
 
 # Kripton 
-Java library with the aim to provide a simple and uniform way to manage persistence of Java classes in different flavours. Supported persistence format are:
+Java library provides a simple and uniform way to manage persistence of Java classes in different flavours. Supported persistence format are:
 
 * SQLite database
 * REST service, throws [Retrofit library](http://square.github.io/retrofit/) integration
