@@ -7,5 +7,5 @@ If you want to make build release you need to configure properly you system. Gra
  - GRADLE_KEYSTORE_FILE: path of keystore file
  - GRADLE_KEYSTORE_PASSWORD: password of keystore file
  
- You can define this system properties or you can remove from release build the proguard utilization.
+You can define this system properties or you can remove from release build the proguard utilization.
  
