@@ -17,7 +17,7 @@ android {
         exclude 'META-INF/NOTICE'
     }
     defaultConfig {
-        applicationId 'com.abubusoft.kripton.demo'
+        applicationId 'com.abubusoft.kripton.benchmark'
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 150
@@ -25,11 +25,12 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.config
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
-            proguardFile 'proguard-rules.pro'
+            minifyEnabled false
+            // for this release no minify
+            signingConfig signingConfigs.config
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //proguardFile 'proguard-rules.pro'
         }
     }
     productFlavors {

@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.abubusoft.kripton.demo.widget.BarChart
+        <com.abubusoft.kripton.benchmark.widget.BarChart
             android:id="@+id/bar_chart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

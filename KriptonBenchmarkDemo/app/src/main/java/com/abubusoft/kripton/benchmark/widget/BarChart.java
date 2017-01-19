@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.demo.widget;
+package com.abubusoft.kripton.benchmark.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Hacked together barchart view for this demo. Please do not take this as an example of a good way to do things. */
+/** Hacked together barchart view for this benchmark. Please do not take this as an example of a good way to do things. */
 public class BarChart extends View {
 
     private static final int SECTION_COUNT = 5;

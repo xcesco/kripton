@@ -1,14 +1,9 @@
-package com.abubusoft.kripton.demo.parsetasks;
+package com.abubusoft.kripton.benchmark.parsetasks;
 
 
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
-import com.abubusoft.kripton.demo.model.Response;
-import com.fasterxml.jackson.databind.util.ByteBufferBackedInputStream;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.StringReader;
+import com.abubusoft.kripton.benchmark.model.Response;
 
 /**
  * Created by xcecso on 22/12/2016.

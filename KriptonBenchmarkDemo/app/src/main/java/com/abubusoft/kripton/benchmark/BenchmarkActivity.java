@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.demo;
+package com.abubusoft.kripton.benchmark;
 
 import android.app.AlertDialog;
 import android.os.AsyncTask;
@@ -9,24 +9,24 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.bluelinelabs.logansquare.LoganSquare;
-import com.abubusoft.kripton.demo.model.Response;
-import com.abubusoft.kripton.demo.parsetasks.GsonParser;
-import com.abubusoft.kripton.demo.parsetasks.JacksonDatabindParser;
-import com.abubusoft.kripton.demo.parsetasks.KriptonParser;
-import com.abubusoft.kripton.demo.parsetasks.LoganSquareParser;
-import com.abubusoft.kripton.demo.parsetasks.MoshiParser;
-import com.abubusoft.kripton.demo.parsetasks.ParseResult;
-import com.abubusoft.kripton.demo.parsetasks.Parser;
-import com.abubusoft.kripton.demo.parsetasks.Parser.ParseListener;
-import com.abubusoft.kripton.demo.serializetasks.GsonSerializer;
-import com.abubusoft.kripton.demo.serializetasks.JacksonDatabindSerializer;
-import com.abubusoft.kripton.demo.serializetasks.KriptonSerializer;
-import com.abubusoft.kripton.demo.serializetasks.LoganSquareSerializer;
-import com.abubusoft.kripton.demo.serializetasks.MoshiSerializer;
-import com.abubusoft.kripton.demo.serializetasks.SerializeResult;
-import com.abubusoft.kripton.demo.serializetasks.Serializer;
-import com.abubusoft.kripton.demo.serializetasks.Serializer.SerializeListener;
-import com.abubusoft.kripton.demo.widget.BarChart;
+import com.abubusoft.kripton.benchmark.model.Response;
+import com.abubusoft.kripton.benchmark.parsetasks.GsonParser;
+import com.abubusoft.kripton.benchmark.parsetasks.JacksonDatabindParser;
+import com.abubusoft.kripton.benchmark.parsetasks.KriptonParser;
+import com.abubusoft.kripton.benchmark.parsetasks.LoganSquareParser;
+import com.abubusoft.kripton.benchmark.parsetasks.MoshiParser;
+import com.abubusoft.kripton.benchmark.parsetasks.ParseResult;
+import com.abubusoft.kripton.benchmark.parsetasks.Parser;
+import com.abubusoft.kripton.benchmark.parsetasks.Parser.ParseListener;
+import com.abubusoft.kripton.benchmark.serializetasks.GsonSerializer;
+import com.abubusoft.kripton.benchmark.serializetasks.JacksonDatabindSerializer;
+import com.abubusoft.kripton.benchmark.serializetasks.KriptonSerializer;
+import com.abubusoft.kripton.benchmark.serializetasks.LoganSquareSerializer;
+import com.abubusoft.kripton.benchmark.serializetasks.MoshiSerializer;
+import com.abubusoft.kripton.benchmark.serializetasks.SerializeResult;
+import com.abubusoft.kripton.benchmark.serializetasks.Serializer;
+import com.abubusoft.kripton.benchmark.serializetasks.Serializer.SerializeListener;
+import com.abubusoft.kripton.benchmark.widget.BarChart;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
@@ -221,7 +221,7 @@ public class BenchmarkActivity extends ActionBarActivity {
         } catch (Exception e) {
             new AlertDialog.Builder(this)
                     .setTitle("Error")
-                    .setMessage("The serializable objects were not able to load properly. These tests won't work until you completely kill this demo app and restart it.")
+                    .setMessage("The serializable objects were not able to load properly. These tests won't work until you completely kill this benchmark app and restart it.")
                     .setPositiveButton("OK", null)
                     .show();
         }
@@ -258,7 +258,7 @@ public class BenchmarkActivity extends ActionBarActivity {
             new AlertDialog.Builder(this)
                     .setTitle("Error")
                     .setMessage(
-                        "The JSON file was not able to load properly. These tests won't work until you completely kill this demo app and restart it.")
+                        "The JSON file was not able to load properly. These tests won't work until you completely kill this benchmark app and restart it.")
                     .setPositiveButton("OK", null)
                     .show();
         }

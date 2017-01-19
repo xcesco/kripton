@@ -1,7 +1,7 @@
-package com.abubusoft.kripton.demo.parsetasks;
+package com.abubusoft.kripton.benchmark.parsetasks;
 
 import com.bluelinelabs.logansquare.LoganSquare;
-import com.abubusoft.kripton.demo.model.Response;
+import com.abubusoft.kripton.benchmark.model.Response;
 
 public class LoganSquareParser extends Parser {
 

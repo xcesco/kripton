@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.demo.model;
+package com.abubusoft.kripton.benchmark.model;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;

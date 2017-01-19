@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.demo.parsetasks;
+package com.abubusoft.kripton.benchmark.parsetasks;
 
 public class ParseResult {
 

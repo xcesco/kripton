@@ -1,6 +1,6 @@
-package com.abubusoft.kripton.demo.serializetasks;
+package com.abubusoft.kripton.benchmark.serializetasks;
 
-import com.abubusoft.kripton.demo.model.Response;
+import com.abubusoft.kripton.benchmark.model.Response;
 import com.google.gson.Gson;
 
 public class GsonSerializer extends Serializer {

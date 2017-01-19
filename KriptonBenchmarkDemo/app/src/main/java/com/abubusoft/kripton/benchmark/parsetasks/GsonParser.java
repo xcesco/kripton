@@ -1,6 +1,6 @@
-package com.abubusoft.kripton.demo.parsetasks;
+package com.abubusoft.kripton.benchmark.parsetasks;
 
-import com.abubusoft.kripton.demo.model.Response;
+import com.abubusoft.kripton.benchmark.model.Response;
 import com.google.gson.Gson;
 
 public class GsonParser extends Parser {

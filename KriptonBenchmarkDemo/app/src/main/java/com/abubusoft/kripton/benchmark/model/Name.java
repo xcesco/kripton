@@ -1,18 +1,16 @@
-package com.abubusoft.kripton.demo.model;
+package com.abubusoft.kripton.benchmark.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 
-
-
 @BindType
 @JsonObject
-public class Friend {
+public class Name {
 
     @JsonField
-    public int id;
+    public String first;
 
     @JsonField
-    public String name;
+    public String last;
 }

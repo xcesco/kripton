@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.demo.serializetasks;
+package com.abubusoft.kripton.benchmark.serializetasks;
 
 public class SerializeResult {
 
