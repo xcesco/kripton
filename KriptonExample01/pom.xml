@@ -4,7 +4,7 @@
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-example-01</artifactId>
 
-	<!-- Property version 1.5.0 -->
+	<!-- Property version 1.5.1-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
@@ -16,7 +16,7 @@
 
 		<!-- dependencies version -->
 		<retrofit.version>2.1.0</retrofit.version>		
-		<kripton.version>1.5.0</kripton.version>
+		<kripton.version>1.5.1-SNAPSHOT</kripton.version>
 	</properties>
 
 	<dependencies>
@@ -36,6 +36,24 @@
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-retrofit-converter</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-dataformat-cbor</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-dataformat-properties</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-dataformat-yaml</artifactId>
 			<version>${kripton.version}</version>
 		</dependency>
 
@@ -70,5 +88,5 @@
 
 	</build>
 
-	<version>1.5.0</version>
+	<version>1.5.1-SNAPSHOT</version>
 </project>

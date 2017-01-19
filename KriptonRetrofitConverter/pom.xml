@@ -5,13 +5,13 @@
 	<name>Kripton Retrofit Converter</name>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-retrofit-converter</artifactId>
-	<version>1.5.0</version>
+	<version>1.5.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<description>Kripton adapter for Retrofit library</description>
 
 	<!-- common part - BEGIN -->
-	<!-- Property version 1.5.0-SNAPSHOT -->
+	<!-- Property version 1.5.1-SNAPSHOT-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>

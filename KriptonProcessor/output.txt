@@ -1,7 +1,7 @@
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
-[INFO] Building Kripton Annotation Processor Library 1.5.0-SNAPSHOT
+[INFO] Building Kripton Annotation Processor Library 1.5.1-SNAPSHOT-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
 [INFO] 
 [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ kripton-processor ---
