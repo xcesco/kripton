@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias System.getenv("GRADLE_KEYSTORE_ALIAS")
+            keyPassword System.getenv("GRADLE_KEYSTORE_ALIAS_PASSWORD")
+            storeFile file(System.getenv("GRADLE_KEYSTORE_FILE"))
+            storePassword System.getenv("GRADLE_KEYSTORE_PASSWORD")
+        }
+    }
+
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
+    defaultConfig {
+        applicationId "com.abubusoft.kripton.kripton.quickstart"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 150
+        versionName "1.5.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.config
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            proguardFile 'proguard-rules.pro'
+        }
+    }
+}
+
+def kriptonVersion ="1.5.0"
+def retrofitLoggingInterceptor="3.4.1"
+def glideVersion= "3.7.0"
+
+dependencies {
+    apt "com.abubusoft:kripton-processor:${kriptonVersion}"
+    // annotation processors
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:recyclerview-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
+    compile "com.abubusoft:kripton-android-library:${kriptonVersion}"
+    compile "com.abubusoft:kripton-retrofit-converter:${kriptonVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${retrofitLoggingInterceptor}"
+    compile "com.github.bumptech.glide:glide:${glideVersion}"
+    testCompile 'junit:junit:4.12'
+}
