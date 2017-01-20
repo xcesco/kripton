@@ -13,13 +13,16 @@
 # Kripton 
 Java library provides a simple and uniform way to manage persistence of Java classes in different flavours. Supported persistence format are:
 
-* SQLite database
-* REST service, throws [Retrofit library](http://square.github.io/retrofit/) integration
-* xml format
-* json format
-* Shared preference
+* SQLite database (Android platform)
+* Shared preference (Android platform)
+* REST service (Java and Android platform), throws [Retrofit library](http://square.github.io/retrofit/) integration
+* JSON format (Java and Android platform)
+* XML format (Java and Android platform)
+* CBOR format (Java and Android platform)
+* (Java) properties format (Java and Android platform)
+* YAML format (Java and Android platform)
 
-To get performannce and avoid boilerplate-code, Kripton use the power of annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object in different ways with an unique set of annotation and mechanism.
+To get max performance and avoid boilerplate-code, Kripton use the power of annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object in different ways with an unique set of annotation and mechanisms.
 
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
@@ -28,30 +31,48 @@ See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 You can use Kritpon Annotation Processor and Kripton Library via maven
 
 ```xml
-<!-- https://mvnrepository.com/artifact/com.abubusoft/kripton-processor -->
-<dependency>
-    <groupId>com.abubusoft</groupId>
-    <artifactId>kripton-processor</artifactId>
-    <version>1.5.0</version>
-    <scope>compile</scope>
+<dependencies>
+	    ...    
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+        ...
 </dependency>
-
-<!-- https://mvnrepository.com/artifact/com.abubusoft/kripton -->
-<dependency>
-    <groupId>com.abubusoft</groupId>
-    <artifactId>kripton</artifactId>
-    <version>1.5.0</version>
-</dependency>
+...		
+<build>
+  <pluginManagement>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.6.0</version>
+	  <configuration>
+	    <source>1.7</source>
+		<target>1.7</target>
+		<annotationProcessorPaths>
+		  <path>
+		    <groupId>com.abubusoft</groupId>
+		    <artifactId>kripton-processor</artifactId>
+		    <version>1.5.0</version>
+		</path>
+	    </annotationProcessorPaths>
+	  </configuration>
+    </plugin>
+  </plugins>
+  </pluginManagement>
+</build>
 ```
 
 or via gradle
 
 ```
-// https://mvnrepository.com/artifact/com.abubusoft/kripton-processor
-compile group: 'com.abubusoft', name: 'kripton-processor', version: '1.5.0'
+// annotation processor
+apt "com.abubusoft:kripton-processor:${kriptonVersion}"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-compile group: 'com.abubusoft', name: 'kripton', version: '1.5.0'
+compile "com.abubusoft:kripton-android-library:1.5.0"
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
