@@ -32,14 +32,14 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 
 ```xml
 <dependencies>
-	    ...    
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton</artifactId>
-			<version>1.5.0</version>
-		</dependency>
-        ...
-</dependency>
+  ...    
+  <dependency>
+    <groupId>com.abubusoft</groupId>
+    <artifactId>kripton</artifactId>
+    <version>1.5.0</version>
+  </dependency>
+  ...
+</dependencies>
 ...		
 <build>
   <pluginManagement>
