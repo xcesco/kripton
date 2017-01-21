@@ -44,6 +44,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 <build>
   <pluginManagement>
   <plugins>
+    ...
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
 	  <artifactId>maven-compiler-plugin</artifactId>
@@ -60,6 +61,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 	    </annotationProcessorPaths>
 	  </configuration>
     </plugin>
+    ...
   </plugins>
   </pluginManagement>
 </build>
@@ -69,7 +71,7 @@ or via gradle
 
 ```
 // annotation processor
-apt "com.abubusoft:kripton-processor:${kriptonVersion}"
+apt "com.abubusoft:kripton-processor:1.5.0"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
 compile "com.abubusoft:kripton-android-library:1.5.0"
