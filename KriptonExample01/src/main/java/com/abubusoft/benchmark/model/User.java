@@ -8,53 +8,51 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindType
 public class User {
 
-    @Bind("_id")
-    public String id;
+	public String about;
 
+	public String address;
 
-    public int index;
+	public int age;
 
+	public String balance;
 
-    public String guid;
-  
-    public boolean isActive;
+	public String company;
 
-    public String balance;
+	public String email;
 
-    @Bind("picture")
-    public String pictureUrl;
+	public String eyeColor;
 
-    public int age;
+	public String favoriteFruit;
 
-    public Name name;
+	public List<Friend> friends;
 
-    public String company;
+	public String greeting;
 
-    public String email;
+	public String guid;
 
-    public String address;
+	@Bind("_id")
+	public String id;
 
-    public String about;
+	public List<Image> images;
 
-    public String registered;
+	public int index;
 
-    public double latitude;
+	public boolean isActive;
 
-    public double longitude;
+	public double latitude;
 
-    public List<String> tags;
+	public double longitude;
 
-    public List<Integer> range;
+	public Name name;
 
-    public List<Friend> friends;
+	public String phone;
 
-    public List<Image> images;
+	@Bind("picture")
+	public String pictureUrl;
 
-    public String greeting;
+	public List<Integer> range;
 
-    public String favoriteFruit;
+	public String registered;
 
-    public String eyeColor;
-
-    public String phone;
+	public List<String> tags;
 }
