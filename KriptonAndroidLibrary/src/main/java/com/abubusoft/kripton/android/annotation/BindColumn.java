@@ -25,8 +25,7 @@ import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 
 /**
- * 
- * F
+ * Allow to define specifi behaviour of a field treated like a SQLite table column.
  * 
  * @author xcesco
  * 
@@ -69,7 +68,7 @@ public @interface BindColumn {
 	 * Rapresents foreign key to another entity/table. It can be used only on long/Long column type
 	 *  
 	 * @return
-	 * 		foreign entity/table to reference
+	 * 		foreign entity class to reference
 	 */
 	public Class<?> foreignKey() default NoForeignKey.class;
 	
