@@ -11,7 +11,7 @@
 [![test coverage](https://img.shields.io/codecov/c/github/xcesco/kripton/master.svg?style=flat-square)](https://codecov.io/gh/xcesco/kripton?branch=master)
 
 # Kripton 
-Java library provides a simple and uniform way to manage persistence of Java classes in different flavours. Supported persistence format are:
+Java library provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interfaces. Supported persistence format are:
 
 * SQLite database (Android platform)
 * Shared preference (Android platform)
@@ -22,7 +22,7 @@ Java library provides a simple and uniform way to manage persistence of Java cla
 * (Java) properties format (Java and Android platform)
 * YAML format (Java and Android platform)
 
-To get max performance and avoid boilerplate-code, Kripton use the power of annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object in different ways with an unique set of annotation and mechanisms.
+To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object in different ways with an unique set of annotation and mechanisms.
 
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
