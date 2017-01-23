@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,10 +17,11 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
 import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.abubusoft.kripton.persistence.SerializerWrapper;
+import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import com.fasterxml.jackson.core.util.BufferRecycler;
 
-public abstract class AbstractContext implements BinderContext, BinderBuilder {
+public abstract class AbstractContext implements BinderContext {
 	
 	@SuppressWarnings("rawtypes")
 	static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
@@ -227,11 +229,9 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> String serialize(E object) {		
-		
 		if (object == null)
 			return null;
 
-		//StringWriter source = new StringWriter();
 		SegmentedStringWriter source=new SegmentedStringWriter(buffer.get());
 		try (SerializerWrapper serializer = createSerializer(source)) {
 			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);				
@@ -241,7 +241,6 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 			throw new KriptonRuntimeException(e);
 		}
 		
-		//return source.toString();
 		return source.getAndClear();
 
 	}
@@ -281,15 +280,15 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 		if (collection == null)
 			return null;
 
-		StringWriter sw = new StringWriter();
-		try (SerializerWrapper serializer = createSerializer(sw)) {
+		SegmentedStringWriter source=new SegmentedStringWriter(buffer.get());
+		try (SerializerWrapper serializer = createSerializer(source)) {
 			mapperFor((Class<E>) objectClazz).serializeCollection(this, serializer, collection);			
 		} catch(Exception e)
 		{
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
-		return sw.toString();
+		return source.getAndClear();
 	}
 
 	@Override
@@ -319,5 +318,25 @@ public abstract class AbstractContext implements BinderContext, BinderBuilder {
 			throw new KriptonRuntimeException(e);
 		}
 	}
+	
+	public abstract ParserWrapper createParser(byte[] data);
+
+	public abstract ParserWrapper createParser(File file);
+
+	public abstract ParserWrapper createParser(InputStream in);
+
+	public abstract ParserWrapper createParser(Reader reader);
+
+	public abstract ParserWrapper createParser(String content);
+
+	public abstract SerializerWrapper createSerializer(File file);
+
+	public abstract SerializerWrapper createSerializer(File file, JsonEncoding encoding);
+
+	public abstract SerializerWrapper createSerializer(OutputStream out);
+
+	public abstract SerializerWrapper createSerializer(OutputStream out, JsonEncoding encoding);
+
+	public abstract SerializerWrapper createSerializer(Writer writer);
 
 }
