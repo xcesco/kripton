@@ -93,6 +93,11 @@ mvn clean install -Prelease
 # Supported platforms
 There are two platform: the android environment and generic Java environment. For each platform there is a version of library. Android platform already include a json library and xml parser library. Java JDK does not include a json library and have different xml parser libraries.
 
+# Donate
+If you like Kripton and you want to support its development, please donate!
+
+<a href='https://pledgie.com/campaigns/33279'><img alt='Click here to lend your support to: Support Kripton Persistence Library and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/33279.png?skin_name=chrome' border='0' ></a>
+
 # License
 
 ```
