@@ -348,7 +348,7 @@ public abstract class MethodUtility {
 		methodBuilder.addCode("\n");
 
 		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"),(Object[])args);\n", Logger.class, StringUtils.class, sql.replaceAll("\\?", "\'%s\'"));
+			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"),(Object[])args);\n", Logger.class, StringUtils.class, sql.replaceAll("\\%", "\\%\\%").replaceAll("\\?", "\'%s\'"));
 		}
 		methodBuilder.addCode("$T cursor = database().rawQuery(\"$L\", args);\n", Cursor.class, sql);
 

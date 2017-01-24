@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.Throwable;
@@ -67,6 +68,8 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
+      if (transaction!=null) transaction.onError(e);
+      throw(new KriptonRuntimeException(e));
     } finally {
       connection.endTransaction();
       close();
@@ -137,8 +140,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   public abstract static class SimpleTransaction implements Transaction {
     @Override
     public void onError(Throwable e) {
-      Logger.error(e.getMessage());
-      e.printStackTrace();
+      // for default, do nothing
     }
   }
 }
