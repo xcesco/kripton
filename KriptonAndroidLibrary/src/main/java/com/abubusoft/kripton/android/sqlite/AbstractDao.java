@@ -26,7 +26,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * This class become the parent class for every Dao generated. Every Dao have to be defined by an interface with {@link BindDao} annotation.
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public abstract class AbstractDao {

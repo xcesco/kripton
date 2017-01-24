@@ -38,7 +38,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 /**
  * Analyze an SQL statement, extract parameter and replace with ?
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class SqlAnalyzer {

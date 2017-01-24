@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * Bind bean to shared preferences. Not all kind of field are supported.
+ * Bind bean to shared preferences. An annotated class name must finish with prefix "SharedPreferences" or "Preferences".  
  * 
  * <table>
  * 
@@ -33,12 +33,18 @@ import java.lang.annotation.Target;
  * </tr>
  * </table>
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindSharedPreferences {
 
+	/**
+	 * File name for generated shared preferences. If it's no defined, class name will be used as filename too.
+	 * 
+	 * @return
+	 * 		filename for shared preference.
+	 */
 	String value() default "";
 }

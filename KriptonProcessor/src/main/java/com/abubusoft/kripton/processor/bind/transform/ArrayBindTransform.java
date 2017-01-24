@@ -20,7 +20,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between an array field to base64 encoded string and viceversa
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class ArrayBindTransform extends AbstractCollectionBindTransform {

@@ -27,7 +27,7 @@ public @interface BindPreference {
 	/**
 	 * 
 	 * @return
-	 * 		if true, means field must bind persist model
+	 * 		if true, means field must bind persisted on shared preferences
 	 */
 	boolean enabled() default true;
 

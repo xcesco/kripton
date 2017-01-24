@@ -31,7 +31,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Base class for data source
  * </p>
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
  */
 public abstract class AbstractDataSource extends SQLiteOpenHelper implements AutoCloseable {
@@ -39,7 +39,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	/**
 	 * Interface for database transactions.
 	 * 
-	 * @author xcesco
+	 * @author Francesco Benincasa (abubusoft@gmail.com)
 	 *
 	 * @param <E>
 	 */
@@ -60,7 +60,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	/**
 	 * Manage upgrade or downgrade of database.
 	 * 
-	 * @author xcesco
+	 * @author Francesco Benincasa (abubusoft@gmail.com)
 	 *
 	 */
 	public interface OnDatabaseListener {

@@ -21,7 +21,7 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class CircularRelationshipException extends KriptonProcessorException {

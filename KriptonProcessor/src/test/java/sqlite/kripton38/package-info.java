@@ -17,7 +17,7 @@
  * <p>
  * KRIPTON-38: Write some test on primary key definition
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 package sqlite.kripton38;

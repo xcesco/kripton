@@ -15,7 +15,7 @@
  *******************************************************************************/
 /**
  * This package contains annotations used to decorate POJO.  
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 package com.abubusoft.kripton.annotation;

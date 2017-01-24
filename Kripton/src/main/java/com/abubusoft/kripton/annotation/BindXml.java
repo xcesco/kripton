@@ -27,7 +27,7 @@ import com.abubusoft.kripton.xml.XmlType;
  * 
  * This annotation specify information to bind with xml format
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -44,9 +44,9 @@ public @interface BindXml {
 	String elementTag() default "";
 
 	/**
-	 * Type of binding. Default is by TAG. See {@link XmlType}
+	 * Type of binding. Default is TAG. See {@link XmlType}
 	 * 
-	 * @return Type of binding. Default is by TAG.
+	 * @return Type of binding. Default is TAG.
 	 */
 	XmlType xmlType() default XmlType.TAG;
 

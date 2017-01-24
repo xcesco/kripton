@@ -20,7 +20,7 @@ import com.abubusoft.kripton.xml.XmlPullParser;
 /**
  * This exception is a generic kripton exception. 
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class KriptonRuntimeException extends RuntimeException {

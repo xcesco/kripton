@@ -27,7 +27,7 @@ import base.BaseAndroidTest;
 import sqlite.example01.BindDummy01DataSource.Transaction;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class TestExample01Runtime extends BaseAndroidTest {
@@ -36,6 +36,8 @@ public class TestExample01Runtime extends BaseAndroidTest {
 	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
 		BindDummy01DataSource dataSource = BindDummy01DataSource.instance();
 
+		DaoChannelImpl dao=dataSource.getDaoChannel();
+		
 		dataSource.execute(new Transaction() {
 
 			@Override

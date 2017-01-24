@@ -60,7 +60,7 @@ import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 /**
  * Annotation processor for shared preferences
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class BindSharedPreferencesProcessor extends BaseProcessor {

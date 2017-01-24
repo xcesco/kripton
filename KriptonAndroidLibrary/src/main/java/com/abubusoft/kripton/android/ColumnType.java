@@ -16,7 +16,7 @@
 package com.abubusoft.kripton.android;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public enum ColumnType {

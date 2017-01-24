@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import sqlite.example01.TestExample01RuntimeSuite;
+import sqlite.example02.TestExample02RuntimeSuite;
 import sqlite.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;
 import sqlite.kripton64.Test64RuntimeSuite;
@@ -32,6 +33,7 @@ import sqlite.quickstart.TestQuickstartRuntimeSuite;
 	Test84RuntimeSuite.class,
 	TestForeignKeyRuntimeSuite.class,
 	TestExample01RuntimeSuite.class,
+	TestExample02RuntimeSuite.class,
 	Test58RuntimeSuite.class,
 	TestQuickstartRuntimeSuite.class
 	 })

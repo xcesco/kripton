@@ -25,7 +25,7 @@ import sqlite.quickstart.persistence.BindQuickStartDaoFactory;
 import sqlite.quickstart.persistence.BindQuickStartDataSource;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class TestQuickstartRuntime extends BaseAndroidTest {

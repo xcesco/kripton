@@ -13,7 +13,7 @@ package com.abubusoft.kripton.quickstart.model;
 import com.abubusoft.kripton.annotation.BindType;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @BindType

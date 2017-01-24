@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
  * conversion.
  * </p>
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)

@@ -14,7 +14,7 @@
  * limitations under the License.
  *******************************************************************************/
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 package com.abubusoft.kripton.processor.sqlite.model;

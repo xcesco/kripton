@@ -16,7 +16,7 @@
 /**
  * Annotation used to generate sqlite database code for android platform.
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 package com.abubusoft.kripton.android.annotation;

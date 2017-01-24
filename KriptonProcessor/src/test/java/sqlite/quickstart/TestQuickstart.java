@@ -36,7 +36,7 @@ import sqlite.quickstart.persistence.TodoDao;
 import sqlite.quickstart.persistence.UserDao;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @RunWith(JUnit4.class)

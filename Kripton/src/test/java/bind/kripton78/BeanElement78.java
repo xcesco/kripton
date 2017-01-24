@@ -28,7 +28,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @BindType(allFields=true)

@@ -18,7 +18,7 @@ package com.abubusoft.kripton.android.sqlite;
 /**
  *  
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public enum FieldType {

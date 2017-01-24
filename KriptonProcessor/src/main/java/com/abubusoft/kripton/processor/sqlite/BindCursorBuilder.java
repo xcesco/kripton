@@ -49,7 +49,7 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class BindCursorBuilder extends AbstractBuilder implements ModelElementVisitor<SQLEntity, SQLProperty> {

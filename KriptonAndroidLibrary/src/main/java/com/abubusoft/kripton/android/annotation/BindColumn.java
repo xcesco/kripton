@@ -27,7 +27,7 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 /**
  * Allow to define specifi behaviour of a field treated like a SQLite table column.
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)

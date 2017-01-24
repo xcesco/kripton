@@ -16,7 +16,7 @@
 /**
  * common classes package.
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 package com.abubusoft.kripton.common;

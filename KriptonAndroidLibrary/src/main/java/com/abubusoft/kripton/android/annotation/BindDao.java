@@ -31,14 +31,14 @@ import com.abubusoft.kripton.annotation.BindType;
  * Supported query is:
  * <ul>
  * 	<li><code>INSERT</code>: with {@link BindSqlInsert} annotation</li>
- *  <li><code>UPDATE</code></li>
- *  <li><code>SELECT</code></li>
- *  <li><code>DELETE</code></li>
+ *  <li><code>UPDATE</code>: with {@link BindSqlUpdate} annotation</li>
+ *  <li><code>SELECT</code>: with {@link BindSqlSelect} annotation</li>
+ *  <li><code>DELETE</code>: with {@link BindSqlDelete} annotation</li>
  * </ul> 
  * 
  * <p>Referred {@link #value()} bean must be annotated with {@link BindType} annotation.</p>
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

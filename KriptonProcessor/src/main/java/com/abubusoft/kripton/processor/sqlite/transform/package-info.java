@@ -15,7 +15,7 @@
  *******************************************************************************/
 /**
  * Transformation classes.  
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 package com.abubusoft.kripton.processor.sqlite.transform;

@@ -19,7 +19,7 @@
 package com.abubusoft.kripton.common;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  * @param <V1>
  * @param <V2>

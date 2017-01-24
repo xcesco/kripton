@@ -29,7 +29,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public abstract class AbstractSQLTransform implements SQLTransform {

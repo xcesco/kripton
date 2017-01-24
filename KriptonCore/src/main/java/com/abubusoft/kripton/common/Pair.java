@@ -16,7 +16,7 @@
 package com.abubusoft.kripton.common;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class Pair<A, B> {

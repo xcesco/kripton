@@ -17,7 +17,7 @@ package com.abubusoft.kripton.xml;
 
 /**
  * Mapping type of map entry
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public enum MapEntryType {

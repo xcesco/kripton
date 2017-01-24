@@ -18,7 +18,7 @@ package com.abubusoft.kripton.android.sharedprefs;
 /**
  * Supported preference type
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public enum PreferenceType {

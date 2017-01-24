@@ -9,7 +9,7 @@ import bind.AbstractBindTypeProcessorTest;
 
 /**
  * Test bean field
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class TestCompile70A extends AbstractBindTypeProcessorTest {

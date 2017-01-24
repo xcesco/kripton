@@ -55,7 +55,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Generates database class
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class BindDataSourceBuilder extends AbstractBuilder {

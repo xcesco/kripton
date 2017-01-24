@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * be compacted.
  * </p>
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

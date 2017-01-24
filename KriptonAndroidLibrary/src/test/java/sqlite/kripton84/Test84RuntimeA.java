@@ -29,7 +29,7 @@ import sqlite.kripton84.BindBean84ADataSource.Transaction;
 
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @Config(manifest=Config.NONE)

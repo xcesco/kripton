@@ -6,7 +6,7 @@ package com.abubusoft.kripton;
 /**
  * Bind Type Adapter.  
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  * @param <J>
  * 		field type

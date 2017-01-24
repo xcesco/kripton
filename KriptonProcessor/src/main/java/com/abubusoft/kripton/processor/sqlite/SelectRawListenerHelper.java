@@ -30,7 +30,7 @@ import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.MethodSpec;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  *
  * @since 17/mag/2016

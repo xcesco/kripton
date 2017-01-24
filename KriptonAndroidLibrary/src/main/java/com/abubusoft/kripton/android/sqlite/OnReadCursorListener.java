@@ -23,7 +23,7 @@ import android.database.Cursor;
 /**
  * <p>Listener for query with raw result.</p>
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  *
  * @since 17/mag/2016

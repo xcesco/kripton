@@ -27,6 +27,7 @@ import java.lang.annotation.Target;
  * For example suppose we want to persist bean <code>Person</code> defined as follow:
  * 
  * <pre>
+ * &#064;BindType
  * public class Person {
  *  public long id;
  *  
@@ -82,8 +83,8 @@ import java.lang.annotation.Target;
  * public interface PersonDAO
  * {
  * 
- *  &#064;BindInsert(excludedFields={"name", "surname"}
- *  void insert(Person bean);
+ *  &#064;BindInsert(excludedFields={"name", "surname"})
+ *  void insertThree(Person bean);
  * }
  * </pre>
  * 
@@ -93,7 +94,7 @@ import java.lang.annotation.Target;
  * table. If you specify a return type for methods, it has to be of type <code>int, long, Integer, Long</code> and it will contains same value like row id.
  * 
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

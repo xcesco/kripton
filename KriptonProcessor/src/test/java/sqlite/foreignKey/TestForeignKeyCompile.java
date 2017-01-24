@@ -27,7 +27,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @RunWith(JUnit4.class)

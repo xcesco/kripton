@@ -27,7 +27,7 @@ import base.BaseAndroidTest;
 import sqlite.kripton64.BindBean64ADataSource.Transaction;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class Test64ARuntime extends BaseAndroidTest {

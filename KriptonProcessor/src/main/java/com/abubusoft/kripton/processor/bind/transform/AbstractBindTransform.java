@@ -20,7 +20,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public abstract class AbstractBindTransform implements BindTransform {

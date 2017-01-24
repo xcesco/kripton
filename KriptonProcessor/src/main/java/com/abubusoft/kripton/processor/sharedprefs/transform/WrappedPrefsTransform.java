@@ -27,7 +27,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class WrappedPrefsTransform extends AbstractPrefsTransform {

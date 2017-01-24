@@ -53,7 +53,7 @@ import com.squareup.javapoet.TypeSpec;
  * Generate class ${entity}Table which represents table for entity.
  * </p>
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class BindTableGenerator extends AbstractBuilder implements ModelElementVisitor<SQLEntity, SQLProperty> {

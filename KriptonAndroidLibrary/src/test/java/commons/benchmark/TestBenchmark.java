@@ -15,7 +15,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import commons.benchmark.model.Response;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class TestBenchmark {

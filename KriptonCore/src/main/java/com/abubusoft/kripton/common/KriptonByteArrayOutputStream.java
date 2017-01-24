@@ -10,7 +10,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
  * Acts as a ByteArrayOutputStream, but allow direct access to array of byte
  * inside, without copy it.
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class KriptonByteArrayOutputStream extends ByteArrayOutputStream {

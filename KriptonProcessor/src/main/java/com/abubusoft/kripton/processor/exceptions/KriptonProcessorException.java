@@ -21,7 +21,7 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.abubusoft.kripton.processor.BaseProcessor;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public abstract class KriptonProcessorException extends RuntimeException {

@@ -26,7 +26,7 @@ import base.BaseAndroidTest;
 import sqlite.kripton58.list.BindLongDataSource.Transaction;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class Test58Runtime extends BaseAndroidTest {

@@ -22,7 +22,7 @@ package com.abubusoft.kripton.android.sqlite;
 /**
  * <p></p>
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  * @param <E>
  *
  *

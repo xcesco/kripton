@@ -42,7 +42,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationExcept
 /**
  * Annotation processor for json/xml/etc
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class BindTypeProcessor extends BaseProcessor {

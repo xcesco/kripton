@@ -35,7 +35,7 @@ import com.squareup.javapoet.TypeSpec;
 /**
  * Generates database class
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class BindDaoFactoryBuilder extends AbstractBuilder  {

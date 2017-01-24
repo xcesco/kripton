@@ -28,7 +28,7 @@ import base.BaseAndroidTest;
 import sqlite.foreignKey.BindDummyDataSource.Transaction;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class TestForeignKeyARuntime extends BaseAndroidTest {

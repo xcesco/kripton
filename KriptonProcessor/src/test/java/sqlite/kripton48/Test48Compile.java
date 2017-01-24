@@ -31,7 +31,7 @@ import sqlite.kripton48.persistence.Dummy01DataSource;
 import sqlite.kripton48.persistence.Dummy02DataSource;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @RunWith(JUnit4.class)

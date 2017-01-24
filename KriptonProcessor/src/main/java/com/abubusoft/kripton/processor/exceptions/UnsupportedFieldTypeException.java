@@ -22,7 +22,7 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 import com.squareup.javapoet.TypeName;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class UnsupportedFieldTypeException extends KriptonProcessorException {

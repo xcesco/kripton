@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import sqlite.example01.Example01Suite;
+import sqlite.example02.Example02Suite;
 import sqlite.foreignKey.TestForeignKeySuite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
@@ -48,6 +49,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 @Suite.SuiteClasses(
 		{ 
 			Example01Suite.class,
+			Example02Suite.class,
 			Test01Suite.class, 
 			Test02Suite.class,
 			Test03Suite.class, 

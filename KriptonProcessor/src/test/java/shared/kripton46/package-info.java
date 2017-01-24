@@ -17,7 +17,7 @@
  * 
  */
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 package shared.kripton46;

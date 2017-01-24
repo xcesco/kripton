@@ -39,7 +39,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  *
  * @since 05/mag/2016
@@ -119,11 +119,11 @@ public abstract class SqlModifyBuilder {
 				annotation= method.getAnnotation(BindSqlUpdate.class);
 				
 				if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE).size()>0) {
-					throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_VALUE + " in this kind of query definition"));
+					throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_VALUE.getValue() + " in this kind of query definition"));
 				}
 				
 				if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS).size()>0) {
-					throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS + " in this kind of query definition"));
+					throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS.getValue() + " in this kind of query definition"));
 				}
 				
 			} else {

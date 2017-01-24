@@ -24,7 +24,7 @@ import com.squareup.javapoet.TypeName;
  * 
  * Class implementing this interface can be used to generate code to read and write the property for a binded shared preferences
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public interface BindTransform {

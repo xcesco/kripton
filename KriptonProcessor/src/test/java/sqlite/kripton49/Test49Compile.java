@@ -27,7 +27,7 @@ import sqlite.kripton49.persistence.DaoBean01;
 import sqlite.kripton49.persistence.Dummy01DataSource;
 
 /**
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @RunWith(JUnit4.class)

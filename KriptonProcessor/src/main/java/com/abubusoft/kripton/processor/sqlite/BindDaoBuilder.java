@@ -49,7 +49,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 /**
  * Dao generator
  * 
- * @author xcesco
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class BindDaoBuilder implements SQLiteModelElementVisitor {
