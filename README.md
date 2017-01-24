@@ -1,3 +1,5 @@
+![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
+
 ## Kripton android library (runtime dependency)
 [![download](https://api.bintray.com/packages/xcesco/kripton/kripton-android-library/images/download.svg)](https://bintray.com/xcesco/kripton/kripton-android-library/_latestVersion)
 [![maven central](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton)
