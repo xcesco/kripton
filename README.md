@@ -77,7 +77,6 @@ Kritpon requires at minimum Java 7 or Android 2.3.
 
 ![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
 
-![logo_small](https://github.com/xcesco/wikis/blob/master/kripton/logo_small_76x76.png)
 
 # Build
 To build entire library collections just download repository and launch from base directory 
