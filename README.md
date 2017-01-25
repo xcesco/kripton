@@ -1,16 +1,6 @@
-![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
-
-## Kripton android library (runtime dependency)
 [![API](https://img.shields.io/badge/API-16%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=16)
 [![download](https://api.bintray.com/packages/xcesco/kripton/kripton-android-library/images/download.svg)](https://bintray.com/xcesco/kripton/kripton-android-library/_latestVersion)
 [![maven central](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton)
-[![method count](https://img.shields.io/badge/Methods and size-1786 | 260 KB-e91e63.svg)](http://www.methodscount.com/?lib=com.abubusoft%3Akripton-android-library%3A1.3.0)
-
-
-## Kripton annotation processor library (compile-time dependency)
-[ ![Download](https://api.bintray.com/packages/xcesco/kripton/kripton-processor/images/download.svg) ](https://bintray.com/xcesco/kripton/kripton-processor/_latestVersion)
-[![maven central](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton)
-[![build status](https://img.shields.io/travis/xcesco/kripton.svg?style=flat-square)](https://travis-ci.org/xcesco/kripton)
 [![test coverage](https://img.shields.io/codecov/c/github/xcesco/kripton/master.svg?style=flat-square)](https://codecov.io/gh/xcesco/kripton?branch=master)
 
 # Kripton 
@@ -25,7 +15,7 @@ Kripton is a java library, for Android and Java platform, that provides a simple
 * (Java) properties format (Java and Android platform)
 * YAML format (Java and Android platform)
 
-To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object without using reflection with just few lines of code.
+To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object without using reflection and with just few lines of code.
 
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
@@ -86,6 +76,10 @@ Snapshots of the development version are available in [Sonatype's snapshots repo
 
 Kritpon requires at minimum Java 7 or Android 2.3.
 
+![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
+
+![logo_small](https://github.com/xcesco/wikis/blob/master/kripton/logo_small_76x76.png)
+
 # Build
 To build entire library collections just download repository and launch from base directory 
 
@@ -95,8 +89,6 @@ mvn clean install -Prelease
 
 # Supported platforms
 There are two platform: the android environment and generic Java environment. For each platform there is a version of library. Android platform already include a json library and xml parser library. Java JDK does not include a json library and have different xml parser libraries.
-
-![logo_small](https://github.com/xcesco/wikis/blob/master/kripton/logo_small_76x76.png)
 
 # Donate
 If you like Kripton and you want to support its development, please donate!
