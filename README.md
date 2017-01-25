@@ -25,7 +25,7 @@ Kripton is a java library, for Android and Java platform, that provides a simple
 * (Java) properties format (Java and Android platform)
 * YAML format (Java and Android platform)
 
-To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object in different ways with an unique set of annotation and mechanisms.
+To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object in different ways with an uniform style and set of annotation.
 
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
