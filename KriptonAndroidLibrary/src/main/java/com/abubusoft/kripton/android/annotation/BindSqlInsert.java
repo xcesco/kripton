@@ -20,24 +20,28 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+
 /**
- * Allow to insert a bean into database. You can use bean as input parameter or method parameters like bean property, but you can not use mixed case.
+ * Allow to insert a bean into database. You can use bean as input parameter or
+ * method parameters like bean property, but you can not use mixed case.
  * 
  * <p>
- * For example suppose we want to persist bean <code>Person</code> defined as follow:
+ * For example suppose we want to persist bean <code>Person</code> defined as
+ * follow:
  * 
  * <pre>
  * &#064;BindType
  * public class Person {
- *  public long id;
- *  
- *  public String name;
- *  
- *  public String surname;
- *  
- *  public String birthCity;
- *  
- *  public Date birthDay;
+ * 	public long id;
+ * 
+ * 	public String name;
+ * 
+ * 	public String surname;
+ * 
+ * 	public String birthCity;
+ * 
+ * 	public Date birthDay;
  * }
  * </pre>
  * 
@@ -54,24 +58,30 @@ import java.lang.annotation.Target;
  * <h2>Case 1 - Method use a bean type parameter</h2>
  * 
  * <p>
- * It's possible define a INSERT query with annotation {@link BindSqlInsert}. It is possibile to define query parameter simply using method parameter with same name of the bean property.
+ * It's possible define a INSERT query with annotation {@link BindSqlInsert}. It
+ * is possibile to define query parameter simply using method parameter with
+ * same name of the bean property.
  * </p>
  * 
  * <pre>
  * &#064;BindDao(Person.class)
  * public interface PersonDAO {
  * 
- *  &#064;BindInsert
- *  void insertOne(String name, String surname, String birthCity, Date birthDay);
+ * 	&#064;BindInsert
+ * 	void insertOne(String name, String surname, String birthCity, Date birthDay);
  * 
- *  &#064;BindInsert
- *  long insertTwo(String name, String surname, String birthCity, Date birthDay);
+ * 	&#064;BindInsert
+ * 	long insertTwo(String name, String surname, String birthCity, Date birthDay);
  * }
  * </pre>
  * 
  * <p>
- * Each method parameter will be use like input parameter for query. The name of parameters will be used to map field bean and then the column name of the associated table. If you specify a return type for methods (like method
- * <code>insertTwo</code>), it has to be of type <code>int, long, Integer, Long</code>. In this case, the return value will be the id value of just inserted row.
+ * Each method parameter will be use like input parameter for query. The name of
+ * parameters will be used to map field bean and then the column name of the
+ * associated table. If you specify a return type for methods (like method
+ * <code>insertTwo</code>), it has to be of type
+ * <code>int, long, Integer, Long</code>. In this case, the return value will be
+ * the id value of just inserted row.
  * 
  * <h2>Case 2 - method use its parameters like bean properties</h2>
  * 
@@ -89,9 +99,14 @@ import java.lang.annotation.Target;
  * </pre>
  * 
  * <p>
- * You can use attribute <b>value</b> to define which property insert into query or you can use attribute <b>excludedFields</b> to avoid to insert some fields,
- * <b>but you can not use both attributes in the same method definition</b>. Values of this attribute will be used like bean property name. At the end of the insert, bean will have id value set to last row id used to insert bean into
- * table. If you specify a return type for methods, it has to be of type <code>int, long, Integer, Long</code> and it will contains same value like row id.
+ * You can use attribute <b>value</b> to define which property insert into query
+ * or you can use attribute <b>excludedFields</b> to avoid to insert some
+ * fields, <b>but you can not use both attributes in the same method
+ * definition</b>. Values of this attribute will be used like bean property
+ * name. At the end of the insert, bean will have id value set to last row id
+ * used to insert bean into table. If you specify a return type for methods, it
+ * has to be of type <code>int, long, Integer, Long</code> and it will contains
+ * same value like row id.
  * 
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -103,16 +118,30 @@ public @interface BindSqlInsert {
 
 	/**
 	 * <p>
-	 * bean properties to include into INSERT command. <b>To use only if method have only one parameter and its type is the same of supported bean</b>.
+	 * Type of INSERT. Default value is ABORT. See
+	 * <a href="https://www.sqlite.org/lang_conflict.html">here</a> for more
+	 * info.
+	 * </p>
+	 * 
+	 * @return type of insert.
+	 */
+	ConflictAlgorithmType conflictAlgorithm() default ConflictAlgorithmType.NONE;
+
+	/**
+	 * <p>
+	 * bean properties to include into INSERT command. <b>To use only if method
+	 * have only one parameter and its type is the same of supported bean</b>.
 	 * </p>
 	 * 
 	 * @return property's names to include
 	 */
 	String[] value() default {};
-	
+
 	/**
 	 * <p>
-	 * Allow to include primary key into INSERT command. <b>To use only if method have only one parameter and its type is the same of supported bean</b>.
+	 * Allow to include primary key into INSERT command. <b>To use only if
+	 * method have only one parameter and its type is the same of supported
+	 * bean</b>.
 	 * </p>
 	 * 
 	 * @return true if you need to include primary key in INSERT COMMAND
@@ -121,7 +150,8 @@ public @interface BindSqlInsert {
 
 	/**
 	 * <p>
-	 * properties to exclude into INSERT command. <b>To use only if method have only one parameter and its type is the same of supported bean</b>.
+	 * properties to exclude into INSERT command. <b>To use only if method have
+	 * only one parameter and its type is the same of supported bean</b>.
 	 * </p>
 	 * 
 	 * @return property's names to exclude

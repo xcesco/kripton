@@ -31,6 +31,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
 import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
@@ -331,9 +332,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 						.addAnnotation(Override.class)
 						.returns(Void.TYPE)
 						.addModifiers(Modifier.PUBLIC)
-						.addParameter(Throwable.class, "e")
-						.addStatement("$T.error(e.getMessage())", Logger.class)
-						.addStatement("e.printStackTrace()")
+						.addParameter(Throwable.class, "e")						
+						.addStatement("throw(new $T(e))", KriptonRuntimeException.class)
 						.build()
 						)
 				.build());
@@ -356,6 +356,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
 		executeMethod.addStatement("e.printStackTrace()");
+		executeMethod.addStatement("if (transaction!=null) transaction.onError(e)");			
 
 		executeMethod.nextControlFlow("finally");
 		executeMethod.addCode("connection.endTransaction();\n");
