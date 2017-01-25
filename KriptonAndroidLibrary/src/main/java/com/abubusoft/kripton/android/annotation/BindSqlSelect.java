@@ -86,7 +86,7 @@ public @interface BindSqlSelect {
 	 * 
 	 * @return where condition
 	 */
-	String where() default "1=1";
+	String where() default "";
 
 	/**
 	 * having statement

@@ -42,7 +42,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer for java primitive types and frequently used java types
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public abstract class PrefsTransformer {

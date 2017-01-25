@@ -19,7 +19,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 /**
  * Transformer between a string and a Java Double object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class DoubleBindTransform extends AbstractPrimitiveBindTransform {

@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.TimeUtils;
 /**
  * Transformer between a string and a custom Time object
  * 
- * @author bulldog
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class TimeSQLTransform extends WrappedSQLTransform<TimeUtils> {

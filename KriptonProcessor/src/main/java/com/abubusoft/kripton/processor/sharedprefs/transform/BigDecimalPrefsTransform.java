@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 /**
  * Transformer between a string and a java.math.BigDecimal object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class BigDecimalPrefsTransform extends AbstractNumberPrefsTransform {

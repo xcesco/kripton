@@ -1,8 +1,11 @@
-package commons.kripton86.test7;
+package sqlite.indexes;
 
 import android.os.AsyncTask;
+import com.abubusoft.kripton.android.Logger;
 import java.lang.Override;
 import java.lang.SuppressWarnings;
+import java.lang.Throwable;
+import java.util.concurrent.Executor;
 
 /**
  *
@@ -18,10 +21,14 @@ import java.lang.SuppressWarnings;
  * When method <code>execute</code> is invoked, an inner async task is created.
  * </p>
  *
- * @see BindDS7DaoFactory
- * @see BindDS7DataSource
+ * @param I input param
+ * @param U update param
+ * @param R result param
+ *
+ * @see BindPersonDaoFactory
+ * @see BindPersonDataSource
  */
-public abstract class BindDS7AsyncTask<I, U, R> {
+public abstract class BindPersonAsyncTask<I, U, R> {
   /**
    * If <code>true</code> indicates database operations are only read operations
    *
@@ -39,7 +46,7 @@ public abstract class BindDS7AsyncTask<I, U, R> {
    * With this constructor, a read only database connection will be used
    * </p>
    */
-  public BindDS7AsyncTask() {
+  public BindPersonAsyncTask() {
     this(true);}
 
   /**
@@ -49,7 +56,7 @@ public abstract class BindDS7AsyncTask<I, U, R> {
    *
    * @param readOnlyTask if true, force async task to use read only database connection
    */
-  public BindDS7AsyncTask(boolean readOnlyTask) {
+  public BindPersonAsyncTask(boolean readOnlyTask) {
     this.readOnlyTask = readOnlyTask;}
 
   /**
@@ -61,12 +68,12 @@ public abstract class BindDS7AsyncTask<I, U, R> {
   /**
    * Method used to encapsulate operations on datasource
    *
-   * @param daoFactory
-   * 	dao factory. Use it to retrieve DAO
+   * @param dataSource
+   * 	use it to retrieve DAO
    * @return
-   * 	result of operation (list, bean, etc)
+   * 	result of operation (list, bean, etc) and execute transactions.
    */
-  public abstract R onExecute(BindDS7DaoFactory daoFactory);
+  public abstract R onExecute(BindPersonDataSource dataSource) throws Throwable;
 
   /**
    * Use this method for operations on UI-thread after execution
@@ -80,26 +87,46 @@ public abstract class BindDS7AsyncTask<I, U, R> {
   }
 
   /**
+   * This method is invoked when <code>onExecute</code> method generate an exception.
+   * @param exception exception generated
+   */
+  public void onError(Throwable exception) {
+    Logger.error(exception.getMessage());
+    exception.printStackTrace();
+  }
+
+  /**
    * Method to start operations.
    *
-   * @param
-   * 	data input
+   * @param executor used executor
+   * @param data input
    */
   public void execute(@SuppressWarnings("unchecked") I... params) {
+    executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, params);
+  }
+
+  /**
+   * Method to start operations.
+   *
+   * @param executor used executor
+   * @param data input
+   */
+  public void executeOnExecutor(Executor executor, @SuppressWarnings("unchecked") I... params) {
     asyncTask=new AsyncTask<I, U, R>() {
       @Override
       public void onPreExecute() {
-        BindDS7AsyncTask.this.onPreExecute();
+        BindPersonAsyncTask.this.onPreExecute();
       }
 
       @Override
       public R doInBackground(@SuppressWarnings("unchecked") I... params) {
-        BindDS7DataSource dataSource=BindDS7DataSource.instance();
+        BindPersonDataSource dataSource=BindPersonDataSource.instance();
         R result=null;
         if (readOnlyTask) dataSource.openReadOnlyDatabase(); else dataSource.openWritableDatabase();
         try {
           result=onExecute(dataSource);
-        } catch(Exception e) {
+        } catch(Throwable e) {
+          onError(e);
         } finally {
           if (dataSource.isOpen()) {
             dataSource.close();
@@ -110,23 +137,23 @@ public abstract class BindDS7AsyncTask<I, U, R> {
 
       @Override
       public void onProgressUpdate(@SuppressWarnings("unchecked") U... values) {
-        BindDS7AsyncTask.this.onProgressUpdate(values);
+        BindPersonAsyncTask.this.onProgressUpdate(values);
       }
 
       @Override
       public void onPostExecute(R result) {
-        BindDS7AsyncTask.this.onFinish(result);
+        BindPersonAsyncTask.this.onFinish(result);
       }
     };
-    asyncTask.execute(params);
+    asyncTask.executeOnExecutor(executor, params);
   }
 
   /**
    * Simple implementation of async task. It uses read only database.
    *
-   * @see BindDS7DaoFactory
-   * @see BindDS7DataSource
+   * @see BindPersonDaoFactory
+   * @see BindPersonDataSource
    */
-  public abstract static class Simple<R> extends BindDS7AsyncTask<Void, Void, R> {
+  public abstract static class Simple<R> extends BindPersonAsyncTask<Void, Void, R> {
   }
 }

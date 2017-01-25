@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.TimeUtils;
 /**
  * Transformer between a string and a custom Time object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class TimePrefsTransform extends WrappedPrefsTransform {

@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.exceptions;
 
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
@@ -24,11 +26,11 @@ public class InvalidBeanTypeException extends KriptonProcessorException {
 
 	public InvalidBeanTypeException(SQLDaoDefinition daoDefinition)
 	{
-		super("In class "+daoDefinition.getName()+" is used @SQLDao annotation for unmanaged bean type "+daoDefinition.getEntityClassName()+". Please check if it has @BindType annotation.");
+		super(String.format("In class %s is used @%s annotation for unmanaged bean type %s. Please check if it has @BindType annotation.", daoDefinition.getName(), BindDao.class.getSimpleName(), daoDefinition.getEntityClassName()));
 	}
 	
 	public InvalidBeanTypeException(SQLProperty caller, String referred)
 	{
-		super(String.format("In class '%s', field '%s' uses unmanaged bean type '%s'. Please check if it has @BindType annotation.", caller.getParent().getName(), caller.getName(), referred));
+		super(String.format("In class '%s', field '%s' uses unmanaged bean type '%s'. Please check if it has @%s annotation.", caller.getParent().getName(), caller.getName(), referred, BindType.class.getSimpleName()));
 	}
 }

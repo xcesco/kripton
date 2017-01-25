@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.BigDecimalUtils;
 /**
  * Transformer between a string and a java.math.BigDecimal object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class BigDecimalBindTransform extends AbstractNumberBindTransform {

@@ -31,4 +31,16 @@ public @interface BindTable {
 	 * 		defined name of the table in java style
 	 */
 	String value() default "";
+	
+	/**
+	 * <p>Allow to crete multicolumn index for this table. It is possible create an multicolumn index with syntax with comma separated list.
+	 * For example, to create and index
+	 * </p>
+	 * 
+	 * 
+	 * 
+	 * <p
+	 * @return
+	 */
+	String indexes() default "(id, prova),(test, prova)";
 }

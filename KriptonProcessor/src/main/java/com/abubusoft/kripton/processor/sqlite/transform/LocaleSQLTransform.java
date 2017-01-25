@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.LocaleUtils;
 /**
  * Transformer between a string and a java.util.Locale object
  * 
- * @author bulldog
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class LocaleSQLTransform extends WrappedSQLTransform<LocaleUtils> {

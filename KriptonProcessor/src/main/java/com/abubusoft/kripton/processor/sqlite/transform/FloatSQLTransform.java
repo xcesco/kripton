@@ -26,7 +26,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a Java Float object
  * 
- * @author bulldog
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class FloatSQLTransform  extends AbstractSQLTransform {

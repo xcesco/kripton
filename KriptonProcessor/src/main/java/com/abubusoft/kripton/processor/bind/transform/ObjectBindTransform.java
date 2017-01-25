@@ -30,7 +30,7 @@ import com.squareup.javapoet.TypeName;
  * Transformer for generic object. For XML binding no Attribute o Value is
  * allowed.
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class ObjectBindTransform extends AbstractBindTransform {

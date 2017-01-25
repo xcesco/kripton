@@ -46,6 +46,7 @@ public interface DaoChannel {
 	@BindSqlDelete(where="ownerUid=${ownerUid} and id=${id}")
 	boolean deleteContactRaw2(String ownerUid, long id);
 	
+	
 	// insert	
 	@BindSqlInsert
 	long insertRaw1(@BindSqlParam("ownerUid") String b, @BindSqlParam("id") long azz);

@@ -343,7 +343,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC, Modifier.SYNCHRONIZED).addParameter(className(transationExecutorName), "transaction");
 
-		executeMethod.addCode("$T connection=openDatabase();\n", SQLiteDatabase.class);
+		executeMethod.addCode("$T connection=open();\n", SQLiteDatabase.class);
 
 		executeMethod.beginControlFlow("try");
 		executeMethod.addCode("connection.beginTransaction();\n");

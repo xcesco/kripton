@@ -202,11 +202,11 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	}
 
 	/**
-	 * Open database. Is alias for openWritableDatabase()
+	 * Open database. Is an alias for openWritableDatabase()
 	 * 
 	 * @return writable database
 	 */
-	public SQLiteDatabase openDatabase() {
+	public SQLiteDatabase open() {
 		return getWritableDatabase();
 	}
 	

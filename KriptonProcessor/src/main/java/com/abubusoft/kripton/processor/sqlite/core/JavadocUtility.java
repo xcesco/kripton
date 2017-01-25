@@ -23,6 +23,7 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -51,24 +52,23 @@ public abstract class JavadocUtility {
 		}
 	}
 
-	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, String sql, List<String> sqlParams, SQLiteModelMethod method, ModelAnnotation annotation, PropertyList fieldList, SelectResultType selectResultType) {
+	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, String sql, List<String> sqlParams, SQLiteModelMethod method, ModelAnnotation annotation, PropertyList fieldList,
+			SelectResultType selectResultType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
-		
+
 		methodBuilder.addJavadoc("<h2>Select SQL:</h2>\n<p>\n", annotation.getSimpleName());
 		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sql);
-				
+
 		// there will be alway some projected column
-		{			
+		{
 			methodBuilder.addJavadoc("<h2>Projected columns:</h2>\n<p>\n");
 			methodBuilder.addJavadoc("<dl>\n");
-			int i=0;
-			String[] columnList=fieldList.value0.split(",");
-			for (String column: columnList)
-			{							
+			int i = 0;
+			String[] columnList = fieldList.value0.split(",");
+			for (String column : columnList) {
 				// display field info only it exists
-				if (fieldList.value1.get(i)!=null)
-				{
+				if (fieldList.value1.get(i) != null) {
 					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.trim());
 					SQLProperty attribute = fieldList.value1.get(i);
 					methodBuilder.addJavadoc("<dd>is associated to bean's property <strong>$L</strong></dd>", attribute.getName());
@@ -81,12 +81,12 @@ public abstract class JavadocUtility {
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 		}
-		
+
 		if (sqlParams.size() > 0) {
 			methodBuilder.addJavadoc("<h2>Query's parameters:</h2>\n<p>\n");
-			methodBuilder.addJavadoc("<dl>\n");			
-			for (String param : sqlParams) {
-				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is binded to method's parameter <strong>$L</strong></dd>\n", "${"+param+"}", method.findParameterNameByAlias(param));
+			methodBuilder.addJavadoc("<dl>\n");
+			for (String param : sqlParams) {				
+				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is binded to method's parameter <strong>$L</strong></dd>\n", "${" + param + "}", method.findParameterNameByAlias(param));				
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 		}
@@ -94,18 +94,21 @@ public abstract class JavadocUtility {
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
-		
+
 			methodBuilder.addJavadoc("@param $L\n", parameterSpec.name);
-			if (beanTypeName.equals(TypeName.get(item.value1)))
-			{						
-				methodBuilder.addJavadoc("\tis used as $L\n", "${" + method.findParameterAliasByName(item.value0) + "}");				
+			if (beanTypeName.equals(TypeName.get(item.value1))) {
+				methodBuilder.addJavadoc("\tis used as $L\n", "${" + method.findParameterAliasByName(item.value0) + "}");
 			} else if (TypeUtility.isTypeEquals(TypeName.get(item.value1), ParameterizedTypeName.get(TypeUtility.className(OnReadBeanListener.class), beanTypeName))) {
-				methodBuilder.addJavadoc("\tis the $T listener\n",beanTypeName);
+				methodBuilder.addJavadoc("\tis the $T listener\n", beanTypeName);
 			} else if (TypeUtility.isTypeEquals(TypeName.get(item.value1), TypeUtility.className(OnReadCursorListener.class))) {
-				methodBuilder.addJavadoc("\tis the cursor listener\n",beanTypeName);
+				methodBuilder.addJavadoc("\tis the cursor listener\n", beanTypeName);
+			} else if (item.value0.equals(method.dynamicWhereParameterName)) {
+					methodBuilder.addJavadoc("\tis used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);
+			} else if (item.value0.equals(method.dynamicWhereParameterName)) {
+					methodBuilder.addJavadoc("\tis used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);			
 			} else {
-				methodBuilder.addJavadoc("\tis binded to $L\n","${"+method.findParameterAliasByName(item.value0) +"}");
-			}
+				methodBuilder.addJavadoc("\tis binded to <code>$L</code>\n", "${" + method.findParameterAliasByName(item.value0) + "}");
+			} 
 		}
 
 		switch (selectResultType) {

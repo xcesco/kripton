@@ -58,7 +58,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=openDatabase();
+    SQLiteDatabase connection=open();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {

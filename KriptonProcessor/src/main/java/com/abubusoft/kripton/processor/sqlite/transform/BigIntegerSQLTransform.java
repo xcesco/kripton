@@ -30,7 +30,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a java.math.BigInteger object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class BigIntegerSQLTransform extends AbstractSQLTransform {

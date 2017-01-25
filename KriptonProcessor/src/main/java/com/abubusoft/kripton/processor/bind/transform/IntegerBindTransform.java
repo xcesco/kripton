@@ -20,7 +20,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 /**
  * Transformer between a string and a Java Integer object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class IntegerBindTransform extends AbstractPrimitiveBindTransform {

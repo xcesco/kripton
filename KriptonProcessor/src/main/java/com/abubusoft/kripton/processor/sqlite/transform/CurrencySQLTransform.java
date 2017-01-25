@@ -28,7 +28,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
 /**
  * Transformer between a string and a java.util.Currency object
  * 
- * @author bulldog
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 class CurrencySQLTransform extends AbstractSQLTransform {

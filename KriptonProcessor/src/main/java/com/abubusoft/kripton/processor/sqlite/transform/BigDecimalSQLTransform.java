@@ -29,7 +29,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a java.math.BigDecimal object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class BigDecimalSQLTransform extends AbstractSQLTransform {

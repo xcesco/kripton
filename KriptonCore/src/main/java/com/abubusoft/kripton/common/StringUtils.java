@@ -28,6 +28,29 @@ import java.io.Writer;
 public class StringUtils {
 
 	private static final int VIEW_SIZE = 64;
+	
+	/**
+	 * Prepare a string to be used as part of SQL statement in LOGCAT.
+	 * 
+	 * Replace % with %%
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public static String formatForLog(String value) {	
+		return format(value).replaceAll("\\%", "\\%\\%");
+	}
+	
+	/**
+	 * Prepare a string to be used as part of SQL statement.
+	 * 
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public static String format(String value) {	
+		return value == null  ? "" : value;
+	}
 
 	public static boolean isEmpty(String value) {
 		return value == null || value.length() == 0;

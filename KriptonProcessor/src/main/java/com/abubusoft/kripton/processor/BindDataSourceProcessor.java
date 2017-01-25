@@ -43,6 +43,7 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
@@ -270,16 +271,6 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
-
-		// if (!temp1 && temp2) {
-		// String msg = String.format("In class '%s', inconsistent value of
-		// attribute 'allFields' in annotations '%s' and '%s'",
-		// currentEntity.getSimpleName(), BindType.class.getSimpleName(),
-		// BindTable.class.getSimpleName());
-		// throw (new IncompatibleAttributesInAnnotationException(msg));
-		// }
-
-		// final boolean bindAllFields = temp1 && temp2;
 		{
 			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLProperty>() {
 
@@ -291,7 +282,6 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 				@Override
 				public boolean onProperty(SQLProperty property) {
-					// if @BindDisabled is present, exit immediately
 					if (property.hasAnnotation(BindDisabled.class)) {
 						if (bindAllFields) {
 							return false;
@@ -354,7 +344,10 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					if (!StringUtils.hasText(columnName)) {
 						columnName = property.getName();
 					}
-					property.columnName = columnName;
+					
+					
+					// convert column name from field name to table: fieldName to field_name
+					property.columnName = currentSchema.columnNameConverter.convert(columnName);
 
 					return true;
 

@@ -58,7 +58,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=openDatabase();
+    SQLiteDatabase connection=open();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {

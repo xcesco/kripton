@@ -32,7 +32,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a Java String object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class ByteArrayBindTransform extends AbstractBindTransform {

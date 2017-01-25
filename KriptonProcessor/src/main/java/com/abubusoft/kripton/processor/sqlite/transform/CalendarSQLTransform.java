@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.CalendarUtils;
 /**
  * Transformer between a string and a java.util.Calendar object
  * 
- * @author bulldog
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class CalendarSQLTransform extends WrappedSQLTransform<CalendarUtils> {

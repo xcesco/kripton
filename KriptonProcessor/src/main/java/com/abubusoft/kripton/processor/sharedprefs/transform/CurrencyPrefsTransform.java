@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.CurrencyUtils;
 /**
  * Transformer between a string and a java.util.Currency object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class CurrencyPrefsTransform extends WrappedPrefsTransform {

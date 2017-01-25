@@ -25,7 +25,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a Java Byte object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {

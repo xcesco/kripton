@@ -21,6 +21,7 @@ import org.junit.runners.Suite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.foreignKey.TestForeignKeySuite;
+import sqlite.indexes.TestIndexesSuite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;
@@ -76,7 +77,9 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestDao01.class, 
 			Test03.class, 
 			TestFirstAid.class,			
-			TestForeignKeySuite.class
+			TestForeignKeySuite.class,
+			TestIndexesSuite.class
+			
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

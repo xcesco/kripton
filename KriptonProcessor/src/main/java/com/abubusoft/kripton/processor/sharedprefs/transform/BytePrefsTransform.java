@@ -19,7 +19,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 /**
  * Transformer between a string and a Java Byte object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class BytePrefsTransform extends AbstractPrimitivePrefsTransform {

@@ -124,6 +124,10 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			//@formatter:on
 		}
 
+		// shared between create table and drop table
+		StringBuilder bufferIndexesCreate=new StringBuilder();
+		StringBuilder bufferIndexesDrop=new StringBuilder();
+		
 		{
 			// create table SQL
 			//@formatter:off
@@ -132,9 +136,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
  					.addModifiers(Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC);
  			//@formatter:on
 
-			StringBuilder buffer = new StringBuilder();
-			StringBuilder bufferForeignKey = new StringBuilder();
-			buffer.append("CREATE TABLE " + entity.getTableName());
+			StringBuilder bufferTable = new StringBuilder();
+			StringBuilder bufferForeignKey = new StringBuilder();			
+			bufferTable.append("CREATE TABLE " + entity.getTableName());
 			// define column name set
 
 			String separator = "";
@@ -142,11 +146,11 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			ModelProperty primaryKey = entity.getPrimaryKey();
 			ModelAnnotation annotationBindColumn;
 
-			buffer.append(" (");
+			bufferTable.append(" (");
 			for (SQLProperty item : entity.getCollection()) {
-				buffer.append(separator);
-				buffer.append(columnNameToLowerCaseConverter.convert(item.columnName));
-				buffer.append(" " + SQLTransformer.columnType(item));
+				bufferTable.append(separator);
+				bufferTable.append(item.columnName);
+				bufferTable.append(" " + SQLTransformer.columnType(item));
 
 				annotationBindColumn = item.getAnnotation(BindColumn.class);
 
@@ -154,10 +158,14 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_COLUMN_TYPE));
 					switch (columnType) {
 					case PRIMARY_KEY:
-						buffer.append(" PRIMARY KEY AUTOINCREMENT");
+						bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
 						break;
 					case UNIQUE:
-						buffer.append(" UNIQUE");
+						bufferTable.append(" UNIQUE");
+						break;
+					case INDEXED:
+						bufferIndexesCreate.append(String.format(" CREATE INDEX %s_%s_idx ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
+						bufferIndexesDrop.append(String.format(" DROP INDEX %s_idx;", item.columnName));
 						break;
 					case STANDARD:
 						break;
@@ -165,7 +173,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 					boolean nullable = Boolean.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_NULLABLE));
 					if (!nullable) {
-						buffer.append(" NOT NULL");
+						bufferTable.append(" NOT NULL");
 					}
 
 					// foreign key
@@ -190,42 +198,55 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					}
 
 				} else if (primaryKey.equals(item)) {
-					buffer.append(" PRIMARY KEY AUTOINCREMENT");
+					bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
 				}
 
 				separator = ", ";
 			}
 
-			buffer.append(bufferForeignKey.toString());
-			buffer.append(")");
-			buffer.append(";");
+			bufferTable.append(bufferForeignKey.toString());
+			bufferTable.append(");");			
+			
+			if (bufferIndexesCreate.length()>0)
+			{
+				// add indexes creation
+				bufferTable.append(bufferIndexesCreate.toString());
+			}
 
 			//@formatter:off
 			// "CREATE TABLE IF NOT EXISTS TutorialsPoint(Username VARCHAR,Password VARCHAR);"
  			fieldSpec.addJavadoc("<p>\nDDL to create table $L\n</p>\n",entity.getTableName());
- 			fieldSpec.addJavadoc("\n<pre>$L</pre>\n",buffer.toString());
+ 			fieldSpec.addJavadoc("\n<pre>$L</pre>\n",bufferTable.toString());
  			//@formatter:on
 
-			builder.addField(fieldSpec.initializer("$S", buffer.toString()).build());
+			builder.addField(fieldSpec.initializer("$S", bufferTable.toString()).build());
 		}
 
 		{
 			// drop table SQL
-			String sql = "DROP TABLE IF EXISTS " + entity.getTableName() + ";";
+			StringBuilder bufferDropTable=new StringBuilder();
+			bufferDropTable.append("DROP TABLE IF EXISTS " + entity.getTableName() + ";");
+			
+			// it no needed
+			//if (bufferIndexesDrop.length()>0)
+			//{							
+				//bufferDropTable.append(bufferIndexesDrop.toString());
+			//}
 
 			//@formatter:off
 			FieldSpec fieldSpec = FieldSpec.builder(String.class, "DROP_TABLE_SQL")
 					.addModifiers(Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC)
-					.initializer("$S",sql)
+					.initializer("$S",bufferDropTable.toString())
 					.addJavadoc("<p>\nDDL to drop table $L\n</p>\n",entity.getTableName())
-		 			.addJavadoc("\n<pre>$L</pre>\n",sql)
+		 			.addJavadoc("\n<pre>$L</pre>\n",bufferDropTable.toString())
 					.build();
 			//@formatter:on
 			builder.addField(fieldSpec);
 		}
 
 		// define column name set
-		for (ModelProperty item : entity.getCollection()) {
+		for (ModelProperty item : entity
+				.getCollection()) {
 			item.accept(this);
 		}
 
@@ -242,7 +263,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				.initializer("$S", columnNameToLowerCaseConverter.convert(kriptonProperty.columnName))
 				.addJavadoc("Entity's property <code>$L</code> is associated to table column <code>$L</code>. This costant represents column name.\n",
 						kriptonProperty.getName(),
-						columnNameToLowerCaseConverter.convert(kriptonProperty.columnName))
+						kriptonProperty.columnName)
 				.addJavadoc("\n @see $T#$L\n", TypeUtility.className(kriptonProperty.getParent().getName()), kriptonProperty.getName())
 				.build();
 		//@formatter:on

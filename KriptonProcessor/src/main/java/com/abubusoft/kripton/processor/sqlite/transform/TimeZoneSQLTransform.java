@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.TimeZoneUtils;
 /**
  * Transformer between a string and a java.util.TimeZone object
  * 
- * @author bulldog
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class TimeZoneSQLTransform extends WrappedSQLTransform<TimeZoneUtils> {

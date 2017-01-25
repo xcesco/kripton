@@ -20,7 +20,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 /**
  * Transformer between a string and a Java Integer object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class IntegerPrefsTransform extends AbstractPrimitivePrefsTransform {

@@ -26,7 +26,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a Java Double object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class DoublePrefsTransform extends AbstractPrefsTransform {

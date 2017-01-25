@@ -26,7 +26,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a Java Boolean object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class BooleanSQLTransform extends AbstractSQLTransform {

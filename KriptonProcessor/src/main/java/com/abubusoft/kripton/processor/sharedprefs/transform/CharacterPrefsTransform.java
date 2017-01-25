@@ -19,7 +19,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 /**
  * Transformer between a string and a Java Character object
  * 
- * @author bulldog
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 class CharacterPrefsTransform extends AbstractPrimitivePrefsTransform {

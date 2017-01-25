@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.DateUtils;
 /**
  * Transformer between a string and a java.util.Date object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class DateBindTransform extends WrappedBindTransform {

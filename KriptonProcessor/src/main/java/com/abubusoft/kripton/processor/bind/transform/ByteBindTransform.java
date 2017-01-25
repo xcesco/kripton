@@ -19,7 +19,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 /**
  * Transformer between a string and a Java Byte object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class ByteBindTransform extends AbstractPrimitiveBindTransform {

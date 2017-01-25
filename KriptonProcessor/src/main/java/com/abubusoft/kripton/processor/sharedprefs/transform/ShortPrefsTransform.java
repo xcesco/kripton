@@ -19,7 +19,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 /**
  * Transformer between a string and a Java Short object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class ShortPrefsTransform extends AbstractPrimitivePrefsTransform {

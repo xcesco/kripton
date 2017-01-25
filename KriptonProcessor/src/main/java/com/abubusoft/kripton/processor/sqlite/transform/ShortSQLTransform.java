@@ -27,7 +27,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a Java Short object
  * 
- * @author bulldog
+ * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public class ShortSQLTransform  extends AbstractSQLTransform {

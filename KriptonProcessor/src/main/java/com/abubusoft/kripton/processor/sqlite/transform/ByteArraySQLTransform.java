@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 /**
  * Transformer between a base64 encoded string and a byte[]
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class ByteArraySQLTransform extends AbstractGeneratedSQLTransform {

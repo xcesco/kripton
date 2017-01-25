@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.LocaleUtils;
 /**
  * Transformer between a string and a java.util.Locale object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class LocaleBindTransform extends WrappedBindTransform {

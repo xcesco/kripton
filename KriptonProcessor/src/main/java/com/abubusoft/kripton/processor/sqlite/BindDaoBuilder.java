@@ -53,9 +53,10 @@ import com.squareup.javapoet.TypeSpec.Builder;
  *
  */
 public class BindDaoBuilder implements SQLiteModelElementVisitor {
-
-	//public static final String PREFIX = "Bind";
 	
+	/**
+	 * Suffix to add to DAO interface to define DAO implementation name.
+	 */
 	public static final String SUFFIX = "Impl";
 	
 	protected Elements elementUtils;

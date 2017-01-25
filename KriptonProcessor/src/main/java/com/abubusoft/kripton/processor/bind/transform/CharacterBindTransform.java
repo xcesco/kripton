@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 /**
  * Transformer between a string and a Java Character object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class CharacterBindTransform extends AbstractPrimitiveBindTransform {

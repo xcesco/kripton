@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.TimeZoneUtils;
 /**
  * Transformer between a string and a java.util.TimeZone object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class TimeZoneBindTransform extends WrappedBindTransform {

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.Throwable;
@@ -57,7 +58,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=openDatabase();
+    SQLiteDatabase connection=open();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -66,6 +67,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
+      if (transaction!=null) transaction.onError(e);
     } finally {
       connection.endTransaction();
       close();
@@ -136,8 +138,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   public abstract static class SimpleTransaction implements Transaction {
     @Override
     public void onError(Throwable e) {
-      Logger.error(e.getMessage());
-      e.printStackTrace();
+      throw(new KriptonRuntimeException(e));
     }
   }
 }

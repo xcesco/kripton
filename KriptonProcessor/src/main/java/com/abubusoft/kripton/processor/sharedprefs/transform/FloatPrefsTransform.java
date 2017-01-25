@@ -19,7 +19,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 /**
  * Transformer between a string and a Java Float object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 public class FloatPrefsTransform extends AbstractPrimitivePrefsTransform {

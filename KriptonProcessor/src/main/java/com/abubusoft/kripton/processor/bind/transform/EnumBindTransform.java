@@ -31,7 +31,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a Java5 Enum object
  * 
- * @author bulldog
+ * @author xcesco
  * 
  */
 public class EnumBindTransform extends AbstractBindTransform {

@@ -20,7 +20,7 @@ import java.math.BigInteger;
 /**
  * Transformer between a string and a java.math.BigInteger object
  * 
- * @author bulldog
+ * @author xcesco
  *
  */
 class BigIntegerPrefsTransform extends AbstractNumberPrefsTransform {

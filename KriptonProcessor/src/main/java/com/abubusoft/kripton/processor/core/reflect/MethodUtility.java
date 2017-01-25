@@ -47,6 +47,7 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.CodeBuilderUtility;
@@ -176,11 +177,6 @@ public abstract class MethodUtility {
 			} else if (hasParameterOfType(method, readBeanListener)) {
 				selectResultType = SqlSelectBuilder.SelectResultType.LISTENER_BEAN;
 			}
-
-			if (selectResultType == null) {
-				// error
-			}
-
 		} else if (TypeUtility.isTypeIncludedIn(returnTypeName, Cursor.class)) {
 			// return Cursor (no listener)
 			selectResultType = SqlSelectBuilder.SelectResultType.CURSOR;
@@ -218,10 +214,6 @@ public abstract class MethodUtility {
 		} else if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class) || TypeUtility.isByteArray(returnTypeName)) {
 			// return single value string, int, long, short, double, float, String (no listener)
 			selectResultType = SqlSelectBuilder.SelectResultType.SCALAR;
-		} else if (TypeUtility.isArray(returnTypeName))
-		{
-			// array return type is not supported.
-			throw (new InvalidMethodSignException(method, "array can not be used as return type"));
 		}
 
 		if (selectResultType == null) {
@@ -243,11 +235,13 @@ public abstract class MethodUtility {
 		List<String> paramNames = new ArrayList<String>();
 		List<String> paramGetters = new ArrayList<String>();
 		List<TypeMirror> paramTypeNames = new ArrayList<TypeMirror>();
+		
+		// used method parameters
 		Set<String> usedMethodParameters = new HashSet<String>();
 
 		SqlAnalyzer analyzer = new SqlAnalyzer();
 
-		String whereSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
+		String whereSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);		
 		analyzer.execute(elementUtils, method, whereSQL);
 		String whereStatement = analyzer.getSQLStatement();
 		paramGetters.addAll(analyzer.getParamGetters());
@@ -278,10 +272,24 @@ public abstract class MethodUtility {
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
+		
+		// add as used parameter dynamic components too
+		if (method.hasDynamicWhereConditions())
+		{
+			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicWhereParameterName),method," parameter %s is used like SQL parameter and dynamic WHERE condition.", method.dynamicOrderByParameterName);
+			usedMethodParameters.add(method.dynamicWhereParameterName);
+		}
+		
+		if (method.hasDynamicOrderByConditions())
+		{
+			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicOrderByParameterName),method," parameter %s is used like SQL parameter and dynamic ORDER BY condition.", method.dynamicOrderByParameterName);
+			usedMethodParameters.add(method.dynamicOrderByParameterName);
+		}
 
 		// select statement
-		String sqlWithParameters = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereSQL).having(havingSQL).groupBy(groupBySQL).orderBy(orderBySQL).build();
-		String sql = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement).orderBy(orderByStatement).build();
+		String sqlWithParameters = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereSQL).having(havingSQL).groupBy(groupBySQL).orderBy(orderBySQL).build(method);
+		String sql = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement).orderBy(orderByStatement).build(method);
+		String sqlForLog = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement).orderBy(orderByStatement).buildForLog(method);
 
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
@@ -348,16 +356,18 @@ public abstract class MethodUtility {
 		methodBuilder.addCode("\n");
 
 		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"),(Object[])args);\n", Logger.class, StringUtils.class, sql.replaceAll("\\%", "\\%\\%").replaceAll("\\?", "\'%s\'"));
+			methodBuilder.addStatement("$T.info($T.formatSQL(\"$L\"),(Object[])args)", Logger.class, StringUtils.class, sqlForLog.replaceAll("\\%", "\\%\\%").replaceAll("\\?", "\'%s\'"));
+		} else {
+			methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
 		}
-		methodBuilder.addCode("$T cursor = database().rawQuery(\"$L\", args);\n", Cursor.class, sql);
+		methodBuilder.addStatement("$T cursor = database().rawQuery(\"$L\", args)", Cursor.class, sql);
 
 		if (daoDefinition.isLogEnabled()) {
 			methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
 		}
 
-		{
-			switch (selectResultType) {
+		{			
+			switch (selectResultType) {			
 			case LISTENER_CURSOR: {
 				LiteralType readCursorListenerToExclude = LiteralType.of(OnReadCursorListener.class);
 				checkUnusedParameters(method, usedMethodParameters, readCursorListenerToExclude);

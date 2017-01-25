@@ -505,7 +505,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={(name==null?null:name)};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%%%\' ORDER BY name"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
