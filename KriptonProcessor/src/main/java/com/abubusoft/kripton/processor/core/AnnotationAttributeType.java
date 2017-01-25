@@ -59,7 +59,8 @@ public enum AnnotationAttributeType {
 	ATTRIBUTE_FOREIGN_KEY("foreignKey"),
 	ATTRIBUTE_COLUMN_TYPE("columnType"),
 	ATTRIBUTE_DAO("dao"),
-	ATTRIBUTE_INCLUDE_PRIMARY_KEY("includePrimaryKey")
+	ATTRIBUTE_INCLUDE_PRIMARY_KEY("includePrimaryKey"),
+	ATTRIBUTE_INSERT_CONFLICT_ALGORITHM_TYPE("conflictAlgorithm")
 	;
 	
 	

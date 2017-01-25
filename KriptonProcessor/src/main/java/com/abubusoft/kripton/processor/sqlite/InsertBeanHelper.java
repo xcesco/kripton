@@ -24,9 +24,12 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -38,6 +41,8 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
+
+import android.database.sqlite.SQLiteDatabase;
 
 public class InsertBeanHelper implements InsertCodeGenerator {
 
@@ -59,8 +64,17 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("// log\n");
 			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"));\n", Logger.class, StringUtils.class, sqlInsert);
 		}
+		
+		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
+		String conflictString1 = "";
+		String conflictString2 = "";
 
-		methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
+		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
+			conflictString1 = "WithOnConflict";
+			conflictString2 = ", SQLiteDatabase." + conflictAlgorithmType;
+			methodBuilder.addCode("// use $T conflicts algorithm\n", SQLiteDatabase.class);
+		}
+		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 
 		if (primaryKey != null) {
 			if (primaryKey.isPublicField()) {
@@ -116,19 +130,21 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			for (SQLProperty property : listUsedProperty) {
 				bufferName.append(separator + nc.convert(property.getName()));
 				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
-				
+
 				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + nc.convert(property.getName()) + "\"))+\"'");
 
 				separator = ", ";
 			}
+			
+			ConflictAlgorithmType conflictAlgorithmType = getConflictAlgorithmType(method);
 
 			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
+			methodBuilder.addJavadoc("<pre>INSERT $LINTO $L ($L) VALUES ($L)</pre>\n\n", conflictAlgorithmType.getSql(), daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");
 
 			// generate sql query
-			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
+			sqlInsert = String.format("INSERT %sINTO %s (%s) VALUES (%s)", conflictAlgorithmType.getSql(), daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
 
 			// list of inserted fields
 			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
@@ -149,6 +165,20 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			InsertRawHelper.generateJavaDocReturnType(methodBuilder, returnType);
 		}
 		return sqlInsert;
+	}
+
+	public static ConflictAlgorithmType getConflictAlgorithmType(SQLiteModelMethod method) {
+		ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
+
+		String value=annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_INSERT_CONFLICT_ALGORITHM_TYPE);
+		
+		if (value!=null && value.indexOf(".")>-1)
+		{
+			value=value.substring(value.lastIndexOf(".")+1);
+		}
+		ConflictAlgorithmType conflictAlgorithmType = ConflictAlgorithmType.valueOf(value);
+
+		return conflictAlgorithmType;
 	}
 
 }

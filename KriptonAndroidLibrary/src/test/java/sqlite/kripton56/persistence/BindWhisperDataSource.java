@@ -69,7 +69,6 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (transaction!=null) transaction.onError(e);
-      throw(new KriptonRuntimeException(e));
     } finally {
       connection.endTransaction();
       close();
@@ -140,7 +139,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   public abstract static class SimpleTransaction implements Transaction {
     @Override
     public void onError(Throwable e) {
-      // for default, do nothing
+      throw(new KriptonRuntimeException(e));
     }
   }
 }

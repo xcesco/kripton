@@ -19,8 +19,10 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -68,9 +70,10 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}
 			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
 			// it does not need to be converted in string
-			
+
 			SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(item.value1), item.value0);
-			//SQLTransformer.java2ContentValues(methodBuilder, item.value1, item.value0);
+			// SQLTransformer.java2ContentValues(methodBuilder, item.value1,
+			// item.value0);
 			methodBuilder.addCode(");\n");
 			if (nullable) {
 				methodBuilder.nextControlFlow("else");
@@ -85,17 +88,27 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"));\n", Logger.class, StringUtils.class, sqlInsert);
 		}
 
+		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
+		String conflictString1 = "";
+		String conflictString2 = "";
+				
+		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
+			conflictString1 = "WithOnConflict";
+			conflictString2 = ", SQLiteDatabase." + conflictAlgorithmType;
+			methodBuilder.addCode("// use $T conflicts algorithm\n", SQLiteDatabase.class);
+		}
+
 		// define return value
 		if (returnType == TypeName.VOID) {
-			methodBuilder.addCode("database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
+			methodBuilder.addCode("database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
-			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
+			methodBuilder.addCode("long result = database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 			methodBuilder.addCode("return result!=-1;\n");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
-			methodBuilder.addCode("long result = database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
+			methodBuilder.addCode("long result = database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 			methodBuilder.addCode("return result;\n");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
-			methodBuilder.addCode("int result = (int)database().insert($S, null, contentValues);\n", daoDefinition.getEntity().getTableName());
+			methodBuilder.addCode("int result = (int)database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 			methodBuilder.addCode("return result;\n");
 		} else {
 			// more than one listener found
@@ -112,7 +125,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 * @return string sql
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
-		SQLDaoDefinition daoDefinition = method.getParent();		
+		SQLDaoDefinition daoDefinition = method.getParent();
 		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
 
 		String sqlInsert;
@@ -134,29 +147,32 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				}
 			}
 
+			ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
+
 			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT INTO $L ($L) VALUES ($L)</pre>\n", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
+			methodBuilder.addJavadoc("<pre>INSERT $LINTO $L ($L) VALUES ($L)</pre>\n", conflictAlgorithmType.getSql(), daoDefinition.getEntity().getTableName(), bufferName.toString(),
+					bufferValue.toString());
 			methodBuilder.addJavadoc("\n");
-			
+
 			// list of inserted fields
 			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeMirror> property : method.getParameters()) {
-				String resolvedName=method.findParameterAliasByName(property.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>",nc.convert(resolvedName));
-				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n","${"+resolvedName+"}", property.value0);				
+				String resolvedName = method.findParameterAliasByName(property.value0);
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", nc.convert(resolvedName));
+				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 
-			{								
+			{
 				for (Pair<String, TypeMirror> param : method.getParameters()) {
 					methodBuilder.addJavadoc("@param $L\n", param.value0);
 					methodBuilder.addJavadoc("\tis binded to column <strong>$L</strong>\n", nc.convert(method.findParameterAliasByName(param.value0)));
-				}				
+				}
 			}
 
 			// generate sql query
-			sqlInsert = String.format("INSERT INTO %s (%s) VALUES (%s)", daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
+			sqlInsert = String.format("INSERT %sINTO %s (%s) VALUES (%s)", conflictAlgorithmType.getSql(), daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
 
 			generateJavaDocReturnType(methodBuilder, returnType);
 		}

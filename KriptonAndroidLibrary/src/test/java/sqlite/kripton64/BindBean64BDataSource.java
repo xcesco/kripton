@@ -68,7 +68,6 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (transaction!=null) transaction.onError(e);
-      throw(new KriptonRuntimeException(e));
     } finally {
       connection.endTransaction();
       close();
@@ -139,7 +138,7 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   public abstract static class SimpleTransaction implements Transaction {
     @Override
     public void onError(Throwable e) {
-      // for default, do nothing
+      throw(new KriptonRuntimeException(e));
     }
   }
 }
