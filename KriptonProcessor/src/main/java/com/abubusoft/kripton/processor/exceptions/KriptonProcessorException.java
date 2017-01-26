@@ -24,7 +24,7 @@ import com.abubusoft.kripton.processor.BaseProcessor;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public abstract class KriptonProcessorException extends RuntimeException {
+public class KriptonProcessorException extends RuntimeException {
 
 	private static final long serialVersionUID = 2217746400887102609L;
 

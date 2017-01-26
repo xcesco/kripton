@@ -1,4 +1,4 @@
-package sqlite.indexes;
+package sqlite.dynamic;
 
 import java.util.Date;
 import java.util.List;
@@ -8,8 +8,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlWhere;
-import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+
+import sqlite.dynamic.Person;
 
 @BindDao(Person.class)
 public interface PersonDAO {

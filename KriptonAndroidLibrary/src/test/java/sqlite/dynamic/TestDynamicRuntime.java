@@ -13,23 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.indexes;
+package sqlite.dynamic;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
-import sqlite.AbstractBindSQLiteProcessorTest;
+import base.BaseAndroidTest;
 
-@RunWith(JUnit4.class)
-public class IndexTest extends AbstractBindSQLiteProcessorTest {
+/**
+ * @author Francesco Benincasa (abubusoft@gmail.com)
+ *
+ */
+public class TestDynamicRuntime extends BaseAndroidTest {
 
-	/**
-	 * No @BindType is put in bean definition
-	 * @throws Throwable 
-	 */
 	@Test
-	public void test01() throws Throwable {
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
+	public void testRunSqlite1() {	
+		BindPersonDataSource dataSource=BindPersonDataSource.instance();
+		
+		dataSource.open();
+		
+		dataSource.getPersonDAO().selectOne("and name like 'r%'", null);
+		
+		dataSource.close();
 	}
+
 }

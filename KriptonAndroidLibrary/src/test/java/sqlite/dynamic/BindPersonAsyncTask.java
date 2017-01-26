@@ -1,4 +1,4 @@
-package sqlite.indexes;
+package sqlite.dynamic;
 
 import android.os.AsyncTask;
 import com.abubusoft.kripton.android.Logger;

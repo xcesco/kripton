@@ -2,8 +2,8 @@ package com.abubusoft.kripton.processor.core;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 /**
@@ -34,7 +34,7 @@ public abstract class AssertKripton {
 	 */
 	public static void assertTrue(boolean expression, String messageFormat, Object... args) {
 		if (!expression)
-			throw (new KriptonRuntimeException(String.format(messageFormat, args)));
+			throw (new KriptonProcessorException(String.format(messageFormat, args)));
 
 	}
 

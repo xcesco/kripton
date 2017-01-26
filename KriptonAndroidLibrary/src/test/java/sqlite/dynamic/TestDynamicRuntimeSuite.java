@@ -13,27 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.indexes;
+package sqlite.dynamic;
 
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import base.BaseAndroidTest;
-
-/**
- * @author Francesco Benincasa (abubusoft@gmail.com)
- *
- */
-public class TestIndexesRuntime extends BaseAndroidTest {
-
-	@Test
-	public void testRunSqlite1() {	
-		BindPersonDataSource dataSource=BindPersonDataSource.instance();
-		
-		dataSource.open();
-		
-		dataSource.getPersonDAO().selectOne("and name like 'r%'", null);
-		
-		dataSource.close();
-	}
-
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestDynamicRuntime.class		
+		 })
+//@formatter:on
+public class TestDynamicRuntimeSuite  {
+	
 }

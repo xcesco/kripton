@@ -1,4 +1,4 @@
-package sqlite.indexes;
+package sqlite.dynamic;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -12,15 +12,15 @@ import java.util.List;
 
 /**
  * <p>
- * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDAO</code>
+ * DAO implementation for entity <code>Person</code>, based on interface <code>PersonUpdateDAO</code>
  * </p>
  *
  *  @see Person
- *  @see PersonDAO
+ *  @see PersonUpdateDAO
  *  @see PersonTable
  */
-public class PersonDAOImpl extends AbstractDao implements PersonDAO {
-  public PersonDAOImpl(BindPersonDataSource dataSet) {
+public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO {
+  public PersonUpdateDAOImpl(BindPersonUpdateDataSource dataSet) {
     super(dataSet);
   }
 
@@ -84,7 +84,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || \'%\' "+StringUtils.format(name)+"</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || \'%\'</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -102,20 +102,18 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>${nameTemp}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
    * </dl>
    *
-   * @param name
-   * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param nameValue
    * 	is binded to <code>${nameTemp}</code>
    *
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectOne(String name, String nameValue) {
+  public List<Person> selectOne(String nameValue) {
     // build where condition
-    String[] args={(nameValue==null?null:nameValue)};
+    String[] args={(nameValue==null?"":nameValue)};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' "+StringUtils.formatForLog(name)+""),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\' "+StringUtils.format(name)+"", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\'"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Person> resultList=new LinkedList<Person>();
@@ -145,5 +143,29 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     cursor.close();
 
     return resultList;
+  }
+
+  /**
+   * <p>SQL update:</p>
+   * <pre>UPDATE person SET  WHERE 1=1</pre>
+   *
+   * <p><strong>Updated columns:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   * <p><strong>Where parameters:</strong></p>
+   * <dl>
+   * </dl>
+   *
+   */
+  @Override
+  public void update() {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    String[] whereConditions={};
+
+    Logger.info(StringUtils.formatSQL("UPDATE person SET  WHERE 1=1"), (Object[])whereConditions);
+    int result = database().update("person", contentValues, "1=1", whereConditions);
   }
 }

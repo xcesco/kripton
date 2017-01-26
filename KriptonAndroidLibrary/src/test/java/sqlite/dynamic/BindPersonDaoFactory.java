@@ -1,4 +1,4 @@
-package sqlite.indexes;
+package sqlite.dynamic;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 

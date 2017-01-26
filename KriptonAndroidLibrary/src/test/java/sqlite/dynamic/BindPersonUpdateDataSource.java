@@ -1,4 +1,4 @@
-package sqlite.indexes;
+package sqlite.dynamic;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,21 +12,21 @@ import java.lang.Throwable;
 
 /**
  * <p>
- * Represents implementation of datasource PersonDataSource.
+ * Represents implementation of datasource PersonUpdateDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see PersonDataSource
- * @see BindPersonDaoFactory
- * @see PersonDAO
- * @see PersonDAOImpl
+ * @see PersonUpdateDataSource
+ * @see BindPersonUpdateDaoFactory
+ * @see PersonUpdateDAO
+ * @see PersonUpdateDAOImpl
  * @see Person
  */
-public class BindPersonDataSource extends AbstractDataSource implements BindPersonDaoFactory, PersonDataSource {
+public class BindPersonUpdateDataSource extends AbstractDataSource implements BindPersonUpdateDaoFactory, PersonUpdateDataSource {
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindPersonDataSource instance;
+  private static BindPersonUpdateDataSource instance;
 
   /**
    * <p><file name used to save database,/p>
@@ -41,15 +41,15 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * <p>dao instance</p>
    */
-  protected PersonDAOImpl personDAO = new PersonDAOImpl(this);
+  protected PersonUpdateDAOImpl personUpdateDAO = new PersonUpdateDAOImpl(this);
 
-  protected BindPersonDataSource(Context context) {
+  protected BindPersonUpdateDataSource(Context context) {
     super(context, name, null, version);
   }
 
   @Override
-  public PersonDAOImpl getPersonDAO() {
-    return personDAO;
+  public PersonUpdateDAOImpl getPersonUpdateDAO() {
+    return personUpdateDAO;
   }
 
   /**
@@ -77,9 +77,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * instance
    */
-  public static synchronized BindPersonDataSource instance() {
+  public static synchronized BindPersonUpdateDataSource instance() {
     if (instance==null) {
-      instance=new BindPersonDataSource(KriptonLibrary.context());
+      instance=new BindPersonUpdateDataSource(KriptonLibrary.context());
     }
     return instance;
   }
@@ -129,7 +129,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindPersonDaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindPersonUpdateDaoFactory> {
   }
 
   /**

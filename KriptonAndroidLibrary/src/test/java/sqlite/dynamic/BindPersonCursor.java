@@ -1,4 +1,4 @@
-package sqlite.indexes;
+package sqlite.dynamic;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.common.DateUtils;

@@ -332,7 +332,7 @@ public abstract class MethodUtility {
 				// code for query arguments
 				nullable = TypeUtility.isNullable(paramName);			
 				if (nullable) {
-					methodBuilder.addCode("($L==null?null:", item);
+					methodBuilder.addCode("($L==null?\"\":", item);
 				}				
 							
 				// check for string conversion

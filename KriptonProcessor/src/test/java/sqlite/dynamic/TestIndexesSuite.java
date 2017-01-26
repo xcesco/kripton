@@ -1,4 +1,4 @@
-package sqlite.indexes;
+package sqlite.dynamic;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -9,7 +9,8 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		IndexTest.class
+		SelectTest.class,
+		UpdateTest.class
 		 })
 //@formatter:on
 public class TestIndexesSuite extends BaseProcessorTest {

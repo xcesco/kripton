@@ -79,7 +79,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		}
 
 		// looks for dynamic where conditions
-		findDynamicStatement(parent, element, BindSqlWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
+		findDynamicStatement(parent, BindSqlWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
 
 			@Override
 			public void onFoundParameter(String parameterName) {
@@ -89,7 +89,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		});
 
 		// looks for dynamic orderBy conditions
-		findDynamicStatement(parent, element, BindSqlOrderBy.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
+		findDynamicStatement(parent, BindSqlOrderBy.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
 
 			@Override
 			public void onFoundParameter(String parameterName) {
@@ -124,7 +124,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @param parent
 	 * @param element
 	 */
-	private <A extends Annotation> void findDynamicStatement(SQLDaoDefinition parent, ExecutableElement element, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
+	private <A extends Annotation> void findDynamicStatement(SQLDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
 							
 		int counter = 0;
@@ -133,19 +133,16 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (annotation != null) {
 				// Dynamic queries can not be used in Inser SQL.
 				for (Class<? extends Annotation> item : unsupportedQueryType) {
-					AssertKripton.assertTrue(element.getAnnotation(item) == null, "In DAO definition '%s', in method '%s' it is not allowed to mark parameters with @%s annotation.", parent.getName(),
-							element.getSimpleName().toString(), annotationClazz.getSimpleName());
+					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this, "in this method is not allowed to mark parameters with @%s annotation.", annotationClazz.getSimpleName());
 				}
 				
-				AssertKripton.assertTrue(TypeUtility.isString(TypeUtility.typeName(p)), "In DAO definition '%s', in method '%s' only String parameters can be marked with @%s annotation.", parent.getName(),
-						element.getSimpleName().toString(), annotationClazz.getSimpleName());
+				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isString(TypeUtility.typeName(p)), this, "only String parameters can be marked with @%s annotation.", annotationClazz.getSimpleName());
 				
 				listener.onFoundParameter(p.getSimpleName().toString());
 				counter++;
 			}
 		}
-		AssertKripton.assertTrue(counter < 2, "In dao '%s' method '%s' has %s parameters marked with @%s. Only one is allowed.", parent.getName(), element.getSimpleName().toString(),
-				annotationClazz.getSimpleName());
+		AssertKripton.assertTrueOrInvalidMethodSignException(counter < 2, this, "there are %s parameters marked with @%s. Only one is allowed.", counter, annotationClazz.getSimpleName());
 	}
 
 	/**
