@@ -143,7 +143,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || \'%\'"+StringUtils.appendForSQL(name)+"</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || \'%\'"+StringUtils.appendForSQL(name)+" ORDER BY "+StringUtils.appendForSQL(orderBy)+"</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -165,17 +165,19 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param nameValue
    * 	is binded to <code>${nameTemp}</code>
+   * @param orderBy
+   * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    *
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectOne(String name, String nameValue) {
+  public List<Person> selectOne(String name, String nameValue, String orderBy) {
     // build where condition
     String[] args={(nameValue==null?"":nameValue)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\'"+StringUtils.appendForLog(name)+""),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'"+StringUtils.appendForSQL(name)+"", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\'"+StringUtils.appendForLog(name)+" ORDER BY "+StringUtils.appendForLog(orderBy)+""),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'"+StringUtils.appendForSQL(name)+" ORDER BY "+StringUtils.appendForSQL(orderBy)+"", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Person> resultList=new LinkedList<Person>();

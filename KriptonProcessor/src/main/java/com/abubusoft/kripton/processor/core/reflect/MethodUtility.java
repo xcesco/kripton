@@ -352,10 +352,11 @@ public abstract class MethodUtility {
 			}
 			methodBuilder.addCode("};\n");
 		}
+			
 
 		methodBuilder.addCode("\n");
-
-		methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
+		methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);			
+		
 		if (daoDefinition.isLogEnabled()) {
 			methodBuilder.addStatement("$T.info($T.formatSQL(\"$L\"),(Object[])args)", Logger.class, StringUtils.class, sqlForLog.replaceAll("\\%", "\\%\\%").replaceAll("\\?", "\'%s\'"));
 		} 

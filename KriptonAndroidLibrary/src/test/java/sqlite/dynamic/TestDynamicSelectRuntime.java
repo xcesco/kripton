@@ -15,6 +15,11 @@
  *******************************************************************************/
 package sqlite.dynamic;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.Date;
+import java.util.List;
+
 import org.junit.Test;
 
 import base.BaseAndroidTest;
@@ -30,8 +35,22 @@ public class TestDynamicSelectRuntime extends BaseAndroidTest {
 	public void testRunSqlite1() {	
 		BindPersonDataSource dataSource=BindPersonDataSource.instance();
 		
-		dataSource.open();	
-		dataSource.getPersonDAO().selectOne("and name like 'r%'", null);
+		dataSource.open();
+		
+		for (int i=0;i<10;i++)
+		{
+			dataSource.getPersonDAO().insertOne("name"+i, "surname"+i, "city"+i, new Date());
+		}
+		
+		{
+			List<Person> list=dataSource.getPersonDAO().selectOne(" and 1=1", "name", "name asc");
+			assertTrue(list.get(0).name.equals("name0"));
+		}
+		
+		{
+			List<Person> list=dataSource.getPersonDAO().selectOne(" and 1=1", "name", "name desc");
+			assertTrue(list.get(0).name.equals("name9"));
+		}
 		dataSource.close();
 	}
 

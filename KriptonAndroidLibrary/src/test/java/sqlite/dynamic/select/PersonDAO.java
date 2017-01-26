@@ -23,7 +23,7 @@ public interface PersonDAO {
 	List<Person> selectAll();
 	
 	@BindSqlSelect(where="name like ${nameTemp} || '%'")
-	List<Person> selectOne(@BindSqlWhere String name, @BindSqlParam("nameTemp") String nameValue);
+	List<Person> selectOne(@BindSqlWhere String name, @BindSqlParam("nameTemp") String nameValue, @BindSqlOrderBy String orderBy);
 	
 	@BindSqlSelect(orderBy="name")
 	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlOrderBy String orderBy);

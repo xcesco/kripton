@@ -123,12 +123,13 @@ public abstract class JavadocUtility {
 			break;
 		case LIST_SCALAR:
 			methodBuilder.addJavadoc("\n@return collection of single value extracted with query.\n");
-			break;
-		case LISTENER_BEAN:
-		case LISTENER_CURSOR:
-			break;
+			break;		
 		case SCALAR:
 			methodBuilder.addJavadoc("\n@return single value extracted with query.\n");
+			break;
+		default:
+		//case LISTENER_BEAN:
+		//case LISTENER_CURSOR:
 			break;
 		}
 	}
