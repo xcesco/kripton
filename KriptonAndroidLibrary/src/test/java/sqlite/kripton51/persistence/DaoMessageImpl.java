@@ -60,6 +60,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // build where condition
     String[] args={String.valueOf(channelId)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -288,6 +289,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // build where condition
     String[] args={(uid==null?"":uid)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());

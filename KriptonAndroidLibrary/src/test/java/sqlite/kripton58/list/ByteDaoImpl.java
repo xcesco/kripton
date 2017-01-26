@@ -56,6 +56,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // build where condition
     String[] args={};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -109,6 +110,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // build where condition
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -162,6 +164,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // build where condition
     String[] args={(value==null?"":new String(serializer2(value),StandardCharsets.UTF_8))};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -225,6 +228,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // build where condition
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -273,6 +277,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // build where condition
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());

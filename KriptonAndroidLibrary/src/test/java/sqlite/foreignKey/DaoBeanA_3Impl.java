@@ -42,6 +42,7 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
     // build where condition
     String[] args={};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_3", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -97,6 +98,7 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
     // build where condition
     String[] args={String.valueOf(id)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3 WHERE id='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_3 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -151,6 +153,7 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
     // build where condition
     String[] args={(value==null?"":value)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id FROM bean_a_3 WHERE value_string2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id FROM bean_a_3 WHERE value_string2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());

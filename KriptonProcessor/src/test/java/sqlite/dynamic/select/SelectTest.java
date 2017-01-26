@@ -97,4 +97,64 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 		this.expectedException(InvalidMethodSignException.class);
 		buildDataSourceProcessorTest(Err6DataSource.class, Err6DAO.class, Person.class);
 	}
+	
+	/**
+	 * Use <code>BindSqlOrderBy</code> in insert method
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr11() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err11DataSource.class, Err11DAO.class, Person.class);
+	}
+	
+	/**
+	 * Use <code>BindSqlOrderBy</code> in twice in SELECT
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr12() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err12DataSource.class, Err12DAO.class, Person.class);
+	}
+	
+	/**
+	 * Use <code>BindSqlOrderBy</code> with no String parameter
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr13() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err13DataSource.class, Err13DAO.class, Person.class);
+	}
+	
+	/**
+	 * Use <code>BindSqlOrderBy</code> with no String parameter
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr14() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err14DataSource.class, Err14DAO.class, Person.class);
+	}
+	
+	/**
+	 * Use <code>BindSqlOrderBy</code> in insert method
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr15() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err15DataSource.class, Err15DAO.class, Person.class);
+	}
+	
+	/**
+	 * Use <code>BindSqlOrderBy</code> in twice in SELECT
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr16() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err16DataSource.class, Err16DAO.class, Person.class);
+	}
 }

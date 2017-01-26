@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.Date;
@@ -85,6 +86,63 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    * <p>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * </dl>
+   *
+   *
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public List<Person> selectAll() {
+    // build where condition
+    String[] args={};
+
+    //StringUtils will be used in case of dynamic parts of SQL
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    LinkedList<Person> resultList=new LinkedList<Person>();
+    Person resultBean=null;
+
+    if (cursor.moveToFirst()) {
+
+      int index0=cursor.getColumnIndex("id");
+      int index1=cursor.getColumnIndex("name");
+      int index2=cursor.getColumnIndex("surname");
+      int index3=cursor.getColumnIndex("birth_city");
+      int index4=cursor.getColumnIndex("birth_day");
+
+      do
+       {
+        resultBean=new Person();
+
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+        if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+
+        resultList.add(resultBean);
+      } while (cursor.moveToNext());
+    }
+    cursor.close();
+
+    return resultList;
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   * <p>
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || \'%\'"+StringUtils.appendForSQL(name)+"</pre>
    *
    * <h2>Projected columns:</h2>
@@ -115,6 +173,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={(nameValue==null?"":nameValue)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\'"+StringUtils.appendForLog(name)+""),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'"+StringUtils.appendForSQL(name)+"", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -146,5 +205,71 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     cursor.close();
 
     return resultList;
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   * <p>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name "+StringUtils.appendForSQL(orderBy)+"</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <p>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * </dl>
+   *
+   * @param beanListener
+   * 	is the Person listener
+   * @param orderBy
+   * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
+   */
+  @Override
+  public void selectBeanListener(OnReadBeanListener<Person> beanListener, String orderBy) {
+    // build where condition
+    String[] args={};
+
+    //StringUtils will be used in case of dynamic parts of SQL
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name "+StringUtils.appendForLog(orderBy)+""),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name "+StringUtils.appendForSQL(orderBy)+"", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+    Person resultBean=new Person();
+    try {
+      if (cursor.moveToFirst()) {
+
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("surname");
+        int index3=cursor.getColumnIndex("birth_city");
+        int index4=cursor.getColumnIndex("birth_day");
+
+        int rowCount=cursor.getCount();
+        do
+         {
+          // reset mapping
+          resultBean.id=0L;
+          resultBean.name=null;
+          resultBean.surname=null;
+          resultBean.birthCity=null;
+          resultBean.birthDay=null;
+
+          // generate mapping
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+
+          beanListener.onRead(resultBean, cursor.getPosition(), rowCount);
+        } while (cursor.moveToNext());
+      }
+    } finally {
+      if (!cursor.isClosed()) {
+        cursor.close();
+      }
+    }
   }
 }

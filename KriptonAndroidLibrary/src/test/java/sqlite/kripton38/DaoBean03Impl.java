@@ -47,6 +47,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
     // build where condition
     String[] args={String.valueOf(id)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean03 WHERE id='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean03 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());

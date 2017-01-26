@@ -7,16 +7,16 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.annotation.BindSqlWhere;
 
 import sqlite.dynamic.Person;
 
 @BindDao(Person.class)
-public interface Err6DAO {
+public interface Err12DAO {
 	
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity);
 	
 	@BindSqlSelect(where="name like ${nameTemp} || '%' ")
-	List<Person> selectOne(@BindSqlWhere String name, @BindSqlWhere String name2, @BindSqlParam("nameTemp") String nameValue);
+	List<Person> selectOne(@BindSqlOrderBy String name, @BindSqlOrderBy String name2, @BindSqlParam("nameTemp") String nameValue);
+	
 }

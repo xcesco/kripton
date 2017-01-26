@@ -23,20 +23,6 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.dynamic.Person;
-import sqlite.dynamic.select.Err1DAO;
-import sqlite.dynamic.select.Err1DataSource;
-import sqlite.dynamic.select.Err2DAO;
-import sqlite.dynamic.select.Err2DataSource;
-import sqlite.dynamic.select.Err3DAO;
-import sqlite.dynamic.select.Err3DataSource;
-import sqlite.dynamic.select.Err4DAO;
-import sqlite.dynamic.select.Err4DataSource;
-import sqlite.dynamic.select.Err5DAO;
-import sqlite.dynamic.select.Err5DataSource;
-import sqlite.dynamic.select.Err6DAO;
-import sqlite.dynamic.select.Err6DataSource;
-import sqlite.dynamic.select.PersonDAO;
-import sqlite.dynamic.select.PersonDataSource;
 
 @RunWith(JUnit4.class)
 public class UpdateTest extends AbstractBindSQLiteProcessorTest {

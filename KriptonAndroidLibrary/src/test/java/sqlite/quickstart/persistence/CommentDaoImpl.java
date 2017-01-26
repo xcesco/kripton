@@ -107,6 +107,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     // build where condition
     String[] args={String.valueOf(postId)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE post_id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE post_id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -171,6 +172,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     // build where condition
     String[] args={String.valueOf(postId)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());

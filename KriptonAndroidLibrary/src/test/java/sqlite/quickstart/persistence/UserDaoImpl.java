@@ -128,6 +128,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // build where condition
     String[] args={};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -201,6 +202,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // build where condition
     String[] args={String.valueOf(id)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());

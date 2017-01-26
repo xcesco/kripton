@@ -104,7 +104,7 @@ public abstract class JavadocUtility {
 				methodBuilder.addJavadoc("\tis the cursor listener\n", beanTypeName);
 			} else if (item.value0.equals(method.dynamicWhereParameterName)) {
 					methodBuilder.addJavadoc("\tis used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);
-			} else if (item.value0.equals(method.dynamicWhereParameterName)) {
+			} else if (item.value0.equals(method.dynamicOrderByParameterName)) {
 					methodBuilder.addJavadoc("\tis used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);			
 			} else {
 				methodBuilder.addJavadoc("\tis binded to <code>$L</code>\n", "${" + method.findParameterAliasByName(item.value0) + "}");

@@ -95,6 +95,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // build where condition
     String[] args={String.valueOf(userId)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE user_id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE user_id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -156,6 +157,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // build where condition
     String[] args={String.valueOf(userId)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());

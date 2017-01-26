@@ -63,6 +63,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // build where condition
     String[] args={String.valueOf(param1)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE id = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -113,6 +114,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // build where condition
     String[] args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8))};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());

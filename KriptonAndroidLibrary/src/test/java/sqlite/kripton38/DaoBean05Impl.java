@@ -67,6 +67,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(id==null?"":String.valueOf(id))};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -130,6 +131,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={String.valueOf(bean.getPk()), (bean.getText()==null?"":bean.getText())};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s' and prova='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and prova=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -192,6 +194,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={String.valueOf(id)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -254,6 +257,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(text==null?"":text)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT pk FROM ws_bean WHERE text = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk FROM ws_bean WHERE text = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -308,6 +312,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(text==null?"":text)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT count(*) FROM ws_bean WHERE text = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT count(*) FROM ws_bean WHERE text = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -359,6 +364,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(id==null?"":String.valueOf(id))};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -410,6 +416,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(id==null?"":String.valueOf(id))};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -485,6 +492,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={(id==null?"":String.valueOf(id))};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -536,6 +544,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={String.valueOf(id)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
@@ -927,6 +936,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // build where condition
     String[] args={String.valueOf(id)};
 
+    //StringUtils will be used in case of dynamic parts of SQL
     Logger.info(StringUtils.formatSQL("SELECT content FROM ws_bean WHERE pk='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT content FROM ws_bean WHERE pk=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
