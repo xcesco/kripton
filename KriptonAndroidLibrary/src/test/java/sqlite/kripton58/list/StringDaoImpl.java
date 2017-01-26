@@ -38,7 +38,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value, value2 FROM string_bean WHERE 1=1</pre>
+   * <pre>SELECT id, value, value2 FROM string_bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -56,8 +56,8 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM string_bean"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     StringBean resultBean=null;
@@ -100,14 +100,14 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
    * </dl>
    *
    * @param value
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    *
    * @return selected bean or <code>null</code>.
    */
   @Override
   public StringBean selectOne(List<String> value) {
     // build where condition
-    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", args);
@@ -153,14 +153,14 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
    * </dl>
    *
    * @param value
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    * @param listener
    * 	is the StringBean listener
    */
   @Override
   public void selectOne(List<String> value, OnReadBeanListener<StringBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", args);
@@ -216,14 +216,14 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
    * </dl>
    *
    * @param value
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    * @param listener
    * 	is the cursor listener
    */
   @Override
   public void selectOne(List<String> value, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", args);
@@ -264,14 +264,14 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
    * </dl>
    *
    * @param value
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    *
    * @return collection of bean or empty collection.
    */
   @Override
   public List<StringBean> selectList(List<String> value) {
     // build where condition
-    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", args);
@@ -336,10 +336,10 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
       contentValues.putNull("value");
     }
 
-    String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={String.valueOf(id), (paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE string_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditions);
-    int result = database().update("string_bean", contentValues, "id=? and value=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE string_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditionsArray);
+    int result = database().update("string_bean", contentValues, "id=? and value=?", whereConditionsArray);
     return result!=0;
   }
 
@@ -437,10 +437,10 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
    */
   @Override
   public long delete(List<String> paramValue) {
-    String[] whereConditions={(paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={(paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE string_bean WHERE value=%s"), (Object[])whereConditions);
-    int result = database().delete("string_bean", "value=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE string_bean WHERE value=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("string_bean", "value=?", whereConditionsArray);
     return result;
   }
 

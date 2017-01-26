@@ -98,7 +98,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    * </dl>
    *
    * @param postId
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    *
    * @return collection of bean or empty collection.
    */
@@ -162,7 +162,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    * </dl>
    *
    * @param postId
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    *
    * @return selected bean or <code>null</code>.
    */

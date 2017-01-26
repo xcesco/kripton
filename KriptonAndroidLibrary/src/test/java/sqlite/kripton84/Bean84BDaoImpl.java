@@ -54,7 +54,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    * </dl>
    *
    * @param param1
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    *
    * @return selected bean or <code>null</code>.
    */
@@ -104,14 +104,14 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    * </dl>
    *
    * @param param1
-   * 	is binded to ${param1}
+   * 	is binded to <code>${param1}</code>
    *
    * @return selected bean or <code>null</code>.
    */
   @Override
   public Bean84B selectByBean(Bean84B2 param1) {
     // build where condition
-    String[] args={(param1==null?null:new String(serializer1(param1),StandardCharsets.UTF_8))};
+    String[] args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?", args);
@@ -194,10 +194,10 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       contentValues.putNull("column_bean");
     }
 
-    String[] whereConditions={};
+    String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean84_b SET column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"' WHERE 1=1"), (Object[])whereConditions);
-    int result = database().update("bean84_b", contentValues, "1=1", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean84_b SET column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"' WHERE 1=1"), (Object[]) whereConditionsArray);
+    int result = database().update("bean84_b", contentValues, "1=1", whereConditionsArray);
     return result!=0;
   }
 
@@ -211,10 +211,10 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public boolean deleteAll(Bean84B bean) {
-    String[] whereConditions={};
+    String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("1=1"), (Object[])whereConditions);
-    int result = database().delete("bean84_b", "1=1", whereConditions);
+    Logger.info(StringUtils.formatSQL("1=1"), (Object[]) whereConditionsArray);
+    int result = database().delete("bean84_b", "1=1", whereConditionsArray);
     return result!=0;
   }
 

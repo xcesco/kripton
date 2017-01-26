@@ -40,14 +40,14 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
    * </dl>
    *
    * @param name
-   * 	is binded to ${name}
+   * 	is binded to <code>${name}</code>
    *
    * @return selected bean or <code>null</code>.
    */
   @Override
   public Bean96 selectByBean(String name) {
     // build where condition
-    String[] args={(name==null?null:name)};
+    String[] args={(name==null?"":name)};
 
     Logger.info(StringUtils.formatSQL("SELECT id, name, surname FROM bean96 WHERE name like '%s' || \'%%\'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean96 WHERE name like ? || \'%\'", args);

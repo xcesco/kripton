@@ -26,6 +26,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -103,6 +104,12 @@ public abstract class SqlModifyBuilder {
 		// check type of arguments
 		int count = 0;
 		for (Pair<String, TypeMirror> param : method.getParameters()) {
+			if (method.hasDynamicWhereConditions() && param.value0.equals(method.dynamicWhereParameterName))
+			{
+				// if current parameter is dynamic where, skip it
+				continue;
+			}
+			
 			if (TypeUtility.isEquals(typeName(param.value1), typeName(entity.getElement()))) {
 				count++;
 			}
@@ -117,33 +124,24 @@ public abstract class SqlModifyBuilder {
 			if (updateMode)
 			{
 				annotation= method.getAnnotation(BindSqlUpdate.class);
-				
-				if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE).size()>0) {
-					throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_VALUE.getValue() + " in this kind of query definition"));
-				}
-				
-				if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS).size()>0) {
-					throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS.getValue() + " in this kind of query definition"));
-				}
-				
+								
+				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE).size()==0, method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.ATTRIBUTE_VALUE.getValue());								
+				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS).size()==0,method," can not use attribute %s in this kind of query definition", AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS.getValue());
+								
 			} else {
 				annotation= method.getAnnotation(BindSqlDelete.class);
 			}
 			
 			// check if there is only one parameter
-			if (method.getParameters().size() > 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName())) {
-				throw (new InvalidMethodSignException(method));
-			}
+			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() > 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName()), method);				
 			
 
 		} else if (count == 1) {
 			updateResultType = updateMode ? ModifyType.UPDATE_BEAN : ModifyType.DELETE_BEAN;
 			
-			if (method.getParameters().size()>1)
-			{
-				throw (new InvalidMethodSignException(method, " expected only one parameter of "+daoDefinition.getEntityClassName()+" type"));
-			}
-		} else {
+			// with dynamic where conditions, we have to add 1 to parameter check size (one parameter is a bean and one is the where conditions)
+			AssertKripton.assertTrueOrInvalidMethodSignException(method.getParameters().size()==1+(method.hasDynamicWhereConditions() ? 1:0), method, " expected only one parameter of %s type", daoDefinition.getEntityClassName());			
+		} else {			
 			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));
 		}
 

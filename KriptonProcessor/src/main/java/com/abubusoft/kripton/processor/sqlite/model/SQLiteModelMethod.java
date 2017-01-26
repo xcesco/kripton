@@ -213,5 +213,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public boolean hasDynamicWhereConditions() {
 		return StringUtils.hasText(dynamicWhereParameterName);
 	}
+	
+	public boolean isThisDynamicWhereConditionsName(String parameterName) {
+		return StringUtils.hasText(dynamicWhereParameterName) && parameterName.equals(dynamicWhereParameterName);
+	}
 
 }

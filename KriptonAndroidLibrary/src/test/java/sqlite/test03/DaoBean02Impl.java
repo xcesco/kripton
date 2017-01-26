@@ -122,10 +122,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
    */
   @Override
   public long delete(long id) {
-    String[] whereConditions={String.valueOf(id)};
+    String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditions);
-    int result = database().delete("bean01", "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("bean01", "id=?", whereConditionsArray);
     return result;
   }
 
@@ -145,10 +145,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
    */
   @Override
   public long delete(Bean01 bean) {
-    String[] whereConditions={String.valueOf(bean.getId())};
+    String[] whereConditionsArray={String.valueOf(bean.getId())};
 
-    Logger.info(StringUtils.formatSQL("id=%s"), (Object[])whereConditions);
-    int result = database().delete("bean01", "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("id=%s"), (Object[]) whereConditionsArray);
+    int result = database().delete("bean01", "id=?", whereConditionsArray);
     return result;
   }
 
@@ -179,10 +179,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     contentValues.clear();
     contentValues.put("value", value);
 
-    String[] whereConditions={String.valueOf(id)};
+    String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id>%s"), (Object[])whereConditions);
-    int result = database().update("bean01", contentValues, "id>?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id>%s"), (Object[])whereConditionsArray);
+    int result = database().update("bean01", contentValues, "id>?", whereConditionsArray);
     return result;
   }
 
@@ -236,10 +236,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
     contentValues.put("value", bean.getValue());
 
-    String[] whereConditions={String.valueOf(bean.getValue())};
+    String[] whereConditionsArray={String.valueOf(bean.getValue())};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET lista='"+StringUtils.checkSize(contentValues.get("lista"))+"', message_date='"+StringUtils.checkSize(contentValues.get("message_date"))+"', message_text='"+StringUtils.checkSize(contentValues.get("message_text"))+"', bean_list='"+StringUtils.checkSize(contentValues.get("bean_list"))+"', value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE value='%s'"), (Object[])whereConditions);
-    int result = database().update("bean01", contentValues, "value=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET lista='"+StringUtils.checkSize(contentValues.get("lista"))+"', message_date='"+StringUtils.checkSize(contentValues.get("message_date"))+"', message_text='"+StringUtils.checkSize(contentValues.get("message_text"))+"', bean_list='"+StringUtils.checkSize(contentValues.get("bean_list"))+"', value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE value='%s'"), (Object[]) whereConditionsArray);
+    int result = database().update("bean01", contentValues, "value=?", whereConditionsArray);
     return result;
   }
 }

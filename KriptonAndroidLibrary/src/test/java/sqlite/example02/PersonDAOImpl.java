@@ -73,10 +73,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("birth_day");
     }
 
-    String[] whereConditions={(name==null?null:name)};
+    String[] whereConditionsArray={(name==null?null:name)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birthCity='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birthDay='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE name=%s"), (Object[])whereConditions);
-    int result = database().update("person", contentValues, "name=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birthCity='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birthDay='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE name=%s"), (Object[])whereConditionsArray);
+    int result = database().update("person", contentValues, "name=?", whereConditionsArray);
   }
 
   /**
@@ -131,10 +131,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("birth_day");
     }
 
-    String[] whereConditions={};
+    String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birthCity='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birthDay='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE 1=1"), (Object[])whereConditions);
-    int result = database().update("person", contentValues, "1=1", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birthCity='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birthDay='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE 1=1"), (Object[])whereConditionsArray);
+    int result = database().update("person", contentValues, "1=1", whereConditionsArray);
     return result;
   }
 
@@ -188,10 +188,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("birth_day");
     }
 
-    String[] whereConditions={String.valueOf(bean.id), (bean.name==null?null:bean.name)};
+    String[] whereConditionsArray={String.valueOf(bean.id), (bean.name==null?null:bean.name)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'"), (Object[])whereConditions);
-    int result = database().update("person", contentValues, "id=? and name=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'"), (Object[]) whereConditionsArray);
+    int result = database().update("person", contentValues, "id=? and name=?", whereConditionsArray);
   }
 
   /**
@@ -366,10 +366,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteOne(String name, String temp) {
-    String[] whereConditions={(name==null?null:name), (temp==null?null:temp)};
+    String[] whereConditionsArray={(name==null?null:name), (temp==null?null:temp)};
 
-    Logger.info(StringUtils.formatSQL("DELETE person WHERE name=%s and surname=%s"), (Object[])whereConditions);
-    int result = database().delete("person", "name=? and surname=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE person WHERE name=%s and surname=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("person", "name=? and surname=?", whereConditionsArray);
   }
 
   /**
@@ -391,10 +391,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public long deleteTwo(String name, String temp) {
-    String[] whereConditions={(name==null?null:name), (temp==null?null:temp)};
+    String[] whereConditionsArray={(name==null?null:name), (temp==null?null:temp)};
 
-    Logger.info(StringUtils.formatSQL("DELETE person WHERE name=%s and surname=%s"), (Object[])whereConditions);
-    int result = database().delete("person", "name=? and surname=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE person WHERE name=%s and surname=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("person", "name=? and surname=?", whereConditionsArray);
     return result;
   }
 
@@ -412,16 +412,16 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteThree(Person bean) {
-    String[] whereConditions={String.valueOf(bean.id)};
+    String[] whereConditionsArray={String.valueOf(bean.id)};
 
-    Logger.info(StringUtils.formatSQL("id = %s"), (Object[])whereConditions);
-    int result = database().delete("person", "id = ?", whereConditions);
+    Logger.info(StringUtils.formatSQL("id = %s"), (Object[]) whereConditionsArray);
+    int result = database().delete("person", "id = ?", whereConditionsArray);
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -441,8 +441,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Person> resultList=new LinkedList<Person>();
@@ -496,14 +496,14 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * </dl>
    *
    * @param name
-   * 	is binded to ${name}
+   * 	is binded to <code>${name}</code>
    *
    * @return collection of bean or empty collection.
    */
   @Override
   public Set<Person> selectAll(String name) {
     // build where condition
-    String[] args={(name==null?null:name)};
+    String[] args={(name==null?"":name)};
 
     Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%%%\' ORDER BY name"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name", args);
@@ -541,7 +541,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -561,8 +561,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Person resultBean=new Person();
     try {
@@ -604,7 +604,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -624,8 +624,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     try {

@@ -31,6 +31,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
@@ -79,6 +80,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		List<SQLProperty> listUsedProperty;
 		if (updateMode) {
 			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+			
+			AssertKripton.assertTrueOrInvalidMethodSignException(listUsedProperty.size()>0, method, "no column was selected for update");
+			
 			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 		} else {
 			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlDelete.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
@@ -91,16 +95,23 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		methodBuilder.addCode("\n");
 
+		String dynamicWhere="";
+		if (method.hasDynamicWhereConditions())
+		{
+			dynamicWhere="+StringUtils.appendForSQL("+method.dynamicWhereParameterName+")";
+			methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
+		}
+		
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtils.class, sqlModify);
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\")$L, (Object[]) whereConditionsArray);\n", Logger.class, StringUtils.class, sqlModify, dynamicWhere);
 			}
-			methodBuilder.addCode("int result = database().update($S, contentValues, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement());
+			methodBuilder.addCode("int result = database().update($S, contentValues, $S$L, whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement(),dynamicWhere);
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtils.class, analyzer.getSQLStatement().replaceAll("\\?", "%s"));
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\")$L, (Object[]) whereConditionsArray);\n", Logger.class, StringUtils.class, analyzer.getSQLStatement().replaceAll("\\?", "%s"), dynamicWhere);
 			}
-			methodBuilder.addCode("int result = database().delete($S, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement());
+			methodBuilder.addCode("int result = database().delete($S, $S, whereConditionsArray$L);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement(),dynamicWhere);
 		}
 
 		// define return value
@@ -122,7 +133,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		boolean nullable;
 		TypeName beanClass = typeName(entity.getElement());
 
-		methodBuilder.addCode("String[] whereConditions={");
+		methodBuilder.addCode("String[] whereConditionsArray={");
 		String separator = "";
 		for (String item : analyzer.getUsedBeanPropertyNames()) {
 			property = entity.findByName(item);
@@ -217,7 +228,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 			separator = ", ";
 		}
-
+				
 		if (updateMode) {
 			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "'%s'");
 			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), where);
@@ -238,8 +249,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			
 		} else {
 			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
-			//sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), where);
-			sqlResult = String.format("DELETE %s WHERE %s", daoDefinition.getEntity().getTableName(), where);
+			sqlResult = String.format("DELETE %s WHERE %s ", daoDefinition.getEntity().getTableName(), where);
 
 			methodBuilder.addJavadoc("<p>SQL delete:</p>\n");
 			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), whereCondition);
@@ -262,7 +272,13 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		// update bean have only one parameter: the bean to update
 		for (Pair<String, TypeMirror> param : method.getParameters()) {
 			methodBuilder.addJavadoc("@param $L", param.value0);
-			methodBuilder.addJavadoc("\n\tis used as $L\n", "${" + method.findParameterAliasByName(param.value0) + "}");
+			
+			if (method.isThisDynamicWhereConditionsName(param.value0))
+			{
+				methodBuilder.addJavadoc("\n\tis used as dynamic where conditions\n");
+			} else {			
+				methodBuilder.addJavadoc("\n\tis used as $L\n", "${" + method.findParameterAliasByName(param.value0) + "}");
+			}
 		}
 
 		return sqlResult;

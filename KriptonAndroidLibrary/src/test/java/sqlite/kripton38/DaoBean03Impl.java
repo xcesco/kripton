@@ -38,7 +38,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    *
    * @return selected bean or <code>null</code>.
    */
@@ -85,10 +85,10 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
    */
   @Override
   public long deleteOne(long id) {
-    String[] whereConditions={String.valueOf(id)};
+    String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean03 WHERE id=%s"), (Object[])whereConditions);
-    int result = database().delete("bean03", "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean03 WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("bean03", "id=?", whereConditionsArray);
     return result;
   }
 }

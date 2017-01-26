@@ -39,7 +39,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE 1=1</pre>
+   * <pre>SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -62,8 +62,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Bean84A> resultList=new LinkedList<Bean84A>();
@@ -126,7 +126,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    * </dl>
    *
    * @param uid
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    *
    * @return collection of bean or empty collection.
    */
@@ -202,20 +202,20 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    * </dl>
    *
    * @param param1
-   * 	is binded to ${param1}
+   * 	is binded to <code>${param1}</code>
    * @param param2
-   * 	is binded to ${param2}
+   * 	is binded to <code>${param2}</code>
    * @param param3
-   * 	is binded to ${param3}
+   * 	is binded to <code>${param3}</code>
    * @param param4
-   * 	is binded to ${param4}
+   * 	is binded to <code>${param4}</code>
    *
    * @return collection of bean or empty collection.
    */
   @Override
   public List<Bean84A> selectWhere(List<String> param1, Map<Integer, String> param2, Character[] param3, char[] param4) {
     // build where condition
-    String[] args={(param1==null?null:new String(serializer1(param1),StandardCharsets.UTF_8)), (param2==null?null:new String(serializer2(param2),StandardCharsets.UTF_8)), (param3==null?null:new String(serializer3(param3),StandardCharsets.UTF_8)), (param4==null?null:new String(serializer4(param4),StandardCharsets.UTF_8))};
+    String[] args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)), (param2==null?"":new String(serializer2(param2),StandardCharsets.UTF_8)), (param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)), (param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string='%s' and column_map_integer_string='%s' and column_array_char='%s'  and column_array_char_type='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string=? and column_map_integer_string=? and column_array_char=?  and column_array_char_type=?", args);
@@ -430,10 +430,10 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       contentValues.putNull("value_string");
     }
 
-    String[] whereConditions={};
+    String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean84_a SET column_list_string='"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', column_map_integer_string='"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', column_array_char='"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', column_array_char_type='"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"', column_array_byte_type='"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE 1=1"), (Object[])whereConditions);
-    int result = database().update("bean84_a", contentValues, "1=1", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean84_a SET column_list_string='"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', column_map_integer_string='"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', column_array_char='"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', column_array_char_type='"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"', column_array_byte_type='"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE 1=1"), (Object[]) whereConditionsArray);
+    int result = database().update("bean84_a", contentValues, "1=1", whereConditionsArray);
     return result!=0;
   }
 
@@ -447,10 +447,10 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public boolean deleteAll(Bean84A bean) {
-    String[] whereConditions={};
+    String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("1=1"), (Object[])whereConditions);
-    int result = database().delete("bean84_a", "1=1", whereConditions);
+    Logger.info(StringUtils.formatSQL("1=1"), (Object[]) whereConditionsArray);
+    int result = database().delete("bean84_a", "1=1", whereConditionsArray);
     return result!=0;
   }
 

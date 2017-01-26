@@ -51,7 +51,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    * </dl>
    *
    * @param channelId
-   * 	is binded to ${channelId}
+   * 	is binded to <code>${channelId}</code>
    *
    * @return collection of bean or empty collection.
    */
@@ -172,10 +172,10 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       contentValues.putNull("type");
     }
 
-    String[] whereConditions={String.valueOf(bean.id)};
+    String[] whereConditionsArray={String.valueOf(bean.id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE message SET channel_id='"+StringUtils.checkSize(contentValues.get("channel_id"))+"', owner_type='"+StringUtils.checkSize(contentValues.get("owner_type"))+"', face_uid='"+StringUtils.checkSize(contentValues.get("face_uid"))+"', text='"+StringUtils.checkSize(contentValues.get("text"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', channel_uid='"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', type='"+StringUtils.checkSize(contentValues.get("type"))+"' WHERE id = '%s'"), (Object[])whereConditions);
-    int result = database().update("message", contentValues, "id = ?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE message SET channel_id='"+StringUtils.checkSize(contentValues.get("channel_id"))+"', owner_type='"+StringUtils.checkSize(contentValues.get("owner_type"))+"', face_uid='"+StringUtils.checkSize(contentValues.get("face_uid"))+"', text='"+StringUtils.checkSize(contentValues.get("text"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', channel_uid='"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', type='"+StringUtils.checkSize(contentValues.get("type"))+"' WHERE id = '%s'"), (Object[]) whereConditionsArray);
+    int result = database().update("message", contentValues, "id = ?", whereConditionsArray);
     return result!=0;
   }
 
@@ -279,14 +279,14 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    * </dl>
    *
    * @param uid
-   * 	is binded to ${uid}
+   * 	is binded to <code>${uid}</code>
    *
    * @return selected bean or <code>null</code>.
    */
   @Override
   public MessageEntity selectByUid(String uid) {
     // build where condition
-    String[] args={(uid==null?null:uid)};
+    String[] args={(uid==null?"":uid)};
 
     Logger.info(StringUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = '%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ?", args);

@@ -34,10 +34,10 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
    */
   @Override
   public boolean deleteDistance(double value) {
-    String[] whereConditions={String.valueOf(value)};
+    String[] whereConditionsArray={String.valueOf(value)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditions);
-    int result = database().delete("bean01", "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("bean01", "id=?", whereConditionsArray);
     return result!=0;
   }
 }

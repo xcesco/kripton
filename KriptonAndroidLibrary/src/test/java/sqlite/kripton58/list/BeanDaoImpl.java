@@ -49,7 +49,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value, value2 FROM bean_bean WHERE 1=1</pre>
+   * <pre>SELECT id, value, value2 FROM bean_bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -67,8 +67,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     BeanBean resultBean=null;
@@ -111,14 +111,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * </dl>
    *
    * @param value
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    *
    * @return selected bean or <code>null</code>.
    */
   @Override
   public BeanBean selectOne(List<BeanBean> value) {
     // build where condition
-    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=?", args);
@@ -164,14 +164,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * </dl>
    *
    * @param value
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    * @param listener
    * 	is the BeanBean listener
    */
   @Override
   public void selectOne(List<BeanBean> value, OnReadBeanListener<BeanBean> listener) {
     // build where condition
-    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=?", args);
@@ -227,14 +227,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * </dl>
    *
    * @param value
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    * @param listener
    * 	is the cursor listener
    */
   @Override
   public void selectOne(List<BeanBean> value, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=?", args);
@@ -275,14 +275,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * </dl>
    *
    * @param value
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    *
    * @return collection of bean or empty collection.
    */
   @Override
   public List<BeanBean> selectList(List<BeanInner> value) {
     // build where condition
-    String[] args={(value==null?null:new String(serializer2(value),StandardCharsets.UTF_8))};
+    String[] args={(value==null?"":new String(serializer2(value),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=?", args);
@@ -347,10 +347,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       contentValues.putNull("value");
     }
 
-    String[] whereConditions={String.valueOf(id), (paramValue==null?null:new String(serializer2(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={String.valueOf(id), (paramValue==null?null:new String(serializer2(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditions);
-    int result = database().update("bean_bean", contentValues, "id=? and value=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditionsArray);
+    int result = database().update("bean_bean", contentValues, "id=? and value=?", whereConditionsArray);
     return result!=0;
   }
 
@@ -448,10 +448,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(List<BeanInner> paramValue) {
-    String[] whereConditions={(paramValue==null?null:new String(serializer2(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={(paramValue==null?null:new String(serializer2(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean_bean WHERE value=%s"), (Object[])whereConditions);
-    int result = database().delete("bean_bean", "value=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean_bean WHERE value=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("bean_bean", "value=?", whereConditionsArray);
     return result;
   }
 

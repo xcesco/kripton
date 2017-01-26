@@ -1,9 +1,9 @@
 package com.abubusoft.kripton.processor.core;
 
-import java.lang.reflect.InvocationTargetException;
-
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
+import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 /**
@@ -11,17 +11,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
  *
  */
 public abstract class AssertKripton {
-
-	/**
-	 * Assertion which generate an exception if expression is not true
-	 * 
-	 * @param expression
-	 * @param message
-	 */
-	public static void assertTrue(boolean expression, String message) {
-		if (!expression)
-			assertTrue(expression, message);
-	}
 
 
 	/**
@@ -42,5 +31,23 @@ public abstract class AssertKripton {
 		if (!expression)
 			throw (new InvalidMethodSignException(method, String.format(messageFormat, args)));
 	}
+	
+	public static void assertTrueOrInvalidMethodSignException(boolean expression, SQLiteModelMethod method) {
+		if (!expression)
+			throw (new InvalidMethodSignException(method));
+	}
+	
+	/**
+	 * if expression is true, it fails. It is the opposite of assert
+	 * @param method
+	 */
+	public static void failWithInvalidMethodSignException(boolean expression, SQLiteModelMethod method) {
+		assertTrueOrInvalidMethodSignException(!expression, method);			
+	}
+
+	public static void failWithMethodWithoutSupportedAnnotationException(SQLDaoDefinition currentDaoDefinition, SQLiteModelMethod value) {
+		throw (new MethodWithoutSupportedAnnotationException(currentDaoDefinition, value));		
+	}
+	
 
 }

@@ -40,7 +40,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    *
    * @return selected bean or <code>null</code>.
    */
@@ -102,10 +102,10 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       contentValues.putNull("text");
     }
 
-    String[] whereConditions={String.valueOf(id)};
+    String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditions);
-    int result = database().update("bean01", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().update("bean01", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 }

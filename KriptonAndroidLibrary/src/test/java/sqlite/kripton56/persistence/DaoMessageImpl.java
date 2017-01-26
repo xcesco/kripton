@@ -51,10 +51,10 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       contentValues.putNull("owner_type");
     }
 
-    String[] whereConditions={String.valueOf(id)};
+    String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE message SET ownerType='"+StringUtils.checkSize(contentValues.get("owner_type"))+"' WHERE  id = %s"), (Object[])whereConditions);
-    int result = database().update("message", contentValues, " id = ?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE message SET ownerType='"+StringUtils.checkSize(contentValues.get("owner_type"))+"' WHERE  id = %s"), (Object[])whereConditionsArray);
+    int result = database().update("message", contentValues, " id = ?", whereConditionsArray);
     return result!=0;
   }
 }

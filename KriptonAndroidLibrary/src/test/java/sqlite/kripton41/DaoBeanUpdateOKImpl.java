@@ -54,10 +54,10 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
       contentValues.putNull("value");
     }
 
-    String[] whereConditions={String.valueOf(test)};
+    String[] whereConditionsArray={String.valueOf(test)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET id='"+StringUtils.checkSize(contentValues.get("id"))+"', value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s"), (Object[])whereConditions);
-    int result = database().update("bean01", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET id='"+StringUtils.checkSize(contentValues.get("id"))+"', value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().update("bean01", contentValues, "id=?", whereConditionsArray);
     return result!=0;
   }
 }

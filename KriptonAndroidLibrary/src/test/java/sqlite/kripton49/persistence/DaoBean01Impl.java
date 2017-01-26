@@ -42,14 +42,14 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    *
    * @return selected bean or <code>null</code>.
    */
   @Override
   public Bean01Entity selectOne(Long id) {
     // build where condition
-    String[] args={(id==null?null:String.valueOf(id))};
+    String[] args={(id==null?"":String.valueOf(id))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
@@ -92,14 +92,14 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    *
    * @return collection of bean or empty collection.
    */
   @Override
   public List<Bean01Entity> selectById(Long id) {
     // build where condition
-    String[] args={(id==null?null:String.valueOf(id))};
+    String[] args={(id==null?"":String.valueOf(id))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
@@ -159,10 +159,10 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       contentValues.putNull("text");
     }
 
-    String[] whereConditions={(id==null?null:String.valueOf(id))};
+    String[] whereConditionsArray={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditions);
-    int result = database().update("bean01", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().update("bean01", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 
@@ -182,10 +182,10 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long deleteOne(Long id) {
-    String[] whereConditions={(id==null?null:String.valueOf(id))};
+    String[] whereConditionsArray={(id==null?null:String.valueOf(id))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditions);
-    int result = database().delete("bean01", "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("bean01", "id=?", whereConditionsArray);
     return result;
   }
 

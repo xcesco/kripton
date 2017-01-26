@@ -25,7 +25,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value_string2 FROM bean_a_2 WHERE 1=1</pre>
+   * <pre>SELECT id, value_string2 FROM bean_a_2</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -42,8 +42,8 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_2 WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_2 WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_2"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_2", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<BeanA_2> resultList=new LinkedList<BeanA_2>();
@@ -88,7 +88,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    *
    * @return collection of bean or empty collection.
    */
@@ -142,14 +142,14 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    * </dl>
    *
    * @param value
-   * 	is binded to ${dummy}
+   * 	is binded to <code>${dummy}</code>
    *
    * @return collection of bean or empty collection.
    */
   @Override
   public List<BeanA_2> selectByString(String value) {
     // build where condition
-    String[] args={(value==null?null:value)};
+    String[] args={(value==null?"":value)};
 
     Logger.info(StringUtils.formatSQL("SELECT id FROM bean_a_2 WHERE value_string2='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id FROM bean_a_2 WHERE value_string2=?", args);
@@ -241,10 +241,10 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
       contentValues.putNull("value_string2");
     }
 
-    String[] whereConditions={(bean.valueString2==null?null:bean.valueString2)};
+    String[] whereConditionsArray={(bean.valueString2==null?null:bean.valueString2)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean_a_2 SET value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'"), (Object[])whereConditions);
-    int result = database().update("bean_a_2", contentValues, "value_string2=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean_a_2 SET value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'"), (Object[]) whereConditionsArray);
+    int result = database().update("bean_a_2", contentValues, "value_string2=?", whereConditionsArray);
     return result;
   }
 }

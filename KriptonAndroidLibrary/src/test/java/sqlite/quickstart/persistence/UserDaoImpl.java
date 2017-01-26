@@ -105,7 +105,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, name, username, email, address, phone, website, company FROM user WHERE 1=1 ORDER BY username asc</pre>
+   * <pre>SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -128,8 +128,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user WHERE 1=1 ORDER BY username asc"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user WHERE 1=1 ORDER BY username asc", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<User> resultList=new LinkedList<User>();
@@ -192,7 +192,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    * </dl>
    *
    * @param id
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    *
    * @return selected bean or <code>null</code>.
    */

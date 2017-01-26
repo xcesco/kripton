@@ -35,21 +35,25 @@ public class StringUtils {
 	 * Replace % with %%
 	 * 
 	 * @param value
+	 * 
 	 * @return
 	 */
-	public static String formatForLog(String value) {	
-		return format(value).replaceAll("\\%", "\\%\\%");
+	public static String appendForLog(String value) {	
+		return appendForSQL(value).replaceAll("\\%", "\\%\\%");
 	}
 	
 	/**
 	 * Prepare a string to be used as part of SQL statement.
 	 * 
-	 * 
 	 * @param value
+	 * 
 	 * @return
 	 */
-	public static String format(String value) {	
-		return value == null  ? "" : value;
+	public static String appendForSQL(String value) {
+		if (value==null) return "";
+		
+		if (!value.startsWith(" ")) return " "+value;
+		return value;
 	}
 
 	public static boolean isEmpty(String value) {

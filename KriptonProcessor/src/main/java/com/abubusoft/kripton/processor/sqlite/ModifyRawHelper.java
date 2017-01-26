@@ -31,6 +31,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
@@ -54,12 +55,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
 		String whereCondition = null;
-
+		
 		if (updateMode) {
 			whereCondition = method.getAnnotation(BindSqlUpdate.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
 		} else {
 			whereCondition = method.getAnnotation(BindSqlDelete.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
-		}
+		}		
 
 		Pair<String, List<Pair<String, TypeMirror>>> where = SqlUtility.extractParametersFromString(whereCondition, method, daoDefinition.getColumnNameConverter(), entity);
 
@@ -73,14 +74,23 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		for (Pair<String, TypeMirror> param : methodParams) {
 			name = method.findParameterAliasByName(param.value0);
 
+			if (method.isThisDynamicWhereConditionsName(name))
+			{
+				// skip for dynamic where
+				continue;
+			}
+			
 			if (where.value1.contains(new Pair<>(name, param.value1))) {
 				whereParams.add(param);
 			} else {
 				updateableParams.add(param);
 			}
+						
 		}
-
+				
 		if (updateMode) {
+			AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size()>0, method, "no column was selected for update");
+			
 			// clear contentValues
 			methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 			methodBuilder.addCode("contentValues.clear();\n");
@@ -100,7 +110,6 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 				// here it needed raw parameter name
 				methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
-				// Transformer.java2ContentValues(methodBuilder, typeName(property.getElement().asType()),null , property);
 				
 				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(property.getElement()), item.value0);
 				
@@ -140,17 +149,24 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		// generate javadoc
 		String sqlModify = generateJavaDoc(daoDefinition, method, methodBuilder, updateMode, whereCondition, where, methodParams, updateableParams);
+		
+		String dynamicWhere="";
+		if (method.hasDynamicWhereConditions())
+		{
+			dynamicWhere="+StringUtils.appendForSQL("+method.dynamicWhereParameterName+")";
+			methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
+		}
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtils.class, sqlModify);
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"$L), (Object[])whereConditionsArray);\n", Logger.class, StringUtils.class, sqlModify, dynamicWhere);
 			}
-			methodBuilder.addCode("int result = database().update($S, contentValues, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), where.value0);
+			methodBuilder.addCode("int result = database().update($S, contentValues, $S$L, whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), where.value0, dynamicWhere);
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"), (Object[])whereConditions);\n", Logger.class, StringUtils.class, sqlModify);
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\")$L, (Object[])whereConditionsArray);\n", Logger.class, StringUtils.class, sqlModify, dynamicWhere);
 			}
-			methodBuilder.addCode("int result = database().delete($S, $S, whereConditions);\n", daoDefinition.getEntity().getTableName(), where.value0);
+			methodBuilder.addCode("int result = database().delete($S, $S$L, whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), where.value0,dynamicWhere);
 		}
 
 		// define return value
@@ -250,7 +266,10 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			for (Pair<String, TypeMirror> param : methodParams) {
 				String resolvedName = method.findParameterAliasByName(param.value0);
 				methodBuilder.addJavadoc("@param $L", param.value0);
-				if (where.value1.contains(new Pair<>(resolvedName, param.value1))) {
+				if (method.isThisDynamicWhereConditionsName(param.value0))
+				{
+					methodBuilder.addJavadoc("\n\tis used as dynamic where conditions\n");
+				} else if (where.value1.contains(new Pair<>(resolvedName, param.value1))) {
 					methodBuilder.addJavadoc("\n\tis used as where parameter <strong>$L</strong>\n", "${"+resolvedName+"}");
 				} else {
 					methodBuilder.addJavadoc("\n\tis used as updated field <strong>$L</strong>\n", resolvedName);
@@ -269,7 +288,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeMirror>>> where) {
 		boolean nullable;
 
-		methodBuilder.addCode("String[] whereConditions={");
+		methodBuilder.addCode("String[] whereConditionsArray={");
 		String separator = "";
 		for (Pair<String, TypeMirror> item : where.value1) {
 			String resolvedParamName = method.findParameterNameByAlias(item.value0);

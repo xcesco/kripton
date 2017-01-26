@@ -25,7 +25,7 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE 1=1</pre>
+   * <pre>SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -44,8 +44,8 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Bean64B> resultList=new LinkedList<Bean64B>();
@@ -96,7 +96,7 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    *
    * @return collection of bean or empty collection.
    */

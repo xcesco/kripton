@@ -18,7 +18,7 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import sqlite.dynamic.TestIndexesSuite;
+import sqlite.dynamic.TestDynamicSuite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.foreignKey.TestForeignKeySuite;
@@ -78,7 +78,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			Test03.class, 
 			TestFirstAid.class,			
 			TestForeignKeySuite.class,
-			TestIndexesSuite.class
+			TestDynamicSuite.class
 			
 			})
 //@formatter:on

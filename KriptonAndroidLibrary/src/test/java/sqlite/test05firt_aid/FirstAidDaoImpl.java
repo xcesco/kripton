@@ -25,7 +25,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid WHERE 1=1 ORDER BY name</pre>
+   * <pre>SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -62,8 +62,8 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid WHERE 1=1 ORDER BY name"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid WHERE 1=1 ORDER BY name", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY name"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<FirstAid> resultList=new LinkedList<FirstAid>();
@@ -142,10 +142,10 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public int deleteAll() {
-    String[] whereConditions={};
+    String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("DELETE first_aid WHERE 1=1"), (Object[])whereConditions);
-    int result = database().delete("first_aid", "1=1", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE first_aid WHERE 1=1"), (Object[])whereConditionsArray);
+    int result = database().delete("first_aid", "1=1", whereConditionsArray);
     return result;
   }
 

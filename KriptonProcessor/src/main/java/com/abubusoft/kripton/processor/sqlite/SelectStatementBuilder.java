@@ -74,11 +74,11 @@ public class SelectStatementBuilder {
 	}
 
 	public String build(SQLiteModelMethod method) {
-		return buildInternal(method, "format");
+		return buildInternal(method, "appendForSQL");
 	}
-	
+
 	public String buildForLog(SQLiteModelMethod method) {
-		return buildInternal(method, "formatForLog");
+		return buildInternal(method, "appendForLog");
 	}
 
 	private String buildInternal(SQLiteModelMethod method, String nvlFunction) {
@@ -93,21 +93,26 @@ public class SelectStatementBuilder {
 		if (StringUtils.hasText(where) || method.hasDynamicWhereConditions()) {
 			buffer.append(" WHERE");
 			if (StringUtils.hasText(where))
-				buffer.append(" "+where.trim());
+				buffer.append(" " + where.trim());
 			if (method.hasDynamicWhereConditions()) {
-				buffer.append(" \"+StringUtils."+nvlFunction+"(" + method.dynamicWhereParameterName + ")+\"");
+				buffer.append("\"+StringUtils." + nvlFunction + "(" + method.dynamicWhereParameterName + ")+\"");
 			}
 		}
 
 		if (StringUtils.hasText(having))
 			buffer.append(" HAVING " + having.trim());
+		
 		if (StringUtils.hasText(groupBy))
 			buffer.append(" GROUP BY " + groupBy.trim());
-		if (StringUtils.hasText(orderBy))
-			buffer.append(" ORDER BY " + orderBy.trim());
-		if (method.hasDynamicOrderByConditions()) {
-			buffer.append("\"" + method.dynamicOrderByParameterName + "\"");
-		}
+		
+		if (StringUtils.hasText(orderBy) || method.hasDynamicOrderByConditions()) {
+			buffer.append(" ORDER BY");
+			if (StringUtils.hasText(orderBy))
+				buffer.append(" " + orderBy.trim());
+			if (method.hasDynamicOrderByConditions()) {
+				buffer.append(" \"+StringUtils." + nvlFunction + "(" + method.dynamicOrderByParameterName + ")+\"");
+			}
+		}		
 
 		return buffer.toString();
 	}

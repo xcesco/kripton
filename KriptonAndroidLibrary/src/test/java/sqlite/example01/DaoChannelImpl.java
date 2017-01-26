@@ -43,10 +43,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean deleteContactBean1(Channel channel) {
-    String[] whereConditions={String.valueOf(channel.getId())};
+    String[] whereConditionsArray={String.valueOf(channel.getId())};
 
-    Logger.info(StringUtils.formatSQL("owner_uid=%s"), (Object[])whereConditions);
-    int result = database().delete("channel", "owner_uid=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("owner_uid=%s"), (Object[]) whereConditionsArray);
+    int result = database().delete("channel", "owner_uid=?", whereConditionsArray);
     return result!=0;
   }
 
@@ -66,10 +66,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean deleteContactBean2(Channel value) {
-    String[] whereConditions={String.valueOf(value.getId())};
+    String[] whereConditionsArray={String.valueOf(value.getId())};
 
-    Logger.info(StringUtils.formatSQL("owner_uid=%s"), (Object[])whereConditions);
-    int result = database().delete("channel", "owner_uid=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("owner_uid=%s"), (Object[]) whereConditionsArray);
+    int result = database().delete("channel", "owner_uid=?", whereConditionsArray);
     return result!=0;
   }
 
@@ -92,10 +92,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public long deleteContactRaw1(String b, long dummy) {
-    String[] whereConditions={(b==null?null:b), String.valueOf(dummy)};
+    String[] whereConditionsArray={(b==null?null:b), String.valueOf(dummy)};
 
-    Logger.info(StringUtils.formatSQL("DELETE channel WHERE ownerUid=%s and id=%s"), (Object[])whereConditions);
-    int result = database().delete("channel", "owner_uid=? and id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE channel WHERE ownerUid=%s and id=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("channel", "owner_uid=? and id=?", whereConditionsArray);
     return result;
   }
 
@@ -118,10 +118,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean deleteContactRaw2(String ownerUid, long id) {
-    String[] whereConditions={(ownerUid==null?null:ownerUid), String.valueOf(id)};
+    String[] whereConditionsArray={(ownerUid==null?null:ownerUid), String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("DELETE channel WHERE ownerUid=%s and id=%s"), (Object[])whereConditions);
-    int result = database().delete("channel", "owner_uid=? and id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE channel WHERE ownerUid=%s and id=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("channel", "owner_uid=? and id=?", whereConditionsArray);
     return result!=0;
   }
 
@@ -364,10 +364,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     contentValues.clear();
     contentValues.put("id", glu);
 
-    String[] whereConditions={String.valueOf(aid)};
+    String[] whereConditionsArray={String.valueOf(aid)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE id=%s"), (Object[])whereConditions);
-    int result = database().update("channel", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE channel SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 
@@ -398,10 +398,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     contentValues.clear();
     contentValues.put("id", id);
 
-    String[] whereConditions={String.valueOf(dummy)};
+    String[] whereConditionsArray={String.valueOf(dummy)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE id=%s"), (Object[])whereConditions);
-    int result = database().update("channel", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE channel SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 
@@ -436,10 +436,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("owner_uid");
     }
 
-    String[] whereConditions={String.valueOf(id)};
+    String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET ownerUid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s"), (Object[])whereConditions);
-    int result = database().update("channel", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE channel SET ownerUid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result!=0;
   }
 
@@ -474,10 +474,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("owner_uid");
     }
 
-    String[] whereConditions={String.valueOf(id)};
+    String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET ownerUid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s"), (Object[])whereConditions);
-    int result = database().update("channel", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE channel SET ownerUid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s"), (Object[])whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 
@@ -528,10 +528,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
-    String[] whereConditions={String.valueOf(value.getId())};
+    String[] whereConditionsArray={String.valueOf(value.getId())};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'"), (Object[])whereConditions);
-    int result = database().update("channel", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'"), (Object[]) whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 
@@ -582,10 +582,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
-    String[] whereConditions={String.valueOf(bean.getId())};
+    String[] whereConditionsArray={String.valueOf(bean.getId())};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'"), (Object[])whereConditions);
-    int result = database().update("channel", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'"), (Object[]) whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 
@@ -636,17 +636,17 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
-    String[] whereConditions={String.valueOf(bean.getId())};
+    String[] whereConditionsArray={String.valueOf(bean.getId())};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'"), (Object[])whereConditions);
-    int result = database().update("channel", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'"), (Object[]) whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result!=0;
   }
 
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE 1=1</pre>
+   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -666,8 +666,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Channel> resultList=new LinkedList<Channel>();
@@ -721,7 +721,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to ${a}
+   * 	is binded to <code>${a}</code>
    *
    * @return collection of bean or empty collection.
    */
@@ -785,7 +785,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to ${a}
+   * 	is binded to <code>${a}</code>
    *
    * @return cursor. Closing the cursor is delegated to the calling code.
    */
@@ -822,7 +822,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to ${a}
+   * 	is binded to <code>${a}</code>
    * @param listener
    * 	is the Channel listener
    */
@@ -893,7 +893,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to ${a}
+   * 	is binded to <code>${a}</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -943,7 +943,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to ${a}
+   * 	is binded to <code>${a}</code>
    *
    * @return collection of bean or empty collection.
    */

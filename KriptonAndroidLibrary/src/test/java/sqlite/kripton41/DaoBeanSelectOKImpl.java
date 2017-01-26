@@ -38,9 +38,9 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    * @param value
-   * 	is binded to ${value}
+   * 	is binded to <code>${value}</code>
    *
    * @return single value extracted with query.
    */

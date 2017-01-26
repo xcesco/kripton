@@ -43,7 +43,6 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;

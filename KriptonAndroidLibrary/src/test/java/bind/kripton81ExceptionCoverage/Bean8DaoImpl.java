@@ -24,7 +24,7 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, ignore2 FROM bean8 WHERE 1=1</pre>
+   * <pre>SELECT id, ignore2 FROM bean8</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -41,8 +41,8 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, ignore2 FROM bean8 WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, ignore2 FROM bean8 WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, ignore2 FROM bean8"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, ignore2 FROM bean8", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Bean8> resultList=new LinkedList<Bean8>();

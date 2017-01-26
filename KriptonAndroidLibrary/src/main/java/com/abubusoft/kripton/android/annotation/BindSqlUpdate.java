@@ -32,17 +32,17 @@ public @interface BindSqlUpdate {
 	String[] value() default {};
 	
 	/**
-	 * properties to include into UPDATE command
+	 * properties to exclude from UPDATE command
 	 * @return
 	 * 		property's names to exclude
 	 */
 	String[] excludedFields() default {};
 	
 	/**
-	 * where condition
+	 * where conditions
 	 * 
 	 * @return
-	 * 		where condition
+	 * 		where conditions
 	 */
 	String where() default "1=1";
 }

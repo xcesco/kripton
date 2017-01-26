@@ -22,7 +22,7 @@ import org.junit.runners.Suite;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestDynamicRuntime.class		
+		TestDynamicSelectRuntime.class		
 		 })
 //@formatter:on
 public class TestDynamicRuntimeSuite  {
