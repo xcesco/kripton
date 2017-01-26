@@ -32,14 +32,11 @@ public class Test60Compile extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testFields() throws IOException, InstantiationException, IllegalAccessException {
-		// buildBindProcessorTest(BeanDataSource.class, BeanDao.class,
-		// Bean.class, EnumType.class);
 		buildDataSourceProcessorTest(BeanDataSource.class, BeanDao.class, Bean.class, EnumType.class);
 	}
 
 	@Test
 	public void testSharedFields() throws IOException, InstantiationException, IllegalAccessException {
-		// buildBindProcessorTest(Bean.class, EnumType.class);
 		buildSharedPreferencesProcessorTest(Bean.class, EnumType.class);
 	}
 

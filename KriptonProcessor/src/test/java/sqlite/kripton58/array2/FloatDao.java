@@ -43,7 +43,7 @@ public interface FloatDao {
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<FloatBean> selectList(float[] value, Float[] value2);
 	
-	@BindSqlUpdate(where = "id=${id} and value=${value} and value2=${value2}")
+	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, float[] value, Float[] value2);
 	
 	@BindSqlInsert()

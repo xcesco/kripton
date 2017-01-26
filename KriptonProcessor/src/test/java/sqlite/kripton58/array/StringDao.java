@@ -43,7 +43,7 @@ public interface StringDao {
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<StringBean> selectList(String[] value, String[] value2);
 	
-	@BindSqlUpdate(where = "id=${id} and value=${value} and value2=${value2}")
+	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, String[] value, String[] value2);
 	
 	@BindSqlInsert()

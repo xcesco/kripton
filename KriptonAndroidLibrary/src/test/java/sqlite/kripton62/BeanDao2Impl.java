@@ -40,7 +40,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE 1=1</pre>
+   * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -66,8 +66,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // build where condition
     String[] args={};
 
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE 1=1"),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE 1=1", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2"),(Object[])args);
+    Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     Bean2 resultBean=null;
@@ -134,7 +134,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    * @param listener
    * 	is the Bean2 listener
    */
@@ -229,7 +229,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -285,7 +285,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    * </dl>
    *
    * @param id
-   * 	is binded to ${id}
+   * 	is binded to <code>${id}</code>
    *
    * @return collection of bean or empty collection.
    */
@@ -432,10 +432,10 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       contentValues.putNull("value_enum_type_set");
     }
 
-    String[] whereConditions={String.valueOf(value.id)};
+    String[] whereConditionsArray={String.valueOf(value.id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean2 SET value_byte_set='"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id='%s'"), (Object[])whereConditions);
-    int result = database().update("bean2", contentValues, "id=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean2 SET value_byte_set='"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id='%s'"), (Object[]) whereConditionsArray);
+    int result = database().update("bean2", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 
@@ -596,14 +596,14 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    * </dl>
    *
    * @param valueBigDecimalSet
-   * 	is binded to ${valueBigDecimalSet}
+   * 	is binded to <code>${valueBigDecimalSet}</code>
    *
    * @return selected bean or <code>null</code>.
    */
   @Override
   public Bean2 selectOne(HashSet<BigDecimal> valueBigDecimalSet) {
     // build where condition
-    String[] args={(valueBigDecimalSet==null?null:new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
+    String[] args={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
 
     Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE value='%s'"),(Object[])args);
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE value=?", args);
@@ -661,19 +661,20 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long delete(HashSet<BigDecimal> valueBigDecimalSet) {
-    String[] whereConditions={(valueBigDecimalSet==null?null:new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={(valueBigDecimalSet==null?null:new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean2 WHERE value=%s"), (Object[])whereConditions);
-    int result = database().delete("bean2", "value=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("DELETE bean2 WHERE value=%s"), (Object[])whereConditionsArray);
+    int result = database().delete("bean2", "value=?", whereConditionsArray);
     return result;
   }
 
   /**
    * <p>SQL update:</p>
-   * <pre>UPDATE bean2 SET  WHERE value=${valueBigDecimalSet}</pre>
+   * <pre>UPDATE bean2 SET id=${id} WHERE value=${valueBigDecimalSet}</pre>
    *
    * <p><strong>Updated columns:</strong></p>
    * <dl>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * <p><strong>Where parameters:</strong></p>
@@ -681,20 +682,23 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to method's parameter <strong>valueBigDecimalSet</strong></dd>
    * </dl>
    *
+   * @param id
+   * 	is used as updated field <strong>id</strong>
    * @param valueBigDecimalSet
    * 	is used as where parameter <strong>${valueBigDecimalSet}</strong>
    *
    * @return number of updated records
    */
   @Override
-  public long updateOne(HashSet<BigDecimal> valueBigDecimalSet) {
+  public long updateOne(long id, HashSet<BigDecimal> valueBigDecimalSet) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
+    contentValues.put("id", id);
 
-    String[] whereConditions={(valueBigDecimalSet==null?null:new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={(valueBigDecimalSet==null?null:new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean2 SET  WHERE value=%s"), (Object[])whereConditions);
-    int result = database().update("bean2", contentValues, "value=?", whereConditions);
+    Logger.info(StringUtils.formatSQL("UPDATE bean2 SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s"), (Object[])whereConditionsArray);
+    int result = database().update("bean2", contentValues, "value=?", whereConditionsArray);
     return result;
   }
 

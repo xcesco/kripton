@@ -38,249 +38,209 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 @BindDao(Bean.class)
 public interface BeanDao {
-	//-- select raw
-	@BindSqlSelect(value="valueBoolType")
-	boolean selectValueBoolType();
+	@BindSqlDelete(where = "valueBigDecimal=${valueBigDecimal}")
+	long delete(BigDecimal valueBigDecimal);
 	
-	@BindSqlSelect(value="valueBool")
-	public Boolean selectValueBool();
+	@BindSqlDelete(where = "valueBigDecimal=${valueBigDecimal}")
+	long delete(BigInteger valueBigDecimal);
 
-	@BindSqlSelect(value="valueByteType")
-	public byte selectValueByteType();
+	@BindSqlDelete(where = "valueBoolType=${valueBoolType}")
+	long delete(boolean valueBoolType);
 	
-	@BindSqlSelect(value="valueByte")
-	public Byte selectValueByte();
+	@BindSqlDelete(where = "valueBool=${valueBool}")
+	long delete(Boolean valueBool);
 	
-	@BindSqlSelect(value="valueShortType")
-	public short selectValueShortType();
+	@BindSqlDelete(where = "valueBeanArray=${valueBeanArray}")
+	long deleteArrayBeanType(Bean[] valueBeanArray);
 	
-	@BindSqlSelect(value="valueShort")
-	public Short selectValueShort();
+	@BindSqlDelete(where = "valueLongArray=${valueLongArray}")
+	long deleteArrayLong(Long[] valueLongArray);
 
-	@BindSqlSelect(value="valueIntType")
-	public int selectValueIntType();
+	@BindSqlDelete(where = "valueLongTypeArray=${valueLongTypeArray}")
+	long deleteArrayLongType(long[] valueLongTypeArray);
 	
-	@BindSqlSelect(value="valueInt")
-	public Integer selectValueInt();
+	@BindSqlDelete(where = "valueByte=${valueByte}")
+	long deleteByte(Byte valueByte);
 	
-	@BindSqlSelect(value="valueString")
-	public String selectValueString();
+	@BindSqlDelete(where = "valueByteType=${valueByteType}")
+	long deleteByteType(boolean valueByteType);
 	
-	@BindSqlSelect(value="valueCharType")
-	public char selectValueCharType();
+	@BindSqlDelete(where = "valueCalendar=${valueCalendar}")
+	long deleteCalendar(Date valueCalendar);
 	
-	@BindSqlSelect(value="valueChar")
-	public Character selectValueChar();
+	@BindSqlDelete(where = "valueCharType=${valueChar}")
+	long deleteChar(Character valueChar);
 	
-	@BindSqlSelect(value="valueFloatType")
-	public float selectValueFloatType();
+	@BindSqlDelete(where = "valueCharType=${valueCharType}")
+	long deleteCharType(char valueCharType);
 	
-	@BindSqlSelect(value="valueFloat")
-	public Float selectValueFloat();
+	@BindSqlDelete(where = "valueCurrency=${valueCurrency}")
+	long deleteCurrency(Currency valueCurrency);
 	
-	@BindSqlSelect(value="valueLongType")
-	public long selectValueLongType();
+	@BindSqlDelete(where = "valueDate=${valueDate}")
+	long deleteDate(Date valueDate);
 	
-	@BindSqlSelect(value="valueLong")
-	public Long selectValueLong();
+	@BindSqlDelete(where = "valueDouble=${valueDouble}")
+	long deleteDouble(Double valueDouble);
 	
-	@BindSqlSelect(value="valueDoubleType")
-	public double selectValueDoubleType();
+	@BindSqlDelete(where = "valueDoubleType=${valueDoubleType}")
+	long deleteDoubleType(double valueDoubleType);
 	
-	@BindSqlSelect(value="valueDouble")
-	public Double selectValueDouble();
+	@BindSqlDelete(where = "valueEnumType=${valueEnumType}")
+	long deleteEnumType(EnumType valueEnumType);
 	
 	
 	
 	//--
 	
-	@BindSqlSelect()
-	Bean selectOne();	
+	@BindSqlDelete(where = "valueFloat=${valueFloat}")
+	long deleteFloat(Float valueFloat);	
 
-	@BindSqlSelect(where = "id = ${id}")
-	void selectOne(int id, OnReadBeanListener<Bean> listener);
+	@BindSqlDelete(where = "valueFloatType=${valueFloatType}")
+	long deleteFloatType(float valueFloatType);
 
-	@BindSqlSelect(where = "id = ${id}")
-	void selectOne(long id, OnReadCursorListener listener);
+	@BindSqlDelete(where = "valueInt=${valueInt}")
+	long deleteInt(Integer valueInt);
 
-	@BindSqlSelect(where = "id = ${id}")
-	List<Bean> selectList(long id);
+	@BindSqlDelete(where = "valueIntType=${valueIntType}")
+	long deleteIntType(int valueIntType);
 	
-	@BindSqlUpdate(where = "id=${value.id}")
-	long updateOne(Bean value);
+	@BindSqlDelete(where = "valueLongList=${valueLongList}")
+	long deleteListLong(LinkedList<Long> valueLongList);
+	
+	@BindSqlDelete(where = "valueLocale=${valueLocale}")
+	long deleteLocale(Date valueLocale);
+	
+	@BindSqlDelete(where = "valueLong=${valueLong}")
+	long deleteLong(Long valueLong);
+	
+	@BindSqlDelete(where = "valueLongType=${valueLongType}")
+	long deleteLongType(long valueLongType);
+	
+	@BindSqlDelete(where = "valueShort=${valueShort}")
+	long deleteShort(Short valueShort);
+	
+	@BindSqlDelete(where = "valueShortType=${valueShortType}")
+	long deleteShortType(short valueShortType);
+	
+	@BindSqlDelete(where = "valueString=${valueString}")
+	long deleteString(String valueString);
+	
+	@BindSqlDelete(where = "valueTime=${valueTime}")
+	long deleteTime(Time valueTime);
+	
+	@BindSqlDelete(where = "valueTimeZone=${valueTimeZone}")
+	long deleteTimeZone(TimeZone valueTimeZone);
+	
+	@BindSqlDelete(where = "valueUrl=${valueUrl}")
+	long deleteURL(URL valueUrl);
 	
 	@BindSqlInsert()
 	long insert(Bean bean);
+	
+	
 	
 	// BigDecimal
 	@BindSqlInsert()
 	long insert(BigDecimal valueBigDecimal);
 	
-	@BindSqlSelect(where = "valueBigDecimal=${valueBigDecimal}")
-	Bean selectOne(BigDecimal valueBigDecimal);
-	
-	@BindSqlDelete(where = "valueBigDecimal=${valueBigDecimal}")
-	long delete(BigDecimal valueBigDecimal);
-	
-	@BindSqlUpdate(where = "valueBigDecimal=${valueBigDecimal}")
-	long updateOne(BigDecimal valueBigDecimal);
-	
-	@BindSqlUpdate(where = "id=${id}")
-	long updateOne(long id, Set<String> valueSetString);
-	
 	// BigInteger
 	@BindSqlInsert()
 	long insert(BigInteger valueBigInteger);
-	
-	@BindSqlSelect(where = "valueBigDecimal=${valueBigDecimal}")
-	Bean selectOne(BigInteger valueBigDecimal);
-	
-	@BindSqlDelete(where = "valueBigDecimal=${valueBigDecimal}")
-	long delete(BigInteger valueBigDecimal);
-	
-	@BindSqlUpdate(where = "valueBigDecimal=${valueBigDecimal}")
-	long updateOne(BigInteger valueBigDecimal);
-	
-	
 	
 	// boolean
 	@BindSqlInsert()
 	long insert(boolean valueBoolType);
 	
-	@BindSqlSelect(where = "valueBoolType=${valueBoolType}")
-	Bean selectOne(boolean valueBoolType);
-	
-	@BindSqlDelete(where = "valueBoolType=${valueBoolType}")
-	long delete(boolean valueBoolType);
-	
-	@BindSqlUpdate(where = "valueBoolType=${valueBoolType}")
-	long updateOne(boolean valueBoolType);
-	
-	
-	
 	// Boolean
 	@BindSqlInsert()
 	long insert(Boolean valueBool);
 	
-	@BindSqlSelect(where = "valueBool=${valueBool}")
-	Bean selectOne(Boolean valueBool);
 	
-	@BindSqlDelete(where = "valueBool=${valueBool}")
-	long delete(Boolean valueBool);
 	
-	@BindSqlUpdate(where = "valueBool=${valueBool}")
-	long updateOne(Boolean valueBool);
+	// array bean	
+	@BindSqlInsert
+	long insertArrayBeanType(Bean[] valueBeanArray);
+	
+	// array Long	
+	@BindSqlInsert
+	long insertArrayLong(Long[] valueLongArray);
+	
+	// array long	
+	@BindSqlInsert
+	long insertArrayLongType(long[] valueLongTypeArray);
+	
+	// Byte
+	@BindSqlInsert()
+	long insertByte(Byte valueByte);
 	
 	
 	// byte
 	@BindSqlInsert()
 	long insertByteType(byte valueByteType);
 	
-	@BindSqlSelect(where = "valueByteType=${valueByteType}")
-	Bean selectOneByteType(boolean valueByteType);
-	
-	@BindSqlDelete(where = "valueByteType=${valueByteType}")
-	long deleteByteType(boolean valueByteType);
-	
-	@BindSqlUpdate(where = "valueByteType=${valueByteType}")
-	long updateOneByteType(boolean valueByteType);
-	
-	
-	// Byte
+	// calendar
 	@BindSqlInsert()
-	long insertByte(Byte valueByte);
+	long insertCalendar(Calendar valueCalendar);
 	
-	@BindSqlSelect(where = "valueByte=${valueByte}")
-	Bean selectOneByte(Byte valueByte);
-	
-	@BindSqlDelete(where = "valueByte=${valueByte}")
-	long deleteByte(Byte valueByte);
-	
-	@BindSqlUpdate(where = "valueByte=${valueByte}")
-	long updateOneByte(Byte valueByte);
-	
-	
+	// char
+	@BindSqlInsert()
+	long insertChar(Character valueChar);
 	
 	// char type
 	@BindSqlInsert()
 	long insertCharType(char valueCharType);
 	
-	@BindSqlSelect(where = "valueCharType=${valueCharType}")
-	Bean selectOneCharType(char valueCharType);
 	
-	@BindSqlDelete(where = "valueCharType=${valueCharType}")
-	long deleteCharType(char valueCharType);
+	// Currency
+	@BindSqlInsert()
+	long insertCurrency(Currency valueCurrency);
 	
-	@BindSqlUpdate(where = "valueCharType=${valueCharType}")
-	long updateOneCharType(char valueCharType);
+	// date
+	@BindSqlInsert()
+	long insertDate(Date valueDate);
+	
+	// double
+	@BindSqlInsert()
+	long insertDouble(Double valueDouble);
+	
+	// double type
+	@BindSqlInsert()
+	long insertDoubleType(double valueDoubleType);
+	
+	
+	
+	// enum
+	@BindSqlInsert()
+	long insertEnumType(EnumType valueEnumType);
+	
+	// float
+	@BindSqlInsert()
+	long insertFloat(Float valueFloat);
+	
+	// float type
+	@BindSqlInsert()
+	long insertFloatType(float valueFloatType);
+	
+	// int
+	@BindSqlInsert()
+	long insertInt(Integer valueInt);
 				
-	// char
-	@BindSqlInsert()
-	long insertChar(Character valueChar);
-	
-	@BindSqlSelect(where = "valueCharType=${valueChar}")
-	Bean selectOneChar(Character valueChar);
-	
-	@BindSqlDelete(where = "valueCharType=${valueChar}")
-	long deleteChar(Character valueChar);
-	
-	@BindSqlUpdate(where = "valueCharType=${valueChar}")
-	long updateOneChar(Character valueChar);
-	
-	
-	
-	// short type
-	@BindSqlInsert()
-	long insertShortType(short valueShortType);
-	
-	@BindSqlSelect(where = "valueShortType=${valueShortType}")
-	Bean selectOneShortType(short valueShortType);
-	
-	@BindSqlDelete(where = "valueShortType=${valueShortType}")
-	long deleteShortType(short valueShortType);
-	
-	@BindSqlUpdate(where = "valueShortType=${valueShortType}")
-	long updateOneShortType(short valueShortType);
-				
-	// Short
-	@BindSqlInsert()
-	long insertShort(Short valueShort);
-	
-	@BindSqlSelect(where = "valueShort=${valueShort}")
-	Bean selectOneShort(Short valueShort);
-	
-	@BindSqlDelete(where = "valueShort=${valueShort}")
-	long deleteShort(Short valueShort);
-	
-	@BindSqlUpdate(where = "valueShort=${valueShort}")
-	long updateOneShort(Short valueShort);
-	
-	
 	// int type
 	@BindSqlInsert()
 	long insertIntType(int valueIntType);
 	
-	@BindSqlSelect(where = "valueIntType=${valueIntType}")
-	Bean selectOneIntType(int valueIntType);
+	// List Long	
+	@BindSqlInsert
+	long insertListLong(LinkedList<Long> valueLongList);
 	
-	@BindSqlDelete(where = "valueIntType=${valueIntType}")
-	long deleteIntType(int valueIntType);
-	
-	@BindSqlUpdate(where = "valueIntType=${valueIntType}")
-	long updateOneIntType(int valueIntType);
-				
-	// int
+	// locale
 	@BindSqlInsert()
-	long insertInt(Integer valueInt);
+	long insertLocale(Locale valueLocale);
 	
-	@BindSqlSelect(where = "valueInt=${valueInt}")
-	Bean selectOneInt(Integer valueInt);
-	
-	@BindSqlDelete(where = "valueInt=${valueInt}")
-	long deleteInt(Integer valueInt);
-	
-	@BindSqlUpdate(where = "valueInt=${valueInt}")
-	long updateOneInt(Integer valueInt);
+	// long
+	@BindSqlInsert()
+	long insertLong(Long valueLong);
 	
 	
 	
@@ -288,255 +248,295 @@ public interface BeanDao {
 	@BindSqlInsert()
 	long insertLongType(long valueLongType);
 	
-	@BindSqlSelect(where = "valueLongType=${valueLongType}")
-	Bean selectOneLongType(long valueLongType);
-	
-	@BindSqlDelete(where = "valueLongType=${valueLongType}")
-	long deleteLongType(long valueLongType);
-	
-	@BindSqlUpdate(where = "valueLongType=${valueLongType}")
-	long updateOneLongType(long valueLongType);
-				
-	// long
+	// Short
 	@BindSqlInsert()
-	long insertLong(Long valueLong);
+	long insertShort(Short valueShort);
 	
-	@BindSqlSelect(where = "valueLong=${valueLong}")
-	Bean selectOneLong(Long valueLong);
-	
-	@BindSqlDelete(where = "valueLong=${valueLong}")
-	long deleteLong(Long valueLong);
-	
-	@BindSqlUpdate(where = "valueLong=${valueLong}")
-	long updateOneLong(Long valueLong);
-
-
-	// float type
+	// short type
 	@BindSqlInsert()
-	long insertFloatType(float valueFloatType);
-	
-	@BindSqlSelect(where = "valueFloatType=${valueFloatType}")
-	Bean selectOneFloatType(float valueFloatType);
-	
-	@BindSqlDelete(where = "valueFloatType=${valueFloatType}")
-	long deleteFloatType(float valueFloatType);
-	
-	@BindSqlUpdate(where = "valueFloatType=${valueFloatType}")
-	long updateOneFloatType(float valueFloatType);
-				
-	// float
-	@BindSqlInsert()
-	long insertFloat(Float valueFloat);
-	
-	@BindSqlSelect(where = "valueFloat=${valueFloat}")
-	Bean selectOneFloat(Float valueFloat);
-	
-	@BindSqlDelete(where = "valueFloat=${valueFloat}")
-	long deleteFloat(Float valueFloat);
-	
-	@BindSqlUpdate(where = "valueFloat=${valueFloat}")
-	long updateOneFloat(Float valueFloat);
-	
-	// double type
-	@BindSqlInsert()
-	long insertDoubleType(double valueDoubleType);
-	
-	@BindSqlSelect(where = "valueDoubleType=${valueDoubleType}")
-	Bean selectOneDoubleType(double valueDoubleType);
-	
-	@BindSqlDelete(where = "valueDoubleType=${valueDoubleType}")
-	long deleteDoubleType(double valueDoubleType);
-	
-	@BindSqlUpdate(where = "valueDoubleType=${valueDoubleType}")
-	long updateOneDoubleType(double valueDoubleType);
-				
-	// double
-	@BindSqlInsert()
-	long insertDouble(Double valueDouble);
-	
-	@BindSqlSelect(where = "valueDouble=${valueDouble}")
-	Bean selectOneDouble(Double valueDouble);
-	
-	@BindSqlDelete(where = "valueDouble=${valueDouble}")
-	long deleteDouble(Double valueDouble);
-	
-	@BindSqlUpdate(where = "valueDouble=${valueDouble}")
-	long updateOneDouble(Double valueDouble);
-	
+	long insertShortType(short valueShortType);
 	
 	// string
 	@BindSqlInsert()
 	long insertString(String valueString);
-	
-	@BindSqlSelect(where = "valueString=${valueString}")
-	Bean selectOneString(String valueString);
-	
-	@BindSqlDelete(where = "valueString=${valueString}")
-	long deleteString(String valueString);
-	
-	@BindSqlUpdate(where = "valueString=${valueString}")
-	long updateOneString(Double valueString);
-	
-	
-	// date
-	@BindSqlInsert()
-	long insertDate(Date valueDate);
-	
-	@BindSqlSelect(where = "valueDate=${valueDate}")
-	Bean selectOneDate(Date valueDate);
-	
-	@BindSqlDelete(where = "valueDate=${valueDate}")
-	long deleteDate(Date valueDate);
-	
-	@BindSqlUpdate(where = "valueDate=${valueDate}")
-	long updateOneDate(Date valueDate);
-	
-	
-	// calendar
-	@BindSqlInsert()
-	long insertCalendar(Calendar valueCalendar);
-	
-	@BindSqlSelect(where = "valueCalendar=${valueCalendar}")
-	Bean selectOneCalendar(Calendar valueCalendar);
-	
-	@BindSqlDelete(where = "valueCalendar=${valueCalendar}")
-	long deleteCalendar(Date valueCalendar);
-	
-	@BindSqlUpdate(where = "valueCalendar=${valueCalendar}")
-	long updateOneCalendar(Calendar valueCalendar);
-
-	
-	// locale
-	@BindSqlInsert()
-	long insertLocale(Locale valueLocale);
-	
-	@BindSqlSelect(where = "valueLocale=${valueLocale}")
-	Bean selectOneLocale(Calendar valueLocale);
-	
-	@BindSqlDelete(where = "valueLocale=${valueLocale}")
-	long deleteLocale(Date valueLocale);
-	
-	@BindSqlUpdate(where = "valueLocale=${valueLocale}")
-	long updateOneLocale(Locale valueLocale);
-	
-	
-	// URL
-	@BindSqlInsert()
-	long insertURL(URL valueUrl);
-	
-	@BindSqlSelect(where = "valueUrl=${valueUrl}")
-	Bean selectOneURL(URL valueUrl);
-	
-	@BindSqlDelete(where = "valueUrl=${valueUrl}")
-	long deleteURL(URL valueUrl);
-	
-	@BindSqlUpdate(where = "valueUrl=${valueUrl}")
-	long updateOneURL(URL valueUrl);
-	
+				
 	// Time
 	@BindSqlInsert()
 	long insertTime(Time valueTime);
-	
-	@BindSqlSelect(where = "valueTime=${valueTime}")
-	Bean selectOneTime(Time valueTime);
-	
-	@BindSqlDelete(where = "valueTime=${valueTime}")
-	long deleteTime(Time valueTime);
-	
-	@BindSqlUpdate(where = "valueTime=${valueTime}")
-	long updateOneTime(Time valueTime);
-	
-	
-	// Currency
-	@BindSqlInsert()
-	long insertCurrency(Currency valueCurrency);
-	
-	@BindSqlSelect(where = "valueCurrency=${valueCurrency}")
-	Bean selectOneCurrencye(Currency valueCurrency);
-	
-	@BindSqlDelete(where = "valueCurrency=${valueCurrency}")
-	long deleteCurrency(Currency valueCurrency);
-	
-	@BindSqlUpdate(where = "valueCurrency=${valueCurrency}")
-	long updateOneCurrency(Currency valueCurrency);
-	
 	
 	// timezone
 	@BindSqlInsert()
 	long insertTimeZone(TimeZone valueTimeZone);
 	
-	@BindSqlSelect(where = "valueTimeZone=${valueTimeZone}")
-	Bean selectOneTimeZone(TimeZone valueTimeZone);
-	
-	@BindSqlDelete(where = "valueTimeZone=${valueTimeZone}")
-	long deleteTimeZone(TimeZone valueTimeZone);
-	
-	@BindSqlUpdate(where = "valueTimeZone=${valueTimeZone}")
-	long updateOneTimeZone(TimeZone valueTimeZone);
-	
-	// enum
+	// URL
 	@BindSqlInsert()
-	long insertEnumType(EnumType valueEnumType);
+	long insertURL(URL valueUrl);
 	
-	@BindSqlSelect(where = "valueEnumType=${valueEnumType}")
-	Bean selectOneEnumType(EnumType valueEnumType);
+	@BindSqlSelect(where = "id = ${id}")
+	List<Bean> selectList(long id);
 	
-	@BindSqlDelete(where = "valueEnumType=${valueEnumType}")
-	long deleteEnumType(EnumType valueEnumType);
 	
-	@BindSqlUpdate(where = "valueEnumType=${valueEnumType}")
-	long updateOneEnumType(EnumType valueEnumType);
+	@BindSqlSelect()
+	Bean selectOne();
 	
-	// array bean	
-	@BindSqlInsert
-	long insertArrayBeanType(Bean[] valueBeanArray);
+	@BindSqlSelect(where = "valueBigDecimal=${valueBigDecimal}")
+	Bean selectOne(BigDecimal valueBigDecimal);
+	
+	@BindSqlSelect(where = "valueBigDecimal=${valueBigDecimal}")
+	Bean selectOne(BigInteger valueBigDecimal);
+	
+	@BindSqlSelect(where = "valueBoolType=${valueBoolType}")
+	Bean selectOne(boolean valueBoolType);
+				
+	@BindSqlSelect(where = "valueBool=${valueBool}")
+	Bean selectOne(Boolean valueBool);
+	
+	@BindSqlSelect(where = "id = ${id}")
+	void selectOne(int id, OnReadBeanListener<Bean> listener);
+	
+	@BindSqlSelect(where = "id = ${id}")
+	void selectOne(long id, OnReadCursorListener listener);
 	
 	@BindSqlSelect(where = "valueBeanArray=${valueBeanArray}")
 	Bean selectOneArrayBeanType(Bean[] valueBeanArray);
 	
-	@BindSqlDelete(where = "valueBeanArray=${valueBeanArray}")
-	long deleteArrayBeanType(Bean[] valueBeanArray);
 	
-	@BindSqlUpdate(where = "valueBeanArray=${valueBeanArray}")
-	long updateOneArrayBean(Bean[] valueBeanArray);
-	
-	// array long	
-	@BindSqlInsert
-	long insertArrayLongType(long[] valueLongTypeArray);
-	
-	@BindSqlSelect(where = "valueLongTypeArray=${valueLongTypeArray}")
-	Bean selectOneArrayLongType(long[] valueLongTypeArray);
-	
-	@BindSqlDelete(where = "valueLongTypeArray=${valueLongTypeArray}")
-	long deleteArrayLongType(long[] valueLongTypeArray);
-	
-	@BindSqlUpdate(where = "valueLongTypeArray=${valueLongTypeArray}")
-	long updateOneArrayLongType(long[] valueLongTypeArray);
-	
-	// array Long	
-	@BindSqlInsert
-	long insertArrayLong(Long[] valueLongArray);
 	
 	@BindSqlSelect(where = "valueLongArray=${valueLongArray}")
 	Bean selectOneArrayLong(Long[] valueLongArray);
 	
-	@BindSqlDelete(where = "valueLongArray=${valueLongArray}")
-	long deleteArrayLong(Long[] valueLongArray);
+	@BindSqlSelect(where = "valueLongTypeArray=${valueLongTypeArray}")
+	Bean selectOneArrayLongType(long[] valueLongTypeArray);
 	
-	@BindSqlUpdate(where = "valueLongArray=${valueLongArray}")
-	long updateOneArrayLong(Long[] valueLongArray);
+	@BindSqlSelect(where = "valueByte=${valueByte}")
+	Bean selectOneByte(Byte valueByte);
 	
-	// List Long	
-	@BindSqlInsert
-	long insertListLong(LinkedList<Long> valueLongList);
+	@BindSqlSelect(where = "valueByteType=${valueByteType}")
+	Bean selectOneByteType(boolean valueByteType);
+				
+	@BindSqlSelect(where = "valueCalendar=${valueCalendar}")
+	Bean selectOneCalendar(Calendar valueCalendar);
+	
+	@BindSqlSelect(where = "valueCharType=${valueChar}")
+	Bean selectOneChar(Character valueChar);
+	
+	@BindSqlSelect(where = "valueCharType=${valueCharType}")
+	Bean selectOneCharType(char valueCharType);
+	
+	@BindSqlSelect(where = "valueCurrency=${valueCurrency}")
+	Bean selectOneCurrencye(Currency valueCurrency);
+
+
+	@BindSqlSelect(where = "valueDate=${valueDate}")
+	Bean selectOneDate(Date valueDate);
+	
+	@BindSqlSelect(where = "valueDouble=${valueDouble}")
+	Bean selectOneDouble(Double valueDouble);
+	
+	@BindSqlSelect(where = "valueDoubleType=${valueDoubleType}")
+	Bean selectOneDoubleType(double valueDoubleType);
+	
+	@BindSqlSelect(where = "valueEnumType=${valueEnumType}")
+	Bean selectOneEnumType(EnumType valueEnumType);
+				
+	@BindSqlSelect(where = "valueFloat=${valueFloat}")
+	Bean selectOneFloat(Float valueFloat);
+	
+	@BindSqlSelect(where = "valueFloatType=${valueFloatType}")
+	Bean selectOneFloatType(float valueFloatType);
+	
+	@BindSqlSelect(where = "valueInt=${valueInt}")
+	Bean selectOneInt(Integer valueInt);
+	
+	@BindSqlSelect(where = "valueIntType=${valueIntType}")
+	Bean selectOneIntType(int valueIntType);
 	
 	@BindSqlSelect(where = "valueLongList=${valueLongList}")
 	Bean selectOneListLong(LinkedList<Long> valueLongList);
 	
-	@BindSqlDelete(where = "valueLongList=${valueLongList}")
-	long deleteListLong(LinkedList<Long> valueLongList);
+	@BindSqlSelect(where = "valueLocale=${valueLocale}")
+	Bean selectOneLocale(Calendar valueLocale);
+	
+	@BindSqlSelect(where = "valueLong=${valueLong}")
+	Bean selectOneLong(Long valueLong);
+	
+	@BindSqlSelect(where = "valueLongType=${valueLongType}")
+	Bean selectOneLongType(long valueLongType);
+				
+	@BindSqlSelect(where = "valueShort=${valueShort}")
+	Bean selectOneShort(Short valueShort);
+	
+	@BindSqlSelect(where = "valueShortType=${valueShortType}")
+	Bean selectOneShortType(short valueShortType);
+	
+	@BindSqlSelect(where = "valueString=${valueString}")
+	Bean selectOneString(String valueString);
+	
+	@BindSqlSelect(where = "valueTime=${valueTime}")
+	Bean selectOneTime(Time valueTime);
+	
+	
+	@BindSqlSelect(where = "valueTimeZone=${valueTimeZone}")
+	Bean selectOneTimeZone(TimeZone valueTimeZone);
+	
+	@BindSqlSelect(where = "valueUrl=${valueUrl}")
+	Bean selectOneURL(URL valueUrl);
+	
+	@BindSqlSelect(value="valueBool")
+	public Boolean selectValueBool();
+	
+	//-- select raw
+	@BindSqlSelect(value="valueBoolType")
+	boolean selectValueBoolType();
+	
+	
+	@BindSqlSelect(value="valueByte")
+	public Byte selectValueByte();
+	
+	@BindSqlSelect(value="valueByteType")
+	public byte selectValueByteType();
+	
+	@BindSqlSelect(value="valueChar")
+	public Character selectValueChar();
+	
+	@BindSqlSelect(value="valueCharType")
+	public char selectValueCharType();
+	
+	
+	@BindSqlSelect(value="valueDouble")
+	public Double selectValueDouble();
+	
+	@BindSqlSelect(value="valueDoubleType")
+	public double selectValueDoubleType();
+	
+	@BindSqlSelect(value="valueFloat")
+	public Float selectValueFloat();
+	
+	@BindSqlSelect(value="valueFloatType")
+	public float selectValueFloatType();
+
+	
+	@BindSqlSelect(value="valueInt")
+	public Integer selectValueInt();
+	
+	@BindSqlSelect(value="valueIntType")
+	public int selectValueIntType();
+	
+	@BindSqlSelect(value="valueLong")
+	public Long selectValueLong();
+	
+	@BindSqlSelect(value="valueLongType")
+	public long selectValueLongType();
+	
+	
+	@BindSqlSelect(value="valueShort")
+	public Short selectValueShort();
+	
+	@BindSqlSelect(value="valueShortType")
+	public short selectValueShortType();
+	
+	@BindSqlSelect(value="valueString")
+	public String selectValueString();
+	
+	@BindSqlUpdate(where = "id=${value.id}")
+	long updateOne(Bean value);
+	
+	@BindSqlUpdate(where = "valueBigDecimal=${valueBigDecimal}")
+	long updateOne(long id, BigDecimal valueBigDecimal);
+	
+	@BindSqlUpdate(where = "valueBigDecimal=${valueBigDecimal}")
+	long updateOne(long id, BigInteger valueBigDecimal);
+	
+	@BindSqlUpdate(where = "valueBoolType=${valueBoolType}")
+	long updateOne(long id, boolean valueBoolType);
+	
+	@BindSqlUpdate(where = "valueBool=${valueBool}")
+	long updateOne(long id, Boolean valueBool);
+	
+	
+	@BindSqlUpdate(where = "id=${id}")
+	long updateOne(long id, Set<String> valueSetString);
+	
+	@BindSqlUpdate(where = "valueBeanArray=${valueBeanArray}")
+	long updateOneArrayBean(long id, Bean[] valueBeanArray);
+	
+	@BindSqlUpdate(where = "valueLongArray=${valueLongArray}")
+	long updateOneArrayLong(long id, Long[] valueLongArray);
+	
+	@BindSqlUpdate(where = "valueLongTypeArray=${valueLongTypeArray}")
+	long updateOneArrayLongType(long id, long[] valueLongTypeArray);
+	
+	
+	@BindSqlUpdate(where = "valueByte=${valueByte}")
+	long updateOneByte(long id, Byte valueByte);
+	
+	@BindSqlUpdate(where = "valueByteType=${valueByteType}")
+	long updateOneByteType(long id, boolean valueByteType);
+	
+	@BindSqlUpdate(where = "valueCalendar=${valueCalendar}")
+	long updateOneCalendar(long id, Calendar valueCalendar);
+	
+	@BindSqlUpdate(where = "valueCharType=${valueChar}")
+	long updateOneChar(long id, Character valueChar);
+	
+	@BindSqlUpdate(where = "valueCharType=${valueCharType}")
+	long updateOneCharType(long id, char valueCharType);
+	
+	@BindSqlUpdate(where = "valueCurrency=${valueCurrency}")
+	long updateOneCurrency(long id, Currency valueCurrency);
+	
+	@BindSqlUpdate(where = "valueDate=${valueDate}")
+	long updateOneDate(long id, Date valueDate);
+	
+	@BindSqlUpdate(where = "valueDouble=${valueDouble}")
+	long updateOneDouble(long id, Double valueDouble);
+	
+	@BindSqlUpdate(where = "valueDoubleType=${valueDoubleType}")
+	long updateOneDoubleType(long id, double valueDoubleType);
+	
+	@BindSqlUpdate(where = "valueEnumType=${valueEnumType}")
+	long updateOneEnumType(long id, EnumType valueEnumType);
+	
+	@BindSqlUpdate(where = "valueFloat=${valueFloat}")
+	long updateOneFloat(long id, Float valueFloat);
+	
+	@BindSqlUpdate(where = "valueFloatType=${valueFloatType}")
+	long updateOneFloatType(long id, float valueFloatType);
+	
+	@BindSqlUpdate(where = "valueInt=${valueInt}")
+	long updateOneInt(long id, Integer valueInt);
+	
+	@BindSqlUpdate(where = "valueIntType=${valueIntType}")
+	long updateOneIntType(long id, int valueIntType);
 	
 	@BindSqlUpdate(where = "valueLongList=${valueLongList}")
-	long updateOneListLong(LinkedList<Long> valueLongList);
+	long updateOneListLong(long id, LinkedList<Long> valueLongList);
+	
+	@BindSqlUpdate(where = "valueLocale=${valueLocale}")
+	long updateOneLocale(long id, Locale valueLocale);
+	
+	@BindSqlUpdate(where = "valueLong=${valueLong}")
+	long updateOneLong(long id, Long valueLong);
+	
+	@BindSqlUpdate(where = "valueLongType=${valueLongType}")
+	long updateOneLongType(long id, long valueLongType);
+	
+	@BindSqlUpdate(where = "valueShort=${valueShort}")
+	long updateOneShort(long id, Short valueShort);
+	
+	@BindSqlUpdate(where = "valueShortType=${valueShortType}")
+	long updateOneShortType(long id, short valueShortType);
+	
+	@BindSqlUpdate(where = "valueString=${valueString}")
+	long updateOneString(long id, Double valueString);
+	
+	@BindSqlUpdate(where = "valueTime=${valueTime}")
+	long updateOneTime(long id, Time valueTime);
+	
+	@BindSqlUpdate(where = "valueTimeZone=${valueTimeZone}")
+	long updateOneTimeZone(long id, TimeZone valueTimeZone);
+	
+	@BindSqlUpdate(where = "valueUrl=${valueUrl}")
+	long updateOneURL(long id, URL valueUrl);
 			
 }

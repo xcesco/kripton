@@ -61,7 +61,7 @@ public interface BeanDao {
 	long delete(Map<String, Byte> valueMapStringByte);
 	
 	@BindSqlUpdate(where = "value=${valueMapStringByte}")
-	long updateOne(Map<String, Byte> valueMapStringByte);
+	long updateOne(long id, Map<String, Byte> valueMapStringByte);
 	
 	//---
 	@BindSqlInsert()
@@ -83,7 +83,7 @@ public interface BeanDao {
 	long delete(HashMap<EnumType, Byte> valueMapEnumByte);
 	
 	@BindSqlUpdate(where = "value=${valueMapEnumByte}")
-	long updateOne(HashMap<EnumType, Byte> valueMapEnumByte);
+	long updateOne(long id, HashMap<EnumType, Byte> valueMapEnumByte);
 	
 	@BindSqlSelect(value = "valueMapEnumByte")
 	List<Bean63> selectMapEnumByteOne();

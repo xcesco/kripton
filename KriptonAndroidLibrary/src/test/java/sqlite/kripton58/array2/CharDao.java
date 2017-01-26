@@ -43,7 +43,7 @@ public interface CharDao {
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<CharBean> selectList(char[] value, Character[] value2);
 	
-	@BindSqlUpdate(where = "id=${id} and value=${value} and value2=${value2}")
+	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, char[] value, Character[] value2);
 	
 	@BindSqlInsert()

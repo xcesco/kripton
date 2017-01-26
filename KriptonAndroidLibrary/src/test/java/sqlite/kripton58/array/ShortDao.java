@@ -43,7 +43,7 @@ public interface ShortDao {
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<ShortBean> selectList(short[] value, Short[] value2);
 	
-	@BindSqlUpdate(where = "id=${id} and value=${value} and value2=${value2}")
+	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, short[] value, Short[] value2);
 	
 	@BindSqlInsert()

@@ -43,7 +43,7 @@ public interface DoubleDao {
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<DoubleBean> selectList(double[] value, Double[] value2);
 	
-	@BindSqlUpdate(where = "id=${id} and value=${value} and value2=${value2}")
+	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, double[] value, Double[] value2);
 	
 	@BindSqlInsert()

@@ -59,7 +59,7 @@ public interface BeanDao2 {
 	long delete(HashSet<BigDecimal> valueBigDecimalSet);
 	
 	@BindSqlUpdate(where = "value=${valueBigDecimalSet}")
-	long updateOne(HashSet<BigDecimal> valueBigDecimalSet);
+	long updateOne(long id, HashSet<BigDecimal> valueBigDecimalSet);
 	
 	
 	

@@ -43,7 +43,7 @@ public interface LongDao {
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<LongBean> selectList(long[] value, Long[] value2);
 	
-	@BindSqlUpdate(where = "id=${id} and value=${value} and value2=${value2}")
+	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, long[] value, Long[] value2);
 	
 	@BindSqlInsert()

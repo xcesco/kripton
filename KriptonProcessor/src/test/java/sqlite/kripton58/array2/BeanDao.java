@@ -45,7 +45,7 @@ public interface BeanDao {
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<BeanBean> selectList(BeanInner[] value, BeanInner[] value2);
 	
-	@BindSqlUpdate(where = "id=${id} and value=${value} and value2=${value2}")
+	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, BeanInner[] value, BeanInner[] value2);
 	
 	@BindSqlInsert()
