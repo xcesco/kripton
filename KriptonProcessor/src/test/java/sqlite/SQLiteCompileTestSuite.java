@@ -22,6 +22,7 @@ import sqlite.dynamic.TestDynamicSuite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.foreignKey.TestForeignKeySuite;
+import sqlite.includeFields.IncludeFieldsTestSuite;
 import sqlite.indexes.IndexTestSuite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
@@ -80,7 +81,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestFirstAid.class,			
 			TestForeignKeySuite.class,
 			TestDynamicSuite.class,
-			IndexTestSuite.class			
+			IndexTestSuite.class,
+			IncludeFieldsTestSuite.class
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

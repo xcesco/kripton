@@ -137,19 +137,19 @@ public abstract class JavadocUtility {
 		// return type
 		switch (selectResultType) {
 		case BEAN:
-			methodBuilder.addJavadoc("\n@return selected bean or <code>null</code>.\n");
+			methodBuilder.addJavadoc("@return selected bean or <code>null</code>.\n");
 			break;
 		case CURSOR:
-			methodBuilder.addJavadoc("\n@return cursor. Closing the cursor is delegated to the calling code.\n");
+			methodBuilder.addJavadoc("@return cursor. Closing the cursor is delegated to the calling code.\n");
 			break;
 		case LIST_BEAN:
-			methodBuilder.addJavadoc("\n@return collection of bean or empty collection.\n");
+			methodBuilder.addJavadoc("@return collection of bean or empty collection.\n");
 			break;
 		case LIST_SCALAR:
-			methodBuilder.addJavadoc("\n@return collection of single value extracted with query.\n");
+			methodBuilder.addJavadoc("@return collection of single value extracted with query.\n");
 			break;		
 		case SCALAR:
-			methodBuilder.addJavadoc("\n@return single value extracted with query.\n");
+			methodBuilder.addJavadoc("@return single value extracted with query.\n");
 			break;
 		default:
 		//case LISTENER_BEAN:

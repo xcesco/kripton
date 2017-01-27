@@ -22,8 +22,17 @@ public interface PersonDAO {
 	@BindSqlUpdate
 	long updateTwo(String name, String surname, String birthCity, @BindSqlParam("birthDay") Date date);
 
+	@BindSqlUpdate(excludedFields={"surname"},where="id=${bean.id} and name=${bean.name}")
+	void updateThreeExclude(Person bean);
+	
+	@BindSqlUpdate(where="id=${bean.id} and name=${bean.name}")
+	void updateThreeInclude(Person bean);
+	
+	@BindSqlUpdate(value={"surname"},where="id=${bean.id} and name=${bean.name}")
+	void updateThreeIncludeOK(Person bean);
+	
 	@BindSqlUpdate(value={"name"},where="id=${bean.id} and name=${bean.name}")
-	void updateThree(Person bean);
+	void updateThreeIncludeERR(Person bean);
 	
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
