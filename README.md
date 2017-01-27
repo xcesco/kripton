@@ -8,12 +8,12 @@ Kripton is a java library, for Android and Java platform, that provides a simple
 
 * SQLite database (Android platform)
 * Shared preference (Android platform)
-* REST service (Java and Android platform), throws [Retrofit library](http://square.github.io/retrofit/) integration
-* JSON format (Java and Android platform)
-* XML format (Java and Android platform)
-* CBOR format (Java and Android platform)
-* (Java) properties format (Java and Android platform)
-* YAML format (Java and Android platform)
+* REST service, throws [Retrofit library](http://square.github.io/retrofit/) integration
+* JSON format
+* XML format
+* CBOR format
+* (Java) properties format
+* YAML format
 
 To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object without using reflection and with just few lines of code.
 
