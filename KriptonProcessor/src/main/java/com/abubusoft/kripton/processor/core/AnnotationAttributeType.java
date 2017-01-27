@@ -26,54 +26,65 @@ import javax.lang.model.element.ExecutableElement;
  * @since 05/mag/2016
  */
 public enum AnnotationAttributeType {
-	ATTRIBUTE_ALL_FIELDS("allFields"),
+	ADAPTER("adapter"),	
+	ALL_FIELDS("allFields"),	
+	ASYNCTASK("asyncTask"),
 	
-	ATTRIBUTE_RAW_FIELDS("rawFields"),
+	COLUMN_TYPE("columnType"),	
+	CONFLICT_ALGORITHM_TYPE("conflictAlgorithm"),
 	
-	ATTRIBUTE_VALUE("value"),
-	ATTRIBUTE_EXCLUDED_FIELDS("excludedFields"),	
-	ATTRIBUTE_DISTINCT("distinct"),
+	CURSOR("cursor"),	
+	DAO("dao"),
+	DATA_TYPE("dataType"),
 	
-	ATTRIBUTE_WHERE("where"),	
-	ATTRIBUTE_HAVING("having"),
-	ATTRIBUTE_GROUP_BY("groupBy"),
-	ATTRIBUTE_ORDER_BY("orderBy"),
-	ATTRIBUTE_NULLABLE("nullable"),
-	ATTRIBUTE_FILENAME("fileName"),
-	ATTRIBUTE_VERSION("version"),
-	ATTRIBUTE_LOG("log"), 
-	ATTRIBUTE_ASYNCTASK("asyncTask"), 
-	ATTRIBUTE_CURSOR("cursor"), 
-	ATTRIBUTE_FIELD_TYPE("fieldType"),
-	ATTRIBUTE_ENABLED("enabled"),
+	DISTINCT("distinct"),
+	ENABLED("enabled"),
 	
-	ATTRIBUTE_ORDER("order"),	
-	ATTRIBUTE_MAP_KEY_NAME("mapKeyName"),
-	ATTRIBUTE_MAP_VALUE_NAME("mapValueName"),
-	ATTRIBUTE_MAP_ENTRY_TYPE("mapEntryType"),
-	ATTRIBUTE_XML_TYPE("xmlType"), 
-	ATTRIBUTE_XML_ELEMENT_TAG("elementTag"),
+	EXCLUDED_FIELDS("excludedFields"),
+	FIELD_TYPE("fieldType"),
+	FILENAME("fileName"),
 	
-	ATTRIBUTE_ADAPTER("adapter"),
-	ATTRIBUTE_DATA_TYPE("dataType"),
-	ATTRIBUTE_FOREIGN_KEY("foreignKey"),
-	ATTRIBUTE_COLUMN_TYPE("columnType"),
-	ATTRIBUTE_DAO("dao"),
-	ATTRIBUTE_INCLUDE_PRIMARY_KEY("includePrimaryKey"),
-	ATTRIBUTE_INSERT_CONFLICT_ALGORITHM_TYPE("conflictAlgorithm")
+	FOREIGN_KEY("foreignKey"),
+	
+	GROUP_BY("groupBy"),
+	
+	HAVING("having"),
+	INCLUDE_PRIMARY_KEY("includePrimaryKey"),
+	INDEXES("indexes"),
+	
+	LOG("log"),
+	
+	MAP_ENTRY_TYPE("mapEntryType"),
+	MAP_KEY_NAME("mapKeyName"),
+	MAP_VALUE_NAME("mapValueName"),
+	
+	NULLABLE("nullable"),
+	
+	ORDER("order"),	
+	ORDER_BY("orderBy"),
+	
+	RAW_FIELDS("rawFields"),
+	
+	VALUE("value"),
+	VERSION("version"),
+	
+	WHERE("where"),
+		
+	XML_ELEMENT_TAG("elementTag"),
+	XML_TYPE("xmlType")
 	;
 	
 	
 	private String value;
 	
-	public String getValue()
-	{
-		return value;
-	}
-
 	private AnnotationAttributeType(String value)
 	{
 		this.value=value;
+	}
+
+	public String getValue()
+	{
+		return value;
 	}
 
 	public boolean isEquals(ExecutableElement value) {

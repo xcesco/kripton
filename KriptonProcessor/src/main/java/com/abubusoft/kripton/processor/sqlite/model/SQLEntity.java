@@ -82,7 +82,7 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 	public String buildTableName(Elements elementUtils, SQLiteDatabaseSchema model) {
 		tableName = getSimpleName();
 		if (containsAnnotation(BindTable.class)) {
-			String temp = AnnotationUtility.extractAsString(elementUtils, getElement(), BindTable.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+			String temp = AnnotationUtility.extractAsString(elementUtils, getElement(), BindTable.class, AnnotationAttributeType.VALUE);
 
 			if (temp != null && temp.length() > 0)
 				tableName = temp;

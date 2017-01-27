@@ -157,7 +157,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			MethodUtility.generateSelect(elementUtils, builder, value);
 		} else {
 			// method without supported annotation
-			AssertKripton.failWithMethodWithoutSupportedAnnotationException(currentDaoDefinition, value);			
+			AssertKripton.failWithMethodWithoutSupportedAnnotationException(value);			
 		}
 
 	}

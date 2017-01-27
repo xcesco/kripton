@@ -170,7 +170,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	public static ConflictAlgorithmType getConflictAlgorithmType(SQLiteModelMethod method) {
 		ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
 
-		String value=annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_INSERT_CONFLICT_ALGORITHM_TYPE);
+		String value=annotation.getAttribute(AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE);
 		
 		if (value!=null && value.indexOf(".")>-1)
 		{

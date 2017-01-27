@@ -191,7 +191,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 				createDataSource(dataSource);
 
 				// get all dao used within SQLDatabaseSchema annotation
-				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_DAO);
+				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.DAO);
 
 				// Analyze beans BEFORE daos, because beans are needed for DAO
 				// definition
@@ -250,7 +250,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		}
 
 		ModelProperty property;
-		String beanName = AnnotationUtility.extractAsClassName(elementUtils, daoElement, BindDao.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		String beanName = AnnotationUtility.extractAsClassName(elementUtils, daoElement, BindDao.class, AnnotationAttributeType.VALUE);
 		Element beanElement = globalBeanElements.get(beanName);
 		if (beanElement == null) {
 			String msg = String.format("In dao definition %s is referred a bean definition %s without @BindType annotation", daoElement.toString(), beanName);
@@ -269,7 +269,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
-		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
+		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 		{
 			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLProperty>() {
 
@@ -290,7 +290,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					}
 
 					ModelAnnotation annotationBindColumn = property.getAnnotation(BindColumn.class);
-					if (annotationBindColumn != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false) {
+					if (annotationBindColumn != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn, AnnotationAttributeType.ENABLED) == false) {
 						return false;
 					}
 
@@ -299,15 +299,15 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					}
 
 					if (annotationBindColumn != null) {
-						property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_NULLABLE));
+						property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn, AnnotationAttributeType.NULLABLE));
 						ColumnType columnType = ColumnType
-								.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_COLUMN_TYPE));
+								.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
 
 						property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
 
 						// set transformer for enumeration
 						FieldType definitionType = FieldType
-								.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.ATTRIBUTE_FIELD_TYPE));
+								.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.FIELD_TYPE));
 						if (definitionType != null) {
 							switch (definitionType) {
 							case NONE:
@@ -337,7 +337,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					String columnName = null;
 					ModelAnnotation columnAnnotation = property.getAnnotation(BindColumn.class);
 					if (columnAnnotation != null) {
-						columnName = columnAnnotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
+						columnName = columnAnnotation.getAttribute(AnnotationAttributeType.VALUE);
 					}
 
 					if (!StringUtils.hasText(columnName)) {
@@ -410,7 +410,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			throw (new InvalidKindForAnnotationException(msg));
 		}
 
-		String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoElement, BindDao.class, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoElement, BindDao.class, AnnotationAttributeType.VALUE);
 		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, (TypeElement) daoElement, entityClassName);
 
 		// dao is associated to an entity is not contained in analyzed class
@@ -490,11 +490,11 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		// go ahead to dataSource analysis
 		// ASSERT: daoElement and beanElement is element for dao and bean
 		// associated
-		String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_FILENAME);
-		int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_VERSION);
-		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_LOG);
-		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_ASYNCTASK);
-		boolean generateCursor = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ATTRIBUTE_CURSOR);
+		String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.FILENAME);
+		int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.VERSION);
+		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.LOG);
+		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ASYNCTASK);
+		boolean generateCursor = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.CURSOR);
 
 		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog, generateAsyncTask, generateCursor);
 		model.schemaAdd(currentSchema);

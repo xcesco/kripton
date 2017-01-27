@@ -45,8 +45,19 @@ public abstract class AssertKripton {
 		assertTrueOrInvalidMethodSignException(!expression, method);			
 	}
 
-	public static void failWithMethodWithoutSupportedAnnotationException(SQLDaoDefinition currentDaoDefinition, SQLiteModelMethod value) {
-		throw (new MethodWithoutSupportedAnnotationException(currentDaoDefinition, value));		
+	public static void failWithMethodWithoutSupportedAnnotationException(SQLiteModelMethod value) {
+		throw (new MethodWithoutSupportedAnnotationException(value.getParent(), value));		
+	}
+	
+	/**
+	 * Fails if expression is true
+	 * 
+	 * @param expression
+	 * @param messageFormat
+	 * @param args
+	 */
+	public static void fail(boolean expression, String messageFormat, Object... args) {
+		assertTrue(!expression, messageFormat, args);
 	}
 	
 

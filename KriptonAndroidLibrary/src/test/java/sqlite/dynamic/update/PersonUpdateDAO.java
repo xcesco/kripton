@@ -13,13 +13,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlWhere;
 import sqlite.dynamic.Person;
 
 @BindDao(Person.class)
-public interface PersonUpdateDAO {
-	
-	@BindSqlInsert
-	void insertOne(String name, String surname, String birthCity, Date birthDay);
-
-	@BindSqlSelect(where="name like ${nameTemp} || '%' ")
-	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue);
+public interface PersonUpdateDAO {		
 	
 	@BindSqlUpdate(where="id = ${nameValue}")
 	void updateRaw(String name, String nameValue, @BindSqlWhere String where);
@@ -29,5 +23,11 @@ public interface PersonUpdateDAO {
 	
 	@BindSqlSelect
 	List<Person> selecAll();
+	
+	@BindSqlInsert
+	void insertOne(String name, String surname, String birthCity, Date birthDay);
+
+	@BindSqlSelect(where="name like ${nameTemp} || '%' ")
+	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue);
 
 }

@@ -67,9 +67,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		String whereCondition;
 
 		if (updateMode) {
-			whereCondition = method.getAnnotation(BindSqlUpdate.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
+			whereCondition = method.getAnnotation(BindSqlUpdate.class).getAttribute(AnnotationAttributeType.WHERE);
 		} else {
-			whereCondition = method.getAnnotation(BindSqlDelete.class).getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);
+			whereCondition = method.getAnnotation(BindSqlDelete.class).getAttribute(AnnotationAttributeType.WHERE);
 		}
 
 		if (StringUtils.hasText(whereCondition)) {

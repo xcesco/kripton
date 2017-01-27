@@ -93,7 +93,7 @@ public class BindSharedPreferencesBuilder {
 		
 		String className = PREFIX + beanClassName + suffix;
 		ModelAnnotation annotation = entity.getAnnotation(BindSharedPreferences.class);
-		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_VALUE);
+		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.VALUE);
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();

@@ -229,7 +229,7 @@ public abstract class MethodUtility {
 		// separate params used for update bean and params used in whereCondition
 		// analyze whereCondition
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
-		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_DISTINCT));
+		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.DISTINCT));
 
 		// parameters
 		List<String> paramNames = new ArrayList<String>();
@@ -241,7 +241,7 @@ public abstract class MethodUtility {
 
 		SqlAnalyzer analyzer = new SqlAnalyzer();
 
-		String whereSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_WHERE);		
+		String whereSQL = annotation.getAttribute(AnnotationAttributeType.WHERE);		
 		analyzer.execute(elementUtils, method, whereSQL);
 		String whereStatement = analyzer.getSQLStatement();
 		paramGetters.addAll(analyzer.getParamGetters());
@@ -249,7 +249,7 @@ public abstract class MethodUtility {
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		String havingSQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_HAVING);
+		String havingSQL = annotation.getAttribute(AnnotationAttributeType.HAVING);
 		analyzer.execute(elementUtils, method, havingSQL);
 		String havingStatement = analyzer.getSQLStatement();
 		paramGetters.addAll(analyzer.getParamGetters());
@@ -257,7 +257,7 @@ public abstract class MethodUtility {
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		String groupBySQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_GROUP_BY);
+		String groupBySQL = annotation.getAttribute(AnnotationAttributeType.GROUP_BY);
 		analyzer.execute(elementUtils, method, groupBySQL);
 		String groupByStatement = analyzer.getSQLStatement();
 		paramGetters.addAll(analyzer.getParamGetters());
@@ -265,7 +265,7 @@ public abstract class MethodUtility {
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		String orderBySQL = annotation.getAttribute(AnnotationAttributeType.ATTRIBUTE_ORDER_BY);
+		String orderBySQL = annotation.getAttribute(AnnotationAttributeType.ORDER_BY);
 		analyzer.execute(elementUtils, method, orderBySQL);
 		String orderByStatement = analyzer.getSQLStatement();
 		paramGetters.addAll(analyzer.getParamGetters());

@@ -110,12 +110,12 @@ public abstract class SqlInsertBuilder {
 
 			ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
 			
-			if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE).size()>0) {
-				throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_VALUE.getValue() + " in this kind of query definition"));
+			if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE).size()>0) {
+				throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.VALUE.getValue() + " in this kind of query definition"));
 			}
 			
-			if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS).size()>0) {
-				throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS.getValue() + " in this kind of query definition"));
+			if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size()>0) {
+				throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.EXCLUDED_FIELDS.getValue() + " in this kind of query definition"));
 			}
 			
 			// check if there is only one parameter
@@ -124,9 +124,9 @@ public abstract class SqlInsertBuilder {
 			}
 			
 			// check no 
-			if (annotation.getAttributeAsBoolean(AnnotationAttributeType.ATTRIBUTE_INCLUDE_PRIMARY_KEY))
+			if (annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY))
 			{
-				throw (new InvalidMethodSignException(method, "attribute '"+AnnotationAttributeType.ATTRIBUTE_INCLUDE_PRIMARY_KEY.getValue()+"' can not be used here"));
+				throw (new InvalidMethodSignException(method, "attribute '"+AnnotationAttributeType.INCLUDE_PRIMARY_KEY.getValue()+"' can not be used here"));
 			}
 		} else if (count == 1) {
 			insertResultType = InsertType.INSERT_BEAN;

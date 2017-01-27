@@ -67,15 +67,15 @@ public abstract class CodeBuilderUtility {
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
 
 		// check included and excluded fields
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE);
 		if (alreadyUsedBeanPropertiesNames != null) {
 			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
 		}
 		Set<String> excludedFields = new HashSet<String>();
-		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
+		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS));
 
 		if (includedFields.size() > 0 && excludedFields.size() > 0) {
-			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
+			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.VALUE, AnnotationAttributeType.EXCLUDED_FIELDS));
 		}
 
 		StringBuilder buffer = new StringBuilder();
@@ -156,19 +156,19 @@ public abstract class CodeBuilderUtility {
 		SQLEntity entity = daoDefinition.getEntity();
 		// check included and excluded fields
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE);
 		if (includedFields==null) includedFields=new ArrayList<String>();
 		if (alreadyUsedBeanPropertiesNames != null) {
 			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
 		}
 		
-		List<String> temp=AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS);
+		List<String> temp=AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS);
 		if (temp==null) temp=new ArrayList<String>();
 		Set<String> excludedFields = new HashSet<String>();
 		excludedFields.addAll(temp);
 
 		if (includedFields.size() > 0 && excludedFields.size() > 0) {
-			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
+			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.VALUE, AnnotationAttributeType.EXCLUDED_FIELDS));
 		}
 		// check included
 		for (String item : includedFields) {
@@ -186,7 +186,7 @@ public abstract class CodeBuilderUtility {
 		// initialize contentValues
 		SQLProperty primaryKey = entity.getPrimaryKey();
 		
-		boolean includePrimaryKey=annotation.getAttributeAsBoolean(AnnotationAttributeType.ATTRIBUTE_INCLUDE_PRIMARY_KEY);
+		boolean includePrimaryKey=annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
 		
 		// for each property in entity except primaryKey and excluded properties
 		for (SQLProperty item : entity.getCollection()) {
@@ -216,12 +216,12 @@ public abstract class CodeBuilderUtility {
 		
 		// check included and excluded fields
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE);
 		if (alreadyUsedBeanPropertiesNames != null) {
 			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
 		}
 		Set<String> excludedFields = new HashSet<String>();
-		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS));
+		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS));
 	
 		// initialize contentValues
 		SQLProperty primaryKey = entity.getPrimaryKey();
@@ -229,7 +229,7 @@ public abstract class CodeBuilderUtility {
 		methodBuilder.addCode("contentValues.clear();\n\n");
 		// for each property in entity except primaryKey and excluded properties
 				
-		boolean includePrimaryKey=annotation.getAttributeAsBoolean(AnnotationAttributeType.ATTRIBUTE_INCLUDE_PRIMARY_KEY);
+		boolean includePrimaryKey=annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
 		
 		for (SQLProperty item : entity.getCollection()) {			
 			if (!includePrimaryKey && item.equals(primaryKey) || excludedFields.contains(item.getName()))

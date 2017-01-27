@@ -37,10 +37,8 @@ public @interface BindTable {
 	 * For example, to create and index
 	 * </p>
 	 * 
-	 * 
-	 * 
 	 * <p
 	 * @return
 	 */
-	String indexes() default "(id, prova),(test, prova)";
+	String indexes() default "";
 }

@@ -125,8 +125,8 @@ public abstract class SqlModifyBuilder {
 			{
 				annotation= method.getAnnotation(BindSqlUpdate.class);
 								
-				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_VALUE).size()==0, method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.ATTRIBUTE_VALUE.getValue());								
-				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS).size()==0,method," can not use attribute %s in this kind of query definition", AnnotationAttributeType.ATTRIBUTE_EXCLUDED_FIELDS.getValue());
+				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE).size()==0, method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.VALUE.getValue());								
+				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size()==0,method," can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
 								
 			} else {
 				annotation= method.getAnnotation(BindSqlDelete.class);

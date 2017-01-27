@@ -157,7 +157,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
-		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ATTRIBUTE_ALL_FIELDS, Boolean.TRUE);
+		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 
 		// if (!temp1 && temp2) {
 		// String msg = String.format("In class '%s', inconsistent value of
@@ -215,7 +215,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 				// if field disable, skip property definition
 				ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
-				if (annotation != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ATTRIBUTE_ENABLED) == false) {
+				if (annotation != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ENABLED) == false) {
 					return false;
 				}
 
