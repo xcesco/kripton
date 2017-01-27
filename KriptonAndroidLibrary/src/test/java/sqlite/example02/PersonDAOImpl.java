@@ -29,17 +29,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE person SET surname=${surname}, birthCity=${birthCity}, birthDay=${birthDay} WHERE name=${name}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
    * </dl>
@@ -80,10 +80,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE person SET name=${name}, surname=${surname}, birthCity=${birthCity}, birthDay=${birthDay} WHERE 1=1</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
@@ -91,7 +91,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>birth_day</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>date</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * </dl>
    *
@@ -139,10 +139,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, birth_city=${bean.birthCity}, birth_day=${bean.birthDay} WHERE id=${bean.id} and name=${bean.name}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
@@ -150,7 +150,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
    * </dl>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * 	<dt>${bean.name}</dt><dd>is mapped to method's parameter <strong>bean.name</strong></dd>
@@ -350,10 +350,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE person WHERE name=${name} and surname=${surname}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE person WHERE name=${name} and surname=${surname}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>temp</strong></dd>
@@ -373,10 +373,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE person WHERE name=${name} and surname=${surname}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE person WHERE name=${name} and surname=${surname}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>temp</strong></dd>
@@ -399,10 +399,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   /**
-   * <p>SQL delete:</p>
+   * <h2>SQL delete:</h2>
    * <pre>DELETE person WHERE id = ${bean.id}</pre>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
@@ -420,11 +420,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -477,11 +476,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${name} || \'%%\' ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -491,7 +489,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
    * </dl>
@@ -542,11 +539,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -606,11 +602,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>no bean's property is associated</dd>
    * 	<dt>name</dt><dd>no bean's property is associated</dd>

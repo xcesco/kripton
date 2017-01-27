@@ -25,18 +25,16 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -76,18 +74,16 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -131,15 +127,15 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean01 SET text=${text} WHERE id=${id}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>text</dt><dd>is binded to query's parameter <strong>${text}</strong> and method's parameter <strong>text</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -169,10 +165,10 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean01 WHERE id=${id}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean01 WHERE id=${id}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>

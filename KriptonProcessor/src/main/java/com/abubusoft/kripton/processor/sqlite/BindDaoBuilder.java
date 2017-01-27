@@ -33,7 +33,6 @@ import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
-import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -154,7 +153,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		} else if (value.getAnnotation(BindSqlDelete.class) != null) {
 			SqlModifyBuilder.generate(elementUtils, builder, value, false);
 		} else if (value.getAnnotation(BindSqlSelect.class) != null) {
-			MethodUtility.generateSelect(elementUtils, builder, value);
+			SelectBuilderUtility.generateSelect(elementUtils, builder, value);
 		} else {
 			// method without supported annotation
 			AssertKripton.failWithMethodWithoutSupportedAnnotationException(value);			

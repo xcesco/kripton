@@ -27,11 +27,10 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channelId = ${channelId}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>channel_id</dt><dd>is associated to bean's property <strong>channelId</strong></dd>
@@ -45,7 +44,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${channelId}</dt><dd>is binded to method's parameter <strong>channelId</strong></dd>
    * </dl>
@@ -103,10 +101,10 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE message SET channel_id=${bean.channelId}, owner_type=${bean.ownerType}, face_uid=${bean.faceUid}, text=${bean.text}, owner_uid=${bean.ownerUid}, channel_uid=${bean.channelUid}, update_time=${bean.updateTime}, type=${bean.type} WHERE id = ${bean.id}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>channel_id</dt><dd>is mapped to <strong>${bean.channelId}</strong></dd>
    * 	<dt>owner_type</dt><dd>is mapped to <strong>${bean.ownerType}</strong></dd>
@@ -118,7 +116,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
    * </dl>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
@@ -256,11 +254,10 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ${uid}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>channel_id</dt><dd>is associated to bean's property <strong>channelId</strong></dd>
@@ -274,7 +271,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${uid}</dt><dd>is binded to method's parameter <strong>uid</strong></dd>
    * </dl>

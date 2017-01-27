@@ -28,10 +28,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL delete:</p>
+   * <h2>SQL delete:</h2>
    * <pre>DELETE channel WHERE ownerUid=${value.id}</pre>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${value.id}</dt><dd>is mapped to method's parameter <strong>channel.id</strong></dd>
    * </dl>
@@ -51,10 +51,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL delete:</p>
+   * <h2>SQL delete:</h2>
    * <pre>DELETE channel WHERE ownerUid=${value.id}</pre>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${value.id}</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
    * </dl>
@@ -74,10 +74,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE channel WHERE ownerUid=${ownerUid} and id=${id}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE channel WHERE ownerUid=${ownerUid} and id=${id}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${ownerUid}</dt><dd>is mapped to method's parameter <strong>b</strong></dd>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>dummy</strong></dd>
@@ -100,10 +100,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE channel WHERE ownerUid=${ownerUid} and id=${id}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE channel WHERE ownerUid=${ownerUid} and id=${id}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${ownerUid}</dt><dd>is mapped to method's parameter <strong>ownerUid</strong></dd>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -338,15 +338,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE channel SET id=${id} WHERE id=${dummy}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>glu</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${dummy}</dt><dd>is mapped to method's parameter <strong>aid</strong></dd>
    * </dl>
@@ -372,15 +372,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE channel SET id=${id} WHERE id=${dummy}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${dummy}</dt><dd>is mapped to method's parameter <strong>dummy</strong></dd>
    * </dl>
@@ -406,15 +406,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE channel SET ownerUid=${ownerUid} WHERE id=${test}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>owner_uid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>app</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${test}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -444,15 +444,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE channel SET ownerUid=${ownerUid} WHERE id=${id}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>owner_uid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>ownerUid</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -482,10 +482,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE channel SET uid=${bean.uid}, owner_uid=${bean.ownerUid}, update_time=${bean.updateTime}, name=${bean.name} WHERE id=${bean.id}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
    * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
@@ -493,7 +493,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * </dl>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
    * </dl>
@@ -536,10 +536,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE channel SET uid=${bean.uid}, owner_uid=${bean.ownerUid}, update_time=${bean.updateTime}, name=${bean.name} WHERE id=${bean.id}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
    * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
@@ -547,7 +547,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * </dl>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
@@ -590,10 +590,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE channel SET uid=${bean.uid}, owner_uid=${bean.ownerUid}, update_time=${bean.updateTime}, name=${bean.name} WHERE id=${bean.id}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
    * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
@@ -601,7 +601,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * </dl>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
@@ -645,11 +645,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
    * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
@@ -702,11 +701,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
    * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
@@ -716,7 +714,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
@@ -767,11 +764,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>uid</dt><dd>no bean's property is associated</dd>
    * 	<dt>owner_uid</dt><dd>no bean's property is associated</dd>
@@ -781,7 +777,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
@@ -805,11 +800,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
    * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
@@ -819,7 +813,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
@@ -877,11 +870,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>uid</dt><dd>no bean's property is associated</dd>
    * 	<dt>owner_uid</dt><dd>no bean's property is associated</dd>
@@ -891,7 +883,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
@@ -928,11 +919,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
    * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
@@ -942,7 +932,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
@@ -993,17 +982,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT count(*) FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
@@ -1040,17 +1027,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT update_time FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
@@ -1100,17 +1085,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT update_time FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>update_time</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
@@ -1147,17 +1130,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT update_time FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>update_time</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
@@ -1181,17 +1162,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT update_time FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
@@ -1229,17 +1208,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT update_time FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
@@ -1282,17 +1259,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT update_time FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
@@ -1335,17 +1310,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT update_time FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>update_time</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>

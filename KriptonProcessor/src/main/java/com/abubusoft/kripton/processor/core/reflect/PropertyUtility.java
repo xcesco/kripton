@@ -33,6 +33,7 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
+import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.squareup.javapoet.TypeName;
 
 public abstract class PropertyUtility {
@@ -148,7 +149,7 @@ public abstract class PropertyUtility {
 				propertyName = converter.convert(propertyName);
 				if (entity.contains(propertyName)) {
 					currentKriptonField = entity.get(propertyName);
-					Pair<String, String> result = MethodUtility.extractResultAndArguments(item.asType().toString());
+					Pair<String, String> result = SelectBuilderUtility.extractResultAndArguments(item.asType().toString());
 
 					if (currentKriptonField.isType(result.value1) && status == 0) {
 						currentKriptonField.setFieldWithGetter(true);

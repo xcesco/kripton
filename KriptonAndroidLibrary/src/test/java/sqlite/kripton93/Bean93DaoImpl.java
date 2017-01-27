@@ -25,11 +25,10 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, name, surname FROM bean93 WHERE name like ${name} || \'%\'</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -37,7 +36,6 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
    * </dl>
@@ -79,11 +77,10 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, name, surname FROM bean93</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>

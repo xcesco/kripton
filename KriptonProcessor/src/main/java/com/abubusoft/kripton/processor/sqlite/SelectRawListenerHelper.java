@@ -22,7 +22,6 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -46,7 +45,7 @@ public class SelectRawListenerHelper implements SelectCodeGenerator {
 	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
 		LiteralType listenerType=LiteralType.of(OnReadCursorListener.class);
 		
-		int counter = MethodUtility.countParameterOfType(method, listenerType);
+		int counter = SelectBuilderUtility.countParameterOfType(method, listenerType);
 		if (counter == 0) {
 			// non listener found
 			throw (new InvalidMethodSignException(method, "there is no parameter of type \"ReadCursorListener\""));
@@ -56,7 +55,7 @@ public class SelectRawListenerHelper implements SelectCodeGenerator {
 			throw (new InvalidMethodSignException(method, "there are more than one parameter of type \"ReadCursorListener\""));
 		}
 
-		String listenerName = MethodUtility.getNameParameterOfType(method, listenerType);
+		String listenerName = SelectBuilderUtility.getNameParameterOfType(method, listenerType);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("try");

@@ -21,17 +21,15 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT count(*)>1 FROM bean01 WHERE id=${id} and value=${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>count(*)>1</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>

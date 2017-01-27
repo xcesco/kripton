@@ -24,11 +24,10 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, value_string2 FROM bean_a_3</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value_string2</dt><dd>is associated to bean's property <strong>valueString2</strong></dd>
@@ -72,18 +71,16 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, value_string2 FROM bean_a_3 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value_string2</dt><dd>is associated to bean's property <strong>valueString2</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -128,17 +125,15 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id FROM bean_a_3 WHERE valueString2=${dummy}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
@@ -215,15 +210,15 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean_a_3 SET value_string2=${bean.valueString2} WHERE valueString2=${bean.valueString2}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>value_string2</dt><dd>is mapped to <strong>${bean.valueString2}</strong></dd>
    * </dl>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.valueString2}</dt><dd>is mapped to method's parameter <strong>bean.valueString2</strong></dd>
    * </dl>

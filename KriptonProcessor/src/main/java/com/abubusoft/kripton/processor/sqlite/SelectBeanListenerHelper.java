@@ -27,7 +27,6 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -61,7 +60,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 		List<SQLProperty> fields = fieldList.value1;
 		TypeName entityClass = typeName(entity.getElement());
 
-		int counter = MethodUtility.countParameterOfType(method, listenerType);
+		int counter = SelectBuilderUtility.countParameterOfType(method, listenerType);
 		if (counter == 0) {
 			// non listener found
 			throw (new InvalidMethodSignException(method, "there is no parameter of type \"ReadCursorListener\""));
@@ -71,7 +70,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 			throw (new InvalidMethodSignException(method, "there are more than one parameter of type \"ReadCursorListener\""));
 		}
 
-		String listenerName = MethodUtility.getNameParameterOfType(method, listenerType);
+		String listenerName = SelectBuilderUtility.getNameParameterOfType(method, listenerType);
 
 		methodBuilder.addCode("$T resultBean=new $T();", entityClass, entityClass);
 		methodBuilder.addCode("\n");

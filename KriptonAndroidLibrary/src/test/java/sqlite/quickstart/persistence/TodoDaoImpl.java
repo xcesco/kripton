@@ -67,11 +67,10 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, user_id, title, completed FROM todo WHERE userId = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
@@ -80,7 +79,6 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
    * </dl>
@@ -129,11 +127,10 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, user_id, title, completed FROM todo WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
@@ -142,7 +139,6 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
    * </dl>

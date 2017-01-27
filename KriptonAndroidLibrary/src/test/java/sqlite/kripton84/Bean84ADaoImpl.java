@@ -38,11 +38,10 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>column_list_string</dt><dd>is associated to bean's property <strong>columnListString</strong></dd>
@@ -104,11 +103,10 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>column_list_string</dt><dd>is associated to bean's property <strong>columnListString</strong></dd>
@@ -121,7 +119,6 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>uid</strong></dd>
    * </dl>
@@ -178,11 +175,10 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE columnListString=${param1} and columnMapIntegerString=${param2} and columnArrayChar=${param3}  and columnArrayCharType=${param4}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>column_list_string</dt><dd>is associated to bean's property <strong>columnListString</strong></dd>
@@ -195,7 +191,6 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${param1}</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
    * 	<dt>${param2}</dt><dd>is binded to method's parameter <strong>param2</strong></dd>
@@ -368,10 +363,10 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean84_a SET column_list_string=${bean.columnListString}, column_map_integer_string=${bean.columnMapIntegerString}, column_array_char=${bean.columnArrayChar}, column_array_char_type=${bean.columnArrayCharType}, column_bean=${bean.columnBean}, column_array_byte_type=${bean.columnArrayByteType}, value_string=${bean.valueString} WHERE 1=1</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>column_list_string</dt><dd>is mapped to <strong>${bean.columnListString}</strong></dd>
    * 	<dt>column_map_integer_string</dt><dd>is mapped to <strong>${bean.columnMapIntegerString}</strong></dd>
@@ -381,6 +376,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    * 	<dt>column_array_byte_type</dt><dd>is mapped to <strong>${bean.columnArrayByteType}</strong></dd>
    * 	<dt>value_string</dt><dd>is mapped to <strong>${bean.valueString}</strong></dd>
    * </dl>
+   *
    * @param bean
    * 	is used as ${bean}
    *
@@ -441,8 +437,9 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   }
 
   /**
-   * <p>SQL delete:</p>
+   * <h2>SQL delete:</h2>
    * <pre>DELETE bean84_a WHERE 1=1</pre>
+   *
    * @param bean
    * 	is used as ${bean}
    *

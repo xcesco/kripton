@@ -24,11 +24,10 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, bean_a2_id, value_string FROM bean_a_1</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>bean_a2_id</dt><dd>is associated to bean's property <strong>beanA2Id</strong></dd>
@@ -75,11 +74,10 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, bean_a2_id, value_string FROM bean_a_1 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>bean_a2_id</dt><dd>is associated to bean's property <strong>beanA2Id</strong></dd>
@@ -87,7 +85,6 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -134,17 +131,15 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id FROM bean_a_1 WHERE valueString=${dummy}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
@@ -224,16 +219,16 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean_a_1 SET bean_a2_id=${bean.beanA2Id}, value_string=${bean.valueString} WHERE valueString=${bean.valueString}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>bean_a2_id</dt><dd>is mapped to <strong>${bean.beanA2Id}</strong></dd>
    * 	<dt>value_string</dt><dd>is mapped to <strong>${bean.valueString}</strong></dd>
    * </dl>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.valueString}</dt><dd>is mapped to method's parameter <strong>bean.valueString</strong></dd>
    * </dl>

@@ -21,18 +21,16 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, text FROM bean02 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -71,10 +69,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean02 WHERE id=${id}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean02 WHERE id=${id}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>

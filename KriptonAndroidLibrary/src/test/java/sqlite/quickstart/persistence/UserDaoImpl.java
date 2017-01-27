@@ -104,11 +104,10 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -170,11 +169,10 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -187,7 +185,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>

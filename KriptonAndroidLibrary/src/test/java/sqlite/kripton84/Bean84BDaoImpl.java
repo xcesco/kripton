@@ -37,18 +37,16 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, column_bean FROM bean84_b WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>column_bean</dt><dd>is associated to bean's property <strong>columnBean</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
    * </dl>
@@ -88,18 +86,16 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, column_bean FROM bean84_b WHERE cast(columnBean as TEXT) = ${param1}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>column_bean</dt><dd>is associated to bean's property <strong>columnBean</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${param1}</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
    * </dl>
@@ -173,13 +169,14 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean84_b SET column_bean=${bean.columnBean} WHERE 1=1</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>column_bean</dt><dd>is mapped to <strong>${bean.columnBean}</strong></dd>
    * </dl>
+   *
    * @param bean
    * 	is used as ${bean}
    *
@@ -204,8 +201,9 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   }
 
   /**
-   * <p>SQL delete:</p>
+   * <h2>SQL delete:</h2>
    * <pre>DELETE bean84_b WHERE 1=1</pre>
+   *
    * @param bean
    * 	is used as ${bean}
    *

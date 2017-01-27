@@ -60,10 +60,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBigDecimal}</dt><dd>is mapped to method's parameter <strong>valueBigDecimal</strong></dd>
    * </dl>
@@ -83,10 +83,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBigDecimal}</dt><dd>is mapped to method's parameter <strong>valueBigDecimal</strong></dd>
    * </dl>
@@ -106,10 +106,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueBoolType=${valueBoolType}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueBoolType=${valueBoolType}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBoolType}</dt><dd>is mapped to method's parameter <strong>valueBoolType</strong></dd>
    * </dl>
@@ -129,10 +129,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueBool=${valueBool}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueBool=${valueBool}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBool}</dt><dd>is mapped to method's parameter <strong>valueBool</strong></dd>
    * </dl>
@@ -152,10 +152,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueBeanArray=${valueBeanArray}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueBeanArray=${valueBeanArray}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBeanArray}</dt><dd>is mapped to method's parameter <strong>valueBeanArray</strong></dd>
    * </dl>
@@ -175,10 +175,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueLongArray=${valueLongArray}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueLongArray=${valueLongArray}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLongArray}</dt><dd>is mapped to method's parameter <strong>valueLongArray</strong></dd>
    * </dl>
@@ -198,10 +198,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueLongTypeArray=${valueLongTypeArray}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLongTypeArray}</dt><dd>is mapped to method's parameter <strong>valueLongTypeArray</strong></dd>
    * </dl>
@@ -221,10 +221,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueByte=${valueByte}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueByte=${valueByte}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueByte}</dt><dd>is mapped to method's parameter <strong>valueByte</strong></dd>
    * </dl>
@@ -244,10 +244,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueByteType=${valueByteType}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueByteType=${valueByteType}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueByteType}</dt><dd>is mapped to method's parameter <strong>valueByteType</strong></dd>
    * </dl>
@@ -267,10 +267,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueCalendar=${valueCalendar}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueCalendar=${valueCalendar}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueCalendar}</dt><dd>is mapped to method's parameter <strong>valueCalendar</strong></dd>
    * </dl>
@@ -290,10 +290,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueCharType=${valueChar}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueCharType=${valueChar}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueChar}</dt><dd>is mapped to method's parameter <strong>valueChar</strong></dd>
    * </dl>
@@ -313,10 +313,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueCharType=${valueCharType}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueCharType=${valueCharType}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueCharType}</dt><dd>is mapped to method's parameter <strong>valueCharType</strong></dd>
    * </dl>
@@ -336,10 +336,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueCurrency=${valueCurrency}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueCurrency=${valueCurrency}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueCurrency}</dt><dd>is mapped to method's parameter <strong>valueCurrency</strong></dd>
    * </dl>
@@ -359,10 +359,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueDate=${valueDate}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueDate=${valueDate}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueDate}</dt><dd>is mapped to method's parameter <strong>valueDate</strong></dd>
    * </dl>
@@ -382,10 +382,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueDouble=${valueDouble}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueDouble=${valueDouble}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueDouble}</dt><dd>is mapped to method's parameter <strong>valueDouble</strong></dd>
    * </dl>
@@ -405,10 +405,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueDoubleType=${valueDoubleType}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueDoubleType=${valueDoubleType}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueDoubleType}</dt><dd>is mapped to method's parameter <strong>valueDoubleType</strong></dd>
    * </dl>
@@ -428,10 +428,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueEnumType=${valueEnumType}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueEnumType=${valueEnumType}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueEnumType}</dt><dd>is mapped to method's parameter <strong>valueEnumType</strong></dd>
    * </dl>
@@ -451,10 +451,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueFloat=${valueFloat}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueFloat=${valueFloat}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueFloat}</dt><dd>is mapped to method's parameter <strong>valueFloat</strong></dd>
    * </dl>
@@ -474,10 +474,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueFloatType=${valueFloatType}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueFloatType=${valueFloatType}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueFloatType}</dt><dd>is mapped to method's parameter <strong>valueFloatType</strong></dd>
    * </dl>
@@ -497,10 +497,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueInt=${valueInt}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueInt=${valueInt}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueInt}</dt><dd>is mapped to method's parameter <strong>valueInt</strong></dd>
    * </dl>
@@ -520,10 +520,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueIntType=${valueIntType}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueIntType=${valueIntType}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueIntType}</dt><dd>is mapped to method's parameter <strong>valueIntType</strong></dd>
    * </dl>
@@ -543,10 +543,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueLongList=${valueLongList}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueLongList=${valueLongList}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLongList}</dt><dd>is mapped to method's parameter <strong>valueLongList</strong></dd>
    * </dl>
@@ -566,10 +566,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueLocale=${valueLocale}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueLocale=${valueLocale}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLocale}</dt><dd>is mapped to method's parameter <strong>valueLocale</strong></dd>
    * </dl>
@@ -589,10 +589,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueLong=${valueLong}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueLong=${valueLong}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLong}</dt><dd>is mapped to method's parameter <strong>valueLong</strong></dd>
    * </dl>
@@ -612,10 +612,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueLongType=${valueLongType}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueLongType=${valueLongType}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLongType}</dt><dd>is mapped to method's parameter <strong>valueLongType</strong></dd>
    * </dl>
@@ -635,10 +635,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueShort=${valueShort}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueShort=${valueShort}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueShort}</dt><dd>is mapped to method's parameter <strong>valueShort</strong></dd>
    * </dl>
@@ -658,10 +658,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueShortType=${valueShortType}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueShortType=${valueShortType}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueShortType}</dt><dd>is mapped to method's parameter <strong>valueShortType</strong></dd>
    * </dl>
@@ -681,10 +681,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueString=${valueString}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueString=${valueString}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueString}</dt><dd>is mapped to method's parameter <strong>valueString</strong></dd>
    * </dl>
@@ -704,10 +704,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueTime=${valueTime}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueTime=${valueTime}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueTime}</dt><dd>is mapped to method's parameter <strong>valueTime</strong></dd>
    * </dl>
@@ -727,10 +727,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueTimeZone=${valueTimeZone}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueTimeZone=${valueTimeZone}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueTimeZone}</dt><dd>is mapped to method's parameter <strong>valueTimeZone</strong></dd>
    * </dl>
@@ -750,10 +750,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE bean64 WHERE valueUrl=${valueUrl}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE bean64 WHERE valueUrl=${valueUrl}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueUrl}</dt><dd>is mapped to method's parameter <strong>valueUrl</strong></dd>
    * </dl>
@@ -1986,11 +1986,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -2037,7 +2036,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -2162,11 +2160,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -2325,11 +2322,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -2376,7 +2372,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueBigDecimal}</dt><dd>is binded to method's parameter <strong>valueBigDecimal</strong></dd>
    * </dl>
@@ -2496,11 +2491,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -2547,7 +2541,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueBigDecimal}</dt><dd>is binded to method's parameter <strong>valueBigDecimal</strong></dd>
    * </dl>
@@ -2667,11 +2660,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBoolType=${valueBoolType}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -2718,7 +2710,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueBoolType}</dt><dd>is binded to method's parameter <strong>valueBoolType</strong></dd>
    * </dl>
@@ -2838,11 +2829,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBool=${valueBool}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -2889,7 +2879,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueBool}</dt><dd>is binded to method's parameter <strong>valueBool</strong></dd>
    * </dl>
@@ -3009,11 +2998,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -3060,7 +3048,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -3229,11 +3216,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>no bean's property is associated</dd>
    * 	<dt>value_bool</dt><dd>no bean's property is associated</dd>
@@ -3280,7 +3266,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -3317,11 +3302,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueBeanArray=${valueBeanArray}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -3368,7 +3352,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueBeanArray}</dt><dd>is binded to method's parameter <strong>valueBeanArray</strong></dd>
    * </dl>
@@ -3488,11 +3471,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLongArray=${valueLongArray}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -3539,7 +3521,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueLongArray}</dt><dd>is binded to method's parameter <strong>valueLongArray</strong></dd>
    * </dl>
@@ -3659,11 +3640,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -3710,7 +3690,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueLongTypeArray}</dt><dd>is binded to method's parameter <strong>valueLongTypeArray</strong></dd>
    * </dl>
@@ -3830,11 +3809,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueByte=${valueByte}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -3881,7 +3859,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueByte}</dt><dd>is binded to method's parameter <strong>valueByte</strong></dd>
    * </dl>
@@ -4001,11 +3978,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueByteType=${valueByteType}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -4052,7 +4028,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueByteType}</dt><dd>is binded to method's parameter <strong>valueByteType</strong></dd>
    * </dl>
@@ -4172,11 +4147,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueCalendar=${valueCalendar}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -4223,7 +4197,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueCalendar}</dt><dd>is binded to method's parameter <strong>valueCalendar</strong></dd>
    * </dl>
@@ -4343,11 +4316,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueCharType=${valueChar}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -4394,7 +4366,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueChar}</dt><dd>is binded to method's parameter <strong>valueChar</strong></dd>
    * </dl>
@@ -4514,11 +4485,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueCharType=${valueCharType}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -4565,7 +4535,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueCharType}</dt><dd>is binded to method's parameter <strong>valueCharType</strong></dd>
    * </dl>
@@ -4685,11 +4654,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueCurrency=${valueCurrency}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -4736,7 +4704,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueCurrency}</dt><dd>is binded to method's parameter <strong>valueCurrency</strong></dd>
    * </dl>
@@ -4856,11 +4823,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueDate=${valueDate}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -4907,7 +4873,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueDate}</dt><dd>is binded to method's parameter <strong>valueDate</strong></dd>
    * </dl>
@@ -5027,11 +4992,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueDouble=${valueDouble}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -5078,7 +5042,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueDouble}</dt><dd>is binded to method's parameter <strong>valueDouble</strong></dd>
    * </dl>
@@ -5198,11 +5161,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueDoubleType=${valueDoubleType}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -5249,7 +5211,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueDoubleType}</dt><dd>is binded to method's parameter <strong>valueDoubleType</strong></dd>
    * </dl>
@@ -5369,11 +5330,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueEnumType=${valueEnumType}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -5420,7 +5380,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueEnumType}</dt><dd>is binded to method's parameter <strong>valueEnumType</strong></dd>
    * </dl>
@@ -5540,11 +5499,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueFloat=${valueFloat}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -5591,7 +5549,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueFloat}</dt><dd>is binded to method's parameter <strong>valueFloat</strong></dd>
    * </dl>
@@ -5711,11 +5668,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueFloatType=${valueFloatType}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -5762,7 +5718,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueFloatType}</dt><dd>is binded to method's parameter <strong>valueFloatType</strong></dd>
    * </dl>
@@ -5882,11 +5837,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueInt=${valueInt}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -5933,7 +5887,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueInt}</dt><dd>is binded to method's parameter <strong>valueInt</strong></dd>
    * </dl>
@@ -6053,11 +6006,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueIntType=${valueIntType}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -6104,7 +6056,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueIntType}</dt><dd>is binded to method's parameter <strong>valueIntType</strong></dd>
    * </dl>
@@ -6224,11 +6175,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLongList=${valueLongList}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -6275,7 +6225,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueLongList}</dt><dd>is binded to method's parameter <strong>valueLongList</strong></dd>
    * </dl>
@@ -6395,11 +6344,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLocale=${valueLocale}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -6446,7 +6394,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueLocale}</dt><dd>is binded to method's parameter <strong>valueLocale</strong></dd>
    * </dl>
@@ -6566,11 +6513,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLong=${valueLong}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -6617,7 +6563,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueLong}</dt><dd>is binded to method's parameter <strong>valueLong</strong></dd>
    * </dl>
@@ -6737,11 +6682,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueLongType=${valueLongType}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -6788,7 +6732,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueLongType}</dt><dd>is binded to method's parameter <strong>valueLongType</strong></dd>
    * </dl>
@@ -6908,11 +6851,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueShort=${valueShort}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -6959,7 +6901,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueShort}</dt><dd>is binded to method's parameter <strong>valueShort</strong></dd>
    * </dl>
@@ -7079,11 +7020,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueShortType=${valueShortType}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -7130,7 +7070,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueShortType}</dt><dd>is binded to method's parameter <strong>valueShortType</strong></dd>
    * </dl>
@@ -7250,11 +7189,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueString=${valueString}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -7301,7 +7239,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueString}</dt><dd>is binded to method's parameter <strong>valueString</strong></dd>
    * </dl>
@@ -7421,11 +7358,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueTime=${valueTime}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -7472,7 +7408,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueTime}</dt><dd>is binded to method's parameter <strong>valueTime</strong></dd>
    * </dl>
@@ -7592,11 +7527,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueTimeZone=${valueTimeZone}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -7643,7 +7577,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueTimeZone}</dt><dd>is binded to method's parameter <strong>valueTimeZone</strong></dd>
    * </dl>
@@ -7763,11 +7696,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE valueUrl=${valueUrl}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -7814,7 +7746,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${valueUrl}</dt><dd>is binded to method's parameter <strong>valueUrl</strong></dd>
    * </dl>
@@ -7934,11 +7865,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -7973,11 +7903,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_bool_type FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8012,11 +7941,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_byte FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_byte</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8051,11 +7979,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_byte_type FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_byte_type</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8090,11 +8017,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_char FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_char</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8129,11 +8055,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_char_type FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_char_type</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8168,11 +8093,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_double FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_double</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8207,11 +8131,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_double_type FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_double_type</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8246,11 +8169,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_float FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_float</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8285,11 +8207,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_float_type FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_float_type</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8324,11 +8245,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_int FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_int</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8363,11 +8283,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_int_type FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_int_type</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8402,11 +8321,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_long FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_long</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8441,11 +8359,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_long_type FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_long_type</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8480,11 +8397,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_short FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_short</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8519,11 +8435,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_short_type FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_short_type</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8558,11 +8473,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT value_string FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>value_string</dt><dd>no bean's property is associated</dd>
    * </dl>
@@ -8596,10 +8510,10 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET value_bool_type=${value.valueBoolType}, value_bool=${value.valueBool}, value_byte_type=${value.valueByteType}, value_byte=${value.valueByte}, value_short_type=${value.valueShortType}, value_short=${value.valueShort}, value_int_type=${value.valueIntType}, value_int=${value.valueInt}, value_string=${value.valueString}, value_char_type=${value.valueCharType}, value_char=${value.valueChar}, value_float_type=${value.valueFloatType}, value_float=${value.valueFloat}, value_big_integer=${value.valueBigInteger}, value_big_decimal=${value.valueBigDecimal}, value_enum_type=${value.valueEnumType}, value_long_type=${value.valueLongType}, value_long=${value.valueLong}, value_double_type=${value.valueDoubleType}, value_double=${value.valueDouble}, value_locale=${value.valueLocale}, value_calendar=${value.valueCalendar}, value_date=${value.valueDate}, value_url=${value.valueUrl}, value_time=${value.valueTime}, value_currency=${value.valueCurrency}, value_time_zone=${value.valueTimeZone}, value_time_list=${value.valueTimeList}, value_strin_list=${value.valueStrinList}, value_long_list=${value.valueLongList}, value_byte_array=${value.valueByteArray}, value_long_type_array=${value.valueLongTypeArray}, value_long_array=${value.valueLongArray}, value_bean_array=${value.valueBeanArray}, value_string_array=${value.valueStringArray}, value_char_list=${value.valueCharList}, value_char_type_array=${value.valueCharTypeArray}, value_char_array=${value.valueCharArray}, value_map_string_bean=${value.valueMapStringBean}, value_linked_map_string_bean=${value.valueLinkedMapStringBean}, value_set_string=${value.valueSetString} WHERE id=${value.id}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is mapped to <strong>${value.valueBoolType}</strong></dd>
    * 	<dt>value_bool</dt><dd>is mapped to <strong>${value.valueBool}</strong></dd>
@@ -8644,7 +8558,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_set_string</dt><dd>is mapped to <strong>${value.valueSetString}</strong></dd>
    * </dl>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${value.id}</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
    * </dl>
@@ -8881,15 +8795,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBigDecimal}</dt><dd>is mapped to method's parameter <strong>valueBigDecimal</strong></dd>
    * </dl>
@@ -8915,15 +8829,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBigDecimal}</dt><dd>is mapped to method's parameter <strong>valueBigDecimal</strong></dd>
    * </dl>
@@ -8949,15 +8863,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueBoolType=${valueBoolType}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBoolType}</dt><dd>is mapped to method's parameter <strong>valueBoolType</strong></dd>
    * </dl>
@@ -8983,15 +8897,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueBool=${valueBool}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBool}</dt><dd>is mapped to method's parameter <strong>valueBool</strong></dd>
    * </dl>
@@ -9017,15 +8931,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET valueSetString=${valueSetString} WHERE id=${id}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -9055,15 +8969,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueBeanArray=${valueBeanArray}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBeanArray}</dt><dd>is mapped to method's parameter <strong>valueBeanArray</strong></dd>
    * </dl>
@@ -9089,15 +9003,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueLongArray=${valueLongArray}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLongArray}</dt><dd>is mapped to method's parameter <strong>valueLongArray</strong></dd>
    * </dl>
@@ -9123,15 +9037,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLongTypeArray}</dt><dd>is mapped to method's parameter <strong>valueLongTypeArray</strong></dd>
    * </dl>
@@ -9157,15 +9071,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueByte=${valueByte}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueByte}</dt><dd>is mapped to method's parameter <strong>valueByte</strong></dd>
    * </dl>
@@ -9191,15 +9105,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueByteType=${valueByteType}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueByteType}</dt><dd>is mapped to method's parameter <strong>valueByteType</strong></dd>
    * </dl>
@@ -9225,15 +9139,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueCalendar=${valueCalendar}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueCalendar}</dt><dd>is mapped to method's parameter <strong>valueCalendar</strong></dd>
    * </dl>
@@ -9259,15 +9173,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueCharType=${valueChar}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueChar}</dt><dd>is mapped to method's parameter <strong>valueChar</strong></dd>
    * </dl>
@@ -9293,15 +9207,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueCharType=${valueCharType}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueCharType}</dt><dd>is mapped to method's parameter <strong>valueCharType</strong></dd>
    * </dl>
@@ -9327,15 +9241,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueCurrency=${valueCurrency}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueCurrency}</dt><dd>is mapped to method's parameter <strong>valueCurrency</strong></dd>
    * </dl>
@@ -9361,15 +9275,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueDate=${valueDate}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueDate}</dt><dd>is mapped to method's parameter <strong>valueDate</strong></dd>
    * </dl>
@@ -9395,15 +9309,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueDouble=${valueDouble}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueDouble}</dt><dd>is mapped to method's parameter <strong>valueDouble</strong></dd>
    * </dl>
@@ -9429,15 +9343,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueDoubleType=${valueDoubleType}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueDoubleType}</dt><dd>is mapped to method's parameter <strong>valueDoubleType</strong></dd>
    * </dl>
@@ -9463,15 +9377,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueEnumType=${valueEnumType}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueEnumType}</dt><dd>is mapped to method's parameter <strong>valueEnumType</strong></dd>
    * </dl>
@@ -9497,15 +9411,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueFloat=${valueFloat}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueFloat}</dt><dd>is mapped to method's parameter <strong>valueFloat</strong></dd>
    * </dl>
@@ -9531,15 +9445,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueFloatType=${valueFloatType}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueFloatType}</dt><dd>is mapped to method's parameter <strong>valueFloatType</strong></dd>
    * </dl>
@@ -9565,15 +9479,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueInt=${valueInt}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueInt}</dt><dd>is mapped to method's parameter <strong>valueInt</strong></dd>
    * </dl>
@@ -9599,15 +9513,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueIntType=${valueIntType}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueIntType}</dt><dd>is mapped to method's parameter <strong>valueIntType</strong></dd>
    * </dl>
@@ -9633,15 +9547,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueLongList=${valueLongList}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLongList}</dt><dd>is mapped to method's parameter <strong>valueLongList</strong></dd>
    * </dl>
@@ -9667,15 +9581,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueLocale=${valueLocale}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLocale}</dt><dd>is mapped to method's parameter <strong>valueLocale</strong></dd>
    * </dl>
@@ -9701,15 +9615,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueLong=${valueLong}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLong}</dt><dd>is mapped to method's parameter <strong>valueLong</strong></dd>
    * </dl>
@@ -9735,15 +9649,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueLongType=${valueLongType}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueLongType}</dt><dd>is mapped to method's parameter <strong>valueLongType</strong></dd>
    * </dl>
@@ -9769,15 +9683,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueShort=${valueShort}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueShort}</dt><dd>is mapped to method's parameter <strong>valueShort</strong></dd>
    * </dl>
@@ -9803,15 +9717,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueShortType=${valueShortType}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueShortType}</dt><dd>is mapped to method's parameter <strong>valueShortType</strong></dd>
    * </dl>
@@ -9837,15 +9751,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueString=${valueString}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueString}</dt><dd>is mapped to method's parameter <strong>valueString</strong></dd>
    * </dl>
@@ -9871,15 +9785,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueTime=${valueTime}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueTime}</dt><dd>is mapped to method's parameter <strong>valueTime</strong></dd>
    * </dl>
@@ -9905,15 +9819,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueTimeZone=${valueTimeZone}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueTimeZone}</dt><dd>is mapped to method's parameter <strong>valueTimeZone</strong></dd>
    * </dl>
@@ -9939,15 +9853,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE bean64 SET id=${id} WHERE valueUrl=${valueUrl}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueUrl}</dt><dd>is mapped to method's parameter <strong>valueUrl</strong></dd>
    * </dl>

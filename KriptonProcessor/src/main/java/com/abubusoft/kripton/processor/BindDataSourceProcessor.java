@@ -57,7 +57,6 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
-import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
@@ -76,6 +75,7 @@ import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
+import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -422,7 +422,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		currentSchema.add(currentDaoDefinition);
 
 		// create method for dao
-		MethodUtility.forEachMethods(elementUtils, (TypeElement) daoElement, new MethodFoundListener() {
+		SelectBuilderUtility.forEachMethods(elementUtils, (TypeElement) daoElement, new MethodFoundListener() {
 
 			@Override
 			public void onMethod(ExecutableElement element) {

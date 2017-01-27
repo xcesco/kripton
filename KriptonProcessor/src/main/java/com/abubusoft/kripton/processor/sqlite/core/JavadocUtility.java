@@ -57,12 +57,13 @@ public abstract class JavadocUtility {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 
-		methodBuilder.addJavadoc("<h2>Select SQL:</h2>\n<p>\n", annotation.getSimpleName());
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sql);
+		methodBuilder.addJavadoc("<h2>Select SQL:</h2>\n\n", annotation.getSimpleName());
+		methodBuilder.addJavadoc("<pre>$L</pre>", sql);
+		methodBuilder.addJavadoc("\n\n");
 
 		// there will be alway some projected column
 		{
-			methodBuilder.addJavadoc("<h2>Projected columns:</h2>\n<p>\n");
+			methodBuilder.addJavadoc("<h2>Projected columns:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			int i = 0;
 			String[] columnList = fieldList.value0.split(",");
@@ -79,33 +80,40 @@ public abstract class JavadocUtility {
 				methodBuilder.addJavadoc("\n");
 				i++;
 			}
-			methodBuilder.addJavadoc("</dl>\n\n");
+			methodBuilder.addJavadoc("</dl>");
+			methodBuilder.addJavadoc("\n\n");
 		}
 		
+		// dynamic parts
 		if (method.hasDynamicOrderByConditions() || method.hasDynamicWhereConditions())
 		{
-			methodBuilder.addJavadoc("<p>");
+			methodBuilder.addJavadoc("<h2>Dynamic parts:</h2>\n");			
+			methodBuilder.addJavadoc("<dl>\n");
 			if (method.hasDynamicWhereConditions())
 			{
-				methodBuilder.addJavadoc("<code>#{$L}</code> is resolved at runtime.", method.dynamicWhereParameterName);
+				methodBuilder.addJavadoc("<dt>#{$L}</dt><dd>is part of where conditions resolved at runtime.</dd>", method.dynamicWhereParameterName);
 			}
 			if (method.hasDynamicOrderByConditions())
 			{
-				methodBuilder.addJavadoc("<code>#{$L}</code> is resolved at runtime.", method.dynamicOrderByParameterName);
+				methodBuilder.addJavadoc("<dt>#{$L}</dt>is part of order statement resolved at runtime.</dd>", method.dynamicOrderByParameterName);
 			}
-			
-			methodBuilder.addJavadoc("</p>\n\n");
+						
+			methodBuilder.addJavadoc("\n</dl>");
+			methodBuilder.addJavadoc("\n\n");
 		}
 
+		// query parameters
 		if (sqlParams.size() > 0) {
-			methodBuilder.addJavadoc("<h2>Query's parameters:</h2>\n<p>\n");
+			methodBuilder.addJavadoc("<h2>Query's parameters:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (String param : sqlParams) {				
 				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is binded to method's parameter <strong>$L</strong></dd>\n", "${" + param + "}", method.findParameterNameByAlias(param));				
 			}
-			methodBuilder.addJavadoc("</dl>\n\n");
+			methodBuilder.addJavadoc("</dl>");
+			methodBuilder.addJavadoc("\n\n");
 		}
 
+		// method params
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
@@ -126,6 +134,7 @@ public abstract class JavadocUtility {
 			} 
 		}
 
+		// return type
 		switch (selectResultType) {
 		case BEAN:
 			methodBuilder.addJavadoc("\n@return selected bean or <code>null</code>.\n");

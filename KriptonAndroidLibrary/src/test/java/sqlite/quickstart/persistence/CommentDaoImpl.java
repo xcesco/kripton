@@ -78,11 +78,10 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT post_id, id, name, email, body FROM comment WHERE postId = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>post_id</dt><dd>is associated to bean's property <strong>postId</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -92,7 +91,6 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>postId</strong></dd>
    * </dl>
@@ -143,11 +141,10 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT post_id, id, name, email, body FROM comment WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>post_id</dt><dd>is associated to bean's property <strong>postId</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -157,7 +154,6 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>postId</strong></dd>
    * </dl>

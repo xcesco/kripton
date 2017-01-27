@@ -37,11 +37,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
    * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
@@ -52,7 +51,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -100,11 +98,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${bean.pk} and prova=${bean.text}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
    * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
@@ -115,7 +112,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${bean.pk}</dt><dd>is binded to method's parameter <strong>bean.pk</strong></dd>
    * 	<dt>${bean.text}</dt><dd>is binded to method's parameter <strong>bean.text</strong></dd>
@@ -164,11 +160,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
    * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
@@ -179,7 +174,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -232,17 +226,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT pk FROM ws_bean WHERE text = ${text}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>pk</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${text}</dt><dd>is binded to method's parameter <strong>text</strong></dd>
    * </dl>
@@ -287,17 +279,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT count(*) FROM ws_bean WHERE text = ${text}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${text}</dt><dd>is binded to method's parameter <strong>text</strong></dd>
    * </dl>
@@ -334,11 +324,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>pk</dt><dd>no bean's property is associated</dd>
    * 	<dt>number</dt><dd>no bean's property is associated</dd>
@@ -349,7 +338,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -386,11 +374,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
    * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
@@ -401,7 +388,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -462,11 +448,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>pk</dt><dd>no bean's property is associated</dd>
    * 	<dt>number</dt><dd>no bean's property is associated</dd>
@@ -477,7 +462,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -514,11 +498,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
    * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
@@ -529,7 +512,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -695,10 +677,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL Update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE ws_bean SET number=${bean.number}, bean_type=${bean.beanType}, text=${bean.text}, content=${bean.content}, creation_time=${bean.creationTime} WHERE pk=${bean.pk} and text=${bean.text} and creationTime=${bean.creationTime}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
    * 	<dt>bean_type</dt><dd>is mapped to <strong>${bean.beanType}</strong></dd>
@@ -707,7 +689,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * 	<dt>creation_time</dt><dd>is mapped to <strong>${bean.creationTime}</strong></dd>
    * </dl>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.pk}</dt><dd>is mapped to method's parameter <strong>bean.pk</strong></dd>
    * 	<dt>${bean.text}</dt><dd>is mapped to method's parameter <strong>bean.text</strong></dd>
@@ -758,16 +740,16 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE ws_bean SET content=${content}, text=${text} WHERE pk=${uid} and creationTime=${valido} and creationTime=${validoIn}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
    * 	<dt>text</dt><dd>is binded to query's parameter <strong>${text}</strong> and method's parameter <strong>text</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${uid}</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
    * 	<dt>${valido}</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
@@ -810,10 +792,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL delete:</p>
+   * <h2>SQL delete:</h2>
    * <pre>DELETE ws_bean WHERE pk=${bean.pk} and text=${bean.text} and creationTime=${bean.creationTime}</pre>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${bean.pk}</dt><dd>is mapped to method's parameter <strong>bean.pk</strong></dd>
    * 	<dt>${bean.text}</dt><dd>is mapped to method's parameter <strong>bean.text</strong></dd>
@@ -835,10 +817,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE ws_bean WHERE pk=${uid} and creationTime=${valido} and creationTime=${validoIn}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE ws_bean WHERE pk=${uid} and creationTime=${valido} and creationTime=${validoIn}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${uid}</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
    * 	<dt>${valido}</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
@@ -864,10 +846,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE ws_bean WHERE pk=${id}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE ws_bean WHERE pk=${id}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
@@ -887,10 +869,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL delete:</p>
+   * <h2>SQL delete:</h2>
    * <pre>DELETE ws_bean WHERE pk=${va.pk}</pre>
    *
-   * <p><strong>Parameters used in where conditions:</strong></p>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
    * 	<dt>${va.pk}</dt><dd>is mapped to method's parameter <strong>va.pk</strong></dd>
    * </dl>
@@ -911,17 +893,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT content FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>content</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>

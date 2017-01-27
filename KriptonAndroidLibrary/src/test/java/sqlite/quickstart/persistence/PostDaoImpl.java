@@ -71,11 +71,10 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT user_id, id, title, body FROM post WHERE userId = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -84,7 +83,6 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
    * </dl>
@@ -133,11 +131,10 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT user_id, id, title, body FROM post WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -146,7 +143,6 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
    * </dl>

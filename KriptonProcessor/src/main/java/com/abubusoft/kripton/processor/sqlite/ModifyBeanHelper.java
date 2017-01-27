@@ -32,7 +32,6 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.reflect.MethodUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
@@ -81,9 +80,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		List<SQLProperty> listUsedProperty;
 		if (updateMode) {
 			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
-			
-			AssertKripton.assertTrueOrInvalidMethodSignException(listUsedProperty.size()>0, method, "no column was selected for update");
-			
+
+			AssertKripton.assertTrueOrInvalidMethodSignException(listUsedProperty.size() > 0, method, "no column was selected for update");
+
 			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 		} else {
 			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlDelete.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
@@ -96,19 +95,19 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		methodBuilder.addCode("\n");
 
-		if (method.hasDynamicWhereConditions())
-		{
+		if (method.hasDynamicWhereConditions()) {
 			methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
 		}
-		
+
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class, MethodUtility.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class, SelectBuilderUtility.formatSqlForLog(method, sqlModify));
 			}
-			methodBuilder.addCode("int result = database().update($S, contentValues, \"$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), MethodUtility.formatSql(method, sqlModify));
+			methodBuilder.addCode("int result = database().update($S, contentValues, \"$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),
+					SelectBuilderUtility.formatSql(method, sqlModify));
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class,MethodUtility.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class, SelectBuilderUtility.formatSqlForLog(method, sqlModify));
 			}
 			methodBuilder.addCode("int result = database().delete($S, \"$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement());
 		}
@@ -140,7 +139,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			nullable = TypeUtility.isNullable(property);
 
 			if (nullable) {
-				// transform null in ""				
+				// transform null in ""
 				methodBuilder.addCode("($L==null?\"\":", getter(beanParamName, beanClass, property));
 			}
 
@@ -206,12 +205,12 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 */
 	public String buildJavadoc(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, String beanNameParameter, String whereCondition, List<SQLProperty> listUsedProperty,
 			List<String> attributesUsedInWhereConditions) {
-		SQLDaoDefinition daoDefinition = method.getParent();		
+		SQLDaoDefinition daoDefinition = method.getParent();
 		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
-		
+
 		// in this case, only one parameter can exists for method
 		Pair<String, TypeMirror> beanParameter = method.getParameters().get(0);
-		
+
 		String sqlResult;
 
 		// generate javadoc
@@ -224,74 +223,82 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 			bufferQuestion.append(separator);
 			bufferQuestion.append(nc.convert(property.getName()) + "=");
-			bufferQuestion.append("'\"+StringUtils.checkSize(contentValues.get(\"" +property.columnName + "\"))+\"'");
+			bufferQuestion.append("'\"+StringUtils.checkSize(contentValues.get(\"" + property.columnName + "\"))+\"'");
 
 			separator = ", ";
 		}
-				
+
 		if (updateMode) {
 			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "'%s'");
-			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), where);
-			if (method.hasDynamicWhereConditions())
-			{
-				sqlResult+=" #{"+method.dynamicWhereParameterName+"}";
-			}
+			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), where);			
 
-			methodBuilder.addJavadoc("<p>SQL Update:</p>\n");
-			methodBuilder.addJavadoc("<pre>UPDATE $L SET $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), buffer.toString(), whereCondition);
-			
+			// query
+			methodBuilder.addJavadoc("<h2>SQL update:</h2>\n");
+			methodBuilder.addJavadoc("<pre>");
+			methodBuilder.addJavadoc("UPDATE $L SET $L WHERE $L", daoDefinition.getEntity().getTableName(), buffer.toString(), whereCondition);
+			if (method.hasDynamicWhereConditions()) {
+				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
+				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
+			}
+			methodBuilder.addJavadoc("</pre>");
+			methodBuilder.addJavadoc("\n\n");
+
 			// list of updated fields
-			methodBuilder.addJavadoc("\n");
-			methodBuilder.addJavadoc("<p><strong>Updated columns:</strong></p>\n");
+			methodBuilder.addJavadoc("<h2>Updated columns:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
 				String resolvedName = method.findParameterAliasByName(beanParameter.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", nc.convert(property.getName()));
-				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n", "${"+resolvedName+"."+property.getName()+"}");
+				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is mapped to <strong>$L</strong></dd>\n", nc.convert(property.getName()), "${" + resolvedName + "." + property.getName() + "}");
 			}
-			methodBuilder.addJavadoc("</dl>\n");		
-			
+			methodBuilder.addJavadoc("</dl>");
+			methodBuilder.addJavadoc("\n\n");
 		} else {
 			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
 			sqlResult = String.format("DELETE %s WHERE %s ", daoDefinition.getEntity().getTableName(), where);
 
-			methodBuilder.addJavadoc("<p>SQL delete:</p>\n");
-			methodBuilder.addJavadoc("<pre>DELETE $L WHERE $L</pre>\n", daoDefinition.getEntity().getTableName(), whereCondition);
+			methodBuilder.addJavadoc("<h2>SQL delete:</h2>\n");
+			methodBuilder.addJavadoc("<pre>");
+			methodBuilder.addJavadoc("DELETE $L WHERE $L", daoDefinition.getEntity().getTableName(), whereCondition);
+			if (method.hasDynamicWhereConditions()) {
+				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
+				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
+			}
+			methodBuilder.addJavadoc("</pre>");
+			methodBuilder.addJavadoc("\n\n");
 		}
-		
 
 		if (attributesUsedInWhereConditions.size() > 0) {
 			// list of attributes used in where condition
-			methodBuilder.addJavadoc("\n");
-			methodBuilder.addJavadoc("<p><strong>Parameters used in where conditions:</strong></p>\n");
+			methodBuilder.addJavadoc("<h2>Parameters used in where conditions:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (String attribute : attributesUsedInWhereConditions) {
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", "${"+method.findParameterAliasByName(beanParameter.value0)+"."+method.findParameterAliasByName(attribute)+"}");
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", "${" + method.findParameterAliasByName(beanParameter.value0) + "." + method.findParameterAliasByName(attribute) + "}");
 				methodBuilder.addJavadoc("<dd>is mapped to method's parameter <strong>$L.$L</strong></dd>\n", beanParameter.value0, attribute);
 			}
-			methodBuilder.addJavadoc("</dl>\n");
-			methodBuilder.addJavadoc("\n");
-		}
-		
-		if (method.hasDynamicWhereConditions())
-		{
-			methodBuilder.addJavadoc("<p>");
-			if (method.hasDynamicWhereConditions())
-			{
-				methodBuilder.addJavadoc("<code>#{$L}</code> is resolved at runtime.", method.dynamicWhereParameterName);
-			}
-			
-			methodBuilder.addJavadoc("</p>\n\n");
+			methodBuilder.addJavadoc("</dl>");
+			methodBuilder.addJavadoc("\n\n");
 		}
 
+		// dynamic conditions
+		if (method.hasDynamicWhereConditions()) {
+			methodBuilder.addJavadoc("<h2>Dynamic parts:</h2>\n");
+			methodBuilder.addJavadoc("<dl>\n");
+			if (method.hasDynamicWhereConditions()) {
+				methodBuilder.addJavadoc("\t<dt>#{$L}</dt><dd>is part of where conditions resolved at runtime.</dd>\n", method.dynamicWhereParameterName);
+			}
+
+			methodBuilder.addJavadoc("</dl>");
+			methodBuilder.addJavadoc("\n\n");
+		}
+
+		// method parameters
 		// update bean have only one parameter: the bean to update
 		for (Pair<String, TypeMirror> param : method.getParameters()) {
 			methodBuilder.addJavadoc("@param $L", param.value0);
-			
-			if (method.isThisDynamicWhereConditionsName(param.value0))
-			{
+
+			if (method.isThisDynamicWhereConditionsName(param.value0)) {
 				methodBuilder.addJavadoc("\n\tis used as dynamic where conditions\n");
-			} else {			
+			} else {
 				methodBuilder.addJavadoc("\n\tis used as $L\n", "${" + method.findParameterAliasByName(param.value0) + "}");
 			}
 		}

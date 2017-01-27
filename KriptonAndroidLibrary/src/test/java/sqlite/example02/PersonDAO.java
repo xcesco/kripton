@@ -22,7 +22,7 @@ public interface PersonDAO {
 	@BindSqlUpdate
 	long updateTwo(String name, String surname, String birthCity, @BindSqlParam("birthDay") Date date);
 
-	@BindSqlUpdate(where="id=${bean.id} and name=${bean.name}")
+	@BindSqlUpdate(value={"name"},where="id=${bean.id} and name=${bean.name}")
 	void updateThree(Person bean);
 	
 	@BindSqlInsert

@@ -23,11 +23,10 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, ignore2 FROM bean8</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>ignore2</dt><dd>is associated to bean's property <strong>ignore2</strong></dd>

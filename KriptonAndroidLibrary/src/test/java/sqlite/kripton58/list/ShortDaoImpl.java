@@ -37,11 +37,10 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, value, value2 FROM short_bean</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -83,11 +82,10 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, value, value2 FROM short_bean WHERE value=${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -95,7 +93,6 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
@@ -137,11 +134,10 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, value, value2 FROM short_bean WHERE value=${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -149,7 +145,6 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
@@ -201,11 +196,10 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, value, value2 FROM short_bean WHERE value=${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>no bean's property is associated</dd>
    * 	<dt>value</dt><dd>no bean's property is associated</dd>
@@ -213,7 +207,6 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
@@ -250,11 +243,10 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * <p>
+   *
    * <pre>SELECT id, value, value2 FROM short_bean WHERE value=${value}</pre>
    *
    * <h2>Projected columns:</h2>
-   * <p>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -262,7 +254,6 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    * </dl>
    *
    * <h2>Query's parameters:</h2>
-   * <p>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
@@ -308,15 +299,15 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   }
 
   /**
-   * <p>SQL update:</p>
+   * <h2>SQL update:</h2>
    * <pre>UPDATE short_bean SET value=${value} WHERE id=${id} and value=${paramValue}</pre>
    *
-   * <p><strong>Updated columns:</strong></p>
+   * <h2>Updated columns:</strong></h2>
    * <dl>
    * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
    * </dl>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * 	<dt>${paramValue}</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
@@ -427,10 +418,10 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   }
 
   /**
-   * <p>SQL delete:</p>
-   * <pre>DELETE short_bean WHERE value=${paramValue}</pre>
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE short_bean WHERE value=${paramValue}</pre></pre>
    *
-   * <p><strong>Where parameters:</strong></p>
+   * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${paramValue}</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
    * </dl>
