@@ -95,7 +95,7 @@ public class SelectStatementBuilder {
 			if (StringUtils.hasText(where))
 				buffer.append(" " + where.trim());
 			if (method.hasDynamicWhereConditions()) {
-				buffer.append("\"+StringUtils." + nvlFunction + "(" + method.dynamicWhereParameterName + ")+\"");
+				buffer.append(" #{"+method.dynamicWhereParameterName+"}");
 			}
 		}
 
@@ -110,7 +110,7 @@ public class SelectStatementBuilder {
 			if (StringUtils.hasText(orderBy))
 				buffer.append(" " + orderBy.trim());
 			if (method.hasDynamicOrderByConditions()) {
-				buffer.append(" \"+StringUtils." + nvlFunction + "(" + method.dynamicOrderByParameterName + ")+\"");
+				buffer.append(" #{"+method.dynamicOrderByParameterName+"}");
 			}
 		}		
 

@@ -52,7 +52,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     String[] args={(id==null?"":String.valueOf(id))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -103,7 +103,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     String[] args={(id==null?"":String.valueOf(id))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -161,9 +161,9 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       contentValues.putNull("text");
     }
 
-    String[] whereConditionsArray={(id==null?null:String.valueOf(id))};
+    String[] whereConditionsArray={(id==null?"":String.valueOf(id))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().update("bean01", contentValues, "id=?", whereConditionsArray);
     return result;
   }
@@ -184,9 +184,9 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long deleteOne(Long id) {
-    String[] whereConditionsArray={(id==null?null:String.valueOf(id))};
+    String[] whereConditionsArray={(id==null?"":String.valueOf(id))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().delete("bean01", "id=?", whereConditionsArray);
     return result;
   }

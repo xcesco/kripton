@@ -358,9 +358,9 @@ public abstract class MethodUtility {
 		methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);			
 		
 		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addStatement("$T.info($T.formatSQL(\"$L\"),(Object[])args)", Logger.class, StringUtils.class, sqlForLog.replaceAll("\\%", "\\%\\%").replaceAll("\\?", "\'%s\'"));
+			methodBuilder.addStatement("$T.info($T.formatSQL(\"$L\",(Object[])args))", Logger.class, StringUtils.class, formatSqlForLog(method,sqlForLog));
 		} 
-		methodBuilder.addStatement("$T cursor = database().rawQuery(\"$L\", args)", Cursor.class, sql);
+		methodBuilder.addStatement("$T cursor = database().rawQuery(\"$L\", args)", Cursor.class, formatSql(method,sql));
 
 		if (daoDefinition.isLogEnabled()) {
 			methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
@@ -419,5 +419,34 @@ public abstract class MethodUtility {
 			}
 		}
 	}
+	
+	public static String formatSqlForLog(SQLiteModelMethod method, String sql)
+	{
+		sql=sql.replaceAll("\\%[^s]", "\\%\\%").replaceAll("\\?", "\'%s\'");
+		
+		return formatSqlInternal(method, sql, "appendForLog");
+	}
+		
+	
+	public static String formatSql(SQLiteModelMethod method, String sql)
+	{	
+		return formatSqlInternal(method, sql, "appendForSQL");		
+	}
+	
+	private static String formatSqlInternal(SQLiteModelMethod method, String sql, String appendMethod)
+	{	
+		if (method.hasDynamicWhereConditions())
+		{
+			sql=sql.replace("#{"+method.dynamicWhereParameterName+"}", "\"+StringUtils."+appendMethod+"("+method.dynamicWhereParameterName+")+\"");
+		}
+		
+		if (method.hasDynamicOrderByConditions())
+		{
+			sql=sql.replace("#{"+method.dynamicOrderByParameterName+"}", "\"+StringUtils."+appendMethod+"("+method.dynamicOrderByParameterName+")+\"");
+		}
+		
+		return sql;
+	}
+
 
 }

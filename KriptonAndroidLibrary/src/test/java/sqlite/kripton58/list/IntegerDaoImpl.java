@@ -57,7 +57,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -111,7 +111,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -165,7 +165,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     IntegerBean resultBean=new IntegerBean();
@@ -229,7 +229,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -278,7 +278,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -341,9 +341,9 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
       contentValues.putNull("value");
     }
 
-    String[] whereConditionsArray={String.valueOf(id), (paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={String.valueOf(id), (paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE integer_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE integer_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s", (Object[])whereConditionsArray));
     int result = database().update("integer_bean", contentValues, "id=? and value=?", whereConditionsArray);
     return result;
   }
@@ -442,9 +442,9 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
    */
   @Override
   public long delete(List<Integer> paramValue) {
-    String[] whereConditionsArray={(paramValue==null?null:new String(serializer1(paramValue),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={(paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE integer_bean WHERE value=%s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("DELETE integer_bean WHERE value=%s", (Object[])whereConditionsArray));
     int result = database().delete("integer_bean", "value=?", whereConditionsArray);
     return result;
   }

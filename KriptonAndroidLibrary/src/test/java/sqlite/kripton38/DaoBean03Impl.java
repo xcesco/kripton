@@ -48,7 +48,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
     String[] args={String.valueOf(id)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean03 WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean03 WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean03 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -88,7 +88,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
   public long deleteOne(long id) {
     String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean03 WHERE id=%s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("DELETE bean03 WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().delete("bean03", "id=?", whereConditionsArray);
     return result;
   }

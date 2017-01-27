@@ -51,8 +51,7 @@ public class StringUtils {
 	 */
 	public static String appendForSQL(String value) {
 		if (value==null) return "";
-		
-		if (!value.startsWith(" ")) return " "+value;
+				
 		return value;
 	}
 
@@ -77,9 +76,9 @@ public class StringUtils {
 	 * @return
 	 * 		formatted sql
 	 */
-	public static String formatSQL(String input)
+	public static String formatSQL(String input, Object ... args)
 	{
-		return "SQL: "+input;
+		return "SQL: "+String.format(input, args);
 	}
 
 	/**

@@ -81,6 +81,21 @@ public abstract class JavadocUtility {
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 		}
+		
+		if (method.hasDynamicOrderByConditions() || method.hasDynamicWhereConditions())
+		{
+			methodBuilder.addJavadoc("<p>");
+			if (method.hasDynamicWhereConditions())
+			{
+				methodBuilder.addJavadoc("<code>#{$L}</code> is resolved at runtime.", method.dynamicWhereParameterName);
+			}
+			if (method.hasDynamicOrderByConditions())
+			{
+				methodBuilder.addJavadoc("<code>#{$L}</code> is resolved at runtime.", method.dynamicOrderByParameterName);
+			}
+			
+			methodBuilder.addJavadoc("</p>\n\n");
+		}
 
 		if (sqlParams.size() > 0) {
 			methodBuilder.addJavadoc("<h2>Query's parameters:</h2>\n<p>\n");

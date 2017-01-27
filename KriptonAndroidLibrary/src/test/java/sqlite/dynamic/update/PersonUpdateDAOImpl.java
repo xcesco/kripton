@@ -114,7 +114,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     String[] args={(nameValue==null?"":nameValue)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -161,6 +161,8 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    * 	<dt>${nameValue}</dt><dd>is mapped to method's parameter <strong>nameValue</strong></dd>
    * </dl>
    *
+   * <p><code>#{where}</code> is resolved at runtime.</p>
+   *
    * @param name
    * 	is used as updated field <strong>name</strong>
    * @param nameValue
@@ -178,11 +180,11 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
       contentValues.putNull("name");
     }
 
-    String[] whereConditionsArray={(nameValue==null?null:nameValue)};
+    String[] whereConditionsArray={(nameValue==null?"":nameValue)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id = %s"+StringUtils.appendForSQL(where)), (Object[])whereConditionsArray);
-    int result = database().update("person", contentValues, "id = ?"+StringUtils.appendForSQL(where), whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id = %s "+StringUtils.appendForLog(where)+"", (Object[])whereConditionsArray));
+    int result = database().update("person", contentValues, "id = ?", whereConditionsArray);
   }
 
   /**
@@ -201,6 +203,8 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    * <dl>
    * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
+   *
+   * <p><code>#{where}</code> is resolved at runtime.</p>
    *
    * @param bean
    * 	is used as ${bean}
@@ -239,8 +243,8 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     String[] whereConditionsArray={String.valueOf(bean.id)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id = '%s'")+StringUtils.appendForSQL(where), (Object[]) whereConditionsArray);
-    int result = database().update("person", contentValues, "id = ?"+StringUtils.appendForSQL(where), whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id = '%s' "+StringUtils.appendForLog(where)+"", (Object[]) whereConditionsArray));
+    int result = database().update("person", contentValues, "UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id = '%s' "+StringUtils.appendForSQL(where)+"", whereConditionsArray);
   }
 
   /**
@@ -267,7 +271,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

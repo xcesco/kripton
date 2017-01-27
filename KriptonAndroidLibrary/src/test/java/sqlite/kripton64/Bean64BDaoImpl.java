@@ -45,7 +45,7 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -107,7 +107,7 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
     String[] args={String.valueOf(id)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

@@ -64,7 +64,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     String[] args={String.valueOf(param1)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE id = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -115,7 +115,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     String[] args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -198,8 +198,8 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
     String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean84_b SET column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"' WHERE 1=1"), (Object[]) whereConditionsArray);
-    int result = database().update("bean84_b", contentValues, "1=1", whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE bean84_b SET column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
+    int result = database().update("bean84_b", contentValues, "UPDATE bean84_b SET column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"' WHERE 1=1", whereConditionsArray);
     return result!=0;
   }
 
@@ -215,7 +215,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   public boolean deleteAll(Bean84B bean) {
     String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("1=1"), (Object[]) whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("DELETE bean84_b WHERE 1=1 ", (Object[]) whereConditionsArray));
     int result = database().delete("bean84_b", "1=1", whereConditionsArray);
     return result!=0;
   }

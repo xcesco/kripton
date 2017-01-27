@@ -58,7 +58,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -115,7 +115,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -172,7 +172,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     ByteBean resultBean=new ByteBean();
@@ -239,7 +239,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -291,7 +291,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s' and value2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -350,9 +350,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    String[] whereConditionsArray={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE byte_bean SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s and value2=%s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE byte_bean SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s and value2=%s", (Object[])whereConditionsArray));
     int result = database().update("byte_bean", contentValues, "value=? and value2=?", whereConditionsArray);
     return result;
   }
@@ -463,9 +463,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
    */
   @Override
   public long delete(byte[] value, Byte[] value2) {
-    String[] whereConditionsArray={(value==null?null:new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?null:new String(serializer2(value2),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE byte_bean WHERE value=%s and value2=%s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("DELETE byte_bean WHERE value=%s and value2=%s", (Object[])whereConditionsArray));
     int result = database().delete("byte_bean", "value=? and value2=?", whereConditionsArray);
     return result;
   }

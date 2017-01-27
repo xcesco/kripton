@@ -44,7 +44,7 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, bean_a2_id, value_string FROM bean_a_1"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, bean_a2_id, value_string FROM bean_a_1",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, bean_a2_id, value_string FROM bean_a_1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -103,7 +103,7 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
     String[] args={String.valueOf(id)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, bean_a2_id, value_string FROM bean_a_1 WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, bean_a2_id, value_string FROM bean_a_1 WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, bean_a2_id, value_string FROM bean_a_1 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -160,7 +160,7 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
     String[] args={(value==null?"":value)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id FROM bean_a_1 WHERE value_string='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id FROM bean_a_1 WHERE value_string='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id FROM bean_a_1 WHERE value_string=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -256,10 +256,10 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
       contentValues.putNull("value_string");
     }
 
-    String[] whereConditionsArray={(bean.valueString==null?null:bean.valueString)};
+    String[] whereConditionsArray={(bean.valueString==null?"":bean.valueString)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean_a_1 SET bean_a2_id='"+StringUtils.checkSize(contentValues.get("bean_a2_id"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE valueString='%s'"), (Object[]) whereConditionsArray);
-    int result = database().update("bean_a_1", contentValues, "value_string=?", whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE bean_a_1 SET bean_a2_id='"+StringUtils.checkSize(contentValues.get("bean_a2_id"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE valueString='%s'", (Object[]) whereConditionsArray));
+    int result = database().update("bean_a_1", contentValues, "UPDATE bean_a_1 SET bean_a2_id='"+StringUtils.checkSize(contentValues.get("bean_a2_id"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE valueString='%s'", whereConditionsArray);
     return result;
   }
 }

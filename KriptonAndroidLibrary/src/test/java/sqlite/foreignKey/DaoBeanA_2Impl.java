@@ -43,7 +43,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_2"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_2",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_2", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -99,7 +99,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     String[] args={String.valueOf(id)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_2 WHERE id='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_2 WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_2 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -154,7 +154,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     String[] args={(value==null?"":value)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id FROM bean_a_2 WHERE value_string2='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id FROM bean_a_2 WHERE value_string2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id FROM bean_a_2 WHERE value_string2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -244,10 +244,10 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
       contentValues.putNull("value_string2");
     }
 
-    String[] whereConditionsArray={(bean.valueString2==null?null:bean.valueString2)};
+    String[] whereConditionsArray={(bean.valueString2==null?"":bean.valueString2)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean_a_2 SET value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'"), (Object[]) whereConditionsArray);
-    int result = database().update("bean_a_2", contentValues, "value_string2=?", whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE bean_a_2 SET value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'", (Object[]) whereConditionsArray));
+    int result = database().update("bean_a_2", contentValues, "UPDATE bean_a_2 SET value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'", whereConditionsArray);
     return result;
   }
 }

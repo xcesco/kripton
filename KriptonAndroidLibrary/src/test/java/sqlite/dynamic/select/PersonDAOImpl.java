@@ -107,7 +107,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -143,7 +143,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || \'%\'"+StringUtils.appendForSQL(name)+" ORDER BY "+StringUtils.appendForSQL(orderBy)+"</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || \'%\' #{where} ORDER BY #{orderBy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -155,29 +155,31 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
    *
+   * <p><code>#{where}</code> is resolved at runtime.<code>#{orderBy}</code> is resolved at runtime.</p>
+   *
    * <h2>Query's parameters:</h2>
    * <p>
    * <dl>
    * 	<dt>${nameTemp}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
    * </dl>
    *
-   * @param name
-   * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param nameValue
    * 	is binded to <code>${nameTemp}</code>
+   * @param where
+   * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param orderBy
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    *
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectOne(String name, String nameValue, String orderBy) {
+  public List<Person> selectOne(String nameValue, String where, String orderBy) {
     // build where condition
     String[] args={(nameValue==null?"":nameValue)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\'"+StringUtils.appendForLog(name)+" ORDER BY "+StringUtils.appendForLog(orderBy)+""),(Object[])args);
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'"+StringUtils.appendForSQL(name)+" ORDER BY "+StringUtils.appendForSQL(orderBy)+"", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%' "+StringUtils.appendForLog(where)+" ORDER BY "+StringUtils.appendForLog(orderBy)+"",(Object[])args));
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\' "+StringUtils.appendForSQL(where)+" ORDER BY "+StringUtils.appendForSQL(orderBy)+"", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Person> resultList=new LinkedList<Person>();
@@ -212,7 +214,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    * <p>
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name "+StringUtils.appendForSQL(orderBy)+"</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name #{orderBy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <p>
@@ -223,6 +225,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
+   *
+   * <p><code>#{orderBy}</code> is resolved at runtime.</p>
    *
    * @param beanListener
    * 	is the Person listener
@@ -235,7 +239,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name "+StringUtils.appendForLog(orderBy)+""),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name "+StringUtils.appendForLog(orderBy)+"",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name "+StringUtils.appendForSQL(orderBy)+"", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Person resultBean=new Person();

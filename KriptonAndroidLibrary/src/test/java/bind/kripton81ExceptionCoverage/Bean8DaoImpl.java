@@ -42,7 +42,7 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, ignore2 FROM bean8"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, ignore2 FROM bean8",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, ignore2 FROM bean8", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

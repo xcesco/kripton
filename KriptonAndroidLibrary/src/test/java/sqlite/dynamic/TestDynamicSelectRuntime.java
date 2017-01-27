@@ -43,12 +43,12 @@ public class TestDynamicSelectRuntime extends BaseAndroidTest {
 		}
 		
 		{
-			List<Person> list=dataSource.getPersonDAO().selectOne(" and 1=1", "name", "name asc");
+			List<Person> list=dataSource.getPersonDAO().selectOne("nam", "and 1=1", "name asc");
 			assertTrue(list.get(0).name.equals("name0"));
 		}
 		
 		{
-			List<Person> list=dataSource.getPersonDAO().selectOne(" and 1=1", "name", "name desc");
+			List<Person> list=dataSource.getPersonDAO().selectOne("name", "and name like 'name%'",  "name desc");
 			assertTrue(list.get(0).name.equals("name9"));
 		}
 		dataSource.close();

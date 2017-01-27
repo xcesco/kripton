@@ -53,7 +53,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE message SET ownerType='"+StringUtils.checkSize(contentValues.get("owner_type"))+"' WHERE  id = %s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE message SET ownerType='"+StringUtils.checkSize(contentValues.get("owner_type"))+"' WHERE  id = %s", (Object[])whereConditionsArray));
     int result = database().update("message", contentValues, " id = ?", whereConditionsArray);
     return result!=0;
   }

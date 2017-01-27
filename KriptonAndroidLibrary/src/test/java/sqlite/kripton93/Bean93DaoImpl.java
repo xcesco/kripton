@@ -53,7 +53,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     String[] args={(name==null?"":name)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname FROM bean93 WHERE name like '%s' || \'%%\'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname FROM bean93 WHERE name like '%s' || \'%%'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93 WHERE name like ? || \'%\'", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -99,7 +99,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname FROM bean93"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname FROM bean93",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

@@ -67,7 +67,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -145,7 +145,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     String[] args={String.valueOf(id)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean resultBean=new Bean();
@@ -241,7 +241,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     String[] args={String.valueOf(id)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -298,7 +298,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     String[] args={String.valueOf(id)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = '%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -438,8 +438,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditionsArray={String.valueOf(value.id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET value_byte_set='"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id='%s'"), (Object[]) whereConditionsArray);
-    int result = database().update("bean", contentValues, "id=?", whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET value_byte_set='"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
+    int result = database().update("bean", contentValues, "UPDATE bean SET value_byte_set='"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id='%s'", whereConditionsArray);
     return result;
   }
 
@@ -610,7 +610,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     String[] args={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -666,9 +666,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(HashSet<BigDecimal> valueBigDecimalSet) {
-    String[] whereConditionsArray={(valueBigDecimalSet==null?null:new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean WHERE value=%s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("DELETE bean WHERE value=%s", (Object[])whereConditionsArray));
     int result = database().delete("bean", "value=?", whereConditionsArray);
     return result;
   }
@@ -700,9 +700,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    String[] whereConditionsArray={(valueBigDecimalSet==null?null:new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
+    String[] whereConditionsArray={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s"), (Object[])whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE bean SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s", (Object[])whereConditionsArray));
     int result = database().update("bean", contentValues, "value=?", whereConditionsArray);
     return result;
   }

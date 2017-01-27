@@ -50,7 +50,7 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
     String[] args={String.valueOf(id), String.valueOf(value)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT count(*)>1 FROM bean01 WHERE id='%s' and value='%s'"),(Object[])args);
+    Logger.info(StringUtils.formatSQL("SELECT count(*)>1 FROM bean01 WHERE id='%s' and value='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT count(*)>1 FROM bean01 WHERE id=? and value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Boolean result=null;
