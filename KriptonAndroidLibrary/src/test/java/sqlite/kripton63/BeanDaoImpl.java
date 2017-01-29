@@ -49,7 +49,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -218,7 +217,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -409,7 +407,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    *
    * @param valueMapStringByte
    * 	is binded to <code>${valueMapStringByte}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -552,7 +549,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    *
    * @param valueMapEnumByte
    * 	is binded to <code>${valueMapEnumByte}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -607,7 +603,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    *
    * @param valueMapEnumByte
    * 	is binded to <code>${valueMapEnumByte}</code>
-   *
    * @return cursor. Closing the cursor is delegated to the calling code.
    */
   @Override
@@ -803,7 +798,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -846,7 +840,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <dl>
    * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
    * </dl>
-   *
    *
    * @return collection of single value extracted with query.
    */

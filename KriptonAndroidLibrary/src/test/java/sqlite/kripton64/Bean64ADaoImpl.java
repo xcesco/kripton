@@ -35,7 +35,6 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -95,7 +94,6 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override

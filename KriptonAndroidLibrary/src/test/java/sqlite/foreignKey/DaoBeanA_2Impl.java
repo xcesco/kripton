@@ -33,7 +33,6 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    * 	<dt>value_string2</dt><dd>is associated to bean's property <strong>valueString2</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -87,7 +86,6 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -140,7 +138,6 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    *
    * @param value
    * 	is binded to <code>${dummy}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override

@@ -42,7 +42,6 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    *
    * @param name
    * 	is binded to <code>${name}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -86,7 +85,6 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
-   *
    *
    * @return collection of bean or empty collection.
    */

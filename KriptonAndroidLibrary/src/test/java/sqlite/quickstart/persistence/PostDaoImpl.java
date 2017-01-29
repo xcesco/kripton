@@ -89,7 +89,6 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
    *
    * @param userId
    * 	is binded to <code>${value}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -149,7 +148,6 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
    *
    * @param userId
    * 	is binded to <code>${value}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override

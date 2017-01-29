@@ -50,7 +50,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    *
    * @param channelId
    * 	is binded to <code>${channelId}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -277,7 +276,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    *
    * @param uid
    * 	is binded to <code>${uid}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override

@@ -53,7 +53,6 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -125,7 +124,6 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    *
    * @param uid
    * 	is binded to <code>${id}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -206,7 +204,6 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    * 	is binded to <code>${param3}</code>
    * @param param4
    * 	is binded to <code>${param4}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override

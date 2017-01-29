@@ -53,7 +53,6 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    *
    * @param param1
    * 	is binded to <code>${id}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -102,7 +101,6 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    *
    * @param param1
    * 	is binded to <code>${param1}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override

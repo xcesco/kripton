@@ -48,7 +48,6 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
    *
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -103,7 +102,6 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    * 	is binded to <code>${value}</code>
    * @param value2
    * 	is binded to <code>${value2}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -273,7 +271,6 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    * 	is binded to <code>${value}</code>
    * @param value2
    * 	is binded to <code>${value2}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override

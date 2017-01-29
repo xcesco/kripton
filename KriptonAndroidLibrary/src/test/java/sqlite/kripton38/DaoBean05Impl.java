@@ -57,7 +57,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -119,7 +118,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * @param bean
    * 	is used as ${bean}
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -180,7 +178,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -241,7 +238,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * @param text
    * 	is binded to <code>${text}</code>
-   *
    * @return collection of single value extracted with query.
    */
   @Override
@@ -294,7 +290,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * @param text
    * 	is binded to <code>${text}</code>
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -908,7 +903,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return single value extracted with query.
    */
   @Override

@@ -38,7 +38,6 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override

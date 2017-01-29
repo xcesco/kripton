@@ -36,7 +36,6 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override

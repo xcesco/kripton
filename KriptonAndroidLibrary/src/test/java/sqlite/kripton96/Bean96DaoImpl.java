@@ -39,7 +39,6 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
    *
    * @param name
    * 	is binded to <code>${name}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override

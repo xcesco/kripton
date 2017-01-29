@@ -97,7 +97,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -169,7 +168,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param orderBy
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
-   *
    * @return collection of bean or empty collection.
    */
   @Override

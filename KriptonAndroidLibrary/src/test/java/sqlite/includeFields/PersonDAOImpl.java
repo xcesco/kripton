@@ -26,7 +26,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name FROM person ORDER BY name</pre>
+   * <pre>SELECT id, name FROM person WHERE name=${bean.name} ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -34,16 +34,23 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${bean.name}</dt><dd>is binded to method's parameter <strong>bean.name</strong></dd>
+   * </dl>
+   *
+   * @param bean
+   * 	is used as ${bean}
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectIncludeOne() {
+  public List<Person> selectIncludeOne(Person bean) {
     // build where condition
-    String[] args={};
+    String[] args={(bean.name==null?"":bean.name)};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name FROM person ORDER BY name",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name FROM person ORDER BY name", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name FROM person WHERE name='%s' ORDER BY name",(Object[])args));
+    Cursor cursor = database().rawQuery("SELECT id, name FROM person WHERE name=? ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Person> resultList=new LinkedList<Person>();

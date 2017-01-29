@@ -24,6 +24,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -109,43 +110,32 @@ public abstract class SqlInsertBuilder {
 			insertResultType = InsertType.INSERT_RAW;
 
 			ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
+
+			// check value attribute
+			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE).size()>0, method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.VALUE.getValue());
 			
-			if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE).size()>0) {
-				throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.VALUE.getValue() + " in this kind of query definition"));
-			}
-			
-			if (AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size()>0) {
-				throw (new InvalidMethodSignException(method, " can not use attribute " + AnnotationAttributeType.EXCLUDED_FIELDS.getValue() + " in this kind of query definition"));
-			}
+			// check excludeFields attribute
+			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size()>0, method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
 			
 			// check if there is only one parameter
-			if (method.getParameters().size() != 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName())) {
-				throw (new InvalidMethodSignException(method));
-			}
+			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() != 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName()), method);
 			
-			// check no 
-			if (annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY))
-			{
-				throw (new InvalidMethodSignException(method, "attribute '"+AnnotationAttributeType.INCLUDE_PRIMARY_KEY.getValue()+"' can not be used here"));
-			}
+			// check no
+			AssertKripton.failWithInvalidMethodSignException(annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY), method, "attribute '%s' can not be used here", AnnotationAttributeType.INCLUDE_PRIMARY_KEY.getValue());
+			
 		} else if (count == 1) {
 			insertResultType = InsertType.INSERT_BEAN;
-			
-			if (method.getParameters().size()>1)
-			{
-				throw (new InvalidMethodSignException(method, " aspected only one parameter of "+daoDefinition.getEntityClassName()+" type"));
-			}
+
+			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size()>1, method, " aspected only one parameter of %s type", daoDefinition.getEntityClassName());
 		} else {
 			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));
 		}
 
 		// if true, field must be associate to ben attributes
 		TypeName returnType = typeName(method.getReturnClass());
-
-		if (insertResultType == null) {
-			throw (new InvalidMethodSignException(method));
-		}
-
+	
+		AssertKripton.failWithInvalidMethodSignException(insertResultType == null, method);
+		
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 

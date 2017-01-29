@@ -85,7 +85,6 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
    *
    * @param userId
    * 	is binded to <code>${value}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -145,7 +144,6 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
    *
    * @param userId
    * 	is binded to <code>${value}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override

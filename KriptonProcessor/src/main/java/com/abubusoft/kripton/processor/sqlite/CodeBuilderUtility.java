@@ -158,9 +158,10 @@ public abstract class CodeBuilderUtility {
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
 		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE);
 		if (includedFields==null) includedFields=new ArrayList<String>();
-		if (alreadyUsedBeanPropertiesNames != null) {
+		//CESCOZ
+		/*if (alreadyUsedBeanPropertiesNames != null) {
 			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
-		}
+		}*/
 		
 		List<String> temp=AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS);
 		if (temp==null) temp=new ArrayList<String>();
@@ -217,9 +218,10 @@ public abstract class CodeBuilderUtility {
 		// check included and excluded fields
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
 		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE);
-		if (alreadyUsedBeanPropertiesNames != null) {
+		//CESCOZ
+		/*if (alreadyUsedBeanPropertiesNames != null) {
 			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
-		}
+		}*/
 		Set<String> excludedFields = new HashSet<String>();
 		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS));
 	

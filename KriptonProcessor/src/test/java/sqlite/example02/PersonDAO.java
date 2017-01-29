@@ -31,8 +31,15 @@ public interface PersonDAO {
 	@BindSqlUpdate(value={"surname"},where="id=${bean.id} and name=${bean.name}")
 	void updateThreeIncludeOK(Person bean);
 	
+	@BindSqlSelect(value={"name"},where="id=${bean.id} and name=${bean.name}")
+	List<Person> selectThreeIncludeERR(Person bean);
+	
 	@BindSqlUpdate(value={"name"},where="id=${bean.id} and name=${bean.name}")
 	void updateThreeIncludeERR(Person bean);
+	
+	@BindSqlUpdate(where="surname=${surname} and name=${nameValue}")
+	void updateThreeIncludeERR(String name, String surname, String nameValue);
+	
 	
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
@@ -63,4 +70,5 @@ public interface PersonDAO {
 	
 	@BindSqlSelect(orderBy="name")
 	void selectCursorListener(OnReadCursorListener cursorListener);
+	
 }

@@ -2042,7 +2042,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -2208,7 +2207,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
-   *
    *
    * @return selected bean or <code>null</code>.
    */
@@ -2378,7 +2376,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueBigDecimal
    * 	is binded to <code>${valueBigDecimal}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -2547,7 +2544,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueBigDecimal
    * 	is binded to <code>${valueBigDecimal}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -2716,7 +2712,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueBoolType
    * 	is binded to <code>${valueBoolType}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -2885,7 +2880,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueBool
    * 	is binded to <code>${valueBool}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -3358,7 +3352,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueBeanArray
    * 	is binded to <code>${valueBeanArray}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -3527,7 +3520,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueLongArray
    * 	is binded to <code>${valueLongArray}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -3696,7 +3688,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueLongTypeArray
    * 	is binded to <code>${valueLongTypeArray}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -3865,7 +3856,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueByte
    * 	is binded to <code>${valueByte}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -4034,7 +4024,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueByteType
    * 	is binded to <code>${valueByteType}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -4203,7 +4192,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueCalendar
    * 	is binded to <code>${valueCalendar}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -4372,7 +4360,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueChar
    * 	is binded to <code>${valueChar}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -4541,7 +4528,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueCharType
    * 	is binded to <code>${valueCharType}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -4710,7 +4696,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueCurrency
    * 	is binded to <code>${valueCurrency}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -4879,7 +4864,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueDate
    * 	is binded to <code>${valueDate}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -5048,7 +5032,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueDouble
    * 	is binded to <code>${valueDouble}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -5217,7 +5200,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueDoubleType
    * 	is binded to <code>${valueDoubleType}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -5386,7 +5368,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueEnumType
    * 	is binded to <code>${valueEnumType}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -5555,7 +5536,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueFloat
    * 	is binded to <code>${valueFloat}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -5724,7 +5704,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueFloatType
    * 	is binded to <code>${valueFloatType}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -5893,7 +5872,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueInt
    * 	is binded to <code>${valueInt}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -6062,7 +6040,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueIntType
    * 	is binded to <code>${valueIntType}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -6231,7 +6208,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueLongList
    * 	is binded to <code>${valueLongList}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -6400,7 +6376,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueLocale
    * 	is binded to <code>${valueLocale}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -6569,7 +6544,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueLong
    * 	is binded to <code>${valueLong}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -6738,7 +6712,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueLongType
    * 	is binded to <code>${valueLongType}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -6907,7 +6880,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueShort
    * 	is binded to <code>${valueShort}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -7076,7 +7048,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueShortType
    * 	is binded to <code>${valueShortType}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -7245,7 +7216,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueString
    * 	is binded to <code>${valueString}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -7414,7 +7384,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueTime
    * 	is binded to <code>${valueTime}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -7583,7 +7552,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueTimeZone
    * 	is binded to <code>${valueTimeZone}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -7752,7 +7720,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    *
    * @param valueUrl
    * 	is binded to <code>${valueUrl}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -7873,7 +7840,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_bool</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -7910,7 +7876,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * <dl>
    * 	<dt>value_bool_type</dt><dd>no bean's property is associated</dd>
    * </dl>
-   *
    *
    * @return single value extracted with query.
    */
@@ -7949,7 +7914,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_byte</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -7986,7 +7950,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * <dl>
    * 	<dt>value_byte_type</dt><dd>no bean's property is associated</dd>
    * </dl>
-   *
    *
    * @return single value extracted with query.
    */
@@ -8025,7 +7988,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_char</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -8062,7 +8024,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * <dl>
    * 	<dt>value_char_type</dt><dd>no bean's property is associated</dd>
    * </dl>
-   *
    *
    * @return single value extracted with query.
    */
@@ -8101,7 +8062,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_double</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -8138,7 +8098,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * <dl>
    * 	<dt>value_double_type</dt><dd>no bean's property is associated</dd>
    * </dl>
-   *
    *
    * @return single value extracted with query.
    */
@@ -8177,7 +8136,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_float</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -8214,7 +8172,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * <dl>
    * 	<dt>value_float_type</dt><dd>no bean's property is associated</dd>
    * </dl>
-   *
    *
    * @return single value extracted with query.
    */
@@ -8253,7 +8210,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_int</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -8290,7 +8246,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * <dl>
    * 	<dt>value_int_type</dt><dd>no bean's property is associated</dd>
    * </dl>
-   *
    *
    * @return single value extracted with query.
    */
@@ -8329,7 +8284,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_long</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -8366,7 +8320,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * <dl>
    * 	<dt>value_long_type</dt><dd>no bean's property is associated</dd>
    * </dl>
-   *
    *
    * @return single value extracted with query.
    */
@@ -8405,7 +8358,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_short</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -8443,7 +8395,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * 	<dt>value_short_type</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -8480,7 +8431,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    * <dl>
    * 	<dt>value_string</dt><dd>no bean's property is associated</dd>
    * </dl>
-   *
    *
    * @return single value extracted with query.
    */

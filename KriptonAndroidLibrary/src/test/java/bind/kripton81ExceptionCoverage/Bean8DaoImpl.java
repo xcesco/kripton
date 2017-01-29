@@ -32,7 +32,6 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
    * 	<dt>ignore2</dt><dd>is associated to bean's property <strong>ignore2</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override

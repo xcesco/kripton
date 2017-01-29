@@ -10,8 +10,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 @BindDao(Person.class)
 public interface PersonDAO {
-	@BindSqlSelect(value={"name", "id"}, orderBy="name")
-	List<Person> selectIncludeOne();
+	@BindSqlSelect(value={"name", "id"}, where="name=${bean.name}",orderBy="name")
+	List<Person> selectIncludeOne(Person bean);
 	
 	@BindSqlSelect(excludedFields={"name", "id"}, orderBy="name")
 	List<Person> selectExcludeOne();

@@ -57,7 +57,7 @@ public abstract class AnnotationUtility {
 		return result;
 	}
 
-	static List<String> extractAsArrayOfString(String value) {
+	public static List<String> extractAsArrayOfString(String value) {
 		Matcher matcher = arrayPattern.matcher(value);
 
 		List<String> result = new ArrayList<String>();

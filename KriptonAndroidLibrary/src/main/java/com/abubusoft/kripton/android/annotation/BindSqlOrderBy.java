@@ -21,7 +21,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Define a dynamic order by condition. It is append to <code>order by</code> statement defined with attribute <code>orderBy</code> in <code>BindSqlSelect</code> annotation.
+ * Define a dynamic order by condition. It is append to <code>order by</code>
+ * statement defined with attribute <code>orderBy</code> in
+ * <code>BindSqlSelect</code> annotation.
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *

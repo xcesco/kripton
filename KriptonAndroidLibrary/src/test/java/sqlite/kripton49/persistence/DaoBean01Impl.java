@@ -41,7 +41,6 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -90,7 +89,6 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override

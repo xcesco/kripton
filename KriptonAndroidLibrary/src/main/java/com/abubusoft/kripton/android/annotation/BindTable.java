@@ -20,6 +20,48 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * <p>
+ * When a class is converted to a table, the name of table is obtained from Java
+ * class name with a upper camel to Lower under score convertion. For example
+ * SayHello class name will be transformed in say_hello table name.
+ * </p>
+ * 
+ * <p>
+ * This annotation allow to specify the name of the associated table associated
+ * to a Java class. Note that specified name will be transformed like a Java
+ * class name.
+ * </p>
+ * 
+ * <p>
+ * Take this class
+ * </p>
+ * 
+ * <pre>
+ * &#064;BindType
+ * &#064;BindTable("WsBean")
+ * public class Bean05 {
+ * 
+ * 	&#064;BindColumn(columnType = ColumnType.PRIMARY_KEY)
+ * 	protected long pk;
+ * 
+ * 	protected long number;
+ * 
+ * 	protected String text;
+ * 
+ * 	protected byte[] content;
+ * 
+ * 	protected Date creationTime;
+ * }
+ * </pre>
+ * 
+ * <p>
+ * Its associated table name is <code>ws_bean</code>.
+ * </p>
+ * 
+ * @author xcesco
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindTable {
@@ -27,18 +69,17 @@ public @interface BindTable {
 	 * Name of the table, in java style. It will be converted during creation of
 	 * table. If null, the name of the table will be transformed class name.
 	 * 
-	 * @return
-	 * 		defined name of the table in java style
+	 * @return defined name of the table in java style
 	 */
 	String value() default "";
-	
+
 	/**
-	 * <p>Allow to crete multicolumn index for this table. It is possible create an multicolumn index with syntax with comma separated list.
-	 * For example, to create and index
+	 * <p>
+	 * Allow to crete (multicolumn or single column) index for this table. 
 	 * </p>
 	 * 
-	 * <p
-	 * @return
+	 * @return indexes definition
 	 */
-	String indexes() default "";
+	String[] indexes() default {};	
+	
 }

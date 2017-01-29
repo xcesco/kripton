@@ -657,7 +657,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -720,7 +719,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param updateTimeA
    * 	is binded to <code>${a}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -783,7 +781,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param updateTimeA
    * 	is binded to <code>${a}</code>
-   *
    * @return cursor. Closing the cursor is delegated to the calling code.
    */
   @Override
@@ -938,7 +935,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param updateTimeA
    * 	is binded to <code>${a}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -997,7 +993,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param value
    * 	is used as ${bean}
-   *
    * @return single value extracted with query.
    */
   @Override
@@ -1145,7 +1140,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param value
    * 	is used as ${bean}
-   *
    * @return cursor. Closing the cursor is delegated to the calling code.
    */
   @Override
@@ -1177,7 +1171,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param value
    * 	is used as ${bean}
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -1223,7 +1216,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param value
    * 	is used as ${bean}
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -1274,7 +1266,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param value
    * 	is used as ${bean}
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -1325,7 +1316,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param value
    * 	is used as ${bean}
-   *
    * @return collection of single value extracted with query.
    */
   @Override

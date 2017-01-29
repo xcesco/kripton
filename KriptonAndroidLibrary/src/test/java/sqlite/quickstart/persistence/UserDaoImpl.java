@@ -119,7 +119,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    * 	<dt>company</dt><dd>is associated to bean's property <strong>company</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -191,7 +190,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    *
    * @param id
    * 	is binded to <code>${value}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override

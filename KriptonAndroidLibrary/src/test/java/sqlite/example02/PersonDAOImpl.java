@@ -279,15 +279,63 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT name FROM person WHERE id=${bean.id} and name=${bean.name}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>${bean.name}</dt><dd>is binded to method's parameter <strong>bean.name</strong></dd>
+   * </dl>
+   *
+   * @param bean
+   * 	is used as ${bean}
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public List<Person> selectThreeIncludeERR(Person bean) {
+    // build where condition
+    String[] args={String.valueOf(bean.id), (bean.name==null?"":bean.name)};
+
+    //StringUtils will be used in case of dynamic parts of SQL
+    Logger.info(StringUtils.formatSQL("SELECT name FROM person WHERE id='%s' and name='%s'",(Object[])args));
+    Cursor cursor = database().rawQuery("SELECT name FROM person WHERE id=? and name=?", args);
+    Logger.info("Rows found: %s",cursor.getCount());
+
+    LinkedList<Person> resultList=new LinkedList<Person>();
+    Person resultBean=null;
+
+    if (cursor.moveToFirst()) {
+
+      int index0=cursor.getColumnIndex("name");
+
+      do
+       {
+        resultBean=new Person();
+
+        if (!cursor.isNull(index0)) { resultBean.name=cursor.getString(index0); }
+
+        resultList.add(resultBean);
+      } while (cursor.moveToNext());
+    }
+    cursor.close();
+
+    return resultList;
+  }
+
+  /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, birth_city=${bean.birthCity}, birth_day=${bean.birthDay} WHERE id=${bean.id} and name=${bean.name}</pre>
+   * <pre>UPDATE person SET name=${bean.name} WHERE id=${bean.id} and name=${bean.name}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -310,28 +358,48 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("name");
     }
 
-    if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
-    } else {
-      contentValues.putNull("surname");
-    }
-
-    if (bean.birthCity!=null) {
-      contentValues.put("birth_city", bean.birthCity);
-    } else {
-      contentValues.putNull("birth_city");
-    }
-
-    if (bean.birthDay!=null) {
-      contentValues.put("birth_day", DateUtils.write(bean.birthDay));
-    } else {
-      contentValues.putNull("birth_day");
-    }
-
     String[] whereConditionsArray={String.valueOf(bean.id), (bean.name==null?"":bean.name)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
-    int result = database().update("person", contentValues, "UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'", whereConditionsArray);
+    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
+    int result = database().update("person", contentValues, "UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s' and name='%s'", whereConditionsArray);
+  }
+
+  /**
+   * <h2>SQL update:</h2>
+   * <pre>UPDATE person SET name=${name} WHERE surname=${surname} and name=${nameValue}</pre>
+   *
+   * <h2>Updated columns:</strong></h2>
+   * <dl>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * </dl>
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
+   * 	<dt>${nameValue}</dt><dd>is mapped to method's parameter <strong>nameValue</strong></dd>
+   * </dl>
+   *
+   * @param name
+   * 	is used as updated field <strong>name</strong>
+   * @param surname
+   * 	is used as where parameter <strong>${surname}</strong>
+   * @param nameValue
+   * 	is used as where parameter <strong>${nameValue}</strong>
+   */
+  @Override
+  public void updateThreeIncludeERR(String name, String surname, String nameValue) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+    if (name!=null) {
+      contentValues.put("name", name);
+    } else {
+      contentValues.putNull("name");
+    }
+
+    String[] whereConditionsArray={(surname==null?"":surname), (nameValue==null?"":nameValue)};
+
+    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE surname=%s and name=%s", (Object[])whereConditionsArray));
+    int result = database().update("person", contentValues, "surname=? and name=?", whereConditionsArray);
   }
 
   /**

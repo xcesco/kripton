@@ -8,7 +8,7 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindTable(indexes="(birthCity, temp)")
+@BindTable(indexes={"birthCity, temp"})
 public class Err1Person {
   public long id;
   

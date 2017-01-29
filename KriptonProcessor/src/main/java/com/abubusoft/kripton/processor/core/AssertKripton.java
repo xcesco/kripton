@@ -44,6 +44,14 @@ public abstract class AssertKripton {
 	public static void failWithInvalidMethodSignException(boolean expression, SQLiteModelMethod method) {
 		assertTrueOrInvalidMethodSignException(!expression, method);			
 	}
+	
+	/**
+	 * if expression is true, it fails. It is the opposite of assert
+	 * @param method
+	 */
+	public static void failWithInvalidMethodSignException(boolean expression, SQLiteModelMethod method, String messageFormat, Object... args) {
+		assertTrueOrInvalidMethodSignException(!expression, method, messageFormat, args);			
+	}
 
 	public static void failWithMethodWithoutSupportedAnnotationException(SQLiteModelMethod value) {
 		throw (new MethodWithoutSupportedAnnotationException(value.getParent(), value));		

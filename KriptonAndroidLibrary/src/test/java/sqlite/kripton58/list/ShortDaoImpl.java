@@ -47,7 +47,6 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
    *
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -99,7 +98,6 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    *
    * @param value
    * 	is binded to <code>${value}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -260,7 +258,6 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    *
    * @param value
    * 	is binded to <code>${value}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override

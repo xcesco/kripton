@@ -53,7 +53,6 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    * 	<dt>red_average_waiting_time</dt><dd>is associated to bean's property <strong>redAverageWaitingTime</strong></dd>
    * </dl>
    *
-   *
    * @return collection of bean or empty collection.
    */
   @Override

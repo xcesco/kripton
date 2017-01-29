@@ -97,7 +97,6 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    *
    * @param postId
    * 	is binded to <code>${value}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -160,7 +159,6 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    *
    * @param postId
    * 	is binded to <code>${value}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override

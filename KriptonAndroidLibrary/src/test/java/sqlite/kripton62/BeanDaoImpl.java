@@ -57,7 +57,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
    * </dl>
    *
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -282,7 +281,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -592,7 +590,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    *
    * @param valueBigDecimalSet
    * 	is binded to <code>${valueBigDecimalSet}</code>
-   *
    * @return selected bean or <code>null</code>.
    */
   @Override

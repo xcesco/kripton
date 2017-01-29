@@ -16,7 +16,6 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -225,10 +224,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			// add multicolumn indexes
 			Pair<String, String> multiIndexes = buldIndexes(entity);
-			if (!StringUtils.isEmpty(multiIndexes.value0))
-			{
-				bufferTable.append(multiIndexes.value0+";");
-				bufferIndexesDrop.append(multiIndexes.value1+";");
+			if (!StringUtils.isEmpty(multiIndexes.value0)) {
+				bufferTable.append(multiIndexes.value0 + ";");
+				bufferIndexesDrop.append(multiIndexes.value1 + ";");
 			}
 
 			//@formatter:off
@@ -266,70 +264,78 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
-	
-	private static final Pattern patternIndex = Pattern.compile("\\(([^\\(]+)\\)");
-
 	public static Pair<String, String> buldIndexes(SQLEntity entity) {
-		Pair<String, String> result=new Pair<>();
-		result.value0="";
-		result.value1="";
-		
+		Pair<String, String> result = new Pair<>();
+		result.value0 = "";
+		result.value1 = "";
+
 		ModelAnnotation annotationTable = entity.getAnnotation(BindTable.class);
 		if (annotationTable == null)
 			return result;
-		
-		String rawIndexes = annotationTable.getAttribute(AnnotationAttributeType.INDEXES);
-		if (StringUtils.isEmpty(rawIndexes)) return result;
-					
-		// CREATE INDEX index_name ON tab_name (column1, column2)		
-		Matcher matcher = patternIndex.matcher(rawIndexes);		
-		
-		int counter=0;		
-		
+
+		List<String> indexes = annotationTable.getAttributeAsArray(AnnotationAttributeType.INDEXES);
+		if (indexes == null || indexes.size() == 0)
+			return result;
+
+		// CREATE INDEX index_name ON tab_name (column1, column2)
+		// Matcher matcher = patternIndex.matcher(rawIndexes);
+
+		int counter = 0;
+
 		List<String> listCreateIndex = new ArrayList<>();
 		List<String> listDropIndex = new ArrayList<>();
-		while (matcher.find()) {
-			List<String> fieldList=Arrays.asList(matcher.group(1).split(","));
-			List<String> columnList=new ArrayList<>();
-			
-			for (String item: fieldList)
-			{
+		for (String index : indexes) {
+			String[] fieldList = index.split(",");
+
+			AssertKripton.assertTrue(fieldList != null && fieldList.length > 0, "class '%s' have @%s(indexes) with no well formed indexes", entity.getName(), BindTable.class.getSimpleName());
+
+			List<String> columnList = new ArrayList<>();
+
+			for (String item : fieldList) {
 				columnList.add(convertFieldToColumnName(entity, item.trim()));
 			}
-					
+
 			String createIndex = String.format(" CREATE INDEX IF NOT EXISTS idx_%s_%s (%s)", entity.getTableName(), counter, StringUtils.join(columnList, ", "));
-			String dropIndex=String.format(" DROP INDEX  IF EXISTS idx_%s_%s", entity.getTableName(), counter);
+			String dropIndex = String.format(" DROP INDEX  IF EXISTS idx_%s_%s", entity.getTableName(), counter);
 			listCreateIndex.add(createIndex);
 			listDropIndex.add(dropIndex);
 		}
-		
-		result.value0=StringUtils.join(listCreateIndex, ";");
-		result.value1=StringUtils.join(listDropIndex, ";");
-		
+
+		result.value0 = StringUtils.join(listCreateIndex, ";");
+		result.value1 = StringUtils.join(listDropIndex, ";");
+
 		return result;
 	}
-	
+
+	static Pattern wordPattern = Pattern.compile("(\\w+)");
+
 	/**
-	 * Look in the string and try to convert first (and unique) field name in its associated column name
-	 *  
+	 * Look in the string and try to convert first (and unique) field name in
+	 * its associated column name
+	 * 
 	 * @param entity
 	 */
-	public static String convertFieldToColumnName(SQLEntity entity, String sql)
-	{
-		int found=0;
-		for (SQLProperty item: entity.getCollection())
-		{
-			if (sql.contains(item.getName()))
-			{			
-				found++;
-				sql=sql.replace(item.getName(), item.columnName);				
+	public static String convertFieldToColumnName(SQLEntity entity, String sql) {
+		int found = 0;
+
+		Matcher m = wordPattern.matcher(sql);
+		StringBuffer sb = new StringBuffer(sql.length());
+		while (m.find()) {
+			String text = m.group(1);
+			// process
+			for (SQLProperty item : entity.getCollection()) {
+				if (text.equals(item.getName())) {
+					found++;					
+					m.appendReplacement(sb, item.columnName);
+				}
 			}
 		}
-		
-		AssertKripton.fail(found==0, "class '%s' in @BindTable(indexes) use invalid field name '%s'", entity.getSimpleName(), sql);
-		AssertKripton.fail(found>1, "class '%s' in @BindTable(indexes) use multiple fields '%s'", entity.getSimpleName(), sql);
-		
-		return sql;		
+
+		AssertKripton.fail(found == 0, "class '%s' in @BindTable(indexes) use invalid field name '%s'", entity.getSimpleName(), sql);
+		AssertKripton.fail(found > 1, "class '%s' in @BindTable(indexes) use multiple fields '%s'", entity.getSimpleName(), sql);
+
+		m.appendTail(sb);
+		return sb.toString();
 	}
 
 	@Override

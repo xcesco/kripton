@@ -15,9 +15,11 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.core;
 
+import java.util.List;
 import java.util.Map;
 
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
 public class ModelAnnotation {
 
@@ -62,6 +64,12 @@ public class ModelAnnotation {
 		String temp=attributes.get(attribute.getValue());
 		
 		return Boolean.parseBoolean(temp);
+	}
+
+	public List<String> getAttributeAsArray(AnnotationAttributeType attribute) {		
+		String temp=attributes.get(attribute.getValue());
+		
+		return AnnotationUtility.extractAsArrayOfString(temp);
 	}
 
 }

@@ -47,7 +47,6 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    *
    * @param nameValue
    * 	is binded to <code>${nameTemp}</code>
-   *
    * @return collection of bean or empty collection.
    */
   @Override
@@ -264,7 +263,6 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
-   *
    *
    * @return collection of bean or empty collection.
    */
