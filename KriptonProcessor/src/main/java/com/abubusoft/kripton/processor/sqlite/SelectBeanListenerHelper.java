@@ -22,20 +22,18 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.List;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
-import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -44,7 +42,7 @@ import com.squareup.javapoet.TypeName;
  *
  * @since 17/mag/2016
  */
-public class SelectBeanListenerHelper implements SelectCodeGenerator {
+public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 
 	/*
 	 * (non-Javadoc)
@@ -52,9 +50,9 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
+	public void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, Builder methodBuilder) {
 		SQLDaoDefinition daoDefinition=method.getParent();
-		SQLEntity entity=daoDefinition.getEntity();
+		SQLEntity entity=daoDefinition.getEntity();		
 		
 		LiteralType listenerType = LiteralType.of(OnReadBeanListener.class, entity.getElement());
 		List<SQLProperty> fields = fieldList.value1;
@@ -140,5 +138,7 @@ public class SelectBeanListenerHelper implements SelectCodeGenerator {
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 	}
+
+
 
 }

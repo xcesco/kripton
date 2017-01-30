@@ -38,6 +38,8 @@ public class SelectStatementBuilder {
 
 	protected String orderBy;
 
+	private int pageSize;
+
 	public SelectStatementBuilder distinct(boolean value) {
 		distinct = value;
 		return this;
@@ -106,14 +108,30 @@ public class SelectStatementBuilder {
 			buffer.append(" GROUP BY " + groupBy.trim());
 		
 		if (StringUtils.hasText(orderBy) || method.hasDynamicOrderByConditions()) {
-			buffer.append(" ORDER BY");
+			buffer.append(" ORDER BY ");
 			if (StringUtils.hasText(orderBy))
-				buffer.append(" " + orderBy.trim());
+				buffer.append(orderBy.trim());
 			if (method.hasDynamicOrderByConditions()) {
-				buffer.append(" #{"+method.dynamicOrderByParameterName+"}");
+				buffer.append("#{"+method.dynamicOrderByParameterName+"}");
 			}
-		}		
+		}
+		
+		if (pageSize>0 || method.hasDynamicPageSizeConditions())
+		{
+			buffer.append(" LIMIT ");
+			if (pageSize>0)
+			{
+				buffer.append(pageSize);
+			} else {
+				buffer.append("#{"+method.dynamicPageSize+"}");
+			}
+		}
 
 		return buffer.toString();
+	}
+
+	public SelectStatementBuilder limit(int pageSize, boolean pagedResult) {
+		this.pageSize=pageSize;
+		return this;
 	}
 }

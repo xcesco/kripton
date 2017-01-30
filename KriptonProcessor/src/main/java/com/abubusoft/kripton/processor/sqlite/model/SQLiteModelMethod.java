@@ -29,8 +29,8 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlOrderBy;
+import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.annotation.BindSqlWhere;
 import com.abubusoft.kripton.common.StringUtils;
@@ -45,16 +45,28 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * Is the name of parameter used to dynamic order by condition (defined at
-	 * runtime)
+	 * <p>
+	 * It is the name of parameter used to dynamic order by condition (defined at
+	 * runtime).
+	 * </p>
 	 */
 	public String dynamicOrderByParameterName;
 
 	/**
-	 * Is the name of parameter used to dynamic where condition (defined at
-	 * runtime)
+	 * <p>
+	 * It is the name of parameter used to dynamic where condition (defined at
+	 * runtime).
+	 * </p>
 	 */
 	public String dynamicWhereParameterName;
+	
+	/**
+	 * <p>
+	 * It is the name of parameter used to dynamic page size (defined at
+	 * runtime).
+	 * </p>
+	 */
+	public String dynamicPageSize;
 
 	protected Map<String, String> parameterAlias2NameField;
 
@@ -77,9 +89,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				parameterNameField2Alias.put(p.getSimpleName().toString(), alias);
 			}
 		}
-
+		
 		// looks for dynamic where conditions
-		findDynamicStatement(parent, BindSqlWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
+		findStringDynamicStatement(parent, BindSqlWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
 
 			@Override
 			public void onFoundParameter(String parameterName) {
@@ -89,11 +101,21 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		});
 
 		// looks for dynamic orderBy conditions
-		findDynamicStatement(parent, BindSqlOrderBy.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
+		findStringDynamicStatement(parent, BindSqlOrderBy.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
 
 			@Override
 			public void onFoundParameter(String parameterName) {
 				dynamicOrderByParameterName = parameterName;
+			}
+
+		});
+		
+		// looks for dynamic pageSize
+		findIntDynamicStatement(parent, BindSqlPageSize.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
+
+			@Override
+			public void onFoundParameter(String parameterName) {
+				dynamicPageSize = parameterName;
 			}
 
 		});
@@ -124,7 +146,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @param parent
 	 * @param element
 	 */
-	private <A extends Annotation> void findDynamicStatement(SQLDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
+	private <A extends Annotation> void findStringDynamicStatement(SQLDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
 							
 		int counter = 0;
@@ -137,6 +159,35 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				}
 				
 				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isString(TypeUtility.typeName(p)), this, "only String parameters can be marked with @%s annotation.", annotationClazz.getSimpleName());
+				
+				listener.onFoundParameter(p.getSimpleName().toString());
+				counter++;
+			}
+		}
+		AssertKripton.assertTrueOrInvalidMethodSignException(counter < 2, this, "there are %s parameters marked with @%s. Only one is allowed.", counter, annotationClazz.getSimpleName());
+	}
+	
+	/**
+	 * Look for a method parameter which is annotated with an annotationClass
+	 * annotation. When it is found, a client action is required through
+	 * listener.
+	 * 
+	 * @param parent
+	 * @param element
+	 */
+	private <A extends Annotation> void findIntDynamicStatement(SQLDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
+			OnFoundDynamicParameter listener) {
+							
+		int counter = 0;
+		for (VariableElement p : element.getParameters()) {
+			A annotation = p.getAnnotation(annotationClazz);
+			if (annotation != null) {
+				// Dynamic queries can not be used in Inser SQL.
+				for (Class<? extends Annotation> item : unsupportedQueryType) {
+					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this, "in this method is not allowed to mark parameters with @%s annotation.", annotationClazz.getSimpleName());
+				}
+				
+				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isTypeIncludedIn(TypeUtility.typeName(p), Integer.TYPE, Long.TYPE), this, "only int or long parameters can be marked with @%s annotation.", annotationClazz.getSimpleName());
 				
 				listener.onFoundParameter(p.getSimpleName().toString());
 				counter++;
@@ -214,8 +265,16 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return StringUtils.hasText(dynamicWhereParameterName);
 	}
 	
+	public boolean hasDynamicPageSizeConditions() {
+		return StringUtils.hasText(dynamicPageSize);
+	}
+	
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
 		return StringUtils.hasText(dynamicWhereParameterName) && parameterName.equals(dynamicWhereParameterName);
+	}
+	
+	public boolean isThisDynamicPageSizeName(String parameterName) {
+		return StringUtils.hasText(dynamicPageSize) && parameterName.equals(dynamicPageSize);
 	}
 
 }

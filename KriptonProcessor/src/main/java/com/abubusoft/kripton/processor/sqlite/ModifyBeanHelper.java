@@ -101,13 +101,13 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class, SelectBuilderUtility.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
 			methodBuilder.addCode("int result = database().update($S, contentValues, \"$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),
-					SelectBuilderUtility.formatSql(method, sqlModify));
+					AbstractSelectCodeGenerator.formatSql(method, sqlModify));
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class, SelectBuilderUtility.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
 			methodBuilder.addCode("int result = database().delete($S, \"$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement());
 		}

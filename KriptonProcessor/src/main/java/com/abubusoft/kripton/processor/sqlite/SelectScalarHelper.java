@@ -25,11 +25,10 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
-import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -40,23 +39,27 @@ import com.squareup.javapoet.TypeName;
  *
  * @since 17/mag/2016
  */
-public class SelectScalarHelper implements SelectCodeGenerator {
+public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
+	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.
+	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
-		TypeName returnTypeName=typeName(returnType);
-		if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class) || TypeUtility.isByteArray(returnTypeName)) {
+	public void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, Builder methodBuilder) {
+		TypeMirror returnType = method.getReturnClass();
+		TypeName returnTypeName = typeName(returnType);
+		
+		if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class)
+				|| TypeUtility.isByteArray(returnTypeName)) {
 
 		} else {
 			// error return type
 			throw (new InvalidMethodSignException(method, "Invalid return type"));
 		}
-		
+
 		if (fieldList.value1.size() == 0) {
 			// no projection
 			throw (new InvalidMethodSignException(method, "No column was selected"));
@@ -67,42 +70,42 @@ public class SelectScalarHelper implements SelectCodeGenerator {
 			else
 				throw (new InvalidMethodSignException(method, "No column was selected for query defined with method"));
 		}
-		
+
 		SQLTransform t = SQLTransformer.lookup(returnType);
 
-		methodBuilder.addCode("$T result=",returnType);
+		methodBuilder.addCode("$T result=", returnType);
 		t.generateDefaultValue(methodBuilder);
 		methodBuilder.addCode(";\n");
-		
+
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
 		// generate index from columns
 		methodBuilder.addCode("\n");
-		//methodBuilder.beginControlFlow("do\n");
-		
-		//methodBuilder.addCode("if (cursor.getString(0);\n");
+		// methodBuilder.beginControlFlow("do\n");
+
+		// methodBuilder.addCode("if (cursor.getString(0);\n");
 		if (TypeUtility.isNullable(returnTypeName)) {
 			methodBuilder.addCode("if (cursor.isNull(0)) { return null; }\n");
-		} else  {
+		} else {
 			methodBuilder.addCode("if (cursor.isNull(0)) { return ");
-			t.generateDefaultValue(methodBuilder);			
+			t.generateDefaultValue(methodBuilder);
 			methodBuilder.addCode("; }\n", t);
 		}
 		methodBuilder.addCode("result=");
 		t.generateReadParam(methodBuilder, method.getParent(), typeName(returnType), "cursor", "0");
 		methodBuilder.addCode(";\n");
 
-		//methodBuilder.endControlFlow("while (cursor.moveToNext())");
+		// methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("finally");		
+		methodBuilder.nextControlFlow("finally");
 		methodBuilder.beginControlFlow("if (!cursor.isClosed())");
 		methodBuilder.addCode("cursor.close();\n");
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
-		
+
 		methodBuilder.addCode("return result;\n");
 	}
 

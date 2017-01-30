@@ -24,13 +24,12 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
@@ -40,17 +39,19 @@ import com.squareup.javapoet.TypeName;
  *
  * @since 17/mag/2016
  */
-public class SelectScalarListHelper implements SelectCodeGenerator {
+public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
+	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.
+	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
-		TypeName returnTypeName=typeName(returnType);
-		
+	public void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, Builder methodBuilder) {
+		TypeMirror returnType = method.getReturnClass();
+		TypeName returnTypeName = typeName(returnType);
+
 		// return type is already checked
 		if (fieldList.value1.size() == 0) {
 			// no projection
@@ -59,29 +60,28 @@ public class SelectScalarListHelper implements SelectCodeGenerator {
 			// too many values
 			throw (new InvalidMethodSignException(method, "only one column can be defined for this kind of method"));
 		}
-		
+
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
 
-		TypeName collectionClass;		
+		TypeName collectionClass;
 		ClassName listClazzName = returnListName.rawType;
 		TypeName elementName = returnListName.typeArguments.get(0);
-		
-		collectionClass=SelectBeanListHelper.defineCollection(listClazzName);
-		
+
+		collectionClass = SelectBeanListHelper.defineCollection(listClazzName);
+
 		methodBuilder.addCode("\n");
-		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, elementName, collectionClass, elementName);		
+		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, elementName, collectionClass, elementName);
 		methodBuilder.addCode("\n");
-	
-		LiteralType literalReturn=LiteralType.of(returnType.toString());
-		
+
+		LiteralType literalReturn = LiteralType.of(returnType.toString());
+
 		SQLTransform t;
 		if (!literalReturn.isList())
-			 t = SQLTransformer.lookup(returnType);
-		else 
-		{			
-			t=SQLTransformer.lookup(typeName(literalReturn.getComposedValue()));
+			t = SQLTransformer.lookup(returnType);
+		else {
+			t = SQLTransformer.lookup(typeName(literalReturn.getComposedValue()));
 		}
-		
+
 		//@formatter:off
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("try");

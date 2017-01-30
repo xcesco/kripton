@@ -13,33 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-/**
- * 
- */
-package com.abubusoft.kripton.processor.sqlite;
+package sqlite.pagedResult;
 
-import javax.lang.model.util.Elements;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.MethodSpec.Builder;
+import sqlite.AbstractBindSQLiteProcessorTest;
 
-/**
- * @author Francesco Benincasa (abubusoft@gmail.com)
- *
- *
- * @since 17/mag/2016
- */
-public class SelectRawHelper extends AbstractSelectCodeGenerator {
+@RunWith(JUnit4.class)
+public class PagedResultTest extends AbstractBindSQLiteProcessorTest {
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * No @BindType is put in bean definition
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
+	 * @throws Throwable
 	 */
-	@Override
-	public void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, Builder methodBuilder) {		
-		methodBuilder.addCode("return cursor;\n");
+	@Test
+	public void test01() throws Throwable {
+		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
 	}
-
 
 }

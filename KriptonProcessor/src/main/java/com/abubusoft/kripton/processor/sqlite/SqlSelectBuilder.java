@@ -19,7 +19,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeSpec.Builder;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -29,26 +29,41 @@ import com.squareup.javapoet.MethodSpec;
  */
 public abstract class SqlSelectBuilder {
 
+	public interface SelectCodeGenerator {
+		void generate(Elements elementUtils, Builder builder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType);
+
+		void setSelectResultTye(SelectResultType selectResultType);
+	}
+
 	public enum SelectResultType {
-			LISTENER_BEAN(SelectBeanListenerHelper.class, true),
-			LISTENER_CURSOR(SelectRawListenerHelper.class, false),
+			BEAN(SelectBeanHelper.class, true),
+			CURSOR(SelectRawHelper.class, false),
 			LIST_BEAN(SelectBeanListHelper.class, true),
 			LIST_SCALAR(SelectScalarListHelper.class, false),
-			CURSOR(SelectRawHelper.class, false),
-			BEAN(SelectBeanHelper.class, true),
+			LISTENER_BEAN(SelectBeanListenerHelper.class, true),
+			LISTENER_CURSOR(SelectRawListenerHelper.class, false),
+			PAGED_RESULT(SelectPagedResultHelper.class, true),
 			SCALAR(SelectScalarHelper.class, false);
 
 		private SelectCodeGenerator codeGenerator;
 
 		private boolean mapFields;
 
-		/**
-		 * if true, map cursor fields to bean attributes.
-		 * 
-		 * @return the mapFields
-		 */
-		public boolean isMapFields() {
-			return mapFields;
+		private SelectResultType(Class<? extends AbstractSelectCodeGenerator> codeGenerator, boolean mapFields) {
+			try {
+				this.mapFields = mapFields;
+				this.codeGenerator = codeGenerator.newInstance();
+				this.codeGenerator.setSelectResultTye(this);
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method, TypeMirror returnType) {
+			codeGenerator.generate(elementUtils, builder, this.isMapFields(), method, returnType);
+
 		}
 
 		/**
@@ -58,25 +73,14 @@ public abstract class SqlSelectBuilder {
 			return codeGenerator;
 		}
 
-		private SelectResultType(Class<? extends SelectCodeGenerator> codeGenerator, boolean mapFields) {
-			try {
-				this.mapFields = mapFields;
-				this.codeGenerator = codeGenerator.newInstance();
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
+		/**
+		 * if true, map cursor fields to bean attributes.
+		 * 
+		 * @return the mapFields
+		 */
+		public boolean isMapFields() {
+			return mapFields;
 		}
-
-		public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeMirror returnType) {
-			codeGenerator.generate(elementUtils, fieldList, methodBuilder, this.isMapFields(), method, returnType);
-
-		}
-	}
-
-	public interface SelectCodeGenerator {
-		void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType);
 	}
 
 }

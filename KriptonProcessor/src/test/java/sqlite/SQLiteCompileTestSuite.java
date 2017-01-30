@@ -40,6 +40,7 @@ import sqlite.kripton64.Test64Suite;
 import sqlite.kripton84.Test84Suite;
 import sqlite.kripton93.Test93Suite;
 import sqlite.kripton96.Test96Suite;
+import sqlite.pagedResult.TestPagedResultSuite;
 import sqlite.quickstart.TestQuickstartSuite;
 import sqlite.test01.Test01Suite;
 import sqlite.test02.Test02Suite;
@@ -81,6 +82,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestFirstAid.class,			
 			TestForeignKeySuite.class,
 			TestDynamicSuite.class,
+			TestPagedResultSuite.class,
 			IndexTestSuite.class,
 			IncludeFieldsTestSuite.class
 			})

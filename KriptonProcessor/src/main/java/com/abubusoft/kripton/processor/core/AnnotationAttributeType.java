@@ -63,6 +63,8 @@ public enum AnnotationAttributeType {
 	ORDER("order"),	
 	ORDER_BY("orderBy"),
 	
+	PAGE_SIZE("pageSize"),
+	
 	RAW_FIELDS("rawFields"),
 	
 	VALUE("value"),

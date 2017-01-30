@@ -31,14 +31,13 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
@@ -49,28 +48,30 @@ import com.squareup.javapoet.TypeName;
  *
  * @since 17/mag/2016
  */
-public class SelectBeanListHelper<ElementUtils> implements SelectCodeGenerator {
+public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenerator {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
+	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.
+	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields,  SQLiteModelMethod method, TypeMirror returnType) {
-		TypeName returnTypeName=typeName(returnType);
-		SQLDaoDefinition daoDefinition=method.getParent();
-		SQLEntity entity=daoDefinition.getEntity();
-		
+	public void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, Builder methodBuilder) {		
+		SQLDaoDefinition daoDefinition = method.getParent();
+		SQLEntity entity = daoDefinition.getEntity();
+		TypeMirror returnType = method.getReturnClass();
+		TypeName returnTypeName = typeName(returnType);
+
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
-		//String fieldStatement = fieldList.value0;
+		// String fieldStatement = fieldList.value0;
 		List<SQLProperty> fields = fieldList.value1;
 
 		TypeName collectionClass;
 		TypeName entityClass = typeName(entity.getElement());
 		ClassName listClazzName = returnListName.rawType;
 
-		collectionClass=defineCollection(listClazzName);
+		collectionClass = defineCollection(listClazzName);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass, entityClass);
@@ -96,7 +97,7 @@ public class SelectBeanListHelper<ElementUtils> implements SelectCodeGenerator {
 		// generate mapping
 		int i = 0;
 		for (SQLProperty item : fields) {
-			
+
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 			}
@@ -124,18 +125,16 @@ public class SelectBeanListHelper<ElementUtils> implements SelectCodeGenerator {
 	static TypeName defineCollection(ClassName listClazzName) {
 		try {
 			Class<?> clazz = Class.forName(listClazzName.toString());
-			
-			if (clazz.isAssignableFrom(Collection.class))
-			{
-				clazz=LinkedList.class;
-			} else if (clazz.isAssignableFrom(List.class))
-			{
-				clazz=LinkedList.class;
-			} if (clazz.isAssignableFrom(Set.class))
-			{
-				clazz=HashSet.class;
+
+			if (clazz.isAssignableFrom(Collection.class)) {
+				clazz = LinkedList.class;
+			} else if (clazz.isAssignableFrom(List.class)) {
+				clazz = LinkedList.class;
 			}
-			
+			if (clazz.isAssignableFrom(Set.class)) {
+				clazz = HashSet.class;
+			}
+
 			return typeName(clazz);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

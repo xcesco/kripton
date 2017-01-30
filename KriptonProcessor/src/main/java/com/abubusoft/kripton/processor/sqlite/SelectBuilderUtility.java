@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.PagedResult;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -52,6 +54,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectResultType;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -63,6 +66,8 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeVariableName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 public abstract class SelectBuilderUtility {
@@ -167,6 +172,9 @@ public abstract class SelectBuilderUtility {
 		LiteralType readBeanListener = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
 		LiteralType readCursorListener = LiteralType.of(OnReadCursorListener.class);
 
+		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
+		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
+
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
 			if (hasParameterOfType(method, readCursorListener)) {
@@ -178,38 +186,51 @@ public abstract class SelectBuilderUtility {
 			// return Cursor (no listener)
 			selectResultType = SqlSelectBuilder.SelectResultType.CURSOR;
 		} else if (returnTypeName instanceof ParameterizedTypeName) {
-			ClassName listClazzName = ((ParameterizedTypeName) returnTypeName).rawType;
-			
-			try {
-				Class<?> listClazz=Class.forName(listClazzName.toString());
-				
-				if (Collection.class.isAssignableFrom(listClazz))
-				{
-					// return List (no listener)
-					List<TypeName> list = ((ParameterizedTypeName) returnTypeName).typeArguments;
+			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) returnTypeName;
+			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;
 
-					if (list.size() == 1) {
-						TypeName elementName = ((ParameterizedTypeName) returnTypeName).typeArguments.get(0);
-						if (TypeUtility.isSameType(list.get(0), entity.getName().toString())) {
-							// entity list
-							selectResultType = SqlSelectBuilder.SelectResultType.LIST_BEAN;
-						} else if (TypeUtility.isByteArray(elementName) || TypeUtility.isTypePrimitive(elementName) || TypeUtility.isTypeWrappedPrimitive(elementName) || TypeUtility.isTypeIncludedIn(elementName, String.class)) {
-							// scalar list
-							selectResultType = SqlSelectBuilder.SelectResultType.LIST_SCALAR;
-						}
+			// return List (no listener)
+			AssertKripton.assertTrueOrInvalidMethodSignException(returnParameterizedTypeName.typeArguments.size() == 1, method, "return type %s is not supported", returnTypeName);
+			TypeName elementName = returnParameterizedTypeName.typeArguments.get(0);
+
+			try {
+				Class<?> wrapperClazz = Class.forName(returnParameterizedClassName.toString());
+				if (PagedResult.class.isAssignableFrom(wrapperClazz)) {
+					// method must have pageSize, statically or dynamically
+					// defined
+					AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
+							"use of PagedResult require 'pageSize' attribute or a @BindSqlPageSize annotated parameter", returnTypeName);
+
+					// paged result
+					AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isSameType(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
+					selectResultType = SqlSelectBuilder.SelectResultType.PAGED_RESULT;
+
+					// create PagedResult
+					buildPagedResultClass(builder, method);
+
+				} else if (Collection.class.isAssignableFrom(wrapperClazz)) {
+					if (TypeUtility.isSameType(elementName, entity.getName().toString())) {
+						// entity list
+						selectResultType = SqlSelectBuilder.SelectResultType.LIST_BEAN;
+					} else if (TypeUtility.isByteArray(elementName) || TypeUtility.isTypePrimitive(elementName) || TypeUtility.isTypeWrappedPrimitive(elementName)
+							|| TypeUtility.isTypeIncludedIn(elementName, String.class)) {
+						// scalar list
+						selectResultType = SqlSelectBuilder.SelectResultType.LIST_SCALAR;
 					} else {
-						// error
-					}					
+						AssertKripton.failWithInvalidMethodSignException(true, method, "");
+					}
+
 				}
-			} catch(Exception e)
-			{
+			} catch (Exception e) {
 				// error
 			}
 		} else if (TypeUtility.isEquals(returnTypeName, entity)) {
 			// return one element (no listener)
 			selectResultType = SqlSelectBuilder.SelectResultType.BEAN;
-		} else if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class) || TypeUtility.isByteArray(returnTypeName)) {
-			// return single value string, int, long, short, double, float, String (no listener)
+		} else if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class)
+				|| TypeUtility.isByteArray(returnTypeName)) {
+			// return single value string, int, long, short, double, float,
+			// String (no listener)
 			selectResultType = SqlSelectBuilder.SelectResultType.SCALAR;
 		}
 
@@ -217,232 +238,133 @@ public abstract class SelectBuilderUtility {
 			throw (new InvalidMethodSignException(method, String.format("'%s' as return type is not supported", returnTypeName)));
 		}
 
-		// take field list
-		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectResultType.isMapFields(), null);
-		String fieldStatement = fieldList.value0;
-		// List<SQLProperty> fields = fieldList.value1;
-		String tableStatement = daoDefinition.getEntity().getTableName();
-
-		// separate params used for update bean and params used in whereCondition
-		// analyze whereCondition
-		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
-		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.DISTINCT));
-
-		// parameters
-		List<String> paramNames = new ArrayList<String>();
-		List<String> paramGetters = new ArrayList<String>();
-		List<TypeMirror> paramTypeNames = new ArrayList<TypeMirror>();
 		
-		// used method parameters
-		Set<String> usedMethodParameters = new HashSet<String>();
+		//
+		//selectResultType.
 
-		SqlAnalyzer analyzer = new SqlAnalyzer();
+		selectResultType.generate(elementUtils, builder, method, returnType);
+	}
 
-		String whereSQL = annotation.getAttribute(AnnotationAttributeType.WHERE);		
-		analyzer.execute(elementUtils, method, whereSQL);
-		String whereStatement = analyzer.getSQLStatement();
-		paramGetters.addAll(analyzer.getParamGetters());
-		paramNames.addAll(analyzer.getParamNames());
-		paramTypeNames.addAll(analyzer.getParamTypeNames());
-		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
+	static int pageResultCounter;
 
-		String havingSQL = annotation.getAttribute(AnnotationAttributeType.HAVING);
-		analyzer.execute(elementUtils, method, havingSQL);
-		String havingStatement = analyzer.getSQLStatement();
-		paramGetters.addAll(analyzer.getParamGetters());
-		paramNames.addAll(analyzer.getParamNames());
-		paramTypeNames.addAll(analyzer.getParamTypeNames());
-		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
+	private static void buildPagedResultClass(Builder builder, SQLiteModelMethod method) {
+		/*
+		 * builder =
+		 * TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC).
+		 * addModifiers(Modifier.ABSTRACT)
+		 * .addTypeVariable(TypeVariableName.get("I"))
+		 * .addTypeVariable(TypeVariableName.get("U"))
+		 * .addTypeVariable(TypeVariableName.get("R"));
+		 */
+		// TypeSpec
+		// baseClazz=TypeSpec.classBuilder(PagedResult.class.getName()).addTypeVariable(TypeVariableName.get(method.getParent().getEntityClassName())).build();
 
-		String groupBySQL = annotation.getAttribute(AnnotationAttributeType.GROUP_BY);
-		analyzer.execute(elementUtils, method, groupBySQL);
-		String groupByStatement = analyzer.getSQLStatement();
-		paramGetters.addAll(analyzer.getParamGetters());
-		paramNames.addAll(analyzer.getParamNames());
-		paramTypeNames.addAll(analyzer.getParamTypeNames());
-		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
+		TypeVariableName.get(method.getParent().getEntityClassName());
 
-		String orderBySQL = annotation.getAttribute(AnnotationAttributeType.ORDER_BY);
-		analyzer.execute(elementUtils, method, orderBySQL);
-		String orderByStatement = analyzer.getSQLStatement();
-		paramGetters.addAll(analyzer.getParamGetters());
-		paramNames.addAll(analyzer.getParamNames());
-		paramTypeNames.addAll(analyzer.getParamTypeNames());
-		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
-		
-		// add as used parameter dynamic components too
-		if (method.hasDynamicWhereConditions())
-		{
-			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicWhereParameterName),method," parameter %s is used like SQL parameter and dynamic WHERE condition.", method.dynamicOrderByParameterName);
-			usedMethodParameters.add(method.dynamicWhereParameterName);
-		}
-		
-		if (method.hasDynamicOrderByConditions())
-		{
-			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicOrderByParameterName),method," parameter %s is used like SQL parameter and dynamic ORDER BY condition.", method.dynamicOrderByParameterName);
-			usedMethodParameters.add(method.dynamicOrderByParameterName);
-		}
+		Builder typeBuilder = TypeSpec.classBuilder("PagedResult" + (pageResultCounter++)).addModifiers(Modifier.PUBLIC)
+				.superclass(TypeUtility.parameterizedTypeName(TypeUtility.className(PagedResult.class), TypeUtility.typeName(method.getParent().getEntityClassName())));
 
-		// select statement
-		String sqlWithParameters = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereSQL).having(havingSQL).groupBy(groupBySQL).orderBy(orderBySQL).build(method);
-		String sql = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement).orderBy(orderByStatement).build(method);
-		String sqlForLog = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement).orderBy(orderByStatement).buildForLog(method);
+		// add fields and define constructor
+		MethodSpec.Builder setupBuilder = MethodSpec.methodBuilder("setup");
 
-		// generate method code
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
+		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).returns(TypeName.INT);
+		executeBuilder.addCode("list=$T.this.$L(", TypeUtility.typeName(method.getParent().getElement(), BindDaoBuilder.SUFFIX), method.getName());
 
-		// generate javadoc
-		JavadocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldList, selectResultType);
-
+		String separator = "";
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
+			// field
+			typeBuilder.addField(TypeName.get(item.value1), item.value0);
+
+			// construtor
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
-			methodBuilder.addParameter(parameterSpec);
+			setupBuilder.addParameter(parameterSpec);
+			setupBuilder.addStatement("this.$L=$L", item.value0, item.value0);
+
+			// execute
+			executeBuilder.addCode(separator + item.value0);
+			separator = ", ";
 		}
-		methodBuilder.returns(returnTypeName);
+		typeBuilder.addMethod(setupBuilder.build());
 
-		// build where condition (common for every type of select)
-		StringBuilder logArgsBuffer = new StringBuilder();
-		methodBuilder.addCode("// build where condition\n");
-		methodBuilder.addCode("String[] args={");
-		{
-			String separator = "";
+		executeBuilder.addCode(");\n");
+		executeBuilder.addStatement("return list.size()");
+		typeBuilder.addMethod(executeBuilder.build());
 
-			TypeMirror paramTypeName;
-			TypeName paramName;
-			
-			boolean nullable;
-			int i = 0;
-			for (String item : paramGetters) {
-				methodBuilder.addCode(separator);
-				logArgsBuffer.append(separator + "%s");
+		// generate class
+		/*
+		 * MethodSpec.Builder methodBuilder = TypeSpec. m
+		 * MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.
+		 * class).addModifiers(Modifier.PUBLIC);
+		 * 
+		 * // generate javadoc
+		 * JavadocUtility.generateJavaDocForSelect(methodBuilder,
+		 * sqlWithParameters, paramNames, method, annotation, fieldList,
+		 * selectResultType);
+		 */
+		/*
+		 * // add parameter for method
+		 * 
+		 * 
+		 * // add return type methodBuilder.returns(returnTypeName);
+		 */
 
-				paramTypeName = paramTypeNames.get(i);
-
-				if (paramTypeName instanceof ModelType) {
-					paramName = ((ModelType) paramTypeName).getName();
-				} else
-				{
-					paramName=typeName(paramTypeName);
-				}
-				
-				// code for query arguments
-				nullable = TypeUtility.isNullable(paramName);			
-				if (nullable) {
-					methodBuilder.addCode("($L==null?\"\":", item);
-				}				
-							
-				// check for string conversion
-				TypeUtility.beginStringConversion(methodBuilder, paramTypeName);			
-				
-				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(paramTypeName), item);
-				
-				// check for string conversion
-				TypeUtility.endStringConversion(methodBuilder, paramTypeName);
-				
-				if (nullable) {
-					methodBuilder.addCode(")");
-				}
-
-				separator = ", ";
-				i++;
-			}
-			methodBuilder.addCode("};\n");
-		}
-			
-
-		methodBuilder.addCode("\n");
-		methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);			
-		
-		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addStatement("$T.info($T.formatSQL(\"$L\",(Object[])args))", Logger.class, StringUtils.class, formatSqlForLog(method,sqlForLog));
-		} 
-		methodBuilder.addStatement("$T cursor = database().rawQuery(\"$L\", args)", Cursor.class, formatSql(method,sql));
-
-		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
-		}
-
-		{			
-			switch (selectResultType) {			
-			case LISTENER_CURSOR: {
-				LiteralType readCursorListenerToExclude = LiteralType.of(OnReadCursorListener.class);
-				checkUnusedParameters(method, usedMethodParameters, readCursorListenerToExclude);
-			}
-				break;
-			case LISTENER_BEAN: {
-				LiteralType readBeanListenerToExclude = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
-				checkUnusedParameters(method, usedMethodParameters, readBeanListenerToExclude);
-			}
-				break;
-			default:
-				checkUnusedParameters(method, usedMethodParameters, null);
-				break;
-			}
-		}
-
-		selectResultType.generate(elementUtils, fieldList, methodBuilder, method, returnType);
-
-		MethodSpec methodSpec = methodBuilder.build();
-		builder.addMethod(methodSpec);
+		builder.addType(typeBuilder.build());
 	}
 
-	/**
-	 * Check if there are unused method parameters. In this case an exception was throws.
-	 * 
-	 * @param method
-	 * @param usedMethodParameters
-	 */
-	public static void checkUnusedParameters(SQLiteModelMethod method, Set<String> usedMethodParameters, LiteralType excludedClasses) {
-		int paramsCount = method.getParameters().size();
-		int usedCount = usedMethodParameters.size();
+	private static void buildPagedResultThreadLocal(Builder builder, SQLiteModelMethod method) {
 
-		if (paramsCount > usedCount) {
-			StringBuilder sb = new StringBuilder();
-			String separator = "";
-			for (Pair<String, TypeMirror> item : method.getParameters()) {
-				if (excludedClasses != null && typeName(item.value1).toString().equals(excludedClasses.getValue())) {
-					usedCount++;
-				} else {
-					if (!usedMethodParameters.contains(item.value0)) {
-						sb.append(separator + "'" + item.value0 + "'");
-						separator = ", ";
-					}
-				}
-			}
+		TypeVariableName.get(method.getParent().getEntityClassName());
 
-			if (paramsCount > usedCount) {
-				throw (new InvalidMethodSignException(method, "unused parameter(s) " + sb.toString()));
-			}
+		Builder typeBuilder = TypeSpec.classBuilder("PagedResult" + (pageResultCounter++)).addModifiers(Modifier.PUBLIC)
+				.superclass(TypeUtility.parameterizedTypeName(TypeUtility.className(PagedResult.class), TypeUtility.typeName(method.getParent().getEntityClassName())));
+
+		// add fields and define constructor
+		MethodSpec.Builder setupBuilder = MethodSpec.methodBuilder("setup");
+
+		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).returns(TypeName.INT);
+		executeBuilder.addCode("list=$T.this.$L(", TypeUtility.typeName(method.getParent().getElement(), BindDaoBuilder.SUFFIX), method.getName());
+
+		String separator = "";
+		ParameterSpec parameterSpec;
+		for (Pair<String, TypeMirror> item : method.getParameters()) {
+			// field
+			typeBuilder.addField(TypeName.get(item.value1), item.value0);
+
+			// construtor
+			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
+			setupBuilder.addParameter(parameterSpec);
+			setupBuilder.addStatement("this.$L=$L", item.value0, item.value0);
+
+			// execute
+			executeBuilder.addCode(separator + item.value0);
+			separator = ", ";
 		}
-	}
-	
-	public static String formatSqlForLog(SQLiteModelMethod method, String sql)
-	{
-		sql=sql.replaceAll("\\%[^s]", "\\%\\%").replaceAll("\\?", "\'%s\'");
-		
-		return formatSqlInternal(method, sql, "appendForLog");
-	}
-		
-	
-	public static String formatSql(SQLiteModelMethod method, String sql)
-	{	
-		return formatSqlInternal(method, sql, "appendForSQL");		
-	}
-	
-	private static String formatSqlInternal(SQLiteModelMethod method, String sql, String appendMethod)
-	{	
-		if (method.hasDynamicWhereConditions())
-		{
-			sql=sql.replace("#{"+method.dynamicWhereParameterName+"}", "\"+StringUtils."+appendMethod+"("+method.dynamicWhereParameterName+")+\"");
-		}
-		
-		if (method.hasDynamicOrderByConditions())
-		{
-			sql=sql.replace("#{"+method.dynamicOrderByParameterName+"}", "\"+StringUtils."+appendMethod+"("+method.dynamicOrderByParameterName+")+\"");
-		}
-		
-		return sql;
+		typeBuilder.addMethod(setupBuilder.build());
+
+		executeBuilder.addCode(");\n");
+		executeBuilder.addStatement("return list.size()");
+		typeBuilder.addMethod(executeBuilder.build());
+
+		// generate class
+		/*
+		 * MethodSpec.Builder methodBuilder = TypeSpec. m
+		 * MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.
+		 * class).addModifiers(Modifier.PUBLIC);
+		 * 
+		 * // generate javadoc
+		 * JavadocUtility.generateJavaDocForSelect(methodBuilder,
+		 * sqlWithParameters, paramNames, method, annotation, fieldList,
+		 * selectResultType);
+		 */
+		/*
+		 * // add parameter for method
+		 * 
+		 * 
+		 * // add return type methodBuilder.returns(returnTypeName);
+		 */
+
+		builder.addType(typeBuilder.build());
 	}
 
 

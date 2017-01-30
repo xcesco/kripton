@@ -157,12 +157,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[])whereConditionsArray));\n", Logger.class, StringUtils.class, SelectBuilderUtility.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[])whereConditionsArray));\n", Logger.class, StringUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
 			methodBuilder.addCode("int result = database().update($S, contentValues, \"$L$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), where.value0, appendSQL(method));
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[])whereConditionsArray));\n", Logger.class, StringUtils.class, SelectBuilderUtility.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[])whereConditionsArray));\n", Logger.class, StringUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
 			methodBuilder.addCode("int result = database().delete($S, \"$L$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),
 					where.value0, appendSQL(method));

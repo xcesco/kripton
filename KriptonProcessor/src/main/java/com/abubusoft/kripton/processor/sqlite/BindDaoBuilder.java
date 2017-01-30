@@ -52,12 +52,12 @@ import com.squareup.javapoet.TypeSpec.Builder;
  *
  */
 public class BindDaoBuilder implements SQLiteModelElementVisitor {
-	
+
 	/**
 	 * Suffix to add to DAO interface to define DAO implementation name.
 	 */
 	public static final String SUFFIX = "Impl";
-	
+
 	protected Elements elementUtils;
 	protected Filer filer;
 	private Builder builder;
@@ -86,8 +86,8 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		builder = TypeSpec.classBuilder(classTableName).superclass(AbstractDao.class).addSuperinterface(typeName(value.getElement())).addModifiers(Modifier.PUBLIC);
-		
-		BindTypeContext context=new BindTypeContext(builder, TypeUtility.typeName(packageName, classTableName), Modifier.PRIVATE);
+
+		BindTypeContext context = new BindTypeContext(builder, TypeUtility.typeName(packageName, classTableName), Modifier.PRIVATE);
 
 		// javadoc for class
 		builder.addJavadoc("<p>");
@@ -109,10 +109,9 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		for (SQLiteModelMethod item : value.getCollection()) {
 			item.accept(this);
 		}
-		
+
 		// generate serializer params
-		for (Entry<TypeName, String> item: currentDaoDefinition.managedParams.entrySet())
-		{
+		for (Entry<TypeName, String> item : currentDaoDefinition.managedParams.entrySet()) {
 			ManagedPropertyPersistenceHelper.generateParamSerializer(context, item.getValue(), item.getKey(), PersistType.BYTE);
 			ManagedPropertyPersistenceHelper.generateParamParser(context, item.getValue(), item.getKey(), PersistType.BYTE);
 		}
@@ -127,19 +126,18 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 	/**
 	 * @param value
-	 * @return
-	 * 		name of dao
+	 * @return name of dao
 	 */
 	public static String daoName(SQLDaoDefinition value) {
 		String classTableName = value.getName();
-		classTableName =  classTableName+ SUFFIX;
+		classTableName = classTableName + SUFFIX;
 		return classTableName;
 	}
-	
+
 	public static TypeName daoTypeName(SQLDaoDefinition value) {
 		return TypeUtility.typeName(value.getElement(), SUFFIX);
 	}
-	
+
 	public static TypeName daoInterfaceTypeName(SQLDaoDefinition value) {
 		return TypeUtility.typeName(value.getElement());
 	}
@@ -156,7 +154,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			SelectBuilderUtility.generateSelect(elementUtils, builder, value);
 		} else {
 			// method without supported annotation
-			AssertKripton.failWithMethodWithoutSupportedAnnotationException(value);			
+			AssertKripton.failWithMethodWithoutSupportedAnnotationException(value);
 		}
 
 	}

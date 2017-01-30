@@ -214,7 +214,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name #{orderBy}</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name#{orderBy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -241,8 +241,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] args={};
 
     //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name "+StringUtils.appendForLog(orderBy)+"",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name "+StringUtils.appendForSQL(orderBy)+"", args);
+    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+StringUtils.appendForLog(orderBy)+"",(Object[])args));
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+StringUtils.appendForSQL(orderBy)+"", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Person resultBean=new Person();
     try {

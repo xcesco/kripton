@@ -85,7 +85,7 @@ public abstract class JavadocUtility {
 		}
 		
 		// dynamic parts
-		if (method.hasDynamicOrderByConditions() || method.hasDynamicWhereConditions())
+		if (method.hasDynamicOrderByConditions() || method.hasDynamicWhereConditions() || method.hasDynamicPageSizeConditions())
 		{
 			methodBuilder.addJavadoc("<h2>Dynamic parts:</h2>\n");			
 			methodBuilder.addJavadoc("<dl>\n");
@@ -96,6 +96,10 @@ public abstract class JavadocUtility {
 			if (method.hasDynamicOrderByConditions())
 			{
 				methodBuilder.addJavadoc("<dt>#{$L}</dt>is part of order statement resolved at runtime.</dd>", method.dynamicOrderByParameterName);
+			}
+			if (method.hasDynamicPageSizeConditions())
+			{
+				methodBuilder.addJavadoc("<dt>#{$L}</dt>is part of limit statement resolved at runtime.</dd>", method.dynamicPageSize);
 			}
 						
 			methodBuilder.addJavadoc("\n</dl>");
@@ -128,7 +132,9 @@ public abstract class JavadocUtility {
 			} else if (item.value0.equals(method.dynamicWhereParameterName)) {
 					methodBuilder.addJavadoc("\tis used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);
 			} else if (item.value0.equals(method.dynamicOrderByParameterName)) {
-					methodBuilder.addJavadoc("\tis used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);			
+					methodBuilder.addJavadoc("\tis used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);
+			} else if (item.value0.equals(method.dynamicPageSize)) {
+				methodBuilder.addJavadoc("\tis used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);			
 			} else {
 				methodBuilder.addJavadoc("\tis binded to <code>$L</code>\n", "${" + method.findParameterAliasByName(item.value0) + "}");
 			} 
@@ -150,6 +156,9 @@ public abstract class JavadocUtility {
 			break;		
 		case SCALAR:
 			methodBuilder.addJavadoc("@return single value extracted with query.\n");
+			break;
+		case PAGED_RESULT:
+			methodBuilder.addJavadoc("@return paged result.\n");
 			break;
 		default:
 		//case LISTENER_BEAN:

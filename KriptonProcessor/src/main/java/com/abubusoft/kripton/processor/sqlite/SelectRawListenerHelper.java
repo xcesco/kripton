@@ -18,15 +18,13 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.LiteralType;
-import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -34,7 +32,7 @@ import com.squareup.javapoet.MethodSpec;
  *
  * @since 17/mag/2016
  */
-public class SelectRawListenerHelper implements SelectCodeGenerator {
+public class SelectRawListenerHelper extends AbstractSelectCodeGenerator {
 
 	/*
 	 * (non-Javadoc)
@@ -42,7 +40,7 @@ public class SelectRawListenerHelper implements SelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generate(Elements elementUtils, PropertyList fieldList, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
+	public void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, Builder methodBuilder) {
 		LiteralType listenerType=LiteralType.of(OnReadCursorListener.class);
 		
 		int counter = SelectBuilderUtility.countParameterOfType(method, listenerType);

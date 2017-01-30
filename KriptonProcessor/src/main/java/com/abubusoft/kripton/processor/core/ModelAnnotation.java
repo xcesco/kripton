@@ -72,4 +72,10 @@ public class ModelAnnotation {
 		return AnnotationUtility.extractAsArrayOfString(temp);
 	}
 
+	public int getAttributeAsInt(AnnotationAttributeType attribute) {
+		String temp=attributes.get(attribute.getValue());
+		
+		return Integer.parseInt(temp);
+	}
+
 }
