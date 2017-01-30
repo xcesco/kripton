@@ -28,32 +28,6 @@ import java.io.Writer;
 public class StringUtils {
 
 	private static final int VIEW_SIZE = 64;
-	
-	/**
-	 * Prepare a string to be used as part of SQL statement in LOGCAT.
-	 * 
-	 * Replace % with %%
-	 * 
-	 * @param value
-	 * 
-	 * @return
-	 */
-	public static String appendForLog(String value) {	
-		return appendForSQL(value).replaceAll("\\%", "\\%\\%");
-	}
-	
-	/**
-	 * Prepare a string to be used as part of SQL statement.
-	 * 
-	 * @param value
-	 * 
-	 * @return
-	 */
-	public static String appendForSQL(String value) {
-		if (value==null) return "";
-				
-		return value;
-	}
 
 	public static boolean isEmpty(String value) {
 		return value == null || value.length() == 0;
@@ -67,18 +41,6 @@ public class StringUtils {
 	 */
 	public static boolean hasText(String value) {
 		return value != null && value.trim().length() > 0;
-	}
-	
-	/**
-	 * Format sql
-	 * 
-	 * @param input
-	 * @return
-	 * 		formatted sql
-	 */
-	public static String formatSQL(String input, Object ... args)
-	{
-		return "SQL: "+String.format(input, args);
 	}
 
 	/**

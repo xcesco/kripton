@@ -5,6 +5,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.Date;
@@ -77,8 +78,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("birth_day");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
     database().insert("person", null, contentValues);
   }
 
@@ -103,8 +105,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -177,9 +179,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={(nameValue==null?"":nameValue), (date==null?"":DateUtils.write(date))};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%' and birth_day < '%s' "+StringUtils.appendForLog(where)+" ORDER BY "+StringUtils.appendForLog(orderBy)+"",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\' and birth_day < ? "+StringUtils.appendForSQL(where)+" ORDER BY "+StringUtils.appendForSQL(orderBy)+"", args);
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%' and birth_day < '%s' "+SqlUtils.appendForLog(where)+" ORDER BY "+SqlUtils.appendForLog(orderBy),(Object[])args));
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\' and birth_day < ? "+SqlUtils.appendForSQL(where)+" ORDER BY "+SqlUtils.appendForSQL(orderBy), args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     LinkedList<Person> resultList=new LinkedList<Person>();
@@ -240,9 +242,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+StringUtils.appendForLog(orderBy)+"",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+StringUtils.appendForSQL(orderBy)+"", args);
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.appendForLog(orderBy),(Object[])args));
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.appendForSQL(orderBy), args);
     Logger.info("Rows found: %s",cursor.getCount());
     Person resultBean=new Person();
     try {

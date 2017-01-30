@@ -58,7 +58,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=open();
+    SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -81,6 +81,16 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
     if (instance==null) {
       instance=new BindLongDataSource(KriptonLibrary.context());
     }
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it.
+   * @return opened dataSource instance.
+   */
+  public static BindLongDataSource open() {
+    BindLongDataSource instance=instance();
+    instance.getWritableDatabase();
     return instance;
   }
 

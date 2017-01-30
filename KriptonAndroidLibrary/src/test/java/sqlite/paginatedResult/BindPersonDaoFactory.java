@@ -1,4 +1,4 @@
-package sqlite.pagedResult;
+package sqlite.paginatedResult;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 

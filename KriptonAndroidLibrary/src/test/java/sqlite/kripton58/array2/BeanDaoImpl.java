@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -62,8 +63,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -116,8 +117,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -171,8 +172,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     BeanBean resultBean=new BeanBean();
@@ -236,8 +237,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -285,8 +286,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // build where condition
     String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -347,7 +348,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     String[] whereConditionsArray={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean_bean SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s and value2=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE bean_bean SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s and value2=%s", (Object[])whereConditionsArray));
     int result = database().update("bean_bean", contentValues, "value=? and value2=?", whereConditionsArray);
     return result;
   }
@@ -391,8 +393,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       contentValues.putNull("value2");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean_bean (id, value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean_bean (id, value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("bean_bean", null, contentValues);
     return result;
   }
@@ -431,8 +434,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       contentValues.putNull("value2");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("bean_bean", null, contentValues);
     bean.setId(result);
 
@@ -460,7 +464,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long delete(BeanInner[] value, BeanInner[] value2) {
     String[] whereConditionsArray={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean_bean WHERE value=%s and value2=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE bean_bean WHERE value=%s and value2=%s", (Object[])whereConditionsArray));
     int result = database().delete("bean_bean", "value=? and value2=?", whereConditionsArray);
     return result;
   }

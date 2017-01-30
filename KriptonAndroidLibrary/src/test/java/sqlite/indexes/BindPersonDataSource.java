@@ -58,7 +58,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=open();
+    SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -81,6 +81,16 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     if (instance==null) {
       instance=new BindPersonDataSource(KriptonLibrary.context());
     }
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it.
+   * @return opened dataSource instance.
+   */
+  public static BindPersonDataSource open() {
+    BindPersonDataSource instance=instance();
+    instance.getWritableDatabase();
     return instance;
   }
 

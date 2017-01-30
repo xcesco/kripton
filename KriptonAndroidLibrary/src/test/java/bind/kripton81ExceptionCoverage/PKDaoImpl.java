@@ -3,6 +3,7 @@ package bind.kripton81ExceptionCoverage;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -49,8 +50,9 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
       contentValues.putNull("description");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO p_k_bean (id, description) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("description"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO p_k_bean (id, description) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("description"))+"')"));
     long result = database().insert("p_k_bean", null, contentValues);
     bean.id=result;
   }

@@ -29,7 +29,7 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public abstract class AbstractDao {
+public abstract class AbstractDao implements AutoCloseable {
 	
 	public AbstractDao(AbstractDataSource dataSource)
 	{
@@ -49,6 +49,12 @@ public abstract class AbstractDao {
 		return database;
 	}
 	
+	@Override
+	public void close() {
+		// for the moment, we do nothing here. 
+		
+	}
+
 	protected ContentValues contentValues()
 	{
 		return contentValues.get();

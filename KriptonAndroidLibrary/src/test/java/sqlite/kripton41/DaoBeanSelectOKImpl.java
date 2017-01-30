@@ -3,6 +3,7 @@ package sqlite.kripton41;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -46,8 +47,8 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
     // build where condition
     String[] args={String.valueOf(id), String.valueOf(value)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT count(*)>1 FROM bean01 WHERE id='%s' and value='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT count(*)>1 FROM bean01 WHERE id='%s' and value='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT count(*)>1 FROM bean01 WHERE id=? and value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Boolean result=null;

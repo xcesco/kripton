@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -45,8 +46,8 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -101,7 +102,8 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE bean01 SET text='"+StringUtils.checkSize(contentValues.get("text"))+"' WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().update("bean01", contentValues, "id=?", whereConditionsArray);
     return result;
   }

@@ -48,7 +48,7 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, Builder methodBuilder) {
+	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
 		TypeMirror returnType = method.getReturnClass();
 		TypeName returnTypeName = typeName(returnType);
 

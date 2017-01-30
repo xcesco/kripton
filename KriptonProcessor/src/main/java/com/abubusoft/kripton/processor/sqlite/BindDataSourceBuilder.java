@@ -140,18 +140,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// public interface DummyExecutor extends DatabaseExecutor
 		generateMethodExecute(daoFactoryName);
 
-		{
-			// instance
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).returns(className(schemaName));
-
-			methodBuilder.addJavadoc("instance\n");
-			methodBuilder.beginControlFlow("if (instance==null)");
-			methodBuilder.addCode("instance=new $L($T.context());\n", className(schemaName), KriptonLibrary.class);
-			methodBuilder.endControlFlow();
-			methodBuilder.addCode("return instance;\n");
-
-			builder.addMethod(methodBuilder.build());
-		}
+		// generate instance
+		generateInstance(schemaName);
+		
+		// generate open
+		generateOpen(schemaName);
 
 		{
 			// constructor
@@ -174,6 +167,40 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		TypeSpec typeSpec = builder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+	}
+
+	/**
+	 * @param schemaName
+	 */
+	private void generateInstance(String schemaName) {
+		// instance
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).returns(className(schemaName));
+
+		methodBuilder.addJavadoc("instance\n");
+		methodBuilder.beginControlFlow("if (instance==null)");
+		methodBuilder.addCode("instance=new $L($T.context());\n", className(schemaName), KriptonLibrary.class);
+		methodBuilder.endControlFlow();
+		methodBuilder.addCode("return instance;\n");
+
+		builder.addMethod(methodBuilder.build());
+	}
+	
+	/**
+	 * @param schemaName
+	 */
+	private void generateOpen(String schemaName) {
+		// instance
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("open").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
+
+		methodBuilder.addJavadoc("Retrieve data source instance and open it.\n");
+		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
+		
+				
+		methodBuilder.addStatement("$T instance=instance()", className(schemaName));
+		methodBuilder.addStatement("instance.getWritableDatabase()");		
+		methodBuilder.addCode("return instance;\n");
+
+		builder.addMethod(methodBuilder.build());
 	}
 
 	/**
@@ -343,7 +370,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC, Modifier.SYNCHRONIZED).addParameter(className(transationExecutorName), "transaction");
 
-		executeMethod.addCode("$T connection=open();\n", SQLiteDatabase.class);
+		executeMethod.addCode("$T connection=openWritableDatabase();\n", SQLiteDatabase.class);
 
 		executeMethod.beginControlFlow("try");
 		executeMethod.addCode("connection.beginTransaction();\n");

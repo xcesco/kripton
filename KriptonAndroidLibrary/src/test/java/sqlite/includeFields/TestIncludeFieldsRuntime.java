@@ -29,7 +29,7 @@ public class TestIncludeFieldsRuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
-		
+			
 
 	}
 

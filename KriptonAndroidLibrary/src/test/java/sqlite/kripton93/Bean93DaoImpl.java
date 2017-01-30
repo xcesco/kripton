@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,8 +50,8 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // build where condition
     String[] args={(name==null?"":name)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname FROM bean93 WHERE name like '%s' || \'%%'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93 WHERE name like '%s' || \'%%'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93 WHERE name like ? || \'%\'", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -93,8 +94,8 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname FROM bean93",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -157,8 +158,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean93 (name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean93 (name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
     long result = database().insert("bean93", null, contentValues);
     bean.id=result;
 
@@ -202,8 +204,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT OR ABORT INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT OR ABORT INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_ABORT);
     bean.id=result;
@@ -248,8 +251,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT OR FAIL INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT OR FAIL INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_FAIL);
     bean.id=result;
@@ -294,8 +298,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT OR IGNORE INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT OR IGNORE INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
     bean.id=result;
@@ -340,8 +345,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT OR REPLACE INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT OR REPLACE INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
     bean.id=result;
@@ -386,8 +392,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT OR ROLLBACK INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT OR ROLLBACK INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_ROLLBACK);
     bean.id=result;

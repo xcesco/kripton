@@ -58,7 +58,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=open();
+    SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -81,6 +81,16 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
     if (instance==null) {
       instance=new BindIntegerDataSource(KriptonLibrary.context());
     }
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it.
+   * @return opened dataSource instance.
+   */
+  public static BindIntegerDataSource open() {
+    BindIntegerDataSource instance=instance();
+    instance.getWritableDatabase();
     return instance;
   }
 

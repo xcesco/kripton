@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,7 +46,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   public boolean deleteContactBean1(Channel channel) {
     String[] whereConditionsArray={String.valueOf(channel.getId())};
 
-    Logger.info(StringUtils.formatSQL("DELETE channel WHERE ownerUid=%s ", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE channel WHERE ownerUid=%s ", (Object[]) whereConditionsArray));
     int result = database().delete("channel", "owner_uid=?", whereConditionsArray);
     return result!=0;
   }
@@ -68,7 +70,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   public boolean deleteContactBean2(Channel value) {
     String[] whereConditionsArray={String.valueOf(value.getId())};
 
-    Logger.info(StringUtils.formatSQL("DELETE channel WHERE ownerUid=%s ", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE channel WHERE ownerUid=%s ", (Object[]) whereConditionsArray));
     int result = database().delete("channel", "owner_uid=?", whereConditionsArray);
     return result!=0;
   }
@@ -94,7 +97,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   public long deleteContactRaw1(String b, long dummy) {
     String[] whereConditionsArray={(b==null?"":b), String.valueOf(dummy)};
 
-    Logger.info(StringUtils.formatSQL("DELETE channel WHERE ownerUid=%s and id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE channel WHERE ownerUid=%s and id=%s", (Object[])whereConditionsArray));
     int result = database().delete("channel", "owner_uid=? and id=?", whereConditionsArray);
     return result;
   }
@@ -120,7 +124,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   public boolean deleteContactRaw2(String ownerUid, long id) {
     String[] whereConditionsArray={(ownerUid==null?"":ownerUid), String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("DELETE channel WHERE ownerUid=%s and id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE channel WHERE ownerUid=%s and id=%s", (Object[])whereConditionsArray));
     int result = database().delete("channel", "owner_uid=? and id=?", whereConditionsArray);
     return result!=0;
   }
@@ -155,8 +160,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     contentValues.put("id", azz);
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
     long result = database().insert("channel", null, contentValues);
     return result;
   }
@@ -191,8 +197,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     contentValues.put("id", id);
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
     long result = database().insert("channel", null, contentValues);
     return result!=-1;
   }
@@ -227,8 +234,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     contentValues.put("id", id);
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO channel (owner_uid, id) VALUES ('"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"')"));
     int result = (int)database().insert("channel", null, contentValues);
     return result;
   }
@@ -277,8 +285,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
     long result = database().insert("channel", null, contentValues);
     bean.setId(result);
 
@@ -329,8 +338,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
     long result = database().insert("channel", null, contentValues);
     bean.setId(result);
 
@@ -366,7 +376,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     String[] whereConditionsArray={String.valueOf(aid)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE channel SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
@@ -400,7 +411,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     String[] whereConditionsArray={String.valueOf(dummy)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE channel SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
@@ -438,7 +450,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET ownerUid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE channel SET ownerUid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result!=0;
   }
@@ -476,7 +489,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET ownerUid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE channel SET ownerUid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"' WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
@@ -530,7 +544,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     String[] whereConditionsArray={String.valueOf(value.getId())};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
     int result = database().update("channel", contentValues, "UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", whereConditionsArray);
     return result;
   }
@@ -584,7 +599,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     String[] whereConditionsArray={String.valueOf(bean.getId())};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
     int result = database().update("channel", contentValues, "UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", whereConditionsArray);
     return result;
   }
@@ -638,7 +654,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     String[] whereConditionsArray={String.valueOf(bean.getId())};
 
-    Logger.info(StringUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
     int result = database().update("channel", contentValues, "UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", whereConditionsArray);
     return result!=0;
   }
@@ -664,8 +681,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -726,8 +743,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(updateTimeA)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -788,8 +805,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(updateTimeA)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     return cursor;
@@ -824,8 +841,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(updateTimeA)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Channel resultBean=new Channel();
@@ -894,8 +911,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(updateTimeA)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -942,8 +959,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(updateTimeA)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -1000,8 +1017,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(value.getUpdateTime())};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT count(*) FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT count(*) FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT count(*) FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     long result=0L;
@@ -1045,8 +1062,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(value.getUpdateTime())};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Channel resultBean=new Channel();
@@ -1103,8 +1120,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(value.getUpdateTime())};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -1147,8 +1164,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(value.getUpdateTime())};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     return cursor;
@@ -1178,8 +1195,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(value.getUpdateTime())};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -1223,8 +1240,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(value.getUpdateTime())};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -1273,8 +1290,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(value.getUpdateTime())};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -1323,8 +1340,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String[] args={String.valueOf(value.getUpdateTime())};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

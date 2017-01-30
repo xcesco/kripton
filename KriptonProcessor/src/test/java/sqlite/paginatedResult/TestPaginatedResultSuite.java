@@ -1,4 +1,4 @@
-package sqlite.pagedResult;
+package sqlite.paginatedResult;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -9,9 +9,9 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		PagedResultTest.class
+		PaginatedResultTest.class
 		 })
 //@formatter:on
-public class TestPagedResultSuite extends BaseProcessorTest {
+public class TestPaginatedResultSuite extends BaseProcessorTest {
 
 }

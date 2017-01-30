@@ -1,4 +1,4 @@
-package sqlite.pagedResult;
+package sqlite.paginatedResult;
 
 import android.os.AsyncTask;
 import com.abubusoft.kripton.android.Logger;

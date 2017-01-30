@@ -3,6 +3,7 @@ package sqlite.kripton48.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import sqlite.kripton48.entities.Bean02;
 
@@ -45,8 +46,8 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, text FROM bean02 WHERE id='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean02 WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, text FROM bean02 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -86,7 +87,8 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   public long deleteOne(long id) {
     String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean02 WHERE id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE bean02 WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().delete("bean02", "id=?", whereConditionsArray);
     return result;
   }

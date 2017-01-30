@@ -200,15 +200,6 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 			upgradedVersion=true;
 		}
 	}
-
-	/**
-	 * Open database. Is an alias for openWritableDatabase()
-	 * 
-	 * @return writable database
-	 */
-	public SQLiteDatabase open() {
-		return getWritableDatabase();
-	}
 	
 	/**
 	 * <p>

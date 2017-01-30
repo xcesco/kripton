@@ -58,7 +58,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=open();
+    SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -81,6 +81,16 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
     if (instance==null) {
       instance=new BindShortDataSource(KriptonLibrary.context());
     }
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it.
+   * @return opened dataSource instance.
+   */
+  public static BindShortDataSource open() {
+    BindShortDataSource instance=instance();
+    instance.getWritableDatabase();
     return instance;
   }
 

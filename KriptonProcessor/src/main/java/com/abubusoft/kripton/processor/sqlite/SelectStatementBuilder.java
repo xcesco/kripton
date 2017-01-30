@@ -117,20 +117,25 @@ public class SelectStatementBuilder {
 		}
 		
 		if (pageSize>0 || method.hasDynamicPageSizeConditions())
-		{
-			buffer.append(" LIMIT ");
+		{			
 			if (pageSize>0)
 			{
-				buffer.append(pageSize);
+				buffer.append(" LIMIT "+pageSize);
 			} else {
-				buffer.append("#{"+method.dynamicPageSize+"}");
+				buffer.append("#{"+method.dynamicPageSizeName+"}");
+			}
+			
+			// we can include OFFSET management only if we have LIMIT
+			if (method.hasPaginatedResultParameter())
+			{
+				buffer.append("#{"+method.paginatedResultName+"}");
 			}
 		}
 
 		return buffer.toString();
 	}
 
-	public SelectStatementBuilder limit(int pageSize, boolean pagedResult) {
+	public SelectStatementBuilder limit(int pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}

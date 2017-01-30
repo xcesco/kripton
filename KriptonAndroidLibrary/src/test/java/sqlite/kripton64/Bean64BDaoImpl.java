@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,8 +43,8 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -101,8 +102,8 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE id='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -174,8 +175,9 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
       contentValues.putNull("value_string");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean64_b (value_map_string_bean, value_set_string, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean64_b (value_map_string_bean, value_set_string, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
     long result = database().insert("bean64_b", null, contentValues);
     bean.id=result;
 

@@ -2,6 +2,7 @@ package sqlite.kripton41;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -36,7 +37,8 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
   public boolean deleteDistance(double value) {
     String[] whereConditionsArray={String.valueOf(value)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE bean01 WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().delete("bean01", "id=?", whereConditionsArray);
     return result!=0;
   }

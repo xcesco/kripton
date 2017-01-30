@@ -25,6 +25,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -60,9 +61,11 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		// generate javadoc and query
 		sqlInsert = generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
 
+		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
+		
 		if (daoDefinition.isLogEnabled()) {
 			methodBuilder.addCode("// log\n");
-			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"));\n", Logger.class, StringUtils.class, sqlInsert);
+			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"));\n", Logger.class, SqlUtils.class, sqlInsert);
 		}
 		
 		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);

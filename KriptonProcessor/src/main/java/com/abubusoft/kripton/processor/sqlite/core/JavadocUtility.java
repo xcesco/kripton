@@ -99,7 +99,7 @@ public abstract class JavadocUtility {
 			}
 			if (method.hasDynamicPageSizeConditions())
 			{
-				methodBuilder.addJavadoc("<dt>#{$L}</dt>is part of limit statement resolved at runtime.</dd>", method.dynamicPageSize);
+				methodBuilder.addJavadoc("<dt>#{$L}</dt>is part of limit statement resolved at runtime.</dd>", method.dynamicPageSizeName);
 			}
 						
 			methodBuilder.addJavadoc("\n</dl>");
@@ -133,7 +133,7 @@ public abstract class JavadocUtility {
 					methodBuilder.addJavadoc("\tis used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);
 			} else if (item.value0.equals(method.dynamicOrderByParameterName)) {
 					methodBuilder.addJavadoc("\tis used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);
-			} else if (item.value0.equals(method.dynamicPageSize)) {
+			} else if (item.value0.equals(method.dynamicPageSizeName)) {
 				methodBuilder.addJavadoc("\tis used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);			
 			} else {
 				methodBuilder.addJavadoc("\tis binded to <code>$L</code>\n", "${" + method.findParameterAliasByName(item.value0) + "}");

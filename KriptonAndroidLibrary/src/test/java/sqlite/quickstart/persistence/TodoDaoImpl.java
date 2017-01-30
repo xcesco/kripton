@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,8 +60,9 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
 
     contentValues.put("completed", bean.completed);
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO todo (id, user_id, title, completed) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("user_id"))+"', '"+StringUtils.checkSize(contentValues.get("title"))+"', '"+StringUtils.checkSize(contentValues.get("completed"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO todo (id, user_id, title, completed) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("user_id"))+"', '"+StringUtils.checkSize(contentValues.get("title"))+"', '"+StringUtils.checkSize(contentValues.get("completed"))+"')"));
     long result = database().insert("todo", null, contentValues);
     bean.id=result;
   }
@@ -92,8 +94,8 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // build where condition
     String[] args={String.valueOf(userId)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE user_id = '%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE user_id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE user_id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -151,8 +153,8 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // build where condition
     String[] args={String.valueOf(userId)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE id = '%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

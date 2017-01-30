@@ -17,14 +17,10 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,30 +32,22 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import android.database.Cursor;
-
-import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectResultType;
-import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -67,8 +55,10 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
 import com.squareup.javapoet.TypeSpec.Builder;
+import com.squareup.javapoet.TypeVariableName;
+
+import android.database.Cursor;
 
 public abstract class SelectBuilderUtility {
 
@@ -195,19 +185,17 @@ public abstract class SelectBuilderUtility {
 
 			try {
 				Class<?> wrapperClazz = Class.forName(returnParameterizedClassName.toString());
-				if (PagedResult.class.isAssignableFrom(wrapperClazz)) {
+				if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
 					// method must have pageSize, statically or dynamically
 					// defined
 					AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
-							"use of PagedResult require 'pageSize' attribute or a @BindSqlPageSize annotated parameter", returnTypeName);
+							"use of PaginatedResult require 'pageSize' attribute or a @%s annotated parameter", returnTypeName, BindSqlPageSize.class.getSimpleName());
 
 					// paged result
 					AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isSameType(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
 					selectResultType = SqlSelectBuilder.SelectResultType.PAGED_RESULT;
-
-					// create PagedResult
-					buildPagedResultClass(builder, method);
-
+					// set name of paginatedResult
+					method.paginatedResultName="paginatedResult";
 				} else if (Collection.class.isAssignableFrom(wrapperClazz)) {
 					if (TypeUtility.isSameType(elementName, entity.getName().toString())) {
 						// entity list
@@ -238,134 +226,12 @@ public abstract class SelectBuilderUtility {
 			throw (new InvalidMethodSignException(method, String.format("'%s' as return type is not supported", returnTypeName)));
 		}
 
-		
-		//
-		//selectResultType.
-
+		// generate select method
 		selectResultType.generate(elementUtils, builder, method, returnType);
 	}
 
-	static int pageResultCounter;
 
-	private static void buildPagedResultClass(Builder builder, SQLiteModelMethod method) {
-		/*
-		 * builder =
-		 * TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC).
-		 * addModifiers(Modifier.ABSTRACT)
-		 * .addTypeVariable(TypeVariableName.get("I"))
-		 * .addTypeVariable(TypeVariableName.get("U"))
-		 * .addTypeVariable(TypeVariableName.get("R"));
-		 */
-		// TypeSpec
-		// baseClazz=TypeSpec.classBuilder(PagedResult.class.getName()).addTypeVariable(TypeVariableName.get(method.getParent().getEntityClassName())).build();
 
-		TypeVariableName.get(method.getParent().getEntityClassName());
-
-		Builder typeBuilder = TypeSpec.classBuilder("PagedResult" + (pageResultCounter++)).addModifiers(Modifier.PUBLIC)
-				.superclass(TypeUtility.parameterizedTypeName(TypeUtility.className(PagedResult.class), TypeUtility.typeName(method.getParent().getEntityClassName())));
-
-		// add fields and define constructor
-		MethodSpec.Builder setupBuilder = MethodSpec.methodBuilder("setup");
-
-		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).returns(TypeName.INT);
-		executeBuilder.addCode("list=$T.this.$L(", TypeUtility.typeName(method.getParent().getElement(), BindDaoBuilder.SUFFIX), method.getName());
-
-		String separator = "";
-		ParameterSpec parameterSpec;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			// field
-			typeBuilder.addField(TypeName.get(item.value1), item.value0);
-
-			// construtor
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
-			setupBuilder.addParameter(parameterSpec);
-			setupBuilder.addStatement("this.$L=$L", item.value0, item.value0);
-
-			// execute
-			executeBuilder.addCode(separator + item.value0);
-			separator = ", ";
-		}
-		typeBuilder.addMethod(setupBuilder.build());
-
-		executeBuilder.addCode(");\n");
-		executeBuilder.addStatement("return list.size()");
-		typeBuilder.addMethod(executeBuilder.build());
-
-		// generate class
-		/*
-		 * MethodSpec.Builder methodBuilder = TypeSpec. m
-		 * MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.
-		 * class).addModifiers(Modifier.PUBLIC);
-		 * 
-		 * // generate javadoc
-		 * JavadocUtility.generateJavaDocForSelect(methodBuilder,
-		 * sqlWithParameters, paramNames, method, annotation, fieldList,
-		 * selectResultType);
-		 */
-		/*
-		 * // add parameter for method
-		 * 
-		 * 
-		 * // add return type methodBuilder.returns(returnTypeName);
-		 */
-
-		builder.addType(typeBuilder.build());
-	}
-
-	private static void buildPagedResultThreadLocal(Builder builder, SQLiteModelMethod method) {
-
-		TypeVariableName.get(method.getParent().getEntityClassName());
-
-		Builder typeBuilder = TypeSpec.classBuilder("PagedResult" + (pageResultCounter++)).addModifiers(Modifier.PUBLIC)
-				.superclass(TypeUtility.parameterizedTypeName(TypeUtility.className(PagedResult.class), TypeUtility.typeName(method.getParent().getEntityClassName())));
-
-		// add fields and define constructor
-		MethodSpec.Builder setupBuilder = MethodSpec.methodBuilder("setup");
-
-		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).returns(TypeName.INT);
-		executeBuilder.addCode("list=$T.this.$L(", TypeUtility.typeName(method.getParent().getElement(), BindDaoBuilder.SUFFIX), method.getName());
-
-		String separator = "";
-		ParameterSpec parameterSpec;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			// field
-			typeBuilder.addField(TypeName.get(item.value1), item.value0);
-
-			// construtor
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
-			setupBuilder.addParameter(parameterSpec);
-			setupBuilder.addStatement("this.$L=$L", item.value0, item.value0);
-
-			// execute
-			executeBuilder.addCode(separator + item.value0);
-			separator = ", ";
-		}
-		typeBuilder.addMethod(setupBuilder.build());
-
-		executeBuilder.addCode(");\n");
-		executeBuilder.addStatement("return list.size()");
-		typeBuilder.addMethod(executeBuilder.build());
-
-		// generate class
-		/*
-		 * MethodSpec.Builder methodBuilder = TypeSpec. m
-		 * MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.
-		 * class).addModifiers(Modifier.PUBLIC);
-		 * 
-		 * // generate javadoc
-		 * JavadocUtility.generateJavaDocForSelect(methodBuilder,
-		 * sqlWithParameters, paramNames, method, annotation, fieldList,
-		 * selectResultType);
-		 */
-		/*
-		 * // add parameter for method
-		 * 
-		 * 
-		 * // add return type methodBuilder.returns(returnTypeName);
-		 */
-
-		builder.addType(typeBuilder.build());
-	}
 
 
 }

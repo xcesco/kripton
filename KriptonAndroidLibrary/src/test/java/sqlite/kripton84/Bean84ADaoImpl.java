@@ -6,6 +6,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -60,8 +61,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -131,8 +132,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // build where condition
     String[] args={String.valueOf(uid)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -211,8 +212,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // build where condition
     String[] args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)), (param2==null?"":new String(serializer2(param2),StandardCharsets.UTF_8)), (param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)), (param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8))};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string='%s' and column_map_integer_string='%s' and column_array_char='%s'  and column_array_char_type='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string='%s' and column_map_integer_string='%s' and column_array_char='%s'  and column_array_char_type='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string=? and column_map_integer_string=? and column_array_char=?  and column_array_char_type=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -320,8 +321,9 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       contentValues.putNull("value_string");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean84_a (column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("column_bean"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean84_a (column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("column_bean"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
     long result = database().insert("bean84_a", null, contentValues);
     bean.id=result;
 
@@ -353,8 +355,9 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       contentValues.putNull("column_list_string");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean84_a (column_list_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean84_a (column_list_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"')"));
     long result = database().insert("bean84_a", null, contentValues);
     return result!=-1;
   }
@@ -428,7 +431,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
     String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean84_a SET column_list_string='"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', column_map_integer_string='"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', column_array_char='"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', column_array_char_type='"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"', column_array_byte_type='"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE bean84_a SET column_list_string='"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', column_map_integer_string='"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', column_array_char='"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', column_array_char_type='"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"', column_array_byte_type='"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
     int result = database().update("bean84_a", contentValues, "UPDATE bean84_a SET column_list_string='"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', column_map_integer_string='"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', column_array_char='"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', column_array_char_type='"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"', column_array_byte_type='"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE 1=1", whereConditionsArray);
     return result!=0;
   }
@@ -446,7 +450,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   public boolean deleteAll(Bean84A bean) {
     String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean84_a WHERE 1=1 ", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE bean84_a WHERE 1=1 ", (Object[]) whereConditionsArray));
     int result = database().delete("bean84_a", "1=1", whereConditionsArray);
     return result!=0;
   }

@@ -27,6 +27,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -95,19 +96,17 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		methodBuilder.addCode("\n");
 
-		if (method.hasDynamicWhereConditions()) {
-			methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
-		}
+		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
-			methodBuilder.addCode("int result = database().update($S, contentValues, \"$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),
+			methodBuilder.addCode("int result = database().update($S, contentValues, $L, whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),
 					AbstractSelectCodeGenerator.formatSql(method, sqlModify));
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[]) whereConditionsArray));\n", Logger.class, StringUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
 			methodBuilder.addCode("int result = database().delete($S, \"$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement());
 		}

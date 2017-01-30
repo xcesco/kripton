@@ -27,6 +27,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -151,18 +152,16 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		// generate javadoc
 		String sqlModify = generateJavaDoc(daoDefinition, method, methodBuilder, updateMode, whereCondition, where, methodParams, updateableParams);
 
-		if (method.hasDynamicWhereConditions()) {
-			methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
-		}
+		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[])whereConditionsArray));\n", Logger.class, StringUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[])whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
 			methodBuilder.addCode("int result = database().update($S, contentValues, \"$L$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), where.value0, appendSQL(method));
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL(\"$L\", (Object[])whereConditionsArray));\n", Logger.class, StringUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[])whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
 			methodBuilder.addCode("int result = database().delete($S, \"$L$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),
 					where.value0, appendSQL(method));
@@ -200,7 +199,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		String result = "";
 		if (method.hasDynamicWhereConditions()) {
 			// add a space
-			result = " \"+StringUtils.appendForSQL(" + method.dynamicWhereParameterName + ")+\"";
+			result = " \"+SqlUtils.appendForSQL(" + method.dynamicWhereParameterName + ")+\"";
 		}
 
 		return result;

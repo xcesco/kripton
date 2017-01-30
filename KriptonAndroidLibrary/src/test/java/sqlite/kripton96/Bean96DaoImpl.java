@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -46,8 +47,8 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
     // build where condition
     String[] args={(name==null?"":name)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname FROM bean96 WHERE name like '%s' || \'%%'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean96 WHERE name like '%s' || \'%%'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean96 WHERE name like ? || \'%\'", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -105,8 +106,9 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
       contentValues.putNull("surname");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean96 (name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean96 (name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
     long result = database().insert("bean96", null, contentValues);
     bean.id=result;
 

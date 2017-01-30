@@ -50,7 +50,7 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, Builder methodBuilder) {
+	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
 		SQLDaoDefinition daoDefinition=method.getParent();
 		SQLEntity entity=daoDefinition.getEntity();		
 		

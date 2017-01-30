@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.Date;
@@ -75,7 +76,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String[] whereConditionsArray={(name==null?"":name)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birthCity='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birthDay='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE name=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birthCity='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birthDay='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE name=%s", (Object[])whereConditionsArray));
     int result = database().update("person", contentValues, "name=?", whereConditionsArray);
   }
 
@@ -133,7 +135,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String[] whereConditionsArray={};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birthCity='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birthDay='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE 1=1", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birthCity='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birthDay='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE 1=1", (Object[])whereConditionsArray));
     int result = database().update("person", contentValues, "1=1", whereConditionsArray);
     return result;
   }
@@ -183,7 +186,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String[] whereConditionsArray={String.valueOf(bean.id), (bean.name==null?"":bean.name)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
     int result = database().update("person", contentValues, "UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'", whereConditionsArray);
   }
 
@@ -239,7 +243,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String[] whereConditionsArray={String.valueOf(bean.id), (bean.name==null?"":bean.name)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
     int result = database().update("person", contentValues, "UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id='%s' and name='%s'", whereConditionsArray);
   }
 
@@ -274,7 +279,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String[] whereConditionsArray={String.valueOf(bean.id), (bean.name==null?"":bean.name)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
     int result = database().update("person", contentValues, "UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"' WHERE id='%s' and name='%s'", whereConditionsArray);
   }
 
@@ -303,8 +309,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={String.valueOf(bean.id), (bean.name==null?"":bean.name)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT name FROM person WHERE id='%s' and name='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT name FROM person WHERE id='%s' and name='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT name FROM person WHERE id=? and name=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -360,7 +366,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String[] whereConditionsArray={String.valueOf(bean.id), (bean.name==null?"":bean.name)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s' and name='%s'", (Object[]) whereConditionsArray));
     int result = database().update("person", contentValues, "UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s' and name='%s'", whereConditionsArray);
   }
 
@@ -398,7 +405,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String[] whereConditionsArray={(surname==null?"":surname), (nameValue==null?"":nameValue)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE surname=%s and name=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE surname=%s and name=%s", (Object[])whereConditionsArray));
     int result = database().update("person", contentValues, "surname=? and name=?", whereConditionsArray);
   }
 
@@ -454,8 +462,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("birth_day");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
     database().insert("person", null, contentValues);
   }
 
@@ -511,8 +520,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("birth_day");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
     long result = database().insert("person", null, contentValues);
     return result;
   }
@@ -551,8 +561,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("birth_day");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO person (birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO person (birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
     long result = database().insert("person", null, contentValues);
     bean.id=result;
   }
@@ -576,7 +587,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   public void deleteOne(String name, String temp) {
     String[] whereConditionsArray={(name==null?"":name), (temp==null?"":temp)};
 
-    Logger.info(StringUtils.formatSQL("DELETE person WHERE name=%s and surname=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE person WHERE name=%s and surname=%s", (Object[])whereConditionsArray));
     int result = database().delete("person", "name=? and surname=?", whereConditionsArray);
   }
 
@@ -601,7 +613,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   public long deleteTwo(String name, String temp) {
     String[] whereConditionsArray={(name==null?"":name), (temp==null?"":temp)};
 
-    Logger.info(StringUtils.formatSQL("DELETE person WHERE name=%s and surname=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE person WHERE name=%s and surname=%s", (Object[])whereConditionsArray));
     int result = database().delete("person", "name=? and surname=?", whereConditionsArray);
     return result;
   }
@@ -622,7 +635,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   public void deleteThree(Person bean) {
     String[] whereConditionsArray={String.valueOf(bean.id)};
 
-    Logger.info(StringUtils.formatSQL("DELETE person WHERE id = %s ", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE person WHERE id = %s ", (Object[]) whereConditionsArray));
     int result = database().delete("person", "id = ?", whereConditionsArray);
   }
 
@@ -647,8 +661,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -709,8 +723,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={(name==null?"":name)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -765,8 +779,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Person resultBean=new Person();
@@ -828,8 +842,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

@@ -1,4 +1,4 @@
-package sqlite.pagedResult;
+package sqlite.paginatedResult;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.common.DateUtils;

@@ -3,6 +3,7 @@ package sqlite.test03;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,8 +44,8 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

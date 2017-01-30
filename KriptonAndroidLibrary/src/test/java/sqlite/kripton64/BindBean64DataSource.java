@@ -58,7 +58,7 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=open();
+    SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -81,6 +81,16 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
     if (instance==null) {
       instance=new BindBean64DataSource(KriptonLibrary.context());
     }
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it.
+   * @return opened dataSource instance.
+   */
+  public static BindBean64DataSource open() {
+    BindBean64DataSource instance=instance();
+    instance.getWritableDatabase();
     return instance;
   }
 

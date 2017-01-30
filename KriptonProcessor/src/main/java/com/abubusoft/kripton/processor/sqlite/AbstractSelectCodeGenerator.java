@@ -15,6 +15,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -34,47 +35,61 @@ import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec.Builder;
+import com.squareup.javapoet.TypeSpec;
 
 import android.database.Cursor;
 
 public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator {
-
-	public SelectResultType selectResultType;
 	
+	public enum GenerationType
+	{
+		ALL(true, true),
+		NO_METHOD_SIGN(false, true),
+		NO_CONTENT(true, false);
+		
+		GenerationType(boolean generateMethodSign, boolean generateMethodContent)
+		{
+			this.generateMethodSign=generateMethodSign;
+			this.generateMethodContent=generateMethodContent;
+		}
+		
+		public final boolean generateMethodSign;
+		public final boolean generateMethodContent;
+	}
+
+	SelectResultType selectResultType;
+
 	@Override
-	public void generate(Elements elementUtils, Builder builder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
-		SQLDaoDefinition daoDefinition=method.getParent();
+	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
+		SQLDaoDefinition daoDefinition = method.getParent();
 		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectResultType.isMapFields(), null);
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
-		
-		generatePartOne(elementUtils, fieldList, selectResultType.isMapFields(), method, methodBuilder);
-		generatePartTwo(elementUtils, fieldList, selectResultType.isMapFields(), method, methodBuilder);
-		
+
+		generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectResultType.isMapFields());
+		generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectResultType.isMapFields());
+
 		builder.addMethod(methodBuilder.build());
-		
+	}
+	
+	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
+		generateCommonPart(elementUtils, method, methodBuilder, fieldList, mapFields, GenerationType.ALL);
 	}
 
-	public void generatePartOne(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		SQLDaoDefinition daoDefinition=method.getParent();
+	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields, GenerationType generationType) {
+		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
 		// if true, field must be associate to ben attributes
 		TypeMirror returnType = method.getReturnClass();
 		TypeName returnTypeName = typeName(returnType);
-		
+
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
-		
-		// take field list		
-		String fieldStatement = fieldList.value0;
-		// List<SQLProperty> fields = fieldList.value1;
-		String tableStatement = daoDefinition.getEntity().getTableName();
 
-		// separate params used for update bean and params used in
-		// whereCondition
-		// analyze whereCondition
+		// take field list
+		String fieldStatement = fieldList.value0;
+		String tableStatement = daoDefinition.getEntity().getTableName();
 
 		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.DISTINCT));
 
@@ -134,94 +149,91 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		}
 
 		if (method.hasDynamicPageSizeConditions()) {
-			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicPageSize), method,
-					" parameter %s is used like SQL parameter and dynamic page size of LIMIT condition.", method.dynamicPageSize);
-			usedMethodParameters.add(method.dynamicPageSize);
+			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicPageSizeName), method,
+					" parameter %s is used like SQL parameter and dynamic page size of LIMIT condition.", method.dynamicPageSizeName);
+			usedMethodParameters.add(method.dynamicPageSizeName);
 		}
 
 		// select statement
 		String sqlWithParameters = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereSQL).having(havingSQL).groupBy(groupBySQL)
-				.orderBy(orderBySQL).limit(pageSize, selectResultType == SelectResultType.PAGED_RESULT).build(method);
+				.orderBy(orderBySQL).limit(pageSize).build(method);
 		String sql = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement)
-				.orderBy(orderByStatement).limit(pageSize, selectResultType == SelectResultType.PAGED_RESULT).build(method);
+				.orderBy(orderByStatement).limit(pageSize).build(method);
 		String sqlForLog = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement)
-				.orderBy(orderByStatement).limit(pageSize, selectResultType == SelectResultType.PAGED_RESULT).buildForLog(method);
+				.orderBy(orderByStatement).limit(pageSize).buildForLog(method);
 		
+		// generate method signature
+		if (generationType.generateMethodSign)
+		{
+			generateMethodSignature(method, methodBuilder, returnTypeName);
+		}
+
 		// generate javadoc
 		JavadocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldList, selectResultType);
 
-		// add parameter for method
-		ParameterSpec parameterSpec;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
-			methodBuilder.addParameter(parameterSpec);
-		}
+		if (generationType.generateMethodContent) {
+			// build where condition (common for every type of select)
+			StringBuilder logArgsBuffer = new StringBuilder();
+			methodBuilder.addCode("// build where condition\n");
+			methodBuilder.addCode("String[] args={");
+			{
+				String separator = "";
 
-		// add return type
-		methodBuilder.returns(returnTypeName);
+				TypeMirror paramTypeName;
+				TypeName paramName;
 
-		// build where condition (common for every type of select)
-		StringBuilder logArgsBuffer = new StringBuilder();
-		methodBuilder.addCode("// build where condition\n");
-		methodBuilder.addCode("String[] args={");
-		{
-			String separator = "";
+				boolean nullable;
+				int i = 0;
+				for (String item : paramGetters) {
+					methodBuilder.addCode(separator);
+					logArgsBuffer.append(separator + "%s");
 
-			TypeMirror paramTypeName;
-			TypeName paramName;
+					paramTypeName = paramTypeNames.get(i);
 
-			boolean nullable;
-			int i = 0;
-			for (String item : paramGetters) {
-				methodBuilder.addCode(separator);
-				logArgsBuffer.append(separator + "%s");
+					if (paramTypeName instanceof ModelType) {
+						paramName = ((ModelType) paramTypeName).getName();
+					} else {
+						paramName = typeName(paramTypeName);
+					}
 
-				paramTypeName = paramTypeNames.get(i);
+					// code for query arguments
+					nullable = TypeUtility.isNullable(paramName);
+					if (nullable) {
+						methodBuilder.addCode("($L==null?\"\":", item);
+					}
 
-				if (paramTypeName instanceof ModelType) {
-					paramName = ((ModelType) paramTypeName).getName();
-				} else {
-					paramName = typeName(paramTypeName);
+					// check for string conversion
+					TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
+
+					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(paramTypeName), item);
+
+					// check for string conversion
+					TypeUtility.endStringConversion(methodBuilder, paramTypeName);
+
+					if (nullable) {
+						methodBuilder.addCode(")");
+					}
+
+					separator = ", ";
+					i++;
 				}
-
-				// code for query arguments
-				nullable = TypeUtility.isNullable(paramName);
-				if (nullable) {
-					methodBuilder.addCode("($L==null?\"\":", item);
-				}
-
-				// check for string conversion
-				TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
-
-				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(paramTypeName), item);
-
-				// check for string conversion
-				TypeUtility.endStringConversion(methodBuilder, paramTypeName);
-
-				if (nullable) {
-					methodBuilder.addCode(")");
-				}
-
-				separator = ", ";
-				i++;
+				methodBuilder.addCode("};\n");
 			}
-			methodBuilder.addCode("};\n");
-		}
 
-		methodBuilder.addCode("\n");
-		// this comment is added to include in all situation StringUtil.class
-		methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
+			methodBuilder.addCode("\n");
+			// this comment is added to include in all situation
+			// StringUtil.class
+			methodBuilder.addCode("//$T, $T will be used in case of dynamic parts of SQL\n", StringUtils.class, SqlUtils.class);
 
-		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addStatement("$T.info($T.formatSQL(\"$L\",(Object[])args))", Logger.class, StringUtils.class, formatSqlForLog(method, sqlForLog));
-		}
-		methodBuilder.addStatement("$T cursor = database().rawQuery(\"$L\", args)", Cursor.class, formatSql(method, sql));
+			if (daoDefinition.isLogEnabled()) {
+				methodBuilder.addStatement("$T.info($T.formatSQL($L,(Object[])args))", Logger.class, SqlUtils.class, formatSqlForLog(method, sqlForLog));
+			}
+			methodBuilder.addStatement("$T cursor = database().rawQuery($L, args)", Cursor.class, formatSql(method, sql));
 
-		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
-		}
+			if (daoDefinition.isLogEnabled()) {
+				methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
+			}
 
-		{
 			switch (selectResultType) {
 			case LISTENER_CURSOR: {
 				LiteralType readCursorListenerToExclude = LiteralType.of(OnReadCursorListener.class);
@@ -238,17 +250,32 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				break;
 			}
 		}
-		
+
 	}
-	
-	public abstract void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields, SQLiteModelMethod method, MethodSpec.Builder methodBuilder);
-	
+
+	protected void generateMethodSignature(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, TypeName returnTypeName, ParameterSpec... additionalParameterSpec) {
+		// add parameter for method
+		ParameterSpec parameterSpec;
+		for (Pair<String, TypeMirror> item : method.getParameters()) {
+			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
+			methodBuilder.addParameter(parameterSpec);
+		}
+
+		// add additional params
+		for (ParameterSpec item : additionalParameterSpec) {
+			methodBuilder.addParameter(item);
+		}
+
+		// add return type
+		methodBuilder.returns(returnTypeName);
+	}
+
+	public abstract void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields);
 
 	@Override
 	public void setSelectResultTye(SelectResultType value) {
-		this.selectResultType=value;
+		this.selectResultType = value;
 	}
-	
 
 	public static String formatSqlForLog(SQLiteModelMethod method, String sql) {
 		sql = sql.replaceAll("\\%[^s]", "\\%\\%").replaceAll("\\?", "\'%s\'");
@@ -262,16 +289,29 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 	public static String formatSqlInternal(SQLiteModelMethod method, String sql, String appendMethod) {
 		if (method.hasDynamicWhereConditions()) {
-			sql = sql.replace("#{" + method.dynamicWhereParameterName + "}", "\"+StringUtils." + appendMethod + "(" + method.dynamicWhereParameterName + ")+\"");
+			sql = sql.replace("#{" + method.dynamicWhereParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.dynamicWhereParameterName + ")+\"");
 		}
 
 		if (method.hasDynamicOrderByConditions()) {
-			sql = sql.replace("#{" + method.dynamicOrderByParameterName + "}", "\"+StringUtils." + appendMethod + "(" + method.dynamicOrderByParameterName + ")+\"");
+			sql = sql.replace("#{" + method.dynamicOrderByParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.dynamicOrderByParameterName + ")+\"");
 		}
+		
+		if (method.hasDynamicPageSizeConditions()) {
+			sql = sql.replace("#{" + method.dynamicPageSizeName + "}", String.format("\"+SqlUtils.printIf(%s>0, \" LIMIT \"+%s)+\"", method.dynamicPageSizeName, method.dynamicPageSizeName));						
+		}
+		
+		if (method.hasPaginatedResultParameter())
+		{
+			sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.paginatedResultName, method.paginatedResultName));
+		}
+		
+		// smart optimization
+		sql="\""+sql+"\"";
+		sql=sql.replaceAll("\\+\"\"", "");
 
 		return sql;
 	}
-	
+
 	/**
 	 * Check if there are unused method parameters. In this case an exception
 	 * was throws.
@@ -302,6 +342,5 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			}
 		}
 	}
-
 
 }

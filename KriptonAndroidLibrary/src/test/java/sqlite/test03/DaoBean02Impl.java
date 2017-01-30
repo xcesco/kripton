@@ -3,6 +3,7 @@ package sqlite.test03;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -66,8 +67,9 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
     contentValues.put("value", bean.getValue());
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES ('"+StringUtils.checkSize(contentValues.get("lista"))+"', '"+StringUtils.checkSize(contentValues.get("message_date"))+"', '"+StringUtils.checkSize(contentValues.get("message_text"))+"', '"+StringUtils.checkSize(contentValues.get("bean_list"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES ('"+StringUtils.checkSize(contentValues.get("lista"))+"', '"+StringUtils.checkSize(contentValues.get("message_date"))+"', '"+StringUtils.checkSize(contentValues.get("message_text"))+"', '"+StringUtils.checkSize(contentValues.get("bean_list"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     bean.setId(result);
 
@@ -100,8 +102,9 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
     contentValues.put("message_date", messageDate);
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean01 (value, message_date) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("message_date"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean01 (value, message_date) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("message_date"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     return result;
   }
@@ -124,7 +127,8 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   public long delete(long id) {
     String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE bean01 WHERE id=%s", (Object[])whereConditionsArray));
     int result = database().delete("bean01", "id=?", whereConditionsArray);
     return result;
   }
@@ -147,7 +151,8 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   public long delete(Bean01 bean) {
     String[] whereConditionsArray={String.valueOf(bean.getId())};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean01 WHERE id=%s ", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE bean01 WHERE id=%s ", (Object[]) whereConditionsArray));
     int result = database().delete("bean01", "id=?", whereConditionsArray);
     return result;
   }
@@ -181,7 +186,8 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
     String[] whereConditionsArray={String.valueOf(id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id>%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE bean01 SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id>%s", (Object[])whereConditionsArray));
     int result = database().update("bean01", contentValues, "id>?", whereConditionsArray);
     return result;
   }
@@ -238,7 +244,8 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
     String[] whereConditionsArray={String.valueOf(bean.getValue())};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean01 SET lista='"+StringUtils.checkSize(contentValues.get("lista"))+"', message_date='"+StringUtils.checkSize(contentValues.get("message_date"))+"', message_text='"+StringUtils.checkSize(contentValues.get("message_text"))+"', bean_list='"+StringUtils.checkSize(contentValues.get("bean_list"))+"', value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE value='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE bean01 SET lista='"+StringUtils.checkSize(contentValues.get("lista"))+"', message_date='"+StringUtils.checkSize(contentValues.get("message_date"))+"', message_text='"+StringUtils.checkSize(contentValues.get("message_text"))+"', bean_list='"+StringUtils.checkSize(contentValues.get("bean_list"))+"', value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE value='%s'", (Object[]) whereConditionsArray));
     int result = database().update("bean01", contentValues, "UPDATE bean01 SET lista='"+StringUtils.checkSize(contentValues.get("lista"))+"', message_date='"+StringUtils.checkSize(contentValues.get("message_date"))+"', message_text='"+StringUtils.checkSize(contentValues.get("message_text"))+"', bean_list='"+StringUtils.checkSize(contentValues.get("bean_list"))+"', value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE value='%s'", whereConditionsArray);
     return result;
   }

@@ -42,7 +42,7 @@ public abstract class SqlSelectBuilder {
 			LIST_SCALAR(SelectScalarListHelper.class, false),
 			LISTENER_BEAN(SelectBeanListenerHelper.class, true),
 			LISTENER_CURSOR(SelectRawListenerHelper.class, false),
-			PAGED_RESULT(SelectPagedResultHelper.class, true),
+			PAGED_RESULT(SelectPaginatedResultHelper.class, true),
 			SCALAR(SelectScalarHelper.class, false);
 
 		private SelectCodeGenerator codeGenerator;
@@ -63,7 +63,6 @@ public abstract class SqlSelectBuilder {
 
 		public void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method, TypeMirror returnType) {
 			codeGenerator.generate(elementUtils, builder, this.isMapFields(), method, returnType);
-
 		}
 
 		/**

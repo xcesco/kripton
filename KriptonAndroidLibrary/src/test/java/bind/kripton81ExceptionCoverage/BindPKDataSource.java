@@ -58,7 +58,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=open();
+    SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -81,6 +81,16 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
     if (instance==null) {
       instance=new BindPKDataSource(KriptonLibrary.context());
     }
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it.
+   * @return opened dataSource instance.
+   */
+  public static BindPKDataSource open() {
+    BindPKDataSource instance=instance();
+    instance.getWritableDatabase();
     return instance;
   }
 

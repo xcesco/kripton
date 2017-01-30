@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,8 +41,8 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_3", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -93,8 +94,8 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3 WHERE id='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3 WHERE id='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_3 WHERE id=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -145,8 +146,8 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
     // build where condition
     String[] args={(value==null?"":value)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id FROM bean_a_3 WHERE value_string2='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id FROM bean_a_3 WHERE value_string2='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id FROM bean_a_3 WHERE value_string2=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -198,8 +199,9 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
       contentValues.putNull("value_string2");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean_a_3 (value_string2) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string2"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean_a_3 (value_string2) VALUES ('"+StringUtils.checkSize(contentValues.get("value_string2"))+"')"));
     long result = database().insert("bean_a_3", null, contentValues);
     bean.id=result;
 
@@ -238,7 +240,8 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
 
     String[] whereConditionsArray={(bean.valueString2==null?"":bean.valueString2)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean_a_3 SET value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE bean_a_3 SET value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'", (Object[]) whereConditionsArray));
     int result = database().update("bean_a_3", contentValues, "UPDATE bean_a_3 SET value_string2='"+StringUtils.checkSize(contentValues.get("value_string2"))+"' WHERE valueString2='%s'", whereConditionsArray);
     return result;
   }

@@ -58,7 +58,7 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=open();
+    SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -81,6 +81,16 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
     if (instance==null) {
       instance=new BindDummy02DataSource(KriptonLibrary.context());
     }
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it.
+   * @return opened dataSource instance.
+   */
+  public static BindDummy02DataSource open() {
+    BindDummy02DataSource instance=instance();
+    instance.getWritableDatabase();
     return instance;
   }
 

@@ -13,16 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.pagedResult;
+package sqlite.paginatedResult;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.paginatedResult.Person;
+import sqlite.paginatedResult.PersonDAO;
+import sqlite.paginatedResult.PersonDataSource;
 
 @RunWith(JUnit4.class)
-public class PagedResultTest extends AbstractBindSQLiteProcessorTest {
+public class PaginatedResultTest extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition

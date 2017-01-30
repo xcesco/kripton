@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,8 +71,9 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
       contentValues.putNull("body");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO comment (post_id, id, name, email, body) VALUES ('"+StringUtils.checkSize(contentValues.get("post_id"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("email"))+"', '"+StringUtils.checkSize(contentValues.get("body"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO comment (post_id, id, name, email, body) VALUES ('"+StringUtils.checkSize(contentValues.get("post_id"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("email"))+"', '"+StringUtils.checkSize(contentValues.get("body"))+"')"));
     long result = database().insert("comment", null, contentValues);
     bean.id=result;
   }
@@ -104,8 +106,8 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     // build where condition
     String[] args={String.valueOf(postId)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE post_id = '%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE post_id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE post_id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -166,8 +168,8 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     // build where condition
     String[] args={String.valueOf(postId)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE id = '%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

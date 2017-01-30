@@ -8,6 +8,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -64,8 +65,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // build where condition
     String[] args={};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -140,8 +141,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = '%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
     Bean2 resultBean=new Bean2();
@@ -234,8 +235,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = '%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -288,8 +289,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // build where condition
     String[] args={String.valueOf(id)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = '%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -429,7 +430,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
     String[] whereConditionsArray={String.valueOf(value.id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean2 SET value_byte_set='"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE bean2 SET value_byte_set='"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
     int result = database().update("bean2", contentValues, "UPDATE bean2 SET value_byte_set='"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id='%s'", whereConditionsArray);
     return result;
   }
@@ -524,8 +526,9 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       contentValues.putNull("value_enum_type_set");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean2 (value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean2 (value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"')"));
     long result = database().insert("bean2", null, contentValues);
     bean.id=result;
 
@@ -557,8 +560,9 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       contentValues.putNull("value_big_decimal_set");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO bean2 (value_big_decimal_set) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean2 (value_big_decimal_set) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"')"));
     long result = database().insert("bean2", null, contentValues);
     return result;
   }
@@ -597,8 +601,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // build where condition
     String[] args={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE value='%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE value='%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE value=?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -656,7 +660,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   public long delete(HashSet<BigDecimal> valueBigDecimalSet) {
     String[] whereConditionsArray={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("DELETE bean2 WHERE value=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE bean2 WHERE value=%s", (Object[])whereConditionsArray));
     int result = database().delete("bean2", "value=?", whereConditionsArray);
     return result;
   }
@@ -690,7 +695,8 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
     String[] whereConditionsArray={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
 
-    Logger.info(StringUtils.formatSQL("UPDATE bean2 SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s", (Object[])whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE bean2 SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s", (Object[])whereConditionsArray));
     int result = database().update("bean2", contentValues, "value=?", whereConditionsArray);
     return result;
   }

@@ -42,7 +42,7 @@ import com.squareup.javapoet.TypeName;
 public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 
 	@Override
-	public void generatePartTwo(Elements elementUtils, PropertyList fieldList, boolean mapFields,  SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder,  PropertyList fieldList, boolean mapFields) {
 		SQLDaoDefinition daoDefinition=method.getParent();
 		SQLEntity entity=daoDefinition.getEntity();
 		

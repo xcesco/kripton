@@ -66,7 +66,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * runtime).
 	 * </p>
 	 */
-	public String dynamicPageSize;
+	public String dynamicPageSizeName;
+	
+	/**
+	 * name of the paginated result parameter name.
+	 */
+	public String paginatedResultName;
 
 	protected Map<String, String> parameterAlias2NameField;
 
@@ -115,7 +120,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			@Override
 			public void onFoundParameter(String parameterName) {
-				dynamicPageSize = parameterName;
+				dynamicPageSizeName = parameterName;
 			}
 
 		});
@@ -266,7 +271,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 	
 	public boolean hasDynamicPageSizeConditions() {
-		return StringUtils.hasText(dynamicPageSize);
+		return StringUtils.hasText(dynamicPageSizeName);
 	}
 	
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
@@ -274,7 +279,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 	
 	public boolean isThisDynamicPageSizeName(String parameterName) {
-		return StringUtils.hasText(dynamicPageSize) && parameterName.equals(dynamicPageSize);
+		return StringUtils.hasText(dynamicPageSizeName) && parameterName.equals(dynamicPageSizeName);
+	}
+
+	public boolean hasPaginatedResultParameter() {
+		return StringUtils.hasText(paginatedResultName);
 	}
 
 }

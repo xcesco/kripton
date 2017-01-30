@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,8 +58,8 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // build where condition
     String[] args={String.valueOf(channelId)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = '%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 
@@ -172,7 +173,8 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     String[] whereConditionsArray={String.valueOf(bean.id)};
 
-    Logger.info(StringUtils.formatSQL("UPDATE message SET channel_id='"+StringUtils.checkSize(contentValues.get("channel_id"))+"', owner_type='"+StringUtils.checkSize(contentValues.get("owner_type"))+"', face_uid='"+StringUtils.checkSize(contentValues.get("face_uid"))+"', text='"+StringUtils.checkSize(contentValues.get("text"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', channel_uid='"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', type='"+StringUtils.checkSize(contentValues.get("type"))+"' WHERE id = '%s'", (Object[]) whereConditionsArray));
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("UPDATE message SET channel_id='"+StringUtils.checkSize(contentValues.get("channel_id"))+"', owner_type='"+StringUtils.checkSize(contentValues.get("owner_type"))+"', face_uid='"+StringUtils.checkSize(contentValues.get("face_uid"))+"', text='"+StringUtils.checkSize(contentValues.get("text"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', channel_uid='"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', type='"+StringUtils.checkSize(contentValues.get("type"))+"' WHERE id = '%s'", (Object[]) whereConditionsArray));
     int result = database().update("message", contentValues, "UPDATE message SET channel_id='"+StringUtils.checkSize(contentValues.get("channel_id"))+"', owner_type='"+StringUtils.checkSize(contentValues.get("owner_type"))+"', face_uid='"+StringUtils.checkSize(contentValues.get("face_uid"))+"', text='"+StringUtils.checkSize(contentValues.get("text"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', channel_uid='"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', type='"+StringUtils.checkSize(contentValues.get("type"))+"' WHERE id = '%s'", whereConditionsArray);
     return result!=0;
   }
@@ -245,8 +247,9 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       contentValues.putNull("type");
     }
 
+    //StringUtils and SqlUtils will be used to format SQL
     // log
-    Logger.info(StringUtils.formatSQL("INSERT INTO message (channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES ('"+StringUtils.checkSize(contentValues.get("channel_id"))+"', '"+StringUtils.checkSize(contentValues.get("owner_type"))+"', '"+StringUtils.checkSize(contentValues.get("face_uid"))+"', '"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("type"))+"')"));
+    Logger.info(SqlUtils.formatSQL("INSERT INTO message (channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES ('"+StringUtils.checkSize(contentValues.get("channel_id"))+"', '"+StringUtils.checkSize(contentValues.get("owner_type"))+"', '"+StringUtils.checkSize(contentValues.get("face_uid"))+"', '"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("type"))+"')"));
     long result = database().insert("message", null, contentValues);
     bean.id=result;
   }
@@ -283,8 +286,8 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // build where condition
     String[] args={(uid==null?"":uid)};
 
-    //StringUtils will be used in case of dynamic parts of SQL
-    Logger.info(StringUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = '%s'",(Object[])args));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = '%s'",(Object[])args));
     Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ?", args);
     Logger.info("Rows found: %s",cursor.getCount());
 

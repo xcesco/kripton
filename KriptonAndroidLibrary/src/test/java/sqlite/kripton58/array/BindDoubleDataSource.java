@@ -58,7 +58,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=open();
+    SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -81,6 +81,16 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
     if (instance==null) {
       instance=new BindDoubleDataSource(KriptonLibrary.context());
     }
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it.
+   * @return opened dataSource instance.
+   */
+  public static BindDoubleDataSource open() {
+    BindDoubleDataSource instance=instance();
+    instance.getWritableDatabase();
     return instance;
   }
 

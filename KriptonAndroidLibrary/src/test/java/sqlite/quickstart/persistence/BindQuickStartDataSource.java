@@ -101,7 +101,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @param transaction transaction to execute
    */
   public synchronized void execute(Transaction transaction) {
-    SQLiteDatabase connection=open();
+    SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
       if (transaction!=null && transaction.onExecute(this)) {
@@ -124,6 +124,16 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     if (instance==null) {
       instance=new BindQuickStartDataSource(KriptonLibrary.context());
     }
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it.
+   * @return opened dataSource instance.
+   */
+  public static BindQuickStartDataSource open() {
+    BindQuickStartDataSource instance=instance();
+    instance.getWritableDatabase();
     return instance;
   }
 
