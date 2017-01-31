@@ -302,7 +302,12 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		
 		if (method.hasPaginatedResultParameter())
 		{
-			sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.paginatedResultName, method.paginatedResultName));
+			if (method.hasDynamicPageSizeConditions())
+			{
+				sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s>0 && %s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.dynamicPageSizeName, method.paginatedResultName, method.paginatedResultName));
+			} else {
+				sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.paginatedResultName, method.paginatedResultName));
+			}
 		}
 		
 		// smart optimization

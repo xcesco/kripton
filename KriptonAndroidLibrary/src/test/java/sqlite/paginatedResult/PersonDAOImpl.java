@@ -45,7 +45,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public PaginatedResult<Person> selectPagedStatic1() {
     PaginatedResult0 paginatedResult=new PaginatedResult0();
-    paginatedResult.execute();
     return paginatedResult;
   }
 
@@ -129,7 +128,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public PaginatedResult<Person> selectPagedStatic2(int pageSize) {
     PaginatedResult1 paginatedResult=new PaginatedResult1(pageSize);
-    paginatedResult.execute();
     return paginatedResult;
   }
 
@@ -161,8 +159,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize)+SqlUtils.printIf(paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()),(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize)+SqlUtils.printIf(paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()), args);
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize)+SqlUtils.printIf(pageSize>0 && paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()),(Object[])args));
+    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize)+SqlUtils.printIf(pageSize>0 && paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()), args);
     Logger.info("Rows found: %s",cursor.getCount());
 
     List<Person> resultList=new ArrayList<Person>();
@@ -254,6 +252,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   public class PaginatedResult0 extends PaginatedResult<Person> {
     PaginatedResult0() {
+      this.pageSize=20;
     }
 
     public List<Person> execute() {
@@ -263,8 +262,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   public class PaginatedResult1 extends PaginatedResult<Person> {
-    int pageSize;
-
     PaginatedResult1(int pageSize) {
       this.pageSize=pageSize;
     }

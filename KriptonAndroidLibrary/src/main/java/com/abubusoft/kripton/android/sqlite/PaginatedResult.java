@@ -16,8 +16,15 @@ import java.util.List;
  * @param <E>
  */
 public abstract class PaginatedResult<E> {
+	
+	protected PaginatedResult()
+	{
+		initialized=false;
+	}
+	
+	protected boolean initialized;
 
-	protected int firtRow;
+	protected int firstRow;
 
 	protected List<E> list;
 
@@ -26,25 +33,41 @@ public abstract class PaginatedResult<E> {
 	public abstract List<E> execute();
 
 	public int firstRow() {
-		return firtRow;
+		return firstRow;
 	}
 
-	public void nextPage() {
-		firtRow += pageSize;
+	public boolean nextPage() {
+		if (initialized)
+		{
+			firstRow += pageSize;
+		} else {
+			initialized=true;	
+		}
+		
+		return execute().size()>0;
 	}
 
-	public void gotoPage(int page) {
-		firtRow = pageSize * page - 1;
+	public boolean gotoPage(int page) {
+		firstRow = pageSize * page ;
+		
+		if (firstRow<0) {
+			firstRow=0;
+			return false;
+		}
+		
+		return execute().size()>0;
 	}
 
-	public void previousPage() {
-		firtRow -= pageSize;
+	public boolean previousPage() {
+		firstRow -= pageSize;
 
-		if (firtRow < -1)
-			firtRow = -1;
+		if (firstRow < -1)
+			firstRow = -1;
+		
+		return execute().size()>0;
 	}
 	
-	public boolean hasRows()
+	public boolean hasNext()
 	{
 		return list.size()>0;
 	}

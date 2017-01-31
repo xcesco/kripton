@@ -35,6 +35,8 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -78,7 +80,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 				separator = ", ";
 			}
 			methodBuilder.addCode(");\n");
-			methodBuilder.addStatement("paginatedResult.execute()");
+			//methodBuilder.addStatement("paginatedResult.execute()");
 						
 			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectResultType.isMapFields(), GenerationType.NO_CONTENT);
 			methodBuilder.addStatement("return paginatedResult");
@@ -189,18 +191,32 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		String separator = "";
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			// field
-			typeBuilder.addField(TypeName.get(item.value1), item.value0);
+			if (method.hasDynamicPageSizeConditions() && method.dynamicPageSizeName.equals(item.value0))
+			{				
+				setupBuilder.addStatement("this.pageSize=$L", item.value0);
+			} else {
+				// field
+				typeBuilder.addField(TypeName.get(item.value1), item.value0);
+				setupBuilder.addStatement("this.$L=$L", item.value0, item.value0);
+			}
 
 			// construtor
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
 			setupBuilder.addParameter(parameterSpec);
-			setupBuilder.addStatement("this.$L=$L", item.value0, item.value0);
+
 
 			// execute
 			executeBuilder.addCode(separator + item.value0);
 			separator = ", ";
 		}
+		
+		if (!method.hasDynamicPageSizeConditions())
+		{
+			ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
+			int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
+			setupBuilder.addStatement("this.pageSize=$L", pageSize);
+		}
+		
 		typeBuilder.addMethod(setupBuilder.build());
 
 		executeBuilder.addCode(separator+"this);\n");
