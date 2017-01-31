@@ -240,7 +240,7 @@ public class BaseProcessorTest {
 		final Map<String, String> mapSet = new HashMap<>();
 		final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
 
-		BindDataSourceProcessor.DEVELOP_MODE = true;
+		BindDataSourceProcessor.DEVELOPER_MODE = true;
 
 		final AtomicLong counter = new AtomicLong(0);
 
@@ -277,8 +277,8 @@ public class BaseProcessorTest {
 							break;
 						}
 
-					} catch (IOException e) {
-						e.printStackTrace();
+					} catch (IOException e) {						
+						e.printStackTrace();						
 						Assert.fail(e.getMessage());
 					}
 				}

@@ -138,7 +138,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 			String msg = e.getMessage();
 			error(null, msg);
 
-			if (DEVELOP_MODE) {
+			if (DEVELOPER_MODE) {
 				logger.log(Level.SEVERE, msg);
 				e.printStackTrace();
 			}

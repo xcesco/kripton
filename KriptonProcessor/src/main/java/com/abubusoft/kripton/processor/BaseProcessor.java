@@ -71,7 +71,14 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	/**
 	 * for development scope
 	 */
-	public static boolean DEVELOP_MODE = false;
+	public static boolean DEVELOPER_MODE = false;
+	
+	/**
+	 * print trace. During test on developer machine (KRIPTON_DEBUG_MODE = true) PRINT_STACK_TRACE = true.
+	 * on CI test PRINT_STACK_TRACE = false
+	 * on normale execution = true
+	 */
+	public static boolean PRINT_STACK_TRACE = false;
 
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -115,7 +122,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	protected Messager messager;
 
 	protected void info(String msg, Object... args) {
-		if (DEVELOP_MODE) {
+		if (DEVELOPER_MODE) {
 			logger.info(String.format(msg, args));
 		}
 		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
@@ -127,7 +134,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	}
 
 	protected void warn(String msg, Object... args) {
-		if (DEVELOP_MODE) {
+		if (DEVELOPER_MODE) {
 			logger.warning(String.format(msg, args));
 		}
 		messager.printMessage(Diagnostic.Kind.WARNING, String.format(msg, args));

@@ -21,7 +21,7 @@ import com.abubusoft.kripton.KriptonYamlContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
 public class AbstractBaseTest {
-	private static final String KRIPTON_TEST_DEBUG = "KRIPTON_TEST_DEBUG";
+	private static final String KRIPTON_DEBUG_MODE = "KRIPTON_DEBUG_MODE";
 
 	public boolean display = false;
 
@@ -215,7 +215,7 @@ public class AbstractBaseTest {
 
 	@Before
 	public void setup() {
-		final String value = System.getenv(KRIPTON_TEST_DEBUG);		
+		final String value = System.getenv(KRIPTON_DEBUG_MODE);		
 		if ("true".equals(value))
 		{
 			display = true;
