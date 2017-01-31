@@ -51,30 +51,30 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, name FROM person WHERE name='%s' ORDER BY name",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name FROM person WHERE name=? ORDER BY name", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, name FROM person WHERE name=? ORDER BY name", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Person> resultList=new LinkedList<Person>();
-    Person resultBean=null;
+      LinkedList<Person> resultList=new LinkedList<Person>();
+      Person resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("name");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
 
-      do
-       {
-        resultBean=new Person();
+        do
+         {
+          resultBean=new Person();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -98,32 +98,32 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT surname, birth_city, birth_day FROM person ORDER BY name", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT surname, birth_city, birth_day FROM person ORDER BY name", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Person> resultList=new LinkedList<Person>();
-    Person resultBean=null;
+      LinkedList<Person> resultList=new LinkedList<Person>();
+      Person resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("surname");
-      int index1=cursor.getColumnIndex("birth_city");
-      int index2=cursor.getColumnIndex("birth_day");
+        int index0=cursor.getColumnIndex("surname");
+        int index1=cursor.getColumnIndex("birth_city");
+        int index2=cursor.getColumnIndex("birth_day");
 
-      do
-       {
-        resultBean=new Person();
+        do
+         {
+          resultBean=new Person();
 
-        if (!cursor.isNull(index0)) { resultBean.surname=cursor.getString(index0); }
-        if (!cursor.isNull(index1)) { resultBean.birthCity=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(cursor.getString(index2)); }
+          if (!cursor.isNull(index0)) { resultBean.surname=cursor.getString(index0); }
+          if (!cursor.isNull(index1)) { resultBean.birthCity=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(cursor.getString(index2)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**

@@ -29,7 +29,7 @@ import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.PropertyList;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectResultType;
+import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -53,7 +53,7 @@ public abstract class JavadocUtility {
 	}
 
 	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, String sql, List<String> sqlParams, SQLiteModelMethod method, ModelAnnotation annotation, PropertyList fieldList,
-			SelectResultType selectResultType) {
+			SelectType selectResultType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 

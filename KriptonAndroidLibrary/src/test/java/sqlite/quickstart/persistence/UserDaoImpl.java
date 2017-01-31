@@ -130,42 +130,42 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<User> resultList=new LinkedList<User>();
-    User resultBean=null;
+      LinkedList<User> resultList=new LinkedList<User>();
+      User resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("name");
-      int index2=cursor.getColumnIndex("username");
-      int index3=cursor.getColumnIndex("email");
-      int index4=cursor.getColumnIndex("address");
-      int index5=cursor.getColumnIndex("phone");
-      int index6=cursor.getColumnIndex("website");
-      int index7=cursor.getColumnIndex("company");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("username");
+        int index3=cursor.getColumnIndex("email");
+        int index4=cursor.getColumnIndex("address");
+        int index5=cursor.getColumnIndex("phone");
+        int index6=cursor.getColumnIndex("website");
+        int index7=cursor.getColumnIndex("company");
 
-      do
-       {
-        resultBean=new User();
+        do
+         {
+          resultBean=new User();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.username=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(cursor.getBlob(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.phone=cursor.getString(index5); }
-        if (!cursor.isNull(index6)) { resultBean.website=cursor.getString(index6); }
-        if (!cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(cursor.getBlob(index7)); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.username=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(cursor.getBlob(index4)); }
+          if (!cursor.isNull(index5)) { resultBean.phone=cursor.getString(index5); }
+          if (!cursor.isNull(index6)) { resultBean.website=cursor.getString(index6); }
+          if (!cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(cursor.getBlob(index7)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -201,36 +201,35 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    User resultBean=null;
+      User resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("name");
-      int index2=cursor.getColumnIndex("username");
-      int index3=cursor.getColumnIndex("email");
-      int index4=cursor.getColumnIndex("address");
-      int index5=cursor.getColumnIndex("phone");
-      int index6=cursor.getColumnIndex("website");
-      int index7=cursor.getColumnIndex("company");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("username");
+        int index3=cursor.getColumnIndex("email");
+        int index4=cursor.getColumnIndex("address");
+        int index5=cursor.getColumnIndex("phone");
+        int index6=cursor.getColumnIndex("website");
+        int index7=cursor.getColumnIndex("company");
 
-      resultBean=new User();
+        resultBean=new User();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-      if (!cursor.isNull(index2)) { resultBean.username=cursor.getString(index2); }
-      if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
-      if (!cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(cursor.getBlob(index4)); }
-      if (!cursor.isNull(index5)) { resultBean.phone=cursor.getString(index5); }
-      if (!cursor.isNull(index6)) { resultBean.website=cursor.getString(index6); }
-      if (!cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(cursor.getBlob(index7)); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.username=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
+        if (!cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(cursor.getBlob(index4)); }
+        if (!cursor.isNull(index5)) { resultBean.phone=cursor.getString(index5); }
+        if (!cursor.isNull(index6)) { resultBean.website=cursor.getString(index6); }
+        if (!cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(cursor.getBlob(index7)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 }

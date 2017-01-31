@@ -48,25 +48,24 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean02 WHERE id='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, text FROM bean02 WHERE id=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, text FROM bean02 WHERE id=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean02 resultBean=null;
+      Bean02 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("text");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("text");
 
-      resultBean=new Bean02();
+        resultBean=new Bean02();
 
-      if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
+        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**

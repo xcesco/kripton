@@ -32,10 +32,10 @@ public abstract class SqlSelectBuilder {
 	public interface SelectCodeGenerator {
 		void generate(Elements elementUtils, Builder builder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType);
 
-		void setSelectResultTye(SelectResultType selectResultType);
+		void setSelectResultTye(SelectType selectResultType);
 	}
 
-	public enum SelectResultType {
+	public enum SelectType {
 			BEAN(SelectBeanHelper.class, true),
 			CURSOR(SelectRawHelper.class, false),
 			LIST_BEAN(SelectBeanListHelper.class, true),
@@ -49,7 +49,7 @@ public abstract class SqlSelectBuilder {
 
 		private boolean mapFields;
 
-		private SelectResultType(Class<? extends AbstractSelectCodeGenerator> codeGenerator, boolean mapFields) {
+		private SelectType(Class<? extends AbstractSelectCodeGenerator> codeGenerator, boolean mapFields) {
 			try {
 				this.mapFields = mapFields;
 				this.codeGenerator = codeGenerator.newInstance();

@@ -153,7 +153,7 @@ public abstract class SelectBuilderUtility {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
-		SqlSelectBuilder.SelectResultType selectResultType = null;
+		SqlSelectBuilder.SelectType selectResultType = null;
 
 		// if true, field must be associate to ben attributes
 		TypeMirror returnType = method.getReturnClass();
@@ -164,17 +164,20 @@ public abstract class SelectBuilderUtility {
 
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
+		
+		AssertKripton.failWithInvalidMethodSignException(pageSize<0, method, "in @%s(pageSize) must be set with positive number",BindSqlSelect.class.getSimpleName());
+		AssertKripton.failWithInvalidMethodSignException(pageSize>0 && method.hasDynamicPageSizeConditions(), method, "can not define @%s(pageSize) and mark a method parameter with @%s ",BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName());		
 
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
 			if (hasParameterOfType(method, readCursorListener)) {
-				selectResultType = SqlSelectBuilder.SelectResultType.LISTENER_CURSOR;
+				selectResultType = SqlSelectBuilder.SelectType.LISTENER_CURSOR;
 			} else if (hasParameterOfType(method, readBeanListener)) {
-				selectResultType = SqlSelectBuilder.SelectResultType.LISTENER_BEAN;
+				selectResultType = SqlSelectBuilder.SelectType.LISTENER_BEAN;
 			}
 		} else if (TypeUtility.isTypeIncludedIn(returnTypeName, Cursor.class)) {
 			// return Cursor (no listener)
-			selectResultType = SqlSelectBuilder.SelectResultType.CURSOR;
+			selectResultType = SqlSelectBuilder.SelectType.CURSOR;
 		} else if (returnTypeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) returnTypeName;
 			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;
@@ -193,17 +196,17 @@ public abstract class SelectBuilderUtility {
 
 					// paged result
 					AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isSameType(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
-					selectResultType = SqlSelectBuilder.SelectResultType.PAGED_RESULT;
+					selectResultType = SqlSelectBuilder.SelectType.PAGED_RESULT;
 					// set name of paginatedResult
 					method.paginatedResultName="paginatedResult";
 				} else if (Collection.class.isAssignableFrom(wrapperClazz)) {
 					if (TypeUtility.isSameType(elementName, entity.getName().toString())) {
 						// entity list
-						selectResultType = SqlSelectBuilder.SelectResultType.LIST_BEAN;
+						selectResultType = SqlSelectBuilder.SelectType.LIST_BEAN;
 					} else if (TypeUtility.isByteArray(elementName) || TypeUtility.isTypePrimitive(elementName) || TypeUtility.isTypeWrappedPrimitive(elementName)
 							|| TypeUtility.isTypeIncludedIn(elementName, String.class)) {
 						// scalar list
-						selectResultType = SqlSelectBuilder.SelectResultType.LIST_SCALAR;
+						selectResultType = SqlSelectBuilder.SelectType.LIST_SCALAR;
 					} else {
 						AssertKripton.failWithInvalidMethodSignException(true, method, "");
 					}
@@ -214,12 +217,12 @@ public abstract class SelectBuilderUtility {
 			}
 		} else if (TypeUtility.isEquals(returnTypeName, entity)) {
 			// return one element (no listener)
-			selectResultType = SqlSelectBuilder.SelectResultType.BEAN;
+			selectResultType = SqlSelectBuilder.SelectType.BEAN;
 		} else if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class)
 				|| TypeUtility.isByteArray(returnTypeName)) {
 			// return single value string, int, long, short, double, float,
 			// String (no listener)
-			selectResultType = SqlSelectBuilder.SelectResultType.SCALAR;
+			selectResultType = SqlSelectBuilder.SelectType.SCALAR;
 		}
 
 		if (selectResultType == null) {

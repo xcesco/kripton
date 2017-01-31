@@ -683,36 +683,36 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Channel> resultList=new LinkedList<Channel>();
-    Channel resultBean=null;
+      LinkedList<Channel> resultList=new LinkedList<Channel>();
+      Channel resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("uid");
-      int index1=cursor.getColumnIndex("owner_uid");
-      int index2=cursor.getColumnIndex("update_time");
-      int index3=cursor.getColumnIndex("name");
-      int index4=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("uid");
+        int index1=cursor.getColumnIndex("owner_uid");
+        int index2=cursor.getColumnIndex("update_time");
+        int index3=cursor.getColumnIndex("name");
+        int index4=cursor.getColumnIndex("id");
 
-      do
-       {
-        resultBean=new Channel();
+        do
+         {
+          resultBean=new Channel();
 
-        if (!cursor.isNull(index0)) { resultBean.setUid(cursor.getString(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
+          if (!cursor.isNull(index0)) { resultBean.setUid(cursor.getString(index0)); }
+          if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
+          if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
+          if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -745,36 +745,36 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Channel> resultList=new LinkedList<Channel>();
-    Channel resultBean=null;
+      LinkedList<Channel> resultList=new LinkedList<Channel>();
+      Channel resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("uid");
-      int index1=cursor.getColumnIndex("owner_uid");
-      int index2=cursor.getColumnIndex("update_time");
-      int index3=cursor.getColumnIndex("name");
-      int index4=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("uid");
+        int index1=cursor.getColumnIndex("owner_uid");
+        int index2=cursor.getColumnIndex("update_time");
+        int index3=cursor.getColumnIndex("name");
+        int index4=cursor.getColumnIndex("id");
 
-      do
-       {
-        resultBean=new Channel();
+        do
+         {
+          resultBean=new Channel();
 
-        if (!cursor.isNull(index0)) { resultBean.setUid(cursor.getString(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
+          if (!cursor.isNull(index0)) { resultBean.setUid(cursor.getString(index0)); }
+          if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
+          if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
+          if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -843,10 +843,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    Channel resultBean=new Channel();
-    try {
+    try (Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      Channel resultBean=new Channel();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("uid");
@@ -874,10 +873,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -913,20 +908,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
          {
           listener.onRead(cursor);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -961,36 +951,36 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    HashSet<Channel> resultList=new HashSet<Channel>();
-    Channel resultBean=null;
+      HashSet<Channel> resultList=new HashSet<Channel>();
+      Channel resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("uid");
-      int index1=cursor.getColumnIndex("owner_uid");
-      int index2=cursor.getColumnIndex("update_time");
-      int index3=cursor.getColumnIndex("name");
-      int index4=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("uid");
+        int index1=cursor.getColumnIndex("owner_uid");
+        int index2=cursor.getColumnIndex("update_time");
+        int index3=cursor.getColumnIndex("name");
+        int index4=cursor.getColumnIndex("id");
 
-      do
-       {
-        resultBean=new Channel();
+        do
+         {
+          resultBean=new Channel();
 
-        if (!cursor.isNull(index0)) { resultBean.setUid(cursor.getString(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
+          if (!cursor.isNull(index0)) { resultBean.setUid(cursor.getString(index0)); }
+          if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
+          if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
+          if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -1019,22 +1009,17 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT count(*) FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT count(*) FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    long result=0L;
+    try (Cursor cursor = database().rawQuery("SELECT count(*) FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      long result=0L;
 
-    try {
       if (cursor.moveToFirst()) {
 
         if (cursor.isNull(0)) { return 0L; }
         result=cursor.getLong(0);
       }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
-      }
+      return result;
     }
-    return result;
   }
 
   /**
@@ -1064,10 +1049,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    Channel resultBean=new Channel();
-    try {
+    try (Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      Channel resultBean=new Channel();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("update_time");
@@ -1087,10 +1071,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -1122,20 +1102,15 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
          {
           listener.onRead(cursor);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -1197,23 +1172,22 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Channel resultBean=null;
+      Channel resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("update_time");
+        int index0=cursor.getColumnIndex("update_time");
 
-      resultBean=new Channel();
+        resultBean=new Channel();
 
-      if (!cursor.isNull(index0)) { resultBean.setUpdateTime(cursor.getLong(index0)); }
+        if (!cursor.isNull(index0)) { resultBean.setUpdateTime(cursor.getLong(index0)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -1242,28 +1216,28 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    ArrayList<Channel> resultList=new ArrayList<Channel>();
-    Channel resultBean=null;
+      ArrayList<Channel> resultList=new ArrayList<Channel>();
+      Channel resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("update_time");
+        int index0=cursor.getColumnIndex("update_time");
 
-      do
-       {
-        resultBean=new Channel();
+        do
+         {
+          resultBean=new Channel();
 
-        if (!cursor.isNull(index0)) { resultBean.setUpdateTime(cursor.getLong(index0)); }
+          if (!cursor.isNull(index0)) { resultBean.setUpdateTime(cursor.getLong(index0)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -1292,28 +1266,28 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    HashSet<Channel> resultList=new HashSet<Channel>();
-    Channel resultBean=null;
+      HashSet<Channel> resultList=new HashSet<Channel>();
+      Channel resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("update_time");
+        int index0=cursor.getColumnIndex("update_time");
 
-      do
-       {
-        resultBean=new Channel();
+        do
+         {
+          resultBean=new Channel();
 
-        if (!cursor.isNull(index0)) { resultBean.setUpdateTime(cursor.getLong(index0)); }
+          if (!cursor.isNull(index0)) { resultBean.setUpdateTime(cursor.getLong(index0)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -1342,13 +1316,12 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT update_time FROM channel WHERE update_time='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT update_time FROM channel WHERE update_time=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Long> resultList=new LinkedList<Long>();
+      LinkedList<Long> resultList=new LinkedList<Long>();
 
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
@@ -1360,11 +1333,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
           }
         } while (cursor.moveToNext());
       }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
-      }
+      return resultList;
     }
-    return resultList;
   }
 }

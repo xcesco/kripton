@@ -115,11 +115,13 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		methodBuilder.addCode("resultList.add(resultBean);\n");
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
-		methodBuilder.endControlFlow();
-		methodBuilder.addCode("cursor.close();\n");
+		methodBuilder.endControlFlow();		
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("return resultList;\n");
+		
+		// close try { open cursor 
+		methodBuilder.endControlFlow();	
 	}
 
 	static TypeName defineCollection(ClassName listClazzName) {

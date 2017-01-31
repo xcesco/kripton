@@ -42,29 +42,29 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, ignore2 FROM bean8",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, ignore2 FROM bean8", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, ignore2 FROM bean8", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean8> resultList=new LinkedList<Bean8>();
-    Bean8 resultBean=null;
+      LinkedList<Bean8> resultList=new LinkedList<Bean8>();
+      Bean8 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("ignore2");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("ignore2");
 
-      do
-       {
-        resultBean=new Bean8();
+        do
+         {
+          resultBean=new Bean8();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.ignore2=cursor.getString(index1); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.ignore2=cursor.getString(index1); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 }

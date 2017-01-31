@@ -49,27 +49,26 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT temp, id, text FROM bean01 WHERE id='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT temp, id, text FROM bean01 WHERE id=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT temp, id, text FROM bean01 WHERE id=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean01 resultBean=null;
+      Bean01 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("temp");
-      int index1=cursor.getColumnIndex("id");
-      int index2=cursor.getColumnIndex("text");
+        int index0=cursor.getColumnIndex("temp");
+        int index1=cursor.getColumnIndex("id");
+        int index2=cursor.getColumnIndex("text");
 
-      resultBean=new Bean01();
+        resultBean=new Bean01();
 
-      if (!cursor.isNull(index0)) { resultBean.temp=Bean01Table.parseTemp(cursor.getBlob(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.setText(cursor.getString(index2)); }
+        if (!cursor.isNull(index0)) { resultBean.temp=Bean01Table.parseTemp(cursor.getBlob(index0)); }
+        if (!cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setText(cursor.getString(index2)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**

@@ -51,25 +51,24 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean01Entity resultBean=null;
+      Bean01Entity resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("text");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("text");
 
-      resultBean=new Bean01Entity();
+        resultBean=new Bean01Entity();
 
-      if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
+        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -99,30 +98,30 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean01Entity> resultList=new LinkedList<Bean01Entity>();
-    Bean01Entity resultBean=null;
+      LinkedList<Bean01Entity> resultList=new LinkedList<Bean01Entity>();
+      Bean01Entity resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("text");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("text");
 
-      do
-       {
-        resultBean=new Bean01Entity();
+        do
+         {
+          resultBean=new Bean01Entity();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
+          if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+          if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**

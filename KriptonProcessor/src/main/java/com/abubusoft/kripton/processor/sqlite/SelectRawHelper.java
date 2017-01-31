@@ -20,7 +20,9 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.GenerationType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -31,6 +33,10 @@ import com.squareup.javapoet.MethodSpec.Builder;
  */
 public class SelectRawHelper extends AbstractSelectCodeGenerator {
 
+	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
+		generateCommonPart(elementUtils, method, methodBuilder, fieldList, mapFields, GenerationType.NO_CLOSE_CURSOR);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

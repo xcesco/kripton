@@ -84,7 +84,6 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 
 		//@formatter:off
 		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("try");
 			methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 				methodBuilder.addCode("\n");
 				methodBuilder.beginControlFlow("do\n");
@@ -97,14 +96,9 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 					methodBuilder.endControlFlow();
 				methodBuilder.endControlFlow("while (cursor.moveToNext())");
 			methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("finally");			
-			methodBuilder.beginControlFlow("if (!cursor.isClosed())");
-				methodBuilder.addCode("cursor.close();\n");
-			methodBuilder.endControlFlow();
+			methodBuilder.addCode("return resultList;\n");
 		methodBuilder.endControlFlow();
 		//@formatter:on
-
-		methodBuilder.addCode("return resultList;\n");
 
 	}
 

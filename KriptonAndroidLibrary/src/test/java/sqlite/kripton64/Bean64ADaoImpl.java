@@ -45,34 +45,34 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean64A> resultList=new LinkedList<Bean64A>();
-    Bean64A resultBean=null;
+      LinkedList<Bean64A> resultList=new LinkedList<Bean64A>();
+      Bean64A resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("value_map_string_bean");
-      int index1=cursor.getColumnIndex("value_set_string");
-      int index2=cursor.getColumnIndex("value_string");
-      int index3=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("value_map_string_bean");
+        int index1=cursor.getColumnIndex("value_set_string");
+        int index2=cursor.getColumnIndex("value_string");
+        int index3=cursor.getColumnIndex("id");
 
-      do
-       {
-        resultBean=new Bean64A();
+        do
+         {
+          resultBean=new Bean64A();
 
-        if (!cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64ATable.parseValueMapStringBean(cursor.getBlob(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.valueSetString=Bean64ATable.parseValueSetString(cursor.getBlob(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.id=cursor.getLong(index3); }
+          if (!cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64ATable.parseValueMapStringBean(cursor.getBlob(index0)); }
+          if (!cursor.isNull(index1)) { resultBean.valueSetString=Bean64ATable.parseValueSetString(cursor.getBlob(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.id=cursor.getLong(index3); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -104,34 +104,34 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean64A> resultList=new LinkedList<Bean64A>();
-    Bean64A resultBean=null;
+      LinkedList<Bean64A> resultList=new LinkedList<Bean64A>();
+      Bean64A resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("value_map_string_bean");
-      int index1=cursor.getColumnIndex("value_set_string");
-      int index2=cursor.getColumnIndex("value_string");
-      int index3=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("value_map_string_bean");
+        int index1=cursor.getColumnIndex("value_set_string");
+        int index2=cursor.getColumnIndex("value_string");
+        int index3=cursor.getColumnIndex("id");
 
-      do
-       {
-        resultBean=new Bean64A();
+        do
+         {
+          resultBean=new Bean64A();
 
-        if (!cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64ATable.parseValueMapStringBean(cursor.getBlob(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.valueSetString=Bean64ATable.parseValueSetString(cursor.getBlob(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.id=cursor.getLong(index3); }
+          if (!cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64ATable.parseValueMapStringBean(cursor.getBlob(index0)); }
+          if (!cursor.isNull(index1)) { resultBean.valueSetString=Bean64ATable.parseValueSetString(cursor.getBlob(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.id=cursor.getLong(index3); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**

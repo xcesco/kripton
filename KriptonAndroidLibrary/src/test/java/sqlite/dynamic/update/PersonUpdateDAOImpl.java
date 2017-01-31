@@ -57,36 +57,36 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Person> resultList=new LinkedList<Person>();
-    Person resultBean=null;
+      LinkedList<Person> resultList=new LinkedList<Person>();
+      Person resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("name");
-      int index2=cursor.getColumnIndex("surname");
-      int index3=cursor.getColumnIndex("birth_city");
-      int index4=cursor.getColumnIndex("birth_day");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("surname");
+        int index3=cursor.getColumnIndex("birth_city");
+        int index4=cursor.getColumnIndex("birth_day");
 
-      do
-       {
-        resultBean=new Person();
+        do
+         {
+          resultBean=new Person();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -274,36 +274,36 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Person> resultList=new LinkedList<Person>();
-    Person resultBean=null;
+      LinkedList<Person> resultList=new LinkedList<Person>();
+      Person resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("name");
-      int index2=cursor.getColumnIndex("surname");
-      int index3=cursor.getColumnIndex("birth_city");
-      int index4=cursor.getColumnIndex("birth_day");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("surname");
+        int index3=cursor.getColumnIndex("birth_city");
+        int index4=cursor.getColumnIndex("birth_day");
 
-      do
-       {
-        resultBean=new Person();
+        do
+         {
+          resultBean=new Person();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**

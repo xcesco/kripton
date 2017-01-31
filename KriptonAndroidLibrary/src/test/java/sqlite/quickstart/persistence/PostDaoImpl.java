@@ -100,34 +100,34 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT user_id, id, title, body FROM post WHERE user_id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT user_id, id, title, body FROM post WHERE user_id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT user_id, id, title, body FROM post WHERE user_id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Post> resultList=new LinkedList<Post>();
-    Post resultBean=null;
+      LinkedList<Post> resultList=new LinkedList<Post>();
+      Post resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("user_id");
-      int index1=cursor.getColumnIndex("id");
-      int index2=cursor.getColumnIndex("title");
-      int index3=cursor.getColumnIndex("body");
+        int index0=cursor.getColumnIndex("user_id");
+        int index1=cursor.getColumnIndex("id");
+        int index2=cursor.getColumnIndex("title");
+        int index3=cursor.getColumnIndex("body");
 
-      do
-       {
-        resultBean=new Post();
+        do
+         {
+          resultBean=new Post();
 
-        if (!cursor.isNull(index0)) { resultBean.userId=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.body=cursor.getString(index3); }
+          if (!cursor.isNull(index0)) { resultBean.userId=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
+          if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.body=cursor.getString(index3); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -159,28 +159,27 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT user_id, id, title, body FROM post WHERE id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT user_id, id, title, body FROM post WHERE id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT user_id, id, title, body FROM post WHERE id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Post resultBean=null;
+      Post resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("user_id");
-      int index1=cursor.getColumnIndex("id");
-      int index2=cursor.getColumnIndex("title");
-      int index3=cursor.getColumnIndex("body");
+        int index0=cursor.getColumnIndex("user_id");
+        int index1=cursor.getColumnIndex("id");
+        int index2=cursor.getColumnIndex("title");
+        int index3=cursor.getColumnIndex("body");
 
-      resultBean=new Post();
+        resultBean=new Post();
 
-      if (!cursor.isNull(index0)) { resultBean.userId=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
-      if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
-      if (!cursor.isNull(index3)) { resultBean.body=cursor.getString(index3); }
+        if (!cursor.isNull(index0)) { resultBean.userId=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
+        if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.body=cursor.getString(index3); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 }

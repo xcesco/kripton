@@ -34,99 +34,98 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 public interface DaoChannel {
 	
 	// delete
-	@BindSqlDelete(where="ownerUid=${value.id}")
+	@BindSqlDelete(where = "ownerUid=${value.id}")
 	boolean deleteContactBean1(@BindSqlParam("value") Channel channel);
-	
-	@BindSqlDelete(where="ownerUid=${value.id}")
-	boolean deleteContactBean2(Channel value);		
-	
-	@BindSqlDelete(where="ownerUid=${ownerUid} and id=${id}")
+
+	@BindSqlDelete(where = "ownerUid=${value.id}")
+	boolean deleteContactBean2(Channel value);
+
+	@BindSqlDelete(where = "ownerUid=${ownerUid} and id=${id}")
 	long deleteContactRaw1(@BindSqlParam("ownerUid") String b, @BindSqlParam("id") long dummy);
-	
-	@BindSqlDelete(where="ownerUid=${ownerUid} and id=${id}")
+
+	@BindSqlDelete(where = "ownerUid=${ownerUid} and id=${id}")
 	boolean deleteContactRaw2(String ownerUid, long id);
-	
-	
-	// insert	
+
+	// insert
 	@BindSqlInsert
 	long insertRaw1(@BindSqlParam("ownerUid") String b, @BindSqlParam("id") long azz);
-	
+
 	@BindSqlInsert
 	boolean insertRaw2(@BindSqlParam("ownerUid") String b, long id);
-	
+
 	@BindSqlInsert
 	int insertRaw3(String ownerUid, long id);
-	
+
 	@BindSqlInsert
 	int insertBean1(Channel bean);
-	
+
 	@BindSqlInsert
 	boolean insertBean2(@BindSqlParam("arg") Channel bean);
-	
+
 	// update
 	@BindSqlUpdate(where = "id=${dummy}")
-	long updateContactRaw1(@BindSqlParam("id") long glu,@BindSqlParam("dummy") long aid);
-	
+	long updateContactRaw1(@BindSqlParam("id") long glu, @BindSqlParam("dummy") long aid);
+
 	@BindSqlUpdate(where = "id=${dummy}")
-	long updateContactRaw2(long id,long dummy);
-	
-	@BindSqlUpdate(where="id=${test}")
+	long updateContactRaw2(long id, long dummy);
+
+	@BindSqlUpdate(where = "id=${test}")
 	boolean updateContactRaw3(@BindSqlParam("ownerUid") String app, @BindSqlParam("test") long id);
-	
-	@BindSqlUpdate(where="id=${id}")
+
+	@BindSqlUpdate(where = "id=${id}")
 	int updateContactRaw4(String ownerUid, long id);
-		
-	@BindSqlUpdate(where="id=${bean.id}")
+
+	@BindSqlUpdate(where = "id=${bean.id}")
 	int updateContactBean1(@BindSqlParam("bean") Channel value);
-	
-	@BindSqlUpdate(where="id=${bean.id}")
+
+	@BindSqlUpdate(where = "id=${bean.id}")
 	long updateContactBean2(Channel bean);
-	
-	@BindSqlUpdate(where="id=${bean.id}")
+
+	@BindSqlUpdate(where = "id=${bean.id}")
 	boolean updateContactBean3(Channel bean);
-	
+
 	// select
-    @BindSqlSelect
-    List<Channel> selectAll();
+	@BindSqlSelect
+	List<Channel> selectAll();
 
-    @BindSqlSelect(where="updateTime=${a}")
-    List<Channel> selectRaw1(@BindSqlParam("a") long updateTimeA);  	        
-	
-	@BindSqlSelect(where="updateTime=${a}")
-    Cursor selectRaw2(@BindSqlParam("a") long updateTimeA);
-	
-	@BindSqlSelect(where="updateTime=${a}")
-    void selectRaw3(@BindSqlParam("a") long updateTimeA, OnReadBeanListener<Channel> listener);
-	
-	@BindSqlSelect(where="updateTime=${a}")
-    void selectRaw4(@BindSqlParam("a") long updateTimeA, OnReadCursorListener listener);
-	
-	@BindSqlSelect(where="updateTime=${a}")
-    Set<Channel> selectRaw5(@BindSqlParam("a") long updateTimeA);
+	@BindSqlSelect(where = "updateTime=${a}")
+	List<Channel> selectRaw1(@BindSqlParam("a") long updateTimeA);
 
-	@BindSqlSelect(value="count(*)",where="updateTime=${bean.updateTime}")
-    long selectBean1(@BindSqlParam("bean") Channel value);
+	@BindSqlSelect(where = "updateTime=${a}")
+	Cursor selectRaw2(@BindSqlParam("a") long updateTimeA);
 
-	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
-    void selectBean2(@BindSqlParam("bean") Channel value, OnReadBeanListener<Channel> listener);
-	
-	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
-    void selectBean3(@BindSqlParam("bean") Channel value, OnReadCursorListener listener);	
+	@BindSqlSelect(where = "updateTime=${a}")
+	void selectRaw3(@BindSqlParam("a") long updateTimeA, OnReadBeanListener<Channel> listener);
 
-	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
-    Cursor selectBean4(@BindSqlParam("bean") Channel value);
-	
-	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
-    Channel selectBean5(@BindSqlParam("bean") Channel value);
-	
-	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
-    ArrayList<Channel> selectBean6(@BindSqlParam("bean") Channel value);
-	
-	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
-    Set<Channel> selectBean7(@BindSqlParam("bean") Channel value);
-	
+	@BindSqlSelect(where = "updateTime=${a}")
+	void selectRaw4(@BindSqlParam("a") long updateTimeA, OnReadCursorListener listener);
+
+	@BindSqlSelect(where = "updateTime=${a}")
+	Set<Channel> selectRaw5(@BindSqlParam("a") long updateTimeA);
+
+	@BindSqlSelect(value = "count(*)", where = "updateTime=${bean.updateTime}")
+	long selectBean1(@BindSqlParam("bean") Channel value);
+
+	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	void selectBean2(@BindSqlParam("bean") Channel value, OnReadBeanListener<Channel> listener);
+
+	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	void selectBean3(@BindSqlParam("bean") Channel value, OnReadCursorListener listener);
+
+	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	Cursor selectBean4(@BindSqlParam("bean") Channel value);
+
+	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	Channel selectBean5(@BindSqlParam("bean") Channel value);
+
+	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	ArrayList<Channel> selectBean6(@BindSqlParam("bean") Channel value);
+
+	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	Set<Channel> selectBean7(@BindSqlParam("bean") Channel value);
+
 	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
     List<Long> selectBean8(@BindSqlParam("bean") Channel value);
+
 	
-		
 }

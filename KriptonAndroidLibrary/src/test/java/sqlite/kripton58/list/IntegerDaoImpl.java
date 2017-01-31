@@ -57,27 +57,26 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM integer_bean",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    IntegerBean resultBean=null;
+      IntegerBean resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value2");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value2");
 
-      resultBean=new IntegerBean();
+        resultBean=new IntegerBean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -108,27 +107,26 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    IntegerBean resultBean=null;
+      IntegerBean resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value2");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value2");
 
-      resultBean=new IntegerBean();
+        resultBean=new IntegerBean();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -160,10 +158,9 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    IntegerBean resultBean=new IntegerBean();
-    try {
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      IntegerBean resultBean=new IntegerBean();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
@@ -185,10 +182,6 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -222,20 +215,15 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
          {
           listener.onRead(cursor);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -268,32 +256,32 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM integer_bean WHERE value='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM integer_bean WHERE value=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<IntegerBean> resultList=new LinkedList<IntegerBean>();
-    IntegerBean resultBean=null;
+      LinkedList<IntegerBean> resultList=new LinkedList<IntegerBean>();
+      IntegerBean resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value2");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value2");
 
-      do
-       {
-        resultBean=new IntegerBean();
+        do
+         {
+          resultBean=new IntegerBean();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**

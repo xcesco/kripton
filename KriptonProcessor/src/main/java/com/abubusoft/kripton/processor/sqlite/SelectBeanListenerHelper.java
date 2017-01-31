@@ -72,7 +72,7 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 
 		methodBuilder.addCode("$T resultBean=new $T();", entityClass, entityClass);
 		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("try");
+		//methodBuilder.beginControlFlow("try");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
 		// generate index from columns
@@ -130,12 +130,11 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 
 		methodBuilder.addCode("$L.onRead(resultBean, cursor.getPosition(), rowCount);\n", listenerName);
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
-
-		methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("finally");
-		methodBuilder.beginControlFlow("if (!cursor.isClosed())");
-		methodBuilder.addCode("cursor.close();\n");
-		methodBuilder.endControlFlow();
+		
+		// close try { open cursor 
+		methodBuilder.endControlFlow();	
+		
+		// close method
 		methodBuilder.endControlFlow();
 	}
 

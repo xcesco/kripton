@@ -44,32 +44,32 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, bean_a2_id, value_string FROM bean_a_1",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, bean_a2_id, value_string FROM bean_a_1", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, bean_a2_id, value_string FROM bean_a_1", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<BeanA_1> resultList=new LinkedList<BeanA_1>();
-    BeanA_1 resultBean=null;
+      LinkedList<BeanA_1> resultList=new LinkedList<BeanA_1>();
+      BeanA_1 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("bean_a2_id");
-      int index2=cursor.getColumnIndex("value_string");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("bean_a2_id");
+        int index2=cursor.getColumnIndex("value_string");
 
-      do
-       {
-        resultBean=new BeanA_1();
+        do
+         {
+          resultBean=new BeanA_1();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.beanA2Id=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.beanA2Id=cursor.getLong(index1); }
+          if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -100,32 +100,32 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, bean_a2_id, value_string FROM bean_a_1 WHERE id='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, bean_a2_id, value_string FROM bean_a_1 WHERE id=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, bean_a2_id, value_string FROM bean_a_1 WHERE id=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<BeanA_1> resultList=new LinkedList<BeanA_1>();
-    BeanA_1 resultBean=null;
+      LinkedList<BeanA_1> resultList=new LinkedList<BeanA_1>();
+      BeanA_1 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("bean_a2_id");
-      int index2=cursor.getColumnIndex("value_string");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("bean_a2_id");
+        int index2=cursor.getColumnIndex("value_string");
 
-      do
-       {
-        resultBean=new BeanA_1();
+        do
+         {
+          resultBean=new BeanA_1();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.beanA2Id=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.beanA2Id=cursor.getLong(index1); }
+          if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -154,28 +154,28 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id FROM bean_a_1 WHERE value_string='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id FROM bean_a_1 WHERE value_string=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id FROM bean_a_1 WHERE value_string=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<BeanA_1> resultList=new LinkedList<BeanA_1>();
-    BeanA_1 resultBean=null;
+      LinkedList<BeanA_1> resultList=new LinkedList<BeanA_1>();
+      BeanA_1 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("id");
 
-      do
-       {
-        resultBean=new BeanA_1();
+        do
+         {
+          resultBean=new BeanA_1();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**

@@ -58,27 +58,26 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LongBean resultBean=null;
+      LongBean resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value2");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value2");
 
-      resultBean=new LongBean();
+        resultBean=new LongBean();
 
-      if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
-      if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
+        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
+        if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -112,27 +111,26 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LongBean resultBean=null;
+      LongBean resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value2");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value2");
 
-      resultBean=new LongBean();
+        resultBean=new LongBean();
 
-      if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
-      if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
+        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
+        if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -167,10 +165,9 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    LongBean resultBean=new LongBean();
-    try {
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      LongBean resultBean=new LongBean();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
@@ -192,10 +189,6 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -232,20 +225,15 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
          {
           listener.onRead(cursor);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -281,32 +269,32 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<LongBean> resultList=new LinkedList<LongBean>();
-    LongBean resultBean=null;
+      LinkedList<LongBean> resultList=new LinkedList<LongBean>();
+      LongBean resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value2");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value2");
 
-      do
-       {
-        resultBean=new LongBean();
+        do
+         {
+          resultBean=new LongBean();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
-        if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
+          if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+          if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
+          if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**

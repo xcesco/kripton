@@ -63,70 +63,70 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY name",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY name", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY name", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<FirstAid> resultList=new LinkedList<FirstAid>();
-    FirstAid resultBean=null;
+      LinkedList<FirstAid> resultList=new LinkedList<FirstAid>();
+      FirstAid resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("uid");
-      int index2=cursor.getColumnIndex("description");
-      int index3=cursor.getColumnIndex("info");
-      int index4=cursor.getColumnIndex("longitude");
-      int index5=cursor.getColumnIndex("latitude");
-      int index6=cursor.getColumnIndex("address");
-      int index7=cursor.getColumnIndex("address2");
-      int index8=cursor.getColumnIndex("city");
-      int index9=cursor.getColumnIndex("phone");
-      int index10=cursor.getColumnIndex("total_patient_count");
-      int index11=cursor.getColumnIndex("white_waiting_patients");
-      int index12=cursor.getColumnIndex("white_visiting_patients");
-      int index13=cursor.getColumnIndex("white_average_waiting_time");
-      int index14=cursor.getColumnIndex("green_waiting_patients");
-      int index15=cursor.getColumnIndex("green_visiting_patients");
-      int index16=cursor.getColumnIndex("green_average_waiting_time");
-      int index17=cursor.getColumnIndex("yellow_waiting_patients");
-      int index18=cursor.getColumnIndex("yellow_visiting_patients");
-      int index19=cursor.getColumnIndex("yellow_average_waiting_time");
-      int index20=cursor.getColumnIndex("red_waiting_patients");
-      int index21=cursor.getColumnIndex("red_average_waiting_time");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("uid");
+        int index2=cursor.getColumnIndex("description");
+        int index3=cursor.getColumnIndex("info");
+        int index4=cursor.getColumnIndex("longitude");
+        int index5=cursor.getColumnIndex("latitude");
+        int index6=cursor.getColumnIndex("address");
+        int index7=cursor.getColumnIndex("address2");
+        int index8=cursor.getColumnIndex("city");
+        int index9=cursor.getColumnIndex("phone");
+        int index10=cursor.getColumnIndex("total_patient_count");
+        int index11=cursor.getColumnIndex("white_waiting_patients");
+        int index12=cursor.getColumnIndex("white_visiting_patients");
+        int index13=cursor.getColumnIndex("white_average_waiting_time");
+        int index14=cursor.getColumnIndex("green_waiting_patients");
+        int index15=cursor.getColumnIndex("green_visiting_patients");
+        int index16=cursor.getColumnIndex("green_average_waiting_time");
+        int index17=cursor.getColumnIndex("yellow_waiting_patients");
+        int index18=cursor.getColumnIndex("yellow_visiting_patients");
+        int index19=cursor.getColumnIndex("yellow_average_waiting_time");
+        int index20=cursor.getColumnIndex("red_waiting_patients");
+        int index21=cursor.getColumnIndex("red_average_waiting_time");
 
-      do
-       {
-        resultBean=new FirstAid();
+        do
+         {
+          resultBean=new FirstAid();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.uid=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.description=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.info=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.longitude=cursor.getFloat(index4); }
-        if (!cursor.isNull(index5)) { resultBean.latitude=cursor.getFloat(index5); }
-        if (!cursor.isNull(index6)) { resultBean.address=cursor.getString(index6); }
-        if (!cursor.isNull(index7)) { resultBean.address2=cursor.getString(index7); }
-        if (!cursor.isNull(index8)) { resultBean.city=cursor.getString(index8); }
-        if (!cursor.isNull(index9)) { resultBean.phone=cursor.getString(index9); }
-        if (!cursor.isNull(index10)) { resultBean.totalPatientCount=cursor.getInt(index10); }
-        if (!cursor.isNull(index11)) { resultBean.whiteWaitingPatients=cursor.getInt(index11); }
-        if (!cursor.isNull(index12)) { resultBean.whiteVisitingPatients=cursor.getInt(index12); }
-        if (!cursor.isNull(index13)) { resultBean.whiteAverageWaitingTime=cursor.getString(index13); }
-        if (!cursor.isNull(index14)) { resultBean.greenWaitingPatients=cursor.getInt(index14); }
-        if (!cursor.isNull(index15)) { resultBean.greenVisitingPatients=cursor.getInt(index15); }
-        if (!cursor.isNull(index16)) { resultBean.greenAverageWaitingTime=cursor.getString(index16); }
-        if (!cursor.isNull(index17)) { resultBean.yellowWaitingPatients=cursor.getInt(index17); }
-        if (!cursor.isNull(index18)) { resultBean.yellowVisitingPatients=cursor.getInt(index18); }
-        if (!cursor.isNull(index19)) { resultBean.yellowAverageWaitingTime=cursor.getString(index19); }
-        if (!cursor.isNull(index20)) { resultBean.redWaitingPatients=cursor.getInt(index20); }
-        if (!cursor.isNull(index21)) { resultBean.redAverageWaitingTime=cursor.getString(index21); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.uid=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.description=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.info=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.longitude=cursor.getFloat(index4); }
+          if (!cursor.isNull(index5)) { resultBean.latitude=cursor.getFloat(index5); }
+          if (!cursor.isNull(index6)) { resultBean.address=cursor.getString(index6); }
+          if (!cursor.isNull(index7)) { resultBean.address2=cursor.getString(index7); }
+          if (!cursor.isNull(index8)) { resultBean.city=cursor.getString(index8); }
+          if (!cursor.isNull(index9)) { resultBean.phone=cursor.getString(index9); }
+          if (!cursor.isNull(index10)) { resultBean.totalPatientCount=cursor.getInt(index10); }
+          if (!cursor.isNull(index11)) { resultBean.whiteWaitingPatients=cursor.getInt(index11); }
+          if (!cursor.isNull(index12)) { resultBean.whiteVisitingPatients=cursor.getInt(index12); }
+          if (!cursor.isNull(index13)) { resultBean.whiteAverageWaitingTime=cursor.getString(index13); }
+          if (!cursor.isNull(index14)) { resultBean.greenWaitingPatients=cursor.getInt(index14); }
+          if (!cursor.isNull(index15)) { resultBean.greenVisitingPatients=cursor.getInt(index15); }
+          if (!cursor.isNull(index16)) { resultBean.greenAverageWaitingTime=cursor.getString(index16); }
+          if (!cursor.isNull(index17)) { resultBean.yellowWaitingPatients=cursor.getInt(index17); }
+          if (!cursor.isNull(index18)) { resultBean.yellowVisitingPatients=cursor.getInt(index18); }
+          if (!cursor.isNull(index19)) { resultBean.yellowAverageWaitingTime=cursor.getString(index19); }
+          if (!cursor.isNull(index20)) { resultBean.redWaitingPatients=cursor.getInt(index20); }
+          if (!cursor.isNull(index21)) { resultBean.redAverageWaitingTime=cursor.getString(index21); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**

@@ -49,21 +49,16 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT count(*)>1 FROM bean01 WHERE id='%s' and value='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT count(*)>1 FROM bean01 WHERE id=? and value=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    Boolean result=null;
+    try (Cursor cursor = database().rawQuery("SELECT count(*)>1 FROM bean01 WHERE id=? and value=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      Boolean result=null;
 
-    try {
       if (cursor.moveToFirst()) {
 
         if (cursor.isNull(0)) { return null; }
         result=cursor.getInt(0)==0?false:true;
       }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
-      }
+      return result;
     }
-    return result;
   }
 }

@@ -96,34 +96,34 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE user_id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE user_id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE user_id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Todo> resultList=new LinkedList<Todo>();
-    Todo resultBean=null;
+      LinkedList<Todo> resultList=new LinkedList<Todo>();
+      Todo resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("user_id");
-      int index2=cursor.getColumnIndex("title");
-      int index3=cursor.getColumnIndex("completed");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("user_id");
+        int index2=cursor.getColumnIndex("title");
+        int index3=cursor.getColumnIndex("completed");
 
-      do
-       {
-        resultBean=new Todo();
+        do
+         {
+          resultBean=new Todo();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.completed=cursor.getInt(index3)==0?false:true; }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
+          if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.completed=cursor.getInt(index3)==0?false:true; }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -155,28 +155,27 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Todo resultBean=null;
+      Todo resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("user_id");
-      int index2=cursor.getColumnIndex("title");
-      int index3=cursor.getColumnIndex("completed");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("user_id");
+        int index2=cursor.getColumnIndex("title");
+        int index3=cursor.getColumnIndex("completed");
 
-      resultBean=new Todo();
+        resultBean=new Todo();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
-      if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
-      if (!cursor.isNull(index3)) { resultBean.completed=cursor.getInt(index3)==0?false:true; }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
+        if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.completed=cursor.getInt(index3)==0?false:true; }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 }

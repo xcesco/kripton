@@ -56,7 +56,6 @@ public class SelectRawListenerHelper extends AbstractSelectCodeGenerator {
 		String listenerName = SelectBuilderUtility.getNameParameterOfType(method, listenerType);
 
 		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("try");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
 		// generate index from columns
@@ -66,10 +65,7 @@ public class SelectRawListenerHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode("$L.onRead(cursor);\n", listenerName);
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
-		methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("finally");
-		methodBuilder.beginControlFlow("if (!cursor.isClosed())");		
-		methodBuilder.addCode("cursor.close();\n");
+		// close cursor
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 

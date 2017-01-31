@@ -66,7 +66,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		SQLDaoDefinition daoDefinition = method.getParent();
 		String pagedResultName=buildSpecializedPagedResultClass(builder, method);
 						
-		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectResultType.isMapFields(), null);
+		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
 		// generate offical method
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
@@ -82,10 +82,10 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			methodBuilder.addCode(");\n");
 			//methodBuilder.addStatement("paginatedResult.execute()");
 						
-			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectResultType.isMapFields(), GenerationType.NO_CONTENT);
+			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_CONTENT);
 			methodBuilder.addStatement("return paginatedResult");
 			
-			//generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectResultType.isMapFields());
+			//generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields());
 			builder.addMethod(methodBuilder.build());
 		}
 
@@ -94,8 +94,8 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addModifiers(Modifier.PRIVATE);
 			generateMethodSignature(method, methodBuilder, TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), TypeUtility.typeName(daoDefinition.getEntityClassName())), ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());			
 						
-			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectResultType.isMapFields(), GenerationType.NO_METHOD_SIGN);
-			generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectResultType.isMapFields());
+			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_METHOD_SIGN);
+			generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields());
 			builder.addMethod(methodBuilder.build());
 		}
 		
@@ -165,11 +165,12 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
-		methodBuilder.addCode("cursor.close();\n");
+		//methodBuilder.addCode("cursor.close();\n");
 
 		methodBuilder.addCode("\n");
 		
 		methodBuilder.addCode("return resultList;\n");
+		methodBuilder.endControlFlow();
 	}
 	
 	private static String buildSpecializedPagedResultClass(TypeSpec.Builder builder, SQLiteModelMethod method) {

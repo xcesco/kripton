@@ -25,7 +25,7 @@ import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectResultType;
+import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectType;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -43,31 +43,34 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	
 	public enum GenerationType
 	{
-		ALL(true, true),
-		NO_METHOD_SIGN(false, true),
-		NO_CONTENT(true, false);
+		ALL(true, true, true),
+		NO_CLOSE_CURSOR(true, true, false),
+		NO_METHOD_SIGN(false, true, true),
+		NO_CONTENT(true, false, true);
 		
-		GenerationType(boolean generateMethodSign, boolean generateMethodContent)
+		GenerationType(boolean generateMethodSign, boolean generateMethodContent, boolean generateCloseableCursor)
 		{
 			this.generateMethodSign=generateMethodSign;
 			this.generateMethodContent=generateMethodContent;
+			this.generateCloseableCursor=generateCloseableCursor;
 		}
 		
 		public final boolean generateMethodSign;
 		public final boolean generateMethodContent;
+		public final boolean generateCloseableCursor;
 	}
 
-	SelectResultType selectResultType;
+	SelectType selectType;
 
 	@Override
 	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectResultType.isMapFields(), null);
+		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
-		generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectResultType.isMapFields());
-		generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectResultType.isMapFields());
+		generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields());
+		generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields());
 
 		builder.addMethod(methodBuilder.build());
 	}
@@ -169,7 +172,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		}
 
 		// generate javadoc
-		JavadocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldList, selectResultType);
+		JavadocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldList, selectType);
 
 		if (generationType.generateMethodContent) {
 			// build where condition (common for every type of select)
@@ -228,13 +231,19 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			if (daoDefinition.isLogEnabled()) {
 				methodBuilder.addStatement("$T.info($T.formatSQL($L,(Object[])args))", Logger.class, SqlUtils.class, formatSqlForLog(method, sqlForLog));
 			}
-			methodBuilder.addStatement("$T cursor = database().rawQuery($L, args)", Cursor.class, formatSql(method, sql));
+			
+			if (generationType.generateCloseableCursor)
+			{
+				methodBuilder.beginControlFlow("try ($T cursor = database().rawQuery($L, args))", Cursor.class, formatSql(method, sql));
+			} else {
+				methodBuilder.addStatement("$T cursor = database().rawQuery($L, args)", Cursor.class, formatSql(method, sql));
+			}
 
 			if (daoDefinition.isLogEnabled()) {
 				methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
 			}
 
-			switch (selectResultType) {
+			switch (selectType) {
 			case LISTENER_CURSOR: {
 				LiteralType readCursorListenerToExclude = LiteralType.of(OnReadCursorListener.class);
 				checkUnusedParameters(method, usedMethodParameters, readCursorListenerToExclude);
@@ -273,8 +282,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	public abstract void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields);
 
 	@Override
-	public void setSelectResultTye(SelectResultType value) {
-		this.selectResultType = value;
+	public void setSelectResultTye(SelectType value) {
+		this.selectType = value;
 	}
 
 	public static String formatSqlForLog(SQLiteModelMethod method, String sql) {

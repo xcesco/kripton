@@ -90,10 +90,10 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode("\n");
 
 		methodBuilder.endControlFlow();
-		methodBuilder.addCode("cursor.close();\n");
-
-		methodBuilder.addCode("\n");
+		
 		methodBuilder.addCode("return resultBean;\n");
+		// close try { open cursor 
+		methodBuilder.endControlFlow();		
 	}
 
 

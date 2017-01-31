@@ -108,36 +108,36 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE post_id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE post_id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE post_id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Comment> resultList=new LinkedList<Comment>();
-    Comment resultBean=null;
+      LinkedList<Comment> resultList=new LinkedList<Comment>();
+      Comment resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("post_id");
-      int index1=cursor.getColumnIndex("id");
-      int index2=cursor.getColumnIndex("name");
-      int index3=cursor.getColumnIndex("email");
-      int index4=cursor.getColumnIndex("body");
+        int index0=cursor.getColumnIndex("post_id");
+        int index1=cursor.getColumnIndex("id");
+        int index2=cursor.getColumnIndex("name");
+        int index3=cursor.getColumnIndex("email");
+        int index4=cursor.getColumnIndex("body");
 
-      do
-       {
-        resultBean=new Comment();
+        do
+         {
+          resultBean=new Comment();
 
-        if (!cursor.isNull(index0)) { resultBean.postId=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.name=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.body=cursor.getString(index4); }
+          if (!cursor.isNull(index0)) { resultBean.postId=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
+          if (!cursor.isNull(index2)) { resultBean.name=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.body=cursor.getString(index4); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -170,30 +170,29 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Comment resultBean=null;
+      Comment resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("post_id");
-      int index1=cursor.getColumnIndex("id");
-      int index2=cursor.getColumnIndex("name");
-      int index3=cursor.getColumnIndex("email");
-      int index4=cursor.getColumnIndex("body");
+        int index0=cursor.getColumnIndex("post_id");
+        int index1=cursor.getColumnIndex("id");
+        int index2=cursor.getColumnIndex("name");
+        int index3=cursor.getColumnIndex("email");
+        int index4=cursor.getColumnIndex("body");
 
-      resultBean=new Comment();
+        resultBean=new Comment();
 
-      if (!cursor.isNull(index0)) { resultBean.postId=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
-      if (!cursor.isNull(index2)) { resultBean.name=cursor.getString(index2); }
-      if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
-      if (!cursor.isNull(index4)) { resultBean.body=cursor.getString(index4); }
+        if (!cursor.isNull(index0)) { resultBean.postId=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
+        if (!cursor.isNull(index2)) { resultBean.name=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
+        if (!cursor.isNull(index4)) { resultBean.body=cursor.getString(index4); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 }

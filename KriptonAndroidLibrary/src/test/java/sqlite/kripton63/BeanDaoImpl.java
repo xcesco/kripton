@@ -59,29 +59,28 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean63 resultBean=null;
+      Bean63 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value_map_string_byte");
-      int index3=cursor.getColumnIndex("value_map_enum_byte");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value_map_string_byte");
+        int index3=cursor.getColumnIndex("value_map_enum_byte");
 
-      resultBean=new Bean63();
+        resultBean=new Bean63();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
-      if (!cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3)); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2)); }
+        if (!cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -114,10 +113,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    Bean63 resultBean=new Bean63();
-    try {
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      Bean63 resultBean=new Bean63();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
@@ -142,10 +140,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -180,20 +174,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
          {
           listener.onRead(cursor);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -227,34 +216,34 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean63> resultList=new LinkedList<Bean63>();
-    Bean63 resultBean=null;
+      LinkedList<Bean63> resultList=new LinkedList<Bean63>();
+      Bean63 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value_map_string_byte");
-      int index3=cursor.getColumnIndex("value_map_enum_byte");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value_map_string_byte");
+        int index3=cursor.getColumnIndex("value_map_enum_byte");
 
-      do
-       {
-        resultBean=new Bean63();
+        do
+         {
+          resultBean=new Bean63();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3)); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2)); }
+          if (!cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -420,29 +409,28 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean63 resultBean=null;
+      Bean63 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value_map_string_byte");
-      int index3=cursor.getColumnIndex("value_map_enum_byte");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value_map_string_byte");
+        int index3=cursor.getColumnIndex("value_map_enum_byte");
 
-      resultBean=new Bean63();
+        resultBean=new Bean63();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
-      if (!cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3)); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2)); }
+        if (!cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -565,29 +553,28 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean63 resultBean=null;
+      Bean63 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("value");
-      int index2=cursor.getColumnIndex("value_map_string_byte");
-      int index3=cursor.getColumnIndex("value_map_enum_byte");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value_map_string_byte");
+        int index3=cursor.getColumnIndex("value_map_enum_byte");
 
-      resultBean=new Bean63();
+        resultBean=new Bean63();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
-      if (!cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2)); }
-      if (!cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3)); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2)); }
+        if (!cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -654,10 +641,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    Bean63 resultBean=new Bean63();
-    try {
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      Bean63 resultBean=new Bean63();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
@@ -682,10 +668,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -720,20 +702,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
          {
           listener.onRead(cursor);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -816,28 +793,28 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT value_map_enum_byte FROM bean63",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT value_map_enum_byte FROM bean63", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT value_map_enum_byte FROM bean63", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean63> resultList=new LinkedList<Bean63>();
-    Bean63 resultBean=null;
+      LinkedList<Bean63> resultList=new LinkedList<Bean63>();
+      Bean63 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("value_map_enum_byte");
+        int index0=cursor.getColumnIndex("value_map_enum_byte");
 
-      do
-       {
-        resultBean=new Bean63();
+        do
+         {
+          resultBean=new Bean63();
 
-        if (!cursor.isNull(index0)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index0)); }
+          if (!cursor.isNull(index0)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index0)); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -859,13 +836,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT value_map_enum_byte FROM bean63",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT value_map_enum_byte FROM bean63", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT value_map_enum_byte FROM bean63", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<String> resultList=new LinkedList<String>();
+      LinkedList<String> resultList=new LinkedList<String>();
 
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
@@ -877,12 +853,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           }
         } while (cursor.moveToNext());
       }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
-      }
+      return resultList;
     }
-    return resultList;
   }
 
   /**

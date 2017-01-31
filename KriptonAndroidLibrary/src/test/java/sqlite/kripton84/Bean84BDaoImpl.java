@@ -63,25 +63,24 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE id = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE id = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE id = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean84B resultBean=null;
+      Bean84B resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("column_bean");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("column_bean");
 
-      resultBean=new Bean84B();
+        resultBean=new Bean84B();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.columnBean=Bean84BTable.parseColumnBean(cursor.getBlob(index1)); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.columnBean=Bean84BTable.parseColumnBean(cursor.getBlob(index1)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -111,25 +110,24 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean84B resultBean=null;
+      Bean84B resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("column_bean");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("column_bean");
 
-      resultBean=new Bean84B();
+        resultBean=new Bean84B();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.columnBean=Bean84BTable.parseColumnBean(cursor.getBlob(index1)); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.columnBean=Bean84BTable.parseColumnBean(cursor.getBlob(index1)); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**

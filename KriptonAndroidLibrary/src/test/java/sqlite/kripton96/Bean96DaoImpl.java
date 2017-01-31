@@ -49,27 +49,26 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean96 WHERE name like '%s' || \'%%'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean96 WHERE name like ? || \'%\'", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean96 WHERE name like ? || \'%\'", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean96 resultBean=null;
+      Bean96 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("name");
-      int index2=cursor.getColumnIndex("surname");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("surname");
 
-      resultBean=new Bean96();
+        resultBean=new Bean96();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-      if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**

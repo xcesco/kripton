@@ -67,33 +67,32 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean05 resultBean=null;
+      Bean05 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("pk");
-      int index1=cursor.getColumnIndex("number");
-      int index2=cursor.getColumnIndex("bean_type");
-      int index3=cursor.getColumnIndex("text");
-      int index4=cursor.getColumnIndex("content");
-      int index5=cursor.getColumnIndex("creation_time");
+        int index0=cursor.getColumnIndex("pk");
+        int index1=cursor.getColumnIndex("number");
+        int index2=cursor.getColumnIndex("bean_type");
+        int index3=cursor.getColumnIndex("text");
+        int index4=cursor.getColumnIndex("content");
+        int index5=cursor.getColumnIndex("creation_time");
 
-      resultBean=new Bean05();
+        resultBean=new Bean05();
 
-      if (!cursor.isNull(index0)) { resultBean.setPk(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
-      if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-      if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
-      if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
+        if (!cursor.isNull(index0)) { resultBean.setPk(cursor.getLong(index0)); }
+        if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
+        if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
+        if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -128,33 +127,32 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s' and prova='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and prova=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and prova=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean05 resultBean=null;
+      Bean05 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("pk");
-      int index1=cursor.getColumnIndex("number");
-      int index2=cursor.getColumnIndex("bean_type");
-      int index3=cursor.getColumnIndex("text");
-      int index4=cursor.getColumnIndex("content");
-      int index5=cursor.getColumnIndex("creation_time");
+        int index0=cursor.getColumnIndex("pk");
+        int index1=cursor.getColumnIndex("number");
+        int index2=cursor.getColumnIndex("bean_type");
+        int index3=cursor.getColumnIndex("text");
+        int index4=cursor.getColumnIndex("content");
+        int index5=cursor.getColumnIndex("creation_time");
 
-      resultBean=new Bean05();
+        resultBean=new Bean05();
 
-      if (!cursor.isNull(index0)) { resultBean.setPk(cursor.getLong(index0)); }
-      if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
-      if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
-      if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-      if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
-      if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
+        if (!cursor.isNull(index0)) { resultBean.setPk(cursor.getLong(index0)); }
+        if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
+        if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
+        if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -188,38 +186,38 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean05> resultList=new LinkedList<Bean05>();
-    Bean05 resultBean=null;
+      LinkedList<Bean05> resultList=new LinkedList<Bean05>();
+      Bean05 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("pk");
-      int index1=cursor.getColumnIndex("number");
-      int index2=cursor.getColumnIndex("bean_type");
-      int index3=cursor.getColumnIndex("text");
-      int index4=cursor.getColumnIndex("content");
-      int index5=cursor.getColumnIndex("creation_time");
+        int index0=cursor.getColumnIndex("pk");
+        int index1=cursor.getColumnIndex("number");
+        int index2=cursor.getColumnIndex("bean_type");
+        int index3=cursor.getColumnIndex("text");
+        int index4=cursor.getColumnIndex("content");
+        int index5=cursor.getColumnIndex("creation_time");
 
-      do
-       {
-        resultBean=new Bean05();
+        do
+         {
+          resultBean=new Bean05();
 
-        if (!cursor.isNull(index0)) { resultBean.setPk(cursor.getLong(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
-        if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
-        if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
+          if (!cursor.isNull(index0)) { resultBean.setPk(cursor.getLong(index0)); }
+          if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
+          if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
+          if (!cursor.isNull(index4)) { resultBean.setContent(Bean05Table.parseContent(cursor.getBlob(index4))); }
+          if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
@@ -248,13 +246,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT pk FROM ws_bean WHERE text = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT pk FROM ws_bean WHERE text = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT pk FROM ws_bean WHERE text = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Long> resultList=new LinkedList<Long>();
+      LinkedList<Long> resultList=new LinkedList<Long>();
 
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
@@ -266,12 +263,8 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
           }
         } while (cursor.moveToNext());
       }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
-      }
+      return resultList;
     }
-    return resultList;
   }
 
   /**
@@ -300,22 +293,17 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT count(*) FROM ws_bean WHERE text = '%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT count(*) FROM ws_bean WHERE text = ?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    Long result=null;
+    try (Cursor cursor = database().rawQuery("SELECT count(*) FROM ws_bean WHERE text = ?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      Long result=null;
 
-    try {
       if (cursor.moveToFirst()) {
 
         if (cursor.isNull(0)) { return null; }
         result=cursor.getLong(0);
       }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
-      }
+      return result;
     }
-    return result;
   }
 
   /**
@@ -350,20 +338,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
          {
           listener.onRead(cursor);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -400,10 +383,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    Bean05 resultBean=new Bean05();
-    try {
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      Bean05 resultBean=new Bean05();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("pk");
@@ -434,10 +416,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -474,20 +452,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    try {
       if (cursor.moveToFirst()) {
 
         do
          {
           listener.onRead(cursor);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -524,10 +497,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    Bean05 resultBean=new Bean05();
-    try {
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      Bean05 resultBean=new Bean05();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("pk");
@@ -558,10 +530,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
-      }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
       }
     }
   }
@@ -921,22 +889,17 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT content FROM ws_bean WHERE pk='%s'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT content FROM ws_bean WHERE pk=?", args);
-    Logger.info("Rows found: %s",cursor.getCount());
-    byte[] result=null;
+    try (Cursor cursor = database().rawQuery("SELECT content FROM ws_bean WHERE pk=?", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+      byte[] result=null;
 
-    try {
       if (cursor.moveToFirst()) {
 
         if (cursor.isNull(0)) { return null; }
         result=parser1(cursor.getBlob(0));
       }
-    } finally {
-      if (!cursor.isClosed()) {
-        cursor.close();
-      }
+      return result;
     }
-    return result;
   }
 
   /**

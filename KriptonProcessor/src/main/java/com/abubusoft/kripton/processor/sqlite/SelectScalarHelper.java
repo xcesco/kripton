@@ -78,7 +78,7 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode(";\n");
 
 		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("try");
+		//methodBuilder.beginControlFlow("try");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
 		// generate index from columns
@@ -97,16 +97,12 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 		t.generateReadParam(methodBuilder, method.getParent(), typeName(returnType), "cursor", "0");
 		methodBuilder.addCode(";\n");
 
-		// methodBuilder.endControlFlow("while (cursor.moveToNext())");
-
+		// end cursor
 		methodBuilder.endControlFlow();
-		methodBuilder.nextControlFlow("finally");
-		methodBuilder.beginControlFlow("if (!cursor.isClosed())");
-		methodBuilder.addCode("cursor.close();\n");
-		methodBuilder.endControlFlow();
-		methodBuilder.endControlFlow();
-
+		
 		methodBuilder.addCode("return result;\n");
+		// end method
+		methodBuilder.endControlFlow();
 	}
 
 }

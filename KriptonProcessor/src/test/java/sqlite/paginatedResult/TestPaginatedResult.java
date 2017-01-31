@@ -66,8 +66,18 @@ public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testErr3() throws Throwable {
-		//this.expectedException(InvalidMethodSignException.class);
+		this.expectedException(InvalidMethodSignException.class);
 		buildDataSourceProcessorTest(Err3PersonDataSource.class, Err3PersonDAO.class, Err3Person.class);
+	}
+	
+	/**
+	 * pageSize in annotation negative
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr4() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err4PersonDataSource.class, Err4PersonDAO.class, Err4Person.class);
 	}
 
 }

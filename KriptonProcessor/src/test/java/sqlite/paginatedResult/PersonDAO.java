@@ -24,10 +24,9 @@ public interface PersonDAO {
 	@BindSqlSelect(orderBy="name")
 	PaginatedResult<Person> selectPagedStatic2(@BindSqlPageSize int pageSize);
 	
-	
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
-/*
+
 	@BindSqlSelect(orderBy="name")
 	List<Person> selectAll();
 	
@@ -35,6 +34,6 @@ public interface PersonDAO {
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlWhere String where, @BindSqlOrderBy String orderBy);
 	
 	@BindSqlSelect(orderBy="name")
-	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlOrderBy String orderBy);*/
+	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlOrderBy String orderBy);
 	
 }

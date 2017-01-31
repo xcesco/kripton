@@ -52,27 +52,26 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93 WHERE name like '%s' || \'%%'",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93 WHERE name like ? || \'%\'", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93 WHERE name like ? || \'%\'", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    Bean93 resultBean=null;
+      Bean93 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("name");
-      int index2=cursor.getColumnIndex("surname");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("surname");
 
-      resultBean=new Bean93();
+        resultBean=new Bean93();
 
-      if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-      if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-      if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
 
+      }
+      return resultBean;
     }
-    cursor.close();
-
-    return resultBean;
   }
 
   /**
@@ -96,32 +95,32 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93",(Object[])args));
-    Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93", args);
-    Logger.info("Rows found: %s",cursor.getCount());
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93", args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
 
-    LinkedList<Bean93> resultList=new LinkedList<Bean93>();
-    Bean93 resultBean=null;
+      LinkedList<Bean93> resultList=new LinkedList<Bean93>();
+      Bean93 resultBean=null;
 
-    if (cursor.moveToFirst()) {
+      if (cursor.moveToFirst()) {
 
-      int index0=cursor.getColumnIndex("id");
-      int index1=cursor.getColumnIndex("name");
-      int index2=cursor.getColumnIndex("surname");
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("surname");
 
-      do
-       {
-        resultBean=new Bean93();
+        do
+         {
+          resultBean=new Bean93();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
 
-        resultList.add(resultBean);
-      } while (cursor.moveToNext());
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
     }
-    cursor.close();
-
-    return resultList;
   }
 
   /**
