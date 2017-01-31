@@ -19,22 +19,55 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.paginatedResult.Person;
 import sqlite.paginatedResult.PersonDAO;
 import sqlite.paginatedResult.PersonDataSource;
 
 @RunWith(JUnit4.class)
-public class PaginatedResultTest extends AbstractBindSQLiteProcessorTest {
+public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * No @BindType is put in bean definition
+	 * OK
 	 * 
 	 * @throws Throwable
 	 */
 	@Test
-	public void test01() throws Throwable {
+	public void testOK() throws Throwable {
 		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
+	}
+	
+	/**
+	 * pageSize is a String
+	 * 
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr1() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err1PersonDataSource.class, Err1PersonDAO.class, Err1Person.class);
+	}
+	
+	/**
+	 * Twice pageSize parameter
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr2() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err2PersonDataSource.class, Err2PersonDAO.class, Err2Person.class);
+	}
+
+	/**
+	 * Both pageSize in annotation and as parameter
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr3() throws Throwable {
+		//this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err3PersonDataSource.class, Err3PersonDAO.class, Err3Person.class);
 	}
 
 }

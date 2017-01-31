@@ -192,7 +192,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this, "in this method is not allowed to mark parameters with @%s annotation.", annotationClazz.getSimpleName());
 				}
 				
-				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isTypeIncludedIn(TypeUtility.typeName(p), Integer.TYPE, Long.TYPE), this, "only int or long parameters can be marked with @%s annotation.", annotationClazz.getSimpleName());
+				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isTypeIncludedIn(TypeUtility.typeName(p), Integer.TYPE), this, "only a int parameter can be marked with @%s annotation.", annotationClazz.getSimpleName());
 				
 				listener.onFoundParameter(p.getSimpleName().toString());
 				counter++;

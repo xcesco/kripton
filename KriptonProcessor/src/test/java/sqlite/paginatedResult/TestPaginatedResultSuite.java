@@ -9,7 +9,7 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		PaginatedResultTest.class
+		TestPaginatedResult.class
 		 })
 //@formatter:on
 public class TestPaginatedResultSuite extends BaseProcessorTest {
