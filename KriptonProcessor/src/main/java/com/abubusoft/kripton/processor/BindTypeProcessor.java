@@ -30,8 +30,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
-import org.junit.Assert;
-
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
