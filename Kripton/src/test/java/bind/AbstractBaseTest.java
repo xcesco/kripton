@@ -1,11 +1,13 @@
 package bind;
 
 import java.io.ByteArrayInputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -22,8 +24,6 @@ import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
 public class AbstractBaseTest {
 	private static final String KRIPTON_DEBUG_MODE = "KRIPTON_DEBUG_MODE";
-
-	public boolean display = false;
 
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
@@ -53,14 +53,12 @@ public class AbstractBaseTest {
 		i = 0;
 		for (BinderType checkType : BinderType.values()) {
 			if (all || checkList.contains(checkType)) {
-				if (display)
-					System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
+				System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
 				i++;
 			}
 		}
 
-		if (display)
-			System.out.println();
+		System.out.println();
 	}
 
 	protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz, BinderType... checks) throws Exception {
@@ -88,14 +86,12 @@ public class AbstractBaseTest {
 		i = 0;
 		for (BinderType checkType : BinderType.values()) {
 			if (all || checkList.contains(checkType)) {
-				if (display)
-					System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
+				System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
 				i++;
 			}
 		}
 
-		if (display)
-			System.out.println();
+		System.out.println();
 	}
 
 	public <E extends Exception> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
@@ -107,22 +103,19 @@ public class AbstractBaseTest {
 	 * @param bean
 	 * @param type
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public int serializeAndParse(Object bean, BinderType type) throws Exception {
 		String output1 = KriptonBinder.bind(type).serialize(bean);
-		if (display)
-			System.out.println("[[" + output1 + "]]");
+		System.out.println("[[" + output1 + "]]");
 
 		Object bean2 = KriptonBinder.bind(type).parse(output1, bean.getClass());
 
 		String output2 = KriptonBinder.bind(type).serialize(bean2);
-		if (display) {
-			if (output1.equals(output2)) {
-				System.out.println("[[-- same --]]");
-			} else {
-				System.out.println("[[" + output2 + "]]");
-			}
+		if (output1.equals(output2)) {
+			System.out.println("[[-- same --]]");
+		} else {
+			System.out.println("[[" + output2 + "]]");
 		}
 
 		Assert.assertTrue(type.toString(), output1.length() == output2.length());
@@ -137,8 +130,7 @@ public class AbstractBaseTest {
 		KriptonBinder.bind(type).serialize(bean, bar);
 		String value1 = toString(bar.getByteBufferCopy());
 
-		if (display)
-			System.out.println("[[" + value1 + "]]");
+		System.out.println("[[" + value1 + "]]");
 
 		Object bean2 = KriptonBinder.bind(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
 
@@ -146,17 +138,13 @@ public class AbstractBaseTest {
 		KriptonBinder.bind(type).serialize(bean2, bar2);
 		String value2 = toString(bar2.getByteBufferCopy());
 
-		if (display) {
-			if (value1.equals(value2)) {
-				System.out.println("[[-- same --]]");
-			} else {
-				System.out.println("[[" + value2 + "]]");
-			}
+		if (value1.equals(value2)) {
+			System.out.println("[[-- same --]]");
+		} else {
+			System.out.println("[[" + value2 + "]]");
 		}
 
 		Assert.assertTrue(value1.length() == value2.length());
-		// ReflectionAssert.assertReflectionEquals(type.toString(), bean,
-		// bean2);
 
 		return bar.getCount();
 	}
@@ -164,19 +152,16 @@ public class AbstractBaseTest {
 	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
 		String value1 = KriptonBinder.bind(type).serializeCollection(list, clazz);
 
-		if (display)
-			System.out.println("[[" + value1 + "]]");
+		System.out.println("[[" + value1 + "]]");
 
 		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(new ArrayList<E>(), clazz, value1);
 
 		String value2 = KriptonBinder.bind(type).serializeCollection(list2, clazz);
 
-		if (display) {
-			if (value1.equals(value2)) {
-				System.out.println("[[-- same --]]");
-			} else {
-				System.out.println("[[" + value2 + "]]");
-			}
+		if (value1.equals(value2)) {
+			System.out.println("[[-- same --]]");
+		} else {
+			System.out.println("[[" + value2 + "]]");
 		}
 		//
 		Assert.assertTrue(value1.length() == value2.length());
@@ -190,8 +175,7 @@ public class AbstractBaseTest {
 		KriptonBinder.bind(type).serializeCollection(list, clazz, bar);
 		String value1 = toString(bar.getByteBuffer());
 
-		if (display)
-			System.out.println("[[" + value1 + "]]");
+		System.out.println("[[" + value1 + "]]");
 
 		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(new ArrayList<E>(), clazz, bar.getByteBufferCopy());
 
@@ -199,12 +183,10 @@ public class AbstractBaseTest {
 		KriptonBinder.bind(type).serializeCollection(list2, clazz, bar2);
 		String value2 = toString(bar2.getByteBuffer());
 
-		if (display) {
-			if (value1.equals(value2)) {
-				System.out.println("[[-- same --]]");
-			} else {
-				System.out.println("[[" + value2 + "]]");
-			}
+		if (value1.equals(value2)) {
+			System.out.println("[[-- same --]]");
+		} else {
+			System.out.println("[[" + value2 + "]]");
 		}
 
 		Assert.assertTrue(value1.length() == value2.length());
@@ -215,12 +197,16 @@ public class AbstractBaseTest {
 
 	@Before
 	public void setup() {
-		final String value = System.getenv(KRIPTON_DEBUG_MODE);		
-		if ("true".equals(value))
-		{
-			display = true;
-		}		
-		
+		final String value = System.getenv(KRIPTON_DEBUG_MODE);
+		if (!"true".equals(value)) {
+			// we are in test, but we don't see log on System.out
+			System.setOut(new PrintStream(new NullOutputStream()));
+			System.setErr(new PrintStream(new NullOutputStream()));
+		}
+
+		// when we run junit test, AnnotationProcessor is always in TEST_MODE
+		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
+
 		KriptonBinder.registryBinder(new KriptonYamlContext());
 		KriptonBinder.registryBinder(new KriptonPropertiesContext());
 		KriptonBinder.registryBinder(new KriptonCborContext());

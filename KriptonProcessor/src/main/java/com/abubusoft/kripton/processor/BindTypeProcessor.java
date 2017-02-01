@@ -30,6 +30,8 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
+import org.junit.Assert;
+
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
@@ -120,10 +122,9 @@ public class BindTypeProcessor extends BaseProcessor {
 		} catch (Exception e) {
 			String msg = e.getMessage();
 			error(null, msg);
-			if (TEST_MODE) {
+
+			if (DEBUG_MODE) {
 				logger.log(Level.SEVERE, msg);
-			}
-			if (PRINT_STACK_TRACE) {
 				e.printStackTrace();
 			}
 		}

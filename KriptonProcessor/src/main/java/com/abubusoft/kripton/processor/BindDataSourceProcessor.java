@@ -224,11 +224,9 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		} catch (Exception e) {
 			String msg = e.getMessage();
 			error(null, msg);
-
-			if (TEST_MODE) {
+			
+			if (DEBUG_MODE) {
 				logger.log(Level.SEVERE, msg);
-			}
-			if (PRINT_STACK_TRACE) {
 				e.printStackTrace();
 			}
 		}

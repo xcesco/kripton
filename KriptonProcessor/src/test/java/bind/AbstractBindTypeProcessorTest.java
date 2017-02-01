@@ -17,6 +17,7 @@ import com.abubusoft.kripton.KriptonPropertiesContext;
 import com.abubusoft.kripton.KriptonXmlContext;
 import com.abubusoft.kripton.KriptonYamlContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
+import com.abubusoft.kripton.processor.BaseProcessor;
 
 import base.BaseProcessorTest;
 import edu.emory.mathcs.backport.java.util.Arrays;
@@ -29,8 +30,8 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		KriptonBinder.registryBinder(new KriptonPropertiesContext());
 		KriptonBinder.registryBinder(new KriptonXmlContext());
 		KriptonBinder.registryBinder(new KriptonCborContext());
-		
-		if (developmentMode) {
+
+		if (BaseProcessor.DEBUG_MODE) {
 			testType = TestType.PREPARE_TEST_JAVA_LIBRARY;
 			destinationPath = PathSourceType.DEST_TEST_JAVA_LIBRARY;
 		} else {
@@ -64,14 +65,12 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		i = 0;
 		for (BinderType checkType : BinderType.values()) {
 			if (all || checkList.contains(checkType)) {
-				if (developmentMode)
-					System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
+				System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
 				i++;
 			}
 		}
 
-		if (developmentMode)
-			System.out.println();
+		System.out.println();
 	}
 
 	protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz, BinderType... checks) throws Exception {
@@ -100,32 +99,28 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		i = 0;
 		for (BinderType checkType : BinderType.values()) {
 			if (all || checkList.contains(checkType)) {
-				if (developmentMode)
-					System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
+				System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
 				i++;
 			}
 		}
 
-		if (developmentMode)
-			System.out.println();
+		System.out.println();
 	}
 
 	/**
 	 * @param bean
 	 * @param type
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public int serializeAndParse(Object bean, BinderType type) throws Exception {
 		String output1 = KriptonBinder.bind(type).serialize(bean);
-		if (developmentMode)
-			System.out.println(output1);
+		System.out.println(output1);
 
 		Object bean2 = KriptonBinder.bind(type).parse(output1, bean.getClass());
 
 		String output2 = KriptonBinder.bind(type).serialize(bean2);
-		if (developmentMode)
-			System.out.println(output2);
+		System.out.println(output2);
 
 		Assert.assertTrue(type.toString(), output1.length() == output2.length());
 
@@ -140,10 +135,8 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 
 		String value2 = KriptonBinder.bind(type).serializeCollection(list2, clazz);
 
-		if (developmentMode)
-			System.out.println(value1);
-		if (developmentMode)
-			System.out.println(value2);
+		System.out.println(value1);
+		System.out.println(value2);
 		//
 		Assert.assertTrue(value1.length() == value2.length());
 		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
@@ -162,10 +155,8 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		KriptonBinder.bind(type).serializeCollection(list2, clazz, bar2);
 		String value2 = toString(bar2.getByteBuffer());
 
-		if (developmentMode)
-			System.out.println(value1);
-		if (developmentMode)
-			System.out.println(value2);
+		System.out.println(value1);
+		System.out.println(value2);
 
 		Assert.assertTrue(value1.length() == value2.length());
 		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
@@ -178,15 +169,13 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		KriptonBinder.bind(type).serialize(bean, bar);
 		String value1 = toString(bar.getByteBuffer());
 
-		if (developmentMode)
-			System.out.println(value1);
+		System.out.println(value1);
 		Object bean2 = KriptonBinder.bind(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
 
 		KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
 		KriptonBinder.bind(type).serialize(bean2, bar2);
 		String value2 = toString(bar2.getByteBuffer());
-		if (developmentMode)
-			System.out.println(value2);
+		System.out.println(value2);
 
 		Assert.assertTrue(value1.length() == value2.length());
 		// ReflectionAssert.assertReflectionEquals(type.toString(), bean,

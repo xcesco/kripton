@@ -126,7 +126,7 @@ public class BindAsyncTaskBuilder {
 				.addJavadoc("Use this method for operations on UI-thread after execution\n").build());
 
 		builder.addMethod(MethodSpec.methodBuilder("onProgressUpdate").addModifiers(Modifier.PUBLIC).addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.typeName("U")), "update").build())
-				.varargs().addJavadoc("Override this method to display operation progress on UI-Thread\n").build());
+				.varargs().addJavadoc("Override this method to KRIPTON_DEBUG operation progress on UI-Thread\n").build());
 
 		builder.addMethod(MethodSpec.methodBuilder("onError").addParameter(Throwable.class, "exception").addModifiers(Modifier.PUBLIC)
 				.addJavadoc("This method is invoked when <code>onExecute</code> method generate an exception.\n@param exception exception generated\n")

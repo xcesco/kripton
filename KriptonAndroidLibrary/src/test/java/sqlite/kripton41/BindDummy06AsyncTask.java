@@ -81,7 +81,7 @@ public abstract class BindDummy06AsyncTask<I, U, R> {
   public abstract void onFinish(R result);
 
   /**
-   * Override this method to display operation progress on UI-Thread
+   * Override this method to KRIPTON_DEBUG operation progress on UI-Thread
    */
   public void onProgressUpdate(U... update) {
   }

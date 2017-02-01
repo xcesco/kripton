@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,13 +38,13 @@ import java.util.logging.Logger;
 
 import javax.tools.JavaFileObject;
 
+import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
 import com.abubusoft.kripton.processor.BaseProcessor;
-import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.testing.compile.CompileTester.CompilationResultsConsumer;
@@ -54,25 +55,28 @@ import com.google.common.io.ByteStreams;
 
 public class BaseProcessorTest {
 
-	protected static final String KRIPTON_TEST_DEBUG = "KRIPTON_TEST_DEBUG";
+	private static final String KRIPTON_DEBUG_MODE = "KRIPTON_DEBUG_MODE";
 
 	protected TestType testType = TestType.NONE;
 
-	protected static boolean developmentMode = false;
-
 	public void log(String message, Object... objects) {
-		if (developmentMode) {
-			System.out.println(String.format(message, objects));
-		}
+		System.out.println(String.format(message, objects));
 	}
 
 	@Before
 	public void before() {
-		final String value = System.getenv(KRIPTON_TEST_DEBUG);
+		String value = System.getenv(KRIPTON_DEBUG_MODE);
+		//value="true";
 		if ("true".equals(value)) {
-			developmentMode = true;
+			BaseProcessor.DEBUG_MODE = true;
+		} else {
+			// we are in test, but we don't see log on System.out
+			System.setOut(new PrintStream(new NullOutputStream()));
+			System.setErr(new PrintStream(new NullOutputStream()));
 		}
 
+		// when we run junit test, AnnotationProcessor is always in TEST_MODE
+		BaseProcessor.TEST_MODE = true;
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
 	}
 
@@ -236,74 +240,72 @@ public class BaseProcessorTest {
 	 * @throws InstantiationException
 	 * @throws Throwable
 	 */
-	protected long buildTest(Class<? extends BaseProcessor> processorClazz, Class<?>... classesToTest) throws IOException, InstantiationException, IllegalAccessException {
-		final Map<String, String> mapSet = new HashMap<>();
-		final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
-
-		BindDataSourceProcessor.DEVELOPER_MODE = true;
-
+	protected long buildTest(Class<? extends BaseProcessor> processorClazz, Class<?>... classesToTest) {
 		final AtomicLong counter = new AtomicLong(0);
+		try {
+			final Map<String, String> mapSet = new HashMap<>();
+			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
 
-		// @formatter:off
-		SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
-		// @formatter:on
-		GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
-		resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
+			SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
+			GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
+			resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
 
-			@Override
-			public void accept(Map<String, JavaFileObject> t) {
-				for (Entry<String, JavaFileObject> item : t.entrySet()) {
-					counter.addAndGet(1);
-					try {
-						String contentFile = getStringFromInputStream(item.getValue().openInputStream());
+				@Override
+				public void accept(Map<String, JavaFileObject> t) {
+					for (Entry<String, JavaFileObject> item : t.entrySet()) {
+						counter.addAndGet(1);
+						try {
+							String contentFile = getStringFromInputStream(item.getValue().openInputStream());
 
-						mapSet.put(item.getKey(), contentFile);
+							mapSet.put(item.getKey(), contentFile);
 
-						switch (testType) {
-						case COMPARE:
-							writeGeneratedFile(PathSourceType.TARGET_TEST_RESULT, item.getValue());
-							boolean result = compareGeneratedFile(item.getValue());
-							Assert.assertTrue(String.format("%s not generated as aspected", item.getKey()), result);
-							break;
-						case NONE:
-							// writeGeneratedFile(PathSourceType.SRC_TEST_EXPECTED,
-							// item.getValue());
-							break;
-						case PREPARE_TEST_ANDROID_LIBRARY:
-							writeGeneratedFile(PathSourceType.DEST_TEST_ANDROID_LIBRARY, item.getValue());
-							break;
-						case PREPARE_TEST_JAVA_LIBRARY:
-							writeGeneratedFile(PathSourceType.DEST_TEST_JAVA_LIBRARY, item.getValue());
-							break;
+							switch (testType) {
+							case COMPARE:
+								writeGeneratedFile(PathSourceType.TARGET_TEST_RESULT, item.getValue());
+								boolean result = compareGeneratedFile(item.getValue());
+								Assert.assertTrue(String.format("%s not generated as aspected", item.getKey()), result);
+								break;
+							case NONE:
+								break;
+							case PREPARE_TEST_ANDROID_LIBRARY:
+								writeGeneratedFile(PathSourceType.DEST_TEST_ANDROID_LIBRARY, item.getValue());
+								break;
+							case PREPARE_TEST_JAVA_LIBRARY:
+								writeGeneratedFile(PathSourceType.DEST_TEST_JAVA_LIBRARY, item.getValue());
+								break;
+							}
+
+						} catch (Throwable e) {
+							//e.printStackTrace();
+							Assert.fail(e.getMessage());
 						}
-
-					} catch (IOException e) {						
-						e.printStackTrace();						
-						Assert.fail(e.getMessage());
 					}
+
 				}
+			});
 
+			/**
+			 * copy beans too
+			 */
+			switch (testType) {
+			case PREPARE_TEST_ANDROID_LIBRARY:
+				for (JavaFileObject item : sourcesPhase1) {
+					writeGeneratedFile(PathSourceType.DEST_TEST_ANDROID_LIBRARY, item);
+				}
+				break;
+			case PREPARE_TEST_JAVA_LIBRARY:
+				for (JavaFileObject item : sourcesPhase1) {
+					writeGeneratedFile(PathSourceType.DEST_TEST_JAVA_LIBRARY, item);
+				}
+				break;
+			default:
+				break;
 			}
-		});
 
-		/**
-		 * copy beans too
-		 */
-		switch (testType) {
-		case PREPARE_TEST_ANDROID_LIBRARY:
-			for (JavaFileObject item : sourcesPhase1) {
-				writeGeneratedFile(PathSourceType.DEST_TEST_ANDROID_LIBRARY, item);
-			}
-			break;
-		case PREPARE_TEST_JAVA_LIBRARY:
-			for (JavaFileObject item : sourcesPhase1) {
-				writeGeneratedFile(PathSourceType.DEST_TEST_JAVA_LIBRARY, item);
-			}
-			break;
-		default:
-			break;
+		} catch (Throwable e) {
+			//e.printStackTrace();
+			Assert.fail(e.getMessage());
 		}
-
 		return counter.longValue();
 	}
 }

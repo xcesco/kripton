@@ -32,6 +32,8 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
+import org.apache.tools.ant.types.LogLevel;
+
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
@@ -68,16 +70,14 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	protected Types typeUtils;
 
 	/**
-	 * for development scope
+	 * if true we are in a test 
 	 */
 	public static boolean TEST_MODE = false;
 
 	/**
-	 * print trace. During test on developer machine (KRIPTON_DEBUG_MODE = true)
-	 * PRINT_STACK_TRACE = true. on CI test PRINT_STACK_TRACE = false on normale
-	 * execution = true
+	 * if we want to display debug info
 	 */
-	public static boolean PRINT_STACK_TRACE = false;
+	public static boolean DEBUG_MODE = false;
 
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -115,28 +115,28 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	/**
 	 * logger
 	 */
-	protected static Logger logger = Logger.getGlobal();
+	protected static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	protected Elements elementUtils;
 	protected Filer filer;
 	protected Messager messager;
 
 	protected void info(String msg, Object... args) {
-		if (TEST_MODE) {
-			logger.info(String.format(msg, args));
-		}
 		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
-
 	}
 
 	protected void error(Element e, String msg, Object... args) {
+		// this must be always enabled, due control annotation processor execution status (if display an error, compiler fails).
 		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
 	}
 
+	/**
+	 * Display warn message
+	 * 
+	 * @param msg
+	 * @param args
+	 */
 	protected void warn(String msg, Object... args) {
-		if (TEST_MODE) {
-			logger.warning(String.format(msg, args));
-		}
 		messager.printMessage(Diagnostic.Kind.WARNING, String.format(msg, args));
 	}
 

@@ -2,12 +2,14 @@ package shared;
 
 import org.junit.Before;
 
+import com.abubusoft.kripton.processor.BaseProcessor;
+
 import base.BaseProcessorTest;
 
 public abstract class AbstractBindSharedPreferenceProcessorTest extends BaseProcessorTest {
 	@Before
 	public void setup() {
-		if (developmentMode) {
+		if (BaseProcessor.DEBUG_MODE) {
 			testType = TestType.PREPARE_TEST_ANDROID_LIBRARY;
 			destinationPath = PathSourceType.DEST_TEST_ANDROID_LIBRARY;
 		} else {

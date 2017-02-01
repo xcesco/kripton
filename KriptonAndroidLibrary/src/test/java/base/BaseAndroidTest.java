@@ -1,5 +1,8 @@
 package base;
 
+import java.io.PrintStream;
+
+import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -15,21 +18,22 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 @Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public abstract class BaseAndroidTest {
+			
+	private static final String KRIPTON_DEBUG_MODE = "KRIPTON_DEBUG_MODE";
 	
-	private static final String KRIPTON_TEST_DEBUG = "KRIPTON_TEST_DEBUG";
-	
-	protected boolean display;
-
 	@Before
 	public void setup()
 	{
-		final String value = System.getenv(KRIPTON_TEST_DEBUG);		
-		if ("true".equals(value))
-		{
-			display = true;
+		final String value = System.getenv(KRIPTON_DEBUG_MODE);
+		if ("true".equals(value)) {
+			ShadowLog.stream = System.out;
+		} else {
+			ShadowLog.stream=new PrintStream(new NullOutputStream());
+			// we are in test, but we don't see log on System.out
+			System.setOut(new PrintStream(new NullOutputStream()));
+			System.setErr(new PrintStream(new NullOutputStream()));
 		}
-				
-		ShadowLog.stream = System.out;
+		
 		KriptonLibrary.init(RuntimeEnvironment.application);
 	}
 	

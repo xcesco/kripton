@@ -26,7 +26,7 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 public class AnnotationProcessorUtilis {
 
 	/**
-	 * display info about generated classes
+	 * KRIPTON_DEBUG info about generated classes
 	 * 
 	 * @param annotation
 	 * @param className
@@ -36,6 +36,8 @@ public class AnnotationProcessorUtilis {
 		if (BaseProcessor.TEST_MODE) {
 			logger.info(msg);
 		}
+		
+		if (!BaseProcessor.TEST_MODE || BaseProcessor.DEBUG_MODE)
 		messager.printMessage(Diagnostic.Kind.NOTE, msg);
 	}
 

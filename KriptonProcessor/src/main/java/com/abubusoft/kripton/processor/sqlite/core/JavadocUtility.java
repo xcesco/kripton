@@ -68,7 +68,7 @@ public abstract class JavadocUtility {
 			int i = 0;
 			String[] columnList = fieldList.value0.split(",");
 			for (String column : columnList) {
-				// display field info only it exists
+				// KRIPTON_DEBUG field info only it exists
 				if (fieldList.value1.get(i) != null) {
 					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.trim());
 					SQLProperty attribute = fieldList.value1.get(i);
