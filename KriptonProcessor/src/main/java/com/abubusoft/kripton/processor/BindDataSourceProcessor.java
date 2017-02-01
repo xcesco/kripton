@@ -225,8 +225,10 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			String msg = e.getMessage();
 			error(null, msg);
 
-			if (DEVELOPER_MODE) {
+			if (TEST_MODE) {
 				logger.log(Level.SEVERE, msg);
+			}
+			if (PRINT_STACK_TRACE) {
 				e.printStackTrace();
 			}
 		}
@@ -300,14 +302,12 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 					if (annotationBindColumn != null) {
 						property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn, AnnotationAttributeType.NULLABLE));
-						ColumnType columnType = ColumnType
-								.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
+						ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
 
 						property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
 
 						// set transformer for enumeration
-						FieldType definitionType = FieldType
-								.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.FIELD_TYPE));
+						FieldType definitionType = FieldType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.FIELD_TYPE));
 						if (definitionType != null) {
 							switch (definitionType) {
 							case NONE:
@@ -343,9 +343,9 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					if (!StringUtils.hasText(columnName)) {
 						columnName = property.getName();
 					}
-					
-					
-					// convert column name from field name to table: fieldName to field_name
+
+					// convert column name from field name to table: fieldName
+					// to field_name
 					property.columnName = currentSchema.columnNameConverter.convert(columnName);
 
 					return true;

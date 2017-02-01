@@ -35,17 +35,17 @@ public class KriptonProcessorException extends RuntimeException {
 	public KriptonProcessorException(String message) {
 		super(message);
 	}
-	
+
 	public KriptonProcessorException(Throwable cause) {
 		super(cause);
 	}
-	
+
 	public KriptonProcessorException(Exception cause) {
 		super(cause);
 	}
 
 	public String getErrorCode() {
-		if (BaseProcessor.DEVELOPER_MODE)
+		if (BaseProcessor.TEST_MODE)
 			return getClass().getName() + ": ";
 
 		return "";
@@ -57,6 +57,7 @@ public class KriptonProcessorException extends RuntimeException {
 	 * @return the detail message string of this {@code Throwable} instance
 	 *         (which may be {@code null}).
 	 */
+	@Override
 	public String getMessage() {
 		return getErrorCode() + super.getMessage();
 	}

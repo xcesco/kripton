@@ -120,9 +120,10 @@ public class BindTypeProcessor extends BaseProcessor {
 		} catch (Exception e) {
 			String msg = e.getMessage();
 			error(null, msg);
-
-			if (DEVELOPER_MODE) {
+			if (TEST_MODE) {
 				logger.log(Level.SEVERE, msg);
+			}
+			if (PRINT_STACK_TRACE) {
 				e.printStackTrace();
 			}
 		}

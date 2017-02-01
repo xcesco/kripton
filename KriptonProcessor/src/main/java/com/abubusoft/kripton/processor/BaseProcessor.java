@@ -39,7 +39,7 @@ import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 public abstract class BaseProcessor extends AbstractProcessor {
 
 	protected int count;
-	
+
 	/**
 	 * build bindType elements map
 	 * 
@@ -55,10 +55,9 @@ public abstract class BaseProcessor extends AbstractProcessor {
 			}
 			globalBeanElements.put(item.toString(), item);
 		}
-		
-		
+
 	}
-	
+
 	/**
 	 * define which annotation the annotation processor is interested in
 	 */
@@ -71,21 +70,21 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	/**
 	 * for development scope
 	 */
-	public static boolean DEVELOPER_MODE = false;
-	
+	public static boolean TEST_MODE = false;
+
 	/**
-	 * print trace. During test on developer machine (KRIPTON_DEBUG_MODE = true) PRINT_STACK_TRACE = true.
-	 * on CI test PRINT_STACK_TRACE = false
-	 * on normale execution = true
+	 * print trace. During test on developer machine (KRIPTON_DEBUG_MODE = true)
+	 * PRINT_STACK_TRACE = true. on CI test PRINT_STACK_TRACE = false on normale
+	 * execution = true
 	 */
 	public static boolean PRINT_STACK_TRACE = false;
 
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
-		
+
 		AnnotationProcessorUtilis.init(processingEnv.getMessager());
-				
+
 		elementUtils = processingEnv.getElementUtils();
 		filer = processingEnv.getFiler();
 		messager = processingEnv.getMessager();
@@ -105,7 +104,8 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.annotation.processing.AbstractProcessor#getSupportedSourceVersion()
+	 * @see
+	 * javax.annotation.processing.AbstractProcessor#getSupportedSourceVersion()
 	 */
 	@Override
 	public SourceVersion getSupportedSourceVersion() {
@@ -122,7 +122,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	protected Messager messager;
 
 	protected void info(String msg, Object... args) {
-		if (DEVELOPER_MODE) {
+		if (TEST_MODE) {
 			logger.info(String.format(msg, args));
 		}
 		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
@@ -134,11 +134,10 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	}
 
 	protected void warn(String msg, Object... args) {
-		if (DEVELOPER_MODE) {
+		if (TEST_MODE) {
 			logger.warning(String.format(msg, args));
 		}
 		messager.printMessage(Diagnostic.Kind.WARNING, String.format(msg, args));
 	}
-	
 
 }
