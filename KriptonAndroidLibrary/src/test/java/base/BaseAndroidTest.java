@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -19,12 +20,13 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 @RunWith(RobolectricTestRunner.class)
 public abstract class BaseAndroidTest {
 			
-	private static final String KRIPTON_DEBUG_MODE = "KRIPTON_DEBUG_MODE";
+	//private static final String KRIPTON_DEBUG_MODE = "KRIPTON_DEBUG_MODE";
 	
 	@Before
 	public void setup()
 	{
-		final String value = System.getenv(KRIPTON_DEBUG_MODE);
+		//final String value = System.getenv(KRIPTON_DEBUG_MODE);
+		String value="true";
 		if ("true".equals(value)) {
 			ShadowLog.stream = System.out;
 		} else {
