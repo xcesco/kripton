@@ -24,44 +24,41 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteException;
 import base.BaseAndroidTest;
-
 
 /**
  * @author xcesco
  *
  */
-@Config(manifest=Config.NONE)
+@Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class Test93Runtime extends BaseAndroidTest {
 
 	@Test
 	public void testRunInsertDefault() throws IOException, InstantiationException, IllegalAccessException {
 		BindBean93DataSource dataSource = BindBean93DataSource.instance();
-		final Bean93 bean=new Bean93();
-		bean.name="all";
+		final Bean93 bean = new Bean93();
+		bean.name = "all";
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
 			public boolean onExecute(BindBean93DaoFactory daoFactory) throws Throwable {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
-				assertTrue(dao.selectAll().size()==1);
+				assertTrue(dao.selectAll().size() == 1);
 				return true;
 			}
 		});
 	}
-	
-	@Test	
+
+	@Test
 	public void testRunInsertAbort() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(SQLiteConstraintException.class);
 		BindBean93DataSource dataSource = BindBean93DataSource.instance();
-		final Bean93 bean=new Bean93();
-		bean.name="all";
+		final Bean93 bean = new Bean93();
+		bean.name = "all";
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
@@ -69,18 +66,18 @@ public class Test93Runtime extends BaseAndroidTest {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertAbort(bean);
-				assertTrue(dao.selectAll().size()==1);
+				assertTrue(dao.selectAll().size() == 1);
 				return true;
 			}
 		});
 	}
 
-	@Test	
+	@Test
 	public void testRunInsertFail() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(SQLiteConstraintException.class);
 		BindBean93DataSource dataSource = BindBean93DataSource.instance();
-		final Bean93 bean=new Bean93();
-		bean.name="all";
+		final Bean93 bean = new Bean93();
+		bean.name = "all";
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
@@ -88,17 +85,17 @@ public class Test93Runtime extends BaseAndroidTest {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertFail(bean);
-				assertTrue(dao.selectAll().size()==1);
+				assertTrue(dao.selectAll().size() == 1);
 				return true;
 			}
 		});
 	}
-	
-	@Test	
-	public void testRunInsertIgnore() throws IOException, InstantiationException, IllegalAccessException {		
+
+	@Test
+	public void testRunInsertIgnore() throws IOException, InstantiationException, IllegalAccessException {
 		BindBean93DataSource dataSource = BindBean93DataSource.instance();
-		final Bean93 bean=new Bean93();
-		bean.name="all";
+		final Bean93 bean = new Bean93();
+		bean.name = "all";
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
@@ -106,17 +103,17 @@ public class Test93Runtime extends BaseAndroidTest {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertIgnore(bean);
-				assertTrue(dao.selectAll().size()==1);
+				assertTrue(dao.selectAll().size() == 1);
 				return true;
 			}
 		});
 	}
-	
-	@Test	
-	public void testRunInsertReplace() throws IOException, InstantiationException, IllegalAccessException {		
+
+	@Test
+	public void testRunInsertReplace() throws IOException, InstantiationException, IllegalAccessException {
 		BindBean93DataSource dataSource = BindBean93DataSource.instance();
-		final Bean93 bean=new Bean93();
-		bean.name="all";
+		final Bean93 bean = new Bean93();
+		bean.name = "all";
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
@@ -124,17 +121,17 @@ public class Test93Runtime extends BaseAndroidTest {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertReplace(bean);
-				assertTrue(dao.selectAll().size()==1);
+				assertTrue(dao.selectAll().size() == 1);
 				return true;
 			}
 		});
 	}
-	
-	@Test(expected=SQLiteException.class)
+
+	@Test(expected = SQLiteException.class)
 	public void testRunInsertRollback() throws IOException, InstantiationException, IllegalAccessException {
 		BindBean93DataSource dataSource = BindBean93DataSource.instance();
-		final Bean93 bean=new Bean93();
-		bean.name="all";
+		final Bean93 bean = new Bean93();
+		bean.name = "all";
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
@@ -142,7 +139,7 @@ public class Test93Runtime extends BaseAndroidTest {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertRollback(bean);
-				assertTrue(dao.selectAll().size()==0);
+				assertTrue(dao.selectAll().size() == 0);
 				return false;
 			}
 		});

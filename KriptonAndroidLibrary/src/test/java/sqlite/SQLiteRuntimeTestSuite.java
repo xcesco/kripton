@@ -23,7 +23,6 @@ import sqlite.example01.TestExample01RuntimeSuite;
 import sqlite.example02.TestExample02RuntimeSuite;
 import sqlite.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.includeFields.TestIncludeFieldsRuntimeSuite;
-import sqlite.indexes.TestIndexesRuntimeSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;
 import sqlite.kripton64.Test64RuntimeSuite;
 import sqlite.kripton84.Test84RuntimeSuite;
@@ -34,16 +33,21 @@ import sqlite.quickstart.TestQuickstartRuntimeSuite;
 @RunWith(Suite.class)
 // @formatter:off
 @Suite.SuiteClasses({ 	
+	TestDynamicRuntimeSuite.class,
+	TestExample01RuntimeSuite.class,
+	TestExample02RuntimeSuite.class,
+	TestForeignKeyRuntimeSuite.class,
+	TestIncludeFieldsRuntimeSuite.class,
+	
+	
 	Test64RuntimeSuite.class,
 	Test84RuntimeSuite.class,
 	Test93RuntimeSuite.class,
 	Test96RuntimeSuite.class,
-	TestForeignKeyRuntimeSuite.class,
-	TestDynamicRuntimeSuite.class,
-	TestIncludeFieldsRuntimeSuite.class,
-	TestIndexesRuntimeSuite.class,
-	TestExample01RuntimeSuite.class,
-	TestExample02RuntimeSuite.class,
+	
+	
+	
+	
 	Test58RuntimeSuite.class,
 	TestQuickstartRuntimeSuite.class
 	 })

@@ -9949,73 +9949,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  private byte[] serializer5(Set<String> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (String item: value) {
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeString(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private Set<String> parser5(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Set<String> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getText();
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
   private byte[] serializer4(LinkedList<Long> value) {
     if (value==null) {
       return null;
@@ -10142,6 +10075,73 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {

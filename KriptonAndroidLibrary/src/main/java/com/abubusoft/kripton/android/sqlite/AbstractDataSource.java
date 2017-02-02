@@ -20,6 +20,8 @@ package com.abubusoft.kripton.android.sqlite;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.robolectric.util.Logger;
+
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -52,11 +54,12 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		 * @param daoFactory
 		 * @return true to commit, false to rollback
 		 * 
-		 * @exception any exception
+		 * @exception any
+		 *                exception
 		 */
 		boolean onExecute(E daoFactory) throws Throwable;
 	}
-	
+
 	/**
 	 * Manage upgrade or downgrade of database.
 	 * 
@@ -64,18 +67,20 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 *
 	 */
 	public interface OnDatabaseListener {
-	
+
 		/**
-		 * <p>Method for DDL or DML
+		 * <p>
+		 * Method for DDL or DML
 		 * 
 		 * @param db
-		 * 		database 
+		 *            database
 		 * @param oldVersion
-		 * 		current version of database 
+		 *            current version of database
 		 * @param newVersion
-		 * 		new version of database
+		 *            new version of database
 		 * @param upgrade
-		 * 		if true is an upgrade operation, otherwise it's a downgrade operation.
+		 *            if true is an upgrade operation, otherwise it's a
+		 *            downgrade operation.
 		 */
 		void onUpdate(SQLiteDatabase db, int oldVersion, int newVersion, boolean upgrade);
 
@@ -93,7 +98,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		 */
 		void onConfigure(SQLiteDatabase database);
 	}
-	
+
 	/**
 	 * database instance
 	 */
@@ -115,8 +120,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		super(context, name, factory, version);
 	}
 
-	public AbstractDataSource(Context context, String name, CursorFactory factory, int version,
-			DatabaseErrorHandler errorHandler) {
+	public AbstractDataSource(Context context, String name, CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
 		super(context, name, factory, version, errorHandler);
 	}
 
@@ -129,6 +133,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	public synchronized void close() {
 		if (openCounter.decrementAndGet() == 0) {
 			// Closing database
+			Logger.info("database CLOSED (%d)", openCounter);
 			database.close();
 		}
 	}
@@ -136,7 +141,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/*
@@ -145,7 +150,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * @see android.database.sqlite.SQLiteOpenHelper#getReadableDatabase()
 	 */
 	@Override
-	public SQLiteDatabase getReadableDatabase() {
+	public synchronized SQLiteDatabase getReadableDatabase() {
 		return openReadOnlyDatabase();
 	}
 
@@ -155,7 +160,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * @see android.database.sqlite.SQLiteOpenHelper#getWritableDatabase()
 	 */
 	@Override
-	public SQLiteDatabase getWritableDatabase() {
+	public synchronized SQLiteDatabase getWritableDatabase() {
 		return openWritableDatabase();
 	}
 
@@ -166,41 +171,46 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * 
 	 * @return true if database is opened, otherwise false
 	 */
-	public boolean isOpen() {
+	public synchronized boolean isOpen() {
 		return database.isOpen();
 	}
 
 	/**
 	 * @return the upgradedVersion
 	 */
-	public boolean isUpgradedVersion() {
+	public synchronized boolean isUpgradedVersion() {
 		return upgradedVersion;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.database.sqlite.SQLiteOpenHelper#onDowngrade(android.database.sqlite.SQLiteDatabase, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.database.sqlite.SQLiteOpenHelper#onDowngrade(android.database.
+	 * sqlite.SQLiteDatabase, int, int)
 	 */
 	@Override
 	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (databaseListener!=null)
-		{
+		if (databaseListener != null) {
 			databaseListener.onUpdate(db, oldVersion, newVersion, false);
-			upgradedVersion=true;
+			upgradedVersion = true;
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.
+	 * sqlite.SQLiteDatabase, int, int)
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (databaseListener!=null)
-		{
+		if (databaseListener != null) {
 			databaseListener.onUpdate(db, oldVersion, newVersion, true);
-			upgradedVersion=true;
+			upgradedVersion = true;
 		}
 	}
-	
+
 	/**
 	 * <p>
 	 * Open a read only database.
@@ -208,9 +218,10 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * 
 	 * @return read only database
 	 */
-	public SQLiteDatabase openReadOnlyDatabase() {
+	public synchronized SQLiteDatabase openReadOnlyDatabase() {
 		if (openCounter.incrementAndGet() == 1) {
 			// open new read database
+			Logger.info("database OPEN (%d)", openCounter);
 			database = super.getReadableDatabase();
 		}
 		return database;
@@ -221,26 +232,26 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * open a writable database.
 	 * </p>
 	 * 
-	 * @return
-	 * 		writable database
+	 * @return writable database
 	 */
-	public SQLiteDatabase openWritableDatabase() {
+	public synchronized SQLiteDatabase openWritableDatabase() {
 		if (openCounter.incrementAndGet() == 1) {
 			// open new write database
+			Logger.info("database OPEN (%d)", openCounter);
 			database = super.getWritableDatabase();
 		}
 		return database;
 	}
-	
+
 	/**
-	 * Register the listener. It need to be called before <strong>any</strong> database operations.
+	 * Register the listener. It need to be called before <strong>any</strong>
+	 * database operations.
 	 * 
 	 * @param listener
-	 * 			listener to user
+	 *            listener to user
 	 */
-	public void setOnDatabaseUpdateListener(OnDatabaseListener listener)
-	{
-		this.databaseListener=listener;
+	public void setOnDatabaseUpdateListener(OnDatabaseListener listener) {
+		this.databaseListener = listener;
 	}
 
 }
