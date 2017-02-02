@@ -18,9 +18,6 @@ import org.unitils.reflectionassert.ReflectionComparatorMode;
 
 import com.abubusoft.kripton.BinderType;
 import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.KriptonCborContext;
-import com.abubusoft.kripton.KriptonPropertiesContext;
-import com.abubusoft.kripton.KriptonYamlContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
 public class AbstractBaseTest {
@@ -208,9 +205,7 @@ public class AbstractBaseTest {
 		// when we run junit test, AnnotationProcessor is always in TEST_MODE
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
 
-		KriptonBinder.registryBinder(new KriptonYamlContext());
-		KriptonBinder.registryBinder(new KriptonPropertiesContext());
-		KriptonBinder.registryBinder(new KriptonCborContext());
+		//KriptonBinder.registryBinder(new KriptonCborContext());
 	}
 
 	String toString(byte[] input) {
