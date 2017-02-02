@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 
-public class TestConversion {
+public class TestConversion extends AbstractBaseTest {
 	
 	public void log(String msg)
 	{

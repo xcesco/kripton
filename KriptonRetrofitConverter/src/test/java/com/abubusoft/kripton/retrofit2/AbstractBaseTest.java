@@ -1,4 +1,5 @@
-package bind;
+package com.abubusoft.kripton.retrofit2;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.PrintStream;

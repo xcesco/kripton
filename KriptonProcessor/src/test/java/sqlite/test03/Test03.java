@@ -58,14 +58,9 @@ public class Test03 extends AbstractBindSQLiteProcessorTest {
 		for (String item : values) {
 			LiteralType type = LiteralType.of(item);
 
-			info("Type: %s, Array: %s, Collection: %s, Primitive: %s, Resolved: %s, List: %s, Map: %s ", type.getRawType(), type.isArray(), type.isCollection(), type.isPrimitive(), type.isResolved(),
+			log("Type: %s, Array: %s, Collection: %s, Primitive: %s, Resolved: %s, List: %s, Map: %s ", type.getRawType(), type.isArray(), type.isCollection(), type.isPrimitive(), type.isResolved(),
 					type.isList(), type.isMap());
 		}
-	}
-
-	private void info(String format, Object... params) {
-		logger.info(String.format(format, params));
-
 	}
 
 }

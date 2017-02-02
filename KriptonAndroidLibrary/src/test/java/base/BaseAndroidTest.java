@@ -19,7 +19,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 @RunWith(RobolectricTestRunner.class)
 public abstract class BaseAndroidTest {
 
-	private static final String KRIPTON_DEBUG_MODE = "kripton.debug.mode";
+	private static final String KRIPTON_DEBUG_MODE = "kripton.debug";
 
 	@Before
 	public void setup() {
@@ -40,9 +40,13 @@ public abstract class BaseAndroidTest {
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
-	public <E> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
+	public <E> void expectedKriptonRuntimeExceptionWithCause(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(KriptonRuntimeException.class);
 		expectedEx.expectMessage(clazzException.getSimpleName());
+	}
+	
+	public <E> void expectedException(Class<? extends Throwable> clazzException) throws InstantiationException, IllegalAccessException {
+		expectedEx.expect(clazzException);		
 	}
 
 }

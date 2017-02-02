@@ -55,7 +55,7 @@ import com.google.common.io.ByteStreams;
 
 public class BaseProcessorTest {
 
-	private static final String KRIPTON_DEBUG_MODE = "KRIPTON_DEBUG_MODE";
+	private static final String KRIPTON_DEBUG_MODE = "kripton.debug";
 
 	protected TestType testType = TestType.NONE;
 
@@ -67,12 +67,12 @@ public class BaseProcessorTest {
 	public void before() {
 		String value = System.getenv(KRIPTON_DEBUG_MODE);
 		//value="true";
-		if ("true".equals(value)) {
-			BaseProcessor.DEBUG_MODE = true;
-		} else {
+		if ("false".equals(value)) {
 			// we are in test, but we don't see log on System.out
 			System.setOut(new PrintStream(new NullOutputStream()));
-			System.setErr(new PrintStream(new NullOutputStream()));
+			System.setErr(new PrintStream(new NullOutputStream()));			
+		} else {
+			BaseProcessor.DEBUG_MODE = true;
 		}
 
 		// when we run junit test, AnnotationProcessor is always in TEST_MODE
@@ -93,8 +93,6 @@ public class BaseProcessorTest {
 	public enum TestType {
 		COMPARE, PREPARE_TEST_ANDROID_LIBRARY, PREPARE_TEST_JAVA_LIBRARY, NONE;
 	}
-
-	protected static Logger logger = Logger.getGlobal();
 
 	public enum PathSourceType {
 		SRC_TEST_JAVA("src/test/java/"), SRC_TEST_EXPECTED("src/test/expected/"), TARGET_TEST_RESULT("target/test/generated/"), DEST_TEST_ANDROID_LIBRARY(
