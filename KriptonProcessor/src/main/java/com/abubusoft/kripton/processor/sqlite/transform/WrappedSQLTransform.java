@@ -26,23 +26,13 @@ public class WrappedSQLTransform<U> extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
-			String cursorName, String indexName) {
-		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), utilClazz,
-				cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), utilClazz, cursorName, indexName);
 
 	}
 
-	/*
-	 * @Override public void generateRead(Builder methodBuilder, String
-	 * cursorName, String indexName) {
-	 * methodBuilder.addCode("$T.read($L.getString($L))", utilClazz, cursorName,
-	 * indexName); }
-	 */
-
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		methodBuilder.addCode("$T.write($L)", utilClazz, getter(beanName, beanClass, property));
 	}
 
@@ -52,13 +42,12 @@ public class WrappedSQLTransform<U> extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
 	@Override
-	public SQLColumnType getColumnType() {		
+	public SQLColumnType getColumnType() {
 		return SQLColumnType.TEXT;
 	}
 

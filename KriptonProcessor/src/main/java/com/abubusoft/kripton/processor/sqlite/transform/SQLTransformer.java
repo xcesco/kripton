@@ -31,11 +31,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
-import com.abubusoft.kripton.processor.BindDataSourceProcessor;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
@@ -63,14 +62,14 @@ public abstract class SQLTransformer {
 	public static void cursor2Java(MethodSpec.Builder methodBuilder, TypeName beanClass, ModelProperty property, String beanName, String cursorName, String indexName) {
 		SQLTransform transform = lookup(property.getElement().asType());
 
-		if (transform == null) {
-			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
-		}
+		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, TypeUtility.typeName(property.getElement().asType()));
+
 		transform.generateReadProperty(methodBuilder, beanClass, beanName, property, cursorName, indexName);
 	}
 
 	/**
 	 * Used to convert a property of managed bean to contentValue
+	 * 
 	 * @param methodBuilder
 	 * @param beanClass
 	 * @param beanName
@@ -79,9 +78,8 @@ public abstract class SQLTransformer {
 	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		SQLTransform transform = lookup(property.getElement().asType());
 
-		if (transform == null) {
-			throw new RuntimeException("Transform of " + property.getElement().asType() + " not supported");
-		}
+		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, TypeUtility.typeName(property.getElement().asType()));
+
 		transform.generateWriteProperty(methodBuilder, beanClass, beanName, property);
 	}
 
@@ -95,9 +93,8 @@ public abstract class SQLTransformer {
 	 */
 	public static void java2ContentValues(MethodSpec.Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, TypeName paramType, String paramName) {
 		SQLTransform transform = lookup(paramType);
-		if (transform == null) {
-			throw new RuntimeException("Transform of " + paramType + " not supported");
-		}
+
+		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, paramType);
 
 		transform.generateWriteParam(methodBuilder, sqlDaoDefinition, paramName, paramType);
 	}
@@ -148,8 +145,8 @@ public abstract class SQLTransformer {
 		}
 
 		transform = getTransform(typeName);
-		
-		if (transform==null) throw new UnsupportedFieldTypeException(typeName, BindDataSourceProcessor.class);
+
+		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, typeName);
 		cache.put(typeName, transform);
 
 		return transform;
@@ -166,7 +163,7 @@ public abstract class SQLTransformer {
 
 			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
 				return new ByteArraySQLTransform();
-			} else { 
+			} else {
 				return new ArraySQLTransform();
 			}
 		} else if (typeName instanceof ParameterizedTypeName) {

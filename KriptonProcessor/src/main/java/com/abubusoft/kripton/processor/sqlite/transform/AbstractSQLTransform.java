@@ -22,20 +22,20 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public abstract class AbstractSQLTransform implements SQLTransform {
-	
+
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-	
+
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		methodBuilder.addCode("$L", getter(beanName, beanClass, property));
@@ -48,19 +48,19 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 
 	@Override
 	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
-		methodBuilder.addCode("$L", paramName);		
+		methodBuilder.addCode("$L", paramName);
 	}
-		
+
 	@Override
 	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
-		// except for supported result type, each transform does not need to implements this method
-		throw new KriptonRuntimeException("Something went wrong!");
+		// except for supported result type, each transform does not need to
+		// implements this method
+		throw new KriptonProcessorException("Something went wrong!");
 	}
-	
+
 	@Override
 	public void generateDefaultValue(Builder methodBuilder) {
 		methodBuilder.addCode("null");
 	}
-	
 
 }

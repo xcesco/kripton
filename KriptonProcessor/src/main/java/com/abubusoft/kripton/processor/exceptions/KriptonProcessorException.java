@@ -28,19 +28,11 @@ public class KriptonProcessorException extends RuntimeException {
 
 	private static final long serialVersionUID = 2217746400887102609L;
 
-	public KriptonProcessorException() {
-		super();
-	}
-
 	public KriptonProcessorException(String message) {
 		super(message);
 	}
 
 	public KriptonProcessorException(Throwable cause) {
-		super(cause);
-	}
-
-	public KriptonProcessorException(Exception cause) {
 		super(cause);
 	}
 

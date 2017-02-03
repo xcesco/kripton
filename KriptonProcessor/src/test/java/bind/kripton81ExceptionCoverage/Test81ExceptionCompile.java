@@ -4,14 +4,17 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.processor.exceptions.InvalidForeignKeyTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
+import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
+import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
@@ -75,7 +78,7 @@ public class Test81ExceptionCompile extends AbstractBindSQLiteProcessorTest {
 	public void test8DataSource() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Bean8.class, Bean8Dao.class, Bean8DataSource.class);
 	}
-	
+
 	@Test
 	public void testError8DataSource() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(InvalidKindForAnnotationException.class);
@@ -117,16 +120,84 @@ public class Test81ExceptionCompile extends AbstractBindSQLiteProcessorTest {
 		this.expectedException(InvalidKindForAnnotationException.class);
 		buildDataSourceProcessorTest(Error15Bean.class);
 	}
-	
+
 	@Test
 	public void testErrorPK1() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(InvalidMethodSignException.class);
 		buildDataSourceProcessorTest(ErrorPK1Dao.class, ErrorPK1Bean.class, ErrorPK1DataSource.class);
 	}
-	
+
+	/**
+	 * UnsupportedFieldTypeException test sql.Date that is not supported by
+	 * default
+	 * 
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testErr9() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(UnsupportedFieldTypeException.class);
+		buildDataSourceProcessorTest(Error9Dao.class, Error9Bean.class, Error9DataSource.class);
+	}
+
+	/**
+	 * UnsupportedFieldTypeException test sql.Date that is not supported by
+	 * default
+	 * 
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testErr9_1() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(UnsupportedFieldTypeException.class);
+		buildBindProcessorTest(Error9Bean.class);
+	}
+
+	/**
+	 * IncompatibleAttributesInAnnotationException: value and excludedFields are
+	 * incompatible
+	 * 
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testErr10() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(IncompatibleAttributesInAnnotationException.class);
+		buildDataSourceProcessorTest(Error10Dao.class, Error10Bean.class, Error10DataSource.class);
+	}
+
+	/**
+	 * PropertyNotFoundException in select(value)
+	 * 
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testErr11() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(PropertyInAnnotationNotFoundException.class);
+		buildDataSourceProcessorTest(Error11Dao.class, Error11Bean.class, Error11DataSource.class);
+	}
+
+	/**
+	 * PropertyNotFoundException in select(excludedFields)
+	 * 
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testErr16() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(PropertyInAnnotationNotFoundException.class);
+		buildDataSourceProcessorTest(Error16Dao.class, Error16Bean.class, Error16DataSource.class);
+	}
+
 	@Test
 	public void testPK() throws IOException, InstantiationException, IllegalAccessException {
-	//	this.expectedException(InvalidMethodSignException.class);
+		// this.expectedException(InvalidMethodSignException.class);
 		buildDataSourceProcessorTest(PKDao.class, PKBean.class, PKDataSource.class);
 	}
 }

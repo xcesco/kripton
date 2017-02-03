@@ -31,7 +31,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
-import com.abubusoft.kripton.processor.BindSharedPreferencesProcessor;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
@@ -51,7 +50,6 @@ public abstract class PrefsTransformer {
 	 * cache for transform
 	 */
 	private static final Map<TypeName, PrefsTransform> cache = new ConcurrentHashMap<TypeName, PrefsTransform>();
-
 
 	/**
 	 * Register custom transformable for a Java primitive type or a frequently
@@ -73,9 +71,9 @@ public abstract class PrefsTransformer {
 	 * @return transform
 	 */
 	public static PrefsTransform lookup(PrefProperty property) {
-		TypeMirror typeMirror=property.getElement().asType();
-		
-		TypeName typeName=typeName(typeMirror);
+		TypeMirror typeMirror = property.getElement().asType();
+
+		TypeName typeName = typeName(typeMirror);
 		return lookup(typeName);
 	}
 
@@ -93,13 +91,14 @@ public abstract class PrefsTransformer {
 		}
 
 		transform = getTransform(typeName);
-		if (transform==null) throw new UnsupportedFieldTypeException(typeName, BindSharedPreferencesProcessor.class);
+		if (transform == null)
+			throw new UnsupportedFieldTypeException(typeName);
 		cache.put(typeName, transform);
 
 		return transform;
 	}
 
-	private static PrefsTransform getTransform(TypeName typeName) {				
+	private static PrefsTransform getTransform(TypeName typeName) {
 		if (typeName.isPrimitive()) {
 			return getPrimitiveTransform(typeName);
 		}
@@ -110,9 +109,9 @@ public abstract class PrefsTransformer {
 
 			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
 				return new ByteArrayPrefsTransform();
-			} else { 
+			} else {
 				return new ArrayPrefsTransform();
-			} 
+			}
 		} else if (typeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
 			if (TypeUtility.isList(parameterizedTypeName)) {
@@ -126,31 +125,31 @@ public abstract class PrefsTransformer {
 
 		PrefsTransform transform;
 
-		transform=getLanguageTransform(typeName);
-		if (transform!=null) {
+		transform = getLanguageTransform(typeName);
+		if (transform != null) {
 			return transform;
 		}
 
-		transform=getUtilTransform(typeName);
-		if (transform!=null) {
+		transform = getUtilTransform(typeName);
+		if (transform != null) {
 			return transform;
 		}
 
-		transform=getMathTransform(typeName);
-		if (transform!=null) {
+		transform = getMathTransform(typeName);
+		if (transform != null) {
 			return transform;
 		}
 
-		transform=getNetTransform(typeName);
-		if (transform!=null) {
+		transform = getNetTransform(typeName);
+		if (transform != null) {
 			return transform;
 		}
 
-		transform=getSqlTransform(typeName);
-		if (transform!=null) {
+		transform = getSqlTransform(typeName);
+		if (transform != null) {
 			return transform;
 		}
-				
+
 		return new ObjectPrefsTransform();
 	}
 
@@ -223,7 +222,7 @@ public abstract class PrefsTransformer {
 	 */
 	static PrefsTransform getLanguageTransform(TypeName type) {
 		String typeName = type.toString();
-		
+
 		if (Integer.class.getCanonicalName().equals(typeName)) {
 			return new IntegerPrefsTransform(true);
 		}
@@ -282,7 +281,5 @@ public abstract class PrefsTransformer {
 		}
 		return null;
 	}
-
-
 
 }

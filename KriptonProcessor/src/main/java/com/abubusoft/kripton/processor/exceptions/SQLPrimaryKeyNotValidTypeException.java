@@ -22,11 +22,7 @@ public class SQLPrimaryKeyNotValidTypeException extends KriptonProcessorExceptio
 
 	private static final long serialVersionUID = 8462705406839489618L;
 
-	public SQLPrimaryKeyNotValidTypeException(SQLEntity entity, ModelProperty property)
-	{
-		super("Bean '"+entity.getName()+"' have "+property.getName()+" as primary key but it is not Long or long type field");
-	}
-	
-	public SQLPrimaryKeyNotValidTypeException() {
+	public SQLPrimaryKeyNotValidTypeException(SQLEntity entity, ModelProperty property) {
+		super("Bean '" + entity.getName() + "' have " + property.getName() + " as primary key but it is not Long or long type field");
 	}
 }

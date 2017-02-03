@@ -21,11 +21,8 @@ public class SQLPrimaryKeyNotFoundException extends KriptonProcessorException {
 
 	private static final long serialVersionUID = 8462705406839489618L;
 
-	public SQLPrimaryKeyNotFoundException(SQLEntity entity)
-	{
-		super("Bean '"+entity.getName()+"' does not have a primary key");
+	public SQLPrimaryKeyNotFoundException(SQLEntity entity) {
+		super("Bean '" + entity.getName() + "' does not have a primary key");
 	}
-	
-	public SQLPrimaryKeyNotFoundException() {
-	}
+
 }

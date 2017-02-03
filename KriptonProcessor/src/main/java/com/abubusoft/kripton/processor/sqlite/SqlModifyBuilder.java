@@ -24,13 +24,13 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.exceptions.KriptonInstantiationException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -48,10 +48,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 public abstract class SqlModifyBuilder {
 
 	public enum ModifyType {
-			UPDATE_BEAN(ModifyBeanHelper.class, true),
-			UPDATE_RAW(ModifyRawHelper.class, true),
-			DELETE_BEAN(ModifyBeanHelper.class, false),
-			DELETE_RAW(ModifyRawHelper.class, false);
+		UPDATE_BEAN(ModifyBeanHelper.class, true), UPDATE_RAW(ModifyRawHelper.class, true), DELETE_BEAN(ModifyBeanHelper.class, false), DELETE_RAW(ModifyRawHelper.class, false);
 
 		private ModifyCodeGenerator codeGenerator;
 
@@ -72,20 +69,18 @@ public abstract class SqlModifyBuilder {
 				this.codeGenerator = codeGenerator.newInstance();
 			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
-				throw new KriptonInstantiationException(e);
+				throw new KriptonRuntimeException(e);
 			}
 		}
 
-		public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
-				TypeName returnType) {
+		public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
 			codeGenerator.generate(elementUtils, methodBuilder, isUpdate(), method, returnType);
 
 		}
 	}
 
 	public interface ModifyCodeGenerator {
-		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields,
-				SQLiteModelMethod method, TypeName returnType);
+		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
@@ -93,23 +88,22 @@ public abstract class SqlModifyBuilder {
 	 * @param elementUtils
 	 * @param builder
 	 * @param method
-	 * @param updateMode 
+	 * @param updateMode
 	 */
 	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method, boolean updateMode) {
-		SQLDaoDefinition daoDefinition=method.getParent();
-		SQLEntity entity=daoDefinition.getEntity();
+		SQLDaoDefinition daoDefinition = method.getParent();
+		SQLEntity entity = daoDefinition.getEntity();
 
 		ModifyType updateResultType = null;
 
 		// check type of arguments
 		int count = 0;
 		for (Pair<String, TypeMirror> param : method.getParameters()) {
-			if (method.hasDynamicWhereConditions() && param.value0.equals(method.dynamicWhereParameterName))
-			{
+			if (method.hasDynamicWhereConditions() && param.value0.equals(method.dynamicWhereParameterName)) {
 				// if current parameter is dynamic where, skip it
 				continue;
 			}
-			
+
 			if (TypeUtility.isEquals(typeName(param.value1), typeName(entity.getElement()))) {
 				count++;
 			}
@@ -120,28 +114,32 @@ public abstract class SqlModifyBuilder {
 			updateResultType = updateMode ? ModifyType.UPDATE_RAW : ModifyType.DELETE_RAW;
 
 			ModelAnnotation annotation;
-			
-			if (updateMode)
-			{
-				annotation= method.getAnnotation(BindSqlUpdate.class);
-								
-				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE).size()==0, method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.VALUE.getValue());								
-				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size()==0,method," can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
-								
+
+			if (updateMode) {
+				annotation = method.getAnnotation(BindSqlUpdate.class);
+
+				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE).size() == 0, method,
+						" can not use attribute %s in this kind of query definition", AnnotationAttributeType.VALUE.getValue());
+				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() == 0,
+						method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
+
 			} else {
-				annotation= method.getAnnotation(BindSqlDelete.class);
+				annotation = method.getAnnotation(BindSqlDelete.class);
 			}
-			
+
 			// check if there is only one parameter
-			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() > 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName()), method);				
-			
+			AssertKripton.failWithInvalidMethodSignException(
+					method.getParameters().size() > 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName()), method);
 
 		} else if (count == 1) {
 			updateResultType = updateMode ? ModifyType.UPDATE_BEAN : ModifyType.DELETE_BEAN;
-			
-			// with dynamic where conditions, we have to add 1 to parameter check size (one parameter is a bean and one is the where conditions)
-			AssertKripton.assertTrueOrInvalidMethodSignException(method.getParameters().size()==1+(method.hasDynamicWhereConditions() ? 1:0), method, " expected only one parameter of %s type", daoDefinition.getEntityClassName());			
-		} else {			
+
+			// with dynamic where conditions, we have to add 1 to parameter
+			// check size (one parameter is a bean and one is the where
+			// conditions)
+			AssertKripton.assertTrueOrInvalidMethodSignException(method.getParameters().size() == 1 + (method.hasDynamicWhereConditions() ? 1 : 0), method, " expected only one parameter of %s type",
+					daoDefinition.getEntityClassName());
+		} else {
 			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));
 		}
 

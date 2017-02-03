@@ -22,8 +22,8 @@ import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a java.util.Currency object
@@ -34,21 +34,13 @@ import com.squareup.javapoet.MethodSpec.Builder;
 class CurrencySQLTransform extends AbstractSQLTransform {
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,
-			String cursorName, String indexName) {
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), CurrencyUtils.class, cursorName, indexName);
 
 	}
-	/*
-	 * @Override public void generateRead(Builder methodBuilder, String
-	 * cursorName, String indexName) {
-	 * methodBuilder.addCode("$T.read($L.getString($L))", CurrencyUtil.class,
-	 * cursorName, indexName); }
-	 */
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		methodBuilder.addCode("$T.write($L)", CurrencyUtils.class, getter(beanName, beanClass, property));
 	}
 
@@ -58,20 +50,12 @@ class CurrencySQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property, String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
-	
 	@Override
 	public SQLColumnType getColumnType() {
 		return SQLColumnType.TEXT;
 	}
-
-	/*
-	 * @Override public void generateDefaultValue(Builder methodBuilder) {
-	 * methodBuilder.addCode("null"); }
-	 */
-
 }

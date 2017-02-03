@@ -31,10 +31,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
-import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -49,7 +48,6 @@ public abstract class BindTransformer {
 	 * cache for transform
 	 */
 	private static final Map<TypeName, BindTransform> cache = new ConcurrentHashMap<TypeName, BindTransform>();
-
 
 	/**
 	 * Register custom transformable for a Java primitive type or a frequently
@@ -71,31 +69,27 @@ public abstract class BindTransformer {
 	 * @return transform
 	 */
 	public static BindTransform lookup(BindProperty property) {
-		TypeMirror typeMirror=property.getElement().asType();
-		TypeName typeName=typeName(typeMirror);
-		if (property.hasTypeAdapter())
-		{
-			typeName=typeName(property.typeAdapter.dataType);
-		} 
+		TypeMirror typeMirror = property.getElement().asType();
+		TypeName typeName = typeName(typeMirror);
+		if (property.hasTypeAdapter()) {
+			typeName = typeName(property.typeAdapter.dataType);
+		}
 		return lookup(typeName);
 	}
-	
 
 	public static boolean isBindedObject(TypeName typeName) {
 		BindTransform t = lookup(typeName);
-		
-		if (t!=null && t instanceof ObjectBindTransform)
-		{
+
+		if (t != null && t instanceof ObjectBindTransform) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public static boolean isBindedObject(BindProperty property) {
 		BindTransform t = lookup(property);
-		
-		if (t!=null && t instanceof ObjectBindTransform)
-		{
+
+		if (t != null && t instanceof ObjectBindTransform) {
 			return true;
 		}
 		return false;
@@ -115,15 +109,15 @@ public abstract class BindTransformer {
 		}
 
 		transform = getTransform(typeName);
-		
-		if (transform==null) throw new UnsupportedFieldTypeException(typeName, BindTypeProcessor.class);
+
+		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, typeName);
 		// transform will be always valorized
 		cache.put(typeName, transform);
 
 		return transform;
 	}
 
-	static BindTransform getTransform(TypeName typeName) {				
+	static BindTransform getTransform(TypeName typeName) {
 		if (typeName.isPrimitive()) {
 			return getPrimitiveTransform(typeName);
 		}
@@ -134,9 +128,9 @@ public abstract class BindTransformer {
 
 			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
 				return new ByteArrayBindTransform();
-			} else { 
+			} else {
 				return new ArrayBindTransform(componentTypeName, componentTypeName.isPrimitive());
-			} 
+			}
 		} else if (typeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
 			if (TypeUtility.isList(parameterizedTypeName)) {
@@ -148,33 +142,28 @@ public abstract class BindTransformer {
 			}
 		}
 
-		BindTransform bindTransform;
-		
-		bindTransform=getLanguageTransform(typeName);
-		if (bindTransform!=null) {
-			return bindTransform;
+		String name = typeName.toString();
+
+		if (name.startsWith("java.lang")) {
+			return getLanguageTransform(typeName);
 		}
 
-		bindTransform=getUtilTransform(typeName);
-		if (bindTransform!=null) {
-			return bindTransform;
+		if (name.startsWith("java.util")) {
+			return getUtilTransform(typeName);
 		}
 
-		bindTransform=getMathTransform(typeName);
-		if (bindTransform!=null) {
-			return bindTransform;
+		if (name.startsWith("java.math")) {
+			return getMathTransform(typeName);
 		}
 
-		bindTransform=getNetTransform(typeName);
-		if (bindTransform!=null) {
-			return bindTransform;
+		if (name.startsWith("java.net")) {
+			return getNetTransform(typeName);
 		}
 
-		bindTransform=getSqlTransform(typeName);
-		if (bindTransform!=null) {
-			return bindTransform;
+		if (name.startsWith("java.sql")) {
+			return getSqlTransform(typeName);
 		}
-				
+
 		return new ObjectBindTransform();
 	}
 
@@ -247,7 +236,7 @@ public abstract class BindTransformer {
 	 */
 	static BindTransform getLanguageTransform(TypeName type) {
 		String typeName = type.toString();
-		
+
 		if (Integer.class.getCanonicalName().equals(typeName)) {
 			return new IntegerBindTransform(true);
 		}
@@ -306,8 +295,5 @@ public abstract class BindTransformer {
 		}
 		return null;
 	}
-
-
-
 
 }

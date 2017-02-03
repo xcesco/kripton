@@ -22,11 +22,7 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
@@ -44,11 +40,9 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
@@ -64,43 +58,45 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 	@Override
 	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		String pagedResultName=buildSpecializedPagedResultClass(builder, method);
-						
+		String pagedResultName = buildSpecializedPagedResultClass(builder, method);
+
 		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
 		// generate offical method
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 			// create PaginatedResult
-			
-			String separator="";
+
+			String separator = "";
 			methodBuilder.addCode("$L paginatedResult=new $L(", pagedResultName, pagedResultName);
 			for (Pair<String, TypeMirror> item : method.getParameters()) {
 				// field
-				methodBuilder.addCode(separator+"$L", item.value0);
+				methodBuilder.addCode(separator + "$L", item.value0);
 				separator = ", ";
 			}
 			methodBuilder.addCode(");\n");
-			//methodBuilder.addStatement("paginatedResult.execute()");
-						
+			// methodBuilder.addStatement("paginatedResult.execute()");
+
 			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_CONTENT);
 			methodBuilder.addStatement("return paginatedResult");
-			
-			//generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields());
+
+			// generateSpecializedPart(elementUtils, method, methodBuilder,
+			// fieldList, selectType.isMapFields());
 			builder.addMethod(methodBuilder.build());
 		}
 
 		// generate paged result method
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addModifiers(Modifier.PRIVATE);
-			generateMethodSignature(method, methodBuilder, TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), TypeUtility.typeName(daoDefinition.getEntityClassName())), ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());			
-						
+			generateMethodSignature(method, methodBuilder, TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), TypeUtility.typeName(daoDefinition.getEntityClassName())),
+					ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
+
 			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_METHOD_SIGN);
 			generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields());
 			builder.addMethod(methodBuilder.build());
 		}
-		
+
 	}
-	
+
 	/**
 	 * Used to generate specialized Paged Result classes;
 	 */
@@ -110,17 +106,9 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
-		TypeMirror returnType = method.getReturnClass();
-		TypeName returnTypeName = typeName(returnType);
-
-		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
 		List<SQLProperty> fields = fieldList.value1;
 
-		TypeName collectionClass;
 		TypeName entityClass = typeName(entity.getElement());
-		ClassName listClazzName = returnListName.rawType;
-
-		collectionClass = defineCollection(listClazzName);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", List.class, entityClass, ArrayList.class, entityClass);
@@ -165,19 +153,17 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
-		//methodBuilder.addCode("cursor.close();\n");
 
 		methodBuilder.addCode("\n");
-		
+
 		methodBuilder.addCode("return resultList;\n");
 		methodBuilder.endControlFlow();
 	}
-	
+
 	private static String buildSpecializedPagedResultClass(TypeSpec.Builder builder, SQLiteModelMethod method) {
-		//TypeVariableName.get(method.getParent().getEntityClassName());
 		TypeName entityTypeName = TypeUtility.typeName(method.getParent().getEntityClassName());
 
-		String pagedResultName = "PaginatedResult" + (pagedResultCounter++);		
+		String pagedResultName = "PaginatedResult" + (pagedResultCounter++);
 
 		TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(pagedResultName).addModifiers(Modifier.PUBLIC)
 				.superclass(TypeUtility.parameterizedTypeName(TypeUtility.className(PaginatedResult.class), entityTypeName));
@@ -185,15 +171,15 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		// add fields and define constructor
 		MethodSpec.Builder setupBuilder = MethodSpec.constructorBuilder();
 
-		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).returns(TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), entityTypeName));
+		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC)
+				.returns(TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), entityTypeName));
 		executeBuilder.addCode("list=$T.this.$L(", TypeUtility.typeName(method.getParent().getElement(), BindDaoBuilder.SUFFIX), method.getName());
 
 		// we have alway a first parameter
 		String separator = "";
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			if (method.hasDynamicPageSizeConditions() && method.dynamicPageSizeName.equals(item.value0))
-			{				
+			if (method.hasDynamicPageSizeConditions() && method.dynamicPageSizeName.equals(item.value0)) {
 				setupBuilder.addStatement("this.pageSize=$L", item.value0);
 			} else {
 				// field
@@ -205,50 +191,27 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
 			setupBuilder.addParameter(parameterSpec);
 
-
 			// execute
 			executeBuilder.addCode(separator + item.value0);
 			separator = ", ";
 		}
-		
-		if (!method.hasDynamicPageSizeConditions())
-		{
+
+		if (!method.hasDynamicPageSizeConditions()) {
 			ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 			int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
 			setupBuilder.addStatement("this.pageSize=$L", pageSize);
 		}
-		
+
 		typeBuilder.addMethod(setupBuilder.build());
 
-		executeBuilder.addCode(separator+"this);\n");
+		executeBuilder.addCode(separator + "this);\n");
 		executeBuilder.addStatement("return list");
-		
+
 		typeBuilder.addMethod(executeBuilder.build());
 
 		builder.addType(typeBuilder.build());
-		
+
 		return pagedResultName;
-	}
-
-	static TypeName defineCollection(ClassName listClazzName) {
-		try {
-			Class<?> clazz = Class.forName(listClazzName.toString());
-
-			if (clazz.isAssignableFrom(Collection.class)) {
-				clazz = LinkedList.class;
-			} else if (clazz.isAssignableFrom(List.class)) {
-				clazz = LinkedList.class;
-			}
-			if (clazz.isAssignableFrom(Set.class)) {
-				clazz = HashSet.class;
-			}
-
-			return typeName(clazz);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
-
 	}
 
 }

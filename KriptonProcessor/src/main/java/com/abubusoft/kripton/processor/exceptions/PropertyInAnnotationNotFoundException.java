@@ -21,12 +21,9 @@ public class PropertyInAnnotationNotFoundException extends KriptonProcessorExcep
 
 	private static final long serialVersionUID = 8462705406839489618L;
 
-	public PropertyInAnnotationNotFoundException(SQLiteModelMethod method, String fieldName)
-	{
-		super(String.format("In class '%s', annotation of method '%s' uses field '%s' that does not exists in bean '%s'",  method.getParent().getName(), method.getName(), fieldName, method.getParent().getEntityClassName()));
-	}
-	
-	public PropertyInAnnotationNotFoundException() {
+	public PropertyInAnnotationNotFoundException(SQLiteModelMethod method, String fieldName) {
+		super(String.format("In class '%s', annotation of method '%s' uses field '%s' that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName,
+				method.getParent().getEntityClassName()));
 	}
 
 }

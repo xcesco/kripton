@@ -33,46 +33,37 @@ import com.squareup.javapoet.TypeName;
  *
  */
 class BigDecimalSQLTransform extends AbstractSQLTransform {
-	
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.transform.Transform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.Transform#
+	 * generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder,
+	 * java.lang.String)
 	 */
 	@Override
 	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
-		methodBuilder.addCode("$L.toPlainString()", paramName);		
+		methodBuilder.addCode("$L.toPlainString()", paramName);
 	}
-	
+
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
+	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		methodBuilder.addCode("$L.toPlainString()", getter(beanName, beanClass, property));
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
-		methodBuilder.addCode(setter(beanClass, beanName, property, "new $T($L.getString($L))"), BigDecimal.class,cursorName, indexName);
+	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode(setter(beanClass, beanName, property, "new $T($L.getString($L))"), BigDecimal.class, cursorName, indexName);
 	}
-	
-	/*
-	@Override
-	public void generateRead(Builder methodBuilder, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
-	}*/
 
-	/*@Override
-	public void generateDefaultValue(Builder methodBuilder)
-	{
-		methodBuilder.addCode("null");		
-	}*/
-	
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
 	@Override
 	public SQLColumnType getColumnType() {
-		return SQLColumnType.TEXT; 
+		return SQLColumnType.TEXT;
 	}
-
 
 }

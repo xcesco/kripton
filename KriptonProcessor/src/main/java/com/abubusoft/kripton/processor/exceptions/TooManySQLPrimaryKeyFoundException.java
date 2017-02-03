@@ -23,7 +23,4 @@ public class TooManySQLPrimaryKeyFoundException extends KriptonProcessorExceptio
 	public TooManySQLPrimaryKeyFoundException(SQLEntity entity) {
 		super("Bean '" + entity.getName() + "' have too many primary keys");
 	}
-	
-	public TooManySQLPrimaryKeyFoundException() {
-	}
 }
