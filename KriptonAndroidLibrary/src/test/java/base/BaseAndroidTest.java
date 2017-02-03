@@ -25,7 +25,7 @@ public abstract class BaseAndroidTest {
 	public void setup() {
 		final String value = System.getenv(KRIPTON_DEBUG_MODE);
 		// String value="true";
-		if ("false".equals(value)) {
+		if (!"true".equals(value)) {
 			ShadowLog.stream = new PrintStream(new NullOutputStream());
 			// we are in test, but we don't see log on System.out
 			System.setOut(new PrintStream(new NullOutputStream()));
@@ -44,9 +44,9 @@ public abstract class BaseAndroidTest {
 		expectedEx.expect(KriptonRuntimeException.class);
 		expectedEx.expectMessage(clazzException.getSimpleName());
 	}
-	
+
 	public <E> void expectedException(Class<? extends Throwable> clazzException) throws InstantiationException, IllegalAccessException {
-		expectedEx.expect(clazzException);		
+		expectedEx.expect(clazzException);
 	}
 
 }

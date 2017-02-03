@@ -46,7 +46,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public PaginatedResult<Person> selectPagedStatic1() {
-    PaginatedResult2 paginatedResult=new PaginatedResult2();
+    PaginatedResult6 paginatedResult=new PaginatedResult6();
     return paginatedResult;
   }
 
@@ -66,7 +66,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * @return paged result.
    */
-  private List<Person> selectPagedStatic1(PaginatedResult2 paginatedResult) {
+  private List<Person> selectPagedStatic1(PaginatedResult6 paginatedResult) {
     // build where condition
     String[] args={};
 
@@ -129,7 +129,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public PaginatedResult<Person> selectPagedStatic2(int pageSize) {
-    PaginatedResult3 paginatedResult=new PaginatedResult3(pageSize);
+    PaginatedResult7 paginatedResult=new PaginatedResult7(pageSize);
     return paginatedResult;
   }
 
@@ -156,7 +156,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return paged result.
    */
-  private List<Person> selectPagedStatic2(int pageSize, PaginatedResult3 paginatedResult) {
+  private List<Person> selectPagedStatic2(int pageSize, PaginatedResult7 paginatedResult) {
     // build where condition
     String[] args={};
 
@@ -443,8 +443,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
   }
 
-  public class PaginatedResult2 extends PaginatedResult<Person> {
-    PaginatedResult2() {
+  public class PaginatedResult6 extends PaginatedResult<Person> {
+    PaginatedResult6() {
       this.pageSize=20;
     }
 
@@ -454,8 +454,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
   }
 
-  public class PaginatedResult3 extends PaginatedResult<Person> {
-    PaginatedResult3(int pageSize) {
+  public class PaginatedResult7 extends PaginatedResult<Person> {
+    PaginatedResult7(int pageSize) {
       this.pageSize=pageSize;
     }
 

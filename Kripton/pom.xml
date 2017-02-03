@@ -57,6 +57,8 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	
+	<url>https://github.com/xcesco/kripton</url>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
@@ -196,33 +198,33 @@
 			<artifactId>kripton-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-cbor</artifactId>
-			<version>${jackson.version}</version>		
-			<scope>test</scope>	
+			<version>${jackson.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-properties</artifactId>
 			<version>${jackson.version}</version>
-			<scope>test</scope>			
+			<scope>test</scope>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-yaml</artifactId>
 			<version>${jackson.version}</version>
-			<scope>test</scope>			
+			<scope>test</scope>
 		</dependency>
 
 		<!-- TEST DEPENDENCIES -->
@@ -248,7 +250,4 @@
 		</dependency>
 
 	</dependencies>
-
-
-	<url>https://github.com/xcesco/kripton</url>
 </project>

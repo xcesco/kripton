@@ -1,6 +1,5 @@
 package com.abubusoft.kripton.retrofit2;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -196,7 +195,7 @@ public class AbstractBaseTest {
 	@Before
 	public void setup() {
 		final String value = System.getenv(KRIPTON_DEBUG_MODE);
-		if ("false".equals(value)) {
+		if (!"true".equals(value)) {
 			// we are in test, but we don't see log on System.out
 			System.setOut(new PrintStream(new NullOutputStream()));
 			System.setErr(new PrintStream(new NullOutputStream()));
@@ -205,7 +204,7 @@ public class AbstractBaseTest {
 		// when we run junit test, AnnotationProcessor is always in TEST_MODE
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
 
-		//KriptonBinder.registryBinder(new KriptonCborContext());
+		// KriptonBinder.registryBinder(new KriptonCborContext());
 	}
 
 	String toString(byte[] input) {
