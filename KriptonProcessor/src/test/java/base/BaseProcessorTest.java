@@ -64,9 +64,9 @@ public class BaseProcessorTest {
 
 	@Before
 	public void before() {
-		String value = System.getenv(KRIPTON_DEBUG_MODE);
-		// value="true";
-		if (!"true".equals(value)) {
+		String value = System.getProperty(KRIPTON_DEBUG_MODE);
+		// value = "true";
+		if ("false".equals(value)) {
 			// we are in test, but we don't see log on System.out
 			System.setOut(new PrintStream(new NullOutputStream()));
 			System.setErr(new PrintStream(new NullOutputStream()));

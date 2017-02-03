@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package base;
+package all;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import shared.SharedRuntimeTestSuite;
-import sqlite.SQLiteRuntimeTestSuite;
+import com.abubusoft.kripton.retrofit2.TestConversion;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-			SharedRuntimeTestSuite.class,
-			SQLiteRuntimeTestSuite.class
-		})
+		TestConversion.class
+		 })
 //@formatter:on
-public class KriptonRuntimeAndroidTestSuite {
+public class KriptonRetrofitTestSuite {
 
 }

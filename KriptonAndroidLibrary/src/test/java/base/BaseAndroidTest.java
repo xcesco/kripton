@@ -23,9 +23,8 @@ public abstract class BaseAndroidTest {
 
 	@Before
 	public void setup() {
-		final String value = System.getenv(KRIPTON_DEBUG_MODE);
-		// String value="true";
-		if (!"true".equals(value)) {
+		final String value = System.getProperty(KRIPTON_DEBUG_MODE);
+		if ("false".equals(value)) {
 			ShadowLog.stream = new PrintStream(new NullOutputStream());
 			// we are in test, but we don't see log on System.out
 			System.setOut(new PrintStream(new NullOutputStream()));

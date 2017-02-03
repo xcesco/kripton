@@ -27,6 +27,8 @@
 		<!-- dependencies version -->
 		<jackson.version>2.8.5</jackson.version>
 		<retrofit.version>2.1.0</retrofit.version>
+		
+		<kripton.debug>false</kripton.debug>
 
 		<junit.version>4.12</junit.version>
 		<unitils.version>3.4.2</unitils.version>
@@ -337,26 +339,6 @@
 	<build>
 
 		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>properties-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>set-system-properties</goal>
-						</goals>
-						<configuration>
-							<properties>
-								<property>
-									<name>kripton.debug</name>
-									<value>${kripton.debug}</value>
-								</property>
-							</properties>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -382,6 +364,21 @@
 						<arg>-proc:none</arg>
 						<arg>-Xlint:unchecked</arg>
 					</compilerArgs>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<systemPropertyVariables>
+						<kripton.debug>${kripton.debug}</kripton.debug>
+					</systemPropertyVariables>
+					<includes>
+						<include>all/*TestSuite.java</include>
+					</includes>
+					
 				</configuration>
 			</plugin>
 		</plugins>
