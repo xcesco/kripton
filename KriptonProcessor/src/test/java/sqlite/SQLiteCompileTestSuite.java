@@ -42,6 +42,7 @@ import sqlite.kripton93.Test93Suite;
 import sqlite.kripton96.Test96Suite;
 import sqlite.paginatedResult.TestPaginatedResultSuite;
 import sqlite.quickstart.TestQuickstartSuite;
+import sqlite.select.TestSelectSuite;
 import sqlite.test01.Test01Suite;
 import sqlite.test02.Test02Suite;
 import sqlite.test02.TestDao01;
@@ -84,6 +85,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestDynamicSuite.class,
 			TestPaginatedResultSuite.class,
 			IndexTestSuite.class,
+			TestSelectSuite.class,
 			IncludeFieldsTestSuite.class
 			})
 //@formatter:on
