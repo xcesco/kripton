@@ -142,7 +142,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// generate instance
 		generateInstance(schemaName);
-		
+
 		// generate open
 		generateOpen(schemaName);
 
@@ -184,7 +184,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		builder.addMethod(methodBuilder.build());
 	}
-	
+
 	/**
 	 * @param schemaName
 	 */
@@ -194,10 +194,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		methodBuilder.addJavadoc("Retrieve data source instance and open it.\n");
 		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
-		
-				
+
 		methodBuilder.addStatement("$T instance=instance()", className(schemaName));
-		methodBuilder.addStatement("instance.getWritableDatabase()");		
+		methodBuilder.addStatement("instance.getWritableDatabase()");
 		methodBuilder.addCode("return instance;\n");
 
 		builder.addMethod(methodBuilder.build());
@@ -383,11 +382,15 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
 		executeMethod.addStatement("e.printStackTrace()");
-		executeMethod.addStatement("if (transaction!=null) transaction.onError(e)");			
+		executeMethod.addStatement("if (transaction!=null) transaction.onError(e)");
 
 		executeMethod.nextControlFlow("finally");
-		executeMethod.addCode("connection.endTransaction();\n");
-		executeMethod.addCode("close();\n");
+		executeMethod.beginControlFlow("try");
+		executeMethod.addStatement("connection.endTransaction()");
+		executeMethod.nextControlFlow("catch ($T e)", Throwable.class);
+		executeMethod.addStatement("$T.warn(\"error closing transaction %s\", e.getMessage())", Logger.class);
+		executeMethod.endControlFlow();
+		executeMethod.addStatement("close()");
 		executeMethod.endControlFlow();
 
 		// generate javadoc

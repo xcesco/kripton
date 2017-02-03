@@ -69,7 +69,11 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
       e.printStackTrace();
       if (transaction!=null) transaction.onError(e);
     } finally {
-      connection.endTransaction();
+      try {
+        connection.endTransaction();
+      } catch (Throwable e) {
+        Logger.warn("error closing transaction %s", e.getMessage());
+      }
       close();
     }
   }

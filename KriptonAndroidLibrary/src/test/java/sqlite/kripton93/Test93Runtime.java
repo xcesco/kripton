@@ -25,7 +25,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.database.sqlite.SQLiteConstraintException;
-import android.database.sqlite.SQLiteException;
 import base.BaseAndroidTest;
 
 /**
@@ -129,7 +128,7 @@ public class Test93Runtime extends BaseAndroidTest {
 
 	@Test
 	public void testRunInsertRollback() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(SQLiteException.class);
+		this.expectedKriptonRuntimeExceptionWithCause(SQLiteConstraintException.class);
 		BindBean93DataSource dataSource = BindBean93DataSource.instance();
 		final Bean93 bean = new Bean93();
 		bean.name = "all";

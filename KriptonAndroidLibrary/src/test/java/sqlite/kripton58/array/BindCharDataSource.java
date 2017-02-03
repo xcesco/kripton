@@ -69,7 +69,11 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
       e.printStackTrace();
       if (transaction!=null) transaction.onError(e);
     } finally {
-      connection.endTransaction();
+      try {
+        connection.endTransaction();
+      } catch (Throwable e) {
+        Logger.warn("error closing transaction %s", e.getMessage());
+      }
       close();
     }
   }

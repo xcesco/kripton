@@ -69,7 +69,11 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
       e.printStackTrace();
       if (transaction!=null) transaction.onError(e);
     } finally {
-      connection.endTransaction();
+      try {
+        connection.endTransaction();
+      } catch (Throwable e) {
+        Logger.warn("error closing transaction %s", e.getMessage());
+      }
       close();
     }
   }

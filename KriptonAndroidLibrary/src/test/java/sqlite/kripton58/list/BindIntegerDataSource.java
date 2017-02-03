@@ -69,7 +69,11 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
       e.printStackTrace();
       if (transaction!=null) transaction.onError(e);
     } finally {
-      connection.endTransaction();
+      try {
+        connection.endTransaction();
+      } catch (Throwable e) {
+        Logger.warn("error closing transaction %s", e.getMessage());
+      }
       close();
     }
   }
