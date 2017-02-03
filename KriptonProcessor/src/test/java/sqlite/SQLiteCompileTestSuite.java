@@ -40,6 +40,7 @@ import sqlite.kripton64.Test64Suite;
 import sqlite.kripton84.Test84Suite;
 import sqlite.kripton93.Test93Suite;
 import sqlite.kripton96.Test96Suite;
+import sqlite.multithread.TestCompileMultithreadSuite;
 import sqlite.paginatedResult.TestPaginatedResultSuite;
 import sqlite.quickstart.TestQuickstartSuite;
 import sqlite.select.TestSelectSuite;
@@ -86,7 +87,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestPaginatedResultSuite.class,
 			IndexTestSuite.class,
 			TestSelectSuite.class,
-			IncludeFieldsTestSuite.class
+			IncludeFieldsTestSuite.class,
+			TestCompileMultithreadSuite.class
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

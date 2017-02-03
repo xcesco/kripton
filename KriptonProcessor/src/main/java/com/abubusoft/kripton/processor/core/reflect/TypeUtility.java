@@ -75,21 +75,6 @@ public class TypeUtility {
 	}
 
 	/**
-	 * Check if its type is an array of type specified
-	 * 
-	 * @param value
-	 * @return true if it is array []
-	 */
-//	public static boolean isArray(TypeName arrayType, TypeName value) {
-//		return value.toString().equals(arrayType + "[]");
-//	}
-//
-//	public static boolean isArrayOfPrimitive(TypeName typeName) {
-//		return isArray(TypeName.BOOLEAN, typeName) || isArray(TypeName.BYTE, typeName) || isArray(TypeName.CHAR, typeName) || isArray(TypeName.DOUBLE, typeName) || isArray(TypeName.FLOAT, typeName) || isArray(TypeName.INT, typeName)
-//				|| isArray(TypeName.LONG, typeName) || isArray(TypeName.SHORT, typeName);
-//	}
-
-	/**
 	 * Check if its type is String
 	 * 
 	 * @param value
@@ -188,10 +173,6 @@ public class TypeUtility {
 		return TypeName.get(typeMirror);
 	}
 	
-	public static TypeName typeName(ModelType modelType) {
-		return modelType.getName();
-	}
-
 	/**
 	 * Convert a TypeMirror in a typeName
 	 * 

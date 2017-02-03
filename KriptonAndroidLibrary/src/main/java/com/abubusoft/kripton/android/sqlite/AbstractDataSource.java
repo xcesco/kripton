@@ -23,6 +23,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
@@ -44,13 +45,19 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		READ_ONLY_OPENED, READ_AND_WRITE_OPENED, CLOSED
 	}
 
-	protected TypeStatus status = TypeStatus.CLOSED;
+	protected ThreadLocal<TypeStatus> status = new ThreadLocal<TypeStatus>() {
+
+		@Override
+		protected TypeStatus initialValue() {
+			return TypeStatus.CLOSED;
+		}		
+	};
 
 	private final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
 
 	private final Lock r = rwl.readLock();
 
-	private final Lock w = rwl.writeLock();
+	protected final Lock w = rwl.writeLock();
 
 	/**
 	 * Interface for database transactions.
@@ -144,26 +151,26 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * @see android.database.sqlite.SQLiteOpenHelper#close()
 	 */
 	@Override
-	public synchronized void close() {
-		switch (status) {
-		case CLOSED:
-			break;
+	public void close() {
+		switch (status.get()) {		
 		case READ_AND_WRITE_OPENED:
 			w.unlock();
 			break;
 		case READ_ONLY_OPENED:
 			r.unlock();
 			break;
+		default:
+			throw(new KriptonRuntimeException("Incosistent status"));
 		}
 		
 		if (openCounter.decrementAndGet() == 0) {
 			// Closing database
 			database.close();
-			status=TypeStatus.CLOSED;
+			status.set(TypeStatus.CLOSED);
 			database=null;
 		}
 		
-		Logger.info("database RELEASED (%s) (id: %s)", status, openCounter.intValue());
+		Logger.info("database RELEASED (%s) (id: %s)", status.get(), openCounter.intValue());
 	}
 
 	/*
@@ -172,7 +179,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * @see android.database.sqlite.SQLiteOpenHelper#getReadableDatabase()
 	 */
 	@Override
-	public synchronized SQLiteDatabase getReadableDatabase() {
+	public SQLiteDatabase getReadableDatabase() {
 		return openReadOnlyDatabase();
 	}
 
@@ -182,7 +189,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * @see android.database.sqlite.SQLiteOpenHelper#getWritableDatabase()
 	 */
 	@Override
-	public synchronized SQLiteDatabase getWritableDatabase() {
+	public SQLiteDatabase getWritableDatabase() {
 		return openWritableDatabase();
 	}
 
@@ -193,14 +200,14 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * 
 	 * @return true if database is opened, otherwise false
 	 */
-	public synchronized boolean isOpen() {
+	public boolean isOpen() {
 		return database.isOpen();
 	}
 
 	/**
 	 * @return the upgradedVersion
 	 */
-	public synchronized boolean isUpgradedVersion() {
+	public boolean isUpgradedVersion() {
 		return upgradedVersion;
 	}
 
@@ -242,14 +249,13 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 */
 	public SQLiteDatabase openReadOnlyDatabase() {
 		r.lock();
-		status = TypeStatus.READ_ONLY_OPENED;
+		status.set(TypeStatus.READ_ONLY_OPENED);
 
 		if (openCounter.incrementAndGet() == 1) {
-			// open new read database		
+			// open new read database
 			database = super.getReadableDatabase();
-		}
-		
-		Logger.info("database %s (id: %s)", status, (openCounter.intValue()-1));
+		} 
+		Logger.info("database %s (id: %s)", status.get(), (openCounter.intValue()-1));
 		return database;
 	}
 
@@ -262,13 +268,13 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 */
 	public SQLiteDatabase openWritableDatabase() {
 		w.lock();
-		status = TypeStatus.READ_AND_WRITE_OPENED;
+		status.set(TypeStatus.READ_AND_WRITE_OPENED);
 
 		if (openCounter.incrementAndGet() == 1 || database.isReadOnly()) {
 			// open new write database
 			database = super.getWritableDatabase();
 		} 
-		Logger.info("database %s (id: %s)", status, (openCounter.intValue()-1));
+		Logger.info("database %s (id: %s)", status.get(), (openCounter.intValue()-1));
 		return database;
 	}
 

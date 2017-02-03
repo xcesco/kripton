@@ -28,6 +28,7 @@ import sqlite.kripton64.Test64RuntimeSuite;
 import sqlite.kripton84.Test84RuntimeSuite;
 import sqlite.kripton93.Test93RuntimeSuite;
 import sqlite.kripton96.Test96RuntimeSuite;
+import sqlite.multithread.TestRuntimeMultithreadSuite;
 import sqlite.quickstart.TestQuickstartRuntimeSuite;
 
 @RunWith(Suite.class)
@@ -38,15 +39,12 @@ import sqlite.quickstart.TestQuickstartRuntimeSuite;
 	TestExample02RuntimeSuite.class,
 	TestForeignKeyRuntimeSuite.class,
 	TestIncludeFieldsRuntimeSuite.class,
-	
+	TestRuntimeMultithreadSuite.class,
 	
 	Test64RuntimeSuite.class,
 	Test84RuntimeSuite.class,
 	Test93RuntimeSuite.class,
 	Test96RuntimeSuite.class,
-	
-	
-	
 	
 	Test58RuntimeSuite.class,
 	TestQuickstartRuntimeSuite.class

@@ -58,36 +58,6 @@ public abstract class PropertyUtility {
 	};
 
 	/**
-	 * Given a model clazz, define its properties. No annotation is analyzed for
-	 * properties
-	 * 
-	 * @param elementUtils
-	 * @param entity
-	 * @param factoryProperty
-	 */
-	// public static <P extends ModelProperty, T extends ModelClass<P>> void
-	// buildProperties(Elements elementUtils, T entity, PropertyFactory<P>
-	// factoryProperty) {
-	// buildProperties(elementUtils, entity, factoryProperty, null, null);
-	// }
-
-	/**
-	 * Given a model clazz, define its properties.
-	 * 
-	 * @param elementUtils
-	 * @param entity
-	 * @param factoryProperty
-	 * @param propertyAnnotationFilter
-	 *            if null, no filter is applied to annotations
-	 */
-	// public static <P extends ModelProperty, T extends ModelClass<P>> void
-	// buildProperties(Elements elementUtils, T entity, PropertyFactory<P>
-	// factoryProperty, AnnotationFilter propertyAnnotationFilter) {
-	// buildProperties(elementUtils, entity, factoryProperty,
-	// propertyAnnotationFilter, null);
-	// }
-
-	/**
 	 * Given a model clazz, define its properties. The listener allow to select
 	 * which property include in class definition.
 	 * 
@@ -103,13 +73,7 @@ public abstract class PropertyUtility {
 		List<? extends Element> list = elementUtils.getAllMembers(entity.getElement());
 
 		if (propertyAnnotationFilter != null) {
-			AnnotationUtility.forEachAnnotations(elementUtils, entity.getElement(), propertyAnnotationFilter, new AnnotationFoundListener() {
-
-				@Override
-				public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
-					logger.info("Annotation... " + annotationClassName);
-				}
-			});
+			AnnotationUtility.forEachAnnotations(elementUtils, entity.getElement(), propertyAnnotationFilter, null);
 		}
 
 		P field;

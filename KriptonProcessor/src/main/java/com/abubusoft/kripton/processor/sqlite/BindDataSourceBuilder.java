@@ -145,6 +145,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// generate open
 		generateOpen(schemaName);
+		
+		// generate openReadOnly
+		generateOpenReadOnly(schemaName);
 
 		{
 			// constructor
@@ -174,15 +177,21 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 */
 	private void generateInstance(String schemaName) {
 		// instance
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).returns(className(schemaName));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
 
 		methodBuilder.addJavadoc("instance\n");
+		
+		methodBuilder.beginControlFlow("synchronized(syncSingleton)");
 		methodBuilder.beginControlFlow("if (instance==null)");
 		methodBuilder.addCode("instance=new $L($T.context());\n", className(schemaName), KriptonLibrary.class);
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("return instance;\n");
+		methodBuilder.endControlFlow();
 
 		builder.addMethod(methodBuilder.build());
+		
+		builder.addField(FieldSpec.builder(Object.class, "syncSingleton", Modifier.STATIC).initializer("new Object()").build());
+		
 	}
 
 	/**
@@ -197,6 +206,23 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		methodBuilder.addStatement("$T instance=instance()", className(schemaName));
 		methodBuilder.addStatement("instance.getWritableDatabase()");
+		methodBuilder.addCode("return instance;\n");
+
+		builder.addMethod(methodBuilder.build());
+	}
+	
+	/**
+	 * @param schemaName
+	 */
+	private void generateOpenReadOnly(String schemaName) {
+		// instance
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("openReadOnly").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
+
+		methodBuilder.addJavadoc("Retrieve data source instance and open it in read only mode.\n");
+		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
+
+		methodBuilder.addStatement("$T instance=instance()", className(schemaName));
+		methodBuilder.addStatement("instance.openReadOnlyDatabase()");
 		methodBuilder.addCode("return instance;\n");
 
 		builder.addMethod(methodBuilder.build());
@@ -367,7 +393,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 				
 		//@formatter:on
 
-		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC, Modifier.SYNCHRONIZED).addParameter(className(transationExecutorName), "transaction");
+		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName), "transaction");
 
 		executeMethod.addCode("$T connection=openWritableDatabase();\n", SQLiteDatabase.class);
 
@@ -394,9 +420,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		executeMethod.endControlFlow();
 
 		// generate javadoc
-		executeMethod.addJavadoc("<p>executes a transaction. This method is synchronized to avoid concurrent problems. The database will be open in write mode.</p>\n");
+		executeMethod.addJavadoc("<p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The"
+				+ "drawback is only one transaction at time can be executed. The database will be open in write mode.</p>\n");
 		executeMethod.addJavadoc("\n");
-		executeMethod.addJavadoc("@param transaction transaction to execute\n");
+		executeMethod.addJavadoc("@param transaction\n\ttransaction to execute\n");
 
 		builder.addMethod(executeMethod.build());
 	}

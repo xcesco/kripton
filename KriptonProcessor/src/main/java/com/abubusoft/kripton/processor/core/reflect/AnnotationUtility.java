@@ -114,7 +114,11 @@ public abstract class AnnotationUtility {
 				}
 				values.put(annotationItem.getKey().getSimpleName().toString(), value);
 			}
-			listener.onAcceptAnnotation(currentElement, annotationClassName, values);
+			
+			if (listener!=null)
+			{
+				listener.onAcceptAnnotation(currentElement, annotationClassName, values);
+			}
 		}
 
 	}
@@ -291,33 +295,6 @@ public abstract class AnnotationUtility {
 	}
 
 	/**
-	 * Estract from an annotation of a method the attribute value specified
-	 * 
-	 * @param elementUtils
-	 * @param method
-	 *            method to analyze
-	 * @param annotationClass
-	 *            annotation to analyze
-	 * @param attributeName
-	 *            attribute name to analyze
-	 * @return attribute value as list of string
-	 */
-	public static String extractAsString(Elements elementUtils, ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
-		final Result<String> result = new Result<String>();
-
-		extractAttributeValue(elementUtils, method.getElement(), annotationClass.getName(), attribute, new OnAttributeFoundListener() {
-
-			@Override
-			public void onFound(String value) {
-				result.value = AnnotationUtility.extractAsArrayOfString(value).get(0);
-			}
-		});
-
-		return result.value;
-	}
-
-
-	/**
 	 * Estract from an annotation of a property the attribute value specified
 	 * 
 	 * @param elementUtils
@@ -342,16 +319,6 @@ public abstract class AnnotationUtility {
 		});
 
 		return result.value;
-	}
-
-	/**
-	 * Puts in model class all annotation found for modelClass
-	 * 
-	 * @param elementUtils
-	 * @param modelWithAnnotation
-	 */
-	public static void buildAnnotations(Elements elementUtils, final ModelWithAnnotation modelWithAnnotation) {
-		buildAnnotations(elementUtils, modelWithAnnotation, null);
 	}
 
 	/**
