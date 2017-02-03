@@ -237,7 +237,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * @param text
    * 	is binded to <code>${text}</code>
-   * @return collection of single value extracted with query.
+   * @return collection of single value extracted by query.
    */
   @Override
   public List<Long> selectPK(String text) {
@@ -284,7 +284,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * @param text
    * 	is binded to <code>${text}</code>
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Long selectCount(String text) {
@@ -880,7 +880,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public byte[] getOne(long id) {

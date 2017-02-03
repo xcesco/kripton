@@ -148,10 +148,10 @@ public abstract class JavadocUtility {
 			methodBuilder.addJavadoc("@return collection of bean or empty collection.\n");
 			break;
 		case LIST_SCALAR:
-			methodBuilder.addJavadoc("@return collection of single value extracted with query.\n");
+			methodBuilder.addJavadoc("@return collection of single value extracted by query.\n");
 			break;
 		case SCALAR:
-			methodBuilder.addJavadoc("@return single value extracted with query.\n");
+			methodBuilder.addJavadoc("@return single value extracted by query.\n");
 			break;
 		case PAGED_RESULT:
 			methodBuilder.addJavadoc("@return paged result.\n");

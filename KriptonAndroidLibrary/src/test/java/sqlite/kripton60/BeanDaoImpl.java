@@ -7862,7 +7862,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_bool</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Boolean selectValueBool() {
@@ -7894,7 +7894,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_bool_type</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public boolean selectValueBoolType() {
@@ -7926,7 +7926,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_byte</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Byte selectValueByte() {
@@ -7958,7 +7958,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_byte_type</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public byte selectValueByteType() {
@@ -7990,7 +7990,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_char</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Character selectValueChar() {
@@ -8022,7 +8022,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_char_type</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public char selectValueCharType() {
@@ -8054,7 +8054,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_double</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Double selectValueDouble() {
@@ -8086,7 +8086,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_double_type</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public double selectValueDoubleType() {
@@ -8118,7 +8118,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_float</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Float selectValueFloat() {
@@ -8150,7 +8150,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_float_type</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public float selectValueFloatType() {
@@ -8182,7 +8182,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_int</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Integer selectValueInt() {
@@ -8214,7 +8214,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_int_type</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public int selectValueIntType() {
@@ -8246,7 +8246,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_long</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Long selectValueLong() {
@@ -8278,7 +8278,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_long_type</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public long selectValueLongType() {
@@ -8310,7 +8310,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_short</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Short selectValueShort() {
@@ -8342,7 +8342,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_short_type</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public short selectValueShortType() {
@@ -8374,7 +8374,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_string</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public String selectValueString() {

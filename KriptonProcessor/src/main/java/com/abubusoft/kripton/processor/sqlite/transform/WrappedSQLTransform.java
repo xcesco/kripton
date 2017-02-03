@@ -28,7 +28,11 @@ public class WrappedSQLTransform<U> extends AbstractSQLTransform {
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), utilClazz, cursorName, indexName);
+	}
 
+	@Override
+	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+		methodBuilder.addCode("$T.read($L.getString($L))", utilClazz, cursorName, indexName);
 	}
 
 	@Override

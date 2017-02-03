@@ -48,6 +48,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -203,8 +204,7 @@ public abstract class SelectBuilderUtility {
 					if (TypeUtility.isSameType(elementName, entity.getName().toString())) {
 						// entity list
 						selectResultType = SqlSelectBuilder.SelectType.LIST_BEAN;
-					} else if (TypeUtility.isByteArray(elementName) || TypeUtility.isTypePrimitive(elementName) || TypeUtility.isTypeWrappedPrimitive(elementName)
-							|| TypeUtility.isTypeIncludedIn(elementName, String.class)) {
+					} else if (SQLTransformer.isSupportedJDKType(elementName) || TypeUtility.isByteArray(elementName)) {
 						// scalar list
 						selectResultType = SqlSelectBuilder.SelectType.LIST_SCALAR;
 					} else {
@@ -218,16 +218,13 @@ public abstract class SelectBuilderUtility {
 		} else if (TypeUtility.isEquals(returnTypeName, entity)) {
 			// return one element (no listener)
 			selectResultType = SqlSelectBuilder.SelectType.BEAN;
-		} else if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class)
-				|| TypeUtility.isByteArray(returnTypeName)) {
+		} else if (SQLTransformer.isSupportedJDKType(returnTypeName) || TypeUtility.isByteArray(returnTypeName)) {
 			// return single value string, int, long, short, double, float,
 			// String (no listener)
 			selectResultType = SqlSelectBuilder.SelectType.SCALAR;
 		}
 
-		if (selectResultType == null) {
-			throw (new InvalidMethodSignException(method, String.format("'%s' as return type is not supported", returnTypeName)));
-		}
+		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method,"'%s' as return type is not supported", returnTypeName);
 
 		// generate select method
 		selectResultType.generate(elementUtils, builder, method, returnType);

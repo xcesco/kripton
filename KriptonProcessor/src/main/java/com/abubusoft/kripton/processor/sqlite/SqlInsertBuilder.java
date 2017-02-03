@@ -107,7 +107,7 @@ public abstract class SqlInsertBuilder {
 			insertResultType = InsertType.INSERT_RAW;
 
 			ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
-
+			
 			// check value attribute
 			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE).size() > 0, method,
 					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.VALUE.getValue());

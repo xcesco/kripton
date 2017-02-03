@@ -1000,7 +1000,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param value
    * 	is used as ${bean}
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public long selectBean1(Channel value) {
@@ -1307,7 +1307,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * @param value
    * 	is used as ${bean}
-   * @return collection of single value extracted with query.
+   * @return collection of single value extracted by query.
    */
   @Override
   public List<Long> selectBean8(Channel value) {

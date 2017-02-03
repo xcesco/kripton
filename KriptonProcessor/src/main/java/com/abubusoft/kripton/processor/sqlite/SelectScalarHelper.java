@@ -23,6 +23,7 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -51,25 +52,11 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
 		TypeMirror returnType = method.getReturnClass();
 		TypeName returnTypeName = typeName(returnType);
+
+		//ASSERT: returnType is a supported type
 		
-		if (TypeUtility.isTypePrimitive(returnTypeName) || TypeUtility.isTypeWrappedPrimitive(returnTypeName) || TypeUtility.isTypeIncludedIn(returnTypeName, String.class)
-				|| TypeUtility.isByteArray(returnTypeName)) {
-
-		} else {
-			// error return type
-			throw (new InvalidMethodSignException(method, "Invalid return type"));
-		}
-
-		if (fieldList.value1.size() == 0) {
-			// no projection
-			throw (new InvalidMethodSignException(method, "No column was selected"));
-		} else if (fieldList.value1.size() > 1) {
-			// too many values
-			if (fieldList.explicitDefinition)
-				throw (new InvalidMethodSignException(method, "Only one column can be defined for this kind of method"));
-			else
-				throw (new InvalidMethodSignException(method, "No column was selected for query defined with method"));
-		}
+		// no column or too many columns
+		AssertKripton.assertTrueOrInvalidMethodSignException(fieldList.value1.size() == 1, method, "only one field can be defined as result for this method");				
 
 		SQLTransform t = SQLTransformer.lookup(returnType);
 
@@ -78,7 +65,7 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode(";\n");
 
 		methodBuilder.addCode("\n");
-		//methodBuilder.beginControlFlow("try");
+		// methodBuilder.beginControlFlow("try");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
 		// generate index from columns
@@ -99,7 +86,7 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 
 		// end cursor
 		methodBuilder.endControlFlow();
-		
+
 		methodBuilder.addCode("return result;\n");
 		// end method
 		methodBuilder.endControlFlow();

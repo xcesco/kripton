@@ -23,7 +23,7 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -52,14 +52,10 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 		TypeMirror returnType = method.getReturnClass();
 		TypeName returnTypeName = typeName(returnType);
 
-		// return type is already checked
-		if (fieldList.value1.size() == 0) {
-			// no projection
-			throw (new InvalidMethodSignException(method, "no column was selected"));
-		} else if (fieldList.value1.size() > 1) {
-			// too many values
-			throw (new InvalidMethodSignException(method, "only one column can be defined for this kind of method"));
-		}
+		//ASSERT: returnType is a supported type
+		
+		// no column or too many columns
+		AssertKripton.assertTrueOrInvalidMethodSignException(fieldList.value1.size() == 1, method, "only one field can be defined as result for this method");				
 
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
 
@@ -76,7 +72,7 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 		LiteralType literalReturn = LiteralType.of(returnType.toString());
 
 		SQLTransform t;
-		if (!literalReturn.isList())
+		if (!literalReturn.isCollection())
 			t = SQLTransformer.lookup(returnType);
 		else {
 			t = SQLTransformer.lookup(typeName(literalReturn.getComposedValue()));

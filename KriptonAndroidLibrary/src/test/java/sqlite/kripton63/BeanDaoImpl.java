@@ -827,7 +827,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return collection of single value extracted with query.
+   * @return collection of single value extracted by query.
    */
   @Override
   public List<String> selectMapEnumByteOneString() {

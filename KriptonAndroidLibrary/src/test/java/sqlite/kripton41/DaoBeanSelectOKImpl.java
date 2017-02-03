@@ -40,7 +40,7 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
    * 	is binded to <code>${id}</code>
    * @param value
    * 	is binded to <code>${value}</code>
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Boolean selectDistance(long id, double value) {
