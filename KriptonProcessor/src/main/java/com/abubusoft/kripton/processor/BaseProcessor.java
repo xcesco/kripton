@@ -32,8 +32,6 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
-import org.apache.tools.ant.types.LogLevel;
-
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;

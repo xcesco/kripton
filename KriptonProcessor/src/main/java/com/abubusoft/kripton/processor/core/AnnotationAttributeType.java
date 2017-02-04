@@ -41,7 +41,6 @@ public enum AnnotationAttributeType {
 	ENABLED("enabled"),
 	
 	EXCLUDED_FIELDS("excludedFields"),
-	FIELD_TYPE("fieldType"),
 	FILENAME("fileName"),
 	
 	FOREIGN_KEY("foreignKey"),

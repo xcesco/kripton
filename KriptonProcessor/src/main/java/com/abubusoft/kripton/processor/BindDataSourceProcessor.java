@@ -60,6 +60,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoun
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.DaoDefinitionWithoutAnnotatedMethodException;
 import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
@@ -143,15 +144,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			model.schemaClear();
 
 			parseBindType(roundEnv);
-
-			for (Element item : globalBeanElements.values()) {
-				if (item.getKind() == ElementKind.ENUM) {
-					// just for security
-					BindTransformer.register(typeName(item), new EnumBindTransform(typeName(item)));
-					SQLTransformer.register(typeName(item), new EnumSQLTransform(typeName(item)));
-				}
-			}
-
+		
 			// Put all @BindTable elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
 				if (item.getKind() != ElementKind.CLASS) {
@@ -297,24 +290,19 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					if (!bindAllFields && annotationBindColumn == null) {
 						return false;
 					}
+					
+					// test if it's a Enum class
+					if (TypeUtility.isEnum(elementUtils, property.getElement()))
+					{
+						BindTransformer.register(TypeUtility.typeName(property.getElement()), new EnumBindTransform(TypeUtility.typeName(property.getElement())));
+						SQLTransformer.register(TypeUtility.typeName(property.getElement()), new EnumSQLTransform(TypeUtility.typeName(property.getElement())));
+					}
 
 					if (annotationBindColumn != null) {
 						property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn, AnnotationAttributeType.NULLABLE));
 						ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
 
 						property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
-
-						// set transformer for enumeration
-						FieldType definitionType = FieldType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.FIELD_TYPE));
-						if (definitionType != null) {
-							switch (definitionType) {
-							case NONE:
-								break;
-							case ENUM:
-								SQLTransformer.register(typeName(property.getElement()), new EnumSQLTransform(typeName(property.getElement())));
-							}
-
-						}
 
 					} else {
 						// primary key is set in other places

@@ -15,8 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-import java.lang.ref.WeakReference;
-
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
@@ -33,10 +31,10 @@ public abstract class AbstractDao implements AutoCloseable {
 	
 	public AbstractDao(AbstractDataSource dataSource)
 	{
-		this.dataSource=new WeakReference<AbstractDataSource>(dataSource);
+		this.dataSource=dataSource;
 	}
 
-	protected WeakReference<AbstractDataSource> dataSource;
+	protected AbstractDataSource dataSource;
 	
 	/**
 	 * Retrieve SQLite database instance
@@ -44,7 +42,7 @@ public abstract class AbstractDao implements AutoCloseable {
 	 */
 	protected SQLiteDatabase database()
 	{
-		SQLiteDatabase database=dataSource.get().database;
+		SQLiteDatabase database=dataSource.database;
 		if (database==null) throw(new KriptonRuntimeException("No database connection is opened before use "+this.getClass().getCanonicalName()));
 		return database;
 	}

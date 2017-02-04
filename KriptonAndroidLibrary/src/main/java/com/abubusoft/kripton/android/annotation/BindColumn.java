@@ -72,12 +72,4 @@ public @interface BindColumn {
 	 */
 	public Class<?> foreignKey() default NoForeignKey.class;
 	
-	/**
-	 * Transformation to apply
-	 * 
-	 * @return
-	 * 		transformation
-	 */
-	public FieldType fieldType() default FieldType.NONE;
-
 }

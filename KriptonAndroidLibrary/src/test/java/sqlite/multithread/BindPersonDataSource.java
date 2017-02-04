@@ -9,6 +9,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.Throwable;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * <p>
@@ -97,12 +98,14 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
 	public static BindPersonDataSource instance() {
 		synchronized (syncSingleton) {
 			if (instance == null) {
-
 				instance = new BindPersonDataSource(KriptonLibrary.context());
-
+				//instance.openWritableDatabase();
+				//instance.close();
 			}
+			
 			return instance;
 		}
+		
 	}
 
 	/**
@@ -115,7 +118,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
 		instance.getWritableDatabase();
 		return instance;
 	}
-	
+
 	/**
 	 * Retrieve data source instance and open it.
 	 * 

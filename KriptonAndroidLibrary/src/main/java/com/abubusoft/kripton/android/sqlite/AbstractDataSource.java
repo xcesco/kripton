@@ -20,6 +20,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.abubusoft.kripton.android.Logger;
@@ -53,6 +54,8 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		}		
 	};
 
+	
+	
 	private final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
 
 	private final Lock r = rwl.readLock();
@@ -151,26 +154,27 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * @see android.database.sqlite.SQLiteOpenHelper#close()
 	 */
 	@Override
-	public void close() {
-		switch (status.get()) {		
-		case READ_AND_WRITE_OPENED:
-			w.unlock();
-			break;
-		case READ_ONLY_OPENED:
-			r.unlock();
-			break;
-		default:
-			throw(new KriptonRuntimeException("Incosistent status"));
-		}
-		
+	public void close() {				
 		if (openCounter.decrementAndGet() == 0) {
 			// Closing database
-			database.close();
-			status.set(TypeStatus.CLOSED);
+			database.close();			
 			database=null;
 		}
 		
-		Logger.info("database RELEASED (%s) (id: %s)", status.get(), openCounter.intValue());
+		Logger.info("database CLOSE (%s) (id: %s)", status.get(), openCounter.intValue());
+				
+		switch (status.get()) {		
+		case READ_AND_WRITE_OPENED:
+			if (database==null) status.set(TypeStatus.CLOSED);
+			w.unlock();
+			break;
+		case READ_ONLY_OPENED:
+			if (database==null) status.set(TypeStatus.CLOSED);
+			r.unlock();
+			break;
+		default:
+			throw(new KriptonRuntimeException("Inconsistent status"));
+		}
 	}
 
 	/*
@@ -255,7 +259,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 			// open new read database
 			database = super.getReadableDatabase();
 		} 
-		Logger.info("database %s (id: %s)", status.get(), (openCounter.intValue()-1));
+		Logger.info("database OPEN %s (id: %s)", status.get(), (openCounter.intValue()-1));
 		return database;
 	}
 
@@ -270,11 +274,11 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		w.lock();
 		status.set(TypeStatus.READ_AND_WRITE_OPENED);
 
-		if (openCounter.incrementAndGet() == 1 || database.isReadOnly()) {
+		if (openCounter.incrementAndGet() == 1) {
 			// open new write database
 			database = super.getWritableDatabase();
 		} 
-		Logger.info("database %s (id: %s)", status.get(), (openCounter.intValue()-1));
+		Logger.info("database OPEN %s (id: %s)", status.get(), (openCounter.intValue()-1));
 		return database;
 	}
 

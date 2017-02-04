@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelClass;
@@ -430,6 +431,30 @@ public class TypeUtility {
 
 	public static ArrayTypeName arrayTypeName(Type type) {
 		return ArrayTypeName.of(type);
+	}
+
+	/**
+	 * Given an element, return true if it is a Enum class.
+	 * 
+	 * @param elements
+	 * @param element
+	 * @return
+	 */
+	public static boolean isEnum(Elements elements,Element element) {
+		try { 
+			TypeElement el=elements.getTypeElement(element.asType().toString());
+			TypeMirror a = el.getSuperclass();
+			if (a.toString().startsWith("java.lang.Enum"))
+			{
+				return true;
+			} else {
+				return false;
+			}			
+		} catch(Throwable e)
+		{
+			return false;
+		}
+		
 	}
 
 
