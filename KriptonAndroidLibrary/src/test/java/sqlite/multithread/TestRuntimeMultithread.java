@@ -79,12 +79,9 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 	public void testMultithreadMixed() throws InterruptedException {
 		ExecutorService executor = Executors.newFixedThreadPool(5);
 		Runnable worker;
-		
-		//BindPersonDataSource.open();
-		//BindPersonDataSource.instance().close();
 
 		for (int c = 0; c < 10; c++) {
-			Thread.sleep(10);
+			// Thread.sleep(10);
 			final int start = c * 10;
 			final int threadId = c;
 
@@ -95,7 +92,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 					@Override
 					public void run() {
 						int id = threadId;
-						Logger.info("Start thread-" + id+" T0");
+						Logger.info("Start thread-" + id + " T0");
 						try (BindPersonDataSource dataSource = BindPersonDataSource.open()) {
 							PersonDAOImpl dao = dataSource.getPersonDAO();
 							Person bean = new Person();
@@ -111,7 +108,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 								}
 							}
 						}
-						Logger.info("End thread-" + id+" T0");
+						Logger.info("End thread-" + id + " T0");
 
 					}
 				};
@@ -122,7 +119,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 					@Override
 					public void run() {
 						int id = threadId;
-						Logger.info("Start thread-" + id+" T1");
+						Logger.info("Start thread-" + id + " T1");
 						try (BindPersonDataSource dataSource = BindPersonDataSource.openReadOnly()) {
 							PersonDAOImpl dao = dataSource.getPersonDAO();
 							Person bean = new Person();
@@ -133,7 +130,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 								dao.selectThread1();
 							}
 						}
-						Logger.info("End thread-" + id+" T1");
+						Logger.info("End thread-" + id + " T1");
 
 					}
 				};
@@ -144,7 +141,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 					@Override
 					public void run() {
 						int id = threadId;
-						Logger.info("Start thread-" + id+" T2");
+						Logger.info("Start thread-" + id + " T2");
 						try (BindPersonDataSource dataSource = BindPersonDataSource.openReadOnly()) {
 							PersonDAOImpl dao = dataSource.getPersonDAO();
 							Person bean = new Person();
@@ -155,7 +152,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 								dao.selectThread2();
 							}
 						}
-						Logger.info("End thread-" + id+" T2");
+						Logger.info("End thread-" + id + " T2");
 
 					}
 				};
@@ -166,7 +163,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 					@Override
 					public void run() {
 						int id = threadId;
-						Logger.info("Start thread-" + id+" T3");
+						Logger.info("Start thread-" + id + " T3");
 						BindPersonDataSource dataSource = BindPersonDataSource.instance();
 						dataSource.execute(new BindPersonDataSource.SimpleTransaction() {
 
@@ -189,14 +186,14 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 								return true;
 							}
 						});
-						Logger.info("End thread-" + id+" T3");
+						Logger.info("End thread-" + id + " T3");
 
 					}
 				};
 
 				break;
 			default:
-				worker=null;
+				worker = null;
 				break;
 			}
 
