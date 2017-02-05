@@ -36,8 +36,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
   ...
 </dependencies>
 ...		
-<build>
-  <pluginManagement>
+<build> 
   <plugins>
     ...
     <plugin>
@@ -58,7 +57,6 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
     </plugin>
     ...
   </plugins>
-  </pluginManagement>
 </build>
 ```
 
