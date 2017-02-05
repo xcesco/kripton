@@ -17,19 +17,18 @@ package sqlite.example01;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 public class ChannelMessage extends UidEntity {
 
 	private static final long serialVersionUID = -2411765210163916759L;
-	
+
 	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	protected long id;
-	
+
 	protected byte[] image;
-	
+
 	/**
 	 * @return the image
 	 */
@@ -38,15 +37,16 @@ public class ChannelMessage extends UidEntity {
 	}
 
 	/**
-	 * @param image the image to set
+	 * @param image
+	 *            the image to set
 	 */
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
-	@BindColumn(fieldType=FieldType.ENUM)
+	@BindColumn
 	protected DayType day;
-	
+
 	/**
 	 * @return the day
 	 */
@@ -55,7 +55,8 @@ public class ChannelMessage extends UidEntity {
 	}
 
 	/**
-	 * @param day the day to set
+	 * @param day
+	 *            the day to set
 	 */
 	public void setDay(DayType day) {
 		this.day = day;
@@ -102,7 +103,8 @@ public class ChannelMessage extends UidEntity {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -125,7 +127,8 @@ public class ChannelMessage extends UidEntity {
 	}
 
 	/**
-	 * @param valid the valid to set
+	 * @param valid
+	 *            the valid to set
 	 */
 	public void setValid(boolean valid) {
 		this.valid = valid;
@@ -133,11 +136,7 @@ public class ChannelMessage extends UidEntity {
 
 	@Override
 	public String toString() {
-		return "ChannelMessage [text=" + text + ", type=" + type + ", ownerUid=" + ownerUid + ", updateTime=" + updateTime
-				+ "]";
+		return "ChannelMessage [text=" + text + ", type=" + type + ", ownerUid=" + ownerUid + ", updateTime=" + updateTime + "]";
 	}
-
-
-
 
 }

@@ -18,8 +18,6 @@
  */
 package com.abubusoft.kripton.processor;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -35,9 +33,7 @@ import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindModel;
-import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
-import com.abubusoft.kripton.processor.bind.transform.EnumBindTransform;
-import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 
 /**
  * Annotation processor for json/xml/etc
@@ -83,22 +79,11 @@ public class BindTypeProcessor extends BaseProcessor {
 			model = new BindModel();
 			int itemCounter = 0;
 
-			parseBindType(roundEnv);
-			for (Element item : globalBeanElements.values()) {
-				if (item.getKind() == ElementKind.ENUM) {
-					BindTransformer.register(typeName(item), new EnumBindTransform(typeName(item)));
-				}
-			}
+			parseBindType(roundEnv, elementUtils);
 
 			// Put all @BindType elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
-				if (item.getKind() != ElementKind.CLASS && item.getKind() != ElementKind.ENUM) {
-					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindType.class.getSimpleName());
-					throw (new InvalidKindForAnnotationException(msg));
-				}
-
-				if (item.getKind() == ElementKind.ENUM)
-					continue;
+				AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
 
 				BindEntityBuilder.build(model, elementUtils, item);
 

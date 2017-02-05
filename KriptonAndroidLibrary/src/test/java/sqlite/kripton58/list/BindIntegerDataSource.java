@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.Throwable;
@@ -38,6 +39,8 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    */
   public static final int version = 1;
 
+  static Object syncSingleton = new Object();
+
   /**
    * <p>dao instance</p>
    */
@@ -53,11 +56,12 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   }
 
   /**
-   * <p>executes a transaction. This method is synchronized to avoid concurrent problems. The database will be open in write mode.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
    *
-   * @param transaction transaction to execute
+   * @param transaction
+   * 	transaction to execute
    */
-  public synchronized void execute(Transaction transaction) {
+  public void execute(Transaction transaction) {
     SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
@@ -81,11 +85,13 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   /**
    * instance
    */
-  public static synchronized BindIntegerDataSource instance() {
-    if (instance==null) {
-      instance=new BindIntegerDataSource(KriptonLibrary.context());
+  public static BindIntegerDataSource instance() {
+    synchronized(syncSingleton) {
+      if (instance==null) {
+        instance=new BindIntegerDataSource(KriptonLibrary.context());
+      }
+      return instance;
     }
-    return instance;
   }
 
   /**
@@ -95,6 +101,16 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   public static BindIntegerDataSource open() {
     BindIntegerDataSource instance=instance();
     instance.getWritableDatabase();
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it in read only mode.
+   * @return opened dataSource instance.
+   */
+  public static BindIntegerDataSource openReadOnly() {
+    BindIntegerDataSource instance=instance();
+    instance.openReadOnlyDatabase();
     return instance;
   }
 

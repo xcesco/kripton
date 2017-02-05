@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.Throwable;
@@ -50,6 +51,8 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * <p>database version</p>
    */
   public static final int version = 1;
+
+  static Object syncSingleton = new Object();
 
   /**
    * <p>dao instance</p>
@@ -96,11 +99,12 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   }
 
   /**
-   * <p>executes a transaction. This method is synchronized to avoid concurrent problems. The database will be open in write mode.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
    *
-   * @param transaction transaction to execute
+   * @param transaction
+   * 	transaction to execute
    */
-  public synchronized void execute(Transaction transaction) {
+  public void execute(Transaction transaction) {
     SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
@@ -124,11 +128,13 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * instance
    */
-  public static synchronized BindQuickStartDataSource instance() {
-    if (instance==null) {
-      instance=new BindQuickStartDataSource(KriptonLibrary.context());
+  public static BindQuickStartDataSource instance() {
+    synchronized(syncSingleton) {
+      if (instance==null) {
+        instance=new BindQuickStartDataSource(KriptonLibrary.context());
+      }
+      return instance;
     }
-    return instance;
   }
 
   /**
@@ -138,6 +144,16 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   public static BindQuickStartDataSource open() {
     BindQuickStartDataSource instance=instance();
     instance.getWritableDatabase();
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it in read only mode.
+   * @return opened dataSource instance.
+   */
+  public static BindQuickStartDataSource openReadOnly() {
+    BindQuickStartDataSource instance=instance();
+    instance.openReadOnlyDatabase();
     return instance;
   }
 

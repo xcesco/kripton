@@ -12,56 +12,54 @@ import com.abubusoft.kripton.annotation.BindXml;
 
 @BindType
 public class Bean71 {
-	
-	@Bind(enabled=true)
-	@BindXml(elementTag="item")
+
+	public LinkedList<Enum71> valueEnumList;
+
+	@Bind(enabled = true)
+	@BindXml(elementTag = "item")
 	public LinkedList<Bean71> valueBeanList;
-	
-	@Bind(enabled=true)
+
+	@Bind(enabled = true)
 	public LinkedList<BigDecimal> valueBigDecimalList;
-	
-	@BindXml(elementTag="item")
+
+	@BindXml(elementTag = "item")
 	public LinkedList<BigInteger> valueBigIntegerList;
 
-	@BindXml(elementTag="item")
+	@BindXml(elementTag = "item")
 	public List<Byte> valueByteList;
 
-	@BindXml(elementTag="item")
+	@BindXml(elementTag = "item")
 	public ArrayList<Character> valueCharacterList;
-	
-	@BindXml(elementTag="item")
+
+	@BindXml(elementTag = "item")
 	public List<Double> valueDoubleList;
-		
-	public LinkedList<Enum71> valueEnumList;
-	
-	@BindXml(elementTag="item")
+
+	@BindXml(elementTag = "item")
 	public List<Float> valueFloatList;
-	
-	@BindXml(elementTag="item")
+
+	@BindXml(elementTag = "item")
 	private List<Integer> valueIntList;
-	
-	@BindXml(elementTag="item")
+
+	@BindXml(elementTag = "item")
 	public List<Long> valueLongList;
-	
-	@BindXml(elementTag="item")
+
+	@BindXml(elementTag = "item")
 	public List<Short> valueShortList;
-	
-	@BindXml(elementTag="item")
+
+	@BindXml(elementTag = "item")
 	public List<String> valueStringList;
-	
-	@Bind(enabled=true)
+
+	@Bind(enabled = true)
 	public String zalueStringFinal;
-	
-	public Bean71()
-	{
-		
+
+	public Bean71() {
+
 	}
 
-	public Bean71(String name)
-	{
-		this.zalueStringFinal=name;
+	public Bean71(String name) {
+		this.zalueStringFinal = name;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -138,11 +136,11 @@ public class Bean71 {
 			return false;
 		return true;
 	}
-	
+
 	public List<Integer> getValueIntList() {
 		return valueIntList;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -162,9 +160,9 @@ public class Bean71 {
 		result = prime * result + ((zalueStringFinal == null) ? 0 : zalueStringFinal.hashCode());
 		return result;
 	}
-	
+
 	public void setValueIntList(List<Integer> valueIntList) {
 		this.valueIntList = valueIntList;
 	}
-	
+
 }

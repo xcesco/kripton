@@ -150,6 +150,10 @@ public abstract class PrefsTransformer {
 			return transform;
 		}
 
+		if (TypeUtility.isEnum(typeName)) {
+			return new EnumPrefsTransform(typeName);
+		}
+
 		return new ObjectPrefsTransform();
 	}
 

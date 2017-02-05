@@ -15,8 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -40,7 +38,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
@@ -48,8 +45,6 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
-import com.abubusoft.kripton.processor.bind.transform.EnumBindTransform;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -60,7 +55,6 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoun
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.DaoDefinitionWithoutAnnotatedMethodException;
 import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
@@ -83,8 +77,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.EnumSQLTransform;
-import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 
 public class BindDataSourceProcessor extends BaseProcessor {
 
@@ -143,8 +135,8 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 			model.schemaClear();
 
-			parseBindType(roundEnv);
-		
+			parseBindType(roundEnv, elementUtils);
+
 			// Put all @BindTable elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
 				if (item.getKind() != ElementKind.CLASS) {
@@ -217,7 +209,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		} catch (Exception e) {
 			String msg = e.getMessage();
 			error(null, msg);
-			
+
 			if (DEBUG_MODE) {
 				logger.log(Level.SEVERE, msg);
 				e.printStackTrace();
@@ -289,13 +281,6 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 					if (!bindAllFields && annotationBindColumn == null) {
 						return false;
-					}
-					
-					// test if it's a Enum class
-					if (TypeUtility.isEnum(elementUtils, property.getElement()))
-					{
-						BindTransformer.register(TypeUtility.typeName(property.getElement()), new EnumBindTransform(TypeUtility.typeName(property.getElement())));
-						SQLTransformer.register(TypeUtility.typeName(property.getElement()), new EnumSQLTransform(TypeUtility.typeName(property.getElement())));
 					}
 
 					if (annotationBindColumn != null) {

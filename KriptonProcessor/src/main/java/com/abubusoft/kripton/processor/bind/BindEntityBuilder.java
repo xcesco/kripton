@@ -15,15 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAdapter;
@@ -39,7 +33,6 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.bind.transform.ByteArrayBindTransform;
-import com.abubusoft.kripton.processor.bind.transform.EnumBindTransform;
 import com.abubusoft.kripton.processor.bind.transform.ObjectBindTransform;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -98,7 +91,7 @@ public abstract class BindEntityBuilder {
 			@Override
 			public BindProperty createProperty(Element element) {
 				return new BindProperty(currentEntity, element);
-				
+
 			}
 		}, propertyAnnotationFilter, new PropertyCreatedListener<BindProperty>() {
 
@@ -264,12 +257,6 @@ public abstract class BindEntityBuilder {
 					throw (new IncompatibleAttributesInAnnotationException(msg));
 				}
 
-				// test if it's a Enum class
-				if (TypeUtility.isEnum(elementUtils, property.getElement()))
-				{
-					BindTransformer.register(TypeUtility.typeName(property.getElement()), new EnumBindTransform(TypeUtility.typeName(property.getElement())));
-				}
-				
 				property.bindedObject = BindTransformer.isBindedObject(property);
 
 				// if it's an object, we need to avoid to print field name (like

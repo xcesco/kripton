@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.Throwable;
@@ -39,6 +40,8 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    */
   public static final int version = 1;
 
+  static Object syncSingleton = new Object();
+
   /**
    * <p>dao instance</p>
    */
@@ -54,11 +57,12 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   }
 
   /**
-   * <p>executes a transaction. This method is synchronized to avoid concurrent problems. The database will be open in write mode.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
    *
-   * @param transaction transaction to execute
+   * @param transaction
+   * 	transaction to execute
    */
-  public synchronized void execute(Transaction transaction) {
+  public void execute(Transaction transaction) {
     SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
@@ -82,11 +86,13 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   /**
    * instance
    */
-  public static synchronized BindDummy01DataSource instance() {
-    if (instance==null) {
-      instance=new BindDummy01DataSource(KriptonLibrary.context());
+  public static BindDummy01DataSource instance() {
+    synchronized(syncSingleton) {
+      if (instance==null) {
+        instance=new BindDummy01DataSource(KriptonLibrary.context());
+      }
+      return instance;
     }
-    return instance;
   }
 
   /**
@@ -96,6 +102,16 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   public static BindDummy01DataSource open() {
     BindDummy01DataSource instance=instance();
     instance.getWritableDatabase();
+    return instance;
+  }
+
+  /**
+   * Retrieve data source instance and open it in read only mode.
+   * @return opened dataSource instance.
+   */
+  public static BindDummy01DataSource openReadOnly() {
+    BindDummy01DataSource instance=instance();
+    instance.openReadOnlyDatabase();
     return instance;
   }
 

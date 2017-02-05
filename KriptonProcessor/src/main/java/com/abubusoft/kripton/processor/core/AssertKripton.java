@@ -1,5 +1,10 @@
 package com.abubusoft.kripton.processor.core;
 
+import java.lang.annotation.Annotation;
+
+import javax.lang.model.element.Element;
+
+import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
@@ -73,6 +78,13 @@ public abstract class AssertKripton {
 	public static void assertTrueOrUnsupportedFieldTypeException(boolean expression, TypeName typeName) {
 		if (!expression)
 			throw (new UnsupportedFieldTypeException(typeName));
+	}
+
+	public static void assertTrueOrInvalidKindForAnnotationException(boolean expression, Element element, Class<? extends Annotation> annotationClazz) {
+		if (!expression) {
+			String msg = String.format("%s %s, only class can be annotated with @%s annotation", element.getKind(), element, annotationClazz.getSimpleName());
+			throw (new InvalidKindForAnnotationException(msg));
+		}
 	}
 
 }

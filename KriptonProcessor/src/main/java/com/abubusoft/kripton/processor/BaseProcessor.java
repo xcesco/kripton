@@ -33,7 +33,7 @@ import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 
 public abstract class BaseProcessor extends AbstractProcessor {
@@ -45,14 +45,12 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 * 
 	 * @param roundEnv
 	 */
-	protected void parseBindType(RoundEnvironment roundEnv) {
+	protected void parseBindType(RoundEnvironment roundEnv, Elements elements) {
 		// Put all @BindType elements in beanElements
 		globalBeanElements.clear();
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
-			if (!(item.getKind() == ElementKind.CLASS || item.getKind() == ElementKind.ENUM)) {
-				String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindType.class.getSimpleName());
-				throw (new InvalidKindForAnnotationException(msg));
-			}
+			AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
+
 			globalBeanElements.put(item.toString(), item);
 		}
 
@@ -68,7 +66,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	protected Types typeUtils;
 
 	/**
-	 * if true we are in a test 
+	 * if true we are in a test
 	 */
 	public static boolean TEST_MODE = false;
 
@@ -115,7 +113,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 */
 	protected static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	protected Elements elementUtils;
+	public static Elements elementUtils;
 	protected Filer filer;
 	protected Messager messager;
 
@@ -124,7 +122,8 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	}
 
 	protected void error(Element e, String msg, Object... args) {
-		// this must be always enabled, due control annotation processor execution status (if display an error, compiler fails).
+		// this must be always enabled, due control annotation processor
+		// execution status (if display an error, compiler fails).
 		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
 	}
 

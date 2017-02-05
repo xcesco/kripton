@@ -32,7 +32,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>name</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public String selectAll() {
@@ -64,7 +64,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>birth_day</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
-   * @return single value extracted with query.
+   * @return single value extracted by query.
    */
   @Override
   public Date selectAll2() {

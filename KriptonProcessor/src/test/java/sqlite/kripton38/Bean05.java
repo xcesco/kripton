@@ -20,7 +20,6 @@ import java.util.Date;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -31,11 +30,11 @@ public class Bean05 {
 	@Bind
 	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	protected long pk;
-	
+
 	@Bind
 	@BindColumn
 	protected long number;
-	
+
 	/**
 	 * @return the number
 	 */
@@ -44,14 +43,14 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param number the number to set
+	 * @param number
+	 *            the number to set
 	 */
 	public void setNumber(long number) {
 		this.number = number;
 	}
 
 	@Bind
-	@BindColumn(fieldType=FieldType.ENUM)
 	protected BeanType beanType;
 
 	/**
@@ -62,7 +61,8 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param beanType the beanType to set
+	 * @param beanType
+	 *            the beanType to set
 	 */
 	public void setBeanType(BeanType beanType) {
 		this.beanType = beanType;
@@ -76,20 +76,21 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param pk the pk to set
+	 * @param pk
+	 *            the pk to set
 	 */
 	public void setPk(long pk) {
 		this.pk = pk;
 	}
-	
+
 	@Bind
 	@BindColumn
 	protected String text;
-	
+
 	@Bind
 	@BindColumn
 	protected byte[] content;
-	
+
 	@Bind
 	@BindColumn
 	protected Date creationTime;
@@ -102,7 +103,8 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param creationTime the creationTime to set
+	 * @param creationTime
+	 *            the creationTime to set
 	 */
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
@@ -116,7 +118,8 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param content the content to set
+	 * @param content
+	 *            the content to set
 	 */
 	public void setContent(byte[] content) {
 		this.content = content;
@@ -130,7 +133,8 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param text the text to set
+	 * @param text
+	 *            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;

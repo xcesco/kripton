@@ -18,8 +18,6 @@
  */
 package com.abubusoft.kripton.processor;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -39,8 +37,6 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
-import com.abubusoft.kripton.processor.bind.transform.EnumBindTransform;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -48,15 +44,12 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sharedprefs.BindSharedPreferencesBuilder;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefModel;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
-import com.abubusoft.kripton.processor.sharedprefs.transform.EnumPrefsTransform;
-import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 
 /**
  * Annotation processor for shared preferences
@@ -105,7 +98,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 			model = new PrefModel();
 			int itemCounter = 0;
 
-			parseBindType(roundEnv);			
+			parseBindType(roundEnv, elementUtils);
 
 			// Put all @BindSharedPreferences elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindSharedPreferences.class)) {
@@ -210,13 +203,6 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 				ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
 				if (annotation != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ENABLED) == false) {
 					return false;
-				}
-				
-				// test if it's a Enum class
-				if (TypeUtility.isEnum(elementUtils, property.getElement()))
-				{
-					BindTransformer.register(TypeUtility.typeName(property.getElement()), new EnumBindTransform(TypeUtility.typeName(property.getElement())));
-					PrefsTransformer.register(TypeUtility.typeName(property.getElement()), new EnumPrefsTransform(TypeUtility.typeName(property.getElement())));					
 				}
 
 				if (bindEntity.contains(property.getName())) {

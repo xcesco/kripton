@@ -199,6 +199,10 @@ public abstract class SQLTransformer {
 			return getSqlTransform(typeName);
 		}
 
+		if (TypeUtility.isEnum(typeName)) {
+			return new EnumSQLTransform(typeName);
+		}
+
 		return new ObjectSQLTransform();
 	}
 
@@ -217,33 +221,32 @@ public abstract class SQLTransformer {
 
 		return null;
 	}
-	
-	public static boolean isSupportedJDKType(TypeName typeName)
-	{
+
+	public static boolean isSupportedJDKType(TypeName typeName) {
 		if (typeName.isPrimitive()) {
-			return getPrimitiveTransform(typeName)!=null;
+			return getPrimitiveTransform(typeName) != null;
 		}
 
 		String name = typeName.toString();
 
 		if (name.startsWith("java.lang")) {
-			return getLanguageTransform(typeName)!=null;
+			return getLanguageTransform(typeName) != null;
 		}
 
 		if (name.startsWith("java.util")) {
-			return getUtilTransform(typeName)!=null;
+			return getUtilTransform(typeName) != null;
 		}
 
 		if (name.startsWith("java.math")) {
-			return getMathTransform(typeName)!=null;
+			return getMathTransform(typeName) != null;
 		}
 
 		if (name.startsWith("java.net")) {
-			return getNetTransform(typeName)!=null;
+			return getNetTransform(typeName) != null;
 		}
 
 		if (name.startsWith("java.sql")) {
-			return getSqlTransform(typeName)!=null;
+			return getSqlTransform(typeName) != null;
 		}
 
 		return false;

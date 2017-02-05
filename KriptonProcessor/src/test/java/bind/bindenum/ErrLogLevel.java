@@ -3,8 +3,7 @@ package bind.bindenum;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-public class Bean {
+public enum ErrLogLevel {
 
-	public LogLevel level;
-
+	LOG_INFO, LOG_DEBUG
 }

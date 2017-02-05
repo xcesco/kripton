@@ -15,11 +15,7 @@
  *******************************************************************************/
 package sqlite.kripton38;
 
-import com.abubusoft.kripton.annotation.BindType;
-
-@BindType
 public enum BeanType {
-	TYPE_1,
-	TYPE_2;
-	
+	TYPE_1, TYPE_2;
+
 }

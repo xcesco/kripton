@@ -21,9 +21,9 @@ import java.nio.charset.StandardCharsets;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
@@ -48,8 +48,8 @@ public class TypeUtility {
 
 		return false;
 	}
-	
-	public static boolean isTypeEquals(TypeName value, TypeName value2) {		
+
+	public static boolean isTypeEquals(TypeName value, TypeName value2) {
 		return value.equals(value2);
 	}
 
@@ -90,7 +90,8 @@ public class TypeUtility {
 	}
 
 	/**
-	 * Check if class that is rapresented by value has same name of entity parameter.
+	 * Check if class that is rapresented by value has same name of entity
+	 * parameter.
 	 * 
 	 * @param value
 	 * @param entity
@@ -101,7 +102,8 @@ public class TypeUtility {
 	}
 
 	/**
-	 * Check if class that is rapresented by value has same name of entity parameter.
+	 * Check if class that is rapresented by value has same name of entity
+	 * parameter.
 	 * 
 	 * @param value
 	 * @param kindOfParameter
@@ -122,7 +124,7 @@ public class TypeUtility {
 	public static ClassName classNameWithPrefix(String packageName, String className, String prefix) {
 		return ClassName.get(packageName, className + prefix);
 	}
-	
+
 	/**
 	 * Generate class name
 	 * 
@@ -130,13 +132,12 @@ public class TypeUtility {
 	 * @return class name generated
 	 */
 	public static ClassName className(String className) {
-		int index=className.lastIndexOf(".");
-		if (index>0)
-		{
-			return classNameWithPrefix(className.substring(0, index), className.substring(index+1),"");
+		int index = className.lastIndexOf(".");
+		if (index > 0) {
+			return classNameWithPrefix(className.substring(0, index), className.substring(index + 1), "");
 		}
-		return ClassName.get("",className);
-		
+		return ClassName.get("", className);
+
 	}
 
 	/**
@@ -166,14 +167,13 @@ public class TypeUtility {
 	 * @return typeName
 	 */
 	public static TypeName typeName(TypeMirror typeMirror) {
-		if (typeMirror instanceof ModelType)
-		{
-			return ((ModelType)typeMirror).getName();
+		if (typeMirror instanceof ModelType) {
+			return ((ModelType) typeMirror).getName();
 		}
-		
+
 		return TypeName.get(typeMirror);
 	}
-	
+
 	/**
 	 * Convert a TypeMirror in a typeName
 	 * 
@@ -181,15 +181,15 @@ public class TypeUtility {
 	 * @return typeName
 	 */
 	public static TypeName typeName(String packageName, String typeName) {
-		return classNameWithPrefix(packageName, typeName,"");
+		return classNameWithPrefix(packageName, typeName, "");
 	}
-	
+
 	public static TypeName mergeTypeName(TypeName typeName, String typeNamePrefix) {
 		ClassName className = className(typeName.toString());
-		
-		return classNameWithPrefix(className.packageName(), className.simpleName(),typeNamePrefix);
+
+		return classNameWithPrefix(className.packageName(), className.simpleName(), typeNamePrefix);
 	}
-	
+
 	/**
 	 * Convert a TypeMirror in a typeName
 	 * 
@@ -197,21 +197,18 @@ public class TypeUtility {
 	 * @return typeName
 	 */
 	public static TypeName typeName(String typeName) {
-		TypeName[] values={TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT};
-		
-		for (TypeName item: values)
-		{
-			if (item.toString().equals(typeName))
-			{
+		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT };
+
+		for (TypeName item : values) {
+			if (item.toString().equals(typeName)) {
 				return item;
 			}
 		}
-		
-		if (typeName.endsWith("[]"))
-		{			
-			return ArrayTypeName.of(typeName(typeName.substring(0, typeName.length()-2)));
+
+		if (typeName.endsWith("[]")) {
+			return ArrayTypeName.of(typeName(typeName.substring(0, typeName.length() - 2)));
 		}
-		
+
 		return className(typeName);
 	}
 
@@ -230,7 +227,8 @@ public class TypeUtility {
 	}
 
 	/**
-	 * Check if method parameter is nullable. Moreover, check nullable status of method param and property are compatible.
+	 * Check if method parameter is nullable. Moreover, check nullable status of
+	 * method param and property are compatible.
 	 * 
 	 * @param method
 	 * @param methodParam
@@ -257,13 +255,14 @@ public class TypeUtility {
 		if (!TypeUtility.isEquals(typeName(item.value1), property.getPropertyType().getName())) {
 			// ASSERT: property is not nullable but method yes, so we throw an
 			// exception
-			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ", property.getName(), property.getPropertyType().getName(),
-					item.value0, item.value1.toString())));
+			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ", property.getName(),
+					property.getPropertyType().getName(), item.value0, item.value1.toString())));
 		}
 	}
 
 	/**
-	 * generate begin string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
+	 * generate begin string to translate in code to used in content value or
+	 * parameter need to be converted in string through String.valueOf
 	 * 
 	 * 
 	 */
@@ -274,7 +273,8 @@ public class TypeUtility {
 	}
 
 	/**
-	 * generate begin string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
+	 * generate begin string to translate in code to used in content value or
+	 * parameter need to be converted in string through String.valueOf
 	 * 
 	 * @param property
 	 * @return
@@ -287,11 +287,10 @@ public class TypeUtility {
 		} else {
 			typeName = typeName(typeMirror);
 		}
-		
+
 		SQLTransform transform = SQLTransformer.lookup(typeMirror);
-		
-		switch(transform.getColumnType())
-		{
+
+		switch (transform.getColumnType()) {
 		case TEXT:
 			return;
 		case BLOB:
@@ -305,7 +304,8 @@ public class TypeUtility {
 	}
 
 	/**
-	 * generate end string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
+	 * generate end string to translate in code to used in content value or
+	 * parameter need to be converted in string through String.valueOf
 	 * 
 	 * 
 	 */
@@ -316,7 +316,8 @@ public class TypeUtility {
 	}
 
 	/**
-	 * generate end string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
+	 * generate end string to translate in code to used in content value or
+	 * parameter need to be converted in string through String.valueOf
 	 * 
 	 * 
 	 */
@@ -327,11 +328,10 @@ public class TypeUtility {
 		} else {
 			typeName = typeName(typeMirror);
 		}
-		
+
 		SQLTransform transform = SQLTransformer.lookup(typeMirror);
-		
-		switch(transform.getColumnType())
-		{
+
+		switch (transform.getColumnType()) {
 		case TEXT:
 			return;
 		case BLOB:
@@ -343,17 +343,18 @@ public class TypeUtility {
 			break;
 		}
 
-//		if (isString(typeName)) {
-//			return;
-//		} else if (isArray(typeName) || isList(typeName)) {
-//			// TODO support StandardCharsets.UTF8
-//			// see http://stackoverflow.com/questions/5729806/encode-string-to-utf-8
-//			methodBuilder.addCode(",$T.UTF_8)", StandardCharsets.class);
-//		} else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
-//			methodBuilder.addCode("");
-//		} else {
-//			methodBuilder.addCode(")");
-//		}
+		// if (isString(typeName)) {
+		// return;
+		// } else if (isArray(typeName) || isList(typeName)) {
+		// // TODO support StandardCharsets.UTF8
+		// // see
+		// http://stackoverflow.com/questions/5729806/encode-string-to-utf-8
+		// methodBuilder.addCode(",$T.UTF_8)", StandardCharsets.class);
+		// } else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
+		// methodBuilder.addCode("");
+		// } else {
+		// methodBuilder.addCode(")");
+		// }
 	}
 
 	public static boolean isArray(TypeName typeName) {
@@ -395,13 +396,13 @@ public class TypeUtility {
 	}
 
 	public static TypeName typeName(TypeElement element, String suffix) {
-		String fullName=element.getQualifiedName().toString()+suffix;
-		
-		int lastIndex=fullName.lastIndexOf(".");
-		
-		String packageName=fullName.substring(0, lastIndex);
-		String className=fullName.substring(lastIndex+1);
-		
+		String fullName = element.getQualifiedName().toString() + suffix;
+
+		int lastIndex = fullName.lastIndexOf(".");
+
+		String packageName = fullName.substring(0, lastIndex);
+		String className = fullName.substring(lastIndex + 1);
+
 		return typeName(packageName, className);
 	}
 
@@ -420,11 +421,10 @@ public class TypeUtility {
 	 * @return
 	 */
 	public static String simpleName(TypeName clazzName) {
-		String clazz=clazzName.toString();
-		int index=clazz.lastIndexOf(".");
-		if (index>0)
-		{
-			return clazz.substring(index+1);
+		String clazz = clazzName.toString();
+		int index = clazz.lastIndexOf(".");
+		if (index > 0) {
+			return clazz.substring(index + 1);
 		}
 		return clazz;
 	}
@@ -440,23 +440,22 @@ public class TypeUtility {
 	 * @param element
 	 * @return
 	 */
-	public static boolean isEnum(Elements elements,Element element) {
-		try { 
-			TypeElement el=elements.getTypeElement(element.asType().toString());
+	public static boolean isEnum(TypeName typeName) {
+		return isEnum(typeName.toString());
+	}
+
+	public static boolean isEnum(String className) {
+		try {
+			TypeElement el = BindTypeProcessor.elementUtils.getTypeElement(className);
 			TypeMirror a = el.getSuperclass();
-			if (a.toString().startsWith("java.lang.Enum"))
-			{
+			if (a.toString().startsWith("java.lang.Enum")) {
 				return true;
 			} else {
 				return false;
-			}			
-		} catch(Throwable e)
-		{
+			}
+		} catch (Throwable e) {
 			return false;
 		}
-		
 	}
-
-
 
 }

@@ -35,7 +35,6 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.ArrayTypeName;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
@@ -102,7 +101,7 @@ public abstract class BindTransformer {
 	 * @param typeName
 	 * @return transform
 	 */
-	public static BindTransform lookup(TypeName typeName) {	
+	public static BindTransform lookup(TypeName typeName) {
 		BindTransform transform = cache.get(typeName);
 
 		if (transform != null) {
@@ -163,6 +162,10 @@ public abstract class BindTransformer {
 
 		if (name.startsWith("java.sql")) {
 			return getSqlTransform(typeName);
+		}
+
+		if (TypeUtility.isEnum(typeName)) {
+			return new EnumBindTransform(typeName);
 		}
 
 		return new ObjectBindTransform();
