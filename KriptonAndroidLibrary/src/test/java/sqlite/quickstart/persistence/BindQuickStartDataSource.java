@@ -1,14 +1,10 @@
 package sqlite.quickstart.persistence;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Object;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.Throwable;
 import sqlite.quickstart.model.CommentTable;
 import sqlite.quickstart.model.PostTable;
@@ -40,19 +36,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindQuickStartDataSource instance;
-
-  /**
-   * <p><file name used to save database,/p>
-   */
-  public static final String name = "kripton.quickstart.db";
-
-  /**
-   * <p>database version</p>
-   */
-  public static final int version = 1;
-
-  static Object syncSingleton = new Object();
+  private static BindQuickStartDataSource instance = new BindQuickStartDataSource();
 
   /**
    * <p>dao instance</p>
@@ -74,8 +58,8 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   protected TodoDaoImpl todoDao = new TodoDaoImpl(this);
 
-  protected BindQuickStartDataSource(Context context) {
-    super(context, name, null, version);
+  protected BindQuickStartDataSource() {
+    super("kripton.quickstart.db", 1);
   }
 
   @Override
@@ -129,12 +113,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * instance
    */
   public static BindQuickStartDataSource instance() {
-    synchronized(syncSingleton) {
-      if (instance==null) {
-        instance=new BindQuickStartDataSource(KriptonLibrary.context());
-      }
-      return instance;
-    }
+    return instance;
   }
 
   /**
@@ -142,8 +121,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @return opened dataSource instance.
    */
   public static BindQuickStartDataSource open() {
-    BindQuickStartDataSource instance=instance();
-    instance.getWritableDatabase();
+    instance.openWritableDatabase();
     return instance;
   }
 
@@ -152,7 +130,6 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @return opened dataSource instance.
    */
   public static BindQuickStartDataSource openReadOnly() {
-    BindQuickStartDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -171,8 +148,8 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     database.execSQL(CommentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
     database.execSQL(TodoTable.CREATE_TABLE_SQL);
-    if (databaseListener != null) {
-      databaseListener.onCreate(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onCreate(database);
     }
   }
 
@@ -181,8 +158,8 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener != null) {
-      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
       Logger.info("DDL: %s",TodoTable.DROP_TABLE_SQL);
@@ -213,8 +190,8 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   public void onConfigure(SQLiteDatabase database) {
     // configure database
     database.setForeignKeyConstraintsEnabled(true);
-    if (databaseListener != null) {
-      databaseListener.onConfigure(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 

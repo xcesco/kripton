@@ -27,7 +27,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
@@ -50,7 +49,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -116,11 +114,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 
 		// define static fields
-		builder.addField(FieldSpec.builder(className(schemaName), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p><singleton of datasource,/p>\n").build());
-		builder.addField(FieldSpec.builder(String.class, "name", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p><file name used to save database,/p>\n")
-				.initializer("$S", schema.fileName).build());
-		builder.addField(
-				FieldSpec.builder(Integer.TYPE, "version", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>database version</p>\n").initializer("$L", schema.version).build());
+
+		// instance
+		builder.addField(FieldSpec.builder(className(schemaName), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p><singleton of datasource,/p>\n").initializer("new $L()", className(schemaName)).build());
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			// TypeName daoInterfaceName =
@@ -145,14 +141,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// generate open
 		generateOpen(schemaName);
-		
+
 		// generate openReadOnly
 		generateOpenReadOnly(schemaName);
 
 		{
 			// constructor
-			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PROTECTED).addParameter(Context.class, "context");
-			methodBuilder.addCode("super(context, name, null, version);\n");
+			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PROTECTED);
+			methodBuilder.addStatement("super($S, $L)", schema.fileName, schema.version);
 			builder.addMethod(methodBuilder.build());
 		}
 
@@ -180,18 +176,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
 
 		methodBuilder.addJavadoc("instance\n");
-		
-		methodBuilder.beginControlFlow("synchronized(syncSingleton)");
-		methodBuilder.beginControlFlow("if (instance==null)");
-		methodBuilder.addCode("instance=new $L($T.context());\n", className(schemaName), KriptonLibrary.class);
-		methodBuilder.endControlFlow();
 		methodBuilder.addCode("return instance;\n");
-		methodBuilder.endControlFlow();
-
+		
 		builder.addMethod(methodBuilder.build());
-		
-		builder.addField(FieldSpec.builder(Object.class, "syncSingleton", Modifier.STATIC).initializer("new Object()").build());
-		
 	}
 
 	/**
@@ -204,13 +191,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("Retrieve data source instance and open it.\n");
 		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
 
-		methodBuilder.addStatement("$T instance=instance()", className(schemaName));
-		methodBuilder.addStatement("instance.getWritableDatabase()");
+		methodBuilder.addStatement("instance.openWritableDatabase()");
 		methodBuilder.addCode("return instance;\n");
 
 		builder.addMethod(methodBuilder.build());
 	}
-	
+
 	/**
 	 * @param schemaName
 	 */
@@ -221,7 +207,6 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("Retrieve data source instance and open it in read only mode.\n");
 		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
 
-		methodBuilder.addStatement("$T instance=instance()", className(schemaName));
 		methodBuilder.addStatement("instance.openReadOnlyDatabase()");
 		methodBuilder.addCode("return instance;\n");
 
@@ -249,8 +234,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			}
 		}
 
-		methodBuilder.beginControlFlow("if (databaseListener != null)");
-		methodBuilder.addStatement("databaseListener.onCreate(database)");
+		methodBuilder.beginControlFlow("if (options.databaseLifecycleHandler != null)");
+		methodBuilder.addStatement("options.databaseLifecycleHandler.onCreate(database)");
 		methodBuilder.endControlFlow();
 
 		builder.addMethod(methodBuilder.build());
@@ -271,8 +256,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		Collections.reverse(orderedEntities);
 
-		methodBuilder.beginControlFlow("if (databaseListener != null)");
-		methodBuilder.addStatement("databaseListener.onUpdate(database, oldVersion, newVersion, true)");
+		methodBuilder.beginControlFlow("if (options.databaseLifecycleHandler != null)");
+		methodBuilder.addStatement("options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true)");
 		methodBuilder.nextControlFlow("else");
 
 		methodBuilder.addCode("// drop tables\n");
@@ -313,12 +298,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addCode("// configure database\n");
 
 		if (useForeignKey) {
-			// methodBuilder.addStatement("//database.setLocale");
 			methodBuilder.addStatement("database.setForeignKeyConstraintsEnabled(true)");
 		}
 
-		methodBuilder.beginControlFlow("if (databaseListener != null)");
-		methodBuilder.addStatement("databaseListener.onConfigure(database)");
+		methodBuilder.beginControlFlow("if (options.databaseLifecycleHandler != null)");
+		methodBuilder.addStatement("options.databaseLifecycleHandler.onConfigure(database)");
 		methodBuilder.endControlFlow();
 
 		builder.addMethod(methodBuilder.build());

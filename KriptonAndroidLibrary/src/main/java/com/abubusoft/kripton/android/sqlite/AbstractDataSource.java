@@ -23,13 +23,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
@@ -40,27 +38,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
  */
-public abstract class AbstractDataSource extends SQLiteOpenHelper implements AutoCloseable {
-
-	public enum TypeStatus {
-		READ_ONLY_OPENED, READ_AND_WRITE_OPENED, CLOSED
-	}
-
-	protected ThreadLocal<TypeStatus> status = new ThreadLocal<TypeStatus>() {
-
-		@Override
-		protected TypeStatus initialValue() {
-			return TypeStatus.CLOSED;
-		}
-	};
-
-	private final ReentrantLock lockDb = new ReentrantLock();
-
-	private final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
-
-	private final Lock r = rwl.readLock();
-
-	protected final Lock w = rwl.writeLock();
+public abstract class AbstractDataSource implements AutoCloseable {
 
 	/**
 	 * Interface for database transactions.
@@ -84,43 +62,8 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		boolean onExecute(E daoFactory) throws Throwable;
 	}
 
-	/**
-	 * Manage upgrade or downgrade of database.
-	 * 
-	 * @author Francesco Benincasa (abubusoft@gmail.com)
-	 *
-	 */
-	public interface OnDatabaseListener {
-
-		/**
-		 * <p>
-		 * Method for DDL or DML
-		 * 
-		 * @param db
-		 *            database
-		 * @param oldVersion
-		 *            current version of database
-		 * @param newVersion
-		 *            new version of database
-		 * @param upgrade
-		 *            if true is an upgrade operation, otherwise it's a
-		 *            downgrade operation.
-		 */
-		void onUpdate(SQLiteDatabase db, int oldVersion, int newVersion, boolean upgrade);
-
-		/**
-		 * Invoked after execution of DDL necessary to create database.
-		 * 
-		 * @param database
-		 */
-		void onCreate(SQLiteDatabase database);
-
-		/**
-		 * Invoked during database configuration.
-		 * 
-		 * @param database
-		 */
-		void onConfigure(SQLiteDatabase database);
+	enum TypeStatus {
+		CLOSED, READ_AND_WRITE_OPENED, READ_ONLY_OPENED
 	}
 
 	/**
@@ -128,24 +71,49 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 */
 	protected SQLiteDatabase database;
 
+	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
+
+	private final ReentrantLock lockDb = new ReentrantLock();
+
+	private final Lock lockReadAccess = lockAccess.readLock();
+
+	private final Lock lockReadWriteAccess = lockAccess.writeLock();
+
 	/**
-	 * listener to execute code during database upgrade events
+	 * <p>
+	 * <file name used to save database,/p>
 	 */
-	protected OnDatabaseListener databaseListener;
+	public final String name;
 
 	private AtomicInteger openCounter = new AtomicInteger();
+
+	protected DataSourceOptions options = DataSourceOptions.build();
+
+	protected SQLiteOpenHelper sqliteHelper;
+
+	protected ThreadLocal<TypeStatus> status = new ThreadLocal<TypeStatus>() {
+
+		@Override
+		protected TypeStatus initialValue() {
+			return TypeStatus.CLOSED;
+		}
+	};
 
 	/**
 	 * if true, database was update during this application run
 	 */
 	protected boolean upgradedVersion;
 
-	public AbstractDataSource(Context context, String name, CursorFactory factory, int version) {
-		super(context, name, factory, version);
-	}
+	/**
+	 * <p>
+	 * database version
+	 * </p>
+	 */
+	public final int version;
 
-	public AbstractDataSource(Context context, String name, CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
-		super(context, name, factory, version, errorHandler);
+	protected AbstractDataSource(String name, int version) {
+		this.name = name;
+		this.version = version;
 	}
 
 	/*
@@ -161,19 +129,19 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 			database.close();
 			database = null;
 		}
-
 		Logger.info("database CLOSE (%s) (id: %s)", status.get(), openCounter.intValue());
 		lockDb.unlock();
+
 		switch (status.get()) {
 		case READ_AND_WRITE_OPENED:
 			if (database == null)
 				status.set(TypeStatus.CLOSED);
-			w.unlock();
+			lockReadWriteAccess.unlock();
 			break;
 		case READ_ONLY_OPENED:
 			if (database == null)
 				status.set(TypeStatus.CLOSED);
-			r.unlock();
+			lockReadAccess.unlock();
 			break;
 		default:
 			throw (new KriptonRuntimeException("Inconsistent status"));
@@ -181,24 +149,46 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.database.sqlite.SQLiteOpenHelper#getReadableDatabase()
-	 */
-	@Override
-	public SQLiteDatabase getReadableDatabase() {
-		return openReadOnlyDatabase();
+	protected void createHelper(DataSourceOptions options) {
+		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version, options.errorHandler) {
+
+			/**
+			 * onConfigure
+			 */
+			@Override
+			public void onConfigure(SQLiteDatabase database) {
+				AbstractDataSource.this.onConfigure(database);
+			}
+
+			@Override
+			public void onCreate(SQLiteDatabase database) {
+				AbstractDataSource.this.onCreate(database);
+
+			}
+
+			@Override
+			public void onDowngrade(SQLiteDatabase database, int oldVersion, int newVersion) {
+				AbstractDataSource.this.onDowngrade(database, oldVersion, newVersion);
+			}
+
+			@Override
+			public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
+				AbstractDataSource.this.onUpgrade(database, oldVersion, newVersion);
+			}
+		};
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * <p>
+	 * Return database object or runtimeexception if no database is opened.
+	 * </p>
 	 * 
-	 * @see android.database.sqlite.SQLiteOpenHelper#getWritableDatabase()
+	 * @return
 	 */
-	@Override
-	public SQLiteDatabase getWritableDatabase() {
-		return openWritableDatabase();
+	public SQLiteDatabase database() {
+		if (database == null)
+			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
+		return database;
 	}
 
 	/**
@@ -209,7 +199,7 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 * @return true if database is opened, otherwise false
 	 */
 	public boolean isOpen() {
-		return database.isOpen();
+		return database != null && database.isOpen();
 	}
 
 	/**
@@ -219,31 +209,20 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 		return upgradedVersion;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.database.sqlite.SQLiteOpenHelper#onDowngrade(android.database.
-	 * sqlite.SQLiteDatabase, int, int)
-	 */
-	@Override
+	public abstract void onConfigure(SQLiteDatabase database);
+
+	public abstract void onCreate(SQLiteDatabase database);
+
 	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (databaseListener != null) {
-			databaseListener.onUpdate(db, oldVersion, newVersion, false);
+		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
+			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, false);
 			upgradedVersion = true;
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.
-	 * sqlite.SQLiteDatabase, int, int)
-	 */
-	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (databaseListener != null) {
-			databaseListener.onUpdate(db, oldVersion, newVersion, true);
+		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
+			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, true);
 			upgradedVersion = true;
 		}
 	}
@@ -257,15 +236,19 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 */
 	public SQLiteDatabase openReadOnlyDatabase() {
 		lockDb.lock();
+
+		if (sqliteHelper == null)
+			createHelper(options);
+
 		status.set(TypeStatus.READ_ONLY_OPENED);
 
 		if (openCounter.incrementAndGet() == 1) {
 			// open new read database
-			database = super.getReadableDatabase();
+			database = sqliteHelper.getReadableDatabase();
 		}
 		Logger.info("database OPEN %s (id: %s)", status.get(), (openCounter.intValue() - 1));
 		lockDb.unlock();
-		r.lock();
+		lockReadAccess.lock();
 
 		return database;
 	}
@@ -279,28 +262,32 @@ public abstract class AbstractDataSource extends SQLiteOpenHelper implements Aut
 	 */
 	public SQLiteDatabase openWritableDatabase() {
 		lockDb.lock();
+
+		if (sqliteHelper == null)
+			createHelper(options);
+
 		status.set(TypeStatus.READ_AND_WRITE_OPENED);
 
 		if (openCounter.incrementAndGet() == 1) {
 			// open new write database
-			database = super.getWritableDatabase();
+			database = sqliteHelper.getWritableDatabase();
 		}
 		Logger.info("database OPEN %s (id: %s)", status.get(), (openCounter.intValue() - 1));
 		lockDb.unlock();
-		w.lock();
+		lockReadWriteAccess.lock();
 
 		return database;
 	}
 
 	/**
-	 * Register the listener. It need to be called before <strong>any</strong>
-	 * database operations.
+	 * Define options for data source. It must be defined
+	 * <strong>before</strong> open first connection.
 	 * 
-	 * @param listener
-	 *            listener to user
+	 * @param options
+	 *            options
 	 */
-	public void setOnDatabaseUpdateListener(OnDatabaseListener listener) {
-		this.databaseListener = listener;
+	public void setOptions(DataSourceOptions options) {
+		this.options = options;
 	}
 
 }

@@ -1,14 +1,10 @@
 package sqlite.kripton58.array;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Object;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.Throwable;
 
 /**
@@ -27,27 +23,15 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindStringDataSource instance;
-
-  /**
-   * <p><file name used to save database,/p>
-   */
-  public static final String name = "dummy";
-
-  /**
-   * <p>database version</p>
-   */
-  public static final int version = 1;
-
-  static Object syncSingleton = new Object();
+  private static BindStringDataSource instance = new BindStringDataSource();
 
   /**
    * <p>dao instance</p>
    */
   protected StringDaoImpl stringDao = new StringDaoImpl(this);
 
-  protected BindStringDataSource(Context context) {
-    super(context, name, null, version);
+  protected BindStringDataSource() {
+    super("dummy", 1);
   }
 
   @Override
@@ -86,12 +70,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * instance
    */
   public static BindStringDataSource instance() {
-    synchronized(syncSingleton) {
-      if (instance==null) {
-        instance=new BindStringDataSource(KriptonLibrary.context());
-      }
-      return instance;
-    }
+    return instance;
   }
 
   /**
@@ -99,8 +78,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * @return opened dataSource instance.
    */
   public static BindStringDataSource open() {
-    BindStringDataSource instance=instance();
-    instance.getWritableDatabase();
+    instance.openWritableDatabase();
     return instance;
   }
 
@@ -109,7 +87,6 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * @return opened dataSource instance.
    */
   public static BindStringDataSource openReadOnly() {
-    BindStringDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -122,8 +99,8 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
     // generate tables
     Logger.info("DDL: %s",StringBeanTable.CREATE_TABLE_SQL);
     database.execSQL(StringBeanTable.CREATE_TABLE_SQL);
-    if (databaseListener != null) {
-      databaseListener.onCreate(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onCreate(database);
     }
   }
 
@@ -132,8 +109,8 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener != null) {
-      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
       Logger.info("DDL: %s",StringBeanTable.DROP_TABLE_SQL);
@@ -151,8 +128,8 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    if (databaseListener != null) {
-      databaseListener.onConfigure(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 

@@ -1,14 +1,10 @@
 package sqlite.kripton93;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Object;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.Throwable;
 
 /**
@@ -27,27 +23,15 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindBean93DataSource instance;
-
-  /**
-   * <p><file name used to save database,/p>
-   */
-  public static final String name = "dummy";
-
-  /**
-   * <p>database version</p>
-   */
-  public static final int version = 1;
-
-  static Object syncSingleton = new Object();
+  private static BindBean93DataSource instance = new BindBean93DataSource();
 
   /**
    * <p>dao instance</p>
    */
   protected Bean93DaoImpl bean93Dao = new Bean93DaoImpl(this);
 
-  protected BindBean93DataSource(Context context) {
-    super(context, name, null, version);
+  protected BindBean93DataSource() {
+    super("dummy", 1);
   }
 
   @Override
@@ -86,12 +70,7 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
    * instance
    */
   public static BindBean93DataSource instance() {
-    synchronized(syncSingleton) {
-      if (instance==null) {
-        instance=new BindBean93DataSource(KriptonLibrary.context());
-      }
-      return instance;
-    }
+    return instance;
   }
 
   /**
@@ -99,8 +78,7 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean93DataSource open() {
-    BindBean93DataSource instance=instance();
-    instance.getWritableDatabase();
+    instance.openWritableDatabase();
     return instance;
   }
 
@@ -109,7 +87,6 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean93DataSource openReadOnly() {
-    BindBean93DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -122,8 +99,8 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
     // generate tables
     Logger.info("DDL: %s",Bean93Table.CREATE_TABLE_SQL);
     database.execSQL(Bean93Table.CREATE_TABLE_SQL);
-    if (databaseListener != null) {
-      databaseListener.onCreate(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onCreate(database);
     }
   }
 
@@ -132,8 +109,8 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener != null) {
-      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
       Logger.info("DDL: %s",Bean93Table.DROP_TABLE_SQL);
@@ -151,8 +128,8 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    if (databaseListener != null) {
-      databaseListener.onConfigure(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 

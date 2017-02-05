@@ -1,14 +1,10 @@
 package sqlite.kripton51.persistence;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Object;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.Throwable;
 import sqlite.kripton51.entities.MessageEntityTable;
 
@@ -28,27 +24,15 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindWhisperDataSource instance;
-
-  /**
-   * <p><file name used to save database,/p>
-   */
-  public static final String name = "whisper";
-
-  /**
-   * <p>database version</p>
-   */
-  public static final int version = 1;
-
-  static Object syncSingleton = new Object();
+  private static BindWhisperDataSource instance = new BindWhisperDataSource();
 
   /**
    * <p>dao instance</p>
    */
   protected DaoMessageImpl daoMessage = new DaoMessageImpl(this);
 
-  protected BindWhisperDataSource(Context context) {
-    super(context, name, null, version);
+  protected BindWhisperDataSource() {
+    super("whisper", 1);
   }
 
   @Override
@@ -87,12 +71,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * instance
    */
   public static BindWhisperDataSource instance() {
-    synchronized(syncSingleton) {
-      if (instance==null) {
-        instance=new BindWhisperDataSource(KriptonLibrary.context());
-      }
-      return instance;
-    }
+    return instance;
   }
 
   /**
@@ -100,8 +79,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @return opened dataSource instance.
    */
   public static BindWhisperDataSource open() {
-    BindWhisperDataSource instance=instance();
-    instance.getWritableDatabase();
+    instance.openWritableDatabase();
     return instance;
   }
 
@@ -110,7 +88,6 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @return opened dataSource instance.
    */
   public static BindWhisperDataSource openReadOnly() {
-    BindWhisperDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -123,8 +100,8 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     // generate tables
     Logger.info("DDL: %s",MessageEntityTable.CREATE_TABLE_SQL);
     database.execSQL(MessageEntityTable.CREATE_TABLE_SQL);
-    if (databaseListener != null) {
-      databaseListener.onCreate(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onCreate(database);
     }
   }
 
@@ -133,8 +110,8 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener != null) {
-      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
       Logger.info("DDL: %s",MessageEntityTable.DROP_TABLE_SQL);
@@ -152,8 +129,8 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    if (databaseListener != null) {
-      databaseListener.onConfigure(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 

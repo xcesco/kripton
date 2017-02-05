@@ -128,6 +128,12 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 								bean.name = "name" + i;
 								bean.surname = "surname" + i;
 								dao.selectThread1();
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
 						}
 						Logger.info("End thread-" + id + " T1");

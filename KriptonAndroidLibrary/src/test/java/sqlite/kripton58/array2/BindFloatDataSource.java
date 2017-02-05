@@ -1,14 +1,10 @@
 package sqlite.kripton58.array2;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Object;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.Throwable;
 
 /**
@@ -27,27 +23,15 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindFloatDataSource instance;
-
-  /**
-   * <p><file name used to save database,/p>
-   */
-  public static final String name = "dummy";
-
-  /**
-   * <p>database version</p>
-   */
-  public static final int version = 1;
-
-  static Object syncSingleton = new Object();
+  private static BindFloatDataSource instance = new BindFloatDataSource();
 
   /**
    * <p>dao instance</p>
    */
   protected FloatDaoImpl floatDao = new FloatDaoImpl(this);
 
-  protected BindFloatDataSource(Context context) {
-    super(context, name, null, version);
+  protected BindFloatDataSource() {
+    super("dummy", 1);
   }
 
   @Override
@@ -86,12 +70,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * instance
    */
   public static BindFloatDataSource instance() {
-    synchronized(syncSingleton) {
-      if (instance==null) {
-        instance=new BindFloatDataSource(KriptonLibrary.context());
-      }
-      return instance;
-    }
+    return instance;
   }
 
   /**
@@ -99,8 +78,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * @return opened dataSource instance.
    */
   public static BindFloatDataSource open() {
-    BindFloatDataSource instance=instance();
-    instance.getWritableDatabase();
+    instance.openWritableDatabase();
     return instance;
   }
 
@@ -109,7 +87,6 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * @return opened dataSource instance.
    */
   public static BindFloatDataSource openReadOnly() {
-    BindFloatDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -122,8 +99,8 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
     // generate tables
     Logger.info("DDL: %s",FloatBeanTable.CREATE_TABLE_SQL);
     database.execSQL(FloatBeanTable.CREATE_TABLE_SQL);
-    if (databaseListener != null) {
-      databaseListener.onCreate(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onCreate(database);
     }
   }
 
@@ -132,8 +109,8 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener != null) {
-      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
       Logger.info("DDL: %s",FloatBeanTable.DROP_TABLE_SQL);
@@ -151,8 +128,8 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    if (databaseListener != null) {
-      databaseListener.onConfigure(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 

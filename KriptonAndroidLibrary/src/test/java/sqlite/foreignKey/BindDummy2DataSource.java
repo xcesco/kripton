@@ -1,14 +1,10 @@
 package sqlite.foreignKey;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Object;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.Throwable;
 
 /**
@@ -30,19 +26,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindDummy2DataSource instance;
-
-  /**
-   * <p><file name used to save database,/p>
-   */
-  public static final String name = "test.db";
-
-  /**
-   * <p>database version</p>
-   */
-  public static final int version = 1;
-
-  static Object syncSingleton = new Object();
+  private static BindDummy2DataSource instance = new BindDummy2DataSource();
 
   /**
    * <p>dao instance</p>
@@ -54,8 +38,8 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    */
   protected DaoBeanA_4Impl daoBeanA_4 = new DaoBeanA_4Impl(this);
 
-  protected BindDummy2DataSource(Context context) {
-    super(context, name, null, version);
+  protected BindDummy2DataSource() {
+    super("test.db", 1);
   }
 
   @Override
@@ -99,12 +83,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    * instance
    */
   public static BindDummy2DataSource instance() {
-    synchronized(syncSingleton) {
-      if (instance==null) {
-        instance=new BindDummy2DataSource(KriptonLibrary.context());
-      }
-      return instance;
-    }
+    return instance;
   }
 
   /**
@@ -112,8 +91,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    * @return opened dataSource instance.
    */
   public static BindDummy2DataSource open() {
-    BindDummy2DataSource instance=instance();
-    instance.getWritableDatabase();
+    instance.openWritableDatabase();
     return instance;
   }
 
@@ -122,7 +100,6 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    * @return opened dataSource instance.
    */
   public static BindDummy2DataSource openReadOnly() {
-    BindDummy2DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -137,8 +114,8 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
     database.execSQL(BeanA_3Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_4Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_4Table.CREATE_TABLE_SQL);
-    if (databaseListener != null) {
-      databaseListener.onCreate(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onCreate(database);
     }
   }
 
@@ -147,8 +124,8 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener != null) {
-      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
       Logger.info("DDL: %s",BeanA_4Table.DROP_TABLE_SQL);
@@ -171,8 +148,8 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   public void onConfigure(SQLiteDatabase database) {
     // configure database
     database.setForeignKeyConstraintsEnabled(true);
-    if (databaseListener != null) {
-      databaseListener.onConfigure(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 

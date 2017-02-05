@@ -1,14 +1,10 @@
 package sqlite.kripton41;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Object;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.Throwable;
 
 /**
@@ -27,27 +23,15 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindDummy04DataSource instance;
-
-  /**
-   * <p><file name used to save database,/p>
-   */
-  public static final String name = "dummy1";
-
-  /**
-   * <p>database version</p>
-   */
-  public static final int version = 1;
-
-  static Object syncSingleton = new Object();
+  private static BindDummy04DataSource instance = new BindDummy04DataSource();
 
   /**
    * <p>dao instance</p>
    */
   protected DaoBeanInsertOKImpl daoBeanInsertOK = new DaoBeanInsertOKImpl(this);
 
-  protected BindDummy04DataSource(Context context) {
-    super(context, name, null, version);
+  protected BindDummy04DataSource() {
+    super("dummy1", 1);
   }
 
   @Override
@@ -86,12 +70,7 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
    * instance
    */
   public static BindDummy04DataSource instance() {
-    synchronized(syncSingleton) {
-      if (instance==null) {
-        instance=new BindDummy04DataSource(KriptonLibrary.context());
-      }
-      return instance;
-    }
+    return instance;
   }
 
   /**
@@ -99,8 +78,7 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy04DataSource open() {
-    BindDummy04DataSource instance=instance();
-    instance.getWritableDatabase();
+    instance.openWritableDatabase();
     return instance;
   }
 
@@ -109,7 +87,6 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy04DataSource openReadOnly() {
-    BindDummy04DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -122,8 +99,8 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
     // generate tables
     Logger.info("DDL: %s",Bean01Table.CREATE_TABLE_SQL);
     database.execSQL(Bean01Table.CREATE_TABLE_SQL);
-    if (databaseListener != null) {
-      databaseListener.onCreate(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onCreate(database);
     }
   }
 
@@ -132,8 +109,8 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener != null) {
-      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
       Logger.info("DDL: %s",Bean01Table.DROP_TABLE_SQL);
@@ -151,8 +128,8 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    if (databaseListener != null) {
-      databaseListener.onConfigure(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 

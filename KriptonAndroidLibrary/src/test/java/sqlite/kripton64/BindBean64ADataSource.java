@@ -1,14 +1,10 @@
 package sqlite.kripton64;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Object;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.Throwable;
 
 /**
@@ -27,27 +23,15 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
   /**
    * <p><singleton of datasource,/p>
    */
-  private static BindBean64ADataSource instance;
-
-  /**
-   * <p><file name used to save database,/p>
-   */
-  public static final String name = "dummy";
-
-  /**
-   * <p>database version</p>
-   */
-  public static final int version = 1;
-
-  static Object syncSingleton = new Object();
+  private static BindBean64ADataSource instance = new BindBean64ADataSource();
 
   /**
    * <p>dao instance</p>
    */
   protected Bean64ADaoImpl bean64ADao = new Bean64ADaoImpl(this);
 
-  protected BindBean64ADataSource(Context context) {
-    super(context, name, null, version);
+  protected BindBean64ADataSource() {
+    super("dummy", 1);
   }
 
   @Override
@@ -86,12 +70,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    * instance
    */
   public static BindBean64ADataSource instance() {
-    synchronized(syncSingleton) {
-      if (instance==null) {
-        instance=new BindBean64ADataSource(KriptonLibrary.context());
-      }
-      return instance;
-    }
+    return instance;
   }
 
   /**
@@ -99,8 +78,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    * @return opened dataSource instance.
    */
   public static BindBean64ADataSource open() {
-    BindBean64ADataSource instance=instance();
-    instance.getWritableDatabase();
+    instance.openWritableDatabase();
     return instance;
   }
 
@@ -109,7 +87,6 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    * @return opened dataSource instance.
    */
   public static BindBean64ADataSource openReadOnly() {
-    BindBean64ADataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -122,8 +99,8 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
     // generate tables
     Logger.info("DDL: %s",Bean64ATable.CREATE_TABLE_SQL);
     database.execSQL(Bean64ATable.CREATE_TABLE_SQL);
-    if (databaseListener != null) {
-      databaseListener.onCreate(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onCreate(database);
     }
   }
 
@@ -132,8 +109,8 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (databaseListener != null) {
-      databaseListener.onUpdate(database, oldVersion, newVersion, true);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
       Logger.info("DDL: %s",Bean64ATable.DROP_TABLE_SQL);
@@ -151,8 +128,8 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    if (databaseListener != null) {
-      databaseListener.onConfigure(database);
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 
