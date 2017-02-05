@@ -28,6 +28,8 @@ import com.abubusoft.kripton.processor.BindDataSourceProcessor;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPart;
+import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPartType;
 import com.abubusoft.kripton.processor.sqlite.PropertyList;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -53,7 +55,7 @@ public abstract class JavadocUtility {
 	}
 
 	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, String sql, List<String> sqlParams, SQLiteModelMethod method, ModelAnnotation annotation, PropertyList fieldList,
-			SelectType selectResultType) {
+			SelectType selectResultType, JavadocPart... javadocParts) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 
@@ -135,7 +137,20 @@ public abstract class JavadocUtility {
 				methodBuilder.addJavadoc("\tis binded to <code>$L</code>\n", "${" + method.findParameterAliasByName(item.value0) + "}");
 			}
 		}
+		for (JavadocPart item : javadocParts) {
+			if (item.javadocPartType != JavadocPartType.ADD_PARAMETER)
+				continue;
+			methodBuilder.addJavadoc("@param $L\n", item.name);
+			methodBuilder.addJavadoc("\t$L\n", item.description);
+		}
 
+		for (JavadocPart item : javadocParts) {
+			if (item.javadocPartType != JavadocPartType.RETURN)
+				continue;
+			methodBuilder.addJavadoc("@return $L\n", item.description);
+			// override return
+			return;
+		}
 		// return type
 		switch (selectResultType) {
 		case BEAN:
@@ -154,7 +169,7 @@ public abstract class JavadocUtility {
 			methodBuilder.addJavadoc("@return single value extracted by query.\n");
 			break;
 		case PAGED_RESULT:
-			methodBuilder.addJavadoc("@return paged result.\n");
+			methodBuilder.addJavadoc("@return paginated result.\n");
 			break;
 		default:
 			// case LISTENER_BEAN:

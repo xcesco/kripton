@@ -42,7 +42,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
    *
-   * @return paged result.
+   * @return paginated result.
    */
   @Override
   public PaginatedResult<Person> selectPagedStatic1() {
@@ -64,7 +64,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
    *
-   * @return paged result.
+   * @param paginatedResult
+   * 	handler of paginated result
+   * @return result list
    */
   private List<Person> selectPagedStatic1(PaginatedResult2 paginatedResult) {
     // build where condition
@@ -125,7 +127,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * @param pageSize
    * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
-   * @return paged result.
+   * @return paginated result.
    */
   @Override
   public PaginatedResult<Person> selectPagedStatic2(int pageSize) {
@@ -154,7 +156,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * @param pageSize
    * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
-   * @return paged result.
+   * @param paginatedResult
+   * 	handler of paginated result
+   * @return result list
    */
   private List<Person> selectPagedStatic2(int pageSize, PaginatedResult3 paginatedResult) {
     // build where condition

@@ -90,7 +90,8 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			generateMethodSignature(method, methodBuilder, TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), TypeUtility.typeName(daoDefinition.getEntityClassName())),
 					ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
 
-			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_METHOD_SIGN);
+			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_METHOD_SIGN,
+					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"), JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
 			generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields());
 			builder.addMethod(methodBuilder.build());
 		}

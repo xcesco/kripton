@@ -40,21 +40,37 @@ import com.squareup.javapoet.TypeSpec;
 import android.database.Cursor;
 
 public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator {
-	
-	public enum GenerationType
-	{
-		ALL(true, true, true),
-		NO_CLOSE_CURSOR(true, true, false),
-		NO_METHOD_SIGN(false, true, true),
-		NO_CONTENT(true, false, true);
-		
-		GenerationType(boolean generateMethodSign, boolean generateMethodContent, boolean generateCloseableCursor)
-		{
-			this.generateMethodSign=generateMethodSign;
-			this.generateMethodContent=generateMethodContent;
-			this.generateCloseableCursor=generateCloseableCursor;
+
+	public enum JavadocPartType {
+		ADD_PARAMETER, RETURN
+	}
+
+	public static class JavadocPart {
+		public final JavadocPartType javadocPartType;
+		public final String name;
+		public final String description;
+
+		JavadocPart(JavadocPartType javadocPartType, String name, String description) {
+			this.javadocPartType = javadocPartType;
+			this.name = name;
+			this.description = description;
 		}
-		
+
+		public static JavadocPart build(JavadocPartType javadocPartType, String name, String description) {
+			return new JavadocPart(javadocPartType, name, description);
+		}
+
+	}
+
+	public enum GenerationType {
+		ALL(true, true, true), NO_CLOSE_CURSOR(true, true, false), NO_METHOD_SIGN(false, true, true), NO_CONTENT(true, false, true);
+
+		GenerationType(boolean generateMethodSign, boolean generateMethodContent, boolean generateCloseableCursor) {
+			this.generateMethodSign = generateMethodSign;
+			this.generateMethodContent = generateMethodContent;
+			this.generateCloseableCursor = generateCloseableCursor;
+		}
+
 		public final boolean generateMethodSign;
 		public final boolean generateMethodContent;
 		public final boolean generateCloseableCursor;
@@ -74,12 +90,13 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 		builder.addMethod(methodBuilder.build());
 	}
-	
+
 	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
 		generateCommonPart(elementUtils, method, methodBuilder, fieldList, mapFields, GenerationType.ALL);
 	}
 
-	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields, GenerationType generationType) {
+	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields, GenerationType generationType,
+			JavadocPart... javadocParts) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -164,15 +181,14 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				.orderBy(orderByStatement).limit(pageSize).build(method);
 		String sqlForLog = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement)
 				.orderBy(orderByStatement).limit(pageSize).buildForLog(method);
-		
+
 		// generate method signature
-		if (generationType.generateMethodSign)
-		{
+		if (generationType.generateMethodSign) {
 			generateMethodSignature(method, methodBuilder, returnTypeName);
 		}
 
 		// generate javadoc
-		JavadocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldList, selectType);
+		JavadocUtility.generateJavaDocForSelect(methodBuilder, sqlWithParameters, paramNames, method, annotation, fieldList, selectType, javadocParts);
 
 		if (generationType.generateMethodContent) {
 			// build where condition (common for every type of select)
@@ -231,9 +247,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			if (daoDefinition.isLogEnabled()) {
 				methodBuilder.addStatement("$T.info($T.formatSQL($L,(Object[])args))", Logger.class, SqlUtils.class, formatSqlForLog(method, sqlForLog));
 			}
-			
-			if (generationType.generateCloseableCursor)
-			{
+
+			if (generationType.generateCloseableCursor) {
 				methodBuilder.beginControlFlow("try ($T cursor = database().rawQuery($L, args))", Cursor.class, formatSql(method, sql));
 			} else {
 				methodBuilder.addStatement("$T cursor = database().rawQuery($L, args)", Cursor.class, formatSql(method, sql));
@@ -304,24 +319,24 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		if (method.hasDynamicOrderByConditions()) {
 			sql = sql.replace("#{" + method.dynamicOrderByParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.dynamicOrderByParameterName + ")+\"");
 		}
-		
+
 		if (method.hasDynamicPageSizeConditions()) {
-			sql = sql.replace("#{" + method.dynamicPageSizeName + "}", String.format("\"+SqlUtils.printIf(%s>0, \" LIMIT \"+%s)+\"", method.dynamicPageSizeName, method.dynamicPageSizeName));						
+			sql = sql.replace("#{" + method.dynamicPageSizeName + "}", String.format("\"+SqlUtils.printIf(%s>0, \" LIMIT \"+%s)+\"", method.dynamicPageSizeName, method.dynamicPageSizeName));
 		}
-		
-		if (method.hasPaginatedResultParameter())
-		{
-			if (method.hasDynamicPageSizeConditions())
-			{
-				sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s>0 && %s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.dynamicPageSizeName, method.paginatedResultName, method.paginatedResultName));
+
+		if (method.hasPaginatedResultParameter()) {
+			if (method.hasDynamicPageSizeConditions()) {
+				sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s>0 && %s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.dynamicPageSizeName,
+						method.paginatedResultName, method.paginatedResultName));
 			} else {
-				sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.paginatedResultName, method.paginatedResultName));
+				sql = sql.replace("#{" + method.paginatedResultName + "}",
+						String.format("\"+SqlUtils.printIf(%s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.paginatedResultName, method.paginatedResultName));
 			}
 		}
-		
+
 		// smart optimization
-		sql="\""+sql+"\"";
-		sql=sql.replaceAll("\\+\"\"", "");
+		sql = "\"" + sql + "\"";
+		sql = sql.replaceAll("\\+\"\"", "");
 
 		return sql;
 	}
