@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-core</artifactId>
-	<version>1.5.1-SNAPSHOT</version>
+	<version>1.6.0-SNAPSHOT</version>
 	<name>Kripton Core</name>
 	
 	<packaging>jar</packaging>
@@ -11,7 +11,7 @@
 	<description>Kripton Persistence Library - core module</description>
 
 	<!-- common part - BEGIN -->
-	<!-- Property version 1.5.1-SNAPSHOT -->
+	<!-- Property version 1.6.0-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
