@@ -9,7 +9,7 @@
 
   <groupId>com.abubusoft</groupId>
   <artifactId>kripton-parent</artifactId>
-  <version>1.5.1-SNAPSHOT</version>
+  <version>1.6.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Kripton (Parent)</name>
   <description>Kripton persistence library - parent pom</description>
@@ -28,7 +28,7 @@
   </modules>
 
 <!-- common part - BEGIN -->
-	<!-- Property version 1.5.0-SNAPSHOT -->
+	<!-- Property version 1.6.0-SNAPSHOT -->
 	<properties>
 		<skipTests>true</skipTests>
 	
