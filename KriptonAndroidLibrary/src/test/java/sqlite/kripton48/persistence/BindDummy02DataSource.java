@@ -10,7 +10,7 @@ import sqlite.kripton48.entities.Bean02Table;
 
 /**
  * <p>
- * Represents implementation of datasource Dummy02DataSource.
+ * Rapresents implementation of datasource Dummy02DataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -22,7 +22,7 @@ import sqlite.kripton48.entities.Bean02Table;
  */
 public class BindDummy02DataSource extends AbstractDataSource implements BindDummy02DaoFactory, Dummy02DataSource {
   /**
-   * <p><singleton of datasource,/p>
+   * <p>datasource singleton</p>
    */
   private static BindDummy02DataSource instance = new BindDummy02DataSource();
 

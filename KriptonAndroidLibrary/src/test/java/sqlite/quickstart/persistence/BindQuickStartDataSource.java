@@ -13,7 +13,7 @@ import sqlite.quickstart.model.UserTable;
 
 /**
  * <p>
- * Represents implementation of datasource QuickStartDataSource.
+ * Rapresents implementation of datasource QuickStartDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -34,7 +34,7 @@ import sqlite.quickstart.model.UserTable;
  */
 public class BindQuickStartDataSource extends AbstractDataSource implements BindQuickStartDaoFactory, QuickStartDataSource {
   /**
-   * <p><singleton of datasource,/p>
+   * <p>datasource singleton</p>
    */
   private static BindQuickStartDataSource instance = new BindQuickStartDataSource();
 

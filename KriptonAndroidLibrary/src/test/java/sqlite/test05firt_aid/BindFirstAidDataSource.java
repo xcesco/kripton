@@ -9,7 +9,7 @@ import java.lang.Throwable;
 
 /**
  * <p>
- * Represents implementation of datasource FirstAidDataSource.
+ * Rapresents implementation of datasource FirstAidDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -21,7 +21,7 @@ import java.lang.Throwable;
  */
 public class BindFirstAidDataSource extends AbstractDataSource implements BindFirstAidDaoFactory, FirstAidDataSource {
   /**
-   * <p><singleton of datasource,/p>
+   * <p>datasource singleton</p>
    */
   private static BindFirstAidDataSource instance = new BindFirstAidDataSource();
 

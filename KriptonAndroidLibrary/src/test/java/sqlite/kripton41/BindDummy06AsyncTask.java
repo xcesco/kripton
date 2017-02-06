@@ -158,5 +158,16 @@ public abstract class BindDummy06AsyncTask<I, U, R> {
    * @see BindDummy06DataSource
    */
   public abstract static class Simple<R> extends BindDummy06AsyncTask<Void, Void, R> {
+    /**
+     * Create an simple async task allowing user to decide which kind of operation can be done on datasource */
+    public Simple(BindAsyncTaskType mode) {
+      super(mode);
+    }
+
+    /**
+     * Create an simple async task for data source read only operation */
+    public Simple() {
+      super(BindAsyncTaskType.READ);
+    }
   }
 }

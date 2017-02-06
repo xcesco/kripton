@@ -9,7 +9,7 @@ import java.lang.Throwable;
 
 /**
  * <p>
- * Represents implementation of datasource Dummy04DataSource.
+ * Rapresents implementation of datasource Dummy04DataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -21,7 +21,7 @@ import java.lang.Throwable;
  */
 public class BindDummy04DataSource extends AbstractDataSource implements BindDummy04DaoFactory, Dummy04DataSource {
   /**
-   * <p><singleton of datasource,/p>
+   * <p>datasource singleton</p>
    */
   private static BindDummy04DataSource instance = new BindDummy04DataSource();
 

@@ -155,9 +155,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	protected void createHelper(DataSourceOptions options) {
 		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version, options.errorHandler) {
 
-			/**
-			 * onConfigure
-			 */
 			@Override
 			public void onConfigure(SQLiteDatabase database) {
 				AbstractDataSource.this.onConfigure(database);

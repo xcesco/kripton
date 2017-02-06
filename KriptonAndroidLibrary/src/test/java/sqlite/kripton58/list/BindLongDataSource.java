@@ -9,7 +9,7 @@ import java.lang.Throwable;
 
 /**
  * <p>
- * Represents implementation of datasource LongDataSource.
+ * Rapresents implementation of datasource LongDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -21,7 +21,7 @@ import java.lang.Throwable;
  */
 public class BindLongDataSource extends AbstractDataSource implements BindLongDaoFactory, LongDataSource {
   /**
-   * <p><singleton of datasource,/p>
+   * <p>datasource singleton</p>
    */
   private static BindLongDataSource instance = new BindLongDataSource();
 

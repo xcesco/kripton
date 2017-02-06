@@ -10,7 +10,7 @@ import sqlite.dynamic.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource PersonDataSource.
+ * Rapresents implementation of datasource PersonDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -22,7 +22,7 @@ import sqlite.dynamic.PersonTable;
  */
 public class BindPersonDataSource extends AbstractDataSource implements BindPersonDaoFactory, PersonDataSource {
   /**
-   * <p><singleton of datasource,/p>
+   * <p>datasource singleton</p>
    */
   private static BindPersonDataSource instance = new BindPersonDataSource();
 

@@ -23,9 +23,11 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 
 import base.BaseAndroidTest;
+import sqlite.multithread.BindPersonDataSource.Transaction;
 
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
@@ -210,7 +212,37 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 		while (!executor.isTerminated()) {
 
 		}
+		Logger.info("Finished all thread!");
 
+	}
+	
+	@Test
+	public void testAyncTask() throws InterruptedException {
+		
+		BindPersonAsyncTask.Simple<Person> asyncTask=new BindPersonAsyncTask.Simple<Person>(BindAsyncTaskType.UNMANAGE) {
+			
+			@Override
+			public void onFinish(Person result) {
+				Logger.info("Finish!");
+				
+			}
+			
+			@Override
+			public Person onExecute(BindPersonDataSource dataSource) throws Throwable {
+				dataSource.execute(new BindPersonDataSource.SimpleTransaction() {
+					
+					@Override
+					public boolean onExecute(BindPersonDaoFactory daoFactory) throws Throwable {						
+						return false;
+					}
+				});
+				
+				return null;
+			}
+		};
+		
+		//asyncTask.e
+		
 		Logger.info("Finished all thread!");
 
 	}

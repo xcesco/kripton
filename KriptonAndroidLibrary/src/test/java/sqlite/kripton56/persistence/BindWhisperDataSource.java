@@ -10,7 +10,7 @@ import sqlite.kripton56.entities.MessageEntityTable;
 
 /**
  * <p>
- * Represents implementation of datasource WhisperDataSource.
+ * Rapresents implementation of datasource WhisperDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -22,7 +22,7 @@ import sqlite.kripton56.entities.MessageEntityTable;
  */
 public class BindWhisperDataSource extends AbstractDataSource implements BindWhisperDaoFactory, WhisperDataSource {
   /**
-   * <p><singleton of datasource,/p>
+   * <p>datasource singleton</p>
    */
   private static BindWhisperDataSource instance = new BindWhisperDataSource();
 

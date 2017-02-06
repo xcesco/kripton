@@ -9,7 +9,7 @@ import java.lang.Throwable;
 
 /**
  * <p>
- * Represents implementation of datasource PKDataSource.
+ * Rapresents implementation of datasource PKDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -21,7 +21,7 @@ import java.lang.Throwable;
  */
 public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFactory, PKDataSource {
   /**
-   * <p><singleton of datasource,/p>
+   * <p>datasource singleton</p>
    */
   private static BindPKDataSource instance = new BindPKDataSource();
 

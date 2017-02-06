@@ -210,7 +210,7 @@ public class BindAsyncTaskBuilder {
 		}
 
 		
-		// build BasicAsyncTask
+		// build SimpleAsyncTask
 		builder.addType(TypeSpec.classBuilder("Simple")
 				.addJavadoc("Simple implementation of async task. It uses read only database.\n\n")
 				.addJavadoc("@see $T\n", TypeUtility.typeName(className.replaceAll(SUFFIX, BindDaoFactoryBuilder.SUFFIX)))
@@ -225,7 +225,17 @@ public class BindAsyncTaskBuilder {
 								TypeUtility.className("Void"), 
 								TypeUtility.className("R")
 								)							
-				).build());		
+				)				
+				.addMethod(MethodSpec.constructorBuilder()
+						.addModifiers(Modifier.PUBLIC)
+						.addJavadoc("Create an simple async task allowing user to decide which kind of operation can be done on datasource")
+						.addParameter(BindAsyncTaskType.class, "mode")
+						.addStatement("super(mode)").build())
+				.addMethod(MethodSpec.constructorBuilder()
+						.addModifiers(Modifier.PUBLIC)
+						.addJavadoc("Create an simple async task for data source read only operation")
+						.addStatement("super($T.READ)", BindAsyncTaskType.class).build())
+				.build());		
 		//@formatter:on
 
 		TypeSpec typeSpec = builder.build();

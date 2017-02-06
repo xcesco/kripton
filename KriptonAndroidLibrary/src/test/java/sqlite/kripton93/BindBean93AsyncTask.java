@@ -158,5 +158,16 @@ public abstract class BindBean93AsyncTask<I, U, R> {
    * @see BindBean93DataSource
    */
   public abstract static class Simple<R> extends BindBean93AsyncTask<Void, Void, R> {
+    /**
+     * Create an simple async task allowing user to decide which kind of operation can be done on datasource */
+    public Simple(BindAsyncTaskType mode) {
+      super(mode);
+    }
+
+    /**
+     * Create an simple async task for data source read only operation */
+    public Simple() {
+      super(BindAsyncTaskType.READ);
+    }
   }
 }

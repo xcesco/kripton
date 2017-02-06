@@ -32,26 +32,24 @@ import sqlite.dynamic.select.BindPersonDataSource;
 public class TestDynamicSelectRuntime extends BaseAndroidTest {
 
 	@Test
-	public void testRunSqlite1() {	
-		BindPersonDataSource dataSource=BindPersonDataSource.instance();
-		
-		dataSource.open();
-		
-		for (int i=0;i<10;i++)
-		{
-			dataSource.getPersonDAO().insertOne("name"+i, "surname"+i, "city"+i, new Date());
+	public void testRunSqlite1() {
+
+		try (BindPersonDataSource dataSource = BindPersonDataSource.open()) {
+
+			for (int i = 0; i < 10; i++) {
+				dataSource.getPersonDAO().insertOne("name" + i, "surname" + i, "city" + i, new Date());
+			}
+
+			{
+				List<Person> list = dataSource.getPersonDAO().selectOne("nam", "and 1=1", "name asc");
+				assertTrue(list.get(0).name.equals("name0"));
+			}
+
+			{
+				List<Person> list = dataSource.getPersonDAO().selectOne("name", "and name like 'name%'", "name desc");
+				assertTrue(list.get(0).name.equals("name9"));
+			}
 		}
-		
-		{
-			List<Person> list=dataSource.getPersonDAO().selectOne("nam", "and 1=1", "name asc");
-			assertTrue(list.get(0).name.equals("name0"));
-		}
-		
-		{
-			List<Person> list=dataSource.getPersonDAO().selectOne("name", "and name like 'name%'",  "name desc");
-			assertTrue(list.get(0).name.equals("name9"));
-		}
-		dataSource.close();
 	}
 
 }

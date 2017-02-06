@@ -25,6 +25,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import base.BaseAndroidTest;
+import sqlite.kripton93.BindBean93DataSource;
 
 
 /**

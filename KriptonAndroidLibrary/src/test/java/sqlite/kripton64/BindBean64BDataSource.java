@@ -9,7 +9,7 @@ import java.lang.Throwable;
 
 /**
  * <p>
- * Represents implementation of datasource Bean64BDataSource.
+ * Rapresents implementation of datasource Bean64BDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -21,7 +21,7 @@ import java.lang.Throwable;
  */
 public class BindBean64BDataSource extends AbstractDataSource implements BindBean64BDaoFactory, Bean64BDataSource {
   /**
-   * <p><singleton of datasource,/p>
+   * <p>datasource singleton</p>
    */
   private static BindBean64BDataSource instance = new BindBean64BDataSource();
 

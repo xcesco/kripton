@@ -88,18 +88,18 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		ClassName daoFactoryClazz = className(daoFactoryName);
 		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 
-		String schemaName = schema.getName();
-		schemaName = PREFIX + schemaName;
+		String dataSourceName = schema.getName();
+		dataSourceName = PREFIX + dataSourceName;
 
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, schemaName);
-		builder = TypeSpec.classBuilder(schemaName).addModifiers(Modifier.PUBLIC).superclass(AbstractDataSource.class).addSuperinterface(daoFactoryClazz)
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, dataSourceName);
+		builder = TypeSpec.classBuilder(dataSourceName).addModifiers(Modifier.PUBLIC).superclass(AbstractDataSource.class).addSuperinterface(daoFactoryClazz)
 				.addSuperinterface(TypeUtility.typeName(schema.getElement().asType()));
 
 		builder.addJavadoc("<p>\n");
-		builder.addJavadoc("Represents implementation of datasource $L.\n", schema.getName());
+		builder.addJavadoc("Rapresents implementation of datasource $L.\n", schema.getName());
 		builder.addJavadoc("This class expose database interface through Dao attribute.\n", schema.getName());
 		builder.addJavadoc("</p>\n\n");
 
@@ -116,7 +116,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// define static fields
 
 		// instance
-		builder.addField(FieldSpec.builder(className(schemaName), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p><singleton of datasource,/p>\n").initializer("new $L()", className(schemaName)).build());
+		builder.addField(FieldSpec.builder(className(dataSourceName), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").initializer("new $L()", className(dataSourceName)).build());
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			// TypeName daoInterfaceName =
@@ -133,17 +133,16 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 
 		// interface
-		// public interface DummyExecutor extends DatabaseExecutor
 		generateMethodExecute(daoFactoryName);
 
 		// generate instance
-		generateInstance(schemaName);
+		generateInstance(dataSourceName);
 
 		// generate open
-		generateOpen(schemaName);
+		generateOpen(dataSourceName);
 
 		// generate openReadOnly
-		generateOpenReadOnly(schemaName);
+		generateOpenReadOnly(dataSourceName);
 
 		{
 			// constructor
@@ -341,14 +340,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * Generate transaction an execute method
 	 * </p>
 	 * 
-	 * @param daoFactoryName
+	 * @param dataSource
 	 */
-	public void generateMethodExecute(String daoFactoryName) {
+	public void generateMethodExecute(String daoFactory) {
 
 		// create interface
 		String transationExecutorName = "Transaction";
 		//@formatter:off
-		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactoryName));
+		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactory));
 		builder.addType(
 				TypeSpec.interfaceBuilder(transationExecutorName)
 				.addModifiers(Modifier.PUBLIC)
