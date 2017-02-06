@@ -25,6 +25,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -90,20 +91,20 @@ public class BindAsyncTaskBuilder {
 		builder.addJavadoc("@param R result param\n\n");
 		builder.addJavadoc("@see $T\n", className(className.replaceAll(SUFFIX, BindDaoFactoryBuilder.SUFFIX)));
 		builder.addJavadoc("@see $T\n", className(dataSourceName));
+		builder.addJavadoc("@see $T\n", BindAsyncTaskType.class);
 
 		// build constructors
-		builder.addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addCode("this(true);")
+		builder.addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addStatement("this($T.READ)", BindAsyncTaskType.class)
 				.addJavadoc("<p>\nWith this constructor, a read only database connection will be used\n</p>\n").build());
 
 		builder.addMethod(
 				MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addJavadoc("<p>\nWith this constructor it is possible to specify which type of database use in async task\n</p>\n\n")
-						.addJavadoc("@param readOnlyTask if true, force async task to use read only database connection\n").addParameter(Boolean.TYPE, "readOnlyTask")
-						.addCode("this.readOnlyTask = readOnlyTask;").build());
+						.addJavadoc("@param mode allows to specify if and how open a data source connection\n").addParameter(BindAsyncTaskType.class, "mode").addCode("this.mode = mode;").build());
 
 		// define fields
 		{
-			FieldSpec.Builder fieldSpec = FieldSpec.builder(Boolean.TYPE, "readOnlyTask", Modifier.PROTECTED);
-			fieldSpec.addJavadoc("If <code>true</code> indicates database operations are only read operations\n\n");
+			FieldSpec.Builder fieldSpec = FieldSpec.builder(BindAsyncTaskType.class, "mode", Modifier.PROTECTED);
+			fieldSpec.addJavadoc("Allows to specify how async task interacts with data source.\n\n");
 			builder.addField(fieldSpec.build());
 		}
 
@@ -134,24 +135,21 @@ public class BindAsyncTaskBuilder {
 
 		// method execute1
 		{
-			MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute")									
+			MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute")
 					.addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.className("I")), "params")
 							.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "$S", "unchecked").build()).build())
-					.varargs(true).addModifiers(Modifier.PUBLIC)
-					.addJavadoc("Method to start operations.\n\n@param executor used executor\n@param data input\n");
-			
-			executeBuilder.addStatement("executeOnExecutor($T.SERIAL_EXECUTOR, params)", android.os.AsyncTask.class);			
-			builder.addMethod(executeBuilder.build());		
+					.varargs(true).addModifiers(Modifier.PUBLIC).addJavadoc("Method to start operations.\n\n@param executor used executor\n@param data input\n");
+
+			executeBuilder.addStatement("executeOnExecutor($T.SERIAL_EXECUTOR, params)", android.os.AsyncTask.class);
+			builder.addMethod(executeBuilder.build());
 		}
-		
+
 		// method execute2
 		{
-			MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("executeOnExecutor")
-					.addParameter(Executor.class, "executor")					
+			MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("executeOnExecutor").addParameter(Executor.class, "executor")
 					.addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.className("I")), "params")
 							.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "$S", "unchecked").build()).build())
-					.varargs(true).addModifiers(Modifier.PUBLIC)
-					.addJavadoc("Method to start operations.\n\n@param executor used executor\n@param data input\n");
+					.varargs(true).addModifiers(Modifier.PUBLIC).addJavadoc("Method to start operations.\n\n@param executor used executor\n@param data input\n");
 
 		//@formatter:off
 		TypeSpec.Builder anonymous = TypeSpec.anonymousClassBuilder("")
@@ -164,7 +162,7 @@ public class BindAsyncTaskBuilder {
 						.build()).varargs(true)
 				.addStatement("$L dataSource=$L.instance()", dataSourceName, dataSourceName)
 				.addStatement("R result=null")
-				.addStatement("if (readOnlyTask) dataSource.openReadOnlyDatabase(); else dataSource.openWritableDatabase()")
+				.addStatement("if (mode==$T.READ) dataSource.openReadOnlyDatabase(); else if (mode==$T.READ_WRITE) dataSource.openWritableDatabase()", BindAsyncTaskType.class,BindAsyncTaskType.class)
 				//.addStatement("$T sqlite=readOnlyTask ? dataSource.getReadableDatabase() : dataSource.getWritableDatabase()", SQLiteDatabase.class)
 				.beginControlFlow("try")
 				.addStatement("result=onExecute(dataSource)")

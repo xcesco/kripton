@@ -1,6 +1,7 @@
 package sqlite.kripton38;
 
 import android.os.AsyncTask;
+import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 import java.lang.Override;
 import java.lang.SuppressWarnings;
@@ -27,13 +28,14 @@ import java.util.concurrent.Executor;
  *
  * @see BindDummy05DaoFactory
  * @see BindDummy05DataSource
+ * @see BindAsyncTaskType
  */
 public abstract class BindDummy05AsyncTask<I, U, R> {
   /**
-   * If <code>true</code> indicates database operations are only read operations
+   * Allows to specify how async task interacts with data source.
    *
    */
-  protected boolean readOnlyTask;
+  protected BindAsyncTaskType mode;
 
   /**
    * Async task wrapped by this class
@@ -47,17 +49,18 @@ public abstract class BindDummy05AsyncTask<I, U, R> {
    * </p>
    */
   public BindDummy05AsyncTask() {
-    this(true);}
+    this(BindAsyncTaskType.READ);
+  }
 
   /**
    * <p>
    * With this constructor it is possible to specify which type of database use in async task
    * </p>
    *
-   * @param readOnlyTask if true, force async task to use read only database connection
+   * @param mode allows to specify if open a data source connection and specify its type
    */
-  public BindDummy05AsyncTask(boolean readOnlyTask) {
-    this.readOnlyTask = readOnlyTask;}
+  public BindDummy05AsyncTask(BindAsyncTaskType mode) {
+    this.mode = mode;}
 
   /**
    * Use this method for operations on UI-thread before start execution
@@ -122,7 +125,7 @@ public abstract class BindDummy05AsyncTask<I, U, R> {
       public R doInBackground(@SuppressWarnings("unchecked") I... params) {
         BindDummy05DataSource dataSource=BindDummy05DataSource.instance();
         R result=null;
-        if (readOnlyTask) dataSource.openReadOnlyDatabase(); else dataSource.openWritableDatabase();
+        if (mode==BindAsyncTaskType.READ) dataSource.openReadOnlyDatabase(); else if (mode==BindAsyncTaskType.READ_WRITE) dataSource.openWritableDatabase();
         try {
           result=onExecute(dataSource);
         } catch(Throwable e) {
